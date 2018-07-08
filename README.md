@@ -1,5 +1,6 @@
-# Add your name and date like mine below
- - Callum		May 18
- - Rock May 19
- - Saleh May 20
- - Ken May 21
+# TODO
+
+- Refactor puppy code
+- Finish component system
+- Add separate thread for rendering
+- Add render queue that works with materials

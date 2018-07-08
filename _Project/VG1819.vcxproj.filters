@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="pugixml\pugixml.cpp" />
+    <ClCompile Include="puppy\Text\Font.cpp" />
+    <ClCompile Include="puppy\Text\TextTable.cpp" />
+    <ClCompile Include="puppy\Renderer.cpp" />
+    <ClCompile Include="puppy\ShaderManager.cpp" />
+    <ClCompile Include="puppy\Texture.cpp" />
+    <ClCompile Include="testing.cpp" />
+    <ClCompile Include="puppy\ShaderProgram.cpp" />
+    <ClCompile Include="puppy\StaticRenderables.cpp" />
+    <ClCompile Include="puppy\VertexEnvironment.cpp" />
+    <ClCompile Include="puppy\Unused\CollisionManager.cpp" />
+    <ClCompile Include="puppy\Unused\VBOManager.cpp" />
+    <ClCompile Include="puppy\Text\TextBox.cpp" />
+    <ClCompile Include="wolf\W_Common.cpp" />
+    <ClCompile Include="puppy\Transformable.cpp" />
+    <ClCompile Include="particleTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pugixml\pugiconfig.hpp" />
+    <ClInclude Include="pugixml\pugixml.hpp" />
+    <ClInclude Include="puppy\Text\Font.h" />
+    <ClInclude Include="puppy\Text\TextBox.h" />
+    <ClInclude Include="puppy\Text\TextTable.h" />
+    <ClInclude Include="puppy\P_Common.h" />
+    <ClInclude Include="puppy\Renderer.h" />
+    <ClInclude Include="puppy\ShaderManager.h" />
+    <ClInclude Include="puppy\Texture.h" />
+    <ClInclude Include="puppy\ShaderProgram.h" />
+    <ClInclude Include="puppy\StaticRenderables.h" />
+    <ClInclude Include="puppy\VertexEnvironment.h" />
+    <ClInclude Include="puppy\Unused\CollisionManager.h" />
+    <ClInclude Include="puppy\Unused\VBOManager.h" />
+    <ClInclude Include="wolf\W_Types.h" />
+    <ClInclude Include="wolf\W_Common.h" />
+    <ClInclude Include="Testing.h" />
+    <ClInclude Include="puppy\Renderable.h" />
+    <ClInclude Include="puppy\Transformable.h" />
+    <ClInclude Include="particleTest.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="pugixml\pugixml_license.txt" />
+  </ItemGroup>
+</Project>
