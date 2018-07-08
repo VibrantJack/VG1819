@@ -8,11 +8,12 @@ namespace kitten
 		friend class K_ComponentManager;
 
 	private:
-		K_GameObject* m_attachedObject;
-
-	public:
 		K_Component();
 		virtual ~K_Component();
+		
+		K_GameObject* m_attachedObject;
+	public:
+		
 
 		virtual const bool hasUpdate() const { return false; }
 		virtual void update();

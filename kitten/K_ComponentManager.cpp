@@ -19,4 +19,9 @@ namespace kitten
 	{
 
 	}
+
+	void K_ComponentManager::updateComponents()
+	{
+
+	}
 }
