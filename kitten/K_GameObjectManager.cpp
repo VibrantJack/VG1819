@@ -1,22 +1,23 @@
-#include "K_ComponentManager.h"
-#include "K_Component.h"
+#include "K_GameObjectManager.h"
 
 namespace kitten
 {
-	bool K_ComponentManager::createComponent()
+	K_GameObject* K_GameObjectManager::createNewGameObject()
 	{
-		K_Component* comp;
+		K_GameObject* toReturn = new K_GameObject();
+		
+		toReturn->m_objectIndex = m_totalObjects++;
+		m_gameObjects.push_back(toReturn);
 
-		//...
-
-		if (comp->hasUpdate())
-		{
-			m_toUpdate.push_back(comp);
-		}
+		return toReturn;
 	}
 
-	bool K_ComponentManager::destroyComponent(K_Component* p_toDestroy)
+	void K_GameObjectManager::destroyGameObject(K_GameObject* p_toDestroy)
 	{
+		assert(p_toDestroy != nullptr);
 
+		m_gameObjects.erase(m_gameObjects.begin() + p_toDestroy->m_objectIndex);
+
+		delete(p_toDestroy);
 	}
 }
