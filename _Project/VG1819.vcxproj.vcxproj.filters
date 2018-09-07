@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\puppy\Transformable.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\kitten\K_Component.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_ComponentManager.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_Game.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_GameObject.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_GameObjectManager.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_Time.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\FBO.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Text\Font.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Material.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\MaterialManager.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\RenderBuffer.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Renderer.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\ShaderManager.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\ShaderProgram.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\StaticRenderables.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Text\TextBox.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Text\TextTable.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Texture.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\VertexEnvironment.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\RenderableNode.cpp">
+      <Filter>puppy\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\Renderable.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\puppy\Transformable.h" />
+    <ClInclude Include="..\kitten\K_Common.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_Component.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_ComponentManager.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_Game.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_GameObject.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_GameObjectManager.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_Time.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\FBO.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Text\Font.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Material.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\MaterialManager.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\P_Common.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\RenderBuffer.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Renderer.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\ShaderManager.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\ShaderProgram.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\StaticRenderables.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Text\TextBox.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Text\TextTable.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Texture.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\VertexEnvironment.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\RenderableNode.h">
+      <Filter>puppy\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\Renderable.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="kitten">
+      <UniqueIdentifier>{490d5287-2d45-4a83-924c-a15c6cc8038b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="puppy">
+      <UniqueIdentifier>{e55580cc-403d-4eaa-bed0-16f88b46e83b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="puppy\Scene">
+      <UniqueIdentifier>{ae87ad72-9f76-418e-91c9-00b5df72ef2f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
