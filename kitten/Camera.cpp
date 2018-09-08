@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-namespace scene
+namespace kitten
 {
 	Camera::Camera() : m_fov(45.0f), m_nearClip(0.1f), m_farClip(1000.0f), m_winWidth(1280.0f), m_winHeight(720.0f)
 	{
@@ -65,9 +65,9 @@ namespace scene
 
 	//From: http://www.lighthouse3d.com/tutorials/view-frustum-culling/geometric-approach-extracting-the-planes/
 
-	Frustum Camera::computeViewFrustum(const glm::vec3& p_cameraPos, const glm::vec3& p_look, const glm::vec3& p_up) const
+	scene::Frustum Camera::computeViewFrustum(const glm::vec3& p_cameraPos, const glm::vec3& p_look, const glm::vec3& p_up) const
 	{
-		Frustum toReturn;
+		scene::Frustum toReturn;
 
 		glm::vec3 z = p_cameraPos - p_look;
 		z = glm::normalize(z);
@@ -94,26 +94,19 @@ namespace scene
 		glm::vec3 fbl = fc - yFar - xFar;
 		glm::vec3 fbr = fc - yFar + xFar;
 
-		m_renderFrust->setPoints(ftl, ftr, fbl, fbr, ntl, ntr, nbl, nbr);
-
 		//Top 
-		toReturn.planes[0] = computePlane(ntr, ntl, ftl);
+		toReturn.planes[0] = scene::computePlane(ntr, ntl, ftl);
 		//Bottom
-		toReturn.planes[1] = computePlane(nbl, nbr, fbr);
+		toReturn.planes[1] = scene::computePlane(nbl, nbr, fbr);
 		//Left
-		toReturn.planes[2] = computePlane(ntl, nbl, fbl);
+		toReturn.planes[2] = scene::computePlane(ntl, nbl, fbl);
 		//Right
-		toReturn.planes[3] = computePlane(nbr, ntr, fbr);
+		toReturn.planes[3] = scene::computePlane(nbr, ntr, fbr);
 		//Near
-		toReturn.planes[4] = computePlane(ntl, ntr, nbr);
+		toReturn.planes[4] = scene::computePlane(ntl, ntr, nbr);
 		//Far
-		toReturn.planes[5] = computePlane(ftr, ftl, fbl);
+		toReturn.planes[5] = scene::computePlane(ftr, ftl, fbl);
 
 		return toReturn;
-	}
-
-	void Camera::renderViewFrustum(const glm::mat4& p_viewProj) const
-	{
-		m_renderFrust->render(p_viewProj);
 	}
 }

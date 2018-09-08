@@ -22,8 +22,10 @@ namespace puppy
 		puppy::ShaderProgram* m_shader;
 
 	public:
-		Material();
+		Material(ShaderType p_shaderType);
 		~Material();
+
+		void setTexture(const char* p_pathToTex);
 
 		//Uniform will be set every time the material is applied
 		void memorizeUniform(const std::string& p_name, const glm::mat4& p_mat4);
@@ -32,6 +34,9 @@ namespace puppy
 		void memorizeUniform(const std::string& p_name, const glm::vec3& p_vec3);
 		void memorizeUniform(const std::string& p_name, const GLfloat& p_float);
 		void memorizeUniform(const std::string& p_name, const GLint& p_int);
+
+		//One-time set
+		void setUniform(const std::string& p_name, const glm::mat4& p_mat4);
 
 		int getUniformPlace(const std::string& p_name);
 

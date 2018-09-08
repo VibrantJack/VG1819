@@ -2,11 +2,11 @@
 #include "P_Common.h"
 /*
 	Callum MacKenzie
-	Transform component / Handler
+	Transform component
 */
-namespace puppy
+namespace kitten
 {
-	class Transformable
+	class Transform
 	{
 	protected:
 		float m_rotateDeg, m_xScale, m_yScale, m_zScale;
@@ -21,7 +21,7 @@ namespace puppy
 		bool m_isDirty;
 
 	public:
-		Transformable();
+		Transform();
 
 		virtual void move2D(const float xUnits, const float yUnits);
 		virtual void move(const float xUnits, const float yUnits, const float zUnits);

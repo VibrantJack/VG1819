@@ -3,6 +3,19 @@
 #include "../Shapes/RenderableFrustum.h"
 #include "Camera.h"
 
+/*
+	DON'T USE THIS IN THE VIDEO GAME PROJECT!
+	This is my camera from some assignment.
+	We have to adjust the Camera component (Camera.cpp / Camera.h) to be usable as a component.
+
+	To make an FPS camera in component system:
+	- Add Camera to gameobject
+	- Add comnponent that tweaks transform based on input FPS style
+
+
+	- CALLUM
+*/
+
 namespace scene
 {
 	class FPSCamera : public Camera

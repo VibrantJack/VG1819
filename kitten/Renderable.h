@@ -1,4 +1,6 @@
+#include "puppy\P_Common.h"
 #include "K_Component.h"
+#include "Camera.h"
 
 namespace kitten
 {
@@ -8,6 +10,6 @@ namespace kitten
 		Renderable();
 		virtual ~Renderable();
 
-		virtual void Render() = 0;
+		virtual void render(const glm::mat4& p_viewProj) = 0;
 	};
 }

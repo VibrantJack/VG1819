@@ -73,25 +73,23 @@ namespace shapes
 		
 	}
 
+	//TODO: Change to use Transformable so cube can be moved and changed etc. 
 	void Cube::render(const glm::mat4& p_viewProj)
 	{
 		//Apply shader
 		puppy::ShaderManager::applyShader(puppy::ShaderType::basic);
 		
 		//Apply uniforms
-		const glm::mat4& world = getWorldTransform();
+
+		// CHANGE THESE LINES
+		/*const glm::mat4& world = getWorldTransform();
 		GLint place = puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic)->getUniformPlace(WORLD_VIEW_PROJ_UNIFORM_NAME);
 		glUniformMatrix4fv(place, 1, GL_FALSE, glm::value_ptr(p_viewProj * world));
-
+		*/
 		//Apply Texture
 		m_tex->apply();
 
 		//Render
 		sm_vao->drawArrays(GL_TRIANGLES);
-	}
-
-	void Cube::update(float p_deltaTime)
-	{
-		//Don't need
 	}
 }

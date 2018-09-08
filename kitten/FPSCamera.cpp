@@ -1,5 +1,5 @@
 #include "FPSCamera.h"
-#include "../Input/InputManager.h"
+#include "InputManager.h"
 
 #include <iostream>
 
@@ -7,12 +7,10 @@ namespace scene
 {
 	FPSCamera::FPSCamera() : m_cameraPos(0.0f,5.0f,0.0f), m_lookVertAngle(0.0f)
 	{
-		m_renderFrust = new shapes::RenderableFrustum();
 	}
 
 	FPSCamera::~FPSCamera()
 	{
-		delete m_renderFrust;
 	}
 
 	const glm::mat4& FPSCamera::getViewProj()
@@ -95,7 +93,7 @@ namespace scene
 
 		m_viewProj = getProj() * view; //glm::lookAt(m_cameraPos, m_cameraPos + lookDirection, upVector);
 
-		m_viewFrustum = computeViewFrustum(m_cameraPos, m_cameraPos + lookDirection, upVector);
+		//m_viewFrustum = computeViewFrustum(m_cameraPos, m_cameraPos + lookDirection, upVector);
 	}
 
 	const Frustum& FPSCamera::getViewFrustum()

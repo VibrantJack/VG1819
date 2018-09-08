@@ -6,13 +6,12 @@
 	Only supports one colour pattern for convenience
 */
 
-#include "puppy\RenderableNode.h"
 #include "puppy\VertexEnvironment.h"
 #include "puppy\Texture.h"
 
 namespace shapes
 {
-	class Cube : public puppy::RenderableNode
+	class Cube
 	{
 	private:
 		static puppy::VertexEnvironment* sm_vao;
@@ -22,8 +21,7 @@ namespace shapes
 		Cube(const char* p_pathToTexture);
 		~Cube();
 
-		void render(const glm::mat4& p_viewProj) override;
-		void update(float p_deltaTime) override;
+		void render(const glm::mat4& p_viewProj);
 	};
 }
 

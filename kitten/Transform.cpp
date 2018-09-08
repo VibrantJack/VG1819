@@ -1,9 +1,9 @@
-#include "Transformable.h"
+#include "Transform.h"
 
-namespace puppy
+namespace kitten
 {
 
-	Transformable::Transformable()
+	Transform::Transform()
 	{
 		//Initialize normal member variables
 		m_rotateDeg = 0.0f;
@@ -15,7 +15,7 @@ namespace puppy
 		m_matRotation = glm::rotate(0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	}
 
-	const glm::mat4& Transformable::getWorldTransform()
+	const glm::mat4& Transform::getWorldTransform()
 	{
 		if (m_isDirty)
 		{
@@ -26,7 +26,7 @@ namespace puppy
 		return m_matWorld;
 	}
 
-	void Transformable::move2D(const float xUnits, const float yUnits)
+	void Transform::move2D(const float xUnits, const float yUnits)
 	{
 		m_translation[0] += xUnits;
 		m_translation[1] += yUnits;
@@ -34,7 +34,7 @@ namespace puppy
 		m_isDirty = true;
 	}
 
-	void Transformable::move(const float xUnits, const float yUnits, const float zUnits)
+	void Transform::move(const float xUnits, const float yUnits, const float zUnits)
 	{
 		m_translation[0] += xUnits;
 		m_translation[1] += yUnits;
@@ -43,7 +43,7 @@ namespace puppy
 		m_isDirty = true;
 	}
 
-	void Transformable::place2D(const float x, const float y)
+	void Transform::place2D(const float x, const float y)
 	{
 		m_translation[0] = x;
 		m_translation[1] = y;
@@ -51,7 +51,7 @@ namespace puppy
 		m_isDirty = true;
 	}
 
-	void Transformable::place(const float x, const float y, const float z)
+	void Transform::place(const float x, const float y, const float z)
 	{
 		m_translation[0] = x;
 		m_translation[1] = y;
@@ -60,13 +60,13 @@ namespace puppy
 		m_isDirty = true;
 	}
 
-	void Transformable::scale2D(const float xScale, const float yScale)
+	void Transform::scale2D(const float xScale, const float yScale)
 	{
 		m_matScale = glm::scale(xScale, yScale, 1.0f);
 		m_isDirty = true;
 	}
 
-	void Transformable::scaleAbsolute(const float xScale, const float yScale, const float zScale)
+	void Transform::scaleAbsolute(const float xScale, const float yScale, const float zScale)
 	{
 		m_xScale = xScale;
 		m_yScale = yScale;
@@ -75,7 +75,7 @@ namespace puppy
 		m_isDirty = true;
 	}
 
-	void Transformable::scaleRelative(const float xScale, const float yScale, const float zScale)
+	void Transform::scaleRelative(const float xScale, const float yScale, const float zScale)
 	{
 		m_xScale *= xScale;
 		m_yScale *= yScale;
@@ -84,28 +84,28 @@ namespace puppy
 		m_isDirty = true;
 	}
 
-	void Transformable::rotate2D(const float deg)
+	void Transform::rotate2D(const float deg)
 	{
 		m_rotateDeg += deg;
 		m_matRotation = glm::rotate(m_rotateDeg, glm::vec3(0.0f, 0.0f, 1.0f));
 		m_isDirty = true;
 	}
 
-	void Transformable::rotateRelative(const float deg, const float xAxis, const float yAxis, const float zAxis)
+	void Transform::rotateRelative(const float deg, const float xAxis, const float yAxis, const float zAxis)
 	{
 		m_rotateDeg += deg;
 		m_matRotation = m_matRotation * glm::rotate(m_rotateDeg, glm::vec3(xAxis, yAxis, zAxis));
 		m_isDirty = true;
 	}
 
-	void Transformable::rotateAbsolute(const float deg, const float xAxis, const float yAxis, const float zAxis)
+	void Transform::rotateAbsolute(const float deg, const float xAxis, const float yAxis, const float zAxis)
 	{
 		m_rotateDeg = deg;
 		m_matRotation = glm::rotate(deg, glm::vec3(xAxis, yAxis, zAxis));
 		m_isDirty = true;
 	}
 
-	const glm::vec3& Transformable::getTranslation() const
+	const glm::vec3& Transform::getTranslation() const
 	{
 		return m_translation;
 	}

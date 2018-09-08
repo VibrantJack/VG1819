@@ -1,16 +1,16 @@
 #pragma once
 #include "puppy\P_Common.h"
-#include "../Shapes/RenderableFrustum.h"
+#include "K_Component.h"
 #include "Frustum.h"
 
-namespace scene
+namespace kitten
 {
 	/*
 		Callum MacKenzie
 		Camera Interface
 	*/
 
-	class Camera
+	class Camera : public kitten::K_Component
 	{
 	protected:
 		bool m_isProjDirty = true;
@@ -24,12 +24,9 @@ namespace scene
 		//Frustum information
 		float m_nearRectHeight, m_nearRectWidth, m_farRectHeight, m_farRectWidth;
 
-		//for testing
-		shapes::RenderableFrustum* m_renderFrust;
-
 		//Helper methods
 		glm::mat4& getProj(); //cannot be const because of calculating when dirty
-		Frustum computeViewFrustum(const glm::vec3& p_cameraPos, const glm::vec3& p_look, const glm::vec3& p_up) const;
+		scene::Frustum computeViewFrustum(const glm::vec3& p_cameraPos, const glm::vec3& p_look, const glm::vec3& p_up) const;
 
 	public:
 		Camera();
@@ -45,8 +42,6 @@ namespace scene
 
 		virtual const glm::mat4& getViewProj() = 0;
 		virtual const glm::mat3& getViewInverse() const = 0;
-		virtual const Frustum& getViewFrustum() = 0;
-
-		virtual void renderViewFrustum(const glm::mat4& p_viewProj) const;
+		virtual const scene::Frustum& getViewFrustum() = 0;
 	};
 }

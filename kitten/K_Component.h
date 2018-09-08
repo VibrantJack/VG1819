@@ -1,5 +1,6 @@
 #include "K_GameObject.h"
 #include "K_ComponentManager.h"
+#include "Transform.h"
 
 namespace kitten
 {
@@ -13,11 +14,11 @@ namespace kitten
 		
 		K_GameObject* m_attachedObject;
 	public:
-		
-
 		virtual const bool hasUpdate() const { return false; }
 		virtual void update();
 
-		
+		K_GameObject& getGameObject() { return *m_attachedObject; };
+		//For convenience
+		Transform& getTransform() { return m_attachedObject->getTransform(); };
 	};
 }

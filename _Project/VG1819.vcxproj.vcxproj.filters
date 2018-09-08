@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\puppy\Transformable.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="..\kitten\K_Component.cpp">
       <Filter>kitten</Filter>
@@ -63,12 +62,32 @@
     <ClCompile Include="..\puppy\RenderableNode.cpp">
       <Filter>puppy\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\kitten\Renderable.cpp">
+    <ClCompile Include="..\Shapes\Cube.cpp">
+      <Filter>shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shapes\Rectangle.cpp">
+      <Filter>shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shapes\RenderableFrustum.cpp">
+      <Filter>shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\Camera.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\FPSCamera.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\InputManager.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\Transform.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\CubeRenderable.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\puppy\Transformable.h" />
     <ClInclude Include="..\kitten\K_Common.h">
       <Filter>kitten</Filter>
     </ClInclude>
@@ -138,6 +157,33 @@
     <ClInclude Include="..\kitten\Renderable.h">
       <Filter>kitten</Filter>
     </ClInclude>
+    <ClInclude Include="..\kitten\CubeRenderable.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shapes\Cube.h">
+      <Filter>shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shapes\Rectangle.h">
+      <Filter>shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shapes\RenderableFrustum.h">
+      <Filter>shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\Camera.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\FPSCamera.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\Frustum.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\InputManager.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\Transform.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -148,6 +194,9 @@
     </Filter>
     <Filter Include="puppy\Scene">
       <UniqueIdentifier>{ae87ad72-9f76-418e-91c9-00b5df72ef2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shapes">
+      <UniqueIdentifier>{f82cacf4-d649-46d8-95dc-927acb69ed9c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

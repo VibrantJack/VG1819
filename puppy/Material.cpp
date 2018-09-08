@@ -2,9 +2,9 @@
 
 namespace puppy
 {
-	Material::Material()
+	Material::Material(ShaderType p_shaderType)
 	{
-
+		m_shader = ShaderManager::getShaderProgram(p_shaderType);
 	}
 
 	Material::~Material()
@@ -15,15 +15,38 @@ namespace puppy
 	
 	void Material::apply()
 	{
-		ShaderManager::applyShader(m_shader);
-		m_tex->apply();
+		if (m_shader != nullptr)
+		{
+			ShaderManager::applyShader(m_shader);
+		}
+		
+		if (m_tex != nullptr)
+		{
+			m_tex->apply();
+		}
+
 		//apply memorized uniforms
 
+	}
+
+	void Material::setTexture(const char* p_pathToTex)
+	{
+		if (m_tex != nullptr)
+		{
+			delete m_tex;
+		}
+		m_tex = new Texture(p_pathToTex);
 	}
 
 	int Material::getUniformPlace(const std::string& p_name)
 	{
 		return m_shader->getUniformPlace(p_name);
+	}
+
+	void Material::setUniform(const std::string& p_name, const glm::mat4& p_mat4)
+	{
+		GLint place = m_shader->getUniformPlace(p_name);
+		glUniformMatrix4fv(place, 1, GL_FALSE, glm::value_ptr(p_mat4));
 	}
 
 	void Material::memorizeUniform(const std::string& p_name, const glm::mat4& p_mat4)
