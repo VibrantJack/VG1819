@@ -92,6 +92,7 @@
     <ClCompile Include="..\kitten\K_GameObject.cpp" />
     <ClCompile Include="..\kitten\K_GameObjectManager.cpp" />
     <ClCompile Include="..\kitten\K_Time.cpp" />
+    <ClCompile Include="..\kitten\Renderable.cpp" />
     <ClCompile Include="..\kitten\Transform.cpp" />
     <ClCompile Include="..\puppy\FBO.cpp" />
     <ClCompile Include="..\puppy\Material.cpp" />

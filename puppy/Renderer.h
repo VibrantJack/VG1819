@@ -2,40 +2,34 @@
 //-----------------------------------------------------------------------------
 // File:			Renderer.h
 // Original Author:	Callum MacKenzie
-//
-// Classes to render things.
-// They should register themselves
-// And any children they have
-// They should not call render on their children.
-//
-// Right now the render calls are sorted
-// by coordbuffers and textures
-// Could this be improved..? UV buffers
-// are all unique : Could make Tex scale a Uniform?
 //-----------------------------------------------------------------------------
 
+#include "kitten\Renderable.h"
 #include "P_Common.h"
-#include "Renderable.h"
 
-#include <map>
-#include <string>
-
+#include <vector>
 
 namespace puppy
 {
-	
-	//This could be a singleton instead of all static
 	class Renderer
 	{
 	private:
-		static std::multimap<const std::pair<const std::string*, const GLuint*>, Renderable*> sm_toRender;
+		//Singleton related
+		Renderer();
+		~Renderer();
+		static Renderer* sm_instance;
+
+		std::vector<kitten::Renderable*> m_toRender;
 	public:
-		static void addToRender(Renderable* p_toAdd);
-		static void removeFromRender(Renderable* p_toRemove);
+		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new Renderer(); };
+		static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
+		static Renderer* getInstance() { return sm_instance; };
 
-		static void removeAll();
+		void addToRender(kitten::Renderable* p_toAdd);
+		void removeFromRender(kitten::Renderable* p_toRemove);
 
-		static void renderAll(const glm::mat4& p_viewProj); //Could take camera position and view direction to macro cull
-								//Not a lot of work already being done on CPU thread right now I think ?
+		void removeAll();
+
+		void renderAll(const glm::mat4& p_viewProj);
 	};
 }

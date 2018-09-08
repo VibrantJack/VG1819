@@ -37,6 +37,11 @@ namespace puppy
 		VertexEnvironment* toRender = new VertexEnvironment(vec.data(), 
 			ShaderManager::getShaderProgram(ShaderType::basic), vec.size());
 
+		if (m_toRender[p_where] != nullptr)
+		{
+			delete m_toRender[p_where];
+		}
+
 		//insert into render map
 		m_toRender[p_where] = toRender;
 		
@@ -69,7 +74,7 @@ namespace puppy
 			renderIt->first->apply();
 			
 			//apply uniform (don't need a world matrix since everything should already be in world space)
-			glUniformMatrix4fv(ShaderManager::getShaderProgram(ShaderType::basic)->getUniformPlace("mWVP"), 1, GL_FALSE, glm::value_ptr(p_viewProj));
+			glUniformMatrix4fv(ShaderManager::getShaderProgram(ShaderType::basic)->getUniformPlace(WORLD_VIEW_PROJ_UNIFORM_NAME), 1, GL_FALSE, glm::value_ptr(p_viewProj));
 
 			//Draw!
 			renderIt->second->drawArrays(GL_TRIANGLES);

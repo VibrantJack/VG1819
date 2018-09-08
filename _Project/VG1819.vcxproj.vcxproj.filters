@@ -86,6 +86,9 @@
     <ClCompile Include="..\kitten\CubeRenderable.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\Renderable.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

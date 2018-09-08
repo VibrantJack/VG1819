@@ -8,7 +8,7 @@ namespace kitten
 	{
 		friend class K_ComponentManager;
 
-	private:
+	protected:
 		K_Component();
 		virtual ~K_Component();
 		
