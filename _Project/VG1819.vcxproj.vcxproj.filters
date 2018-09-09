@@ -59,16 +59,7 @@
     <ClCompile Include="..\puppy\VertexEnvironment.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
-    <ClCompile Include="..\puppy\RenderableNode.cpp">
-      <Filter>puppy\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Shapes\Cube.cpp">
-      <Filter>shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Shapes\Rectangle.cpp">
-      <Filter>shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Shapes\RenderableFrustum.cpp">
       <Filter>shapes</Filter>
     </ClCompile>
     <ClCompile Include="..\kitten\Camera.cpp">
@@ -154,9 +145,6 @@
     <ClInclude Include="..\puppy\VertexEnvironment.h">
       <Filter>puppy</Filter>
     </ClInclude>
-    <ClInclude Include="..\puppy\RenderableNode.h">
-      <Filter>puppy\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\kitten\Renderable.h">
       <Filter>kitten</Filter>
     </ClInclude>
@@ -164,12 +152,6 @@
       <Filter>kitten</Filter>
     </ClInclude>
     <ClInclude Include="..\Shapes\Cube.h">
-      <Filter>shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Shapes\Rectangle.h">
-      <Filter>shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Shapes\RenderableFrustum.h">
       <Filter>shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\Camera.h">

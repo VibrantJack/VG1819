@@ -5,7 +5,7 @@
 
 namespace kitten
 {
-	class K_Component {};
+	class K_Component;
 
 	class K_GameObject
 	{
@@ -23,7 +23,7 @@ namespace kitten
 		bool addComponent(K_Component* p_toAdd);
 
 		template <typename T>
-		T getComponent();
+		T* getComponent();
 
 		Transform& getTransform() { return *m_transform; };
 	};

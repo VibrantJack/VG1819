@@ -1,5 +1,6 @@
 #include "FPSCamera.h"
 #include "InputManager.h"
+#include "K_Time.h"
 
 #include <iostream>
 
@@ -28,11 +29,13 @@ namespace scene
 		m_moveSpeed = p_speed;
 	}
 
-	void FPSCamera::update(float p_deltaTime)
+	void FPSCamera::update()
 	{
+		float deltaTime = kitten::K_Time::getInstance()->getDeltaTime();
+
 		//Compute angles
-		m_lookHorizAngle += m_lookSensitivity * p_deltaTime * input::InputManager::Instance()->getMouseXChange();
-		m_lookVertAngle += m_lookSensitivity * p_deltaTime * input::InputManager::Instance()->getMouseYChange();
+		m_lookHorizAngle += m_lookSensitivity * deltaTime * input::InputManager::Instance()->getMouseXChange();
+		m_lookVertAngle += m_lookSensitivity * deltaTime * input::InputManager::Instance()->getMouseYChange();
 
 		//Restrict camera from looping around vertically
 		if (m_lookVertAngle < -1.6f)
@@ -70,19 +73,19 @@ namespace scene
 		}
 		if (im->keyDown('W') || im->keyDown('w'))
 		{
-			m_cameraPos += lookDirection * p_deltaTime * speed;
+			m_cameraPos += lookDirection * deltaTime * speed;
 		}
 		if (im->keyDown('S') || im->keyDown('s'))
 		{
-			m_cameraPos -= lookDirection * p_deltaTime * speed;
+			m_cameraPos -= lookDirection * deltaTime * speed;
 		}
 		if (im->keyDown('A') || im->keyDown('a'))
 		{
-			m_cameraPos -= rightVector * p_deltaTime * speed;
+			m_cameraPos -= rightVector * deltaTime * speed;
 		}
 		if (im->keyDown('D') || im->keyDown('s'))
 		{
-			m_cameraPos += rightVector * p_deltaTime * speed;
+			m_cameraPos += rightVector * deltaTime * speed;
 		}
 
 		//Update camera

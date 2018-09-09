@@ -63,6 +63,24 @@ namespace kitten
 		return m_proj;
 	}
 
+	//@TODO: Finish this
+	const glm::mat4& Camera::getViewProj()
+	{
+		Transform& transform = getTransform();
+		const glm::vec3& pos = transform.getTranslation();
+		glm::vec3 upVector;
+		glm::vec3 lookDirection;
+		glm::mat4 view = glm::lookAt(pos, pos + lookDirection, upVector);
+
+		return view;
+	}
+
+	//@TODO: Finish this
+	const glm::mat3& Camera::getViewInverse()
+	{
+		return glm::mat3();
+	}
+
 	//From: http://www.lighthouse3d.com/tutorials/view-frustum-culling/geometric-approach-extracting-the-planes/
 
 	scene::Frustum Camera::computeViewFrustum(const glm::vec3& p_cameraPos, const glm::vec3& p_look, const glm::vec3& p_up) const

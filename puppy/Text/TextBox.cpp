@@ -315,7 +315,7 @@ namespace puppy
 		
 	}
 
-	void TextBox::render(const glm::mat4& p_wvp)
+	void TextBox::render(const glm::mat4& p_viewProj)
 	{
 		if (m_isDirty)
 		{
@@ -339,8 +339,8 @@ namespace puppy
 
 		//apply shader & uniforms
 		ShaderManager::applyShader(ShaderType::colorTint_alphaTest);
-		glUniformMatrix4fv(ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest)->getUniformPlace("mWVP"), 1, GL_FALSE, 
-			glm::value_ptr(p_wvp * (Transformable::getWorldTransform())));
+		glUniformMatrix4fv(ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest)->getUniformPlace(WORLD_VIEW_PROJ_UNIFORM_NAME), 1, GL_FALSE, 
+			glm::value_ptr(p_viewProj * getTransform().getWorldTransform()));
 		glUniform4fv(ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest)->getUniformPlace("colorTint"), 1, m_color);
 
 		//render vertices

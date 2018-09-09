@@ -3,8 +3,7 @@
 #include "Font.h"
 #include "../VertexEnvironment.h"
 #include "../Texture.h"
-#include "../Renderable.h"
-#include "../Transformable.h"
+#include "kitten\Renderable.h"
 
 #include <map>
 #include <string>
@@ -17,7 +16,7 @@ namespace puppy
 	/*
 	TextBox - Renderable thing that shows text
 	*/
-	class TextBox : public Transformable
+	class TextBox : kitten::Renderable
 	{
 	public:
 		enum Alignment { left, right, center };
@@ -51,6 +50,6 @@ namespace puppy
 
 		const std::string& getText() const;
 
-		virtual void render(const glm::mat4& p_wvp);
+		virtual void render(const glm::mat4& p_viewProj) override;
 	};
 }

@@ -1,6 +1,5 @@
 #pragma once
 #include "puppy\P_Common.h"
-#include "../Shapes/RenderableFrustum.h"
 #include "Camera.h"
 
 /*
@@ -18,7 +17,7 @@
 
 namespace scene
 {
-	class FPSCamera : public Camera
+	class FPSCamera : public kitten::Camera
 	{
 	private:
 		//Private members
@@ -42,10 +41,10 @@ namespace scene
 		void setMoveSpeed(float p_speed);
 
 		virtual const glm::mat4& getViewProj() override;
-		virtual const glm::mat3& getViewInverse() const override;
-		virtual void update(float p_deltaTime) override;
+		virtual const glm::mat3& getViewInverse() const;
+		virtual void update() override;
 		void place(const glm::vec3& p_pos) { m_cameraPos = p_pos; }
 
-		virtual const Frustum& getViewFrustum() override;
+		virtual const Frustum& getViewFrustum();
 	};
 }

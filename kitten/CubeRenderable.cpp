@@ -6,7 +6,7 @@ namespace kitten
 	puppy::VertexEnvironment* CubeRenderable::sm_vao = nullptr;
 	int CubeRenderable::sm_instances = 0;
 
-	CubeRenderable::CubeRenderable(const char* p_pathToTexture = nullptr)
+	CubeRenderable::CubeRenderable(const char* p_pathToTexture)
 	{
 		m_mat = new puppy::Material(puppy::ShaderType::basic);
 		if (p_pathToTexture != nullptr)

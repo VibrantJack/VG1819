@@ -1,9 +1,12 @@
-#include "K_GameObject.h"
-#include "K_ComponentManager.h"
+#pragma once
+
 #include "Transform.h"
 
 namespace kitten
 {
+	class K_ComponentManager;
+	class K_GameObject;
+
 	class K_Component
 	{
 		friend class K_ComponentManager;
@@ -19,6 +22,6 @@ namespace kitten
 
 		K_GameObject& getGameObject() { return *m_attachedObject; };
 		//For convenience
-		Transform& getTransform() { return m_attachedObject->getTransform(); };
+		Transform& getTransform();
 	};
 }

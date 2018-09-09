@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "../../pugixml/pugixml.hpp"
+#include "pugixml/pugixml.hpp"
 #include "../Texture.h"
 
 
