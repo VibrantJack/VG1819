@@ -30,8 +30,6 @@
 *.app
 
 #folders
-./_Projct/.vs
 x64/
-./_Project/Debug
 Debug/
 .vs/
