@@ -3,6 +3,18 @@
 
 namespace puppy
 {
+	Renderer* Renderer::sm_instance = nullptr;
+
+	Renderer::Renderer()
+	{
+
+	}
+
+	Renderer::~Renderer()
+	{
+
+	}
+
 	void Renderer::addToRender(kitten::Renderable* p_toAdd) 
 	{	
 		m_toRender.push_back(p_toAdd);

@@ -17,7 +17,7 @@ namespace kitten
 	public:
 		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new K_Time(); };
 		static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
-		static K_Time * getInstance() { return sm_instance; };
+		static K_Time* getInstance() { return sm_instance; };
 
 		const double& getDeltaTime() const { return m_deltaTime; }
 		const double& getElapsedTime() const { return m_elapsedTime; }

@@ -45,9 +45,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -94,6 +98,7 @@
     <ClCompile Include="..\kitten\K_Time.cpp" />
     <ClCompile Include="..\kitten\Renderable.cpp" />
     <ClCompile Include="..\kitten\Transform.cpp" />
+    <ClCompile Include="..\pugixml\pugixml.cpp" />
     <ClCompile Include="..\puppy\FBO.cpp" />
     <ClCompile Include="..\puppy\Material.cpp" />
     <ClCompile Include="..\puppy\MaterialManager.cpp" />
@@ -108,6 +113,7 @@
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
     <ClCompile Include="..\Shapes\Cube.cpp" />
+    <ClCompile Include="..\wolf\W_Common.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +131,8 @@
     <ClInclude Include="..\kitten\K_Time.h" />
     <ClInclude Include="..\kitten\Renderable.h" />
     <ClInclude Include="..\kitten\Transform.h" />
+    <ClInclude Include="..\pugixml\pugiconfig.hpp" />
+    <ClInclude Include="..\pugixml\pugixml.hpp" />
     <ClInclude Include="..\puppy\FBO.h" />
     <ClInclude Include="..\puppy\Material.h" />
     <ClInclude Include="..\puppy\MaterialManager.h" />
@@ -140,6 +148,7 @@
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
     <ClInclude Include="..\Shapes\Cube.h" />
+    <ClInclude Include="..\wolf\W_Common.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

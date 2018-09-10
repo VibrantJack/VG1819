@@ -3,6 +3,16 @@
 
 namespace kitten
 {
+	K_Component::K_Component()
+	{
+
+	}
+
+	K_Component::~K_Component()
+	{
+
+	}
+
 	void K_Component::update()
 	{
 		// If you aren't here by choice,

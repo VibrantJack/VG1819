@@ -33,3 +33,5 @@
 x64/
 Debug/
 .vs/
+_Project/Debug/
+_Project/.vs/

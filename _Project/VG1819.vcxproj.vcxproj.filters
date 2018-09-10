@@ -80,6 +80,12 @@
     <ClCompile Include="..\kitten\Renderable.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
+    <ClCompile Include="..\wolf\W_Common.cpp">
+      <Filter>wolf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\pugixml\pugixml.cpp">
+      <Filter>pugi</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -169,6 +175,15 @@
     <ClInclude Include="..\kitten\Transform.h">
       <Filter>kitten</Filter>
     </ClInclude>
+    <ClInclude Include="..\wolf\W_Common.h">
+      <Filter>wolf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\pugixml\pugixml.hpp">
+      <Filter>pugi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\pugixml\pugiconfig.hpp">
+      <Filter>pugi</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -182,6 +197,12 @@
     </Filter>
     <Filter Include="shapes">
       <UniqueIdentifier>{f82cacf4-d649-46d8-95dc-927acb69ed9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wolf">
+      <UniqueIdentifier>{3c8c3f23-fb23-4bc5-833b-47c5048d135e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pugi">
+      <UniqueIdentifier>{9a86bf13-2257-49a4-96fc-2759649db337}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -3,6 +3,18 @@
 
 namespace kitten
 {
+	K_ComponentManager* K_ComponentManager::sm_instance = nullptr;
+
+	K_ComponentManager::K_ComponentManager()
+	{
+
+	}
+
+	K_ComponentManager::~K_ComponentManager()
+	{
+
+	}
+
 	bool K_ComponentManager::createComponent()
 	{
 		K_Component* comp;
