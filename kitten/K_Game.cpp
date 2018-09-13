@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "kitten\K_Game.h"
 #include "kitten\K_Common.h"
 
@@ -8,6 +10,7 @@
 
 #include "kitten\Camera.h"
 #include "kitten\CubeRenderable.h"
+#include "_Project\MoveByMouseRightClickDrag.h"
 
 namespace kitten
 {
@@ -29,15 +32,19 @@ namespace kitten
 		createSingletons();
 
 		// Temporary stuff until Kibble is ready
+		K_ComponentManager* compMan = K_ComponentManager::getInstance();
+
 
 		//Creating a gameobject
 		K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject();
-		Camera* camComp = new Camera();
+		K_Component* camComp = compMan->createComponent("Camera");
+		K_Component* mouseMove = compMan->createComponent("MoveByMouseRightClickDrag");
 		camGameObj->addComponent(camComp);
+		camGameObj->addComponent(mouseMove);
 
 
 		K_GameObject* cubeGameObj = K_GameObjectManager::getInstance()->createNewGameObject();
-		K_Component* cubeRend = new CubeRenderable("textures/crap/cartoon_planks.tga");
+		K_Component* cubeRend = compMan->createComponent("CubeRenderable");
 		cubeGameObj->addComponent(cubeRend);
 
 		cubeGameObj->getTransform().move(0, -2, 10);
@@ -59,6 +66,8 @@ namespace kitten
 	{
 		//Update delta time
 		K_Time::getInstance()->updateTime();
+		//Update input
+		input::InputManager::getInstance()->update();
 
 		//Update components
 		K_ComponentManager::getInstance()->updateComponents();

@@ -116,6 +116,7 @@
     <ClCompile Include="..\Shapes\Cube.cpp" />
     <ClCompile Include="..\wolf\W_Common.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\Camera.h" />
@@ -153,6 +154,7 @@
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
     <ClInclude Include="..\Shapes\Cube.h" />
     <ClInclude Include="..\wolf\W_Common.h" />
+    <ClInclude Include="MoveByMouseRightClickDrag.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -61,6 +61,16 @@ namespace input
 		return m_keysDownLast[p_key];
 	}
 
+	bool InputManager::mouseDown(int p_button)
+	{
+		return m_mouseDown[p_button];
+	}
+
+	bool InputManager::mouseDownLast(int p_button)
+	{
+		return m_mouseDownLast[p_button];
+	}
+
 	int InputManager::getMouseXChange()
 	{
 		return m_mouseXChange;
@@ -74,7 +84,6 @@ namespace input
 	void InputManager::update()
 	{
 		//Keys
-		
 		for (int i = 0; i < GLFW_KEY_LAST; ++i)
 		{
 			m_keysDownLast[i] = m_keysDown[i];
@@ -82,6 +91,12 @@ namespace input
 		}
 
 		//Mouse
+		for (int i = 0; i < GLFW_MOUSE_BUTTON_LAST; ++i)
+		{
+			m_mouseDownLast[i] = m_mouseDown[i];
+			m_mouseDown[i] = (glfwGetMouseButton(i));
+		}
+
 		int mouseX, mouseY;
 		glfwGetMousePos(&mouseX, &mouseY);
 		int windowX, windowY;

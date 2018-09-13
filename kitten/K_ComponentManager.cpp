@@ -3,6 +3,7 @@
 
 #include "Camera.h"
 #include "CubeRenderable.h"
+#include "_Project\MoveByMouseRightClickDrag.h"
 
 namespace kitten
 {
@@ -32,17 +33,21 @@ namespace kitten
 		{
 			comp = new CubeRenderable("textures/crap/cartoon_cobble.tga");
 		}
+		else if (p_componentName == "MoveByMouseRightClickDrag")
+		{
+			comp = new MoveByMouseRightClickDrag(0.03f);
+		}
 		else
 		{
 			//Not found..
 			return nullptr;
 		}
-		/*
+		
 		if (comp->hasUpdate())
 		{
 			m_toUpdate.push_back(comp);
 		}
-		*/
+		
 
 		//Successful
 		return comp;

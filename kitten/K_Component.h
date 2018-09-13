@@ -14,10 +14,12 @@ namespace kitten
 	protected:
 		K_Component();
 		virtual ~K_Component();
-		
+
+
 		K_GameObject* m_attachedObject;
 	public:
-		virtual const bool hasUpdate() const { return false; }
+		virtual bool hasUpdate() const;
+
 		virtual void update();
 
 		K_GameObject& getGameObject() { return *m_attachedObject; };

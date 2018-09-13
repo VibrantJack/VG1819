@@ -89,6 +89,9 @@
     <ClCompile Include="..\kitten\K_CameraList.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
+    <ClCompile Include="MoveByMouseRightClickDrag.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -196,6 +199,9 @@
     <ClInclude Include="..\puppy\P_Singletons.h">
       <Filter>puppy</Filter>
     </ClInclude>
+    <ClInclude Include="MoveByMouseRightClickDrag.h">
+      <Filter>components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -215,6 +221,9 @@
     </Filter>
     <Filter Include="pugi">
       <UniqueIdentifier>{9a86bf13-2257-49a4-96fc-2759649db337}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components">
+      <UniqueIdentifier>{f5400d70-bee9-4352-8219-b7c5df560184}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

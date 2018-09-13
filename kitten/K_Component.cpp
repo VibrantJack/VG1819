@@ -6,18 +6,17 @@ namespace kitten
 {
 	K_Component::K_Component()
 	{
-		if (hasUpdate())
-		{
-			K_ComponentManager::getInstance()->addToUpdate(this);
-		}
+
 	}
 
 	K_Component::~K_Component()
 	{
-		if (hasUpdate())
-		{
-			K_ComponentManager::getInstance()->removeFromUpdate(this);
-		}
+
+	}
+
+	bool K_Component::hasUpdate() const
+	{
+		return false;
 	}
 
 	void K_Component::update()
