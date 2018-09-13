@@ -32,13 +32,12 @@ namespace kitten
 
 		//Creating a gameobject
 		K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject();
-		//Creating a component, again, temporary until Kibble is ready. Don't need to static_cast, see below for quick -- shown in case need setup.
-		Camera* camComp = static_cast<Camera*>(K_ComponentManager::getInstance()->createComponent("Camera"));
+		Camera* camComp = new Camera();
 		camGameObj->addComponent(camComp);
 
 
 		K_GameObject* cubeGameObj = K_GameObjectManager::getInstance()->createNewGameObject();
-		K_Component* cubeRend = K_ComponentManager::getInstance()->createComponent("CubeRenderable");
+		K_Component* cubeRend = new CubeRenderable("textures/crap/cartoon_planks.tga");
 		cubeGameObj->addComponent(cubeRend);
 
 		cubeGameObj->getTransform().move(0, -2, 10);

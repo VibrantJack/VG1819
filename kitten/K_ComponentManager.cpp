@@ -37,12 +37,13 @@ namespace kitten
 			//Not found..
 			return nullptr;
 		}
-
+		/*
 		if (comp->hasUpdate())
 		{
 			m_toUpdate.push_back(comp);
 		}
-		
+		*/
+
 		//Successful
 		return comp;
 	}
@@ -54,22 +55,15 @@ namespace kitten
 		{
 			if (p_toDestroy->hasUpdate()) // && isActive
 			{
-				//find in update list and remove
-				for (auto it = m_toUpdate.begin(); it != m_toUpdate.end(); ++it)
+				if (removeFromUpdate(p_toDestroy))
 				{
-					if (*it == p_toDestroy)
-					{
-						m_toUpdate.erase(it);
-						delete p_toDestroy;
-						return true;
-					}
+					delete p_toDestroy;
+					return true;
 				}
 
+				delete p_toDestroy;
 				return false;
 			}
-
-			delete p_toDestroy;
-			return true;
 		}
 		else
 		{
@@ -77,8 +71,32 @@ namespace kitten
 		}
 	}
 
+	//@TODO: Optimize adding and removing of components to update!
+	void K_ComponentManager::addToUpdate(K_Component* p_toAdd)
+	{
+		m_toUpdate.push_back(p_toAdd);
+	}
+
+	bool K_ComponentManager::removeFromUpdate(const K_Component* p_toRemove)
+	{
+		//find in update list and remove
+		for (auto it = m_toUpdate.begin(); it != m_toUpdate.end(); ++it)
+		{
+			if (*it == p_toRemove)
+			{
+				m_toUpdate.erase(it);
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	void K_ComponentManager::updateComponents()
 	{
-
+		for (auto it = m_toUpdate.begin(); it != m_toUpdate.end(); ++it)
+		{
+			(*it)->update();
+		}
 	}
 }

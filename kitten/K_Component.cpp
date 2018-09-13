@@ -1,16 +1,23 @@
 #include "K_Component.h"
 #include "K_GameObject.h"
+#include "K_ComponentManager.h"
 
 namespace kitten
 {
 	K_Component::K_Component()
 	{
-
+		if (hasUpdate())
+		{
+			K_ComponentManager::getInstance()->addToUpdate(this);
+		}
 	}
 
 	K_Component::~K_Component()
 	{
-
+		if (hasUpdate())
+		{
+			K_ComponentManager::getInstance()->removeFromUpdate(this);
+		}
 	}
 
 	void K_Component::update()

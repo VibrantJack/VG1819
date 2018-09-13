@@ -27,6 +27,9 @@ namespace kitten
 		K_Component* createComponent(const std::string& p_componentName);
 		bool destroyComponent(K_Component* p_toDestroy);
 
+		void addToUpdate(K_Component* p_toUpdate);
+		bool removeFromUpdate(const K_Component* p_toRemove);
+
 		void updateComponents();
 	};
 }
