@@ -51,22 +51,22 @@ namespace puppy
 		switch (p_st)
 		{
 		case ShaderType::basic:
-			*p_vertexShaderPath = "puppy/Shaders/basic.vsh";
-			*p_pixelShaderPath = "puppy/Shaders/basic.fsh";
+			*p_vertexShaderPath = "Shaders/basic.vsh";
+			*p_pixelShaderPath = "Shaders/basic.fsh";
 			return true;
 
 		case ShaderType::alphaTest:
-			*p_vertexShaderPath = "puppy/Shaders/basic_alphatest.vsh";
-			*p_pixelShaderPath = "puppy/Shaders/basic_alphatest.fsh";
+			*p_vertexShaderPath = "Shaders/basic_alphatest.vsh";
+			*p_pixelShaderPath = "Shaders/basic_alphatest.fsh";
 			return true;
 
 		case ShaderType::colorTint_alphaTest:
-			*p_vertexShaderPath = "puppy/Shaders/colorTint_alphatest.vsh";
-			*p_pixelShaderPath = "puppy/Shaders/colorTint_alphatest.fsh";
+			*p_vertexShaderPath = "Shaders/colorTint_alphatest.vsh";
+			*p_pixelShaderPath = "Shaders/colorTint_alphatest.fsh";
 			return true;
 		case ShaderType::particles:
-			*p_vertexShaderPath = "puppy/Shaders/particles.vsh";
-			*p_pixelShaderPath = "puppy/Shaders/particles.fsh";
+			*p_vertexShaderPath = "Shaders/particles.vsh";
+			*p_pixelShaderPath = "Shaders/particles.fsh";
 			return true;
 		default:
 			return false;

@@ -15,6 +15,7 @@ namespace puppy
 		Texture::m_minFiltering = GL_NEAREST_MIPMAP_LINEAR;
 		Texture::m_magFiltering = GL_LINEAR;
 		Texture::m_wrapMode = GL_REPEAT;
+		Texture::m_name = p_texName;
 
 		if (Texture::sm_loadedTextures.find(p_texName) == Texture::sm_loadedTextures.end()) //If this texture has not already been loaded
 		{

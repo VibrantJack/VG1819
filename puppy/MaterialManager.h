@@ -18,9 +18,9 @@ namespace puppy
 		//Members
 		std::map<const std::string, Material*> m_createdMaterials;
 	public:
-		void createInstance() { assert(sm_instance == nullptr); sm_instance = new MaterialManager(); };
-		void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
-		MaterialManager * getInstance() const { return sm_instance; };
+		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new MaterialManager(); };
+		static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
+		static MaterialManager * getInstance() { return sm_instance; };
 
 		void loadMaterials(const std::string& p_XMLToLoad);
 		Material* getMaterial(const std::string& p_name) const;

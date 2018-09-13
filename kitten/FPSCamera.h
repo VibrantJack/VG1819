@@ -40,8 +40,8 @@ namespace scene
 		void setLookSensitivity(float p_sensitivity);
 		void setMoveSpeed(float p_speed);
 
-		virtual const glm::mat4& getViewProj() override;
-		virtual const glm::mat3& getViewInverse() const;
+		virtual glm::mat4 getViewProj() override;
+		virtual glm::mat3 getViewInverse() const;
 		virtual void update() override;
 		void place(const glm::vec3& p_pos) { m_cameraPos = p_pos; }
 

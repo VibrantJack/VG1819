@@ -6,20 +6,18 @@ namespace kitten
 	Transform::Transform()
 	{
 		//Initialize normal member variables
-		m_rotateDeg = 0.0f;
 		m_translation = glm::vec3(0.0f, 0.0f, 0.0f);
 
 		//Setup the matrices
 		m_matTranslation = glm::translate(0.0f, 0.0f, 0.0f);
 		m_matScale = glm::scale(1.0f, 1.0f, 1.0f);
-		m_matRotation = glm::rotate(0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	}
 
 	const glm::mat4& Transform::getWorldTransform()
 	{
 		if (m_isDirty)
 		{
-			m_matWorld = m_matTranslation * m_matRotation * m_matScale;
+			m_matWorld = m_matTranslation * glm::mat4_cast(m_quatRotation) * m_matScale;
 			m_isDirty = false;
 		}
 
@@ -91,22 +89,25 @@ namespace kitten
 		m_isDirty = true;
 	}
 
-	void Transform::rotateRelative(const float deg, const float xAxis, const float yAxis, const float zAxis)
+	void Transform::rotateRelative(const glm::vec3& rot)
 	{
-		m_rotateDeg += deg;
-		m_matRotation = m_matRotation * glm::rotate(m_rotateDeg, glm::vec3(xAxis, yAxis, zAxis));
+		m_quatRotation = glm::quat(rot * (float)DEG_TO_RAD_FACTOR) * m_quatRotation;
 		m_isDirty = true;
 	}
 
-	void Transform::rotateAbsolute(const float deg, const float xAxis, const float yAxis, const float zAxis)
+	void Transform::rotateAbsolute(const glm::vec3& rot)
 	{
-		m_rotateDeg = deg;
-		m_matRotation = glm::rotate(deg, glm::vec3(xAxis, yAxis, zAxis));
+		m_quatRotation = glm::quat(rot * (float)DEG_TO_RAD_FACTOR);
 		m_isDirty = true;
 	}
 
 	const glm::vec3& Transform::getTranslation() const
 	{
 		return m_translation;
+	}
+
+	const glm::quat& Transform::getRotation() const
+	{
+		return m_quatRotation;
 	}
 }

@@ -10,7 +10,7 @@ namespace kitten
 	class K_Component
 	{
 		friend class K_ComponentManager;
-
+		friend class K_GameObject;
 	protected:
 		K_Component();
 		virtual ~K_Component();

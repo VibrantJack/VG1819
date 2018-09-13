@@ -11,6 +11,8 @@
 #define SIZE_OF_GLSHORT 2
 
 #define PI 3.14159265359
+#define DEG_TO_RAD_FACTOR 0.01745329251
+
 
 #ifndef __APPLE__
 #include <GL/glew.h>

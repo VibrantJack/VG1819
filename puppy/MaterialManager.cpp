@@ -2,6 +2,8 @@
 
 namespace puppy
 {
+	MaterialManager* MaterialManager::sm_instance = nullptr;
+
 	MaterialManager::MaterialManager()
 	{
 

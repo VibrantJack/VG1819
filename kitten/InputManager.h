@@ -6,7 +6,7 @@ namespace input
 	class InputManager
 	{
 	private:
-		static InputManager* sm_InputManagerInstance;
+		static InputManager* sm_inputManagerInstance;
 
 		bool m_keysDown[GLFW_KEY_LAST];
 		bool m_keysDownLast[GLFW_KEY_LAST];
@@ -20,9 +20,9 @@ namespace input
 		~InputManager();
 	public:
 		
-		static void CreateInstance();
-		static void DestroyInstance();
-		static InputManager* Instance();
+		static void createInstance();
+		static void destroyInstance();
+		static InputManager* getInstance();
 
 		void resetMouse(bool p_shouldReset);
 

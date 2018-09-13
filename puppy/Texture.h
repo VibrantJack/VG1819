@@ -18,7 +18,7 @@ namespace puppy
 	{
 	private:
 		GLuint m_tex; //The member texture
-		const std::string m_name;
+		std::string m_name;
 
 		int m_wrapMode, m_minFiltering, m_magFiltering;
 		static int sm_boundWrapMode, sm_boundMinFiltering, sm_boundMagFiltering;

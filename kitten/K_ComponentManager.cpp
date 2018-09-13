@@ -1,6 +1,9 @@
 #include "K_ComponentManager.h"
 #include "K_Component.h"
 
+#include "Camera.h"
+#include "CubeRenderable.h"
+
 namespace kitten
 {
 	K_ComponentManager* K_ComponentManager::sm_instance = nullptr;
@@ -15,11 +18,25 @@ namespace kitten
 
 	}
 
-	bool K_ComponentManager::createComponent()
+	//Temporary unitl Kibble is ready
+	K_Component* K_ComponentManager::createComponent(const std::string& p_componentName)
 	{
 		K_Component* comp;
 
-		//...
+		//Kibble version -1.0
+		if (p_componentName == "Camera")
+		{
+			comp = new Camera();
+		}
+		else if (p_componentName == "CubeRenderable")
+		{
+			comp = new CubeRenderable("textures/crap/cartoon_cobble.tga");
+		}
+		else
+		{
+			//Not found..
+			return nullptr;
+		}
 
 		if (comp->hasUpdate())
 		{
@@ -27,9 +44,10 @@ namespace kitten
 		}
 		
 		//Successful
-		return true;
+		return comp;
 	}
 
+	//bool mostly for debugging
 	bool K_ComponentManager::destroyComponent(K_Component* p_toDestroy)
 	{
 		if (p_toDestroy != nullptr)

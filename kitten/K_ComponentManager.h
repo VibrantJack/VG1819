@@ -21,8 +21,10 @@ namespace kitten
 		static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
 		static K_ComponentManager * getInstance() { return sm_instance; };
 
-
-		bool createComponent();
+		//@TODO: Implement Kibble creating comopnents here.
+		//@Saleh you can change this function (createComponent) to take whatever parameters
+		//you want, as long as Kibble on a whole works and it isn't too saddening
+		K_Component* createComponent(const std::string& p_componentName);
 		bool destroyComponent(K_Component* p_toDestroy);
 
 		void updateComponents();

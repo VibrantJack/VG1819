@@ -2,6 +2,18 @@
 
 namespace kitten
 {
+	K_GameObjectManager* K_GameObjectManager::sm_instance = nullptr;
+
+	K_GameObjectManager::K_GameObjectManager()
+	{
+
+	}
+
+	K_GameObjectManager::~K_GameObjectManager()
+	{
+
+	}
+
 	K_GameObject* K_GameObjectManager::createNewGameObject()
 	{
 		K_GameObject* toReturn = new K_GameObject();

@@ -14,8 +14,8 @@ namespace kitten
 
 		glm::mat4 m_matTranslation;
 		glm::mat4 m_matScale;
+		glm::quat m_quatRotation;
 		glm::mat4 m_matRotation;
-
 		glm::mat4 m_matWorld;
 
 		bool m_isDirty;
@@ -31,11 +31,11 @@ namespace kitten
 		virtual void scaleAbsolute(const float xScale, const float yScale, const float zScale);
 		virtual void scaleRelative(const float xScale, const float yScale, const float zScale);
 		virtual void rotate2D(const float deg);
-		virtual void rotateRelative(const float deg, const float xAxis, const float yAxis, const float zAxis);
-		virtual void rotateAbsolute(const float deg, const float xAxis, const float yAxis, const float zAxis);
+		virtual void rotateRelative(const glm::vec3& rot);
+		virtual void rotateAbsolute(const glm::vec3& rot);
 
 		virtual const glm::vec3& getTranslation() const;
-
+		virtual const glm::quat& getRotation() const;
 		virtual const glm::mat4& getWorldTransform();
 	};
 }

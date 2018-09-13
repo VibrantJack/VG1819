@@ -14,7 +14,7 @@ namespace scene
 	{
 	}
 
-	const glm::mat4& FPSCamera::getViewProj()
+	glm::mat4 FPSCamera::getViewProj()
 	{
 		return m_viewProj;
 	}
@@ -34,8 +34,8 @@ namespace scene
 		float deltaTime = kitten::K_Time::getInstance()->getDeltaTime();
 
 		//Compute angles
-		m_lookHorizAngle += m_lookSensitivity * deltaTime * input::InputManager::Instance()->getMouseXChange();
-		m_lookVertAngle += m_lookSensitivity * deltaTime * input::InputManager::Instance()->getMouseYChange();
+		m_lookHorizAngle += m_lookSensitivity * deltaTime * input::InputManager::getInstance()->getMouseXChange();
+		m_lookVertAngle += m_lookSensitivity * deltaTime * input::InputManager::getInstance()->getMouseYChange();
 
 		//Restrict camera from looping around vertically
 		if (m_lookVertAngle < -1.6f)
@@ -62,7 +62,7 @@ namespace scene
 		glm::vec3 upVector = glm::cross(rightVector, lookDirection);
 
 
-		input::InputManager* im = input::InputManager::Instance();
+		input::InputManager* im = input::InputManager::getInstance();
 
 		float speed = m_moveSpeed;
 
@@ -104,7 +104,7 @@ namespace scene
 		return m_viewFrustum;
 	}
 
-	const glm::mat3& FPSCamera::getViewInverse() const
+	glm::mat3 FPSCamera::getViewInverse() const
 	{
 		return m_viewInverse;
 	}

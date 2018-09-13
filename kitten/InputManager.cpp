@@ -3,28 +3,28 @@
 namespace input
 {
 	// Static singleton instance
-	InputManager* InputManager::sm_InputManagerInstance = NULL;
+	InputManager* InputManager::sm_inputManagerInstance = nullptr;
 
 	// Creates the singleton instance.
-	void InputManager::CreateInstance()
+	void InputManager::createInstance()
 	{
-		assert(sm_InputManagerInstance == NULL);
-		sm_InputManagerInstance = new InputManager();
+		assert(sm_inputManagerInstance == nullptr);
+		sm_inputManagerInstance = new InputManager();
 	}
 
 	// Destroys the singleton instance.
-	void InputManager::DestroyInstance()
+	void InputManager::destroyInstance()
 	{
-		assert(sm_InputManagerInstance != NULL);
-		delete sm_InputManagerInstance;
-		sm_InputManagerInstance = NULL;
+		assert(sm_inputManagerInstance != nullptr);
+		delete sm_inputManagerInstance;
+		sm_inputManagerInstance = nullptr;
 	}
 
 	// Access to singleton instance.
-	InputManager* InputManager::Instance()
+	InputManager* InputManager::getInstance()
 	{
-		assert(sm_InputManagerInstance);
-		return sm_InputManagerInstance;
+		assert(sm_inputManagerInstance);
+		return sm_inputManagerInstance;
 	}
 
 	InputManager::InputManager() : m_shouldResetMouse(true)

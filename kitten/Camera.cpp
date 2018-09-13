@@ -1,15 +1,22 @@
 #include "Camera.h"
+#include "K_CameraList.h"
 
 namespace kitten
 {
 	Camera::Camera() : m_fov(45.0f), m_nearClip(0.1f), m_farClip(1000.0f), m_winWidth(1280.0f), m_winHeight(720.0f)
 	{
-
+		if(K_CameraList::getInstance()->getSceneCamera() == nullptr)
+		{
+			K_CameraList::getInstance()->setSceneCamera(this);
+		}
 	}
 
 	Camera::~Camera()
 	{
-
+		if (K_CameraList::getInstance()->getSceneCamera() == this)
+		{
+			K_CameraList::getInstance()->setSceneCamera(nullptr);
+		}
 	}
 
 	void Camera::setFOV(float p_fov)
@@ -63,22 +70,28 @@ namespace kitten
 		return m_proj;
 	}
 
-	//@TODO: Finish this
-	const glm::mat4& Camera::getViewProj()
+	//@TODO: Let the upVector be set somehow & cache this somehow
+	glm::mat4 Camera::getViewProj()
 	{
 		Transform& transform = getTransform();
 		const glm::vec3& pos = transform.getTranslation();
-		glm::vec3 upVector;
-		glm::vec3 lookDirection;
+		glm::vec3 upVector(0,1,0);
+		glm::vec3 lookDirection = glm::vec3(0, 0, 1); //* transform.getRotation();
 		glm::mat4 view = glm::lookAt(pos, pos + lookDirection, upVector);
 
-		return view;
+		return getProj() * view;
 	}
 
-	//@TODO: Finish this
-	const glm::mat3& Camera::getViewInverse()
+	//@TODO: Cache the view matrix to make this efficient
+	glm::mat3 Camera::getViewInverse()
 	{
-		return glm::mat3();
+		Transform& transform = getTransform();
+		const glm::vec3& pos = transform.getTranslation();
+		glm::vec3 upVector(0, 1, 0);
+		glm::vec3 lookDirection = glm::vec3(0, 0, 1) * transform.getRotation();
+		glm::mat4 view = glm::lookAt(pos, pos + lookDirection, upVector);
+
+		return (glm::mat3)glm::inverse(view);
 	}
 
 	//From: http://www.lighthouse3d.com/tutorials/view-frustum-culling/geometric-approach-extracting-the-planes/

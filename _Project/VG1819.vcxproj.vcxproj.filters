@@ -86,6 +86,9 @@
     <ClCompile Include="..\pugixml\pugixml.cpp">
       <Filter>pugi</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\K_CameraList.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -183,6 +186,15 @@
     </ClInclude>
     <ClInclude Include="..\pugixml\pugiconfig.hpp">
       <Filter>pugi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_CameraList.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_Singletons.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\P_Singletons.h">
+      <Filter>puppy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

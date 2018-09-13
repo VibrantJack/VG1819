@@ -2,7 +2,7 @@
 
 namespace puppy
 {
-	Material::Material(ShaderType p_shaderType)
+	Material::Material(ShaderType p_shaderType) : m_tex(nullptr)
 	{
 		m_shader = ShaderManager::getShaderProgram(p_shaderType);
 	}
@@ -10,7 +10,11 @@ namespace puppy
 	Material::~Material()
 	{
 		delete m_shader;
-		delete m_tex;
+
+		if (m_tex != nullptr)
+		{
+			delete m_tex;
+		}
 	}
 	
 	void Material::apply()
