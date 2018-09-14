@@ -31,7 +31,9 @@ namespace kitten
 		return true;
 	}
 
-	template <typename T>
+	//This does not work, LNK 2019
+	/*
+	template <class T>
 	T* K_GameObject::getComponent()
 	{
 		if (m_components.count(std::type_index(typeid(T))) != 0)
@@ -43,4 +45,5 @@ namespace kitten
 			return nullptr;
 		}
 	}
+	*/
 }

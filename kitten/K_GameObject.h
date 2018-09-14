@@ -24,9 +24,24 @@ namespace kitten
 		//Constructor and destructor in GameObjectManager
 		bool addComponent(K_Component* p_toAdd);
 
-		template <typename T>
+		template <class T> //@TODO: Fix LNK 2019 when putting this in K_GameObject.cpp
 		T* getComponent();
 
 		Transform& getTransform() { return *m_transform; };
 	};
+	
+	//This works, see K_GameObject.cpp for non-working
+	template<class T>
+	inline T * K_GameObject::getComponent()
+	{
+		if (m_components.count(std::type_index(typeid(T))) != 0)
+		{
+			return static_cast<T*>(m_components[std::type_index(typeid(T))]);
+		}
+		else
+		{
+			return nullptr;
+		}
+	}
+
 }

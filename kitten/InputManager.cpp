@@ -82,6 +82,11 @@ namespace input
 		return m_mouseYChange;
 	}
 
+	int InputManager::getMouseWheel()
+	{
+		return m_mouseWheel;
+	}
+
 	void InputManager::update()
 	{
 		//Keys
@@ -97,6 +102,9 @@ namespace input
 			m_mouseDownLast[i] = m_mouseDown[i];
 			m_mouseDown[i] = (glfwGetMouseButton(i));
 		}
+
+		m_mouseWheel = glfwGetMouseWheel();
+		glfwSetMouseWheel(0);
 
 		int mouseX, mouseY;
 		glfwGetMousePos(&mouseX, &mouseY);

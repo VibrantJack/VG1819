@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "CubeRenderable.h"
 #include "_Project\MoveByMouseRightClickDrag.h"
+#include "_Project\ZoomByMouseWheel.h"
 
 namespace kitten
 {
@@ -36,6 +37,10 @@ namespace kitten
 		else if (p_componentName == "MoveByMouseRightClickDrag")
 		{
 			comp = new MoveByMouseRightClickDrag(0.005f);
+		}
+		else if (p_componentName == "ZoomByMouseWheel")
+		{
+			comp = new ZoomByMouseWheel(2.0f);
 		}
 		else
 		{

@@ -11,6 +11,7 @@ namespace kitten
 	protected:
 		float m_rotateDeg, m_xScale, m_yScale, m_zScale;
 		glm::vec3 m_translation;
+		glm::vec3 m_forward;
 
 		glm::mat4 m_matTranslation;
 		glm::mat4 m_matScale;
@@ -37,5 +38,6 @@ namespace kitten
 		virtual const glm::vec3& getTranslation() const;
 		virtual const glm::quat& getRotation() const;
 		virtual const glm::mat4& getWorldTransform();
+		virtual const glm::vec3& getForward() const;
 	};
 }

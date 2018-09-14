@@ -25,6 +25,11 @@ namespace kitten
 		m_fov = p_fov;
 	}
 
+	float Camera::getFOV()
+	{
+		return m_fov;
+	}
+
 	void Camera::setNearClip(float p_near)
 	{
 		m_isProjDirty = true;
@@ -75,8 +80,8 @@ namespace kitten
 	{
 		Transform& transform = getTransform();
 		const glm::vec3& pos = transform.getTranslation();
-		glm::vec3 upVector(0,1,0);
-		glm::vec3 lookDirection = glm::vec3(0, 0, 1); //* transform.getRotation();
+		glm::vec3 upVector = glm::vec3(0,1,0) * transform.getRotation();
+		glm::vec3 lookDirection = glm::vec3(0, 0, 1) * transform.getRotation();
 		glm::mat4 view = glm::lookAt(pos, pos + lookDirection, upVector);
 
 		return getProj() * view;

@@ -39,6 +39,8 @@ namespace kitten
 		virtual void setWinWidth(int p_width);
 		virtual void setWinHeight(int p_height);
 
+		virtual float getFOV();
+
 		virtual glm::mat4 getViewProj();
 		virtual glm::mat3 getViewInverse();
 	};

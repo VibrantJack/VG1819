@@ -40,16 +40,19 @@ namespace kitten
 		K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* camComp = compMan->createComponent("Camera");
 		K_Component* mouseMove = compMan->createComponent("MoveByMouseRightClickDrag");
+		K_Component* zChange = compMan->createComponent("ZoomByMouseWheel");
 		camGameObj->addComponent(camComp);
 		camGameObj->addComponent(mouseMove);
+		camGameObj->addComponent(zChange);
+		camGameObj->getTransform().rotateRelative(glm::vec3(-33.0f, 0, 0));
 
 
 		K_GameObject* cubeGameObj = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* cubeRend = compMan->createComponent("CubeRenderable");
 		cubeGameObj->addComponent(cubeRend);
 
-		cubeGameObj->getTransform().move(0, -2, 10);
-		cubeGameObj->getTransform().scaleAbsolute(3, 0.5f, 3);
+		cubeGameObj->getTransform().move(0, -10, 30);
+		cubeGameObj->getTransform().scaleAbsolute(30, 0.5f, 30);
 
 		return true;
 	}

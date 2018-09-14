@@ -3,14 +3,9 @@
 namespace kitten
 {
 
-	Transform::Transform()
+	Transform::Transform() : m_forward(0,0,1), m_matTranslation(glm::translate(0,0,0)), m_matScale(glm::scale(1,1,1))
 	{
-		//Initialize normal member variables
-		m_translation = glm::vec3(0.0f, 0.0f, 0.0f);
 
-		//Setup the matrices
-		m_matTranslation = glm::translate(0.0f, 0.0f, 0.0f);
-		m_matScale = glm::scale(1.0f, 1.0f, 1.0f);
 	}
 
 	const glm::mat4& Transform::getWorldTransform()
@@ -82,6 +77,7 @@ namespace kitten
 		m_isDirty = true;
 	}
 
+	//NOT FUNCTIONAL ANYMORE!!
 	void Transform::rotate2D(const float deg)
 	{
 		m_rotateDeg += deg;
@@ -92,12 +88,16 @@ namespace kitten
 	void Transform::rotateRelative(const glm::vec3& rot)
 	{
 		m_quatRotation = glm::quat(rot * (float)DEG_TO_RAD_FACTOR) * m_quatRotation;
+		m_forward = m_quatRotation * glm::vec3(0,0,1);
+		
 		m_isDirty = true;
 	}
 
 	void Transform::rotateAbsolute(const glm::vec3& rot)
 	{
 		m_quatRotation = glm::quat(rot * (float)DEG_TO_RAD_FACTOR);
+		m_forward = m_quatRotation * glm::vec3(0, 0, 1);
+
 		m_isDirty = true;
 	}
 
@@ -109,5 +109,10 @@ namespace kitten
 	const glm::quat& Transform::getRotation() const
 	{
 		return m_quatRotation;
+	}
+
+	const glm::vec3& Transform::getForward() const
+	{
+		return m_forward;
 	}
 }

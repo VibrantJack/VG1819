@@ -17,6 +17,8 @@ namespace input
 		int m_mouseXChange, m_mouseYChange;
 		int m_lastMouseX, m_lastMouseY;
 
+		int m_mouseWheel;
+
 		bool m_shouldResetMouse;
 
 		InputManager();
@@ -37,6 +39,8 @@ namespace input
 
 		int getMouseXChange();
 		int getMouseYChange();
+
+		int getMouseWheel();
 
 		void update();
 	};

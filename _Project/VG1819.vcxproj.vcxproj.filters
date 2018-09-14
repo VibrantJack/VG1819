@@ -92,6 +92,9 @@
     <ClCompile Include="MoveByMouseRightClickDrag.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="ZoomByMouseWheel.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -200,6 +203,9 @@
       <Filter>puppy</Filter>
     </ClInclude>
     <ClInclude Include="MoveByMouseRightClickDrag.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoomByMouseWheel.h">
       <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
