@@ -33,6 +33,7 @@ namespace kitten
 
 		// Temporary stuff until Kibble is ready
 		K_ComponentManager* compMan = K_ComponentManager::getInstance();
+		input::InputManager::getInstance()->resetMouse(false);
 
 
 		//Creating a gameobject

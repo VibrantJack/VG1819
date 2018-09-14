@@ -1,4 +1,5 @@
 #include "InputManager.h"
+#include <iostream>
 
 namespace input
 {
@@ -104,7 +105,6 @@ namespace input
 
 		if (m_shouldResetMouse)
 		{
-
 			m_mouseXChange = ((float)windowX / 2.0f) - mouseX;
 			m_mouseYChange = ((float)windowY / 2.0f) - mouseY;
 			
@@ -118,6 +118,9 @@ namespace input
 		{
 			m_mouseXChange = m_lastMouseX - mouseX;
 			m_mouseYChange = m_lastMouseY - mouseY;
+
+			m_lastMouseX = mouseX;
+			m_lastMouseY = mouseY;
 		}
 	}
 

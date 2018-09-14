@@ -35,7 +35,7 @@ namespace kitten
 		}
 		else if (p_componentName == "MoveByMouseRightClickDrag")
 		{
-			comp = new MoveByMouseRightClickDrag(0.03f);
+			comp = new MoveByMouseRightClickDrag(0.005f);
 		}
 		else
 		{

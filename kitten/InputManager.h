@@ -14,8 +14,8 @@ namespace input
 		bool m_mouseDown[GLFW_MOUSE_BUTTON_LAST];
 		bool m_mouseDownLast[GLFW_MOUSE_BUTTON_LAST];
 
-		float m_mouseXChange, m_mouseYChange;
-		float m_lastMouseX, m_lastMouseY;
+		int m_mouseXChange, m_mouseYChange;
+		int m_lastMouseX, m_lastMouseY;
 
 		bool m_shouldResetMouse;
 
