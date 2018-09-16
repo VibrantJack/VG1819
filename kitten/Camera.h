@@ -19,8 +19,8 @@ namespace kitten
 		float m_nearClip, m_farClip;
 		int m_winWidth, m_winHeight;
 
-		glm::mat4 m_proj;
-
+		glm::mat4 m_proj, m_view;
+		glm::mat3 m_viewInverse;
 
 		//Frustum information
 		float m_nearRectHeight, m_nearRectWidth, m_farRectHeight, m_farRectWidth;
@@ -33,15 +33,19 @@ namespace kitten
 		Camera();
 		~Camera();
 
+		virtual bool hasUpdate() const override { return true; }
+
+		virtual void update();
+
 		virtual void setFOV(float p_fov);
 		virtual void setNearClip(float p_near);
 		virtual void setFarClip(float p_far);
 		virtual void setWinWidth(int p_width);
 		virtual void setWinHeight(int p_height);
 
-		virtual float getFOV();
+		virtual float getFOV() const;
 
 		virtual glm::mat4 getViewProj();
-		virtual glm::mat3 getViewInverse();
+		virtual const glm::mat3& getViewInverse() const;
 	};
 }

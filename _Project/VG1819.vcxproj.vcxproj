@@ -90,7 +90,6 @@
   <ItemGroup>
     <ClCompile Include="..\kitten\Camera.cpp" />
     <ClCompile Include="..\kitten\CubeRenderable.cpp" />
-    <ClCompile Include="..\kitten\FPSCamera.cpp" />
     <ClCompile Include="..\kitten\InputManager.cpp" />
     <ClCompile Include="..\kitten\K_CameraList.cpp" />
     <ClCompile Include="..\kitten\K_Component.cpp" />
@@ -124,7 +123,6 @@
   <ItemGroup>
     <ClInclude Include="..\kitten\Camera.h" />
     <ClInclude Include="..\kitten\CubeRenderable.h" />
-    <ClInclude Include="..\kitten\FPSCamera.h" />
     <ClInclude Include="..\kitten\Frustum.h" />
     <ClInclude Include="..\kitten\InputManager.h" />
     <ClInclude Include="..\kitten\K_CameraList.h" />

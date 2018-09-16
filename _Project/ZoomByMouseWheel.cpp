@@ -2,7 +2,7 @@
 #include "kitten\K_GameObject.h"
 #include "kitten\InputManager.h"
 
-ZoomByMouseWheel::ZoomByMouseWheel(float p_speed) : m_cam(nullptr), m_speed(p_speed)
+ZoomByMouseWheel::ZoomByMouseWheel(float p_speed, int p_minFOV, int p_maxFOV) : m_cam(nullptr), m_speed(p_speed), m_minFOV(p_minFOV), m_maxFOV(p_maxFOV)
 {
 
 }
@@ -28,12 +28,11 @@ void ZoomByMouseWheel::update()
 		int mouseWheel = -1 * input::InputManager::getInstance()->getMouseWheel();
 		if (mouseWheel != 0)
 		{
-			float currentFOV = m_cam->getFOV();
-			float nextFOV = currentFOV + (mouseWheel*m_speed);
+			int currentFOV = m_cam->getFOV();
+			int nextFOV = currentFOV + (mouseWheel*m_speed);
 
-			//Clamp FOV between 1 and 90
-			//@TODO: Set these values at runtime
-			if (nextFOV > 1 && nextFOV < 90)
+			//Clamp FOV between values
+			if (nextFOV > m_minFOV && nextFOV < m_maxFOV)
 			{
 				m_cam->setFOV(nextFOV);
 			}

@@ -19,13 +19,27 @@ namespace kitten
 		}
 	}
 
+	void Camera::update()
+	{
+		if (K_CameraList::getInstance()->getSceneCamera() == this)
+		{
+			Transform& transform = getTransform();
+			const glm::vec3& pos = transform.getTranslation();
+			glm::vec3 upVector = glm::vec3(0, 1, 0) * transform.getRotation();
+			glm::vec3 lookDirection = glm::vec3(0, 0, 1) * transform.getRotation();
+
+			m_view = glm::lookAt(pos, pos + lookDirection, upVector);
+			m_viewInverse = (glm::mat3)glm::inverse(m_view);
+		}
+	}
+
 	void Camera::setFOV(float p_fov)
 	{
 		m_isProjDirty = true;
 		m_fov = p_fov;
 	}
 
-	float Camera::getFOV()
+	float Camera::getFOV() const
 	{
 		return m_fov;
 	}
@@ -75,28 +89,14 @@ namespace kitten
 		return m_proj;
 	}
 
-	//@TODO: Let the upVector be set somehow & cache this somehow
 	glm::mat4 Camera::getViewProj()
 	{
-		Transform& transform = getTransform();
-		const glm::vec3& pos = transform.getTranslation();
-		glm::vec3 upVector = glm::vec3(0,1,0) * transform.getRotation();
-		glm::vec3 lookDirection = glm::vec3(0, 0, 1) * transform.getRotation();
-		glm::mat4 view = glm::lookAt(pos, pos + lookDirection, upVector);
-
-		return getProj() * view;
+		return getProj() * m_view;
 	}
 
-	//@TODO: Cache the view matrix to make this efficient
-	glm::mat3 Camera::getViewInverse()
+	const glm::mat3& Camera::getViewInverse() const
 	{
-		Transform& transform = getTransform();
-		const glm::vec3& pos = transform.getTranslation();
-		glm::vec3 upVector(0, 1, 0);
-		glm::vec3 lookDirection = glm::vec3(0, 0, 1) * transform.getRotation();
-		glm::mat4 view = glm::lookAt(pos, pos + lookDirection, upVector);
-
-		return (glm::mat3)glm::inverse(view);
+		return m_viewInverse;
 	}
 
 	//From: http://www.lighthouse3d.com/tutorials/view-frustum-culling/geometric-approach-extracting-the-planes/

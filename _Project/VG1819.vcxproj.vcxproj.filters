@@ -65,9 +65,6 @@
     <ClCompile Include="..\kitten\Camera.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
-    <ClCompile Include="..\kitten\FPSCamera.cpp">
-      <Filter>kitten</Filter>
-    </ClCompile>
     <ClCompile Include="..\kitten\InputManager.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
@@ -170,9 +167,6 @@
       <Filter>shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\Camera.h">
-      <Filter>kitten</Filter>
-    </ClInclude>
-    <ClInclude Include="..\kitten\FPSCamera.h">
       <Filter>kitten</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\Frustum.h">

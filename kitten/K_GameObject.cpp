@@ -23,9 +23,12 @@ namespace kitten
 		}
 	}
 
-	//@TODO: return false if already has component of type or do something like
 	bool K_GameObject::addComponent(K_Component* p_toAdd)
 	{
+		if (m_components.count(std::type_index(typeid(*p_toAdd))) > 0)
+		{
+			return false;
+		}
 		m_components[std::type_index(typeid(*p_toAdd))] = p_toAdd;
 		p_toAdd->m_attachedObject = this;
 		return true;

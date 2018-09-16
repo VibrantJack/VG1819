@@ -10,9 +10,10 @@ private:
 
 	kitten::Camera* m_cam;
 	float m_speed;
+	int m_minFOV, m_maxFOV;
 
 public:
-	ZoomByMouseWheel(float p_speed = 1.0f);
+	ZoomByMouseWheel(float p_speed = 1.0f, int p_minFOV = 1, int p_m_maxFOV = 90);
 	virtual ~ZoomByMouseWheel();
 
 	virtual bool hasUpdate() const;
