@@ -15,6 +15,7 @@ namespace kitten
 		~K_ComponentManager();
 
 		std::list<K_Component*> m_toUpdate;
+		std::list<K_Component*> m_toDelete;
 	public:
 		
 		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new K_ComponentManager(); };

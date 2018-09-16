@@ -13,6 +13,8 @@ namespace kitten
 
 
 		std::vector<K_GameObject*> m_gameObjects;
+		std::vector<K_GameObject*> m_toDelete;
+
 		int m_totalObjects = 0;
 	public:
 		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new K_GameObjectManager(); };
@@ -22,5 +24,7 @@ namespace kitten
 
 		K_GameObject * createNewGameObject();
 		void destroyGameObject(K_GameObject* p_toDestroy);
+
+		void deleteQueuedObjects();
 	};
 }

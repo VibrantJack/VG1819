@@ -5,6 +5,7 @@
 #include "CubeRenderable.h"
 #include "_Project\MoveByMouseRightClickDrag.h"
 #include "_Project\ZoomByMouseWheel.h"
+#include "_Project\DebugPrintOnce.h"
 
 namespace kitten
 {
@@ -42,6 +43,10 @@ namespace kitten
 		{
 			comp = new ZoomByMouseWheel(2.0f);
 		}
+		else if (p_componentName == "DebugPrintOnce")
+		{
+			comp = new DebugPrintOnce("Some Message, kinda useless until we can change this easily");
+		}
 		else
 		{
 			//Not found..
@@ -63,17 +68,7 @@ namespace kitten
 	{
 		if (p_toDestroy != nullptr)
 		{
-			if (p_toDestroy->hasUpdate()) // && isActive
-			{
-				if (removeFromUpdate(p_toDestroy))
-				{
-					delete p_toDestroy;
-					return true;
-				}
-
-				delete p_toDestroy;
-				return false;
-			}
+			m_toDelete.push_back(p_toDestroy);
 		}
 		else
 		{
@@ -107,6 +102,17 @@ namespace kitten
 		for (auto it = m_toUpdate.begin(); it != m_toUpdate.end(); ++it)
 		{
 			(*it)->update();
+		}
+
+		for (auto it = m_toDelete.begin(); it != m_toDelete.end(); it = m_toDelete.erase(it))
+		{
+			if ((*it)->hasUpdate()) //&& isActive
+			{
+				removeFromUpdate(*it);
+			}
+			
+			delete (*it);
+			
 		}
 	}
 }

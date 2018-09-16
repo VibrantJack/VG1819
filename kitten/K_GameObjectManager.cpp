@@ -29,7 +29,16 @@ namespace kitten
 		assert(p_toDestroy != nullptr);
 
 		m_gameObjects.erase(m_gameObjects.begin() + p_toDestroy->m_objectIndex);
+		m_toDelete.push_back(p_toDestroy);
+		--m_totalObjects;
+	}
 
-		delete(p_toDestroy);
+	void K_GameObjectManager::deleteQueuedObjects()
+	{
+		for (auto it = m_toDelete.begin(); it != m_toDelete.end(); ++it)
+		{
+			delete *it;
+			it = m_toDelete.erase(it);	
+		}
 	}
 }

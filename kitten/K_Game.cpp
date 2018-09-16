@@ -11,6 +11,7 @@
 #include "kitten\Camera.h"
 #include "kitten\CubeRenderable.h"
 #include "_Project\MoveByMouseRightClickDrag.h"
+#include "_Project\DebugPrintOnce.h"
 
 namespace kitten
 {
@@ -49,7 +50,9 @@ namespace kitten
 
 		K_GameObject* cubeGameObj = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* cubeRend = compMan->createComponent("CubeRenderable");
+		K_Component* debugPrint = compMan->createComponent("DebugPrintOnce");
 		cubeGameObj->addComponent(cubeRend);
+		cubeGameObj->addComponent(debugPrint);
 
 		cubeGameObj->getTransform().move(0, -10, 30);
 		cubeGameObj->getTransform().scaleAbsolute(30, 0.5f, 30);
