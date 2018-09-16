@@ -3,7 +3,7 @@
 namespace kitten
 {
 
-	Transform::Transform() : m_forward(0,0,1), m_matTranslation(glm::translate(0,0,0)), m_matScale(glm::scale(1,1,1))
+	Transform::Transform() : m_forward(0,0,1), m_matTranslation(glm::translate(0,0,0)), m_matScale(glm::scale(1,1,1)), m_parent(nullptr), m_ignoresParent(true)
 	{
 
 	}
@@ -88,8 +88,8 @@ namespace kitten
 	void Transform::rotateRelative(const glm::vec3& rot)
 	{
 		m_quatRotation = glm::quat(rot * (float)DEG_TO_RAD_FACTOR) * m_quatRotation;
-		m_forward = m_quatRotation * glm::vec3(0,0,1);
-		
+		m_forward = m_quatRotation * glm::vec3(0, 0, 1);
+
 		m_isDirty = true;
 	}
 
@@ -114,5 +114,39 @@ namespace kitten
 	const glm::vec3& Transform::getForward() const
 	{
 		return m_forward;
+	}
+
+	bool Transform::getIgnoreParent() const
+	{
+		return m_ignoresParent;
+	}
+
+	void Transform::setIgnoreParent(bool p_ignores)
+	{
+		m_ignoresParent = p_ignores;
+	}
+
+	void Transform::setParent(Transform* p_parent)
+	{
+		m_parent = p_parent;
+	}
+
+	void Transform::addChild(Transform* p_child)
+	{
+		m_children.push_back(p_child);
+	}
+
+	bool Transform::removeChild(const Transform* p_child)
+	{
+		for (auto it = m_children.begin(); it != m_children.end(); ++it)
+		{
+			if (p_child == *it)
+			{
+				m_children.erase(it);
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
