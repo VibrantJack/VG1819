@@ -32,14 +32,16 @@ void UnitTest::test()
 	tags.push_back("Neutral");
 
 	std::vector<std::string> abilityDescription;
+	abilityDescription.push_back("TestAbility");
 	std::vector<std::string> statusDescription;
 
 	UnitData* data = new UnitData(name,HP,MV,IN,Cost,size,tags,abilityDescription,statusDescription);
 
 	Unit* dummy = UnitSpawn::getInstanceSafe()->spawnUnitFromData(data);
-	Unit* dummyC = UnitSpawn::getInstanceSafe()->spawnCommanderFromData(data);
+	Unit* dummyC = UnitSpawn::getInstance()->spawnCommanderFromData(data);
 	UnitMonitor::getInstanceSafe()->printUnit(dummy);
-	UnitMonitor::getInstanceSafe()->printUnit(dummyC);
+	dummy->useAbility(0);
+	UnitMonitor::getInstance()->printUnit(dummy);
 }
 
 

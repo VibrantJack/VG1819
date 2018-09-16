@@ -1,5 +1,5 @@
 #include "UnitSpawn.h"
-
+#include "ability/AbilityLibrary.h"
 //Rock
 
 UnitSpawn* UnitSpawn::m_instance = nullptr;
@@ -31,27 +31,49 @@ Unit * UnitSpawn::spawnUnitFromData(UnitData * p_unitData)
 	//TO DO: an ID system instead of random words
 	unit->m_ID = "testUnit01";//hard coded for now
 
-	//copy tag, and attributes
+	//copy tag, name and attributes
 	unit->m_tags = * p_unitData->getTags();
 	unit->m_name = p_unitData->getName();
-	unit->m_HP = p_unitData->getHP();
-	unit->m_IN = p_unitData->getIN();
-	unit->m_MV = p_unitData->getMV();
-	unit->m_Cost = p_unitData->getCost();
-	unit->m_size = p_unitData->getSize();
 
+	int hp = p_unitData->getHP();
+	int in = p_unitData->getIN();
+	int mv = p_unitData->getMV();
+	int cost = p_unitData->getCost();
+
+	unit->m_attributes["MaxHP"] = hp;
+	unit->m_attributes["HP"] = hp;
+	unit->m_attributes["baseIN"] = in;
+	unit->m_attributes["IN"] = in;
+	unit->m_attributes["baseMV"] = mv;
+	unit->m_attributes["MV"] = mv;
+	unit->m_attributes["baseCost"] = cost;
+	unit->m_attributes["Cost"] = cost;
 	//set lv to 1
-	unit->m_LV = 1;
+	unit->m_attributes["LV"] = 1;
+
+	/*unit->m_MaxHP = hp;
+	unit->m_HP = hp;
+	unit->m_baseIN = in
+	unit->m_IN = in;
+	unit->m_baseMV = mv;
+	unit->m_MV = mv;
+	unit->m_baseCost = cost;
+	unit->m_Cost = cost;
+	unit->m_LV = 1*/
+
+	unit->m_size = p_unitData->getSize();
+	
+
 
 	//find each ability and status from library and attach to this unit
 	for (std::string abilityName : * p_unitData->getAbility())
 	{
-		//TO DO: newability = find(abilityName)
-		//unit->addAbility(Ability)
+		Ability* newAbility = AbilityLibrary::getInstanceSafe()->findAbility(abilityName, unit);
+		unit->addAbility(newAbility);
 	}
 	for (std::string statusName : *p_unitData->getStatus())
 	{
-		//TO DO: newstatus = find(statusName)
+		//TO DO: newstatus = find(statusName,unit)
 		//unit->addStatus(status)
 	}
 

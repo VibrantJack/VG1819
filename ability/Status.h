@@ -23,21 +23,36 @@
 //it will decrease duration by 1 and see if it's zero
 //then decide to remove this effect
 
+enum TimePointEvent
+{
+	Turn_Start,
+	Turn_End,
+	Level_Up,
+	New_Tile,
+	Deal_Damage,
+	Receive_Damage,
+};
+
 class Status
 {
 public:
+	Unit * m_unit;//the unit this status attached to
+
 	std::map<std::string, int> m_counter;
 	//Most commonly counter is duration. But it can be more, such as how many times it can be used
 
 	std::string m_name;
 	std::string m_description;//the text that will be showed to player
-	std::vector<AbilityNode> m_abilityNodes;//the list of nodes that will affect
+	std::vector<AbilityNode*> m_abilityNodes;//the list of nodes that will affect
 
 	//TO DO: Register Event
+
+	virtual int effectDefault() = 0;//this is effect that activates when status is added
+	virtual int effectOnTimePoint(TimePointEvent* p_timePoint) = 0;
 	//TO DO: Listen Event and take effect
 	//Maybe use Chain of Responsibility
 
-	Status();
+	Status(Unit * p_unit) { m_unit = p_unit; };
 	~Status();
 	
 private:
