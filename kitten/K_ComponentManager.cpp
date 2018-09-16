@@ -1,5 +1,6 @@
 #include "K_ComponentManager.h"
 #include "K_Component.h"
+#include "K_GameObject.h"
 
 #include "Camera.h"
 #include "CubeRenderable.h"
@@ -109,6 +110,7 @@ namespace kitten
 			if ((*it)->hasUpdate()) //&& isActive
 			{
 				removeFromUpdate(*it);
+				(*it)->m_attachedObject->removeComponent(*it);
 			}
 			
 			delete (*it);

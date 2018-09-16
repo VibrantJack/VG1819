@@ -34,6 +34,11 @@ namespace kitten
 		return true;
 	}
 
+	void K_GameObject::removeComponent(const K_Component* p_toRemove)
+	{
+		m_components.erase(std::type_index(typeid(*p_toRemove)));
+	}
+
 	//This does not work, LNK 2019
 	/*
 	template <class T>
