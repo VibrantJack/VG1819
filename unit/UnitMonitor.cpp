@@ -5,7 +5,7 @@ UnitMonitor* UnitMonitor::m_instance = nullptr;
 
 void UnitMonitor::printAbility(Ability * p_a)
 {
-	//TO DO
+	std::cout << p_a->m_description << std::endl;
 }
 
 void UnitMonitor::printStatus(Status * p_s)
@@ -46,13 +46,28 @@ void UnitMonitor::printUnit(Unit* p_u)
 	}
 	std::cout << std::endl;
 
-	std::cout << "HP: " << p_u->m_HP << std::endl;
-	std::cout << "IN: " << p_u->m_IN << std::endl;
-	std::cout << "MV: " << p_u->m_MV << std::endl;
-	std::cout << "Cost: " << p_u->m_Cost << std::endl;
-	std::cout << "Size: " << p_u->m_size << std::endl;
-	std::cout << "LV: " << p_u->m_LV << std::endl;
+	//attributes
+	std::map<std::string, int>::iterator it;
+	for (it = p_u->m_attributes.begin(); it != p_u->m_attributes.end(); it++)
+	{
+		std::cout << it->first << " : " << it->second << std::endl;
+	}
+	/*
+	std::cout << "MaxHP: \t" << p_u->m_MaxHP << std::endl;
+	std::cout << "HP: \t" << p_u->m_HP << std::endl;
+	std::cout << "baseIN: \t" << p_u->m_baseIN << std::endl;
+	std::cout << "IN: \t" << p_u->m_IN << std::endl;
+	std::cout << "baseMV: \t" << p_u->m_baseMV << std::endl;
+	std::cout << "MV: \t" << p_u->m_MV << std::endl;
+	std::cout << "baseCost: \t" << p_u->m_baseCost << std::endl;
+	std::cout << "Cost: \t" << p_u->m_Cost << std::endl;
+	std::cout << "LV: \t" << p_u->m_LV << std::endl;
+	*/
 
+	//size
+	std::cout << "Size: " << p_u->m_size << std::endl;
+
+	//counter
 	std::cout << "Counter: ";
 	for (std::pair<std::string,int> entry : p_u->m_Counter)
 	{

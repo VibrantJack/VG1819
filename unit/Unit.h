@@ -11,11 +11,19 @@ public:
 
 	std::vector<std::string> m_tags;
 	std::string m_name;
+
+	std::map<std::string, int> m_attributes;
+
+	int m_maxHP;
 	int m_HP;
+	int m_baseMV;
 	int m_MV;
+	int m_baseIN;
 	int m_IN;
+	int m_baseCost;
 	int m_Cost;
 	int m_LV;
+
 	UnitSize m_size;
 
 	std::map<std::string, int> m_Counter;
