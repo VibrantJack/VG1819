@@ -9,11 +9,6 @@ Unit::~Unit()
 {
 }
 
-void Unit::addAbility(Ability * p_newAbility)
-{
-	m_Ability.push_back(p_newAbility);
-}
-
 void Unit::addStatus(Status *p_newStatus)
 {
 	m_Status.push_back(p_newStatus);
@@ -34,7 +29,14 @@ bool Unit::removeStatus(Status * p_oldStatus)
 
 int Unit::useAbility(int p_abilityIndex)
 {
-	return m_Ability[p_abilityIndex]->effect();
+	//TO DO assemble info package
+
+	//test purpose
+	AbilityInfoPackage* info = new AbilityInfoPackage();
+	info->m_target = this;
+	info->m_power = 4;
+
+	return AbilityManager::getInstance()->useAbility(m_Ability[p_abilityIndex], info);
 }
 
 int Unit::callStatus(int p_StatusIndex, int p_event)

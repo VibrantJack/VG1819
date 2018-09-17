@@ -27,20 +27,21 @@ public:
 	UnitSize m_size;
 
 	std::map<std::string, int> m_Counter;
-	std::vector<Ability*> m_Ability;
+
+	std::vector<std::string> m_Ability;//TO DO: should include more information such as power, counter
+
 	std::vector<Status*> m_Status;
 
 	Unit();
 	~Unit();
 
-	void addAbility(Ability *p_newAbility);
 	void addStatus(Status *p_newStatus);
 	bool removeStatus(Status *p_oldStatus);
 
-	std::vector<Ability*> getAbilities() { return m_Ability; };
 	std::vector<Status*> getStatus() { return m_Status; };
 
-	int useAbility(int p_abilityIndex);
+	int useAbility(int p_abilityIndex);//TO DO
+
 	int callStatus(int p_StatusIndex, int p_event);
 	//event is the one of the events that this status registered
 	//should be enum, I didn't define it yet, so use int as place holder

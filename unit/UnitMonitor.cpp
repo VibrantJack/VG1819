@@ -77,7 +77,7 @@ void UnitMonitor::printUnit(Unit* p_u)
 	std::cout << "Ability: ";
 	for (int i = 0; i < p_u->m_Ability.size(); i++)
 	{
-		printAbility(p_u->m_Ability[i]);
+		printAbility(AbilityManager::getInstance()->findAbility(p_u->m_Ability[i]) );
 	}
 	std::cout << std::endl;
 

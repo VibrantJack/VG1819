@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ability/Ability.h"
-#include "ability/Status.h"
+#include "ability/AbilityManager.h"
+#include "ability/AbilityInfoPackage.h"
 
 //Rock
 

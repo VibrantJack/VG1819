@@ -1,5 +1,4 @@
 #include "UnitSpawn.h"
-#include "ability/AbilityLibrary.h"
 //Rock
 
 UnitSpawn* UnitSpawn::m_instance = nullptr;
@@ -63,19 +62,9 @@ Unit * UnitSpawn::spawnUnitFromData(UnitData * p_unitData)
 
 	unit->m_size = p_unitData->getSize();
 	
+	unit->m_Ability = *p_unitData->getAbility();
 
-
-	//find each ability and status from library and attach to this unit
-	for (std::string abilityName : * p_unitData->getAbility())
-	{
-		Ability* newAbility = AbilityLibrary::getInstanceSafe()->findAbility(abilityName, unit);
-		unit->addAbility(newAbility);
-	}
-	for (std::string statusName : *p_unitData->getStatus())
-	{
-		//TO DO: newstatus = find(statusName,unit)
-		//unit->addStatus(status)
-	}
+	//TO DO add status
 
 	return unit;
 }
