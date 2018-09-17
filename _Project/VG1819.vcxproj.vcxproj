@@ -88,6 +88,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\kibble\json\JSONDataParserFactory.cpp" />
     <ClCompile Include="..\kitten\Camera.cpp" />
     <ClCompile Include="..\kitten\CubeRenderable.cpp" />
     <ClCompile Include="..\kitten\InputManager.cpp" />
@@ -115,12 +116,17 @@
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
     <ClCompile Include="..\Shapes\Cube.cpp" />
+    <ClCompile Include="..\unit\UnitData.cpp" />
     <ClCompile Include="..\wolf\W_Common.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
     <ClCompile Include="ZoomByMouseWheel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\json.hpp" />
+    <ClInclude Include="..\kibble\DataParserFactory.hpp" />
+    <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp" />
+    <ClInclude Include="..\kibble\json\JSONDataParserFactory.hpp" />
     <ClInclude Include="..\kitten\Camera.h" />
     <ClInclude Include="..\kitten\CubeRenderable.h" />
     <ClInclude Include="..\kitten\Frustum.h" />
@@ -154,6 +160,7 @@
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
     <ClInclude Include="..\Shapes\Cube.h" />
+    <ClInclude Include="..\unit\UnitData.h" />
     <ClInclude Include="..\wolf\W_Common.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="ZoomByMouseWheel.h" />

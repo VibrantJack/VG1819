@@ -1,0 +1,10 @@
+{
+    "datatype":"unit",
+    "name":"true hdmof",
+    "hp":1,
+    "mv":2,
+    "in":3,
+    "cost":4,
+    "tags": ["hello","darkness"],
+    "sd": ["my","old","friend"]
+}

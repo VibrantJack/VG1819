@@ -92,6 +92,12 @@
     <ClCompile Include="ZoomByMouseWheel.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\kibble\json\JSONDataParserFactory.cpp">
+      <Filter>kibble\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\UnitData.cpp">
+      <Filter>unit</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -202,6 +208,21 @@
     <ClInclude Include="ZoomByMouseWheel.h">
       <Filter>components</Filter>
     </ClInclude>
+    <ClInclude Include="..\kibble\DataParserFactory.hpp">
+      <Filter>kibble</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\json\JSONDataParserFactory.hpp">
+      <Filter>kibble\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\UnitData.h">
+      <Filter>unit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\json.hpp">
+      <Filter>kibble\JSON</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -224,6 +245,18 @@
     </Filter>
     <Filter Include="components">
       <UniqueIdentifier>{f5400d70-bee9-4352-8219-b7c5df560184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kibble">
+      <UniqueIdentifier>{ae55f032-ef3d-4dd9-aa33-eaeb4d9be2ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kibble\JSON">
+      <UniqueIdentifier>{ddcb6ed0-4913-41a9-8aa4-728619d7b05e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kibble\JSON\Datatypes">
+      <UniqueIdentifier>{72f59742-da80-4fb3-98ce-d3d24f5985b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="unit">
+      <UniqueIdentifier>{d87717ee-3c59-401f-8825-28a60a0eb1fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
