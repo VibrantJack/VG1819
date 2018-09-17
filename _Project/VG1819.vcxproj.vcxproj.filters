@@ -226,4 +226,7 @@
       <UniqueIdentifier>{f5400d70-bee9-4352-8219-b7c5df560184}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="glew32.dll" />
+  </ItemGroup>
 </Project>
