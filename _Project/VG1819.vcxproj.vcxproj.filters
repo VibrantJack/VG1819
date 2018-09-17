@@ -98,6 +98,24 @@
     <ClCompile Include="..\kibble\json\JSONUnitDataParser.cpp">
       <Filter>kibble\JSON</Filter>
     </ClCompile>
+    <ClCompile Include="..\kibble\json\JSONGameObjectDataParser.cpp">
+      <Filter>kibble\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\json\JSONComponentDataParser.cpp">
+      <Filter>kibble\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\kibble.cpp">
+      <Filter>kibble</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\json\jsonextra.cpp">
+      <Filter>kibble\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -223,8 +241,26 @@
     <ClInclude Include="..\kibble\json\JSONUnitDataParser.hpp">
       <Filter>kibble\JSON</Filter>
     </ClInclude>
+    <ClInclude Include="..\kibble\json\JSONGameObjectDataParser.hpp">
+      <Filter>kibble\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\GameObjectDataParser.hpp">
+      <Filter>kibble</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\ComponentDataParser.hpp">
+      <Filter>kibble</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\json\JSONComponentDataParser.hpp">
+      <Filter>kibble\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\kibble.hpp">
+      <Filter>kibble</Filter>
+    </ClInclude>
     <ClInclude Include="..\kibble\json\jsonextra.hpp">
       <Filter>kibble\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

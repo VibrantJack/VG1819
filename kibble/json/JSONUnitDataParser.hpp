@@ -1,6 +1,4 @@
-/*
-Interface between the under belly of the parser and the actual game. 
-*/
+#pragma once
 #include "kibble/UnitDataParser.hpp"
 #include "unit/UnitData.h"
 

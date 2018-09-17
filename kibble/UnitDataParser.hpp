@@ -1,3 +1,4 @@
+#pragma once
 #include "unit/UnitData.h"
 
 #include <string>

@@ -29,16 +29,16 @@ There's also (another example) [data/unit/testunit2.txt] without ad and size.
 ### Unit List
 A unit list file will have the following format  
 
-> {
->    "units" : [
->       {
->           "name" : "", ...
->       },
->       {
->           "name" : "", ...
->       }...
->   ]
-> }
+> {  
+>    "units" : [  
+>       {  
+>           "name" : "", ...  
+>       },  
+>       {  
+>           "name" : "", ...  
+>       }, ...  
+>   ]  
+> }  
 
 All it is, is an array of Units of the past format. 
 This follows the same exact rules as the Unit format. 
