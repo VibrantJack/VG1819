@@ -1,20 +1,17 @@
-All json files will contain a "datatype" attribute to identify themselves
-
 ## Format
 ### Unit
 A unit file will have the following format  
   
-> {   
->   "datatype" : "unit",  
+> {     
 >   "name" : "",  
 >   "hp" : ,  
 >   "mv" : ,  
 >   "in" : ,  
 >   "cost" : ,  
->   "size" : "", 
->   "tags" : [ ],
->   "ad" : [ ],
->   "sd" : [ ],
+>   "size" : "",   
+>   "tags" : [ ],  
+>   "ad" : [ ],  
+>   "sd" : [ ],  
 > }
   
 The size attribute is optional. By default it will assign a cube size.  
@@ -26,5 +23,22 @@ ad short for ability description, and is optional. Needs an array of string valu
 
 sd short for status description, and is optional. Needs an array of strings values.
 
-Within the data files is an (example)[data/unit/testunit.txt] without tags, ad, sd and size. 
-There's also (another example)[data/unit/testunit2.txt] without ad and size.
+Within the data files is an (example) [data/unit/testunit.txt] without tags, ad, sd and size. 
+There's also (another example) [data/unit/testunit2.txt] without ad and size.
+
+### Unit List
+A unit list file will have the following format  
+
+> {
+>    "units" : [
+>       {
+>           "name" : "", ...
+>       },
+>       {
+>           "name" : "", ...
+>       }...
+>   ]
+> }
+
+All it is, is an array of Units of the past format. 
+This follows the same exact rules as the Unit format. 

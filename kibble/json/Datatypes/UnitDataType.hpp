@@ -1,9 +1,8 @@
-#include "json.hpp"
+#include "jsonextra.hpp"
 #include "unit/UnitData.h"
+#include <vector>
 
 UnitData* getUnitDataFrom(nlohmann::json jsonfile) {
-	assert(jsonfile["datatype"] == "unit");
-
 	std::string name;
 	int hp, mv, in, cost;
 	UnitSize size = UnitSize::cube;
@@ -43,4 +42,14 @@ UnitData* getUnitDataFrom(nlohmann::json jsonfile) {
 	}
 	
 	return new UnitData(name, hp, mv, in, cost, size, tags, ad, sd);
+}
+
+std::vector<UnitData*> getMultipleUnitDataFrom(nlohmann::json jsonfile) {
+	assert(jsonfile["units"].is_array());
+	std::vector<UnitData*> units;
+	for (nlohmann::json::iterator it = jsonfile["units"].begin(); it != jsonfile["units"].end(); ++it) {
+		units.push_back(getUnitDataFrom(*it));
+	}
+
+	return units;
 }

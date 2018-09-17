@@ -92,11 +92,11 @@
     <ClCompile Include="ZoomByMouseWheel.cpp">
       <Filter>components</Filter>
     </ClCompile>
-    <ClCompile Include="..\kibble\json\JSONDataParserFactory.cpp">
-      <Filter>kibble\JSON</Filter>
-    </ClCompile>
     <ClCompile Include="..\unit\UnitData.cpp">
       <Filter>unit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\json\JSONUnitDataParser.cpp">
+      <Filter>kibble\JSON</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,12 +208,6 @@
     <ClInclude Include="ZoomByMouseWheel.h">
       <Filter>components</Filter>
     </ClInclude>
-    <ClInclude Include="..\kibble\DataParserFactory.hpp">
-      <Filter>kibble</Filter>
-    </ClInclude>
-    <ClInclude Include="..\kibble\json\JSONDataParserFactory.hpp">
-      <Filter>kibble\JSON</Filter>
-    </ClInclude>
     <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp">
       <Filter>kibble\JSON\Datatypes</Filter>
     </ClInclude>
@@ -221,6 +215,15 @@
       <Filter>unit</Filter>
     </ClInclude>
     <ClInclude Include="..\json.hpp">
+      <Filter>kibble\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\UnitDataParser.hpp">
+      <Filter>kibble</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\json\JSONUnitDataParser.hpp">
+      <Filter>kibble\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\json\jsonextra.hpp">
       <Filter>kibble\JSON</Filter>
     </ClInclude>
   </ItemGroup>

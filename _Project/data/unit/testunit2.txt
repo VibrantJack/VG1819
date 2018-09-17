@@ -1,5 +1,4 @@
 {
-    "datatype":"unit",
     "name":"true hdmof",
     "hp":1,
     "mv":2,

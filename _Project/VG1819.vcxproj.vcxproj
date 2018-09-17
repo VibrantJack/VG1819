@@ -88,7 +88,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\kibble\json\JSONDataParserFactory.cpp" />
+    <ClCompile Include="..\kibble\json\JSONUnitDataParser.cpp" />
     <ClCompile Include="..\kitten\Camera.cpp" />
     <ClCompile Include="..\kitten\CubeRenderable.cpp" />
     <ClCompile Include="..\kitten\InputManager.cpp" />
@@ -124,9 +124,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\json.hpp" />
-    <ClInclude Include="..\kibble\DataParserFactory.hpp" />
+    <ClInclude Include="..\kibble\json\jsonextra.hpp" />
+    <ClInclude Include="..\kibble\UnitDataParser.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp" />
-    <ClInclude Include="..\kibble\json\JSONDataParserFactory.hpp" />
+    <ClInclude Include="..\kibble\json\JSONUnitDataParser.hpp" />
     <ClInclude Include="..\kitten\Camera.h" />
     <ClInclude Include="..\kitten\CubeRenderable.h" />
     <ClInclude Include="..\kitten\Frustum.h" />

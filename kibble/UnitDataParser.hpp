@@ -1,12 +1,12 @@
-#include "kitten/K_GameObject.h"
 #include "unit/UnitData.h"
 
 #include <string>
+#include <vector>
 
 namespace kibble {
-	class DataParserFactory {
+	class UnitDataParser {
 	public:
-		virtual kitten::K_GameObject* getGameObject(std::string filename) = 0;
 		virtual UnitData* getUnit(std::string filename) = 0;
+		virtual std::vector<UnitData*> getUnitList(std::string filename) = 0;
 	};
 }
