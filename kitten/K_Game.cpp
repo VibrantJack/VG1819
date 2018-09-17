@@ -12,6 +12,8 @@
 #include "kitten\CubeRenderable.h"
 #include "_Project\MoveByMouseRightClickDrag.h"
 
+#include "gameworld\GameBoard.h"
+
 namespace kitten
 {
 	void createSingletons()
@@ -43,12 +45,17 @@ namespace kitten
 		camGameObj->addComponent(mouseMove);
 
 
-		K_GameObject* cubeGameObj = K_GameObjectManager::getInstance()->createNewGameObject();
-		K_Component* cubeRend = compMan->createComponent("CubeRenderable");
-		cubeGameObj->addComponent(cubeRend);
+		K_GameObject* testtile = K_GameObjectManager::getInstance()->createNewGameObject();
+		K_Component* grassTileInfo = compMan->createComponent("Grassland");
+		testtile->addComponent(grassTileInfo);
 
-		cubeGameObj->getTransform().move(0, -2, 10);
-		cubeGameObj->getTransform().scaleAbsolute(3, 0.5f, 3);
+		K_Component* tileRenderComponent = compMan->createComponent("CubeRenderable");
+		CubeRenderable* cubeRend = static_cast<CubeRenderable*>(tileRenderComponent);
+		testtile->addComponent(cubeRend);
+		cubeRend->setTexture("textures/tiles/Grassland.tga");
+
+		testtile->getTransform().move(0, -2, 10);
+		testtile->getTransform().scaleAbsolute(3, 0.5f, 3);
 
 		return true;
 	}

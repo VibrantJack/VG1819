@@ -202,6 +202,15 @@
     <ClInclude Include="MoveByMouseRightClickDrag.h">
       <Filter>components</Filter>
     </ClInclude>
+    <ClInclude Include="..\gameworld\TileInformationComponent.h">
+      <Filter>gameworld</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gameworld\GrassLandInfoComponent.h">
+      <Filter>gameworld</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gameworld\GameBoard.h">
+      <Filter>gameworld</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -224,6 +233,9 @@
     </Filter>
     <Filter Include="components">
       <UniqueIdentifier>{f5400d70-bee9-4352-8219-b7c5df560184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameworld">
+      <UniqueIdentifier>{948aa3c4-54f4-4372-b5a5-e4b3ab343175}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

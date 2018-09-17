@@ -119,6 +119,9 @@
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\gameworld\GameBoard.h" />
+    <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
+    <ClInclude Include="..\gameworld\TileInformationComponent.h" />
     <ClInclude Include="..\kitten\Camera.h" />
     <ClInclude Include="..\kitten\CubeRenderable.h" />
     <ClInclude Include="..\kitten\FPSCamera.h" />
