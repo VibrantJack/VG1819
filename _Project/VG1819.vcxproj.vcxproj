@@ -88,6 +88,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\ability\AbilityManager.cpp" />
+    <ClCompile Include="..\ability\ability\Heal.cpp" />
+    <ClCompile Include="..\ability\node\AbilityNode.cpp" />
+    <ClCompile Include="..\ability\node\AbilityNodeManager.cpp" />
+    <ClCompile Include="..\ability\node\ChangeCounterNode.cpp" />
+    <ClCompile Include="..\ability\node\ChangeHPNode.cpp" />
     <ClCompile Include="..\kitten\Camera.cpp" />
     <ClCompile Include="..\kitten\CubeRenderable.cpp" />
     <ClCompile Include="..\kitten\InputManager.cpp" />
@@ -115,12 +121,27 @@
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
     <ClCompile Include="..\Shapes\Cube.cpp" />
+    <ClCompile Include="..\unit\Unit.cpp" />
+    <ClCompile Include="..\unit\UnitData.cpp" />
+    <ClCompile Include="..\unit\UnitMonitor.cpp" />
+    <ClCompile Include="..\unit\UnitSpawn.cpp" />
+    <ClCompile Include="..\unit\UnitTest.cpp" />
     <ClCompile Include="..\wolf\W_Common.cpp" />
+    <ClCompile Include="DebugPrintOnce.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
     <ClCompile Include="ZoomByMouseWheel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\ability\AbilityInfoPackage.h" />
+    <ClInclude Include="..\ability\AbilityManager.h" />
+    <ClInclude Include="..\ability\ability\Ability.h" />
+    <ClInclude Include="..\ability\ability\Heal.h" />
+    <ClInclude Include="..\ability\node\AbilityNode.h" />
+    <ClInclude Include="..\ability\node\AbilityNodeManager.h" />
+    <ClInclude Include="..\ability\node\ChangeCounterNode.h" />
+    <ClInclude Include="..\ability\node\ChangeHPNode.h" />
+    <ClInclude Include="..\ability\status\Status.h" />
     <ClInclude Include="..\kitten\Camera.h" />
     <ClInclude Include="..\kitten\CubeRenderable.h" />
     <ClInclude Include="..\kitten\Frustum.h" />
@@ -154,7 +175,15 @@
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
     <ClInclude Include="..\Shapes\Cube.h" />
+    <ClInclude Include="..\unit\Unit.h" />
+    <ClInclude Include="..\unit\UnitCommon.h" />
+    <ClInclude Include="..\unit\UnitData.h" />
+    <ClInclude Include="..\unit\UnitGraphic.h" />
+    <ClInclude Include="..\unit\UnitMonitor.h" />
+    <ClInclude Include="..\unit\UnitSpawn.h" />
+    <ClInclude Include="..\unit\UnitTest.h" />
     <ClInclude Include="..\wolf\W_Common.h" />
+    <ClInclude Include="DebugPrintOnce.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="ZoomByMouseWheel.h" />
   </ItemGroup>

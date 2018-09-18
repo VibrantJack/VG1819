@@ -68,12 +68,14 @@ void UnitMonitor::printUnit(Unit* p_u)
 	std::cout << "Size: " << p_u->m_size << std::endl;
 
 	//counter
+	/*
 	std::cout << "Counter: ";
 	for (std::pair<std::string,int> entry : p_u->m_Counter)
 	{
 		std::cout << "\t" << entry.first << " : " << entry.second << std::endl;
 	}
-	
+	*/
+
 	std::cout << "Ability: ";
 	for (int i = 0; i < p_u->m_Ability.size(); i++)
 	{

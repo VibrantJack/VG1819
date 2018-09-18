@@ -13,7 +13,9 @@ public:
 	std::string m_name;
 
 	std::map<std::string, int> m_attributes;
+	//attributes includes all numerical attribute and counter
 
+	/*
 	int m_maxHP;
 	int m_HP;
 	int m_baseMV;
@@ -24,9 +26,10 @@ public:
 	int m_Cost;
 	int m_LV;
 
-	UnitSize m_size;
-
 	std::map<std::string, int> m_Counter;
+	*/
+
+	UnitSize m_size;
 
 	std::vector<std::string> m_Ability;//TO DO: should include more information such as power, counter
 

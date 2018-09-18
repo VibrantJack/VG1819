@@ -74,7 +74,8 @@ Unit * UnitSpawn::spawnCommanderFromData(UnitData * p_unitData)
 	Unit* unit = spawnUnitFromData(p_unitData);
 
 	//change lv to -1 since it doesn't apply to commander
-	unit->m_LV = -1;
+	//unit->m_LV = -1;
+	unit->m_attributes["LV"] = -1;
 
 	unit->m_ID = "testCommander01";
 
