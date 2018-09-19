@@ -48,6 +48,7 @@ namespace unit
 
 		UnitData* data = new UnitData(name, HP, MV, IN, Cost, size, tags, abilityDescription, statusDescription);
 
+		kibble::initializeKibbleRelatedComponents();
 		kibble::UnitDataParser* parser = kibble::getUnitDataParserInstance();
 		Unit* random = UnitSpawn::getInstance()->spawnUnitFromData(parser->getUnit("data/unit/testDummy.txt"));
 
