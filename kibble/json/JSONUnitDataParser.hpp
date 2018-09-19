@@ -7,7 +7,7 @@
 namespace kibble {
 	class JSONUnitDataParser : public kibble::UnitDataParser {
 	public:
-		UnitData* getUnit(std::string filename);
-		std::vector<UnitData*> getUnitList(std::string filename);
+		UnitData* getUnit(const std::string& filename);
+		std::vector<UnitData*> getUnitList(const std::string& filename);
 	};
 }

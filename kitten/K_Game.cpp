@@ -12,7 +12,6 @@
 #include "kitten\CubeRenderable.h"
 #include "_Project\MoveByMouseRightClickDrag.h"
 
-#include "kibble/json/JSONGameObjectDataParser.hpp"
 #include "kibble/kibble.hpp"
 
 namespace kitten
@@ -27,6 +26,8 @@ namespace kitten
 
 		puppy::MaterialManager::createInstance();
 		puppy::Renderer::createInstance();
+
+		kibble::initializeKibbleRelatedComponents();
 	}
 
 	// This is called once at the beginning of the game
@@ -34,15 +35,12 @@ namespace kitten
 	{
 		createSingletons();
 
-		kibble::setupKibbleRelatedComponents();
-		kibble::JSONGameObjectDataParser fileparser;
-
 		// Temporary stuff until Kibble is ready
 		K_ComponentManager* compMan = K_ComponentManager::getInstance();
 		input::InputManager::getInstance()->resetMouse(false);
 
 		//Creating a gameobject
-		K_GameObject* camGameObj = fileparser.getGameObject("data/gameobject/camgameobj.txt");
+		K_GameObject* camGameObj =  K_GameObjectManager::getInstance()->createNewGameObject("data/gameobject/camgameobj.txt");
 		camGameObj->getTransform().rotateRelative(glm::vec3(-33.0f, 0, 0));
 
 		K_GameObject* cubeGameObj = K_GameObjectManager::getInstance()->createNewGameObject();
@@ -57,6 +55,8 @@ namespace kitten
 
 	void destroySingletons()
 	{
+		kibble::destroyKibbleRelatedComponents();
+
 		input::InputManager::destroyInstance();
 		K_CameraList::destroyInstance();
 		K_ComponentManager::destroyInstance();

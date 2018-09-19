@@ -1,5 +1,10 @@
 #pragma once
+#include "kibble/GameObjectDataParser.hpp"
+#include "kibble/UnitDataParser.hpp"
 
 namespace kibble {
-	void setupKibbleRelatedComponents();
+	void initializeKibbleRelatedComponents();
+	void destroyKibbleRelatedComponents();
+	GameObjectDataParser* getGameObjectDataParserInstance();
+	UnitDataParser* getUnitDataParserInstance();
 }

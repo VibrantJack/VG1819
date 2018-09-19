@@ -2,7 +2,28 @@
 #include "kibble.hpp"
 #include "json/JSONComponentDataParser.hpp"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
+#include "kibble/json/JSONGameObjectDataParser.hpp"
+#include "kibble/json/JSONUnitDataParser.hpp"
 
-void kibble::setupKibbleRelatedComponents() {
+kibble::GameObjectDataParser* gameObjectParser;
+kibble::UnitDataParser* unitParser;
+
+void kibble::initializeKibbleRelatedComponents() {
 	setupComponentMap();
+
+	gameObjectParser = new JSONGameObjectDataParser();
+	unitParser = new JSONUnitDataParser();
+}
+
+void kibble::destroyKibbleRelatedComponents() {
+	delete gameObjectParser;
+	delete unitParser;
+}
+
+kibble::GameObjectDataParser* kibble::getGameObjectDataParserInstance() {
+	return gameObjectParser;
+}
+
+kibble::UnitDataParser* kibble::getUnitDataParserInstance() {
+	return unitParser;
 }

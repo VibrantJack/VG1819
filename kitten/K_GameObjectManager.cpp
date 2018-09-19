@@ -1,4 +1,5 @@
 #include "K_GameObjectManager.h"
+#include "kibble/kibble.hpp"
 
 namespace kitten
 {
@@ -17,11 +18,17 @@ namespace kitten
 	K_GameObject* K_GameObjectManager::createNewGameObject()
 	{
 		K_GameObject* toReturn = new K_GameObject();
-		
+
 		toReturn->m_objectIndex = m_totalObjects++;
 		m_gameObjects.push_back(toReturn);
 
 		return toReturn;
+	}
+
+	K_GameObject* K_GameObjectManager::createNewGameObject(const std::string& filename)
+	{
+		kibble::GameObjectDataParser* parser = kibble::getGameObjectDataParserInstance();
+		return parser->getGameObject(filename);
 	}
 
 	void K_GameObjectManager::destroyGameObject(K_GameObject* p_toDestroy)

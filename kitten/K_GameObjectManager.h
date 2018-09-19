@@ -21,6 +21,7 @@ namespace kitten
 
 
 		K_GameObject * createNewGameObject();
+		K_GameObject * createNewGameObject(const std::string& filename);
 		void destroyGameObject(K_GameObject* p_toDestroy);
 	};
 }

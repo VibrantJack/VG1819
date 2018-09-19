@@ -6,6 +6,7 @@
 namespace kibble {
 	class GameObjectDataParser {
 	public:
-		virtual kitten::K_GameObject* getGameObject(std::string filename) = 0;
+		// Make sure all concrete implementations get their object directly from the GameObjectManager
+		virtual kitten::K_GameObject* getGameObject(const std::string& filename) = 0;
 	};
 }

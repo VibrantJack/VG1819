@@ -1,7 +1,7 @@
 #include "jsonextra.hpp"
 #include <fstream>
 
-nlohmann::json jsonIn(std::string filename) {
+nlohmann::json jsonIn(const std::string& filename) {
 	std::ifstream input(filename);
 	nlohmann::json jsontarget;
 	if (input.is_open()) {
