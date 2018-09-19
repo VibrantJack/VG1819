@@ -1,46 +1,51 @@
 #include "Unit.h"
 
-Unit::Unit()
-{
-}
+//@Rock
 
-
-Unit::~Unit()
+namespace unit
 {
-}
-
-void Unit::addStatus(Status *p_newStatus)
-{
-	m_Status.push_back(p_newStatus);
-}
-
-bool Unit::removeStatus(Status * p_oldStatus)
-{
-	for (std::vector<Status*>::iterator it = m_Status.begin(); it != m_Status.end(); it++)
+	Unit::Unit()
 	{
-		if (*it == p_oldStatus)
-		{
-			m_Status.erase(it);
-			return true;
-		}
 	}
-	return false;
-}
 
-int Unit::useAbility(int p_abilityIndex)
-{
-	//TO DO assemble info package
 
-	//test purpose
-	AbilityInfoPackage* info = new AbilityInfoPackage();
-	info->m_target = this;
-	info->m_power = 4;
+	Unit::~Unit()
+	{
+	}
 
-	return AbilityManager::getInstance()->useAbility(m_Ability[p_abilityIndex], info);
-}
+	void Unit::addStatus(ability::Status *p_newStatus)
+	{
+		m_Status.push_back(p_newStatus);
+	}
 
-int Unit::callStatus(int p_StatusIndex, int p_event)
-{
-	//TO DO: method call for status
-	return false;
+	bool Unit::removeStatus(ability::Status * p_oldStatus)
+	{
+		for (std::vector<ability::Status*>::iterator it = m_Status.begin(); it != m_Status.end(); it++)
+		{
+			if (*it == p_oldStatus)
+			{
+				m_Status.erase(it);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	int Unit::useAbility(int p_abilityIndex)
+	{
+		//TO DO assemble info package
+
+		//test purpose
+		ability::AbilityInfoPackage* info = new ability::AbilityInfoPackage();
+		info->m_target = this;
+		info->m_power = 4;
+
+		return ability::AbilityManager::getInstance()->useAbility(m_Ability[p_abilityIndex], info);
+	}
+
+	int Unit::callStatus(int p_StatusIndex, int p_event)
+	{
+		//TO DO: method call for status
+		return false;
+	}
 }
