@@ -256,6 +256,7 @@
     <ClInclude Include="MoveByMouseRightClickDrag.h">
       <Filter>components</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="ZoomByMouseWheel.h">
       <Filter>components</Filter>
     </ClInclude>
@@ -342,6 +343,16 @@
     </ClInclude>
     <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp">
       <Filter>kibble\JSON\Datatypes</Filter>
+=======
+    <ClInclude Include="..\gameworld\TileInformationComponent.h">
+      <Filter>gameworld</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gameworld\GrassLandInfoComponent.h">
+      <Filter>gameworld</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gameworld\GameBoard.h">
+      <Filter>gameworld</Filter>
+>>>>>>> BoardDevelopment
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -366,6 +377,7 @@
     <Filter Include="components">
       <UniqueIdentifier>{f5400d70-bee9-4352-8219-b7c5df560184}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="ability">
       <UniqueIdentifier>{b85de98b-7ae9-47f0-9e8d-eedae08c9cab}</UniqueIdentifier>
     </Filter>
@@ -386,6 +398,10 @@
     </Filter>
     <Filter Include="kibble\JSON">
       <UniqueIdentifier>{ddcb6ed0-4913-41a9-8aa4-728619d7b05e}</UniqueIdentifier>
+=======
+    <Filter Include="gameworld">
+      <UniqueIdentifier>{948aa3c4-54f4-4372-b5a5-e4b3ab343175}</UniqueIdentifier>
+>>>>>>> BoardDevelopment
     </Filter>
   </ItemGroup>
 </Project>
