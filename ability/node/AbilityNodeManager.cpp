@@ -12,12 +12,12 @@ namespace ability
 		AbilityNode* newNode;
 
 		//TO DO: improve
-		newNode = new ChangeCounterNode();
-		newNode->m_name = "ChangeCounterNode";
+		newNode = new ChangeAttributeNode();
+		newNode->m_name = "ChangeAttributeNode";
 		m_nodeList.push_back(newNode);
 
-		newNode = new ChangeHPNode();
-		newNode->m_name = "ChangeHPNode";
+		newNode = new CheckHPNode();
+		newNode->m_name = "CheckHPNode";
 		m_nodeList.push_back(newNode);
 	}
 

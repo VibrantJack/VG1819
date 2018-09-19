@@ -17,7 +17,13 @@ namespace ability
 	int AbilityNode::effect()
 	{
 		return -1;
-	};
+	}
+
+	int AbilityNode::effect(unit::Unit * p_target)
+	{
+		return -1;
+	}
+	;
 
 	int AbilityNode::effect(unit::Unit* p_target, int p_value)
 	{

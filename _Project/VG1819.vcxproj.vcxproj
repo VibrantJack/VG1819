@@ -92,8 +92,8 @@
     <ClCompile Include="..\ability\ability\Heal.cpp" />
     <ClCompile Include="..\ability\node\AbilityNode.cpp" />
     <ClCompile Include="..\ability\node\AbilityNodeManager.cpp" />
-    <ClCompile Include="..\ability\node\ChangeCounterNode.cpp" />
-    <ClCompile Include="..\ability\node\ChangeHPNode.cpp" />
+    <ClCompile Include="..\ability\node\ChangeAttributeNode.cpp" />
+    <ClCompile Include="..\ability\node\CheckHPNode.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp" />
     <ClCompile Include="..\kibble\json\JSONComponentDataParser.cpp" />
@@ -146,8 +146,8 @@
     <ClInclude Include="..\ability\ability\Heal.h" />
     <ClInclude Include="..\ability\node\AbilityNode.h" />
     <ClInclude Include="..\ability\node\AbilityNodeManager.h" />
-    <ClInclude Include="..\ability\node\ChangeCounterNode.h" />
-    <ClInclude Include="..\ability\node\ChangeHPNode.h" />
+    <ClInclude Include="..\ability\node\ChangeAttributeNode.h" />
+    <ClInclude Include="..\ability\node\CheckHPNode.h" />
     <ClInclude Include="..\ability\status\Status.h" />
     <ClInclude Include="..\gameworld\GameBoard.h" />
     <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />

@@ -110,12 +110,6 @@
     <ClCompile Include="..\ability\node\AbilityNode.cpp">
       <Filter>ability\node</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\node\ChangeCounterNode.cpp">
-      <Filter>ability\node</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\node\ChangeHPNode.cpp">
-      <Filter>ability\node</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\AbilityManager.cpp">
       <Filter>ability</Filter>
     </ClCompile>
@@ -145,6 +139,12 @@
     </ClCompile>
     <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp" />
+    <ClCompile Include="..\ability\node\ChangeAttributeNode.cpp">
+      <Filter>ability\node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\node\CheckHPNode.cpp">
+      <Filter>ability\node</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -279,12 +279,6 @@
     <ClInclude Include="..\ability\node\AbilityNode.h">
       <Filter>ability\node</Filter>
     </ClInclude>
-    <ClInclude Include="..\ability\node\ChangeCounterNode.h">
-      <Filter>ability\node</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ability\node\ChangeHPNode.h">
-      <Filter>ability\node</Filter>
-    </ClInclude>
     <ClInclude Include="..\ability\status\Status.h">
       <Filter>ability\status</Filter>
     </ClInclude>
@@ -338,6 +332,12 @@
     <ClInclude Include="..\gameworld\GameBoard.h" />
     <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
     <ClInclude Include="..\gameworld\TileInformationComponent.h" />
+    <ClInclude Include="..\ability\node\ChangeAttributeNode.h">
+      <Filter>ability\node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ability\node\CheckHPNode.h">
+      <Filter>ability\node</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
