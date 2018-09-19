@@ -53,16 +53,31 @@ namespace kitten
 			//Not found..
 			return nullptr;
 		}
-		
+
 		if (comp->hasUpdate())
 		{
 			m_toUpdate.push_back(comp);
 		}
-		
+
 
 		//Successful
 		return comp;
 	}
+
+	K_Component* K_ComponentManager::createComponent(kibble::ComponentDataParser* data)
+	{
+		K_Component* comp = data->getComponentInternally();
+		if (comp == nullptr) return nullptr;
+
+		if (comp->hasUpdate())
+		{
+			m_toUpdate.push_back(comp);
+		}
+
+		//Successful
+		return comp;
+	}
+
 
 	//bool mostly for debugging
 	bool K_ComponentManager::destroyComponent(K_Component* p_toDestroy)

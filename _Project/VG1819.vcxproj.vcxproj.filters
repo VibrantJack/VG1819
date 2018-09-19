@@ -128,6 +128,27 @@
     <ClCompile Include="DebugPrintOnce.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\kibble\json\JSONUnitDataParser.cpp">
+      <Filter>kibble\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\json\JSONGameObjectDataParser.cpp">
+      <Filter>kibble\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\json\JSONComponentDataParser.cpp">
+      <Filter>kibble\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\kibble.cpp">
+      <Filter>kibble</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\json\jsonextra.cpp">
+      <Filter>kibble\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -244,6 +265,9 @@
     <ClInclude Include="..\unit\UnitCommon.h">
       <Filter>unit</Filter>
     </ClInclude>
+    <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
+    </ClInclude>
     <ClInclude Include="..\unit\UnitData.h">
       <Filter>unit</Filter>
     </ClInclude>
@@ -289,6 +313,36 @@
     <ClInclude Include="DebugPrintOnce.h">
       <Filter>components</Filter>
     </ClInclude>
+    <ClInclude Include="..\json.hpp">
+      <Filter>kibble\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\UnitDataParser.hpp">
+      <Filter>kibble</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\json\JSONUnitDataParser.hpp">
+      <Filter>kibble\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\json\JSONGameObjectDataParser.hpp">
+      <Filter>kibble\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\GameObjectDataParser.hpp">
+      <Filter>kibble</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\ComponentDataParser.hpp">
+      <Filter>kibble</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\json\JSONComponentDataParser.hpp">
+      <Filter>kibble\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\kibble.hpp">
+      <Filter>kibble</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\json\jsonextra.hpp">
+      <Filter>kibble\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -326,6 +380,12 @@
     </Filter>
     <Filter Include="ability\status">
       <UniqueIdentifier>{9b061a6d-a7f8-407a-88f8-14da0d545b93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kibble">
+      <UniqueIdentifier>{ae55f032-ef3d-4dd9-aa33-eaeb4d9be2ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kibble\JSON">
+      <UniqueIdentifier>{ddcb6ed0-4913-41a9-8aa4-728619d7b05e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
