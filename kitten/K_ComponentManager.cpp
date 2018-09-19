@@ -4,8 +4,6 @@
 
 #include "Camera.h"
 #include "CubeRenderable.h"
-#include "gameworld/TileInformationComponent.h"
-#include "gameworld\GrassLandInfoComponent.h"
 #include "_Project\MoveByMouseRightClickDrag.h"
 #include "_Project\ZoomByMouseWheel.h"
 #include "_Project\DebugPrintOnce.h"
@@ -36,11 +34,7 @@ namespace kitten
 		}
 		else if (p_componentName == "CubeRenderable")
 		{
-			comp = new CubeRenderable("textures/tiles/MISSING.tga");
-		}
-		else if (p_componentName == "Grassland")
-		{
-			comp = new gameworld::GrasslandInfoComponent();
+			comp = new CubeRenderable("textures/crap/cartoon_cobble.tga");
 		}
 		else if (p_componentName == "MoveByMouseRightClickDrag")
 		{

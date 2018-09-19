@@ -82,11 +82,6 @@ namespace kitten
 		}
 	}
 
-	void CubeRenderable::setTexture(const char* p_pathToTex)
-	{
-		m_mat->setTexture(p_pathToTex);
-	}
-
 	void CubeRenderable::render(const glm::mat4& p_viewProj)
 	{
 		m_mat->apply();

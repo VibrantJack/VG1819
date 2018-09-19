@@ -15,8 +15,6 @@
 
 #include "kibble/kibble.hpp"
 
-#include "gameworld\GameBoard.h"
-
 namespace kitten
 {
 	void createSingletons()
@@ -46,7 +44,6 @@ namespace kitten
 		K_GameObject* camGameObj =  K_GameObjectManager::getInstance()->createNewGameObject("data/gameobject/camgameobj.txt");
 		camGameObj->getTransform().rotateRelative(glm::vec3(-33.0f, 0, 0));
 
-<<<<<<< HEAD
 		K_GameObject* cubeGameObj = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* cubeRend = compMan->createComponent("CubeRenderable");
 		K_Component* debugPrint = compMan->createComponent("DebugPrintOnce");
@@ -55,19 +52,6 @@ namespace kitten
 
 		cubeGameObj->getTransform().move(0, -10, 30);
 		cubeGameObj->getTransform().scaleAbsolute(30, 0.5f, 30);
-=======
-		K_GameObject* testtile = K_GameObjectManager::getInstance()->createNewGameObject();
-		K_Component* grassTileInfo = compMan->createComponent("Grassland");
-		testtile->addComponent(grassTileInfo);
-
-		K_Component* tileRenderComponent = compMan->createComponent("CubeRenderable");
-		CubeRenderable* cubeRend = static_cast<CubeRenderable*>(tileRenderComponent);
-		testtile->addComponent(cubeRend);
-		cubeRend->setTexture("textures/tiles/Grassland.tga");
-
-		testtile->getTransform().move(0, -2, 10);
-		testtile->getTransform().scaleAbsolute(3, 0.5f, 3);
->>>>>>> BoardDevelopment
 
 		return true;
 	}

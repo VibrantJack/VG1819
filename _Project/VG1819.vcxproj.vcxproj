@@ -140,7 +140,6 @@
     <ClCompile Include="ZoomByMouseWheel.cpp" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <ClInclude Include="..\ability\AbilityInfoPackage.h" />
     <ClInclude Include="..\ability\AbilityManager.h" />
     <ClInclude Include="..\ability\ability\Ability.h" />
@@ -161,11 +160,6 @@
     <ClInclude Include="..\kibble\UnitDataParser.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp" />
     <ClInclude Include="..\kibble\json\JSONUnitDataParser.hpp" />
-=======
-    <ClInclude Include="..\gameworld\GameBoard.h" />
-    <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
-    <ClInclude Include="..\gameworld\TileInformationComponent.h" />
->>>>>>> BoardDevelopment
     <ClInclude Include="..\kitten\Camera.h" />
     <ClInclude Include="..\kitten\CubeRenderable.h" />
     <ClInclude Include="..\kitten\Frustum.h" />
