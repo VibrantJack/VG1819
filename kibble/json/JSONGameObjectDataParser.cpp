@@ -5,12 +5,12 @@
 #include "kitten/K_ComponentManager.h"
 #include <string>
 
-kitten::K_GameObject* kibble::JSONGameObjectDataParser::getGameObject(const std::string& filename) {
+kitten::K_GameObject* kibble::JSONGameObjectDataParser::getGameObject(const std::string& p_filename) {
 	// going through both managers is important! 
 	kitten::K_GameObjectManager* gameobjectmanager = kitten::K_GameObjectManager::getInstance();
 	kitten::K_ComponentManager* componentmanager = kitten::K_ComponentManager::getInstance();
 	kitten::K_GameObject* gameobject = gameobjectmanager->createNewGameObject();
-	nlohmann::json jsonfile = jsonIn(filename);
+	nlohmann::json jsonfile = jsonIn(p_filename);
 
 	// add all attributes related to game object only here!
 

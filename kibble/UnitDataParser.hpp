@@ -7,7 +7,7 @@
 namespace kibble {
 	class UnitDataParser {
 	public:
-		virtual UnitData* getUnit(const std::string& filename) = 0;
-		virtual std::vector<UnitData*> getUnitList(const std::string& filename) = 0;
+		virtual UnitData* getUnit(const std::string& p_filename) = 0;
+		virtual std::vector<UnitData*> getUnitList(const std::string& p_filename) = 0;
 	};
 }

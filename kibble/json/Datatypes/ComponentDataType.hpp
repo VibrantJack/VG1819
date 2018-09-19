@@ -3,5 +3,5 @@
 #include "kitten/K_Component.h"
 #include <string>
 
-kitten::K_Component* getRelatedComponentBy(std::string key, nlohmann::json* jsonfile);
+kitten::K_Component* getRelatedComponentBy(std::string key, nlohmann::json* p_jsonfile);
 void setupComponentMap();
