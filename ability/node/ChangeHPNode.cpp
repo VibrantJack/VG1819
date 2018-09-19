@@ -1,3 +1,4 @@
+#pragma once
 #include "ChangeHPNode.h"
 #include "Unit/Unit.h"
 

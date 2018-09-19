@@ -1,3 +1,4 @@
+#pragma once
 #include "ChangeCounterNode.h"
 #include "Unit/Unit.h"
 

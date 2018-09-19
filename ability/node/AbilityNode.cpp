@@ -1,3 +1,4 @@
+#pragma once
 #include "AbilityNode.h"
 
 //Rock
