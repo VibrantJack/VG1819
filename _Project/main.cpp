@@ -5,6 +5,7 @@
 
 #include "puppy\P_Common.h"
 #include "kitten\K_Game.h"
+#include "unit/UnitTest.h"
 
 //========================================================================
 // This is needed for newer versions of Visual Studio
@@ -58,7 +59,7 @@ int main( void )
     glfwSwapInterval( 1 );
     
 	kitten::initGame();
-
+	UnitTest::getInstanceSafe()->test();
     do
     {
         t = glfwGetTime();

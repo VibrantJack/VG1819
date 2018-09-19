@@ -13,6 +13,8 @@
 #include "_Project\MoveByMouseRightClickDrag.h"
 #include "_Project\DebugPrintOnce.h"
 
+#include "kibble/kibble.hpp"
+
 namespace kitten
 {
 	void createSingletons()
@@ -25,6 +27,8 @@ namespace kitten
 
 		puppy::MaterialManager::createInstance();
 		puppy::Renderer::createInstance();
+
+		kibble::initializeKibbleRelatedComponents();
 	}
 
 	// This is called once at the beginning of the game
@@ -36,17 +40,9 @@ namespace kitten
 		K_ComponentManager* compMan = K_ComponentManager::getInstance();
 		input::InputManager::getInstance()->resetMouse(false);
 
-
 		//Creating a gameobject
-		K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject();
-		K_Component* camComp = compMan->createComponent("Camera");
-		K_Component* mouseMove = compMan->createComponent("MoveByMouseRightClickDrag");
-		K_Component* zChange = compMan->createComponent("ZoomByMouseWheel");
-		camGameObj->addComponent(camComp);
-		camGameObj->addComponent(mouseMove);
-		camGameObj->addComponent(zChange);
+		K_GameObject* camGameObj =  K_GameObjectManager::getInstance()->createNewGameObject("data/gameobject/camgameobj.txt");
 		camGameObj->getTransform().rotateRelative(glm::vec3(-33.0f, 0, 0));
-
 
 		K_GameObject* cubeGameObj = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* cubeRend = compMan->createComponent("CubeRenderable");
@@ -62,6 +58,8 @@ namespace kitten
 
 	void destroySingletons()
 	{
+		kibble::destroyKibbleRelatedComponents();
+
 		input::InputManager::destroyInstance();
 		K_CameraList::destroyInstance();
 		K_ComponentManager::destroyInstance();

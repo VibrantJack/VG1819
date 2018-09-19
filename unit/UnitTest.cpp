@@ -1,4 +1,6 @@
 #include "UnitTest.h"
+#include "ability/node/AbilityNodeManager.h"
+#include <iostream>
 
 UnitTest* UnitTest::m_instance = nullptr;
 
@@ -20,6 +22,10 @@ UnitTest * UnitTest::getInstanceSafe()
 
 void UnitTest::test()
 {
+	//createInstance
+	AbilityManager::createInstance();
+	AbilityNodeManager::createInstance();
+
 	std::string name = "testDummy";
 	int HP = 3;
 	int MV = 3;
@@ -32,15 +38,23 @@ void UnitTest::test()
 	tags.push_back("Neutral");
 
 	std::vector<std::string> abilityDescription;
-	abilityDescription.push_back("TestAbility");
+	abilityDescription.push_back("Heal");
 	std::vector<std::string> statusDescription;
 
 	UnitData* data = new UnitData(name,HP,MV,IN,Cost,size,tags,abilityDescription,statusDescription);
 
 	Unit* dummy = UnitSpawn::getInstanceSafe()->spawnUnitFromData(data);
 	Unit* dummyC = UnitSpawn::getInstance()->spawnCommanderFromData(data);
+
+	dummy->m_attributes["HP"] = 0;
+	std::cout << "Dummy with 0 HP" << std::endl;
+	std::cout << std::endl;
 	UnitMonitor::getInstanceSafe()->printUnit(dummy);
+
 	dummy->useAbility(0);
+
+	std::cout << std::endl;
+	std::cout << "Dummy used heal (+4HP) on itself." << std::endl;
 	UnitMonitor::getInstance()->printUnit(dummy);
 }
 

@@ -1,0 +1,14 @@
+{
+    "name" : "camGameObject", 
+    "components" : [
+        {
+            "name" : "Camera"
+        }, 
+        {
+            "name" : "MoveByMouseRightClickDrag"
+        },
+        {
+            "name" : "ZoomByMouseWheel"
+        }
+    ]
+}
