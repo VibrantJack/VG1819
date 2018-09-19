@@ -7,6 +7,7 @@
 #include "_Project\MoveByMouseRightClickDrag.h"
 #include "_Project\ZoomByMouseWheel.h"
 #include "_Project\DebugPrintOnce.h"
+#include "gameworld\GrassLandInfoComponent.h"
 
 namespace kitten
 {
@@ -34,7 +35,11 @@ namespace kitten
 		}
 		else if (p_componentName == "CubeRenderable")
 		{
-			comp = new CubeRenderable("textures/crap/cartoon_cobble.tga");
+			comp = new CubeRenderable("textures/tiles/MISSING.tga");
+		}
+		else if (p_componentName == "Grassland")
+		{
+			comp = new gameworld::GrasslandInfoComponent();
 		}
 		else if (p_componentName == "MoveByMouseRightClickDrag")
 		{

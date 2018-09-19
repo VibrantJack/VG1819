@@ -143,12 +143,8 @@
     <ClCompile Include="..\kibble\json\jsonextra.cpp">
       <Filter>kibble\JSON</Filter>
     </ClCompile>
-    <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp">
-      <Filter>kibble\JSON\Datatypes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp">
-      <Filter>kibble\JSON\Datatypes</Filter>
-    </ClCompile>
+    <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp" />
+    <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -265,9 +261,6 @@
     <ClInclude Include="..\unit\UnitCommon.h">
       <Filter>unit</Filter>
     </ClInclude>
-    <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp">
-      <Filter>kibble\JSON\Datatypes</Filter>
-    </ClInclude>
     <ClInclude Include="..\unit\UnitData.h">
       <Filter>unit</Filter>
     </ClInclude>
@@ -340,9 +333,11 @@
     <ClInclude Include="..\kibble\json\jsonextra.hpp">
       <Filter>kibble\JSON</Filter>
     </ClInclude>
-    <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp">
-      <Filter>kibble\JSON\Datatypes</Filter>
-    </ClInclude>
+    <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp" />
+    <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp" />
+    <ClInclude Include="..\gameworld\GameBoard.h" />
+    <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
+    <ClInclude Include="..\gameworld\TileInformationComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">

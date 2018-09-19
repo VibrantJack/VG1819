@@ -1,3 +1,4 @@
+#pragma once
 #include <list>
 #include <cassert>
 #include "K_GameObject.h"

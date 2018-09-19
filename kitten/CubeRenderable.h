@@ -14,7 +14,7 @@ namespace kitten
 	public:
 		CubeRenderable(const char* p_pathToTex = nullptr);
 		virtual ~CubeRenderable();
-
+		void setTexture(const char* p_pathToTex);
 		void render(const glm::mat4& p_viewProj) override;
 	};
 }
