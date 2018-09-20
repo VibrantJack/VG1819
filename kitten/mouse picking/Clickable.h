@@ -5,6 +5,7 @@
 
 namespace kitten
 {
+	//@TODO: Make clickable update its min and max when the attached transform's scale is changed
 	class Clickable : public K_Component
 	{
 	private:

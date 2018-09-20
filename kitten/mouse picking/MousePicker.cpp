@@ -11,6 +11,7 @@ namespace MousePicker
 		float minHit = 0.0f;
 		float maxHit = 9999999.9f;
 		
+		//@TODO: make clickable responsible for having its bounds right, so no multiply by scale
 		const glm::vec3& aabbMinPoint = p_clickable->getMinPoint();
 		const glm::vec3& aabbMaxPoint = p_clickable->getMaxPoint();
 
@@ -26,9 +27,6 @@ namespace MousePicker
 
 			float e = glm::dot(axis, rayDistance);
 			float f = glm::dot(p_ray.direction, axis);
-
-			const glm::vec3& aabbMinPoint = p_clickable->getMinPoint();
-			const glm::vec3& aabbMaxPoint = p_clickable->getMaxPoint();
 
 			if (fabs(f) > 0.001f)
 			{
@@ -65,8 +63,6 @@ namespace MousePicker
 					return false;
 				}
 			}
-				
-			
 		}
 		
 		assert(p_hitOutput != nullptr);

@@ -48,6 +48,9 @@ namespace kitten
 		camGameObj->addComponent(camComp);
 		camGameObj->addComponent(mouseMove);
 
+		//camGameObj->getTransform().place(1, 2, 3);
+		//camGameObj->getTransform().rotateAbsolute(glm::vec3(10, 20, 30));
+		//camGameObj->getTransform().scaleAbsolute(1.5f, 2.0f, 2.5f);
 
 		K_GameObject* testtile = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* grassTileInfo = compMan->createComponent("Grassland");
@@ -60,7 +63,7 @@ namespace kitten
 		testtile->addComponent(cubeRend);
 		cubeRend->setTexture("textures/tiles/Grassland.tga");
 
-		testtile->getTransform().move(0, 3, 10);
+		testtile->getTransform().move(-1, -1, 5);
 
 		return true;
 	}

@@ -140,30 +140,33 @@ namespace input
 		
 		//Create ray from mouse location
 		//Based on the method outlined in: http://antongerdelan.net/opengl/raycasting.html
-		//@TODO: Optimize!
+		//@TODO: split-up into other methods?
 		kitten::Ray mouseRay;
 		
 		kitten::Camera* activeCam = kitten::K_CameraList::getInstance()->getSceneCamera();
 		
 		mouseRay.origin = activeCam->getTransform().getTranslation();
 
+		//Put mouse position in clipspace
 		float ndX = (2.0f * mouseX) / windowX - 1.0f;
 		float ndY = 1.0f - (2.0f * mouseY) / windowY;
-		float ndZ = 1.0f;
+		glm::vec4 clip = glm::vec4(ndX, ndY, 1.0f, 1.0f);
 
-		glm::vec3 ndc = glm::vec3(ndX, ndY, ndZ);
-		glm::vec4 clip = glm::vec4(ndc.x, ndc.y, -1.0f, 1.0f);
+		//Put mouse into worldspace
+		glm::vec3 worldRay = (glm::vec3)(glm::inverse(activeCam->getViewProj()) * clip);
 
+		/*
 		glm::vec4 eye = glm::inverse(activeCam->getProj()) * clip;
 		eye.z = -1.0f;
 		eye.w = 0.0f;
 
-		//Try debugging this first; incorrect truncation?
 		glm::vec3 worldRay = (glm::vec3)(activeCam->getMat4ViewInverse() * eye);
+		*/
+
 		mouseRay.direction = glm::normalize(worldRay);
 
 		//Try to click on something
-		if (m_mouseDown[GLFW_MOUSE_BUTTON_LEFT])
+		if (m_mouseDown[GLFW_MOUSE_BUTTON_LEFT] && !m_mouseDownLast[GLFW_MOUSE_BUTTON_LEFT])
 		{
 			//@TODO: add support for hover start and hover end
 			
