@@ -29,7 +29,8 @@ namespace kitten
 			glm::vec3 lookDirection = glm::vec3(0, 0, 1) * transform.getRotation();
 
 			m_view = glm::lookAt(pos, pos + lookDirection, upVector);
-			m_viewInverse = (glm::mat3)glm::inverse(m_view);
+			m_viewInverse4 = glm::inverse(m_view);
+			m_viewInverse = (glm::mat3)m_viewInverse4;
 		}
 	}
 
@@ -94,9 +95,14 @@ namespace kitten
 		return getProj() * m_view;
 	}
 
-	const glm::mat3& Camera::getViewInverse() const
+	const glm::mat3& Camera::getMat3ViewInverse() const
 	{
 		return m_viewInverse;
+	}
+
+	const glm::mat4& Camera::getMat4ViewInverse() const
+	{
+		return m_viewInverse4;
 	}
 
 	//From: http://www.lighthouse3d.com/tutorials/view-frustum-culling/geometric-approach-extracting-the-planes/

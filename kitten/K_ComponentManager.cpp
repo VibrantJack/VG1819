@@ -8,6 +8,7 @@
 #include "_Project\ZoomByMouseWheel.h"
 #include "_Project\DebugPrintOnce.h"
 #include "gameworld\GrassLandInfoComponent.h"
+#include "_Project\PrintWhenClicked.h"
 
 namespace kitten
 {
@@ -53,9 +54,14 @@ namespace kitten
 		{
 			comp = new DebugPrintOnce("Some Message, kinda useless until we can change this easily");
 		}
+		else if (p_componentName == "PrintWhenClicked")
+		{
+			comp = new PrintWhenClicked(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f), "I WAS CLICKED!!");
+		}
 		else
 		{
 			//Not found..
+			assert(false);
 			return nullptr;
 		}
 

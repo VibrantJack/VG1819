@@ -24,6 +24,6 @@ namespace kitten
 
 		K_GameObject& getGameObject() { return *m_attachedObject; };
 		//For convenience
-		Transform& getTransform();
+		Transform& getTransform() const;
 	};
 }

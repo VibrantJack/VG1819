@@ -27,7 +27,7 @@ namespace kitten
 		assert(false);
 	}
 
-	Transform& K_Component::getTransform()
+	Transform& K_Component::getTransform() const
 	{
 		return m_attachedObject->getTransform();
 	}

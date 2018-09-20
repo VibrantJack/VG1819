@@ -21,12 +21,12 @@ namespace kitten
 
 		glm::mat4 m_proj, m_view;
 		glm::mat3 m_viewInverse;
+		glm::mat4 m_viewInverse4;
 
 		//Frustum information
 		float m_nearRectHeight, m_nearRectWidth, m_farRectHeight, m_farRectWidth;
 
 		//Helper methods
-		glm::mat4& getProj(); //cannot be const because of calculating when dirty
 		scene::Frustum computeViewFrustum(const glm::vec3& p_cameraPos, const glm::vec3& p_look, const glm::vec3& p_up) const;
 
 	public:
@@ -45,7 +45,9 @@ namespace kitten
 
 		virtual float getFOV() const;
 
+		glm::mat4& getProj(); //cannot be const because of calculating when dirty
 		virtual glm::mat4 getViewProj();
-		virtual const glm::mat3& getViewInverse() const;
+		virtual const glm::mat3& getMat3ViewInverse() const;
+		virtual const glm::mat4& getMat4ViewInverse() const;
 	};
 }

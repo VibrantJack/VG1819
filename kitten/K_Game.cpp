@@ -23,6 +23,7 @@ namespace kitten
 		K_ComponentManager::createInstance();
 		K_GameObjectManager::createInstance();
 		K_Time::createInstance();
+		ActiveClickables::createInstance();
 
 		puppy::MaterialManager::createInstance();
 		puppy::Renderer::createInstance();
@@ -32,6 +33,7 @@ namespace kitten
 	bool initGame()
 	{
 		createSingletons();
+		input::InputManager::getInstance()->resetMouse(false);
 
 		// Temporary stuff until Kibble is ready
 		K_ComponentManager* compMan = K_ComponentManager::getInstance();
@@ -41,21 +43,24 @@ namespace kitten
 		K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* camComp = compMan->createComponent("Camera");
 		K_Component* mouseMove = compMan->createComponent("MoveByMouseRightClickDrag");
+		K_Component* zoomComp = compMan->createComponent("ZoomByMouseWheel");
+		camGameObj->addComponent(zoomComp);
 		camGameObj->addComponent(camComp);
 		camGameObj->addComponent(mouseMove);
 
 
 		K_GameObject* testtile = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* grassTileInfo = compMan->createComponent("Grassland");
+		K_Component* clickableComp = compMan->createComponent("PrintWhenClicked");
 		testtile->addComponent(grassTileInfo);
+		testtile->addComponent(clickableComp);
 
 		K_Component* tileRenderComponent = compMan->createComponent("CubeRenderable");
 		CubeRenderable* cubeRend = static_cast<CubeRenderable*>(tileRenderComponent);
 		testtile->addComponent(cubeRend);
 		cubeRend->setTexture("textures/tiles/Grassland.tga");
 
-		testtile->getTransform().move(0, -2, 10);
-		testtile->getTransform().scaleAbsolute(3, 0.5f, 3);
+		testtile->getTransform().move(0, 3, 10);
 
 		return true;
 	}
@@ -67,6 +72,10 @@ namespace kitten
 		K_ComponentManager::destroyInstance();
 		K_GameObjectManager::destroyInstance();
 		K_Time::destroyInstance();
+		ActiveClickables::destroyInstance();
+
+		puppy::MaterialManager::destroyInstance();
+		puppy::Renderer::destroyInstance();
 	}
 
 	void updateGame()
