@@ -145,6 +145,18 @@
     <ClCompile Include="..\ability\node\CheckHPNode.cpp">
       <Filter>ability\node</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\mouse picking\ActiveClickables.cpp">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\mouse picking\Clickable.cpp">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\mouse picking\MousePicker.cpp">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClCompile>
+    <ClCompile Include="PrintWhenClicked.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -338,6 +350,21 @@
     <ClInclude Include="..\ability\node\CheckHPNode.h">
       <Filter>ability\node</Filter>
     </ClInclude>
+    <ClInclude Include="..\kitten\mouse picking\ActiveClickables.h">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\mouse picking\Clickable.h">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\mouse picking\MousePicker.h">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\mouse picking\Ray.h">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintWhenClicked.h">
+      <Filter>components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -381,6 +408,9 @@
     </Filter>
     <Filter Include="kibble\JSON">
       <UniqueIdentifier>{ddcb6ed0-4913-41a9-8aa4-728619d7b05e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kitten\mouse  picking">
+      <UniqueIdentifier>{656830c6-1a1d-490a-9efd-07671cdcb240}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
