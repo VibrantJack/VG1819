@@ -11,6 +11,7 @@
 #include "kitten\Camera.h"
 #include "kitten\CubeRenderable.h"
 #include "_Project\MoveByMouseRightClickDrag.h"
+#include "_Project\PrintWhenClicked.h"
 
 #include "gameworld\GameBoard.h"
 
@@ -48,22 +49,32 @@ namespace kitten
 		camGameObj->addComponent(camComp);
 		camGameObj->addComponent(mouseMove);
 
-		//camGameObj->getTransform().place(1, 2, 3);
-		//camGameObj->getTransform().rotateAbsolute(glm::vec3(10, 20, 30));
-		//camGameObj->getTransform().scaleAbsolute(1.5f, 2.0f, 2.5f);
-
 		K_GameObject* testtile = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* grassTileInfo = compMan->createComponent("Grassland");
-		K_Component* clickableComp = compMan->createComponent("PrintWhenClicked");
+		PrintWhenClicked* clickableComp = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
+		clickableComp->setMessage("grassy tile");
 		testtile->addComponent(grassTileInfo);
 		testtile->addComponent(clickableComp);
-
 		K_Component* tileRenderComponent = compMan->createComponent("CubeRenderable");
 		CubeRenderable* cubeRend = static_cast<CubeRenderable*>(tileRenderComponent);
 		testtile->addComponent(cubeRend);
 		cubeRend->setTexture("textures/tiles/Grassland.tga");
 
 		testtile->getTransform().move(-1, -1, 5);
+
+
+		K_GameObject* otherBlock = K_GameObjectManager::getInstance()->createNewGameObject();
+		CubeRenderable* rend = static_cast<CubeRenderable*>(compMan->createComponent("CubeRenderable"));
+		PrintWhenClicked* clickComp = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
+		clickComp->setMessage("default block");
+		rend->setTexture("textures/crap/cartoon_cobble.tga");
+		otherBlock->addComponent(clickComp);
+		otherBlock->addComponent(rend);
+
+		otherBlock->getTransform().move(-0.8f, -0.8f, 5);
+
+
+	
 
 		return true;
 	}

@@ -12,6 +12,11 @@ PrintWhenClicked::~PrintWhenClicked()
 
 }
 
+void PrintWhenClicked::setMessage(const std::string& p_message)
+{
+	m_message = p_message;
+}
+
 void PrintWhenClicked::onClick()
 {
 	std::cout << m_message << std::endl;

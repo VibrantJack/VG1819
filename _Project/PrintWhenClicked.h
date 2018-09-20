@@ -11,6 +11,8 @@ public:
 	PrintWhenClicked(const glm::vec3& p_minPoint, const glm::vec3& p_maxPoint, const std::string& p_message);
 	virtual ~PrintWhenClicked();
 
+	virtual void setMessage(const std::string& p_message);
+
 	virtual void onClick() override;
 
 	// Not good programming to have onHover's in PrintWhenClicked,
