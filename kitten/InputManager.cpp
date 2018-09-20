@@ -33,7 +33,7 @@ namespace input
 		return sm_inputManagerInstance;
 	}
 
-	InputManager::InputManager() : m_shouldResetMouse(true)
+	InputManager::InputManager() : m_shouldResetMouse(false), m_lastHover(nullptr)
 	{
 		memset(m_keysDown, 0, sizeof(bool) * GLFW_KEY_LAST);
 		memset(m_keysDownLast, 0, sizeof(bool) * GLFW_KEY_LAST);
@@ -136,8 +136,6 @@ namespace input
 			m_lastMouseY = mouseY;
 		}
 
-		
-		
 		//Create ray from mouse location
 		//Based on the method outlined in: http://antongerdelan.net/opengl/raycasting.html
 		//@TODO: split-up into other methods?
@@ -155,30 +153,36 @@ namespace input
 		//Put mouse into worldspace
 		glm::vec3 worldRay = (glm::vec3)(glm::inverse(activeCam->getViewProj()) * clip);
 
-		/*
-		glm::vec4 eye = glm::inverse(activeCam->getProj()) * clip;
-		eye.z = -1.0f;
-		eye.w = 0.0f;
-
-		glm::vec3 worldRay = (glm::vec3)(activeCam->getMat4ViewInverse() * eye);
-		*/
-
 		mouseRay.direction = glm::normalize(worldRay);
 
-		//Try to click on something
-		if (m_mouseDown[GLFW_MOUSE_BUTTON_LEFT] && !m_mouseDownLast[GLFW_MOUSE_BUTTON_LEFT])
+		kitten::Clickable* hit = MousePicker::getClosestHit(mouseRay);
+		if (hit != nullptr && m_lastHover != nullptr)
 		{
-			//@TODO: add support for hover start and hover end
-			
-
-			//try to click on the thing
-			kitten::Clickable* hit = MousePicker::getClosestHit(mouseRay);
-
-			if (hit != nullptr)
+			if (m_lastHover != hit)
 			{
-				hit->onClick();
+				m_lastHover->onHoverEnd();
+				hit->onHoverStart();
+				m_lastHover = hit;
 			}
+		}
+		else
+		{
+			if (hit != nullptr && m_lastHover == nullptr)
+			{
+				hit->onHoverStart();
+				m_lastHover = hit;
+			}
+			else if(hit == nullptr && m_lastHover != nullptr)
+			{
+				m_lastHover->onHoverEnd();
+				m_lastHover = nullptr;
+			}
+		}
 
+		//Are we clicking?
+		if (m_mouseDown[GLFW_MOUSE_BUTTON_LEFT] && !m_mouseDownLast[GLFW_MOUSE_BUTTON_LEFT] && hit != nullptr)
+		{
+			hit->onClick();
 		}
 	}
 
