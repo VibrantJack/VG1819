@@ -26,9 +26,7 @@ namespace kitten
 
 	void Clickable::onHoverStart()
 	{
-		//Debug
-		std::cout << "min point: " << m_minPoint[0] << ", " << m_minPoint[1] << ", " << m_minPoint[2] << std::endl;
-		std::cout << "max point: " << m_maxPoint[0] << ", " << m_maxPoint[1] << ", " << m_maxPoint[2] << std::endl;
+
 	}
 
 	void Clickable::onHoverEnd()
