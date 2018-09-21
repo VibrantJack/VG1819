@@ -11,14 +11,14 @@ namespace MousePicker
 		float minHit = 0.0f;
 		float maxHit = 9999999.9f;
 		
-		//@TODO: make clickable responsible for having its bounds right, so no multiply by scale
-		const glm::vec3& aabbMinPoint = p_clickable->getMinPoint();
-		const glm::vec3& aabbMaxPoint = p_clickable->getMaxPoint();
+		const glm::vec3 aabbMinPoint = p_clickable->getMinPoint();
+		const glm::vec3 aabbMaxPoint = p_clickable->getMaxPoint();
 
-		const glm::vec3& worldPos = p_clickable->getTransform().getTranslation();
+
+		const glm::mat4& worldMat = p_clickable->getTransform().getWorldTransformNoScale();
+
+		glm::vec3 worldPos = glm::vec3(worldMat[3].x, worldMat[3].y, worldMat[3].z);
 		glm::vec3 rayDistance = worldPos - p_ray.origin;
-
-		const glm::mat4& worldMat = p_clickable->getTransform().getWorldTransform();
 
 		//For each axis
 		for (int i = 0; i < 3; ++i)

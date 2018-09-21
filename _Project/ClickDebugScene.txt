@@ -1,0 +1,56 @@
+	createSingletons();
+		input::InputManager::getInstance()->resetMouse(false);
+
+		// Temporary stuff until Kibble is ready
+		K_ComponentManager* compMan = K_ComponentManager::getInstance();
+
+
+		//Creating a gameobject
+		K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject();
+		K_Component* camComp = compMan->createComponent("Camera");
+		K_Component* mouseMove = compMan->createComponent("MoveByMouseRightClickDrag");
+		K_Component* zoomComp = compMan->createComponent("ZoomByMouseWheel");
+		camGameObj->addComponent(zoomComp);
+		camGameObj->addComponent(camComp);
+		camGameObj->addComponent(mouseMove);
+
+		K_GameObject* cobbleBlock = K_GameObjectManager::getInstance()->createNewGameObject();
+		CubeRenderable* rend = static_cast<CubeRenderable*>(compMan->createComponent("CubeRenderable"));
+		PrintWhenClicked* clickComp = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
+		clickComp->setMessage("cobble block");
+		rend->setTexture("textures/crap/cartoon_cobble.tga");
+		cobbleBlock->addComponent(clickComp);
+		cobbleBlock->addComponent(rend);
+
+		cobbleBlock->getTransform().move(-0.8f, 0.8f, 5);
+		cobbleBlock->getTransform().scaleAbsolute(2.0f, 2.0f, 2.0f);
+
+
+		K_GameObject* woodBlock = K_GameObjectManager::getInstance()->createNewGameObject();
+		CubeRenderable* woodRend = static_cast<CubeRenderable*>(compMan->createComponent("CubeRenderable"));
+		PrintWhenClicked* woodClickComp = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
+		woodClickComp->setMessage("wood block");
+		woodRend->setTexture("textures/crap/cartoon_planks.tga");
+		woodBlock->addComponent(woodClickComp);
+		woodBlock->addComponent(woodRend);
+
+		woodBlock->getTransform().move(-1.0f, 0.8f, 4);
+		woodBlock->getTransform().scaleAbsolute(0.4f, 0.7f, 1.0f);
+		woodBlock->getTransform().rotateAbsolute(glm::vec3(15, 30, 45));
+
+
+		K_GameObject* testtile = K_GameObjectManager::getInstance()->createNewGameObject();
+		K_Component* grassTileInfo = compMan->createComponent("Grassland");
+		PrintWhenClicked* clickableComp = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
+		clickableComp->setMessage("grassy tile");
+		testtile->addComponent(grassTileInfo);
+		testtile->addComponent(clickableComp);
+		K_Component* tileRenderComponent = compMan->createComponent("CubeRenderable");
+		CubeRenderable* cubeRend = static_cast<CubeRenderable*>(tileRenderComponent);
+		testtile->addComponent(cubeRend);
+		cubeRend->setTexture("textures/tiles/Grassland.tga");
+
+		testtile->getTransform().move(-1, -1, 5);
+		testtile->getTransform().rotateRelative(glm::vec3(0, 45, 0));
+		
+		return true;

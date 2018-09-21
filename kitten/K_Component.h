@@ -20,6 +20,7 @@ namespace kitten
 	public:
 		virtual bool hasUpdate() const;
 
+		virtual void onAttached();
 		virtual void update();
 
 		K_GameObject& getGameObject() { return *m_attachedObject; };

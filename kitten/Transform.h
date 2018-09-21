@@ -7,9 +7,30 @@
 */
 namespace kitten
 {
+	// Interfaces for transform changing events
+
+	class TransformScaleListener
+	{
+	public:
+		virtual void onScaleChanged(const glm::vec3& p_newScale) = 0;
+	};
+
+	class TransformPositionListener
+	{
+	public:
+		virtual void onPosChanged(const glm::vec3& p_newPos) = 0;
+	};
+
+	class TransformRotationListener
+	{
+	public:
+		virtual void onRotationChanged(const glm::quat& p_newRot) = 0;
+	};
+
 	class Transform
 	{
 	protected:
+		//Actual transform related
 		float m_rotateDeg;
 		glm::vec3 m_scale;
 		glm::vec3 m_translation;
@@ -19,13 +40,27 @@ namespace kitten
 		glm::mat4 m_matScale;
 		glm::quat m_quatRotation;
 		glm::mat4 m_matRotation;
+		glm::mat4 m_matWorldNoScale;
 		glm::mat4 m_matWorld;
 
 		bool m_isDirty;
 
+		//Parent / children related
 		bool m_ignoresParent;
 		Transform* m_parent;
 		std::vector<Transform*> m_children;
+
+		//Listener related
+		// I can't imagine a transform having more than two listeners for any given
+		// property, so I have elected to just keep listeners as a vector
+		// -Callum
+		std::vector<TransformScaleListener*> m_scaleListeners;
+		std::vector<TransformPositionListener*> m_positionListeners;
+		std::vector<TransformRotationListener*> m_rotationListeners;
+
+		void notifyScaleListeners();
+		void notifyPositionListeners();
+		void notifyRotationListeners();
 
 	public:
 		Transform();
@@ -46,8 +81,10 @@ namespace kitten
 		const glm::vec3& getScale() const;
 
 		const glm::mat4& getWorldTransform();
+		const glm::mat4& getWorldTransformNoScale();
 		const glm::vec3& getForward() const;
 
+		//Parent / children related
 
 		bool getIgnoreParent() const;
 		void setIgnoreParent(bool p_ignores);
@@ -56,6 +93,15 @@ namespace kitten
 		void addChild(Transform* p_child);
 		bool removeChild(const Transform* p_child);
 
+		//Listeners
+		void addPositionListener(TransformPositionListener* p_toAdd);
+		void addScaleListener(TransformScaleListener* p_toAdd);
+		void addRotationListener(TransformRotationListener* p_toAdd);
 
+		void removePositionListener(TransformPositionListener* p_toRemove);
+		void removeScaleListener(TransformScaleListener* p_toRemove);
+		void removeRotationListener(TransformRotationListener* p_toRemoe);
 	};
+
+	
 }

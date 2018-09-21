@@ -19,6 +19,11 @@ namespace kitten
 		return false;
 	}
 
+	void K_Component::onAttached()
+	{
+		//Empty to not force override
+	}
+
 	void K_Component::update()
 	{
 		// If you aren't here by choice,
