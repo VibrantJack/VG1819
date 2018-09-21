@@ -3,11 +3,14 @@
 #include "ability/AbilityManager.h"
 #include "ability/AbilityInfoPackage.h"
 
-//Rock
+//@Rock
 
-enum UnitSize
+namespace unit
 {
-	point,
-	cube,
-};
+	enum UnitSize
+	{
+		point,
+		cube,
+	};
+}
 

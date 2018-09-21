@@ -1,10 +1,10 @@
 #include "UnitDataType.hpp"
 #include <string>
 
-UnitData* getUnitDataFrom(nlohmann::json& p_jsonfile) {
+unit::UnitData* getUnitDataFrom(nlohmann::json& p_jsonfile) {
 	std::string name;
 	int hp, mv, in, cost;
-	UnitSize size = UnitSize::cube;
+	unit::UnitSize size = unit::UnitSize::cube;
 	std::vector<std::string> tags, ad, sd;
 
 	name = p_jsonfile["name"].get<std::string>();
@@ -14,9 +14,9 @@ UnitData* getUnitDataFrom(nlohmann::json& p_jsonfile) {
 	cost = p_jsonfile["cost"];
 	if (p_jsonfile.find("size") != p_jsonfile.end()) {
 		if (p_jsonfile["size"] == "cube")
-			size = UnitSize::cube;
+			size = unit::UnitSize::cube;
 		else
-			size = UnitSize::point;
+			size = unit::UnitSize::point;
 	}
 
 	if (p_jsonfile.find("tags") != p_jsonfile.end()) {
@@ -40,12 +40,12 @@ UnitData* getUnitDataFrom(nlohmann::json& p_jsonfile) {
 		}
 	}
 
-	return new UnitData(name, hp, mv, in, cost, size, tags, ad, sd);
+	return new unit::UnitData(name, hp, mv, in, cost, size, tags, ad, sd);
 }
 
-std::vector<UnitData*> getMultipleUnitDataFrom(nlohmann::json& p_jsonfile) {
+std::vector<unit::UnitData*> getMultipleUnitDataFrom(nlohmann::json& p_jsonfile) {
 	assert(p_jsonfile["units"].is_array());
-	std::vector<UnitData*> units;
+	std::vector<unit::UnitData*> units;
 	for (nlohmann::json::iterator it = p_jsonfile["units"].begin(); it != p_jsonfile["units"].end(); ++it) {
 		units.push_back(getUnitDataFrom(*it));
 	}

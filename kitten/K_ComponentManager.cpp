@@ -7,6 +7,8 @@
 #include "_Project\MoveByMouseRightClickDrag.h"
 #include "_Project\ZoomByMouseWheel.h"
 #include "_Project\DebugPrintOnce.h"
+#include "gameworld\GrassLandInfoComponent.h"
+#include "_Project\PrintWhenClicked.h"
 
 namespace kitten
 {
@@ -34,7 +36,11 @@ namespace kitten
 		}
 		else if (p_componentName == "CubeRenderable")
 		{
-			comp = new CubeRenderable("textures/crap/cartoon_cobble.tga");
+			comp = new CubeRenderable("textures/tiles/MISSING.tga");
+		}
+		else if (p_componentName == "Grassland")
+		{
+			comp = new gameworld::GrasslandInfoComponent();
 		}
 		else if (p_componentName == "MoveByMouseRightClickDrag")
 		{
@@ -48,9 +54,14 @@ namespace kitten
 		{
 			comp = new DebugPrintOnce("Some Message, kinda useless until we can change this easily");
 		}
+		else if (p_componentName == "PrintWhenClicked")
+		{
+			comp = new PrintWhenClicked(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f), "I WAS CLICKED!!");
+		}
 		else
 		{
 			//Not found..
+			assert(false);
 			return nullptr;
 		}
 

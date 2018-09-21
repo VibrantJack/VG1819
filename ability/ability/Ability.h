@@ -8,15 +8,19 @@
 
 //Rock
 
-class Ability
+namespace ability
 {
-public:
-	Ability() {};
-	~Ability() {};
+	class Ability
+	{
+	public:
+		Ability() {};
+		~Ability() {};
 
-	std::string m_name;
-	std::string m_description;//the text that will be showed to player
+		std::string m_name;
+		std::string m_description;//the text that will be showed to player
 
-	virtual int effect(const AbilityInfoPackage* p_info) = 0;
-};
+		virtual int effect(const AbilityInfoPackage* p_info) = 0;
+	};
+}
+
 

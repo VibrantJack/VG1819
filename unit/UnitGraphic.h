@@ -1,8 +1,15 @@
 #pragma once
 #include "UnitCommon.h"
-class UnitGraphic
+
+//Rock
+
+namespace unit
 {
-public:
-	UnitGraphic();
-	~UnitGraphic();
-};
+	class UnitGraphic
+	{
+	public:
+		UnitGraphic();
+		~UnitGraphic();
+	};
+
+}

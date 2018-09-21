@@ -10,7 +10,8 @@ namespace kitten
 	class Transform
 	{
 	protected:
-		float m_rotateDeg, m_xScale, m_yScale, m_zScale;
+		float m_rotateDeg;
+		glm::vec3 m_scale;
 		glm::vec3 m_translation;
 		glm::vec3 m_forward;
 
@@ -42,6 +43,8 @@ namespace kitten
 
 		const glm::vec3& getTranslation() const;
 		const glm::quat& getRotation() const;
+		const glm::vec3& getScale() const;
+
 		const glm::mat4& getWorldTransform();
 		const glm::vec3& getForward() const;
 

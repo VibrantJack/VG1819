@@ -1,19 +1,24 @@
 #pragma once
 #include "Unit.h"
 
-class UnitMonitor
+//Rock
+//this class output information about a unit
+//used for test purpose
+
+namespace unit
 {
-private:
-	static UnitMonitor * m_instance;
-	void printAbility(Ability* p_a);
-	void printStatus(Status* p_s);
-public:
-	UnitMonitor();
-	~UnitMonitor();
+	class UnitMonitor
+	{
+	private:
+		static UnitMonitor * m_instance;
+		void printStatus(ability::Status* p_s);
+	public:
+		UnitMonitor();
+		~UnitMonitor();
 
-	static UnitMonitor* getInstance();
-	static UnitMonitor* getInstanceSafe();
+		static UnitMonitor* getInstance();
+		static UnitMonitor* getInstanceSafe();
 
-	void printUnit(Unit* p_u);
-};
-
+		void printUnit(Unit* p_u);
+	};
+}

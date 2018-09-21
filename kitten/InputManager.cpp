@@ -1,5 +1,10 @@
-#include "InputManager.h"
 #include <iostream>
+
+#include "InputManager.h"
+#include "mouse picking\ActiveClickables.h"
+#include "mouse picking\MousePicker.h"
+#include "mouse picking\Ray.h"
+#include "K_CameraList.h"
 
 namespace input
 {
@@ -28,7 +33,7 @@ namespace input
 		return sm_inputManagerInstance;
 	}
 
-	InputManager::InputManager() : m_shouldResetMouse(true)
+	InputManager::InputManager() : m_shouldResetMouse(false), m_lastHover(nullptr)
 	{
 		memset(m_keysDown, 0, sizeof(bool) * GLFW_KEY_LAST);
 		memset(m_keysDownLast, 0, sizeof(bool) * GLFW_KEY_LAST);
@@ -129,6 +134,55 @@ namespace input
 
 			m_lastMouseX = mouseX;
 			m_lastMouseY = mouseY;
+		}
+
+		//Create ray from mouse location
+		//Based on the method outlined in: http://antongerdelan.net/opengl/raycasting.html
+		//@TODO: split-up into other methods?
+		kitten::Ray mouseRay;
+		
+		kitten::Camera* activeCam = kitten::K_CameraList::getInstance()->getSceneCamera();
+		
+		mouseRay.origin = activeCam->getTransform().getTranslation();
+
+		//Put mouse position in clipspace
+		float ndX = (2.0f * mouseX) / windowX - 1.0f;
+		float ndY = 1.0f - (2.0f * mouseY) / windowY;
+		glm::vec4 clip = glm::vec4(ndX, ndY, 1.0f, 1.0f);
+
+		//Put mouse into worldspace
+		glm::vec3 worldRay = (glm::vec3)(glm::inverse(activeCam->getViewProj()) * clip);
+
+		mouseRay.direction = glm::normalize(worldRay);
+
+		kitten::Clickable* hit = MousePicker::getClosestHit(mouseRay);
+		if (hit != nullptr && m_lastHover != nullptr)
+		{
+			if (m_lastHover != hit)
+			{
+				m_lastHover->onHoverEnd();
+				hit->onHoverStart();
+				m_lastHover = hit;
+			}
+		}
+		else
+		{
+			if (hit != nullptr && m_lastHover == nullptr)
+			{
+				hit->onHoverStart();
+				m_lastHover = hit;
+			}
+			else if(hit == nullptr && m_lastHover != nullptr)
+			{
+				m_lastHover->onHoverEnd();
+				m_lastHover = nullptr;
+			}
+		}
+
+		//Are we clicking?
+		if (m_mouseDown[GLFW_MOUSE_BUTTON_LEFT] && !m_mouseDownLast[GLFW_MOUSE_BUTTON_LEFT] && hit != nullptr)
+		{
+			hit->onClick();
 		}
 	}
 

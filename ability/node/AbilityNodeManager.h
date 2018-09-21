@@ -1,24 +1,32 @@
 #pragma once
 #include "AbilityNode.h"
+#include "ChangeAttributeNode.h"
+#include "CheckHPNode.h"
 
 #include <vector>
 #include <assert.h>
 
-class AbilityNodeManager
+//Rock
+
+namespace ability
 {
-private:
-	static AbilityNodeManager * sm_instance;
+	class AbilityNodeManager
+	{
+	private:
+		static AbilityNodeManager * sm_instance;
 
-	std::vector<AbilityNode*> m_nodeList;
+		std::vector<AbilityNode*> m_nodeList;
 
-	void init();
-public:
-	AbilityNodeManager();
-	~AbilityNodeManager();
+		void init();
+	public:
+		AbilityNodeManager();
+		~AbilityNodeManager();
 
-	static void createInstance();
-	static void destroyInstance();
-	static AbilityNodeManager* getInstance();
+		static void createInstance();
+		static void destroyInstance();
+		static AbilityNodeManager* getInstance();
 
-	AbilityNode* findNode(const std::string& p_name);
-};
+		AbilityNode* findNode(const std::string& p_name);
+	};
+
+}

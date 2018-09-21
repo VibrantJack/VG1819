@@ -110,12 +110,6 @@
     <ClCompile Include="..\ability\node\AbilityNode.cpp">
       <Filter>ability\node</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\node\ChangeCounterNode.cpp">
-      <Filter>ability\node</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\node\ChangeHPNode.cpp">
-      <Filter>ability\node</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\AbilityManager.cpp">
       <Filter>ability</Filter>
     </ClCompile>
@@ -143,11 +137,25 @@
     <ClCompile Include="..\kibble\json\jsonextra.cpp">
       <Filter>kibble\JSON</Filter>
     </ClCompile>
-    <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp">
-      <Filter>kibble\JSON\Datatypes</Filter>
+    <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp" />
+    <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp" />
+    <ClCompile Include="..\ability\node\ChangeAttributeNode.cpp">
+      <Filter>ability\node</Filter>
     </ClCompile>
-    <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp">
-      <Filter>kibble\JSON\Datatypes</Filter>
+    <ClCompile Include="..\ability\node\CheckHPNode.cpp">
+      <Filter>ability\node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\mouse picking\ActiveClickables.cpp">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\mouse picking\Clickable.cpp">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\mouse picking\MousePicker.cpp">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClCompile>
+    <ClCompile Include="PrintWhenClicked.cpp">
+      <Filter>components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -265,9 +273,6 @@
     <ClInclude Include="..\unit\UnitCommon.h">
       <Filter>unit</Filter>
     </ClInclude>
-    <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp">
-      <Filter>kibble\JSON\Datatypes</Filter>
-    </ClInclude>
     <ClInclude Include="..\unit\UnitData.h">
       <Filter>unit</Filter>
     </ClInclude>
@@ -284,12 +289,6 @@
       <Filter>unit</Filter>
     </ClInclude>
     <ClInclude Include="..\ability\node\AbilityNode.h">
-      <Filter>ability\node</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ability\node\ChangeCounterNode.h">
-      <Filter>ability\node</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ability\node\ChangeHPNode.h">
       <Filter>ability\node</Filter>
     </ClInclude>
     <ClInclude Include="..\ability\status\Status.h">
@@ -340,8 +339,31 @@
     <ClInclude Include="..\kibble\json\jsonextra.hpp">
       <Filter>kibble\JSON</Filter>
     </ClInclude>
-    <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp">
-      <Filter>kibble\JSON\Datatypes</Filter>
+    <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp" />
+    <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp" />
+    <ClInclude Include="..\gameworld\GameBoard.h" />
+    <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
+    <ClInclude Include="..\gameworld\TileInformationComponent.h" />
+    <ClInclude Include="..\ability\node\ChangeAttributeNode.h">
+      <Filter>ability\node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ability\node\CheckHPNode.h">
+      <Filter>ability\node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\mouse picking\ActiveClickables.h">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\mouse picking\Clickable.h">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\mouse picking\MousePicker.h">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\mouse picking\Ray.h">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintWhenClicked.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -387,8 +409,8 @@
     <Filter Include="kibble\JSON">
       <UniqueIdentifier>{ddcb6ed0-4913-41a9-8aa4-728619d7b05e}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="glew32.dll" />
+    <Filter Include="kitten\mouse  picking">
+      <UniqueIdentifier>{656830c6-1a1d-490a-9efd-07671cdcb240}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

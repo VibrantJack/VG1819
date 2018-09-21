@@ -59,7 +59,7 @@ int main( void )
     glfwSwapInterval( 1 );
     
 	kitten::initGame();
-	UnitTest::getInstanceSafe()->test();
+	unit::UnitTest::getInstanceSafe()->test();
     do
     {
         t = glfwGetTime();

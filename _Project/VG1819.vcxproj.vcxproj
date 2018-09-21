@@ -15,7 +15,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>VG1819</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <ProjectName>VG1819</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -65,8 +65,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>C:\Users\Austin\Documents\GitHub\VG1819\glfw\lib-msvc90;C:\Users\Austin\Documents\GitHub\VG1819\glfw\lib-msvc100;C:\Users\Austin\Documents\GitHub\VG1819\glew\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -92,8 +92,8 @@
     <ClCompile Include="..\ability\ability\Heal.cpp" />
     <ClCompile Include="..\ability\node\AbilityNode.cpp" />
     <ClCompile Include="..\ability\node\AbilityNodeManager.cpp" />
-    <ClCompile Include="..\ability\node\ChangeCounterNode.cpp" />
-    <ClCompile Include="..\ability\node\ChangeHPNode.cpp" />
+    <ClCompile Include="..\ability\node\ChangeAttributeNode.cpp" />
+    <ClCompile Include="..\ability\node\CheckHPNode.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp" />
     <ClCompile Include="..\kibble\json\JSONComponentDataParser.cpp" />
@@ -111,6 +111,9 @@
     <ClCompile Include="..\kitten\K_GameObject.cpp" />
     <ClCompile Include="..\kitten\K_GameObjectManager.cpp" />
     <ClCompile Include="..\kitten\K_Time.cpp" />
+    <ClCompile Include="..\kitten\mouse picking\ActiveClickables.cpp" />
+    <ClCompile Include="..\kitten\mouse picking\Clickable.cpp" />
+    <ClCompile Include="..\kitten\mouse picking\MousePicker.cpp" />
     <ClCompile Include="..\kitten\Renderable.cpp" />
     <ClCompile Include="..\kitten\Transform.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
@@ -137,6 +140,7 @@
     <ClCompile Include="DebugPrintOnce.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
+    <ClCompile Include="PrintWhenClicked.cpp" />
     <ClCompile Include="ZoomByMouseWheel.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -146,9 +150,12 @@
     <ClInclude Include="..\ability\ability\Heal.h" />
     <ClInclude Include="..\ability\node\AbilityNode.h" />
     <ClInclude Include="..\ability\node\AbilityNodeManager.h" />
-    <ClInclude Include="..\ability\node\ChangeCounterNode.h" />
-    <ClInclude Include="..\ability\node\ChangeHPNode.h" />
+    <ClInclude Include="..\ability\node\ChangeAttributeNode.h" />
+    <ClInclude Include="..\ability\node\CheckHPNode.h" />
     <ClInclude Include="..\ability\status\Status.h" />
+    <ClInclude Include="..\gameworld\GameBoard.h" />
+    <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
+    <ClInclude Include="..\gameworld\TileInformationComponent.h" />
     <ClInclude Include="..\json.hpp" />
     <ClInclude Include="..\kibble\ComponentDataParser.hpp" />
     <ClInclude Include="..\kibble\GameObjectDataParser.hpp" />
@@ -173,6 +180,10 @@
     <ClInclude Include="..\kitten\K_GameObjectManager.h" />
     <ClInclude Include="..\kitten\K_Singletons.h" />
     <ClInclude Include="..\kitten\K_Time.h" />
+    <ClInclude Include="..\kitten\mouse picking\ActiveClickables.h" />
+    <ClInclude Include="..\kitten\mouse picking\Clickable.h" />
+    <ClInclude Include="..\kitten\mouse picking\MousePicker.h" />
+    <ClInclude Include="..\kitten\mouse picking\Ray.h" />
     <ClInclude Include="..\kitten\Renderable.h" />
     <ClInclude Include="..\kitten\Transform.h" />
     <ClInclude Include="..\pugixml\pugiconfig.hpp" />
@@ -203,10 +214,8 @@
     <ClInclude Include="..\wolf\W_Common.h" />
     <ClInclude Include="DebugPrintOnce.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
+    <ClInclude Include="PrintWhenClicked.h" />
     <ClInclude Include="ZoomByMouseWheel.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="glew32.dll" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

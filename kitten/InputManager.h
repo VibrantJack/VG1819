@@ -1,5 +1,6 @@
 #pragma once
 #include "puppy\P_Common.h"
+#include "mouse picking\Clickable.h"
 
 namespace input
 {
@@ -20,6 +21,8 @@ namespace input
 		int m_mouseWheel;
 
 		bool m_shouldResetMouse;
+
+		kitten::Clickable* m_lastHover;
 
 		InputManager();
 		~InputManager();

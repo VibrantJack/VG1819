@@ -61,19 +61,16 @@ namespace kitten
 
 	void Transform::scaleAbsolute(const float xScale, const float yScale, const float zScale)
 	{
-		m_xScale = xScale;
-		m_yScale = yScale;
-		m_zScale = zScale;
-		m_matScale = glm::scale(xScale, yScale, zScale);
+		m_scale = glm::vec3(xScale, yScale, zScale);
+
+		m_matScale = glm::scale(m_scale);
 		m_isDirty = true;
 	}
 
 	void Transform::scaleRelative(const float xScale, const float yScale, const float zScale)
 	{
-		m_xScale *= xScale;
-		m_yScale *= yScale;
-		m_zScale *= zScale;
-		m_matScale = glm::scale(m_xScale, m_yScale, m_zScale);
+		m_scale += glm::vec3(xScale, yScale, zScale);
+		m_matScale = glm::scale(m_scale);
 		m_isDirty = true;
 	}
 
@@ -114,6 +111,11 @@ namespace kitten
 	const glm::vec3& Transform::getForward() const
 	{
 		return m_forward;
+	}
+
+	const glm::vec3& Transform::getScale() const
+	{
+		return m_scale;
 	}
 
 	bool Transform::getIgnoreParent() const
