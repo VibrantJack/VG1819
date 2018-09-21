@@ -25,8 +25,8 @@ namespace kitten
 		{
 			Transform& transform = getTransform();
 			const glm::vec3& pos = transform.getTranslation();
-			glm::vec3 upVector = glm::vec3(0, 1, 0) * transform.getRotation();
-			glm::vec3 lookDirection = glm::vec3(0, 0, 1) * transform.getRotation();
+			glm::vec3 upVector = glm::vec3(0, 1, 1) * transform.getRotation();
+			glm::vec3 lookDirection = glm::vec3(0, -1, 1) * transform.getRotation();
 
 			m_view = glm::lookAt(pos, pos + lookDirection, upVector);
 			m_viewInverse4 = glm::inverse(m_view);

@@ -45,34 +45,30 @@ namespace kitten
 		K_Component* camComp = compMan->createComponent("Camera");
 		K_Component* mouseMove = compMan->createComponent("MoveByMouseRightClickDrag");
 		K_Component* zoomComp = compMan->createComponent("ZoomByMouseWheel");
+		camGameObj->getTransform().move(0.0f, 5.0f, -5.0f);
 		camGameObj->addComponent(zoomComp);
 		camGameObj->addComponent(camComp);
 		camGameObj->addComponent(mouseMove);
 
-		K_GameObject* testtile = K_GameObjectManager::getInstance()->createNewGameObject();
-		K_Component* grassTileInfo = compMan->createComponent("Grassland");
-		PrintWhenClicked* clickableComp = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
-		clickableComp->setMessage("grassy tile");
-		testtile->addComponent(grassTileInfo);
-		testtile->addComponent(clickableComp);
-		K_Component* tileRenderComponent = compMan->createComponent("CubeRenderable");
-		CubeRenderable* cubeRend = static_cast<CubeRenderable*>(tileRenderComponent);
-		testtile->addComponent(cubeRend);
-		cubeRend->setTexture("textures/tiles/Grassland.tga");
 
-		testtile->getTransform().move(-1, -1, 5);
+		for (int x = 0; x < 15; x++)
+		{
+			for (int z = 0; z < 15; z++)
+			{
+				K_GameObject* testtile = K_GameObjectManager::getInstance()->createNewGameObject();
+				K_Component* grassTileInfo = compMan->createComponent("Grassland");
+				PrintWhenClicked* clickableComp = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
+				clickableComp->setMessage("grassy tile");
+				testtile->addComponent(grassTileInfo);
+				testtile->addComponent(clickableComp);
+				K_Component* tileRenderComponent = compMan->createComponent("CubeRenderable");
+				CubeRenderable* cubeRend = static_cast<CubeRenderable*>(tileRenderComponent);
+				testtile->addComponent(cubeRend);
+				cubeRend->setTexture("textures/tiles/Grassland.tga");
 
-
-		K_GameObject* otherBlock = K_GameObjectManager::getInstance()->createNewGameObject();
-		CubeRenderable* rend = static_cast<CubeRenderable*>(compMan->createComponent("CubeRenderable"));
-		PrintWhenClicked* clickComp = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
-		clickComp->setMessage("default block");
-		rend->setTexture("textures/crap/cartoon_cobble.tga");
-		otherBlock->addComponent(clickComp);
-		otherBlock->addComponent(rend);
-
-		otherBlock->getTransform().move(-0.8f, -0.8f, 5);
-
+				testtile->getTransform().move(x, -1, z);
+			}
+		}
 
 	
 
