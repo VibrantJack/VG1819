@@ -19,6 +19,14 @@ namespace ability
 		newNode = new CheckHPNode();
 		newNode->m_name = "CheckHPNode";
 		m_nodeList.push_back(newNode);
+
+		newNode = new ChangeAbilityDescriptionNode();
+		newNode->m_name = "ChangeAbilityDescriptionNode";
+		m_nodeList.push_back(newNode);
+
+		newNode = new ChangeAbilityInfoNode();
+		newNode->m_name = "ChangeAbilityInfoNode";
+		m_nodeList.push_back(newNode);
 	}
 
 	AbilityNodeManager::AbilityNodeManager()

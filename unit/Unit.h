@@ -12,13 +12,14 @@ namespace unit
 	{
 	private:
 		StatusContainer * m_statusContainer;
-		std::vector<unit::AbilityDescription*> m_abilityDescription;
 	public:
 		std::string m_ID;
 		std::vector<std::string> m_tags;
 		std::string m_name;
 		std::map<std::string, int> m_attributes;//attributes includes all numerical attribute and counter
 		UnitSize m_size;
+
+		std::vector<unit::AbilityDescription*> m_abilityDescription;
 
 		Unit();
 		~Unit();

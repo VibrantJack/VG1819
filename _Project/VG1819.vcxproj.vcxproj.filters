@@ -157,10 +157,36 @@
     <ClCompile Include="PrintWhenClicked.cpp">
       <Filter>components</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\ability\Fight.cpp" />
-    <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp" />
-    <ClCompile Include="..\unit\unitComponent\UnitGraphic.cpp" />
-    <ClCompile Include="..\unit\Commander.cpp" />
+    <ClCompile Include="..\unit\Commander.cpp">
+      <Filter>unit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\UnitGraphic.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Fight.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\node\ChangeAbilityDescriptionNode.cpp">
+      <Filter>ability\node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\node\ChangeAbilityInfoNode.cpp">
+      <Filter>ability\node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_CD_CT.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Encourage.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Encourage.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -357,10 +383,18 @@
     <ClInclude Include="PrintWhenClicked.h">
       <Filter>components</Filter>
     </ClInclude>
-    <ClInclude Include="..\unit\unitComponent\AbilityDescription.h" />
-    <ClInclude Include="..\unit\unitComponent\StatusContainer.h" />
-    <ClInclude Include="..\unit\unitComponent\UnitGraphic.h" />
-    <ClInclude Include="..\unit\Commander.h" />
+    <ClInclude Include="..\unit\Commander.h">
+      <Filter>unit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\StatusContainer.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\AbilityDescription.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\UnitGraphic.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">

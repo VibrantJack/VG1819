@@ -13,7 +13,7 @@ namespace ability
 	{
 		//heal target by power
 		unit::Unit* target = p_info->m_target;
-		int power = p_info->m_power;
+		int power = p_info->m_intValue.find("power")->second;
 
 		AbilityNode* node1 = AbilityNodeManager::getInstance()->findNode("ChangeAttributeNode");
 		AbilityNode* node2 = AbilityNodeManager::getInstance()->findNode("CheckHPNode");

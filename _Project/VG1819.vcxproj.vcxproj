@@ -89,12 +89,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ability\AbilityManager.cpp" />
+    <ClCompile Include="..\ability\ability\Encourage.cpp" />
     <ClCompile Include="..\ability\ability\Fight.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
     <ClCompile Include="..\ability\node\AbilityNode.cpp" />
     <ClCompile Include="..\ability\node\AbilityNodeManager.cpp" />
+    <ClCompile Include="..\ability\node\ChangeAbilityDescriptionNode.cpp" />
+    <ClCompile Include="..\ability\node\ChangeAbilityInfoNode.cpp" />
     <ClCompile Include="..\ability\node\ChangeAttributeNode.cpp" />
     <ClCompile Include="..\ability\node\CheckHPNode.cpp" />
+    <ClCompile Include="..\ability\status\Status.cpp" />
+    <ClCompile Include="..\ability\status\Status_CD_CT.cpp" />
+    <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp" />
     <ClCompile Include="..\kibble\json\JSONComponentDataParser.cpp" />

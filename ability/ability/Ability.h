@@ -1,6 +1,7 @@
 #pragma once
 #include "ability/AbilityInfoPackage.h"
 #include "ability/node/AbilityNodeManager.h"
+#include "ability/status/Status.h"
 
 #include <string>
 #include <map>
@@ -33,6 +34,14 @@ namespace ability
 	{
 	public:
 		Fight();
+
+		int effect(const AbilityInfoPackage* p_info);
+	};
+
+	class Encourage : public Ability
+	{
+	public:
+		Encourage();
 
 		int effect(const AbilityInfoPackage* p_info);
 	};

@@ -1,5 +1,5 @@
 #pragma once
-#include "ability/node/AbilityNode.h"
+#include "ability/node/AbilityNodeManager.h"
 
 #include <string>
 #include <map>
@@ -46,20 +46,46 @@ namespace ability
 
 		std::string m_name;
 		std::string m_description;//the text that will be showed to player
-		std::vector<AbilityNode*> m_abilityNodes;//the list of nodes that will affect
+		//std::vector<AbilityNode*> m_abilityNodes;//may be delete
 
-												 //TO DO: Register Event
+		//TO DO: Register Event
 
-		virtual int effectDefault() = 0;//this is effect that activates when status is added
-		virtual int effectOnTimePoint(TimePointEvent* p_timePoint) = 0;
+		virtual int effect();//this is effect that activates when status is added
+		virtual int effect(TimePointEvent p_timePoint);
+		virtual int effect(TimePointEvent p_timePoint, ability::AbilityInfoPackage* p_pack);
 		//TO DO: Listen Event and take effect
 		//Maybe use Chain of Responsibility
 
-		Status(unit::Unit * p_unit) { m_unit = p_unit; };
+		Status();
 		~Status();
 
-	private:
+		void attach(unit::Unit* p_u);
+
+	protected:
 		int removeThis();//TO DO: remove this Status from Unit, and delete the instance
+	};
+
+	class Status_CD_CT : public Status
+	{
+		//this status should store all cd and ct
+		//at turn start, all cd ct decrease by 1
+		//when unit use ability, it needs to check here
+	public:
+		Status_CD_CT();
+
+		int effect(TimePointEvent p_timePoint);
+	};
+
+	class Status_Encourage : public Status
+	{
+		//this is buff apply by ability [Encourage]
+		//it triggers when unit will deal damage
+		//then it increase the ability's power by this status power
+	public:
+		Status_Encourage();
+
+		int effect(TimePointEvent p_timePoint);
+		int effect(TimePointEvent p_timePoint, ability::AbilityInfoPackage* p_pack);
 	};
 }
 

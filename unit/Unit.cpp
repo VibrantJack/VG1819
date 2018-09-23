@@ -62,7 +62,7 @@ namespace unit
 		
 
 		std::string name = ad->m_stringValue["name"];
-		info->m_power = ad->m_intValue["power"];
+		info->m_intValue["power"] = ad->m_intValue["power"];
 
 		return ability::AbilityManager::getInstance()->useAbility(name, info);
 	}
