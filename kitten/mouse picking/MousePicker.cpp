@@ -6,10 +6,10 @@ namespace MousePicker
 	//Based on the method outlined in:
 	//http://www.opengl-tutorial.org/miscellaneous/clicking-on-objects/picking-with-custom-ray-obb-function/
 
-	bool rayHits(const kitten::Ray& p_ray, kitten::Clickable* p_clickable, float* p_hitOutput)
+	bool rayHits(const kitten::Ray& p_ray, kitten::Clickable* p_clickable, double* p_hitOutput)
 	{
-		float minHit = 0.0f;
-		float maxHit = 9999999.9f;
+		double minHit = 0.0f;
+		double maxHit = 9999999.9f;
 		
 		const glm::vec3 aabbMinPoint = p_clickable->getMinPoint();
 		const glm::vec3 aabbMaxPoint = p_clickable->getMaxPoint();
@@ -25,18 +25,18 @@ namespace MousePicker
 		{
 			glm::vec3 axis(worldMat[i].x, worldMat[i].y, worldMat[i].z);
 
-			float e = glm::dot(axis, rayDistance);
-			float f = glm::dot(p_ray.direction, axis);
+			double e = glm::dot(axis, rayDistance);
+			double f = glm::dot(p_ray.direction, axis);
 
 			if (fabs(f) > 0.001f)
 			{
-				float t1 = (e + aabbMinPoint[i]) / f; //Left plane intersection
-				float t2 = (e + aabbMaxPoint[i]) / f; //Right plane intersection
+				double t1 = (e + aabbMinPoint[i]) / f; //Left plane intersection
+				double t2 = (e + aabbMaxPoint[i]) / f; //Right plane intersection
 
 				if (t1 > t2)
 				{
 					//Swap values
-					float temp = t1;
+					double temp = t1;
 					t1 = t2;
 					t2 = temp;
 				}
@@ -73,8 +73,8 @@ namespace MousePicker
 
 	kitten::Clickable* getClosestHit(const kitten::Ray& p_ray)
 	{
-		float minHit = 9999999.9f;
-		float tempHit = -1.0f;
+		double minHit = 9999999.9f;
+		double tempHit = -1.0f;
 		kitten::Clickable* minClick = nullptr;
 
 		const std::list<kitten::Clickable*>& activeClickables = kitten::ActiveClickables::getInstance()->getClickableList();

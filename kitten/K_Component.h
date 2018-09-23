@@ -15,12 +15,12 @@ namespace kitten
 		K_Component();
 		virtual ~K_Component();
 
-
 		K_GameObject* m_attachedObject;
+		bool m_hasStarted = false;
 	public:
 		virtual bool hasUpdate() const;
 
-		virtual void onAttached();
+		virtual void start();
 		virtual void update();
 
 		K_GameObject& getGameObject() { return *m_attachedObject; };

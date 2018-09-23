@@ -126,4 +126,9 @@ namespace puppy
 	{
 		return &(Texture::m_tex);
 	}
+
+	const std::string& Texture::getPath() const
+	{
+		return m_name;
+	}
 }

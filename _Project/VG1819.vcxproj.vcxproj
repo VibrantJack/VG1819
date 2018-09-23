@@ -61,6 +61,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AdditionalIncludeDirectories>$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -73,7 +74,8 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -114,6 +116,7 @@
     <ClCompile Include="..\kitten\mouse picking\ActiveClickables.cpp" />
     <ClCompile Include="..\kitten\mouse picking\Clickable.cpp" />
     <ClCompile Include="..\kitten\mouse picking\MousePicker.cpp" />
+    <ClCompile Include="..\kitten\QuadRenderable.cpp" />
     <ClCompile Include="..\kitten\Renderable.cpp" />
     <ClCompile Include="..\kitten\Transform.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
@@ -181,9 +184,11 @@
     <ClInclude Include="..\kitten\K_Singletons.h" />
     <ClInclude Include="..\kitten\K_Time.h" />
     <ClInclude Include="..\kitten\mouse picking\ActiveClickables.h" />
+    <ClInclude Include="..\kitten\mouse picking\BoundingBox.h" />
     <ClInclude Include="..\kitten\mouse picking\Clickable.h" />
     <ClInclude Include="..\kitten\mouse picking\MousePicker.h" />
     <ClInclude Include="..\kitten\mouse picking\Ray.h" />
+    <ClInclude Include="..\kitten\QuadRenderable.h" />
     <ClInclude Include="..\kitten\Renderable.h" />
     <ClInclude Include="..\kitten\Transform.h" />
     <ClInclude Include="..\pugixml\pugiconfig.hpp" />
