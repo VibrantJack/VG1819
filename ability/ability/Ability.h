@@ -20,6 +20,10 @@ namespace ability
 		std::string m_name;
 
 		virtual int effect(const AbilityInfoPackage* p_info) = 0;
+
+	protected:
+		//simple ability
+		int damage(unit::Unit* p_target, int power);
 	};
 
 	class Heal : public Ability
@@ -42,6 +46,14 @@ namespace ability
 	{
 	public:
 		Encourage();
+
+		int effect(const AbilityInfoPackage* p_info);
+	};
+
+	class QuickShoot : public Ability
+	{
+	public:
+		QuickShoot();
 
 		int effect(const AbilityInfoPackage* p_info);
 	};

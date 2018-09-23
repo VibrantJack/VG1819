@@ -15,13 +15,7 @@ namespace ability
 		//so power will change to negative
 		int power = -(p_info->m_intValue.find("power")->second);
 
-		AbilityNode* node1 = AbilityNodeManager::getInstance()->findNode("ChangeAttributeNode");
-		AbilityNode* node2 = AbilityNodeManager::getInstance()->findNode("CheckHPNode");
-
-		//change hp
-		node1->effect(target, "HP", power);
-		//then check hp
-		node2->effect(target);
+		damage(target,power);
 
 		return 0;
 	}
