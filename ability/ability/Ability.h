@@ -17,9 +17,24 @@ namespace ability
 		~Ability() {};
 
 		std::string m_name;
-		std::string m_description;//the text that will be showed to player
 
 		virtual int effect(const AbilityInfoPackage* p_info) = 0;
+	};
+
+	class Heal : public Ability
+	{
+	public:
+		Heal();
+
+		int effect(const AbilityInfoPackage* p_info);
+	};
+
+	class Fight : public Ability
+	{
+	public:
+		Fight();
+
+		int effect(const AbilityInfoPackage* p_info);
 	};
 }
 

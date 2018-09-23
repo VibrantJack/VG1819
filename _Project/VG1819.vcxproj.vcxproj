@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ability\AbilityManager.cpp" />
+    <ClCompile Include="..\ability\ability\Fight.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
     <ClCompile Include="..\ability\node\AbilityNode.cpp" />
     <ClCompile Include="..\ability\node\AbilityNodeManager.cpp" />
@@ -131,7 +132,10 @@
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
     <ClCompile Include="..\Shapes\Cube.cpp" />
+    <ClCompile Include="..\unit\Commander.cpp" />
     <ClCompile Include="..\unit\Unit.cpp" />
+    <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp" />
+    <ClCompile Include="..\unit\unitComponent\UnitGraphic.cpp" />
     <ClCompile Include="..\unit\UnitData.cpp" />
     <ClCompile Include="..\unit\UnitMonitor.cpp" />
     <ClCompile Include="..\unit\UnitSpawn.cpp" />
@@ -147,11 +151,8 @@
     <ClInclude Include="..\ability\AbilityInfoPackage.h" />
     <ClInclude Include="..\ability\AbilityManager.h" />
     <ClInclude Include="..\ability\ability\Ability.h" />
-    <ClInclude Include="..\ability\ability\Heal.h" />
     <ClInclude Include="..\ability\node\AbilityNode.h" />
     <ClInclude Include="..\ability\node\AbilityNodeManager.h" />
-    <ClInclude Include="..\ability\node\ChangeAttributeNode.h" />
-    <ClInclude Include="..\ability\node\CheckHPNode.h" />
     <ClInclude Include="..\ability\status\Status.h" />
     <ClInclude Include="..\gameworld\GameBoard.h" />
     <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
@@ -204,10 +205,13 @@
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
     <ClInclude Include="..\Shapes\Cube.h" />
+    <ClInclude Include="..\unit\Commander.h" />
     <ClInclude Include="..\unit\Unit.h" />
     <ClInclude Include="..\unit\UnitCommon.h" />
+    <ClInclude Include="..\unit\unitComponent\AbilityDescription.h" />
+    <ClInclude Include="..\unit\unitComponent\StatusContainer.h" />
+    <ClInclude Include="..\unit\unitComponent\UnitGraphic.h" />
     <ClInclude Include="..\unit\UnitData.h" />
-    <ClInclude Include="..\unit\UnitGraphic.h" />
     <ClInclude Include="..\unit\UnitMonitor.h" />
     <ClInclude Include="..\unit\UnitSpawn.h" />
     <ClInclude Include="..\unit\UnitTest.h" />

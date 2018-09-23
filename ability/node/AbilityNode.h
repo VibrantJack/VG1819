@@ -26,6 +26,31 @@ namespace ability
 		//the method call
 		//TO DO: override method with parameters
 	};
+
+	class ChangeAttributeNode : public ability::AbilityNode
+	{
+	public:
+		ChangeAttributeNode();
+
+		int effect(unit::Unit* p_target, const std::string &p_name, int p_value);
+	};
+
+	class CheckHPNode : public ability::AbilityNode
+	{
+	public:
+		CheckHPNode();
+
+		int effect(unit::Unit* p_target);
+	};
+
+	//TO DO: implement
+	class CreateUnitNode : public ability::AbilityNode
+	{
+	public:
+		CreateUnitNode();
+
+		int effect(unit::Unit* p_target);
+	};
 }
 
 

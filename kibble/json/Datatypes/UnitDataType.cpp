@@ -40,7 +40,22 @@ unit::UnitData* getUnitDataFrom(nlohmann::json& p_jsonfile) {
 		}
 	}
 
-	return new unit::UnitData(name, hp, mv, in, cost, size, tags, ad, sd);
+	unit::UnitData* ud = new unit::UnitData();
+	ud->m_name = name;
+	ud->m_HP = hp;
+	ud->m_MV = mv;
+	ud->m_IN = in;
+	ud->m_Cost = cost;
+	ud->m_size = size;
+	ud->m_tags = tags;
+
+	ud->m_ad = ad;
+	ud->m_sd = sd;
+
+	//ud->m_texPath;
+	//ud->m_porPath;
+
+	return ud;
 }
 
 std::vector<unit::UnitData*> getMultipleUnitDataFrom(nlohmann::json& p_jsonfile) {

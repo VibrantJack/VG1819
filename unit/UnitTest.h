@@ -2,6 +2,7 @@
 #include "UnitData.h"
 #include "UnitMonitor.h"
 #include "UnitSpawn.h"
+#include "UnitCommon.h"
 
 //Rock
 

@@ -9,6 +9,7 @@
 #include "_Project\DebugPrintOnce.h"
 #include "gameworld\GrassLandInfoComponent.h"
 #include "_Project\PrintWhenClicked.h"
+#include "unit/unitComponent/UnitGraphic.h"
 
 namespace kitten
 {
@@ -57,6 +58,10 @@ namespace kitten
 		else if (p_componentName == "PrintWhenClicked")
 		{
 			comp = new PrintWhenClicked(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f), "I WAS CLICKED!!");
+		}
+		else if (p_componentName == "UnitGraphic")
+		{
+			comp = new unit::UnitGraphic(unit::point,"texture/placeholder.tga");
 		}
 		else
 		{

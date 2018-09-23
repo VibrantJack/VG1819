@@ -1,19 +1,19 @@
-#pragma once
 #include "ability/ability/Ability.h"
 
 //Rock
 
 namespace ability
 {
-	Heal::Heal()
+	Fight::Fight()
 	{
 	}
 
-	int Heal::effect(const AbilityInfoPackage* p_info)
+	int Fight::effect(const AbilityInfoPackage* p_info)
 	{
-		//heal target by power
+		//damage target by power
 		unit::Unit* target = p_info->m_target;
-		int power = p_info->m_power;
+		//so power will change to negative
+		int power = -(p_info->m_power);
 
 		AbilityNode* node1 = AbilityNodeManager::getInstance()->findNode("ChangeAttributeNode");
 		AbilityNode* node2 = AbilityNodeManager::getInstance()->findNode("CheckHPNode");

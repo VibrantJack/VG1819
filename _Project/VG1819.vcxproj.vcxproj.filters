@@ -157,6 +157,10 @@
     <ClCompile Include="PrintWhenClicked.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\ability\Fight.cpp" />
+    <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp" />
+    <ClCompile Include="..\unit\unitComponent\UnitGraphic.cpp" />
+    <ClCompile Include="..\unit\Commander.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -276,9 +280,6 @@
     <ClInclude Include="..\unit\UnitData.h">
       <Filter>unit</Filter>
     </ClInclude>
-    <ClInclude Include="..\unit\UnitGraphic.h">
-      <Filter>unit</Filter>
-    </ClInclude>
     <ClInclude Include="..\unit\UnitMonitor.h">
       <Filter>unit</Filter>
     </ClInclude>
@@ -302,9 +303,6 @@
     </ClInclude>
     <ClInclude Include="..\ability\node\AbilityNodeManager.h">
       <Filter>ability\node</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ability\ability\Heal.h">
-      <Filter>ability\ability</Filter>
     </ClInclude>
     <ClInclude Include="..\ability\AbilityInfoPackage.h">
       <Filter>ability</Filter>
@@ -344,12 +342,6 @@
     <ClInclude Include="..\gameworld\GameBoard.h" />
     <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
     <ClInclude Include="..\gameworld\TileInformationComponent.h" />
-    <ClInclude Include="..\ability\node\ChangeAttributeNode.h">
-      <Filter>ability\node</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ability\node\CheckHPNode.h">
-      <Filter>ability\node</Filter>
-    </ClInclude>
     <ClInclude Include="..\kitten\mouse picking\ActiveClickables.h">
       <Filter>kitten\mouse  picking</Filter>
     </ClInclude>
@@ -365,6 +357,10 @@
     <ClInclude Include="PrintWhenClicked.h">
       <Filter>components</Filter>
     </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\AbilityDescription.h" />
+    <ClInclude Include="..\unit\unitComponent\StatusContainer.h" />
+    <ClInclude Include="..\unit\unitComponent\UnitGraphic.h" />
+    <ClInclude Include="..\unit\Commander.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -411,6 +407,9 @@
     </Filter>
     <Filter Include="kitten\mouse  picking">
       <UniqueIdentifier>{656830c6-1a1d-490a-9efd-07671cdcb240}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="unit\unitComponent">
+      <UniqueIdentifier>{7e918662-08e0-48e2-a6f4-fc678ff689ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
