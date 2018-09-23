@@ -137,8 +137,6 @@
     <ClCompile Include="..\kibble\json\jsonextra.cpp">
       <Filter>kibble\JSON</Filter>
     </ClCompile>
-    <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp" />
-    <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp" />
     <ClCompile Include="..\ability\node\ChangeAttributeNode.cpp">
       <Filter>ability\node</Filter>
     </ClCompile>
@@ -156,6 +154,12 @@
     </ClCompile>
     <ClCompile Include="PrintWhenClicked.cpp">
       <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -339,8 +343,6 @@
     <ClInclude Include="..\kibble\json\jsonextra.hpp">
       <Filter>kibble\JSON</Filter>
     </ClInclude>
-    <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp" />
-    <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp" />
     <ClInclude Include="..\gameworld\GameBoard.h" />
     <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
     <ClInclude Include="..\gameworld\TileInformationComponent.h" />
@@ -364,6 +366,12 @@
     </ClInclude>
     <ClInclude Include="PrintWhenClicked.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -411,6 +419,9 @@
     </Filter>
     <Filter Include="kitten\mouse  picking">
       <UniqueIdentifier>{656830c6-1a1d-490a-9efd-07671cdcb240}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kibble\JSON\Datatypes">
+      <UniqueIdentifier>{4d5d18f5-6aef-45a4-b204-f32f9c18cabb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
