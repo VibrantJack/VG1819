@@ -1,7 +1,7 @@
 #pragma once
 #include "unit/unitComponent/UnitGraphic.h"
 #include "puppy\ShaderManager.h"
-
+#include "kitten/K_CameraList.h"
 
 //Rock
 //a component with unit, it handle the unit's texture and animation
@@ -46,6 +46,9 @@ namespace unit
 		m_verts.push_back({ x + width, y, z,		1.0f, 0.0f });
 		m_verts.push_back({ x, y, z,		0.0f, 0.0f });
 
+		//setup the vao
+		sm_vao = new puppy::VertexEnvironment(&m_verts[0], puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), m_verts.size());
+
 	}
 
 	UnitGraphic::~UnitGraphic()
@@ -62,25 +65,6 @@ namespace unit
 	void UnitGraphic::render(const glm::mat4& p_viewProj)
 	{
 		m_mat->apply();
-
-		/*
-		//bilboard
-		glm::mat4 bb = glm::transpose(p_viewProj);
-
-		for (int i = 0; i < m_verts.size(); i++)
-		{
-			//bilboard
-			glm::vec4 temp(m_verts[i].x, m_verts[i].y, m_verts[i].z, 0);
-			temp = bb * temp;
-			//offset
-			m_verts[i].x = temp.x;// + pos.x;
-			m_verts[i].y = temp.y;// + pos.y;
-			m_verts[i].z = temp.z;// + pos.z;
-		}
-		*/
-		//setup the vao
-		sm_vao = new puppy::VertexEnvironment(&m_verts[0], puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), m_verts.size());
-
 
 		//Set world matrix
 		glm::mat4 wvp = p_viewProj * getTransform().getWorldTransform();

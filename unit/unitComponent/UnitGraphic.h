@@ -16,7 +16,6 @@ namespace unit
 		puppy::Material* m_mat;
 
 		static puppy::VertexEnvironment* sm_vao;
-		puppy::Texture* m_tex;
 		std::vector<puppy::TexturedVertex> m_verts;
 
 	public:

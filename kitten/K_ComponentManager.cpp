@@ -61,7 +61,7 @@ namespace kitten
 		}
 		else if (p_componentName == "UnitGraphic")
 		{
-			comp = new unit::UnitGraphic(unit::point,"texture/placeholder.tga");
+			comp = new unit::UnitGraphic(unit::point,"textures/unit/Default.tga");
 		}
 		else
 		{

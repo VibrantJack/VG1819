@@ -65,7 +65,6 @@ namespace kitten
 				CubeRenderable* cubeRend = static_cast<CubeRenderable*>(tileRenderComponent);
 				testtile->addComponent(cubeRend);
 				cubeRend->setTexture("textures/tiles/Grassland.tga");
-
 				testtile->getTransform().move(x, -1, z);
 			}
 		}
