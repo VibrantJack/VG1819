@@ -38,7 +38,6 @@ namespace puppy
 		void setMagFiltering(const int p_mode);
 
 		const GLuint* getTex() const;
-		const std::string& getPath() const;
 
 		static void removeAll();
 

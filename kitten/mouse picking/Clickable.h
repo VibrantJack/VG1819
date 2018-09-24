@@ -16,7 +16,7 @@ namespace kitten
 		Clickable(const glm::vec3& p_pointMin, const glm::vec3& p_pointMax);
 		virtual ~Clickable();
 
-		virtual void start() override;
+		virtual void onAttached() override;
 
 		const glm::vec3& getMinPoint() const { return m_minPoint; };
 		const glm::vec3& getMaxPoint() const { return m_maxPoint; };

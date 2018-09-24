@@ -113,7 +113,7 @@ namespace kitten
 	void Transform::rotateRelative(const glm::vec3& rot)
 	{
 		m_quatRotation = glm::quat(rot * (float)DEG_TO_RAD_FACTOR) * m_quatRotation;
-		m_forward = glm::vec3(0, 0, 1) * m_quatRotation;
+		m_forward = m_quatRotation * glm::vec3(0, 0, 1);
 
 		m_isDirty = true;
 
@@ -123,7 +123,7 @@ namespace kitten
 	void Transform::rotateAbsolute(const glm::vec3& rot)
 	{
 		m_quatRotation = glm::quat(rot * (float)DEG_TO_RAD_FACTOR);
-		m_forward = glm::vec3(0, 0, 1) * m_quatRotation;
+		m_forward = m_quatRotation * glm::vec3(0, 0, 1);
 
 		m_isDirty = true;
 
