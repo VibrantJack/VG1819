@@ -4,5 +4,5 @@
 #include <string>
 
 kitten::K_GameObject* kibble::JSONGameObjectDataParser::getGameObject(const std::string& p_filename) {
-	return getGameObjectBy(jsonIn(p_filename));
+	return getGameObjectBy(jsonIn("data/gameobject/" + p_filename));
 }

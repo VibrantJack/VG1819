@@ -1,5 +1,6 @@
 {
     "name" : "camGameObject", 
+    "translate" : [ 7, 10.0, -6.0],
     "components" : [
         {
             "name" : "Camera"

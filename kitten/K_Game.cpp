@@ -15,6 +15,8 @@
 
 #include "gameworld\GameBoard.h"
 
+#include "kibble/kibble.hpp"
+
 namespace kitten
 {
 	void createSingletons()
@@ -28,6 +30,8 @@ namespace kitten
 
 		puppy::MaterialManager::createInstance();
 		puppy::Renderer::createInstance();
+
+		kibble::initializeKibbleRelatedComponents();
 	}
 
 	// This is called once at the beginning of the game
@@ -41,14 +45,7 @@ namespace kitten
 
 
 		//Creating a gameobject
-		K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject();
-		K_Component* camComp = compMan->createComponent("Camera");
-		K_Component* mouseMove = compMan->createComponent("MoveByMouseRightClickDrag");
-		K_Component* zoomComp = compMan->createComponent("ZoomByMouseWheel");
-		camGameObj->getTransform().move(0.0f, 5.0f, -5.0f);
-		camGameObj->addComponent(zoomComp);
-		camGameObj->addComponent(camComp);
-		camGameObj->addComponent(mouseMove);
+		K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject("camgameobj.txt");
 
 
 		for (int x = 0; x < 15; x++)
@@ -77,6 +74,8 @@ namespace kitten
 
 	void destroySingletons()
 	{
+		kibble::destroyKibbleRelatedComponents();
+
 		input::InputManager::destroyInstance();
 		K_CameraList::destroyInstance();
 		K_ComponentManager::destroyInstance();

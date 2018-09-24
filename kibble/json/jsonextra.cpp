@@ -10,6 +10,7 @@ nlohmann::json jsonIn(const std::string& p_filename) {
 	}
 	else {
 		throw std::exception("Something went wrong, file can't be opened."); // check if filename is correct.
+		return nullptr;
 	}
 
 	return jsontarget;
