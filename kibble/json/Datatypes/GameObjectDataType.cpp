@@ -8,7 +8,15 @@ kitten::K_GameObject* getGameObjectBy(nlohmann::json& p_jsonfile) {
 	// going through both managers is important! 
 	kitten::K_GameObjectManager* gameobjectmanager = kitten::K_GameObjectManager::getInstance();
 	kitten::K_ComponentManager* componentmanager = kitten::K_ComponentManager::getInstance();
-	kitten::K_GameObject* gameobject = gameobjectmanager->createNewGameObject();
+	kitten::K_GameObject* gameobject;
+
+	// start off with checking for filename to base things on
+	if (p_jsonfile.find("filename") != p_jsonfile.end()) {
+		gameobject = gameobjectmanager->createNewGameObject(p_jsonfile["filename"]);
+	}
+	else {
+		gameobject = gameobjectmanager->createNewGameObject();
+	}
 
 	// add all attributes related to game object only here!
 	if (p_jsonfile.find("translate") != p_jsonfile.end()) {
