@@ -53,16 +53,16 @@ namespace kitten
 		{
 			for (int z = 0; z < 15; z++)
 			{
-				K_GameObject* testtile = K_GameObjectManager::getInstance()->createNewGameObject();
-				K_Component* grassTileInfo = compMan->createComponent("Grassland");
+				K_GameObject* testtile = K_GameObjectManager::getInstance()->createNewGameObject("tileobj.txt");
+
 				PrintWhenClicked* clickableComp = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClickedQuad"));
 				clickableComp->setMessage("grassy tile: " + std::to_string(x) + ", " + std::to_string(z));
-				testtile->addComponent(grassTileInfo);
 				testtile->addComponent(clickableComp);
-				K_Component* tileRenderComponent = compMan->createComponent("StaticQuadRenderable");
-				QuadRenderable* cubeRend = static_cast<QuadRenderable*>(tileRenderComponent);
-				testtile->addComponent(cubeRend);
-				cubeRend->setTexture("textures/tiles/Grassland.tga");
+
+				//K_Component* tileRenderComponent = compMan->createComponent("StaticQuadRenderable");
+				//QuadRenderable* cubeRend = static_cast<QuadRenderable*>(tileRenderComponent);
+				//testtile->addComponent(cubeRend);
+				//cubeRend->setTexture("textures/tiles/Grassland.tga");
 
 				testtile->getTransform().move(x, -1, z);
 			}
