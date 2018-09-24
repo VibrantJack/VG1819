@@ -5,7 +5,8 @@
             "name" : "Camera"
         }, 
         {
-            "name" : "MoveByMouseRightClickDrag"
+            "name" : "MoveByMouseRightClickDrag",
+            "speed" : 0.05
         },
         {
             "name" : "ZoomByMouseWheel"
