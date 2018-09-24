@@ -16,7 +16,7 @@ namespace kitten
 		ActiveClickables::getInstance()->removeFromActive(this);
 	}
 
-	void Clickable::onAttached()
+	void Clickable::start()
 	{
 		m_minPoint = m_originalMinPoint * getTransform().getScale();
 		m_maxPoint = m_originalMaxPoint * getTransform().getScale();
