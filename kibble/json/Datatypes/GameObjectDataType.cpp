@@ -24,11 +24,11 @@ kitten::K_GameObject* getGameObjectBy(nlohmann::json& p_jsonfile) {
 	}
 	
 	if (p_jsonfile.find("rotate") != p_jsonfile.end()) {
-		gameobject->getTransform().place(p_jsonfile["rotate"][0], p_jsonfile["rotate"][1], p_jsonfile["rotate"][2]);
+		gameobject->getTransform().rotateAbsolute(glm::vec3(p_jsonfile["rotate"][0], p_jsonfile["rotate"][1], p_jsonfile["rotate"][2]));
 	}
 	
 	if (p_jsonfile.find("scale") != p_jsonfile.end()) {
-		gameobject->getTransform().place(p_jsonfile["scale"][0], p_jsonfile["scale"][1], p_jsonfile["scale"][2]);
+		gameobject->getTransform().scaleAbsolute(p_jsonfile["scale"][0], p_jsonfile["scale"][1], p_jsonfile["scale"][2]);
 	}
 
 	if (p_jsonfile.find("components") != p_jsonfile.end()) {
