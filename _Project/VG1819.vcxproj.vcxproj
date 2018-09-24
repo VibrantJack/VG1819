@@ -96,6 +96,7 @@
     <ClCompile Include="..\ability\node\CheckHPNode.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\GameObjectDataType.cpp" />
+    <ClCompile Include="..\kibble\json\Datatypes\SceneDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp" />
     <ClCompile Include="..\kibble\json\JSONComponentDataParser.cpp" />
     <ClCompile Include="..\kibble\json\jsonextra.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="..\kibble\GameObjectDataParser.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\GameObjectDataType.hpp" />
+    <ClInclude Include="..\kibble\json\Datatypes\SceneDataType.hpp" />
     <ClInclude Include="..\kibble\json\JSONComponentDataParser.hpp" />
     <ClInclude Include="..\kibble\json\jsonextra.hpp" />
     <ClInclude Include="..\kibble\json\JSONGameObjectDataParser.hpp" />

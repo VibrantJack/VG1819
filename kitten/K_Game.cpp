@@ -43,10 +43,9 @@ namespace kitten
 		// Temporary stuff until Kibble is ready
 		K_ComponentManager* compMan = K_ComponentManager::getInstance();
 
-
 		//Creating a gameobject
-		K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject("camgameobj.txt");
-
+		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
+		kibble::setSceneFrom(std::string("mainscene.txt"));
 
 		for (int x = 0; x < 15; x++)
 		{

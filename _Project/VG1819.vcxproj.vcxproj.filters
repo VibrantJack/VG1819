@@ -164,6 +164,9 @@
     <ClCompile Include="..\kibble\json\Datatypes\GameObjectDataType.cpp">
       <Filter>kibble\JSON\Datatypes</Filter>
     </ClCompile>
+    <ClCompile Include="..\kibble\json\Datatypes\SceneDataType.cpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -377,6 +380,9 @@
       <Filter>kibble\JSON\Datatypes</Filter>
     </ClInclude>
     <ClInclude Include="..\kibble\json\Datatypes\GameObjectDataType.hpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\json\Datatypes\SceneDataType.hpp">
       <Filter>kibble\JSON\Datatypes</Filter>
     </ClInclude>
   </ItemGroup>

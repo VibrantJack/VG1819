@@ -27,3 +27,8 @@ kibble::GameObjectDataParser* kibble::getGameObjectDataParserInstance() {
 kibble::UnitDataParser* kibble::getUnitDataParserInstance() {
 	return unitParser;
 }
+
+#include "kibble/json/Datatypes/SceneDataType.hpp"
+void kibble::setSceneFrom(std::string& filename) {
+	setupSceneBy(jsonIn("data/scene/" + filename));
+}
