@@ -27,6 +27,7 @@ namespace puppy
 			if (*it == p_toRemove)
 			{
 				m_toRender.erase(it);
+				return;
 			}
 		}
 	}

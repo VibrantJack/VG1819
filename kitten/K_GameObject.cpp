@@ -32,7 +32,6 @@ namespace kitten
 		m_components[std::type_index(typeid(*p_toAdd))] = p_toAdd;
 
 		p_toAdd->m_attachedObject = this;
-		p_toAdd->onAttached();
 
 		return true;
 	}

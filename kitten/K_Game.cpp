@@ -10,6 +10,7 @@
 
 #include "kitten\Camera.h"
 #include "kitten\CubeRenderable.h"
+#include "kitten\QuadRenderable.h"
 #include "_Project\MoveByMouseRightClickDrag.h"
 #include "_Project\PrintWhenClicked.h"
 
@@ -30,6 +31,7 @@ namespace kitten
 
 		puppy::MaterialManager::createInstance();
 		puppy::Renderer::createInstance();
+		puppy::StaticRenderables::createInstance();
 
 		kibble::initializeKibbleRelatedComponents();
 	}
@@ -53,20 +55,18 @@ namespace kitten
 			{
 				K_GameObject* testtile = K_GameObjectManager::getInstance()->createNewGameObject();
 				K_Component* grassTileInfo = compMan->createComponent("Grassland");
-				PrintWhenClicked* clickableComp = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
-				clickableComp->setMessage("grassy tile");
+				PrintWhenClicked* clickableComp = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClickedQuad"));
+				clickableComp->setMessage("grassy tile: " + std::to_string(x) + ", " + std::to_string(z));
 				testtile->addComponent(grassTileInfo);
 				testtile->addComponent(clickableComp);
-				K_Component* tileRenderComponent = compMan->createComponent("CubeRenderable");
-				CubeRenderable* cubeRend = static_cast<CubeRenderable*>(tileRenderComponent);
+				K_Component* tileRenderComponent = compMan->createComponent("StaticQuadRenderable");
+				QuadRenderable* cubeRend = static_cast<QuadRenderable*>(tileRenderComponent);
 				testtile->addComponent(cubeRend);
 				cubeRend->setTexture("textures/tiles/Grassland.tga");
 
 				testtile->getTransform().move(x, -1, z);
 			}
 		}
-
-	
 
 		return true;
 	}
@@ -84,6 +84,7 @@ namespace kitten
 
 		puppy::MaterialManager::destroyInstance();
 		puppy::Renderer::destroyInstance();
+		puppy::StaticRenderables::destroyInstance();
 	}
 
 	void updateGame()
@@ -103,6 +104,8 @@ namespace kitten
 		//@TODO: Combine these? 
 		const glm::mat4& sceneViewProj = K_CameraList::getInstance()->getSceneCamera()->getViewProj();
 		puppy::Renderer::getInstance()->renderAll(sceneViewProj);
+
+		puppy::StaticRenderables::getInstance()->render(sceneViewProj);
 	}
 
 	// This is called every frame

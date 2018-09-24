@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -61,6 +61,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AdditionalIncludeDirectories>$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -74,6 +75,7 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -116,6 +118,7 @@
     <ClCompile Include="..\kitten\mouse picking\ActiveClickables.cpp" />
     <ClCompile Include="..\kitten\mouse picking\Clickable.cpp" />
     <ClCompile Include="..\kitten\mouse picking\MousePicker.cpp" />
+    <ClCompile Include="..\kitten\QuadRenderable.cpp" />
     <ClCompile Include="..\kitten\Renderable.cpp" />
     <ClCompile Include="..\kitten\Transform.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
@@ -188,6 +191,7 @@
     <ClInclude Include="..\kitten\mouse picking\Clickable.h" />
     <ClInclude Include="..\kitten\mouse picking\MousePicker.h" />
     <ClInclude Include="..\kitten\mouse picking\Ray.h" />
+    <ClInclude Include="..\kitten\QuadRenderable.h" />
     <ClInclude Include="..\kitten\Renderable.h" />
     <ClInclude Include="..\kitten\Transform.h" />
     <ClInclude Include="..\pugixml\pugiconfig.hpp" />
