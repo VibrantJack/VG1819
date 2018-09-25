@@ -32,7 +32,7 @@ namespace kitten
 				{ -0.5f, 0.0f,-0.5f,		1.0f, 0.0f },
 				{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
 				};
-				sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 36);
+				sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);
 			}
 			++sm_instances;
 			
