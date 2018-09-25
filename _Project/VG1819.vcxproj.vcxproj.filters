@@ -218,6 +218,15 @@
     <ClCompile Include="..\ability\ability\QuickShoot.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\event_system\Event.cpp">
+      <Filter>kitten\event_system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\event_system\EventExample.cpp">
+      <Filter>kitten\event_system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\event_system\EventManager.cpp">
+      <Filter>kitten\event_system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -436,6 +445,15 @@
     <ClInclude Include="..\unit\Commander.h">
       <Filter>unit</Filter>
     </ClInclude>
+    <ClInclude Include="..\kitten\event_system\Event.h">
+      <Filter>kitten\event_system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\event_system\EventExample.h">
+      <Filter>kitten\event_system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\event_system\EventManager.h">
+      <Filter>kitten\event_system</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -488,6 +506,9 @@
     </Filter>
     <Filter Include="unit\unitComponent">
       <UniqueIdentifier>{7f7f5dc6-b257-41b9-ac02-f613057bb3a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kitten\event_system">
+      <UniqueIdentifier>{b5b351c0-5e7c-4330-9ecd-f9fea34d007d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

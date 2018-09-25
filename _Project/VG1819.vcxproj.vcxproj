@@ -120,6 +120,9 @@
     <ClCompile Include="..\kibble\kibble.cpp" />
     <ClCompile Include="..\kitten\Camera.cpp" />
     <ClCompile Include="..\kitten\CubeRenderable.cpp" />
+    <ClCompile Include="..\kitten\event_system\Event.cpp" />
+    <ClCompile Include="..\kitten\event_system\EventExample.cpp" />
+    <ClCompile Include="..\kitten\event_system\EventManager.cpp" />
     <ClCompile Include="..\kitten\InputManager.cpp" />
     <ClCompile Include="..\kitten\K_CameraList.cpp" />
     <ClCompile Include="..\kitten\K_Component.cpp" />
@@ -189,6 +192,9 @@
     <ClInclude Include="..\kibble\json\JSONUnitDataParser.hpp" />
     <ClInclude Include="..\kitten\Camera.h" />
     <ClInclude Include="..\kitten\CubeRenderable.h" />
+    <ClInclude Include="..\kitten\event_system\Event.h" />
+    <ClInclude Include="..\kitten\event_system\EventExample.h" />
+    <ClInclude Include="..\kitten\event_system\EventManager.h" />
     <ClInclude Include="..\kitten\Frustum.h" />
     <ClInclude Include="..\kitten\InputManager.h" />
     <ClInclude Include="..\kitten\K_CameraList.h" />
