@@ -4,7 +4,7 @@ namespace puppy
 {
 
 	GLuint Texture::sm_boundTexture = 0;
-	std::map<std::string, std::pair<GLuint, unsigned int>> Texture::sm_loadedTextures;
+	std::map<std::string, std::pair<GLuint, int>> Texture::sm_loadedTextures;
 
 	int Texture::sm_boundWrapMode = 0;
 	int Texture::sm_boundMagFiltering = 0;
@@ -38,6 +38,7 @@ namespace puppy
 		else //We have already loaded this texture
 		{
 			Texture::m_tex = Texture::sm_loadedTextures[p_texName].first;
+			Texture::sm_loadedTextures[p_texName].second++;
 		}
 	}
 
@@ -56,6 +57,7 @@ namespace puppy
 		if (sm_loadedTextures[m_name].second == 0)
 		{
 			glDeleteTextures(1, &m_tex);
+			sm_loadedTextures.erase(m_name);
 		}
 	}
 

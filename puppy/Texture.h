@@ -23,7 +23,7 @@ namespace puppy
 		int m_wrapMode, m_minFiltering, m_magFiltering;
 		static int sm_boundWrapMode, sm_boundMinFiltering, sm_boundMagFiltering;
 
-		static std::map<std::string, std::pair<GLuint, unsigned int>> sm_loadedTextures;
+		static std::map<std::string, std::pair<GLuint, int>> sm_loadedTextures;
 		static GLuint sm_boundTexture; //Currently bound tex
 
 		void bind() const;

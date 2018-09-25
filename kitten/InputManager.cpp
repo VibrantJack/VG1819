@@ -5,6 +5,9 @@
 #include "mouse picking\MousePicker.h"
 #include "mouse picking\Ray.h"
 #include "K_CameraList.h"
+#include "puppy\ShaderManager.h"
+#include "puppy\VertexEnvironment.h"
+
 
 namespace input
 {
@@ -33,7 +36,7 @@ namespace input
 		return sm_inputManagerInstance;
 	}
 
-	InputManager::InputManager() : m_shouldResetMouse(false), m_lastHover(nullptr)
+	InputManager::InputManager() : m_shouldResetMouse(false)
 	{
 		memset(m_keysDown, 0, sizeof(bool) * GLFW_KEY_LAST);
 		memset(m_keysDownLast, 0, sizeof(bool) * GLFW_KEY_LAST);
@@ -156,29 +159,46 @@ namespace input
 		mouseRay.direction = glm::normalize(worldRay);
 
 		kitten::Clickable* hit = MousePicker::getClosestHit(mouseRay);
-		if (hit != nullptr && m_lastHover != nullptr)
+		kitten::Clickable* lastHover = kitten::ActiveClickables::getInstance()->m_lastHover;
+
+		if (hit != nullptr && lastHover != nullptr)
 		{
-			if (m_lastHover != hit)
+			if (lastHover != hit)
 			{
-				m_lastHover->onHoverEnd();
+				lastHover->onHoverEnd();
 				hit->onHoverStart();
-				m_lastHover = hit;
+				lastHover = hit;
 			}
 		}
 		else
 		{
-			if (hit != nullptr && m_lastHover == nullptr)
+			if (hit != nullptr && lastHover == nullptr)
 			{
 				hit->onHoverStart();
-				m_lastHover = hit;
+				lastHover = hit;
 			}
-			else if(hit == nullptr && m_lastHover != nullptr)
+			else if(hit == nullptr && lastHover != nullptr)
 			{
-				m_lastHover->onHoverEnd();
-				m_lastHover = nullptr;
+				lastHover->onHoverEnd();
+				lastHover = nullptr;
 			}
 		}
 
+		/*
+		Debug not functional yet
+		puppy::TexturedVertex debugLineVerts[] = 
+		{
+			{mouseRay.origin.x, mouseRay.origin.y, mouseRay.origin.z, 0,0 },
+			{mouseRay.origin.x + mouseRay.direction.x * 100, mouseRay.origin.y + mouseRay.direction.y * 100, mouseRay.origin.z + mouseRay.direction.z * 100 , 0,0}
+		};
+
+		puppy::VertexEnvironment vao(debugLineVerts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 2);
+
+		int wvpPlace = puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic)->getUniformPlace(WORLD_VIEW_PROJ_UNIFORM_NAME);
+		glUniformMatrix4fv(wvpPlace, 1, GL_FALSE, glm::value_ptr(activeCam->getViewProj()));
+
+		vao.drawArrays(GL_LINES);
+		*/
 		//Are we clicking?
 		if (m_mouseDown[GLFW_MOUSE_BUTTON_LEFT] && !m_mouseDownLast[GLFW_MOUSE_BUTTON_LEFT] && hit != nullptr)
 		{

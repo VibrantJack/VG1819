@@ -2,6 +2,7 @@
 
 #include <list>
 #include "Clickable.h"
+#include "kitten\InputManager.h"
 
 namespace kitten
 {
@@ -9,11 +10,15 @@ namespace kitten
 
 	class ActiveClickables
 	{
+		friend class input::InputManager;
 	private:
 		//Singleton stuff
 		static ActiveClickables* sm_instance;
 
 		std::list<Clickable*> m_clickables;
+
+		//Jank for deleting thing that the mouse is over..
+		Clickable* m_lastHover;
 	public:
 		//Singleton stuff
 		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new ActiveClickables(); };
@@ -23,5 +28,7 @@ namespace kitten
 		void addToActive(Clickable* p_toAdd);
 		void removeFromActive(Clickable* p_toRemove);
 		const std::list<Clickable*>& getClickableList() const;
+
+		
 	};
 }

@@ -170,6 +170,9 @@
     <ClCompile Include="..\kitten\QuadRenderable.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
+    <ClCompile Include="DestroyOnClick.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -388,11 +391,11 @@
     <ClInclude Include="..\kibble\json\Datatypes\SceneDataType.hpp">
       <Filter>kibble\JSON\Datatypes</Filter>
     </ClInclude>
-    <ClInclude Include="..\kitten\mouse picking\BoundingBox.h">
-      <Filter>kitten\mouse  picking</Filter>
-    </ClInclude>
     <ClInclude Include="..\kitten\QuadRenderable.h">
       <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="DestroyOnClick.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

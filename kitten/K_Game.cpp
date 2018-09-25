@@ -96,6 +96,7 @@ namespace kitten
 
 		//Update components
 		K_ComponentManager::getInstance()->updateComponents();
+		K_GameObjectManager::getInstance()->deleteQueuedObjects();
 	}
 
 

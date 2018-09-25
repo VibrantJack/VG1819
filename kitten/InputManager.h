@@ -22,8 +22,6 @@ namespace input
 
 		bool m_shouldResetMouse;
 
-		kitten::Clickable* m_lastHover;
-
 		InputManager();
 		~InputManager();
 	public:

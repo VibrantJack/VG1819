@@ -15,26 +15,32 @@ namespace puppy
 
 	}
 
-	void StaticRenderables::addToRender(const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements)
+	void StaticRenderables::addToRender(const void* p_owner, const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements)
 	{
 		auto found = m_texturedData.find(*p_texNeeded->getTex());
 
+		std::vector<TexturedVertex> toInsert(p_data, p_data + p_numElements);
+
 		if (found != m_texturedData.end())
 		{
-			//add to existing vector
-			auto& vec = found->second.first;
-			vec.insert(vec.end(), p_data, p_data + p_numElements);
+			//add to existing map
+			auto& map = found->second.first;
+			
+			toInsert.insert(toInsert.begin(), p_data, p_data + p_numElements);
+
+			map.insert(std::make_pair(p_owner, toInsert));
 
 			//mark dirty
 			found->second.second = true;
 		}
 		else
 		{
-			//We need to create a vector for this new texture
-			std::vector<TexturedVertex> toInsert(p_data, p_data + p_numElements);
+			//make new map
+			std::map<const void*, std::vector<TexturedVertex>> newMap;
+			newMap.insert(std::make_pair(p_owner, toInsert));
 
-			//Insert into map
-			m_texturedData.insert(std::make_pair(*p_texNeeded->getTex(), std::make_pair(toInsert,true)));
+			//insert map into data
+			m_texturedData.insert(std::make_pair(*p_texNeeded->getTex(), std::make_pair(newMap, true)));
 
 			//Create copy of texture
 			puppy::Texture* tex = new puppy::Texture(p_texNeeded->getPath());
@@ -42,26 +48,71 @@ namespace puppy
 		}
 	}
 
+	void StaticRenderables::removeFromRender(const void* p_owner, const Texture* p_tex)
+	{
+		//Search for texture
+		auto found = m_texturedData.find(*p_tex->getTex());
+		if (found != m_texturedData.end())
+		{
+			//Search for owner in texture's map
+			auto& vecMap = (*found).second.first;
+			auto ownerFound = vecMap.find(p_owner);
+			if (ownerFound != vecMap.end())
+			{
+				vecMap.erase(ownerFound);
+				//set dirty
+				(*found).second.second = true;
+			}
+		}
+	}
+
 	void StaticRenderables::constructRenderable(GLuint p_where)
 	{
 		//get vector to create buffer from
 		auto found = m_texturedData.find(p_where);
-		auto vec = found->second.first;
+		auto map = found->second.first;
 
-		//construct single buffer from data
-		VertexEnvironment* toRender = new VertexEnvironment(vec.data(), 
-			ShaderManager::getShaderProgram(ShaderType::basic), vec.size());
+		//Get size of vector needed
+		
+		auto it = map.begin();
+		auto end = map.cend();
+		if (it != end)
+		{
+			std::vector<TexturedVertex>::size_type sum = (*it).second.size();
 
-		auto foundRender = m_toRender.find(m_idToTex[p_where]);
-		if (foundRender != m_toRender.end())
-		{
-			delete foundRender->second;
-			foundRender->second = toRender;
+			while (it != end)
+			{
+				sum += (*it).second.size();
+				++it;
+			}
+
+			//allocate in one go
+			std::vector<TexturedVertex> createdData;
+			createdData.reserve(sum);
+
+			//insert into vector
+			for (auto it = map.begin(); it != end; ++it)
+			{
+				auto vec = (*it).second;
+				createdData.insert(createdData.end(), vec.begin(), vec.end());
+			}
+
+			//construct single buffer from data
+			VertexEnvironment* toRender = new VertexEnvironment(createdData.data(),
+				ShaderManager::getShaderProgram(ShaderType::basic), createdData.size());
+
+			auto foundRender = m_toRender.find(m_idToTex[p_where]);
+			if (foundRender != m_toRender.end())
+			{
+				delete foundRender->second;
+				foundRender->second = toRender;
+			}
+			else
+			{
+				m_toRender.insert(std::make_pair(m_idToTex[p_where], toRender));
+			}
 		}
-		else
-		{
-			m_toRender.insert(std::make_pair(m_idToTex[p_where], toRender));
-		}
+		
 
 		//clean dirty flag
 		found->second.second = false;
@@ -97,7 +148,16 @@ namespace puppy
 
 	void StaticRenderables::clearAllData()
 	{
+		//Delete all existing renderables
+		for (auto it = m_toRender.begin(); it != m_toRender.end(); it = m_toRender.erase(it))
+		{
+			delete (*it).first;
+			delete (*it).second;
+		}
 
+		//Clear everything else
+		m_texturedData.clear();
+		m_idToTex.clear();
 	}
 
 	//Static method for putting vertices in world space

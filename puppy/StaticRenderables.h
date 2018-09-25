@@ -22,7 +22,7 @@ namespace puppy
 
 	
 		std::map<Texture*, VertexEnvironment*> m_toRender;
-		std::map<GLuint, std::pair<std::vector<TexturedVertex>, bool>> m_texturedData;
+		std::map<GLuint, std::pair<std::map<const void*, std::vector<TexturedVertex>>, bool>> m_texturedData;
 		std::map<GLuint, Texture*> m_idToTex;
 		/*
 			Helper method to construct TexturedVertex's into
@@ -40,7 +40,9 @@ namespace puppy
 		vertex data needed.  Assumes the vertex data has already been transformed
 		into world space. This data is then later combined into a single draw call.
 		*/
-		void addToRender(const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements);
+		void addToRender(const void* p_owner,const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements);
+		void removeFromRender(const void* p_owner, const Texture* p_tex);
+
 		void render(const glm::mat4& p_viewProj);
 
 		void clearAllData();

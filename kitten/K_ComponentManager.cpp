@@ -10,7 +10,7 @@
 #include "_Project\DebugPrintOnce.h"
 #include "gameworld\GrassLandInfoComponent.h"
 #include "_Project\PrintWhenClicked.h"
-
+#include "_Project\DestroyOnClick.h"
 
 namespace kitten
 {
@@ -42,7 +42,7 @@ namespace kitten
 		}
 		else if (p_componentName == "QuadRenderable")// Datadriven
 		{
-			comp = new QuadRenderable("textures/tiles/MISSING.tga");
+			comp = new QuadRenderable("textures/tiles/Grassland.tga");
 		}
 		else if (p_componentName == "StaticQuadRenderable")// QuadRenderable Variant
 		{
@@ -72,6 +72,10 @@ namespace kitten
 		{
 			comp = new PrintWhenClicked(glm::vec3(-0.5f, 0.0f, -0.5f), glm::vec3(0.5f, 0.0f, 0.5f), "I WAS CLICKED!!");
 		}
+		else if (p_componentName == "DestroyOnClickQuad")
+		{
+			comp = new DestroyOnClick(glm::vec3(-0.5f, 0.0f, -0.5f), glm::vec3(0.5f, 0.0f, 0.5f));
+		}
 		else
 		{
 			//Not found..
@@ -93,7 +97,6 @@ namespace kitten
 		K_Component* comp = data->getComponentInternally();
 		if (comp == nullptr) return nullptr;
 
-
 		m_toStart.push_back(comp);
 
 		//Successful
@@ -114,6 +117,21 @@ namespace kitten
 		}
 	}
 
+	void K_ComponentManager::destroyComponentImmediate(K_Component* p_toDestroy)
+	{
+		if (p_toDestroy->hasUpdate()) //&& isActive
+		{
+			removeFromUpdate(p_toDestroy);
+		}
+
+		if (!p_toDestroy->m_hasStarted)
+		{
+			removeFromStart(p_toDestroy);
+		}
+
+		delete (p_toDestroy);
+	}
+	
 	//@TODO: Optimize adding and removing of components to update!
 	void K_ComponentManager::addToUpdate(K_Component* p_toAdd)
 	{

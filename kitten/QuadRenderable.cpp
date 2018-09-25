@@ -1,6 +1,7 @@
 #include "QuadRenderable.h"
 #include "puppy\P_Common.h"
 #include "puppy\StaticRenderables.h"
+#include "puppy\Renderer.h"
 #include "K_ComponentManager.h"
 
 namespace kitten
@@ -34,6 +35,8 @@ namespace kitten
 				sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 36);
 			}
 			++sm_instances;
+			
+			puppy::Renderer::getInstance()->addToRender(this);
 		}
 		else
 		{
@@ -50,6 +53,12 @@ namespace kitten
 			{
 				delete sm_vao;
 			}
+			puppy::Renderer::getInstance()->removeFromRender(this);
+		}
+		else
+		{
+			puppy::StaticRenderables::getInstance()->removeFromRender(this, m_tex);
+			delete m_tex;
 		}
 	}
 
@@ -70,8 +79,7 @@ namespace kitten
 			//Transform into world space
 			puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform());
 
-			puppy::StaticRenderables::getInstance()->addToRender(m_tex, verts, 6);
-			K_ComponentManager::getInstance()->destroyComponent(this);
+			puppy::StaticRenderables::getInstance()->addToRender(this, m_tex, verts, 6);
 		}
 		
 	}
@@ -82,7 +90,7 @@ namespace kitten
 		{
 			m_mat->setTexture(p_pathToTex);
 		}
-		else
+		else if(!m_hasStarted)
 		{
 			delete m_tex;
 			m_tex = new puppy::Texture(p_pathToTex);

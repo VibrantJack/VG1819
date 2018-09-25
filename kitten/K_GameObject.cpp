@@ -16,10 +16,7 @@ namespace kitten
 		//Delete attached components
 		for (auto it = m_components.begin(); it != m_components.end(); ++it)
 		{
-			if (!K_ComponentManager::getInstance()->destroyComponent(it->second))
-			{
-				assert(false);
-			}
+			K_ComponentManager::getInstance()->destroyComponentImmediate(it->second);
 		}
 	}
 

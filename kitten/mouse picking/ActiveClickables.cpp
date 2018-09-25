@@ -20,6 +20,11 @@ namespace kitten
 				return;
 			}
 		}
+
+		if (p_toRemove == m_lastHover)
+		{
+			m_lastHover = nullptr;
+		}
 	}
 
 	const std::list<Clickable*>& ActiveClickables::getClickableList() const
