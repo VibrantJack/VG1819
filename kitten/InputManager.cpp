@@ -167,7 +167,7 @@ namespace input
 			{
 				lastHover->onHoverEnd();
 				hit->onHoverStart();
-				lastHover = hit;
+				kitten::ActiveClickables::getInstance()->m_lastHover = hit;
 			}
 		}
 		else
@@ -175,12 +175,12 @@ namespace input
 			if (hit != nullptr && lastHover == nullptr)
 			{
 				hit->onHoverStart();
-				lastHover = hit;
+				kitten::ActiveClickables::getInstance()->m_lastHover = hit;
 			}
 			else if(hit == nullptr && lastHover != nullptr)
 			{
 				lastHover->onHoverEnd();
-				lastHover = nullptr;
+				kitten::ActiveClickables::getInstance()->m_lastHover = nullptr;
 			}
 		}
 
