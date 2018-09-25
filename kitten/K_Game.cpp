@@ -18,6 +18,9 @@
 
 #include "kibble/kibble.hpp"
 
+// Only for testing the event system
+#include "kitten\event_system\EventExample.h"
+
 namespace kitten
 {
 	void createSingletons()
@@ -28,6 +31,7 @@ namespace kitten
 		K_GameObjectManager::createInstance();
 		K_Time::createInstance();
 		ActiveClickables::createInstance();
+		EventManager::createInstance();
 
 		puppy::MaterialManager::createInstance();
 		puppy::Renderer::createInstance();
@@ -67,7 +71,20 @@ namespace kitten
 				testtile->getTransform().move(x, -1, z);
 			}
 		}
+		// Testing Events
+		Event* e = new Event(Event::Test_Event);
+		e->putString("key", "Testing Event Trigger");
 
+		EventExample ee;
+		ee.registerListener();
+		EventManager::getInstance()->triggerEvent(Event::Test_Event, e);
+		//ee.deregisterListener();
+
+		e = new Event(Event::Test_Event);
+		e->putString("key", "Testing Event queue");
+		EventManager::getInstance()->queueEvent(Event::Test_Event, e);
+
+		// End testing events
 		return true;
 	}
 
@@ -81,6 +98,7 @@ namespace kitten
 		K_GameObjectManager::destroyInstance();
 		K_Time::destroyInstance();
 		ActiveClickables::destroyInstance();
+		EventManager::destroyInstance();
 
 		puppy::MaterialManager::destroyInstance();
 		puppy::Renderer::destroyInstance();
@@ -93,6 +111,8 @@ namespace kitten
 		K_Time::getInstance()->updateTime();
 		//Update input
 		input::InputManager::getInstance()->update();
+		//Update event manager
+		EventManager::getInstance()->update();
 
 		//Update components
 		K_ComponentManager::getInstance()->updateComponents();
