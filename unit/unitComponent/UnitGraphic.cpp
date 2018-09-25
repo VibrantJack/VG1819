@@ -2,7 +2,7 @@
 #include "unit/unitComponent/UnitGraphic.h"
 #include "puppy\ShaderManager.h"
 #include "kitten/K_CameraList.h"
-
+#include "puppy\Renderer.h"
 //Rock
 //a component with unit, it handle the unit's texture and animation
 
