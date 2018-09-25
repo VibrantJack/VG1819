@@ -151,13 +151,14 @@ namespace input
 		//Put mouse position in clipspace
 		float ndX = (2.0f * mouseX) / windowX - 1.0f;
 		float ndY = 1.0f - (2.0f * mouseY) / windowY;
-		glm::vec4 clip = glm::vec4(ndX, ndY, 1.0f, 1.0f);
 
-		//Put mouse into worldspace
-		glm::vec3 worldRay = (glm::vec3)(glm::inverse(activeCam->getViewProj()) * clip);
+		glm::vec3 clip = glm::vec3(ndX, ndY, 1.0f);
+		
+		//Put mouse into worldspace - mat3 to not have translation!
+		glm::vec3 worldRay = (glm::inverse((glm::mat3)activeCam->getViewProj()) * clip);
 
 		mouseRay.direction = glm::normalize(worldRay);
-
+		
 		kitten::Clickable* hit = MousePicker::getClosestHit(mouseRay);
 		kitten::Clickable* lastHover = kitten::ActiveClickables::getInstance()->m_lastHover;
 
@@ -184,21 +185,6 @@ namespace input
 			}
 		}
 
-		/*
-		Debug not functional yet
-		puppy::TexturedVertex debugLineVerts[] = 
-		{
-			{mouseRay.origin.x, mouseRay.origin.y, mouseRay.origin.z, 0,0 },
-			{mouseRay.origin.x + mouseRay.direction.x * 100, mouseRay.origin.y + mouseRay.direction.y * 100, mouseRay.origin.z + mouseRay.direction.z * 100 , 0,0}
-		};
-
-		puppy::VertexEnvironment vao(debugLineVerts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 2);
-
-		int wvpPlace = puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic)->getUniformPlace(WORLD_VIEW_PROJ_UNIFORM_NAME);
-		glUniformMatrix4fv(wvpPlace, 1, GL_FALSE, glm::value_ptr(activeCam->getViewProj()));
-
-		vao.drawArrays(GL_LINES);
-		*/
 		//Are we clicking?
 		if (m_mouseDown[GLFW_MOUSE_BUTTON_LEFT] && !m_mouseDownLast[GLFW_MOUSE_BUTTON_LEFT] && hit != nullptr)
 		{
