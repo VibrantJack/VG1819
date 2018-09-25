@@ -63,7 +63,9 @@ namespace ability
 		void attach(unit::Unit* p_u);
 
 	protected:
-		int removeThis();//TO DO: remove this Status from Unit, and delete the instance
+		void removeThis();//TO DO: remove this Status from Unit, and delete the instance
+		int changeCounter(const std::string& p_cName = "duration", int p_value = -1);
+		void checkDuration();
 	};
 
 	class Status_CD : public Status
@@ -72,6 +74,8 @@ namespace ability
 		//at turn start, all cd ct decrease by 1
 		//when unit use ability, it needs to check here
 	public:
+		std::string m_abilityName;//the name of the ability that's in cooldown
+
 		Status_CD();
 
 		int effect(TimePointEvent p_timePoint);

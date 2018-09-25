@@ -32,11 +32,32 @@ namespace ability
 		p_u->addStatus(this);
 	}
 
-	int Status::removeThis()
+	void Status::removeThis()
 	{
 		m_unit->removeStatus(this);
 		delete this;
-		return 0;
+	}
+
+	int Status::changeCounter(const std::string & p_cName, int p_value)
+	{
+		if (m_counter.find(p_cName) != m_counter.end())
+		{
+			m_counter[p_cName] += p_value;
+			return 0;
+		}
+		//not find target counter
+		return 1;
+	}
+
+	void Status::checkDuration()
+	{
+		if (m_counter.find("duration") != m_counter.end())
+		{
+			if (m_counter["duration"] <= 0)
+			{
+				removeThis();
+			}
+		}
 	}
 }
 

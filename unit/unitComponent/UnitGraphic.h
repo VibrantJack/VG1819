@@ -14,9 +14,9 @@ namespace unit
 	{
 	private:
 		puppy::Material* m_mat;
-
-		static puppy::VertexEnvironment* sm_vao;
-		std::vector<puppy::TexturedVertex> m_verts;
+		unit::UnitSize m_size;
+		static std::map<unit::UnitSize,puppy::VertexEnvironment*> sm_vao;
+		static std::map<unit::UnitSize, int> sm_instances;
 
 	public:
 		UnitGraphic(const UnitSize p_size, const char* p_pathToTexture = nullptr);

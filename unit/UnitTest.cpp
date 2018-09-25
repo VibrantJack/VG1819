@@ -50,10 +50,10 @@ namespace unit
 
 		kibble::initializeKibbleRelatedComponents();
 		kibble::UnitDataParser* parser = kibble::getUnitDataParserInstance();
-		//kitten::K_GameObject* random = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("data/unit/testDummy.txt"));
+		kitten::K_GameObject* random = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("data/unit/testDummy.txt"));
 
-		//unit::Unit* u = random->getComponent<unit::Unit>();
-		//UnitMonitor::getInstanceSafe()->printUnit(u);
+		unit::Unit* u = random->getComponent<unit::Unit>();
+		UnitMonitor::getInstanceSafe()->printUnit(u);
 		//kitten::K_GameObject* dummy = UnitSpawn::getInstanceSafe()->spawnUnitFromData(data);
 		//kitten::K_GameObject* dummyC = UnitSpawn::getInstance()->spawnCommanderFromData(data);
 

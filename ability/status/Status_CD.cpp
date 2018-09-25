@@ -15,10 +15,7 @@ namespace ability
 		if (p_timePoint == ability::Turn_Start)
 		{
 			//reduce all counter by 1
-			for (auto it : m_counter)
-			{
-				it.second --;
-			}
+			changeCounter();
 		}
 		return 0;
 	}

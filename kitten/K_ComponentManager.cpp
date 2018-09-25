@@ -11,6 +11,7 @@
 #include "gameworld\GrassLandInfoComponent.h"
 #include "_Project\PrintWhenClicked.h"
 #include "_Project\DestroyOnClick.h"
+#include "unit/unitComponent/UnitGraphic.h"
 
 namespace kitten
 {
@@ -75,6 +76,10 @@ namespace kitten
 		else if (p_componentName == "DestroyOnClickQuad")
 		{
 			comp = new DestroyOnClick(glm::vec3(-0.5f, 0.0f, -0.5f), glm::vec3(0.5f, 0.0f, 0.5f));
+		}
+		else if (p_componentName == "UnitGraphic")
+		{
+			comp = new unit::UnitGraphic(unit::point, "textures/unit/Default.tga");
 		}
 		else
 		{

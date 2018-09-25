@@ -15,7 +15,7 @@ namespace ability
 		if (p_timePoint == ability::Turn_End)
 		{
 			//reduce duration
-			m_counter["duration"] -= 1;
+			changeCounter();
 			if (m_counter["duration"] <= 0)
 				removeThis();
 		}
