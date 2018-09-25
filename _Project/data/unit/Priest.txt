@@ -1,0 +1,11 @@
+{
+    "name":"Priest",
+    "hp":5,
+    "mv":3,
+    "in":8,
+    "cost":1,
+	"size":"point",
+	"tags":["Wizard","Terrans"],
+	"ad":["Heal","Encourage"],
+	"sd":["Status_Priest_LV3"],
+}

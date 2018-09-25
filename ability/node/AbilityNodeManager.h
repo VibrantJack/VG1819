@@ -1,7 +1,5 @@
 #pragma once
-#include "AbilityNode.h"
-#include "ChangeAttributeNode.h"
-#include "CheckHPNode.h"
+#include "ability/node/AbilityNode.h"
 
 #include <vector>
 #include <assert.h>

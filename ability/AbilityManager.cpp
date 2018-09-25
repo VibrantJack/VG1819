@@ -1,5 +1,4 @@
 #include "AbilityManager.h"
-#include "ability/Heal.h"
 
 //Rock
 
@@ -14,7 +13,10 @@ namespace ability
 		//TO DO: need improve
 		newAbility = new Heal();
 		newAbility->m_name = "Heal";
-		newAbility->m_description = "Heal target 4 HP";
+		m_abilityList.push_back(newAbility);
+
+		newAbility = new Fight();
+		newAbility->m_name = "Fight";
 		m_abilityList.push_back(newAbility);
 	}
 
