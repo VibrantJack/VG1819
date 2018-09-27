@@ -7,7 +7,7 @@
 #include "K_CameraList.h"
 #include "puppy\ShaderManager.h"
 #include "puppy\VertexEnvironment.h"
-
+#include "event_system\EventManager.h"
 
 namespace input
 {
@@ -193,7 +193,11 @@ namespace input
 		if (m_mouseDown[GLFW_MOUSE_BUTTON_LEFT] && !m_mouseDownLast[GLFW_MOUSE_BUTTON_LEFT] && hit != nullptr)
 		{
 			hit->onClick();
+
+			//Trigger event
+			kitten::Event* p_data = new kitten::Event(kitten::Event::EventType::Object_Clicked);
+			p_data->putGameObj(OBJECT_CLICKED_OBJ_KEY, &hit->getGameObject());
+			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Object_Clicked, p_data);
 		}
 	}
-
 }

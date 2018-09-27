@@ -14,13 +14,26 @@ namespace kitten
 			Event::EventType::Test_Event,
 			this,
 			std::bind(&EventExample::printEventMessage, this, std::placeholders::_1, std::placeholders::_2));
+
+		EventManager::getInstance()->addListener(
+			Event::EventType::Object_Clicked,
+			this,
+			std::bind(&EventExample::printEventMessage, this, std::placeholders::_1, std::placeholders::_2));
 	}
 
 	void EventExample::deregisterListener() {
 		EventManager::getInstance()->removeListener(Event::Test_Event, this);
+		EventManager::getInstance()->removeListener(Event::Object_Clicked, this);
 	}
 
 	void EventExample::printEventMessage(Event::EventType p_type, Event* p_data) {
-		std::cout << p_data->getString("key") << std::endl;
+		if (p_type == Event::Event::Test_Event)
+		{
+			std::cout << p_data->getString("key") << std::endl;
+		}
+		else //Clicked event
+		{
+			std::cout << "Something was clicked on! - From event trigger" << std::endl;
+		}
 	}
 }

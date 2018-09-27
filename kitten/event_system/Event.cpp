@@ -18,7 +18,9 @@ namespace kitten
 
 	Event::~Event()
 	{
-		if (m_floatMap != nullptr)
+		//If you have an error about a nullptr here, make sure you are not deleting the event you create --
+		//The event is automatically deleted in EventManager in case people forget to delete. - Callum
+		if (m_floatMap != nullptr) 
 		{
 			delete m_floatMap;
 		}

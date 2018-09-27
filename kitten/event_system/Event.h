@@ -1,5 +1,7 @@
 #pragma once
 
+#define OBJECT_CLICKED_OBJ_KEY "clicked"
+
 #include "kitten/K_GameObject.h"
 
 #include <unordered_map>
