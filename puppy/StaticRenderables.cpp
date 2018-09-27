@@ -36,7 +36,7 @@ namespace puppy
 		else
 		{
 			//make new map
-			std::map<const void*, std::vector<TexturedVertex>> newMap;
+			std::unordered_map<const void*, std::vector<TexturedVertex>> newMap;
 			newMap.insert(std::make_pair(p_owner, toInsert));
 
 			//insert map into data

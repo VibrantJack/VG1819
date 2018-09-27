@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <map>
+#include <unordered_map>
 
 #include "Material.h"
 
@@ -16,7 +16,7 @@ namespace puppy
 		static MaterialManager* sm_instance;
 
 		//Members
-		std::map<const std::string, Material*> m_createdMaterials;
+		std::unordered_map<const std::string, Material*> m_createdMaterials;
 	public:
 		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new MaterialManager(); };
 		static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
