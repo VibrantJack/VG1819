@@ -107,21 +107,35 @@ kitten::K_Component* getDebugPrintOnceComponentDataFrom(nlohmann::json* p_jsonfi
 #include "_Project/PrintWhenClicked.h"
 kitten::K_Component* getPrintWhenClickedComponentDataFrom(nlohmann::json* p_jsonfile) {
 	std::string message = "Default Message";
-	glm::vec3 minpoint, maxpoint;
 
 	if (p_jsonfile->find("message") != p_jsonfile->end()) {
 		message = p_jsonfile->operator[]("message");
 	}
 
+	return new PrintWhenClicked(message);
+}
+
+#include "kitten\mouse picking\ClickableBox.h"
+kitten::K_Component* getClickableBoxComponentDataFrom(nlohmann::json* p_jsonfile) {
+
+	glm::vec3 minPoint, maxPoint;
+
 	if (p_jsonfile->find("minpoint") != p_jsonfile->end()) {
-		minpoint = glm::vec3(p_jsonfile->operator[]("minpoint")[0], p_jsonfile->operator[]("minpoint")[1], p_jsonfile->operator[]("minpoint")[2]);
+		minPoint = glm::vec3(p_jsonfile->operator[]("minpoint")[0], p_jsonfile->operator[]("minpoint")[1], p_jsonfile->operator[]("minpoint")[2]);
 	}
 
 	if (p_jsonfile->find("maxpoint") != p_jsonfile->end()) {
-		minpoint = glm::vec3(p_jsonfile->operator[]("maxpoint")[0], p_jsonfile->operator[]("maxpoint")[1], p_jsonfile->operator[]("maxpoint")[2]);
+		minPoint = glm::vec3(p_jsonfile->operator[]("maxpoint")[0], p_jsonfile->operator[]("maxpoint")[1], p_jsonfile->operator[]("maxpoint")[2]);
 	}
 
-	return new PrintWhenClicked(minpoint, maxpoint, message);
+	return new kitten::ClickableBox(minPoint, maxPoint);
+}
+
+
+#include "_Project\DestroyOnClick.h"
+kitten::K_Component* getDestroyOnClickComponentDataFrom(nlohmann::json* p_jsonfile)
+{
+	return new DestroyOnClick();
 }
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonfile)> jsoncomponentmap;

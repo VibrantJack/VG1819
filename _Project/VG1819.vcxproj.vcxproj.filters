@@ -227,6 +227,9 @@
     <ClCompile Include="..\kitten\event_system\EventManager.cpp">
       <Filter>kitten\event_system</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\mouse picking\ClickableBox.cpp">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -453,6 +456,9 @@
     </ClInclude>
     <ClInclude Include="..\kitten\event_system\EventManager.h">
       <Filter>kitten\event_system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\mouse picking\ClickableBox.h">
+      <Filter>kitten\mouse  picking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

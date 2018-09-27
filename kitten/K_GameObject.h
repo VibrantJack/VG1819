@@ -23,7 +23,7 @@ namespace kitten
 	public:
 		//Constructor and destructor in GameObjectManager
 		bool addComponent(K_Component* p_toAdd);
-		void removeComponent(const K_Component* p_toRemove);
+		void removeComponent(K_Component* p_toRemove);
 
 		template <class T> //@TODO: Fix LNK 2019 when putting this in K_GameObject.cpp
 		T* getComponent();

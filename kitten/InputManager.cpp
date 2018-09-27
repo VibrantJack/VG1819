@@ -159,8 +159,8 @@ namespace input
 
 		mouseRay.direction = glm::normalize(worldRay);
 		
-		kitten::Clickable* hit = MousePicker::getClosestHit(mouseRay);
-		kitten::Clickable* lastHover = kitten::ActiveClickables::getInstance()->m_lastHover;
+		kitten::ClickableBox* hit = MousePicker::getClosestHit(mouseRay);
+		kitten::ClickableBox* lastHover = kitten::ActiveClickables::getInstance()->m_lastHover;
 
 		if (hit != nullptr && lastHover != nullptr)
 		{
@@ -180,6 +180,10 @@ namespace input
 			}
 			else if(hit == nullptr && lastHover != nullptr)
 			{
+				if (lastHover == NULL)
+				{
+					assert(false);
+				}
 				lastHover->onHoverEnd();
 				kitten::ActiveClickables::getInstance()->m_lastHover = nullptr;
 			}

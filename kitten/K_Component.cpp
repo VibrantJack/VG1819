@@ -11,7 +11,7 @@ namespace kitten
 
 	K_Component::~K_Component()
 	{
-
+		
 	}
 
 	bool K_Component::hasUpdate() const

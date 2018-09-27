@@ -67,15 +67,15 @@ namespace kitten
 		}
 		else if (p_componentName == "PrintWhenClicked")// Datadriven
 		{
-			comp = new PrintWhenClicked(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f), "I WAS CLICKED!!");
+			comp = new PrintWhenClicked("I WAS CLICKED!!");
 		}
-		else if (p_componentName == "PrintWhenClickedQuad") // PrintWhenClicked Variants
+		else if (p_componentName == "DestroyOnClick") // Datadriven
 		{
-			comp = new PrintWhenClicked(glm::vec3(-0.5f, 0.0f, -0.5f), glm::vec3(0.5f, 0.0f, 0.5f), "I WAS CLICKED!!");
+			comp = new DestroyOnClick();
 		}
-		else if (p_componentName == "DestroyOnClickQuad")
+		else if (p_componentName == "ClickableBox")
 		{
-			comp = new DestroyOnClick(glm::vec3(-0.5f, 0.0f, -0.5f), glm::vec3(0.5f, 0.0f, 0.5f));
+			comp = new ClickableBox(glm::vec3(-0.5f, 0, -0.5f), glm::vec3(0.5f, 0, 0.5f));
 		}
 		else if (p_componentName == "UnitGraphic")
 		{
@@ -133,6 +133,8 @@ namespace kitten
 		{
 			removeFromStart(p_toDestroy);
 		}
+
+		p_toDestroy->m_attachedObject->removeComponent(p_toDestroy);
 
 		delete (p_toDestroy);
 	}

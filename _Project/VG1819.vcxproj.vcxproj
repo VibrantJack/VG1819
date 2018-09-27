@@ -133,6 +133,7 @@
     <ClCompile Include="..\kitten\K_Time.cpp" />
     <ClCompile Include="..\kitten\mouse picking\ActiveClickables.cpp" />
     <ClCompile Include="..\kitten\mouse picking\Clickable.cpp" />
+    <ClCompile Include="..\kitten\mouse picking\ClickableBox.cpp" />
     <ClCompile Include="..\kitten\mouse picking\MousePicker.cpp" />
     <ClCompile Include="..\kitten\QuadRenderable.cpp" />
     <ClCompile Include="..\kitten\Renderable.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="..\kitten\K_Time.h" />
     <ClInclude Include="..\kitten\mouse picking\ActiveClickables.h" />
     <ClInclude Include="..\kitten\mouse picking\Clickable.h" />
+    <ClInclude Include="..\kitten\mouse picking\ClickableBox.h" />
     <ClInclude Include="..\kitten\mouse picking\MousePicker.h" />
     <ClInclude Include="..\kitten\mouse picking\Ray.h" />
     <ClInclude Include="..\kitten\QuadRenderable.h" />

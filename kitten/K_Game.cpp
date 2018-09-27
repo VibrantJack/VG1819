@@ -13,6 +13,7 @@
 #include "kitten\QuadRenderable.h"
 #include "_Project\MoveByMouseRightClickDrag.h"
 #include "_Project\PrintWhenClicked.h"
+#include "kitten\mouse picking\ClickableBox.h"
 
 #include "gameworld\GameBoard.h"
 
@@ -57,18 +58,24 @@ namespace kitten
 		{
 			for (int z = 0; z < 15; z++)
 			{
-				K_GameObject* testtile = K_GameObjectManager::getInstance()->createNewGameObject("tileobj.txt");
+				K_GameObject* testTile = K_GameObjectManager::getInstance()->createNewGameObject("tileobj.txt");
 
-				PrintWhenClicked* clickableComp = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClickedQuad"));
-				clickableComp->setMessage("grassy tile: " + std::to_string(x) + ", " + std::to_string(z));
-				testtile->addComponent(clickableComp);
+				PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
+				printWhenClick->setMessage("grassy tile: " + std::to_string(x) + ", " + std::to_string(z));
+				testTile->addComponent(printWhenClick);
+
+				K_Component* clickBox = compMan->createComponent("ClickableBox");
+				testTile->addComponent(clickBox);
+
+				K_Component* destroyWhenClick = compMan->createComponent("DestroyOnClick");
+				testTile->addComponent(destroyWhenClick);
 
 				//K_Component* tileRenderComponent = compMan->createComponent("StaticQuadRenderable");
 				//QuadRenderable* cubeRend = static_cast<QuadRenderable*>(tileRenderComponent);
 				//testtile->addComponent(cubeRend);
 				//cubeRend->setTexture("textures/tiles/Grassland.tga");
 
-				testtile->getTransform().move(x, -1, z);
+				testTile->getTransform().move(x, -1, z);
 			}
 		}
 		// Testing Events

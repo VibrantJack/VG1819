@@ -1,7 +1,7 @@
 #include "DestroyOnClick.h"
 #include "kitten\K_GameObjectManager.h"
 
-DestroyOnClick::DestroyOnClick(const glm::vec3& p_minPoint, const glm::vec3& p_maxPoint) : Clickable(p_minPoint, p_maxPoint)
+DestroyOnClick::DestroyOnClick()
 {
 
 }

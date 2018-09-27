@@ -4,7 +4,7 @@
 class DestroyOnClick : public kitten::Clickable
 {
 public:
-	DestroyOnClick(const glm::vec3& p_minPoint, const glm::vec3& p_maxPoint);
+	DestroyOnClick();
 	~DestroyOnClick();
 
 	virtual void onClick() override;
