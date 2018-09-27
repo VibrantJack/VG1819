@@ -7,145 +7,148 @@
 // author: Callum
 #include "Event.h"
 
-using namespace kitten;
-
-
-Event::Event(EventType p_event)
-	: m_floatMap(NULL), m_gameObjMap(NULL), m_intMap(NULL), m_stringMap(NULL), m_constGameObjMap(NULL), m_type(p_event)
+namespace kitten
 {
 
-}
-
-Event::~Event()
-{
-	if (m_floatMap != NULL)
+	Event::Event(EventType p_event)
+		: m_floatMap(nullptr), m_gameObjMap(nullptr), m_intMap(nullptr), m_stringMap(nullptr), m_constGameObjMap(nullptr), m_type(p_event)
 	{
-		delete m_floatMap;
+
 	}
 
-	if (m_gameObjMap != NULL)
+	Event::~Event()
 	{
-		delete m_gameObjMap;
+		if (m_floatMap != nullptr)
+		{
+			delete m_floatMap;
+		}
+
+		if (m_gameObjMap != nullptr)
+		{
+			delete m_gameObjMap;
+		}
+
+		if (m_intMap != nullptr)
+		{
+			delete m_intMap;
+		}
+
+		if (m_stringMap != nullptr)
+		{
+			delete m_stringMap;
+		}
+
+		if (m_constGameObjMap != nullptr)
+		{
+			delete m_constGameObjMap;
+		}
 	}
 
-	if (m_intMap != NULL)
+	void Event::putInt(const std::string& p_key, int m_value)
 	{
-		delete m_intMap;
+		if (m_intMap == nullptr)
+		{
+			m_intMap = new std::unordered_map<std::string, int>();
+		}
+
+		m_intMap->insert(std::make_pair(p_key, m_value));
 	}
 
-	if (m_stringMap != NULL)
+	void Event::putFloat(const std::string& p_key, float m_value)
 	{
-		delete m_stringMap;
+		if (m_floatMap == nullptr)
+		{
+			m_floatMap = new std::unordered_map<std::string, float>();
+		}
+
+		m_floatMap->insert(std::make_pair(p_key, m_value));
 	}
 
-	if (m_constGameObjMap != NULL)
+	void Event::putString(const std::string& p_key, const std::string& m_value)
 	{
-		delete m_constGameObjMap;
-	}
-}
+		if (m_stringMap == nullptr)
+		{
+			m_stringMap = new std::unordered_map<std::string, std::string>();
+		}
 
-void Event::putInt(const std::string& m_key, int m_value)
-{
-	if (m_intMap == NULL)
-	{
-		m_intMap = new std::map<std::string, int>();
+		m_stringMap->insert(std::make_pair(p_key, m_value));
 	}
 
-	m_intMap->insert(std::make_pair(m_key, m_value));
-}
-
-void Event::putFloat(const std::string& m_key, float m_value)
-{
-	if (m_floatMap == NULL)
+	void Event::putGameObj(const std::string& p_key, K_GameObject* m_value)
 	{
-		m_floatMap = new std::map<std::string, float>();
+		if (m_gameObjMap == nullptr)
+		{
+			m_gameObjMap = new std::unordered_map<std::string, K_GameObject*>();
+		}
+
+		m_gameObjMap->insert(std::make_pair(p_key, m_value));
 	}
 
-	m_floatMap->insert(std::make_pair(m_key, m_value));
-}
-
-void Event::putString(const std::string& m_key, const std::string& m_value)
-{
-	if (m_stringMap == NULL)
+	void Event::putConstGameObj(const std::string& p_key, const K_GameObject* m_value)
 	{
-		m_stringMap = new std::map<std::string, std::string>();
+		if (m_constGameObjMap == nullptr)
+		{
+			m_constGameObjMap = new std::unordered_map<std::string, const K_GameObject*>();
+		}
+
+		m_constGameObjMap->insert(std::make_pair(p_key, m_value));
 	}
 
-	m_stringMap->insert(std::make_pair(m_key, m_value));
-}
 
-void Event::putGameObj(const std::string& m_key, K_GameObject* m_value)
-{
-	if (m_gameObjMap == NULL)
+	int Event::getInt(const std::string& p_key)
 	{
-		m_gameObjMap = new std::map<std::string, K_GameObject*>();
+		if (m_intMap == nullptr)
+		{
+			assert(false);
+			return 0; //returns 0
+		}
+		//else
+
+		return m_intMap->at(p_key);
 	}
 
-	m_gameObjMap->insert(std::make_pair(m_key, m_value));
-}
-
-void Event::putConstGameObj(const std::string& m_key, const K_GameObject* m_value)
-{
-	if (m_constGameObjMap == NULL)
+	float Event::getFloat(const std::string& p_key)
 	{
-		m_constGameObjMap = new std::map<std::string, const K_GameObject*>();
+		if (m_floatMap == nullptr)
+		{
+			assert(false);
+			return 0.0f; //returns 0.0f
+		}
+		//else
+
+		return m_floatMap->at(p_key);
 	}
 
-	m_constGameObjMap->insert(std::make_pair(m_key, m_value));
-}
-
-
-int Event::getInt(const std::string& m_key)
-{
-	if (m_intMap == NULL)
+	std::string Event::getString(const std::string& p_key)
 	{
-		return NULL; //returns 0
+		if (m_stringMap == nullptr)
+		{
+			return nullptr;
+		}
+		//else
+
+		return m_stringMap->at(p_key);
 	}
-	//else
 
-	return m_intMap->at(m_key);
-}
-
-float Event::getFloat(const std::string& m_key)
-{
-	if (m_floatMap == NULL)
+	K_GameObject* Event::getGameObj(const std::string& p_key)
 	{
-		return NULL; //returns 0.0f
+		if (m_gameObjMap == nullptr)
+		{
+			return nullptr;
+		}
+		//else
+
+		return m_gameObjMap->at(p_key);
 	}
-	//else
 
-	return m_floatMap->at(m_key);
-}
-
-std::string Event::getString(const std::string& m_key)
-{
-	if (m_stringMap == NULL)
+	const K_GameObject* Event::getConstGameObj(const std::string& p_key)
 	{
-		return NULL;
+		if (m_constGameObjMap == nullptr)
+		{
+			return nullptr;
+		}
+		//else
+
+		return m_constGameObjMap->at(p_key);
 	}
-	//else
-
-	return m_stringMap->at(m_key);
-}
-
-K_GameObject* Event::getGameObj(const std::string& m_key)
-{
-	if (m_gameObjMap == NULL)
-	{
-		return NULL;
-	}
-	//else
-
-	return m_gameObjMap->at(m_key);
-}
-
-const K_GameObject* Event::getConstGameObj(const std::string& m_key)
-{
-	if (m_constGameObjMap == NULL)
-	{
-		return NULL;
-	}
-	//else
-
-	return m_constGameObjMap->at(m_key);
 }

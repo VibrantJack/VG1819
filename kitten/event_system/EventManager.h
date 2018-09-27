@@ -37,4 +37,4 @@ namespace kitten
 		void update();
 	};
 
-} // namespace kitten
+}
