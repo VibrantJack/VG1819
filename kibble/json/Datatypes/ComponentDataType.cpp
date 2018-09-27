@@ -148,6 +148,8 @@ void setupComponentMap() {
 	jsoncomponentmap["GrassLandInfo"] = &getGrassLandInfoComponentDataFrom;
 	jsoncomponentmap["DebugPrintOnce"] = &getDebugPrintOnceComponentDataFrom;
 	jsoncomponentmap["PrintWhenClicked"] = &getPrintWhenClickedComponentDataFrom;
+	jsoncomponentmap["DestroyOnClick"] = &getDestroyOnClickComponentDataFrom;
+	jsoncomponentmap["ClickableBox"] = &getClickableBoxComponentDataFrom;
 }
 
 kitten::K_Component* getRelatedComponentBy(std::string key,nlohmann::json* p_jsonfile) {
