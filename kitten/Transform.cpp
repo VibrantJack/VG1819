@@ -3,19 +3,42 @@
 namespace kitten
 {
 
-	Transform::Transform() : m_forward(0,0,1), m_matTranslation(glm::translate(0,0,0)), m_matScale(glm::scale(1,1,1)), m_translation(0,0,0), m_scale(1,1,1),
-		m_parent(nullptr), m_ignoresParent(true)
+	Transform::Transform(K_GameObject& p_owner) : m_forward(0,0,1), m_matTranslation(glm::translate(0,0,0)), m_matScale(glm::scale(1,1,1)), m_translation(0,0,0), m_scale(1,1,1),
+		m_parent(nullptr), m_ignoresParent(true), m_attachedObject(p_owner)
 	{
 
+	}
+
+	Transform::~Transform()
+	{
+		if (m_parent != nullptr)
+		{
+			m_parent->removeChild(this);
+		}
+	}
+
+	K_GameObject& Transform::getAttachedGameObject()
+	{
+		return m_attachedObject;
 	}
 
 	const glm::mat4& Transform::getWorldTransform()
 	{
 		if (m_isDirty)
 		{
-			m_matWorldNoScale = m_matTranslation * glm::mat4_cast(m_quatRotation);
-			m_matWorld = m_matWorldNoScale * m_matScale;
-			m_isDirty = false;
+			if (m_ignoresParent || m_parent == nullptr)
+			{
+				m_matWorldNoScale = m_matTranslation * glm::mat4_cast(m_quatRotation);
+				m_matWorld = m_matWorldNoScale * m_matScale;
+				m_isDirty = false;
+			}
+			else
+			{
+				m_matWorldNoScale = m_matTranslation * glm::mat4_cast(m_quatRotation) * m_parent->getWorldTransformNoScale();
+				m_matWorld = m_matTranslation * glm::mat4_cast(m_quatRotation) * m_matScale * m_parent->getWorldTransform();
+				//m_matWorld = m_matWorldNoScale * m_matScale * m_parent->m_matScale;
+				m_isDirty = false;
+			}
 		}
 
 		return m_matWorld;
@@ -25,9 +48,18 @@ namespace kitten
 	{
 		if (m_isDirty)
 		{
-			m_matWorldNoScale = m_matTranslation * glm::mat4_cast(m_quatRotation);
-			m_matWorld = m_matWorldNoScale * m_matScale;
-			m_isDirty = false;
+			if (m_ignoresParent || m_parent == nullptr)
+			{
+				m_matWorldNoScale = m_matTranslation * glm::mat4_cast(m_quatRotation);
+				m_matWorld = m_matWorldNoScale * m_matScale;
+				m_isDirty = false;
+			}
+			else
+			{
+				m_matWorldNoScale = m_matTranslation * glm::mat4_cast(m_quatRotation) * m_parent->getWorldTransformNoScale();
+				m_matWorld = m_matTranslation * glm::mat4_cast(m_quatRotation) * m_matScale * m_parent->getWorldTransform();
+				m_isDirty = false;
+			}
 		}
 
 		return m_matWorldNoScale;
@@ -40,6 +72,7 @@ namespace kitten
 		m_matTranslation = glm::translate(m_translation);
 		m_isDirty = true;
 
+		setChildrenDirty(position);
 		notifyPositionListeners();
 	}
 
@@ -51,6 +84,7 @@ namespace kitten
 		m_matTranslation = glm::translate(m_translation);
 		m_isDirty = true;
 
+		setChildrenDirty(position);
 		notifyPositionListeners();
 	}
 
@@ -61,6 +95,7 @@ namespace kitten
 		m_matTranslation = glm::translate(x, y, 0.0f);
 		m_isDirty = true;
 
+		setChildrenDirty(position);
 		notifyPositionListeners();
 	}
 
@@ -72,6 +107,7 @@ namespace kitten
 		m_matTranslation = glm::translate(x, y, z);
 		m_isDirty = true;
 
+		setChildrenDirty(position);
 		notifyPositionListeners();
 	}
 
@@ -80,6 +116,7 @@ namespace kitten
 		m_matScale = glm::scale(xScale, yScale, 1.0f);
 		m_isDirty = true;
 
+		setChildrenDirty(scale);
 		notifyScaleListeners();
 	}
 
@@ -90,6 +127,7 @@ namespace kitten
 		m_matScale = glm::scale(m_scale);
 		m_isDirty = true;
 
+		setChildrenDirty(scale);
 		notifyScaleListeners();
 	}
 
@@ -99,6 +137,7 @@ namespace kitten
 		m_matScale = glm::scale(m_scale);
 		m_isDirty = true;
 
+		setChildrenDirty(scale);
 		notifyScaleListeners();
 	}
 
@@ -117,6 +156,7 @@ namespace kitten
 
 		m_isDirty = true;
 
+		setChildrenDirty(rotation);
 		notifyRotationListeners();
 	}
 
@@ -127,6 +167,7 @@ namespace kitten
 
 		m_isDirty = true;
 
+		setChildrenDirty(rotation);
 		notifyRotationListeners();
 	}
 
@@ -158,13 +199,33 @@ namespace kitten
 	void Transform::setIgnoreParent(bool p_ignores)
 	{
 		m_ignoresParent = p_ignores;
+		if (!p_ignores)
+		{
+			m_isDirty = true;
+			setChildrenDirty(unknown);
+			//Not sure how transform attributes will change, notify
+			notifyPositionListeners();
+			notifyRotationListeners();
+			notifyScaleListeners();
+		}
 	}
 
 	void Transform::setParent(Transform* p_parent)
 	{
 		m_parent = p_parent;
+		p_parent->addChild(this);
+		if (!m_ignoresParent)
+		{
+			m_isDirty = true;
+			setChildrenDirty(unknown);
+			//Not sure how transform attributes will change, notify
+			notifyPositionListeners();
+			notifyRotationListeners();
+			notifyScaleListeners();
+		}
 	}
 
+	//Private method called when the child's parent is assigned to this
 	void Transform::addChild(Transform* p_child)
 	{
 		m_children.push_back(p_child);
@@ -198,7 +259,6 @@ namespace kitten
 	{
 		m_rotationListeners.push_back(p_toAdd);
 	}
-
 
 	void Transform::removePositionListener(TransformPositionListener* p_toRemove)
 	{
@@ -263,6 +323,45 @@ namespace kitten
 		for (auto it = m_rotationListeners.begin(); it != end; ++it)
 		{
 			(*it)->onRotationChanged(m_quatRotation);
+		}
+	}
+
+	void Transform::setChildrenDirty(ParentDirtyType p_type)
+	{
+		auto end = m_children.cend();
+		for (auto it = m_children.cbegin(); it != end; ++it)
+		{
+			if (!(*it)->m_ignoresParent)
+			{
+				(*it)->onParentDirty(p_type);
+			}	
+		}
+	}
+
+	void Transform::onParentDirty(ParentDirtyType p_type)
+	{
+		m_isDirty = true;
+
+		setChildrenDirty(p_type);
+
+		switch (p_type)
+		{
+		case position:
+			notifyPositionListeners();
+			break;
+		case rotation:
+			notifyRotationListeners();
+			break;
+		case scale:
+			notifyScaleListeners();
+			break;
+		case unknown:
+			notifyPositionListeners();
+			notifyRotationListeners();
+			notifyScaleListeners();
+			break;
+		default:
+			assert(false);
 		}
 	}
 }

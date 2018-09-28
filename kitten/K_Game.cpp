@@ -22,6 +22,8 @@
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
 
+#define DEBUG
+
 namespace kitten
 {
 	void createSingletons()
@@ -53,6 +55,37 @@ namespace kitten
 		//Creating a gameobject
 		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
 		kibble::setSceneFrom(std::string("mainscene.txt"));
+
+		/*
+		Example of Parent / Children
+		K_GameObject* parentTest = K_GameObjectManager::getInstance()->createNewGameObject();
+		parentTest->getTransform().place(-3, 0, 0);
+		CubeRenderable* renderable = static_cast<CubeRenderable*>(compMan->createComponent("CubeRenderable"));
+		renderable->setTexture("textures/crap/cartoon_cobble.tga");
+		parentTest->addComponent(renderable);
+
+		K_GameObject* firstChild = K_GameObjectManager::getInstance()->createNewGameObject();
+		firstChild->getTransform().setIgnoreParent(false);
+		firstChild->getTransform().place(3, -1, 0);
+		firstChild->getTransform().setParent(&parentTest->getTransform());
+		renderable = static_cast<CubeRenderable*>(compMan->createComponent("CubeRenderable"));
+		renderable->setTexture("textures/crap/cartoon_brick.tga");
+		firstChild->addComponent(renderable);
+		
+		K_GameObject* secondChild = K_GameObjectManager::getInstance()->createNewGameObject();
+		secondChild->getTransform().setIgnoreParent(false);
+		secondChild->getTransform().place(-3, -1, 0);
+		secondChild->getTransform().setParent(&firstChild->getTransform());
+		renderable = static_cast<CubeRenderable*>(compMan->createComponent("CubeRenderable"));
+		renderable->setTexture("textures/crap/cartoon_cottage.tga");
+		secondChild->addComponent(renderable);
+
+		parentTest->getTransform().scaleAbsolute(0.5f, 0.5f, 0.5f);
+		secondChild->getTransform().scaleAbsolute(2.0f, 2.0f, 2.0f);
+
+		parentTest->getTransform().rotateAbsolute(glm::vec3(0, 45, 0));
+		secondChild->getTransform().rotateAbsolute(glm::vec3(0, -45, 0));
+		*/
 
 		for (int x = 0; x < 15; x++)
 		{

@@ -8,7 +8,7 @@ namespace kitten
 {
 	K_GameObject::K_GameObject()
 	{
-		m_transform = new Transform();
+		m_transform = new Transform(*this);
 	}
 
 	K_GameObject::~K_GameObject()
