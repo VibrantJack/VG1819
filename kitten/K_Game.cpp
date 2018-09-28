@@ -18,6 +18,7 @@
 #include "gameworld\GameBoard.h"
 
 #include "kibble/kibble.hpp"
+#include "unit/UnitTest.h"
 
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
@@ -125,6 +126,9 @@ namespace kitten
 		EventManager::getInstance()->queueEvent(Event::Test_Event, e);
 
 		// End testing events
+
+		unit::UnitTest::getInstanceSafe()->test();
+
 		return true;
 	}
 
