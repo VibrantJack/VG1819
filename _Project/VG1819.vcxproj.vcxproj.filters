@@ -230,6 +230,9 @@
     <ClCompile Include="..\kitten\mouse picking\ClickableBox.cpp">
       <Filter>kitten\mouse  picking</Filter>
     </ClCompile>
+    <ClCompile Include="BoardCreator.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -459,6 +462,9 @@
     </ClInclude>
     <ClInclude Include="..\kitten\mouse picking\ClickableBox.h">
       <Filter>kitten\mouse  picking</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardCreator.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

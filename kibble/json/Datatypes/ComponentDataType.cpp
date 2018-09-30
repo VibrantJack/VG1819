@@ -131,11 +131,14 @@ kitten::K_Component* getClickableBoxComponentDataFrom(nlohmann::json* p_jsonfile
 	return new kitten::ClickableBox(minPoint, maxPoint);
 }
 
-
 #include "_Project\DestroyOnClick.h"
-kitten::K_Component* getDestroyOnClickComponentDataFrom(nlohmann::json* p_jsonfile)
-{
+kitten::K_Component* getDestroyOnClickComponentDataFrom(nlohmann::json* p_jsonfile){
 	return new DestroyOnClick();
+}
+
+#include "_Project\BoardCreator.h"
+kitten::K_Component* getBoardCreatorComponentDataFrom(nlohmann::json* p_jsonfile){
+	return new BoardCreator();
 }
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonfile)> jsoncomponentmap;
@@ -150,6 +153,7 @@ void setupComponentMap() {
 	jsoncomponentmap["PrintWhenClicked"] = &getPrintWhenClickedComponentDataFrom;
 	jsoncomponentmap["DestroyOnClick"] = &getDestroyOnClickComponentDataFrom;
 	jsoncomponentmap["ClickableBox"] = &getClickableBoxComponentDataFrom;
+	jsoncomponentmap["BoardCreator"] = &getBoardCreatorComponentDataFrom;
 }
 
 kitten::K_Component* getRelatedComponentBy(std::string key,nlohmann::json* p_jsonfile) {

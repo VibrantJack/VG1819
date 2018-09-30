@@ -12,6 +12,7 @@
 #include "_Project\PrintWhenClicked.h"
 #include "_Project\DestroyOnClick.h"
 #include "unit/unitComponent/UnitGraphic.h"
+#include "_Project\BoardCreator.h"
 
 namespace kitten
 {
@@ -85,6 +86,10 @@ namespace kitten
 		{
 			comp = new unit::UnitGraphic(unit::point, "textures/unit/Default.tga");
 		}
+		else if (p_componentName == "BoardCreator")
+		{
+			comp = new BoardCreator();
+		}
 		else
 		{
 			//Not found..
@@ -93,9 +98,6 @@ namespace kitten
 		}
 
 		m_toStart.push_back(comp);
-
-
-
 
 		//Successful
 		return comp;

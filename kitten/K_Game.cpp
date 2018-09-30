@@ -58,7 +58,7 @@ namespace kitten
 		kibble::setSceneFrom(std::string("mainscene.txt"));
 
 		/*
-		//Example of Parent / Children
+		//Example of Parent / Children : REMOVE WHEN TESTING DONE OR BUGS NOT BEING FOUND
 		K_GameObject* parentTest = K_GameObjectManager::getInstance()->createNewGameObject();
 		parentTest->getTransform().place(-3, 0, 0);
 		CubeRenderable* renderable = static_cast<CubeRenderable*>(compMan->createComponent("CubeRenderable"));
@@ -92,31 +92,6 @@ namespace kitten
 		parentTest->getTransform().rotateAbsolute(glm::vec3(0, 45, 0));
 		secondChild->getTransform().rotateAbsolute(glm::vec3(0, -45, 0));
 		*/
-		
-		for (int x = 0; x < 15; x++)
-		{
-			for (int z = 0; z < 15; z++)
-			{
-				K_GameObject* testTile = K_GameObjectManager::getInstance()->createNewGameObject("tileobj.txt");
-
-				PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
-				printWhenClick->setMessage("grassy tile: " + std::to_string(x) + ", " + std::to_string(z));
-				testTile->addComponent(printWhenClick);
-
-				K_Component* clickBox = compMan->createComponent("ClickableBox");
-				testTile->addComponent(clickBox);
-
-				K_Component* destroyWhenClick = compMan->createComponent("DestroyOnClick");
-				testTile->addComponent(destroyWhenClick);
-
-				//K_Component* tileRenderComponent = compMan->createComponent("StaticQuadRenderable");
-				//QuadRenderable* cubeRend = static_cast<QuadRenderable*>(tileRenderComponent);
-				//testtile->addComponent(cubeRend);
-				//cubeRend->setTexture("textures/tiles/Grassland.tga");
-
-				testTile->getTransform().move(x, -1, z);
-			}
-		}
 		
 		// Testing Events
 		Event* e = new Event(Event::Test_Event);

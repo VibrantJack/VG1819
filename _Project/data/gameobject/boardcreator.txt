@@ -1,0 +1,8 @@
+{
+    "name" : "boardCreator", 
+    "components" : [
+        {
+            "name" : "BoardCreator"
+        }
+    ]
+}
