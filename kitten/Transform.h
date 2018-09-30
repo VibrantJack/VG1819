@@ -40,11 +40,15 @@ namespace kitten
 		float m_rotateDeg;
 		glm::vec3 m_scale;
 		glm::vec3 m_translation;
+		glm::vec3 m_derivedScale;
+		glm::vec3 m_derivedTranslation;
+
 		glm::vec3 m_forward;
 
 		glm::mat4 m_matTranslation;
 		glm::mat4 m_matScale;
 		glm::quat m_quatRotation;
+		glm::quat m_derivedQuatRotation;
 		glm::mat4 m_matRotation;
 		glm::mat4 m_matWorldNoScale;
 		glm::mat4 m_matWorld;

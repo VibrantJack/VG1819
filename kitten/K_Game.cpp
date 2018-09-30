@@ -58,7 +58,7 @@ namespace kitten
 		kibble::setSceneFrom(std::string("mainscene.txt"));
 
 		/*
-		Example of Parent / Children
+		//Example of Parent / Children
 		K_GameObject* parentTest = K_GameObjectManager::getInstance()->createNewGameObject();
 		parentTest->getTransform().place(-3, 0, 0);
 		CubeRenderable* renderable = static_cast<CubeRenderable*>(compMan->createComponent("CubeRenderable"));
@@ -70,12 +70,17 @@ namespace kitten
 		firstChild->getTransform().place(3, -1, 0);
 		firstChild->getTransform().setParent(&parentTest->getTransform());
 		renderable = static_cast<CubeRenderable*>(compMan->createComponent("CubeRenderable"));
+		PrintWhenClicked* onClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
+		K_Component* box = compMan->createComponent("ClickableBoxBox");
+		onClick->setMessage("First Child! (brick)");
 		renderable->setTexture("textures/crap/cartoon_brick.tga");
 		firstChild->addComponent(renderable);
-		
+		firstChild->addComponent(onClick);
+		firstChild->addComponent(box);
+
 		K_GameObject* secondChild = K_GameObjectManager::getInstance()->createNewGameObject();
 		secondChild->getTransform().setIgnoreParent(false);
-		secondChild->getTransform().place(-3, -1, 0);
+		secondChild->getTransform().place(-3, -2, 0);
 		secondChild->getTransform().setParent(&firstChild->getTransform());
 		renderable = static_cast<CubeRenderable*>(compMan->createComponent("CubeRenderable"));
 		renderable->setTexture("textures/crap/cartoon_cottage.tga");
@@ -87,7 +92,7 @@ namespace kitten
 		parentTest->getTransform().rotateAbsolute(glm::vec3(0, 45, 0));
 		secondChild->getTransform().rotateAbsolute(glm::vec3(0, -45, 0));
 		*/
-
+		
 		for (int x = 0; x < 15; x++)
 		{
 			for (int z = 0; z < 15; z++)
@@ -112,6 +117,7 @@ namespace kitten
 				testTile->getTransform().move(x, -1, z);
 			}
 		}
+		
 		// Testing Events
 		Event* e = new Event(Event::Test_Event);
 		e->putString("key", "Testing Event Trigger");
