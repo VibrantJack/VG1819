@@ -15,7 +15,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>VG1819</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>VG1819</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -109,6 +109,7 @@
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\ability\status\Status_LV.cpp" />
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
+    <ClCompile Include="..\kibble\databank\databank.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\GameObjectDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\SceneDataType.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="..\gameworld\TileInformationComponent.h" />
     <ClInclude Include="..\json.hpp" />
     <ClInclude Include="..\kibble\ComponentDataParser.hpp" />
+    <ClInclude Include="..\kibble\databank\databank.hpp" />
     <ClInclude Include="..\kibble\GameObjectDataParser.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\GameObjectDataType.hpp" />

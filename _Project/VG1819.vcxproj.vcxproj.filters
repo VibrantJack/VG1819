@@ -233,6 +233,9 @@
     <ClCompile Include="BoardCreator.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\kibble\databank\databank.cpp">
+      <Filter>kibble\databank</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -466,6 +469,9 @@
     <ClInclude Include="BoardCreator.h">
       <Filter>components</Filter>
     </ClInclude>
+    <ClInclude Include="..\kibble\databank\databank.hpp">
+      <Filter>kibble\databank</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -521,6 +527,9 @@
     </Filter>
     <Filter Include="kitten\event_system">
       <UniqueIdentifier>{b5b351c0-5e7c-4330-9ecd-f9fea34d007d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kibble\databank">
+      <UniqueIdentifier>{44f1d2e8-f712-4236-bb62-48293505c643}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -7,5 +7,5 @@
 	"size":"point",
 	"tags":["Wizard","Terrans"],
 	"ad":["Heal","Encourage"],
-	"sd":["Status_Priest_LV3"],
+	"sd":["Status_Priest_LV3"]
 }
