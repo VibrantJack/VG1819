@@ -4,7 +4,7 @@
 #include "Texture.h"
 #include "VertexEnvironment.h"
 
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 namespace puppy
@@ -21,9 +21,9 @@ namespace puppy
 		static StaticRenderables* sm_instance;
 
 	
-		std::map<Texture*, VertexEnvironment*> m_toRender;
-		std::map<GLuint, std::pair<std::vector<TexturedVertex>, bool>> m_texturedData;
-		std::map<GLuint, Texture*> m_idToTex;
+		std::unordered_map<Texture*, VertexEnvironment*> m_toRender;
+		std::unordered_map<GLuint, std::pair<std::unordered_map<const void*, std::vector<TexturedVertex>>, bool>> m_texturedData;
+		std::unordered_map<GLuint, Texture*> m_idToTex;
 		/*
 			Helper method to construct TexturedVertex's into
 			one draw call
@@ -40,7 +40,9 @@ namespace puppy
 		vertex data needed.  Assumes the vertex data has already been transformed
 		into world space. This data is then later combined into a single draw call.
 		*/
-		void addToRender(const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements);
+		void addToRender(const void* p_owner,const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements);
+		void removeFromRender(const void* p_owner, const Texture* p_tex);
+
 		void render(const glm::mat4& p_viewProj);
 
 		void clearAllData();

@@ -1,0 +1,13 @@
+{
+    "name" : "TileObject", 
+    "components" : [
+        {
+            "name" : "GrassLandInfo"
+        }, 
+        {
+            "name" : "QuadRenderable",
+            "texture" : "textures/tiles/Grassland.tga",
+			"static" : true
+        }
+    ]
+}

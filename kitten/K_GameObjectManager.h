@@ -1,6 +1,8 @@
 #pragma once
-#include <list>
+#include <vector>
+#include <map>
 #include <cassert>
+
 #include "K_GameObject.h"
 
 namespace kitten
@@ -13,7 +15,7 @@ namespace kitten
 		~K_GameObjectManager();
 
 
-		std::vector<K_GameObject*> m_gameObjects;
+		std::map<int, K_GameObject*> m_gameObjects;
 		std::vector<K_GameObject*> m_toDelete;
 
 		int m_totalObjects = 0;

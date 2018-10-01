@@ -1,5 +1,6 @@
 #pragma once
 #include "kibble.hpp"
+#include "databank/databank.hpp"
 #include "json/JSONComponentDataParser.hpp"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 #include "kibble/json/JSONGameObjectDataParser.hpp"
@@ -13,9 +14,13 @@ void kibble::initializeKibbleRelatedComponents() {
 
 	gameObjectParser = new JSONGameObjectDataParser();
 	unitParser = new JSONUnitDataParser();
+
+	setupDatabank();
 }
 
 void kibble::destroyKibbleRelatedComponents() {
+	destroyDatabank();
+
 	delete gameObjectParser;
 	delete unitParser;
 }
@@ -26,4 +31,9 @@ kibble::GameObjectDataParser* kibble::getGameObjectDataParserInstance() {
 
 kibble::UnitDataParser* kibble::getUnitDataParserInstance() {
 	return unitParser;
+}
+
+#include "kibble/json/Datatypes/SceneDataType.hpp"
+void kibble::setSceneFrom(std::string& filename) {
+	setupSceneBy(jsonIn("data/scene/" + filename));
 }

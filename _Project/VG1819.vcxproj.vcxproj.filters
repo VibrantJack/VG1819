@@ -95,9 +95,6 @@
     <ClCompile Include="..\unit\Unit.cpp">
       <Filter>unit</Filter>
     </ClCompile>
-    <ClCompile Include="..\unit\UnitData.cpp">
-      <Filter>unit</Filter>
-    </ClCompile>
     <ClCompile Include="..\unit\UnitMonitor.cpp">
       <Filter>unit</Filter>
     </ClCompile>
@@ -161,14 +158,83 @@
     <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp">
       <Filter>kibble\JSON\Datatypes</Filter>
     </ClCompile>
+    <ClCompile Include="..\kibble\json\Datatypes\GameObjectDataType.cpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\json\Datatypes\SceneDataType.cpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
+    </ClCompile>
     <ClCompile Include="..\kitten\QuadRenderable.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
-    <ClCompile Include="..\userinterface\UI_ElementComponent.cpp">
-      <Filter>userinterface</Filter>
+    <ClCompile Include="DestroyOnClick.cpp">
+      <Filter>components</Filter>
     </ClCompile>
-    <ClCompile Include="..\kitten\K_RenderableSprite.cpp">
-      <Filter>kitten</Filter>
+    <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\UnitGraphic.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\Commander.cpp">
+      <Filter>unit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_CD.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Encourage.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_LV.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\node\ChangeAbilityDescriptionNode.cpp">
+      <Filter>ability\node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\node\ChangeAbilityInfoNode.cpp">
+      <Filter>ability\node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\node\CreateUnitNode.cpp">
+      <Filter>ability\node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\node\SpawnUnitNode.cpp">
+      <Filter>ability\node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Ability.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Encourage.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Fight.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\QuickShoot.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\event_system\Event.cpp">
+      <Filter>kitten\event_system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\event_system\EventExample.cpp">
+      <Filter>kitten\event_system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\event_system\EventManager.cpp">
+      <Filter>kitten\event_system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\mouse picking\ClickableBox.cpp">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClCompile>
+    <ClCompile Include="BoardCreator.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\databank\databank.cpp">
+      <Filter>kibble\databank</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -286,12 +352,6 @@
     <ClInclude Include="..\unit\UnitCommon.h">
       <Filter>unit</Filter>
     </ClInclude>
-    <ClInclude Include="..\unit\UnitData.h">
-      <Filter>unit</Filter>
-    </ClInclude>
-    <ClInclude Include="..\unit\UnitGraphic.h">
-      <Filter>unit</Filter>
-    </ClInclude>
     <ClInclude Include="..\unit\UnitMonitor.h">
       <Filter>unit</Filter>
     </ClInclude>
@@ -315,9 +375,6 @@
     </ClInclude>
     <ClInclude Include="..\ability\node\AbilityNodeManager.h">
       <Filter>ability\node</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ability\ability\Heal.h">
-      <Filter>ability\ability</Filter>
     </ClInclude>
     <ClInclude Include="..\ability\AbilityInfoPackage.h">
       <Filter>ability</Filter>
@@ -352,12 +409,9 @@
     <ClInclude Include="..\kibble\json\jsonextra.hpp">
       <Filter>kibble\JSON</Filter>
     </ClInclude>
-    <ClInclude Include="..\ability\node\ChangeAttributeNode.h">
-      <Filter>ability\node</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ability\node\CheckHPNode.h">
-      <Filter>ability\node</Filter>
-    </ClInclude>
+    <ClInclude Include="..\gameworld\GameBoard.h" />
+    <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
+    <ClInclude Include="..\gameworld\TileInformationComponent.h" />
     <ClInclude Include="..\kitten\mouse picking\ActiveClickables.h">
       <Filter>kitten\mouse  picking</Filter>
     </ClInclude>
@@ -379,32 +433,44 @@
     <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp">
       <Filter>kibble\JSON\Datatypes</Filter>
     </ClInclude>
-    <ClInclude Include="..\kitten\mouse picking\BoundingBox.h">
-      <Filter>kitten\mouse  picking</Filter>
+    <ClInclude Include="..\kibble\json\Datatypes\GameObjectDataType.hpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\json\Datatypes\SceneDataType.hpp">
+      <Filter>kibble\JSON\Datatypes</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\QuadRenderable.h">
       <Filter>kitten</Filter>
     </ClInclude>
-    <ClInclude Include="..\gameworld\GameBoard.h">
-      <Filter>gameworld</Filter>
+    <ClInclude Include="DestroyOnClick.h">
+      <Filter>components</Filter>
     </ClInclude>
-    <ClInclude Include="..\gameworld\GrassLandInfoComponent.h">
-      <Filter>gameworld</Filter>
+    <ClInclude Include="..\unit\unitComponent\StatusContainer.h">
+      <Filter>unit\unitComponent</Filter>
     </ClInclude>
-    <ClInclude Include="..\gameworld\TileInformationComponent.h">
-      <Filter>gameworld</Filter>
+    <ClInclude Include="..\unit\unitComponent\UnitGraphic.h">
+      <Filter>unit\unitComponent</Filter>
     </ClInclude>
-    <ClInclude Include="..\userinterface\UI_ElementComponent.h">
-      <Filter>userinterface</Filter>
+    <ClInclude Include="..\unit\Commander.h">
+      <Filter>unit</Filter>
     </ClInclude>
-    <ClInclude Include="..\kitten\K_Sprite.h">
-      <Filter>kitten</Filter>
+    <ClInclude Include="..\kitten\event_system\Event.h">
+      <Filter>kitten\event_system</Filter>
     </ClInclude>
-    <ClInclude Include="..\puppy\P_Sprite.h">
-      <Filter>puppy</Filter>
+    <ClInclude Include="..\kitten\event_system\EventExample.h">
+      <Filter>kitten\event_system</Filter>
     </ClInclude>
-    <ClInclude Include="..\kitten\K_RenderableSprite.h">
-      <Filter>kitten</Filter>
+    <ClInclude Include="..\kitten\event_system\EventManager.h">
+      <Filter>kitten\event_system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\mouse picking\ClickableBox.h">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardCreator.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\databank\databank.hpp">
+      <Filter>kibble\databank</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -456,11 +522,14 @@
     <Filter Include="kibble\JSON\Datatypes">
       <UniqueIdentifier>{4d5d18f5-6aef-45a4-b204-f32f9c18cabb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="gameworld">
-      <UniqueIdentifier>{608ce965-b54c-4a9f-bd61-5a9984d20ca8}</UniqueIdentifier>
+    <Filter Include="unit\unitComponent">
+      <UniqueIdentifier>{7f7f5dc6-b257-41b9-ac02-f613057bb3a0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="userinterface">
-      <UniqueIdentifier>{6f57c83a-0c46-4ffd-92ef-c5e28aff1e32}</UniqueIdentifier>
+    <Filter Include="kitten\event_system">
+      <UniqueIdentifier>{b5b351c0-5e7c-4330-9ecd-f9fea34d007d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kibble\databank">
+      <UniqueIdentifier>{44f1d2e8-f712-4236-bb62-48293505c643}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

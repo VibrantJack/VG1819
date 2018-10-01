@@ -11,7 +11,11 @@ namespace puppy
 
 	MaterialManager::~MaterialManager()
 	{
-
+		//Destroy materials
+		for (auto it = m_createdMaterials.begin(); it != m_createdMaterials.end(); it = m_createdMaterials.erase(it))
+		{
+			delete (*it).second;
+		}
 	}
 
 	void MaterialManager::loadMaterials(const std::string& p_XMLtoLoad)

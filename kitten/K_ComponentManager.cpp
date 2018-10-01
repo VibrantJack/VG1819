@@ -10,8 +10,9 @@
 #include "_Project\DebugPrintOnce.h"
 #include "gameworld\GrassLandInfoComponent.h"
 #include "_Project\PrintWhenClicked.h"
-#include "K_RenderableSprite.h"
-
+#include "_Project\DestroyOnClick.h"
+#include "unit/unitComponent/UnitGraphic.h"
+#include "_Project\BoardCreator.h"
 
 namespace kitten
 {
@@ -33,49 +34,61 @@ namespace kitten
 		K_Component* comp;
 
 		//Kibble version -1.0
-		if (p_componentName == "Camera")
+		if (p_componentName == "Camera")// Datadriven
 		{
 			comp = new Camera();
 		}
-		else if (p_componentName == "CubeRenderable")
+		else if (p_componentName == "CubeRenderable")// Datadriven
 		{
 			comp = new CubeRenderable("textures/tiles/MISSING.tga");
 		}
-		else if (p_componentName == "QuadRenderable")
+		else if (p_componentName == "QuadRenderable")// Datadriven
 		{
-			comp = new QuadRenderable("textures/tiles/MISSING.tga");
+			comp = new QuadRenderable("textures/tiles/Grassland.tga");
 		}
-		else if (p_componentName == "StaticQuadRenderable")
+		else if (p_componentName == "StaticQuadRenderable")// QuadRenderable Variant
 		{
 			comp = new QuadRenderable("textures/tiles/MISSING.tga", true);
 		}
-		else if (p_componentName == "Grassland")
+		else if (p_componentName == "Grassland")// datadriven
 		{
 			comp = new gameworld::GrasslandInfoComponent();
 		}
-		else if (p_componentName == "UIElement")
-		{
-			comp = new K_RenderableSprite("textures\tiles\MISSING.tga");
-		}
-		else if (p_componentName == "MoveByMouseRightClickDrag")
+		else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
 		{
 			comp = new MoveByMouseRightClickDrag(0.005f);
 		}
-		else if (p_componentName == "ZoomByMouseWheel")
+		else if (p_componentName == "ZoomByMouseWheel")// Datadriven
 		{
 			comp = new ZoomByMouseWheel(2.0f);
 		}
-		else if (p_componentName == "DebugPrintOnce")
+		else if (p_componentName == "DebugPrintOnce") // Datadriven
 		{
 			comp = new DebugPrintOnce("Some Message, kinda useless until we can change this easily");
 		}
-		else if (p_componentName == "PrintWhenClicked")
+		else if (p_componentName == "PrintWhenClicked")// Datadriven
 		{
-			comp = new PrintWhenClicked(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f), "I WAS CLICKED!!");
+			comp = new PrintWhenClicked("I WAS CLICKED!!");
 		}
-		else if (p_componentName == "PrintWhenClickedQuad")
+		else if (p_componentName == "DestroyOnClick") // Datadriven
 		{
-			comp = new PrintWhenClicked(glm::vec3(-0.5f, 0.0f, -0.5f), glm::vec3(0.5f, 0.0f, 0.5f), "I WAS CLICKED!!");
+			comp = new DestroyOnClick();
+		}
+		else if (p_componentName == "ClickableBox")
+		{
+			comp = new ClickableBox(glm::vec3(-0.5f, 0, -0.5f), glm::vec3(0.5f, 0, 0.5f));
+		}
+		else if (p_componentName == "ClickableBoxBox")
+		{
+			comp = new ClickableBox(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
+		}
+		else if (p_componentName == "UnitGraphic")
+		{
+			comp = new unit::UnitGraphic(unit::point, "textures/unit/Default.tga");
+		}
+		else if (p_componentName == "BoardCreator")
+		{
+			comp = new BoardCreator();
 		}
 		else
 		{
@@ -86,9 +99,6 @@ namespace kitten
 
 		m_toStart.push_back(comp);
 
-
-
-
 		//Successful
 		return comp;
 	}
@@ -98,10 +108,7 @@ namespace kitten
 		K_Component* comp = data->getComponentInternally();
 		if (comp == nullptr) return nullptr;
 
-		if (comp->hasUpdate())
-		{
-			m_toUpdate.push_back(comp);
-		}
+		m_toStart.push_back(comp);
 
 		//Successful
 		return comp;
@@ -121,6 +128,23 @@ namespace kitten
 		}
 	}
 
+	void K_ComponentManager::destroyComponentImmediate(K_Component* p_toDestroy)
+	{
+		if (p_toDestroy->hasUpdate()) //&& isActive
+		{
+			removeFromUpdate(p_toDestroy);
+		}
+
+		if (!p_toDestroy->m_hasStarted)
+		{
+			removeFromStart(p_toDestroy);
+		}
+
+		p_toDestroy->m_attachedObject->removeComponent(p_toDestroy);
+
+		delete (p_toDestroy);
+	}
+	
 	//@TODO: Optimize adding and removing of components to update!
 	void K_ComponentManager::addToUpdate(K_Component* p_toAdd)
 	{

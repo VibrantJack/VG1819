@@ -1,40 +1,23 @@
 #pragma once
-#include "UnitCommon.h"
+#include "unit/UnitCommon.h"
+#include "unit/unitComponent/StatusContainer.h"
 
 //@Rock
 
 namespace unit
 {
-	class Unit
+	class Unit : public kitten::K_Component
 	{
+	private:
+		StatusContainer * m_statusContainer;
 	public:
 		std::string m_ID;
-
 		std::vector<std::string> m_tags;
 		std::string m_name;
-
-		std::map<std::string, int> m_attributes;
-		//attributes includes all numerical attribute and counter
-
-		/*
-		int m_maxHP;
-		int m_HP;
-		int m_baseMV;
-		int m_MV;
-		int m_baseIN;
-		int m_IN;
-		int m_baseCost;
-		int m_Cost;
-		int m_LV;
-
-		std::map<std::string, int> m_Counter;
-		*/
-
+		std::map<std::string, int> m_attributes;//attributes includes all numerical attribute and counter
 		UnitSize m_size;
 
-		std::vector<std::string> m_Ability;//TO DO: should include more information such as power, counter
-
-		std::vector<ability::Status*> m_Status;
+		std::map<std::string, unit::AbilityDescription*> m_ADList;
 
 		Unit();
 		~Unit();
@@ -42,13 +25,15 @@ namespace unit
 		void addStatus(ability::Status *p_newStatus);
 		bool removeStatus(ability::Status *p_oldStatus);
 
-		std::vector<ability::Status*> getStatus() { return m_Status; };
+		StatusContainer* getStatus();
 
-		int useAbility(int p_abilityIndex);//TO DO
+		int useAbility(const std::string& p_abilityName);
 
 		int callStatus(int p_StatusIndex, int p_event);
 		//event is the one of the events that this status registered
 		//should be enum, I didn't define it yet, so use int as place holder
+
+		int destroyedByDamage();
 	};
 }
 

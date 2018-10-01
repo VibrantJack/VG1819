@@ -19,8 +19,10 @@ namespace kitten
 	{
 		K_GameObject* toReturn = new K_GameObject();
 
-		toReturn->m_objectIndex = m_totalObjects++;
-		m_gameObjects.push_back(toReturn);
+		toReturn->m_objectIndex = m_totalObjects;
+		m_gameObjects.insert(std::make_pair(m_totalObjects,toReturn));
+
+		m_totalObjects++;
 
 		return toReturn;
 	}
@@ -35,17 +37,19 @@ namespace kitten
 	{
 		assert(p_toDestroy != nullptr);
 
-		m_gameObjects.erase(m_gameObjects.begin() + p_toDestroy->m_objectIndex);
+		auto found = m_gameObjects.find(p_toDestroy->m_objectIndex);
+		assert(found != m_gameObjects.end());
+		m_gameObjects.erase(found);
+
 		m_toDelete.push_back(p_toDestroy);
 		--m_totalObjects;
 	}
 
 	void K_GameObjectManager::deleteQueuedObjects()
 	{
-		for (auto it = m_toDelete.begin(); it != m_toDelete.end(); ++it)
+		for (auto it = m_toDelete.begin(); it != m_toDelete.end(); it = m_toDelete.erase(it))
 		{
 			delete *it;
-			it = m_toDelete.erase(it);	
 		}
 	}
 }

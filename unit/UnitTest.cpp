@@ -46,16 +46,18 @@ namespace unit
 		abilityDescription.push_back("Heal");
 		std::vector<std::string> statusDescription;
 
-		UnitData* data = new UnitData(name, HP, MV, IN, Cost, size, tags, abilityDescription, statusDescription);
+		//UnitData* data = new UnitData(name, HP, MV, IN, Cost, size, tags, abilityDescription, statusDescription);
 
 		kibble::initializeKibbleRelatedComponents();
 		kibble::UnitDataParser* parser = kibble::getUnitDataParserInstance();
-		Unit* random = UnitSpawn::getInstance()->spawnUnitFromData(parser->getUnit("data/unit/testDummy.txt"));
+		kitten::K_GameObject* random = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("data/unit/testDummy.txt"));
 
+		unit::Unit* u = random->getComponent<unit::Unit>();
+		UnitMonitor::getInstanceSafe()->printUnit(u);
+		//kitten::K_GameObject* dummy = UnitSpawn::getInstanceSafe()->spawnUnitFromData(data);
+		//kitten::K_GameObject* dummyC = UnitSpawn::getInstance()->spawnCommanderFromData(data);
 
-		Unit* dummy = UnitSpawn::getInstanceSafe()->spawnUnitFromData(data);
-		Unit* dummyC = UnitSpawn::getInstance()->spawnCommanderFromData(data);
-
+		/*
 		dummy->m_attributes["HP"] = 0;
 		std::cout << "Dummy with 0 HP" << std::endl;
 		std::cout << std::endl;
@@ -70,6 +72,7 @@ namespace unit
 		std::cout << std::endl;
 		std::cout << "Dummy create from kibble." << std::endl;
 		UnitMonitor::getInstance()->printUnit(random);
+		*/
 	}
 }
 

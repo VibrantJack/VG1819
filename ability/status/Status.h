@@ -1,5 +1,5 @@
 #pragma once
-#include "ability/node/AbilityNode.h"
+#include "ability/node/AbilityNodeManager.h"
 
 #include <string>
 #include <map>
@@ -46,21 +46,75 @@ namespace ability
 
 		std::string m_name;
 		std::string m_description;//the text that will be showed to player
-		std::vector<AbilityNode*> m_abilityNodes;//the list of nodes that will affect
+		//std::vector<AbilityNode*> m_abilityNodes;//may be delete
 
-												 //TO DO: Register Event
+		//TO DO: Register Event
 
-		virtual int effectDefault() = 0;//this is effect that activates when status is added
-		virtual int effectOnTimePoint(TimePointEvent* p_timePoint) = 0;
+		virtual int effect();//this is effect that activates when status is added
+		virtual int effect(TimePointEvent p_timePoint);
+		virtual int effect(TimePointEvent p_timePoint, ability::AbilityInfoPackage* p_pack);
+		virtual int effect(TimePointEvent p_timePoint, int p_value);
 		//TO DO: Listen Event and take effect
 		//Maybe use Chain of Responsibility
 
-		Status(unit::Unit * p_unit) { m_unit = p_unit; };
+		Status();
 		~Status();
 
-	private:
-		int removeThis();//TO DO: remove this Status from Unit, and delete the instance
+		void attach(unit::Unit* p_u);
+
+	protected:
+		void removeThis();//TO DO: remove this Status from Unit, and delete the instance
+		int changeCounter(const std::string& p_cName = "duration", int p_value = -1);
+		void checkDuration();
 	};
+
+	class Status_CD : public Status
+	{
+		//this status should store all cd and ct
+		//at turn start, all cd ct decrease by 1
+		//when unit use ability, it needs to check here
+	public:
+		std::string m_abilityName;//the name of the ability that's in cooldown
+
+		Status_CD();
+
+		int effect(TimePointEvent p_timePoint);
+	};
+
+	class Status_Encourage : public Status
+	{
+		//this is buff apply by ability [Encourage]
+		//it triggers when unit will deal damage
+		//then it increase the ability's power by this status power
+	public:
+		Status_Encourage();
+
+		int effect(TimePointEvent p_timePoint);
+		int effect(TimePointEvent p_timePoint, ability::AbilityInfoPackage* p_pack);
+	};
+
+	class Status_LV : public Status
+	{
+		//this class handle the attribute change for all lv up status
+	public:
+		int m_LV;
+		std::map<std::string, int> m_attributeChange;
+
+		virtual int effect(TimePointEvent p_timePoint, int p_value);
+	};
+
+	class Status_Priest_LV3 : public Status_LV
+	{
+		//this is trigger when preiest is lv3
+	private:
+		bool m_activate = false;
+	public:
+		Status_Priest_LV3();
+
+		int effect(TimePointEvent p_timePoint);
+		int effect(TimePointEvent p_timePoint, int p_value);
+	}; 
+
 }
 
 

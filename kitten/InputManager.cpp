@@ -5,6 +5,9 @@
 #include "mouse picking\MousePicker.h"
 #include "mouse picking\Ray.h"
 #include "K_CameraList.h"
+#include "puppy\ShaderManager.h"
+#include "puppy\VertexEnvironment.h"
+#include "event_system\EventManager.h"
 
 namespace input
 {
@@ -33,7 +36,7 @@ namespace input
 		return sm_inputManagerInstance;
 	}
 
-	InputManager::InputManager() : m_shouldResetMouse(false), m_lastHover(nullptr)
+	InputManager::InputManager() : m_shouldResetMouse(false)
 	{
 		memset(m_keysDown, 0, sizeof(bool) * GLFW_KEY_LAST);
 		memset(m_keysDownLast, 0, sizeof(bool) * GLFW_KEY_LAST);
@@ -148,34 +151,41 @@ namespace input
 		//Put mouse position in clipspace
 		float ndX = (2.0f * mouseX) / windowX - 1.0f;
 		float ndY = 1.0f - (2.0f * mouseY) / windowY;
-		glm::vec4 clip = glm::vec4(ndX, ndY, 1.0f, 1.0f);
 
-		//Put mouse into worldspace
-		glm::vec3 worldRay = (glm::vec3)(glm::inverse(activeCam->getViewProj()) * clip);
+		glm::vec3 clip = glm::vec3(ndX, ndY, 1.0f);
+		
+		//Put mouse into worldspace - mat3 to not have translation!
+		glm::vec3 worldRay = (glm::inverse((glm::mat3)activeCam->getViewProj()) * clip);
 
 		mouseRay.direction = glm::normalize(worldRay);
+		
+		kitten::ClickableBox* hit = MousePicker::getClosestHit(mouseRay);
+		kitten::ClickableBox* lastHover = kitten::ActiveClickables::getInstance()->m_lastHover;
 
-		kitten::Clickable* hit = MousePicker::getClosestHit(mouseRay);
-		if (hit != nullptr && m_lastHover != nullptr)
+		if (hit != nullptr && lastHover != nullptr)
 		{
-			if (m_lastHover != hit)
+			if (lastHover != hit)
 			{
-				m_lastHover->onHoverEnd();
+				lastHover->onHoverEnd();
 				hit->onHoverStart();
-				m_lastHover = hit;
+				kitten::ActiveClickables::getInstance()->m_lastHover = hit;
 			}
 		}
 		else
 		{
-			if (hit != nullptr && m_lastHover == nullptr)
+			if (hit != nullptr && lastHover == nullptr)
 			{
 				hit->onHoverStart();
-				m_lastHover = hit;
+				kitten::ActiveClickables::getInstance()->m_lastHover = hit;
 			}
-			else if(hit == nullptr && m_lastHover != nullptr)
+			else if(hit == nullptr && lastHover != nullptr)
 			{
-				m_lastHover->onHoverEnd();
-				m_lastHover = nullptr;
+				if (lastHover == NULL)
+				{
+					assert(false);
+				}
+				lastHover->onHoverEnd();
+				kitten::ActiveClickables::getInstance()->m_lastHover = nullptr;
 			}
 		}
 
@@ -183,7 +193,11 @@ namespace input
 		if (m_mouseDown[GLFW_MOUSE_BUTTON_LEFT] && !m_mouseDownLast[GLFW_MOUSE_BUTTON_LEFT] && hit != nullptr)
 		{
 			hit->onClick();
+
+			//Trigger event
+			kitten::Event* p_data = new kitten::Event(kitten::Event::EventType::Object_Clicked);
+			p_data->putGameObj(OBJECT_CLICKED_OBJ_KEY, &hit->getGameObject());
+			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Object_Clicked, p_data);
 		}
 	}
-
 }

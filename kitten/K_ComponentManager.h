@@ -32,7 +32,8 @@ namespace kitten
 		K_Component* createComponent(const std::string& p_componentName);
 		K_Component* createComponent(kibble::ComponentDataParser* data);
 		bool destroyComponent(K_Component* p_toDestroy);
-
+		void destroyComponentImmediate(K_Component* p_toDestroy);
+		
 		void addToUpdate(K_Component* p_toUpdate);
 		bool removeFromUpdate(const K_Component* p_toRemove);
 

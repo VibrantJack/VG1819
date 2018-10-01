@@ -1,5 +1,5 @@
 #pragma once
-#include "ChangeAttributeNode.h"
+#include "ability/node/AbilityNode.h"
 #include "Unit/Unit.h"
 
 //Rock

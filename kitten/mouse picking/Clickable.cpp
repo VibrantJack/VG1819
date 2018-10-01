@@ -1,42 +1,45 @@
 #include "Clickable.h"
-#include "ActiveClickables.h"
-#include <iostream>
+#include "ClickableBox.h"
+#include "kitten\K_GameObject.h"
 
 namespace kitten
 {
-	Clickable::Clickable(const glm::vec3& p_pointMin, const glm::vec3& p_pointMax) : m_originalMinPoint(p_pointMin), m_originalMaxPoint(p_pointMax)
+	Clickable::Clickable() : m_attachedBox(nullptr)
 	{
-		ActiveClickables::getInstance()->addToActive(this);
-		m_minPoint = m_originalMinPoint;
-		m_maxPoint = m_originalMaxPoint;
+
 	}
 
 	Clickable::~Clickable()
 	{
-		ActiveClickables::getInstance()->removeFromActive(this);
+		m_attachedBox->removeClickable(this);
 	}
 
 	void Clickable::start()
 	{
-		m_minPoint = m_originalMinPoint * getTransform().getScale();
-		m_maxPoint = m_originalMaxPoint * getTransform().getScale();
+		// You MUST call this method or add yourself as a ClickableBox when overriding this class
+		ClickableBox* box = m_attachedObject->getComponent<ClickableBox>();
+		if (box == nullptr)
+		{
+			assert(false); //Every clickable needs a bounding box to be clicked on!
+			return;
+		}
 
-		getTransform().addScaleListener(this);
+		box->addClickable(this);
+		m_attachedBox = box;
 	}
 
 	void Clickable::onHoverStart()
 	{
+		//Empty to not force override
+	}
 
+	void Clickable::onClick()
+	{
+		//Empty to not force override
 	}
 
 	void Clickable::onHoverEnd()
 	{
-
-	}
-
-	void Clickable::onScaleChanged(const glm::vec3& p_newScale)
-	{
-		m_minPoint = m_originalMinPoint * p_newScale;
-		m_maxPoint = m_originalMaxPoint * p_newScale;
+		//Empty to not force override
 	}
 }

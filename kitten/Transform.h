@@ -27,18 +27,28 @@ namespace kitten
 		virtual void onRotationChanged(const glm::quat& p_newRot) = 0;
 	};
 
+	class K_GameObject;
+
 	class Transform
 	{
-	protected:
+	private:
+		enum ParentDirtyType {position, rotation, scale, unknown};
+
+		K_GameObject& m_attachedObject;
+
 		//Actual transform related
 		float m_rotateDeg;
 		glm::vec3 m_scale;
 		glm::vec3 m_translation;
+		glm::vec3 m_derivedScale;
+		glm::vec3 m_derivedTranslation;
+
 		glm::vec3 m_forward;
 
 		glm::mat4 m_matTranslation;
 		glm::mat4 m_matScale;
 		glm::quat m_quatRotation;
+		glm::quat m_derivedQuatRotation;
 		glm::mat4 m_matRotation;
 		glm::mat4 m_matWorldNoScale;
 		glm::mat4 m_matWorld;
@@ -62,8 +72,16 @@ namespace kitten
 		void notifyPositionListeners();
 		void notifyRotationListeners();
 
+		void addChild(Transform* p_child);
+
+		void setChildrenDirty(ParentDirtyType p_type);
+		void onParentDirty(ParentDirtyType p_type);
+
 	public:
-		Transform();
+		Transform(K_GameObject& p_owner);
+		~Transform();
+
+		K_GameObject& getAttachedGameObject();
 
 		void move2D(const float xUnits, const float yUnits);
 		void move(const float xUnits, const float yUnits, const float zUnits);
@@ -90,7 +108,6 @@ namespace kitten
 		void setIgnoreParent(bool p_ignores);
 
 		void setParent(Transform* p_parent);
-		void addChild(Transform* p_child);
 		bool removeChild(const Transform* p_child);
 
 		//Listeners

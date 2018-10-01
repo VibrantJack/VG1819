@@ -1,0 +1,12 @@
+{
+    "gameobjects" : [
+        {
+            "filename" : "camgameobj.txt", 
+            "translate" : [ 7, 10.0, -6.0],
+            "rotate" : [-45,0,0]
+        },
+		{
+			"filename" : "boardcreator.txt"
+		}
+    ]
+}

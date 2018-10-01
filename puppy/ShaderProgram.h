@@ -2,7 +2,7 @@
 #include "P_Common.h"
 
 #include <string>
-#include <map>
+#include <unordered_map>
 
 namespace puppy
 {
@@ -12,7 +12,7 @@ namespace puppy
 		friend class VertexEnvironment;
 	
 	private:
-		std::map<std::string, int> m_uniformPlaces;
+		std::unordered_map<std::string, int> m_uniformPlaces;
 
 	protected:
 		GLuint m_id;

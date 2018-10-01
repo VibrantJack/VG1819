@@ -6,7 +6,7 @@ namespace MousePicker
 	//Based on the method outlined in:
 	//http://www.opengl-tutorial.org/miscellaneous/clicking-on-objects/picking-with-custom-ray-obb-function/
 
-	bool rayHits(const kitten::Ray& p_ray, kitten::Clickable* p_clickable, double* p_hitOutput)
+	bool rayHits(const kitten::Ray& p_ray, kitten::ClickableBox* p_clickable, double* p_hitOutput)
 	{
 		double minHit = 0.0f;
 		double maxHit = 9999999.9f;
@@ -71,13 +71,13 @@ namespace MousePicker
 		return true;
 	}
 
-	kitten::Clickable* getClosestHit(const kitten::Ray& p_ray)
+	kitten::ClickableBox* getClosestHit(const kitten::Ray& p_ray)
 	{
 		double minHit = 9999999.9f;
 		double tempHit = -1.0f;
-		kitten::Clickable* minClick = nullptr;
+		kitten::ClickableBox* minClick = nullptr;
 
-		const std::list<kitten::Clickable*>& activeClickables = kitten::ActiveClickables::getInstance()->getClickableList();
+		const std::list<kitten::ClickableBox*>& activeClickables = kitten::ActiveClickables::getInstance()->getClickableList();
 
 		auto end = activeClickables.cend();
 		for (auto it = activeClickables.cbegin(); it != end; ++it)
