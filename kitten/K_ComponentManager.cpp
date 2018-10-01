@@ -216,5 +216,4 @@ namespace kitten
 			(*it)->update();
 		}
 	}
->>>>>>> 3fd2eedc186eaa0466b88cf3b36707818cce07f5
 }
