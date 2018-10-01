@@ -164,6 +164,12 @@
     <ClCompile Include="..\kitten\QuadRenderable.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
+    <ClCompile Include="..\userinterface\UI_ElementComponent.cpp">
+      <Filter>userinterface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_RenderableSprite.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -346,9 +352,6 @@
     <ClInclude Include="..\kibble\json\jsonextra.hpp">
       <Filter>kibble\JSON</Filter>
     </ClInclude>
-    <ClInclude Include="..\gameworld\GameBoard.h" />
-    <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
-    <ClInclude Include="..\gameworld\TileInformationComponent.h" />
     <ClInclude Include="..\ability\node\ChangeAttributeNode.h">
       <Filter>ability\node</Filter>
     </ClInclude>
@@ -380,6 +383,27 @@
       <Filter>kitten\mouse  picking</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\QuadRenderable.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gameworld\GameBoard.h">
+      <Filter>gameworld</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gameworld\GrassLandInfoComponent.h">
+      <Filter>gameworld</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gameworld\TileInformationComponent.h">
+      <Filter>gameworld</Filter>
+    </ClInclude>
+    <ClInclude Include="..\userinterface\UI_ElementComponent.h">
+      <Filter>userinterface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_Sprite.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\P_Sprite.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_RenderableSprite.h">
       <Filter>kitten</Filter>
     </ClInclude>
   </ItemGroup>
@@ -431,6 +455,12 @@
     </Filter>
     <Filter Include="kibble\JSON\Datatypes">
       <UniqueIdentifier>{4d5d18f5-6aef-45a4-b204-f32f9c18cabb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameworld">
+      <UniqueIdentifier>{608ce965-b54c-4a9f-bd61-5a9984d20ca8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="userinterface">
+      <UniqueIdentifier>{6f57c83a-0c46-4ffd-92ef-c5e28aff1e32}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

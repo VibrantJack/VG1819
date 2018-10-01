@@ -10,6 +10,7 @@
 #include "_Project\DebugPrintOnce.h"
 #include "gameworld\GrassLandInfoComponent.h"
 #include "_Project\PrintWhenClicked.h"
+#include "K_RenderableSprite.h"
 
 
 namespace kitten
@@ -51,6 +52,10 @@ namespace kitten
 		else if (p_componentName == "Grassland")
 		{
 			comp = new gameworld::GrasslandInfoComponent();
+		}
+		else if (p_componentName == "UIElement")
+		{
+			comp = new K_RenderableSprite("textures\tiles\MISSING.tga");
 		}
 		else if (p_componentName == "MoveByMouseRightClickDrag")
 		{

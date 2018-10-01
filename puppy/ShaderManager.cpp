@@ -54,12 +54,14 @@ namespace puppy
 			*p_vertexShaderPath = "Shaders/basic.vsh";
 			*p_pixelShaderPath = "Shaders/basic.fsh";
 			return true;
-
+		case ShaderType::sprite:
+			*p_vertexShaderPath = "Shaders/sprite.vsh";
+			*p_vertexShaderPath = "Shaders/sprite.fsh";
+			return true;
 		case ShaderType::alphaTest:
 			*p_vertexShaderPath = "Shaders/basic_alphatest.vsh";
 			*p_pixelShaderPath = "Shaders/basic_alphatest.fsh";
 			return true;
-
 		case ShaderType::colorTint_alphaTest:
 			*p_vertexShaderPath = "Shaders/colorTint_alphatest.vsh";
 			*p_pixelShaderPath = "Shaders/colorTint_alphatest.fsh";

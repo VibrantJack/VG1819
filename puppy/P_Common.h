@@ -25,7 +25,7 @@
 
 namespace puppy
 {
-	enum ShaderType { basic, alphaTest, particles, colorTint_alphaTest, SHADERTYPE_MAX = colorTint_alphaTest };
+	enum ShaderType { basic, sprite, alphaTest, particles, colorTint_alphaTest, SHADERTYPE_MAX = colorTint_alphaTest };
 	enum VertexType { textured, normal};
 
 	struct TexturedVertex

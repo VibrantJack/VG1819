@@ -53,7 +53,7 @@ namespace kitten
 		camGameObj->addComponent(camComp);
 		camGameObj->addComponent(mouseMove);
 
-
+		
 		for (int x = 0; x < 15; x++)
 		{
 			for (int z = 0; z < 15; z++)
@@ -72,7 +72,7 @@ namespace kitten
 				testtile->getTransform().move(x, -1, z);
 			}
 		}
-
+		
 		return true;
 	}
 
