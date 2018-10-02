@@ -18,6 +18,11 @@ namespace ability
 		newAbility = new Fight();
 		newAbility->m_name = "Fight";
 		m_abilityList.push_back(newAbility);
+
+		newAbility = new ManipulateTile();
+		newAbility->m_name = "ManipulateTile";
+		m_abilityList.push_back(newAbility);
+
 	}
 
 	AbilityManager::AbilityManager()

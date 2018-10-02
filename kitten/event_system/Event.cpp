@@ -96,6 +96,10 @@ namespace kitten
 		m_constGameObjMap->insert(std::make_pair(p_key, m_value));
 	}
 
+	void Event::putTileList(const TileList* p_tileList)
+	{
+		m_tileList = p_tileList;
+	}
 
 	int Event::getInt(const std::string& p_key)
 	{
@@ -152,5 +156,10 @@ namespace kitten
 		//else
 
 		return m_constGameObjMap->at(p_key);
+	}
+
+	const Event::TileList* Event::getTileList()
+	{
+		return m_tileList;
 	}
 }

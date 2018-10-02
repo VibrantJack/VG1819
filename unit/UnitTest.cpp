@@ -2,6 +2,9 @@
 #include "ability/node/AbilityNodeManager.h"
 #include <iostream>
 #include "kibble/kibble.hpp"
+#include "_Project\PrintWhenClicked.h"
+#include "_Project\UseAbilityWhenClicked.h"
+#include "kitten\K_ComponentManager.h"
 //Rock
 //test the unit data
 
@@ -50,7 +53,22 @@ namespace unit
 
 		kibble::initializeKibbleRelatedComponents();
 		kibble::UnitDataParser* parser = kibble::getUnitDataParserInstance();
-		kitten::K_GameObject* random = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("data/unit/testDummy.txt"));
+		kitten::K_GameObject* random = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("testDummy.txt"));
+
+		// Testing selecting spawned unit
+		kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
+
+		kitten::K_Component* clickBox = compMan->createComponent("ClickableBox");
+		random->addComponent(clickBox);
+
+		PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
+		printWhenClick->setMessage("Unit clicked");
+		random->addComponent(printWhenClick);
+
+		UseAbilityWhenClicked* useAbility = new UseAbilityWhenClicked();
+		random->addComponent(useAbility);
+		useAbility->start();
+		// End testing selecting spawned unit
 
 		unit::Unit* u = random->getComponent<unit::Unit>();
 		UnitMonitor::getInstanceSafe()->printUnit(u);

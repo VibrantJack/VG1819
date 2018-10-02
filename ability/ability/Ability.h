@@ -26,6 +26,14 @@ namespace ability
 		int damage(unit::Unit* p_target, int power);
 	};
 
+	class ManipulateTile : public Ability
+	{
+	public:
+		ManipulateTile();
+
+		int effect(const AbilityInfoPackage* p_info);
+	};
+
 	class Heal : public Ability
 	{
 	public:

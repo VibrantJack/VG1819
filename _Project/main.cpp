@@ -73,7 +73,8 @@ int main( void )
         glViewport( 0, 0, width, height );
         
         // Clear color buffer to black
-        glClearColor( 221.0f/225.0f, 65.0f/255.0f, 36.0f/255.0f, 0.0f );
+        //glClearColor( 221.0f/225.0f, 65.0f/255.0f, 36.0f/255.0f, 0.0f );
+		glClearColor(129.0f / 225.0f, 159.0f / 255.0f, 215.0f / 255.0f, 0.0f);
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
         
 		kitten::gameCycle();
