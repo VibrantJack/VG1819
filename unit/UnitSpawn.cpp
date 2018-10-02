@@ -54,6 +54,9 @@ namespace unit
 			unitObject->addComponent(commander);
 		unitObject->addComponent(unitG);
 
+		//rotate to face camera
+		unitObject->getTransform().rotateRelative(glm::vec3(45, 0, 0));
+
 		return unitObject;
 	}
 

@@ -55,6 +55,7 @@ namespace unit
 		++sm_instances[p_size];
 
 		puppy::Renderer::getInstance()->addToRender(this);
+
 	}
 
 	UnitGraphic::~UnitGraphic()

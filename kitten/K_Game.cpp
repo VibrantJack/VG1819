@@ -108,6 +108,7 @@ namespace kitten
 
 		// End testing events
 
+		//test unit
 		unit::UnitTest::getInstanceSafe()->test();
 
 		return true;
