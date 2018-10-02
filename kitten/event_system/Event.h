@@ -3,6 +3,7 @@
 #define OBJECT_CLICKED_OBJ_KEY "clicked"
 #define TILE_POS_X "pos_x"
 #define TILE_POS_Y "pos_y"
+#define TILE_OWNER_KEY "tile_owner_key"
 
 #include "kitten/K_GameObject.h"
 

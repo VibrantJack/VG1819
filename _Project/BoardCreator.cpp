@@ -6,6 +6,7 @@
 #include "TileInfo.h"
 #include "kitten\QuadRenderable.h"
 #include "UseAbilityWhenClicked.h"
+#include "_Project\ManipulateTileOnClick.h"
 
 kitten::K_GameObject* BoardCreator::m_pTileList[15][15];
 
@@ -16,12 +17,20 @@ BoardCreator::BoardCreator()
 		this,
 		std::bind(&BoardCreator::highlightTile, this, std::placeholders::_1, std::placeholders::_2));
 
-	//m_pTileList.resize(15);
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Unhighlight_Tile,
+		this,
+		std::bind(&BoardCreator::unhighlightCurrent, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 BoardCreator::~BoardCreator()
 {
 
+}
+
+bool BoardCreator::hasUpdate() const
+{
+	return true;
 }
 
 void BoardCreator::start()
@@ -40,6 +49,9 @@ void BoardCreator::start()
 			printWhenClick->setMessage("grassy tile: " + std::to_string(x) + ", " + std::to_string(z));
 			testTile->addComponent(printWhenClick);
 
+			ManipulateTileOnClick* manipTileOnClick = static_cast<ManipulateTileOnClick*>(compMan->createComponent("ManipulateTileOnClick"));
+			testTile->addComponent(manipTileOnClick);
+
 			K_Component* clickBox = compMan->createComponent("ClickableBox");
 			testTile->addComponent(clickBox);			
 
@@ -57,48 +69,72 @@ void BoardCreator::start()
 		}
 	}
 
-	compMan->destroyComponent(this);
+	//compMan->destroyComponent(this);
+}
+
+void BoardCreator::update()
+{
+	kitten::K_GameObject* tile;
+
+	// If there are tiles to be highlighted and there are already highlighted tiles
+	//	then unhighlight already highlighted tiles to prepare for new highlights
+	if (!m_toBeHighlighted.empty() && !m_lastHighlighted.empty())
+	{
+		m_toBeUnhighlighted = m_lastHighlighted;
+		m_lastHighlighted.clear();
+	}
+
+	// Remove color tint from tiles to be unhighlighted
+	unhighlightTiles(kitten::Event::EventType::Unhighlight_Tile, nullptr);
+
+	if (!m_toBeHighlighted.empty())
+	{
+		auto it = m_toBeHighlighted.cbegin();
+		for (; it != m_toBeHighlighted.cend(); ++it)
+		{
+			tile = m_pTileList[it->first][it->second];
+
+			kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
+			quad->setColorTint(glm::vec4(0.0f, 0.0f, 0.5f, 1.0f));
+
+			TileInfo* tileInfo = tile->getComponent<TileInfo>();
+			tileInfo->setHighlighted(true);
+			tileInfo->setHighlightedBy(m_sHighlightedBy);
+		}
+
+		m_lastHighlighted = m_toBeHighlighted;
+		m_toBeHighlighted.clear();
+	}
 }
 
 void BoardCreator::highlightTile(kitten::Event::EventType p_type, kitten::Event* p_data)
 {
-	/*int x = p_data->getInt(TILE_POS_X);
-	int y = p_data->getInt(TILE_POS_Y);
+	m_toBeHighlighted = *p_data->getTileList();
+	m_sHighlightedBy = p_data->getString(TILE_OWNER_KEY);
+}
 
-	kitten::K_GameObject* tile = m_pTileList[x][y];
-
-	kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
-	quad->setColorTint(glm::vec4(0.0f, 0.0f, 0.5f, 1.0f));
-
-	TileInfo* tileInfo = tile->getComponent<TileInfo>();
-	tileInfo->setHighlighted(true);*/
-
-
+void BoardCreator::unhighlightTiles(kitten::Event::EventType p_type, kitten::Event* p_data)
+{
 	kitten::K_GameObject* tile;
 
-	auto it = p_data->getTileList()->cbegin();
-	for (; it != p_data->getTileList()->cend(); ++it)
+	auto it = m_toBeUnhighlighted.cbegin();
+	for (; it != m_toBeUnhighlighted.cend(); ++it)
 	{
 		tile = m_pTileList[it->first][it->second];
 
 		kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
-		quad->setColorTint(glm::vec4(0.0f, 0.0f, 0.5f, 1.0f));
+		quad->setColorTint(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
 
 		TileInfo* tileInfo = tile->getComponent<TileInfo>();
-		tileInfo->setHighlighted(true);
+		tileInfo->setHighlighted(false);
+		tileInfo->setHighlightedBy("NONE");
 	}
+
+	m_toBeUnhighlighted.clear();
 }
 
-void BoardCreator::unhighlightTile(kitten::Event::EventType p_type, kitten::Event* p_data)
+void BoardCreator::unhighlightCurrent(kitten::Event::EventType p_type, kitten::Event* p_data)
 {
-	int x = p_data->getInt(TILE_POS_X);
-	int y = p_data->getInt(TILE_POS_Y);
-
-	kitten::K_GameObject* tile = m_pTileList[x][y];
-
-	kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
-	quad->setColorTint(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-
-	TileInfo* tileInfo = tile->getComponent<TileInfo>();
-	tileInfo->setHighlighted(false);
+	m_toBeUnhighlighted = m_lastHighlighted;
+	m_lastHighlighted.clear();
 }

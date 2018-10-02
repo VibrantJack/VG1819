@@ -6,6 +6,10 @@
 #include <vector>
 #include <assert.h>
 
+#define MANIPULATE_TILE_ABILITY "ManipulateTile"
+#define HEAL_ABILITY "Heal"
+#define FIGHT_ABILITY "Fight"
+
 //Rock
 
 namespace ability
@@ -16,6 +20,7 @@ namespace ability
 		static AbilityManager * sm_instance;
 
 		std::vector<Ability*> m_abilityList;
+		std::string m_sLastAbilityUsed;
 
 		void init();
 
@@ -29,5 +34,7 @@ namespace ability
 
 		Ability* findAbility(const std::string& p_name);
 		int useAbility(const std::string& p_name, AbilityInfoPackage* p_info);
+
+		const std::string& lastAbilityUsed();
 	};
 }

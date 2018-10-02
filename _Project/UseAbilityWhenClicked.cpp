@@ -1,5 +1,7 @@
 #include "UseAbilityWhenClicked.h"
 #include "ability\AbilityManager.h"
+#include "kitten\K_GameObject.h"
+#include "unit\Unit.h"
 
 UseAbilityWhenClicked::UseAbilityWhenClicked()
 {
@@ -13,7 +15,6 @@ UseAbilityWhenClicked::~UseAbilityWhenClicked()
 
 void UseAbilityWhenClicked::onClick()
 {
-	printf("UseAbilityWhenClicked::onClick called\n");
 	ability::AbilityInfoPackage* info = new ability::AbilityInfoPackage();
 
 	// Highlight tiles that can be manipulated, for testing, do all
@@ -24,9 +25,8 @@ void UseAbilityWhenClicked::onClick()
 			info->m_targetTiles.push_back(std::make_pair(x, z));
 		}
 	}
-	ability::AbilityManager::getInstance()->useAbility("ManipulateTile", info);
+	unit::Unit* unit = m_attachedObject->getComponent<unit::Unit>();
+	info->m_source = unit;
 
-	//info->m_intValue.insert(std::pair<std::string, int>("pos_x", 0));
-	//info->m_intValue.insert(std::pair<std::string, int>("pos_y", 0));
-	//ability::AbilityManager::getInstance()->useAbility("ManipulateTile", info);
+	ability::AbilityManager::getInstance()->useAbility(MANIPULATE_TILE_ABILITY, info);
 }

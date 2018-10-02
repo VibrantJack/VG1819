@@ -13,6 +13,7 @@
 #include "_Project\DestroyOnClick.h"
 #include "unit/unitComponent/UnitGraphic.h"
 #include "_Project\BoardCreator.h"
+#include "_Project\ManipulateTileOnClick.h"
 
 namespace kitten
 {
@@ -89,6 +90,10 @@ namespace kitten
 		else if (p_componentName == "BoardCreator")
 		{
 			comp = new BoardCreator();
+		}
+		else if (p_componentName == "ManipulateTileOnClick")
+		{
+			comp = new ManipulateTileOnClick();
 		}
 		else
 		{

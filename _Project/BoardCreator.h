@@ -11,12 +11,20 @@ public:
 	BoardCreator();
 	~BoardCreator();
 
+	virtual bool hasUpdate() const;
+
 	virtual void start() override;
+	virtual void update() override;
 
 	void highlightTile(kitten::Event::EventType p_type, kitten::Event* p_data);
-	void unhighlightTile(kitten::Event::EventType p_type, kitten::Event* p_data);
+	void unhighlightTiles(kitten::Event::EventType p_type, kitten::Event* p_data);
+	void unhighlightCurrent(kitten::Event::EventType p_type, kitten::Event* p_data);
 private:
 	static kitten::K_GameObject* m_pTileList[15][15];
+	
+	kitten::Event::TileList m_toBeHighlighted;
+	kitten::Event::TileList m_lastHighlighted;
+	kitten::Event::TileList m_toBeUnhighlighted;
 
-	//static std::vector<kitten::K_GameObject*> m_pTileList;
+	std::string m_sHighlightedBy;
 };

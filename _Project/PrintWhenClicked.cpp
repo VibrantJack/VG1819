@@ -1,5 +1,7 @@
 #include <iostream>
 #include "PrintWhenClicked.h"
+#include "TileInfo.h"
+#include "kitten\K_GameObject.h"
 
 PrintWhenClicked::PrintWhenClicked(const std::string& p_message) :  m_message(p_message)
 {
@@ -18,7 +20,16 @@ void PrintWhenClicked::setMessage(const std::string& p_message)
 
 void PrintWhenClicked::onClick()
 {
-	std::cout << m_message << std::endl;
+	TileInfo* info = m_attachedObject->getComponent<TileInfo>();
+	if (info != nullptr)
+	{
+		std::cout << "Tile " << info->getPosX() << ", " << info->getPosY() << " highlighted by: "
+			<< info->getHighlightedBy() << ", owned by: " << info->getOwnerId() << std::endl;
+	}
+	else
+	{
+		std::cout << m_message << std::endl;
+	}
 }
 
 void PrintWhenClicked::onHoverStart()
