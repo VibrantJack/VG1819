@@ -1,0 +1,40 @@
+{
+    "name":"Duelist",
+    "hp":12,
+    "mv":3,
+    "in":10,
+    "cost":3,
+	"size":"point",
+	"tags":["Elf","Terrans","Soldier"],
+	"ability_description":[
+			{
+				"name":"Slay",
+				"power":5,
+				"min_range":1,
+				"max_range":1,
+				"area":"line3",
+				"description":"Deal 5 damage to enemies."
+			},
+			{
+				"name":"Dodge",
+				"lv":2,
+				"cd":4,
+				"area":"self",
+				"duration":1,
+				"description":"Until next turn, this unit will ignore first damage received."
+			}
+		],
+	"status_description":[
+			{
+				"name":"Status_LV",
+				"lv":2,
+				"time_point":[2],
+				"hp":5
+			},
+			{
+				"name":"Status_Duelist_LV3",
+				"lv":3,
+				"time_point":[2]
+			}
+		]
+}

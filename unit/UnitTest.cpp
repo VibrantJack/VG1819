@@ -28,6 +28,7 @@ namespace unit
 	void UnitTest::test()
 	{
 		//createInstance
+		ability::StatusManager::createInstance();
 		ability::AbilityManager::createInstance();
 		ability::AbilityNodeManager::createInstance();
 
@@ -50,7 +51,7 @@ namespace unit
 
 		kibble::initializeKibbleRelatedComponents();
 		kibble::UnitDataParser* parser = kibble::getUnitDataParserInstance();
-		kitten::K_GameObject* random = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("data/unit/testDummy.txt"));
+		kitten::K_GameObject* random = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
 
 		unit::Unit* u = random->getComponent<unit::Unit>();
 		UnitMonitor::getInstanceSafe()->printUnit(u);

@@ -1,7 +1,7 @@
 #pragma once
-#include "AbilityInfoPackage.h"
-#include "ability/Ability.h"
-#include "status/Status.h"
+#include "ability/AbilityInfoPackage.h"
+#include "ability/ability/Ability.h"
+#include "ability/status/Status.h"
 
 #include <vector>
 #include <assert.h>
@@ -10,6 +10,8 @@
 
 namespace ability
 {
+	class Ability;
+
 	class AbilityManager
 	{
 	private:

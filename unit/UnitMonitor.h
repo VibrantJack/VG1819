@@ -11,7 +11,7 @@ namespace unit
 	{
 	private:
 		static UnitMonitor * m_instance;
-		void printStatus(ability::Status* p_s);
+		void printStatus(unit::StatusContainer* p_s);
 	public:
 		UnitMonitor();
 		~UnitMonitor();

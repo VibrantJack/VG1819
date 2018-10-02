@@ -18,6 +18,34 @@ namespace ability
 		newAbility = new Fight();
 		newAbility->m_name = "Fight";
 		m_abilityList.push_back(newAbility);
+
+		newAbility = new Shoot();
+		newAbility->m_name = "Shoot";
+		m_abilityList.push_back(newAbility);
+
+		newAbility = new Sabotage();
+		newAbility->m_name = "Sabotage";
+		m_abilityList.push_back(newAbility);
+
+		newAbility = new Build_the_Wall();
+		newAbility->m_name = "Build the Wall";
+		m_abilityList.push_back(newAbility);
+
+		newAbility = new Encourage();
+		newAbility->m_name = "Encourage";
+		m_abilityList.push_back(newAbility);
+
+		newAbility = new QuickShoot();
+		newAbility->m_name = "QuickShoot";
+		m_abilityList.push_back(newAbility);
+
+		newAbility = new Slay();
+		newAbility->m_name = "Slay";
+		m_abilityList.push_back(newAbility);
+
+		newAbility = new Dodge();
+		newAbility->m_name = "Dodge";
+		m_abilityList.push_back(newAbility);
 	}
 
 	AbilityManager::AbilityManager()

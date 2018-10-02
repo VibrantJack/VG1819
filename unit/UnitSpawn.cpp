@@ -64,7 +64,7 @@ namespace unit
 		//TO DO: an ID system instead of random words
 		unit->m_ID = "testUnit01";//hard coded for now
 
-								  //copy tag, name and attributes
+		//copy tag, name and attributes
 		unit->m_tags = p_unitData->m_tags;
 		unit->m_name = p_unitData->m_name;
 
@@ -73,22 +73,30 @@ namespace unit
 		int mv = p_unitData->m_MV;
 		int cost = p_unitData->m_Cost;
 
-		unit->m_attributes["MaxHP"] = hp;
-		unit->m_attributes["HP"] = hp;
-		unit->m_attributes["baseIN"] = in;
-		unit->m_attributes["IN"] = in;
-		unit->m_attributes["baseMV"] = mv;
-		unit->m_attributes["MV"] = mv;
-		unit->m_attributes["baseCost"] = cost;
-		unit->m_attributes["Cost"] = cost;
+		unit->m_attributes["max_hp"] = hp;
+		unit->m_attributes["hp"] = hp;
+		unit->m_attributes["base_in"] = in;
+		unit->m_attributes["in"] = in;
+		unit->m_attributes["base_mv"] = mv;
+		unit->m_attributes["mv"] = mv;
+		unit->m_attributes["base_cost"] = cost;
+		unit->m_attributes["cost"] = cost;
 		//set lv to 1
-		unit->m_attributes["LV"] = 1;
+		unit->m_attributes["lv"] = 1;
 
 		unit->m_size = p_unitData->m_size;
 
-		//TO DO readAD
+		//readAD
+		for (auto it : p_unitData->m_ad)
+		{
+			unit->m_ADList[it->m_stringValue["name"]] = it;
+		}
 
-		//TO DO readSD
+		//readSD
+		for (auto it : p_unitData->m_sd)
+		{
+			readSD(it)->attach(unit);
+		}
 
 		return unit;
 	}
@@ -99,12 +107,54 @@ namespace unit
 
 		//change lv to -1 since it doesn't apply to commander
 		//unit->m_LV = -1;
-		commander->m_attributes["LV"] = -1;
+		commander->m_attributes["lv"] = -1;
 
 		commander->m_ID = "testCommander01";
 
 		commander->m_porPath = p_unitData->m_porPath;
 
 		return commander;
+	}
+
+	ability::Status* UnitSpawn::readSD(unit::StatusDescription* p_sd)
+	{
+		std::string name = p_sd->m_stringValue["name"];
+
+		//find a empty copy of the status
+		ability::Status* s = ability::StatusManager::getInstance()->findStatus(name);
+
+		if (p_sd->m_stringValue.find("description") != p_sd->m_stringValue.end())
+		{
+			s->m_description = p_sd->m_stringValue["description"];
+		}
+		
+		s->m_TPList.insert(s->m_TPList.end(),p_sd->m_TPList.begin(),p_sd->m_TPList.end());
+
+		//for lv status
+		if (p_sd->m_intValue.find("lv") != p_sd->m_intValue.end())
+		{
+			s->m_LV = p_sd->m_intValue["lv"];
+			//hp
+			if (p_sd->m_intValue.find("hp") != p_sd->m_intValue.end())
+			{
+				int hp = p_sd->m_intValue["hp"];
+				s->m_attributeChange["hp"] = hp;
+				s->m_attributeChange["max_hp"] = p_sd->m_intValue["hp"];
+			}
+			//in
+			if (p_sd->m_intValue.find("in") != p_sd->m_intValue.end())
+			{
+				s->m_attributeChange["in"] = p_sd->m_intValue["in"];
+				s->m_attributeChange["base_in"] = p_sd->m_intValue["in"];
+			}
+			//mv
+			if (p_sd->m_intValue.find("mv") != p_sd->m_intValue.end())
+			{
+				s->m_attributeChange["mv"] = p_sd->m_intValue["mv"];
+				s->m_attributeChange["base_mv"] = p_sd->m_intValue["mv"];
+			}
+		}
+
+		return s;
 	}
 }

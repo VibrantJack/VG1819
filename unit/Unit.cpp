@@ -6,6 +6,7 @@ namespace unit
 {
 	Unit::Unit()
 	{
+		m_statusContainer = new StatusContainer();
 	}
 
 
@@ -23,7 +24,12 @@ namespace unit
 		return m_statusContainer->removeStatus(p_oldStatus);
 	}
 
-	StatusContainer * Unit::getStatus()
+	ability::Status* Unit::getStatus(const std::string & p_name)
+	{
+		return m_statusContainer->getStatus(p_name);
+	}
+
+	StatusContainer * Unit::getStatusContainer()
 	{
 		return m_statusContainer;
 	}

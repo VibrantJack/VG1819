@@ -4,11 +4,11 @@
 
 namespace ability
 {
-	QuickShoot::QuickShoot()
+	Slay::Slay()
 	{
 	}
 
-	int QuickShoot::effect(const AbilityInfoPackage* p_info)
+	int Slay::effect(const AbilityInfoPackage* p_info)
 	{
 		//deal damaga to all units
 

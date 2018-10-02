@@ -50,9 +50,7 @@ unit::UnitData* getUnitDataFrom(nlohmann::json& p_jsonfile) {
 	ud->m_size = size;
 	ud->m_tags = tags;
 
-	//ad and sd will be improved
-	ud->m_ad = ad;
-	ud->m_sd = sd;
+	//ad and sd 
 
 	//texture path
 	//portrait path (for commander)

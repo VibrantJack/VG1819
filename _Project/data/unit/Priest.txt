@@ -6,6 +6,32 @@
     "cost":1,
 	"size":"point",
 	"tags":["Wizard","Terrans"],
-	"ad":["Heal","Encourage"],
-	"sd":["Status_Priest_LV3"]
+	"ability_description":[
+			{
+				"name":"Heal",
+				"power":3,
+				"min_range":1,
+				"max_range":2,
+				"target":1,
+				"description":"Heal target unit 3 HP."
+			},
+			{
+				"name":"Encourage",
+				"lv":2,
+				"power":1,
+				"min_range":1,
+				"max_range":2,
+				"target":1,
+				"duration":3,
+				"description":"Give target unit [Encourage]. When that unit will deal damage, it will deal 1 more damage."
+			}
+		],
+	"status_description":[
+			{
+				"name":"Status_Priest_LV3",
+				"lv":3,
+				"time_point":[2],
+				"hp":5
+			}
+		]
 }

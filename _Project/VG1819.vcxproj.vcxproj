@@ -15,7 +15,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>VG1819</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <ProjectName>VG1819</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -92,20 +92,28 @@
   <ItemGroup>
     <ClCompile Include="..\ability\AbilityManager.cpp" />
     <ClCompile Include="..\ability\ability\Ability.cpp" />
+    <ClCompile Include="..\ability\ability\Build_the_Wall.cpp" />
+    <ClCompile Include="..\ability\ability\Dodge.cpp" />
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
     <ClCompile Include="..\ability\ability\Fight.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
     <ClCompile Include="..\ability\ability\QuickShoot.cpp" />
+    <ClCompile Include="..\ability\ability\Sabotage.cpp" />
+    <ClCompile Include="..\ability\ability\Shoot.cpp" />
+    <ClCompile Include="..\ability\ability\Slay.cpp" />
     <ClCompile Include="..\ability\node\AbilityNode.cpp" />
     <ClCompile Include="..\ability\node\AbilityNodeManager.cpp" />
     <ClCompile Include="..\ability\node\ChangeAbilityDescriptionNode.cpp" />
     <ClCompile Include="..\ability\node\ChangeAbilityInfoNode.cpp" />
     <ClCompile Include="..\ability\node\ChangeAttributeNode.cpp" />
     <ClCompile Include="..\ability\node\CheckHPNode.cpp" />
-    <ClCompile Include="..\ability\node\CreateUnitNode.cpp" />
     <ClCompile Include="..\ability\node\SpawnUnitNode.cpp" />
+    <ClCompile Include="..\ability\StatusManager.cpp" />
     <ClCompile Include="..\ability\status\Status.cpp" />
+    <ClCompile Include="..\ability\status\Status_Archer_LV3.cpp" />
     <ClCompile Include="..\ability\status\Status_CD.cpp" />
+    <ClCompile Include="..\ability\status\Status_Dodge.cpp" />
+    <ClCompile Include="..\ability\status\Status_Duelist_LV3.cpp" />
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\ability\status\Status_LV.cpp" />
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
@@ -176,6 +184,7 @@
     <ClInclude Include="..\ability\ability\Ability.h" />
     <ClInclude Include="..\ability\node\AbilityNode.h" />
     <ClInclude Include="..\ability\node\AbilityNodeManager.h" />
+    <ClInclude Include="..\ability\StatusManager.h" />
     <ClInclude Include="..\ability\status\Status.h" />
     <ClInclude Include="..\gameworld\GameBoard.h" />
     <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />

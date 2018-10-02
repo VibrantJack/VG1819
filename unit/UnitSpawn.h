@@ -2,6 +2,7 @@
 #include "unit/UnitCommon.h"
 #include "unit/Commander.h"
 #include "unit/unitComponent/StatusContainer.h"
+#include "ability/StatusManager.h"
 //Rock
 
 //I think this class can be merged to kibble unit data parser
@@ -22,7 +23,7 @@ namespace unit
 
 		static UnitSpawn * m_instance;
 		std::vector<unit::AbilityDescription> readAD();
-		unit::StatusContainer* readSD();
+		ability::Status* readSD(unit::StatusDescription* p_sd);
 
 		unit::Unit* spawnUnitFromData(UnitData* p_unitData);
 		unit::Commander* spawnCommanderFromData(UnitData* p_unitData);

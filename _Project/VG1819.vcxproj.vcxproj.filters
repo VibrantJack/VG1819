@@ -200,9 +200,6 @@
     <ClCompile Include="..\ability\node\ChangeAbilityInfoNode.cpp">
       <Filter>ability\node</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\node\CreateUnitNode.cpp">
-      <Filter>ability\node</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\node\SpawnUnitNode.cpp">
       <Filter>ability\node</Filter>
     </ClCompile>
@@ -235,6 +232,33 @@
     </ClCompile>
     <ClCompile Include="..\kibble\databank\databank.cpp">
       <Filter>kibble\databank</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Build_the_Wall.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Dodge.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Sabotage.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Shoot.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Slay.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Archer_LV3.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Dodge.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Duelist_LV3.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\StatusManager.cpp">
+      <Filter>ability</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -471,6 +495,9 @@
     </ClInclude>
     <ClInclude Include="..\kibble\databank\databank.hpp">
       <Filter>kibble\databank</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ability\StatusManager.h">
+      <Filter>ability</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
