@@ -1,3 +1,10 @@
+// TileInfo
+//
+// Component attached to tile objects that holds information about the tile
+//	like if it is highlighted, who highlighted it, the position, the owner
+//
+// @Ken
+
 #include "TileInfo.h"
 
 TileInfo::TileInfo(int p_iPosX, int p_iPosY)

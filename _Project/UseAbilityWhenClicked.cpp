@@ -1,3 +1,10 @@
+// UseAbilityWhenClicked
+//
+// Class to test functionality of ManipulateTile ability by simply clicking
+//	on the attached unit
+//
+// @Ken
+
 #include "UseAbilityWhenClicked.h"
 #include "ability\AbilityManager.h"
 #include "kitten\K_GameObject.h"

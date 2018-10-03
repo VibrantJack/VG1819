@@ -1,3 +1,12 @@
+// BoardCreator
+//
+// Originally only created the tile objects that make up the board @Callum
+// Multipurposed to handle highlighting and unhighlighting of tiles @Ken
+// *Should rename component to something that better represents this.
+// TODO: Either verify tiles to be highlighted are valid here or ensure it is
+//	done before the tile list is sent here. E.g. A commander cannot highlight
+//	tiles owned by the other commander
+
 #include "BoardCreator.h"
 #include "PrintWhenClicked.h"
 #include "kitten\K_GameObjectManager.h"
