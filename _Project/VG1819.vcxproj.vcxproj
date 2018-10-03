@@ -74,8 +74,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -147,6 +148,7 @@
     <ClCompile Include="..\kitten\QuadRenderable.cpp" />
     <ClCompile Include="..\kitten\Renderable.cpp" />
     <ClCompile Include="..\kitten\Transform.cpp" />
+    <ClCompile Include="..\kitten\UIRenderable.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
     <ClCompile Include="..\puppy\FBO.cpp" />
     <ClCompile Include="..\puppy\Material.cpp" />
@@ -158,6 +160,7 @@
     <ClCompile Include="..\puppy\StaticRenderables.cpp" />
     <ClCompile Include="..\puppy\Texture.cpp" />
     <ClCompile Include="..\puppy\Text\Font.cpp" />
+    <ClCompile Include="..\puppy\Text\FontTable.cpp" />
     <ClCompile Include="..\puppy\Text\TextBox.cpp" />
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
@@ -173,6 +176,7 @@
     <ClCompile Include="BoardCreator.cpp" />
     <ClCompile Include="DebugPrintOnce.cpp" />
     <ClCompile Include="DestroyOnClick.cpp" />
+    <ClCompile Include="FPSCalc.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
     <ClCompile Include="PrintWhenClicked.cpp" />
@@ -227,6 +231,7 @@
     <ClInclude Include="..\kitten\QuadRenderable.h" />
     <ClInclude Include="..\kitten\Renderable.h" />
     <ClInclude Include="..\kitten\Transform.h" />
+    <ClInclude Include="..\kitten\UIRenderable.h" />
     <ClInclude Include="..\pugixml\pugiconfig.hpp" />
     <ClInclude Include="..\pugixml\pugixml.hpp" />
     <ClInclude Include="..\puppy\FBO.h" />
@@ -241,6 +246,7 @@
     <ClInclude Include="..\puppy\StaticRenderables.h" />
     <ClInclude Include="..\puppy\Texture.h" />
     <ClInclude Include="..\puppy\Text\Font.h" />
+    <ClInclude Include="..\puppy\Text\FontTable.h" />
     <ClInclude Include="..\puppy\Text\TextBox.h" />
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
@@ -257,6 +263,7 @@
     <ClInclude Include="BoardCreator.h" />
     <ClInclude Include="DebugPrintOnce.h" />
     <ClInclude Include="DestroyOnClick.h" />
+    <ClInclude Include="FPSCalc.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="PrintWhenClicked.h" />
     <ClInclude Include="ZoomByMouseWheel.h" />

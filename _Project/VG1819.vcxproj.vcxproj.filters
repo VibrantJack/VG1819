@@ -23,9 +23,6 @@
     <ClCompile Include="..\puppy\FBO.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
-    <ClCompile Include="..\puppy\Text\Font.cpp">
-      <Filter>puppy</Filter>
-    </ClCompile>
     <ClCompile Include="..\puppy\Material.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
@@ -45,12 +42,6 @@
       <Filter>puppy</Filter>
     </ClCompile>
     <ClCompile Include="..\puppy\StaticRenderables.cpp">
-      <Filter>puppy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\puppy\Text\TextBox.cpp">
-      <Filter>puppy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\puppy\Text\TextTable.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
     <ClCompile Include="..\puppy\Texture.cpp">
@@ -260,6 +251,24 @@
     <ClCompile Include="..\ability\StatusManager.cpp">
       <Filter>ability</Filter>
     </ClCompile>
+    <ClCompile Include="..\puppy\Text\Font.cpp">
+      <Filter>puppy\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Text\FontTable.cpp">
+      <Filter>puppy\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Text\TextBox.cpp">
+      <Filter>puppy\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Text\TextTable.cpp">
+      <Filter>puppy\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCalc.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\UIRenderable.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -286,9 +295,6 @@
     <ClInclude Include="..\puppy\FBO.h">
       <Filter>puppy</Filter>
     </ClInclude>
-    <ClInclude Include="..\puppy\Text\Font.h">
-      <Filter>puppy</Filter>
-    </ClInclude>
     <ClInclude Include="..\puppy\Material.h">
       <Filter>puppy</Filter>
     </ClInclude>
@@ -311,12 +317,6 @@
       <Filter>puppy</Filter>
     </ClInclude>
     <ClInclude Include="..\puppy\StaticRenderables.h">
-      <Filter>puppy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\puppy\Text\TextBox.h">
-      <Filter>puppy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\puppy\Text\TextTable.h">
       <Filter>puppy</Filter>
     </ClInclude>
     <ClInclude Include="..\puppy\Texture.h">
@@ -499,6 +499,24 @@
     <ClInclude Include="..\ability\StatusManager.h">
       <Filter>ability</Filter>
     </ClInclude>
+    <ClInclude Include="..\puppy\Text\Font.h">
+      <Filter>puppy\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Text\FontTable.h">
+      <Filter>puppy\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Text\TextBox.h">
+      <Filter>puppy\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Text\TextTable.h">
+      <Filter>puppy\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCalc.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\UIRenderable.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -506,9 +524,6 @@
     </Filter>
     <Filter Include="puppy">
       <UniqueIdentifier>{e55580cc-403d-4eaa-bed0-16f88b46e83b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="puppy\Scene">
-      <UniqueIdentifier>{ae87ad72-9f76-418e-91c9-00b5df72ef2f}</UniqueIdentifier>
     </Filter>
     <Filter Include="shapes">
       <UniqueIdentifier>{f82cacf4-d649-46d8-95dc-927acb69ed9c}</UniqueIdentifier>
@@ -557,6 +572,9 @@
     </Filter>
     <Filter Include="kibble\databank">
       <UniqueIdentifier>{44f1d2e8-f712-4236-bb62-48293505c643}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="puppy\Text">
+      <UniqueIdentifier>{056420bf-c8f5-4ad0-955b-758b49059769}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

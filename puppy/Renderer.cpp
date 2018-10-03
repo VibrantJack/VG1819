@@ -15,6 +15,7 @@ namespace puppy
 
 	}
 
+	//@TOOD: make these faster
 	void Renderer::addToRender(kitten::Renderable* p_toAdd) 
 	{	
 		m_toRender.push_back(p_toAdd);
@@ -22,7 +23,8 @@ namespace puppy
 
 	void Renderer::removeFromRender(kitten::Renderable* p_toRemove) 
 	{
-		for (auto it = m_toRender.begin(); it != m_toRender.end(); ++it)
+		auto end = m_toRender.end();
+		for (auto it = m_toRender.begin(); it != end; ++it)
 		{
 			if (*it == p_toRemove)
 			{
@@ -32,16 +34,45 @@ namespace puppy
 		}
 	}
 
-	//public static
-	void Renderer::renderAll(const glm::mat4& p_viewProj)
+	void Renderer::addUIToRender(kitten::UIRenderable* p_toAdd)
 	{
-		for (auto it = m_toRender.begin(); it != m_toRender.end(); ++it)
+		m_uiToRender.push_back(p_toAdd);
+	}
+
+	void Renderer::removeUIFromRender(kitten::UIRenderable* p_toRemove)
+	{
+		auto end = m_uiToRender.end();
+		for (auto it = m_uiToRender.begin(); it != end; ++it)
 		{
-			(*it)->render(p_viewProj);
+			if (*it == p_toRemove)
+			{
+				m_uiToRender.erase(it);
+				return;
+			}
 		}
 	}
 
-	//public static
+	void Renderer::renderAll(kitten::Camera* p_cam)
+	{
+		const glm::mat4& viewProj = p_cam->getViewProj();
+
+		auto end = m_toRender.end();
+		for (auto it = m_toRender.begin(); it != end; ++it)
+		{
+			(*it)->render(viewProj);
+		}
+
+		//UI
+
+		const glm::mat4& ortho = p_cam->getOrtho();
+
+		auto uiEnd = m_uiToRender.end();
+		for (auto it = m_uiToRender.begin(); it != uiEnd; ++it)
+		{
+			(*it)->render(ortho);
+		}
+	}
+
 	void Renderer::removeAll()
 	{
 		m_toRender.clear();

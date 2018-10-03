@@ -13,6 +13,8 @@
 #include "_Project\DestroyOnClick.h"
 #include "unit/unitComponent/UnitGraphic.h"
 #include "_Project\BoardCreator.h"
+#include "_Project\FPSCalc.h"
+#include "puppy\Text\TextBox.h"
 
 namespace kitten
 {
@@ -89,6 +91,14 @@ namespace kitten
 		else if (p_componentName == "BoardCreator")
 		{
 			comp = new BoardCreator();
+		}
+		else if (p_componentName == "FPSCalc")
+		{
+			comp = new FPSCalc();
+		}
+		else if (p_componentName == "TextBox")
+		{
+			comp = new puppy::TextBox(puppy::FontTable::getInstance()->getFont("../fonts/common_consolas.fnt"), "DEFAULT TEXT", 500, 500);
 		}
 		else
 		{

@@ -69,7 +69,7 @@ namespace kitten
 		m_winHeight = p_height;
 	}
 
-	glm::mat4& Camera::getProj()
+	const glm::mat4& Camera::getProj()
 	{
 		if (m_isProjDirty)
 		{
@@ -88,6 +88,16 @@ namespace kitten
 		}
 
 		return m_proj;
+	}
+
+	const glm::mat4& Camera::getOrtho()
+	{
+		if (m_isProjDirty)
+		{
+			m_ortho = glm::ortho(0.0f, (float)m_winWidth, 0.0f, (float)m_winHeight, m_nearClip, m_farClip);
+		}
+
+		return m_ortho;
 	}
 
 	glm::mat4 Camera::getViewProj()
