@@ -3,3 +3,5 @@ https://docs.google.com/spreadsheets/d/1UaqQhF2yMge83ZTVuRVDdIdpBa_gFjIWGL0VifKB
 
 Random TODOs:
 - QA parent / children system 
+- Implement coroutines in the engine
+- Add render thread
