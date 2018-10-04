@@ -93,8 +93,8 @@ namespace puppy
 	void StaticRenderables::removeFromUIRender(const void* p_owner, const Texture* p_tex)
 	{
 		//Search for texture
-		auto found = m_texturedData.find(*p_tex->getTex());
-		if (found != m_texturedData.end())
+		auto found = m_texturedDataUI.find(*p_tex->getTex());
+		if (found != m_texturedDataUI.end())
 		{
 			//Search for owner in texture's map
 			auto& vecMap = (*found).second.first;
