@@ -165,8 +165,7 @@ namespace kitten
 		kitten::Camera* cam = K_CameraList::getInstance()->getSceneCamera();
 
 		puppy::Renderer::getInstance()->renderAll(cam);
-		//@TODO: change both to use cam
-		puppy::StaticRenderables::getInstance()->render(cam->getViewProj());
+		puppy::StaticRenderables::getInstance()->render(cam);
 	}
 
 	// This is called every frame

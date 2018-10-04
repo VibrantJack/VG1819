@@ -12,20 +12,30 @@ namespace puppy
 
 	StaticRenderables::~StaticRenderables()
 	{
-
+		clearAllData();
 	}
-
-	void StaticRenderables::addToRender(const void* p_owner, const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements)
+	
+	void StaticRenderables::addToAppropriateRender(const void* p_owner, const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements, bool p_isUI)
 	{
-		auto found = m_texturedData.find(*p_texNeeded->getTex());
+		render_map *texData;
+		if (p_isUI)
+		{
+			texData = &m_texturedDataUI;
+		}
+		else
+		{
+			texData = &m_texturedData;
+		}
+
+		auto found = texData->find(*p_texNeeded->getTex());
 
 		std::vector<TexturedVertex> toInsert(p_data, p_data + p_numElements);
 
-		if (found != m_texturedData.end())
+		if (found != texData->end())
 		{
 			//add to existing map
 			auto& map = found->second.first;
-			
+
 			toInsert.insert(toInsert.begin(), p_data, p_data + p_numElements);
 
 			map.insert(std::make_pair(p_owner, toInsert));
@@ -40,12 +50,21 @@ namespace puppy
 			newMap.insert(std::make_pair(p_owner, toInsert));
 
 			//insert map into data
-			m_texturedData.insert(std::make_pair(*p_texNeeded->getTex(), std::make_pair(newMap, true)));
+			texData->insert(std::make_pair(*p_texNeeded->getTex(), std::make_pair(newMap, true)));
 
-			//Create copy of texture
-			puppy::Texture* tex = new puppy::Texture(p_texNeeded->getPath());
-			m_idToTex.insert(std::make_pair(*tex->getTex(), tex));
+			//Check if we need to create a copy of the texture
+			auto textureFound = m_idToTex.find(*p_texNeeded->getTex());
+			if (textureFound == m_idToTex.end())
+			{
+				puppy::Texture* tex = new puppy::Texture(p_texNeeded->getPath());
+				m_idToTex.insert(std::make_pair(*tex->getTex(), tex));
+			}	
 		}
+	}
+
+	void StaticRenderables::addToRender(const void* p_owner, const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements)
+	{
+		addToAppropriateRender(p_owner, p_texNeeded, p_data, p_numElements, false);
 	}
 
 	void StaticRenderables::removeFromRender(const void* p_owner, const Texture* p_tex)
@@ -66,10 +85,33 @@ namespace puppy
 		}
 	}
 
-	void StaticRenderables::constructRenderable(GLuint p_where)
+	void StaticRenderables::addToUIRender(const void* p_owner, const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements)
+	{
+		addToAppropriateRender(p_owner, p_texNeeded, p_data, p_numElements, true);
+	}
+
+	void StaticRenderables::removeFromUIRender(const void* p_owner, const Texture* p_tex)
+	{
+		//Search for texture
+		auto found = m_texturedData.find(*p_tex->getTex());
+		if (found != m_texturedData.end())
+		{
+			//Search for owner in texture's map
+			auto& vecMap = (*found).second.first;
+			auto ownerFound = vecMap.find(p_owner);
+			if (ownerFound != vecMap.end())
+			{
+				vecMap.erase(ownerFound);
+				//set dirty
+				(*found).second.second = true;
+			}
+		}
+	}
+
+	void StaticRenderables::constructRenderable(GLuint p_where, render_map* p_from, std::unordered_map<Texture*, VertexEnvironment*>* p_toChange)
 	{
 		//get vector to create buffer from
-		auto found = m_texturedData.find(p_where);
+		auto found = p_from->find(p_where);
 		auto map = found->second.first;
 
 		//Get size of vector needed
@@ -101,15 +143,15 @@ namespace puppy
 			VertexEnvironment* toRender = new VertexEnvironment(createdData.data(),
 				ShaderManager::getShaderProgram(ShaderType::basic), createdData.size());
 
-			auto foundRender = m_toRender.find(m_idToTex[p_where]);
-			if (foundRender != m_toRender.end())
+			auto foundRender = p_toChange->find(m_idToTex[p_where]);
+			if (foundRender != p_toChange->end())
 			{
 				delete foundRender->second;
 				foundRender->second = toRender;
 			}
 			else
 			{
-				m_toRender.insert(std::make_pair(m_idToTex[p_where], toRender));
+				p_toChange->insert(std::make_pair(m_idToTex[p_where], toRender));
 			}
 		}
 		
@@ -118,7 +160,7 @@ namespace puppy
 		found->second.second = false;
 	}
 
-	void StaticRenderables::render(const glm::mat4& p_viewProj)
+	void StaticRenderables::render(kitten::Camera* p_cam)
 	{
 		//Check for dirty data
 		auto texEnd = m_texturedData.cend();
@@ -126,23 +168,39 @@ namespace puppy
 		{
 			if (it->second.second)
 			{
-				constructRenderable(it->first);
+				constructRenderable(it->first, &m_texturedData, &m_toRender);
 			}
 		}
 
-		for (auto renderIt = m_toRender.begin(); renderIt != m_toRender.end(); ++renderIt)
+		texEnd = m_texturedDataUI.cend();
+		for (auto it = m_texturedDataUI.begin(); it != texEnd; ++it)
+		{
+			if (it->second.second)
+			{
+				constructRenderable(it->first, &m_texturedDataUI, &m_toRenderUI);
+			}
+		}
+
+		renderStatic(m_toRender, p_cam->getViewProj());
+		renderStatic(m_toRenderUI, p_cam->getOrtho());
+	}
+
+	void StaticRenderables::renderStatic(const std::unordered_map<Texture*, VertexEnvironment*>& p_toRender, const glm::mat4& p_viewProj)
+	{
+		auto end = p_toRender.cend();
+		for (auto it = p_toRender.cbegin(); it != end; ++it)
 		{
 			//apply shaderProgram
 			ShaderManager::applyShader(ShaderType::basic);
 
 			//apply tex
-			renderIt->first->apply();
-			
+			it->first->apply();
+
 			//apply uniform (don't need a world matrix since everything should already be in world space)
 			glUniformMatrix4fv(ShaderManager::getShaderProgram(ShaderType::basic)->getUniformPlace(WORLD_VIEW_PROJ_UNIFORM_NAME), 1, GL_FALSE, glm::value_ptr(p_viewProj));
 
 			//Draw!
-			renderIt->second->drawArrays(GL_TRIANGLES);
+			it->second->drawArrays(GL_TRIANGLES);
 		}
 	}
 
@@ -151,13 +209,22 @@ namespace puppy
 		//Delete all existing renderables
 		for (auto it = m_toRender.begin(); it != m_toRender.end(); it = m_toRender.erase(it))
 		{
-			delete (*it).first;
+			delete (*it).second;
+		}
+		
+		for (auto it = m_toRenderUI.begin(); it != m_toRenderUI.end(); it = m_toRenderUI.erase(it))
+		{
+			delete (*it).second;
+		}
+
+		//Delete textures
+		for (auto it = m_idToTex.begin(); it != m_idToTex.end(); it = m_idToTex.erase(it))
+		{
 			delete (*it).second;
 		}
 
 		//Clear everything else
 		m_texturedData.clear();
-		m_idToTex.clear();
 	}
 
 	//Static method for putting vertices in world space
