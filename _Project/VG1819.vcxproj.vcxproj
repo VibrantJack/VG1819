@@ -98,6 +98,7 @@
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
     <ClCompile Include="..\ability\ability\Fight.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
+    <ClCompile Include="..\ability\ability\ManipulateTile.cpp" />
     <ClCompile Include="..\ability\ability\QuickShoot.cpp" />
     <ClCompile Include="..\ability\ability\Sabotage.cpp" />
     <ClCompile Include="..\ability\ability\Shoot.cpp" />
@@ -178,8 +179,11 @@
     <ClCompile Include="DestroyOnClick.cpp" />
     <ClCompile Include="FPSCalc.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ManipulateTileOnClick.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
     <ClCompile Include="PrintWhenClicked.cpp" />
+    <ClCompile Include="TileInfo.cpp" />
+    <ClCompile Include="UseAbilityWhenClicked.cpp" />
     <ClCompile Include="ZoomByMouseWheel.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -264,8 +268,11 @@
     <ClInclude Include="DebugPrintOnce.h" />
     <ClInclude Include="DestroyOnClick.h" />
     <ClInclude Include="FPSCalc.h" />
+    <ClInclude Include="ManipulateTileOnClick.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="PrintWhenClicked.h" />
+    <ClInclude Include="TileInfo.h" />
+    <ClInclude Include="UseAbilityWhenClicked.h" />
     <ClInclude Include="ZoomByMouseWheel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

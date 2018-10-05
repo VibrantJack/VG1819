@@ -269,6 +269,18 @@
     <ClCompile Include="..\kitten\UIRenderable.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\ability\ManipulateTile.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="ManipulateTileOnClick.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="TileInfo.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="UseAbilityWhenClicked.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -516,6 +528,15 @@
     </ClInclude>
     <ClInclude Include="..\kitten\UIRenderable.h">
       <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="ManipulateTileOnClick.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="TileInfo.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="UseAbilityWhenClicked.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
