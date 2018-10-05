@@ -1,0 +1,9 @@
+{
+    "name":"Wall",
+    "hp":12,
+    "mv":0,
+    "in":0,
+    "cost":1,
+	"size":"point",
+	"tags":["Terrans","Structure"]
+}

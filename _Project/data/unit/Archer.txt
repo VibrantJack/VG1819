@@ -1,0 +1,43 @@
+{
+    "name":"Archer",
+    "hp":8,
+    "mv":2,
+    "in":14,
+    "cost":2,
+	"size":"point",
+	"tags":["Elf","Terrans"],
+	"ability_description":[
+			{
+				"name":"Shoot",
+				"power":3,
+				"min_range":2,
+				"max_range":3,
+				"target":1,
+				"description":"Deal 3 damage to target."
+			},
+			{
+				"name":"Quick Shot",
+				"lv":2,
+				"cd":2,
+				"power":2,
+				"min_range":2,
+				"max_range":3,
+				"target":2,
+				"description":"Deal 2 damage twice. Can be different targets."
+			}
+		],
+	"status_description":[
+			{
+				"name":"Status_LV",
+				"lv":2,
+				"time_point":[2],
+				"hp":4
+			},
+			{
+				"name":"Status_Archer_LV3",
+				"lv":3,
+				"time_point":[2],
+				"hp":4
+			}
+		]
+}

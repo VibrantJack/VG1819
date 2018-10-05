@@ -2,6 +2,7 @@
 #include "TextBox.h"
 #include "../Texture.h"
 #include "../ShaderManager.h"
+#include "puppy\Renderer.h"
 
 #include <iostream>
 #include <vector>
@@ -10,6 +11,8 @@ namespace puppy
 {
 	TextBox::TextBox(Font* p_fontToUse, std::string p_text, float p_boxWidth, float p_boxHeight, Alignment p_alignment)
 	{
+		assert(p_fontToUse != nullptr);
+		
 		m_alignment = p_alignment;
 		m_text = p_text;
 		m_font = p_fontToUse;
@@ -26,6 +29,8 @@ namespace puppy
 		case center:
 			constructRightOrCenterAlignVertices(false);
 		}
+
+		Renderer::getInstance()->addUIToRender(this);
 	}
 
 	TextBox::TextBox(Font* p_fontToUse, std::string p_text, float p_boxWidth, float p_boxHeight)
@@ -38,12 +43,23 @@ namespace puppy
 		m_color[3] = 0; //alpha addition
 
 		constructLeftAlignVertices();
+		Renderer::getInstance()->addUIToRender(this);
 	}
 
 	puppy::TextBox::~TextBox()
 	{
-		m_textMap.clear();
+		removeOldText();
+		Renderer::getInstance()->removeUIFromRender(this);
+	}
 
+	void TextBox::removeOldText()
+	{
+		auto end = m_textMap.end();
+		for (auto it = m_textMap.begin(); it != end; ++it)
+		{
+			delete (*it).second;
+		}
+		m_textMap.clear();
 	}
 
 	void TextBox::constructQuad(int p_charId, int p_xPos, int p_yPos, TexturedVertex p_toSet[])
@@ -288,6 +304,7 @@ namespace puppy
 		{
 			m_alignment = p_alignment;
 			m_isDirty = true;
+			removeOldText();
 		}
 	}
 
@@ -297,9 +314,8 @@ namespace puppy
 		{
 			m_text = p_text;
 			m_isDirty = true;
+			removeOldText();
 		}
-		
-
 	}
 
 	const std::string& TextBox::getText() const
@@ -315,7 +331,7 @@ namespace puppy
 		
 	}
 
-	void TextBox::render(const glm::mat4& p_viewProj)
+	void TextBox::render(const glm::mat4& p_ortho)
 	{
 		if (m_isDirty)
 		{
@@ -339,8 +355,8 @@ namespace puppy
 
 		//apply shader & uniforms
 		ShaderManager::applyShader(ShaderType::colorTint_alphaTest);
-		glUniformMatrix4fv(ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest)->getUniformPlace(WORLD_VIEW_PROJ_UNIFORM_NAME), 1, GL_FALSE, 
-			glm::value_ptr(p_viewProj * getTransform().getWorldTransform()));
+		glUniformMatrix4fv(ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest)->getUniformPlace(WORLD_VIEW_PROJ_UNIFORM_NAME), 1, GL_FALSE,
+			glm::value_ptr(glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, 0.0f, 1000.0f) * getTransform().getWorldTransform()));
 		glUniform4fv(ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest)->getUniformPlace("colorTint"), 1, m_color);
 
 		//render vertices

@@ -3,6 +3,7 @@
 #include "P_Common.h"
 #include "Texture.h"
 #include "VertexEnvironment.h"
+#include "kitten\Camera.h"
 
 #include <unordered_map>
 #include <vector>
@@ -15,6 +16,8 @@ namespace puppy
 	class StaticRenderables
 	{
 	private:
+		typedef std::unordered_map<GLuint, std::pair<std::unordered_map<const void*, std::vector<TexturedVertex>>, bool>> render_map;
+
 		//Singleton stuff
 		StaticRenderables();
 		virtual ~StaticRenderables();
@@ -22,13 +25,22 @@ namespace puppy
 
 	
 		std::unordered_map<Texture*, VertexEnvironment*> m_toRender;
-		std::unordered_map<GLuint, std::pair<std::unordered_map<const void*, std::vector<TexturedVertex>>, bool>> m_texturedData;
+		render_map m_texturedData;
+		
+		std::unordered_map<Texture*, VertexEnvironment*> m_toRenderUI;
+		render_map m_texturedDataUI;
+
 		std::unordered_map<GLuint, Texture*> m_idToTex;
+		
 		/*
-			Helper method to construct TexturedVertex's into
+			Helper methods to construct TexturedVertex's into
 			one draw call
 		*/
-		void constructRenderable(GLuint p_where);
+		void constructRenderable(GLuint p_where, render_map* p_from, std::unordered_map<Texture*, VertexEnvironment*>* p_toChange);
+		void addToAppropriateRender(const void* p_owner, const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements, bool p_isUi);
+
+		//Helper method to reduce code duplication
+		void renderStatic(const std::unordered_map<Texture*, VertexEnvironment*>& p_toRender, const glm::mat4& p_viewProj);
 	public:
 		//Singleton stuff
 		static StaticRenderables* getInstance() { return sm_instance; };
@@ -43,7 +55,10 @@ namespace puppy
 		void addToRender(const void* p_owner,const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements);
 		void removeFromRender(const void* p_owner, const Texture* p_tex);
 
-		void render(const glm::mat4& p_viewProj);
+		void addToUIRender(const void* p_owner, const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements);
+		void removeFromUIRender(const void* p_owner, const Texture* p_tex);
+
+		void render(kitten::Camera* p_cam);
 
 		void clearAllData();
 

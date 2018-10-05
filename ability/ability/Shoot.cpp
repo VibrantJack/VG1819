@@ -4,11 +4,11 @@
 
 namespace ability
 {
-	Fight::Fight()
+	Shoot::Shoot()
 	{
 	}
 
-	int Fight::effect(const AbilityInfoPackage* p_info)
+	int Shoot::effect(const AbilityInfoPackage* p_info)
 	{
 		//damage target by power
 		unit::Unit* target = p_info->m_target;
@@ -18,7 +18,7 @@ namespace ability
 		//so power will change to negative
 		int power = -(p_info->m_intValue.find("power")->second);
 
-		damage(target,power);
+		damage(target, power);
 
 		return 0;
 	}

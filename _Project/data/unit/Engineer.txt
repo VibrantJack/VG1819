@@ -1,0 +1,44 @@
+{
+    "name":"Engineer",
+    "hp":9,
+    "mv":3,
+    "in":11,
+    "cost":2,
+	"size":"point",
+	"tags":["Terrans"],
+	"ability_description":[
+			{
+				"name":"Fight",
+				"power":3,
+				"min_range":1,
+				"max_range":1,
+				"target":1,
+				"description":"Deal 3 damage to target."
+			},
+			{
+				"name":"Build the Wall",
+				"lv":2,
+				"min_range":1,
+				"max_range":1,
+				"target":1,
+				"description":"Build a wall in front of this unit. Wall is a Structure with 12 HP."
+			},
+			{
+				"name":"Sabotage",
+				"lv":3,
+				"power":12,
+				"min_range":1,
+				"max_range":1,
+				"target":1,
+				"description":"Deal 12 damage to a Structure."
+			}
+		],
+	"status_description":[
+			{
+				"name":"Status_LV",
+				"lv":3,
+				"time_point":[2],
+				"mv":1
+			}
+		]
+}

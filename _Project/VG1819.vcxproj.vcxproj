@@ -15,7 +15,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>VG1819</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <ProjectName>VG1819</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -74,8 +74,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -92,20 +93,28 @@
   <ItemGroup>
     <ClCompile Include="..\ability\AbilityManager.cpp" />
     <ClCompile Include="..\ability\ability\Ability.cpp" />
+    <ClCompile Include="..\ability\ability\Build_the_Wall.cpp" />
+    <ClCompile Include="..\ability\ability\Dodge.cpp" />
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
     <ClCompile Include="..\ability\ability\Fight.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
     <ClCompile Include="..\ability\ability\QuickShoot.cpp" />
+    <ClCompile Include="..\ability\ability\Sabotage.cpp" />
+    <ClCompile Include="..\ability\ability\Shoot.cpp" />
+    <ClCompile Include="..\ability\ability\Slay.cpp" />
     <ClCompile Include="..\ability\node\AbilityNode.cpp" />
     <ClCompile Include="..\ability\node\AbilityNodeManager.cpp" />
     <ClCompile Include="..\ability\node\ChangeAbilityDescriptionNode.cpp" />
     <ClCompile Include="..\ability\node\ChangeAbilityInfoNode.cpp" />
     <ClCompile Include="..\ability\node\ChangeAttributeNode.cpp" />
     <ClCompile Include="..\ability\node\CheckHPNode.cpp" />
-    <ClCompile Include="..\ability\node\CreateUnitNode.cpp" />
     <ClCompile Include="..\ability\node\SpawnUnitNode.cpp" />
+    <ClCompile Include="..\ability\StatusManager.cpp" />
     <ClCompile Include="..\ability\status\Status.cpp" />
+    <ClCompile Include="..\ability\status\Status_Archer_LV3.cpp" />
     <ClCompile Include="..\ability\status\Status_CD.cpp" />
+    <ClCompile Include="..\ability\status\Status_Dodge.cpp" />
+    <ClCompile Include="..\ability\status\Status_Duelist_LV3.cpp" />
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\ability\status\Status_LV.cpp" />
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
@@ -139,6 +148,7 @@
     <ClCompile Include="..\kitten\QuadRenderable.cpp" />
     <ClCompile Include="..\kitten\Renderable.cpp" />
     <ClCompile Include="..\kitten\Transform.cpp" />
+    <ClCompile Include="..\kitten\UIRenderable.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
     <ClCompile Include="..\puppy\FBO.cpp" />
     <ClCompile Include="..\puppy\Material.cpp" />
@@ -150,6 +160,7 @@
     <ClCompile Include="..\puppy\StaticRenderables.cpp" />
     <ClCompile Include="..\puppy\Texture.cpp" />
     <ClCompile Include="..\puppy\Text\Font.cpp" />
+    <ClCompile Include="..\puppy\Text\FontTable.cpp" />
     <ClCompile Include="..\puppy\Text\TextBox.cpp" />
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
@@ -165,6 +176,7 @@
     <ClCompile Include="BoardCreator.cpp" />
     <ClCompile Include="DebugPrintOnce.cpp" />
     <ClCompile Include="DestroyOnClick.cpp" />
+    <ClCompile Include="FPSCalc.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
     <ClCompile Include="PrintWhenClicked.cpp" />
@@ -176,6 +188,7 @@
     <ClInclude Include="..\ability\ability\Ability.h" />
     <ClInclude Include="..\ability\node\AbilityNode.h" />
     <ClInclude Include="..\ability\node\AbilityNodeManager.h" />
+    <ClInclude Include="..\ability\StatusManager.h" />
     <ClInclude Include="..\ability\status\Status.h" />
     <ClInclude Include="..\gameworld\GameBoard.h" />
     <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
@@ -218,6 +231,7 @@
     <ClInclude Include="..\kitten\QuadRenderable.h" />
     <ClInclude Include="..\kitten\Renderable.h" />
     <ClInclude Include="..\kitten\Transform.h" />
+    <ClInclude Include="..\kitten\UIRenderable.h" />
     <ClInclude Include="..\pugixml\pugiconfig.hpp" />
     <ClInclude Include="..\pugixml\pugixml.hpp" />
     <ClInclude Include="..\puppy\FBO.h" />
@@ -232,6 +246,7 @@
     <ClInclude Include="..\puppy\StaticRenderables.h" />
     <ClInclude Include="..\puppy\Texture.h" />
     <ClInclude Include="..\puppy\Text\Font.h" />
+    <ClInclude Include="..\puppy\Text\FontTable.h" />
     <ClInclude Include="..\puppy\Text\TextBox.h" />
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
@@ -248,6 +263,7 @@
     <ClInclude Include="BoardCreator.h" />
     <ClInclude Include="DebugPrintOnce.h" />
     <ClInclude Include="DestroyOnClick.h" />
+    <ClInclude Include="FPSCalc.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="PrintWhenClicked.h" />
     <ClInclude Include="ZoomByMouseWheel.h" />

@@ -8,6 +8,8 @@
 
 #include "kitten\K_GameObject.h"
 
+#include "puppy\Text\TextBox.h"
+
 #include "kitten\Camera.h"
 #include "kitten\CubeRenderable.h"
 #include "kitten\QuadRenderable.h"
@@ -40,6 +42,7 @@ namespace kitten
 		puppy::MaterialManager::createInstance();
 		puppy::Renderer::createInstance();
 		puppy::StaticRenderables::createInstance();
+		puppy::FontTable::createInstance();
 
 		kibble::initializeKibbleRelatedComponents();
 	}
@@ -92,7 +95,16 @@ namespace kitten
 		parentTest->getTransform().rotateAbsolute(glm::vec3(0, 45, 0));
 		secondChild->getTransform().rotateAbsolute(glm::vec3(0, -45, 0));
 		*/
-		
+
+		K_GameObject* gameObj = K_GameObjectManager::getInstance()->createNewGameObject();
+		K_Component* fpsCalc = compMan->createComponent("FPSCalc");
+		puppy::TextBox* testText = static_cast<puppy::TextBox*>(compMan->createComponent("TextBox"));
+		testText->setColor(1, 1, 1);
+		gameObj->addComponent(testText);
+		gameObj->addComponent(fpsCalc);
+
+		gameObj->getTransform().place2D(100, 700);
+
 		// Testing Events
 		Event* e = new Event(Event::Test_Event);
 		e->putString("key", "Testing Event Trigger");
@@ -108,6 +120,7 @@ namespace kitten
 
 		// End testing events
 
+		//test unit
 		unit::UnitTest::getInstanceSafe()->test();
 
 		return true;
@@ -128,6 +141,7 @@ namespace kitten
 		puppy::MaterialManager::destroyInstance();
 		puppy::Renderer::destroyInstance();
 		puppy::StaticRenderables::destroyInstance();
+		puppy::FontTable::destroyInstance();
 	}
 
 	void updateGame()
@@ -148,10 +162,10 @@ namespace kitten
 	void renderGame()
 	{
 		//@TODO: Combine these? 
-		const glm::mat4& sceneViewProj = K_CameraList::getInstance()->getSceneCamera()->getViewProj();
-		puppy::Renderer::getInstance()->renderAll(sceneViewProj);
+		kitten::Camera* cam = K_CameraList::getInstance()->getSceneCamera();
 
-		puppy::StaticRenderables::getInstance()->render(sceneViewProj);
+		puppy::Renderer::getInstance()->renderAll(cam);
+		puppy::StaticRenderables::getInstance()->render(cam);
 	}
 
 	// This is called every frame

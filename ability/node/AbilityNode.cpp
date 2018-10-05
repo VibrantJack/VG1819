@@ -37,6 +37,10 @@ namespace ability
 	{
 		return -1;
 	}
+	int AbilityNode::effect(unit::Unit * p_target, const std::string & p_abilityName, const std::string & p_valueName, const std::string & p_value)
+	{
+		return -1;
+	}
 	int AbilityNode::effect(ability::AbilityInfoPackage * p_pack, const std::string & p_valueName, int p_value)
 	{
 		return -1;
