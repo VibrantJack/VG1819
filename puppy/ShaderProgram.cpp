@@ -11,6 +11,11 @@ namespace puppy
 		m_id = wolf::LoadShaders(p_vertexShaderPath, p_pixelShaderPath);
 	}
 
+	ShaderProgram::~ShaderProgram()
+	{
+
+	}
+
 	void ShaderProgram::apply() const
 	{
 		glUseProgram(m_id);
