@@ -83,9 +83,6 @@
     <ClCompile Include="ZoomByMouseWheel.cpp">
       <Filter>components</Filter>
     </ClCompile>
-    <ClCompile Include="..\unit\Unit.cpp">
-      <Filter>unit</Filter>
-    </ClCompile>
     <ClCompile Include="..\unit\UnitMonitor.cpp">
       <Filter>unit</Filter>
     </ClCompile>
@@ -166,9 +163,6 @@
     </ClCompile>
     <ClCompile Include="..\unit\unitComponent\UnitGraphic.cpp">
       <Filter>unit\unitComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\unit\Commander.cpp">
-      <Filter>unit</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\status\Status.cpp">
       <Filter>ability\status</Filter>
@@ -281,6 +275,24 @@
     <ClCompile Include="UseAbilityWhenClicked.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\UnitTurn.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\Commander.cpp">
+      <Filter>unit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\Unit.cpp">
+      <Filter>unit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\UnitMove.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\UnitClickable.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -381,9 +393,6 @@
     </ClInclude>
     <ClInclude Include="ZoomByMouseWheel.h">
       <Filter>components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\unit\Unit.h">
-      <Filter>unit</Filter>
     </ClInclude>
     <ClInclude Include="..\unit\UnitCommon.h">
       <Filter>unit</Filter>
@@ -487,9 +496,6 @@
     <ClInclude Include="..\unit\unitComponent\UnitGraphic.h">
       <Filter>unit\unitComponent</Filter>
     </ClInclude>
-    <ClInclude Include="..\unit\Commander.h">
-      <Filter>unit</Filter>
-    </ClInclude>
     <ClInclude Include="..\kitten\event_system\Event.h">
       <Filter>kitten\event_system</Filter>
     </ClInclude>
@@ -537,6 +543,24 @@
     </ClInclude>
     <ClInclude Include="UseAbilityWhenClicked.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\UnitTurn.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\Commander.h">
+      <Filter>unit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\Unit.h">
+      <Filter>unit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\UnitMove.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\UnitClickable.h">
+      <Filter>unit\unitComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -596,6 +620,9 @@
     </Filter>
     <Filter Include="puppy\Text">
       <UniqueIdentifier>{056420bf-c8f5-4ad0-955b-758b49059769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="unit\InitiativeTracker">
+      <UniqueIdentifier>{6c8e8df5-cc1f-4e04-baff-d434c5908209}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

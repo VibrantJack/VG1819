@@ -1,5 +1,5 @@
 #pragma once
-#include "Unit.h"
+#include "unit/Unit.h"
 
 //Rock
 //this class output information about a unit
@@ -20,5 +20,6 @@ namespace unit
 		static UnitMonitor* getInstanceSafe();
 
 		void printUnit(Unit* p_u);
+		void printIT();
 	};
 }

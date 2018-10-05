@@ -16,7 +16,8 @@
 #include "_Project\ManipulateTileOnClick.h"
 #include "_Project\FPSCalc.h"
 #include "puppy\Text\TextBox.h"
-
+#include "unit/unitComponent/UnitMove.h"
+#include "unit/unitComponent/UnitClickable.h"
 namespace kitten
 {
 	K_ComponentManager* K_ComponentManager::sm_instance = nullptr;
@@ -84,6 +85,22 @@ namespace kitten
 		else if (p_componentName == "ClickableBoxBox")
 		{
 			comp = new ClickableBox(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
+		}
+		else if (p_componentName == "ClickableBoxForPointUnit")
+		{
+			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 2.0f, 0.0f));
+		}
+		else if (p_componentName == "ClickableBoxForCubeUnit")
+		{
+			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(2.5f, 3.0f, 0.0f));
+		}
+		else if (p_componentName == "UnitMove")
+		{
+			comp = new unit::UnitMove();
+		}
+		else if (p_componentName == "UnitClickable")
+		{
+			comp = new unit::UnitClickable();
 		}
 		else if (p_componentName == "UnitGraphic")//hard code, need special function for unit graphic
 		{

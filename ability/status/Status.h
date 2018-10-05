@@ -2,7 +2,7 @@
 #include "ability/node/AbilityNodeManager.h"
 
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 //Rock
@@ -41,13 +41,13 @@ namespace ability
 	public:
 		unit::Unit * m_unit;//the unit this status attached to
 
-		std::map<std::string, int> m_counter;
+		std::unordered_map<std::string, int> m_counter;
 		//Most commonly counter is duration. But it can be more, such as how many times it can be used
 
 		std::string m_name;
 		std::string m_description;//the text that will be showed to player
 		int m_LV;
-		std::map<std::string, int> m_attributeChange;
+		std::unordered_map<std::string, int> m_attributeChange;
 
 		std::vector<ability::TimePointEvent> m_TPList;//the list of event that will be registered
 		//TO DO: Register Event

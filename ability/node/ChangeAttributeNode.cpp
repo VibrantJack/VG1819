@@ -13,7 +13,7 @@ namespace ability
 
 	int ChangeAttributeNode::effect(unit::Unit* p_target, const std::string & p_name, int p_value)
 	{
-		std::map<std::string, int>::iterator it;
+		std::unordered_map<std::string, int>::iterator it;
 
 		it = p_target->m_attributes.find(p_name);
 		if (it != p_target->m_attributes.end())

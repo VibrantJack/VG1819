@@ -1,8 +1,10 @@
 #pragma once
 #include "UnitSpawn.h"
-#include "unit/Commander.h"
 #include "kitten/K_GameObjectManager.h"
 #include "kitten/K_ComponentManager.h"
+#include "unit/InitiativeTracker/InitiativeTracker.h"
+#include "unit/unitComponent/UnitClickable.h"
+#include "unit/unitComponent/UnitMove.h"
 //Rock
 
 namespace unit
@@ -31,9 +33,9 @@ namespace unit
 
 	kitten::K_GameObject * UnitSpawn::spawnUnitObject(UnitData * p_unitData)
 	{
+		//create unit 
 		Unit* unit = nullptr;
 		Commander* commander = nullptr;
-
 		if (p_unitData->m_tags[0] == "Commander")
 		{
 			commander = spawnCommanderFromData(p_unitData);
@@ -43,8 +45,21 @@ namespace unit
 			unit = spawnUnitFromData(p_unitData);
 		}
 
-		//unit graphic
-		kitten::K_Component* unitG = kitten::K_ComponentManager::getInstance()->createComponent("UnitGraphic");
+		//get component manager
+		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
+
+		//create unit graphic
+		kitten::K_Component* unitG = cm->createComponent("UnitGraphic");
+
+		//create unit move
+		kitten::K_Component* uMove = cm->createComponent("UnitMove");
+
+		//create click box
+		kitten::K_Component* uBox = createClickableBox(p_unitData->m_size);
+
+		//create clickable
+		unit::UnitClickable* uClick = static_cast<unit::UnitClickable*>(cm->createComponent("UnitClickable"));
+
 
 		//unit object
 		kitten::K_GameObject* unitObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
@@ -52,10 +67,18 @@ namespace unit
 			unitObject->addComponent(unit);
 		else
 			unitObject->addComponent(commander);
+
+		//attach component
 		unitObject->addComponent(unitG);
+		unitObject->addComponent(uMove);
+		unitObject->addComponent(uBox);
+		unitObject->addComponent(uClick);
 
 		//rotate to face camera
 		unitObject->getTransform().rotateRelative(glm::vec3(45, 0, 0));
+
+		//add object to Initiative Tracker
+		unit::InitiativeTracker::getInstance()->addUnit(unitObject);
 
 		return unitObject;
 	}
@@ -117,6 +140,22 @@ namespace unit
 		commander->m_porPath = p_unitData->m_porPath;
 
 		return commander;
+	}
+
+	kitten::K_Component * UnitSpawn::createClickableBox(UnitSize p_size)
+	{
+		switch (p_size)
+		{
+		case unit::point:
+			return kitten::K_ComponentManager::getInstance()->createComponent("ClickableBoxForPointUnit");
+			break;
+		case unit::cube:
+			return kitten::K_ComponentManager::getInstance()->createComponent("ClickableBoxForCubeUnit");
+			break;
+		default:
+			return nullptr;
+		}
+		return nullptr;
 	}
 
 	ability::Status* UnitSpawn::readSD(unit::StatusDescription* p_sd)

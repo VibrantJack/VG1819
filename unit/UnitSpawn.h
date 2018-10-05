@@ -27,5 +27,7 @@ namespace unit
 
 		unit::Unit* spawnUnitFromData(UnitData* p_unitData);
 		unit::Commander* spawnCommanderFromData(UnitData* p_unitData);
+
+		kitten::K_Component* createClickableBox(UnitSize p_size);
 	};
 }

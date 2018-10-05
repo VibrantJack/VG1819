@@ -1,4 +1,5 @@
 #include "UnitMonitor.h"
+#include "unit/InitiativeTracker/InitiativeTracker.h"
 #include <iostream>
 
 //Rock
@@ -74,6 +75,18 @@ namespace unit
 		std::cout << "Status: " << std::endl;
 		printStatus(p_u->getStatusContainer());
 		std::cout << std::endl;
+	}
+
+	void UnitMonitor::printIT()
+	{
+		InitiativeTracker* tracker = InitiativeTracker::getInstance();
+
+		for (auto it : tracker->getList())
+		{
+			std::string name = it->getComponent<unit::Unit>()->m_name;
+			int i = it->getComponent<unit::Unit>()->m_attributes["in"];
+			std::cout << "Unit: "<< name<<" \tin: "<< i << std::endl;
+		}
 	}
 
 }
