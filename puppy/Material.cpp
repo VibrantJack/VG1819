@@ -9,8 +9,6 @@ namespace puppy
 
 	Material::~Material()
 	{
-		delete m_shader;
-
 		if (m_tex != nullptr)
 		{
 			delete m_tex;

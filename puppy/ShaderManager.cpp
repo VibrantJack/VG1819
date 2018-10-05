@@ -5,7 +5,7 @@ namespace puppy
 {
 	//initialize static member variables
 	const ShaderProgram* ShaderManager::m_boundShader = nullptr;
-	ShaderProgram* ShaderManager::m_createdShaders[ShaderType::SHADERTYPE_MAX + 1];
+	ShaderProgram* ShaderManager::m_createdPresetShaders[ShaderType::SHADERTYPE_MAX + 1];
 
 	void ShaderManager::applyShader(const ShaderProgram* p_sp)
 	{
@@ -19,18 +19,18 @@ namespace puppy
 
 	void ShaderManager::applyShader(ShaderType p_st)
 	{
-		if (m_boundShader == m_createdShaders[p_st] && m_boundShader != nullptr)
+		if (m_boundShader == m_createdPresetShaders[p_st] && m_boundShader != nullptr)
 		{
 			return; //shader already bound
 		}
 		//else
 
 		//Check if shader type has already been created
-		if (m_createdShaders[p_st] != nullptr)
+		if (m_createdPresetShaders[p_st] != nullptr)
 		{
 			//Shader already created, use it.
-			m_createdShaders[p_st]->apply();
-			m_boundShader = m_createdShaders[p_st];
+			m_createdPresetShaders[p_st]->apply();
+			m_boundShader = m_createdPresetShaders[p_st];
 			return;
 		}
 		//else
@@ -39,10 +39,10 @@ namespace puppy
 		std::string vertexShaderPath, pixelShaderPath;
 		if (getShaderPaths(p_st, &vertexShaderPath, &pixelShaderPath))
 		{
-			m_createdShaders[p_st] = new ShaderProgram(vertexShaderPath, pixelShaderPath);
+			m_createdPresetShaders[p_st] = new ShaderProgram(vertexShaderPath, pixelShaderPath);
 			//apply 
-			m_createdShaders[p_st]->apply();
-			m_boundShader = m_createdShaders[p_st];
+			m_createdPresetShaders[p_st]->apply();
+			m_boundShader = m_createdPresetShaders[p_st];
 		}
 	}
 
@@ -75,15 +75,15 @@ namespace puppy
 
 	ShaderProgram* ShaderManager::getShaderProgram(ShaderType p_st)
 	{
-		if (m_createdShaders[p_st] == nullptr)
+		if (m_createdPresetShaders[p_st] == nullptr)
 		{
 			std::string vertexShaderPath, pixelShaderPath;
 			if (getShaderPaths(p_st, &vertexShaderPath, &pixelShaderPath))
 			{
-				m_createdShaders[p_st] = new ShaderProgram(vertexShaderPath, pixelShaderPath);
+				m_createdPresetShaders[p_st] = new ShaderProgram(vertexShaderPath, pixelShaderPath);
 			}
 		}
 
-		return m_createdShaders[p_st];
+		return m_createdPresetShaders[p_st];
 	}
 }

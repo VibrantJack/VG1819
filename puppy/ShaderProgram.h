@@ -19,11 +19,12 @@ namespace puppy
 
 		int getAttrLocation(const char* p_name) const;
 
+		ShaderProgram(const std::string& p_vertexShaderPath, const std::string& p_pixelShaderPath);
+		~ShaderProgram();
+
 		void apply() const;
 
 	public:
-		ShaderProgram(const std::string& p_vertexShaderPath, const std::string& p_pixelShaderPath);
-		
 		int getUniformPlace(const std::string& p_name);
 	};
 }
