@@ -2,7 +2,6 @@
 #define GLFW_NO_GLU
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "puppy\P_Common.h"
 #include "kitten\K_Game.h"
 
@@ -16,6 +15,13 @@ extern "C" FILE * __cdecl __iob_func(void)
 	return _iob;
 }
 //========================================================================
+
+
+//@TODO move this somewhere not in main lol
+void lerp(const float& amount, const glm::vec3& min, const glm::vec3& max, glm::vec3& out)
+{
+	out = (1 - amount)*min + amount * max;
+}
 
 int main( void )
 {
@@ -53,11 +59,20 @@ int main( void )
     // Ensure we can capture the escape key being pressed below
     glfwEnable( GLFW_STICKY_KEYS );
 	glEnable(GL_DEPTH_TEST);
+	
 
     // Enable vertical sync (on cards that support it)
     glfwSwapInterval( 1 );
     
 	kitten::initGame();
+
+	float lerpVal = 0.5f;
+	float changeAmount = 0.0004f;
+	bool increasing = true;
+
+	glm::vec3 minColour(2.0f / 255.0f, 2.0f / 255.0f, 9.0f / 255.0f);
+	glm::vec3 maxColour(135.0f/255.0f, 206.0f/255.0f, 235.0f/255.0f);
+	glm::vec3 result;
 
     do
     {
@@ -72,9 +87,9 @@ int main( void )
         
         glViewport( 0, 0, width, height );
         
-        // Clear color buffer to black
-        //glClearColor( 221.0f/225.0f, 65.0f/255.0f, 36.0f/255.0f, 0.0f );
-		glClearColor(129.0f / 225.0f, 159.0f / 255.0f, 215.0f / 255.0f, 0.0f);
+        // Clear color buffer
+		lerp(lerpVal, minColour, maxColour, result);
+        glClearColor(result.x, result.y, result.z, 0.0f);
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
         
 		kitten::gameCycle();
@@ -82,6 +97,24 @@ int main( void )
         // Swap buffers
         glfwSwapBuffers();
         
+		if (increasing)
+		{
+			lerpVal += changeAmount;
+			if (lerpVal > 1.0f)
+			{
+				increasing = false;
+				lerpVal = 1.0f;
+			}
+		}
+		else
+		{
+			lerpVal -= changeAmount;
+			if (lerpVal < 0.0f)
+			{
+				increasing = true;
+				lerpVal = 0.0f;
+			}
+		}
     } // Check if the ESC key was pressed or the window was closed
     while( glfwGetKey( GLFW_KEY_ESC ) != GLFW_PRESS &&
           glfwGetWindowParam( GLFW_OPENED ) );

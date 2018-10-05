@@ -59,10 +59,7 @@ void BoardCreator::start()
 			testTile->addComponent(printWhenClick);
 
 			ManipulateTileOnClick* manipTileOnClick = static_cast<ManipulateTileOnClick*>(compMan->createComponent("ManipulateTileOnClick"));
-			testTile->addComponent(manipTileOnClick);
-
-			K_Component* clickBox = compMan->createComponent("ClickableBox");
-			testTile->addComponent(clickBox);			
+			testTile->addComponent(manipTileOnClick);		
 
 			// Error when Tile QuadRenderable component is not static and is destroyed on click
 			//K_Component* destroyWhenClick = compMan->createComponent("DestroyOnClick");
@@ -70,6 +67,13 @@ void BoardCreator::start()
 
 			K_Component* tileInfo = new TileInfo(x, z);
 			testTile->addComponent(tileInfo);
+
+			K_Component* clickBox = compMan->createComponent("ClickableBox");
+			testTile->addComponent(clickBox);
+
+			//K_Component* destroyWhenClick = compMan->createComponent("DestroyOnClick");
+			//testTile->addComponent(destroyWhenClick);
+
 
 			kitten::Transform& transform = testTile->getTransform();
 			transform.setParent(&m_attachedObject->getTransform());

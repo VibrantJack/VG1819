@@ -31,6 +31,7 @@ namespace unit
 	void UnitTest::test()
 	{
 		//createInstance
+		ability::StatusManager::createInstance();
 		ability::AbilityManager::createInstance();
 		ability::AbilityNodeManager::createInstance();
 
@@ -69,6 +70,8 @@ namespace unit
 		random->addComponent(useAbility);
 		useAbility->start();
 		// End testing selecting spawned unit
+
+		//kitten::K_GameObject* random = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
 
 		unit::Unit* u = random->getComponent<unit::Unit>();
 		UnitMonitor::getInstanceSafe()->printUnit(u);
