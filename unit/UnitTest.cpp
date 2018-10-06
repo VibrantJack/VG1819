@@ -3,6 +3,12 @@
 #include "unit/InitiativeTracker/InitiativeTracker.h"
 #include <iostream>
 #include "kibble/kibble.hpp"
+
+// Includes for tile highlighting and manipulating tile
+#include "_Project\UseAbilityWhenClicked.h"
+#include "_Project\PrintWhenClicked.h"
+#include "kitten\K_ComponentManager.h"
+
 //Rock
 //test the unit data
 
@@ -36,9 +42,21 @@ namespace unit
 		InitiativeTracker::createInstance();
 
 
-
 		kibble::UnitDataParser* parser = kibble::getUnitDataParserInstance();
+
+		// Testing highlighting tiles and manipulating tiles using testDummy.txt
+		{
+			kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
+			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("testDummy.txt"));
+			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
+			UnitMonitor::getInstanceSafe()->printUnit(testDummy);
+			// Moved PrintWhenClicked and UseAbilityWhenClicked into UnitSpawn::spawnUnitObject() for spawning a Commander
+
+		} 
+		// End testing selecting spawned unit
+
 		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
+		u1->getTransform().move(10.0f, 0.0f, 0.0f);
 
 		//test unit 
 		unit::Unit* u = u1->getComponent<unit::Unit>();

@@ -14,6 +14,7 @@
 #include "unit/unitComponent/UnitGraphic.h"
 #include "_Project\BoardCreator.h"
 #include "_Project\ManipulateTileOnClick.h"
+#include "_Project\UseAbilityWhenClicked.h"
 #include "_Project\FPSCalc.h"
 #include "puppy\Text\TextBox.h"
 #include "unit/unitComponent/UnitMove.h"
@@ -113,6 +114,10 @@ namespace kitten
 		else if (p_componentName == "ManipulateTileOnClick")
 		{
 			comp = new ManipulateTileOnClick();
+		}
+		else if (p_componentName == "UseAbilityWhenClicked")
+		{
+			comp = new UseAbilityWhenClicked();
 		}
 		else if (p_componentName == "FPSCalc")
 		{

@@ -5,6 +5,7 @@
 #include "unit/InitiativeTracker/InitiativeTracker.h"
 #include "unit/unitComponent/UnitClickable.h"
 #include "unit/unitComponent/UnitMove.h"
+#include "_Project\PrintWhenClicked.h"
 //Rock
 
 namespace unit
@@ -65,8 +66,17 @@ namespace unit
 		kitten::K_GameObject* unitObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 		if (commander == nullptr)
 			unitObject->addComponent(unit);
-		else
+		else {
 			unitObject->addComponent(commander);
+
+			PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(cm->createComponent("PrintWhenClicked"));
+			printWhenClick->setMessage("Unit clicked");
+			unitObject->addComponent(printWhenClick);
+
+			kitten::K_Component* useAbility = cm->createComponent("UseAbilityWhenClicked");
+			unitObject->addComponent(useAbility);
+
+		}
 
 		//attach component
 		unitObject->addComponent(unitG);
@@ -137,7 +147,9 @@ namespace unit
 
 		commander->m_ID = "testCommander01";
 
-		commander->m_porPath = p_unitData->m_porPath;
+		// Had to comment this out for testing Commander's ManipulateTile ability, using testDummy.txt
+		// Threw errors every other time
+		//commander->m_porPath = p_unitData->m_porPath;
 
 		return commander;
 	}
