@@ -186,6 +186,7 @@
     <ClCompile Include="ManipulateTileOnClick.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
     <ClCompile Include="PrintWhenClicked.cpp" />
+    <ClCompile Include="SendSelfOnClick.cpp" />
     <ClCompile Include="TileInfo.cpp" />
     <ClCompile Include="UseAbilityWhenClicked.cpp" />
     <ClCompile Include="ZoomByMouseWheel.cpp" />
@@ -279,6 +280,7 @@
     <ClInclude Include="ManipulateTileOnClick.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="PrintWhenClicked.h" />
+    <ClInclude Include="SendSelfOnClick.h" />
     <ClInclude Include="TileInfo.h" />
     <ClInclude Include="UseAbilityWhenClicked.h" />
     <ClInclude Include="ZoomByMouseWheel.h" />

@@ -19,6 +19,8 @@
 #include "puppy\Text\TextBox.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "unit/unitComponent/UnitClickable.h"
+#include "_Project/SendSelfOnClick.h"
+
 namespace kitten
 {
 	K_ComponentManager* K_ComponentManager::sm_instance = nullptr;
@@ -118,6 +120,10 @@ namespace kitten
 		else if (p_componentName == "UseAbilityWhenClicked")
 		{
 			comp = new UseAbilityWhenClicked();
+		}
+		else if (p_componentName == "SendSelfOnClick")
+		{
+			comp = new SendSelfOnClick();
 		}
 		else if (p_componentName == "FPSCalc")
 		{

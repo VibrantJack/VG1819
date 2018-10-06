@@ -33,22 +33,23 @@ namespace kitten
 	void EventManager::triggerEvent(Event::EventType p_type, Event* p_data)
 	{
 		auto range = m_listeners.equal_range(p_type);
-
-		for (auto it = range.first; it != range.second; ++it)
+		for (auto it = range.first; it != range.second && it != m_listeners.end(); ++it)
 		{
 			//it->pair.func
 			it->second.second(p_type, p_data);
 		}
 
+		removeQueuedListeners();
+
 		delete p_data;
 	}
 
-	void EventManager::addListener(Event::EventType p_type, void* p_ptr, std::function<void(Event::EventType, Event*)> p_listener)
+	void EventManager::addListener(Event::EventType p_type, const void* p_ptr, std::function<void(Event::EventType, Event*)> p_listener)
 	{
 		m_listeners.insert(std::make_pair(p_type, std::make_pair(p_ptr, p_listener)));
 	}
 
-	void EventManager::removeListener(Event::EventType p_type, void* p_ptr)
+	void EventManager::removeListener(Event::EventType p_type, const void* p_ptr)
 	{
 		auto it = m_listeners.begin();
 		for (it; it != m_listeners.end(); ++it)
@@ -59,6 +60,21 @@ namespace kitten
 				return;
 			}
 		}
+	}
+
+	void EventManager::queueRemoveListener(Event::EventType p_type, const void* p_ptr)
+	{
+		m_queuedRemovals.push_back(std::make_pair(p_type, p_ptr));
+	}
+
+	void EventManager::removeQueuedListeners()
+	{
+		for (auto it = m_queuedRemovals.begin(); it != m_queuedRemovals.end(); ++it)
+		{
+			removeListener((*it).first, (*it).second);
+		}
+
+		m_queuedRemovals.clear();
 	}
 
 	void EventManager::update()
@@ -78,6 +94,7 @@ namespace kitten
 		}
 
 		m_queuedEvents.clear();
+		removeQueuedListeners();
 	}
 
 

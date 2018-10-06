@@ -293,6 +293,9 @@
     <ClCompile Include="..\unit\unitComponent\UnitClickable.cpp">
       <Filter>unit\unitComponent</Filter>
     </ClCompile>
+    <ClCompile Include="SendSelfOnClick.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -561,6 +564,9 @@
     </ClInclude>
     <ClInclude Include="..\unit\unitComponent\UnitClickable.h">
       <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="SendSelfOnClick.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

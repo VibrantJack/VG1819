@@ -83,8 +83,7 @@ void unit::InitiativeTracker::gameTurnStart()
 	sortListByIn();
 	m_currentUnitIterator = m_unitObjectList.begin();
 
-	m_currentUnitIterator++;//iterator point first unit
-	//m_uturn->turnStart(*m_currentUnitIterator);//let the unit start its turn
+	m_uturn->turnStart(*m_currentUnitIterator);//let the unit start its turn
 
 	//call turn start function of unitTurn
 	

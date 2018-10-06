@@ -16,6 +16,7 @@
 #include "kitten\QuadRenderable.h"
 #include "UseAbilityWhenClicked.h"
 #include "_Project\ManipulateTileOnClick.h"
+#include "_Project\SendSelfOnClick.h"
 
 kitten::K_GameObject* BoardCreator::m_pTileList[15][15];
 
@@ -59,7 +60,10 @@ void BoardCreator::start()
 			testTile->addComponent(printWhenClick);
 
 			ManipulateTileOnClick* manipTileOnClick = static_cast<ManipulateTileOnClick*>(compMan->createComponent("ManipulateTileOnClick"));
-			testTile->addComponent(manipTileOnClick);		
+			testTile->addComponent(manipTileOnClick);	
+
+			SendSelfOnClick* sendSelfOnClick = static_cast<SendSelfOnClick*>(compMan->createComponent("SendSelfOnClick"));
+			testTile->addComponent(sendSelfOnClick);
 
 			// Error when Tile QuadRenderable component is not static and is destroyed on click
 			//K_Component* destroyWhenClick = compMan->createComponent("DestroyOnClick");
