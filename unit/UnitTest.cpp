@@ -9,6 +9,10 @@
 #include "_Project\PrintWhenClicked.h"
 #include "kitten\K_ComponentManager.h"
 
+//Includes for creating spawn tile
+#include "unit/unitComponent/UnitMove.h"
+#include "kitten/K_GameObjectManager.h"
+
 //Rock
 //test the unit data
 
@@ -57,6 +61,22 @@ namespace unit
 
 		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
 		u1->getTransform().move(10.0f, 0.0f, 0.0f);
+
+		//create test tile for unit spawn
+		kitten::K_GameObject* testTile = kitten::K_GameObjectManager::getInstance()->createNewGameObject("tileobj.txt");
+
+		PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(kitten::K_ComponentManager::getInstance()->createComponent("PrintWhenClicked"));
+		printWhenClick->setMessage("spawn tile is clicked");
+		testTile->addComponent(printWhenClick);
+
+		kitten::K_Component* clickBox = kitten::K_ComponentManager::getInstance()->createComponent("ClickableBox");
+		testTile->addComponent(clickBox);
+
+		testTile->getTransform().place(0.0f, -1.0f, 16.0f);
+		//end of test tile
+
+		//set initial position
+		u1->getComponent<unit::UnitMove>()->setTile(testTile);
 
 		//test unit 
 		unit::Unit* u = u1->getComponent<unit::Unit>();

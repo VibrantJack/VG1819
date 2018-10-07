@@ -11,11 +11,15 @@ namespace unit
 	class UnitMove : public kitten::K_Component
 	{
 	private:
-		const float m_speed = 1.0f;
+		const float m_tolerance = 0.000000001f;
+		const float m_speed = 0.25f;
 		const glm::vec3 m_offset = glm::vec3(-0.5f,0.0f,0.0f);
 
+		float distanceX;
+		float distanceZ;
+
+		kitten::K_GameObject* m_currentTile;
 		kitten::K_GameObject* m_lastTile;
-		kitten::K_GameObject* m_targetTile;
 
 	public:
 		UnitMove();
@@ -27,6 +31,11 @@ namespace unit
 
 		void attempToMove();
 		void move(kitten::K_GameObject* p_targetTile);
+
+		void setTile(kitten::K_GameObject* p_targetTile);
+		void reset();
+		bool hasUpdate() const override;
+		void update() override;
 
 	};
 }

@@ -25,12 +25,14 @@ void unit::UnitTurn::turnStart(kitten::K_GameObject* p_unitObj)
 	int mv = m_currentUnit->m_attributes["mv"];
 	if (mv > 0)
 		move = true;
+
+	act = true;
 }
 
 void unit::UnitTurn::checkTurn()
 {
 	//if unit can not move or use ability, its turn automatically end
-	if (!(act || move))
+	if (!act && !move)
 	{
 		turnEnd();
 	}
@@ -38,6 +40,9 @@ void unit::UnitTurn::checkTurn()
 
 void unit::UnitTurn::turnEnd()
 {
+	m_currentUnit->setTurn(nullptr);
+	m_currentUnit = nullptr;
+
 	//TO DO:send turn end event
 
 	//TO DO:call initiative tracker

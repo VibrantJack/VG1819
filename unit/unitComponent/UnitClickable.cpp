@@ -3,6 +3,7 @@
 #include "unit/UnitCommon.h"
 #include "unit/Unit.h"
 #include "unit/unitComponent/UnitMove.h"
+#include <iostream>
 unit::UnitClickable::UnitClickable()
 {
 }
@@ -13,12 +14,19 @@ unit::UnitClickable::~UnitClickable()
 
 void unit::UnitClickable::onClick()
 {
-	bool turn = m_attachedObject->getComponent<Unit>()->isTurn();
-	if (turn)
+	Unit* u = m_attachedObject->getComponent<Unit>();
+	if (u->isTurn())
 	{
 		//show avaliable action
 		//move only for now
-		m_attachedObject->getComponent<UnitMove>()->attempToMove();
+		if(u->canMove())
+		{ 
+			m_attachedObject->getComponent<UnitMove>()->attempToMove();
+		}
+		else
+		{
+			std::cout << "Unit can only move once per turn." << std::endl;
+		}
 	}
 	else
 	{
