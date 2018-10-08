@@ -9,11 +9,14 @@ namespace kitten
 	puppy::VertexEnvironment* QuadRenderable::sm_vao = nullptr;
 	int QuadRenderable::sm_instances = 0;
 
-	QuadRenderable::QuadRenderable(const char* p_pathToTexture, bool p_isStatic) : m_isStatic(p_isStatic)
+	QuadRenderable::QuadRenderable(const char* p_pathToTexture, bool p_isStatic) 
+		: 
+		m_isStatic(p_isStatic),
+		m_colorTint(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f))
 	{
 		if (!p_isStatic)
 		{
-			m_mat = new puppy::Material(puppy::ShaderType::basic);
+			m_mat = new puppy::Material(puppy::ShaderType::colorTint_alphaTest);
 			if (p_pathToTexture != nullptr)
 			{
 				m_mat->setTexture(p_pathToTexture);
@@ -32,7 +35,7 @@ namespace kitten
 				{ -0.5f, 0.0f,-0.5f,		1.0f, 0.0f },
 				{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
 				};
-				sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);
+				sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::colorTint_alphaTest), 6);
 			}
 			++sm_instances;
 			
@@ -97,6 +100,11 @@ namespace kitten
 		}
 	}
 
+	void QuadRenderable::setColorTint(const glm::vec4& p_vec4)
+	{
+		m_colorTint = p_vec4;
+	}
+
 	//Only called if not static
 	void QuadRenderable::render(const glm::mat4& p_viewProj)
 	{
@@ -105,6 +113,10 @@ namespace kitten
 		//Set world matrix
 		glm::mat4 wvp = p_viewProj * getTransform().getWorldTransform();
 		m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
+
+		//Set color tint
+		//m_colorTint = glm::vec4(0.0f, 0.0f, 0.5f, 1.0f);
+		m_mat->setUniform(COLOR_TINT_UNIFORM_NAME, m_colorTint);
 
 		//render
 		sm_vao->drawArrays(GL_TRIANGLES);

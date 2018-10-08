@@ -16,8 +16,7 @@ namespace ability
 		{
 			//reduce duration
 			changeCounter();
-			if (m_counter["duration"] <= 0)
-				removeThis();
+			checkDuration();
 		}
 		return 0;
 	}

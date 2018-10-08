@@ -11,7 +11,7 @@ namespace kitten
 	{
 		m_startTime = glfwGetTime();
 		m_deltaTime = 0;
-		m_elapsedTime = 0;
+		m_elapsedTime = m_startTime;
 	}
 
 	K_Time::~K_Time()
@@ -22,6 +22,6 @@ namespace kitten
 	void K_Time::updateTime()
 	{
 		m_deltaTime = glfwGetTime() - m_elapsedTime;
-		m_elapsedTime = glfwGetTime() - m_startTime;
+		m_elapsedTime = glfwGetTime();
 	}
 }

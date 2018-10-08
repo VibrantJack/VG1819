@@ -13,6 +13,13 @@
 #include "_Project\DestroyOnClick.h"
 #include "unit/unitComponent/UnitGraphic.h"
 #include "_Project\BoardCreator.h"
+#include "_Project\ManipulateTileOnClick.h"
+#include "_Project\UseAbilityWhenClicked.h"
+#include "_Project\FPSCalc.h"
+#include "puppy\Text\TextBox.h"
+#include "unit/unitComponent/UnitMove.h"
+#include "unit/unitComponent/UnitClickable.h"
+#include "_Project/SendSelfOnClick.h"
 
 namespace kitten
 {
@@ -82,13 +89,49 @@ namespace kitten
 		{
 			comp = new ClickableBox(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
 		}
-		else if (p_componentName == "UnitGraphic")
+		else if (p_componentName == "ClickableBoxForPointUnit")
+		{
+			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 2.0f, 0.0f));
+		}
+		else if (p_componentName == "ClickableBoxForCubeUnit")
+		{
+			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(2.5f, 3.0f, 0.0f));
+		}
+		else if (p_componentName == "UnitMove")
+		{
+			comp = new unit::UnitMove();
+		}
+		else if (p_componentName == "UnitClickable")
+		{
+			comp = new unit::UnitClickable();
+		}
+		else if (p_componentName == "UnitGraphic")//hard code, need special function for unit graphic
 		{
 			comp = new unit::UnitGraphic(unit::point, "textures/unit/Default.tga");
 		}
 		else if (p_componentName == "BoardCreator")
 		{
 			comp = new BoardCreator();
+		}
+		else if (p_componentName == "ManipulateTileOnClick")
+		{
+			comp = new ManipulateTileOnClick();
+		}
+		else if (p_componentName == "UseAbilityWhenClicked")
+		{
+			comp = new UseAbilityWhenClicked();
+		}
+		else if (p_componentName == "SendSelfOnClick")
+		{
+			comp = new SendSelfOnClick();
+		}
+		else if (p_componentName == "FPSCalc")
+		{
+			comp = new FPSCalc();
+		}
+		else if (p_componentName == "TextBox")
+		{
+			comp = new puppy::TextBox(puppy::FontTable::getInstance()->getFont("../fonts/common_consolas.fnt"), "DEFAULT TEXT", 500, 500);
 		}
 		else
 		{

@@ -9,8 +9,6 @@ namespace puppy
 
 	Material::~Material()
 	{
-		delete m_shader;
-
 		if (m_tex != nullptr)
 		{
 			delete m_tex;
@@ -51,6 +49,12 @@ namespace puppy
 	{
 		GLint place = m_shader->getUniformPlace(p_name);
 		glUniformMatrix4fv(place, 1, GL_FALSE, glm::value_ptr(p_mat4));
+	}
+
+	void Material::setUniform(const std::string& p_name, const glm::vec4& p_vec4)
+	{
+		GLint place = m_shader->getUniformPlace(p_name);
+		glUniform4fv(place, 1, glm::value_ptr(p_vec4));
 	}
 
 	void Material::memorizeUniform(const std::string& p_name, const glm::mat4& p_mat4)

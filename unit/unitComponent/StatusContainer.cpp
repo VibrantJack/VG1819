@@ -3,6 +3,11 @@
 
 namespace unit
 {
+	StatusContainer::StatusContainer()
+	{
+
+	}
+
 	void unit::StatusContainer::addStatus(ability::Status * p_newStatus)
 	{
 		m_statusList.push_back(p_newStatus);
@@ -19,6 +24,18 @@ namespace unit
 			}
 		}
 		return false;
+	}
+
+	ability::Status * StatusContainer::getStatus(const std::string & p_name)
+	{
+		for (ability::Status* it : m_statusList)
+		{
+			if (it->m_name == p_name)
+			{
+				return it;
+			}
+		}
+		return nullptr;
 	}
 }
 

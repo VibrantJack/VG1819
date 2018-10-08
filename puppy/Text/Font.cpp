@@ -7,6 +7,23 @@ namespace puppy
 	Font Class
 	*/
 
+	Font::Font(const char* p_pathToFont)
+	{
+		if (!setFont(p_pathToFont))
+		{
+			assert(false); // Assert failed? font loading failed, check path and console
+		}
+	}
+
+	Font::~Font()
+	{
+		auto end = m_textures.end();
+		for (auto it = m_textures.begin(); it != end; ++it)
+		{
+			delete (*it);
+		}
+	}
+
 	bool Font::setFont(const char* p_pathToFnt)
 	{
 		//XML Loading
@@ -34,7 +51,7 @@ namespace puppy
 		for (pugi::xml_node child : fontNode.child("pages").children("page"))
 		{
 			std::string texName = child.attribute("file").as_string();
-			texName = "fonts/" + texName;
+			texName = "../fonts/" + texName;
 			//push texture into vector
 			m_textures.push_back(new Texture(texName.c_str()));
 		}

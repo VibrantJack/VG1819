@@ -16,6 +16,8 @@ namespace ability
 
 		for (unit::Unit* u : p_info->m_multipleTargets)
 		{
+			//TO DO:send receive damage event to target
+
 			damage(u, power);
 		}
 		return 0;

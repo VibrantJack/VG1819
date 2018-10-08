@@ -23,9 +23,6 @@
     <ClCompile Include="..\puppy\FBO.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
-    <ClCompile Include="..\puppy\Text\Font.cpp">
-      <Filter>puppy</Filter>
-    </ClCompile>
     <ClCompile Include="..\puppy\Material.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
@@ -45,12 +42,6 @@
       <Filter>puppy</Filter>
     </ClCompile>
     <ClCompile Include="..\puppy\StaticRenderables.cpp">
-      <Filter>puppy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\puppy\Text\TextBox.cpp">
-      <Filter>puppy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\puppy\Text\TextTable.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
     <ClCompile Include="..\puppy\Texture.cpp">
@@ -91,9 +82,6 @@
     </ClCompile>
     <ClCompile Include="ZoomByMouseWheel.cpp">
       <Filter>components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\unit\Unit.cpp">
-      <Filter>unit</Filter>
     </ClCompile>
     <ClCompile Include="..\unit\UnitMonitor.cpp">
       <Filter>unit</Filter>
@@ -176,9 +164,6 @@
     <ClCompile Include="..\unit\unitComponent\UnitGraphic.cpp">
       <Filter>unit\unitComponent</Filter>
     </ClCompile>
-    <ClCompile Include="..\unit\Commander.cpp">
-      <Filter>unit</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\status\Status.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
@@ -198,9 +183,6 @@
       <Filter>ability\node</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\node\ChangeAbilityInfoNode.cpp">
-      <Filter>ability\node</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\node\CreateUnitNode.cpp">
       <Filter>ability\node</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\node\SpawnUnitNode.cpp">
@@ -236,6 +218,84 @@
     <ClCompile Include="..\kibble\databank\databank.cpp">
       <Filter>kibble\databank</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\ability\Build_the_Wall.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Dodge.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Sabotage.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Shoot.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Slay.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Archer_LV3.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Dodge.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Duelist_LV3.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\StatusManager.cpp">
+      <Filter>ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Text\Font.cpp">
+      <Filter>puppy\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Text\FontTable.cpp">
+      <Filter>puppy\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Text\TextBox.cpp">
+      <Filter>puppy\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Text\TextTable.cpp">
+      <Filter>puppy\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCalc.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\UIRenderable.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\ManipulateTile.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="ManipulateTileOnClick.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="TileInfo.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="UseAbilityWhenClicked.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\UnitTurn.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\Commander.cpp">
+      <Filter>unit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\Unit.cpp">
+      <Filter>unit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\UnitMove.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\UnitClickable.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="SendSelfOnClick.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -262,9 +322,6 @@
     <ClInclude Include="..\puppy\FBO.h">
       <Filter>puppy</Filter>
     </ClInclude>
-    <ClInclude Include="..\puppy\Text\Font.h">
-      <Filter>puppy</Filter>
-    </ClInclude>
     <ClInclude Include="..\puppy\Material.h">
       <Filter>puppy</Filter>
     </ClInclude>
@@ -287,12 +344,6 @@
       <Filter>puppy</Filter>
     </ClInclude>
     <ClInclude Include="..\puppy\StaticRenderables.h">
-      <Filter>puppy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\puppy\Text\TextBox.h">
-      <Filter>puppy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\puppy\Text\TextTable.h">
       <Filter>puppy</Filter>
     </ClInclude>
     <ClInclude Include="..\puppy\Texture.h">
@@ -345,9 +396,6 @@
     </ClInclude>
     <ClInclude Include="ZoomByMouseWheel.h">
       <Filter>components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\unit\Unit.h">
-      <Filter>unit</Filter>
     </ClInclude>
     <ClInclude Include="..\unit\UnitCommon.h">
       <Filter>unit</Filter>
@@ -451,9 +499,6 @@
     <ClInclude Include="..\unit\unitComponent\UnitGraphic.h">
       <Filter>unit\unitComponent</Filter>
     </ClInclude>
-    <ClInclude Include="..\unit\Commander.h">
-      <Filter>unit</Filter>
-    </ClInclude>
     <ClInclude Include="..\kitten\event_system\Event.h">
       <Filter>kitten\event_system</Filter>
     </ClInclude>
@@ -472,6 +517,57 @@
     <ClInclude Include="..\kibble\databank\databank.hpp">
       <Filter>kibble\databank</Filter>
     </ClInclude>
+    <ClInclude Include="..\ability\StatusManager.h">
+      <Filter>ability</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Text\Font.h">
+      <Filter>puppy\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Text\FontTable.h">
+      <Filter>puppy\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Text\TextBox.h">
+      <Filter>puppy\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Text\TextTable.h">
+      <Filter>puppy\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCalc.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\UIRenderable.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="ManipulateTileOnClick.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="TileInfo.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="UseAbilityWhenClicked.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\UnitTurn.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\Commander.h">
+      <Filter>unit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\Unit.h">
+      <Filter>unit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\UnitMove.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\UnitClickable.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="SendSelfOnClick.h">
+      <Filter>components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -479,9 +575,6 @@
     </Filter>
     <Filter Include="puppy">
       <UniqueIdentifier>{e55580cc-403d-4eaa-bed0-16f88b46e83b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="puppy\Scene">
-      <UniqueIdentifier>{ae87ad72-9f76-418e-91c9-00b5df72ef2f}</UniqueIdentifier>
     </Filter>
     <Filter Include="shapes">
       <UniqueIdentifier>{f82cacf4-d649-46d8-95dc-927acb69ed9c}</UniqueIdentifier>
@@ -530,6 +623,12 @@
     </Filter>
     <Filter Include="kibble\databank">
       <UniqueIdentifier>{44f1d2e8-f712-4236-bb62-48293505c643}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="puppy\Text">
+      <UniqueIdentifier>{056420bf-c8f5-4ad0-955b-758b49059769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="unit\InitiativeTracker">
+      <UniqueIdentifier>{6c8e8df5-cc1f-4e04-baff-d434c5908209}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

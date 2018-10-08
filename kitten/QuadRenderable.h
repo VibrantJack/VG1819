@@ -9,6 +9,7 @@ namespace kitten
 	private:
 		puppy::Material* m_mat;
 		puppy::Texture* m_tex;
+		glm::vec4 m_colorTint;
 		bool m_isStatic;
 
 
@@ -22,6 +23,7 @@ namespace kitten
 		virtual void start() override;
 
 		void setTexture(const char* p_pathToTex);
+		void setColorTint(const glm::vec4& p_vec4);
 		void render(const glm::mat4& p_viewProj) override;
 	};
 }

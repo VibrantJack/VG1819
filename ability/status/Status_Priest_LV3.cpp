@@ -31,13 +31,15 @@ namespace ability
 		//not activate, level up to 3, then activate this status
 		if (!m_activate)
 		{
-			m_activate = true;
+			if (Status_LV::effect(p_timePoint, p_value) == 0)
+			{
+				m_activate = true;
 
-			//TO DO:register turn end event
-			//TO DO:unregister level up event
+				//TO DO:register turn end event
+				//TO DO:unregister level up event
 
-			//change attribute
-			return Status_LV::effect(p_timePoint, p_value);
+				return 0;
+			}
 		}
 		return 1;
 	}

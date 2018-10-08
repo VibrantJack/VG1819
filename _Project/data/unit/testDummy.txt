@@ -4,6 +4,6 @@
     "mv":2,
     "in":3,
     "cost":4,
-    "tags": ["FakeCommander","Dummy"],
+    "tags": ["Commander","Dummy"],
     "ad": ["Heal"]
 }

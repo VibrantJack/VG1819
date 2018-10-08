@@ -1,8 +1,11 @@
 #pragma once
 #include "UnitSpawn.h"
-#include "unit/Commander.h"
 #include "kitten/K_GameObjectManager.h"
 #include "kitten/K_ComponentManager.h"
+#include "unit/InitiativeTracker/InitiativeTracker.h"
+#include "unit/unitComponent/UnitClickable.h"
+#include "unit/unitComponent/UnitMove.h"
+#include "_Project\PrintWhenClicked.h"
 //Rock
 
 namespace unit
@@ -31,9 +34,9 @@ namespace unit
 
 	kitten::K_GameObject * UnitSpawn::spawnUnitObject(UnitData * p_unitData)
 	{
+		//create unit 
 		Unit* unit = nullptr;
 		Commander* commander = nullptr;
-
 		if (p_unitData->m_tags[0] == "Commander")
 		{
 			commander = spawnCommanderFromData(p_unitData);
@@ -43,16 +46,49 @@ namespace unit
 			unit = spawnUnitFromData(p_unitData);
 		}
 
-		//unit graphic
-		kitten::K_Component* unitG = kitten::K_ComponentManager::getInstance()->createComponent("UnitGraphic");
+		//get component manager
+		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
+
+		//create unit graphic
+		kitten::K_Component* unitG = cm->createComponent("UnitGraphic");
+
+		//create unit move
+		kitten::K_Component* uMove = cm->createComponent("UnitMove");
+
+		//create click box
+		kitten::K_Component* uBox = createClickableBox(p_unitData->m_size);
+
+		//create clickable
+		unit::UnitClickable* uClick = static_cast<unit::UnitClickable*>(cm->createComponent("UnitClickable"));
+
 
 		//unit object
 		kitten::K_GameObject* unitObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 		if (commander == nullptr)
 			unitObject->addComponent(unit);
-		else
+		else {
 			unitObject->addComponent(commander);
+
+			PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(cm->createComponent("PrintWhenClicked"));
+			printWhenClick->setMessage("Unit clicked");
+			unitObject->addComponent(printWhenClick);
+
+			kitten::K_Component* useAbility = cm->createComponent("UseAbilityWhenClicked");
+			unitObject->addComponent(useAbility);
+
+		}
+
+		//attach component
 		unitObject->addComponent(unitG);
+		unitObject->addComponent(uMove);
+		unitObject->addComponent(uBox);
+		unitObject->addComponent(uClick);
+
+		//rotate to face camera
+		unitObject->getTransform().rotateRelative(glm::vec3(45, 0, 0));
+
+		//add object to Initiative Tracker
+		unit::InitiativeTracker::getInstance()->addUnit(unitObject);
 
 		return unitObject;
 	}
@@ -64,7 +100,7 @@ namespace unit
 		//TO DO: an ID system instead of random words
 		unit->m_ID = "testUnit01";//hard coded for now
 
-								  //copy tag, name and attributes
+		//copy tag, name and attributes
 		unit->m_tags = p_unitData->m_tags;
 		unit->m_name = p_unitData->m_name;
 
@@ -73,22 +109,30 @@ namespace unit
 		int mv = p_unitData->m_MV;
 		int cost = p_unitData->m_Cost;
 
-		unit->m_attributes["MaxHP"] = hp;
-		unit->m_attributes["HP"] = hp;
-		unit->m_attributes["baseIN"] = in;
-		unit->m_attributes["IN"] = in;
-		unit->m_attributes["baseMV"] = mv;
-		unit->m_attributes["MV"] = mv;
-		unit->m_attributes["baseCost"] = cost;
-		unit->m_attributes["Cost"] = cost;
+		unit->m_attributes["max_hp"] = hp;
+		unit->m_attributes["hp"] = hp;
+		unit->m_attributes["base_in"] = in;
+		unit->m_attributes["in"] = in;
+		unit->m_attributes["base_mv"] = mv;
+		unit->m_attributes["mv"] = mv;
+		unit->m_attributes["base_cost"] = cost;
+		unit->m_attributes["cost"] = cost;
 		//set lv to 1
-		unit->m_attributes["LV"] = 1;
+		unit->m_attributes["lv"] = 1;
 
 		unit->m_size = p_unitData->m_size;
 
-		//TO DO readAD
+		//readAD
+		for (auto it : p_unitData->m_ad)
+		{
+			unit->m_ADList[it->m_stringValue["name"]] = it;
+		}
 
-		//TO DO readSD
+		//readSD
+		for (auto it : p_unitData->m_sd)
+		{
+			readSD(it)->attach(unit);
+		}
 
 		return unit;
 	}
@@ -99,12 +143,72 @@ namespace unit
 
 		//change lv to -1 since it doesn't apply to commander
 		//unit->m_LV = -1;
-		commander->m_attributes["LV"] = -1;
+		commander->m_attributes["lv"] = -1;
 
 		commander->m_ID = "testCommander01";
 
-		commander->m_porPath = p_unitData->m_porPath;
+		// Had to comment this out for testing Commander's ManipulateTile ability, using testDummy.txt
+		// Threw errors every other time
+		//commander->m_porPath = p_unitData->m_porPath;
 
 		return commander;
+	}
+
+	kitten::K_Component * UnitSpawn::createClickableBox(UnitSize p_size)
+	{
+		switch (p_size)
+		{
+		case unit::point:
+			return kitten::K_ComponentManager::getInstance()->createComponent("ClickableBoxForPointUnit");
+			break;
+		case unit::cube:
+			return kitten::K_ComponentManager::getInstance()->createComponent("ClickableBoxForCubeUnit");
+			break;
+		default:
+			return nullptr;
+		}
+		return nullptr;
+	}
+
+	ability::Status* UnitSpawn::readSD(unit::StatusDescription* p_sd)
+	{
+		std::string name = p_sd->m_stringValue["name"];
+
+		//find a empty copy of the status
+		ability::Status* s = ability::StatusManager::getInstance()->findStatus(name);
+
+		if (p_sd->m_stringValue.find("description") != p_sd->m_stringValue.end())
+		{
+			s->m_description = p_sd->m_stringValue["description"];
+		}
+		
+		s->m_TPList.insert(s->m_TPList.end(),p_sd->m_TPList.begin(),p_sd->m_TPList.end());
+
+		//for lv status
+		if (p_sd->m_intValue.find("lv") != p_sd->m_intValue.end())
+		{
+			s->m_LV = p_sd->m_intValue["lv"];
+			//hp
+			if (p_sd->m_intValue.find("hp") != p_sd->m_intValue.end())
+			{
+				int hp = p_sd->m_intValue["hp"];
+				s->m_attributeChange["hp"] = hp;
+				s->m_attributeChange["max_hp"] = p_sd->m_intValue["hp"];
+			}
+			//in
+			if (p_sd->m_intValue.find("in") != p_sd->m_intValue.end())
+			{
+				s->m_attributeChange["in"] = p_sd->m_intValue["in"];
+				s->m_attributeChange["base_in"] = p_sd->m_intValue["in"];
+			}
+			//mv
+			if (p_sd->m_intValue.find("mv") != p_sd->m_intValue.end())
+			{
+				s->m_attributeChange["mv"] = p_sd->m_intValue["mv"];
+				s->m_attributeChange["base_mv"] = p_sd->m_intValue["mv"];
+			}
+		}
+
+		return s;
 	}
 }

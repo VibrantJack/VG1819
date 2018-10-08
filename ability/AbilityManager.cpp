@@ -12,15 +12,48 @@ namespace ability
 
 		//TO DO: need improve
 		newAbility = new Heal();
-		newAbility->m_name = "Heal";
+		newAbility->m_name = HEAL_ABILITY;
 		m_abilityList.push_back(newAbility);
 
 		newAbility = new Fight();
-		newAbility->m_name = "Fight";
+		newAbility->m_name = FIGHT_ABILITY;
 		m_abilityList.push_back(newAbility);
+
+		newAbility = new ManipulateTile();
+		newAbility->m_name = MANIPULATE_TILE_ABILITY;
+		m_abilityList.push_back(newAbility);
+
+		newAbility = new Shoot();
+		newAbility->m_name = "Shoot";
+		m_abilityList.push_back(newAbility);
+
+		newAbility = new Sabotage();
+		newAbility->m_name = "Sabotage";
+		m_abilityList.push_back(newAbility);
+
+		newAbility = new Build_the_Wall();
+		newAbility->m_name = "Build the Wall";
+		m_abilityList.push_back(newAbility);
+
+		newAbility = new Encourage();
+		newAbility->m_name = "Encourage";
+		m_abilityList.push_back(newAbility);
+
+		newAbility = new QuickShoot();
+		newAbility->m_name = "QuickShoot";
+		m_abilityList.push_back(newAbility);
+
+		newAbility = new Slay();
+		newAbility->m_name = "Slay";
+		m_abilityList.push_back(newAbility);
+
+		newAbility = new Dodge();
+		newAbility->m_name = "Dodge";
+		m_abilityList.push_back(newAbility);
+
 	}
 
-	AbilityManager::AbilityManager()
+	AbilityManager::AbilityManager() : m_sLastAbilityUsed("NONE")
 	{
 		init();
 	}
@@ -62,7 +95,13 @@ namespace ability
 
 	int AbilityManager::useAbility(const std::string & p_name, AbilityInfoPackage * p_info)
 	{
+		m_sLastAbilityUsed = p_name;
 		return findAbility(p_name)->effect(p_info);
+	}
+
+	const std::string& AbilityManager::lastAbilityUsed()
+	{
+		return m_sLastAbilityUsed;
 	}
 
 }

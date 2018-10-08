@@ -1,18 +1,32 @@
 #pragma once
 
 #define OBJECT_CLICKED_OBJ_KEY "clicked"
+#define TILE_POS_X "pos_x"
+#define TILE_POS_Y "pos_y"
+#define TILE_OWNER_KEY "tile_owner_key"
 
 #include "kitten/K_GameObject.h"
 
 #include <unordered_map>
 #include <string>
+#include <vector>
 
 namespace kitten
 {
 	class Event
 	{
 	public:
-		enum EventType { Object_Clicked, Test_Event, MAX_VAL = Test_Event};
+		enum EventType 
+		{ 
+			Tile_Clicked_For_Unit_Move,
+			Object_Clicked, 
+			Highlight_Tile, 
+			Unhighlight_Tile,
+			Test_Event, 
+			MAX_VAL = Test_Event
+		};
+
+		typedef std::vector<std::pair<int, int>> TileList;
 
 		Event(EventType p_event);
 		~Event();
@@ -23,12 +37,16 @@ namespace kitten
 		void putGameObj(const std::string& p_key, K_GameObject* p_value);
 		void putConstGameObj(const std::string& p_key, const K_GameObject* p_value);
 
+		void putTileList(const TileList* p_tileList);
+
 
 		int getInt(const std::string& p_key);
 		float getFloat(const std::string& p_key);
 		std::string getString(const std::string& p_key);
 		K_GameObject* getGameObj(const std::string& p_key);
 		const K_GameObject* getConstGameObj(const std::string& p_key);
+
+		const TileList* getTileList();
 
 	private:
 		//------------------------------------------------------------------------------
@@ -42,6 +60,8 @@ namespace kitten
 		std::unordered_map<std::string, std::string> *m_stringMap;
 		std::unordered_map<std::string, const K_GameObject*> *m_constGameObjMap;
 		std::unordered_map<std::string, K_GameObject*> *m_gameObjMap;
+
+		const TileList* m_tileList;
 		
 	};
 }

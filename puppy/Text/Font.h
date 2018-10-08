@@ -4,7 +4,7 @@
 
 #include "pugixml/pugixml.hpp"
 #include "../Texture.h"
-
+#include "FontTable.h"
 
 namespace puppy
 {
@@ -14,6 +14,7 @@ namespace puppy
 	*/
 	class Font
 	{
+		friend class FontTable;
 	private:
 		pugi::xml_document m_fontXML;
 		pugi::xml_node m_charsNode;
@@ -29,6 +30,9 @@ namespace puppy
 		sets the passed in node with the possible found node. Returns search success.
 		*/
 		bool findCharNode(pugi::xml_node& p_nodeToReplace, int p_charId);
+	protected:
+		Font(const char* p_pathToFont);
+		~Font();
 	public:
 
 		/*

@@ -18,10 +18,12 @@ namespace kitten
 
 		std::multimap <Event::EventType,
 			std::pair<
-			void*,
+			const void*,
 			std::function<void(Event::EventType p_type, Event* p_data)>>> m_listeners;
-		std::map <Event::EventType, Event*> m_queuedEvents;		
+		std::map <Event::EventType, Event*> m_queuedEvents;
+		std::vector<std::pair<Event::EventType, const void*>> m_queuedRemovals;
 
+		void removeQueuedListeners();
 	public:
 		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new EventManager(); };
 		static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
@@ -29,8 +31,9 @@ namespace kitten
 
 		void queueEvent(Event::EventType p_type, Event* p_data);
 		void triggerEvent(Event::EventType p_type, Event* p_data);
-		void addListener(Event::EventType p_type, void* p_obj, std::function<void(Event::EventType p_type, Event* p_data)> p_listener);
-		void removeListener(Event::EventType p_type, void* p_obj);
+		void addListener(Event::EventType p_type, const void* p_obj, std::function<void(Event::EventType p_type, Event* p_data)> p_listener);
+		void removeListener(Event::EventType p_type, const void* p_obj);
+		void queueRemoveListener(Event::EventType p_type, const void* p_obj);
 
 		void clear();
 

@@ -3,7 +3,7 @@
 #include "Font.h"
 #include "../VertexEnvironment.h"
 #include "../Texture.h"
-#include "kitten\Renderable.h"
+#include "kitten\UIRenderable.h"
 
 #include <map>
 #include <string>
@@ -15,8 +15,9 @@ namespace puppy
 {
 	/*
 	TextBox - Renderable thing that shows text
+	@TODO: Have a UI element abstract class for this to extend instead ? Wait for Austin UI
 	*/
-	class TextBox : kitten::Renderable
+	class TextBox : public kitten::UIRenderable
 	{
 	public:
 		enum Alignment { left, right, center };
@@ -33,13 +34,12 @@ namespace puppy
 
 		bool m_isDirty;
 
-
 		void constructLeftAlignVertices();
 		void constructRightOrCenterAlignVertices(bool p_isRight);
 
 		void constructQuad(int p_charId, int p_xPos, int p_yPos, TexturedVertex p_toSet[]);
+		void removeOldText();
 	public:
-		
 		TextBox(Font* p_fontToUse, std::string p_text, float p_boxWidth, float p_boxHeight);
 		TextBox(Font* p_fontToUse, std::string p_text, float p_boxWidth, float p_boxHeight, Alignment p_alignment);
 		~TextBox();
@@ -50,6 +50,6 @@ namespace puppy
 
 		const std::string& getText() const;
 
-		virtual void render(const glm::mat4& p_viewProj) override;
+		virtual void render(const glm::mat4& p_ortho) override;
 	};
 }

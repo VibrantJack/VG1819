@@ -37,6 +37,8 @@ namespace puppy
 
 		//One-time set
 		void setUniform(const std::string& p_name, const glm::mat4& p_mat4);
+		//Set uniform for color tint
+		void setUniform(const std::string& p_name, const glm::vec4& p_vec4);
 
 		int getUniformPlace(const std::string& p_name);
 
