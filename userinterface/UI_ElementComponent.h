@@ -1,5 +1,5 @@
 #pragma once
-#include "kitten\Renderable.h"
+#include "kitten\UIRenderable.h"
 #include "puppy\Material.h"
 #include "puppy\VertexEnvironment.h"
 
@@ -9,7 +9,7 @@
 
 namespace userinterface
 {
-	class UI_ElementComponent : public kitten::Renderable
+	class UI_ElementComponent : public kitten::UIRenderable
 	{
 	public:
 		UI_ElementComponent();
