@@ -37,12 +37,17 @@ namespace unit
 		//create unit 
 		Unit* unit = nullptr;
 		Commander* commander = nullptr;
-		if (p_unitData->m_tags[0] == "Commander")
+		//check every tag
+		for (int i = 0; i < p_unitData->m_tags.size(); i++)
 		{
-			commander = spawnCommanderFromData(p_unitData);
+			if (p_unitData->m_tags[i] == "Commander")
+			{
+				commander = spawnCommanderFromData(p_unitData);
+				break;
+			}
 		}
-		else
-		{
+		if (commander == nullptr)
+		{	
 			unit = spawnUnitFromData(p_unitData);
 		}
 

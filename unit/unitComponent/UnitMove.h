@@ -11,7 +11,6 @@ namespace unit
 	class UnitMove : public kitten::K_Component
 	{
 	private:
-		const float m_tolerance = 0.000000001f;
 		const float m_speed = 0.25f;
 		const glm::vec3 m_offset = glm::vec3(-0.5f,0.0f,0.0f);
 
@@ -30,6 +29,8 @@ namespace unit
 		void listenEvent(kitten::Event::EventType p_type, kitten::Event* p_data);
 
 		void attempToMove();
+		void triggerHighLightEvent();
+		void triggerUnhighLightEvent();
 		void move(kitten::K_GameObject* p_targetTile);
 
 		void setTile(kitten::K_GameObject* p_targetTile);

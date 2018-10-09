@@ -31,8 +31,25 @@ void unit::UnitMove::listenEvent(kitten::Event::EventType p_type, kitten::Event 
 		if (p_data->getGameObj("tileObj"))
 		{
 			move(p_data->getGameObj("tileObj"));
-			deregisterListener();
 		}
+		deregisterListener();
+
+		//Should use code below, but cant make unit spawn in board, so use code above for now
+		/*
+		bool highlighted = p_data->getInt("highlighted");
+		if (highlighted)//move
+		{
+			if (p_data->getGameObj("tileObj"))
+			{
+				move(p_data->getGameObj("tileObj"));
+			}
+		}
+		else//cancel move
+		{
+			std::cout << "Cancel Move" << std::endl;
+			triggerUnhighLightEvent();
+		}
+		deregisterListener();*/
 	}
 }
 
@@ -41,10 +58,30 @@ void unit::UnitMove::attempToMove()
 	std::cout << "Ready To Move" << std::endl;
 	//when first click, this class will register event that require player to click a tile
 	registerListener();
+	//triggerHighLightEvent();
+}
+
+void unit::UnitMove::triggerHighLightEvent()
+{
+	//trigger the highlight event shows what are possible move
+	kitten::Event* e = new kitten::Event(kitten::Event::Highlight_Tile);
+	e->putString(TILE_OWNER_KEY, m_attachedObject->getComponent<Unit>()->m_name + " Move.");//highlight because of this unit move
+	e->putInt("minRange", 1);
+	e->putInt("maxRange", m_attachedObject->getComponent<Unit>()->m_attributes["mv"]);//the range is between 1 and mv attributes
+	e->putGameObj("tileAtOrigin", m_currentTile);
+	e->putString("use", "move");
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Highlight_Tile, e);
+}
+
+void unit::UnitMove::triggerUnhighLightEvent()
+{
+	kitten::Event* e = new kitten::Event(kitten::Event::Unhighlight_Tile);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Unhighlight_Tile, e);
 }
 
 void unit::UnitMove::move(kitten::K_GameObject * p_targetTile)
 {
+	//TO DO: tileinfo->add(this)
 	m_lastTile = m_currentTile;//set current to last
 	m_currentTile = p_targetTile;//set target to current
 

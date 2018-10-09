@@ -126,7 +126,18 @@ void BoardCreator::update()
 
 void BoardCreator::highlightTile(kitten::Event::EventType p_type, kitten::Event* p_data)
 {
-	m_toBeHighlighted = *p_data->getTileList();
+	if (p_data->getString("use") != "ManipulateTile")
+	{
+		m_toBeHighlighted = Range::getTilesInRange(
+			p_data->getGameObj("tileAtOrigin"),
+			p_data->getInt("minRange"),
+			p_data->getInt("maxRange"),
+			m_pTileList);
+	}
+	else
+	{
+		m_toBeHighlighted = *p_data->getTileList();
+	}
 	m_sHighlightedBy = p_data->getString(TILE_OWNER_KEY);
 }
 

@@ -298,6 +298,9 @@
     </ClCompile>
     <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
     <ClCompile Include="..\userinterface\UI_ElementComponent.cpp" />
+    <ClCompile Include="Range.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -574,6 +577,9 @@
     <ClInclude Include="..\kitten\K_Sprite.h" />
     <ClInclude Include="..\puppy\P_Sprite.h" />
     <ClInclude Include="..\userinterface\UI_ElementComponent.h" />
+    <ClInclude Include="Range.h">
+      <Filter>components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">

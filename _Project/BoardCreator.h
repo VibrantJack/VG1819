@@ -2,6 +2,7 @@
 #include "kitten\K_Component.h"
 #include "kitten\K_GameObject.h"
 #include "kitten\event_system\EventManager.h"
+#include "_Project/Range.h"
 #include <vector>
 #include <array>
 
