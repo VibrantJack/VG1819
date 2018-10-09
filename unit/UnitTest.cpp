@@ -3,6 +3,7 @@
 #include "unit/InitiativeTracker/InitiativeTracker.h"
 #include <iostream>
 #include "kibble/kibble.hpp"
+#include "kibble/databank/databank.hpp"
 
 // Includes for tile highlighting and manipulating tile
 #include "_Project\UseAbilityWhenClicked.h"
@@ -51,7 +52,8 @@ namespace unit
 		// Testing highlighting tiles and manipulating tiles using testDummy.txt
 		{
 			kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
-			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("testDummy.txt"));
+			//kitten::K_GameObject* testDummyGO = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("testDummy.txt"));
+			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(0));
 			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
 			UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 			// Moved PrintWhenClicked and UseAbilityWhenClicked into UnitSpawn::spawnUnitObject() for spawning a Commander

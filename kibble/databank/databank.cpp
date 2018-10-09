@@ -14,7 +14,7 @@ void kibble::setupDatabank() {
 	unitDataVector.reserve(50);
 	kibble::UnitDataParser* unitDataParser = kibble::getUnitDataParserInstance();
 	
-	std::ifstream input("data/unit/gameunitlist.txt");
+	std::ifstream input("data/gameunitlist.txt");
 	if (input.is_open()) {
 		std::string unitFilename;
 		while (input >> unitFilename) {
@@ -34,8 +34,7 @@ unit::UnitData* kibble::getUnitFromId(const int& p_identifier) {
 	return unitDataVector[p_identifier];
 }
 
-
-std::vector<unit::UnitData*> getUnitsFromListOfIds(const std::vector<int>& p_identifiers) {
+std::vector<unit::UnitData*> kibble::getUnitsFromListOfIds(const std::vector<int>& p_identifiers) {
 	std::vector<unit::UnitData*> unitList; 
 	for (int index : p_identifiers) {
 		unitList.push_back(unitDataVector[index]);

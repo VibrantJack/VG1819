@@ -2,68 +2,114 @@
 #include <string>
 
 unit::UnitData* getUnitDataFrom(nlohmann::json& p_jsonfile) {
-	std::string name;
-	int hp, mv, in, cost;
-	unit::UnitSize size = unit::UnitSize::cube;
-	std::vector<std::string> tags, ad, sd;
+	unit::UnitData* ud = new unit::UnitData();
 
-	name = p_jsonfile["name"].get<std::string>();
-	hp = p_jsonfile["hp"];
-	mv = p_jsonfile["mv"];
-	in = p_jsonfile["in"];
-	cost = p_jsonfile["cost"];
+	ud->m_name = p_jsonfile["name"].get<std::string>();
+	ud->m_HP = p_jsonfile["hp"];
+	ud->m_MV = p_jsonfile["mv"];
+	ud->m_IN = p_jsonfile["in"];
+	ud->m_Cost = p_jsonfile["cost"];
 	if (p_jsonfile.find("size") != p_jsonfile.end()) {
 		if (p_jsonfile["size"] == "cube")
-			size = unit::UnitSize::cube;
+			ud->m_size = unit::UnitSize::cube;
 		else
-			size = unit::UnitSize::point;
+			ud->m_size = unit::UnitSize::point;
 	}
 
 	if (p_jsonfile.find("tags") != p_jsonfile.end()) {
-		assert(p_jsonfile["tags"].is_array());
 		for (nlohmann::json::iterator it = p_jsonfile["tags"].begin(); it != p_jsonfile["tags"].end(); ++it) {
-			tags.push_back(*it);
+			ud->m_tags.push_back(*it);
 		}
 	}
 
 	if (p_jsonfile.find("ad") != p_jsonfile.end()) {
-		assert(p_jsonfile["ad"].is_array());
 		for (nlohmann::json::iterator it = p_jsonfile["ad"].begin(); it != p_jsonfile["ad"].end(); ++it) {
-			ad.push_back(*it);
+			ud->m_ad.push_back(getAbilityDescriptionFrom(*it));
+		}
+	}
+
+	if (p_jsonfile.find("ability_description") != p_jsonfile.end()) {
+		for (nlohmann::json::iterator it = p_jsonfile["ability_description"].begin(); it != p_jsonfile["ability_description"].end(); ++it) {
+			ud->m_ad.push_back(getAbilityDescriptionFrom(*it));
 		}
 	}
 
 	if (p_jsonfile.find("sd") != p_jsonfile.end()) {
-		assert(p_jsonfile["sd"].is_array());
 		for (nlohmann::json::iterator it = p_jsonfile["sd"].begin(); it != p_jsonfile["sd"].end(); ++it) {
-			sd.push_back(*it);
+			ud->m_sd.push_back(getStatusDescriptionFrom(*it));
 		}
 	}
 
-	unit::UnitData* ud = new unit::UnitData();
+	if (p_jsonfile.find("status_description") != p_jsonfile.end()) {
+		for (nlohmann::json::iterator it = p_jsonfile["status_description"].begin(); it != p_jsonfile["status_description"].end(); ++it) {
+			ud->m_sd.push_back(getStatusDescriptionFrom(*it));
+		}
+	}
 
-	ud->m_name = name;
-	ud->m_HP = hp;
-	ud->m_IN = in;
-	ud->m_MV = mv;
-	ud->m_Cost = cost;
-	ud->m_size = size;
-	ud->m_tags = tags;
 
-	//ad and sd 
+	if (p_jsonfile.find("texpath") != p_jsonfile.end()) {
+		ud->m_texPath = p_jsonfile["texpath"].get<std::string>();
+	}
 
-	//texture path
-	//portrait path (for commander)
+	//TODO portrait path (for commander)
 
 	return ud;
 }
 
 std::vector<unit::UnitData*> getMultipleUnitDataFrom(nlohmann::json& p_jsonfile) {
-	assert(p_jsonfile["units"].is_array());
 	std::vector<unit::UnitData*> units;
 	for (nlohmann::json::iterator it = p_jsonfile["units"].begin(); it != p_jsonfile["units"].end(); ++it) {
 		units.push_back(getUnitDataFrom(*it));
 	}
 
 	return units;
+}
+
+unit::AbilityDescription* getAbilityDescriptionFrom(nlohmann::json& p_jsonfile) {
+	if (p_jsonfile.is_string()) {
+		return new unit::AbilityDescription(); //getAbilityDescriptionFrom(jsonIn(p_jsonfile));
+	}
+	else if (p_jsonfile.is_object()) {
+		unit::AbilityDescription* ad = new unit::AbilityDescription();
+		for (nlohmann::json::iterator it = p_jsonfile.begin(); it != p_jsonfile.end(); ++it) {
+			if (it.key() == "filename") {
+				unit::AbilityDescription* target = getAbilityDescriptionFrom(jsonIn(it.value()));
+				ad->m_intValue.insert(target->m_intValue.begin(), target->m_intValue.end());
+				ad->m_stringValue.insert(target->m_stringValue.begin(), target->m_stringValue.end());
+				delete target;
+			}
+			else if (it->is_string()) {
+				ad->m_stringValue[it.key()] = it.value();
+			}
+			else if (it->is_number_integer()) {
+				ad->m_intValue[it.key()] = it.value();
+			}
+		}
+		return ad;
+	}
+}
+
+unit::StatusDescription* getStatusDescriptionFrom(nlohmann::json& p_jsonfile) {
+	if (p_jsonfile.is_string()) {
+		return new unit::StatusDescription(); //getStatusDescriptionFrom(jsonIn(p_jsonfile));
+	}
+	else if (p_jsonfile.is_object()) {
+		unit::StatusDescription* sd = new unit::StatusDescription();
+		for (nlohmann::json::iterator it = p_jsonfile.begin(); it != p_jsonfile.end(); ++it) {
+			if (it.key() == "filename") {
+				unit::StatusDescription* target = getStatusDescriptionFrom(jsonIn(it.value()));
+				sd->m_intValue.insert(target->m_intValue.begin(),target->m_intValue.end());
+				sd->m_stringValue.insert(target->m_stringValue.begin(), target->m_stringValue.end());
+				sd->m_TPList.insert(sd->m_TPList.end(),target->m_TPList.begin(), target->m_TPList.end());
+				delete target;
+			}
+			else if (it->is_string()) {
+				sd->m_stringValue[it.key()] = it.value();
+			}
+			else if (it->is_number_integer()) {
+				sd->m_intValue[it.key()] = it.value();
+			}
+		}
+		return sd;
+	}
 }

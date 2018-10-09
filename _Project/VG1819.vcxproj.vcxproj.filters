@@ -296,6 +296,8 @@
     <ClCompile Include="SendSelfOnClick.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
+    <ClCompile Include="..\userinterface\UI_ElementComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -568,6 +570,10 @@
     <ClInclude Include="SendSelfOnClick.h">
       <Filter>components</Filter>
     </ClInclude>
+    <ClInclude Include="..\kitten\K_RenderableSprite.h" />
+    <ClInclude Include="..\kitten\K_Sprite.h" />
+    <ClInclude Include="..\puppy\P_Sprite.h" />
+    <ClInclude Include="..\userinterface\UI_ElementComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
