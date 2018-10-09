@@ -14,6 +14,8 @@
 #include "unit/unitComponent/UnitMove.h"
 #include "kitten/K_GameObjectManager.h"
 
+#include "_Project/BoardCreator.h"
+
 //Rock
 //test the unit data
 
@@ -64,6 +66,7 @@ namespace unit
 		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
 		u1->getTransform().move(10.0f, 0.0f, 0.0f);
 
+		/*
 		//create test tile for unit spawn
 		kitten::K_GameObject* testTile = kitten::K_GameObjectManager::getInstance()->createNewGameObject("tileobj.txt");
 
@@ -76,9 +79,11 @@ namespace unit
 
 		testTile->getTransform().place(0.0f, -1.0f, 16.0f);
 		//end of test tile
+		*/
+
 
 		//set initial position
-		u1->getComponent<unit::UnitMove>()->setTile(testTile);
+		u1->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(1,1));
 
 		//test unit 
 		unit::Unit* u = u1->getComponent<unit::Unit>();

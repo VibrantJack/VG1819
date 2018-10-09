@@ -20,6 +20,8 @@ public:
 	void highlightTile(kitten::Event::EventType p_type, kitten::Event* p_data);
 	void unhighlightTiles(kitten::Event::EventType p_type, kitten::Event* p_data);
 	void unhighlightCurrent(kitten::Event::EventType p_type, kitten::Event* p_data);
+
+	static kitten::K_GameObject* getTile(int x, int z);
 private:
 	static kitten::K_GameObject* m_pTileList[15][15];
 	

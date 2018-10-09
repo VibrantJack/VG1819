@@ -28,14 +28,6 @@ void unit::UnitMove::listenEvent(kitten::Event::EventType p_type, kitten::Event 
 {
 	if (p_type == kitten::Event::Tile_Clicked_For_Unit_Move)
 	{
-		if (p_data->getGameObj("tileObj"))
-		{
-			move(p_data->getGameObj("tileObj"));
-		}
-		deregisterListener();
-
-		//Should use code below, but cant make unit spawn in board, so use code above for now
-		/*
 		bool highlighted = p_data->getInt("highlighted");
 		if (highlighted)//move
 		{
@@ -49,7 +41,7 @@ void unit::UnitMove::listenEvent(kitten::Event::EventType p_type, kitten::Event 
 			std::cout << "Cancel Move" << std::endl;
 			triggerUnhighLightEvent();
 		}
-		deregisterListener();*/
+		deregisterListener();
 	}
 }
 
@@ -58,7 +50,7 @@ void unit::UnitMove::attempToMove()
 	std::cout << "Ready To Move" << std::endl;
 	//when first click, this class will register event that require player to click a tile
 	registerListener();
-	//triggerHighLightEvent();
+	triggerHighLightEvent();
 }
 
 void unit::UnitMove::triggerHighLightEvent()
@@ -91,6 +83,9 @@ void unit::UnitMove::move(kitten::K_GameObject * p_targetTile)
 
 	//tell object move is done
 	m_attachedObject->getComponent<unit::Unit>()->moveDone();
+
+	//send unhighlight event
+	triggerUnhighLightEvent();
 }
 
 void unit::UnitMove::setTile(kitten::K_GameObject * p_targetTile)

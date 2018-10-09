@@ -31,7 +31,7 @@ void SendSelfOnClick::onClick()
 }
 
 void SendSelfOnClick::onHoverStart()
-{
+{	/*
 	// for test Range 
 	kitten::Event* e = new kitten::Event(kitten::Event::Highlight_Tile);
 	e->putString(TILE_OWNER_KEY, "Area.");//highlight because of this unit move
@@ -39,12 +39,13 @@ void SendSelfOnClick::onHoverStart()
 	e->putInt("maxRange", 2);//the range is between 1 and mv attributes
 	e->putGameObj("tileAtOrigin", m_attachedObject);
 	e->putString("use", "test");
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Highlight_Tile, e);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Highlight_Tile, e);*/
 }
 
 void SendSelfOnClick::onHoverEnd()
 {
+	/*
 	//for test Range
 	kitten::Event* e = new kitten::Event(kitten::Event::Unhighlight_Tile);
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Unhighlight_Tile, e);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Unhighlight_Tile, e);*/
 }

@@ -14,7 +14,12 @@ kitten::Event::TileList Range::getTilesInRange(kitten::K_GameObject * p_tileAtOr
 	kitten::Event::TileList list;
 	for (auto it = tilesAndRange.begin(); it!=tilesAndRange.end();it++)
 	{
-		list.push_back(it->first);
+		int d = it->second;
+		//if the distance is within the range
+		if (d >= p_minRange && d <= p_maxRange)
+		{
+			list.push_back(it->first);
+		}
 	}
 
 	return list;
@@ -40,30 +45,28 @@ void Range::findNeighbour(std::map<std::pair<int, int>, int>* p_tilesAndRange, s
 	//if the distance is excess the max range, we dont go further
 	if (p_distance > p_maxRange)
 		return;
-	//if the distance is within the range
-	if (p_distance >= p_minRange && p_distance <= p_maxRange)
+
+	//check if the tile is already in the list
+	bool exist = p_tilesAndRange->find(p_currentTile) != p_tilesAndRange->end();
+	if (exist)
 	{
-		//check if the tile is already in the list
-		bool exist = p_tilesAndRange->find(p_currentTile) != p_tilesAndRange->end();
-		if (exist)
+		//it's in the list, then compare the distance
+		if (p_distance < (*p_tilesAndRange)[p_currentTile])
 		{
-			//it's in the list, then compare the distance
-			if (p_distance < (*p_tilesAndRange)[p_currentTile])
-			{
-				(*p_tilesAndRange)[p_currentTile] = p_distance;
-				//always keep the least distance
-			}
-			else
-				return;
-			//if the list already has smaller distance, terminal
-			
+			(*p_tilesAndRange)[p_currentTile] = p_distance;
+			//always keep the least distance
 		}
 		else
-		{
-			//not find,then add it to the list
-			p_tilesAndRange->insert(std::pair<std::pair<int, int>, int>(p_currentTile, p_distance));
-		}
+			return;
+		//if the list already has smaller distance, terminal
+
 	}
+	else
+	{
+		//not find,then add it to the list
+		p_tilesAndRange->insert(std::pair<std::pair<int, int>, int>(p_currentTile, p_distance));
+	}
+
 	//then check neighbour
 	int x = p_currentTile.first;
 	int z = p_currentTile.second;
