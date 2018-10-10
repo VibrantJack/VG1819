@@ -301,6 +301,23 @@
     <ClCompile Include="Range.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\audio\AudioEngineWrapper.cpp">
+      <Filter>kitten\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\audio\AudioListener.cpp">
+      <Filter>kitten\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\audio\AudioSource.cpp">
+      <Filter>kitten\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaySoundOnKeyPress.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
+    <ClCompile Include="..\userinterface\UI_ElementComponent.cpp" />
+    <ClCompile Include="PlaySoundOnStart.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -580,6 +597,25 @@
     <ClInclude Include="Range.h">
       <Filter>components</Filter>
     </ClInclude>
+    <ClInclude Include="..\kitten\audio\AudioEngineWrapper.h">
+      <Filter>kitten\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\audio\AudioListener.h">
+      <Filter>kitten\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\audio\AudioSource.h">
+      <Filter>kitten\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaySoundOnKeyPress.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_RenderableSprite.h" />
+    <ClInclude Include="..\kitten\K_Sprite.h" />
+    <ClInclude Include="..\puppy\P_Sprite.h" />
+    <ClInclude Include="..\userinterface\UI_ElementComponent.h" />
+    <ClInclude Include="PlaySoundOnStart.h">
+      <Filter>components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -641,6 +677,9 @@
     </Filter>
     <Filter Include="unit\InitiativeTracker">
       <UniqueIdentifier>{6c8e8df5-cc1f-4e04-baff-d434c5908209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kitten\audio">
+      <UniqueIdentifier>{8f7a5b73-5c25-4934-a5fd-481995c305f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

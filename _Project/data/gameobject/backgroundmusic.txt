@@ -1,0 +1,16 @@
+{
+    "name" : "backgroundMusic", 
+    "components" : [
+        {
+            "name" : "AudioSource",
+			"clippath" : "Sounds/Mr.Frustration.mp3",
+			"is3d" : false,
+			"enableeffects" : false,
+			"loop" : true,
+			"volume" : 0.3
+        },
+		{
+			"name" : "PlaySoundOnStart"
+		}
+    ]
+}

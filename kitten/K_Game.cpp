@@ -5,6 +5,7 @@
 
 #include "kitten\K_Singletons.h"
 #include "puppy\P_Singletons.h"
+#include "kitten\audio\AudioEngineWrapper.h"
 
 #include "kitten\K_GameObject.h"
 
@@ -31,6 +32,8 @@ namespace kitten
 {
 	void createSingletons()
 	{
+		AudioEngineWrapper::createInstance();
+
 		input::InputManager::createInstance();
 		K_CameraList::createInstance();
 		K_ComponentManager::createInstance();
@@ -142,10 +145,14 @@ namespace kitten
 		puppy::Renderer::destroyInstance();
 		puppy::StaticRenderables::destroyInstance();
 		puppy::FontTable::destroyInstance();
+
+		AudioEngineWrapper::destroyInstance();
 	}
 
 	void updateGame()
 	{
+		//Update sound
+		AudioEngineWrapper::update();
 		//Update delta time
 		K_Time::getInstance()->updateTime();
 		//Update input
@@ -157,7 +164,6 @@ namespace kitten
 		K_ComponentManager::getInstance()->updateComponents();
 		K_GameObjectManager::getInstance()->deleteQueuedObjects();
 	}
-
 
 	void renderGame()
 	{

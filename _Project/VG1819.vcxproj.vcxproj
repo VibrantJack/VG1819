@@ -59,14 +59,14 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\irrKlang\include;$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -129,6 +129,9 @@
     <ClCompile Include="..\kibble\json\JSONGameObjectDataParser.cpp" />
     <ClCompile Include="..\kibble\json\JSONUnitDataParser.cpp" />
     <ClCompile Include="..\kibble\kibble.cpp" />
+    <ClCompile Include="..\kitten\audio\AudioEngineWrapper.cpp" />
+    <ClCompile Include="..\kitten\audio\AudioListener.cpp" />
+    <ClCompile Include="..\kitten\audio\AudioSource.cpp" />
     <ClCompile Include="..\kitten\Camera.cpp" />
     <ClCompile Include="..\kitten\CubeRenderable.cpp" />
     <ClCompile Include="..\kitten\event_system\Event.cpp" />
@@ -187,6 +190,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ManipulateTileOnClick.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
+    <ClCompile Include="PlaySoundOnKeyPress.cpp" />
+    <ClCompile Include="PlaySoundOnStart.cpp" />
     <ClCompile Include="PrintWhenClicked.cpp" />
     <ClCompile Include="Range.cpp" />
     <ClCompile Include="SendSelfOnClick.cpp" />
@@ -219,6 +224,9 @@
     <ClInclude Include="..\kibble\UnitDataParser.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp" />
     <ClInclude Include="..\kibble\json\JSONUnitDataParser.hpp" />
+    <ClInclude Include="..\kitten\audio\AudioEngineWrapper.h" />
+    <ClInclude Include="..\kitten\audio\AudioListener.h" />
+    <ClInclude Include="..\kitten\audio\AudioSource.h" />
     <ClInclude Include="..\kitten\Camera.h" />
     <ClInclude Include="..\kitten\CubeRenderable.h" />
     <ClInclude Include="..\kitten\event_system\Event.h" />
@@ -286,6 +294,8 @@
     <ClInclude Include="FPSCalc.h" />
     <ClInclude Include="ManipulateTileOnClick.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
+    <ClInclude Include="PlaySoundOnKeyPress.h" />
+    <ClInclude Include="PlaySoundOnStart.h" />
     <ClInclude Include="PrintWhenClicked.h" />
     <ClInclude Include="Range.h" />
     <ClInclude Include="SendSelfOnClick.h" />
