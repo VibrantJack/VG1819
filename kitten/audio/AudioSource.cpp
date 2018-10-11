@@ -90,12 +90,12 @@ namespace kitten
 		m_audioClip->setIsPaused(p_paused);
 	}
 
-	bool AudioSource::isPaused()
+	bool AudioSource::isPaused() const
 	{
 		return m_audioClip->getIsPaused();
 	}
 
-	bool AudioSource::isFinished()
+	bool AudioSource::isFinished() const
 	{
 		return m_audioClip->isFinished();
 	}
@@ -117,7 +117,7 @@ namespace kitten
 		m_volume = p_volume;
 	}
 
-	float AudioSource::getVolume()
+	float AudioSource::getVolume() const
 	{
 		return m_volume;
 	}
@@ -128,7 +128,7 @@ namespace kitten
 		m_minDist = p_dist;
 	}
 
-	float AudioSource::getMinDistance()
+	float AudioSource::getMinDistance() const
 	{
 		return m_minDist;
 	}
@@ -139,7 +139,7 @@ namespace kitten
 		m_maxDist = p_dist;
 	}
 
-	float AudioSource::getMaxDistance()
+	float AudioSource::getMaxDistance() const
 	{
 		return m_maxDist;
 	}

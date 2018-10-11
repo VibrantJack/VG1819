@@ -35,20 +35,20 @@ namespace kitten
 		void setClip(const std::string& p_pathToClip, bool p_is3D, bool p_enableEffects);
 		
 		void setPaused(bool p_paused);
-		bool isPaused();
-		bool isFinished();
+		bool isPaused() const;
+		bool isFinished() const;
 
 		void setLooped(bool p_looped);
 		bool isLooped();
 
 		void setVolume(const float& p_volume); //Between 0 and 1
-		float getVolume();
+		float getVolume() const;
 
 		void setMinDistance(const float& p_dist); //3D distance you have to be from source to hear the sound
-		float getMinDistance();
+		float getMinDistance() const;
 
 		void setMaxDistance(const float& p_dist);
-		float getMaxDistance();
+		float getMaxDistance() const;
 
 		// irrKlang normally uses unsigned int of milliseconds for these
 		// could add if 0-1 value is not useful -Callum

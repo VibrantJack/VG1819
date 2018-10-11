@@ -196,7 +196,9 @@
     <ClCompile Include="Range.cpp" />
     <ClCompile Include="SendSelfOnClick.cpp" />
     <ClCompile Include="TileInfo.cpp" />
+    <ClCompile Include="ToggleSoundOnKeyPress.cpp" />
     <ClCompile Include="UseAbilityWhenClicked.cpp" />
+    <ClCompile Include="VolumeAdjustOnKeysPressed.cpp" />
     <ClCompile Include="ZoomByMouseWheel.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +289,7 @@
     <ClInclude Include="..\unit\UnitSpawn.h" />
     <ClInclude Include="..\unit\UnitTest.h" />
     <ClInclude Include="..\userinterface\UI_ElementComponent.h" />
+    <ClInclude Include="..\util\MathUtil.h" />
     <ClInclude Include="..\wolf\W_Common.h" />
     <ClInclude Include="BoardCreator.h" />
     <ClInclude Include="DebugPrintOnce.h" />
@@ -300,7 +303,9 @@
     <ClInclude Include="Range.h" />
     <ClInclude Include="SendSelfOnClick.h" />
     <ClInclude Include="TileInfo.h" />
+    <ClInclude Include="ToggleSoundOnKeyPress.h" />
     <ClInclude Include="UseAbilityWhenClicked.h" />
+    <ClInclude Include="VolumeAdjustOnKeysPressed.h" />
     <ClInclude Include="ZoomByMouseWheel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

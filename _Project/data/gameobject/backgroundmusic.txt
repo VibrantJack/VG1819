@@ -11,6 +11,16 @@
         },
 		{
 			"name" : "PlaySoundOnStart"
+		},
+		{
+			"name" : "ToggleSoundOnKeyPress",
+			"key" : "P"
+		},
+		{
+			"name" : "VolumeAdjustOnKeysPressed",
+			"increasekey" : "I",
+			"decreasekey" : "O",
+			"changeamount" : 0.05
 		}
     ]
 }
