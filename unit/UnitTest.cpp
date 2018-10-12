@@ -4,6 +4,7 @@
 #include "kibble/kibble.hpp"
 #include "_Project\PrintWhenClicked.h"
 #include "_Project\UseAbilityWhenClicked.h"
+#include "components\PowerTracker.h"
 #include "kitten\K_ComponentManager.h"
 //Rock
 //test the unit data
@@ -55,6 +56,7 @@ namespace unit
 		kibble::initializeKibbleRelatedComponents();
 		kibble::UnitDataParser* parser = kibble::getUnitDataParserInstance();
 		kitten::K_GameObject* random = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("testDummy.txt"));
+		random->getTransform().move(1.5f, -1.0f, 1.0f);
 
 		// Testing selecting spawned unit
 		kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
@@ -70,6 +72,11 @@ namespace unit
 		random->addComponent(useAbility);
 		useAbility->start();
 		// End testing selecting spawned unit
+
+		// Testing PowerTracker component
+		kitten::K_Component* powerTracker = compMan->createComponent("PowerTracker");
+		random->addComponent(powerTracker);
+		// End testing PowerTracker component
 
 		//kitten::K_GameObject* random = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
 

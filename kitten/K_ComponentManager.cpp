@@ -14,6 +14,7 @@
 #include "unit/unitComponent/UnitGraphic.h"
 #include "_Project\BoardCreator.h"
 #include "_Project\ManipulateTileOnClick.h"
+#include "components\PowerTracker.h"
 #include "_Project\FPSCalc.h"
 #include "puppy\Text\TextBox.h"
 
@@ -96,6 +97,10 @@ namespace kitten
 		else if (p_componentName == "ManipulateTileOnClick")
 		{
 			comp = new ManipulateTileOnClick();
+		}
+		else if (p_componentName == "PowerTracker")
+		{
+			comp = new PowerTracker();
 		}
 		else if (p_componentName == "FPSCalc")
 		{
