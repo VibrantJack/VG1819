@@ -21,6 +21,7 @@ namespace kitten
 			Object_Clicked, 
 			Highlight_Tile, 
 			Unhighlight_Tile,
+			Summon_unit,
 			Test_Event, 
 			MAX_VAL = Test_Event
 		};

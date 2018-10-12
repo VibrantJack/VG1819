@@ -28,11 +28,11 @@ namespace ability
 			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Highlight_Tile, p_data);
 		}*/
 
-		kitten::Event* p_data = new kitten::Event(kitten::Event::EventType::Highlight_Tile);
+		kitten::Event* p_data = new kitten::Event(kitten::Event::EventType::Summon_unit);
 		p_data->putTileList(&p_info->m_targetTiles);
 		p_data->putString(TILE_OWNER_KEY, p_info->m_source->m_ID);
 
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Highlight_Tile, p_data);
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Summon_unit, p_data);
 
 		return 0;
 	}
