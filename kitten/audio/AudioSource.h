@@ -7,12 +7,10 @@
 
 namespace kitten
 {
-	class AudioSource : public K_Component, public TransformPositionListener
+	class AudioSource : public K_Component, public TransformPositionListener, public irrklang::ISoundStopEventReceiver
 	{
 	private:
 		irrklang::ISound* m_audioClip;
-
-		std::string m_clipPath; //Mostly for debugging
 
 		irrklang::ik_u32 m_clipLength;
 		bool m_isLooped;
@@ -22,9 +20,19 @@ namespace kitten
 		float m_volume;
 		float m_minDist, m_maxDist;
 
+		bool m_causesDuck, m_getsDucked;
+
+		bool m_beingDucked;
+		float m_beingDuckedFactor, m_causingDuckFactor;
+
+		std::string m_clipPath; //Mostly for debugging
+
 		void setupMemberVars();
+		void tryDuckOthers(bool p_startDuck);
+
+		virtual void OnSoundStopped(irrklang::ISound* p_sound, irrklang::E_STOP_EVENT_CAUSE p_reason, void* p_userData) override;
 	public:
-		AudioSource(const std::string& p_pathToClip, bool p_is3D, bool p_enableEffects);
+		AudioSource(const std::string& p_pathToClip, bool p_is3D, bool p_enableEffects, bool p_causesDuck = false, bool p_getsDucked = false);
 		~AudioSource();
 
 		void start() override;
@@ -57,5 +65,8 @@ namespace kitten
 		
 		// Effects
 
+		//Custom Duck
+		void startDucking(const float& p_factor);
+		void stopDucking();
 	};
 }

@@ -1,17 +1,22 @@
 #include "AudioSource.h"
 #include "AudioEngineWrapper.h"
+#include "util\MathUtil.h"
 #include <iostream>
 
 namespace kitten
 {
-	AudioSource::AudioSource(const std::string& p_pathToClip, bool p_is3D, bool p_enableEffects) : m_clipPath(p_pathToClip)
+	AudioSource::AudioSource(const std::string& p_pathToClip, bool p_is3D, bool p_enableEffects, bool p_causesDuck, bool p_getsDucked) : m_clipPath(p_pathToClip),
+		m_is3D(p_is3D),  m_effectsEnabled(p_enableEffects), m_causesDuck(p_causesDuck), m_beingDucked(false), m_getsDucked(p_getsDucked)
 	{
 		m_audioClip = AudioEngineWrapper::sm_instance->getSound(p_pathToClip, p_is3D, p_enableEffects);
 		assert(m_audioClip != nullptr);
 		
-		m_is3D = p_is3D;
-		m_effectsEnabled = p_enableEffects;
 		setupMemberVars();
+
+		if (p_getsDucked)
+		{
+			AudioEngineWrapper::sm_instance->addToDuck(this);
+		}
 	}
 
 	AudioSource::~AudioSource()
@@ -19,6 +24,11 @@ namespace kitten
 		m_audioClip->stop();
 		m_audioClip->drop();
 		//m_audioClip->andRoll();
+
+		if (m_getsDucked)
+		{
+			AudioEngineWrapper::sm_instance->removeFromDuck(this);
+		}
 	}
 
 	void AudioSource::start()
@@ -48,10 +58,16 @@ namespace kitten
 		m_volume = m_audioClip->getVolume();
 		m_minDist = m_audioClip->getMinDistance();
 		m_maxDist = m_audioClip->getMaxDistance();
+		m_causingDuckFactor = CLAMP((0.95f - m_volume)*0.85f, 0.05f, 1.0f);
+
+		if (m_causesDuck)
+		{
+			m_audioClip->setSoundStopEventReceiver(this);
+		}
 	}
 
 	void AudioSource::play()
-	{
+	{	
 		if (m_audioClip->isFinished())
 		{
 			//remake audio source
@@ -59,22 +75,47 @@ namespace kitten
 			m_audioClip->drop();
 
 			m_audioClip = AudioEngineWrapper::sm_instance->getSound(m_clipPath, m_is3D, m_effectsEnabled);
-			m_audioClip->setVolume(m_volume);
 			m_audioClip->setMinDistance(m_minDist);
 			m_audioClip->setMaxDistance(m_maxDist);
 			m_audioClip->setIsLooped(m_isLooped);
 			m_audioClip->setIsPaused(false);
 			onPosChanged(getTransform().getTranslation());
+			
+			if (m_beingDucked)
+			{
+				m_audioClip->setVolume(m_volume * m_beingDuckedFactor);
+			}
+			else
+			{
+				m_audioClip->setVolume(m_volume);
+			}
+			if (m_causesDuck)
+			{
+				m_audioClip->setSoundStopEventReceiver(this);
+			}
 		}
 		else
 		{
 			m_audioClip->setPlayPosition(0);
 			m_audioClip->setIsPaused(false);
 		}
+
+		if (m_causesDuck)
+		{
+			tryDuckOthers(true);
+		}
 	}
 
 	void AudioSource::setClip(const std::string& p_pathToClip, bool p_is3D, bool p_enableEffects)
 	{
+		if (m_causesDuck)
+		{
+			tryDuckOthers(false);
+		}
+
+		m_audioClip->stop();
+		m_audioClip->drop();
+		
 		m_clipPath = p_pathToClip;
 
 		m_audioClip = AudioEngineWrapper::sm_instance->getSound(p_pathToClip, p_is3D, p_enableEffects);
@@ -88,6 +129,11 @@ namespace kitten
 	void AudioSource::setPaused(bool p_paused)
 	{
 		m_audioClip->setIsPaused(p_paused);
+		
+		if (m_causesDuck)
+		{
+			tryDuckOthers(!p_paused);
+		}
 	}
 
 	bool AudioSource::isPaused() const
@@ -113,8 +159,22 @@ namespace kitten
 
 	void AudioSource::setVolume(const float& p_volume)
 	{
-		m_audioClip->setVolume(p_volume);
 		m_volume = p_volume;
+		m_causingDuckFactor = CLAMP((0.95f - m_volume)*0.85f, 0.05f, 1.0f);
+
+		if (m_beingDucked)
+		{
+			m_audioClip->setVolume(p_volume * m_beingDuckedFactor);
+		}
+		else
+		{
+			m_audioClip->setVolume(p_volume);
+		}
+
+		if (m_causesDuck)
+		{
+			tryDuckOthers(true);
+		}
 	}
 
 	float AudioSource::getVolume() const
@@ -153,5 +213,44 @@ namespace kitten
 	float AudioSource::getPlayProgress()
 	{
 		return m_audioClip->getPlayPosition() / m_clipLength;
+	}
+
+	void AudioSource::startDucking(const float& p_factor)
+	{
+		m_beingDucked = true;
+		m_beingDuckedFactor = p_factor;
+		m_audioClip->setVolume(m_volume * p_factor);
+	}
+
+	void AudioSource::stopDucking()
+	{
+		m_beingDucked = false;
+		m_audioClip->setVolume(m_volume);
+	}
+
+	void AudioSource::tryDuckOthers(bool p_startDuck)
+	{
+		if (p_startDuck)
+		{
+			if (!m_audioClip->getIsPaused()) //Does this work if the audioClip is finished as well?
+			{
+				AudioEngineWrapper::sm_instance->startDuck(m_causingDuckFactor);
+			}
+		}
+		else
+		{
+			if (m_audioClip->getIsPaused() || m_audioClip->isFinished())
+			{
+				AudioEngineWrapper::sm_instance->stopDuck(m_causingDuckFactor);
+			}
+		}
+	}
+
+	void AudioSource::OnSoundStopped(irrklang::ISound* p_sound, irrklang::E_STOP_EVENT_CAUSE p_reason, void* p_userData)
+	{
+		if (m_causesDuck)
+		{
+			tryDuckOthers(false);
+		}
 	}
 }

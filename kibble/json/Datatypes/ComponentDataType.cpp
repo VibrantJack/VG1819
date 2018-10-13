@@ -145,7 +145,7 @@ kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
 kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 
 	std::string pathToClip;
-	bool is3D, enableEffects;
+	bool is3D, enableEffects, causesDuck = false, getsDucked = false;
 
 	if (p_jsonFile->find("clippath") != p_jsonFile->end()) {
 		pathToClip = p_jsonFile->operator[]("clippath");
@@ -159,7 +159,15 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 		enableEffects = p_jsonFile->operator[]("enableeffects");
 	}
 
-	kitten::AudioSource* toReturn = new kitten::AudioSource(pathToClip, is3D, enableEffects);
+	if (p_jsonFile->find("causesduck") != p_jsonFile->end()) {
+		causesDuck = p_jsonFile->operator[]("causesduck");
+	}
+
+	if (p_jsonFile->find("getsducked") != p_jsonFile->end()) {
+		getsDucked = p_jsonFile->operator[]("getsducked");
+	}
+
+	kitten::AudioSource* toReturn = new kitten::AudioSource(pathToClip, is3D, enableEffects, causesDuck, getsDucked);
 
 	if (is3D) {
 		

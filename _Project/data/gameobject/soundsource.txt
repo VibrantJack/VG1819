@@ -5,7 +5,8 @@
             "name" : "AudioSource",
 			"clippath" : "Sounds/WoodBlock.wav",
 			"is3d" : true,
-			"enableeffects" : false
+			"enableeffects" : false,
+			"causesduck" : true
         },
 		{
 			"name" : "PlaySoundOnKeyPress",
