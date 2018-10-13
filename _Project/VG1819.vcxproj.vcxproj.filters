@@ -282,7 +282,6 @@
       <Filter>components</Filter>
     </ClCompile>
     <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
-    <ClCompile Include="..\userinterface\UI_ElementComponent.cpp" />
     <ClCompile Include="Range.cpp">
       <Filter>components</Filter>
     </ClCompile>
@@ -323,6 +322,11 @@
     </ClCompile>
     <ClCompile Include="VolumeAdjustOnKeysPressed.cpp">
       <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
+    <ClCompile Include="..\userinterface\UIFrame.cpp" />
+    <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -630,6 +634,9 @@
     </ClInclude>
     <ClInclude Include="..\util\MathUtil.h">
       <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\InitiativeTrackerUI.h">
+      <Filter>unit\InitiativeTracker</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

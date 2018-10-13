@@ -13,9 +13,11 @@ namespace unit
 	class UnitTurn;
 	class InitiativeTracker
 	{
+		friend class InitiativeTrackerUI;
 	private:
 		static InitiativeTracker * sm_instance;
 		UnitTurn* m_uturn;
+		InitiativeTrackerUI* m_UI;
 
 		std::vector<kitten::K_GameObject*> m_unitObjectList;
 		std::vector<kitten::K_GameObject*>::iterator m_currentUnitIterator;

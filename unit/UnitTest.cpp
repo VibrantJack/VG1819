@@ -41,30 +41,25 @@ namespace unit
 
 	void UnitTest::test()
 	{
-		//createInstance
-		ability::StatusManager::createInstance();
-		ability::AbilityManager::createInstance();
-		ability::AbilityNodeManager::createInstance();
-		kibble::initializeKibbleRelatedComponents();
-		InitiativeTracker::createInstance();
-
-
 		kibble::UnitDataParser* parser = kibble::getUnitDataParserInstance();
 
+		
 		// Testing highlighting tiles and manipulating tiles using testDummy.txt
 		{
 			kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
 			//kitten::K_GameObject* testDummyGO = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("testDummy.txt"));
 			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(0));
 			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
+			
 			UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 			// Moved PrintWhenClicked and UseAbilityWhenClicked into UnitSpawn::spawnUnitObject() for spawning a Commander
-
+			
+			//initialize position
+			//testDummyGO->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(0, 0));
+			testDummy->m_attributes["in"] = 1;
 		} 
 		// End testing selecting spawned unit
-
-		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
-		u1->getTransform().move(10.0f, 0.0f, 0.0f);
+		
 
 		/*
 		//create test tile for unit spawn
@@ -82,8 +77,12 @@ namespace unit
 		*/
 
 
+		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
+		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Engineer.txt"));
+		//u1->getTransform().move(10.0f, 0.0f, 0.0f);
 		//set initial position
-		u1->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(1,1));
+		u1->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(1, 1));
+		u2->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(0, 1));
 
 		//test unit 
 		unit::Unit* u = u1->getComponent<unit::Unit>();

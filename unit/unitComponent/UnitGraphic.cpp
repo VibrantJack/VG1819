@@ -17,6 +17,7 @@ namespace unit
 	{
 		m_size = p_size;
 		m_mat = new puppy::Material(puppy::ShaderType::basic);
+		m_pathToTex = p_pathToTexture;
 		if (p_pathToTexture != nullptr)
 		{
 			m_mat->setTexture(p_pathToTexture);
@@ -50,6 +51,12 @@ namespace unit
 	void UnitGraphic::setTexture(const char * p_pathToTex)
 	{
 		m_mat->setTexture(p_pathToTex);
+		m_pathToTex = p_pathToTex;
+	}
+
+	std::string UnitGraphic::getTexturePath()
+	{
+		return m_pathToTex;
 	}
 
 	void UnitGraphic::render(const glm::mat4& p_viewProj)

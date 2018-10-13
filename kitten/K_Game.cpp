@@ -50,6 +50,12 @@ namespace kitten
 		puppy::FontTable::createInstance();
 
 		kibble::initializeKibbleRelatedComponents();
+
+		ability::StatusManager::createInstance();
+		ability::AbilityManager::createInstance();
+		ability::AbilityNodeManager::createInstance();
+
+		unit::InitiativeTracker::createInstance();
 	}
 
 	// This is called once at the beginning of the game
@@ -152,6 +158,12 @@ namespace kitten
 		puppy::FontTable::destroyInstance();
 
 		AudioEngineWrapper::destroyInstance();
+
+		ability::StatusManager::destroyInstance();
+		ability::AbilityManager::destroyInstance();
+		ability::AbilityNodeManager::destroyInstance();
+
+		unit::InitiativeTracker::destroyInstance();
 	}
 
 	void updateGame()

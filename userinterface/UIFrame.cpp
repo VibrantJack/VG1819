@@ -82,7 +82,9 @@ namespace userinterface
 
 	void UIFrame::setTexture(const char* p_pathToTex)
 	{
-		delete m_tex;
-		m_tex = new puppy::Texture(p_pathToTex);
+		//delete m_tex;
+		//m_tex = new puppy::Texture(p_pathToTex);
+
+		m_mat->setTexture(p_pathToTex);
 	}
 }

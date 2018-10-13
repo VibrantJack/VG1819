@@ -40,7 +40,6 @@ namespace unit
 	//turn
 	void Unit::setTurn(UnitTurn * p_t)
 	{
-		assert(m_turn == nullptr);
 		m_turn = p_t;
 	}
 
@@ -133,6 +132,7 @@ namespace unit
 	{
 		//send destroyed event
 		//destroy unit (game object)
+		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
 		return 0;
 	}
 }

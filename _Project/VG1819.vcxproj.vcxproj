@@ -172,6 +172,7 @@
     <ClCompile Include="..\Shapes\Cube.cpp" />
     <ClCompile Include="..\unit\Commander.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp" />
+    <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\UnitTurn.cpp" />
     <ClCompile Include="..\unit\Unit.cpp" />
     <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp" />
@@ -279,6 +280,7 @@
     <ClInclude Include="..\Shapes\Cube.h" />
     <ClInclude Include="..\unit\Commander.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h" />
+    <ClInclude Include="..\unit\InitiativeTracker\InitiativeTrackerUI.h" />
     <ClInclude Include="..\unit\InitiativeTracker\UnitTurn.h" />
     <ClInclude Include="..\unit\Unit.h" />
     <ClInclude Include="..\unit\UnitCommon.h" />

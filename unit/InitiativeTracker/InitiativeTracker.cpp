@@ -1,5 +1,7 @@
 #pragma once
 #include "InitiativeTracker.h"
+#include "kitten/K_GameObjectManager.h"
+#include "unit/InitiativeTracker/InitiativeTrackerUI.h"
 #include <algorithm>
 
 //Rock
@@ -21,12 +23,13 @@ void unit::InitiativeTracker::sortListByIn()
 unit::InitiativeTracker::InitiativeTracker()
 {
 	m_uturn = new unit::UnitTurn();
-	//TO DO: create renderable UI
+	m_UI = new unit::InitiativeTrackerUI();
 }
 
 unit::InitiativeTracker::~InitiativeTracker()
 {
 	m_unitObjectList.clear();
+	delete m_UI;
 }
 
 void unit::InitiativeTracker::createInstance()
@@ -59,6 +62,8 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 		if (*it == p_unit)
 		{
 			m_unitObjectList.erase(it);
+			m_UI->remove(*it);
+			kitten::K_GameObjectManager::getInstance()->destroyGameObject(p_unit);
 			return true;
 		}
 	}
@@ -82,6 +87,7 @@ void unit::InitiativeTracker::gameTurnStart()
 	//sort the list
 	sortListByIn();
 	m_currentUnitIterator = m_unitObjectList.begin();
+	m_UI->turnStart();
 
 	m_uturn->turnStart(*m_currentUnitIterator);//let the unit start its turn
 
@@ -97,6 +103,7 @@ void unit::InitiativeTracker::unitTurnEnd()
 	if (m_currentUnitIterator != m_unitObjectList.end())
 	{
 		m_uturn->turnStart(*m_currentUnitIterator);//let next unit start its turn
+		m_UI->next();
 	}
 	else// start a new game turn
 	{

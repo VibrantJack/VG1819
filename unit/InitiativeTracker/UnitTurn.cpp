@@ -26,7 +26,8 @@ void unit::UnitTurn::turnStart(kitten::K_GameObject* p_unitObj)
 	if (mv > 0)
 		move = true;
 
-	act = true;
+	//comment for testing
+	//act = true;
 }
 
 void unit::UnitTurn::checkTurn()
