@@ -181,7 +181,8 @@
     <ClCompile Include="..\unit\UnitMonitor.cpp" />
     <ClCompile Include="..\unit\UnitSpawn.cpp" />
     <ClCompile Include="..\unit\UnitTest.cpp" />
-    <ClCompile Include="..\userinterface\UI_ElementComponent.cpp" />
+    <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
+    <ClCompile Include="..\userinterface\UIFrame.cpp" />
     <ClCompile Include="..\wolf\W_Common.cpp" />
     <ClCompile Include="BoardCreator.cpp" />
     <ClCompile Include="DebugPrintOnce.cpp" />

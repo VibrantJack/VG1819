@@ -26,6 +26,8 @@
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
 
+#include "userinterface\InterfaceBuilder.h"
+
 #define DEBUG
 
 namespace kitten
@@ -98,6 +100,9 @@ namespace kitten
 		parentTest->getTransform().rotateAbsolute(glm::vec3(0, 45, 0));
 		secondChild->getTransform().rotateAbsolute(glm::vec3(0, -45, 0));
 		*/
+
+		userinterface::InterfaceBuilder* builder = new userinterface::InterfaceBuilder();
+		builder->start();
 
 		K_GameObject* gameObj = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* fpsCalc = compMan->createComponent("FPSCalc");

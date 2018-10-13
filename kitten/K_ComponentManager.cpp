@@ -20,6 +20,7 @@
 #include "unit/unitComponent/UnitMove.h"
 #include "unit/unitComponent/UnitClickable.h"
 #include "_Project/SendSelfOnClick.h"
+#include "userinterface\UIFrame.h"
 
 namespace kitten
 {
@@ -60,6 +61,10 @@ namespace kitten
 		else if (p_componentName == "Grassland")// datadriven
 		{
 			comp = new gameworld::GrasslandInfoComponent();
+		}
+		else if (p_componentName == "Frame")
+		{
+			comp = new userinterface::UIFrame("textures/ui/blankFrame.tga");
 		}
 		else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
 		{
