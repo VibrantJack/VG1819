@@ -173,8 +173,10 @@
     <ClCompile Include="..\unit\Commander.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp" />
+    <ClCompile Include="..\unit\InitiativeTracker\PointerUI.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\TrackerBlock.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\TrackerBlockClickable.cpp" />
+    <ClCompile Include="..\unit\InitiativeTracker\TrackerPointer.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\UnitTurn.cpp" />
     <ClCompile Include="..\unit\Unit.cpp" />
     <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp" />
@@ -283,8 +285,10 @@
     <ClInclude Include="..\unit\Commander.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTrackerUI.h" />
+    <ClInclude Include="..\unit\InitiativeTracker\PointerUI.h" />
     <ClInclude Include="..\unit\InitiativeTracker\TrackerBlock.h" />
     <ClInclude Include="..\unit\InitiativeTracker\TrackerBlockClickable.h" />
+    <ClInclude Include="..\unit\InitiativeTracker\TrackerPointer.h" />
     <ClInclude Include="..\unit\InitiativeTracker\UnitTurn.h" />
     <ClInclude Include="..\unit\Unit.h" />
     <ClInclude Include="..\unit\UnitCommon.h" />

@@ -1,3 +1,4 @@
+#pragma once
 #include "kitten\UIRenderable.h"
 #include "puppy\Material.h"
 #include "puppy\VertexEnvironment.h"
@@ -7,6 +8,7 @@ namespace userinterface
 	class UIFrame : public kitten::UIRenderable
 	{
 	public:
+		UIFrame() {};
 		UIFrame(const char* p_pathToTex);
 		~UIFrame();
 		void start();

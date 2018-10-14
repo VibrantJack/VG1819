@@ -12,7 +12,6 @@ namespace unit
 
 	void TrackerBlockClickable::onClick()
 	{
-		std::cout << "UI Frame is clicked "<<std::endl;
 	}
 
 	void TrackerBlockClickable::onHoverStart()

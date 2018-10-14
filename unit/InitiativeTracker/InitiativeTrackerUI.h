@@ -1,6 +1,7 @@
 #pragma once
 #include "kitten/K_Common.h"
 #include "unit/InitiativeTracker/InitiativeTracker.h"
+#include "unit/InitiativeTracker/TrackerPointer.h"
 #include <vector>
 
 //Rock
@@ -9,7 +10,7 @@
 
 namespace unit
 {
-	class InitiativeTrackerUI : public kitten::K_Component
+	class InitiativeTrackerUI
 	{
 		friend class TrackerBlock;
 	public:
@@ -27,6 +28,8 @@ namespace unit
 		std::vector<TrackerBlock*> m_blockList;
 		std::vector<kitten::K_GameObject*>::iterator m_lastShownUnitIterator;
 		std::vector<kitten::K_GameObject*>::iterator m_firstShownUnitIterator;
+
+		kitten::K_GameObject* m_pointerObject;
 
 		const float m_gap = 0.175f;//distance from adjacent frame
 		const float m_leftX = -0.25f;//start x coodinate for frame

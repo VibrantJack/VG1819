@@ -1,3 +1,4 @@
+#pragma once
 #include "TrackerBlock.h"
 #include "kitten/K_ComponentManager.h"
 #include "kitten/K_GameObjectManager.h"

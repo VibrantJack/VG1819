@@ -23,6 +23,8 @@
 #include "userinterface\UIFrame.h"
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
+#include "unit/InitiativeTracker/TrackerPointer.h"
+#include "unit/InitiativeTracker/PointerUI.h"
 
 namespace kitten
 {
@@ -151,6 +153,14 @@ namespace kitten
 		else if (p_componentName == "TrackerBlockClickable")
 		{
 			comp = new unit::TrackerBlockClickable();
+		}
+		else if (p_componentName == "TrackerPointer")
+		{
+			comp = new unit::TrackerPointer();
+		}
+		else if (p_componentName == "PointerUI")
+		{
+		comp = new userinterface::PointerUI();
 		}
 		else
 		{

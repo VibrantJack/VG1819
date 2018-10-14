@@ -19,6 +19,10 @@ unit::InitiativeTrackerUI::InitiativeTrackerUI()
 		m_frameIndexList.push_back(0);
 	}
 	setPosition();
+
+	m_pointerObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+	kitten::K_Component* p = comMan->createComponent("TrackerPointer");
+	m_pointerObject->addComponent(p);
 }
 
 unit::InitiativeTrackerUI::~InitiativeTrackerUI()

@@ -333,6 +333,10 @@
     <ClCompile Include="..\unit\InitiativeTracker\TrackerBlockClickable.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\TrackerPointer.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\PointerUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -647,6 +651,12 @@
       <Filter>unit\InitiativeTracker</Filter>
     </ClInclude>
     <ClInclude Include="..\unit\InitiativeTracker\TrackerBlockClickable.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\TrackerPointer.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\PointerUI.h">
       <Filter>unit\InitiativeTracker</Filter>
     </ClInclude>
   </ItemGroup>
