@@ -295,7 +295,6 @@
       <Filter>kitten\audio</Filter>
     </ClCompile>
     <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
-    <ClCompile Include="..\userinterface\UI_ElementComponent.cpp" />
     <ClCompile Include="ToggleSoundOnKeyPress.cpp">
       <Filter>components\sound</Filter>
     </ClCompile>
@@ -326,6 +325,12 @@
     <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
     <ClCompile Include="..\userinterface\UIFrame.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\TrackerBlock.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\TrackerBlockClickable.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
   </ItemGroup>
@@ -636,6 +641,12 @@
       <Filter>util</Filter>
     </ClInclude>
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTrackerUI.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\TrackerBlock.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\TrackerBlockClickable.h">
       <Filter>unit\InitiativeTracker</Filter>
     </ClInclude>
   </ItemGroup>
