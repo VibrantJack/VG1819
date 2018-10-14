@@ -21,6 +21,8 @@
 #include "unit/unitComponent/UnitClickable.h"
 #include "_Project/SendSelfOnClick.h"
 #include "userinterface\UIFrame.h"
+#include "unit/InitiativeTracker/TrackerBlock.h"
+#include "unit/InitiativeTracker/TrackerBlockClickable.h"
 
 namespace kitten
 {
@@ -102,6 +104,10 @@ namespace kitten
 		{
 			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(2.5f, 3.0f, 0.0f));
 		}
+		else if (p_componentName == "ClickableBoxForTrackerBlock")
+		{
+			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 0.0f));
+		}
 		else if (p_componentName == "UnitMove")
 		{
 			comp = new unit::UnitMove();
@@ -137,6 +143,14 @@ namespace kitten
 		else if (p_componentName == "TextBox")
 		{
 			comp = new puppy::TextBox(puppy::FontTable::getInstance()->getFont("../fonts/common_consolas.fnt"), "DEFAULT TEXT", 500, 500);
+		}
+		else if (p_componentName == "TrackerBlock")
+		{
+			comp = new unit::TrackerBlock();
+		}
+		else if (p_componentName == "TrackerBlockClickable")
+		{
+			comp = new unit::TrackerBlockClickable();
 		}
 		else
 		{

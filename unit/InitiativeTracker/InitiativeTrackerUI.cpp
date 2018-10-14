@@ -1,4 +1,5 @@
 #include "InitiativeTrackerUI.h"
+#include "unit/InitiativeTracker/TrackerBlock.h"
 #include "kitten/K_ComponentManager.h"
 #include "kitten/K_GameObjectManager.h"
 #include "userinterface/UIFrame.h"
@@ -6,24 +7,18 @@
 
 unit::InitiativeTrackerUI::InitiativeTrackerUI()
 {
+	kitten::K_ComponentManager* comMan = kitten::K_ComponentManager::getInstance();
 	for (int i = 0; i < m_maxUnitToShow; i++)
 	{
-		kitten::K_GameObject* frameObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-		kitten::K_GameObject* textObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+		//initialize blocks
+		unit::TrackerBlock* b = static_cast<unit::TrackerBlock*>(comMan->createComponent("TrackerBlock"));
+		b->setTrackerUI(this);
+		m_blockList.push_back(b);
 
-		kitten::K_Component* frame = kitten::K_ComponentManager::getInstance()->createComponent("Frame");
-		frameObject->addComponent(frame);
-		m_frameList.push_back(frameObject);
-
-		//for display unit name under ui frame
-		puppy::TextBox* textbox = static_cast<puppy::TextBox*>(kitten::K_ComponentManager::getInstance()->createComponent("TextBox"));
-		textbox->setColor(1, 1, 1);
-		textObject->addComponent(textbox);
-		m_textList.push_back(textObject);
+		//initialize frame index list
+		m_frameIndexList.push_back(0);
 	}
-
 	setPosition();
-	resetScale();
 }
 
 unit::InitiativeTrackerUI::~InitiativeTrackerUI()
@@ -57,15 +52,14 @@ void unit::InitiativeTrackerUI::next()
 			m_firstShownUnitIterator++;
 
 			//move frame to last
-			moveX(m_maxUnitToShow-1,i);
+			m_blockList[i]->move(m_maxUnitToShow - 1);
 			m_frameIndexList[i] = m_maxUnitToShow - 1;
 			setNewFrame(i);
 		}
 		else
 		{
 			//move left
-			moveX(m_frameIndexList[i] - 1, i);
-			m_frameIndexList[i] --;
+			m_blockList[i]->move(--m_frameIndexList[i]);
 		}
 	}
 }
@@ -82,14 +76,13 @@ void unit::InitiativeTrackerUI::remove(const kitten::K_GameObject * p_unit)
 			if (m_frameIndexList[i] == slotIndex)//frame[i] display the unit
 			{
 				//move it to last
-				moveX(m_maxUnitToShow - 1, i);
+				m_blockList[i]->move(m_maxUnitToShow - 1);
 				m_frameIndexList[i] = m_maxUnitToShow - 1;
 				setNewFrame(i);
 			}
 			else if (m_frameIndexList[i] > slotIndex)//frames in right will move left
 			{
-				moveX(m_frameIndexList[i] - 1, i);
-				m_frameIndexList[i] --;
+				m_blockList[i]->move(--m_frameIndexList[i]);
 			}
 		}
 	}
@@ -110,66 +103,32 @@ int unit::InitiativeTrackerUI::isShown(const kitten::K_GameObject * p_unit)
 
 void unit::InitiativeTrackerUI::setPosition()
 {
-	for (int i = 0; i < m_maxUnitToShow; i++)
+	//position list will have one more position
+	for (int i = 0; i <= m_maxUnitToShow; i++)
 	{
 		float x = m_leftX + m_gap * i;
 		m_xList.push_back(x);
-
-		//initialize frame index list
-		m_frameIndexList.push_back(0);
 	}
-}
-
-void unit::InitiativeTrackerUI::moveX(int p_xI, int p_fI)
-{
-	float x = m_xList[p_xI];
-	m_frameList[p_fI]->getTransform().place2D(x, m_frameY);
-	m_textList[p_fI]->getTransform().place2D(x, m_textY);
 }
 
 void unit::InitiativeTrackerUI::resetPosition()
 {
 	for (int i = 0; i < m_maxUnitToShow; i++)
 	{
-		moveX(i, i);
+		m_blockList[i]->move(i);
 	}
-}
-
-void unit::InitiativeTrackerUI::resetScale()
-{
-	for (int i = 0; i < m_maxUnitToShow; i++)
-	{
-		m_frameList[i]->getTransform().scale2D(m_scaleX, m_scaleY);
-	}
-}
-
-void unit::InitiativeTrackerUI::setUIFrame(std::vector<kitten::K_GameObject*>::iterator p_unitIt, int p_index)
-{
-	kitten::K_GameObject* unitGO = *p_unitIt;
-
-	//get texture
-	std::string texPath = unitGO->getComponent<UnitGraphic>()->getTexturePath();
-	//get name
-	std::string name = unitGO->getComponent<Unit>()->m_name;
-
-	//set texture
-	m_frameList[p_index]->getComponent<userinterface::UIFrame>()->setTexture(texPath.c_str());
-
-	//set name (textbox)
-	m_textList[p_index]->getComponent<puppy::TextBox>()->setText(name);
 }
 
 void unit::InitiativeTrackerUI::setNewFrame(int p_index)
 {
 	if (m_lastShownUnitIterator != InitiativeTracker::getInstance()->m_unitObjectList.end())
 	{//still has units in list
-		setUIFrame(m_lastShownUnitIterator, p_index);
+		m_blockList[p_index]->set(m_lastShownUnitIterator);
 		m_lastShownUnitIterator++;
 	}
 	else
 	{//no more units 
-		m_frameList[p_index]->getComponent<userinterface::UIFrame>()->setTexture(m_blankTexture.c_str());
-		m_textList[p_index]->getComponent<puppy::TextBox>()->setText("None");
+		m_blockList[p_index]->clear();
 	}
 }
 

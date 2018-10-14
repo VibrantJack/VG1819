@@ -137,6 +137,24 @@ namespace kitten
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();
 
+		
+		/*
+		//testing ui frame and textbox
+		K_GameObject* go = K_GameObjectManager::getInstance()->createNewGameObject();
+		puppy::TextBox* tt = static_cast<puppy::TextBox*>(compMan->createComponent("TextBox"));
+		tt->setColor(1, 1, 1);
+		tt->setText("Any text");
+		go->addComponent(tt);
+		go->getTransform().place2D(640+640.0f*0.1,360+360.0f*0.1);
+
+		kitten::K_GameObject* com = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+		K_Component* comFrame = kitten::K_ComponentManager::getInstance()->createComponent("Frame");
+		com->addComponent(comFrame);
+		//com->addComponent(tt);
+		com->getTransform().scale2D(0.15, 0.2);
+		com->getTransform().place2D(0.1, 0.1);
+		//*/
+
 		return true;
 	}
 

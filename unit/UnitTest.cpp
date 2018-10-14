@@ -43,23 +43,22 @@ namespace unit
 	{
 		kibble::UnitDataParser* parser = kibble::getUnitDataParserInstance();
 
-		
+		//comment for testing IT
+		/*
 		// Testing highlighting tiles and manipulating tiles using testDummy.txt
 		{
 			kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
 			//kitten::K_GameObject* testDummyGO = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("testDummy.txt"));
 			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(0));
 			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
-			
 			UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 			// Moved PrintWhenClicked and UseAbilityWhenClicked into UnitSpawn::spawnUnitObject() for spawning a Commander
 			
 			//initialize position
-			//testDummyGO->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(0, 0));
-			testDummy->m_attributes["in"] = 1;
+			testDummyGO->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(0, 0));
 		} 
 		// End testing selecting spawned unit
-		
+		*/
 
 		/*
 		//create test tile for unit spawn
