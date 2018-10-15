@@ -262,6 +262,113 @@ kitten::K_Component* getVolumeAdjustOnKeysPressed(nlohmann::json* p_jsonFile) {
 	return new VolumeAdjustOnKeysPressed(increaseKey,decreaseKey,changeAmount);
 }
 
+#include "userinterface/UIFrame.h"
+kitten::K_Component* getUIFrame(nlohmann::json* p_jsonFile) {
+	std::string texture = "textures/ui/blankFrame.tga";
+
+	if (p_jsonFile->find("texture") != p_jsonFile->end()) {
+		texture = p_jsonFile->operator[]("texture");
+	}
+
+	return new userinterface::UIFrame(texture.c_str());
+}
+
+#include "unit/unitComponent/UnitMove.h"
+kitten::K_Component* getUnitMove(nlohmann::json* p_jsonFile) {
+	return new unit::UnitMove();
+}
+
+#include "unit/unitComponent/UnitClickable.h"
+kitten::K_Component* getUnitClickable(nlohmann::json* p_jsonFile) {
+	return new unit::UnitClickable();
+}
+
+#include "_Project\ManipulateTileOnClick.h"
+kitten::K_Component* getManipulateTileOnClick(nlohmann::json* p_jsonFile) {
+	return new ManipulateTileOnClick();
+}
+
+#include "_Project/UseAbilityWhenClicked.h"
+kitten::K_Component* getUseAbilityWhenClicked(nlohmann::json* p_jsonFile) {
+	return new UseAbilityWhenClicked();
+}
+
+#include "_Project/SendSelfOnClick.h"
+kitten::K_Component* getSendSelfOnClick(nlohmann::json* p_jsonFile) {
+	return new SendSelfOnClick();
+}
+
+#include "_Project/FPSCalc.h"
+kitten::K_Component* getFPSCalc(nlohmann::json* p_jsonFile) {
+	return new FPSCalc();
+}
+
+#include "unit/InitiativeTracker/TrackerBlock.h"
+kitten::K_Component* getTrackerBlock(nlohmann::json* p_jsonFile) {
+	return new unit::TrackerBlock();
+}
+
+#include "unit/InitiativeTracker/TrackerBlockClickable.h"
+kitten::K_Component* getTrackerBlockClickable(nlohmann::json* p_jsonFile) {
+	return new unit::TrackerBlockClickable();
+}
+
+#include "unit/InitiativeTracker/TrackerPointer.h"
+kitten::K_Component* getTrackerPointer(nlohmann::json* p_jsonFile) {
+	return new unit::TrackerPointer();
+}
+
+#include "unit/InitiativeTracker/PointerUI.h"
+kitten::K_Component* getPointerUI(nlohmann::json* p_jsonFile) {
+	return new userinterface::PointerUI();
+}
+
+#include "unit/unitComponent/UnitGraphic.h"
+kitten::K_Component* getUnitGraphic(nlohmann::json* p_jsonFile) {
+	std::string texture = "textures/unit/Default.tga";
+	unit::UnitSize size = unit::point;
+
+	if (p_jsonFile->find("texture") != p_jsonFile->end()) {
+		texture = p_jsonFile->operator[]("texture");
+	}
+
+	if (p_jsonFile->find("unitsize") != p_jsonFile->end()) {
+		std::string temp = p_jsonFile->operator[]("unitsize");
+		if (temp == "point")
+			size = unit::point;
+		else if (temp == "cube")
+			size = unit::UnitSize::cube;
+	}
+
+	return new unit::UnitGraphic(size, texture.c_str());
+}
+
+#include "puppy/Text/TextBox.h"
+kitten::K_Component* getTextBox(nlohmann::json* p_jsonFile) {
+	std::string font = "../fonts/common_consolas.fnt", message = "DEFAULT TEXT";
+	float width = 500, height= 500;
+
+	if (p_jsonFile->find("font") != p_jsonFile->end()) {
+		font = p_jsonFile->operator[]("font");
+	}
+
+	if (p_jsonFile->find("message") != p_jsonFile->end()) {
+		message = p_jsonFile->operator[]("message");
+	}
+
+	if (p_jsonFile->find("width") != p_jsonFile->end()) {
+		width = p_jsonFile->operator[]("width");
+	}
+
+	if (p_jsonFile->find("height") != p_jsonFile->end()) {
+		height = p_jsonFile->operator[]("height");
+	}
+
+	return new puppy::TextBox(puppy::FontTable::getInstance()->getFont(font.c_str()), message.c_str(), width, height);
+}
+
+
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -281,6 +388,19 @@ void setupComponentMap() {
 	jsonComponentMap["PlaySoundOnStart"] = &getPlaySoundOnStart;
 	jsonComponentMap["ToggleSoundOnKeyPress"] = &getToggleSoundOnStart;
 	jsonComponentMap["VolumeAdjustOnKeysPressed"] = &getVolumeAdjustOnKeysPressed;
+	jsonComponentMap["UIFrame"] = &getUIFrame;
+	jsonComponentMap["UnitMove"] = &getUnitMove;
+	jsonComponentMap["UnitClickable"] = &getUnitClickable;
+	jsonComponentMap["ManipulateTileOnClick"] = &getManipulateTileOnClick;
+	jsonComponentMap["UseAbilityWhenClicked"] = &getUseAbilityWhenClicked;
+	jsonComponentMap["SendSelfOnClick"] = &getSendSelfOnClick;
+	jsonComponentMap["FPSCalc"] = &getFPSCalc;
+	jsonComponentMap["TrackerBlock"] = &getTrackerBlock;
+	jsonComponentMap["TrackerBlockClickable"] = &getTrackerBlockClickable;
+	jsonComponentMap["PointerUI"] = &getPointerUI;
+	jsonComponentMap["UnitGraphic"] = &getUnitGraphic;
+	jsonComponentMap["TextBox"] = &getTextBox;
+	
 }
 
 kitten::K_Component* getRelatedComponentBy(std::string key,nlohmann::json* p_jsonFile) {
