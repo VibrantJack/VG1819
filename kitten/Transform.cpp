@@ -290,6 +290,11 @@ namespace kitten
 		}
 	}
 
+	Transform* Transform::getParent()
+	{
+		return m_parent;
+	}
+
 	//Private method called when the child's parent is assigned to this
 	void Transform::addChild(Transform* p_child)
 	{
