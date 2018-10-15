@@ -40,7 +40,11 @@ namespace ability
 
 	AbilityNodeManager::~AbilityNodeManager()
 	{
-		m_nodeList.clear();
+		auto end = m_nodeList.end();
+		for (auto it = m_nodeList.begin(); it != end; ++it)
+		{
+			delete (*it);
+		}
 	}
 
 	void AbilityNodeManager::createInstance()

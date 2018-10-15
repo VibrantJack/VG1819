@@ -67,6 +67,7 @@ bool CompileShader(GLuint* p_pShader, GLenum p_eType, const std::string& p_strFi
     }
 #endif
     
+	delete pSource;
     glGetShaderiv(*p_pShader, GL_COMPILE_STATUS, &iStatus);
     if( iStatus == 0 )
     {

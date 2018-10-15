@@ -66,7 +66,7 @@ namespace kitten
 		{
 			comp = new gameworld::GrasslandInfoComponent();
 		}
-		else if (p_componentName == "Frame")
+		else if (p_componentName == "Frame")// Datadriven
 		{
 			comp = new userinterface::UIFrame("textures/ui/blankFrame.tga");
 		}
@@ -90,75 +90,75 @@ namespace kitten
 		{
 			comp = new DestroyOnClick();
 		}
-		else if (p_componentName == "ClickableBox")
+		else if (p_componentName == "ClickableBox") // Datadriven
 		{
 			comp = new ClickableBox(glm::vec3(-0.5f, 0, -0.5f), glm::vec3(0.5f, 0, 0.5f));
 		}
-		else if (p_componentName == "ClickableBoxBox")
+		else if (p_componentName == "ClickableBoxBox") // Datadriven
 		{
 			comp = new ClickableBox(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
 		}
-		else if (p_componentName == "ClickableBoxForPointUnit")
+		else if (p_componentName == "ClickableBoxForPointUnit") // Datadriven
 		{
 			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 2.0f, 0.0f));
 		}
-		else if (p_componentName == "ClickableBoxForCubeUnit")
+		else if (p_componentName == "ClickableBoxForCubeUnit") // Datadriven
 		{
 			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(2.5f, 3.0f, 0.0f));
 		}
-		else if (p_componentName == "ClickableBoxForTrackerBlock")
+		else if (p_componentName == "ClickableBoxForTrackerBlock") // Datadriven
 		{
 			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 0.0f));
 		}
-		else if (p_componentName == "UnitMove")
+		else if (p_componentName == "UnitMove") // Datadriven
 		{
 			comp = new unit::UnitMove();
 		}
-		else if (p_componentName == "UnitClickable")
+		else if (p_componentName == "UnitClickable") // DataDriven
 		{
 			comp = new unit::UnitClickable();
 		}
-		else if (p_componentName == "UnitGraphic")//hard code, need special function for unit graphic
+		else if (p_componentName == "UnitGraphic")//hard code, need special function for unit graphic, Data driven with these as defaults
 		{
 			comp = new unit::UnitGraphic(unit::point, "textures/unit/Default.tga");
 		}
-		else if (p_componentName == "BoardCreator")
+		else if (p_componentName == "BoardCreator") // Datadriven
 		{
 			comp = new BoardCreator();
 		}
-		else if (p_componentName == "ManipulateTileOnClick")
+		else if (p_componentName == "ManipulateTileOnClick") // Datadriven
 		{
 			comp = new ManipulateTileOnClick();
 		}
-		else if (p_componentName == "UseAbilityWhenClicked")
+		else if (p_componentName == "UseAbilityWhenClicked")  // Datadriven
 		{
 			comp = new UseAbilityWhenClicked();
 		}
-		else if (p_componentName == "SendSelfOnClick")
+		else if (p_componentName == "SendSelfOnClick") // DataDriven
 		{
 			comp = new SendSelfOnClick();
 		}
-		else if (p_componentName == "FPSCalc")
+		else if (p_componentName == "FPSCalc") // Datadriven
 		{
 			comp = new FPSCalc();
 		}
-		else if (p_componentName == "TextBox")
+		else if (p_componentName == "TextBox")  // Datadriven
 		{
 			comp = new puppy::TextBox(puppy::FontTable::getInstance()->getFont("../fonts/common_consolas.fnt"), "DEFAULT TEXT", 500, 500);
 		}
-		else if (p_componentName == "TrackerBlock")
+		else if (p_componentName == "TrackerBlock") // Datadriven
 		{
 			comp = new unit::TrackerBlock();
 		}
-		else if (p_componentName == "TrackerBlockClickable")
+		else if (p_componentName == "TrackerBlockClickable") // Datadriven
 		{
 			comp = new unit::TrackerBlockClickable();
 		}
-		else if (p_componentName == "TrackerPointer")
+		else if (p_componentName == "TrackerPointer") // Datadriven
 		{
 			comp = new unit::TrackerPointer();
 		}
-		else if (p_componentName == "PointerUI")
+		else if (p_componentName == "PointerUI") // Datadriven
 		{
 		comp = new userinterface::PointerUI();
 		}

@@ -9,6 +9,10 @@ namespace ability
 	{
 	}
 
+	Heal::~Heal()
+	{
+	}
+
 	int Heal::effect(const AbilityInfoPackage* p_info)
 	{
 		//heal target by power

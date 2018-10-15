@@ -35,10 +35,13 @@ namespace unit
 		bool removeUnit(kitten::K_GameObject* p_unit);
 
 		//TO DO: by ID or name or something
-		kitten::K_GameObject* findUnit();
+		kitten::K_GameObject* getCurrentUnit();
 		std::vector<kitten::K_GameObject*> getList();
 
+		//turn phase
+		//start of whole turn->unit turn->next->repeat until no more unit->start of whole turn
 		void gameTurnStart();
 		void unitTurnEnd();
+		void gameTurnEnd();
 	};
 }

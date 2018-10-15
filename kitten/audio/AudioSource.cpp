@@ -11,6 +11,8 @@ namespace kitten
 		m_audioClip = AudioEngineWrapper::sm_instance->getSound(p_pathToClip, p_is3D, p_enableEffects);
 		assert(m_audioClip != nullptr);
 		
+		m_sfxController = new SoundEffectsApplier(m_audioClip->getSoundEffectControl());
+
 		setupMemberVars();
 
 		if (p_getsDucked)
@@ -29,6 +31,8 @@ namespace kitten
 		{
 			AudioEngineWrapper::sm_instance->removeFromDuck(this);
 		}
+
+		delete m_sfxController;
 	}
 
 	void AudioSource::start()
@@ -58,7 +62,7 @@ namespace kitten
 		m_volume = m_audioClip->getVolume();
 		m_minDist = m_audioClip->getMinDistance();
 		m_maxDist = m_audioClip->getMaxDistance();
-		m_causingDuckFactor = CLAMP((0.95f - m_volume)*0.85f, 0.05f, 1.0f);
+		m_causingDuckFactor = (m_volume / 1.0f) - 0.75f;
 
 		if (m_causesDuck)
 		{
@@ -79,8 +83,14 @@ namespace kitten
 			m_audioClip->setMaxDistance(m_maxDist);
 			m_audioClip->setIsLooped(m_isLooped);
 			m_audioClip->setIsPaused(false);
-			onPosChanged(getTransform().getTranslation());
-			
+			m_sfxController->setController(m_audioClip->getSoundEffectControl());
+			m_sfxController->applyEffects();
+
+			if (m_is3D)
+			{
+				onPosChanged(getTransform().getTranslation());
+			}
+
 			if (m_beingDucked)
 			{
 				m_audioClip->setVolume(m_volume * m_beingDuckedFactor);
@@ -160,7 +170,7 @@ namespace kitten
 	void AudioSource::setVolume(const float& p_volume)
 	{
 		m_volume = p_volume;
-		m_causingDuckFactor = CLAMP((0.95f - m_volume)*0.85f, 0.05f, 1.0f);
+		m_causingDuckFactor = (m_volume / 1.0f) - 0.75f;
 
 		if (m_beingDucked)
 		{
@@ -213,6 +223,11 @@ namespace kitten
 	float AudioSource::getPlayProgress()
 	{
 		return m_audioClip->getPlayPosition() / m_clipLength;
+	}
+
+	SoundEffectsApplier* AudioSource::getSFXControl()
+	{
+		return m_sfxController;
 	}
 
 	void AudioSource::startDucking(const float& p_factor)

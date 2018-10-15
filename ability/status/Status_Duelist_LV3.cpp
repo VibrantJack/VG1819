@@ -10,6 +10,10 @@ namespace ability
 
 	}
 
+	Status_Duelist_LV3::~Status_Duelist_LV3()
+	{
+	}
+
 	int Status_Duelist_LV3::effect(TimePointEvent p_timePoint, int p_value)
 	{
 		if (Status_LV::effect(p_timePoint, p_value) == 0)

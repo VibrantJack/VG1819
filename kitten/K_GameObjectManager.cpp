@@ -47,9 +47,22 @@ namespace kitten
 
 	void K_GameObjectManager::deleteQueuedObjects()
 	{
-		for (auto it = m_toDelete.begin(); it != m_toDelete.end(); it = m_toDelete.erase(it))
+		for (auto it = m_toDelete.begin(); it != m_toDelete.end(); ++it)
 		{
 			delete *it;
+		}
+
+		m_toDelete.clear();
+	}
+
+	void K_GameObjectManager::destroyAllGameObjects()
+	{
+		deleteQueuedObjects();
+
+		auto end = m_gameObjects.end();
+		for (auto it = m_gameObjects.begin(); it != end; ++it)
+		{
+			delete  (*it).second;
 		}
 	}
 }

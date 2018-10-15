@@ -10,7 +10,7 @@ namespace userinterface
 	public:
 		UIFrame() {};
 		UIFrame(const char* p_pathToTex);
-		~UIFrame();
+		virtual ~UIFrame();
 		void start();
 		void render(const glm::mat4& p_ortho);
 		void setTexture(const char* p_pathToTex);

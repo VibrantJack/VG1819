@@ -38,8 +38,9 @@ namespace unit
 	}
 
 	//turn
-	void Unit::setTurn(UnitTurn * p_t)
+	void Unit::turnStart(UnitTurn * p_t)
 	{
+		assert(m_turn == nullptr);
 		m_turn = p_t;
 	}
 
@@ -78,7 +79,6 @@ namespace unit
 	void Unit::turnEnd()
 	{
 		assert(m_turn != nullptr);
-		m_turn->turnEnd();
 		m_turn = nullptr;
 	}
 

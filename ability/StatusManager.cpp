@@ -47,7 +47,11 @@ namespace ability
 
 	StatusManager::~StatusManager()
 	{
-		m_statusList.clear();
+		auto end = m_statusList.end(); 
+		for (auto it = m_statusList.begin(); it != end; ++it)
+		{
+			delete (*it);
+		}
 	}
 
 	void StatusManager::createInstance()

@@ -2,11 +2,13 @@
 #include <string>
 
 #include "AudioEngineWrapper.h"
+#include "SoundEffectsApplier.h"
+
 #include "kitten\K_Component.h"
 #include "kitten\Transform.h"
 
 namespace kitten
-{
+{										   //Interfaces 
 	class AudioSource : public K_Component, public TransformPositionListener, public irrklang::ISoundStopEventReceiver
 	{
 	private:
@@ -24,6 +26,8 @@ namespace kitten
 
 		bool m_beingDucked;
 		float m_beingDuckedFactor, m_causingDuckFactor;
+
+		SoundEffectsApplier* m_sfxController;
 
 		std::string m_clipPath; //Mostly for debugging
 
@@ -64,6 +68,7 @@ namespace kitten
 		float getPlayProgress(); // Returns between 0 and 1, 0 = none, 1 = done
 		
 		// Effects
+		SoundEffectsApplier* getSFXControl();
 
 		//Custom Duck
 		void startDucking(const float& p_factor);

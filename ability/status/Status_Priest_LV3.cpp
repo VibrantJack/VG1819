@@ -10,6 +10,10 @@ namespace ability
 
 	}
 
+	Status_Priest_LV3::~Status_Priest_LV3()
+	{
+	}
+
 	int Status_Priest_LV3::effect(TimePointEvent p_timePoint)
 	{
 		//unit is lv3, Heal self at the end of turn.

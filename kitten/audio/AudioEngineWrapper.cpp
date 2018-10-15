@@ -24,6 +24,9 @@ namespace kitten
 		m_audioEngine = irrklang::createIrrKlangDevice();
 		std::cout << "MultiThreaded audio? " << (m_audioEngine->isMultiThreaded() ? "Yes" : "No") << std::endl;
 		assert(m_audioEngine != nullptr);
+
+		m_audioEngine->setDefault3DSoundMaxDistance(20);
+		m_audioEngine->setDefault3DSoundMinDistance(1);
 	}
 
 	AudioEngineWrapper::~AudioEngineWrapper()

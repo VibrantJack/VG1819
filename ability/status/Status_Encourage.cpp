@@ -10,6 +10,10 @@ namespace ability
 
 	}
 
+	Status_Encourage::~Status_Encourage()
+	{
+	}
+
 	int Status_Encourage::effect(TimePointEvent p_timePoint)
 	{
 		if (p_timePoint == ability::Turn_End)

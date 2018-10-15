@@ -17,8 +17,6 @@ void PlaySoundOnKeyPress::start()
 	m_inputMan = input::InputManager::getInstance();
 	m_audioSource = m_attachedObject->getComponent<kitten::AudioSource>();
 	assert(m_audioSource != nullptr && m_inputMan != nullptr);
-	m_audioSource->setMinDistance(1.0f);
-	m_audioSource->setMaxDistance(5.0f);
 }
 
 void PlaySoundOnKeyPress::update()
@@ -26,6 +24,5 @@ void PlaySoundOnKeyPress::update()
 	if(m_inputMan->keyDown(m_key) && !m_inputMan->keyDownLast(m_key))
 	{
 		m_audioSource->play();
-		
 	}
 }
