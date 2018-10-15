@@ -53,7 +53,6 @@ namespace unit
 
 		//UnitData* data = new UnitData(name, HP, MV, IN, Cost, size, tags, abilityDescription, statusDescription);
 
-		kibble::initializeKibbleRelatedComponents();
 		kibble::UnitDataParser* parser = kibble::getUnitDataParserInstance();
 		kitten::K_GameObject* random = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("testDummy.txt"));
 		random->getTransform().move(1.5f, -1.0f, 1.0f);
@@ -61,7 +60,7 @@ namespace unit
 		// Testing selecting spawned unit
 		kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
 
-		kitten::K_Component* clickBox = compMan->createComponent("ClickableBox");
+		kitten::K_Component* clickBox = compMan->createComponent("ClickableBoxUnitTest");
 		random->addComponent(clickBox);
 
 		PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
@@ -73,9 +72,10 @@ namespace unit
 		useAbility->start();
 		// End testing selecting spawned unit
 
+		// Moved this component to attach the the parent GO of a tile GO
 		// Testing PowerTracker component
-		kitten::K_Component* powerTracker = compMan->createComponent("PowerTracker");
-		random->addComponent(powerTracker);
+		//kitten::K_Component* powerTracker = compMan->createComponent("PowerTracker");
+		//random->addComponent(powerTracker);
 		// End testing PowerTracker component
 
 		//kitten::K_GameObject* random = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));

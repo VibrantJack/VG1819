@@ -2,12 +2,16 @@
 #include "kitten\K_ComponentManager.h"
 #include "kitten\K_GameObjectManager.h"
 
+
 PowerTracker::PowerTracker()
 	:
-	m_iMaxPower(0),
-	m_iCurrentPower(0)
+	m_iMaxPower(4),
+	m_iCurrentPower(4)
 {
-
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Manipulate_Tile,
+		this,
+		std::bind(&PowerTracker::increaseMaxPowerEvent, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 PowerTracker::~PowerTracker()
@@ -25,17 +29,23 @@ void PowerTracker::start()
 	// Creating a GO inside a component feels wrong
 	kitten::K_GameObject* textBox = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 	textBox->addComponent(m_textBox);
-	textBox->getTransform().place2D(1000, 50);
+	textBox->getTransform().place2D(800, 50);
 }
 
 void PowerTracker::update()
 {
-	m_textBox->setText("Max Power: " + std::to_string(m_iMaxPower));
+	m_textBox->setText("Max Power: " + std::to_string(m_iMaxPower) + " Current Power: " + std::to_string(getCurrentPower()));
 }
 
 void PowerTracker::increaseMaxPower(int p_iAmount)
 {
 	m_iMaxPower += p_iAmount;
+}
+
+void PowerTracker::increaseMaxPowerEvent(kitten::Event::EventType p_type, kitten::Event* p_data)
+{
+	m_iMaxPower += p_data->getInt(MANIPULATE_TILE_KEY);
+	resetCurrent(); // Maybe shouldn't be called here?
 }
 
 bool PowerTracker::summonUnitCost(int p_iCost)
