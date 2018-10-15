@@ -28,5 +28,7 @@ namespace puppy
 		static void applyShader(const ShaderProgram* p_sp);
 
 		static ShaderProgram* getShaderProgram(ShaderType p_st);
+
+		static void destroyAllShaders();
 	};
 }

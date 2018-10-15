@@ -13,7 +13,7 @@ namespace puppy
 
 	ShaderProgram::~ShaderProgram()
 	{
-
+		glDeleteShader(m_id);
 	}
 
 	void ShaderProgram::apply() const

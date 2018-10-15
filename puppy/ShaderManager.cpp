@@ -88,4 +88,15 @@ namespace puppy
 
 		return m_createdPresetShaders[p_st];
 	}
+
+	void ShaderManager::destroyAllShaders()
+	{
+		for (int i =0; i < SHADERTYPE_MAX; ++i)
+		{
+			if(m_createdPresetShaders[i] != nullptr)
+			{
+				delete m_createdPresetShaders[i];
+			}
+		}
+	}
 }
