@@ -71,10 +71,9 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 	return false;
 }
 
-kitten::K_GameObject * unit::InitiativeTracker::findUnit()
+kitten::K_GameObject * unit::InitiativeTracker::getCurrentUnit()
 {
-	//TO DO: implement
-	return nullptr;
+	return *m_currentUnitIterator;
 }
 
 std::vector<kitten::K_GameObject*> unit::InitiativeTracker::getList()
@@ -86,19 +85,15 @@ void unit::InitiativeTracker::gameTurnStart()
 {
 	//sort the list
 	sortListByIn();
+
 	m_currentUnitIterator = m_unitObjectList.begin();
 	m_UI->turnStart();
 
 	m_uturn->turnStart(*m_currentUnitIterator);//let the unit start its turn
-
-	//call turn start function of unitTurn
-	
 }
 
 void unit::InitiativeTracker::unitTurnEnd()
 {
-	//TO DO: may need to send event
-
 	m_currentUnitIterator++;//iterator point next unit
 	if (m_currentUnitIterator != m_unitObjectList.end())
 	{
@@ -107,6 +102,12 @@ void unit::InitiativeTracker::unitTurnEnd()
 	}
 	else// start a new game turn
 	{
-		gameTurnStart();
+		gameTurnEnd();
 	}
+}
+
+void unit::InitiativeTracker::gameTurnEnd()
+{
+	//start of new turn
+	gameTurnStart();
 }

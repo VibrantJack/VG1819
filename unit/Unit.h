@@ -34,7 +34,7 @@ namespace unit
 		StatusContainer* getStatusContainer();
 
 		//turn interface
-		void setTurn(UnitTurn* p_t);
+		void turnStart(UnitTurn* p_t);
 		bool canMove();
 		bool canAct();
 		void moveDone();

@@ -8,6 +8,10 @@ namespace ability
 	{
 	}
 
+	Sabotage::~Sabotage()
+	{
+	}
+
 	int Sabotage::effect(const AbilityInfoPackage* p_info)
 	{
 		//damage target by power

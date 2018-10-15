@@ -10,6 +10,10 @@ namespace ability
 
 	}
 
+	Status_Dodge::~Status_Dodge()
+	{
+	}
+
 	int Status_Dodge::effect(TimePointEvent p_timePoint)
 	{
 		if (p_timePoint == ability::Turn_Start)

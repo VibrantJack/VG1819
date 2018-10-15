@@ -8,6 +8,10 @@ namespace ability
 	{
 	}
 
+	Shoot::~Shoot()
+	{
+	}
+
 	int Shoot::effect(const AbilityInfoPackage* p_info)
 	{
 		//damage target by power

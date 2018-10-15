@@ -15,6 +15,10 @@ namespace ability
 	{
 	}
 
+	ManipulateTile::~ManipulateTile()
+	{
+	}
+
 	int ManipulateTile::effect(const AbilityInfoPackage* p_info)
 	{
 		// Loop through the list of tiles and trigger an event to highlight each one		

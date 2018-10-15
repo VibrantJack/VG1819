@@ -15,7 +15,7 @@ namespace ability
 	{
 	public:
 		Ability() {};
-		~Ability() {};
+		virtual ~Ability() {};
 
 		std::string m_name;
 
@@ -30,7 +30,7 @@ namespace ability
 	{
 	public:
 		ManipulateTile();
-
+		virtual ~ManipulateTile();
 		int effect(const AbilityInfoPackage* p_info);
 	};
 
@@ -38,7 +38,7 @@ namespace ability
 	{
 	public:
 		Heal();
-
+		virtual ~Heal();
 		int effect(const AbilityInfoPackage* p_info);
 	};
 
@@ -46,7 +46,7 @@ namespace ability
 	{
 	public:
 		Fight();
-
+		virtual ~Fight();
 		int effect(const AbilityInfoPackage* p_info);
 	};
 
@@ -54,7 +54,7 @@ namespace ability
 	{
 	public:
 		Shoot();
-
+		virtual ~Shoot();
 		int effect(const AbilityInfoPackage* p_info);
 	};
 
@@ -65,7 +65,7 @@ namespace ability
 		void stackStatus(const AbilityInfoPackage* p_info);
 	public:
 		Encourage();
-
+		virtual ~Encourage();
 		int effect(const AbilityInfoPackage* p_info);
 	};
 
@@ -73,7 +73,7 @@ namespace ability
 	{
 	public:
 		QuickShoot();
-
+		virtual ~QuickShoot();
 		int effect(const AbilityInfoPackage* p_info);
 	};
 
@@ -81,7 +81,7 @@ namespace ability
 	{
 	public:
 		Sabotage();
-
+		virtual ~Sabotage();
 		int effect(const AbilityInfoPackage* p_info);
 	};
 
@@ -91,7 +91,7 @@ namespace ability
 		unit::UnitData* m_wallData;
 	public:
 		Build_the_Wall();
-
+		virtual ~Build_the_Wall();
 		int effect(const AbilityInfoPackage* p_info);
 	};
 
@@ -102,7 +102,7 @@ namespace ability
 		void stackStatus(const AbilityInfoPackage* p_info);
 	public:
 		Dodge();
-
+		virtual ~Dodge();
 		int effect(const AbilityInfoPackage* p_info);
 	};
 
@@ -110,7 +110,7 @@ namespace ability
 	{
 	public:
 		Slay();
-
+		virtual ~Slay();
 		int effect(const AbilityInfoPackage* p_info);
 	};
 }

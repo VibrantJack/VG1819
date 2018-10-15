@@ -13,6 +13,9 @@ unit::UnitMove::~UnitMove()
 
 void unit::UnitMove::registerListener()
 {
+
+	notRegistered = false;
+
 	kitten::EventManager::getInstance()->addListener(
 		kitten::Event::EventType::Tile_Clicked_For_Unit_Move,
 		this,
@@ -21,6 +24,8 @@ void unit::UnitMove::registerListener()
 
 void unit::UnitMove::deregisterListener()
 {
+	notRegistered = true;
+
 	kitten::EventManager::getInstance()->queueRemoveListener(kitten::Event::Tile_Clicked_For_Unit_Move, this);
 }
 
@@ -47,10 +52,13 @@ void unit::UnitMove::listenEvent(kitten::Event::EventType p_type, kitten::Event 
 
 void unit::UnitMove::attempToMove()
 {
-	std::cout << "Ready To Move" << std::endl;
-	//when first click, this class will register event that require player to click a tile
-	registerListener();
-	triggerHighLightEvent();
+	if (notRegistered)
+	{
+		std::cout << "Ready To Move" << std::endl;
+		//when first click, this class will register event that require player to click a tile
+		registerListener();
+		triggerHighLightEvent();
+	}
 }
 
 void unit::UnitMove::triggerHighLightEvent()
