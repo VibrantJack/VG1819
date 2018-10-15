@@ -11,6 +11,13 @@ std::vector<unit::AbilityDescription*> lateLoadAbility, lateUpdateAbility;
 // Basically the deconstructor
 void kibble::destroyDatabank() {
 	for (unit::UnitData* unit : unitDataVector) {
+		for (unit::AbilityDescription* ability : unit->m_ad) {
+			delete ability
+		}
+		for (unit::StatusDescription* status : unit->m_sd) {
+			delete status;
+		}
+
 		delete unit;
 	}
 }
