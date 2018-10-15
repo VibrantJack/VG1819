@@ -1,4 +1,5 @@
 #include "UnitDataType.hpp"
+#include "kibble/databank/databank.hpp"
 #include <string>
 
 unit::UnitData* getUnitDataFrom(nlohmann::json& p_jsonfile) {
@@ -67,12 +68,24 @@ std::vector<unit::UnitData*> getMultipleUnitDataFrom(nlohmann::json& p_jsonfile)
 
 unit::AbilityDescription* getAbilityDescriptionFrom(nlohmann::json& p_jsonfile) {
 	if (p_jsonfile.is_string()) {
-		return new unit::AbilityDescription(); //getAbilityDescriptionFrom(jsonIn(p_jsonfile));
+		return kibble::getAnyAbilityFromName(p_jsonfile);
 	}
 	else if (p_jsonfile.is_object()) {
 		unit::AbilityDescription* ad = new unit::AbilityDescription();
+
 		for (nlohmann::json::iterator it = p_jsonfile.begin(); it != p_jsonfile.end(); ++it) {
-			if (it.key() == "filename") {
+			if (it.key() == "basename") {
+				unit::AbilityDescription* target = kibble::getAbilityFromName(it.value());
+				if (target == nullptr) {
+					ad->m_stringValue["basename"] = it.value();
+					kibble::addAbilityToLateLoadUpdate(ad);
+				}
+				else {
+					ad->m_intValue.insert(target->m_intValue.begin(), target->m_intValue.end());
+					ad->m_stringValue.insert(target->m_stringValue.begin(), target->m_stringValue.end());
+				}
+			}
+			else if (it.key() == "filename") {
 				unit::AbilityDescription* target = getAbilityDescriptionFrom(jsonIn(it.value()));
 				ad->m_intValue.insert(target->m_intValue.begin(), target->m_intValue.end());
 				ad->m_stringValue.insert(target->m_stringValue.begin(), target->m_stringValue.end());
@@ -90,26 +103,14 @@ unit::AbilityDescription* getAbilityDescriptionFrom(nlohmann::json& p_jsonfile) 
 }
 
 unit::StatusDescription* getStatusDescriptionFrom(nlohmann::json& p_jsonfile) {
-	if (p_jsonfile.is_string()) {
-		return new unit::StatusDescription(); //getStatusDescriptionFrom(jsonIn(p_jsonfile));
-	}
-	else if (p_jsonfile.is_object()) {
-		unit::StatusDescription* sd = new unit::StatusDescription();
-		for (nlohmann::json::iterator it = p_jsonfile.begin(); it != p_jsonfile.end(); ++it) {
-			if (it.key() == "filename") {
-				unit::StatusDescription* target = getStatusDescriptionFrom(jsonIn(it.value()));
-				sd->m_intValue.insert(target->m_intValue.begin(),target->m_intValue.end());
-				sd->m_stringValue.insert(target->m_stringValue.begin(), target->m_stringValue.end());
-				sd->m_TPList.insert(sd->m_TPList.end(),target->m_TPList.begin(), target->m_TPList.end());
-				delete target;
-			}
-			else if (it->is_string()) {
-				sd->m_stringValue[it.key()] = it.value();
-			}
-			else if (it->is_number_integer()) {
-				sd->m_intValue[it.key()] = it.value();
-			}
+	unit::StatusDescription* sd = new unit::StatusDescription();
+	for (nlohmann::json::iterator it = p_jsonfile.begin(); it != p_jsonfile.end(); ++it) {
+		if (it->is_string()) {
+			sd->m_stringValue[it.key()] = it.value();
 		}
-		return sd;
+		else if (it->is_number_integer()) {
+			sd->m_intValue[it.key()] = it.value();
+		}
 	}
+	return sd;
 }
