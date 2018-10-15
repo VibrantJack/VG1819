@@ -82,6 +82,9 @@ void BoardCreator::start()
 		}
 	}
 
+	kitten::K_Component* powerTracker = compMan->createComponent("PowerTracker");
+	m_attachedObject->addComponent(powerTracker);
+
 	//compMan->destroyComponent(this);
 }
 
@@ -129,18 +132,21 @@ void BoardCreator::highlightTile(kitten::Event::EventType p_type, kitten::Event*
 void BoardCreator::unhighlightTiles(kitten::Event::EventType p_type, kitten::Event* p_data)
 {
 	kitten::K_GameObject* tile;
-
+	TileInfo* tileInfo;
 	auto it = m_toBeUnhighlighted.cbegin();
 	for (; it != m_toBeUnhighlighted.cend(); ++it)
 	{
 		tile = m_pTileList[it->first][it->second];
+		tileInfo = tile->getComponent<TileInfo>();
 
-		kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
-		quad->setColorTint(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+		if (tileInfo->getOwnerId() == "NONE") {
+			
+			kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
+			quad->setColorTint(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
 
-		TileInfo* tileInfo = tile->getComponent<TileInfo>();
-		tileInfo->setHighlighted(false);
-		tileInfo->setHighlightedBy("NONE");
+			tileInfo->setHighlighted(false);
+			tileInfo->setHighlightedBy("NONE");
+		}
 	}
 
 	m_toBeUnhighlighted.clear();

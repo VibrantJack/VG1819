@@ -86,6 +86,10 @@ namespace kitten
 		{
 			comp = new ClickableBox(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
 		}
+		else if (p_componentName == "ClickableBoxUnitTest")
+		{
+			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 2.0f, 0.0f));
+		}
 		else if (p_componentName == "UnitGraphic")//hard code, need special function for unit graphic
 		{
 			comp = new unit::UnitGraphic(unit::point, "textures/unit/Default.tga");
