@@ -41,6 +41,7 @@ void UseAbilityWhenClicked::onClick()
 			info->m_source = unit;
 
 			ability::AbilityManager::getInstance()->useAbility(MANIPULATE_TILE_ABILITY, info);
+			break;
 		}
 		case 1: // Testing SummonUnit ability
 		{
@@ -73,6 +74,7 @@ void UseAbilityWhenClicked::onClick()
 			}
 			info->m_source = unit;
 			ability::AbilityManager::getInstance()->useAbility(SUMMON_UNIT, info);
+			break;
 		}
 	}
 }

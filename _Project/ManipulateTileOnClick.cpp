@@ -11,9 +11,11 @@
 #include "ability\AbilityManager.h"
 #include "TileInfo.h"
 #include "kitten\K_GameObject.h"
+#include "components\PowerTracker.h"
 
 #include "kitten\event_system\EventManager.h"
 #include "kibble\kibble.hpp"
+#include "kibble\databank\databank.hpp"
 #include "unit\UnitSpawn.h"
 
 ManipulateTileOnClick::ManipulateTileOnClick()
@@ -35,6 +37,10 @@ void ManipulateTileOnClick::onClick()
 		{
 			tileInfo->setOwnerId(tileInfo->getHighlightedBy());
 			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
+
+			kitten::Event* p_data = new kitten::Event(kitten::Event::EventType::Highlight_Tile);
+			p_data->putInt(MANIPULATE_TILE_KEY, 1);
+			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Manipulate_Tile, p_data);
 		}
 		else
 		{
@@ -43,10 +49,20 @@ void ManipulateTileOnClick::onClick()
 	}
 	else if (ability::AbilityManager::getInstance()->lastAbilityUsed() == SUMMON_UNIT)
 	{
-		if (tileInfo->isHighlighted()) //&& tileInfo->getOwnerId() == tileInfo->getHighlightedBy())
+		if (tileInfo->isHighlighted()) //&& tileInfo->getOwnerId() == tileInfo->getHighlightedBy()) // Commented out for simple testing
 		{
-			kitten::K_GameObject* unit = unit::UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitDataParserInstance()->getUnit("testDummy.txt"));
-			unit->getTransform().place(tileInfo->getPosX() - 0.5f, -1.0f, tileInfo->getPosY());
+			// @TODO:
+			// Create a way to select which unit to summon
+			kitten::K_GameObject* board = &m_attachedObject->getTransform().getParent()->getAttachedGameObject();
+
+			PowerTracker* powerTracker = board->getComponent<PowerTracker>();
+			if (kibble::getUnitFromId(2)->m_Cost <= powerTracker->getCurrentPower())
+			{
+				unit::UnitData* unitData = kibble::getUnitFromId(2);
+				kitten::K_GameObject* unit = unit::UnitSpawn::getInstance()->spawnUnitObject(unitData);
+				unit->getTransform().place(tileInfo->getPosX() - 0.5f, -1.0f, tileInfo->getPosY());
+				powerTracker->summonUnitCost(unitData->m_Cost);
+			}
 			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
 		}
 		else

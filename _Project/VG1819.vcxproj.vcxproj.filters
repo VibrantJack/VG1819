@@ -281,6 +281,12 @@
     <ClCompile Include="UseAbilityWhenClicked.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\PowerTracker.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\SummonUnit.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -536,6 +542,9 @@
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="UseAbilityWhenClicked.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\PowerTracker.h">
       <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
