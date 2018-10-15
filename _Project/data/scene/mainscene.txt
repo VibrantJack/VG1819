@@ -14,6 +14,11 @@
 		},
 		{
 			"filename" : "backgroundmusic.txt"
+		},
+		{
+			"filename" : "FPSCounter.txt", 
+		    "translate2d" : [100,700]
 		}
-    ]
+    ],
+	"scenes" : ["interfacebuilder.txt"]
 }

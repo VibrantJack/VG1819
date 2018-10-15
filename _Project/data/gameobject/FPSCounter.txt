@@ -1,0 +1,14 @@
+{
+    "name" : "fps frame",
+    "components" : [
+        {
+            "name" : "FPSCalc"
+        }, 
+        {
+            "name" : "TextBox",
+            "width" : 300 , 
+            "height" : 100 ,
+            "color" : [1,1,1]
+        }
+    ]
+}

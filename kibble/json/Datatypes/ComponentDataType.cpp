@@ -347,6 +347,7 @@ kitten::K_Component* getUnitGraphic(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getTextBox(nlohmann::json* p_jsonFile) {
 	std::string font = "../fonts/common_consolas.fnt", message = "DEFAULT TEXT";
 	float width = 500, height= 500;
+	puppy::TextBox* textbox;
 
 	if (p_jsonFile->find("font") != p_jsonFile->end()) {
 		font = p_jsonFile->operator[]("font");
@@ -364,7 +365,23 @@ kitten::K_Component* getTextBox(nlohmann::json* p_jsonFile) {
 		height = p_jsonFile->operator[]("height");
 	}
 
-	return new puppy::TextBox(puppy::FontTable::getInstance()->getFont(font.c_str()), message.c_str(), width, height);
+	textbox = new puppy::TextBox(puppy::FontTable::getInstance()->getFont(font.c_str()), message.c_str(), width, height);
+
+	if (p_jsonFile->find("color") != p_jsonFile->end()) {
+		textbox->setColor(p_jsonFile->operator[]("color")[0], p_jsonFile->operator[]("color")[1], p_jsonFile->operator[]("color")[2]);
+	}
+
+	if (p_jsonFile->find("alignment") != p_jsonFile->end()) {
+		std::string temp = p_jsonFile->operator[]("alignment");
+		if (temp == "left")
+			textbox->setAlignment(puppy::TextBox::Alignment::left);
+		else if (temp == "right")
+			textbox->setAlignment(puppy::TextBox::Alignment::right);
+		else if (temp == "center")
+			textbox->setAlignment(puppy::TextBox::Alignment::center);
+	}
+
+	return textbox;
 }
 
 
