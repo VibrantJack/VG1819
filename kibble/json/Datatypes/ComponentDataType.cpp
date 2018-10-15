@@ -200,6 +200,7 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 
 	if (enableEffects) {
 		//Effects parsing here
+
 	}
 
 	return toReturn;

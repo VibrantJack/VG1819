@@ -324,6 +324,11 @@
     </ClCompile>
     <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
     <ClCompile Include="..\userinterface\UIFrame.cpp" />
+    <ClCompile Include="..\kitten\audio\SoundEffectsApplier.cpp">
+      <Filter>kitten\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
+    <ClCompile Include="..\userinterface\UIFrame.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
@@ -643,6 +648,9 @@
     </ClInclude>
     <ClInclude Include="..\util\MathUtil.h">
       <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\audio\SoundEffectsApplier.h">
+      <Filter>kitten\audio</Filter>
     </ClInclude>
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTrackerUI.h">
       <Filter>unit\InitiativeTracker</Filter>
