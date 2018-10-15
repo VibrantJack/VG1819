@@ -6,6 +6,7 @@
     "cost":2,
 	"size":"point",
 	"tags":["Terrans"],
+	"texpath":"textures/unit/Engineer.tga",
 	"ability_description":[
 			{
 				"name":"Fight",

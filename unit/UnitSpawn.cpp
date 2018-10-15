@@ -55,7 +55,8 @@ namespace unit
 		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
 
 		//create unit graphic
-		kitten::K_Component* unitG = cm->createComponent("UnitGraphic");
+		UnitGraphic* unitG = static_cast<UnitGraphic*>(cm->createComponent("UnitGraphic"));
+		unitG->setTexture(p_unitData->m_texPath.c_str());
 
 		//create unit move
 		kitten::K_Component* uMove = cm->createComponent("UnitMove");

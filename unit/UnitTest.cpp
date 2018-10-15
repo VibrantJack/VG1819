@@ -70,14 +70,16 @@ namespace unit
 
 		kitten::K_Component* clickBox = kitten::K_ComponentManager::getInstance()->createComponent("ClickableBox");
 		testTile->addComponent(clickBox);
-
+		 
 		testTile->getTransform().place(0.0f, -1.0f, 16.0f);
 		//end of test tile
 		*/
 
 
-		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
-		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Engineer.txt"));
+		//kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
+		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(1));
+		//kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Engineer.txt"));
+		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(4));
 		//u1->getTransform().move(10.0f, 0.0f, 0.0f);
 		//set initial position
 		u1->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(1, 1));
