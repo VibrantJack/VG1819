@@ -107,9 +107,11 @@ namespace kitten
 		secondChild->getTransform().rotateAbsolute(glm::vec3(0, -45, 0));
 		*/
 
-		userinterface::InterfaceBuilder* builder = new userinterface::InterfaceBuilder();
+		//userinterface::InterfaceBuilder* builder = new userinterface::InterfaceBuilder();
 		//builder->start();
-		/*
+		//delete builder;
+
+		
 		K_GameObject* gameObj = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* fpsCalc = compMan->createComponent("FPSCalc");
 		puppy::TextBox* testText = static_cast<puppy::TextBox*>(compMan->createComponent("TextBox"));
@@ -117,7 +119,6 @@ namespace kitten
 		gameObj->addComponent(testText);
 		gameObj->addComponent(fpsCalc);
 		gameObj->getTransform().place2D(100, 700);
-		*/
 
 		// Testing Events
 		Event* e = new Event(Event::Test_Event);
@@ -174,12 +175,13 @@ namespace kitten
 		puppy::Renderer::destroyInstance();
 		puppy::StaticRenderables::destroyInstance();
 		puppy::FontTable::destroyInstance();
-
-		AudioEngineWrapper::destroyInstance();
+		puppy::ShaderManager::destroyAllShaders();
 
 		ability::StatusManager::destroyInstance();
 		ability::AbilityManager::destroyInstance();
 		ability::AbilityNodeManager::destroyInstance();
+
+		AudioEngineWrapper::destroyInstance();
 
 		unit::InitiativeTracker::destroyInstance();
 	}
@@ -218,6 +220,7 @@ namespace kitten
 
 	void shutdownGame()
 	{
+		kitten::K_GameObjectManager::getInstance()->destroyAllGameObjects();
 		destroySingletons();
 	}
 }

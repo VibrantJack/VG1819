@@ -28,8 +28,10 @@ unit::InitiativeTracker::InitiativeTracker()
 
 unit::InitiativeTracker::~InitiativeTracker()
 {
-	m_unitObjectList.clear();
+	//(clear does not delete, but these are getting deleted by game object manager on shutdown)
+	//m_unitObjectList.clear();
 	delete m_UI;
+	delete m_uturn;
 }
 
 void unit::InitiativeTracker::createInstance()
