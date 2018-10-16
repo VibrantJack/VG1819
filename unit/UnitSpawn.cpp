@@ -1,8 +1,11 @@
 #pragma once
 #include "UnitSpawn.h"
-#include "unit/Commander.h"
 #include "kitten/K_GameObjectManager.h"
 #include "kitten/K_ComponentManager.h"
+#include "unit/InitiativeTracker/InitiativeTracker.h"
+#include "unit/unitComponent/UnitClickable.h"
+#include "unit/unitComponent/UnitMove.h"
+#include "_Project\PrintWhenClicked.h"
 //Rock
 
 namespace unit
@@ -31,31 +34,67 @@ namespace unit
 
 	kitten::K_GameObject * UnitSpawn::spawnUnitObject(UnitData * p_unitData)
 	{
+		//create unit 
 		Unit* unit = nullptr;
 		Commander* commander = nullptr;
-
-		if (p_unitData->m_tags[0] == "Commander")
+		//check every tag
+		for (int i = 0; i < p_unitData->m_tags.size(); i++)
 		{
-			commander = spawnCommanderFromData(p_unitData);
+			if (p_unitData->m_tags[i] == "Commander")
+			{
+				commander = spawnCommanderFromData(p_unitData);
+				break;
+			}
 		}
-		else
-		{
+		if (commander == nullptr)
+		{	
 			unit = spawnUnitFromData(p_unitData);
 		}
 
-		//unit graphic
-		kitten::K_Component* unitG = kitten::K_ComponentManager::getInstance()->createComponent("UnitGraphic");
+		//get component manager
+		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
+
+		//create unit graphic
+		UnitGraphic* unitG = static_cast<UnitGraphic*>(cm->createComponent("UnitGraphic"));
+		unitG->setTexture(p_unitData->m_texPath.c_str());
+
+		//create unit move
+		kitten::K_Component* uMove = cm->createComponent("UnitMove");
+
+		//create click box
+		kitten::K_Component* uBox = createClickableBox(p_unitData->m_size);
+
+		//create clickable
+		unit::UnitClickable* uClick = static_cast<unit::UnitClickable*>(cm->createComponent("UnitClickable"));
+
 
 		//unit object
 		kitten::K_GameObject* unitObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 		if (commander == nullptr)
 			unitObject->addComponent(unit);
-		else
+		else {
 			unitObject->addComponent(commander);
+
+			PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(cm->createComponent("PrintWhenClicked"));
+			printWhenClick->setMessage("Unit clicked");
+			unitObject->addComponent(printWhenClick);
+
+			kitten::K_Component* useAbility = cm->createComponent("UseAbilityWhenClicked");
+			unitObject->addComponent(useAbility);
+
+		}
+
+		//attach component
 		unitObject->addComponent(unitG);
+		unitObject->addComponent(uMove);
+		unitObject->addComponent(uBox);
+		unitObject->addComponent(uClick);
 
 		//rotate to face camera
 		unitObject->getTransform().rotateRelative(glm::vec3(45, 0, 0));
+
+		//add object to Initiative Tracker
+		unit::InitiativeTracker::getInstance()->addUnit(unitObject);
 
 		return unitObject;
 	}
@@ -114,9 +153,27 @@ namespace unit
 
 		commander->m_ID = "testCommander01";
 
-		commander->m_porPath = p_unitData->m_porPath;
+		// Had to comment this out for testing Commander's ManipulateTile ability, using testDummy.txt
+		// Threw errors every other time
+		//commander->m_porPath = p_unitData->m_porPath;
 
 		return commander;
+	}
+
+	kitten::K_Component * UnitSpawn::createClickableBox(UnitSize p_size)
+	{
+		switch (p_size)
+		{
+		case unit::point:
+			return kitten::K_ComponentManager::getInstance()->createComponent("ClickableBoxForPointUnit");
+			break;
+		case unit::cube:
+			return kitten::K_ComponentManager::getInstance()->createComponent("ClickableBoxForCubeUnit");
+			break;
+		default:
+			return nullptr;
+		}
+		return nullptr;
 	}
 
 	ability::Status* UnitSpawn::readSD(unit::StatusDescription* p_sd)

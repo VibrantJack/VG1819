@@ -28,6 +28,9 @@ namespace kitten
 
 	bool K_GameObject::addComponent(K_Component* p_toAdd)
 	{
+		//If you are here from an error, make sure the name of your component in data matches the name
+		//in ComponentDataType's jsonComponentMap
+
 		if (m_components.count(std::type_index(typeid(*p_toAdd))) > 0)
 		{
 			return false;

@@ -185,10 +185,12 @@ namespace kitten
 		{
 			m_derivedQuatRotation = m_quatRotation * m_parent->getRotation();
 			m_forward = glm::vec3(0, 0, 1) * m_derivedQuatRotation;
+			m_upVector = glm::vec3(0, 1, 0) * m_derivedQuatRotation;
 		}
 		else
 		{
 			m_forward = glm::vec3(0, 0, 1) * m_quatRotation;
+			m_upVector = glm::vec3(0, 1, 0) * m_quatRotation;
 		}
 
 		setChildrenDirty(rotation);
@@ -204,10 +206,12 @@ namespace kitten
 		{
 			m_derivedQuatRotation = m_quatRotation * m_parent->getRotation();
 			m_forward = glm::vec3(0, 0, 1) * m_derivedQuatRotation;
+			m_upVector = glm::vec3(0, 1, 0) * m_derivedQuatRotation;
 		}
 		else
 		{
 			m_forward = glm::vec3(0, 0, 1) * m_quatRotation;
+			m_upVector = glm::vec3(0, 1, 0) * m_quatRotation;
 		}
 
 		setChildrenDirty(rotation);
@@ -241,6 +245,11 @@ namespace kitten
 	const glm::vec3& Transform::getForward() const
 	{
 		return m_forward;
+	}
+
+	const glm::vec3& Transform::getUpVector() const
+	{
+		return m_upVector;
 	}
 
 	const glm::vec3& Transform::getScale() const
@@ -427,6 +436,7 @@ namespace kitten
 		case rotation:
 			m_derivedQuatRotation = m_quatRotation * m_parent->getRotation();
 			m_forward = glm::vec3(0, 0, 1) * m_derivedQuatRotation;
+			m_upVector = glm::vec3(0, 1, 0) * m_derivedQuatRotation;
 
 			notifyRotationListeners();
 			break;
@@ -439,6 +449,7 @@ namespace kitten
 			m_derivedTranslation = m_parent->getTranslation() + (m_parent->getRotation() * m_translation);
 			m_derivedQuatRotation = m_quatRotation * m_parent->getRotation();
 			m_forward = glm::vec3(0, 0, 1) * m_derivedQuatRotation;
+			m_upVector = glm::vec3(0, 1, 0) * m_derivedQuatRotation;
 			m_derivedScale = m_scale * m_parent->getScale();
 
 			notifyPositionListeners();

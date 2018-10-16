@@ -44,6 +44,7 @@ namespace kitten
 		glm::vec3 m_derivedTranslation;
 
 		glm::vec3 m_forward;
+		glm::vec3 m_upVector;
 
 		glm::mat4 m_matTranslation;
 		glm::mat4 m_matScale;
@@ -101,6 +102,7 @@ namespace kitten
 		const glm::mat4& getWorldTransform();
 		const glm::mat4& getWorldTransformNoScale();
 		const glm::vec3& getForward() const;
+		const glm::vec3& getUpVector() const;
 
 		//Parent / children related
 

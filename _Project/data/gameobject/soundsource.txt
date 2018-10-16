@@ -1,0 +1,16 @@
+{
+    "name" : "soundSource", 
+    "components" : [
+        {
+            "name" : "AudioSource",
+			"clippath" : "Sounds/WoodBlock.wav",
+			"is3d" : false,
+			"enableeffects" : false,
+			"causesduck" : true
+        },
+		{
+			"name" : "PlaySoundOnKeyPress",
+			"key" : "A"
+		}
+    ]
+}

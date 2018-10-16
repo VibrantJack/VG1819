@@ -32,6 +32,10 @@ namespace ability
 	{
 	}
 
+	Dodge::~Dodge()
+	{
+	}
+
 	int Dodge::effect(const AbilityInfoPackage* p_info)
 	{
 		//check if unit has this status

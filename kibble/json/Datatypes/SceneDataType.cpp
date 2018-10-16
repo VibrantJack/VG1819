@@ -3,6 +3,12 @@
 
 void setupSceneBy(nlohmann::json& p_jsonfile) {
 
+	if (p_jsonfile.find("scenes") != p_jsonfile.end()) {
+		for (nlohmann::json::iterator it = p_jsonfile["scenes"].begin(); it != p_jsonfile["scenes"].end(); ++it) {
+			std::string filename = it.value();
+			setupSceneBy(jsonIn("data/scene/" + filename));
+		}
+	}
 	// loop through game objects
 	if (p_jsonfile.find("gameobjects") != p_jsonfile.end()) {
 		//assert(p_jsonfile["gameobjects"].is_array());

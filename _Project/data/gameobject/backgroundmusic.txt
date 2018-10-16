@@ -1,0 +1,27 @@
+{
+    "name" : "backgroundMusic", 
+    "components" : [
+        {
+            "name" : "AudioSource",
+			"clippath" : "Sounds/Mr.Frustration.mp3",
+			"is3d" : false,
+			"enableeffects" : false,
+			"loop" : true,
+			"volume" : 0.3,
+			"getsducked" : true
+        },
+		{
+			"name" : "PlaySoundOnStart"
+		},
+		{
+			"name" : "ToggleSoundOnKeyPress",
+			"key" : "P"
+		},
+		{
+			"name" : "VolumeAdjustOnKeysPressed",
+			"increasekey" : "I",
+			"decreasekey" : "O",
+			"changeamount" : 0.05
+		}
+    ]
+}

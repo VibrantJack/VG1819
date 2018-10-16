@@ -64,7 +64,11 @@ namespace ability
 
 	AbilityManager::~AbilityManager()
 	{
-		m_abilityList.clear();
+		auto end = m_abilityList.end();
+		for (auto it = m_abilityList.begin(); it != end; ++it)
+		{
+			delete (*it);
+		}
 	}
 
 	void AbilityManager::createInstance()

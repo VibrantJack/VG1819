@@ -5,6 +5,7 @@
 
 #include "kitten\K_Singletons.h"
 #include "puppy\P_Singletons.h"
+#include "kitten\audio\AudioEngineWrapper.h"
 
 #include "kitten\K_GameObject.h"
 
@@ -25,12 +26,16 @@
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
 
+#include "userinterface\InterfaceBuilder.h"
+
 #define DEBUG
 
 namespace kitten
 {
 	void createSingletons()
 	{
+		AudioEngineWrapper::createInstance();
+
 		input::InputManager::createInstance();
 		K_CameraList::createInstance();
 		K_ComponentManager::createInstance();
@@ -45,6 +50,12 @@ namespace kitten
 		puppy::FontTable::createInstance();
 
 		kibble::initializeKibbleRelatedComponents();
+
+		ability::StatusManager::createInstance();
+		ability::AbilityManager::createInstance();
+		ability::AbilityNodeManager::createInstance();
+
+		unit::InitiativeTracker::createInstance();
 	}
 
 	// This is called once at the beginning of the game
@@ -96,13 +107,17 @@ namespace kitten
 		secondChild->getTransform().rotateAbsolute(glm::vec3(0, -45, 0));
 		*/
 
+		//userinterface::InterfaceBuilder* builder = new userinterface::InterfaceBuilder();
+		//builder->start();
+		//delete builder;
+
+		
 		K_GameObject* gameObj = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* fpsCalc = compMan->createComponent("FPSCalc");
 		puppy::TextBox* testText = static_cast<puppy::TextBox*>(compMan->createComponent("TextBox"));
 		testText->setColor(1, 1, 1);
 		gameObj->addComponent(testText);
 		gameObj->addComponent(fpsCalc);
-
 		gameObj->getTransform().place2D(100, 700);
 
 		// Testing Events
@@ -123,6 +138,24 @@ namespace kitten
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();
 
+		
+		/*
+		//testing ui frame and textbox
+		K_GameObject* go = K_GameObjectManager::getInstance()->createNewGameObject();
+		puppy::TextBox* tt = static_cast<puppy::TextBox*>(compMan->createComponent("TextBox"));
+		tt->setColor(1, 1, 1);
+		tt->setText("Any text");
+		go->addComponent(tt);
+		go->getTransform().place2D(640+640.0f*0.1,360+360.0f*0.1);
+
+		kitten::K_GameObject* com = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+		K_Component* comFrame = kitten::K_ComponentManager::getInstance()->createComponent("Frame");
+		com->addComponent(comFrame);
+		//com->addComponent(tt);
+		com->getTransform().scale2D(0.15, 0.2);
+		com->getTransform().place2D(0.1, 0.1);
+		//*/
+
 		return true;
 	}
 
@@ -142,10 +175,21 @@ namespace kitten
 		puppy::Renderer::destroyInstance();
 		puppy::StaticRenderables::destroyInstance();
 		puppy::FontTable::destroyInstance();
+		puppy::ShaderManager::destroyAllShaders();
+
+		ability::StatusManager::destroyInstance();
+		ability::AbilityManager::destroyInstance();
+		ability::AbilityNodeManager::destroyInstance();
+
+		AudioEngineWrapper::destroyInstance();
+
+		unit::InitiativeTracker::destroyInstance();
 	}
 
 	void updateGame()
 	{
+		//Update sound
+		AudioEngineWrapper::update();
 		//Update delta time
 		K_Time::getInstance()->updateTime();
 		//Update input
@@ -157,7 +201,6 @@ namespace kitten
 		K_ComponentManager::getInstance()->updateComponents();
 		K_GameObjectManager::getInstance()->deleteQueuedObjects();
 	}
-
 
 	void renderGame()
 	{
@@ -177,6 +220,7 @@ namespace kitten
 
 	void shutdownGame()
 	{
+		kitten::K_GameObjectManager::getInstance()->destroyAllGameObjects();
 		destroySingletons();
 	}
 }

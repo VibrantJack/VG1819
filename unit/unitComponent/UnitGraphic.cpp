@@ -10,60 +10,40 @@
 namespace unit
 {
 	std::map<unit::UnitSize, puppy::VertexEnvironment*> UnitGraphic::sm_vao;
+	std::map<unit::UnitSize, puppy::VertexEnvironment*> UnitGraphic::sm_vao_shadow;
 	std::map<unit::UnitSize, int> UnitGraphic::sm_instances;
 
 	UnitGraphic::UnitGraphic(UnitSize p_size,const char* p_pathToTexture)
 	{
 		m_size = p_size;
 		m_mat = new puppy::Material(puppy::ShaderType::basic);
+		m_pathToTex = p_pathToTexture;
 		if (p_pathToTexture != nullptr)
 		{
 			m_mat->setTexture(p_pathToTexture);
 		}
 
+		m_mat_shadow = new puppy::Material(puppy::ShaderType::basic);
+
 		//If we have not initialized the vao yet
 		if (sm_instances[p_size] < 1)
 		{
-			//setup the vao
-			float height, width;
-			switch (p_size)
-			{
-			case unit::point:
-				height = 2.0f;
-				width = 1.0f;
-				break;
-			case unit::cube:
-				height = 3.0f;
-				width = 2.5f;
-				break;
-			}
-			float x = 0.0f;
-			float y = 0.0f;
-			float z = 0.0f;
-			puppy::TexturedVertex verts[] =
-			{
-			{ x, y, z,		0.0f, 0.0f },
-			{ x, y + height, z,			0.0f, 1.0f },
-			{ x + width, y + height, z,			1.0f, 1.0f },
-			{ x + width, y + height, z,			1.0f, 1.0f },
-			{ x + width, y, z,		1.0f, 0.0f },
-			{ x, y, z,		0.0f, 0.0f },
-			};
-
-			sm_vao[p_size] = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);
+			setVaoUnit(p_size);
+			//setVaoShadow(p_size);
 		}
 		++sm_instances[p_size];
 
 		puppy::Renderer::getInstance()->addToRender(this);
-
 	}
 
 	UnitGraphic::~UnitGraphic()
 	{
 		delete m_mat;
+		delete m_mat_shadow;
 		if (--sm_instances[m_size] == 0)
 		{
 			delete sm_vao[m_size];
+			delete sm_vao_shadow[m_size];
 		}
 		puppy::Renderer::getInstance()->removeFromRender(this);
 	}
@@ -71,6 +51,12 @@ namespace unit
 	void UnitGraphic::setTexture(const char * p_pathToTex)
 	{
 		m_mat->setTexture(p_pathToTex);
+		m_pathToTex = p_pathToTex;
+	}
+
+	std::string UnitGraphic::getTexturePath()
+	{
+		return m_pathToTex;
 	}
 
 	void UnitGraphic::render(const glm::mat4& p_viewProj)
@@ -83,5 +69,68 @@ namespace unit
 
 		//render
 		sm_vao[m_size]->drawArrays(GL_TRIANGLES);
+
+		//m_mat_shadow->apply();
+		//sm_vao_shadow[m_size]->drawArrays(GL_TRIANGLE_FAN);
+	}
+
+	void UnitGraphic::setVaoUnit(const UnitSize p_size)
+	{
+		//setup the vao for unit
+		float height, width;
+		switch (p_size)
+		{
+		case unit::point:
+			height = 2.0f;
+			width = 1.0f;
+			break;
+		case unit::cube:
+			height = 2.8f;
+			width = 1.5f;
+			break;
+		}
+		float x = 0.0f;
+		float y = 0.0f;
+		float z = 0.0f;
+		puppy::TexturedVertex verts[] =
+		{
+		{ x, y, z,		0.0f, 0.0f },
+		{ x, y + height, z,			0.0f, 1.0f },
+		{ x + width, y + height, z,			1.0f, 1.0f },
+		{ x + width, y + height, z,			1.0f, 1.0f },
+		{ x + width, y, z,		1.0f, 0.0f },
+		{ x, y, z,		0.0f, 0.0f },
+		};
+
+		sm_vao[p_size] = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);
+	}
+	void UnitGraphic::setVaoShadow(const UnitSize p_size)
+	{
+		std::vector<puppy::NormalVertex> v;
+		int segments = 180;
+		float r = 0;//radius
+		switch (p_size)
+		{
+		case unit::point:
+			r = 0.5f;
+			break;
+		case unit::cube:
+			r = 0.8f;
+			break;
+		}
+
+		v.push_back({ 0.5f,0,0 });//origin
+
+		for (int i = 0; i < segments; i++)
+		{
+			float theta = 2.0f * 3.1415926f * float(i) / float(segments);//get the current angle
+
+			float x = r * cosf(theta);//calculate the x component
+			float z = r * sinf(theta);//calculate the z component
+
+			v.push_back({ x+0.5f,0,z });
+		}
+
+		//sm_vao_shadow[p_size] = new puppy::VertexEnvironment(&v[0], puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), v.size());
 	}
 }

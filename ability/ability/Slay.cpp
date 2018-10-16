@@ -8,6 +8,10 @@ namespace ability
 	{
 	}
 
+	Slay::~Slay()
+	{
+	}
+
 	int Slay::effect(const AbilityInfoPackage* p_info)
 	{
 		//deal damaga to all units

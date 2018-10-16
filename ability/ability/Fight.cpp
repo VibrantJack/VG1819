@@ -8,6 +8,10 @@ namespace ability
 	{
 	}
 
+	Fight::~Fight()
+	{
+	}
+
 	int Fight::effect(const AbilityInfoPackage* p_info)
 	{
 		//damage target by power

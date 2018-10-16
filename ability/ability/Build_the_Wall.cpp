@@ -10,6 +10,10 @@ namespace ability
 		m_wallData = kibble::getUnitDataParserInstance()->getUnit("Wall.txt");
 	}
 
+	Build_the_Wall::~Build_the_Wall()
+	{
+	}
+
 	int Build_the_Wall::effect(const AbilityInfoPackage* p_info)
 	{
 		AbilityNode* node = AbilityNodeManager::getInstance()->findNode("SpawnUnitNode");

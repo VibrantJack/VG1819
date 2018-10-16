@@ -2,6 +2,7 @@
 #define GLFW_NO_GLU
 #include <stdio.h>
 #include <stdlib.h>
+#include "util\MathUtil.h"
 #include "puppy\P_Common.h"
 #include "kitten\K_Game.h"
 
@@ -72,7 +73,7 @@ int main( void )
 
 	glm::vec3 minColour(2.0f / 255.0f, 2.0f / 255.0f, 9.0f / 255.0f);
 	glm::vec3 maxColour(135.0f/255.0f, 206.0f/255.0f, 235.0f/255.0f);
-	glm::vec3 result;
+	glm::vec3 curColor;
 
     do
     {
@@ -88,8 +89,8 @@ int main( void )
         glViewport( 0, 0, width, height );
         
         // Clear color buffer
-		lerp(lerpVal, minColour, maxColour, result);
-        glClearColor(result.x, result.y, result.z, 0.0f);
+		curColor = LERP(lerpVal, minColour, maxColour);
+        glClearColor(curColor.x, curColor.y, curColor.z, 0.0f);
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
         
 		kitten::gameCycle();

@@ -33,6 +33,10 @@ namespace ability
 	{
 	}
 
+	Encourage::~Encourage()
+	{
+	}
+
 	int Encourage::effect(const AbilityInfoPackage* p_info)
 	{
 		//check if unit has this status

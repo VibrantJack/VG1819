@@ -22,8 +22,8 @@ namespace unit
 		//targetNumber:int
 		//range: int
 		//lv:int
-		std::map<std::string, std::string> m_stringValue;
-		std::map<std::string, int> m_intValue;
+		std::unordered_map<std::string, std::string> m_stringValue;
+		std::unordered_map<std::string, int> m_intValue;
 	};
 
 	struct StatusDescription
@@ -35,8 +35,8 @@ namespace unit
 		//power:int
 		//lv:int
 		std::vector<ability::TimePointEvent> m_TPList;
-		std::map<std::string, std::string> m_stringValue;
-		std::map<std::string, int> m_intValue;
+		std::unordered_map<std::string, std::string> m_stringValue;
+		std::unordered_map<std::string, int> m_intValue;
 	};
 
 	struct UnitData

@@ -2,7 +2,7 @@
 #include "ability/node/AbilityNodeManager.h"
 
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 //Rock
@@ -41,13 +41,13 @@ namespace ability
 	public:
 		unit::Unit * m_unit;//the unit this status attached to
 
-		std::map<std::string, int> m_counter;
+		std::unordered_map<std::string, int> m_counter;
 		//Most commonly counter is duration. But it can be more, such as how many times it can be used
 
 		std::string m_name;
 		std::string m_description;//the text that will be showed to player
 		int m_LV;
-		std::map<std::string, int> m_attributeChange;
+		std::unordered_map<std::string, int> m_attributeChange;
 
 		std::vector<ability::TimePointEvent> m_TPList;//the list of event that will be registered
 		//TO DO: Register Event
@@ -60,7 +60,7 @@ namespace ability
 		//Maybe use Chain of Responsibility
 
 		Status();
-		~Status();
+		virtual ~Status();
 
 		void attach(unit::Unit* p_u);
 
@@ -89,7 +89,7 @@ namespace ability
 		std::string m_abilityName;//the name of the ability that's in cooldown
 
 		Status_CD();
-
+		virtual ~Status_CD();
 		Status* clone() const { return new Status_CD(*this); };
 		int effect(TimePointEvent p_timePoint);
 	};
@@ -101,6 +101,7 @@ namespace ability
 		//then it increase the ability's power by this status power
 	public:
 		Status_Encourage();
+		virtual ~Status_Encourage();
 		Status* clone() const { return new Status_Encourage(*this); };
 		int effect(TimePointEvent p_timePoint);
 		int effect(TimePointEvent p_timePoint, ability::AbilityInfoPackage* p_pack);
@@ -112,6 +113,7 @@ namespace ability
 		//it triggers when unit will receive damage
 	public:
 		Status_Dodge();
+		virtual ~Status_Dodge();
 		Status* clone() const { return new Status_Dodge(*this); };
 		int effect(TimePointEvent p_timePoint);
 		int effect(TimePointEvent p_timePoint, ability::AbilityInfoPackage* p_pack);
@@ -124,6 +126,7 @@ namespace ability
 		bool m_activate = false;
 	public:
 		Status_Priest_LV3();
+		virtual ~Status_Priest_LV3();
 		Status* clone() const { return new Status_Priest_LV3(*this); };
 		int effect(TimePointEvent p_timePoint);
 		int effect(TimePointEvent p_timePoint, int p_value);
@@ -134,6 +137,7 @@ namespace ability
 		//this is trigger when Archer is lv3
 	public:
 		Status_Archer_LV3();
+		virtual ~Status_Archer_LV3();
 		Status* clone() const { return new Status_Archer_LV3(*this); };
 
 		int effect(TimePointEvent p_timePoint, int p_value);
@@ -144,6 +148,7 @@ namespace ability
 		//this is trigger when Duelist is lv3
 	public:
 		Status_Duelist_LV3();
+		virtual ~Status_Duelist_LV3();
 		Status* clone() const { return new Status_Duelist_LV3(*this); };
 
 		int effect(TimePointEvent p_timePoint, int p_value);

@@ -1,0 +1,6 @@
+testDummy.txt
+Priest.txt
+Archer.txt
+Duelist.txt
+Engineer.txt
+Wall.txt

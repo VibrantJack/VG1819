@@ -30,5 +30,7 @@ namespace kitten
 		void destroyGameObject(K_GameObject* p_toDestroy);
 
 		void deleteQueuedObjects();
+
+		void destroyAllGameObjects();
 	};
 }
