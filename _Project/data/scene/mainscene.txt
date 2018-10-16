@@ -9,6 +9,13 @@
 			"filename" : "boardcreator.txt"
 		},
 		{
+			"filename" : "soundsource.txt",
+			"translate" : [7,10,-8]
+		},
+		{
+			"filename" : "backgroundmusic.txt"
+		},
+		{
 			"filename" : "FPSCounter.txt", 
 		    "translate2d" : [100,700]
 		}

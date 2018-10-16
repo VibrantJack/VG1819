@@ -17,7 +17,7 @@ namespace kitten
 
 		if (p_getsDucked)
 		{
-			AudioEngineWrapper::sm_instance->addToDuck(this);
+			//AudioEngineWrapper::sm_instance->addToDuck(this);
 		}
 	}
 
@@ -29,7 +29,8 @@ namespace kitten
 
 		if (m_getsDucked)
 		{
-			AudioEngineWrapper::sm_instance->removeFromDuck(this);
+			//AudioEngineWrapper::sm_instance->removeFromDuck(this);
+
 		}
 
 		delete m_sfxController;
@@ -170,7 +171,7 @@ namespace kitten
 	void AudioSource::setVolume(const float& p_volume)
 	{
 		m_volume = p_volume;
-		m_causingDuckFactor = (m_volume / 1.0f) - 0.75f;
+		//m_causingDuckFactor = (m_volume / 1.0f) - 0.75f;
 
 		if (m_beingDucked)
 		{

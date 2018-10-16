@@ -37,7 +37,7 @@ namespace kitten
 		virtual void OnSoundStopped(irrklang::ISound* p_sound, irrklang::E_STOP_EVENT_CAUSE p_reason, void* p_userData) override;
 	public:
 		AudioSource(const std::string& p_pathToClip, bool p_is3D, bool p_enableEffects, bool p_causesDuck = false, bool p_getsDucked = false);
-		~AudioSource();
+		virtual ~AudioSource();
 
 		void start() override;
 		void onPosChanged(const glm::vec3& p_newPos) override;
