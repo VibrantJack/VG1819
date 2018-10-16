@@ -88,7 +88,7 @@ void BoardCreator::start()
 
 			kitten::Transform& transform = testTile->getTransform();
 			transform.setParent(&m_attachedObject->getTransform());
-			transform.setIgnoreParent(false);
+			transform.setIgnoreParent(true);
 		}
 	}
 

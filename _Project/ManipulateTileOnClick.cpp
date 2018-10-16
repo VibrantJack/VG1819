@@ -17,6 +17,7 @@
 #include "kibble\kibble.hpp"
 #include "kibble\databank\databank.hpp"
 #include "unit\UnitSpawn.h"
+#include "unit\InitiativeTracker\InitiativeTracker.h"
 
 ManipulateTileOnClick::ManipulateTileOnClick()
 {
@@ -54,7 +55,7 @@ void ManipulateTileOnClick::onClick()
 			kitten::K_GameObject* board = &m_attachedObject->getTransform().getParent()->getAttachedGameObject();
 
 			PowerTracker* powerTracker = board->getComponent<PowerTracker>();
-			unit::UnitData* unitData = kibble::getUnitFromId(0);
+			unit::UnitData* unitData = kibble::getUnitFromId(2);
 			if (unitData->m_Cost <= powerTracker->getCurrentPower())
 			{
 				kitten::K_GameObject* unit = unit::UnitSpawn::getInstance()->spawnUnitObject(unitData);
