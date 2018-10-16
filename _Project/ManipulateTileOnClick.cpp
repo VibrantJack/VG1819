@@ -51,14 +51,12 @@ void ManipulateTileOnClick::onClick()
 	{
 		if (tileInfo->isHighlighted()) //&& tileInfo->getOwnerId() == tileInfo->getHighlightedBy()) // Commented out for simple testing
 		{
-			// @TODO:
-			// Create a way to select which unit to summon
 			kitten::K_GameObject* board = &m_attachedObject->getTransform().getParent()->getAttachedGameObject();
 
 			PowerTracker* powerTracker = board->getComponent<PowerTracker>();
-			if (kibble::getUnitFromId(2)->m_Cost <= powerTracker->getCurrentPower())
+			unit::UnitData* unitData = kibble::getUnitFromId(0);
+			if (unitData->m_Cost <= powerTracker->getCurrentPower())
 			{
-				unit::UnitData* unitData = kibble::getUnitFromId(2);
 				kitten::K_GameObject* unit = unit::UnitSpawn::getInstance()->spawnUnitObject(unitData);
 				unit->getTransform().place(tileInfo->getPosX() - 0.5f, -1.0f, tileInfo->getPosY());
 				powerTracker->summonUnitCost(unitData->m_Cost);

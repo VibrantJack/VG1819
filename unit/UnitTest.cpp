@@ -1,11 +1,21 @@
 #include "UnitTest.h"
 #include "ability/node/AbilityNodeManager.h"
+#include "unit/InitiativeTracker/InitiativeTracker.h"
 #include <iostream>
 #include "kibble/kibble.hpp"
-#include "_Project\PrintWhenClicked.h"
+#include "kibble/databank/databank.hpp"
+
+// Includes for tile highlighting and manipulating tile
 #include "_Project\UseAbilityWhenClicked.h"
-#include "components\PowerTracker.h"
+#include "_Project\PrintWhenClicked.h"
 #include "kitten\K_ComponentManager.h"
+
+//Includes for creating spawn tile
+#include "unit/unitComponent/UnitMove.h"
+#include "kitten/K_GameObjectManager.h"
+
+#include "_Project/BoardCreator.h"
+
 //Rock
 //test the unit data
 
@@ -31,81 +41,65 @@ namespace unit
 
 	void UnitTest::test()
 	{
-		//createInstance
-		ability::StatusManager::createInstance();
-		ability::AbilityManager::createInstance();
-		ability::AbilityNodeManager::createInstance();
-
-		std::string name = "testDummy";
-		int HP = 3;
-		int MV = 3;
-		int IN = 3;
-		int Cost = 3;
-		UnitSize size = point;
-
-		std::vector<std::string> tags;
-		tags.push_back("Dummy");
-		tags.push_back("Neutral");
-
-		std::vector<std::string> abilityDescription;
-		abilityDescription.push_back("Heal");
-		std::vector<std::string> statusDescription;
-
-		//UnitData* data = new UnitData(name, HP, MV, IN, Cost, size, tags, abilityDescription, statusDescription);
-
 		kibble::UnitDataParser* parser = kibble::getUnitDataParserInstance();
-		kitten::K_GameObject* random = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("testDummy.txt"));
-		random->getTransform().move(1.5f, -1.0f, 1.0f);
 
-		// Testing selecting spawned unit
-		kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
+		//comment for testing IT
+		
+		// Testing highlighting tiles and manipulating tiles using testDummy.txt
+		{
+			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(0));
+			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
+			UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 
-		kitten::K_Component* clickBox = compMan->createComponent("ClickableBoxUnitTest");
-		random->addComponent(clickBox);
+			//initialize position
+			testDummyGO->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(4, 4));
 
-		PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
-		printWhenClick->setMessage("Unit clicked");
-		random->addComponent(printWhenClick);
+			kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
+			testDummyGO->addComponent(compMan->createComponent("UseAbilityWhenClicked"));
+			testDummyGO->addComponent(compMan->createComponent("SelectAbility"));
 
-		//UseAbilityWhenClicked* useAbility = new UseAbilityWhenClicked();
-		//random->addComponent(useAbility);
-		//useAbility->start();
-		kitten::K_Component* useAbiltyWhenClicked = compMan->createComponent("UseAbilityWhenClicked");
-		random->addComponent(useAbiltyWhenClicked);
-
-		kitten::K_Component* selectAbility = compMan->createComponent("SelectAbility");
-		random->addComponent(selectAbility);
+			//PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
+			//printWhenClick->setMessage("Test Dummy");
+			//testDummyGO->addComponent(printWhenClick);
+		}
 		// End testing selecting spawned unit
-
-		// Moved this component to attach the the parent GO of a tile GO
-		// Testing PowerTracker component
-		//kitten::K_Component* powerTracker = compMan->createComponent("PowerTracker");
-		//random->addComponent(powerTracker);
-		// End testing PowerTracker component
-
-		//kitten::K_GameObject* random = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
-
-		unit::Unit* u = random->getComponent<unit::Unit>();
-		UnitMonitor::getInstanceSafe()->printUnit(u);
-		//kitten::K_GameObject* dummy = UnitSpawn::getInstanceSafe()->spawnUnitFromData(data);
-		//kitten::K_GameObject* dummyC = UnitSpawn::getInstance()->spawnCommanderFromData(data);
+		
 
 		/*
-		dummy->m_attributes["HP"] = 0;
-		std::cout << "Dummy with 0 HP" << std::endl;
-		std::cout << std::endl;
-		UnitMonitor::getInstanceSafe()->printUnit(dummy);
+		//create test tile for unit spawn
+		kitten::K_GameObject* testTile = kitten::K_GameObjectManager::getInstance()->createNewGameObject("tileobj.txt");
+		PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(kitten::K_ComponentManager::getInstance()->createComponent("PrintWhenClicked"));
+		printWhenClick->setMessage("spawn tile is clicked");
+		testTile->addComponent(printWhenClick);
+		kitten::K_Component* clickBox = kitten::K_ComponentManager::getInstance()->createComponent("ClickableBox");
+		testTile->addComponent(clickBox);
 
-		dummy->useAbility(0);
-
-		std::cout << std::endl;
-		std::cout << "Dummy used heal (+4HP) on itself." << std::endl;
-		UnitMonitor::getInstance()->printUnit(dummy);
-
-		std::cout << std::endl;
-		std::cout << "Dummy create from kibble." << std::endl;
-		UnitMonitor::getInstance()->printUnit(random);
+		testTile->getTransform().place(0.0f, -1.0f, 16.0f);
+		//end of test tile
 		*/
+
+
+		//kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
+		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(1));
+		//kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Engineer.txt"));
+		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(4));
+		//u1->getTransform().move(10.0f, 0.0f, 0.0f);
+		//set initial position
+		u1->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(1, 1));
+		u2->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(0, 1));
+
+		//test unit 
+		unit::Unit* u = u1->getComponent<unit::Unit>();
+		//UnitMonitor::getInstanceSafe()->printUnit(u);
+
+		//Test Initiative Tracker
+		//kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Engineer.txt"));
+		//kitten::K_GameObject* u3 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Duelist.txt"));
+
+		UnitMonitor::getInstanceSafe()->printIT();
+		InitiativeTracker::getInstance()->gameTurnStart();
+		//UnitMonitor::getInstanceSafe()->printIT();
+		//InitiativeTracker::getInstance()->removeUnit(u2);
+		//UnitMonitor::getInstanceSafe()->printIT();
 	}
 }
-

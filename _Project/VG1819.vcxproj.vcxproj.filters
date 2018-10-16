@@ -77,15 +77,6 @@
     <ClCompile Include="..\kitten\K_CameraList.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
-    <ClCompile Include="MoveByMouseRightClickDrag.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
-    <ClCompile Include="ZoomByMouseWheel.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\unit\Unit.cpp">
-      <Filter>unit</Filter>
-    </ClCompile>
     <ClCompile Include="..\unit\UnitMonitor.cpp">
       <Filter>unit</Filter>
     </ClCompile>
@@ -106,9 +97,6 @@
     </ClCompile>
     <ClCompile Include="..\ability\ability\Heal.cpp">
       <Filter>ability\ability</Filter>
-    </ClCompile>
-    <ClCompile Include="DebugPrintOnce.cpp">
-      <Filter>components</Filter>
     </ClCompile>
     <ClCompile Include="..\kibble\json\JSONUnitDataParser.cpp">
       <Filter>kibble\JSON</Filter>
@@ -158,17 +146,11 @@
     <ClCompile Include="..\kitten\QuadRenderable.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
-    <ClCompile Include="DestroyOnClick.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp">
       <Filter>unit\unitComponent</Filter>
     </ClCompile>
     <ClCompile Include="..\unit\unitComponent\UnitGraphic.cpp">
       <Filter>unit\unitComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\unit\Commander.cpp">
-      <Filter>unit</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\status\Status.cpp">
       <Filter>ability\status</Filter>
@@ -263,9 +245,6 @@
     <ClCompile Include="..\puppy\Text\TextTable.cpp">
       <Filter>puppy\Text</Filter>
     </ClCompile>
-    <ClCompile Include="FPSCalc.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="..\kitten\UIRenderable.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
@@ -290,6 +269,88 @@
     <ClCompile Include="..\components\SelectAbility.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\UnitTurn.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\Commander.cpp">
+      <Filter>unit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\Unit.cpp">
+      <Filter>unit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\UnitMove.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\UnitClickable.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="SendSelfOnClick.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
+    <ClCompile Include="Range.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\audio\AudioEngineWrapper.cpp">
+      <Filter>kitten\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\audio\AudioListener.cpp">
+      <Filter>kitten\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\audio\AudioSource.cpp">
+      <Filter>kitten\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
+    <ClCompile Include="ToggleSoundOnKeyPress.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaySoundOnStart.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaySoundOnKeyPress.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugPrintOnce.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="DestroyOnClick.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCalc.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="ZoomByMouseWheel.cpp">
+      <Filter>components\camera controls</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveByMouseRightClickDrag.cpp">
+      <Filter>components\camera controls</Filter>
+    </ClCompile>
+    <ClCompile Include="VolumeAdjustOnKeysPressed.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
+    <ClCompile Include="..\userinterface\UIFrame.cpp" />
+    <ClCompile Include="..\kitten\audio\SoundEffectsApplier.cpp">
+      <Filter>kitten\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
+    <ClCompile Include="..\userinterface\UIFrame.cpp" />
+    <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\TrackerBlock.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\TrackerBlockClickable.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\TrackerPointer.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\PointerUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -385,15 +446,6 @@
     <ClInclude Include="..\puppy\P_Singletons.h">
       <Filter>puppy</Filter>
     </ClInclude>
-    <ClInclude Include="MoveByMouseRightClickDrag.h">
-      <Filter>components</Filter>
-    </ClInclude>
-    <ClInclude Include="ZoomByMouseWheel.h">
-      <Filter>components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\unit\Unit.h">
-      <Filter>unit</Filter>
-    </ClInclude>
     <ClInclude Include="..\unit\UnitCommon.h">
       <Filter>unit</Filter>
     </ClInclude>
@@ -423,9 +475,6 @@
     </ClInclude>
     <ClInclude Include="..\ability\AbilityInfoPackage.h">
       <Filter>ability</Filter>
-    </ClInclude>
-    <ClInclude Include="DebugPrintOnce.h">
-      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="..\json.hpp">
       <Filter>kibble\JSON</Filter>
@@ -487,17 +536,11 @@
     <ClInclude Include="..\kitten\QuadRenderable.h">
       <Filter>kitten</Filter>
     </ClInclude>
-    <ClInclude Include="DestroyOnClick.h">
-      <Filter>components</Filter>
-    </ClInclude>
     <ClInclude Include="..\unit\unitComponent\StatusContainer.h">
       <Filter>unit\unitComponent</Filter>
     </ClInclude>
     <ClInclude Include="..\unit\unitComponent\UnitGraphic.h">
       <Filter>unit\unitComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\unit\Commander.h">
-      <Filter>unit</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\event_system\Event.h">
       <Filter>kitten\event_system</Filter>
@@ -532,9 +575,6 @@
     <ClInclude Include="..\puppy\Text\TextTable.h">
       <Filter>puppy\Text</Filter>
     </ClInclude>
-    <ClInclude Include="FPSCalc.h">
-      <Filter>components</Filter>
-    </ClInclude>
     <ClInclude Include="..\kitten\UIRenderable.h">
       <Filter>kitten</Filter>
     </ClInclude>
@@ -552,6 +592,95 @@
     </ClInclude>
     <ClInclude Include="..\components\SelectAbility.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\UnitTurn.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\Commander.h">
+      <Filter>unit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\Unit.h">
+      <Filter>unit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\UnitMove.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\UnitClickable.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="SendSelfOnClick.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_RenderableSprite.h" />
+    <ClInclude Include="..\kitten\K_Sprite.h" />
+    <ClInclude Include="..\puppy\P_Sprite.h" />
+    <ClInclude Include="..\userinterface\UI_ElementComponent.h" />
+    <ClInclude Include="Range.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\audio\AudioEngineWrapper.h">
+      <Filter>kitten\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\audio\AudioListener.h">
+      <Filter>kitten\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\audio\AudioSource.h">
+      <Filter>kitten\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_RenderableSprite.h" />
+    <ClInclude Include="..\kitten\K_Sprite.h" />
+    <ClInclude Include="..\puppy\P_Sprite.h" />
+    <ClInclude Include="..\userinterface\UI_ElementComponent.h" />
+    <ClInclude Include="ToggleSoundOnKeyPress.h">
+      <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaySoundOnStart.h">
+      <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaySoundOnKeyPress.h">
+      <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugPrintOnce.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="DestroyOnClick.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCalc.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoomByMouseWheel.h">
+      <Filter>components\camera controls</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveByMouseRightClickDrag.h">
+      <Filter>components\camera controls</Filter>
+    </ClInclude>
+    <ClInclude Include="VolumeAdjustOnKeysPressed.h">
+      <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\MathUtil.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\audio\SoundEffectsApplier.h">
+      <Filter>kitten\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\InitiativeTrackerUI.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\TrackerBlock.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\TrackerBlockClickable.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\TrackerPointer.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\PointerUI.h">
+      <Filter>unit\InitiativeTracker</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -611,6 +740,24 @@
     </Filter>
     <Filter Include="puppy\Text">
       <UniqueIdentifier>{056420bf-c8f5-4ad0-955b-758b49059769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="unit\InitiativeTracker">
+      <UniqueIdentifier>{6c8e8df5-cc1f-4e04-baff-d434c5908209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kitten\audio">
+      <UniqueIdentifier>{8f7a5b73-5c25-4934-a5fd-481995c305f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\sound">
+      <UniqueIdentifier>{708b3557-66cd-4e00-8b26-0c93615893b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\debug">
+      <UniqueIdentifier>{6aea2d37-7e77-4da4-ae7d-90e9b800f379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\camera controls">
+      <UniqueIdentifier>{f9901d87-7676-4d37-b0bc-7762caa97176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{4deeb8a2-e275-4434-b800-dbaab2606bda}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

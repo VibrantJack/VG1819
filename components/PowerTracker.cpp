@@ -29,7 +29,7 @@ void PowerTracker::start()
 	// Creating a GO inside a component feels wrong
 	kitten::K_GameObject* textBox = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 	textBox->addComponent(m_textBox);
-	textBox->getTransform().place2D(800, 50);
+	textBox->getTransform().place2D(700, 30);
 }
 
 void PowerTracker::update()

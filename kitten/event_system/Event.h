@@ -24,6 +24,7 @@ namespace kitten
 			Highlight_Tile, 
 			Unhighlight_Tile,
 			Manipulate_Tile,
+			Highlight_Tile_Summon_Unit,
 			Summon_Unit,
 			Test_Event, 
 			MAX_VAL = Test_Event
