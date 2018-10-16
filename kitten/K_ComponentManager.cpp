@@ -17,6 +17,8 @@
 #include "components\PowerTracker.h"
 #include "_Project\FPSCalc.h"
 #include "puppy\Text\TextBox.h"
+#include "_Project\UseAbilityWhenClicked.h"
+#include "components\SelectAbility.h"
 
 namespace kitten
 {
@@ -113,6 +115,18 @@ namespace kitten
 		else if (p_componentName == "TextBox")
 		{
 			comp = new puppy::TextBox(puppy::FontTable::getInstance()->getFont("../fonts/common_consolas.fnt"), "DEFAULT TEXT", 500, 500);
+		}
+		else if (p_componentName == "TextBoxAbilities")
+		{
+			comp = new puppy::TextBox(puppy::FontTable::getInstance()->getFont("../fonts/common_consolas.fnt"), "DEFAULT TEXT", 300, 500);
+		}
+		else if (p_componentName == "UseAbilityWhenClicked")
+		{
+			comp = new UseAbilityWhenClicked();
+		}
+		else if (p_componentName == "SelectAbility")
+		{
+			comp = new SelectAbility();
 		}
 		else
 		{

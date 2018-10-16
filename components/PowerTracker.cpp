@@ -44,8 +44,10 @@ void PowerTracker::increaseMaxPower(int p_iAmount)
 
 void PowerTracker::increaseMaxPowerEvent(kitten::Event::EventType p_type, kitten::Event* p_data)
 {
-	m_iMaxPower += p_data->getInt(MANIPULATE_TILE_KEY);
-	resetCurrent(); // Maybe shouldn't be called here?
+	int power = p_data->getInt(MANIPULATE_TILE_KEY);
+	m_iMaxPower += power;
+	m_iCurrentPower += power;
+	//resetCurrent();
 }
 
 bool PowerTracker::summonUnitCost(int p_iCost)

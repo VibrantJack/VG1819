@@ -67,9 +67,14 @@ namespace unit
 		printWhenClick->setMessage("Unit clicked");
 		random->addComponent(printWhenClick);
 
-		UseAbilityWhenClicked* useAbility = new UseAbilityWhenClicked();
-		random->addComponent(useAbility);
-		useAbility->start();
+		//UseAbilityWhenClicked* useAbility = new UseAbilityWhenClicked();
+		//random->addComponent(useAbility);
+		//useAbility->start();
+		kitten::K_Component* useAbiltyWhenClicked = compMan->createComponent("UseAbilityWhenClicked");
+		random->addComponent(useAbiltyWhenClicked);
+
+		kitten::K_Component* selectAbility = compMan->createComponent("SelectAbility");
+		random->addComponent(selectAbility);
 		// End testing selecting spawned unit
 
 		// Moved this component to attach the the parent GO of a tile GO

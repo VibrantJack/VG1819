@@ -121,6 +121,7 @@
     <ClCompile Include="..\ability\status\Status_LV.cpp" />
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
     <ClCompile Include="..\components\PowerTracker.cpp" />
+    <ClCompile Include="..\components\SelectAbility.cpp" />
     <ClCompile Include="..\kibble\databank\databank.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\GameObjectDataType.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="..\ability\StatusManager.h" />
     <ClInclude Include="..\ability\status\Status.h" />
     <ClInclude Include="..\components\PowerTracker.h" />
+    <ClInclude Include="..\components\SelectAbility.h" />
     <ClInclude Include="..\gameworld\GameBoard.h" />
     <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
     <ClInclude Include="..\gameworld\TileInformationComponent.h" />
