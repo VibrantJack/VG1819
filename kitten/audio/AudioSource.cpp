@@ -30,7 +30,6 @@ namespace kitten
 		if (m_getsDucked)
 		{
 			//AudioEngineWrapper::sm_instance->removeFromDuck(this);
-
 		}
 
 		delete m_sfxController;
@@ -67,7 +66,7 @@ namespace kitten
 
 		if (m_causesDuck)
 		{
-			m_audioClip->setSoundStopEventReceiver(this);
+			//m_audioClip->setSoundStopEventReceiver(this);
 		}
 	}
 
@@ -102,7 +101,7 @@ namespace kitten
 			}
 			if (m_causesDuck)
 			{
-				m_audioClip->setSoundStopEventReceiver(this);
+				//m_audioClip->setSoundStopEventReceiver(this);
 			}
 		}
 		else
