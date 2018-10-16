@@ -55,29 +55,17 @@ BoardCreator::BoardCreator()
 			SendSelfOnClick* sendSelfOnClick = static_cast<SendSelfOnClick*>(compMan->createComponent("SendSelfOnClick"));
 			testTile->addComponent(sendSelfOnClick);
 
-			// Error when Tile QuadRenderable component is not static and is destroyed on click
-			//K_Component* destroyWhenClick = compMan->createComponent("DestroyOnClick");
-			//testTile->addComponent(destroyWhenClick);
-
 			K_Component* tileInfo = new TileInfo(x, z);
 			testTile->addComponent(tileInfo);
 
 			K_Component* clickBox = compMan->createComponent("ClickableBox");
 			testTile->addComponent(clickBox);
 
-			//K_Component* destroyWhenClick = compMan->createComponent("DestroyOnClick");
-			//testTile->addComponent(destroyWhenClick);
-
-
 			kitten::Transform& transform = testTile->getTransform();
-			//at this time it doesn't attach to object yet
-			//transform.setParent(&m_attachedObject->getTransform());
-			//transform.setIgnoreParent(false);
 			transform.move(x, -1, z);
 		}
 	}
 	// End initializing tiles on board
-
 }
 
 BoardCreator::~BoardCreator()
@@ -92,8 +80,6 @@ bool BoardCreator::hasUpdate() const
 
 void BoardCreator::start()
 {
-	kitten::K_GameObjectManager* gameObjMan = kitten::K_GameObjectManager::getInstance();
-	kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
 	for (int x = 0; x < 15; x++)
 	{
 		for (int z = 0; z < 15; z++)
@@ -107,7 +93,7 @@ void BoardCreator::start()
 	}
 
 	// PowerTracker component attached to Board GO
-	kitten::K_Component* powerTracker = compMan->createComponent("PowerTracker");
+	kitten::K_Component* powerTracker = kitten::K_ComponentManager::getInstance()->createComponent("PowerTracker");
 	m_attachedObject->addComponent(powerTracker);
 }
 
