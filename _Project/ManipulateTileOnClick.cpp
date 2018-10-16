@@ -18,6 +18,8 @@
 #include "kibble\databank\databank.hpp"
 #include "unit\UnitSpawn.h"
 #include "unit\InitiativeTracker\InitiativeTracker.h"
+#include "unit\unitComponent\UnitMove.h"
+#include "BoardCreator.h"
 
 ManipulateTileOnClick::ManipulateTileOnClick()
 {
@@ -59,7 +61,8 @@ void ManipulateTileOnClick::onClick()
 			if (unitData->m_Cost <= powerTracker->getCurrentPower())
 			{
 				kitten::K_GameObject* unit = unit::UnitSpawn::getInstance()->spawnUnitObject(unitData);
-				unit->getTransform().place(tileInfo->getPosX() - 0.5f, -1.0f, tileInfo->getPosY());
+				//unit->getTransform().place(tileInfo->getPosX() - 0.5f, -1.0f, tileInfo->getPosY());
+				unit->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(tileInfo->getPosX(), tileInfo->getPosY()));
 				powerTracker->summonUnitCost(unitData->m_Cost);
 			}
 			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
