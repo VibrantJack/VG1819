@@ -26,7 +26,7 @@
 #include "unit/InitiativeTracker/TrackerPointer.h"
 #include "unit/InitiativeTracker/PointerUI.h"
 #include "kitten\mouse picking\ClickableFrame.h"
-//#include "userinterface\UITestClickable.h"
+#include "userinterface\UITestClickable.h"
 
 namespace kitten
 {
