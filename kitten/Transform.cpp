@@ -11,6 +11,15 @@ namespace kitten
 
 	Transform::~Transform()
 	{
+		if (!m_children.empty())
+		{
+			auto end = m_children.end();
+			for (auto it = m_children.begin(); it != end; ++it)
+			{
+				(*it)->setParent(nullptr);
+			}
+		}
+
 		if (m_parent != nullptr)
 		{
 			m_parent->removeChild(this);
@@ -287,7 +296,11 @@ namespace kitten
 	void Transform::setParent(Transform* p_parent)
 	{
 		m_parent = p_parent;
-		p_parent->addChild(this);
+		if (p_parent != nullptr)
+		{
+			p_parent->addChild(this);
+		}
+
 		if (!m_ignoresParent)
 		{
 			m_isDirty = true;
@@ -299,6 +312,11 @@ namespace kitten
 		}
 	}
 
+	Transform* Transform::getParent()
+	{
+		return m_parent;
+	}
+
 	//Private method called when the child's parent is assigned to this
 	void Transform::addChild(Transform* p_child)
 	{
@@ -307,7 +325,8 @@ namespace kitten
 
 	bool Transform::removeChild(const Transform* p_child)
 	{
-		for (auto it = m_children.begin(); it != m_children.end(); ++it)
+		auto end = m_children.end();
+		for (auto it = m_children.begin(); it != end; ++it)
 		{
 			if (p_child == *it)
 			{

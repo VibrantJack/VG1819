@@ -153,13 +153,15 @@ namespace input
 				kitten::ActiveClickables::getInstance()->m_lastUIHover = hitFrame;
 			}
 		}
-		else {
+		else
+		{
 			if (hitFrame != nullptr && lastHoverFrame == nullptr)
 			{
 				hitFrame->onHoverStart();
 				kitten::ActiveClickables::getInstance()->m_lastUIHover = hitFrame;
 			}
-			else {
+			else if (hitFrame == nullptr && lastHoverFrame != nullptr)
+			{
 				if (lastHoverFrame == NULL)
 				{
 					assert(false);
@@ -182,7 +184,7 @@ namespace input
 
 		//end UI click detection
 		
-		if (hitFrame != nullptr)
+		if (hitFrame == nullptr)
 		{
 			//Create ray from mouse location
 			//Based on the method outlined in: http://antongerdelan.net/opengl/raycasting.html

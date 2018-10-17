@@ -19,15 +19,13 @@ namespace unit
 
 		void turnStart();
 		void next();
-		void remove(const kitten::K_GameObject* p_unit);
-		int isShown(const kitten::K_GameObject* p_unit);
+		void change(int p_i);
+		int isShown(int p_i);
 
 	private:
 		const int m_maxUnitToShow = 5;//there will be maximum number of units to show
 
 		std::vector<TrackerBlock*> m_blockList;
-		std::vector<kitten::K_GameObject*>::iterator m_lastShownUnitIterator;
-		std::vector<kitten::K_GameObject*>::iterator m_firstShownUnitIterator;
 
 		kitten::K_GameObject* m_pointerObject;
 
@@ -35,17 +33,15 @@ namespace unit
 		const float m_leftX = -0.25f;//start x coodinate for frame
 
 		std::vector<float> m_xList;//the list of x position for each frame slots
-		std::vector<int> m_frameIndexList;
-		//m_frameIndexList[a] = b means m_frameList[a] is in y slots, its x position should be m_xList[b];
+		std::vector<int> m_blockInSlot;//which block in blockInSlot[x]
+		std::vector<int> m_unitIndex;//which index of unit the block has
+		int m_lastUnitIndex;
 
 
 
 		void setPosition();
 		void resetPosition();
 		void setNewFrame(int p_index);
-
-
-
 
 	};
 }

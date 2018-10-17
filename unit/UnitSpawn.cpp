@@ -75,12 +75,12 @@ namespace unit
 		else {
 			unitObject->addComponent(commander);
 
-			PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(cm->createComponent("PrintWhenClicked"));
-			printWhenClick->setMessage("Unit clicked");
-			unitObject->addComponent(printWhenClick);
+			//PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(cm->createComponent("PrintWhenClicked"));
+			//printWhenClick->setMessage("Unit clicked");
+			//unitObject->addComponent(printWhenClick);
 
-			kitten::K_Component* useAbility = cm->createComponent("UseAbilityWhenClicked");
-			unitObject->addComponent(useAbility);
+			//kitten::K_Component* useAbility = cm->createComponent("UseAbilityWhenClicked");
+			//unitObject->addComponent(useAbility);
 
 		}
 

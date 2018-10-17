@@ -260,6 +260,15 @@
     <ClCompile Include="UseAbilityWhenClicked.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\PowerTracker.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\SummonUnit.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\SelectAbility.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
@@ -341,12 +350,14 @@
     <ClCompile Include="..\unit\InitiativeTracker\TrackerPointer.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
-    <ClCompile Include="..\unit\InitiativeTracker\PointerUI.cpp" />
     <ClCompile Include="..\kitten\mouse picking\ClickableFrame.cpp">
       <Filter>kitten\mouse  picking</Filter>
     </ClCompile>
     <ClCompile Include="..\kitten\mouse picking\ClickableUI.cpp">
       <Filter>kitten\mouse  picking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\PointerUI.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -582,6 +593,12 @@
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="UseAbilityWhenClicked.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\PowerTracker.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\SelectAbility.h">
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h">
