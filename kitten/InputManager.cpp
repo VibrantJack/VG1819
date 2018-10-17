@@ -139,65 +139,112 @@ namespace input
 			m_lastMouseY = mouseY;
 		}
 
-		//Create ray from mouse location
-		//Based on the method outlined in: http://antongerdelan.net/opengl/raycasting.html
-		//@TODO: split-up into other methods?
-		kitten::Ray mouseRay;
-		
-		kitten::Camera* activeCam = kitten::K_CameraList::getInstance()->getSceneCamera();
-		
-		mouseRay.origin = activeCam->getTransform().getTranslation();
+		//austin
+		//Call for nearest UI frame
+		kitten::ClickableFrame* hitFrame = MousePicker::getClosestHitFrame(m_lastMouseX, m_lastMouseY);
+		kitten::ClickableFrame* lastHoverFrame = kitten::ActiveClickables::getInstance()->m_lastUIHover;
 
-		//Put mouse position in clipspace
-		float ndX = (2.0f * mouseX) / windowX - 1.0f;
-		float ndY = 1.0f - (2.0f * mouseY) / windowY;
-
-		glm::vec3 clip = glm::vec3(ndX, ndY, 1.0f);
-		
-		//Put mouse into worldspace - mat3 to not have translation!
-		glm::vec3 worldRay = (glm::inverse((glm::mat3)activeCam->getViewProj()) * clip);
-
-		mouseRay.direction = glm::normalize(worldRay);
-		
-		kitten::ClickableBox* hit = MousePicker::getClosestHit(mouseRay);
-		kitten::ClickableBox* lastHover = kitten::ActiveClickables::getInstance()->m_lastHover;
-
-		if (hit != nullptr && lastHover != nullptr)
+		if (hitFrame != nullptr && lastHoverFrame != nullptr)
 		{
-			if (lastHover != hit)
+			if (hitFrame != lastHoverFrame)
 			{
-				lastHover->onHoverEnd();
-				hit->onHoverStart();
-				kitten::ActiveClickables::getInstance()->m_lastHover = hit;
+				lastHoverFrame->onHoverEnd();
+				hitFrame->onHoverStart();
+				kitten::ActiveClickables::getInstance()->m_lastUIHover = hitFrame;
 			}
 		}
 		else
 		{
-			if (hit != nullptr && lastHover == nullptr)
+			if (hitFrame != nullptr && lastHoverFrame == nullptr)
 			{
-				hit->onHoverStart();
-				kitten::ActiveClickables::getInstance()->m_lastHover = hit;
+				hitFrame->onHoverStart();
+				kitten::ActiveClickables::getInstance()->m_lastUIHover = hitFrame;
 			}
-			else if(hit == nullptr && lastHover != nullptr)
+			else if (hitFrame == nullptr && lastHoverFrame != nullptr)
 			{
-				if (lastHover == NULL)
+				if (lastHoverFrame == NULL)
 				{
 					assert(false);
 				}
-				lastHover->onHoverEnd();
-				kitten::ActiveClickables::getInstance()->m_lastHover = nullptr;
+				lastHoverFrame->onHoverEnd();
+				kitten::ActiveClickables::getInstance()->m_lastUIHover = nullptr;
 			}
 		}
 
-		//Are we clicking?
-		if (m_mouseDown[GLFW_MOUSE_BUTTON_LEFT] && !m_mouseDownLast[GLFW_MOUSE_BUTTON_LEFT] && hit != nullptr)
+		//Are we clicking a frame?
+		if (m_mouseDown[GLFW_MOUSE_BUTTON_LEFT] && !m_mouseDownLast[GLFW_MOUSE_BUTTON_LEFT] && hitFrame != nullptr)
 		{
-			hit->onClick();
+			hitFrame->onClick();
 
 			//Trigger event
 			kitten::Event* p_data = new kitten::Event(kitten::Event::EventType::Object_Clicked);
-			p_data->putGameObj(OBJECT_CLICKED_OBJ_KEY, &hit->getGameObject());
+			p_data->putGameObj(OBJECT_CLICKED_OBJ_KEY, &hitFrame->getGameObject());
 			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Object_Clicked, p_data);
+		}
+
+		//end UI click detection
+		
+		if (hitFrame == nullptr)
+		{
+			//Create ray from mouse location
+			//Based on the method outlined in: http://antongerdelan.net/opengl/raycasting.html
+			//@TODO: split-up into other methods?
+			kitten::Ray mouseRay;
+
+			kitten::Camera* activeCam = kitten::K_CameraList::getInstance()->getSceneCamera();
+
+			mouseRay.origin = activeCam->getTransform().getTranslation();
+
+			//Put mouse position in clipspace
+			float ndX = (2.0f * mouseX) / windowX - 1.0f;
+			float ndY = 1.0f - (2.0f * mouseY) / windowY;
+
+			glm::vec3 clip = glm::vec3(ndX, ndY, 1.0f);
+
+			//Put mouse into worldspace - mat3 to not have translation!
+			glm::vec3 worldRay = (glm::inverse((glm::mat3)activeCam->getViewProj()) * clip);
+
+			mouseRay.direction = glm::normalize(worldRay);
+
+			kitten::ClickableBox* hit = MousePicker::getClosestHit(mouseRay);
+			kitten::ClickableBox* lastHover = kitten::ActiveClickables::getInstance()->m_lastHover;
+
+			if (hit != nullptr && lastHover != nullptr)
+			{
+				if (lastHover != hit)
+				{
+					lastHover->onHoverEnd();
+					hit->onHoverStart();
+					kitten::ActiveClickables::getInstance()->m_lastHover = hit;
+				}
+			}
+			else
+			{
+				if (hit != nullptr && lastHover == nullptr)
+				{
+					hit->onHoverStart();
+					kitten::ActiveClickables::getInstance()->m_lastHover = hit;
+				}
+				else if (hit == nullptr && lastHover != nullptr)
+				{
+					if (lastHover == NULL)
+					{
+						assert(false);
+					}
+					lastHover->onHoverEnd();
+					kitten::ActiveClickables::getInstance()->m_lastHover = nullptr;
+				}
+			}
+			//Are we clicking?
+			if (m_mouseDown[GLFW_MOUSE_BUTTON_LEFT] && !m_mouseDownLast[GLFW_MOUSE_BUTTON_LEFT] && hit != nullptr)
+			{
+				hit->onClick();
+
+				//Trigger event
+				kitten::Event* p_data = new kitten::Event(kitten::Event::EventType::Object_Clicked);
+				p_data->putGameObj(OBJECT_CLICKED_OBJ_KEY, &hit->getGameObject());
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Object_Clicked, p_data);
+			}
 		}
 	}
 }

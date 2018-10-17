@@ -351,6 +351,12 @@
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
     <ClCompile Include="..\unit\InitiativeTracker\PointerUI.cpp" />
+    <ClCompile Include="..\kitten\mouse picking\ClickableFrame.cpp">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\mouse picking\ClickableUI.cpp">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

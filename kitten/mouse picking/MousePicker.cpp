@@ -71,6 +71,25 @@ namespace MousePicker
 		return true;
 	}
 
+	//austin's ui hit check method
+	bool uiHit(const kitten::ClickableFrame* p_clickable, int p_mouseX, int p_mouseY)
+	{
+		glm::vec2 maxpoint = p_clickable->getMaxPoint();
+		glm::vec2 minpoint = p_clickable->getMinPoint();
+
+		if (p_mouseX < minpoint.x || p_mouseY < minpoint.y)
+		{
+			return false;
+		}
+		else if (p_mouseX > maxpoint.x || p_mouseY > minpoint.y)
+		{
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
 	kitten::ClickableBox* getClosestHit(const kitten::Ray& p_ray)
 	{
 		double minHit = 9999999.9f;
@@ -93,5 +112,23 @@ namespace MousePicker
 		}
 
 		return minClick;
+	}
+
+	kitten::ClickableFrame* getClosestHitFrame(int p_mouseX, int p_mouseY)
+	{
+		const std::list<kitten::ClickableFrame*>& activeUIClickables = kitten::ActiveClickables::getInstance()->getClickableUIList();
+		kitten::ClickableFrame* hitFrame = nullptr;
+
+		auto end = activeUIClickables.cend();
+		for (auto it = activeUIClickables.cbegin(); it != end; ++it)
+		{
+			if (uiHit(*it, p_mouseX, p_mouseY))
+			{
+				hitFrame = *it;
+				break;
+			}
+		}
+
+		return hitFrame;
 	}
 }

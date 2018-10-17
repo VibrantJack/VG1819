@@ -153,6 +153,8 @@
     <ClCompile Include="..\kitten\mouse picking\ActiveClickables.cpp" />
     <ClCompile Include="..\kitten\mouse picking\Clickable.cpp" />
     <ClCompile Include="..\kitten\mouse picking\ClickableBox.cpp" />
+    <ClCompile Include="..\kitten\mouse picking\ClickableFrame.cpp" />
+    <ClCompile Include="..\kitten\mouse picking\ClickableUI.cpp" />
     <ClCompile Include="..\kitten\mouse picking\MousePicker.cpp" />
     <ClCompile Include="..\kitten\QuadRenderable.cpp" />
     <ClCompile Include="..\kitten\Renderable.cpp" />

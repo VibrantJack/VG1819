@@ -14,9 +14,7 @@
 #include "unit/unitComponent/UnitGraphic.h"
 #include "_Project\BoardCreator.h"
 #include "_Project\ManipulateTileOnClick.h"
-#include "components\PowerTracker.h"
 #include "_Project\UseAbilityWhenClicked.h"
-#include "components\SelectAbility.h"
 #include "_Project\FPSCalc.h"
 #include "puppy\Text\TextBox.h"
 #include "unit/unitComponent/UnitMove.h"
@@ -27,6 +25,10 @@
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
 #include "unit/InitiativeTracker/TrackerPointer.h"
 #include "unit/InitiativeTracker/PointerUI.h"
+#include "kitten\mouse picking\ClickableFrame.h"
+#include "components\PowerTracker.h"
+#include "components\SelectAbility.h"
+//#include "userinterface\UITestClickable.h"
 
 namespace kitten
 {
@@ -51,132 +53,103 @@ namespace kitten
 		if (p_componentName == "Camera")// Datadriven
 		{
 			comp = new Camera();
-		} 
-		else if (p_componentName == "CubeRenderable")// Datadriven
+		} else if (p_componentName == "CubeRenderable")// Datadriven
 		{
 			comp = new CubeRenderable("textures/tiles/MISSING.tga");
-		} 
-		else if (p_componentName == "QuadRenderable")// Datadriven
+		} else if (p_componentName == "QuadRenderable")// Datadriven
 		{
 			comp = new QuadRenderable("textures/tiles/Grassland.tga");
-		} 
-		else if (p_componentName == "StaticQuadRenderable")// QuadRenderable Variant
+		} else if (p_componentName == "StaticQuadRenderable")// QuadRenderable Variant
 		{
 			comp = new QuadRenderable("textures/tiles/MISSING.tga", true);
-		} 
-		else if (p_componentName == "Grassland")// datadriven
+		} else if (p_componentName == "Grassland")// datadriven
 		{
 			comp = new gameworld::GrasslandInfoComponent();
-		} 
-		else if (p_componentName == "Frame")// Datadriven
+		} else if (p_componentName == "Frame")// Datadriven
 		{
 			comp = new userinterface::UIFrame("textures/ui/blankFrame.tga");
-		} 
-		else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
+		} else if (p_componentName == "ClickableFrame")
+		{
+			comp = new kitten::ClickableFrame(glm::vec2(0, 0), glm::vec2(1, 1));
+		} else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
 		{
 			comp = new MoveByMouseRightClickDrag(0.005f);
-		} 
-		else if (p_componentName == "ZoomByMouseWheel")// Datadriven
+		} else if (p_componentName == "ZoomByMouseWheel")// Datadriven
 		{
 			comp = new ZoomByMouseWheel(2.0f);
-		} 
-		else if (p_componentName == "DebugPrintOnce") // Datadriven
+		} else if (p_componentName == "DebugPrintOnce") // Datadriven
 		{
 			comp = new DebugPrintOnce("Some Message, kinda useless until we can change this easily");
-		} 
-		else if (p_componentName == "PrintWhenClicked")// Datadriven
+		} else if (p_componentName == "PrintWhenClicked")// Datadriven
 		{
 			comp = new PrintWhenClicked("I WAS CLICKED!!");
-		} 
-		else if (p_componentName == "DestroyOnClick") // Datadriven
+		} else if (p_componentName == "DestroyOnClick") // Datadriven
 		{
 			comp = new DestroyOnClick();
-		} 
-		else if (p_componentName == "ClickableBox") // Datadriven
+		} else if (p_componentName == "ClickableBox") // Datadriven
 		{
 			comp = new ClickableBox(glm::vec3(-0.5f, 0, -0.5f), glm::vec3(0.5f, 0, 0.5f));
-		} 
-		else if (p_componentName == "ClickableBoxBox") // Datadriven
+		} else if (p_componentName == "ClickableBoxBox") // Datadriven
 		{
 			comp = new ClickableBox(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
-		} 
-		else if (p_componentName == "ClickableBoxForPointUnit") // Datadriven
+		} else if (p_componentName == "ClickableBoxForPointUnit") // Datadriven
 		{
 			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 2.0f, 0.0f));
-		} 
-		else if (p_componentName == "ClickableBoxForCubeUnit") // Datadriven
+		} else if (p_componentName == "ClickableBoxForCubeUnit") // Datadriven
 		{
 			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(2.5f, 3.0f, 0.0f));
-		} 
-		else if (p_componentName == "ClickableBoxForTrackerBlock") // Datadriven
+		} else if (p_componentName == "ClickableBoxForTrackerBlock") // Datadriven
 		{
 			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 0.0f));
-		} 
-		else if (p_componentName == "UnitMove") // Datadriven
+		} else if (p_componentName == "UnitMove") // Datadriven
 		{
 			comp = new unit::UnitMove();
-		} 
-		else if (p_componentName == "UnitClickable") // DataDriven
+		} else if (p_componentName == "UnitClickable") // DataDriven
 		{
 			comp = new unit::UnitClickable();
-		} 
-		else if (p_componentName == "UnitGraphic")//hard code, need special function for unit graphic, Data driven with these as defaults
+		} else if (p_componentName == "UnitGraphic")//hard code, need special function for unit graphic, Data driven with these as defaults
 		{
 			comp = new unit::UnitGraphic(unit::point, "textures/unit/Default.tga");
-		} 
-		else if (p_componentName == "BoardCreator") // Datadriven
+		} else if (p_componentName == "BoardCreator") // Datadriven
 		{
 			comp = new BoardCreator();
-		} 
-		else if (p_componentName == "ManipulateTileOnClick") // Datadriven
+		} else if (p_componentName == "ManipulateTileOnClick") // Datadriven
 		{
 			comp = new ManipulateTileOnClick();
-		} 
-		else if (p_componentName == "UseAbilityWhenClicked")  // Datadriven
+		} else if (p_componentName == "UseAbilityWhenClicked")  // Datadriven
 		{
 			comp = new UseAbilityWhenClicked();
-		} 
-		else if (p_componentName == "SendSelfOnClick") // DataDriven
+		} else if (p_componentName == "SendSelfOnClick") // DataDriven
 		{
 			comp = new SendSelfOnClick();
-		} 
-		else if (p_componentName == "FPSCalc") // Datadriven
+		} else if (p_componentName == "FPSCalc") // Datadriven
 		{
 			comp = new FPSCalc();
-		} 
-		else if (p_componentName == "TextBox")  // Datadriven
+		} else if (p_componentName == "TextBox")  // Datadriven
 		{
 			comp = new puppy::TextBox(puppy::FontTable::getInstance()->getFont("../fonts/common_consolas.fnt"), "DEFAULT TEXT", 500, 500);
-		} 
-		else if (p_componentName == "TextBoxAbilities")
+		} else if (p_componentName == "TextBoxAbilities")
 		{
 			comp = new puppy::TextBox(puppy::FontTable::getInstance()->getFont("../fonts/common_consolas.fnt"), "DEFAULT TEXT", 300, 500);
-		} 
-		else if (p_componentName == "TrackerBlock") // Datadriven
+		} else if (p_componentName == "TrackerBlock") // Datadriven
 		{
 			comp = new unit::TrackerBlock();
-		} 
-		else if (p_componentName == "TrackerBlockClickable") // Datadriven
+		} else if (p_componentName == "TrackerBlockClickable") // Datadriven
 		{
 			comp = new unit::TrackerBlockClickable();
-		} 
-		else if (p_componentName == "TrackerPointer") // Datadriven
+		} else if (p_componentName == "TrackerPointer") // Datadriven
 		{
 			comp = new unit::TrackerPointer();
-		} 
-		else if (p_componentName == "PointerUI") // Datadriven
+		} else if (p_componentName == "PointerUI") // Datadriven
 		{
 			comp = new userinterface::PointerUI();
-		} 
-		else if (p_componentName == "SelectAbility")
+		} else if (p_componentName == "SelectAbility")
 		{
 			comp = new SelectAbility();
-		} 
-		else if (p_componentName == "PowerTracker")
+		} else if (p_componentName == "PowerTracker")
 		{
 			comp = new PowerTracker();
-		}
-		else
+		} else
 		{
 			//Not found..
 			assert(false);
