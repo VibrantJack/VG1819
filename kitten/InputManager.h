@@ -1,6 +1,7 @@
 #pragma once
 #include "puppy\P_Common.h"
 #include "mouse picking\Clickable.h"
+#include "mouse picking\ClickableUI.h"
 
 namespace input
 {

@@ -2,6 +2,7 @@
 
 #include <list>
 #include "ClickableBox.h"
+#include "ClickableFrame.h"
 #include "kitten\InputManager.h"
 
 namespace kitten
@@ -16,9 +17,11 @@ namespace kitten
 		static ActiveClickables* sm_instance;
 
 		std::list<ClickableBox*> m_clickables;
+		std::list<ClickableFrame*> m_UIclickables;
 
 		//Jank for deleting thing that the mouse is over..
 		ClickableBox* m_lastHover;
+		ClickableFrame* m_lastUIHover;
 	public:
 		//Singleton stuff
 		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new ActiveClickables(); };
@@ -29,6 +32,9 @@ namespace kitten
 		void removeFromActive(ClickableBox* p_toRemove);
 		const std::list<ClickableBox*>& getClickableList() const;
 
-		
+		void addToActiveUI(ClickableFrame* p_toAdd);
+		void removeFromActiveUI(ClickableFrame* p_toRemove);
+		const std::list<ClickableFrame*>& getClickableUIList() const;
+
 	};
 }

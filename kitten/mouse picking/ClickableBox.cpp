@@ -2,7 +2,7 @@
 #include "Clickable.h"
 #include "kitten\K_ComponentManager.h"
 
-namespace kitten
+namespace kitten 
 {
 	ClickableBox::ClickableBox(const glm::vec3& p_minPoint, const glm::vec3& p_maxPoint) : m_originalMinPoint(p_minPoint), m_originalMaxPoint(p_maxPoint)
 	{
