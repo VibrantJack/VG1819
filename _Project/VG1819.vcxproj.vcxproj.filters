@@ -348,6 +348,9 @@
     <ClCompile Include="..\kitten\mouse picking\ClickableUI.cpp">
       <Filter>kitten\mouse  picking</Filter>
     </ClCompile>
+    <ClCompile Include="..\kibble\custom\CustomDeckDataParser.cpp">
+      <Filter>kibble\Custom</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -673,6 +676,13 @@
     <ClInclude Include="..\unit\InitiativeTracker\PointerUI.h">
       <Filter>unit\InitiativeTracker</Filter>
     </ClInclude>
+    <ClInclude Include="..\DeckData.hpp" />
+    <ClInclude Include="..\kibble\DeckDataParser.hpp">
+      <Filter>kibble</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\custom\CustomDeckDataParser.hpp">
+      <Filter>kibble\Custom</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -749,6 +759,9 @@
     </Filter>
     <Filter Include="util">
       <UniqueIdentifier>{4deeb8a2-e275-4434-b800-dbaab2606bda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kibble\Custom">
+      <UniqueIdentifier>{0b9dadcb-53bf-40a7-a741-ba2426505959}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

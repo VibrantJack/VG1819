@@ -67,6 +67,11 @@ namespace kitten
 		// Temporary stuff until Kibble is ready
 		K_ComponentManager* compMan = K_ComponentManager::getInstance();
 
+		DeckData * data = kibble::getDeckDataParserInstance()->getDeckData("data/saved/decktest.txt");
+		std::cout << *data;
+		data->cards.push_back({ 9,2 });
+		kibble::getDeckDataParserInstance()->saveDeckData(data, "data/saved/outputtest.txt");
+
 		//Creating a gameobject
 		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
 		kibble::setSceneFrom(std::string("mainscene.txt"));
@@ -111,7 +116,7 @@ namespace kitten
 		//builder->start();
 		//delete builder;
 
-		
+		/*
 		K_GameObject* gameObj = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* fpsCalc = compMan->createComponent("FPSCalc");
 		puppy::TextBox* testText = static_cast<puppy::TextBox*>(compMan->createComponent("TextBox"));
@@ -119,6 +124,7 @@ namespace kitten
 		gameObj->addComponent(testText);
 		gameObj->addComponent(fpsCalc);
 		gameObj->getTransform().place2D(100, 700);
+		*/
 
 		// Testing Events
 		Event* e = new Event(Event::Test_Event);
