@@ -25,6 +25,8 @@
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
 #include "unit/InitiativeTracker/TrackerPointer.h"
 #include "unit/InitiativeTracker/PointerUI.h"
+#include "kitten\mouse picking\ClickableFrame.h"
+#include "userinterface\UITestClickable.h"
 
 namespace kitten
 {
@@ -69,6 +71,10 @@ namespace kitten
 		else if (p_componentName == "Frame")// Datadriven
 		{
 			comp = new userinterface::UIFrame("textures/ui/blankFrame.tga");
+		}
+		else if (p_componentName == "ClickableFrame")
+		{
+			comp = new kitten::ClickableFrame(glm::vec2(0,0), glm::vec2(1,1));
 		}
 		else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
 		{
