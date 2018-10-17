@@ -52,7 +52,7 @@ void ManipulateTileOnClick::onClick()
 	}
 	else if (ability::AbilityManager::getInstance()->lastAbilityUsed() == SUMMON_UNIT)
 	{
-		if (tileInfo->isHighlighted()) //&& tileInfo->getOwnerId() == tileInfo->getHighlightedBy()) // Commented out for simple testing
+		if (tileInfo->isHighlighted() && tileInfo->getOwnerId() == tileInfo->getHighlightedBy())
 		{
 			kitten::K_GameObject* board = &m_attachedObject->getTransform().getParent()->getAttachedGameObject();
 
@@ -60,10 +60,13 @@ void ManipulateTileOnClick::onClick()
 			unit::UnitData* unitData = kibble::getUnitFromId(2);
 			if (unitData->m_Cost <= powerTracker->getCurrentPower())
 			{
-				kitten::K_GameObject* unit = unit::UnitSpawn::getInstance()->spawnUnitObject(unitData);
-				//unit->getTransform().place(tileInfo->getPosX() - 0.5f, -1.0f, tileInfo->getPosY());
-				unit->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(tileInfo->getPosX(), tileInfo->getPosY()));
 				powerTracker->summonUnitCost(unitData->m_Cost);
+
+				kitten::K_GameObject* unit = unit::UnitSpawn::getInstance()->spawnUnitObject(unitData);
+				unit->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(tileInfo->getPosX(), tileInfo->getPosY()));
+
+				// TEMPORARY: Reset game turn in order to dynamically add a new unit
+				unit::InitiativeTracker::getInstance()->gameTurnStart();
 			}
 			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
 		}

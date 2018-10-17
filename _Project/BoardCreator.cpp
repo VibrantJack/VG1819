@@ -105,6 +105,7 @@ void BoardCreator::update()
 	//	then unhighlight already highlighted tiles to prepare for new highlights
 	if (!m_toBeHighlighted.empty() && !m_lastHighlighted.empty())
 	{
+		printf("ToBeHighlighted full and lastHighlighted full\n");
 		m_toBeUnhighlighted = m_lastHighlighted;
 		m_lastHighlighted.clear();
 	}
@@ -173,8 +174,11 @@ void BoardCreator::unhighlightTiles(kitten::Event::EventType p_type, kitten::Eve
 
 void BoardCreator::unhighlightCurrent(kitten::Event::EventType p_type, kitten::Event* p_data)
 {
-	m_toBeUnhighlighted = m_lastHighlighted;
-	m_lastHighlighted.clear();
+	if (!m_lastHighlighted.empty())
+	{
+		m_toBeUnhighlighted = m_lastHighlighted;
+		m_lastHighlighted.clear();
+	}
 }
 
 kitten::K_GameObject * BoardCreator::getTile(int x, int z)
