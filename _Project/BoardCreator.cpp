@@ -121,7 +121,7 @@ void BoardCreator::update()
 			tile = m_pTileList[it->first][it->second];
 
 			kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
-			quad->setColorTint(glm::vec4(0.0f, 0.0f, 0.5f, 1.0f));
+			quad->setColorTint(glm::vec4(0.0f, 0.0f, 0.5f, 1.0f) + quad->getColorTint());
 
 			TileInfo* tileInfo = tile->getComponent<TileInfo>();
 			tileInfo->setHighlighted(true);
@@ -163,6 +163,14 @@ void BoardCreator::unhighlightTiles(kitten::Event::EventType p_type, kitten::Eve
 
 			kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
 			quad->setColorTint(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+
+			tileInfo->setHighlighted(false);
+			tileInfo->setHighlightedBy("NONE");
+		}
+		else
+		{
+			kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
+			quad->setColorTint(glm::vec4(0.0f, 0.5f, 0.0f, 1.0f));
 
 			tileInfo->setHighlighted(false);
 			tileInfo->setHighlightedBy("NONE");

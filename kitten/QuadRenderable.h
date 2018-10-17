@@ -24,6 +24,7 @@ namespace kitten
 
 		void setTexture(const char* p_pathToTex);
 		void setColorTint(const glm::vec4& p_vec4);
+		glm::vec4 getColorTint() { return m_colorTint; }
 		void render(const glm::mat4& p_viewProj) override;
 	};
 }
