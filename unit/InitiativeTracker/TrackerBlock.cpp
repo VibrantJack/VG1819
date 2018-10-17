@@ -101,14 +101,12 @@ void unit::TrackerBlock::move(int p_slotIndex)
 	}
 }
 
-void unit::TrackerBlock::set(std::vector<kitten::K_GameObject*>::iterator p_unitIt)
+void unit::TrackerBlock::set(kitten::K_GameObject* p_unitGO)
 {
-	kitten::K_GameObject* unitGO = *p_unitIt;
-
 	//get texture
-	std::string texPath = unitGO->getComponent<UnitGraphic>()->getTexturePath();
+	std::string texPath = p_unitGO->getComponent<UnitGraphic>()->getTexturePath();
 	//get name
-	std::string name = unitGO->getComponent<Unit>()->m_name;
+	std::string name = p_unitGO->getComponent<Unit>()->m_name;
 
 	//set texture
 	m_frameObject->getComponent<userinterface::UIFrame>()->setTexture(texPath.c_str());
