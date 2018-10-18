@@ -1,12 +1,14 @@
-#pragma once
-#include "kitten/K_Component.h"
-#include "_Project/BoardCreator.h"
-#include "unit/Unit.h"
 
-//Rock
+//@Rock
 //This is a component of the board creator. 
 //It keeps tile's coordinate.
 //It will be used when unit use range ability, like move
+
+
+#pragma once
+#include "kitten/K_Component.h"
+#include "board/component/BoardCreator.h"
+#include "unit/Unit.h"
 
 class Range
 {

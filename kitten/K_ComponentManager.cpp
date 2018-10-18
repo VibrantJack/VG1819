@@ -9,17 +9,13 @@
 #include "_Project\ZoomByMouseWheel.h"
 #include "_Project\DebugPrintOnce.h"
 #include "gameworld\GrassLandInfoComponent.h"
-#include "_Project\PrintWhenClicked.h"
 #include "_Project\DestroyOnClick.h"
 #include "unit/unitComponent/UnitGraphic.h"
-#include "_Project\BoardCreator.h"
-#include "_Project\ManipulateTileOnClick.h"
 #include "_Project\UseAbilityWhenClicked.h"
 #include "_Project\FPSCalc.h"
 #include "puppy\Text\TextBox.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "unit/unitComponent/UnitClickable.h"
-#include "_Project/SendSelfOnClick.h"
 #include "userinterface\UIFrame.h"
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
@@ -30,6 +26,14 @@
 #include "components\SelectAbility.h"
 //#include "userinterface\UITestClickable.h"
 
+//board
+#include "board/component/BoardCreator.h"
+//clickable
+#include "board/clickable/ManipulateTileOnClick.h"
+#include "board/clickable/PrintWhenClicked.h"
+#include "board/clickable/SendSelfOnClick.h"
+//tile
+#include "board/tile/TileInfo.h"
 namespace kitten
 {
 	K_ComponentManager* K_ComponentManager::sm_instance = nullptr;
@@ -149,7 +153,8 @@ namespace kitten
 		} else if (p_componentName == "PowerTracker")
 		{
 			comp = new PowerTracker();
-		} else
+		}
+		else
 		{
 			//Not found..
 			assert(false);

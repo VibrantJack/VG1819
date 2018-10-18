@@ -9,7 +9,7 @@
 
 #include "ManipulateTileOnClick.h"
 #include "ability\AbilityManager.h"
-#include "TileInfo.h"
+#include "board/tile/TileInfo.h"
 #include "kitten\K_GameObject.h"
 #include "components\PowerTracker.h"
 
@@ -19,7 +19,7 @@
 #include "unit\UnitSpawn.h"
 #include "unit\InitiativeTracker\InitiativeTracker.h"
 #include "unit\unitComponent\UnitMove.h"
-#include "BoardCreator.h"
+#include "board/component/BoardCreator.h"
 
 ManipulateTileOnClick::ManipulateTileOnClick()
 {

@@ -104,7 +104,7 @@ kitten::K_Component* getDebugPrintOnce(nlohmann::json* p_jsonFile){
 	return new DebugPrintOnce(message);
 }
 
-#include "_Project/PrintWhenClicked.h"
+#include "board/clickable/PrintWhenClicked.h"
 kitten::K_Component* getPrintWhenClicked(nlohmann::json* p_jsonFile) {
 	std::string message = "Default Message";
 
@@ -136,7 +136,7 @@ kitten::K_Component* getDestroyOnClick(nlohmann::json* p_jsonFile){
 	return new DestroyOnClick();
 }
 
-#include "_Project\BoardCreator.h"
+#include "board/component/BoardCreator.h"
 kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
 	return new BoardCreator();
 }
@@ -283,7 +283,7 @@ kitten::K_Component* getUnitClickable(nlohmann::json* p_jsonFile) {
 	return new unit::UnitClickable();
 }
 
-#include "_Project\ManipulateTileOnClick.h"
+#include "board/clickable/ManipulateTileOnClick.h"
 kitten::K_Component* getManipulateTileOnClick(nlohmann::json* p_jsonFile) {
 	return new ManipulateTileOnClick();
 }
@@ -293,7 +293,7 @@ kitten::K_Component* getUseAbilityWhenClicked(nlohmann::json* p_jsonFile) {
 	return new UseAbilityWhenClicked();
 }
 
-#include "_Project/SendSelfOnClick.h"
+#include "board/clickable/SendSelfOnClick.h"
 kitten::K_Component* getSendSelfOnClick(nlohmann::json* p_jsonFile) {
 	return new SendSelfOnClick();
 }
