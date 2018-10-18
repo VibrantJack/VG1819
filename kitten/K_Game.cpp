@@ -15,13 +15,15 @@
 #include "kitten\CubeRenderable.h"
 #include "kitten\QuadRenderable.h"
 #include "_Project\MoveByMouseRightClickDrag.h"
-#include "_Project\PrintWhenClicked.h"
 #include "kitten\mouse picking\ClickableBox.h"
 
 #include "gameworld\GameBoard.h"
 
 #include "kibble/kibble.hpp"
 #include "unit/UnitTest.h"
+
+//board clickable
+#include "board/clickable/PrintWhenClicked.h"
 
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"

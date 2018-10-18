@@ -7,14 +7,15 @@
 
 // Includes for tile highlighting and manipulating tile
 #include "_Project\UseAbilityWhenClicked.h"
-#include "_Project\PrintWhenClicked.h"
+//board clickable
+#include "board/clickable/PrintWhenClicked.h"
 #include "kitten\K_ComponentManager.h"
 
 //Includes for creating spawn tile
 #include "unit/unitComponent/UnitMove.h"
 #include "kitten/K_GameObjectManager.h"
 
-#include "_Project/BoardCreator.h"
+#include "board/component/BoardCreator.h"
 
 //Rock
 //test the unit data

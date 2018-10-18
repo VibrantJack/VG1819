@@ -101,7 +101,7 @@ std::vector<kitten::K_GameObject*> unit::InitiativeTracker::getList()
 }
 
 void unit::InitiativeTracker::gameTurnStart()
-{
+{/*
 	// TEMPORARY
 	// When dynamically adding a new unit, need to reset the turn of the
 	// previously current unit
@@ -111,7 +111,7 @@ void unit::InitiativeTracker::gameTurnStart()
 	{
 		m_uturn->turnReset();
 	}
-
+	*/
 	//sort the list
 	sortListByIn();
 
