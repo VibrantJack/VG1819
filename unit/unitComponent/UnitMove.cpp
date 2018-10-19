@@ -69,7 +69,7 @@ void unit::UnitMove::triggerHighLightEvent()
 	e->putInt("minRange", 1);
 	e->putInt("maxRange", m_attachedObject->getComponent<Unit>()->m_attributes["mv"]);//the range is between 1 and mv attributes
 	e->putGameObj("tileAtOrigin", m_currentTile);
-	e->putString("use", "move");
+	e->putString("mode", "range");
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Highlight_Tile, e);
 }
 

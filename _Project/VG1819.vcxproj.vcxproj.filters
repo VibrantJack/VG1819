@@ -359,6 +359,12 @@
     <ClCompile Include="..\board\tile\TileInfo.cpp">
       <Filter>board\tile</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\BoardManager.cpp">
+      <Filter>board</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\Highlighter.cpp">
+      <Filter>board\component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -692,6 +698,9 @@
     </ClInclude>
     <ClInclude Include="..\board\tile\TileInfo.h">
       <Filter>board\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\component\Highlighter.h">
+      <Filter>board\component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

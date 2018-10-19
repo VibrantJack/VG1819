@@ -19,6 +19,9 @@ public:
 	int getPosY();
 	void setPosY(int p_int);
 
+	std::pair<int, int> getPos();
+	void setPos(std::pair<int, int> p_pos);
+
 	// TODO: Change according to finalized unit id structure
 	const std::string& getOwnerId();
 	void setOwnerId(const std::string& p_sId);

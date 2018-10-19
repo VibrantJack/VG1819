@@ -25,6 +25,8 @@
 //board clickable
 #include "board/clickable/PrintWhenClicked.h"
 
+#include "board/BoardManager.h"
+
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
 
@@ -58,6 +60,8 @@ namespace kitten
 		ability::AbilityNodeManager::createInstance();
 
 		unit::InitiativeTracker::createInstance();
+
+		BoardManager::createInstance();
 	}
 
 	// This is called once at the beginning of the game
@@ -72,6 +76,9 @@ namespace kitten
 		//Creating a gameobject
 		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
 		kibble::setSceneFrom(std::string("mainscene.txt"));
+
+		//create board
+		BoardManager::getInstance()->createBoard();
 
 		/*
 		//Example of Parent / Children : REMOVE WHEN TESTING DONE OR BUGS NOT BEING FOUND
@@ -171,6 +178,8 @@ namespace kitten
 		AudioEngineWrapper::destroyInstance();
 
 		unit::InitiativeTracker::destroyInstance();
+
+		BoardManager::destroyInstance();
 	}
 
 	void updateGame()

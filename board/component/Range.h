@@ -9,6 +9,7 @@
 #include "kitten/K_Component.h"
 #include "board/component/BoardCreator.h"
 #include "unit/Unit.h"
+#include "kitten/event_system/EventManager.h"
 
 class Range
 {
@@ -16,9 +17,8 @@ public:
 	static kitten::Event::TileList getTilesInRange
 	(kitten::K_GameObject* p_tileAtOrigin, 
 		int p_minRange, int p_maxRange, 
-		kitten::K_GameObject* p_tileList[15][15]);
+		std::vector<kitten::K_GameObject*> p_tileList);
 private:
-	static std::pair<int, int> findOrigin(const kitten::K_GameObject * p_tileAtOrigin, kitten::K_GameObject * p_tileList[15][15]);
 	static void findNeighbour
 	(std::map<std::pair<int, int>, int>* p_tilesAndRange, 
 		std::pair<int, int> p_currentTile, 

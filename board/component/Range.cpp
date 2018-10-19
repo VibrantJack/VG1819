@@ -1,11 +1,12 @@
 #include "Range.h"
+#include "board/tile/TileInfo.h"
 
-kitten::Event::TileList Range::getTilesInRange(kitten::K_GameObject * p_tileAtOrigin, int p_minRange, int p_maxRange, kitten::K_GameObject * p_tileList[15][15])
+kitten::Event::TileList Range::getTilesInRange(kitten::K_GameObject * p_tileAtOrigin, int p_minRange, int p_maxRange, std::vector<kitten::K_GameObject*> p_tileList)
 {
 	std::map<std::pair<int, int>, int> tilesAndRange;
 
 	//find the coordinates for the tile at origin
-	std::pair<int, int> originCoord = findOrigin(p_tileAtOrigin, p_tileList);
+	std::pair<int, int> originCoord = p_tileAtOrigin->getComponent<TileInfo>()->getPos();
 
 	//find tiles
 	findNeighbour(&tilesAndRange,originCoord,0,p_minRange,p_maxRange);
@@ -23,21 +24,6 @@ kitten::Event::TileList Range::getTilesInRange(kitten::K_GameObject * p_tileAtOr
 	}
 
 	return list;
-}
-
-std::pair<int, int> Range::findOrigin(const kitten::K_GameObject * p_tileAtOrigin, kitten::K_GameObject * p_tileList[15][15])
-{
-	for (int x = 0; x < 15; x++)
-	{
-		for (int z = 0; z < 15; z++)
-		{
-			if (p_tileAtOrigin == p_tileList[x][z])
-				return std::pair<int, int>(x, z);
-		}
-	}
-	//not find tile
-	assert(false);
-	return std::pair<int, int>();
 }
 
 void Range::findNeighbour(std::map<std::pair<int, int>, int>* p_tilesAndRange, std::pair<int, int> p_currentTile, int p_distance, int p_minRange, int p_maxRange)

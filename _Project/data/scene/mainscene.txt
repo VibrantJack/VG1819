@@ -6,9 +6,6 @@
             "rotate" : [-45,0,0]
         },
 		{
-			"filename" : "boardcreator.txt"
-		},
-		{
 			"filename" : "soundsource.txt",
 			"translate" : [7,10,-8]
 		},

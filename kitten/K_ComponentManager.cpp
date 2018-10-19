@@ -28,6 +28,7 @@
 
 //board
 #include "board/component/BoardCreator.h"
+#include "board/component/Highlighter.h"
 //clickable
 #include "board/clickable/ManipulateTileOnClick.h"
 #include "board/clickable/PrintWhenClicked.h"
@@ -114,9 +115,6 @@ namespace kitten
 		} else if (p_componentName == "UnitGraphic")//hard code, need special function for unit graphic, Data driven with these as defaults
 		{
 			comp = new unit::UnitGraphic(unit::point, "textures/unit/Default.tga");
-		} else if (p_componentName == "BoardCreator") // Datadriven
-		{
-			comp = new BoardCreator();
 		} else if (p_componentName == "ManipulateTileOnClick") // Datadriven
 		{
 			comp = new ManipulateTileOnClick();
@@ -153,6 +151,10 @@ namespace kitten
 		} else if (p_componentName == "PowerTracker")
 		{
 			comp = new PowerTracker();
+		}
+		else if (p_componentName == "Highlighter")
+		{
+			comp = new Highlighter();
 		}
 		else
 		{

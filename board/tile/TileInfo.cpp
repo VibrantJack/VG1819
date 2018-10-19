@@ -53,6 +53,17 @@ void TileInfo::setPosY(int p_int)
 	m_iPosY = p_int;
 }
 
+std::pair<int, int> TileInfo::getPos()
+{
+	return std::pair<int, int>(m_iPosX,m_iPosY);
+}
+
+void TileInfo::setPos(std::pair<int, int> p_pos)
+{
+	m_iPosX = p_pos.first;
+	m_iPosY = p_pos.second;
+}
+
 const std::string& TileInfo::getOwnerId()
 {
 	return m_sOwnerId;
