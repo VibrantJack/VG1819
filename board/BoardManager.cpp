@@ -90,11 +90,7 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 	kitten::Event::TileList list;
 	if (p_data->getString("mode") == "range")
 	{
-		list = Range::getTilesInRange(
-			p_data->getGameObj("tileAtOrigin"),
-			p_data->getInt("minRange"),
-			p_data->getInt("maxRange"),
-			m_tileList);
+		list = Range::getTilesInRange(p_data);
 	}
 	else if (p_data->getString("mode") == "all")
 	{//highlight all tile

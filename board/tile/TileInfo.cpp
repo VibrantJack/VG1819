@@ -15,7 +15,7 @@ TileInfo::TileInfo(int p_iPosX, int p_iPosY)
 	m_sOwnerId("NONE"),
 	m_sHighlightedBy("NONE")
 {
-
+	m_unitGO = nullptr;
 }
 
 TileInfo::~TileInfo()
@@ -62,6 +62,26 @@ void TileInfo::setPos(std::pair<int, int> p_pos)
 {
 	m_iPosX = p_pos.first;
 	m_iPosY = p_pos.second;
+}
+
+bool TileInfo::hasUnit()
+{
+	return m_unitGO != nullptr;
+}
+
+void TileInfo::setUnit(kitten::K_GameObject * p_u)
+{
+	m_unitGO = p_u;
+}
+
+void TileInfo::removeUnit()
+{
+	m_unitGO = nullptr;
+}
+
+kitten::K_GameObject * TileInfo::getUnit()
+{
+	return m_unitGO;
 }
 
 const std::string& TileInfo::getOwnerId()

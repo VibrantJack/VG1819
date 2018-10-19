@@ -36,6 +36,7 @@ namespace unit
 		void move(kitten::K_GameObject* p_targetTile);
 
 		void setTile(kitten::K_GameObject* p_targetTile);
+		kitten::K_GameObject* getTile();
 		void reset();
 		bool hasUpdate() const override;
 		void update() override;

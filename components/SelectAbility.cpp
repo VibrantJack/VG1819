@@ -33,6 +33,7 @@ void SelectAbility::useAbility(AbilityType p_ability)
 		}
 		case SelectAbility::Summon_Unit:
 		{
+			/*
 			kitten::Transform& transform = m_attachedObject->getTransform();
 			float unitOffsetX = 0.5f;
 			glm::vec3 pos = transform.getTranslation();
@@ -59,7 +60,7 @@ void SelectAbility::useAbility(AbilityType p_ability)
 			{
 				info->m_targetTiles.push_back(std::make_pair(pos.x + unitOffsetX, pos.z + 1));
 				printf("4pushed tile %f, %f\n", pos.x + unitOffsetX, pos.z + 1);
-			}
+			}*/
 			info->m_source = unit;
 			ability::AbilityManager::getInstance()->useAbility(SUMMON_UNIT, info);
 			break;

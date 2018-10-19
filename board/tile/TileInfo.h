@@ -22,6 +22,11 @@ public:
 	std::pair<int, int> getPos();
 	void setPos(std::pair<int, int> p_pos);
 
+	bool hasUnit();
+	void setUnit(kitten::K_GameObject* p_u);
+	void removeUnit();
+	kitten::K_GameObject* getUnit();
+
 	// TODO: Change according to finalized unit id structure
 	const std::string& getOwnerId();
 	void setOwnerId(const std::string& p_sId);
@@ -34,4 +39,5 @@ private:
 	int m_iPosX, m_iPosY;
 	std::string m_sOwnerId;
 	std::string m_sHighlightedBy;
+	kitten::K_GameObject* m_unitGO;
 };
