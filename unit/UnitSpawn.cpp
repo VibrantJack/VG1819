@@ -139,7 +139,7 @@ namespace unit
 		//readSD
 		for (auto it : p_unitData->m_sd)
 		{
-			readSD(it)->attach(unit);
+			unit->addStatus(readSD(it));
 		}
 
 		return unit;
