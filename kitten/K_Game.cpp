@@ -26,7 +26,6 @@
 #include "board/clickable/PrintWhenClicked.h"
 
 #include "board/BoardManager.h"
-
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
 

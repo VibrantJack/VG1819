@@ -27,7 +27,6 @@
 //#include "userinterface\UITestClickable.h"
 
 //board
-#include "board/component/BoardCreator.h"
 #include "board/component/Highlighter.h"
 //clickable
 #include "board/clickable/ManipulateTileOnClick.h"
