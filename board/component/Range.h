@@ -26,4 +26,5 @@ private:
 		int p_distance, int p_minRange, int p_maxRange);
 
 	static void removeUnit(kitten::Event::TileList* p_list);
+	static void removeOwned(kitten::Event::TileList* p_list);
 };

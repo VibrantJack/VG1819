@@ -18,6 +18,10 @@ kitten::Event::TileList Range::getTilesInRange(kitten::Event * p_data)
 	{
 		removeUnit(&list);
 	}
+	else if (use == "ManipulateTile")
+	{
+		removeOwned(&list);
+	}
 
 	return list;
 }
@@ -104,6 +108,25 @@ void Range::removeUnit(kitten::Event::TileList* p_list)
 	{
 		kitten::K_GameObject* tileGO = BoardManager::getInstance()->getTile(it->first, it->second);
 		if (tileGO->getComponent<TileInfo>()->hasUnit())
+		{
+			it = p_list->erase(it);
+		}
+		else
+		{
+			it++;
+		}
+	}
+}
+
+void Range::removeOwned(kitten::Event::TileList * p_list)
+{
+	//remove tiles that has owner
+	auto it = p_list->begin();
+	while (it != p_list->end())
+	{
+		kitten::K_GameObject* tileGO = BoardManager::getInstance()->getTile(it->first, it->second);
+		std::string owner = tileGO->getComponent<TileInfo>()->getOwnerId();
+		if (owner != DEFAULT_OWNER)
 		{
 			it = p_list->erase(it);
 		}

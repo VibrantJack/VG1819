@@ -1,6 +1,6 @@
 #pragma once
 
-#define DEFAULT_OWNER = "NONE"
+#define DEFAULT_OWNER "NONE"
 
 #include "kitten\K_Component.h"
 

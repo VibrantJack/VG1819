@@ -36,7 +36,7 @@ namespace unit
 
 		//TO DO: by ID or name or something
 		kitten::K_GameObject* getCurrentUnit();
-		std::vector<kitten::K_GameObject*> getList();
+		std::vector<kitten::K_GameObject*> getUnitList();
 
 		//turn phase
 		//start of whole turn->unit turn->next->repeat until no more unit->start of whole turn

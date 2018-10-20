@@ -19,13 +19,15 @@ void SelectAbility::useAbility(AbilityType p_ability)
 	{
 		case SelectAbility::Manipulate_Tile:
 		{
+			//tile list will be determined in board manager using range 
+			/*
 			for (int x = 0; x < 15; x++)
 			{
 				for (int z = 0; z < 15; z++)
 				{
 					info->m_targetTiles.push_back(std::make_pair(x, z));
 				}
-			}
+			}*/
 			info->m_source = unit;
 
 			ability::AbilityManager::getInstance()->useAbility(MANIPULATE_TILE_ABILITY, info);
@@ -33,6 +35,7 @@ void SelectAbility::useAbility(AbilityType p_ability)
 		}
 		case SelectAbility::Summon_Unit:
 		{
+			//tile list will be determined in board manager using range 
 			/*
 			kitten::Transform& transform = m_attachedObject->getTransform();
 			float unitOffsetX = 0.5f;
