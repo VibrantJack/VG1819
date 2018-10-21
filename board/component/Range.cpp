@@ -3,6 +3,14 @@
 #include "board/BoardManager.h"
 
 
+Range::Range()
+{
+}
+
+Range::~Range()
+{
+}
+
 kitten::Event::TileList Range::getTilesInRange(kitten::Event * p_data)
 {
 	kitten::K_GameObject * tileAtOrigin = p_data->getGameObj("tileAtOrigin");

@@ -8,26 +8,18 @@
 
 class BoardCreator : public kitten::K_Component
 {
+private:
+	int m_x;
+	int m_z;
 public:
 	BoardCreator();
 	~BoardCreator();
 
-	virtual bool hasUpdate() const;
-
 	virtual void start() override;
-	virtual void update() override;
 
-	void highlightTile(kitten::Event::EventType p_type, kitten::Event* p_data);
-	void unhighlightTiles(kitten::Event::EventType p_type, kitten::Event* p_data);
-	void unhighlightCurrent(kitten::Event::EventType p_type, kitten::Event* p_data);
+	void setDimension(int x, int z);
 
-	static kitten::K_GameObject* getTile(int x, int z);
 private:
-	static kitten::K_GameObject* m_pTileList[15][15];
-	
-	kitten::Event::TileList m_toBeHighlighted;
-	kitten::Event::TileList m_lastHighlighted;
-	kitten::Event::TileList m_toBeUnhighlighted;
 
-	std::string m_sHighlightedBy;
+	kitten::K_GameObject* createTile(int x, int z);
 };

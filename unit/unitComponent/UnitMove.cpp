@@ -1,6 +1,7 @@
 #include "UnitMove.h"
 #include "unit/Unit.h"
 #include "board/tile/TileInfo.h"
+#include "board/BoardManager.h"
 #include <iostream>
 #include <cmath>
 
@@ -103,7 +104,7 @@ void unit::UnitMove::move(kitten::K_GameObject * p_targetTile)
 	triggerUnhighLightEvent();
 }
 
-void unit::UnitMove::setTile(kitten::K_GameObject * p_targetTile)
+void unit::UnitMove::setTile(kitten::K_GameObject * p_tile)
 {
 	if (m_currentTile != nullptr)
 	{
@@ -112,11 +113,18 @@ void unit::UnitMove::setTile(kitten::K_GameObject * p_targetTile)
 	}
 
 	//add this to target tile
-	p_targetTile->getComponent<TileInfo>()->setUnit(m_attachedObject);
+	p_tile->getComponent<TileInfo>()->setUnit(m_attachedObject);
 
-	m_currentTile = p_targetTile;
-	m_lastTile = p_targetTile;
+	m_currentTile = p_tile;
+	m_lastTile = p_tile;
 	reset();
+}
+
+void unit::UnitMove::setTile(int p_x, int p_z)
+{
+	set = true;
+	m_tileX = p_x;
+	m_tileZ = p_z;
 }
 
 kitten::K_GameObject * unit::UnitMove::getTile()
@@ -139,6 +147,12 @@ bool unit::UnitMove::hasUpdate() const
 
 void unit::UnitMove::update()
 {
+	if (set)
+	{
+		setTile(BoardManager::getInstance()->getTile(m_tileX,m_tileZ));
+		set = false;
+	}
+
 	if (m_currentTile != m_lastTile)
 	{
 		float velocity = kitten::K_Time::getInstance()->getDeltaTime() * m_speed * 60.0f;//delta time * speed * 60fps

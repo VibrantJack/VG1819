@@ -14,13 +14,13 @@
 
 class BoardManager
 {
-	friend class BoardCreator;
 public:
 	static void createInstance() { assert(sm_instance == nullptr); sm_instance = new BoardManager(); };
 	static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
 	static BoardManager * getInstance() { return sm_instance; };
 
-	void createBoard(int p_x = 15,int p_z = 15);
+	void setTileList(std::vector<kitten::K_GameObject*>* p_list);
+	void setDimension(int p_x, int p_z);
 	kitten::K_GameObject* getTile(int p_x, int p_z);
 
 	void registerEvent();
@@ -30,10 +30,9 @@ private:
 	static BoardManager* sm_instance;
 
 	std::pair<int, int> m_dimension;
-	kitten::K_GameObject* m_boardGO;
+	//kitten::K_GameObject* m_boardGO;
 
 	Range* m_range;
-	BoardCreator* m_boardCreator;
 	Highlighter* m_highlighter;
 
 	std::vector<kitten::K_GameObject*> m_tileList;

@@ -76,8 +76,8 @@ namespace kitten
 		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
 		kibble::setSceneFrom(std::string("mainscene.txt"));
 
-		//create board
-		BoardManager::getInstance()->createBoard();
+		//board creator doesn't done by board manager
+		//BoardManager::getInstance()->createBoard();
 
 		/*
 		//Example of Parent / Children : REMOVE WHEN TESTING DONE OR BUGS NOT BEING FOUND

@@ -28,6 +28,7 @@
 
 //board
 #include "board/component/Highlighter.h"
+#include "board/component/BoardCreator.h"
 //clickable
 #include "board/clickable/ManipulateTileOnClick.h"
 #include "board/clickable/PrintWhenClicked.h"
@@ -154,6 +155,10 @@ namespace kitten
 		else if (p_componentName == "Highlighter")
 		{
 			comp = new Highlighter();
+		}
+		else if (p_componentName == "BoardCreator")
+		{
+			comp = new BoardCreator();
 		}
 		else
 		{

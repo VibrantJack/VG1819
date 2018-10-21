@@ -14,17 +14,20 @@
 class Range
 {
 public:
-	static kitten::Event::TileList getTilesInRange(kitten::Event * p_data);
+	Range();
+	~Range();
 
-	static kitten::Event::TileList getTilesInRange
+	kitten::Event::TileList getTilesInRange(kitten::Event * p_data);
+
+	kitten::Event::TileList getTilesInRange
 	(kitten::K_GameObject* p_tileAtOrigin,
 		int p_minRange, int p_maxRange);
 private:
-	static void findNeighbour
+	void findNeighbour
 	(std::map<std::pair<int, int>, int>* p_tilesAndRange, 
 		std::pair<int, int> p_currentTile, 
 		int p_distance, int p_minRange, int p_maxRange);
 
-	static void removeUnit(kitten::Event::TileList* p_list);
-	static void removeOwned(kitten::Event::TileList* p_list);
+	void removeUnit(kitten::Event::TileList* p_list);
+	void removeOwned(kitten::Event::TileList* p_list);
 };

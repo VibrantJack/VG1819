@@ -20,54 +20,12 @@
 //tile
 #include "board/tile/TileInfo.h"
 
-kitten::K_GameObject* BoardCreator::m_pTileList[15][15];
+#include "board/BoardManager.h"
 
-BoardCreator::BoardCreator()
+
+BoardCreator::BoardCreator() :m_x(15), m_z(15)
 {
-	// Adding listeners for events
-	kitten::EventManager::getInstance()->addListener(
-		kitten::Event::EventType::Highlight_Tile,
-		this,
-		std::bind(&BoardCreator::highlightTile, this, std::placeholders::_1, std::placeholders::_2));
 
-	kitten::EventManager::getInstance()->addListener(
-		kitten::Event::EventType::Unhighlight_Tile,
-		this,
-		std::bind(&BoardCreator::unhighlightCurrent, this, std::placeholders::_1, std::placeholders::_2));
-	// End adding listeners for events
-
-	// Initializing Tiles on board
-	kitten::K_GameObjectManager* gameObjMan = kitten::K_GameObjectManager::getInstance();
-	kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
-
-	for (int x = 0; x < 15; x++)
-	{
-		for (int z = 0; z < 15; z++)
-		{
-			kitten::K_GameObject* testTile = gameObjMan->createNewGameObject("tileobj.txt");
-			m_pTileList[x][z] = testTile;
-
-			PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
-			printWhenClick->setMessage("grassy tile: " + std::to_string(x) + ", " + std::to_string(z));
-			testTile->addComponent(printWhenClick);
-
-			ManipulateTileOnClick* manipTileOnClick = static_cast<ManipulateTileOnClick*>(compMan->createComponent("ManipulateTileOnClick"));
-			testTile->addComponent(manipTileOnClick);
-
-			SendSelfOnClick* sendSelfOnClick = static_cast<SendSelfOnClick*>(compMan->createComponent("SendSelfOnClick"));
-			testTile->addComponent(sendSelfOnClick);
-
-			K_Component* tileInfo = new TileInfo(x, z);
-			testTile->addComponent(tileInfo);
-
-			K_Component* clickBox = compMan->createComponent("ClickableBox");
-			testTile->addComponent(clickBox);
-
-			kitten::Transform& transform = testTile->getTransform();
-			transform.move(x, -1, z);
-		}
-	}
-	// End initializing tiles on board
 }
 
 BoardCreator::~BoardCreator()
@@ -75,124 +33,66 @@ BoardCreator::~BoardCreator()
 
 }
 
-bool BoardCreator::hasUpdate() const
-{
-	return true;
-}
-
 void BoardCreator::start()
 {
-	for (int x = 0; x < 15; x++)
-	{
-		for (int z = 0; z < 15; z++)
-		{
-			kitten::K_GameObject* testTile = m_pTileList[x][z];
+	//create tile
+	std::vector<kitten::K_GameObject*> list;
 
-			kitten::Transform& transform = testTile->getTransform();
+	for (int x = 0; x < m_x; x++)
+	{
+		for (int z = 0; z < m_z; z++)
+		{
+			kitten::K_GameObject* tileGO = createTile(x, z);
+			list.push_back(tileGO);
+
+			kitten::Transform& transform = tileGO->getTransform();
 			transform.setParent(&m_attachedObject->getTransform());
 			transform.setIgnoreParent(true);
 		}
 	}
+	//pass tile list and dimension to board manager
+	BoardManager::getInstance()->setTileList(&list);
+	BoardManager::getInstance()->setDimension(m_x,m_z);
 
 	// PowerTracker component attached to Board GO
 	kitten::K_Component* powerTracker = kitten::K_ComponentManager::getInstance()->createComponent("PowerTracker");
 	m_attachedObject->addComponent(powerTracker);
+
+	//delete this
+	kitten::K_ComponentManager::getInstance()->destroyComponent(this);
 }
 
-void BoardCreator::update()
+void BoardCreator::setDimension(int x, int z)
 {
-	kitten::K_GameObject* tile;
-
-	// If there are tiles to be highlighted and there are already highlighted tiles
-	//	then unhighlight already highlighted tiles to prepare for new highlights
-	if (!m_toBeHighlighted.empty() && !m_lastHighlighted.empty())
-	{
-		printf("ToBeHighlighted full and lastHighlighted full\n");
-		m_toBeUnhighlighted = m_lastHighlighted;
-		m_lastHighlighted.clear();
-	}
-
-	// Remove color tint from tiles to be unhighlighted
-	unhighlightTiles(kitten::Event::EventType::Unhighlight_Tile, nullptr);
-
-	if (!m_toBeHighlighted.empty())
-	{
-		auto it = m_toBeHighlighted.cbegin();
-		for (; it != m_toBeHighlighted.cend(); ++it)
-		{
-			tile = m_pTileList[it->first][it->second];
-
-			kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
-			quad->setColorTint(glm::vec4(0.0f, 0.0f, 0.5f, 1.0f) + quad->getColorTint());
-
-			TileInfo* tileInfo = tile->getComponent<TileInfo>();
-			tileInfo->setHighlighted(true);
-			tileInfo->setHighlightedBy(m_sHighlightedBy);
-		}
-
-		m_lastHighlighted = m_toBeHighlighted;
-		m_toBeHighlighted.clear();
-	}
+	m_x = x;
+	m_z = z;
 }
 
-void BoardCreator::highlightTile(kitten::Event::EventType p_type, kitten::Event* p_data)
+
+kitten::K_GameObject * BoardCreator::createTile(int x, int z)
 {
-	if (p_data->getString("use") == "move")
-	{
-		m_toBeHighlighted = Range::getTilesInRange(
-			p_data->getGameObj("tileAtOrigin"),
-			p_data->getInt("minRange"),
-			p_data->getInt("maxRange"),
-			m_pTileList);
-	} else
-	{
-		m_toBeHighlighted = *p_data->getTileList();
-	}
-	m_sHighlightedBy = p_data->getString(TILE_OWNER_KEY);
-}
+	kitten::K_GameObjectManager* gameObjMan = kitten::K_GameObjectManager::getInstance();
+	kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
 
-void BoardCreator::unhighlightTiles(kitten::Event::EventType p_type, kitten::Event* p_data)
-{
-	kitten::K_GameObject* tile;
-	TileInfo* tileInfo;
-	auto it = m_toBeUnhighlighted.cbegin();
-	for (; it != m_toBeUnhighlighted.cend(); ++it)
-	{
-		tile = m_pTileList[it->first][it->second];
-		tileInfo = tile->getComponent<TileInfo>();
+	kitten::K_GameObject* tileGO = gameObjMan->createNewGameObject("tileobj.txt");
 
-		if (tileInfo->getOwnerId() == "NONE") {
+	PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
+	printWhenClick->setMessage("grassy tile: " + std::to_string(x) + ", " + std::to_string(z));
+	tileGO->addComponent(printWhenClick);
 
-			kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
-			quad->setColorTint(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+	ManipulateTileOnClick* manipTileOnClick = static_cast<ManipulateTileOnClick*>(compMan->createComponent("ManipulateTileOnClick"));
+	tileGO->addComponent(manipTileOnClick);
 
-			tileInfo->setHighlighted(false);
-			tileInfo->setHighlightedBy("NONE");
-		}
-		else
-		{
-			kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
-			quad->setColorTint(glm::vec4(0.0f, 0.5f, 0.0f, 1.0f));
+	SendSelfOnClick* sendSelfOnClick = static_cast<SendSelfOnClick*>(compMan->createComponent("SendSelfOnClick"));
+	tileGO->addComponent(sendSelfOnClick);
 
-			tileInfo->setHighlighted(false);
-			tileInfo->setHighlightedBy("NONE");
-		}
-	}
+	kitten::K_Component* tileInfo = new TileInfo(x, z);
+	tileGO->addComponent(tileInfo);
 
-	m_toBeUnhighlighted.clear();
-}
+	kitten::K_Component* clickBox = compMan->createComponent("ClickableBox");
+	tileGO->addComponent(clickBox);
 
-void BoardCreator::unhighlightCurrent(kitten::Event::EventType p_type, kitten::Event* p_data)
-{
-	if (!m_lastHighlighted.empty())
-	{
-		m_toBeUnhighlighted = m_lastHighlighted;
-		m_lastHighlighted.clear();
-	}
-}
-
-kitten::K_GameObject * BoardCreator::getTile(int x, int z)
-{
-	kitten::K_GameObject * t = m_pTileList[x][z];
-	return t;
+	kitten::Transform& transform = tileGO->getTransform();
+	transform.move(x, -1, z);
+	return tileGO;
 }

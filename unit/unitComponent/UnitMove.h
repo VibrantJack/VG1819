@@ -16,6 +16,10 @@ namespace unit
 
 		bool notRegistered = true;
 
+		bool set = false;//for test
+		int m_tileX;
+		int m_tileZ;
+
 		float distanceX;
 		float distanceZ;
 
@@ -35,7 +39,9 @@ namespace unit
 		void triggerUnhighLightEvent();
 		void move(kitten::K_GameObject* p_targetTile);
 
-		void setTile(kitten::K_GameObject* p_targetTile);
+		void setTile(kitten::K_GameObject* p_tile);
+		void setTile(int p_x, int p_z);
+
 		kitten::K_GameObject* getTile();
 		void reset();
 		bool hasUpdate() const override;

@@ -5,32 +5,26 @@
 
 BoardManager* BoardManager::sm_instance = nullptr;
 
-void BoardManager::createBoard(int p_x, int p_z)
+void BoardManager::setTileList(std::vector<kitten::K_GameObject*>* p_list)
+{
+	m_tileList = *p_list;
+}
+
+void BoardManager::setDimension(int p_x, int p_z)
 {
 	m_dimension = std::pair<int, int>(p_x, p_z);
-	for (int x = 0; x < p_x; x++)
-	{
-		for (int z = 0; z < p_z; z++)
-		{
-			kitten::K_GameObject* tileGO = m_boardCreator->createTile(x, z);
-			m_tileList.push_back(tileGO);
-
-			kitten::Transform& transform = tileGO->getTransform();
-			transform.setParent(&m_boardGO->getTransform());
-			transform.setIgnoreParent(true);
-		}
-	}
-
-	// PowerTracker component attached to Board GO
-	kitten::K_Component* powerTracker = kitten::K_ComponentManager::getInstance()->createComponent("PowerTracker");
-	m_boardGO->addComponent(powerTracker);
-
-	registerEvent();
 }
 
 kitten::K_GameObject * BoardManager::getTile(int p_x, int p_z)
 {
-	return m_boardCreator->getTile(p_x,p_z);
+	std::pair<int, int> pos(p_x, p_z);
+	int x_length = m_dimension.first;
+	if (pos == m_tileList[p_x * x_length + p_z]->getComponent<TileInfo>()->getPos())
+	{
+		return m_tileList[p_x * x_length + p_z];
+	}
+	assert(false);//not found tile or wrong in position
+	return nullptr;
 }
 
 void BoardManager::registerEvent()
@@ -53,14 +47,16 @@ void BoardManager::deregisterEvent()
 
 BoardManager::BoardManager()
 {
-	m_boardGO = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-	m_boardCreator = new BoardCreator();
+	//m_boardGO = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+	m_range = new Range();
 	m_highlighter = static_cast<Highlighter*>(kitten::K_ComponentManager::getInstance()->createComponent("Highlighter"));
+
+	registerEvent();
 }
 
 BoardManager::~BoardManager()
 {
-	delete m_boardCreator;
+	delete m_range;
 	delete m_highlighter;
 }
 
@@ -90,7 +86,7 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 	kitten::Event::TileList list;
 	if (p_data->getString("mode") == "range")
 	{
-		list = Range::getTilesInRange(p_data);
+		list = m_range->getTilesInRange(p_data);
 	}
 	else if (p_data->getString("mode") == "all")
 	{//highlight all tile
