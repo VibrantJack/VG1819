@@ -15,7 +15,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>VG1819</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <ProjectName>VG1819</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -120,7 +120,8 @@
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\ability\status\Status_LV.cpp" />
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
-    <ClCompile Include="..\board\BoardManager.cpp" />
+    <ClCompile Include="..\kibble\custom\CustomDeckDataParser.cpp" />
+    <ClCompile Include="..\board\boardManager.cpp" />
     <ClCompile Include="..\board\clickable\ManipulateTileOnClick.cpp" />
     <ClCompile Include="..\board\clickable\PrintWhenClicked.cpp" />
     <ClCompile Include="..\board\clickable\SendSelfOnClick.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="..\ability\node\AbilityNodeManager.h" />
     <ClInclude Include="..\ability\StatusManager.h" />
     <ClInclude Include="..\ability\status\Status.h" />
+    <ClInclude Include="..\DeckData.hpp" />
     <ClInclude Include="..\board\BoardManager.h" />
     <ClInclude Include="..\board\clickable\ManipulateTileOnClick.h" />
     <ClInclude Include="..\board\clickable\PrintWhenClicked.h" />
@@ -238,7 +240,9 @@
     <ClInclude Include="..\gameworld\TileInformationComponent.h" />
     <ClInclude Include="..\json.hpp" />
     <ClInclude Include="..\kibble\ComponentDataParser.hpp" />
+    <ClInclude Include="..\kibble\custom\CustomDeckDataParser.hpp" />
     <ClInclude Include="..\kibble\databank\databank.hpp" />
+    <ClInclude Include="..\kibble\DeckDataParser.hpp" />
     <ClInclude Include="..\kibble\GameObjectDataParser.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\GameObjectDataType.hpp" />
