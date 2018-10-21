@@ -22,7 +22,7 @@ namespace unit
 		void start() override;
 
 		void move(int p_slotIndex);
-		void set(std::vector<kitten::K_GameObject*>::iterator p_unitIt);
+		void set(kitten::K_GameObject* p_unitGO);
 		void clear();
 
 		bool hasUpdate() const override;

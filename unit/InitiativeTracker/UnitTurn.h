@@ -22,5 +22,6 @@ namespace unit
 		void turnStart(kitten::K_GameObject* p_unitObj);
 		void checkTurn();
 		void turnEnd();
+		void turnReset();
 	};
 }

@@ -110,6 +110,7 @@ namespace kitten
 		void setIgnoreParent(bool p_ignores);
 
 		void setParent(Transform* p_parent);
+		Transform* getParent();
 		bool removeChild(const Transform* p_child);
 
 		//Listeners

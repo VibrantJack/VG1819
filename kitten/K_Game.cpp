@@ -15,13 +15,15 @@
 #include "kitten\CubeRenderable.h"
 #include "kitten\QuadRenderable.h"
 #include "_Project\MoveByMouseRightClickDrag.h"
-#include "_Project\PrintWhenClicked.h"
 #include "kitten\mouse picking\ClickableBox.h"
 
 #include "gameworld\GameBoard.h"
 
 #include "kibble/kibble.hpp"
 #include "unit/UnitTest.h"
+
+//board clickable
+#include "board/clickable/PrintWhenClicked.h"
 
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
@@ -125,21 +127,6 @@ namespace kitten
 		gameObj->addComponent(fpsCalc);
 		gameObj->getTransform().place2D(100, 700);
 		*/
-
-		// Testing Events
-		Event* e = new Event(Event::Test_Event);
-		e->putString("key", "Testing Event Trigger");
-
-		EventExample ee;
-		ee.registerListener();
-		EventManager::getInstance()->triggerEvent(Event::Test_Event, e);
-		//ee.deregisterListener();
-
-		e = new Event(Event::Test_Event);
-		e->putString("key", "Testing Event queue");
-		EventManager::getInstance()->queueEvent(Event::Test_Event, e);
-
-		// End testing events
 
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();

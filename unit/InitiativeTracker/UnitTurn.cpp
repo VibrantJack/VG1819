@@ -15,7 +15,6 @@ void unit::UnitTurn::turnStart(kitten::K_GameObject* p_unitObj)
 {
 	m_currentUnit = p_unitObj->getComponent<unit::Unit>();
 	m_currentUnit->turnStart(this);
-
 	//TO DO:send turn start event
 
 	//TO DO:check CT
@@ -48,4 +47,10 @@ void unit::UnitTurn::turnEnd()
 
 	//call initiative tracker
 	InitiativeTracker::getInstance()->unitTurnEnd();
+}
+
+void unit::UnitTurn::turnReset()
+{
+	m_currentUnit->turnEnd();
+	m_currentUnit = nullptr;
 }

@@ -20,7 +20,7 @@ namespace unit
 		InitiativeTrackerUI* m_UI;
 
 		std::vector<kitten::K_GameObject*> m_unitObjectList;
-		std::vector<kitten::K_GameObject*>::iterator m_currentUnitIterator;
+		int m_currentUnitIndex;
 
 		void sortListByIn();
 	public:

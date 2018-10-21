@@ -128,9 +128,6 @@
     <ClCompile Include="..\kitten\mouse picking\MousePicker.cpp">
       <Filter>kitten\mouse  picking</Filter>
     </ClCompile>
-    <ClCompile Include="PrintWhenClicked.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp">
       <Filter>kibble\JSON\Datatypes</Filter>
     </ClCompile>
@@ -200,9 +197,6 @@
     <ClCompile Include="..\kitten\mouse picking\ClickableBox.cpp">
       <Filter>kitten\mouse  picking</Filter>
     </ClCompile>
-    <ClCompile Include="BoardCreator.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="..\kibble\databank\databank.cpp">
       <Filter>kibble\databank</Filter>
     </ClCompile>
@@ -251,13 +245,16 @@
     <ClCompile Include="..\ability\ability\ManipulateTile.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
-    <ClCompile Include="ManipulateTileOnClick.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
-    <ClCompile Include="TileInfo.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="UseAbilityWhenClicked.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\PowerTracker.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\SummonUnit.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\SelectAbility.cpp">
       <Filter>components</Filter>
     </ClCompile>
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp">
@@ -278,13 +275,7 @@
     <ClCompile Include="..\unit\unitComponent\UnitClickable.cpp">
       <Filter>unit\unitComponent</Filter>
     </ClCompile>
-    <ClCompile Include="SendSelfOnClick.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
-    <ClCompile Include="Range.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="..\kitten\audio\AudioEngineWrapper.cpp">
       <Filter>kitten\audio</Filter>
     </ClCompile>
@@ -341,7 +332,6 @@
     <ClCompile Include="..\unit\InitiativeTracker\TrackerPointer.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
-    <ClCompile Include="..\unit\InitiativeTracker\PointerUI.cpp" />
     <ClCompile Include="..\kitten\mouse picking\ClickableFrame.cpp">
       <Filter>kitten\mouse  picking</Filter>
     </ClCompile>
@@ -350,6 +340,27 @@
     </ClCompile>
     <ClCompile Include="..\kibble\custom\CustomDeckDataParser.cpp">
       <Filter>kibble\Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\PointerUI.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\clickable\ManipulateTileOnClick.cpp">
+      <Filter>board\clickable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\clickable\PrintWhenClicked.cpp">
+      <Filter>board\clickable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\clickable\SendSelfOnClick.cpp">
+      <Filter>board\clickable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\BoardCreator.cpp">
+      <Filter>board\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\Range.cpp">
+      <Filter>board\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\TileInfo.cpp">
+      <Filter>board\tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -518,9 +529,6 @@
     <ClInclude Include="..\kitten\mouse picking\Ray.h">
       <Filter>kitten\mouse  picking</Filter>
     </ClInclude>
-    <ClInclude Include="PrintWhenClicked.h">
-      <Filter>components</Filter>
-    </ClInclude>
     <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp">
       <Filter>kibble\JSON\Datatypes</Filter>
     </ClInclude>
@@ -554,9 +562,6 @@
     <ClInclude Include="..\kitten\mouse picking\ClickableBox.h">
       <Filter>kitten\mouse  picking</Filter>
     </ClInclude>
-    <ClInclude Include="BoardCreator.h">
-      <Filter>components</Filter>
-    </ClInclude>
     <ClInclude Include="..\kibble\databank\databank.hpp">
       <Filter>kibble\databank</Filter>
     </ClInclude>
@@ -578,13 +583,13 @@
     <ClInclude Include="..\kitten\UIRenderable.h">
       <Filter>kitten</Filter>
     </ClInclude>
-    <ClInclude Include="ManipulateTileOnClick.h">
-      <Filter>components</Filter>
-    </ClInclude>
-    <ClInclude Include="TileInfo.h">
-      <Filter>components</Filter>
-    </ClInclude>
     <ClInclude Include="UseAbilityWhenClicked.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\PowerTracker.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\SelectAbility.h">
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h">
@@ -605,16 +610,10 @@
     <ClInclude Include="..\unit\unitComponent\UnitClickable.h">
       <Filter>unit\unitComponent</Filter>
     </ClInclude>
-    <ClInclude Include="SendSelfOnClick.h">
-      <Filter>components</Filter>
-    </ClInclude>
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
     <ClInclude Include="..\kitten\K_Sprite.h" />
     <ClInclude Include="..\puppy\P_Sprite.h" />
     <ClInclude Include="..\userinterface\UI_ElementComponent.h" />
-    <ClInclude Include="Range.h">
-      <Filter>components</Filter>
-    </ClInclude>
     <ClInclude Include="..\kitten\audio\AudioEngineWrapper.h">
       <Filter>kitten\audio</Filter>
     </ClInclude>
@@ -682,6 +681,27 @@
     </ClInclude>
     <ClInclude Include="..\kibble\custom\CustomDeckDataParser.hpp">
       <Filter>kibble\Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\BoardManager.h">
+      <Filter>board</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\clickable\ManipulateTileOnClick.h">
+      <Filter>board\clickable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\clickable\PrintWhenClicked.h">
+      <Filter>board\clickable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\clickable\SendSelfOnClick.h">
+      <Filter>board\clickable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\component\BoardCreator.h">
+      <Filter>board\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\component\Range.h">
+      <Filter>board\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\tile\TileInfo.h">
+      <Filter>board\tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -762,6 +782,21 @@
     </Filter>
     <Filter Include="kibble\Custom">
       <UniqueIdentifier>{0b9dadcb-53bf-40a7-a741-ba2426505959}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="unitInteraction">
+      <UniqueIdentifier>{1fb89c97-aeff-4402-83e4-69ba3d5164c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board">
+      <UniqueIdentifier>{18c905e4-e70f-4f75-9dfb-0895797498ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\clickable">
+      <UniqueIdentifier>{c3082969-bbf1-436a-bc7c-2c97b82a0cf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\tile">
+      <UniqueIdentifier>{1cf5fe3d-8ea8-4fa7-be46-2eb4906acf31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\component">
+      <UniqueIdentifier>{0ae05199-ea25-4694-8d77-89d227d2bec6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

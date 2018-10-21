@@ -104,7 +104,7 @@ kitten::K_Component* getDebugPrintOnce(nlohmann::json* p_jsonFile){
 	return new DebugPrintOnce(message);
 }
 
-#include "_Project/PrintWhenClicked.h"
+#include "board/clickable/PrintWhenClicked.h"
 kitten::K_Component* getPrintWhenClicked(nlohmann::json* p_jsonFile) {
 	std::string message = "Default Message";
 
@@ -136,7 +136,7 @@ kitten::K_Component* getDestroyOnClick(nlohmann::json* p_jsonFile){
 	return new DestroyOnClick();
 }
 
-#include "_Project\BoardCreator.h"
+#include "board/component/BoardCreator.h"
 kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
 	return new BoardCreator();
 }
@@ -201,6 +201,157 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 	if (enableEffects) {
 		//Effects parsing here
 
+#define jsonHas(str) innerJson.find(str) != innerJson.end()
+#define setVar(varName,jsonName) if(jsonHas(jsonName)) varName = innerJson.operator[](jsonName)
+
+		auto sfx = toReturn->getSFXControl();
+
+		if (p_jsonFile->find("choruseffect") != p_jsonFile->end()) {
+			irrklang::ik_f32 wetDryMix = 50, depth = 10, feedback = 25, frequency = 1.1;
+			bool sinusWaveForm = true;
+			irrklang::ik_f32 delay = 16, phase = 90;
+			
+			auto innerJson = p_jsonFile->operator[]("choruseffect");
+
+			setVar(wetDryMix, "wetdrymix");
+			setVar(depth, "depth");
+			setVar(feedback, "feedback");
+			setVar(frequency, "frequency");
+			setVar(sinusWaveForm, "sinuswaveform");
+			setVar(delay, "delay");
+			setVar(phase, "phase");
+
+			sfx->setChorusEffect(wetDryMix, depth, feedback, frequency, sinusWaveForm, delay, phase);
+		}
+
+		if (p_jsonFile->find("compressoreffect") != p_jsonFile->end()) {
+			irrklang::ik_f32 gain = 0, attack = 10, release = 200, threshold = -20,
+				ratio = 3, preDelay = 4;
+
+			auto innerJson = p_jsonFile->operator[]("compressoreffect");
+
+			setVar(gain, "gain");
+			setVar(attack, "attack");
+			setVar(release, "release");
+			setVar(threshold, "threshold");
+			setVar(ratio, "ratio");
+			setVar(preDelay, "predelay");
+
+			sfx->setCompressorEffect(gain, attack, release, threshold, ratio, preDelay);
+		}
+
+		if (p_jsonFile->find("distortioneffect") != p_jsonFile->end()) {
+			irrklang::ik_f32 gain = -18, edge = 15, postEQCenterFrequency = 2400,
+				postEQBandwidth = 2400, preLowpassCutoff = 8000;
+
+			auto innerJson = p_jsonFile->operator[]("distortioneffect");
+
+			setVar(gain, "gain");
+			setVar(edge, "edge");
+			setVar(postEQCenterFrequency, "posteqcenterfrequency");
+			setVar(postEQBandwidth, "posteqbandwidth");
+			setVar(preLowpassCutoff, "prelowpasscutoff");
+
+			sfx->setDistortionEffect(gain, edge, postEQCenterFrequency, postEQBandwidth, preLowpassCutoff);
+		}
+
+		if (p_jsonFile->find("echoeffect") != p_jsonFile->end()) {
+			irrklang::ik_f32 wetDryMix = 50, feedback = 50,
+				leftDelay = 500, rightDelay = 500, panDelay = 0;
+
+			auto innerJson = p_jsonFile->operator[]("echoeffect");
+
+			setVar(wetDryMix, "wetdrymix");
+			setVar(feedback, "feedback");
+			setVar(leftDelay, "leftdelay");
+			setVar(rightDelay, "rightdelay");
+			setVar(panDelay, "pandelay");
+
+			sfx->setEchoEffect(wetDryMix, feedback, leftDelay, rightDelay, panDelay);
+		}
+
+		if (p_jsonFile->find("flangereffect") != p_jsonFile->end()) {
+			irrklang::ik_f32 wetDryMix = 50, depth = 100,
+				feedback = -50, frequency = 0.25f, delay = 2;
+			irrklang::ik_s32 phase = 0;
+			bool triangleWaveForm = true;
+
+			auto innerJson = p_jsonFile->operator[]("flangereffect");
+
+			setVar(wetDryMix, "wetdrymix");
+			setVar(depth, "depth");
+			setVar(feedback, "feedback");
+			setVar(frequency, "frequency");
+			setVar(delay, "delay");
+			setVar(phase, "phase");
+			setVar(triangleWaveForm, "trianglewaveform");
+
+			sfx->setFlangerEffect(wetDryMix, depth, feedback, frequency, triangleWaveForm, delay, phase);
+		}
+
+		if (p_jsonFile->find("gargleeffect") != p_jsonFile->end()) {
+			irrklang::ik_s32 rateHz = 20;
+			bool sinusWaveForm = true;
+
+			auto innerJson = p_jsonFile->operator[]("gargleffect");
+
+			setVar(rateHz, "ratehz");
+			setVar(sinusWaveForm, "sinuswaveform");
+
+			sfx->setGargleEffect(rateHz, sinusWaveForm);
+		}
+
+		if (p_jsonFile->find("3dreverbeffect") != p_jsonFile->end()) {
+			irrklang::ik_s32 room = -1000, roomHF = -100,
+				reflections = -2602, reverb = 200;
+			irrklang::ik_f32 roomRolloffFactor = 0, decayTime = 1.49f, decayHFRatio = 0.83f,
+				reflectionsDelay = 0.007f, reverbDelay = 0.011f, diffusion = 100,
+				density = 100, hfReference = 5000;
+
+			auto innerJson = p_jsonFile->operator[]("3dreverbeffect");
+
+			setVar(room, "room");
+			setVar(roomHF, "roomHF");
+			setVar(reflections, "reflections");
+			setVar(reverb, "reverb");
+			setVar(roomRolloffFactor, "roomrollofffactor");
+			setVar(decayTime, "decaytime");
+			setVar(decayHFRatio, "decayhfratio");
+			setVar(reflectionsDelay, "reflectionsdelay");
+			setVar(reverbDelay, "reverbdelay");
+			setVar(diffusion, "diffusion");
+			setVar(density, "density");
+			setVar(hfReference, "hfReference");
+
+			sfx->set3DReverbEffect(room, roomHF, roomRolloffFactor, decayTime, decayHFRatio, reflections, reflectionsDelay, reverb, reverbDelay, diffusion, density, hfReference);
+		}
+
+		if (p_jsonFile->find("parameqeffect") != p_jsonFile->end()) {
+			irrklang::ik_f32 center = 8000, bandwidth = 12,
+				gain = 0;
+
+			auto innerJson = p_jsonFile->operator[]("parameqeffect");
+
+			setVar(center, "center");
+			setVar(bandwidth, "bandwidth");
+			setVar(gain, "gain");
+
+			sfx->setParamEqEffect(center, bandwidth, gain);
+		}
+
+		if (p_jsonFile->find("wavesreverbeffect") != p_jsonFile->end()) {
+			irrklang::ik_f32 gain = 0, reverbMix = 0,
+				reverbTime = 1000, highFreqRTRatio = 0.001f;
+
+			auto innerJson = p_jsonFile->operator[]("wavesreverbeffect");
+
+			setVar(gain, "gain");
+			setVar(reverbMix, "reverbmix");
+			setVar(reverbTime, "reverbtime");
+			setVar(highFreqRTRatio, "highfreqrtratio");
+
+			sfx->setWavesReverbEffect(gain, reverbMix, reverbTime, highFreqRTRatio);
+		}
 	}
 
 	return toReturn;
@@ -283,7 +434,7 @@ kitten::K_Component* getUnitClickable(nlohmann::json* p_jsonFile) {
 	return new unit::UnitClickable();
 }
 
-#include "_Project\ManipulateTileOnClick.h"
+#include "board/clickable/ManipulateTileOnClick.h"
 kitten::K_Component* getManipulateTileOnClick(nlohmann::json* p_jsonFile) {
 	return new ManipulateTileOnClick();
 }
@@ -293,7 +444,7 @@ kitten::K_Component* getUseAbilityWhenClicked(nlohmann::json* p_jsonFile) {
 	return new UseAbilityWhenClicked();
 }
 
-#include "_Project/SendSelfOnClick.h"
+#include "board/clickable/SendSelfOnClick.h"
 kitten::K_Component* getSendSelfOnClick(nlohmann::json* p_jsonFile) {
 	return new SendSelfOnClick();
 }

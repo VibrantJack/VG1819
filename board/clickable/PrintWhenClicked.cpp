@@ -1,7 +1,7 @@
 #include <iostream>
 #include "PrintWhenClicked.h"
-#include "TileInfo.h"
-#include "kitten\K_GameObject.h"
+#include "board/tile/TileInfo.h"
+#include "kitten/K_GameObject.h"
 
 PrintWhenClicked::PrintWhenClicked(const std::string& p_message) :  m_message(p_message)
 {

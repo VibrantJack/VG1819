@@ -1,6 +1,6 @@
 #include "SendSelfOnClick.h"
 #include "kitten/event_system/EventManager.h"
-#include "_Project/TileInfo.h"
+#include "board/tile/TileInfo.h"
 #include <iostream>
 SendSelfOnClick::SendSelfOnClick()
 {
