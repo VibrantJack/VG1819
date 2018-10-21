@@ -367,6 +367,7 @@ namespace puppy
 					constructRightOrCenterAlignVertices(false);
 				}
 			}
+			m_isDirty = false;
 		}
 
 
