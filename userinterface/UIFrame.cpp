@@ -45,7 +45,11 @@ namespace userinterface
 		{
 			delete sm_vao;
 		}
-		puppy::Renderer::getInstance()->removeUIFromRender(this);
+		
+		if (!m_isEnabled)
+		{
+			puppy::Renderer::getInstance()->removeUIFromRender(this);
+		}	
 	}
 
 	void UIFrame::start()
@@ -68,6 +72,16 @@ namespace userinterface
 		//m_tex is null because it was not initialized in the constructor - Callum
 		puppy::StaticRenderables::getInstance()->addToUIRender(this, m_tex, verts, 6);
 		*/
+	}
+
+	void UIFrame::onDisabled()
+	{
+		puppy::Renderer::getInstance()->removeUIFromRender(this);
+	}
+
+	void UIFrame::onEnabled()
+	{
+		puppy::Renderer::getInstance()->addUIToRender(this);
 	}
 
 	void UIFrame::render(const glm::mat4& p_ortho)

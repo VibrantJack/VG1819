@@ -368,6 +368,9 @@
     <ClCompile Include="..\board\component\Highlighter.cpp">
       <Filter>board\component</Filter>
     </ClCompile>
+    <ClCompile Include="ToggleEnabledOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -712,6 +715,9 @@
     <ClInclude Include="..\board\component\Highlighter.h">
       <Filter>board\component</Filter>
     </ClInclude> 
+    <ClInclude Include="ToggleEnabledOnKeyPress.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">

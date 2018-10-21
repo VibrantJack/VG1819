@@ -47,6 +47,17 @@ namespace kitten
 		}
 	}
 
+	void AudioSource::onDisabled()
+	{
+		m_wasPaused = m_audioClip->getIsPaused();
+		setPaused(true);
+	}
+
+	void AudioSource::onEnabled()
+	{
+		setPaused(m_wasPaused);
+	}
+
 	void AudioSource::onPosChanged(const glm::vec3& p_newPos)
 	{
 		irrklang::vec3df pos(p_newPos.x, p_newPos.y, p_newPos.z);

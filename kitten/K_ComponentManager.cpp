@@ -235,6 +235,13 @@ namespace kitten
 		return false;
 	}
 
+	void K_ComponentManager::addToStart(K_Component* p_toStart)
+	{
+		assert(!p_toStart->m_hasStarted);
+		//@TODO: assert p_toStart is not already in m_toStart
+		m_toStart.push_back(p_toStart);
+	}
+
 	void K_ComponentManager::removeFromStart(const K_Component* p_toRemove)
 	{
 		for (auto it = m_toStart.begin(); it != m_toStart.cend(); ++it)
@@ -247,13 +254,23 @@ namespace kitten
 		}
 	}
 
+	void K_ComponentManager::queueAddToUpdate(K_Component* p_toAdd)
+	{
+		m_toAddToUpdate.push_back(p_toAdd);
+	}
+
+	void K_ComponentManager::queueRemovalFromUpdate(const K_Component* p_toRemove)
+	{
+		m_toRemoveFromUpdate.push_back(p_toRemove);
+	}
+
 	void K_ComponentManager::updateComponents()
 	{
 		//Start components
 		for (auto it = m_toStart.begin(); it != m_toStart.end(); it = m_toStart.erase(it))
 		{
-			(*it)->start();
 			(*it)->m_hasStarted = true;
+			(*it)->start();
 			if ((*it)->hasUpdate())
 			{
 				m_toUpdate.push_back(*it);
@@ -279,10 +296,23 @@ namespace kitten
 
 		}
 
+		//Add queued components to update
+		for (auto it = m_toAddToUpdate.begin(); it != m_toAddToUpdate.end(); it = m_toAddToUpdate.erase(it))
+		{
+			m_toUpdate.push_back(*it);
+		}
+
 		//Update components
-		for (auto it = m_toUpdate.begin(); it != m_toUpdate.end(); ++it)
+		auto updateEnd = m_toUpdate.cend();
+		for (auto it = m_toUpdate.cbegin(); it != updateEnd; ++it)
 		{
 			(*it)->update();
+		}
+
+		//Remove queued components from update
+		for (auto it = m_toRemoveFromUpdate.begin(); it != m_toRemoveFromUpdate.end(); it = m_toRemoveFromUpdate.erase(it))
+		{
+			removeFromUpdate(*it);
 		}
 	}
 }

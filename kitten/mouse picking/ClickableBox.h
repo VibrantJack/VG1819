@@ -15,11 +15,16 @@ namespace kitten
 		glm::vec3 m_originalMinPoint, m_originalMaxPoint;
 
 		std::list<Clickable*> m_listeners;
+
+		void onEnabled() override;
+		void onDisabled() override;
 	public:
 		ClickableBox(const glm::vec3& p_minPoint, const glm::vec3& p_maxPoint);
 		~ClickableBox();
 
-		virtual void start() override;
+		void start() override;
+		
+
 		virtual void onScaleChanged(const glm::vec3& p_newScale) override;
 
 		void addClickable(Clickable* p_toAdd);

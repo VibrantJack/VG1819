@@ -17,6 +17,11 @@ namespace kitten
 
 		K_GameObject* m_attachedObject;
 		bool m_hasStarted = false;
+
+		bool m_isEnabled = true;
+
+		virtual void onDisabled();
+		virtual void onEnabled();
 	public:
 		virtual bool hasUpdate() const;
 
@@ -26,5 +31,8 @@ namespace kitten
 		K_GameObject& getGameObject() { return *m_attachedObject; };
 		//For convenience
 		Transform& getTransform() const;
+
+		bool isEnabled() const;
+		void setEnabled(bool p_enabled);
 	};
 }
