@@ -10,6 +10,7 @@ namespace kitten
 
 	class K_ComponentManager
 	{
+		friend class K_Component;
 	private:
 		static K_ComponentManager* sm_instance;
 		K_ComponentManager();
@@ -19,7 +20,17 @@ namespace kitten
 		std::list<K_Component*> m_toStart;
 		std::list<K_Component*> m_toDelete;
 
+		std::list<K_Component*> m_toAddToUpdate;
+		std::list<const K_Component*> m_toRemoveFromUpdate;
+
+		void addToStart(K_Component* p_toStart);
 		void removeFromStart(const K_Component* p_toRemove);
+		void addToUpdate(K_Component* p_toUpdate);
+		bool removeFromUpdate(const K_Component* p_toRemove);
+
+		void queueRemovalFromUpdate(const K_Component* p_toRemove);
+		void queueAddToUpdate(K_Component* p_toUpdate);
+
 	public:
 		
 		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new K_ComponentManager(); };
@@ -34,8 +45,7 @@ namespace kitten
 		bool destroyComponent(K_Component* p_toDestroy);
 		void destroyComponentImmediate(K_Component* p_toDestroy);
 		
-		void addToUpdate(K_Component* p_toUpdate);
-		bool removeFromUpdate(const K_Component* p_toRemove);
+		
 
 		void updateComponents();
 	};

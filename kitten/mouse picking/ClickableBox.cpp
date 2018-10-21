@@ -6,7 +6,7 @@ namespace kitten
 {
 	ClickableBox::ClickableBox(const glm::vec3& p_minPoint, const glm::vec3& p_maxPoint) : m_originalMinPoint(p_minPoint), m_originalMaxPoint(p_maxPoint)
 	{
-		ActiveClickables::getInstance()->addToActive(this);
+		
 		m_minPoint = m_originalMinPoint;
 		m_maxPoint = m_originalMaxPoint;
 	}
@@ -29,6 +29,18 @@ namespace kitten
 		m_maxPoint = m_originalMaxPoint * getTransform().getScale();
 
 		getTransform().addScaleListener(this);
+
+		ActiveClickables::getInstance()->addToActive(this);
+	}
+
+	void ClickableBox::onDisabled()
+	{
+		ActiveClickables::getInstance()->removeFromActive(this);
+	}
+
+	void ClickableBox::onEnabled()
+	{
+		ActiveClickables::getInstance()->addToActive(this);
 	}
 
 	void ClickableBox::addClickable(Clickable* p_toAdd)

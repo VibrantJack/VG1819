@@ -60,6 +60,37 @@ namespace kitten
 		m_components.erase(std::type_index(typeid(*p_toRemove)));
 	}
 
+	bool K_GameObject::isEnabled() const
+	{
+		return m_isEnabled;
+	}
+
+	void K_GameObject::setEnabled(bool p_enabled)
+	{
+		if ((m_isEnabled && !p_enabled) || (!m_isEnabled && p_enabled))
+		{
+			m_isEnabled = p_enabled;
+			//enable / disable components
+			auto end = m_components.cend();
+			for (auto it = m_components.cbegin(); it != end; ++it)
+			{
+				(*it).second->setEnabled(p_enabled);
+			}
+
+			//Set children
+			auto children = m_transform->getChildren();
+			if (!children.empty())
+			{
+				auto childrenEnd = children.cend();
+				for (auto it = children.cbegin(); it != childrenEnd; ++it)
+				{
+					(*it)->getAttachedGameObject().setEnabled(p_enabled);
+				}
+			}
+		}
+		//else, trying to set something enabled/disabled that is already enabled/disabled
+	}
+
 	//This does not work, LNK 2019
 	/*
 	template <class T>

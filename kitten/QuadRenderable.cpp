@@ -56,35 +56,71 @@ namespace kitten
 			{
 				delete sm_vao;
 			}
-			puppy::Renderer::getInstance()->removeFromRender(this);
+
+			if (m_isEnabled)
+			{
+				puppy::Renderer::getInstance()->removeFromRender(this);
+			}
 		}
 		else
 		{
-			puppy::StaticRenderables::getInstance()->removeFromRender(this, m_tex);
+			if (m_isEnabled)
+			{
+				puppy::StaticRenderables::getInstance()->removeFromRender(this, m_tex);
+			}
+			
 			delete m_tex;
 		}
 	}
 
-	void QuadRenderable::start()
+	void QuadRenderable::addToStaticRender()
 	{
-		if (m_isStatic)
+		puppy::TexturedVertex verts[] =
 		{
-			puppy::TexturedVertex verts[] =
-			{
 			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
 			{ 0.5f, 0.0f, 0.5f,			0.0f, 1.0f },
 			{ 0.5f, 0.0f,-0.5f,			1.0f, 1.0f },
 			{ 0.5f, 0.0f,-0.5f,			1.0f, 1.0f },
 			{ -0.5f, 0.0f,-0.5f,		1.0f, 0.0f },
 			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
-			};
+		};
 
-			//Transform into world space
-			puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform());
+		//Transform into world space
+		puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform());
 
-			puppy::StaticRenderables::getInstance()->addToRender(this, m_tex, verts, 6);
+		puppy::StaticRenderables::getInstance()->addToRender(this, m_tex, verts, 6);
+	}
+
+	void QuadRenderable::start()
+	{
+		if (m_isStatic)
+		{
+			addToStaticRender();
 		}
-		
+	}
+
+	void QuadRenderable::onDisabled()
+	{
+		if (m_isStatic)
+		{
+			puppy::StaticRenderables::getInstance()->removeFromRender(this, m_tex);
+		}
+		else
+		{
+			puppy::Renderer::getInstance()->removeFromRender(this);
+		}
+	}
+
+	void QuadRenderable::onEnabled()
+	{
+		if (m_isStatic)
+		{
+			addToStaticRender();
+		}
+		else
+		{
+			puppy::Renderer::getInstance()->addToRender(this);
+		}
 	}
 
 	void QuadRenderable::setTexture(const char* p_pathToTex)

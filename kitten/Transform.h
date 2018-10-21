@@ -109,6 +109,8 @@ namespace kitten
 		bool getIgnoreParent() const;
 		void setIgnoreParent(bool p_ignores);
 
+		const std::vector<Transform*>& getChildren() const;
+
 		void setParent(Transform* p_parent);
 		Transform* getParent();
 		bool removeChild(const Transform* p_child);

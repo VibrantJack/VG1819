@@ -113,14 +113,6 @@ namespace kitten
 		//builder->start();
 		//delete builder;
 
-		
-		K_GameObject* gameObj = K_GameObjectManager::getInstance()->createNewGameObject();
-		K_Component* fpsCalc = compMan->createComponent("FPSCalc");
-		puppy::TextBox* testText = static_cast<puppy::TextBox*>(compMan->createComponent("TextBox"));
-		testText->setColor(1, 1, 1);
-		gameObj->addComponent(testText);
-		gameObj->addComponent(fpsCalc);
-		gameObj->getTransform().place2D(100, 700);
 
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();

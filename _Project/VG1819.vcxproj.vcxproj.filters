@@ -359,6 +359,9 @@
     <ClCompile Include="..\board\tile\TileInfo.cpp">
       <Filter>board\tile</Filter>
     </ClCompile>
+    <ClCompile Include="ToggleEnabledOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -692,6 +695,9 @@
     </ClInclude>
     <ClInclude Include="..\board\tile\TileInfo.h">
       <Filter>board\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="ToggleEnabledOnKeyPress.h">
+      <Filter>components\debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
