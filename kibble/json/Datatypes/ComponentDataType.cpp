@@ -136,6 +136,7 @@ kitten::K_Component* getDestroyOnClick(nlohmann::json* p_jsonFile){
 	return new DestroyOnClick();
 }
 
+
 #include "board/component/BoardCreator.h"
 kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
 	return new BoardCreator();
@@ -549,7 +550,6 @@ void setupComponentMap() {
 	jsonComponentMap["PrintWhenClicked"] = &getPrintWhenClicked;
 	jsonComponentMap["DestroyOnClick"] = &getDestroyOnClick;
 	jsonComponentMap["ClickableBox"] = &getClickableBox;
-	jsonComponentMap["BoardCreator"] = &getBoardCreator;
 	jsonComponentMap["AudioSource"] = &getAudioSource;
 	jsonComponentMap["AudioListener"] = &getAudioListener;
 	jsonComponentMap["PlaySoundOnKeyPress"] = &getPlaySoundOnKeyPress;
@@ -568,6 +568,7 @@ void setupComponentMap() {
 	jsonComponentMap["PointerUI"] = &getPointerUI;
 	jsonComponentMap["UnitGraphic"] = &getUnitGraphic;
 	jsonComponentMap["TextBox"] = &getTextBox;
+	jsonComponentMap["BoardCreator"] = &getBoardCreator;
 	
 }
 

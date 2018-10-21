@@ -121,10 +121,12 @@
     <ClCompile Include="..\ability\status\Status_LV.cpp" />
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
     <ClCompile Include="..\kibble\custom\CustomDeckDataParser.cpp" />
+    <ClCompile Include="..\board\boardManager.cpp" />
     <ClCompile Include="..\board\clickable\ManipulateTileOnClick.cpp" />
     <ClCompile Include="..\board\clickable\PrintWhenClicked.cpp" />
     <ClCompile Include="..\board\clickable\SendSelfOnClick.cpp" />
     <ClCompile Include="..\board\component\BoardCreator.cpp" />
+    <ClCompile Include="..\board\component\Highlighter.cpp" />
     <ClCompile Include="..\board\component\Range.cpp" />
     <ClCompile Include="..\board\tile\TileInfo.cpp" />
     <ClCompile Include="..\components\PowerTracker.cpp" />
@@ -228,6 +230,7 @@
     <ClInclude Include="..\board\clickable\PrintWhenClicked.h" />
     <ClInclude Include="..\board\clickable\SendSelfOnClick.h" />
     <ClInclude Include="..\board\component\BoardCreator.h" />
+    <ClInclude Include="..\board\component\Highlighter.h" />
     <ClInclude Include="..\board\component\Range.h" />
     <ClInclude Include="..\board\tile\TileInfo.h" />
     <ClInclude Include="..\components\PowerTracker.h" />
