@@ -105,7 +105,7 @@ int unit::InitiativeTrackerUI::isShown(int p_i)
 	{
 		return -1;
 	}
-	else if (p_i > m_unitIndex[m_maxUnitToShow - 1])//unit is after the last unit shown
+	else if (p_i >= m_lastUnitIndex)//unit is after the last unit shown
 	{
 		return -2;
 	}
@@ -114,6 +114,7 @@ int unit::InitiativeTrackerUI::isShown(int p_i)
 		if (m_unitIndex[i] == p_i)
 			return i;
 	}
+	assert(false);
 	return -3;
 }
 

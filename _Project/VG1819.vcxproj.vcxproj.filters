@@ -359,6 +359,9 @@
     <ClCompile Include="..\board\tile\TileInfo.cpp">
       <Filter>board\tile</Filter>
     </ClCompile>
+    <ClCompile Include="..\unitInteraction\UnitInteractionManager.cpp">
+      <Filter>unitInteraction</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -692,6 +695,12 @@
     </ClInclude>
     <ClInclude Include="..\board\tile\TileInfo.h">
       <Filter>board\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unitInteraction\UnitInteractionManager.h">
+      <Filter>unitInteraction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unitInteraction\UnitInteractionState.h">
+      <Filter>unitInteraction</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -131,7 +131,7 @@ namespace unit
 	int Unit::destroyedByDamage()
 	{
 		//send destroyed event
-		//destroy unit (game object)
+
 		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
 		return 0;
 	}

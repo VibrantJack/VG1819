@@ -33,6 +33,9 @@ void unit::UnitClickable::onClick()
 		//show unit info
 		
 	}
+
+	//for test
+	u->destroyedByDamage();
 }
 
 void unit::UnitClickable::onHoverStart()

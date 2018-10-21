@@ -20,7 +20,6 @@ public:
 	static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
 	static UnitInteractionManager * getInstance() { return sm_instance; };
 
-
 private:
 	static UnitInteractionManager* sm_instance;
 	UnitInteractionManager();
@@ -28,6 +27,7 @@ private:
 
 	ability::AbilityInfoPackage* m_package;
 
+	void request();
 	void getTile();
 	void cancel();
 
