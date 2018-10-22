@@ -5,7 +5,7 @@ namespace puppy
 {
 	//initialize static member variables
 	const ShaderProgram* ShaderManager::m_boundShader = nullptr;
-	ShaderProgram* ShaderManager::m_createdPresetShaders[ShaderType::SHADERTYPE_MAX + 1];
+	ShaderProgram* ShaderManager::m_createdPresetShaders[ShaderType::SHADERTYPE_MAX+1];
 
 	void ShaderManager::applyShader(const ShaderProgram* p_sp)
 	{
@@ -91,7 +91,7 @@ namespace puppy
 
 	void ShaderManager::destroyAllShaders()
 	{
-		for (int i =0; i < SHADERTYPE_MAX; ++i)
+		for (int i =0; i < SHADERTYPE_MAX+1; ++i)
 		{
 			if(m_createdPresetShaders[i] != nullptr)
 			{

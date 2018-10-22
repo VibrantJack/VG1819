@@ -99,7 +99,7 @@ kitten::K_GameObject * unit::InitiativeTracker::getCurrentUnit()
 	return m_unitObjectList[m_currentUnitIndex];
 }
 
-std::vector<kitten::K_GameObject*> unit::InitiativeTracker::getList()
+std::vector<kitten::K_GameObject*> unit::InitiativeTracker::getUnitList()
 {
 	return m_unitObjectList;
 }

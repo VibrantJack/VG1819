@@ -25,6 +25,7 @@
 //board clickable
 #include "board/clickable/PrintWhenClicked.h"
 
+#include "board/BoardManager.h"
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
 
@@ -58,6 +59,8 @@ namespace kitten
 		ability::AbilityNodeManager::createInstance();
 
 		unit::InitiativeTracker::createInstance();
+
+		BoardManager::createInstance();
 	}
 
 	// This is called once at the beginning of the game
@@ -69,9 +72,17 @@ namespace kitten
 		// Temporary stuff until Kibble is ready
 		K_ComponentManager* compMan = K_ComponentManager::getInstance();
 
+		DeckData * data = kibble::getDeckDataParserInstance()->getDeckData("data/saved/decktest.txt");
+		std::cout << *data;
+		data->cards.push_back({ 9,2 });
+		kibble::getDeckDataParserInstance()->saveDeckData(data, "data/saved/outputtest.txt");
+
 		//Creating a gameobject
 		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
 		kibble::setSceneFrom(std::string("mainscene.txt"));
+
+		//board creator doesn't done by board manager
+		//BoardManager::getInstance()->createBoard();
 
 		/*
 		//Example of Parent / Children : REMOVE WHEN TESTING DONE OR BUGS NOT BEING FOUND
@@ -113,14 +124,6 @@ namespace kitten
 		//builder->start();
 		//delete builder;
 
-		
-		K_GameObject* gameObj = K_GameObjectManager::getInstance()->createNewGameObject();
-		K_Component* fpsCalc = compMan->createComponent("FPSCalc");
-		puppy::TextBox* testText = static_cast<puppy::TextBox*>(compMan->createComponent("TextBox"));
-		testText->setColor(1, 1, 1);
-		gameObj->addComponent(testText);
-		gameObj->addComponent(fpsCalc);
-		gameObj->getTransform().place2D(100, 700);
 
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();
@@ -171,6 +174,8 @@ namespace kitten
 		AudioEngineWrapper::destroyInstance();
 
 		unit::InitiativeTracker::destroyInstance();
+
+		BoardManager::destroyInstance();
 	}
 
 	void updateGame()

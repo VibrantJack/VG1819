@@ -8,6 +8,16 @@ namespace unit
 
 	}
 
+	StatusContainer::~StatusContainer()
+	{
+		for (auto it = m_statusList.begin(); it != m_statusList.end(); ++it)
+		{
+			delete *it;
+		}
+
+		m_statusList.clear();
+	}
+
 	void unit::StatusContainer::addStatus(ability::Status * p_newStatus)
 	{
 		m_statusList.push_back(p_newStatus);
@@ -19,6 +29,7 @@ namespace unit
 		{
 			if ((*it) == p_oldStatus)
 			{
+				delete *it;
 				m_statusList.erase(it);
 				return true;
 			}

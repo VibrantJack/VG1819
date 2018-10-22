@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -338,6 +338,9 @@
     <ClCompile Include="..\kitten\mouse picking\ClickableUI.cpp">
       <Filter>kitten\mouse  picking</Filter>
     </ClCompile>
+    <ClCompile Include="..\kibble\custom\CustomDeckDataParser.cpp">
+      <Filter>kibble\Custom</Filter>
+    </ClCompile>
     <ClCompile Include="..\unit\InitiativeTracker\PointerUI.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
@@ -361,6 +364,15 @@
     </ClCompile>
     <ClCompile Include="..\unitInteraction\UnitInteractionManager.cpp">
       <Filter>unitInteraction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\BoardManager.cpp">
+      <Filter>board</Filter>
+    </ClCompile>     
+    <ClCompile Include="..\board\component\Highlighter.cpp">
+      <Filter>board\component</Filter>
+    </ClCompile>
+    <ClCompile Include="ToggleEnabledOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -675,6 +687,13 @@
     <ClInclude Include="..\unit\InitiativeTracker\PointerUI.h">
       <Filter>unit\InitiativeTracker</Filter>
     </ClInclude>
+    <ClInclude Include="..\DeckData.hpp" />
+    <ClInclude Include="..\kibble\DeckDataParser.hpp">
+      <Filter>kibble</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\custom\CustomDeckDataParser.hpp">
+      <Filter>kibble\Custom</Filter>
+    </ClInclude>
     <ClInclude Include="..\board\BoardManager.h">
       <Filter>board</Filter>
     </ClInclude>
@@ -701,6 +720,12 @@
     </ClInclude>
     <ClInclude Include="..\unitInteraction\UnitInteractionState.h">
       <Filter>unitInteraction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\component\Highlighter.h">
+      <Filter>board\component</Filter>
+    </ClInclude> 
+    <ClInclude Include="ToggleEnabledOnKeyPress.h">
+      <Filter>components\debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -778,6 +803,9 @@
     </Filter>
     <Filter Include="util">
       <UniqueIdentifier>{4deeb8a2-e275-4434-b800-dbaab2606bda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kibble\Custom">
+      <UniqueIdentifier>{0b9dadcb-53bf-40a7-a741-ba2426505959}</UniqueIdentifier>
     </Filter>
     <Filter Include="unitInteraction">
       <UniqueIdentifier>{1fb89c97-aeff-4402-83e4-69ba3d5164c3}</UniqueIdentifier>

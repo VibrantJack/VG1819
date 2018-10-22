@@ -11,7 +11,9 @@ namespace userinterface
 		UIFrame() {};
 		UIFrame(const char* p_pathToTex);
 		virtual ~UIFrame();
-		void start();
+		
+		void start() override;
+		
 		void render(const glm::mat4& p_ortho);
 		void setTexture(const char* p_pathToTex);
 		
@@ -21,5 +23,8 @@ namespace userinterface
 		
 		static puppy::VertexEnvironment* sm_vao;
 		static int sm_instances;
+
+		virtual void onDisabled() override;
+		virtual void onEnabled() override;
 	};
 }

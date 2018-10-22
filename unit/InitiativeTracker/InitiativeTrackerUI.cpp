@@ -7,6 +7,8 @@
 
 unit::InitiativeTrackerUI::InitiativeTrackerUI()
 {
+	m_initiativeObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+
 	kitten::K_ComponentManager* comMan = kitten::K_ComponentManager::getInstance();
 	for (int i = 0; i < m_maxUnitToShow; i++)
 	{
@@ -14,6 +16,8 @@ unit::InitiativeTrackerUI::InitiativeTrackerUI()
 		unit::TrackerBlock* b = static_cast<unit::TrackerBlock*>(comMan->createComponent("TrackerBlock"));
 		b->setTrackerUI(this);
 		m_blockList.push_back(b);
+		//add to game object
+		m_initiativeObject->addComponent(b);
 
 		//initialize block list
 		m_blockInSlot.push_back(0);

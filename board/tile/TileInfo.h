@@ -1,6 +1,6 @@
 #pragma once
 
-#define DEFAULT_OWNER = "NONE"
+#define DEFAULT_OWNER "NONE"
 
 #include "kitten\K_Component.h"
 
@@ -19,6 +19,14 @@ public:
 	int getPosY();
 	void setPosY(int p_int);
 
+	std::pair<int, int> getPos();
+	void setPos(std::pair<int, int> p_pos);
+
+	bool hasUnit();
+	void setUnit(kitten::K_GameObject* p_u);
+	void removeUnit();
+	kitten::K_GameObject* getUnit();
+
 	// TODO: Change according to finalized unit id structure
 	const std::string& getOwnerId();
 	void setOwnerId(const std::string& p_sId);
@@ -31,4 +39,5 @@ private:
 	int m_iPosX, m_iPosY;
 	std::string m_sOwnerId;
 	std::string m_sHighlightedBy;
+	kitten::K_GameObject* m_unitGO;
 };

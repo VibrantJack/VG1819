@@ -338,6 +338,11 @@ namespace kitten
 		return false;
 	}
 
+	const std::vector<Transform*>& Transform::getChildren() const
+	{
+		return m_children;
+	}
+
 	void Transform::addPositionListener(TransformPositionListener* p_toAdd)
 	{
 		m_positionListeners.push_back(p_toAdd);
