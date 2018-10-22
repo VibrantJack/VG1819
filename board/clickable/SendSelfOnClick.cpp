@@ -20,7 +20,8 @@ void SendSelfOnClick::onClick()
 	if (highlighted)
 	{
 		e->putInt("highlighted", 1);
-		e->putGameObj("tileObj", m_attachedObject);
+		e->putInt("tile_number", 1);
+		e->putGameObj("tile0", m_attachedObject);
 	}
 	else
 	{

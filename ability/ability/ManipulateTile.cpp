@@ -28,6 +28,9 @@ namespace ability
 		p_data->putString("use", "ManipulateTile");//different from other 
 		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Highlight_Tile, p_data);
 
+		//delete package
+		delete p_info;
+
 		return 0;
 	}
 

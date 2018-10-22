@@ -15,7 +15,7 @@ namespace ability
 	int Shoot::effect(const AbilityInfoPackage* p_info)
 	{
 		//damage target by power
-		unit::Unit* target = p_info->m_target;
+		unit::Unit* target = p_info->m_targets[0];
 
 		//TO DO:send receive damage event to target
 
@@ -23,6 +23,9 @@ namespace ability
 		int power = -(p_info->m_intValue.find("power")->second);
 
 		damage(target, power);
+
+		//delete package
+		delete p_info;
 
 		return 0;
 	}

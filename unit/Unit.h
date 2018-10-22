@@ -45,7 +45,7 @@ namespace unit
 		//position function
 		kitten::K_GameObject* getTile();
 
-		//int useAbility(const std::string& p_abilityName);
+		int useAbility(const std::string& p_abilityName);
 		//int callStatus(int p_StatusIndex, int p_event);
 		//event is the one of the events that this status registered
 		//should be enum, I didn't define it yet, so use int as place holder

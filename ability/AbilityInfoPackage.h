@@ -16,8 +16,7 @@ namespace ability
 	{
 	public:
 		unit::Unit * m_source;//the unit who uses the ability
-		unit::Unit * m_target;//the single unit who will be effected
-		std::vector<unit::Unit*> m_multipleTargets;//the list of units who will be effected, used for area ability
+		std::vector<unit::Unit*> m_targets;//the list of units who will be effected
 		std::unordered_map<std::string, int> m_intValue;
 		
 		// For passing which tiles are needed for the ability

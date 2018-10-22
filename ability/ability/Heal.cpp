@@ -18,11 +18,14 @@ namespace ability
 		//heal target by power
 		int power = p_info->m_intValue.find("power")->second;
 
-		for (unit::Unit* target : p_info->m_multipleTargets)
+		for (unit::Unit* target : p_info->m_targets)
 		{
 			//positive power = heal
 			damage(target, power);
 		}
+
+		//delete package
+		delete p_info;
 
 		return 0;
 	}

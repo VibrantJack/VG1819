@@ -15,7 +15,7 @@ namespace ability
 	int Sabotage::effect(const AbilityInfoPackage* p_info)
 	{
 		//damage target by power
-		unit::Unit* target = p_info->m_target;
+		unit::Unit* target = p_info->m_targets[0];
 
 		for (auto it : target->m_tags)
 		{
@@ -27,12 +27,18 @@ namespace ability
 
 				damage(target, power);
 
-				return 0;
+				//delete package
+				delete p_info;
+
+				return 1;
 			}
 		}
+
+		//delete package
+		delete p_info;
 		
 		//target isn't structure
-		return 1;
+		return 0;
 	}
 
 }

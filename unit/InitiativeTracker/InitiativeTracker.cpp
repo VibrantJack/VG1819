@@ -91,6 +91,7 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 			return true;
 		}
 	}
+	assert(false);//not found
 	return false;
 }
 

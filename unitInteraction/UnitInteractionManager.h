@@ -20,15 +20,25 @@ public:
 	static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
 	static UnitInteractionManager * getInstance() { return sm_instance; };
 
+	void request(unit::Unit* p_unit, unit::AbilityDescription * p_ad);
+
 private:
 	static UnitInteractionManager* sm_instance;
 	UnitInteractionManager();
 	~UnitInteractionManager();
 
+	unit::AbilityDescription* m_ad;
 	ability::AbilityInfoPackage* m_package;
+	std::string m_abilityName;
+	int m_target;
+	bool m_gotTarget;
 
-	void request();
 	void getTile();
 	void cancel();
+	void send();
+
+	void registerEvent();
+	void deregisterEvent();
+	void listenEvent(kitten::Event::EventType p_type, kitten::Event* p_data);
 
 };

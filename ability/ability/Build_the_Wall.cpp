@@ -20,6 +20,9 @@ namespace ability
 
 		node->effect(m_wallData);
 
+		//delete package
+		delete p_info;
+
 		return 0;
 	}
 

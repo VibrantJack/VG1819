@@ -18,12 +18,16 @@ namespace ability
 
 		int power = -(p_info->m_intValue.find("power")->second);
 
-		for (unit::Unit* u : p_info->m_multipleTargets)
+		for (unit::Unit* u : p_info->m_targets)
 		{
 			//TO DO:send receive damage event to target
 
 			damage(u, power);
 		}
+
+		//delete package
+		delete p_info;
+
 		return 0;
 	}
 

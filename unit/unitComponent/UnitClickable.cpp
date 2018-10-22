@@ -44,4 +44,5 @@ void unit::UnitClickable::onHoverStart()
 
 void unit::UnitClickable::onHoverEnd()
 {
+	Unit* u = m_attachedObject->getComponent<Unit>();
 }

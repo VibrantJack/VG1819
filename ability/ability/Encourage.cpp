@@ -12,7 +12,7 @@ namespace ability
 		ability::Status* se = ability::StatusManager::getInstance()->findStatus("Status_Encourage");
 
 		//attach to target
-		se->attach(p_info->m_target);
+		se->attach(p_info->m_targets[0]);
 
 		//set properties
 		se->m_counter["duration"] = p_info->m_intValue.find("duration")->second;
@@ -23,7 +23,7 @@ namespace ability
 
 	void Encourage::stackStatus(const AbilityInfoPackage* p_info)
 	{
-		ability::Status* se = p_info->m_target->getStatus("Status_Encourage");
+		ability::Status* se = p_info->m_targets[0]->getStatus("Status_Encourage");
 
 		//reset duration
 		se->m_counter["duration"] = p_info->m_intValue.find("duration")->second;
@@ -40,10 +40,14 @@ namespace ability
 	int Encourage::effect(const AbilityInfoPackage* p_info)
 	{
 		//check if unit has this status
-		if (p_info->m_target->getStatus("Status_Encourage"))
+		if (p_info->m_targets[0]->getStatus("Status_Encourage"))
 			stackStatus(p_info);
 		else
 			applyStatus(p_info);
+
+		//delete package
+		delete p_info;
+
 		return 0;
 	}
 

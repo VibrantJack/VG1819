@@ -26,6 +26,10 @@ namespace ability
 		p_data->putInt("min_range",1);
 		p_data->putInt("max_range", 1);
 		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Highlight_Tile, p_data);
+
+		//delete package
+		delete p_info;
+
 		return 0;
 	}
 }

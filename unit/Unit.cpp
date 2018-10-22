@@ -1,6 +1,7 @@
 #include "Unit.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "kitten/K_GameObject.h"
+#include "unitInteraction/UnitInteractionManager.h"
 //@Rock
 
 namespace unit
@@ -15,6 +16,10 @@ namespace unit
 	Unit::~Unit()
 	{
 		delete m_statusContainer;
+		for (auto it = m_ADList.begin(); it != m_ADList.end(); it++)
+		{
+			delete it->second;
+		}
 	}
 
 	//status
@@ -88,7 +93,7 @@ namespace unit
 		return m_attachedObject->getComponent<unit::UnitMove>()->getTile();
 	}
 
-	/*
+	
 	int Unit::useAbility(const std::string& p_abilityName)
 	{
 		AbilityDescription* ad = m_ADList[p_abilityName];
@@ -99,35 +104,9 @@ namespace unit
 			return 1;//means unit can not use this ability
 		}
 
-		//TO DO: cost counter
-		if (ad->m_stringValue.find("counter") != ad->m_stringValue.end())
-		{
-			//TO DO:ask player to cost counter
-			std::string counterName = ad->m_stringValue["counter"];
-			int maxNum = m_attributes[counterName];
-			//info->m_counterNumber =
-		}
-
-		//TO DO: get target, passing range and area
-		//display range and area
-		//select
-		//get target info
-		//if targetNum = 0
-		//return 2
-		
-		//TO DO assemble info package
-
-		//test purpose
-		ability::AbilityInfoPackage* info = new ability::AbilityInfoPackage();
-		info->m_source = this;
-		info->m_target = this;
-
-		std::string name = ad->m_stringValue["name"];
-		info->m_intValue["power"] = ad->m_intValue["power"];
-
-		return ability::AbilityManager::getInstance()->useAbility(name, info);
+		UnitInteractionManager::getInstance()->request(this, ad);
 	}
-
+	/*
 	int Unit::callStatus(int p_StatusIndex, int p_event)
 	{
 		//TO DO: method call for status
