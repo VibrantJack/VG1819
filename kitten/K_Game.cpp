@@ -124,7 +124,7 @@ namespace kitten
 		//builder->start();
 		//delete builder;
 
-		*/
+		
 
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();
