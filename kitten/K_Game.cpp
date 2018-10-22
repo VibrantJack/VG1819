@@ -3,7 +3,7 @@
 #include "kitten\K_Game.h"
 #include "kitten\K_Common.h"
 
-#include "kitten\K_Singletons.h"
+#include "kitten\K_Instance.h"
 #include "puppy\P_Singletons.h"
 #include "kitten\audio\AudioEngineWrapper.h"
 
@@ -37,15 +37,7 @@ namespace kitten
 {
 	void createSingletons()
 	{
-		AudioEngineWrapper::createInstance();
-
-		input::InputManager::createInstance();
-		K_CameraList::createInstance();
-		K_ComponentManager::createInstance();
-		K_GameObjectManager::createInstance();
-		K_Time::createInstance();
-		ActiveClickables::createInstance();
-		EventManager::createInstance();
+		K_Instance::createInstance();
 
 		puppy::MaterialManager::createInstance();
 		puppy::Renderer::createInstance();
@@ -154,13 +146,7 @@ namespace kitten
 	{
 		kibble::destroyKibbleRelatedComponents();
 
-		input::InputManager::destroyInstance();
-		K_CameraList::destroyInstance();
-		K_ComponentManager::destroyInstance();
-		K_GameObjectManager::destroyInstance();
-		K_Time::destroyInstance();
-		ActiveClickables::destroyInstance();
-		EventManager::destroyInstance();
+		K_Instance::destroyInstance();
 
 		puppy::MaterialManager::destroyInstance();
 		puppy::Renderer::destroyInstance();
@@ -172,8 +158,6 @@ namespace kitten
 		ability::AbilityManager::destroyInstance();
 		ability::AbilityNodeManager::destroyInstance();
 
-		AudioEngineWrapper::destroyInstance();
-
 		unit::InitiativeTracker::destroyInstance();
 
 		BoardManager::destroyInstance();
@@ -181,18 +165,7 @@ namespace kitten
 
 	void updateGame()
 	{
-		//Update sound
-		AudioEngineWrapper::update();
-		//Update delta time
-		K_Time::getInstance()->updateTime();
-		//Update input
-		input::InputManager::getInstance()->update();
-		//Update event manager
-		EventManager::getInstance()->update();
-
-		//Update components
-		K_ComponentManager::getInstance()->updateComponents();
-		K_GameObjectManager::getInstance()->deleteQueuedObjects();
+		K_Instance::update();
 	}
 
 	void renderGame()

@@ -15,7 +15,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>VG1819</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <ProjectName>VG1819</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -157,6 +157,7 @@
     <ClCompile Include="..\kitten\K_Game.cpp" />
     <ClCompile Include="..\kitten\K_GameObject.cpp" />
     <ClCompile Include="..\kitten\K_GameObjectManager.cpp" />
+    <ClCompile Include="..\kitten\K_Instance.cpp" />
     <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
     <ClCompile Include="..\kitten\K_Time.cpp" />
     <ClCompile Include="..\kitten\mouse picking\ActiveClickables.cpp" />
@@ -274,7 +275,7 @@
     <ClInclude Include="..\kitten\K_GameObject.h" />
     <ClInclude Include="..\kitten\K_GameObjectManager.h" />
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
-    <ClInclude Include="..\kitten\K_Singletons.h" />
+    <ClInclude Include="..\kitten\K_Instance.h" />
     <ClInclude Include="..\kitten\K_Sprite.h" />
     <ClInclude Include="..\kitten\K_Time.h" />
     <ClInclude Include="..\kitten\mouse picking\ActiveClickables.h" />

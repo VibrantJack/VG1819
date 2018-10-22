@@ -4,6 +4,16 @@ namespace kitten
 {
 	ActiveClickables* ActiveClickables::sm_instance = nullptr;
 
+	ActiveClickables::ActiveClickables() : m_lastHover(nullptr), m_lastUIHover(nullptr)
+	{
+
+	}
+
+	ActiveClickables::~ActiveClickables()
+	{
+
+	}
+
 	void ActiveClickables::addToActive(ClickableBox* p_toAdd)
 	{
 		m_clickables.push_back(p_toAdd);

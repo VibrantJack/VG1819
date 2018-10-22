@@ -364,12 +364,15 @@
     </ClCompile>
     <ClCompile Include="..\board\BoardManager.cpp">
       <Filter>board</Filter>
-    </ClCompile>     
+    </ClCompile>
     <ClCompile Include="..\board\component\Highlighter.cpp">
       <Filter>board\component</Filter>
     </ClCompile>
     <ClCompile Include="ToggleEnabledOnKeyPress.cpp">
       <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_Instance.cpp">
+      <Filter>kitten</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -458,9 +461,6 @@
       <Filter>pugi</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\K_CameraList.h">
-      <Filter>kitten</Filter>
-    </ClInclude>
-    <ClInclude Include="..\kitten\K_Singletons.h">
       <Filter>kitten</Filter>
     </ClInclude>
     <ClInclude Include="..\puppy\P_Singletons.h">
@@ -714,9 +714,12 @@
     </ClInclude>
     <ClInclude Include="..\board\component\Highlighter.h">
       <Filter>board\component</Filter>
-    </ClInclude> 
+    </ClInclude>
     <ClInclude Include="ToggleEnabledOnKeyPress.h">
       <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_Instance.h">
+      <Filter>kitten</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
