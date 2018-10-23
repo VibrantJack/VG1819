@@ -21,5 +21,9 @@ namespace ability
 		
 		// For passing which tiles are needed for the ability
 		std::vector<std::pair<int, int>> m_targetTiles;
+
+		AbilityInfoPackage() {};
+		~AbilityInfoPackage() {};
+
 	};
 }

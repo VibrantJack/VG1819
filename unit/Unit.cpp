@@ -2,6 +2,7 @@
 #include "unit/unitComponent/UnitMove.h"
 #include "kitten/K_GameObject.h"
 #include "unitInteraction/UnitInteractionManager.h"
+#include <iostream>
 //@Rock
 
 namespace unit
@@ -96,10 +97,20 @@ namespace unit
 	
 	int Unit::useAbility(const std::string& p_abilityName)
 	{
-		AbilityDescription* ad = m_ADList[p_abilityName];
+		AbilityDescription* ad;
+		bool find = m_ADList.find(p_abilityName) != m_ADList.end();
+		if (m_ADList.find(p_abilityName) != m_ADList.end())
+		{
+			std::cout << "use ability: " << p_abilityName << std::endl;
+			ad = m_ADList[p_abilityName];
+		}
+		else
+		{
+			return -1;//doesn't have ability
+		}
 
 		//check unit's lv
-		if (m_attributes["LV"] < ad->m_intValue["LV"])
+		if (m_attributes["lv"] < ad->m_intValue["lv"])
 		{
 			return 1;//means unit can not use this ability
 		}

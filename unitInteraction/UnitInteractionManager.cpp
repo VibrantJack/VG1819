@@ -1,4 +1,6 @@
 #include "UnitInteractionManager.h"
+#include <iostream>
+#include <sstream>
 
 UnitInteractionManager* UnitInteractionManager::sm_instance = nullptr;
 
@@ -6,11 +8,33 @@ void UnitInteractionManager::request(unit::Unit* p_unit, unit::AbilityDescriptio
 {
 	m_ad = p_ad;
 	m_abilityName = m_ad->m_stringValue["name"];
+	std::cout << "UnitInteractionManager Receive: " << p_unit->m_name << " :: " << m_abilityName << std::endl;
+
+	//create package
+	if (m_package != nullptr)//make sure last package is deleted
+		delete m_package;
+	m_package = new ability::AbilityInfoPackage();
+	m_package->m_source = p_unit;
+
+	//get power
+	if (m_ad->m_intValue.find("power") != m_ad->m_intValue.end())
+	{
+		m_package->m_intValue["power"] = m_ad->m_intValue["power"];
+	}
+
+	//get target
+	if (m_ad->m_intValue.find("target") != m_ad->m_intValue.end())
+	{
+		m_target = m_ad->m_intValue["target"];
+	}
+
 	getTile();
 }
 
 UnitInteractionManager::UnitInteractionManager()
 {
+	m_package = nullptr;
+	m_ad = nullptr;
 }
 
 UnitInteractionManager::~UnitInteractionManager()
@@ -38,6 +62,11 @@ void UnitInteractionManager::getTile()
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Highlight_Tile, e);
 
 	
+}
+
+void UnitInteractionManager::cancel()
+{
+	std::cout << "UnitInteractionManager Cancel Ability" << std::endl;
 }
 
 void UnitInteractionManager::send()
@@ -75,12 +104,15 @@ void UnitInteractionManager::listenEvent(kitten::Event::EventType p_type, kitten
 			int tnum = p_data->getInt("tile_number");//get total number of tiles in event
 			for (int i=0; i<tnum; i++)
 			{
-				std::string tkey = "tile" + i;
+				std::stringstream stm;
+				stm << "tile" << i;
+				std::string tkey = stm.str();
 				kitten::K_GameObject* tileGO = p_data->getGameObj(tkey);//find each tile
 				TileInfo* info = tileGO->getComponent<TileInfo>();
 				if (info->hasUnit())//if the tile has unit, push it into package
 				{
 					unit::Unit* u = info->getUnit()->getComponent<unit::Unit>();
+
 					m_package->m_targets.push_back(u);
 				}
 			}
@@ -89,7 +121,7 @@ void UnitInteractionManager::listenEvent(kitten::Event::EventType p_type, kitten
 			if (m_target >= m_ad->m_intValue["target"])
 			{
 				m_gotTarget = true;
-				deregisterEvent();
+				//deregisterEvent();
 				send();
 			}
 		}
