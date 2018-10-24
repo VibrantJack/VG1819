@@ -13,6 +13,7 @@ UnitInteractionManager:
 #include "board/BoardManager.h"
 #include "unit/Unit.h"
 
+class TileGetter;
 class UnitInteractionManager
 {
 public:
@@ -22,23 +23,20 @@ public:
 
 	void request(unit::Unit* p_unit, unit::AbilityDescription * p_ad);
 
+	void setTarget(std::vector<kitten::K_GameObject*> p_tileList, std::vector<unit::Unit*> p_unitList);
+
+	void cancel();
 private:
 	static UnitInteractionManager* sm_instance;
 	UnitInteractionManager();
 	~UnitInteractionManager();
 
+	TileGetter* m_tileGetter;
+
 	unit::AbilityDescription* m_ad;
 	ability::AbilityInfoPackage* m_package;
 	std::string m_abilityName;
-	int m_target;
 	bool m_gotTarget;
 
-	void getTile();
-	void cancel();
 	void send();
-
-	void registerEvent();
-	void deregisterEvent();
-	void listenEvent(kitten::Event::EventType p_type, kitten::Event* p_data);
-
 };

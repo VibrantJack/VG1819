@@ -35,7 +35,7 @@ void unit::UnitClickable::onClick()
 	}
 
 	//for test
-	u->destroyedByDamage();
+	//u->destroyedByDamage();
 }
 
 void unit::UnitClickable::onHoverStart()

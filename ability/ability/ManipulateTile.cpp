@@ -22,7 +22,7 @@ namespace ability
 	int ManipulateTile::effect(const AbilityInfoPackage* p_info)
 	{
 		kitten::Event* p_data = new kitten::Event(kitten::Event::EventType::Highlight_Tile);
-		p_data->putTileList(&p_info->m_targetTiles);
+		p_data->putTileList(&p_info->m_targetTilesPos);
 		p_data->putString(TILE_OWNER_KEY, p_info->m_source->m_ID);
 		p_data->putString("mode", "all");
 		p_data->putString("use", "ManipulateTile");//different from other 
