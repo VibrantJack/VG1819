@@ -2,40 +2,47 @@
 #include "puppy\Renderer.h"
 #include "puppy\StaticRenderables.h"
 
+//austin's UI frame
+
 namespace userinterface
 {
 	puppy::VertexEnvironment* UIFrame::sm_vao = nullptr;
 	int UIFrame::sm_instances = 0;
-
-	UIFrame::UIFrame(const char* p_pathToTex)
+	UIFrame::UIFrame(const char* p_pathToTex) //default params
 	{
+		m_tex = new puppy::Texture(p_pathToTex);
 		m_mat = new puppy::Material(puppy::ShaderType::basic);
 		if (p_pathToTex != nullptr)
 		{
 			m_mat->setTexture(p_pathToTex);
 		}
+		else {
+			m_mat->setTexture("textures/ui/blankFrame.tga");
+		}
 
-		if (sm_instances < 1)
+		m_texBehaviour = tbh_Stretch;
+		m_pivotType = piv_BotLeft;
+
+		start();
+	}
+
+	UIFrame::UIFrame(const char* p_pathToTex, pivotType p_pivot, textureBehaviour p_texBehaviour)
+	{
+		m_tex = new puppy::Texture(p_pathToTex);
+		m_mat = new puppy::Material(puppy::ShaderType::basic);
+		if (p_pathToTex != nullptr)
 		{
-			puppy::TexturedVertex verts[] =
-			{
-			{ 0.0, 0.0, 0, 0.0, 0.0 },
-			{ 1.0, 0.0, 0, 2.0, 0.0 },
-			{ 1.0, 1.0, 0, 2.0, 2.0 },
-
-			{ 1.0, 1.0, 0, 2.0, 2.0 },
-			{ 0.0, 1.0, 0, 2.0, 0.0 },
-			{ 0.0, 0.0, 0, 0.0, 0.0 },
-			};
-			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);
-
-			++sm_instances;
-
-			puppy::Renderer::getInstance()->addUIToRender(this);
+			m_mat->setTexture(p_pathToTex);
 		}
 		else {
-			puppy::Renderer::getInstance()->addUIToRender(this);
+			m_mat->setTexture("textures/ui/blankFrame.tga");
 		}
+
+		m_pivotType = p_pivot;
+		m_texBehaviour = p_texBehaviour;
+
+		start();
+
 	}
 
 	UIFrame::~UIFrame()
@@ -50,24 +57,128 @@ namespace userinterface
 
 	void UIFrame::start()
 	{
-		//Only need to add to staticRenderables if static (already added in normal renderer)
+		//quad coords (ortho)
+		float xmin, ymin, xmax, ymax, z, u, v;
+		z = 0.0;
+
+		//change UV coords to meet type expectation
+		switch (m_texBehaviour)
+		{
+
+		//TO-DO. 
 		/*
+			There must be a good way to set the UV's on creation
+			of this object so that you can have the texture repeat
+			if the object is particularily large to avoid stretching
+			the texture out. Maybe just have a param that tells
+			the frame how many times to tile the texture in both dimensions
+		*/
+		
+			case tbh_Stretch: {
+				u = 1.0;
+				v = 1.0;
+				m_tex->setWrapping(GL_CLAMP_TO_EDGE);
+				break;
+			};
+
+			case tbh_Repeat: {
+				u = 1.0;
+				v = 1.0;
+				m_tex->setWrapping(GL_REPEAT); 
+				break;
+			};
+
+			case tbh_RepeatMirrored: {
+				u = 1.0f;
+				v = 1.0f;
+				m_tex->setWrapping(GL_MIRRORED_REPEAT);
+				break;
+			};
+		}
+
+		switch (m_pivotType)
+		{
+			case piv_Left: {
+				xmin = 0.0f;
+				ymin = -0.5f;
+				xmax = 1.0f;
+				ymax = 0.5f;
+				break;
+			}
+			case piv_Right: {
+				xmin = -1.0f;
+				ymin = -0.5f;
+				xmax = 0.0f;
+				ymax = 0.5f;
+				break;
+			}
+			case piv_Bot: {
+				xmin = -0.5f;
+				ymin = 0.0f;
+				xmax = 0.5f;
+				ymax = 1.0f;
+				break;
+			}
+			case piv_Top: {
+				xmin = -0.5f;
+				ymin = -1.0f;
+				xmax = 0.5f;
+				ymax = 0.0f;
+				break;
+			}
+			case piv_BotLeft: {
+				xmin = 0.0f;
+				ymin = 0.0f;
+				xmax = 1.0f;
+				ymax = 1.0f; 
+				break;
+			}
+			case piv_BotRight: {
+				xmin = -1.0f;
+				ymin = 0.0f;
+				xmax = 0.0f;
+				ymax = 1.0f;
+				break;
+			}
+			case piv_TopLeft: {
+				xmin = 0.0f;
+				ymin = -1.0f;
+				xmax = 1.0f;
+				ymax = 0.0f;
+				break;
+			}
+			case piv_TopRight: {
+				xmin = -1.0f;
+				ymin = -1.0f;
+				xmax = 0.0f;
+				ymax = 0.0f;
+				break;
+				}
+			case piv_Center: {
+				xmin = -0.5;
+				ymin = -0.5;
+				xmax = 0.5;
+				ymax = 0.5;
+				break;
+			}
+		}
+
 		puppy::TexturedVertex verts[] =
 		{
-			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
-			{ 0.5f, 0.0f, 0.5f,			0.0f, 1.0f },
-			{ 0.5f, 0.0f,-0.5f,			1.0f, 1.0f },
-			{ 0.5f, 0.0f,-0.5f,			1.0f, 1.0f },
-			{ -0.5f, 0.0f,-0.5f,		1.0f, 0.0f },
-			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
+			//a nice lil quad that takes the pivot into account
+			{ xmin, ymin, z, 0.0,  0.0 },
+			{ xmax, ymin, z, u,    0.0 },
+			{ xmax, ymax, z, u,    v },
+			{ xmax, ymax, z, u,    v },
+			{ xmin,	ymax, z, 0.0f, v },
+			{ xmin, ymin, z, 0.0f, 0.0f },
 		};
 
-		//Transform into world space
-		puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform());
+		sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);
 
-		//m_tex is null because it was not initialized in the constructor - Callum
-		puppy::StaticRenderables::getInstance()->addToUIRender(this, m_tex, verts, 6);
-		*/
+		++sm_instances;
+
+		puppy::Renderer::getInstance()->addUIToRender(this);
 	}
 
 	void UIFrame::render(const glm::mat4& p_ortho)
