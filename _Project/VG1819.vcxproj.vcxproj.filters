@@ -374,6 +374,9 @@
     <ClCompile Include="..\kitten\K_Instance.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
+    <ClCompile Include="..\puppy\P_Instance.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -462,9 +465,6 @@
     </ClInclude>
     <ClInclude Include="..\kitten\K_CameraList.h">
       <Filter>kitten</Filter>
-    </ClInclude>
-    <ClInclude Include="..\puppy\P_Singletons.h">
-      <Filter>puppy</Filter>
     </ClInclude>
     <ClInclude Include="..\unit\UnitCommon.h">
       <Filter>unit</Filter>
@@ -721,6 +721,10 @@
     <ClInclude Include="..\kitten\K_Instance.h">
       <Filter>kitten</Filter>
     </ClInclude>
+    <ClInclude Include="..\puppy\P_Instance.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\userinterface\UIFrame.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">

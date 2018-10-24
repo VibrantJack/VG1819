@@ -38,8 +38,6 @@ namespace kitten
 				sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::colorTint_alphaTest), 6);
 			}
 			++sm_instances;
-			
-			puppy::Renderer::getInstance()->addToRender(this);
 		}
 		else
 		{
@@ -59,14 +57,14 @@ namespace kitten
 
 			if (m_isEnabled)
 			{
-				puppy::Renderer::getInstance()->removeFromRender(this);
+				removeFromDynamicRender();
 			}
 		}
 		else
 		{
 			if (m_isEnabled)
 			{
-				puppy::StaticRenderables::getInstance()->removeFromRender(this, m_tex);
+				removeFromStaticRender(m_tex);
 			}
 			
 			delete m_tex;
@@ -88,7 +86,7 @@ namespace kitten
 		//Transform into world space
 		puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform());
 
-		puppy::StaticRenderables::getInstance()->addToRender(this, m_tex, verts, 6);
+		Renderable::addToStaticRender(m_tex, verts, 6);
 	}
 
 	void QuadRenderable::start()
@@ -97,17 +95,21 @@ namespace kitten
 		{
 			addToStaticRender();
 		}
+		else
+		{
+			addToDynamicRender();
+		}
 	}
 
 	void QuadRenderable::onDisabled()
 	{
 		if (m_isStatic)
 		{
-			puppy::StaticRenderables::getInstance()->removeFromRender(this, m_tex);
+			removeFromStaticRender(m_tex);
 		}
 		else
 		{
-			puppy::Renderer::getInstance()->removeFromRender(this);
+			removeFromDynamicRender();
 		}
 	}
 
@@ -119,7 +121,7 @@ namespace kitten
 		}
 		else
 		{
-			puppy::Renderer::getInstance()->addToRender(this);
+			addToDynamicRender();
 		}
 	}
 

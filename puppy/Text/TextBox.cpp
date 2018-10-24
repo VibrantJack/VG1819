@@ -30,7 +30,7 @@ namespace puppy
 			constructRightOrCenterAlignVertices(false);
 		}
 
-		Renderer::getInstance()->addUIToRender(this);
+		addToDynamicRender();
 	}
 
 	TextBox::TextBox(Font* p_fontToUse, std::string p_text, float p_boxWidth, float p_boxHeight)
@@ -50,7 +50,7 @@ namespace puppy
 		removeOldText();
 		if (m_isEnabled)
 		{
-			Renderer::getInstance()->removeUIFromRender(this);
+			removeFromDynamicRender();
 		}
 	}
 
@@ -335,17 +335,17 @@ namespace puppy
 
 	void TextBox::start()
 	{
-		Renderer::getInstance()->addUIToRender(this);
+		addToDynamicRender();
 	}
 
 	void TextBox::onDisabled()
 	{
-		Renderer::getInstance()->removeUIFromRender(this);
+		removeFromDynamicRender();
 	}
 
 	void TextBox::onEnabled()
 	{
-		Renderer::getInstance()->addUIToRender(this);
+		addToDynamicRender();
 	}
 
 	void TextBox::render(const glm::mat4& p_ortho)
