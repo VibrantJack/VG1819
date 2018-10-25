@@ -4,4 +4,5 @@ namespace kitten
 	void gameCycle();
 	void shutdownGame();
 
+	void serverLoop(void* arg);
 }

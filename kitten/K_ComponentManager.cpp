@@ -24,6 +24,7 @@
 #include "kitten\mouse picking\ClickableFrame.h"
 #include "components\PowerTracker.h"
 #include "components\SelectAbility.h"
+#include "networking\SpawnUnitOnKeyPress.h"
 //#include "userinterface\UITestClickable.h"
 
 //board
@@ -159,6 +160,10 @@ namespace kitten
 		else if (p_componentName == "BoardCreator")
 		{
 			comp = new BoardCreator();
+		}
+		else if (p_componentName == "SpawnUnitOnKeyPress")
+		{
+			comp = new SpawnUnitOnKeyPress();
 		}
 		else
 		{

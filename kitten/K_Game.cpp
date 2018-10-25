@@ -31,6 +31,11 @@
 
 #include "userinterface\InterfaceBuilder.h"
 
+// Networking
+#include "networking\ClientGame.h"
+#include "networking\ServerGame.h"
+#include <process.h>
+
 #define DEBUG
 
 namespace kitten
@@ -58,9 +63,11 @@ namespace kitten
 		ability::AbilityManager::createInstance();
 		ability::AbilityNodeManager::createInstance();
 
+		// Management of InitiativeTracker moved into ServerGame
 		unit::InitiativeTracker::createInstance();
 
 		BoardManager::createInstance();
+		
 	}
 
 	// This is called once at the beginning of the game
@@ -124,7 +131,7 @@ namespace kitten
 		//builder->start();
 		//delete builder;
 
-		*/
+		
 
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();
@@ -147,7 +154,20 @@ namespace kitten
 		com->getTransform().place2D(0.1, 0.1);
 		//*/
 
+		// Networking
+		networking::ServerGame::createInstance();
+		_beginthread(serverLoop, 0, (void*)12);
+		networking::ClientGame::createInstance();
+
 		return true;
+	}
+
+	void serverLoop(void* arg)
+	{
+		while (true)
+		{
+			networking::ServerGame::getInstance()->update();
+		}
 	}
 
 	void destroySingletons()
@@ -193,6 +213,9 @@ namespace kitten
 		//Update components
 		K_ComponentManager::getInstance()->updateComponents();
 		K_GameObjectManager::getInstance()->deleteQueuedObjects();
+
+		//Networking
+		networking::ClientGame::getInstance()->update();
 	}
 
 	void renderGame()
