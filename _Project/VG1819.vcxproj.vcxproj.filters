@@ -364,12 +364,30 @@
     </ClCompile>
     <ClCompile Include="..\board\BoardManager.cpp">
       <Filter>board</Filter>
-    </ClCompile>     
+    </ClCompile>
     <ClCompile Include="..\board\component\Highlighter.cpp">
       <Filter>board\component</Filter>
     </ClCompile>
     <ClCompile Include="ToggleEnabledOnKeyPress.cpp">
       <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\NetworkServices.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\ServerNetwork.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\ClientNetwork.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\ServerGame.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\ClientGame.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\SpawnUnitOnKeyPress.cpp">
+      <Filter>networking</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -714,9 +732,30 @@
     </ClInclude>
     <ClInclude Include="..\board\component\Highlighter.h">
       <Filter>board\component</Filter>
-    </ClInclude> 
+    </ClInclude>
     <ClInclude Include="ToggleEnabledOnKeyPress.h">
       <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\NetworkServices.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\NetworkData.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\ServerNetwork.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\ClientNetwork.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\ServerGame.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\ClientGame.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\SpawnUnitOnKeyPress.h">
+      <Filter>networking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -812,6 +851,9 @@
     </Filter>
     <Filter Include="board\component">
       <UniqueIdentifier>{0ae05199-ea25-4694-8d77-89d227d2bec6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="networking">
+      <UniqueIdentifier>{917724ca-7167-448a-8927-6be470d6ce1c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
