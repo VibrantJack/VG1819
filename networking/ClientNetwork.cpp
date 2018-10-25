@@ -38,8 +38,8 @@ namespace networking
 
 										  //resolve server address and port 
 										  //Make it possible to input any address
-		m_iResult = getaddrinfo("127.0.0.1", DEFAULT_PORT, &hints, &result);
-		//iResult = getaddrinfo("192.168.2.17", DEFAULT_PORT, &hints, &result);
+		//m_iResult = getaddrinfo("127.0.0.1", DEFAULT_PORT, &hints, &result);
+		m_iResult = getaddrinfo("192.168.2.17", DEFAULT_PORT, &hints, &result);
 
 		if (m_iResult != 0)
 		{

@@ -58,11 +58,11 @@ void SpawnUnitOnKeyPress::update()
 		//packetBasic.packetType = PacketTypes::CLIENT_SUMMON_UNIT;
 		//packetBasic.clientId = networking::ClientGame::getInstance()->getClientId();
 
-		SummonUnitPacket packet;
-		packet.packetType = PacketTypes::CLIENT_SUMMON_UNIT;
-		packet.clientId = networking::ClientGame::getInstance()->getClientId();
-		packet.posX = posX;
-		packet.posY = posY;
+		SummonUnitPacket* packet = new SummonUnitPacket();
+		packet->packetType = PacketTypes::CLIENT_SUMMON_UNIT;
+		packet->clientId = networking::ClientGame::getInstance()->getClientId();
+		packet->posX = posX;
+		packet->posY = posY;
 
 		networking::ClientGame::getInstance()->sendPacket(packet);
 	}

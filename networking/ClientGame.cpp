@@ -66,20 +66,25 @@ namespace networking
 		delete m_network;
 	}
 
-	void ClientGame::sendPacket(Packet p_packet)
+	void ClientGame::sendPacket(Packet* p_packet)
 	{
-		switch (p_packet.packetType)
+		switch (p_packet->packetType)
 		{
 			case PacketTypes::CLIENT_SUMMON_UNIT :
 			{
-				const unsigned int packetSize = sizeof(Packet);
+				const unsigned int packetSize = sizeof(SummonUnitPacket);
 				char data[packetSize];
-				NetworkServices::serializePacketTest(p_packet, data);
+
+				SummonUnitPacket* packet = static_cast<SummonUnitPacket*>(p_packet);
+				NetworkServices::serializePacketTest(packet, data);
 				NetworkServices::sendMessage(m_network->m_connectSocket, data, packetSize);
 			}
 		}
 		//char* packet_data = NetworkServices::serializePacket(p_packet);
 		//NetworkServices::sendMessage(m_network->m_connectSocket, data, packetSize);
+
+		delete p_packet;
+		p_packet = nullptr;
 
 	}
 
