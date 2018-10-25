@@ -99,6 +99,7 @@
     <ClCompile Include="..\ability\ability\Fight.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
     <ClCompile Include="..\ability\ability\ManipulateTile.cpp" />
+    <ClCompile Include="..\ability\ability\Move.cpp" />
     <ClCompile Include="..\ability\ability\QuickShoot.cpp" />
     <ClCompile Include="..\ability\ability\Sabotage.cpp" />
     <ClCompile Include="..\ability\ability\Shoot.cpp" />

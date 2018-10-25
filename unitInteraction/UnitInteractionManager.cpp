@@ -7,6 +7,7 @@ UnitInteractionManager* UnitInteractionManager::sm_instance = nullptr;
 
 void UnitInteractionManager::request(unit::Unit* p_unit, unit::AbilityDescription * p_ad)
 {
+	m_unit = p_unit;
 	m_ad = p_ad;
 	m_abilityName = m_ad->m_stringValue["name"];
 	std::cout << "UnitInteractionManager Receive: " << p_unit->m_name << " :: " << m_abilityName << std::endl;

@@ -94,9 +94,30 @@ namespace unit
 		return m_attachedObject->getComponent<unit::UnitMove>()->getTile();
 	}
 
+	void Unit::move()
+	{
+		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
+		moveComponet->attempToMove();
+	}
+
+	void Unit::move(int p_min, int p_max)
+	{
+		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
+		moveComponet->attempToMove(p_min,p_max);
+	}
+
+	void Unit::move(kitten::K_GameObject * p_tile)
+	{
+		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
+		moveComponet->move(p_tile);
+	}
+
 	
 	int Unit::useAbility(const std::string& p_abilityName)
 	{
+		if (!canAct())
+			return -1;
+
 		AbilityDescription* ad;
 		bool find = m_ADList.find(p_abilityName) != m_ADList.end();
 		if (m_ADList.find(p_abilityName) != m_ADList.end())

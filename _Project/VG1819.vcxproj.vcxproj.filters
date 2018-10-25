@@ -377,6 +377,9 @@
     <ClCompile Include="..\unitInteraction\TileGetter.cpp">
       <Filter>unitInteraction</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\ability\Move.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

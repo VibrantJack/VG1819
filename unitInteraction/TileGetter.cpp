@@ -111,7 +111,11 @@ void TileGetter::triggerHighlightEvent()
 		e->putInt("min_range", m_ad->m_intValue["min_range"]);
 		e->putInt("max_range", m_ad->m_intValue["max_range"]);
 	}
-	e->putString("use", "ability");
+	else
+	{
+		e->putString("mode", "all");
+	}
+	e->putString("use", "move");
 
 	//TO DO: area 
 	//TO DO: use filter

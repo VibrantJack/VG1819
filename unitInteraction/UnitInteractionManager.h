@@ -33,10 +33,10 @@ private:
 
 	TileGetter* m_tileGetter;
 
+	unit::Unit* m_unit;
 	unit::AbilityDescription* m_ad;
 	ability::AbilityInfoPackage* m_package;
 	std::string m_abilityName;
-	bool m_gotTarget;
 
 	void send();
 };

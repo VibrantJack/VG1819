@@ -26,6 +26,14 @@ namespace ability
 		int damage(unit::Unit* p_target, int power);
 	};
 
+	class Move : public Ability
+	{
+	public:
+		Move();
+		virtual ~Move();
+		int effect(const AbilityInfoPackage* p_info);
+	};
+
 	class ManipulateTile : public Ability
 	{
 	public:

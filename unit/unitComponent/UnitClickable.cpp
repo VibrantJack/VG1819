@@ -3,6 +3,7 @@
 #include "unit/UnitCommon.h"
 #include "unit/Unit.h"
 #include "unit/unitComponent/UnitMove.h"
+#include "unit/Commander.h"
 #include <iostream>
 unit::UnitClickable::UnitClickable()
 {
@@ -21,17 +22,19 @@ void unit::UnitClickable::onClick()
 		//move only for now
 		if(u->canMove())
 		{ 
-			m_attachedObject->getComponent<UnitMove>()->attempToMove();
+			u->move();
 		}
 		else
 		{
 			std::cout << "Unit can only move once per turn." << std::endl;
+			static_cast<Commander*>(u)->manipulateTile();
 		}
 	}
 	else
 	{
 		//show unit info
-		
+		std::cout << "Unit can only move once per turn." << std::endl;
+		static_cast<Commander*>(u)->manipulateTile();
 	}
 
 	//for test
@@ -45,5 +48,5 @@ void unit::UnitClickable::onHoverStart()
 void unit::UnitClickable::onHoverEnd()
 {
 	Unit* u = m_attachedObject->getComponent<Unit>();
-	u->useAbility("Fight");
+	//u->useAbility("Fight");
 }

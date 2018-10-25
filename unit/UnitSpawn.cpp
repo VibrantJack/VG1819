@@ -148,7 +148,7 @@ namespace unit
 	unit::Commander * UnitSpawn::spawnCommanderFromData(UnitData * p_unitData)
 	{
 		unit::Commander* commander = static_cast<Commander*>(spawnUnitFromData(p_unitData));
-
+		commander->init();
 		//change lv to -1 since it doesn't apply to commander
 		//unit->m_LV = -1;
 		commander->m_attributes["lv"] = -1;
