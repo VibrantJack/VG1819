@@ -44,13 +44,17 @@ void ManipulateTileOnClick::onClick()
 			kitten::Event* p_data = new kitten::Event(kitten::Event::EventType::Highlight_Tile);
 			p_data->putInt(MANIPULATE_TILE_KEY, 1);
 			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Manipulate_Tile, p_data);
+
+			// We successfully used the ability so now reset lastAbilityUsed so this doesn't keep triggering
+			ability::AbilityManager::getInstance()->resetLastAbilityUsed();
 		}
 		else
 		{
 			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
+
 		}
 	}
-	else if (ability::AbilityManager::getInstance()->lastAbilityUsed() == SUMMON_UNIT)
+	else if (ability::AbilityManager::getInstance()->lastAbilityUsed() == SUMMON_UNIT_ABILITY)
 	{
 		if (tileInfo->isHighlighted() && tileInfo->getOwnerId() == tileInfo->getHighlightedBy())
 		{
@@ -69,6 +73,9 @@ void ManipulateTileOnClick::onClick()
 				//unit::InitiativeTracker::getInstance()->gameTurnStart();
 			}
 			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
+
+			// We successfully used the ability so now reset lastAbilityUsed so this doesn't keep triggering
+			ability::AbilityManager::getInstance()->resetLastAbilityUsed();
 		}
 		else
 		{
@@ -78,5 +85,9 @@ void ManipulateTileOnClick::onClick()
 	else
 	{
 		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
+
 	}
+
+	// Rest the last ability used after we've used an ability or canceled it
+	ability::AbilityManager::getInstance()->resetLastAbilityUsed();
 }

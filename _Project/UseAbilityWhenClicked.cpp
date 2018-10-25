@@ -47,15 +47,20 @@ void UseAbilityWhenClicked::start()
 
 void UseAbilityWhenClicked::update()
 {
+	if (input::InputManager::getInstance()->keyDown('0') && !input::InputManager::getInstance()->keyDownLast('0'))
+	{
+		m_bSelectingAbility = true;
+	}
+
 	if (m_bSelectingAbility)
 	{		
 		m_textBox->setText("1: Manipulate Tile \n 2: Summon Unit");
-		if (input::InputManager::getInstance()->keyDown('1') || input::InputManager::getInstance()->keyDown('1'))
+		if (input::InputManager::getInstance()->keyDown('1') && !input::InputManager::getInstance()->keyDownLast('1'))
 		{
 			m_pSelectAbilityComp->useAbility(SelectAbility::AbilityType::Manipulate_Tile);
 			m_bSelectingAbility = false;
 		}
-		else if (input::InputManager::getInstance()->keyDown('2') || input::InputManager::getInstance()->keyDown('2'))
+		else if (input::InputManager::getInstance()->keyDown('2') && !input::InputManager::getInstance()->keyDownLast('2'))
 		{
 			m_pSelectAbilityComp->useAbility(SelectAbility::AbilityType::Summon_Unit);
 			m_bSelectingAbility = false;
@@ -69,7 +74,7 @@ void UseAbilityWhenClicked::update()
 
 void UseAbilityWhenClicked::onClick()
 {
-	m_bSelectingAbility = true;
+	//m_bSelectingAbility = true;
 
 	//ability::AbilityInfoPackage* info = new ability::AbilityInfoPackage();
 	//unit::Unit* unit = m_attachedObject->getComponent<unit::Unit>();
