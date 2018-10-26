@@ -1,6 +1,6 @@
 #pragma once
-#include <vector>
-#include <map>
+#include <list>
+#include <unordered_map>
 #include <cassert>
 
 #include "K_GameObject.h"
@@ -20,8 +20,8 @@ namespace kitten
 		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new K_GameObjectManager(); };
 		static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
 
-		std::map<int, K_GameObject*> m_gameObjects;
-		std::vector<K_GameObject*> m_toDelete;
+		std::unordered_map<int, K_GameObject*> m_gameObjects;
+		std::list<K_GameObject*> m_toDelete;
 
 		int m_totalObjects = 0;
 

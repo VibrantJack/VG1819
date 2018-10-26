@@ -1,6 +1,6 @@
 #pragma once
 
-#include <list>
+#include <unordered_set>
 #include <cassert>
 #include "kibble/ComponentDataParser.hpp"
 
@@ -23,19 +23,19 @@ namespace kitten
 
 		void updateComponents();
 
-		std::list<K_Component*> m_toUpdate;
-		std::list<K_Component*> m_toStart;
-		std::list<K_Component*> m_toDelete;
+		std::unordered_set<K_Component*> m_toUpdate;
+		std::unordered_set<K_Component*> m_toStart;
+		std::unordered_set<K_Component*> m_toDelete;
 
 		std::list<K_Component*> m_toAddToUpdate;
-		std::list<const K_Component*> m_toRemoveFromUpdate;
+		std::list<K_Component*> m_toRemoveFromUpdate;
 
 		void addToStart(K_Component* p_toStart);
-		void removeFromStart(const K_Component* p_toRemove);
+		void removeFromStart(K_Component* p_toRemove);
 		void addToUpdate(K_Component* p_toUpdate);
-		bool removeFromUpdate(const K_Component* p_toRemove);
+		bool removeFromUpdate(K_Component* p_toRemove);
 
-		void queueRemovalFromUpdate(const K_Component* p_toRemove);
+		void queueRemovalFromUpdate(K_Component* p_toRemove);
 		void queueAddToUpdate(K_Component* p_toUpdate);
 
 	public:

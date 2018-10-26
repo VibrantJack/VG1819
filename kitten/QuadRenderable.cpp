@@ -131,7 +131,24 @@ namespace kitten
 		{
 			m_mat->setTexture(p_pathToTex);
 		}
-		else if(!m_hasStarted)
+		else if(m_hasStarted)
+		{
+			removeFromStaticRender(m_tex);
+			delete m_tex;
+
+			m_tex = new puppy::Texture(p_pathToTex);
+			puppy::TexturedVertex verts[] = { 
+			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
+			{ 0.5f, 0.0f, 0.5f,			0.0f, 1.0f },
+			{ 0.5f, 0.0f,-0.5f,			1.0f, 1.0f },
+			{ 0.5f, 0.0f,-0.5f,			1.0f, 1.0f },
+			{ -0.5f, 0.0f,-0.5f,		1.0f, 0.0f },
+			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f }, };
+
+			puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform());
+			Renderable::addToStaticRender(m_tex, verts, 6);
+		}
+		else
 		{
 			delete m_tex;
 			m_tex = new puppy::Texture(p_pathToTex);

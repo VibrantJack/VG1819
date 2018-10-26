@@ -10,7 +10,7 @@
 
 #include "P_Common.h"
 
-#include <vector>
+#include <unordered_set>
 
 namespace puppy
 {
@@ -29,8 +29,8 @@ namespace puppy
 		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new Renderer(); };
 		static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
 
-		std::vector<kitten::Renderable*> m_toRender;
-		std::vector<kitten::UIRenderable*> m_uiToRender;
+		std::unordered_set<kitten::Renderable*> m_toRender;
+		std::unordered_set<kitten::UIRenderable*> m_uiToRender;
 
 
 		void addToRender(kitten::Renderable* p_toAdd);

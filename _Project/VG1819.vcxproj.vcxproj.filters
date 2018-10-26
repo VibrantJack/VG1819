@@ -50,9 +50,6 @@
     <ClCompile Include="..\puppy\VertexEnvironment.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
-    <ClCompile Include="..\Shapes\Cube.cpp">
-      <Filter>shapes</Filter>
-    </ClCompile>
     <ClCompile Include="..\kitten\Camera.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
@@ -439,9 +436,6 @@
     <ClInclude Include="..\kitten\CubeRenderable.h">
       <Filter>kitten</Filter>
     </ClInclude>
-    <ClInclude Include="..\Shapes\Cube.h">
-      <Filter>shapes</Filter>
-    </ClInclude>
     <ClInclude Include="..\kitten\Camera.h">
       <Filter>kitten</Filter>
     </ClInclude>
@@ -725,6 +719,12 @@
       <Filter>puppy</Filter>
     </ClInclude>
     <ClInclude Include="..\userinterface\UIFrame.h" />
+    <ClInclude Include="..\kitten\mouse picking\ClickableFrame.h">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\mouse picking\ClickableUI.h">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -732,9 +732,6 @@
     </Filter>
     <Filter Include="puppy">
       <UniqueIdentifier>{e55580cc-403d-4eaa-bed0-16f88b46e83b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="shapes">
-      <UniqueIdentifier>{f82cacf4-d649-46d8-95dc-927acb69ed9c}</UniqueIdentifier>
     </Filter>
     <Filter Include="wolf">
       <UniqueIdentifier>{3c8c3f23-fb23-4bc5-833b-47c5048d135e}</UniqueIdentifier>

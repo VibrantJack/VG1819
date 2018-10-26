@@ -186,7 +186,6 @@
     <ClCompile Include="..\puppy\Text\TextBox.cpp" />
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
-    <ClCompile Include="..\Shapes\Cube.cpp" />
     <ClCompile Include="..\unit\Commander.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp" />
@@ -282,6 +281,8 @@
     <ClInclude Include="..\kitten\mouse picking\ActiveClickables.h" />
     <ClInclude Include="..\kitten\mouse picking\Clickable.h" />
     <ClInclude Include="..\kitten\mouse picking\ClickableBox.h" />
+    <ClInclude Include="..\kitten\mouse picking\ClickableFrame.h" />
+    <ClInclude Include="..\kitten\mouse picking\ClickableUI.h" />
     <ClInclude Include="..\kitten\mouse picking\MousePicker.h" />
     <ClInclude Include="..\kitten\mouse picking\Ray.h" />
     <ClInclude Include="..\kitten\QuadRenderable.h" />
@@ -307,7 +308,6 @@
     <ClInclude Include="..\puppy\Text\TextBox.h" />
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
-    <ClInclude Include="..\Shapes\Cube.h" />
     <ClInclude Include="..\unit\Commander.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTrackerUI.h" />

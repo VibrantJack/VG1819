@@ -1,6 +1,6 @@
 #pragma once
 
-#include <list>
+#include <unordered_set>
 #include "ClickableBox.h"
 #include "ClickableFrame.h"
 #include "kitten\InputManager.h"
@@ -27,8 +27,8 @@ namespace kitten
 		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new ActiveClickables(); };
 		static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
 
-		std::list<ClickableBox*> m_clickables;
-		std::list<ClickableFrame*> m_UIclickables;
+		std::unordered_set<ClickableBox*> m_clickables;
+		std::unordered_set<ClickableFrame*> m_UIclickables;
 
 		//Jank for deleting thing that the mouse is over..
 		ClickableBox* m_lastHover;
@@ -42,7 +42,7 @@ namespace kitten
 	public:
 		static ActiveClickables* getInstance() { return sm_instance; };
 
-		const std::list<ClickableBox*>& getClickableList() const;
-		const std::list<ClickableFrame*>& getClickableUIList() const;
+		const std::unordered_set<ClickableBox*>& getClickableList() const;
+		const std::unordered_set<ClickableFrame*>& getClickableUIList() const;
 	};
 }

@@ -4,7 +4,7 @@ namespace puppy
 {
 
 	GLuint Texture::sm_boundTexture = 0;
-	std::map<std::string, std::pair<GLuint, int>> Texture::sm_loadedTextures;
+	std::unordered_map<std::string, std::pair<GLuint, int>> Texture::sm_loadedTextures;
 
 	int Texture::sm_boundWrapMode = 0;
 	int Texture::sm_boundMagFiltering = 0;
