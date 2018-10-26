@@ -311,7 +311,6 @@
       <Filter>components\sound</Filter>
     </ClCompile>
     <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
-    <ClCompile Include="..\userinterface\UIFrame.cpp" />
     <ClCompile Include="..\kitten\audio\SoundEffectsApplier.cpp">
       <Filter>kitten\audio</Filter>
     </ClCompile>
@@ -373,6 +372,9 @@
     </ClCompile>
     <ClCompile Include="..\puppy\P_Instance.cpp">
       <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\userinterface\UIFrame.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -616,7 +618,6 @@
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
     <ClInclude Include="..\kitten\K_Sprite.h" />
     <ClInclude Include="..\puppy\P_Sprite.h" />
-    <ClInclude Include="..\userinterface\UI_ElementComponent.h" />
     <ClInclude Include="..\kitten\audio\AudioEngineWrapper.h">
       <Filter>kitten\audio</Filter>
     </ClInclude>
@@ -718,12 +719,17 @@
     <ClInclude Include="..\puppy\P_Instance.h">
       <Filter>puppy</Filter>
     </ClInclude>
-    <ClInclude Include="..\userinterface\UIFrame.h" />
     <ClInclude Include="..\kitten\mouse picking\ClickableFrame.h">
       <Filter>kitten\mouse  picking</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\mouse picking\ClickableUI.h">
       <Filter>kitten\mouse  picking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\userinterface\UIFrame.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\userinterface\UI_ElementComponent.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -816,6 +822,9 @@
     </Filter>
     <Filter Include="board\component">
       <UniqueIdentifier>{0ae05199-ea25-4694-8d77-89d227d2bec6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{b3f2d921-d676-4a5a-9200-68ea320734c6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
