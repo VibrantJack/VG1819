@@ -26,7 +26,7 @@ void unit::UnitTurn::turnStart(kitten::K_GameObject* p_unitObj)
 		move = true;
 
 	//comment for testing
-	//act = true;
+	act = true;
 }
 
 void unit::UnitTurn::checkTurn()

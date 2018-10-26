@@ -35,7 +35,7 @@ namespace ability
 		}
 
 		//delete package
-		delete p_info;
+		done(p_info);
 		
 		//target isn't structure
 		return 0;

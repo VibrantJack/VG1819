@@ -24,17 +24,23 @@ void unit::UnitClickable::onClick()
 		{ 
 			u->move();
 		}
-		else
+		else if(u->canAct())
 		{
-			std::cout << "Unit can only move once per turn." << std::endl;
-			static_cast<Commander*>(u)->manipulateTile();
+			//test command ability
+			//static_cast<Commander*>(u)->manipulateTile();
+			//static_cast<Commander*>(u)->spawnUnit();
 		}
 	}
 	else
 	{
 		//show unit info
-		std::cout << "Unit can only move once per turn." << std::endl;
-		static_cast<Commander*>(u)->manipulateTile();
+
+		//test command ability
+		//static_cast<Commander*>(u)->manipulateTile();
+		//static_cast<Commander*>(u)->spawnUnit();
+
+		//test fight
+		//u->useAbility("Fight");
 	}
 
 	//for test

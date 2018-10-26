@@ -42,7 +42,7 @@ namespace ability
 		*/
 
 		//delete package
-		delete p_info;
+		done(p_info);
 
 		return 0;
 	}

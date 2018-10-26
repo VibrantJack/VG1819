@@ -16,3 +16,10 @@ int ability::Ability::damage(unit::Unit* p_target, int power)
 
 	return 0;
 }
+
+void ability::Ability::done(const AbilityInfoPackage* p_info)
+{
+	p_info->m_source->actDone();
+
+	delete p_info;
+}

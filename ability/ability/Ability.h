@@ -24,6 +24,8 @@ namespace ability
 	protected:
 		//simple ability
 		int damage(unit::Unit* p_target, int power);
+		//delete package and tell unit it acts once
+		void done(const AbilityInfoPackage* p_info);
 	};
 
 	class Move : public Ability
