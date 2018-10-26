@@ -37,7 +37,7 @@ void unit::UnitClickable::onClick()
 
 		//test command ability
 		//static_cast<Commander*>(u)->manipulateTile();
-		//static_cast<Commander*>(u)->spawnUnit();
+		static_cast<Commander*>(u)->spawnUnit();
 
 		//test fight
 		//u->useAbility("Fight");

@@ -121,6 +121,11 @@
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\ability\status\Status_LV.cpp" />
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
     <ClCompile Include="..\kibble\custom\CustomDeckDataParser.cpp" />
     <ClCompile Include="..\board\boardManager.cpp" />
     <ClCompile Include="..\board\clickable\ManipulateTileOnClick.cpp" />
@@ -228,6 +233,8 @@
     <ClInclude Include="..\ability\node\AbilityNodeManager.h" />
     <ClInclude Include="..\ability\StatusManager.h" />
     <ClInclude Include="..\ability\status\Status.h" />
+    <ClInclude Include="..\board\component\tilePipeline\TileFliter.h" />
+    <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h" />
     <ClInclude Include="..\DeckData.hpp" />
     <ClInclude Include="..\board\BoardManager.h" />
     <ClInclude Include="..\board\clickable\ManipulateTileOnClick.h" />

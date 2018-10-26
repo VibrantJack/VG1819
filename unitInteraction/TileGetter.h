@@ -35,6 +35,8 @@ private:
 	void getUnit(kitten::K_GameObject* p_tile);
 
 	void triggerHighlightEvent();
+	void putRange(kitten::Event* e);
+	void putFilter(kitten::Event* e);
 	void triggerUnhighlightEvent();
 
 	void send();

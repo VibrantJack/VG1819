@@ -104,6 +104,16 @@ void TileGetter::triggerHighlightEvent()
 
 	//normal range
 	kitten::Event* e = new kitten::Event(kitten::Event::Highlight_Tile);
+	putRange(e);
+	putFilter(e);
+	
+	//TO DO: area
+
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Highlight_Tile, e);
+}
+
+void TileGetter::putRange(kitten::Event * e)
+{
 	if (m_ad->m_intValue.find("min_range") != m_ad->m_intValue.end())
 	{
 		e->putString("mode", "range");
@@ -115,12 +125,26 @@ void TileGetter::triggerHighlightEvent()
 	{
 		e->putString("mode", "all");
 	}
-	e->putString("use", "move");
+}
 
-	//TO DO: area 
-	//TO DO: use filter
-
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Highlight_Tile, e);
+void TileGetter::putFilter(kitten::Event * e)
+{
+	if (m_ad->m_intValue.find("filter") != m_ad->m_intValue.end())
+	{
+		int filterNum = m_ad->m_intValue["filter"];
+		e->putInt("filter", filterNum);
+		for (int i = 0; i < filterNum; i++)
+		{
+			std::stringstream stm;
+			stm << "filter" << i;
+			std::string fkey = stm.str();
+			e->putString(fkey, m_ad->m_stringValue[fkey]);
+		}
+	}
+	else
+	{
+		e->putInt("filter", 0);
+	}
 }
 
 void TileGetter::triggerUnhighlightEvent()

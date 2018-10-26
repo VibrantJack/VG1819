@@ -12,7 +12,9 @@
 #include "board/component/Range.h"
 #include "board/component/Highlighter.h"
 #include "board/tile/TileInfo.h"
+#include "board/component/tilePipeline/TilePipeline.h"
 
+class TilePipeline;
 class BoardManager
 {
 public:
@@ -38,6 +40,7 @@ private:
 
 	Range* m_range;
 	Highlighter* m_highlighter;
+	TilePipeline* m_pipeline;
 	PowerTracker* m_powerTracker;
 
 	std::vector<kitten::K_GameObject*> m_tileList;

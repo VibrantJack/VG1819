@@ -20,6 +20,7 @@ kitten::Event::TileList Range::getTilesInRange(kitten::Event * p_data)
 	//get list in range
 	kitten::Event::TileList list = getTilesInRange(tileAtOrigin, min, max);
 
+	/*using filter instead
 	//remove tiles that has something on it if this is used for moving
 	std::string use = p_data->getString("use");
 	if (use == "move")
@@ -29,7 +30,7 @@ kitten::Event::TileList Range::getTilesInRange(kitten::Event * p_data)
 	else if (use == "ManipulateTile")
 	{
 		removeOwned(&list);
-	}
+	}*/
 
 	return list;
 }
@@ -108,6 +109,7 @@ void Range::findNeighbour(std::map<std::pair<int, int>, int>* p_tilesAndRange, s
 	}
 }
 
+/*
 void Range::removeUnit(kitten::Event::TileList* p_list)
 {
 	//remove tiles that has unit
@@ -143,5 +145,5 @@ void Range::removeOwned(kitten::Event::TileList * p_list)
 			it++;
 		}
 	}
-}
+}*/
 

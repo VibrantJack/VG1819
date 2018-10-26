@@ -122,7 +122,7 @@ void unit::UnitMove::setTile(kitten::K_GameObject * p_tile)
 		//remove unit from current tile
 		m_currentTile->getComponent<TileInfo>()->removeUnit();
 	}
-
+	//std::string name = m_attachedObject->getComponent<Unit>()->m_name;
 	//add this to target tile
 	p_tile->getComponent<TileInfo>()->setUnit(m_attachedObject);
 
