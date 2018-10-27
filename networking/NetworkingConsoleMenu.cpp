@@ -85,7 +85,7 @@ void NetworkingConsoleMenu::update()
 			m_bMenuOpen = false;
 		}
 
-		if (input::InputManager::getInstance()->keyDown('0') && !input::InputManager::getInstance()->keyDownLast('0'))
+		if (input::InputManager::getInstance()->keyDown('9') && !input::InputManager::getInstance()->keyDownLast('9'))
 		{
 			printf("** Networking Console Menu Closed **");
 			m_bMenuOpen = false;
