@@ -53,11 +53,6 @@ void SpawnUnitOnKeyPress::update()
 		// Maybe call this after the client has acknowledged the summoning of a unit from the host?
 		unit::InitiativeTracker::getInstance()->gameTurnStart();
 
-		// Send packet to server with data: unitId, 
-		//Packet packetBasic;
-		//packetBasic.packetType = PacketTypes::CLIENT_SUMMON_UNIT;
-		//packetBasic.clientId = networking::ClientGame::getInstance()->getClientId();
-
 		SummonUnitPacket* packet = new SummonUnitPacket();
 		packet->packetType = PacketTypes::CLIENT_SUMMON_UNIT;
 		packet->clientId = networking::ClientGame::getInstance()->getClientId();

@@ -17,8 +17,9 @@ namespace networking
 		static void destroyInstance();
 		static ServerGame* getInstance();
 
-		void update();
+		bool setupNetwork();
 
+		void update();
 		void receiveFromClients();
 		
 		void sendSummonedUnitPacket(unsigned int p_iClientId, SummonUnitPacket p_packet);

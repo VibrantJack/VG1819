@@ -155,9 +155,11 @@ namespace kitten
 		//*/
 
 		// Networking
-		networking::ServerGame::createInstance();
-		_beginthread(serverLoop, 0, (void*)12);
-		networking::ClientGame::createInstance();
+		//networking::ServerGame::createInstance();
+		//_beginthread(serverLoop, 0, (void*)12);
+		//networking::ClientGame::createInstance();
+		K_GameObject* networkingMenu = K_GameObjectManager::getInstance()->createNewGameObject();
+		networkingMenu->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("NetworkingConsoleMenu"));
 
 		return true;
 	}
@@ -215,7 +217,7 @@ namespace kitten
 		K_GameObjectManager::getInstance()->deleteQueuedObjects();
 
 		//Networking
-		networking::ClientGame::getInstance()->update();
+		//networking::ClientGame::getInstance()->update();
 	}
 
 	void renderGame()

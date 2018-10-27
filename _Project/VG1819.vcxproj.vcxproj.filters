@@ -389,6 +389,9 @@
     <ClCompile Include="..\networking\SpawnUnitOnKeyPress.cpp">
       <Filter>networking</Filter>
     </ClCompile>
+    <ClCompile Include="..\networking\NetworkingConsoleMenu.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -755,6 +758,9 @@
       <Filter>networking</Filter>
     </ClInclude>
     <ClInclude Include="..\networking\SpawnUnitOnKeyPress.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\NetworkingConsoleMenu.h">
       <Filter>networking</Filter>
     </ClInclude>
   </ItemGroup>

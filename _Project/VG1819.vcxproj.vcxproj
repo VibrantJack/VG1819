@@ -171,6 +171,7 @@
     <ClCompile Include="..\kitten\UIRenderable.cpp" />
     <ClCompile Include="..\networking\ClientGame.cpp" />
     <ClCompile Include="..\networking\ClientNetwork.cpp" />
+    <ClCompile Include="..\networking\NetworkingConsoleMenu.cpp" />
     <ClCompile Include="..\networking\NetworkServices.cpp" />
     <ClCompile Include="..\networking\ServerGame.cpp" />
     <ClCompile Include="..\networking\ServerNetwork.cpp" />
@@ -295,6 +296,7 @@
     <ClInclude Include="..\networking\ClientGame.h" />
     <ClInclude Include="..\networking\ClientNetwork.h" />
     <ClInclude Include="..\networking\NetworkData.h" />
+    <ClInclude Include="..\networking\NetworkingConsoleMenu.h" />
     <ClInclude Include="..\networking\NetworkServices.h" />
     <ClInclude Include="..\networking\ServerGame.h" />
     <ClInclude Include="..\networking\ServerNetwork.h" />

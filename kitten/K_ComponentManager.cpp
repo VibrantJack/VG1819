@@ -25,6 +25,7 @@
 #include "components\PowerTracker.h"
 #include "components\SelectAbility.h"
 #include "networking\SpawnUnitOnKeyPress.h"
+#include "networking\NetworkingConsoleMenu.h"
 //#include "userinterface\UITestClickable.h"
 
 //board
@@ -164,6 +165,10 @@ namespace kitten
 		else if (p_componentName == "SpawnUnitOnKeyPress")
 		{
 			comp = new SpawnUnitOnKeyPress();
+		}
+		else if (p_componentName == "NetworkingConsoleMenu")
+		{
+			comp = new NetworkingConsoleMenu();
 		}
 		else
 		{

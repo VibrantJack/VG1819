@@ -42,7 +42,7 @@ namespace networking
 		client_id = 0;
 
 		// set up the server network to listen 
-		m_network = new ServerNetwork();
+		//setupNetwork();
 
 		// Initialize InitiativeTracker
 		//unit::InitiativeTracker::createInstance();
@@ -51,6 +51,23 @@ namespace networking
 	ServerGame::~ServerGame()
 	{
 		delete m_network;
+	}
+
+	bool ServerGame::setupNetwork()
+	{
+		m_network = new ServerNetwork();
+
+		if (!m_network->init())
+		{
+			printf("Server Network init error: %s\n", m_network->getError().c_str());
+
+			delete m_network;
+			m_network = nullptr;
+
+			return false;
+		}
+
+		return true;
 	}
 
 	void ServerGame::update()

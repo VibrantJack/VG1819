@@ -18,6 +18,8 @@ namespace networking
 		static void destroyInstance();
 		static ClientGame* getInstance();
 
+		bool setupNetwork(const std::string &p_strAddr = "127.0.0.1");
+
 		void sendPacket(Packet* p_packet);
 		unsigned int getClientId() { return m_iClientId; }
 

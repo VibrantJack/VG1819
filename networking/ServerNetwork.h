@@ -17,8 +17,11 @@ namespace networking
 	{
 	friend class ServerGame;
 	public:
-		ServerNetwork(void);
-		~ServerNetwork(void);
+		ServerNetwork();
+		~ServerNetwork();
+
+		bool init();
+		void shutdown();
 
 		// send data to all clients
 		void sendToAll(char * packets, int totalSize);
@@ -30,6 +33,8 @@ namespace networking
 
 		// accept new connections
 		bool acceptNewClient(unsigned int & id);
+
+		const std::string& getError() const { return m_strError; }
 
 	private:
 		// Socket to listen for new connections
@@ -43,7 +48,8 @@ namespace networking
 
 		// table to keep track of each client's socket
 		std::map<unsigned int, SOCKET> m_sessions;
-		//SOCKET clientList[MAX_CLIENTS];
+		
+		std::string m_strError;
 	};
 
 }

@@ -47,9 +47,21 @@ namespace networking
 	ClientGame::ClientGame()
 	{
 
+	}
+
+
+	ClientGame::~ClientGame()
+	{
+		delete m_network;
+	}
+
+	bool ClientGame::setupNetwork(const std::string &p_strAddr)
+	{
 		m_network = new ClientNetwork();
 
-		{ // Client connects and sends INIT_CONNECTION packet; maybe move this into ClientServer class
+		if (m_network->init(p_strAddr))
+		{ 
+			// Client connects and sends INIT_CONNECTION packet
 			const unsigned int packet_size = sizeof(Packet);
 			char packet_data[packet_size];
 
@@ -58,12 +70,17 @@ namespace networking
 			packet.serialize(packet_data);
 			NetworkServices::sendMessage(m_network->m_connectSocket, packet_data, packet_size);
 		}
-	}
+		else
+		{
+			printf("Client Network init error: %s\n", m_network->getError().c_str());
 
+			delete m_network;
+			m_network = nullptr;
 
-	ClientGame::~ClientGame()
-	{
-		delete m_network;
+			return false;
+		}
+
+		return true;
 	}
 
 	void ClientGame::sendPacket(Packet* p_packet)
@@ -76,12 +93,10 @@ namespace networking
 				char data[packetSize];
 
 				SummonUnitPacket* packet = static_cast<SummonUnitPacket*>(p_packet);
-				NetworkServices::serializePacketTest(packet, data);
+				packet->serialize(data);
 				NetworkServices::sendMessage(m_network->m_connectSocket, data, packetSize);
 			}
 		}
-		//char* packet_data = NetworkServices::serializePacket(p_packet);
-		//NetworkServices::sendMessage(m_network->m_connectSocket, data, packetSize);
 
 		delete p_packet;
 		p_packet = nullptr;
@@ -121,7 +136,7 @@ namespace networking
 
 				break;
 			case PacketTypes::CLIENT_SUMMON_UNIT:
-				printf("\nclient received CLIENT_SUMMON_UNIT packet from server\n");
+				printf("client received CLIENT_SUMMON_UNIT packet from server\n");
 
 				SummonUnitPacket summonUnitPacket;
 				summonUnitPacket.deserialize(&(m_network_data[i]));
@@ -132,7 +147,7 @@ namespace networking
 				break;
 
 			default:
-				printf("\nerror in packet types\n");
+				printf("error in packet types\n");
 				break;
 			}
 		}

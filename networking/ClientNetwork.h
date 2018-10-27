@@ -7,6 +7,7 @@
 #include <ws2tcpip.h>
 
 #include <stdio.h> 
+#include <string>
 
 // size of our buffer
 #define DEFAULT_BUFLEN 512
@@ -21,19 +22,25 @@ namespace networking
 {
 	class ClientNetwork
 	{
-
+	friend class ClientGame;
 	public:
 		ClientNetwork();
 		~ClientNetwork();
 
+		bool init(const std::string &p_strAddr = "127.0.0.1");
+		void shutdown();
+
 		int receivePackets(char * p_recvbuf);
 
-	public:
+		const std::string& getError() const { return m_strError; }
+	private:
 		// for error checking function calls in Winsock library
 		int m_iResult;
 
 		// socket for client to connect to server
 		SOCKET m_connectSocket;
+
+		std::string m_strError;
 	};
 }
 

@@ -18,34 +18,4 @@ namespace networking
 	{
 		return recv(curSocket, buffer, bufSize, 0);
 	}
-
-	void NetworkServices::serializePacketTest(Packet* p_packet, char* p_data)
-	{
-		//p_packet.serialize(p_data);
-
-		PacketTypes packetType = (PacketTypes)p_packet->packetType;
-		switch (packetType)
-		{
-		case PacketTypes::CLIENT_SUMMON_UNIT:
-			{
-				SummonUnitPacket* packet = static_cast<SummonUnitPacket*>(p_packet);
-				packet->serialize(p_data);
-			}
-		}
-	}
-
-	char* NetworkServices::serializePacket(Packet p_packet)
-	{
-		PacketTypes packetType = (PacketTypes)p_packet.packetType;
-		switch (packetType)
-		{
-		case PacketTypes::CLIENT_SUMMON_UNIT:
-		{
-			char packet_data[sizeof(Packet)];
-			p_packet.serialize(packet_data);
-			return packet_data;
-		}
-		}
-		return nullptr;
-	}
 }

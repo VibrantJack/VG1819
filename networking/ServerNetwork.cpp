@@ -9,7 +9,18 @@
 
 namespace networking
 {
-	ServerNetwork::ServerNetwork(void)
+	ServerNetwork::ServerNetwork()
+	{
+		
+	}
+
+
+	ServerNetwork::~ServerNetwork()
+	{
+		shutdown();
+	}
+
+	bool ServerNetwork::init()
 	{
 		// create WSADATA object
 		WSADATA wsaData;
@@ -25,8 +36,9 @@ namespace networking
 		// Initialize Winsock
 		m_iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
 		if (m_iResult != 0) {
-			printf("WSAStartup failed with error: %d\n", m_iResult);
-			exit(1);
+			m_strError = "WSAStartup failed with error: " + m_iResult;
+			//printf("WSAStartup failed with error: %d\n", m_iResult);
+			return false;
 		}
 
 		// set address information
@@ -39,38 +51,42 @@ namespace networking
 		// Resolve the server address and port
 		m_iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
 		if (m_iResult != 0) {
-			printf("getaddrinfo failed with error: %d\n", m_iResult);
+			m_strError = "getaddrinfo failed with error: " + m_iResult;
+			//printf("getaddrinfo failed with error: %d\n", m_iResult);
 			WSACleanup();
-			exit(1);
+			return false;
 		}
 
 		// Create a SOCKET for connecting to server
 		m_listenSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
 		if (m_listenSocket == INVALID_SOCKET) {
-			printf("socket failed with error: %ld\n", WSAGetLastError());
+			m_strError = "socket failed with error: " + WSAGetLastError();
+			//printf("socket failed with error: %ld\n", WSAGetLastError());
 			freeaddrinfo(result);
 			WSACleanup();
-			exit(1);
+			return false;
 		}
 
 		// Set the mode of the socket to be nonblocking
 		u_long iMode = 1;
 		m_iResult = ioctlsocket(m_listenSocket, FIONBIO, &iMode);
 		if (m_iResult == SOCKET_ERROR) {
-			printf("ioctlsocket failed with error: %d\n", WSAGetLastError());
+			m_strError = "ioctlsocket failed with error: " + WSAGetLastError();
+			//printf("ioctlsocket failed with error: %d\n", WSAGetLastError());
 			closesocket(m_listenSocket);
 			WSACleanup();
-			exit(1);
+			return false;
 		}
 
 		// Setup the TCP listening socket
 		m_iResult = bind(m_listenSocket, result->ai_addr, (int)result->ai_addrlen);
 		if (m_iResult == SOCKET_ERROR) {
-			printf("bind failed with error: %d\n", WSAGetLastError());
+			m_strError = "bind failed with error: " + WSAGetLastError();
+			//printf("bind failed with error: %d\n", WSAGetLastError());
 			freeaddrinfo(result);
 			closesocket(m_listenSocket);
 			WSACleanup();
-			exit(1);
+			return false;
 		}
 
 		// no longer need address information
@@ -79,15 +95,17 @@ namespace networking
 		// start listening for new clients attempting to connect
 		m_iResult = listen(m_listenSocket, SOMAXCONN);
 		if (m_iResult == SOCKET_ERROR) {
-			printf("listen failed with error: %d\n", WSAGetLastError());
+			m_strError = "listen failed with error: " + WSAGetLastError();
+			//printf("listen failed with error: %d\n", WSAGetLastError());
 			closesocket(m_listenSocket);
 			WSACleanup();
-			exit(1);
+			return false;
 		}
+
+		return true;
 	}
 
-
-	ServerNetwork::~ServerNetwork(void)
+	void ServerNetwork::shutdown()
 	{
 		closesocket(m_listenSocket);
 		SOCKET currentSocket;

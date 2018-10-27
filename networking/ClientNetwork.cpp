@@ -10,6 +10,16 @@ namespace networking
 {
 	ClientNetwork::ClientNetwork()
 	{
+		
+	}
+
+	ClientNetwork::~ClientNetwork()
+	{
+		shutdown();
+	}
+
+	bool ClientNetwork::init(const std::string &p_strAddr)
+	{
 		// create WSADATA object
 		WSADATA wsaData;
 
@@ -25,8 +35,9 @@ namespace networking
 		m_iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
 
 		if (m_iResult != 0) {
-			printf("WSAStartup failed with error: %d\n", m_iResult);
-			exit(1);
+			m_strError = "WSAStartup failed with error: " + m_iResult;
+			//printf("WSAStartup failed with error: %d\n", m_iResult);
+			return false;
 		}
 
 		// set address info
@@ -36,16 +47,16 @@ namespace networking
 		hints.ai_protocol = IPPROTO_TCP;  //TCP connection!!!
 
 
-										  //resolve server address and port 
-										  //Make it possible to input any address
+		//resolve server address and port 
 		//m_iResult = getaddrinfo("127.0.0.1", DEFAULT_PORT, &hints, &result);
-		m_iResult = getaddrinfo("192.168.2.17", DEFAULT_PORT, &hints, &result);
+		m_iResult = getaddrinfo(p_strAddr.c_str(), DEFAULT_PORT, &hints, &result);
 
 		if (m_iResult != 0)
 		{
-			printf("getaddrinfo failed with error: %d\n", m_iResult);
+			m_strError = "getaddrinfo failed with error: " + m_iResult;
+			//printf("getaddrinfo failed with error: %d\n", m_iResult);
 			WSACleanup();
-			exit(1);
+			return false;
 		}
 
 		// Attempt to connect to an address until one succeeds
@@ -56,9 +67,10 @@ namespace networking
 				ptr->ai_protocol);
 
 			if (m_connectSocket == INVALID_SOCKET) {
-				printf("socket failed with error: %ld\n", WSAGetLastError());
+				m_strError = "socket failed with error: " + WSAGetLastError();
+				//printf("socket failed with error: %ld\n", WSAGetLastError());
 				WSACleanup();
-				exit(1);
+				return false;
 			}
 
 			// Connect to server.
@@ -68,7 +80,8 @@ namespace networking
 			{
 				closesocket(m_connectSocket);
 				m_connectSocket = INVALID_SOCKET;
-				printf("The server is down... did not connect");
+				m_strError = "The server is down... did not connect";
+				//printf("The server is down... did not connect");
 			}
 		}
 
@@ -82,9 +95,10 @@ namespace networking
 		// if connection failed
 		if (m_connectSocket == INVALID_SOCKET)
 		{
-			printf("Unable to connect to server!\n");
+			m_strError = "Unable to connect to server!";
+			//printf("Unable to connect to server!\n");
 			WSACleanup();
-			exit(1);
+			return false;
 		}
 
 		// Set the mode of the socket to be nonblocking
@@ -93,19 +107,21 @@ namespace networking
 		m_iResult = ioctlsocket(m_connectSocket, FIONBIO, &iMode);
 		if (m_iResult == SOCKET_ERROR)
 		{
-			printf("ioctlsocket failed with error: %d\n", WSAGetLastError());
+			m_strError = "ioctlsocket failed with error: " + WSAGetLastError();
+			//printf("ioctlsocket failed with error: %d\n", WSAGetLastError());
 			closesocket(m_connectSocket);
 			WSACleanup();
-			exit(1);
+			return false;
 		}
 
 		//disable nagle
 		char value = 1;
 		setsockopt(m_connectSocket, IPPROTO_TCP, TCP_NODELAY, &value, sizeof(value));
+
+		return true;
 	}
 
-
-	ClientNetwork::~ClientNetwork()
+	void ClientNetwork::shutdown()
 	{
 		closesocket(m_connectSocket);
 		WSACleanup();
