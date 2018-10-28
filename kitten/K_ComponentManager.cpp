@@ -173,15 +173,14 @@ namespace kitten
 		return comp;
 	}
 
-	K_Component* K_ComponentManager::createComponent(kibble::ComponentDataParser* data)
+	K_Component* K_ComponentManager::passByNewComponent(K_Component* p_component)
 	{
-		K_Component* comp = data->getComponentInternally();
-		if (comp == nullptr) return nullptr;
+		if (p_component == nullptr) return nullptr;
 
-		m_toStart.push_back(comp);
+		m_toStart.push_back(p_component);
 
 		//Successful
-		return comp;
+		return p_component;
 	}
 
 

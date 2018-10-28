@@ -104,9 +104,6 @@
     <ClCompile Include="..\kibble\json\JSONGameObjectDataParser.cpp">
       <Filter>kibble\JSON</Filter>
     </ClCompile>
-    <ClCompile Include="..\kibble\json\JSONComponentDataParser.cpp">
-      <Filter>kibble\JSON</Filter>
-    </ClCompile>
     <ClCompile Include="..\kibble\kibble.cpp">
       <Filter>kibble</Filter>
     </ClCompile>
@@ -364,7 +361,7 @@
     </ClCompile>
     <ClCompile Include="..\board\BoardManager.cpp">
       <Filter>board</Filter>
-    </ClCompile>     
+    </ClCompile>
     <ClCompile Include="..\board\component\Highlighter.cpp">
       <Filter>board\component</Filter>
     </ClCompile>
@@ -510,12 +507,6 @@
     </ClInclude>
     <ClInclude Include="..\kibble\GameObjectDataParser.hpp">
       <Filter>kibble</Filter>
-    </ClInclude>
-    <ClInclude Include="..\kibble\ComponentDataParser.hpp">
-      <Filter>kibble</Filter>
-    </ClInclude>
-    <ClInclude Include="..\kibble\json\JSONComponentDataParser.hpp">
-      <Filter>kibble\JSON</Filter>
     </ClInclude>
     <ClInclude Include="..\kibble\kibble.hpp">
       <Filter>kibble</Filter>
@@ -714,7 +705,7 @@
     </ClInclude>
     <ClInclude Include="..\board\component\Highlighter.h">
       <Filter>board\component</Filter>
-    </ClInclude> 
+    </ClInclude>
     <ClInclude Include="ToggleEnabledOnKeyPress.h">
       <Filter>components\debug</Filter>
     </ClInclude>

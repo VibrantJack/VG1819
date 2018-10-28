@@ -1,7 +1,7 @@
 #include "GameObjectDataType.hpp"
-#include "kibble/json/JSONComponentDataParser.hpp"
 #include "kitten/K_GameObjectManager.h"
 #include "kitten/K_ComponentManager.h"
+#include "kibble/json/Datatypes/ComponentDataType.hpp"
 
 kitten::K_GameObject* getGameObjectBy(nlohmann::json& p_jsonfile) {
 
@@ -46,8 +46,7 @@ kitten::K_GameObject* getGameObjectBy(nlohmann::json& p_jsonfile) {
 	if (p_jsonfile.find("components") != p_jsonfile.end()) {
 		//assert(p_jsonfile["components"].is_array());
 		for (nlohmann::json::iterator it = p_jsonfile["components"].begin(); it != p_jsonfile["components"].end(); ++it) {
-			kibble::JSONComponentDataParser data = kibble::JSONComponentDataParser(&(*it));
-			gameobject->addComponent(componentmanager->createComponent(&data));
+			gameobject->addComponent(componentmanager->passByNewComponent(getRelatedComponentBy((*it)["name"],&*it)));
 		}
 	}
 
