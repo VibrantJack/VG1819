@@ -17,7 +17,7 @@ namespace unit
 		std::string m_message;
 		bool m_set;
 
-		bool m_show;
+		bool m_select;
 
 		int counter;
 

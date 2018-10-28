@@ -53,8 +53,11 @@ namespace unit
 
 	bool Unit::canMove()
 	{
-		assert(m_turn != nullptr);
-		return m_turn->move;
+		if (m_attributes["base_mv"] <= 0)//unit can not move, like structure
+			return false;
+		else if (m_turn != nullptr)//this is unit's turn and check if it can move
+			return m_turn->move;
+		return true;
 	}
 
 	bool Unit::canAct()
@@ -65,14 +68,17 @@ namespace unit
 
 	void Unit::moveDone()
 	{
-		assert(m_turn != nullptr);
+		if (m_turn == nullptr)
+			return;
+
 		m_turn->move = false;
 		m_turn->checkTurn();
 	}
 
 	void Unit::actDone()
 	{
-		assert(m_turn != nullptr);
+		if (m_turn == nullptr)
+			return;
 		m_turn->act = false;
 		m_turn->checkTurn();
 	}
@@ -100,20 +106,29 @@ namespace unit
 		return m_attachedObject->getComponent<unit::UnitMove>()->getTile();
 	}
 
-	void Unit::move()
+	void Unit::move()//move by instruction
 	{
+		if (!canMove())
+			return;
+
 		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
 		moveComponet->attempToMove();
 	}
 
-	void Unit::move(int p_min, int p_max)
+	void Unit::move(int p_min, int p_max)//move by ability with range
 	{
+		if (!canMove())
+			return;
+
 		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
 		moveComponet->attempToMove(p_min,p_max);
 	}
 
-	void Unit::move(kitten::K_GameObject * p_tile)
+	void Unit::move(kitten::K_GameObject * p_tile)//move by ability with fixed target
 	{
+		if (!canMove())
+			return;
+
 		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
 		moveComponet->move(p_tile);
 	}
@@ -133,12 +148,15 @@ namespace unit
 		}
 		else
 		{
+			std::cout << "Ability: " << p_abilityName <<" isn't found"<< std::endl;
 			return -1;//doesn't have ability
 		}
 
 		//check unit's lv
 		if (m_attributes["lv"] < ad->m_intValue["lv"])
 		{
+			std::cout <<p_abilityName<< "require lv ("<< ad->m_intValue["lv"]<<") " << std::endl;
+			std::cout <<m_name<<" is lv ("<<m_attributes["lv"] <<")"<< std::endl;
 			return 1;//means unit can not use this ability
 		}
 
@@ -154,7 +172,7 @@ namespace unit
 	int Unit::destroyedByDamage()
 	{
 		//send destroyed event
-
+		std::cout << m_name << " is destroyed! " << std::endl;
 		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
 		return 0;
 	}

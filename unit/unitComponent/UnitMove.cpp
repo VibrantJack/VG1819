@@ -118,9 +118,6 @@ void unit::UnitMove::move(kitten::K_GameObject * p_targetTile)
 	//tell unit object move is done
 	m_attachedObject->getComponent<unit::Unit>()->moveDone();
 
-	//delete ability description
-	delete m_ad;
-
 	//send unhighlight event
 	//triggerUnhighLightEvent();
 }

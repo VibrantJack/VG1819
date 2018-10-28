@@ -27,6 +27,6 @@ public:
 	void select(int p_i);
 
 	//void start() override;
-	virtual bool hasUpdate() const override { return true; };
-	virtual void update() override;
+	//virtual bool hasUpdate() const override { return true; };
+	//virtual void update() override;
 };

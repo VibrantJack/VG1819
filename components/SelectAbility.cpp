@@ -118,16 +118,3 @@ void SelectAbility::select(int p_i)
 		m_unit->useAbility(instrction);
 	}
 }
-
-void SelectAbility::update()
-{
-	for (int i = 0; i < m_num; i++)
-	{
-		char numkey = '0' + i;
-		if (input::InputManager::getInstance()->keyDown(numkey))
-		{
-			select(i);
-			break;
-		}
-	}
-}

@@ -6,6 +6,7 @@
 #include "unit/Commander.h"
 #include "puppy/Text/TextBox.h"
 #include "components/SelectAbility.h"
+#include "kitten/InputManager.h"
 #include <iostream>
 #include <sstream>
 unit::UnitClickable::UnitClickable()
@@ -18,6 +19,10 @@ unit::UnitClickable::~UnitClickable()
 
 void unit::UnitClickable::onClick()
 {
+	m_select = true;
+
+	Unit* u = m_attachedObject->getComponent<Unit>();
+	std::cout << "Player clicked " << u->m_name << std::endl;
 	/*
 	Unit* u = m_attachedObject->getComponent<Unit>();
 	if (u->isTurn())
@@ -64,7 +69,7 @@ void unit::UnitClickable::onHoverEnd()
 void unit::UnitClickable::start()
 {
 	Clickable::start();
-	//m_show = false;
+	m_select = false;
 	m_set = false;
 	counter = 0;
 	m_instructionList = new std::vector<std::string>();
@@ -100,17 +105,32 @@ void unit::UnitClickable::start()
 void unit::UnitClickable::update()
 {
 	Unit* u = m_attachedObject->getComponent<Unit>();
-	if (u->isTurn() && !m_set)
+	if (!m_set && m_select)
 	{
 		m_textBoxGO->getComponent<puppy::TextBox>()->setText(m_message);
 		m_textBoxGO->getComponent<SelectAbility>()->set(u,m_instructionList);
 		m_set = true;
 		//m_show = false;
 	}
-	else if(!u->isTurn() && m_set)
+	else if(!m_select && m_set)
 	{
 		m_textBoxGO->getComponent<puppy::TextBox>()->setText("");
 		m_set = false;
+	}
+
+	if (m_select)
+	{
+		for (int i = 0; i < m_instructionList->size(); i++)
+		{
+			char numkey = '0' + i;
+			if (input::InputManager::getInstance()->keyDown(numkey))
+			{
+				m_textBoxGO->getComponent<SelectAbility>()->select(i);
+				std::cout << "Player choose " << i << std::endl;
+				m_select = false;
+				break;
+			}
+		}
 	}
 }
 
