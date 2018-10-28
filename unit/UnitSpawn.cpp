@@ -146,7 +146,11 @@ namespace unit
 		//readAD
 		for (auto it : p_unitData->m_ad)
 		{
-			unit->m_ADList[it->m_stringValue["name"]] = it;
+			//get copy
+			AbilityDescription * ad = new AbilityDescription();
+			ad->m_intValue = it->m_intValue;
+			ad->m_stringValue = it->m_stringValue;
+			unit->m_ADList[it->m_stringValue["name"]] = ad;
 		}
 
 		//readSD

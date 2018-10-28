@@ -19,10 +19,18 @@ unit::UnitClickable::~UnitClickable()
 
 void unit::UnitClickable::onClick()
 {
-	m_select = true;
 
 	Unit* u = m_attachedObject->getComponent<Unit>();
 	std::cout << "Player clicked " << u->m_name << std::endl;
+
+	if (u->isTurn())
+	{
+		m_select = true;
+	}
+	else
+	{
+		m_select = false;
+	}
 	/*
 	Unit* u = m_attachedObject->getComponent<Unit>();
 	if (u->isTurn())
