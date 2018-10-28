@@ -22,7 +22,7 @@ void SelectAbility::useAbility(AbilityType p_ability)
 		case SelectAbility::Manipulate_Tile:
 		{
 			//tile list will be determined in board manager using range 
-			
+	
 			for (int x = 0; x < 15; x++)
 			{
 				for (int z = 0; z < 15; z++)
@@ -38,7 +38,6 @@ void SelectAbility::useAbility(AbilityType p_ability)
 		case SelectAbility::Summon_Unit:
 		{
 			//tile list will be determined in board manager using range 
-			
 			kitten::Transform& transform = m_attachedObject->getTransform();
 			float unitOffsetX = 0.5f;
 			glm::vec3 pos = transform.getTranslation();

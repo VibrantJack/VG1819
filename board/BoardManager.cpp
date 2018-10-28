@@ -110,7 +110,7 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 		m_pipeline->useFilter(p_data->getString(fkey));
 	}
 	m_pipeline->filterList(&list);
-
+  
 	m_highlighter->highlightTile(list);
 }
 

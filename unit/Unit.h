@@ -45,11 +45,13 @@ namespace unit
 
 		//position function
 		kitten::K_GameObject* getTile();
+    
 		void move();//move action, no restriction, no info needs
 		void move(int p_min,int p_max);//move by ability, need range of ability
 		void move(kitten::K_GameObject* p_tile);//move to a specific tile by ability
 
 		int useAbility(const std::string& p_abilityName);
+    
 		//int callStatus(int p_StatusIndex, int p_event);
 		//event is the one of the events that this status registered
 		//should be enum, I didn't define it yet, so use int as place holder

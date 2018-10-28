@@ -100,7 +100,7 @@ namespace unit
 		assert(m_turn != nullptr);
 		m_turn->turnEnd();
 	}
-
+  
 	kitten::K_GameObject * Unit::getTile()
 	{
 		return m_attachedObject->getComponent<unit::UnitMove>()->getTile();
@@ -133,7 +133,6 @@ namespace unit
 		moveComponet->move(p_tile);
 	}
 
-	
 	int Unit::useAbility(const std::string& p_abilityName)
 	{
 		if (!canAct())

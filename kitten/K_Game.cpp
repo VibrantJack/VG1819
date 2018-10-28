@@ -63,7 +63,7 @@ namespace kitten
 		unit::InitiativeTracker::createInstance();
 
 		BoardManager::createInstance();
-
+    
 		UnitInteractionManager::createInstance();
 	}
 
@@ -127,7 +127,6 @@ namespace kitten
 		//userinterface::InterfaceBuilder* builder = new userinterface::InterfaceBuilder();
 		//builder->start();
 		//delete builder;
-
 
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();

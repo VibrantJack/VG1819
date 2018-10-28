@@ -88,7 +88,6 @@ void unit::UnitMove::triggerHighLightEvent(int p_min, int p_max)
 		e->putInt("max_range", m_attachedObject->getComponent<Unit>()->m_attributes["mv"]);//the range is between 1 and mv attributes
 	else
 		e->putInt("max_range", p_max);
-
 	e->putGameObj("tileAtOrigin", m_currentTile);
 	e->putString("mode", "range");
 	e->putString("use", "move");

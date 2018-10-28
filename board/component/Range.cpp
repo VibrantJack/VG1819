@@ -108,7 +108,6 @@ void Range::findNeighbour(std::map<std::pair<int, int>, int>* p_tilesAndRange, s
 		findNeighbour(p_tilesAndRange, std::pair<int, int>(x, z+1), p_distance + 1, p_minRange, p_maxRange);
 	}
 }
-
 /*
 void Range::removeUnit(kitten::Event::TileList* p_list)
 {
