@@ -274,9 +274,10 @@
     <ClInclude Include="..\kitten\K_Game.h" />
     <ClInclude Include="..\kitten\K_GameObject.h" />
     <ClInclude Include="..\kitten\K_GameObjectManager.h" />
+    <ClInclude Include="..\kitten\K_Job.h" />
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
     <ClInclude Include="..\kitten\K_Instance.h" />
-    <ClInclude Include="..\kitten\K_Sprite.h" />
+    <ClInclude Include="..\kitten\K_Routine.h" />
     <ClInclude Include="..\kitten\K_Time.h" />
     <ClInclude Include="..\kitten\mouse picking\ActiveClickables.h" />
     <ClInclude Include="..\kitten\mouse picking\Clickable.h" />
