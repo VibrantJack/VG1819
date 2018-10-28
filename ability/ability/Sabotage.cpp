@@ -14,23 +14,26 @@ namespace ability
 
 	int Sabotage::effect(const AbilityInfoPackage* p_info)
 	{
-		//damage target by power
-		unit::Unit* target = p_info->m_targets[0];
-
-		for (auto it : target->m_tags)
+		if (checkTarget(p_info))
 		{
-			if (it == "Structure")
+			//damage target by power
+			unit::Unit* target = p_info->m_targets[0];
+
+			for (auto it : target->m_tags)
 			{
-				//TO DO:send receive damage event to target
+				if (it == "Structure")
+				{
+					//TO DO:send receive damage event to target
 
-				int power = -(p_info->m_intValue.find("power")->second);
+					int power = -(p_info->m_intValue.find("power")->second);
 
-				damage(target, power);
+					damage(target, power);
 
-				//delete package
-				delete p_info;
+					//delete package
+					delete p_info;
 
-				return 1;
+					return 1;
+				}
 			}
 		}
 

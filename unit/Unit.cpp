@@ -89,6 +89,12 @@ namespace unit
 		m_turn = nullptr;
 	}
 
+	void Unit::playerSkipTurn()
+	{
+		assert(m_turn != nullptr);
+		m_turn->turnEnd();
+	}
+
 	kitten::K_GameObject * Unit::getTile()
 	{
 		return m_attachedObject->getComponent<unit::UnitMove>()->getTile();

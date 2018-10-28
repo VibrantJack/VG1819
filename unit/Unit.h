@@ -41,6 +41,7 @@ namespace unit
 		void actDone();
 		bool isTurn();
 		void turnEnd();
+		void playerSkipTurn();
 
 		//position function
 		kitten::K_GameObject* getTile();

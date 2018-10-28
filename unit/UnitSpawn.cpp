@@ -8,6 +8,8 @@
 //board clickable
 #include "board/clickable/PrintWhenClicked.h"
 
+#include "puppy/Text/TextBox.h"
+
 //Rock
 
 namespace unit
@@ -16,6 +18,17 @@ namespace unit
 
 	UnitSpawn::UnitSpawn()
 	{
+		puppy::TextBox* textBox = static_cast<puppy::TextBox*>(kitten::K_ComponentManager::getInstance()->createComponent("TextBoxAbilities"));
+		textBox->setColor(1, 1, 1);
+		textBox->setText("");
+
+		kitten::K_Component* select = kitten::K_ComponentManager::getInstance()->createComponent("SelectAbility");
+
+		m_textBoxGO = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+		m_textBoxGO->addComponent(textBox);
+		m_textBoxGO->getTransform().place2D(1000, 600);
+
+		m_textBoxGO->addComponent(select);
 	}
 
 	UnitSpawn::~UnitSpawn()
@@ -68,7 +81,7 @@ namespace unit
 
 		//create clickable
 		unit::UnitClickable* uClick = static_cast<unit::UnitClickable*>(cm->createComponent("UnitClickable"));
-
+		uClick->setTextBox(m_textBoxGO);
 
 		//unit object
 		kitten::K_GameObject* unitObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();

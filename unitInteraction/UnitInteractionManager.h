@@ -38,5 +38,7 @@ private:
 	ability::AbilityInfoPackage* m_package;
 	std::string m_abilityName;
 
+	bool m_busy;//already receive a request
+
 	void send();
 };

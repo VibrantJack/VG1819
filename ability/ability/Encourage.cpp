@@ -39,11 +39,14 @@ namespace ability
 
 	int Encourage::effect(const AbilityInfoPackage* p_info)
 	{
-		//check if unit has this status
-		if (p_info->m_targets[0]->getStatus("Status_Encourage"))
-			stackStatus(p_info);
-		else
-			applyStatus(p_info);
+		if (checkTarget(p_info))
+		{
+			//check if unit has this status
+			if (p_info->m_targets[0]->getStatus("Status_Encourage"))
+				stackStatus(p_info);
+			else
+				applyStatus(p_info);
+		}
 
 		//delete package
 		done(p_info);

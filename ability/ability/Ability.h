@@ -26,6 +26,8 @@ namespace ability
 		int damage(unit::Unit* p_target, int power);
 		//delete package and tell unit it acts once
 		void done(const AbilityInfoPackage* p_info);
+		//check is there targets in package
+		bool checkTarget(const AbilityInfoPackage* p_info);
 	};
 
 	class Move : public Ability

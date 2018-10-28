@@ -318,7 +318,6 @@
     <ClInclude Include="..\Shapes\Cube.h" />
     <ClInclude Include="..\unitInteraction\TileGetter.h" />
     <ClInclude Include="..\unitInteraction\UnitInteractionManager.h" />
-    <ClInclude Include="..\unitInteraction\UnitInteractionState.h" />
     <ClInclude Include="..\unit\Commander.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTrackerUI.h" />

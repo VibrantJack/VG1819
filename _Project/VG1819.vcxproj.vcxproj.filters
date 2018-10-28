@@ -739,9 +739,6 @@
     <ClInclude Include="..\unitInteraction\UnitInteractionManager.h">
       <Filter>unitInteraction</Filter>
     </ClInclude>
-    <ClInclude Include="..\unitInteraction\UnitInteractionState.h">
-      <Filter>unitInteraction</Filter>
-    </ClInclude>
     <ClInclude Include="..\board\component\Highlighter.h">
       <Filter>board\component</Filter>
     </ClInclude>

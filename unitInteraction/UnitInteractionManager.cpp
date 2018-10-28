@@ -7,6 +7,11 @@ UnitInteractionManager* UnitInteractionManager::sm_instance = nullptr;
 
 void UnitInteractionManager::request(unit::Unit* p_unit, unit::AbilityDescription * p_ad)
 {
+	if (m_busy)
+		return;
+
+	m_busy = true;
+
 	m_unit = p_unit;
 	m_ad = p_ad;
 	m_abilityName = m_ad->m_stringValue["name"];
@@ -42,6 +47,8 @@ UnitInteractionManager::UnitInteractionManager()
 	m_package = nullptr;
 	m_ad = nullptr;
 	m_tileGetter = new TileGetter();
+
+	m_busy = false;
 }
 
 UnitInteractionManager::~UnitInteractionManager()
@@ -58,9 +65,13 @@ void UnitInteractionManager::cancel()
 	//delete package
 	if (m_package != nullptr)
 		delete m_package;
+
+	m_busy = false;
 }
 
 void UnitInteractionManager::send()
 {
 	ability::AbilityManager::getInstance()->useAbility(m_abilityName,m_package);
+
+	m_busy = false;
 }

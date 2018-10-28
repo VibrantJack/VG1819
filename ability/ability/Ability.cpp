@@ -23,3 +23,15 @@ void ability::Ability::done(const AbilityInfoPackage* p_info)
 
 	delete p_info;
 }
+
+bool ability::Ability::checkTarget(const AbilityInfoPackage * p_info)
+{
+	if (&(p_info->m_targets) != nullptr)
+	{
+		if (p_info->m_targets.size() > 0)
+		{
+			return true;
+		}
+	}
+	return false;
+}

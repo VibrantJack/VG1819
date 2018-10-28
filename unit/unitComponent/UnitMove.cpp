@@ -9,10 +9,13 @@
 unit::UnitMove::UnitMove()
 {
 	m_currentTile = nullptr;
+	m_ad = nullptr;
 }
 
 unit::UnitMove::~UnitMove()
 {
+	if (m_ad != nullptr)
+		delete m_ad;
 }
 /*
 void unit::UnitMove::registerListener()
@@ -54,6 +57,10 @@ void unit::UnitMove::listenEvent(kitten::Event::EventType p_type, kitten::Event 
 void unit::UnitMove::attempToMove(int p_min, int p_max)
 {
 	unit::Unit* u = m_attachedObject->getComponent<unit::Unit>();
+
+	if (m_ad != nullptr)
+		delete m_ad;
+
 	m_ad = new unit::AbilityDescription();
 
 	m_ad->m_stringValue["name"] = "Move";
@@ -63,6 +70,9 @@ void unit::UnitMove::attempToMove(int p_min, int p_max)
 		m_ad->m_intValue["max_range"] = m_attachedObject->getComponent<Unit>()->m_attributes["mv"];//the range is between 1 and mv attributes
 	else
 		m_ad->m_intValue["max_range"] = p_max;
+	//filter
+	m_ad->m_intValue["filter"] = 1;
+	m_ad->m_stringValue["filter0"] = "unit";
 
 	UnitInteractionManager::getInstance()->request(u, m_ad);
 }
