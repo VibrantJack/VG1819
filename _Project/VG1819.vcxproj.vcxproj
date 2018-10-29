@@ -99,7 +99,6 @@
     <ClCompile Include="..\ability\ability\Fight.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
     <ClCompile Include="..\ability\ability\ManipulateTile.cpp" />
-    <ClCompile Include="..\ability\ability\Move.cpp" />
     <ClCompile Include="..\ability\ability\QuickShoot.cpp" />
     <ClCompile Include="..\ability\ability\Sabotage.cpp" />
     <ClCompile Include="..\ability\ability\Shoot.cpp" />
@@ -121,11 +120,6 @@
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\ability\status\Status_LV.cpp" />
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
-    <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp" />
-    <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp" />
-    <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />
-    <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
-    <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
     <ClCompile Include="..\kibble\custom\CustomDeckDataParser.cpp" />
     <ClCompile Include="..\board\boardManager.cpp" />
     <ClCompile Include="..\board\clickable\ManipulateTileOnClick.cpp" />
@@ -142,7 +136,6 @@
     <ClCompile Include="..\kibble\json\Datatypes\GameObjectDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\SceneDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp" />
-    <ClCompile Include="..\kibble\json\JSONComponentDataParser.cpp" />
     <ClCompile Include="..\kibble\json\jsonextra.cpp" />
     <ClCompile Include="..\kibble\json\JSONGameObjectDataParser.cpp" />
     <ClCompile Include="..\kibble\json\JSONUnitDataParser.cpp" />
@@ -191,8 +184,6 @@
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
     <ClCompile Include="..\Shapes\Cube.cpp" />
-    <ClCompile Include="..\unitInteraction\TileGetter.cpp" />
-    <ClCompile Include="..\unitInteraction\UnitInteractionManager.cpp" />
     <ClCompile Include="..\unit\Commander.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp" />
@@ -233,8 +224,6 @@
     <ClInclude Include="..\ability\node\AbilityNodeManager.h" />
     <ClInclude Include="..\ability\StatusManager.h" />
     <ClInclude Include="..\ability\status\Status.h" />
-    <ClInclude Include="..\board\component\tilePipeline\TileFliter.h" />
-    <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h" />
     <ClInclude Include="..\DeckData.hpp" />
     <ClInclude Include="..\board\BoardManager.h" />
     <ClInclude Include="..\board\clickable\ManipulateTileOnClick.h" />
@@ -250,7 +239,6 @@
     <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
     <ClInclude Include="..\gameworld\TileInformationComponent.h" />
     <ClInclude Include="..\json.hpp" />
-    <ClInclude Include="..\kibble\ComponentDataParser.hpp" />
     <ClInclude Include="..\kibble\custom\CustomDeckDataParser.hpp" />
     <ClInclude Include="..\kibble\databank\databank.hpp" />
     <ClInclude Include="..\kibble\DeckDataParser.hpp" />
@@ -258,7 +246,6 @@
     <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\GameObjectDataType.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\SceneDataType.hpp" />
-    <ClInclude Include="..\kibble\json\JSONComponentDataParser.hpp" />
     <ClInclude Include="..\kibble\json\jsonextra.hpp" />
     <ClInclude Include="..\kibble\json\JSONGameObjectDataParser.hpp" />
     <ClInclude Include="..\kibble\kibble.hpp" />
@@ -316,8 +303,6 @@
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
     <ClInclude Include="..\Shapes\Cube.h" />
-    <ClInclude Include="..\unitInteraction\TileGetter.h" />
-    <ClInclude Include="..\unitInteraction\UnitInteractionManager.h" />
     <ClInclude Include="..\unit\Commander.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTrackerUI.h" />

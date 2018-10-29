@@ -1,14 +1,14 @@
 #include "ability/ability/Ability.h"
 #include "unit/Unit.h"
-#include "kibble/kibble.hpp"
 #include "unit/unitComponent/UnitMove.h"
+#include "kibble/databank/databank.hpp"
 //Rock
 
 namespace ability
 {
 	Build_the_Wall::Build_the_Wall()
 	{
-		m_wallData = kibble::getUnitDataParserInstance()->getUnit("Wall.txt");
+		m_wallData = kibble::getUnitFromId(5);
 	}
 
 	Build_the_Wall::~Build_the_Wall()

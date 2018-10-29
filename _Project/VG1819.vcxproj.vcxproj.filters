@@ -104,9 +104,6 @@
     <ClCompile Include="..\kibble\json\JSONGameObjectDataParser.cpp">
       <Filter>kibble\JSON</Filter>
     </ClCompile>
-    <ClCompile Include="..\kibble\json\JSONComponentDataParser.cpp">
-      <Filter>kibble\JSON</Filter>
-    </ClCompile>
     <ClCompile Include="..\kibble\kibble.cpp">
       <Filter>kibble</Filter>
     </ClCompile>
@@ -362,9 +359,6 @@
     <ClCompile Include="..\board\tile\TileInfo.cpp">
       <Filter>board\tile</Filter>
     </ClCompile>
-    <ClCompile Include="..\unitInteraction\UnitInteractionManager.cpp">
-      <Filter>unitInteraction</Filter>
-    </ClCompile>
     <ClCompile Include="..\board\BoardManager.cpp">
       <Filter>board</Filter>
     </ClCompile>
@@ -373,27 +367,6 @@
     </ClCompile>
     <ClCompile Include="ToggleEnabledOnKeyPress.cpp">
       <Filter>components\debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\unitInteraction\TileGetter.cpp">
-      <Filter>unitInteraction</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\ability\Move.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
-    <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp">
-      <Filter>board\component\tilePipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp">
-      <Filter>board\component\tilePipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp">
-      <Filter>board\component\tilePipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp">
-      <Filter>board\component\tilePipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp">
-      <Filter>board\component\tilePipeline</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -534,12 +507,6 @@
     </ClInclude>
     <ClInclude Include="..\kibble\GameObjectDataParser.hpp">
       <Filter>kibble</Filter>
-    </ClInclude>
-    <ClInclude Include="..\kibble\ComponentDataParser.hpp">
-      <Filter>kibble</Filter>
-    </ClInclude>
-    <ClInclude Include="..\kibble\json\JSONComponentDataParser.hpp">
-      <Filter>kibble\JSON</Filter>
     </ClInclude>
     <ClInclude Include="..\kibble\kibble.hpp">
       <Filter>kibble</Filter>
@@ -736,23 +703,11 @@
     <ClInclude Include="..\board\tile\TileInfo.h">
       <Filter>board\tile</Filter>
     </ClInclude>
-    <ClInclude Include="..\unitInteraction\UnitInteractionManager.h">
-      <Filter>unitInteraction</Filter>
-    </ClInclude>
     <ClInclude Include="..\board\component\Highlighter.h">
       <Filter>board\component</Filter>
     </ClInclude>
     <ClInclude Include="ToggleEnabledOnKeyPress.h">
       <Filter>components\debug</Filter>
-    </ClInclude>
-    <ClInclude Include="..\unitInteraction\TileGetter.h">
-      <Filter>unitInteraction</Filter>
-    </ClInclude>
-    <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h">
-      <Filter>board\component\tilePipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="..\board\component\tilePipeline\TileFliter.h">
-      <Filter>board\component\tilePipeline</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -848,9 +803,6 @@
     </Filter>
     <Filter Include="board\component">
       <UniqueIdentifier>{0ae05199-ea25-4694-8d77-89d227d2bec6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="board\component\tilePipeline">
-      <UniqueIdentifier>{e873bb58-37da-4913-894a-c46e6b6f38d6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
