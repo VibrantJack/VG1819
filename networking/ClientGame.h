@@ -25,15 +25,6 @@ namespace networking
 
 		void summonUnit(SummonUnitPacket p_packet);
 
-		// Testing methods below
-		void sendActionPackets();
-
-		// Test methods to print packet data
-		void storeStartingData(StartingDataPacket packet);
-		void receiveInitiativePacket(InitiativeDataPacket packet);
-		void receiveStartTurnPacket(StartTurnPacket packet);
-		void receiveManipulatedTilePacket(ClientManipulateTile packet);
-
 		// Example method to display how the client can input data and send to server
 		void manipulateTile();
 

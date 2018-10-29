@@ -2,6 +2,7 @@
 #include "kitten\InputManager.h"
 
 #include <iostream>
+#include <process.h>
 
 // Networking stuff
 #include "networking\ServerGame.h"
@@ -15,7 +16,15 @@ NetworkingConsoleMenu::NetworkingConsoleMenu()
 	m_bClientUpdate(false),
 	m_bServerUpdate(false)
 {
-
+	// Uncomment for testing on a single machine, then enable client instance through menu
+	/*networking::ServerGame::createInstance();
+	if (networking::ServerGame::getInstance()->setupNetwork())
+	{
+		_beginthread(serverLoop, 0, (void*)12);
+	} else
+	{
+		networking::ServerGame::destroyInstance();
+	}*/
 }
 
 NetworkingConsoleMenu::~NetworkingConsoleMenu()
@@ -98,6 +107,14 @@ void NetworkingConsoleMenu::update()
 	}
 
 	if (m_bServerUpdate)
+	{
+		networking::ServerGame::getInstance()->update();
+	}
+}
+
+void serverLoop(void* arg)
+{
+	while (true)
 	{
 		networking::ServerGame::getInstance()->update();
 	}

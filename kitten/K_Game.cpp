@@ -31,11 +31,6 @@
 
 #include "userinterface\InterfaceBuilder.h"
 
-// Networking
-#include "networking\ClientGame.h"
-#include "networking\ServerGame.h"
-#include <process.h>
-
 #define DEBUG
 
 namespace kitten
@@ -162,14 +157,6 @@ namespace kitten
 		networkingMenu->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("NetworkingConsoleMenu"));
 
 		return true;
-	}
-
-	void serverLoop(void* arg)
-	{
-		while (true)
-		{
-			networking::ServerGame::getInstance()->update();
-		}
 	}
 
 	void destroySingletons()

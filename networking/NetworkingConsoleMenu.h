@@ -16,3 +16,5 @@ private:
 
 	bool m_bClientUpdate, m_bServerUpdate;
 };
+
+void serverLoop(void* arg);

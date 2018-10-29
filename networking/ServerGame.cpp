@@ -43,9 +43,6 @@ namespace networking
 
 		// set up the server network to listen 
 		//setupNetwork();
-
-		// Initialize InitiativeTracker
-		//unit::InitiativeTracker::createInstance();
 	}
 
 	ServerGame::~ServerGame()
@@ -85,9 +82,6 @@ namespace networking
 
 	void ServerGame::receiveFromClients()
 	{
-		// Take all incoming packets as Packet initially to read the packetType
-		Packet packet;
-
 		// go through all clients to see if they are trying to send data
 		std::map<unsigned int, SOCKET>::iterator iter;
 
@@ -104,6 +98,8 @@ namespace networking
 			int i = 0;
 			while (i < (unsigned int)data_length)
 			{
+				// Take all incoming packets as Packet initially to read the packetType
+				Packet packet;
 				packet.deserialize(&(m_network_data[i]));
 
 				switch (packet.packetType) {
