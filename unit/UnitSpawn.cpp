@@ -142,6 +142,10 @@ namespace unit
 			unit->addStatus(readSD(it));
 		}
 
+		// Set unit's clientId to -1, meaning no player owns this unit yet
+		// Unit clientId gets set in ClientGame::summonUnit()
+		unit->m_clientId = -1;
+
 		return unit;
 	}
 

@@ -46,7 +46,7 @@ void NetworkingConsoleMenu::update()
 			printf("** Networking Console Menu Opened **");
 			printf("7 - Host Game\n");
 			printf("8 - Connect to host\n");
-			printf("0 - Exit menu\n");
+			printf("9 - Exit menu\n");
 			m_bPrintText = false;
 		}
 

@@ -17,11 +17,11 @@ namespace networking
 		static void createInstance();
 		static void destroyInstance();
 		static ClientGame* getInstance();
+		static int getClientId() { return sm_iClientId; }
 
 		bool setupNetwork(const std::string &p_strAddr = "127.0.0.1");
 
 		void sendPacket(Packet* p_packet);
-		unsigned int getClientId() { return m_iClientId; }
 
 		void summonUnit(SummonUnitPacket p_packet);
 
@@ -44,6 +44,6 @@ namespace networking
 
 		char m_network_data[MAX_PACKET_SIZE];
 	private:
-		unsigned int m_iClientId;
+		static int sm_iClientId;
 	};
 }

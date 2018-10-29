@@ -21,6 +21,7 @@
 namespace networking
 {
 	ClientGame* ClientGame::sm_clientGameInstance = nullptr;
+	int ClientGame::sm_iClientId = -1;
 
 	// Creates the singleton instance.
 	void ClientGame::createInstance()
@@ -40,7 +41,7 @@ namespace networking
 	// Access to singleton instance.
 	ClientGame* ClientGame::getInstance()
 	{
-		assert(sm_clientGameInstance);
+		//assert(sm_clientGameInstance);
 		return sm_clientGameInstance;
 	}
 
@@ -131,8 +132,8 @@ namespace networking
 				packet.deserialize(&(m_network_data[i]));
 				i += sizeof(Packet);
 
-				m_iClientId = packet.clientId;
-				printf("Client ID: %d\n", m_iClientId);
+				sm_iClientId = packet.clientId;
+				printf("Client ID: %d\n", sm_iClientId);
 
 				break;
 			case PacketTypes::CLIENT_SUMMON_UNIT:
@@ -157,6 +158,7 @@ namespace networking
 	{
 		kitten::K_GameObject* testDummyGO = unit::UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(p_packet.unitId));
 		unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
+		testDummy->m_clientId = getClientId();
 		unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 
 		//initialize position
