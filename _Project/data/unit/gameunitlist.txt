@@ -1,3 +1,0 @@
-testunit.txt
-Priest.txt
-testDummy.txt
