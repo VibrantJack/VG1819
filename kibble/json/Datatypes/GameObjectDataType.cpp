@@ -46,7 +46,7 @@ kitten::K_GameObject* getGameObjectBy(nlohmann::json& p_jsonfile) {
 	if (p_jsonfile.find("components") != p_jsonfile.end()) {
 		//assert(p_jsonfile["components"].is_array());
 		for (nlohmann::json::iterator it = p_jsonfile["components"].begin(); it != p_jsonfile["components"].end(); ++it) {
-			gameobject->addComponent(componentmanager->passByNewComponent(getRelatedComponentBy((*it)["name"],&*it)));
+			gameobject->addComponent(componentmanager->createComponent(&*it));
 		}
 	}
 
