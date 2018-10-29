@@ -44,7 +44,7 @@ void Highlighter::update()
 			tile = BoardManager::getInstance()->getTile(it->first, it->second);
 
 			kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
-			quad->setColorTint(glm::vec4(0.0f, 0.0f, 0.5f, 1.0f) + quad->getColorTint());
+			quad->setTexture("textures/tiles/highlightedGrassland.tga");
 
 			TileInfo* tileInfo = tile->getComponent<TileInfo>();
 			tileInfo->setHighlighted(true);
@@ -74,7 +74,7 @@ void Highlighter::unhighlightTile()
 		if (tileInfo->getOwnerId() == "NONE") {
 
 			kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
-			quad->setColorTint(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+			quad->setTexture("textures/tiles/grassland.tga");
 
 			tileInfo->setHighlighted(false);
 			tileInfo->setHighlightedBy("NONE");

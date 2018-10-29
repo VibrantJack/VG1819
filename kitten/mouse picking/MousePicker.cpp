@@ -96,7 +96,7 @@ namespace MousePicker
 		double tempHit = -1.0f;
 		kitten::ClickableBox* minClick = nullptr;
 
-		const std::list<kitten::ClickableBox*>& activeClickables = kitten::ActiveClickables::getInstance()->getClickableList();
+		const auto& activeClickables = kitten::ActiveClickables::getInstance()->getClickableList();
 
 		auto end = activeClickables.cend();
 		for (auto it = activeClickables.cbegin(); it != end; ++it)
@@ -116,7 +116,7 @@ namespace MousePicker
 
 	kitten::ClickableFrame* getClosestHitFrame(int p_mouseX, int p_mouseY)
 	{
-		const std::list<kitten::ClickableFrame*>& activeUIClickables = kitten::ActiveClickables::getInstance()->getClickableUIList();
+		const auto& activeUIClickables = kitten::ActiveClickables::getInstance()->getClickableUIList();
 		kitten::ClickableFrame* hitFrame = nullptr;
 
 		auto end = activeUIClickables.cend();

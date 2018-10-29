@@ -24,11 +24,6 @@ userinterface::PointerUI::PointerUI()
 		sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
 
 		++sm_instances;
-
-		puppy::Renderer::getInstance()->addUIToRender(this);
-	}
-	else {
-		puppy::Renderer::getInstance()->addUIToRender(this);
 	}
 }
 
@@ -39,11 +34,26 @@ userinterface::PointerUI::~PointerUI()
 	{
 		delete sm_vao;
 	}
-	puppy::Renderer::getInstance()->removeUIFromRender(this);
+
+	if (!m_isEnabled)
+	{
+		removeFromDynamicRender();
+	}
 }
 
 void userinterface::PointerUI::start()
 {
+	addToDynamicRender();
+}
+
+void userinterface::PointerUI::onEnabled()
+{
+	addToDynamicRender();
+}
+
+void userinterface::PointerUI::onDisabled()
+{
+	removeFromDynamicRender();
 }
 
 void userinterface::PointerUI::render(const glm::mat4 & p_ortho)
