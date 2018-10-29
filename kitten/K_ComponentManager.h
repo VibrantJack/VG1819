@@ -2,7 +2,7 @@
 
 #include <list>
 #include <cassert>
-#include "kibble/ComponentDataParser.hpp"
+#include "json.hpp"
 
 namespace kitten
 {
@@ -41,7 +41,9 @@ namespace kitten
 		//@Saleh you can change this function (createComponent) to take whatever parameters
 		//you want, as long as Kibble on a whole works and it isn't too saddening
 		K_Component* createComponent(const std::string& p_componentName);
-		K_Component* createComponent(kibble::ComponentDataParser* data);
+
+		K_Component* createComponent(nlohmann::json*);
+	
 		bool destroyComponent(K_Component* p_toDestroy);
 		void destroyComponentImmediate(K_Component* p_toDestroy);
 		
