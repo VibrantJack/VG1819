@@ -14,7 +14,7 @@ namespace userinterface
 	public:
 		PointerUI();
 		~PointerUI();
-		void start();
+
 		void render(const glm::mat4& p_ortho);
 
 	private:
@@ -22,5 +22,9 @@ namespace userinterface
 
 		static puppy::VertexEnvironment* sm_vao;
 		static int sm_instances;
+
+		virtual void start() override;
+		virtual void onEnabled() override;
+		virtual void onDisabled() override;
 	};
 }

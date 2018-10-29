@@ -16,14 +16,13 @@ namespace kitten
 		static int sm_instances;
 
 		void addToStaticRender();
+
+		virtual void start() override;
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
 	public:
 		QuadRenderable(const char* p_pathToTex = nullptr, bool p_isStatic = false);
 		virtual ~QuadRenderable();
-
-		virtual void start() override;
-		
 
 		void setTexture(const char* p_pathToTex);
 		void setColorTint(const glm::vec4& p_vec4);
