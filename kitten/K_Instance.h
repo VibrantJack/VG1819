@@ -7,7 +7,7 @@
 #include "K_Time.h"
 #include "mouse picking\ActiveClickables.h"
 #include "audio\AudioEngineWrapper.h"
-#include "K_Routine.h"
+#include "K_JobManager.h"
 
 
 namespace kitten
@@ -26,29 +26,13 @@ namespace kitten
 		EventManager* m_eventManager;
 		K_Time* m_time;
 		ActiveClickables* m_clickables;
-
-		K_Routine<bool> m_jobManagerThread;
-
-		bool m_shouldDeleteJobs = false;
-		bool m_deletedJobsLastFrame = false;
-
-		std::list<K_Job*> m_jobsToStart;
-		std::unordered_set<K_Job*> m_startedJobs;
-
-		void privateUpdate();
-		void privateAddJob(K_Job* p_job);
-
-		void jobManagement(std::tuple<bool> p_deleting);
-		void startJobs();
-		void privateDeleteAllJobs();
+		K_JobManager* m_jobManager;
 
 		void threadTest(std::tuple<void*> p_to);
 
+		void privateUpdate();
 	public:
 		static void createInstance();
-
-		static void addThreadedJob(K_Job* p_job);
-		static void deleteAllJobs();
 
 		static void update();
 

@@ -2,39 +2,65 @@
 #include "K_Job.h"
 #include <cassert>
 
-#define BIND_FUNC(className, funcName) std::bind(&className::funcName, this, std::placeholders::_1)
-
 namespace kitten
 {
+	class K_JobManager;
+
 	template<typename ... Args>
 	class K_Routine : public K_Job
 	{
+		friend class K_JobManager;
 	private:
-		bool m_isRunning = false, m_isPaused = false;
+		bool m_isRunning = false, m_isPaused = false, m_isRecurring, m_isFinished = false;
 		std::function<void(std::tuple<Args...>)> m_toCall;
 		std::tuple<Args...> m_parameter;
 
 		std::thread m_thread;
 
+		K_Routine(std::function<void(std::tuple<Args...>)> p_func, std::tuple<Args...> p_parameters, bool p_recurring = false) :
+			m_toCall(p_func), m_parameter(p_parameters), m_isRecurring(p_recurring)
+		{
+
+		}
+
+		~K_Routine()
+		{
+			if (m_isRunning)
+			{
+				m_isPaused = false;
+				m_isRunning = false;
+			}
+
+			if (m_thread.joinable())
+			{
+				m_thread.join();
+			}
+		};
+
+		// cycle() is the actual method called on the thread
 		void cycle()
 		{
-			while (m_isRunning)
+			if (m_isRecurring)
 			{
-				m_toCall(m_parameter);
-
-				while (m_isPaused)
+				while (m_isRunning)
 				{
-					//do nothing
+					m_toCall(m_parameter);
+
+					while (m_isPaused)
+					{
+						//do nothing
+					}
 				}
 			}
+			else
+			{
+				m_toCall(m_parameter);
+			}
+
+			m_isFinished = true;
 		}
+
 	public:
-		K_Routine(std::function<void(std::tuple<Args...>)> p_func, std::tuple<Args...> p_parameters) : m_toCall(p_func), m_parameter(p_parameters)
-		{
-
-		}
-
-		~K_Routine() { if (m_isRunning) m_thread.join(); };
 
 		virtual void run() override
 		{
@@ -62,5 +88,6 @@ namespace kitten
 		}
 
 		virtual bool isRunning() override { return m_isRunning; };
+		virtual bool isFinished() override { return m_isFinished; };
 	};
 }

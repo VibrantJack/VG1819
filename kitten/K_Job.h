@@ -3,8 +3,6 @@
 #include <thread>
 #include <tuple>
 
-
-
 namespace kitten
 {
 	class K_Job
@@ -14,6 +12,7 @@ namespace kitten
 		virtual void stop() = 0;
 		virtual void setPaused(bool p_paused) = 0;
 		virtual bool isRunning() = 0;
+		virtual bool isFinished() = 0;
 	};
 	
 }

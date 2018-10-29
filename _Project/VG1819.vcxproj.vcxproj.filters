@@ -376,6 +376,9 @@
     <ClCompile Include="..\userinterface\UIFrame.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\K_JobManager.cpp">
+      <Filter>kitten\coroutines</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -730,10 +733,13 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\K_Job.h">
-      <Filter>kitten</Filter>
+      <Filter>kitten\coroutines</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\K_Routine.h">
-      <Filter>kitten</Filter>
+      <Filter>kitten\coroutines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_JobManager.h">
+      <Filter>kitten\coroutines</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -829,6 +835,9 @@
     </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{b3f2d921-d676-4a5a-9200-68ea320734c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kitten\coroutines">
+      <UniqueIdentifier>{0f0a87b0-5319-40ad-962a-7ca808d68bea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

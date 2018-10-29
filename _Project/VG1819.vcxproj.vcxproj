@@ -158,6 +158,7 @@
     <ClCompile Include="..\kitten\K_GameObject.cpp" />
     <ClCompile Include="..\kitten\K_GameObjectManager.cpp" />
     <ClCompile Include="..\kitten\K_Instance.cpp" />
+    <ClCompile Include="..\kitten\K_JobManager.cpp" />
     <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
     <ClCompile Include="..\kitten\K_Time.cpp" />
     <ClCompile Include="..\kitten\mouse picking\ActiveClickables.cpp" />
@@ -275,6 +276,7 @@
     <ClInclude Include="..\kitten\K_GameObject.h" />
     <ClInclude Include="..\kitten\K_GameObjectManager.h" />
     <ClInclude Include="..\kitten\K_Job.h" />
+    <ClInclude Include="..\kitten\K_JobManager.h" />
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
     <ClInclude Include="..\kitten\K_Instance.h" />
     <ClInclude Include="..\kitten\K_Routine.h" />
