@@ -10,6 +10,7 @@ DeckData* CustomDeckDataParser::getDeckData(const std::string& p_filename) {
 		int cardIndex, cardCount;
 		while (input >> cardIndex >> cardCount) {
 			data->cards.push_back(std::pair<int,int>(cardIndex, cardCount));
+			data->totalCardCount += cardCount;
 		}
 		input.close();
 		return data;
