@@ -77,6 +77,8 @@ namespace kitten
 		data->cards.push_back({ 9,2 });
 		kibble::getDeckDataParserInstance()->saveDeckData(data, "data/saved/outputtest.txt");
 
+		delete data;
+
 		//Creating a gameobject
 		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
 		kibble::setSceneFrom(std::string("mainscene.txt"));
