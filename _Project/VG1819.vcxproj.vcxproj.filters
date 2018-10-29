@@ -254,6 +254,9 @@
     <ClCompile Include="..\components\SelectAbility.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\DeckComponent.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
@@ -367,9 +370,6 @@
     </ClCompile>
     <ClCompile Include="ToggleEnabledOnKeyPress.cpp">
       <Filter>components\debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\components\DeckComponent.cpp">
-      <Filter>components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -595,6 +595,9 @@
     <ClInclude Include="..\components\SelectAbility.h">
       <Filter>components</Filter>
     </ClInclude>
+    <ClInclude Include="..\components\DeckComponent.hpp">
+      <Filter>components</Filter>
+    </ClInclude>
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h">
       <Filter>unit\InitiativeTracker</Filter>
     </ClInclude>
@@ -711,9 +714,6 @@
     </ClInclude>
     <ClInclude Include="ToggleEnabledOnKeyPress.h">
       <Filter>components\debug</Filter>
-    </ClInclude>
-    <ClInclude Include="..\components\DeckComponent.hpp">
-      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
