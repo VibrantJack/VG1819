@@ -136,7 +136,6 @@
     <ClCompile Include="..\kibble\json\Datatypes\GameObjectDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\SceneDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp" />
-    <ClCompile Include="..\kibble\json\JSONComponentDataParser.cpp" />
     <ClCompile Include="..\kibble\json\jsonextra.cpp" />
     <ClCompile Include="..\kibble\json\JSONGameObjectDataParser.cpp" />
     <ClCompile Include="..\kibble\json\JSONUnitDataParser.cpp" />
@@ -241,7 +240,6 @@
     <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
     <ClInclude Include="..\gameworld\TileInformationComponent.h" />
     <ClInclude Include="..\json.hpp" />
-    <ClInclude Include="..\kibble\ComponentDataParser.hpp" />
     <ClInclude Include="..\kibble\custom\CustomDeckDataParser.hpp" />
     <ClInclude Include="..\kibble\databank\databank.hpp" />
     <ClInclude Include="..\kibble\DeckDataParser.hpp" />
@@ -249,7 +247,6 @@
     <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\GameObjectDataType.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\SceneDataType.hpp" />
-    <ClInclude Include="..\kibble\json\JSONComponentDataParser.hpp" />
     <ClInclude Include="..\kibble\json\jsonextra.hpp" />
     <ClInclude Include="..\kibble\json\JSONGameObjectDataParser.hpp" />
     <ClInclude Include="..\kibble\kibble.hpp" />

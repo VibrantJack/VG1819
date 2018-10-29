@@ -2,7 +2,7 @@
 
 #include <unordered_set>
 #include <cassert>
-#include "kibble/ComponentDataParser.hpp"
+#include "json.hpp"
 
 namespace kitten
 {
@@ -42,7 +42,9 @@ namespace kitten
 		static K_ComponentManager * getInstance() { return sm_instance; };
 
 		K_Component* createComponent(const std::string& p_componentName);
-		K_Component* createComponent(kibble::ComponentDataParser* data);
+
+		K_Component* createComponent(nlohmann::json*);
+	
 
 		bool destroyComponent(K_Component* p_toDestroy);
 		void destroyComponentImmediate(K_Component* p_toDestroy);
