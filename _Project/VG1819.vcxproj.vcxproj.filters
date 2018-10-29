@@ -101,9 +101,6 @@
     <ClCompile Include="..\kibble\json\JSONGameObjectDataParser.cpp">
       <Filter>kibble\JSON</Filter>
     </ClCompile>
-    <ClCompile Include="..\kibble\json\JSONComponentDataParser.cpp">
-      <Filter>kibble\JSON</Filter>
-    </ClCompile>
     <ClCompile Include="..\kibble\kibble.cpp">
       <Filter>kibble</Filter>
     </ClCompile>
@@ -509,12 +506,6 @@
     </ClInclude>
     <ClInclude Include="..\kibble\GameObjectDataParser.hpp">
       <Filter>kibble</Filter>
-    </ClInclude>
-    <ClInclude Include="..\kibble\ComponentDataParser.hpp">
-      <Filter>kibble</Filter>
-    </ClInclude>
-    <ClInclude Include="..\kibble\json\JSONComponentDataParser.hpp">
-      <Filter>kibble\JSON</Filter>
     </ClInclude>
     <ClInclude Include="..\kibble\kibble.hpp">
       <Filter>kibble</Filter>

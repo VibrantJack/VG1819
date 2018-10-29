@@ -583,7 +583,8 @@ void setupComponentMap() {
 	
 }
 
-kitten::K_Component* getRelatedComponentBy(std::string key,nlohmann::json* p_jsonFile) {
+kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {
+	std::string key = p_jsonFile->operator[]("name");
 	if (jsonComponentMap.find(key) != jsonComponentMap.end()) {
 		return jsonComponentMap[key](p_jsonFile);
 	}

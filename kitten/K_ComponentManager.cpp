@@ -24,6 +24,7 @@
 #include "kitten\mouse picking\ClickableFrame.h"
 #include "components\PowerTracker.h"
 #include "components\SelectAbility.h"
+#include "kibble/json/Datatypes/ComponentDataType.hpp"
 //#include "userinterface\UITestClickable.h"
 
 //board
@@ -173,9 +174,9 @@ namespace kitten
 		return comp;
 	}
 
-	K_Component* K_ComponentManager::createComponent(kibble::ComponentDataParser* data)
+	K_Component* K_ComponentManager::createComponent(nlohmann::json* p_jsonfile)
 	{
-		K_Component* comp = data->getComponentInternally();
+		K_Component* comp = getRelatedComponentBy(p_jsonfile);
 		if (comp == nullptr) return nullptr;
 
 		m_toStart.insert(comp);

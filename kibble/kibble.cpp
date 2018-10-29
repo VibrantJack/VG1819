@@ -1,7 +1,6 @@
 #pragma once
 #include "kibble.hpp"
 #include "databank/databank.hpp"
-#include "json/JSONComponentDataParser.hpp"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 #include "kibble/json/JSONGameObjectDataParser.hpp"
 #include "kibble/json/JSONUnitDataParser.hpp"
