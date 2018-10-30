@@ -11,21 +11,23 @@ namespace ability
 		//apply Status_Dodge to target
 		ability::Status* se = ability::StatusManager::getInstance()->findStatus("Status_Dodge");
 
+		//set properties
+		int dur = p_info->m_intValue.find("duration")->second;
+		se->addCounter("duration", dur);
+
+		se->addTimePoint(TimePointEvent::Receive_Damage);
+
 		//attach to target
 		se->attach(p_info->m_target);
-
-		//set properties
-		se->m_counter["duration"] = p_info->m_intValue.find("duration")->second;
-
-		//TO DO: register event
 	}
 
 	void Dodge::stackStatus(const AbilityInfoPackage * p_info)
 	{
-		ability::Status* se = p_info->m_target->getStatus("Status_Dodge");
+		ability::Status* se = p_info->m_target->getStatusContainer()->getStatus("Status_Dodge");
 
 		//reset duration
-		se->m_counter["duration"] = p_info->m_intValue.find("duration")->second;
+		int dur = p_info->m_intValue.find("duration")->second;
+		se->addCounter("duration", dur);
 	}
 
 	Dodge::Dodge()
@@ -39,7 +41,7 @@ namespace ability
 	int Dodge::effect(const AbilityInfoPackage* p_info)
 	{
 		//check if unit has this status
-		if (p_info->m_target->getStatus("Status_Dodge"))
+		if (p_info->m_target->getStatusContainer()->getStatus("Status_Dodge"))
 			stackStatus(p_info);
 		else
 			applyStatus(p_info);

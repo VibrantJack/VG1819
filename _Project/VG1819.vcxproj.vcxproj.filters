@@ -149,9 +149,6 @@
     <ClCompile Include="..\ability\status\Status.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\Status_CD.cpp">
-      <Filter>ability\status</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\status\Status_Encourage.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
@@ -367,6 +364,9 @@
     </ClCompile>
     <ClCompile Include="ToggleEnabledOnKeyPress.cpp">
       <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\statusEvent\TimePointEvent.cpp">
+      <Filter>ability\status\statusEvent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -709,6 +709,9 @@
     <ClInclude Include="ToggleEnabledOnKeyPress.h">
       <Filter>components\debug</Filter>
     </ClInclude>
+    <ClInclude Include="..\ability\status\statusEvent\TimePointEvent.h">
+      <Filter>ability\status\statusEvent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -803,6 +806,9 @@
     </Filter>
     <Filter Include="board\component">
       <UniqueIdentifier>{0ae05199-ea25-4694-8d77-89d227d2bec6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ability\status\statusEvent">
+      <UniqueIdentifier>{b7654a49-983d-45cd-b847-abc3403eb9a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

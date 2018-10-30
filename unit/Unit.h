@@ -28,9 +28,10 @@ namespace unit
 		~Unit();
 
 		//status interface
+		/*
 		void addStatus(ability::Status *p_newStatus);
 		bool removeStatus(ability::Status *p_oldStatus);
-		ability::Status* getStatus(const std::string& p_name);
+		ability::Status* getStatus(const std::string& p_name);*/
 		StatusContainer* getStatusContainer();
 
 		//turn interface

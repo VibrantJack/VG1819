@@ -5,34 +5,29 @@
 
 namespace ability
 {
-	Status_Dodge::Status_Dodge()
+	Status_Dodge::Status_Dodge() : Status::Status()
 	{
 
 	}
 
-	Status_Dodge::~Status_Dodge()
+	int Status_Dodge::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)
 	{
-	}
-
-	int Status_Dodge::effect(TimePointEvent p_timePoint)
-	{
-		if (p_timePoint == ability::Turn_Start)
+		if (p_type == ability::TimePointEvent::Turn_Start)
 		{
 			//reduce duration
 			changeCounter();
 			checkDuration();
+			return 0;
 		}
-		return 0;
-	}
-
-	int Status_Dodge::effect(TimePointEvent p_timePoint, ability::AbilityInfoPackage * p_pack)
-	{
-		if (p_timePoint == ability::Receive_Damage)
+		else if (p_type == ability::TimePointEvent::Receive_Damage)
 		{
 			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode("ChangeAbilityInfoNode");
-			int changedValue = - (p_pack->m_intValue["power"]);
-			node->effect(p_pack, "power", changedValue);
+			AbilityInfoPackage* pack = p_event->getPackage("info");
+			//decrease the amount of damage it deals, means the result is 0
+			int changedValue = -(pack->m_intValue["power"]);
+			node->effect(pack, "power", changedValue);
+			return 0;
 		}
-		return 0;
+		return 1;
 	}
 }

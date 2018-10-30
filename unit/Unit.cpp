@@ -18,6 +18,7 @@ namespace unit
 	}
 
 	//status
+	/*
 	void Unit::addStatus(ability::Status *p_newStatus)
 	{
 		m_statusContainer->addStatus(p_newStatus);
@@ -31,7 +32,7 @@ namespace unit
 	ability::Status* Unit::getStatus(const std::string & p_name)
 	{
 		return m_statusContainer->getStatus(p_name);
-	}
+	}*/
 
 	StatusContainer * Unit::getStatusContainer()
 	{
