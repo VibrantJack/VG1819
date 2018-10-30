@@ -251,6 +251,9 @@
     <ClCompile Include="..\components\SelectAbility.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\DeckComponent.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
@@ -589,6 +592,9 @@
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="..\components\SelectAbility.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DeckComponent.hpp">
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h">
