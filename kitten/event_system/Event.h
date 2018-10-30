@@ -26,6 +26,16 @@ namespace kitten
 			Manipulate_Tile,
 			Highlight_Tile_Summon_Unit,
 			Summon_Unit,
+			Draw_Card,
+			Peek_Card,
+			Discard_Card,
+			Add_Card,
+			Shuffle_Deck,
+			Card_Drawn,
+			Card_Peeked,
+			Card_Discarded,
+			Deck_Empty,
+
 			Test_Event, 
 			MAX_VAL = Test_Event
 		};
