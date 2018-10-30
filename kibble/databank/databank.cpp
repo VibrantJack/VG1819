@@ -3,10 +3,10 @@
 
 std::vector<unit::UnitData*> unitDataVector;
 std::map<std::string, unit::AbilityDescription*> abilityDataMap;
-
 std::map<std::string, std::vector<int>> abilityToUnitMap, tagToUnitMap;
-
 std::vector<unit::AbilityDescription*> lateLoadAbility, lateUpdateAbility;
+std::vector<DeckData*> deckDataVector;
+
 
 // Basically the deconstructor
 void kibble::destroyDatabank() {
@@ -122,4 +122,13 @@ std::vector<int> kibble::getUnitIdsThatHaveAbilityOfName(const std::string& p_na
 }
 std::vector<int> kibble::getUnitIdsThatHaveTag(const std::string& p_tag) {
 	return tagToUnitMap[p_tag];
+}
+
+
+int kibble::getDeckDataListCount() {
+	return deckDataVector.size();
+}
+
+DeckData* kibble::getDeckDataFromId(const int& p_identifier) {
+	return nullptr;
 }

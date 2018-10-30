@@ -1,17 +1,20 @@
 #pragma once
 #include "unit/UnitCommon.h"
-
+#include "DeckData.hpp"
 #include <vector>
 
 namespace kibble {
-	unit::UnitData* getUnitFromId(const int& Identifier);
-	std::vector<unit::UnitData*> getUnitsFromListOfIds(const std::vector<int>& Identifier);
+	unit::UnitData* getUnitFromId(const int& p_identifier);
+	std::vector<unit::UnitData*> getUnitsFromListOfIds(const std::vector<int>& p_identifier);
 
 	//returns null if none is found matching string
 	unit::AbilityDescription* getAbilityFromName(const std::string& p_name);
 
 	std::vector<int> getUnitIdsThatHaveAbilityOfName(const std::string& p_name);
 	std::vector<int> getUnitIdsThatHaveTag(const std::string& p_tag);
+
+	DeckData* getDeckDataFromId(const int& p_identifier);
+	int getDeckDataListCount();
 
 	// ===----- For internal Use Only after this comment ---------------------------------------------------
 
