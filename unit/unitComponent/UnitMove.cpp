@@ -5,6 +5,9 @@
 #include <iostream>
 #include <cmath>
 
+// Networking
+#include "networking\ClientGame.h"
+
 unit::UnitMove::UnitMove()
 {
 	m_currentTile = nullptr;
@@ -38,9 +41,18 @@ void unit::UnitMove::listenEvent(kitten::Event::EventType p_type, kitten::Event 
 		bool highlighted = p_data->getInt("highlighted");
 		if (highlighted)//move
 		{
-			if (p_data->getGameObj("tileObj"))
+			kitten::K_GameObject* tileGO = p_data->getGameObj("tileObj");
+			if (tileGO)
 			{
-				move(p_data->getGameObj("tileObj"));
+				move(tileGO);
+
+				if (networking::ClientGame::getInstance())
+				{
+					int unitIndex = networking::ClientGame::getInstance()->getUnitGameObjectIndex(m_attachedObject);
+					int posX = tileGO->getComponent<TileInfo>()->getPosX();
+					int posY = tileGO->getComponent<TileInfo>()->getPosY();
+					sendMovementPacket(unitIndex, posX, posY);
+				}
 			}
 		}
 		else//cancel move
@@ -102,6 +114,17 @@ void unit::UnitMove::move(kitten::K_GameObject * p_targetTile)
 
 	//send unhighlight event
 	triggerUnhighLightEvent();
+}
+
+void unit::UnitMove::sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY)
+{
+	UnitMovePacket* packet = new UnitMovePacket();
+	packet->packetType = PacketTypes::UNIT_MOVE;
+	packet->unitIndex = p_iUnitIndex;
+	packet->posX = p_iPosX;
+	packet->posY = p_iPosY;
+
+	networking::ClientGame::getInstance()->sendPacket(packet);
 }
 
 void unit::UnitMove::setTile(kitten::K_GameObject * p_tile)

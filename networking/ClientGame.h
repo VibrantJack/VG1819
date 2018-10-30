@@ -4,6 +4,9 @@
 #include "networking\ClientNetwork.h"
 #include "networking\NetworkData.h"
 
+#include "kitten\K_GameObject.h"
+#include <map>
+
 namespace networking
 {
 	class ClientGame
@@ -20,13 +23,11 @@ namespace networking
 		static int getClientId() { return sm_iClientId; }
 
 		bool setupNetwork(const std::string &p_strAddr = "127.0.0.1");
-
 		void sendPacket(Packet* p_packet);
 
-		void summonUnit(SummonUnitPacket p_packet);
-
-		// Example method to display how the client can input data and send to server
-		void manipulateTile();
+		void summonUnit(int p_iUnitId, int p_iPosX, int p_iPosY);
+		void moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY);
+		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);
 
 		void update();
 
@@ -36,5 +37,9 @@ namespace networking
 		char m_network_data[MAX_PACKET_SIZE];
 	private:
 		static int sm_iClientId;
+
+		// Unit GO list so clients can have a reference to the same unit GO without having the same mem address
+		std::map<int, kitten::K_GameObject*> m_unitGOList;
+		int m_iUnitIndex = 0;
 	};
 }

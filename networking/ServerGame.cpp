@@ -122,7 +122,7 @@ namespace networking
 						m_network->sendToClient(clientId, packet_data, packet_size);
 						break;
 					}
-					case CLIENT_SUMMON_UNIT:
+					case SUMMON_UNIT:
 					{
 						printf("\nserver received CLIENT_SUMMON_UNIT packet from client %d\n", iter->first);
 
@@ -130,6 +130,25 @@ namespace networking
 						summonUnitPacket.deserialize(&(m_network_data[i]));
 						i += sizeof(SummonUnitPacket);
 						sendSummonedUnitPacket(iter->first, summonUnitPacket);
+
+						break;
+					}
+					case UNIT_MOVE:
+					{
+						printf("\nserver received UNIT_MOVE packet from client %d\n", iter->first);
+
+						UnitMovePacket packet;
+						packet.deserialize(&(m_network_data[i]));
+						i += sizeof(UnitMovePacket);
+						printf("Server sending Unit index: %d, posX: %d, posY: %d\n", packet.unitIndex, packet.posX, packet.posY);
+
+						// Send received packet to other clients
+						const unsigned int packet_size = sizeof(UnitMovePacket);
+						char packet_data[packet_size];
+
+						packet.serialize(packet_data);
+						m_network->sendToOthers(iter->first, packet_data, packet_size);
+
 
 						break;
 					}

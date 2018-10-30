@@ -9,21 +9,9 @@ enum PacketTypes {
 
 	INIT_CONNECTION = 0,
 	SEND_CLIENT_ID,
-	CLIENT_ARMY_DATA,
-	STARTING_DATA,
-	INITIATIVE_DATA,
-	UNIT_START_TURN,
-	UNIT_END_TURN,
-	CLIENT_MANIPULATE_TILE,
-	SERVER_MANIPULATE_TILE,
-	CLIENT_UNIT_MOVE,
-	SERVER_UNIT_MOVE,
-	UNIT_ATTACK,
-	UPDATE_UNIT_STATUS,
-	UNIT_DEATH,
-	CLIENT_SUMMON_UNIT,
-	SERVER_SUMMON_UNIT,
-	ACTION_EVENT,
+	MANIPULATE_TILE,
+	UNIT_MOVE,
+	SUMMON_UNIT,
 
 };
 
@@ -73,6 +61,36 @@ struct SummonUnitPacket : Packet
 	}
 };
 
+struct UnitMovePacket : Packet {
+
+	unsigned int packetType;
+	unsigned int clientId;
+
+	int unitIndex;
+	int posX, posY;
+
+
+	void serialize(char* data) {
+		int *q = (int*)data;
+		*q = this->packetType;		q++;
+		*q = this->clientId;		q++;
+
+		*q = this->unitIndex;		q++;
+		*q = this->posX;		q++;
+		*q = this->posY;		q++;
+	}
+
+	void deserialize(char* data) {
+		int *q = (int*)data;
+		this->packetType = *q;		q++;
+		this->clientId = *q;		q++;
+
+		this->unitIndex = *q;		q++;
+		this->posX = *q;		q++;
+		this->posY = *q;		q++;
+	}
+};
+
 struct TestPacket : Packet {
 
 	int num;
@@ -104,128 +122,5 @@ struct TestPacket : Packet {
 			this->msg[i] = *p;
 			p++;
 		}
-	}
-};
-
-struct ClientArmyPacket : Packet {
-
-	int unit_id1, unit_id2, unit_id3,
-		unit_id4, unit_id5, unit_id6;
-
-	void serialize(char* data) {
-		int *q = (int*)data;
-		*q = this->packetType;   q++;
-		*q = this->clientId;	  q++;
-		*q = this->unit_id1;	  q++;
-		*q = this->unit_id2;	  q++;
-		*q = this->unit_id3;	  q++;
-		*q = this->unit_id4;	  q++;
-		*q = this->unit_id5;	  q++;
-		*q = this->unit_id6;	  q++;
-	}
-
-	void deserialize(char* data) {
-		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
-		this->unit_id1 = *q;		q++;
-		this->unit_id2 = *q;		q++;
-		this->unit_id3 = *q;		q++;
-		this->unit_id4 = *q;		q++;
-		this->unit_id5 = *q;		q++;
-		this->unit_id6 = *q;		q++;
-	}
-};
-
-struct StartingDataPacket : Packet {
-
-	int unit_id1, unit_id2, unit_id3;
-	int x, y;
-	// Opposing player commander id
-	int commander_id;
-
-	void serialize(char* data) {
-		int *q = (int*)data;
-		*q = this->packetType;   q++;
-		*q = this->clientId;	q++;
-		*q = this->unit_id1;	  q++;
-		*q = this->unit_id2;	  q++;
-		*q = this->unit_id3;	  q++;
-		*q = this->x;			  q++;
-		*q = this->y;			  q++;
-		*q = this->commander_id;  q++;
-	}
-
-	void deserialize(char* data) {
-		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
-		this->unit_id1 = *q;		q++;
-		this->unit_id2 = *q;		q++;
-		this->unit_id3 = *q;		q++;
-		this->x = *q;				q++;
-		this->y = *q;				q++;
-		this->commander_id = *q;	q++;
-	}
-};
-
-struct InitiativeDataPacket : Packet {
-
-	int unit_id1, unit_id2, unit_id3;
-
-	void serialize(char* data) {
-		int *q = (int*)data;
-		*q = this->packetType;   q++;
-		*q = this->clientId;	q++;
-		*q = this->unit_id1;	  q++;
-		*q = this->unit_id2;	  q++;
-		*q = this->unit_id3;	  q++;
-	}
-
-	void deserialize(char* data) {
-		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
-		this->unit_id1 = *q;		q++;
-		this->unit_id2 = *q;		q++;
-		this->unit_id3 = *q;		q++;
-	}
-};
-
-struct StartTurnPacket : Packet {
-
-	int unit_id;
-
-	void serialize(char* data) {
-		int *q = (int*)data;
-		*q = this->packetType;   q++;
-		*q = this->clientId;	q++;
-		*q = this->unit_id;		q++;
-	}
-
-	void deserialize(char* data) {
-		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
-		this->unit_id = *q;			q++;
-	}
-};
-
-struct ClientManipulateTile : Packet {
-
-	int tile_id;
-
-	void serialize(char* data) {
-		int *q = (int*)data;
-		*q = this->packetType;   q++;
-		*q = this->clientId;	q++;
-		*q = this->tile_id;		  q++;
-	}
-
-	void deserialize(char* data) {
-		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
-		this->tile_id = *q;			q++;
 	}
 };

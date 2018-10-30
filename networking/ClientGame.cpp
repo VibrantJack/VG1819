@@ -18,6 +18,10 @@
 #include "unit\unitComponent\UnitMove.h"
 #include "unit\UnitMonitor.h"
 
+// Unit movement
+#include "board\BoardManager.h"
+#include "unit\unitComponent\UnitMove.h"
+
 namespace networking
 {
 	ClientGame* ClientGame::sm_clientGameInstance = nullptr;
@@ -88,7 +92,7 @@ namespace networking
 	{
 		switch (p_packet->packetType)
 		{
-			case PacketTypes::CLIENT_SUMMON_UNIT :
+			case PacketTypes::SUMMON_UNIT :
 			{
 				const unsigned int packetSize = sizeof(SummonUnitPacket);
 				char data[packetSize];
@@ -96,6 +100,18 @@ namespace networking
 				SummonUnitPacket* packet = static_cast<SummonUnitPacket*>(p_packet);
 				packet->serialize(data);
 				NetworkServices::sendMessage(m_network->m_connectSocket, data, packetSize);
+				break;
+			}
+
+			case PacketTypes::UNIT_MOVE:
+			{
+				const unsigned int packetSize = sizeof(UnitMovePacket);
+				char data[packetSize];
+
+				UnitMovePacket* packet = static_cast<UnitMovePacket*>(p_packet);
+				packet->serialize(data);
+				NetworkServices::sendMessage(m_network->m_connectSocket, data, packetSize);
+				break;
 			}
 		}
 
@@ -128,6 +144,7 @@ namespace networking
 			switch (packetType) {
 
 			case PacketTypes::SEND_CLIENT_ID:
+			{
 				Packet packet;
 				packet.deserialize(&(m_network_data[i]));
 				i += sizeof(Packet);
@@ -136,17 +153,32 @@ namespace networking
 				printf("Client ID: %d\n", sm_iClientId);
 
 				break;
-			case PacketTypes::CLIENT_SUMMON_UNIT:
+			}
+			case PacketTypes::SUMMON_UNIT:
+			{
 				printf("client received CLIENT_SUMMON_UNIT packet from server\n");
 
 				SummonUnitPacket summonUnitPacket;
 				summonUnitPacket.deserialize(&(m_network_data[i]));
 				i += sizeof(SummonUnitPacket);
-				
-				// Call function here that summons a unit
-				summonUnit(summonUnitPacket);
-				break;
 
+				// Call function here that summons a unit
+				summonUnit(summonUnitPacket.unitId, summonUnitPacket.posX, summonUnitPacket.posY);
+				break;
+			}
+			case PacketTypes::UNIT_MOVE:
+			{
+				printf("client received UNIT_MOVE packet from server\n");
+
+				UnitMovePacket unitMovePacket;
+				unitMovePacket.deserialize(&(m_network_data[i]));
+				i += sizeof(UnitMovePacket);
+				printf("Client received Unit index: %d, posX: %d, posY: %d\n", unitMovePacket.unitIndex, unitMovePacket.posX, unitMovePacket.posY);
+
+				// Call function here that summons a unit
+				moveUnit(unitMovePacket.unitIndex, unitMovePacket.posX, unitMovePacket.posY);
+				break;
+			}
 			default:
 				printf("error in packet types\n");
 				break;
@@ -154,14 +186,37 @@ namespace networking
 		}
 	}
 
-	void ClientGame::summonUnit(SummonUnitPacket p_packet)
+	void ClientGame::summonUnit(int p_iUnitId, int p_iPosX, int p_iPosY)
 	{
-		kitten::K_GameObject* testDummyGO = unit::UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(p_packet.unitId));
-		unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
-		testDummy->m_clientId = getClientId();
-		unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
+		// Create the unit GO and add it to the list
+		kitten::K_GameObject* unitGO = unit::UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(p_iUnitId));
+		m_unitGOList.insert(std::make_pair(m_iUnitIndex, unitGO));
+		m_iUnitIndex++;
 
 		//initialize position
-		testDummyGO->getComponent<unit::UnitMove>()->setTile(p_packet.posX, p_packet.posY);
+		unitGO->getComponent<unit::UnitMove>()->setTile(p_iPosX, p_iPosY);
+
+		// Print out unit data for debug
+		unit::Unit* testDummy = unitGO->getComponent<unit::Unit>();
+		testDummy->m_clientId = getClientId();
+		unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
+	}
+
+	void ClientGame::moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY)
+	{
+		kitten::K_GameObject* targetTile = BoardManager::getInstance()->getTile(p_iPosX, p_iPosY);
+		m_unitGOList.at(p_iUnitIndex)->getComponent<unit::UnitMove>()->move(targetTile);
+	}
+
+	int ClientGame::getUnitGameObjectIndex(kitten::K_GameObject* p_unit)
+	{
+		for (auto it = m_unitGOList.begin(); it != m_unitGOList.end(); ++it)
+		{
+			if (it->second == p_unit)
+			{
+				return it->first;
+			}
+		}
+		return -1; // Not found
 	}
 }
