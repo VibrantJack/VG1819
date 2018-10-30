@@ -94,11 +94,11 @@ void DeckComponent::draw(int p_topNum) {
 	for (int i = 0; i < countLookOver; ++i) {
 		eventData->putInt(CARD_ID + std::to_string(i), m_cardPool.back());
 		m_cardPool.pop_back();
-		kitten::EventManager::getInstance()->queueEvent(
-			kitten::Event::EventType::Card_Drawn,
-			eventData
-		);
 	}
+	kitten::EventManager::getInstance()->queueEvent(
+		kitten::Event::EventType::Card_Drawn,
+		eventData
+	);
 
 	if (m_cardPool.empty()) {
 		informEmptyDeck();
@@ -114,11 +114,12 @@ void DeckComponent::discard(int p_topNum) {
 	for (int i = 0; i < countLookOver; ++i) {
 		eventData->putInt(CARD_ID + std::to_string(i), m_cardPool.back());
 		m_cardPool.pop_back();
-		kitten::EventManager::getInstance()->queueEvent(
-			kitten::Event::EventType::Card_Discarded,
-			eventData
-		);
 	}
+
+	kitten::EventManager::getInstance()->queueEvent(
+		kitten::Event::EventType::Card_Discarded,
+		eventData
+	);
 
 	if (m_cardPool.empty()) {
 		informEmptyDeck();
@@ -129,20 +130,25 @@ void DeckComponent::addTop(int p_cardIndex) {
 	m_cardPool.push_back(p_cardIndex);
 }
 void DeckComponent::peek(int p_topNum) {
-	for (int i = 0; i < p_topNum; ++i) {
-		if (m_cardPool.empty()) {
-			return;
-		}
-
-		kitten::Event* eventData = new kitten::Event(kitten::Event::EventType::Card_Peeked);
-		eventData->putInt(PLAYERID, m_playerID);
-		eventData->putInt(CARD_ID, );
-		eventData->putInt(CARD_PLACEMENT, i);
-		kitten::EventManager::getInstance()->queueEvent(
-			kitten::Event::EventType::Card_Peeked,
-			eventData
-		);
+	if (m_cardPool.empty()) {
+		informEmptyDeck();
+		return;
 	}
+
+	kitten::Event* eventData = new kitten::Event(kitten::Event::EventType::Card_Peeked);
+	eventData->putInt(PLAYERID, m_playerID);
+	int countLookOver = std::min(p_topNum, (int)m_cardPool.size());
+	eventData->putInt(CARD_COUNT, countLookOver);
+
+	for (auto i = 0; i < countLookOver; ++i) {
+		eventData->putInt(CARD_ID + std::to_string(i), *(m_cardPool.rbegin()+countLookOver));
+	}
+
+	kitten::EventManager::getInstance()->queueEvent(
+		kitten::Event::EventType::Card_Peeked,
+		eventData
+	);
+
 }
 
 void DeckComponent::informEmptyDeck() {

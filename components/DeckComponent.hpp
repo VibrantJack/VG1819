@@ -15,6 +15,8 @@ class DeckComponent : public kitten::K_Component
 	void drawEventReceiver(kitten::Event::EventType p_type, kitten::Event* p_data);
 	void peekEventReceiver(kitten::Event::EventType p_type, kitten::Event* p_data);
 	void addEventReceiver(kitten::Event::EventType p_type, kitten::Event* p_data);
+	void onDisabled();
+	void onEnabled();
 public:
 	DeckComponent(DeckData*, int);
 	~DeckComponent();
