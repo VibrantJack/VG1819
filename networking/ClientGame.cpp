@@ -163,7 +163,7 @@ namespace networking
 				i += sizeof(SummonUnitPacket);
 
 				// Call function here that summons a unit
-				summonUnit(summonUnitPacket.unitId, summonUnitPacket.posX, summonUnitPacket.posY);
+				summonUnit(summonUnitPacket.clientId, summonUnitPacket.unitId, summonUnitPacket.posX, summonUnitPacket.posY);
 				break;
 			}
 			case PacketTypes::UNIT_MOVE:
@@ -186,7 +186,7 @@ namespace networking
 		}
 	}
 
-	void ClientGame::summonUnit(int p_iUnitId, int p_iPosX, int p_iPosY)
+	void ClientGame::summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
 	{
 		// Create the unit GO and add it to the list
 		kitten::K_GameObject* unitGO = unit::UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(p_iUnitId));
@@ -195,10 +195,11 @@ namespace networking
 
 		//initialize position
 		unitGO->getComponent<unit::UnitMove>()->setTile(p_iPosX, p_iPosY);
+		unitGO->getComponent<unit::Unit>()->m_clientId = sm_iClientId;
 
 		// Print out unit data for debug
 		unit::Unit* testDummy = unitGO->getComponent<unit::Unit>();
-		testDummy->m_clientId = getClientId();
+		testDummy->m_clientId = p_iClientId;
 		unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 	}
 

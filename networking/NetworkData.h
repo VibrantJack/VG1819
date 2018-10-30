@@ -19,7 +19,7 @@ enum PacketTypes {
 struct Packet {
 
 	unsigned int packetType;
-	unsigned int clientId;
+	int clientId;
 
 
 	void serialize(char* data) {
@@ -61,11 +61,8 @@ struct SummonUnitPacket : Packet
 	}
 };
 
-struct UnitMovePacket : Packet {
-
-	unsigned int packetType;
-	unsigned int clientId;
-
+struct UnitMovePacket : Packet 
+{
 	int unitIndex;
 	int posX, posY;
 

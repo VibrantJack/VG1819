@@ -39,22 +39,11 @@ void SpawnUnitOnKeyPress::update()
 		int unitId = 0;
 		int posX = 4;
 		int posY = 4;
-		kitten::K_GameObject* testDummyGO = unit::UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(unitId));
-		unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
-		unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
-
-		//initialize position
-		testDummyGO->getComponent<unit::UnitMove>()->setTile(posX, posY);
-
-		kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
-		testDummyGO->addComponent(compMan->createComponent("UseAbilityWhenClicked"));
-		testDummyGO->addComponent(compMan->createComponent("SelectAbility"));
-
-		// Maybe call this after the client has acknowledged the summoning of a unit from the host?
-		unit::InitiativeTracker::getInstance()->gameTurnStart();
 		
 		if (networking::ClientGame::getInstance())
 		{
+			networking::ClientGame::getInstance()->summonUnit(networking::ClientGame::getClientId(), unitId, posX, posY);
+
 			SummonUnitPacket* packet = new SummonUnitPacket();
 			packet->packetType = PacketTypes::SUMMON_UNIT;
 			packet->clientId = networking::ClientGame::getInstance()->getClientId();
@@ -63,5 +52,21 @@ void SpawnUnitOnKeyPress::update()
 
 			networking::ClientGame::getInstance()->sendPacket(packet);
 		}
+		else
+		{
+			kitten::K_GameObject* testDummyGO = unit::UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(unitId));
+			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
+			unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
+
+			//initialize position
+			testDummyGO->getComponent<unit::UnitMove>()->setTile(posX, posY);
+
+			kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
+			testDummyGO->addComponent(compMan->createComponent("UseAbilityWhenClicked"));
+			testDummyGO->addComponent(compMan->createComponent("SelectAbility"));
+		}
+
+		// Maybe call this after the client has acknowledged the summoning of a unit from the host?
+		unit::InitiativeTracker::getInstance()->gameTurnStart();
 	}
 }

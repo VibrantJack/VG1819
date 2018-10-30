@@ -25,7 +25,7 @@ namespace networking
 		bool setupNetwork(const std::string &p_strAddr = "127.0.0.1");
 		void sendPacket(Packet* p_packet);
 
-		void summonUnit(int p_iUnitId, int p_iPosX, int p_iPosY);
+		void summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
 		void moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY);
 		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);
 

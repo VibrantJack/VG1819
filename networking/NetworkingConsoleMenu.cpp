@@ -52,7 +52,7 @@ void NetworkingConsoleMenu::update()
 	{
 		if (m_bPrintText)
 		{
-			printf("** Networking Console Menu Opened **");
+			printf("** Networking Console Menu Opened **\n");
 			printf("7 - Host Game\n");
 			printf("8 - Connect to host\n");
 			printf("9 - Exit menu\n");
@@ -64,11 +64,23 @@ void NetworkingConsoleMenu::update()
 			networking::ServerGame::createInstance();
 			if (networking::ServerGame::getInstance()->setupNetwork())
 			{
-				m_bClientUpdate = true;				
+				m_bServerUpdate = true;		
+				printf("Server network setup complete\n");
 			} 
 			else
 			{
 				networking::ServerGame::destroyInstance();
+			}
+
+			networking::ClientGame::createInstance();
+			if (networking::ClientGame::getInstance()->setupNetwork())
+			{
+				m_bClientUpdate = true;
+				printf("Host client network setup complete\n");
+			} 
+			else
+			{
+				networking::ClientGame::destroyInstance();
 			}
 
 			m_bMenuOpen = false;
@@ -96,7 +108,7 @@ void NetworkingConsoleMenu::update()
 
 		if (input::InputManager::getInstance()->keyDown('9') && !input::InputManager::getInstance()->keyDownLast('9'))
 		{
-			printf("** Networking Console Menu Closed **");
+			printf("** Networking Console Menu Closed **\n");
 			m_bMenuOpen = false;
 		}
 	}
