@@ -20,6 +20,7 @@
 #include "gameworld\GameBoard.h"
 
 #include "kibble/kibble.hpp"
+#include "kibble/databank/databank.hpp"
 #include "unit/UnitTest.h"
 
 //board clickable
@@ -61,16 +62,15 @@ namespace kitten
 		// Temporary stuff until Kibble is ready
 		K_ComponentManager* compMan = K_ComponentManager::getInstance();
 
-		DeckData * data = kibble::getDeckDataParserInstance()->getDeckData("data/saved/decktest.txt");
-		std::cout << *data;
-		data->cards.push_back({ 9,2 });
-		kibble::getDeckDataParserInstance()->saveDeckData(data, "data/saved/outputtest.txt");
-
-		delete data;
-
 		//Creating a gameobject
 		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
 		kibble::setSceneFrom(std::string("mainscene.txt"));
+
+		// Deck Data importing, and exporting
+		// Note that kibble assumes it's a newly generated DeckData, passing on existant DeckData would could deletion error because it's already deleted. 
+		DeckData* data = new DeckData(*kibble::getDeckDataFromId(0)); // Assumes there's already atleast one deck loaded
+		data->cards.push_back({ 9,2 });
+		//kibble::addNewDeckData(data); // this line works, comment out or FEAR THE WRATH OF THE EVER GROWING DECK NUMBAHS INFESTING YA SAVES
 
 		//board creator doesn't done by board manager
 		//BoardManager::getInstance()->createBoard();

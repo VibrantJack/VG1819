@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <fstream>
 DeckData* CustomDeckDataParser::getDeckData(const std::string& p_filename) {
-	std::ifstream input(p_filename);
+	std::ifstream input("data/saved/"+p_filename);
 	if (input.is_open()) {
 		DeckData* data = new DeckData();
 		std::getline(input, data->name);
@@ -22,7 +22,7 @@ DeckData* CustomDeckDataParser::getDeckData(const std::string& p_filename) {
 }
 
 void CustomDeckDataParser::saveDeckData(DeckData* p_deck, const std::string& p_filename) {
-	std::ofstream output(p_filename);
+	std::ofstream output("data/saved/" + p_filename);
 	if (output.is_open()) {
 		output << *p_deck;
 
