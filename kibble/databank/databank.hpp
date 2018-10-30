@@ -15,6 +15,7 @@ namespace kibble {
 
 	DeckData* getDeckDataFromId(const int& p_identifier);
 	int getDeckDataListCount();
+	void addNewDeckData(DeckData*);
 
 	// ===----- For internal Use Only after this comment ---------------------------------------------------
 
