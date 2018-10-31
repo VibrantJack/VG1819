@@ -22,6 +22,7 @@ namespace puppy
 		*/
 		void setupCommon();
 	public:
+		//@TODO: don't require seperate constructors for each type of vertex
 		VertexEnvironment(const TexturedVertex p_data[], const ShaderProgram* p_program, int p_numElements);
 		VertexEnvironment(const NormalVertex p_data[], const ShaderProgram* p_program, int p_numElements);
 		VertexEnvironment(const ParticleVertex p_data[], const ShaderProgram* p_program, int p_numElements);

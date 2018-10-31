@@ -33,6 +33,7 @@ ManipulateTileOnClick::~ManipulateTileOnClick()
 
 void ManipulateTileOnClick::onClick()
 {
+	/*
 	TileInfo* tileInfo = m_attachedObject->getComponent<TileInfo>();
 	if (ability::AbilityManager::getInstance()->lastAbilityUsed() == MANIPULATE_TILE_ABILITY)
 	{
@@ -90,4 +91,5 @@ void ManipulateTileOnClick::onClick()
 
 	// Rest the last ability used after we've used an ability or canceled it
 	ability::AbilityManager::getInstance()->resetLastAbilityUsed();
+	}*/
 }

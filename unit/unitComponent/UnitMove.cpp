@@ -2,58 +2,44 @@
 #include "unit/Unit.h"
 #include "board/tile/TileInfo.h"
 #include "board/BoardManager.h"
+#include "unitInteraction/UnitInteractionManager.h"
 #include <iostream>
 #include <cmath>
-
-// Networking
-#include "networking\ClientGame.h"
 
 unit::UnitMove::UnitMove()
 {
 	m_currentTile = nullptr;
+	m_ad = nullptr;
 }
 
 unit::UnitMove::~UnitMove()
 {
+	if (m_ad != nullptr)
+		delete m_ad;
 }
-
+/*
 void unit::UnitMove::registerListener()
 {
 	notRegistered = false;
-
 	kitten::EventManager::getInstance()->addListener(
-		kitten::Event::EventType::Tile_Clicked_For_Unit_Move,
+		kitten::Event::EventType::Tile_Clicked,
 		this,
 		std::bind(&UnitMove::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
 }
-
 void unit::UnitMove::deregisterListener()
 {
 	notRegistered = true;
-
-	kitten::EventManager::getInstance()->queueRemoveListener(kitten::Event::Tile_Clicked_For_Unit_Move, this);
+	kitten::EventManager::getInstance()->queueRemoveListener(kitten::Event::Tile_Clicked, this);
 }
-
 void unit::UnitMove::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data)
 {
-	if (p_type == kitten::Event::Tile_Clicked_For_Unit_Move)
+	if (p_type == kitten::Event::Tile_Clicked)
 	{
+		
 		bool highlighted = p_data->getInt("highlighted");
 		if (highlighted)//move
 		{
-			kitten::K_GameObject* tileGO = p_data->getGameObj("tileObj");
-			if (tileGO)
-			{
-				move(tileGO);
-
-				if (networking::ClientGame::getInstance())
-				{
-					int unitIndex = networking::ClientGame::getInstance()->getUnitGameObjectIndex(m_attachedObject);
-					int posX = tileGO->getComponent<TileInfo>()->getPosX();
-					int posY = tileGO->getComponent<TileInfo>()->getPosY();
-					sendMovementPacket(unitIndex, posX, posY);
-				}
-			}
+			move(p_data->getGameObj("tile0"));
 		}
 		else//cancel move
 		{
@@ -63,36 +49,50 @@ void unit::UnitMove::listenEvent(kitten::Event::EventType p_type, kitten::Event 
 		deregisterListener();
 	}
 }
-
-void unit::UnitMove::attempToMove()
+*/
+void unit::UnitMove::attempToMove(int p_min, int p_max)
 {
-	if (notRegistered)
-	{
-		std::cout << "Ready To Move" << std::endl;
-		//when first click, this class will register event that require player to click a tile
-		registerListener();
-		triggerHighLightEvent();
-	}
-}
+	unit::Unit* u = m_attachedObject->getComponent<unit::Unit>();
 
-void unit::UnitMove::triggerHighLightEvent()
+	if (m_ad != nullptr)
+		delete m_ad;
+
+	m_ad = new unit::AbilityDescription();
+
+	m_ad->m_stringValue["name"] = "Move";
+	m_ad->m_intValue["target"] = 1;
+	m_ad->m_intValue["min_range"] = p_min;
+	if (p_max < 0)
+		m_ad->m_intValue["max_range"] = m_attachedObject->getComponent<Unit>()->m_attributes["mv"];//the range is between 1 and mv attributes
+	else
+		m_ad->m_intValue["max_range"] = p_max;
+	//filter
+	m_ad->m_intValue["filter"] = 1;
+	m_ad->m_stringValue["filter0"] = "unit";
+
+	UnitInteractionManager::getInstance()->request(u, m_ad);
+}
+/*
+void unit::UnitMove::triggerHighLightEvent(int p_min, int p_max)
 {
 	//trigger the highlight event shows what are possible move
 	kitten::Event* e = new kitten::Event(kitten::Event::Highlight_Tile);
 	e->putString(TILE_OWNER_KEY, m_attachedObject->getComponent<Unit>()->m_name + " Move.");//highlight because of this unit move
-	e->putInt("min_range", 1);
-	e->putInt("max_range", m_attachedObject->getComponent<Unit>()->m_attributes["mv"]);//the range is between 1 and mv attributes
+	e->putInt("min_range", p_min);
+	if (p_max < 0)
+		e->putInt("max_range", m_attachedObject->getComponent<Unit>()->m_attributes["mv"]);//the range is between 1 and mv attributes
+	else
+		e->putInt("max_range", p_max);
 	e->putGameObj("tileAtOrigin", m_currentTile);
 	e->putString("mode", "range");
 	e->putString("use", "move");
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Highlight_Tile, e);
 }
-
 void unit::UnitMove::triggerUnhighLightEvent()
 {
 	kitten::Event* e = new kitten::Event(kitten::Event::Unhighlight_Tile);
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Unhighlight_Tile, e);
-}
+}*/
 
 void unit::UnitMove::move(kitten::K_GameObject * p_targetTile)
 {
@@ -101,7 +101,6 @@ void unit::UnitMove::move(kitten::K_GameObject * p_targetTile)
 	//add this to target tile
 	p_targetTile->getComponent<TileInfo>()->setUnit(m_attachedObject);
 
-	//TO DO: tileinfo->add(this)
 	m_lastTile = m_currentTile;//set current to last
 	m_currentTile = p_targetTile;//set target to current
 
@@ -109,22 +108,11 @@ void unit::UnitMove::move(kitten::K_GameObject * p_targetTile)
 	distanceX = m_currentTile->getTransform().getTranslation().x - m_lastTile->getTransform().getTranslation().x;
 	distanceZ = m_currentTile->getTransform().getTranslation().z - m_lastTile->getTransform().getTranslation().z;
 
-	//tell object move is done
+	//tell unit object move is done
 	m_attachedObject->getComponent<unit::Unit>()->moveDone();
 
 	//send unhighlight event
-	triggerUnhighLightEvent();
-}
-
-void unit::UnitMove::sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY)
-{
-	UnitMovePacket* packet = new UnitMovePacket();
-	packet->packetType = PacketTypes::UNIT_MOVE;
-	packet->unitIndex = p_iUnitIndex;
-	packet->posX = p_iPosX;
-	packet->posY = p_iPosY;
-
-	networking::ClientGame::getInstance()->sendPacket(packet);
+	//triggerUnhighLightEvent();
 }
 
 void unit::UnitMove::setTile(kitten::K_GameObject * p_tile)
@@ -134,7 +122,7 @@ void unit::UnitMove::setTile(kitten::K_GameObject * p_tile)
 		//remove unit from current tile
 		m_currentTile->getComponent<TileInfo>()->removeUnit();
 	}
-
+	//std::string name = m_attachedObject->getComponent<Unit>()->m_name;
 	//add this to target tile
 	p_tile->getComponent<TileInfo>()->setUnit(m_attachedObject);
 

@@ -50,9 +50,6 @@
     <ClCompile Include="..\puppy\VertexEnvironment.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
-    <ClCompile Include="..\Shapes\Cube.cpp">
-      <Filter>shapes</Filter>
-    </ClCompile>
     <ClCompile Include="..\kitten\Camera.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
@@ -102,9 +99,6 @@
       <Filter>kibble\JSON</Filter>
     </ClCompile>
     <ClCompile Include="..\kibble\json\JSONGameObjectDataParser.cpp">
-      <Filter>kibble\JSON</Filter>
-    </ClCompile>
-    <ClCompile Include="..\kibble\json\JSONComponentDataParser.cpp">
       <Filter>kibble\JSON</Filter>
     </ClCompile>
     <ClCompile Include="..\kibble\kibble.cpp">
@@ -257,6 +251,9 @@
     <ClCompile Include="..\components\SelectAbility.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\DeckComponent.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
@@ -314,7 +311,6 @@
       <Filter>components\sound</Filter>
     </ClCompile>
     <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
-    <ClCompile Include="..\userinterface\UIFrame.cpp" />
     <ClCompile Include="..\kitten\audio\SoundEffectsApplier.cpp">
       <Filter>kitten\audio</Filter>
     </ClCompile>
@@ -371,6 +367,15 @@
     <ClCompile Include="ToggleEnabledOnKeyPress.cpp">
       <Filter>components\debug</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\K_Instance.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\P_Instance.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\userinterface\UIFrame.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
     <ClCompile Include="..\networking\NetworkServices.cpp">
       <Filter>networking</Filter>
     </ClCompile>
@@ -391,6 +396,30 @@
     </ClCompile>
     <ClCompile Include="..\networking\NetworkingConsoleMenu.cpp">
       <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unitInteraction\TileGetter.cpp">
+      <Filter>unitInteraction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unitInteraction\UnitInteractionManager.cpp">
+      <Filter>unitInteraction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Move.cpp">
+      <Filter>ability\ability</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -454,9 +483,6 @@
     <ClInclude Include="..\kitten\CubeRenderable.h">
       <Filter>kitten</Filter>
     </ClInclude>
-    <ClInclude Include="..\Shapes\Cube.h">
-      <Filter>shapes</Filter>
-    </ClInclude>
     <ClInclude Include="..\kitten\Camera.h">
       <Filter>kitten</Filter>
     </ClInclude>
@@ -480,12 +506,6 @@
     </ClInclude>
     <ClInclude Include="..\kitten\K_CameraList.h">
       <Filter>kitten</Filter>
-    </ClInclude>
-    <ClInclude Include="..\kitten\K_Singletons.h">
-      <Filter>kitten</Filter>
-    </ClInclude>
-    <ClInclude Include="..\puppy\P_Singletons.h">
-      <Filter>puppy</Filter>
     </ClInclude>
     <ClInclude Include="..\unit\UnitCommon.h">
       <Filter>unit</Filter>
@@ -531,12 +551,6 @@
     </ClInclude>
     <ClInclude Include="..\kibble\GameObjectDataParser.hpp">
       <Filter>kibble</Filter>
-    </ClInclude>
-    <ClInclude Include="..\kibble\ComponentDataParser.hpp">
-      <Filter>kibble</Filter>
-    </ClInclude>
-    <ClInclude Include="..\kibble\json\JSONComponentDataParser.hpp">
-      <Filter>kibble\JSON</Filter>
     </ClInclude>
     <ClInclude Include="..\kibble\kibble.hpp">
       <Filter>kibble</Filter>
@@ -622,6 +636,9 @@
     <ClInclude Include="..\components\SelectAbility.h">
       <Filter>components</Filter>
     </ClInclude>
+    <ClInclude Include="..\components\DeckComponent.hpp">
+      <Filter>components</Filter>
+    </ClInclude>
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h">
       <Filter>unit\InitiativeTracker</Filter>
     </ClInclude>
@@ -643,7 +660,6 @@
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
     <ClInclude Include="..\kitten\K_Sprite.h" />
     <ClInclude Include="..\puppy\P_Sprite.h" />
-    <ClInclude Include="..\userinterface\UI_ElementComponent.h" />
     <ClInclude Include="..\kitten\audio\AudioEngineWrapper.h">
       <Filter>kitten\audio</Filter>
     </ClInclude>
@@ -739,6 +755,24 @@
     <ClInclude Include="ToggleEnabledOnKeyPress.h">
       <Filter>components\debug</Filter>
     </ClInclude>
+    <ClInclude Include="..\kitten\K_Instance.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\P_Instance.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\mouse picking\ClickableFrame.h">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\mouse picking\ClickableUI.h">
+      <Filter>kitten\mouse  picking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\userinterface\UIFrame.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\userinterface\UI_ElementComponent.h">
+      <Filter>UI</Filter>
+    </ClInclude>
     <ClInclude Include="..\networking\NetworkServices.h">
       <Filter>networking</Filter>
     </ClInclude>
@@ -763,6 +797,21 @@
     <ClInclude Include="..\networking\NetworkingConsoleMenu.h">
       <Filter>networking</Filter>
     </ClInclude>
+    <ClInclude Include="..\unitInteraction\TileGetter.h">
+      <Filter>unitInteraction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unitInteraction\UnitInteractionManager.h">
+      <Filter>unitInteraction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unitInteraction\UnitInteractionState.h">
+      <Filter>unitInteraction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\component\tilePipeline\TileFliter.h">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -770,9 +819,6 @@
     </Filter>
     <Filter Include="puppy">
       <UniqueIdentifier>{e55580cc-403d-4eaa-bed0-16f88b46e83b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="shapes">
-      <UniqueIdentifier>{f82cacf4-d649-46d8-95dc-927acb69ed9c}</UniqueIdentifier>
     </Filter>
     <Filter Include="wolf">
       <UniqueIdentifier>{3c8c3f23-fb23-4bc5-833b-47c5048d135e}</UniqueIdentifier>
@@ -858,8 +904,14 @@
     <Filter Include="board\component">
       <UniqueIdentifier>{0ae05199-ea25-4694-8d77-89d227d2bec6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{b3f2d921-d676-4a5a-9200-68ea320734c6}</UniqueIdentifier>
+    </Filter>
     <Filter Include="networking">
       <UniqueIdentifier>{917724ca-7167-448a-8927-6be470d6ce1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\component\tilePipeline">
+      <UniqueIdentifier>{c064d93a-d547-4b4a-b8f3-30e7442bd4e2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

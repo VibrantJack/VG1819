@@ -8,7 +8,7 @@
 // only TGA supported
 //-----------------------------------------------------------------------------
 
-#include <map>
+#include <unordered_map>
 #include <string>
 #include "P_Common.h"
 
@@ -23,7 +23,7 @@ namespace puppy
 		int m_wrapMode, m_minFiltering, m_magFiltering;
 		static int sm_boundWrapMode, sm_boundMinFiltering, sm_boundMagFiltering;
 
-		static std::map<std::string, std::pair<GLuint, int>> sm_loadedTextures;
+		static std::unordered_map<std::string, std::pair<GLuint, int>> sm_loadedTextures;
 		static GLuint sm_boundTexture; //Currently bound tex
 
 		void bind() const;

@@ -2,7 +2,7 @@
 
 #include "kitten\K_Component.h"
 #include <glm/glm.hpp>
-#include <list>
+#include <unordered_set>
 
 namespace kitten
 {
@@ -11,7 +11,7 @@ namespace kitten
 	class ClickableFrame : public K_Component, public TransformScaleListener
 	{
 	private:
-		std::list<ClickableUI*> m_listeners;
+		std::unordered_set<ClickableUI*> m_listeners;
 		glm::vec2 m_minPoint, m_maxPoint;
 		glm::vec2 m_originalMinPoint, m_originalMaxPoint;
 	public:

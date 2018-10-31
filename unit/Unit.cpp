@@ -1,6 +1,8 @@
 #include "Unit.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "kitten/K_GameObject.h"
+#include "unitInteraction/UnitInteractionManager.h"
+#include <iostream>
 //@Rock
 
 namespace unit
@@ -15,6 +17,10 @@ namespace unit
 	Unit::~Unit()
 	{
 		delete m_statusContainer;
+		for (auto it = m_ADList.begin(); it != m_ADList.end(); it++)
+		{
+			delete it->second;
+		}
 	}
 
 	//status
@@ -47,8 +53,11 @@ namespace unit
 
 	bool Unit::canMove()
 	{
-		assert(m_turn != nullptr);
-		return m_turn->move;
+		if (m_attributes["base_mv"] <= 0)//unit can not move, like structure
+			return false;
+		else if (m_turn != nullptr)//this is unit's turn and check if it can move
+			return m_turn->move;
+		return true;
 	}
 
 	bool Unit::canAct()
@@ -59,14 +68,17 @@ namespace unit
 
 	void Unit::moveDone()
 	{
-		assert(m_turn != nullptr);
+		if (m_turn == nullptr)
+			return;
+
 		m_turn->move = false;
 		m_turn->checkTurn();
 	}
 
 	void Unit::actDone()
 	{
-		assert(m_turn != nullptr);
+		if (m_turn == nullptr)
+			return;
 		m_turn->act = false;
 		m_turn->checkTurn();
 	}
@@ -83,51 +95,73 @@ namespace unit
 		m_turn = nullptr;
 	}
 
+	void Unit::playerSkipTurn()
+	{
+		assert(m_turn != nullptr);
+		m_turn->turnEnd();
+	}
+  
 	kitten::K_GameObject * Unit::getTile()
 	{
 		return m_attachedObject->getComponent<unit::UnitMove>()->getTile();
 	}
 
-	/*
+	void Unit::move()//move by instruction
+	{
+		if (!canMove())
+			return;
+
+		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
+		moveComponet->attempToMove();
+	}
+
+	void Unit::move(int p_min, int p_max)//move by ability with range
+	{
+		if (!canMove())
+			return;
+
+		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
+		moveComponet->attempToMove(p_min,p_max);
+	}
+
+	void Unit::move(kitten::K_GameObject * p_tile)//move by ability with fixed target
+	{
+		if (!canMove())
+			return;
+
+		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
+		moveComponet->move(p_tile);
+	}
+
 	int Unit::useAbility(const std::string& p_abilityName)
 	{
-		AbilityDescription* ad = m_ADList[p_abilityName];
+		if (!canAct())
+			return -1;
+
+		AbilityDescription* ad;
+		bool find = m_ADList.find(p_abilityName) != m_ADList.end();
+		if (m_ADList.find(p_abilityName) != m_ADList.end())
+		{
+			std::cout << "use ability: " << p_abilityName << std::endl;
+			ad = m_ADList[p_abilityName];
+		}
+		else
+		{
+			std::cout << "Ability: " << p_abilityName <<" isn't found"<< std::endl;
+			return -1;//doesn't have ability
+		}
 
 		//check unit's lv
-		if (m_attributes["LV"] < ad->m_intValue["LV"])
+		if (m_attributes["lv"] < ad->m_intValue["lv"])
 		{
+			std::cout <<p_abilityName<< "require lv ("<< ad->m_intValue["lv"]<<") " << std::endl;
+			std::cout <<m_name<<" is lv ("<<m_attributes["lv"] <<")"<< std::endl;
 			return 1;//means unit can not use this ability
 		}
 
-		//TO DO: cost counter
-		if (ad->m_stringValue.find("counter") != ad->m_stringValue.end())
-		{
-			//TO DO:ask player to cost counter
-			std::string counterName = ad->m_stringValue["counter"];
-			int maxNum = m_attributes[counterName];
-			//info->m_counterNumber =
-		}
-
-		//TO DO: get target, passing range and area
-		//display range and area
-		//select
-		//get target info
-		//if targetNum = 0
-		//return 2
-		
-		//TO DO assemble info package
-
-		//test purpose
-		ability::AbilityInfoPackage* info = new ability::AbilityInfoPackage();
-		info->m_source = this;
-		info->m_target = this;
-
-		std::string name = ad->m_stringValue["name"];
-		info->m_intValue["power"] = ad->m_intValue["power"];
-
-		return ability::AbilityManager::getInstance()->useAbility(name, info);
+		UnitInteractionManager::getInstance()->request(this, ad);
 	}
-
+	/*
 	int Unit::callStatus(int p_StatusIndex, int p_event)
 	{
 		//TO DO: method call for status
@@ -137,7 +171,7 @@ namespace unit
 	int Unit::destroyedByDamage()
 	{
 		//send destroyed event
-		//destroy unit (game object)
+		std::cout << m_name << " is destroyed! " << std::endl;
 		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
 		return 0;
 	}

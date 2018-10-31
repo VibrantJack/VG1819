@@ -14,16 +14,23 @@ namespace ability
 
 	int QuickShoot::effect(const AbilityInfoPackage* p_info)
 	{
-		//deal damaga to all units
-
-		int power = -(p_info->m_intValue.find("power")->second);
-
-		for (unit::Unit* u : p_info->m_multipleTargets)
+		if (checkTarget(p_info))
 		{
-			//TO DO:send receive damage event to target
+			//deal damaga to all units
 
-			damage(u, power);
+			int power = -(p_info->m_intValue.find("power")->second);
+
+			for (unit::Unit* u : p_info->m_targets)
+			{
+				//TO DO:send receive damage event to target
+
+				damage(u, power);
+			}
 		}
+
+		//delete package
+		done(p_info);
+
 		return 0;
 	}
 

@@ -14,20 +14,23 @@ void SendSelfOnClick::onClick()
 {
 	std::cout << "send tile obj" << std::endl;
 	//send event when click
-	kitten::Event* e = new kitten::Event(kitten::Event::Tile_Clicked_For_Unit_Move);
+	kitten::Event* e = new kitten::Event(kitten::Event::Tile_Clicked);
 
 	bool highlighted = m_attachedObject->getComponent<TileInfo>()->isHighlighted();
 	if (highlighted)
 	{
 		e->putInt("highlighted", 1);
-		e->putGameObj("tileObj", m_attachedObject);
+		e->putInt("tile_number", 1);
+		e->putGameObj("tile0", m_attachedObject);
 	}
 	else
 	{
 		e->putInt("highlighted", 0);
 	}
 
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Tile_Clicked_For_Unit_Move, e);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Tile_Clicked, e);
+
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
 }
 
 void SendSelfOnClick::onHoverStart()

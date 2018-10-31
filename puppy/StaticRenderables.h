@@ -8,13 +8,24 @@
 #include <unordered_map>
 #include <vector>
 
+
+namespace kitten
+{
+	class Renderable;
+	class UIRenderable;
+}
+
 namespace puppy
 {
+	class P_Instance;
 	/*
 		@TODO: add support for vertex's with normals
 	*/
 	class StaticRenderables
 	{
+		friend class P_Instance;
+		friend class kitten::Renderable;
+		friend class kitten::UIRenderable;
 	private:
 		typedef std::unordered_map<GLuint, std::pair<std::unordered_map<const void*, std::vector<TexturedVertex>>, bool>> render_map;
 
@@ -22,7 +33,8 @@ namespace puppy
 		StaticRenderables();
 		virtual ~StaticRenderables();
 		static StaticRenderables* sm_instance;
-
+		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new StaticRenderables(); };
+		static void destroyInstance() { assert(sm_instance != nullptr); delete sm_instance; sm_instance = nullptr; };
 	
 		std::unordered_map<Texture*, VertexEnvironment*> m_toRender;
 		render_map m_texturedData;
@@ -32,6 +44,18 @@ namespace puppy
 
 		std::unordered_map<GLuint, Texture*> m_idToTex;
 		
+
+		/*
+		addToRender() takes the texture needed to render the object and the
+		vertex data needed.  Assumes the vertex data has already been transformed
+		into world space. This data is then later combined into a single draw call.
+		*/
+		void addToRender(const void* p_owner, const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements);
+		void removeFromRender(const void* p_owner, const Texture* p_tex);
+
+		void addToUIRender(const void* p_owner, const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements);
+		void removeFromUIRender(const void* p_owner, const Texture* p_tex);
+
 		/*
 			Helper methods to construct TexturedVertex's into
 			one draw call
@@ -44,19 +68,6 @@ namespace puppy
 	public:
 		//Singleton stuff
 		static StaticRenderables* getInstance() { return sm_instance; };
-		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new StaticRenderables(); };
-		static void destroyInstance() { assert(sm_instance != nullptr); delete sm_instance; sm_instance = nullptr; };
-
-		/*
-		addToRender() takes the texture needed to render the object and the 
-		vertex data needed.  Assumes the vertex data has already been transformed
-		into world space. This data is then later combined into a single draw call.
-		*/
-		void addToRender(const void* p_owner,const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements);
-		void removeFromRender(const void* p_owner, const Texture* p_tex);
-
-		void addToUIRender(const void* p_owner, const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements);
-		void removeFromUIRender(const void* p_owner, const Texture* p_tex);
 
 		void render(kitten::Camera* p_cam);
 
