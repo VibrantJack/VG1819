@@ -64,15 +64,6 @@ namespace kitten
 		sm_instance->privateUpdate();
 	}
 
-	void K_Instance::threadTest(std::tuple<void*> p_to)
-	{
-		std::cout << "THREAD TEST" << std::endl;
-		for (int i = 0; i < 1; ++i)
-		{
-			std::cout << "i : " << i << std::endl;
-		}
-	}
-
 	void K_Instance::privateUpdate()
 	{
 		static bool once = false;

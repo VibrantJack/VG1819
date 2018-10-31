@@ -28,8 +28,6 @@ namespace kitten
 		ActiveClickables* m_clickables;
 		K_JobManager* m_jobManager;
 
-		void threadTest(std::tuple<void*> p_to);
-
 		void privateUpdate();
 	public:
 		static void createInstance();
