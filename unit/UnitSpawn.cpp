@@ -8,6 +8,8 @@
 //board clickable
 #include "board/clickable/PrintWhenClicked.h"
 
+#include "puppy/Text/TextBox.h"
+
 //Rock
 
 namespace unit
@@ -16,6 +18,17 @@ namespace unit
 
 	UnitSpawn::UnitSpawn()
 	{
+		puppy::TextBox* textBox = static_cast<puppy::TextBox*>(kitten::K_ComponentManager::getInstance()->createComponent("TextBoxAbilities"));
+		textBox->setColor(1, 1, 1);
+		textBox->setText("");
+
+		kitten::K_Component* select = kitten::K_ComponentManager::getInstance()->createComponent("SelectAbility");
+
+		m_textBoxGO = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+		m_textBoxGO->addComponent(textBox);
+		m_textBoxGO->getTransform().place2D(1000, 600);
+
+		m_textBoxGO->addComponent(select);
 	}
 
 	UnitSpawn::~UnitSpawn()
@@ -68,7 +81,7 @@ namespace unit
 
 		//create clickable
 		unit::UnitClickable* uClick = static_cast<unit::UnitClickable*>(cm->createComponent("UnitClickable"));
-
+		uClick->setTextBox(m_textBoxGO);
 
 		//unit object
 		kitten::K_GameObject* unitObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
@@ -133,7 +146,11 @@ namespace unit
 		//readAD
 		for (auto it : p_unitData->m_ad)
 		{
-			unit->m_ADList[it->m_stringValue["name"]] = it;
+			//get copy
+			AbilityDescription * ad = new AbilityDescription();
+			ad->m_intValue = it->m_intValue;
+			ad->m_stringValue = it->m_stringValue;
+			unit->m_ADList[it->m_stringValue["name"]] = ad;
 		}
 
 		//readSD
@@ -148,7 +165,7 @@ namespace unit
 	unit::Commander * UnitSpawn::spawnCommanderFromData(UnitData * p_unitData)
 	{
 		unit::Commander* commander = static_cast<Commander*>(spawnUnitFromData(p_unitData));
-
+		commander->init();
 		//change lv to -1 since it doesn't apply to commander
 		//unit->m_LV = -1;
 		commander->m_attributes["lv"] = -1;

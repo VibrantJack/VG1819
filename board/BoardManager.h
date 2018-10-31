@@ -7,11 +7,14 @@
 
 
 #pragma once
+#include "components/PowerTracker.h"
 #include "board/component/BoardCreator.h"
 #include "board/component/Range.h"
 #include "board/component/Highlighter.h"
 #include "board/tile/TileInfo.h"
+#include "board/component/tilePipeline/TilePipeline.h"
 
+class TilePipeline;
 class BoardManager
 {
 public:
@@ -22,6 +25,9 @@ public:
 	void setTileList(std::vector<kitten::K_GameObject*>* p_list);
 	void setDimension(int p_x, int p_z);
 	kitten::K_GameObject* getTile(int p_x, int p_z);
+
+	void setPowerTracker(PowerTracker* p_pt) { m_powerTracker = p_pt; };
+	PowerTracker* getPowerTracker() { return m_powerTracker; };
 
 	void registerEvent();
 	void deregisterEvent();
@@ -34,6 +40,8 @@ private:
 
 	Range* m_range;
 	Highlighter* m_highlighter;
+	TilePipeline* m_pipeline;
+	PowerTracker* m_powerTracker;
 
 	std::vector<kitten::K_GameObject*> m_tileList;
 

@@ -27,6 +27,8 @@
 #include "board/clickable/PrintWhenClicked.h"
 
 #include "board/BoardManager.h"
+
+#include "unitInteraction/UnitInteractionManager.h"
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
 
@@ -51,6 +53,8 @@ namespace kitten
 		unit::InitiativeTracker::createInstance();
 
 		BoardManager::createInstance();
+    
+		UnitInteractionManager::createInstance();
 	}
 
 	// This is called once at the beginning of the game
@@ -115,8 +119,6 @@ namespace kitten
 		//builder->start();
 		//delete builder;
 
-		
-
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();
 
@@ -156,6 +158,9 @@ namespace kitten
 		unit::InitiativeTracker::destroyInstance();
 
 		BoardManager::destroyInstance();
+
+		UnitInteractionManager::destroyInstance();
+
 	}
 
 	void updateGame()
