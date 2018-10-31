@@ -15,6 +15,7 @@ namespace unit
 	public:
 		UnitGraphic(const UnitSize p_size, const char* p_pathToTexture = nullptr);
 		~UnitGraphic();
+
 		void setTexture(const char* p_pathToTex);
 		void render(const glm::mat4& p_viewProj) override;
 		std::string getTexturePath();
@@ -29,6 +30,10 @@ namespace unit
 
 		void setVaoUnit(const UnitSize p_size);
 		void setVaoShadow(const UnitSize p_size);
+
+		virtual void start() override;
+		virtual void onEnabled() override;
+		virtual void onDisabled() override;
 	};
 
 }

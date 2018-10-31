@@ -30,11 +30,6 @@ namespace userinterface
 			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);
 
 			++sm_instances;
-
-			puppy::Renderer::getInstance()->addUIToRender(this);
-		}
-		else {
-			puppy::Renderer::getInstance()->addUIToRender(this);
 		}
 	}
 
@@ -48,40 +43,23 @@ namespace userinterface
 		
 		if (!m_isEnabled)
 		{
-			puppy::Renderer::getInstance()->removeUIFromRender(this);
+			removeFromDynamicRender();
 		}	
 	}
 
 	void UIFrame::start()
 	{
-		//Only need to add to staticRenderables if static (already added in normal renderer)
-		/*
-		puppy::TexturedVertex verts[] =
-		{
-			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
-			{ 0.5f, 0.0f, 0.5f,			0.0f, 1.0f },
-			{ 0.5f, 0.0f,-0.5f,			1.0f, 1.0f },
-			{ 0.5f, 0.0f,-0.5f,			1.0f, 1.0f },
-			{ -0.5f, 0.0f,-0.5f,		1.0f, 0.0f },
-			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
-		};
-
-		//Transform into world space
-		puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform());
-
-		//m_tex is null because it was not initialized in the constructor - Callum
-		puppy::StaticRenderables::getInstance()->addToUIRender(this, m_tex, verts, 6);
-		*/
+		addToDynamicRender();
 	}
 
 	void UIFrame::onDisabled()
 	{
-		puppy::Renderer::getInstance()->removeUIFromRender(this);
+		removeFromDynamicRender();
 	}
 
 	void UIFrame::onEnabled()
 	{
-		puppy::Renderer::getInstance()->addUIToRender(this);
+		addToDynamicRender();
 	}
 
 	void UIFrame::render(const glm::mat4& p_ortho)

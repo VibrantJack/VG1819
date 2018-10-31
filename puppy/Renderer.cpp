@@ -15,41 +15,24 @@ namespace puppy
 
 	}
 
-	//@TOOD: make these faster
 	void Renderer::addToRender(kitten::Renderable* p_toAdd) 
 	{	
-		m_toRender.push_back(p_toAdd);
+		m_toRender.insert(p_toAdd);
 	}
 
 	void Renderer::removeFromRender(kitten::Renderable* p_toRemove) 
 	{
-		auto end = m_toRender.end();
-		for (auto it = m_toRender.begin(); it != end; ++it)
-		{
-			if (*it == p_toRemove)
-			{
-				m_toRender.erase(it);
-				return;
-			}
-		}
+		m_toRender.erase(p_toRemove);
 	}
 
 	void Renderer::addUIToRender(kitten::UIRenderable* p_toAdd)
 	{
-		m_uiToRender.push_back(p_toAdd);
+		m_uiToRender.insert(p_toAdd);
 	}
 
 	void Renderer::removeUIFromRender(kitten::UIRenderable* p_toRemove)
 	{
-		auto end = m_uiToRender.end();
-		for (auto it = m_uiToRender.begin(); it != end; ++it)
-		{
-			if (*it == p_toRemove)
-			{
-				m_uiToRender.erase(it);
-				return;
-			}
-		}
+		m_uiToRender.erase(p_toRemove);
 	}
 
 	void Renderer::renderAll(kitten::Camera* p_cam)
@@ -76,5 +59,6 @@ namespace puppy
 	void Renderer::removeAll()
 	{
 		m_toRender.clear();
+		m_uiToRender.clear();
 	}
 }

@@ -26,8 +26,7 @@ namespace ability
 
 	void Encourage::stackStatus( AbilityInfoPackage* p_info)
 	{
-		ability::Status* se = p_info->m_target->getStatusContainer()->getStatus("Status_Encourage");
-
+		ability::Status* se = p_info->m_targets[0]->getStatusContainer()->getStatus("Status_Encourage");
 		//reset duration
 		int dur = p_info->m_intValue.find("duration")->second;
 		se->addCounter("duration", dur);
@@ -43,11 +42,18 @@ namespace ability
 
 	int Encourage::effect(AbilityInfoPackage* p_info)
 	{
-		//check if unit has this status
-		if (p_info->m_target->getStatusContainer()->getStatus("Status_Encourage"))
-			stackStatus(p_info);
-		else
-			applyStatus(p_info);
+		if (checkTarget(p_info))
+		{
+			//check if unit has this status
+			if (p_info->m_targets[0]->getStatusContainer()->getStatus("Status_Encourage"))
+				stackStatus(p_info);
+			else
+				applyStatus(p_info);
+		}
+
+		//delete package
+		done(p_info);
+
 		return 0;
 	}
 

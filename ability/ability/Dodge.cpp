@@ -23,7 +23,7 @@ namespace ability
 
 	void Dodge::stackStatus(const AbilityInfoPackage * p_info)
 	{
-		ability::Status* se = p_info->m_target->getStatusContainer()->getStatus("Status_Dodge");
+		ability::Status* se = p_info->m_targets[0]->getStatusContainer()->getStatus("Status_Dodge");
 
 		//reset duration
 		int dur = p_info->m_intValue.find("duration")->second;
@@ -41,10 +41,14 @@ namespace ability
 	int Dodge::effect(AbilityInfoPackage* p_info)
 	{
 		//check if unit has this status
-		if (p_info->m_target->getStatusContainer()->getStatus("Status_Dodge"))
+		if (p_info->m_targets[0]->getStatusContainer()->getStatus("Status_Dodge"))
 			stackStatus(p_info);
 		else
 			applyStatus(p_info);
+
+		//delete package
+		done(p_info);
+
 		return 0;
 	}
 

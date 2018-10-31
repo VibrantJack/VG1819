@@ -11,6 +11,13 @@ namespace unit
 		Commander();
 		~Commander();
 
+		void init();
+
 		std::string m_porPath;
+		unit::AbilityDescription* m_adTile;
+		unit::AbilityDescription* m_adSpawn;
+
+		void manipulateTile();
+		void spawnUnit();
 	};
 }

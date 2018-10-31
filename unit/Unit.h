@@ -27,6 +27,8 @@ namespace unit
 		Unit();
 		~Unit();
 
+		void levelup();
+
 		//status interface
 		/*
 		void addStatus(ability::Status *p_newStatus);
@@ -34,7 +36,6 @@ namespace unit
 		ability::Status* getStatus(const std::string& p_name);*/
 		StatusContainer* getStatusContainer();
 
-		void levelup();
 
 		//turn interface
 		void turnStart(UnitTurn* p_t);
@@ -44,17 +45,17 @@ namespace unit
 		void actDone();
 		bool isTurn();
 		void turnEnd();
+		void playerSkipTurn();
 
 		//position function
 		kitten::K_GameObject* getTile();
 
-		//int useAbility(const std::string& p_abilityName);
-		//int callStatus(int p_StatusIndex, int p_event);
-		//event is the one of the events that this status registered
-		//should be enum, I didn't define it yet, so use int as place holder
+		void move();//move action, no restriction, no info needs
+		void move(int p_min, int p_max);//move by ability, need range of ability
+		void move(kitten::K_GameObject* p_tile);//move to a specific tile by ability
+
+		int useAbility(const std::string& p_abilityName);
 
 		int destroyedByDamage();
 	};
 }
-
-
