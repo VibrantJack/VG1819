@@ -12,7 +12,7 @@ namespace ability
 	{
 	}
 
-	int Move::effect(const AbilityInfoPackage* p_info)
+	int Move::effect(AbilityInfoPackage* p_info)
 	{
 		unit::Unit* source = p_info->m_source;
 

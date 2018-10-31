@@ -6,7 +6,7 @@
 
 namespace ability
 {
-	void Dodge::applyStatus(const AbilityInfoPackage * p_info)
+	void Dodge::applyStatus(AbilityInfoPackage * p_info)
 	{
 		//apply Status_Dodge to target
 		ability::Status* se = ability::StatusManager::getInstance()->findStatus("Status_Dodge");
@@ -18,10 +18,10 @@ namespace ability
 		se->addTimePoint(TimePointEvent::Receive_Damage);
 
 		//attach to target
-		se->attach(p_info->m_target);
+		se->attach(p_info->m_targets[0]);
 	}
 
-	void Dodge::stackStatus(const AbilityInfoPackage * p_info)
+	void Dodge::stackStatus(AbilityInfoPackage * p_info)
 	{
 		ability::Status* se = p_info->m_targets[0]->getStatusContainer()->getStatus("Status_Dodge");
 

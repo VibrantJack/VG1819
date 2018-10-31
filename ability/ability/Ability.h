@@ -35,7 +35,7 @@ namespace ability
 	public:
 		Move();
 		virtual ~Move();
-		int effect(const AbilityInfoPackage* p_info);
+		int effect(AbilityInfoPackage* p_info);
 	};
 
 	class ManipulateTile : public Ability

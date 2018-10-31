@@ -21,7 +21,7 @@ namespace ability
 		se->addTimePoint(TimePointEvent::Deal_Damage);
 
 		//attach to target
-		se->attach(p_info->m_target);
+		se->attach(p_info->m_targets[0]);
 	}
 
 	void Encourage::stackStatus( AbilityInfoPackage* p_info)

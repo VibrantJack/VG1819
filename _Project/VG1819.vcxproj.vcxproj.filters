@@ -146,9 +146,6 @@
     <ClCompile Include="..\ability\status\Status.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\Status_CD.cpp">
-      <Filter>ability\status</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\status\Status_Encourage.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
@@ -376,8 +373,30 @@
     <ClCompile Include="..\userinterface\UIFrame.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\statusEvent\TimePointEvent.cpp">
-      <Filter>ability\status\statusEvent</Filter>
+    <ClCompile Include="..\ability\status\statusEvent\TimePointEvent.cpp" />
+    <ClCompile Include="..\unitInteraction\TileGetter.cpp">
+      <Filter>unitInteraction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unitInteraction\UnitInteractionManager.cpp">
+      <Filter>unitInteraction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Move.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -731,8 +750,18 @@
     <ClInclude Include="..\userinterface\UI_ElementComponent.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\ability\status\statusEvent\TimePointEvent.h">
-      <Filter>ability\status\statusEvent</Filter>
+    <ClInclude Include="..\ability\status\statusEvent\TimePointEvent.h" />
+    <ClInclude Include="..\unitInteraction\TileGetter.h">
+      <Filter>unitInteraction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unitInteraction\UnitInteractionManager.h">
+      <Filter>unitInteraction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\component\tilePipeline\TileFliter.h">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h">
+      <Filter>board\component\tilePipeline</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -828,6 +857,9 @@
     </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{b3f2d921-d676-4a5a-9200-68ea320734c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\component\tilePipeline">
+      <UniqueIdentifier>{d1d86083-6ad0-41ac-8b44-7769bb229e42}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
