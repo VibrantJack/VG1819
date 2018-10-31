@@ -41,20 +41,12 @@ namespace kitten
 
 	void ClickableFrame::addCLickable(ClickableUI* p_toAdd)
 	{
-		m_listeners.push_back(p_toAdd);
+		m_listeners.insert(p_toAdd);
 	}
 
 	void ClickableFrame::removeClickable(ClickableUI* p_toRemove)
 	{
-		auto end = m_listeners.end();
-		for (auto it = m_listeners.begin(); it != end; it++)
-		{
-			if (*it == p_toRemove)
-			{
-				m_listeners.erase(it);
-				return;
-			}
-		}
+		m_listeners.erase(p_toRemove);
 	}
 
 	void ClickableFrame::onScaleChanged(const glm::vec3& p_newScale)

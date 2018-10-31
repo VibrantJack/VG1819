@@ -72,7 +72,6 @@ namespace kitten
 			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 36);
 		}
 		++sm_instances;
-		puppy::Renderer::getInstance()->addToRender(this);
 	}
 
 	CubeRenderable::~CubeRenderable()
@@ -82,7 +81,22 @@ namespace kitten
 		{
 			delete sm_vao;
 		}
-		puppy::Renderer::getInstance()->removeFromRender(this);
+		removeFromDynamicRender();
+	}
+
+	void CubeRenderable::start()
+	{
+		addToDynamicRender();
+	}
+
+	void CubeRenderable::onDisabled()
+	{
+		removeFromDynamicRender();
+	}
+
+	void CubeRenderable::onEnabled()
+	{
+		addToDynamicRender();
 	}
 
 	void CubeRenderable::setTexture(const char* p_pathToTex)

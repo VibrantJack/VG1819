@@ -32,8 +32,6 @@ namespace unit
 			//setVaoShadow(p_size);
 		}
 		++sm_instances[p_size];
-
-		puppy::Renderer::getInstance()->addToRender(this);
 	}
 
 	UnitGraphic::~UnitGraphic()
@@ -45,7 +43,11 @@ namespace unit
 			delete sm_vao[m_size];
 			delete sm_vao_shadow[m_size];
 		}
-		puppy::Renderer::getInstance()->removeFromRender(this);
+
+		if (m_isEnabled)
+		{
+			removeFromDynamicRender();
+		}
 	}
 
 	void UnitGraphic::setTexture(const char * p_pathToTex)
@@ -57,6 +59,21 @@ namespace unit
 	std::string UnitGraphic::getTexturePath()
 	{
 		return m_pathToTex;
+	}
+
+	void UnitGraphic::start()
+	{
+		addToDynamicRender();
+	}
+
+	void UnitGraphic::onEnabled()
+	{
+		addToDynamicRender();
+	}
+
+	void UnitGraphic::onDisabled()
+	{
+		removeFromDynamicRender();
 	}
 
 	void UnitGraphic::render(const glm::mat4& p_viewProj)
