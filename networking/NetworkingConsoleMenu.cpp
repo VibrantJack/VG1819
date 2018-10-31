@@ -8,6 +8,7 @@
 #include "networking\ServerGame.h"
 #include "networking\ClientGame.h"
 #include "networking\NetworkData.h"
+#include "unit\InitiativeTracker\InitiativeTracker.h"
 
 NetworkingConsoleMenu::NetworkingConsoleMenu()
 	:
@@ -77,6 +78,8 @@ void NetworkingConsoleMenu::update()
 			{
 				m_bClientUpdate = true;
 				printf("Host client network setup complete\n");
+				//networking::ClientGame::getInstance()->summonUnit(networking::ClientGame::getClientId(), 0, 0, 0);
+				//unit::InitiativeTracker::getInstance()->gameTurnStart();
 			} 
 			else
 			{
@@ -97,6 +100,9 @@ void NetworkingConsoleMenu::update()
 			if (networking::ClientGame::getInstance()->setupNetwork(addr))
 			{
 				m_bClientUpdate = true;
+				printf("Client network setup complete\n");
+				//networking::ClientGame::getInstance()->summonUnit(networking::ClientGame::getClientId(), 0, 14, 14);
+				//unit::InitiativeTracker::getInstance()->gameTurnStart();
 			}
 			else
 			{

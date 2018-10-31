@@ -23,6 +23,8 @@
 #include "networking\NetworkData.h"
 
 SpawnUnitOnKeyPress::SpawnUnitOnKeyPress()
+	:
+	m_iUnitId(0)
 {
 
 }
@@ -36,17 +38,17 @@ void SpawnUnitOnKeyPress::update()
 {
 	if (input::InputManager::getInstance()->keyDown('S') && !input::InputManager::getInstance()->keyDownLast('S'))
 	{
-		int unitId = 0;
 		int posX = 4;
 		int posY = 4;
 		
 		if (networking::ClientGame::getInstance())
 		{
-			networking::ClientGame::getInstance()->summonUnit(networking::ClientGame::getClientId(), unitId, posX, posY);
+			networking::ClientGame::getInstance()->summonUnit(networking::ClientGame::getClientId(), m_iUnitId, posX, posY);
 
 			SummonUnitPacket* packet = new SummonUnitPacket();
 			packet->packetType = PacketTypes::SUMMON_UNIT;
 			packet->clientId = networking::ClientGame::getInstance()->getClientId();
+			packet->unitId = m_iUnitId;
 			packet->posX = posX;
 			packet->posY = posY;
 
@@ -54,7 +56,7 @@ void SpawnUnitOnKeyPress::update()
 		}
 		else
 		{
-			kitten::K_GameObject* testDummyGO = unit::UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(unitId));
+			kitten::K_GameObject* testDummyGO = unit::UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(m_iUnitId));
 			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
 			unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 
@@ -65,8 +67,11 @@ void SpawnUnitOnKeyPress::update()
 			testDummyGO->addComponent(compMan->createComponent("UseAbilityWhenClicked"));
 			testDummyGO->addComponent(compMan->createComponent("SelectAbility"));
 		}
+		m_iUnitId = (m_iUnitId + 1) % 4;
+	}
 
-		// Maybe call this after the client has acknowledged the summoning of a unit from the host?
+	if (input::InputManager::getInstance()->keyDown('G') && !input::InputManager::getInstance()->keyDownLast('G'))
+	{
 		unit::InitiativeTracker::getInstance()->gameTurnStart();
 	}
 }

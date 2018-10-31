@@ -136,6 +136,8 @@ namespace networking
 			printf("Connection closed\n");
 			closesocket(m_connectSocket);
 			WSACleanup();
+			// TODO: Properly disconnect rather than shutdown lol
+			// Will need to clean up ClientNetwork and properly clean up ClientGame
 			exit(1);
 		}
 

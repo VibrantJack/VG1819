@@ -16,4 +16,6 @@ public:
 
 	virtual bool hasUpdate() const override { return true; };
 	virtual void update() override;
+private:
+	int m_iUnitId;
 };
