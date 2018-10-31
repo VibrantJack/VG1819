@@ -6,7 +6,7 @@ namespace ability
 {
 	Status_LV::Status_LV() : Status::Status()
 	{
-
+		
 	}
 
 	int Status_LV::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)

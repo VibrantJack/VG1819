@@ -129,6 +129,7 @@ namespace ability
 		if (m_TPList != nullptr)
 		{
 			registerTPEvent();
+
 			delete m_TPList;
 			m_TPList = nullptr;
 		}

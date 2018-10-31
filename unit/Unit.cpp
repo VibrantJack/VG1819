@@ -11,6 +11,7 @@ namespace unit
 	{
 		m_turn = nullptr;
 		m_statusContainer = new StatusContainer();
+		m_statusContainer->m_unit = this;
 	}
 
 

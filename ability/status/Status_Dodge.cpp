@@ -7,7 +7,8 @@ namespace ability
 {
 	Status_Dodge::Status_Dodge() : Status::Status()
 	{
-
+		addTimePoint(TimePointEvent::Turn_Start);
+		addTimePoint(TimePointEvent::Receive_Damage);
 	}
 
 	int Status_Dodge::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)

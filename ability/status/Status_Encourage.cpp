@@ -7,7 +7,8 @@ namespace ability
 {
 	Status_Encourage::Status_Encourage() : Status::Status()
 	{
-
+		addTimePoint(TimePointEvent::Turn_Start);
+		addTimePoint(TimePointEvent::Deal_Damage);
 	}
 
 	int Status_Encourage::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)

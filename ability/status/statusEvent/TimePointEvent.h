@@ -27,7 +27,8 @@ namespace ability
 			New_Tile,
 			Deal_Damage,
 			Receive_Damage,
-			On_Remove,
+			Heal,
+			Receive_Heal,
 		};
 
 		TimePointEvent(TPEventType p_event);
@@ -35,14 +36,17 @@ namespace ability
 
 		void putInt(const std::string& p_key, int p_value);
 		void putPackage(const std::string& p_key, ability::AbilityInfoPackage* p_pack);
+		void putGameObject(const std::string& p_key, kitten::K_GameObject* p_value);
 
 		int getInt(const std::string& p_key);
 		ability::AbilityInfoPackage* getPackage(const std::string& p_key);
+		kitten::K_GameObject* getGameObject(const std::string& p_key);
 
 	private:
 		TPEventType m_type; 
 
 		std::unordered_map<std::string, int> *m_intMap;
+		std::unordered_map<std::string, kitten::K_GameObject*> *m_gameObjMap;
 		std::unordered_map<std::string, ability::AbilityInfoPackage*> *m_packageMap;
 	};
 }

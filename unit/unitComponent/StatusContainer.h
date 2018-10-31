@@ -16,6 +16,7 @@ namespace unit
 
 	public:
 		std::vector<ability::Status*> m_statusList;
+		Unit* m_unit;
 
 		StatusContainer();
 		~StatusContainer();

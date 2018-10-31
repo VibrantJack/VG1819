@@ -373,7 +373,6 @@
     <ClCompile Include="..\userinterface\UIFrame.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\statusEvent\TimePointEvent.cpp" />
     <ClCompile Include="..\unitInteraction\TileGetter.cpp">
       <Filter>unitInteraction</Filter>
     </ClCompile>
@@ -397,6 +396,9 @@
     </ClCompile>
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp">
       <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\statusEvent\TimePointEvent.cpp">
+      <Filter>ability\status\statusEvent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -750,7 +752,6 @@
     <ClInclude Include="..\userinterface\UI_ElementComponent.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\ability\status\statusEvent\TimePointEvent.h" />
     <ClInclude Include="..\unitInteraction\TileGetter.h">
       <Filter>unitInteraction</Filter>
     </ClInclude>
@@ -762,6 +763,9 @@
     </ClInclude>
     <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h">
       <Filter>board\component\tilePipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ability\status\statusEvent\TimePointEvent.h">
+      <Filter>ability\status\statusEvent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -860,6 +864,9 @@
     </Filter>
     <Filter Include="board\component\tilePipeline">
       <UniqueIdentifier>{d1d86083-6ad0-41ac-8b44-7769bb229e42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ability\status\statusEvent">
+      <UniqueIdentifier>{9c5bb05c-660d-4132-938b-791318907714}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

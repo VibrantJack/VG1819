@@ -76,7 +76,6 @@ namespace ability
 		std::unordered_map<std::string, int>* m_attributeChange;
 
 		std::vector<ability::TimePointEvent::TPEventType>* m_TPList;//the list of event that will be registered
-		//TO DO: Register Event
 
 		void removeThis();
 		int changeCounter(const std::string& p_cName = "duration", int p_value = -1);

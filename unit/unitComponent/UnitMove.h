@@ -27,6 +27,8 @@ namespace unit
 		kitten::K_GameObject* m_lastTile;
 		unit::AbilityDescription* m_ad;
 
+		void triggerNewTileEvent();
+
 	public:
 		UnitMove();
 		~UnitMove();

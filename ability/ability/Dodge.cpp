@@ -15,8 +15,6 @@ namespace ability
 		int dur = p_info->m_intValue.find("duration")->second;
 		se->addCounter("duration", dur);
 
-		se->addTimePoint(TimePointEvent::Receive_Damage);
-
 		//attach to target
 		se->attach(p_info->m_targets[0]);
 	}

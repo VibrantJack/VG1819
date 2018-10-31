@@ -27,8 +27,9 @@ namespace ability
 			{
 				m_activate = true;
 
-				//TO DO:register turn end event
-				//TO DO:unregister level up event
+				unit::StatusContainer* sc = m_unit->getStatusContainer();
+				sc->registerTP(TimePointEvent::Turn_End, this);
+				sc->deregisterTP(TimePointEvent::Level_Up, this);
 
 				return 0;
 			}

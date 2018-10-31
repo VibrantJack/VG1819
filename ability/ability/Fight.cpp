@@ -22,6 +22,7 @@ namespace ability
 			ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Deal_Damage);
 			t->putPackage(INFO_PACKAGE_KEY, p_info);
 			sc->triggerTP(ability::TimePointEvent::Deal_Damage, t);
+
 			//trigger receive damage event
 			unit::Unit* target = p_info->m_targets[0];
 			sc = target->getStatusContainer();

@@ -1,5 +1,6 @@
 #pragma once
 #include "StatusContainer.h"
+#include "unit/UnitMonitor.h"
 
 namespace unit
 {
@@ -23,6 +24,7 @@ namespace unit
 	void unit::StatusContainer::addStatus(ability::Status * p_newStatus)
 	{
 		m_statusList.push_back(p_newStatus);
+		unit::UnitMonitor().getInstanceSafe()->printUnit(m_unit);
 	}
 
 	bool unit::StatusContainer::removeStatus(const ability::Status * p_oldStatus)

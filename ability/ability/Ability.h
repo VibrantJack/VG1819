@@ -2,7 +2,6 @@
 #include "ability/AbilityInfoPackage.h"
 #include "ability/node/AbilityNodeManager.h"
 #include "ability/StatusManager.h"
-
 #include <string>
 #include <unordered_map>
 #include <vector>

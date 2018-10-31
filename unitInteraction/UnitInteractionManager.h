@@ -41,4 +41,5 @@ private:
 	bool m_busy;//already receive a request
 
 	void send();
+	void addPropertyFromADToPack();
 };

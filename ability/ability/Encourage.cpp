@@ -18,8 +18,6 @@ namespace ability
 		se->addCounter("duration", dur);
 		se->addCounter("power", pow);
 
-		se->addTimePoint(TimePointEvent::Deal_Damage);
-
 		//attach to target
 		se->attach(p_info->m_targets[0]);
 	}
