@@ -8,7 +8,7 @@
 #include "mouse picking\ActiveClickables.h"
 #include "audio\AudioEngineWrapper.h"
 #include "K_JobManager.h"
-
+#include "util\AsyncFileOperations.h"
 
 namespace kitten
 {

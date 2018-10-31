@@ -1,4 +1,6 @@
 #include "K_JobManager.h"
+#include <iostream>
+
 namespace kitten
 {
 	K_JobManager* K_JobManager::sm_instance = nullptr;
@@ -21,7 +23,7 @@ namespace kitten
 		return sm_instance;
 	}
 
-	K_JobManager::K_JobManager() : m_jobManagerThread(BIND_FUNC(K_JobManager, jobCycle), std::make_tuple(false))
+	K_JobManager::K_JobManager() : m_jobManagerThread(BIND_FUNC(K_JobManager, jobCycle), std::make_tuple(false),true)
 	{
 		m_jobManagerThread.run();
 	}
@@ -40,6 +42,16 @@ namespace kitten
 	void K_JobManager::privateAddJob(K_Job* p_toAdd)
 	{
 		m_jobsToStart.push_back(p_toAdd);
+	}
+
+	void K_JobManager::deleteJob(K_Job* p_toDelete)
+	{
+		sm_instance->privateDeleteJob(p_toDelete);
+	}
+
+	void K_JobManager::privateDeleteJob(K_Job* p_toDelete)
+	{
+		m_jobsToDelete.push_back(p_toDelete);
 	}
 
 	void K_JobManager::deleteAllJobs()
@@ -66,11 +78,42 @@ namespace kitten
 		}
 	}
 
+
 	//This is run on a seperate thread
 	void K_JobManager::jobCycle(std::tuple<bool> p_isDeleting)
 	{
-		bool shouldDelete = std::get<0>(p_isDeleting);
+		//Delete jobs requested to be removed
+		auto deleteIt = m_jobsToDelete.begin();
+		while (deleteIt != m_jobsToDelete.end())
+		{
+			//try to find the job in started jobs
+			auto found = m_startedJobs.find(*deleteIt);
+			if (found != m_startedJobs.end())
+			{
+				m_startedJobs.erase(found);
+			}
+			else
+			{
+				//try to find the job in not started jobs
+				auto end = m_jobsToStart.end();
+				for (auto it = m_jobsToStart.begin(); it != end; ++it)
+				{
+					if (*it == *deleteIt)
+					{
+						m_jobsToStart.erase(it);
+						break;
+					}
+				}
+			}
+			
+			delete *deleteIt;
+			m_jobsToDelete.erase(deleteIt);
+			deleteIt = m_jobsToDelete.begin();
+		}
+		
 
+		bool shouldDelete = std::get<0>(p_isDeleting); //Should we delete ALL jobs
+		
 		if (shouldDelete)
 		{
 			privateDeleteAllJobs();

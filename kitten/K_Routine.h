@@ -58,6 +58,7 @@ namespace kitten
 			}
 
 			m_isFinished = true;
+			m_isPaused = false;
 		}
 
 	public:
@@ -76,7 +77,11 @@ namespace kitten
 
 		virtual void setPaused(bool p_isPaused) override
 		{
-			m_isPaused = p_isPaused;
+			if (m_isRunning)
+			{
+				m_isPaused = p_isPaused;
+			}
+			
 		}
 
 		virtual void stop() override
@@ -87,7 +92,11 @@ namespace kitten
 			m_thread.join();
 		}
 
-		virtual bool isRunning() override { return m_isRunning; };
+		virtual bool isRunning() override 
+		{ 
+			return (m_isRecurring?m_isRunning && !m_isPaused:m_isRunning); 
+		};
+
 		virtual bool isFinished() override { return m_isFinished; };
 	};
 }

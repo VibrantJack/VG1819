@@ -1,5 +1,4 @@
 #include "K_Instance.h"
-#include "K_Routine.h"
 
 #include <thread>
 #include <iostream>
@@ -34,6 +33,7 @@ namespace kitten
 		ActiveClickables::createInstance();
 		EventManager::createInstance();
 		AudioEngineWrapper::createInstance();	
+		AsyncFileOperations::startService();
 
 		sm_instance = new K_Instance();
 	}
@@ -50,7 +50,11 @@ namespace kitten
 		ActiveClickables::destroyInstance();
 		EventManager::destroyInstance();
 		AudioEngineWrapper::destroyInstance();
+		AsyncFileOperations::stopService();
+
+
 		K_JobManager::destroyInstance();
+		
 
 		delete sm_instance;
 	}

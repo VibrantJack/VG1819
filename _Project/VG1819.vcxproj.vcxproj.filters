@@ -379,6 +379,9 @@
     <ClCompile Include="..\kitten\K_JobManager.cpp">
       <Filter>kitten\coroutines</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\util\AsyncFileOperations.cpp">
+      <Filter>kitten\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -738,6 +741,9 @@
     <ClInclude Include="..\kitten\K_JobManager.h">
       <Filter>kitten\coroutines</Filter>
     </ClInclude>
+    <ClInclude Include="..\kitten\util\AsyncFileOperations.h">
+      <Filter>kitten\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -835,6 +841,12 @@
     </Filter>
     <Filter Include="kitten\coroutines">
       <UniqueIdentifier>{0f0a87b0-5319-40ad-962a-7ca808d68bea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="testing">
+      <UniqueIdentifier>{c83bb044-5a09-4dac-98f3-540e821f1362}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kitten\util">
+      <UniqueIdentifier>{92a11259-cd79-4fdb-8968-79de544df0c1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -26,10 +26,13 @@ namespace kitten
 		bool m_deletedJobsLastFrame = false;
 
 		std::list<K_Job*> m_jobsToStart;
+		std::list<K_Job*> m_jobsToDelete;
 		std::unordered_set<K_Job*> m_startedJobs;
+		
 
 		void update();
 		void privateAddJob(K_Job* p_job);
+		void privateDeleteJob(K_Job* p_job);
 
 		void jobCycle(std::tuple<bool> p_deleting);
 		void privateDeleteAllJobs();
@@ -37,11 +40,14 @@ namespace kitten
 		static K_JobManager* getInstance();
 
 		template<typename ... Args>
-		static void createJob(std::function<void(Args...)> p_func, std::tuple<Args...> p_parameters, bool p_isRecurring = false)
+		static K_Job* createJob(std::function<void(std::tuple<Args...>)> p_func, std::tuple<Args...> p_parameters, bool p_isRecurring = false)
 		{
 			K_Routine<Args...>* createdJob = new K_Routine<Args...>(p_func, p_parameters, p_isRecurring);
 			sm_instance->privateAddJob(createdJob);
+			return createdJob;
 		}
+
+		static void deleteJob(K_Job* p_job);
 
 		static void addThreadedJob(K_Job* p_job);
 		static void deleteAllJobs();
