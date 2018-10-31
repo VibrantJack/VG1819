@@ -48,17 +48,16 @@ namespace unit
 		
 		// Testing highlighting tiles and manipulating tiles using testDummy.txt
 		{
-			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstanceSafe()->spawnUnitObject(kibble::getUnitFromId(0));
+			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(0));
 			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
 			UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 
 			//initialize position
 			testDummyGO->getComponent<unit::UnitMove>()->setTile(4,4);
 
-			//move to unit spawn
-			//kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
-			//testDummyGO->addComponent(compMan->createComponent("UseAbilityWhenClicked"));
-			//testDummyGO->addComponent(compMan->createComponent("SelectAbility"));
+			kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
+			testDummyGO->addComponent(compMan->createComponent("UseAbilityWhenClicked"));
+			testDummyGO->addComponent(compMan->createComponent("SelectAbility"));
 
 			//PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
 			//printWhenClick->setMessage("Test Dummy");
@@ -92,7 +91,7 @@ namespace unit
 
 		//test unit 
 		unit::Unit* u = u1->getComponent<unit::Unit>();
-		UnitMonitor::getInstanceSafe()->printUnit(u);
+		//UnitMonitor::getInstanceSafe()->printUnit(u);
 
 		//Test Initiative Tracker
 		//kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Engineer.txt"));

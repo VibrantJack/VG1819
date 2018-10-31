@@ -47,7 +47,6 @@ void UseAbilityWhenClicked::start()
 
 void UseAbilityWhenClicked::update()
 {
-	/*
 	if (m_bSelectingAbility)
 	{		
 		m_textBox->setText("1: Manipulate Tile \n 2: Summon Unit");
@@ -65,7 +64,7 @@ void UseAbilityWhenClicked::update()
 	else
 	{
 		m_textBox->setText("");
-	}*/
+	}
 }
 
 void UseAbilityWhenClicked::onClick()

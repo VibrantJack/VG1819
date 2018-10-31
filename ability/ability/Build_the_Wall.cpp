@@ -1,6 +1,5 @@
 #include "ability/ability/Ability.h"
 #include "unit/Unit.h"
-#include "unit/unitComponent/UnitMove.h"
 #include "kibble/databank/databank.hpp"
 //Rock
 
@@ -19,12 +18,7 @@ namespace ability
 	{
 		AbilityNode* node = AbilityNodeManager::getInstance()->findNode("SpawnUnitNode");
 
-		kitten::K_GameObject* u = node->spawn(m_wallData);
-		kitten::K_GameObject* tile = p_info->m_targetTilesGO[0];
-		u->getComponent<unit::UnitMove>()->setTile(tile);
-
-		//delete package
-		done(p_info);
+		node->effect(m_wallData);
 
 		return 0;
 	}

@@ -39,7 +39,7 @@ namespace kitten
 			it->second.second(p_type, p_data);
 		}
 
-		//removeQueuedListeners();
+		removeQueuedListeners();
 
 		delete p_data;
 	}

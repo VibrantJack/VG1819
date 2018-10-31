@@ -22,9 +22,6 @@ namespace unit
 	private:
 
 		static UnitSpawn * m_instance;
-
-		kitten::K_GameObject* m_textBoxGO;
-
 		std::vector<unit::AbilityDescription> readAD();
 		ability::Status* readSD(unit::StatusDescription* p_sd);
 

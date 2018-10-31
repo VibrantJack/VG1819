@@ -19,7 +19,6 @@ namespace kitten
 	public:
 		enum EventType 
 		{ 
-			Tile_Clicked,
 			Tile_Clicked_For_Unit_Move,
 			Object_Clicked, 
 			Highlight_Tile, 

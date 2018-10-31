@@ -79,19 +79,14 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 	{
 		if (*it == p_unit)
 		{
+			m_unitObjectList.erase(it);
 			//get index
 			int i = it - m_unitObjectList.begin();
-
-			//remove it
-			m_unitObjectList.erase(it);
-
 			m_UI->change(i);
-
 			kitten::K_GameObjectManager::getInstance()->destroyGameObject(p_unit);
 			return true;
 		}
 	}
-	assert(false);//not found
 	return false;
 }
 
