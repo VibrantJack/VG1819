@@ -40,7 +40,7 @@ namespace kitten
 		static K_JobManager* getInstance();
 
 		template<typename ... Args>
-		static K_Job* createJob(std::function<void(std::tuple<Args...>)> p_func, std::tuple<Args...> p_parameters, bool p_isRecurring = false)
+		static K_Routine<Args...>* createJob(std::function<void(std::tuple<Args...>)> p_func, std::tuple<Args...> p_parameters, bool p_isRecurring = false)
 		{
 			K_Routine<Args...>* createdJob = new K_Routine<Args...>(p_func, p_parameters, p_isRecurring);
 			sm_instance->privateAddJob(createdJob);

@@ -37,6 +37,13 @@ namespace kitten
 			}
 		};
 
+		virtual void run() override
+		{
+			assert(!m_isRunning); // your job is already running!
+			m_isRunning = true;
+			m_thread = std::thread(&K_Routine::cycle, this);
+		}
+
 		// cycle() is the actual method called on the thread
 		void cycle()
 		{
@@ -62,13 +69,6 @@ namespace kitten
 		}
 
 	public:
-
-		virtual void run() override
-		{
-			assert(!m_isRunning); // your job is already running!
-			m_isRunning = true;
-			m_thread = std::thread(&K_Routine::cycle, this);
-		}
 
 		virtual void setParameters(std::tuple<Args...> p_parameters)
 		{
