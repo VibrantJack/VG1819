@@ -34,6 +34,8 @@ namespace unit
 		ability::Status* getStatus(const std::string& p_name);*/
 		StatusContainer* getStatusContainer();
 
+		void levelup();
+
 		//turn interface
 		void turnStart(UnitTurn* p_t);
 		bool canMove();

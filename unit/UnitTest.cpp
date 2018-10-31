@@ -91,7 +91,7 @@ namespace unit
 
 		//test unit 
 		unit::Unit* u = u1->getComponent<unit::Unit>();
-		//UnitMonitor::getInstanceSafe()->printUnit(u);
+		UnitMonitor::getInstanceSafe()->printUnit(u);
 
 		//Test Initiative Tracker
 		//kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Engineer.txt"));

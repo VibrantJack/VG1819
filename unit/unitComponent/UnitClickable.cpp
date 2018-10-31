@@ -3,6 +3,7 @@
 #include "unit/UnitCommon.h"
 #include "unit/Unit.h"
 #include "unit/unitComponent/UnitMove.h"
+#include "unit/UnitMonitor.h"
 #include <iostream>
 unit::UnitClickable::UnitClickable()
 {
@@ -37,6 +38,10 @@ void unit::UnitClickable::onClick()
 
 void unit::UnitClickable::onHoverStart()
 {
+	/*test level up 
+	Unit* u = m_attachedObject->getComponent<Unit>();
+	u->levelup();
+	UnitMonitor::getInstanceSafe()->printUnit(u);*/
 }
 
 void unit::UnitClickable::onHoverEnd()

@@ -6,7 +6,7 @@
 
 namespace ability
 {
-	void Encourage::applyStatus(const AbilityInfoPackage* p_info)
+	void Encourage::applyStatus(AbilityInfoPackage* p_info)
 	{
 		//apply Status_Encourage to target
 		ability::Status* se = ability::StatusManager::getInstance()->findStatus("Status_Encourage");
@@ -24,7 +24,7 @@ namespace ability
 		se->attach(p_info->m_target);
 	}
 
-	void Encourage::stackStatus(const AbilityInfoPackage* p_info)
+	void Encourage::stackStatus( AbilityInfoPackage* p_info)
 	{
 		ability::Status* se = p_info->m_target->getStatusContainer()->getStatus("Status_Encourage");
 
@@ -41,7 +41,7 @@ namespace ability
 	{
 	}
 
-	int Encourage::effect(const AbilityInfoPackage* p_info)
+	int Encourage::effect(AbilityInfoPackage* p_info)
 	{
 		//check if unit has this status
 		if (p_info->m_target->getStatusContainer()->getStatus("Status_Encourage"))

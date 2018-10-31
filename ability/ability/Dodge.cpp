@@ -38,7 +38,7 @@ namespace ability
 	{
 	}
 
-	int Dodge::effect(const AbilityInfoPackage* p_info)
+	int Dodge::effect(AbilityInfoPackage* p_info)
 	{
 		//check if unit has this status
 		if (p_info->m_target->getStatusContainer()->getStatus("Status_Dodge"))

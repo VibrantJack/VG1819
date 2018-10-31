@@ -12,7 +12,7 @@ namespace ability
 	{
 	}
 
-	int Shoot::effect(const AbilityInfoPackage* p_info)
+	int Shoot::effect(AbilityInfoPackage* p_info)
 	{
 		//damage target by power
 		unit::Unit* target = p_info->m_target;

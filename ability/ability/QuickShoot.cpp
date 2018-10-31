@@ -12,7 +12,7 @@ namespace ability
 	{
 	}
 
-	int QuickShoot::effect(const AbilityInfoPackage* p_info)
+	int QuickShoot::effect(AbilityInfoPackage* p_info)
 	{
 		//deal damaga to all units
 

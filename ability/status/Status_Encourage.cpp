@@ -22,7 +22,7 @@ namespace ability
 		else if (p_type == ability::TimePointEvent::Deal_Damage)
 		{
 			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode("ChangeAbilityInfoNode");
-			AbilityInfoPackage* pack = p_event->getPackage("info");
+			AbilityInfoPackage* pack = p_event->getPackage(INFO_PACKAGE_KEY);
 			node->effect(pack, "power", m_counter->at("power"));
 			return 0;
 		}

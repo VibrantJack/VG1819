@@ -139,7 +139,7 @@ namespace unit
 		//readSD
 		for (auto it : p_unitData->m_sd)
 		{
-			unit->getStatusContainer()->addStatus(readSD(it));
+			readSD(it)->attach(unit);
 		}
 
 		return unit;
@@ -190,9 +190,10 @@ namespace unit
 			s->changeDescription(p_sd->m_stringValue["description"]);
 		}
 
-		for (auto it : p_sd->m_TPList)
+		if (p_sd->m_intValue.find("time_point") != p_sd->m_intValue.end())
 		{
-			s->addTimePoint(it);
+			int i = p_sd->m_intValue["time_point"];
+			s->addTimePoint(static_cast<ability::TimePointEvent::TPEventType>(i));
 		}
 
 		//for lv status

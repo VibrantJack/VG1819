@@ -12,7 +12,7 @@ namespace ability
 	{
 	}
 
-	int Sabotage::effect(const AbilityInfoPackage* p_info)
+	int Sabotage::effect(AbilityInfoPackage* p_info)
 	{
 		//damage target by power
 		unit::Unit* target = p_info->m_target;

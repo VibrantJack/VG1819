@@ -19,7 +19,7 @@ namespace ability
 	{
 	}
 
-	int ManipulateTile::effect(const AbilityInfoPackage* p_info)
+	int ManipulateTile::effect(AbilityInfoPackage* p_info)
 	{
 		kitten::Event* p_data = new kitten::Event(kitten::Event::EventType::Highlight_Tile);
 		p_data->putTileList(&p_info->m_targetTiles);

@@ -13,7 +13,7 @@ namespace ability
 	{
 	}
 
-	int Heal::effect(const AbilityInfoPackage* p_info)
+	int Heal::effect(AbilityInfoPackage* p_info)
 	{
 		//heal target by power
 		int power = p_info->m_intValue.find("power")->second;

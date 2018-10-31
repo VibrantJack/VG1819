@@ -22,7 +22,7 @@ namespace ability
 		else if (p_type == ability::TimePointEvent::Receive_Damage)
 		{
 			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode("ChangeAbilityInfoNode");
-			AbilityInfoPackage* pack = p_event->getPackage("info");
+			AbilityInfoPackage* pack = p_event->getPackage(INFO_PACKAGE_KEY);
 			//decrease the amount of damage it deals, means the result is 0
 			int changedValue = -(pack->m_intValue["power"]);
 			node->effect(pack, "power", changedValue);

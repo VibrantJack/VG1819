@@ -126,9 +126,9 @@ namespace ability
 		m_unit = p_u; 
 		p_u->getStatusContainer()->addStatus(this);
 
-		registerTPEvent();
 		if (m_TPList != nullptr)
 		{
+			registerTPEvent();
 			delete m_TPList;
 			m_TPList = nullptr;
 		}

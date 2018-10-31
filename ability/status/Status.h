@@ -25,6 +25,7 @@
 #include <string>
 #include <vector>
 
+#define INFO_PACKAGE_KEY "info"
 
 namespace ability
 {

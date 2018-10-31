@@ -39,6 +39,17 @@ namespace unit
 		return m_statusContainer;
 	}
 
+	void Unit::levelup()
+	{
+		if (m_attributes["lv"] > 0)
+		{
+			m_attributes["lv"]++;
+			ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Level_Up);
+			t->putInt("lv", m_attributes["lv"]);
+			m_statusContainer->triggerTP(ability::TimePointEvent::Level_Up, t);
+		}
+	}
+
 	//turn
 	void Unit::turnStart(UnitTurn * p_t)
 	{
