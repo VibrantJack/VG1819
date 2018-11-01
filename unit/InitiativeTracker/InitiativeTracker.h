@@ -19,6 +19,7 @@ namespace unit
 		UnitTurn* m_uturn;
 		InitiativeTrackerUI* m_UI;
 
+		std::vector<kitten::K_GameObject*> m_waitUnitObjectList;
 		std::vector<kitten::K_GameObject*> m_unitObjectList;
 		int m_currentUnitIndex;
 

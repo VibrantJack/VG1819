@@ -72,7 +72,7 @@ void UnitInteractionManager::cancel()
 void UnitInteractionManager::send()
 {
 	ability::AbilityManager::getInstance()->useAbility(m_abilityName,m_package);
-
+	m_package = nullptr;
 	m_busy = false;
 }
 
