@@ -58,6 +58,7 @@ void TileGetter::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_
 			cancel();
 		}
 	}
+	
 }
 
 void TileGetter::getTiles(kitten::Event * p_data)
@@ -149,8 +150,7 @@ void TileGetter::putFilter(kitten::Event * e)
 
 void TileGetter::triggerUnhighlightEvent()
 {
-	kitten::Event* e = new kitten::Event(kitten::Event::Unhighlight_Tile);
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Unhighlight_Tile, e);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Unhighlight_Tile, nullptr);
 }
 
 void TileGetter::send()
@@ -162,6 +162,6 @@ void TileGetter::send()
 void TileGetter::cancel()
 {
 	deregisterEvent();
-	triggerUnhighlightEvent();
+	//triggerUnhighlightEvent();
 	UnitInteractionManager::getInstance()->cancel();
 }

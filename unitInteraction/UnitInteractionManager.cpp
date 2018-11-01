@@ -20,6 +20,7 @@ void UnitInteractionManager::request(unit::Unit* p_unit, unit::AbilityDescriptio
 	//create package
 	if (m_package != nullptr)
 		m_package = nullptr;
+
 	m_package = new ability::AbilityInfoPackage();
 
 	m_package->m_source = p_unit;
@@ -60,7 +61,10 @@ void UnitInteractionManager::cancel()
 	std::cout << "UnitInteractionManager Cancel Ability" << std::endl;
 	//delete package
 	if (m_package != nullptr)
+	{
 		delete m_package;
+		m_package = nullptr;
+	}
 
 	m_busy = false;
 }
