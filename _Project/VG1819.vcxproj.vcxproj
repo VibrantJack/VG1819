@@ -203,7 +203,9 @@
     <ClCompile Include="..\unit\UnitSpawn.cpp" />
     <ClCompile Include="..\unit\UnitTest.cpp" />
     <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
+    <ClCompile Include="..\userinterface\UIElement.cpp" />
     <ClCompile Include="..\userinterface\UIFrame.cpp" />
+    <ClCompile Include="..\userinterface\UIObject.cpp" />
     <ClCompile Include="..\wolf\W_Common.cpp" />
     <ClCompile Include="DebugPrintOnce.cpp" />
     <ClCompile Include="DestroyOnClick.cpp" />
@@ -324,7 +326,10 @@
     <ClInclude Include="..\unit\UnitMonitor.h" />
     <ClInclude Include="..\unit\UnitSpawn.h" />
     <ClInclude Include="..\unit\UnitTest.h" />
+    <ClInclude Include="..\userinterface\InterfaceBuilder.h" />
+    <ClInclude Include="..\userinterface\UIElement.h" />
     <ClInclude Include="..\userinterface\UIFrame.h" />
+    <ClInclude Include="..\userinterface\UIObject.h" />
     <ClInclude Include="..\userinterface\UI_ElementComponent.h" />
     <ClInclude Include="..\util\MathUtil.h" />
     <ClInclude Include="..\wolf\W_Common.h" />

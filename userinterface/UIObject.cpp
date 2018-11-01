@@ -26,11 +26,11 @@ namespace userinterface
 
 	void UIObject::onDisabled()
 	{
-		puppy::Renderer::getInstance()->removeUIFromRender(this);
+		removeFromDynamicRender();
 	}
 
 	void UIObject::onEnabled()
 	{
-		puppy::Renderer::getInstance()->addUIToRender(this);
+		addToDynamicRender();
 	}
 }

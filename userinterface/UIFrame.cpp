@@ -45,12 +45,12 @@ namespace userinterface
 
 	void UIFrame::onDisabled()
 	{
-		puppy::Renderer::getInstance()->removeUIFromRender(this);
+		removeFromDynamicRender();
 	}
 
 	void UIFrame::onEnabled()
 	{
-		puppy::Renderer::getInstance()->addUIToRender(this);
+		addToDynamicRender();
 	}
 }
 

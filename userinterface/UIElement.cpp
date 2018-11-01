@@ -53,7 +53,7 @@ namespace userinterface
 
 		if (!m_isEnabled)
 		{
-			puppy::Renderer::getInstance()->removeUIFromRender(this);
+			removeFromDynamicRender();
 		}
 	}
 
@@ -183,19 +183,19 @@ namespace userinterface
 
 		++sm_instances;
 
-		puppy::Renderer::getInstance()->addUIToRender(this);
+		addToDynamicRender();
 
 	}
 	
 
 		void UIElement::onDisabled()
 		{
-			puppy::Renderer::getInstance()->removeUIFromRender(this);
+			removeFromDynamicRender();
 		}
 
 		void UIElement::onEnabled()
 		{
-			puppy::Renderer::getInstance()->addUIToRender(this);
+			addToDynamicRender();
 		}
 
 		void UIElement::render(const glm::mat4& p_ortho)
