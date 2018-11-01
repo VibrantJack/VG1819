@@ -2,6 +2,8 @@
 
 #include "UIObject.h"
 
+//austin's UI Object
+
 namespace userinterface
 {
 	class HandFrame;
@@ -14,6 +16,8 @@ namespace userinterface
 		~CardUIO();
 
 		void returnToHand();
+		void scaleAsCard();
+		void assignParentHand(HandFrame* p_toAssign);
 
 	private:
 		HandFrame* m_parentHand;

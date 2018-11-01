@@ -12,6 +12,17 @@ namespace userinterface
 
 	}
 
+	void CardUIO::scaleAsCard()
+	{
+		getTransform().scale2D(0.1, 0.25);
+	}
+
+
+	void CardUIO::assignParentHand(HandFrame* p_toAssign)
+	{
+		m_parentHand = p_toAssign;
+	}
+
 	void CardUIO::returnToHand()
 	{
 		

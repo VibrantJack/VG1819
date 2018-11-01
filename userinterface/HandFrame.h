@@ -20,6 +20,6 @@ namespace userinterface
 
 	private:
 		
-
+		int m_totalCards;
 	};
 }
