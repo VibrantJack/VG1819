@@ -120,7 +120,6 @@ namespace kitten
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();
 
-		
 		/*
 		//testing ui frame and textbox
 		K_GameObject* go = K_GameObjectManager::getInstance()->createNewGameObject();

@@ -376,6 +376,12 @@
     <ClCompile Include="..\userinterface\UIFrame.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\userinterface\UIElement.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\userinterface\UIObject.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
     <ClCompile Include="..\kitten\K_JobManager.cpp">
       <Filter>kitten\coroutines</Filter>
     </ClCompile>
@@ -730,6 +736,15 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="..\userinterface\UI_ElementComponent.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\userinterface\InterfaceBuilder.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\userinterface\UIElement.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\userinterface\UIObject.h">
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\K_Job.h">
