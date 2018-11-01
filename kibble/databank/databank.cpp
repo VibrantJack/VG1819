@@ -1,10 +1,11 @@
 #include "databank.hpp"
 #include <map>
+#include <unordered_set>
 
 std::vector<unit::UnitData*> unitDataVector;
 std::map<std::string, unit::AbilityDescription*> abilityDataMap;
 std::map<std::string, std::vector<int>> abilityToUnitMap, tagToUnitMap;
-std::vector<unit::AbilityDescription*> lateLoadAbility, lateUpdateAbility;
+std::unordered_set<unit::AbilityDescription*> lateLoadAbility;
 std::vector<DeckData*> deckDataVector;
 
 #define DECK_LIST "data/gamedecklist.txt"
@@ -45,8 +46,7 @@ void kibble::setupDatabank() {
 					abilityToUnitMap[name].push_back(unitDataVector.size()); // add unit to list of units that use the ability
 					if (abilityDataMap.find(name) == abilityDataMap.end()) { // check to see if a previous ability with the same name doesn't exist
 						// if it finds nothing, it checks if it's being late loaded
-						if(std::find(lateLoadAbility.begin(),lateLoadAbility.end(),ability) == lateLoadAbility.end() &&
-							std::find(lateUpdateAbility.begin(), lateUpdateAbility.end(), ability) == lateUpdateAbility.end())
+						if(lateLoadAbility.find(ability) != lateLoadAbility.end())
 							abilityDataMap[name] = ability; // if its not being loaded late set it
 					}
 				}
@@ -68,19 +68,12 @@ void kibble::setupDatabank() {
 	}
 
 	for (auto ability : lateLoadAbility) {// if an error is thrown back, most likely than not it's because it returned a nullptr. 
-		auto target = getAbilityFromName(ability->m_stringValue["name"]);
+		unit::AbilityDescription* target = getAbilityFromName(ability->m_stringValue["basename"]);
+		
 		ability->m_intValue.insert(target->m_intValue.begin(), target->m_intValue.end());
 		ability->m_stringValue.insert(target->m_stringValue.begin(), target->m_stringValue.end());
 	}
 	lateLoadAbility.clear();
-
-	for (auto ability : lateUpdateAbility) {// if an error is thrown back, most likely than not it's because it returned a nullptr. 
-		auto target = getAbilityFromName(ability->m_stringValue["base"]);
-		ability->m_intValue.insert(target->m_intValue.begin(), target->m_intValue.end());
-		ability->m_stringValue.insert(target->m_stringValue.begin(), target->m_stringValue.end());
-		// TODO delete the base tag if rock finds it annoying
-	}
-	lateUpdateAbility.clear();
 
 	std::ifstream deckListFile(DECK_LIST);
 	if (deckListFile.is_open()) {
@@ -118,23 +111,22 @@ unit::AbilityDescription* kibble::getAbilityFromName(const std::string& p_name) 
 		return abilityDataMap[p_name];
 }
 
-// returns an empty ability if none is found matching string it also internally adds it to late load list
-unit::AbilityDescription* kibble::getAnyAbilityFromName(const std::string& p_name) {
+// returns an empty ability if none is found matching string it also internally adds it to late load list 
+// otherwise it returns a copy of the ability to do whatever with. 
+unit::AbilityDescription* kibble::getCopyAbilityFromName(const std::string& p_name) {
 	if (abilityDataMap.find(p_name) == abilityDataMap.end()) {
 		unit::AbilityDescription* ability = new unit::AbilityDescription();
+		ability->m_stringValue["basename"] = p_name;
 		ability->m_stringValue["name"] = p_name;
-		lateLoadAbility.push_back(ability);
+		lateLoadAbility.insert(ability);
 		return ability;
 	}
 	else
-		return abilityDataMap[p_name];
+		return new unit::AbilityDescription(*abilityDataMap[p_name]);
 }
-
-
-void kibble::addAbilityToLateLoadUpdate(unit::AbilityDescription* a) {
-	lateUpdateAbility.push_back(a);
+void kibble::flagAbilityForLateLoad(unit::AbilityDescription* p_ability) {
+	lateLoadAbility.insert(p_ability);
 }
-
 
 std::vector<int> kibble::getUnitIdsThatHaveAbilityOfName(const std::string& p_name) {
 	return abilityToUnitMap[p_name];
@@ -142,7 +134,6 @@ std::vector<int> kibble::getUnitIdsThatHaveAbilityOfName(const std::string& p_na
 std::vector<int> kibble::getUnitIdsThatHaveTag(const std::string& p_tag) {
 	return tagToUnitMap[p_tag];
 }
-
 
 int kibble::getDeckDataListCount() {
 	return deckDataVector.size();
