@@ -138,9 +138,9 @@ void unit::UnitClickable::update()
 			char numkey = '0' + i;
 			if (input::InputManager::getInstance()->keyDown(numkey))
 			{
-				m_textBoxGO->getComponent<SelectAbility>()->select(i);
 				std::cout << "Player choose " << i << std::endl;
 				m_select = false;
+				m_textBoxGO->getComponent<SelectAbility>()->select(i);
 				break;
 			}
 		}

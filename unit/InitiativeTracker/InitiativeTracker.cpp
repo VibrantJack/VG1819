@@ -84,9 +84,14 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 
 			//remove it
 			m_unitObjectList.erase(it);
-
 			m_UI->change(i);
 
+			if (m_uturn->isCurrent(p_unit))
+			{
+				m_uturn->unitDestroyed();
+				m_uturn->turnStart(getCurrentUnit());
+			}
+			
 			kitten::K_GameObjectManager::getInstance()->destroyGameObject(p_unit);
 			return true;
 		}
