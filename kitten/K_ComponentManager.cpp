@@ -9,17 +9,13 @@
 #include "_Project\ZoomByMouseWheel.h"
 #include "_Project\DebugPrintOnce.h"
 #include "gameworld\GrassLandInfoComponent.h"
-#include "_Project\PrintWhenClicked.h"
 #include "_Project\DestroyOnClick.h"
 #include "unit/unitComponent/UnitGraphic.h"
-#include "_Project\BoardCreator.h"
-#include "_Project\ManipulateTileOnClick.h"
 #include "_Project\UseAbilityWhenClicked.h"
 #include "_Project\FPSCalc.h"
 #include "puppy\Text\TextBox.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "unit/unitComponent/UnitClickable.h"
-#include "_Project/SendSelfOnClick.h"
 #include "userinterface\UIFrame.h"
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
@@ -30,6 +26,15 @@
 #include "components\SelectAbility.h"
 //#include "userinterface\UITestClickable.h"
 
+//board
+#include "board/component/Highlighter.h"
+#include "board/component/BoardCreator.h"
+//clickable
+#include "board/clickable/ManipulateTileOnClick.h"
+#include "board/clickable/PrintWhenClicked.h"
+#include "board/clickable/SendSelfOnClick.h"
+//tile
+#include "board/tile/TileInfo.h"
 namespace kitten
 {
 	K_ComponentManager* K_ComponentManager::sm_instance = nullptr;
@@ -110,9 +115,6 @@ namespace kitten
 		} else if (p_componentName == "UnitGraphic")//hard code, need special function for unit graphic, Data driven with these as defaults
 		{
 			comp = new unit::UnitGraphic(unit::point, "textures/unit/Default.tga");
-		} else if (p_componentName == "BoardCreator") // Datadriven
-		{
-			comp = new BoardCreator();
 		} else if (p_componentName == "ManipulateTileOnClick") // Datadriven
 		{
 			comp = new ManipulateTileOnClick();
@@ -149,7 +151,16 @@ namespace kitten
 		} else if (p_componentName == "PowerTracker")
 		{
 			comp = new PowerTracker();
-		} else
+		}
+		else if (p_componentName == "Highlighter")
+		{
+			comp = new Highlighter();
+		}
+		else if (p_componentName == "BoardCreator")
+		{
+			comp = new BoardCreator();
+		}
+		else
 		{
 			//Not found..
 			assert(false);
@@ -224,6 +235,13 @@ namespace kitten
 		return false;
 	}
 
+	void K_ComponentManager::addToStart(K_Component* p_toStart)
+	{
+		assert(!p_toStart->m_hasStarted);
+		//@TODO: assert p_toStart is not already in m_toStart
+		m_toStart.push_back(p_toStart);
+	}
+
 	void K_ComponentManager::removeFromStart(const K_Component* p_toRemove)
 	{
 		for (auto it = m_toStart.begin(); it != m_toStart.cend(); ++it)
@@ -236,13 +254,23 @@ namespace kitten
 		}
 	}
 
+	void K_ComponentManager::queueAddToUpdate(K_Component* p_toAdd)
+	{
+		m_toAddToUpdate.push_back(p_toAdd);
+	}
+
+	void K_ComponentManager::queueRemovalFromUpdate(const K_Component* p_toRemove)
+	{
+		m_toRemoveFromUpdate.push_back(p_toRemove);
+	}
+
 	void K_ComponentManager::updateComponents()
 	{
 		//Start components
 		for (auto it = m_toStart.begin(); it != m_toStart.end(); it = m_toStart.erase(it))
 		{
-			(*it)->start();
 			(*it)->m_hasStarted = true;
+			(*it)->start();
 			if ((*it)->hasUpdate())
 			{
 				m_toUpdate.push_back(*it);
@@ -268,10 +296,23 @@ namespace kitten
 
 		}
 
+		//Add queued components to update
+		for (auto it = m_toAddToUpdate.begin(); it != m_toAddToUpdate.end(); it = m_toAddToUpdate.erase(it))
+		{
+			m_toUpdate.push_back(*it);
+		}
+
 		//Update components
-		for (auto it = m_toUpdate.begin(); it != m_toUpdate.end(); ++it)
+		auto updateEnd = m_toUpdate.cend();
+		for (auto it = m_toUpdate.cbegin(); it != updateEnd; ++it)
 		{
 			(*it)->update();
+		}
+
+		//Remove queued components from update
+		for (auto it = m_toRemoveFromUpdate.begin(); it != m_toRemoveFromUpdate.end(); it = m_toRemoveFromUpdate.erase(it))
+		{
+			removeFromUpdate(*it);
 		}
 	}
 }

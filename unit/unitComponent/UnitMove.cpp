@@ -1,10 +1,13 @@
 #include "UnitMove.h"
 #include "unit/Unit.h"
+#include "board/tile/TileInfo.h"
+#include "board/BoardManager.h"
 #include <iostream>
 #include <cmath>
 
 unit::UnitMove::UnitMove()
 {
+	m_currentTile = nullptr;
 }
 
 unit::UnitMove::~UnitMove()
@@ -13,7 +16,6 @@ unit::UnitMove::~UnitMove()
 
 void unit::UnitMove::registerListener()
 {
-
 	notRegistered = false;
 
 	kitten::EventManager::getInstance()->addListener(
@@ -66,9 +68,10 @@ void unit::UnitMove::triggerHighLightEvent()
 	//trigger the highlight event shows what are possible move
 	kitten::Event* e = new kitten::Event(kitten::Event::Highlight_Tile);
 	e->putString(TILE_OWNER_KEY, m_attachedObject->getComponent<Unit>()->m_name + " Move.");//highlight because of this unit move
-	e->putInt("minRange", 1);
-	e->putInt("maxRange", m_attachedObject->getComponent<Unit>()->m_attributes["mv"]);//the range is between 1 and mv attributes
+	e->putInt("min_range", 1);
+	e->putInt("max_range", m_attachedObject->getComponent<Unit>()->m_attributes["mv"]);//the range is between 1 and mv attributes
 	e->putGameObj("tileAtOrigin", m_currentTile);
+	e->putString("mode", "range");
 	e->putString("use", "move");
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Highlight_Tile, e);
 }
@@ -81,6 +84,11 @@ void unit::UnitMove::triggerUnhighLightEvent()
 
 void unit::UnitMove::move(kitten::K_GameObject * p_targetTile)
 {
+	//remove unit from current tile
+	m_currentTile->getComponent<TileInfo>()->removeUnit();
+	//add this to target tile
+	p_targetTile->getComponent<TileInfo>()->setUnit(m_attachedObject);
+
 	//TO DO: tileinfo->add(this)
 	m_lastTile = m_currentTile;//set current to last
 	m_currentTile = p_targetTile;//set target to current
@@ -96,11 +104,32 @@ void unit::UnitMove::move(kitten::K_GameObject * p_targetTile)
 	triggerUnhighLightEvent();
 }
 
-void unit::UnitMove::setTile(kitten::K_GameObject * p_targetTile)
+void unit::UnitMove::setTile(kitten::K_GameObject * p_tile)
 {
-	m_currentTile = p_targetTile;
-	m_lastTile = p_targetTile;
+	if (m_currentTile != nullptr)
+	{
+		//remove unit from current tile
+		m_currentTile->getComponent<TileInfo>()->removeUnit();
+	}
+
+	//add this to target tile
+	p_tile->getComponent<TileInfo>()->setUnit(m_attachedObject);
+
+	m_currentTile = p_tile;
+	m_lastTile = p_tile;
 	reset();
+}
+
+void unit::UnitMove::setTile(int p_x, int p_z)
+{
+	set = true;
+	m_tileX = p_x;
+	m_tileZ = p_z;
+}
+
+kitten::K_GameObject * unit::UnitMove::getTile()
+{
+	return m_currentTile;
 }
 
 void unit::UnitMove::reset()
@@ -118,6 +147,12 @@ bool unit::UnitMove::hasUpdate() const
 
 void unit::UnitMove::update()
 {
+	if (set)
+	{
+		setTile(BoardManager::getInstance()->getTile(m_tileX,m_tileZ));
+		set = false;
+	}
+
 	if (m_currentTile != m_lastTile)
 	{
 		float velocity = kitten::K_Time::getInstance()->getDeltaTime() * m_speed * 60.0f;//delta time * speed * 60fps

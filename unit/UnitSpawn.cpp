@@ -5,7 +5,9 @@
 #include "unit/InitiativeTracker/InitiativeTracker.h"
 #include "unit/unitComponent/UnitClickable.h"
 #include "unit/unitComponent/UnitMove.h"
-#include "_Project\PrintWhenClicked.h"
+//board clickable
+#include "board/clickable/PrintWhenClicked.h"
+
 //Rock
 
 namespace unit
@@ -137,7 +139,7 @@ namespace unit
 		//readSD
 		for (auto it : p_unitData->m_sd)
 		{
-			readSD(it)->attach(unit);
+			unit->addStatus(readSD(it));
 		}
 
 		return unit;

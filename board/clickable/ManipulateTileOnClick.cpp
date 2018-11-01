@@ -9,7 +9,7 @@
 
 #include "ManipulateTileOnClick.h"
 #include "ability\AbilityManager.h"
-#include "TileInfo.h"
+#include "board/tile/TileInfo.h"
 #include "kitten\K_GameObject.h"
 #include "components\PowerTracker.h"
 
@@ -19,7 +19,7 @@
 #include "unit\UnitSpawn.h"
 #include "unit\InitiativeTracker\InitiativeTracker.h"
 #include "unit\unitComponent\UnitMove.h"
-#include "BoardCreator.h"
+#include "board/BoardManager.h"
 
 ManipulateTileOnClick::ManipulateTileOnClick()
 {
@@ -63,10 +63,10 @@ void ManipulateTileOnClick::onClick()
 				powerTracker->summonUnitCost(unitData->m_Cost);
 
 				kitten::K_GameObject* unit = unit::UnitSpawn::getInstance()->spawnUnitObject(unitData);
-				unit->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(tileInfo->getPosX(), tileInfo->getPosY()));
+				unit->getComponent<unit::UnitMove>()->setTile(BoardManager::getInstance()->getTile(tileInfo->getPosX(), tileInfo->getPosY()));
 
 				// TEMPORARY: Reset game turn in order to dynamically add a new unit
-				unit::InitiativeTracker::getInstance()->gameTurnStart();
+				//unit::InitiativeTracker::getInstance()->gameTurnStart();
 			}
 			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
 		}

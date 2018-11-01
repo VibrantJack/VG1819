@@ -27,6 +27,7 @@ namespace unit
 
 		std::vector<TrackerBlock*> m_blockList;
 
+		kitten::K_GameObject* m_initiativeObject;
 		kitten::K_GameObject* m_pointerObject;
 
 		const float m_gap = 0.175f;//distance from adjacent frame

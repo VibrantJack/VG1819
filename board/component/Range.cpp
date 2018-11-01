@@ -1,11 +1,45 @@
 #include "Range.h"
+#include "board/tile/TileInfo.h"
+#include "board/BoardManager.h"
 
-kitten::Event::TileList Range::getTilesInRange(kitten::K_GameObject * p_tileAtOrigin, int p_minRange, int p_maxRange, kitten::K_GameObject * p_tileList[15][15])
+
+Range::Range()
+{
+}
+
+Range::~Range()
+{
+}
+
+kitten::Event::TileList Range::getTilesInRange(kitten::Event * p_data)
+{
+	kitten::K_GameObject * tileAtOrigin = p_data->getGameObj("tileAtOrigin");
+	int min = p_data->getInt("min_range");
+	int max = p_data->getInt("max_range");
+
+	//get list in range
+	kitten::Event::TileList list = getTilesInRange(tileAtOrigin, min, max);
+
+	//remove tiles that has something on it if this is used for moving
+	std::string use = p_data->getString("use");
+	if (use == "move")
+	{
+		removeUnit(&list);
+	}
+	else if (use == "ManipulateTile")
+	{
+		removeOwned(&list);
+	}
+
+	return list;
+}
+
+kitten::Event::TileList Range::getTilesInRange(kitten::K_GameObject * p_tileAtOrigin, int p_minRange, int p_maxRange)
 {
 	std::map<std::pair<int, int>, int> tilesAndRange;
 
 	//find the coordinates for the tile at origin
-	std::pair<int, int> originCoord = findOrigin(p_tileAtOrigin, p_tileList);
+	std::pair<int, int> originCoord = p_tileAtOrigin->getComponent<TileInfo>()->getPos();
 
 	//find tiles
 	findNeighbour(&tilesAndRange,originCoord,0,p_minRange,p_maxRange);
@@ -23,21 +57,6 @@ kitten::Event::TileList Range::getTilesInRange(kitten::K_GameObject * p_tileAtOr
 	}
 
 	return list;
-}
-
-std::pair<int, int> Range::findOrigin(const kitten::K_GameObject * p_tileAtOrigin, kitten::K_GameObject * p_tileList[15][15])
-{
-	for (int x = 0; x < 15; x++)
-	{
-		for (int z = 0; z < 15; z++)
-		{
-			if (p_tileAtOrigin == p_tileList[x][z])
-				return std::pair<int, int>(x, z);
-		}
-	}
-	//not find tile
-	assert(false);
-	return std::pair<int, int>();
 }
 
 void Range::findNeighbour(std::map<std::pair<int, int>, int>* p_tilesAndRange, std::pair<int, int> p_currentTile, int p_distance, int p_minRange, int p_maxRange)
@@ -86,6 +105,43 @@ void Range::findNeighbour(std::map<std::pair<int, int>, int>* p_tilesAndRange, s
 	if (z < 14)//check up
 	{
 		findNeighbour(p_tilesAndRange, std::pair<int, int>(x, z+1), p_distance + 1, p_minRange, p_maxRange);
+	}
+}
+
+void Range::removeUnit(kitten::Event::TileList* p_list)
+{
+	//remove tiles that has unit
+	auto it = p_list->begin();
+	while (it != p_list->end())
+	{
+		kitten::K_GameObject* tileGO = BoardManager::getInstance()->getTile(it->first, it->second);
+		if (tileGO->getComponent<TileInfo>()->hasUnit())
+		{
+			it = p_list->erase(it);
+		}
+		else
+		{
+			it++;
+		}
+	}
+}
+
+void Range::removeOwned(kitten::Event::TileList * p_list)
+{
+	//remove tiles that has owner
+	auto it = p_list->begin();
+	while (it != p_list->end())
+	{
+		kitten::K_GameObject* tileGO = BoardManager::getInstance()->getTile(it->first, it->second);
+		std::string owner = tileGO->getComponent<TileInfo>()->getOwnerId();
+		if (owner != DEFAULT_OWNER)
+		{
+			it = p_list->erase(it);
+		}
+		else
+		{
+			it++;
+		}
 	}
 }
 

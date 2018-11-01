@@ -15,7 +15,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>VG1819</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <ProjectName>VG1819</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -120,6 +120,15 @@
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\ability\status\Status_LV.cpp" />
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
+    <ClCompile Include="..\kibble\custom\CustomDeckDataParser.cpp" />
+    <ClCompile Include="..\board\boardManager.cpp" />
+    <ClCompile Include="..\board\clickable\ManipulateTileOnClick.cpp" />
+    <ClCompile Include="..\board\clickable\PrintWhenClicked.cpp" />
+    <ClCompile Include="..\board\clickable\SendSelfOnClick.cpp" />
+    <ClCompile Include="..\board\component\BoardCreator.cpp" />
+    <ClCompile Include="..\board\component\Highlighter.cpp" />
+    <ClCompile Include="..\board\component\Range.cpp" />
+    <ClCompile Include="..\board\tile\TileInfo.cpp" />
     <ClCompile Include="..\components\PowerTracker.cpp" />
     <ClCompile Include="..\components\SelectAbility.cpp" />
     <ClCompile Include="..\kibble\databank\databank.cpp" />
@@ -194,20 +203,17 @@
     <ClCompile Include="..\unit\UnitTest.cpp" />
     <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
     <ClCompile Include="..\userinterface\UIFrame.cpp" />
+    <ClCompile Include="..\userinterface\UIObject.cpp"/>
+    <ClCompile Include="..\userinterface\UIElement.cpp"/>
     <ClCompile Include="..\wolf\W_Common.cpp" />
-    <ClCompile Include="BoardCreator.cpp" />
     <ClCompile Include="DebugPrintOnce.cpp" />
     <ClCompile Include="DestroyOnClick.cpp" />
     <ClCompile Include="FPSCalc.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ManipulateTileOnClick.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
     <ClCompile Include="PlaySoundOnStart.cpp" />
-    <ClCompile Include="PrintWhenClicked.cpp" />
-    <ClCompile Include="Range.cpp" />
-    <ClCompile Include="SendSelfOnClick.cpp" />
-    <ClCompile Include="TileInfo.cpp" />
+    <ClCompile Include="ToggleEnabledOnKeyPress.cpp" />
     <ClCompile Include="ToggleSoundOnKeyPress.cpp" />
     <ClCompile Include="UseAbilityWhenClicked.cpp" />
     <ClCompile Include="VolumeAdjustOnKeysPressed.cpp" />
@@ -221,6 +227,15 @@
     <ClInclude Include="..\ability\node\AbilityNodeManager.h" />
     <ClInclude Include="..\ability\StatusManager.h" />
     <ClInclude Include="..\ability\status\Status.h" />
+    <ClInclude Include="..\DeckData.hpp" />
+    <ClInclude Include="..\board\BoardManager.h" />
+    <ClInclude Include="..\board\clickable\ManipulateTileOnClick.h" />
+    <ClInclude Include="..\board\clickable\PrintWhenClicked.h" />
+    <ClInclude Include="..\board\clickable\SendSelfOnClick.h" />
+    <ClInclude Include="..\board\component\BoardCreator.h" />
+    <ClInclude Include="..\board\component\Highlighter.h" />
+    <ClInclude Include="..\board\component\Range.h" />
+    <ClInclude Include="..\board\tile\TileInfo.h" />
     <ClInclude Include="..\components\PowerTracker.h" />
     <ClInclude Include="..\components\SelectAbility.h" />
     <ClInclude Include="..\gameworld\GameBoard.h" />
@@ -228,7 +243,9 @@
     <ClInclude Include="..\gameworld\TileInformationComponent.h" />
     <ClInclude Include="..\json.hpp" />
     <ClInclude Include="..\kibble\ComponentDataParser.hpp" />
+    <ClInclude Include="..\kibble\custom\CustomDeckDataParser.hpp" />
     <ClInclude Include="..\kibble\databank\databank.hpp" />
+    <ClInclude Include="..\kibble\DeckDataParser.hpp" />
     <ClInclude Include="..\kibble\GameObjectDataParser.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\GameObjectDataType.hpp" />
@@ -308,21 +325,18 @@
     <ClInclude Include="..\unit\UnitMonitor.h" />
     <ClInclude Include="..\unit\UnitSpawn.h" />
     <ClInclude Include="..\unit\UnitTest.h" />
-    <ClInclude Include="..\userinterface\UI_ElementComponent.h" />
+    <ClInclude Include="..\userinterface\UIElement.h" />
+    <ClInclude Include="..\userinterface\UIObject.h"/>
+    <ClInclude Include="..\userinterface\UIFrame.h"/>
     <ClInclude Include="..\util\MathUtil.h" />
     <ClInclude Include="..\wolf\W_Common.h" />
-    <ClInclude Include="BoardCreator.h" />
     <ClInclude Include="DebugPrintOnce.h" />
     <ClInclude Include="DestroyOnClick.h" />
     <ClInclude Include="FPSCalc.h" />
-    <ClInclude Include="ManipulateTileOnClick.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />
     <ClInclude Include="PlaySoundOnStart.h" />
-    <ClInclude Include="PrintWhenClicked.h" />
-    <ClInclude Include="Range.h" />
-    <ClInclude Include="SendSelfOnClick.h" />
-    <ClInclude Include="TileInfo.h" />
+    <ClInclude Include="ToggleEnabledOnKeyPress.h" />
     <ClInclude Include="ToggleSoundOnKeyPress.h" />
     <ClInclude Include="UseAbilityWhenClicked.h" />
     <ClInclude Include="VolumeAdjustOnKeysPressed.h" />

@@ -44,6 +44,10 @@ namespace puppy
 		TextBox(Font* p_fontToUse, std::string p_text, float p_boxWidth, float p_boxHeight, Alignment p_alignment);
 		~TextBox();
 
+		virtual void start() override;
+		virtual void onDisabled() override;
+		virtual void onEnabled() override;
+
 		void setColor(GLfloat p_redVal, GLfloat p_greenVal, GLfloat p_blueVal);
 		void setText(const std::string& p_text);
 		void setAlignment(Alignment p_alignment);

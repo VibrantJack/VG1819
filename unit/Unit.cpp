@@ -1,5 +1,6 @@
 #include "Unit.h"
-
+#include "unit/unitComponent/UnitMove.h"
+#include "kitten/K_GameObject.h"
 //@Rock
 
 namespace unit
@@ -80,6 +81,11 @@ namespace unit
 	{
 		assert(m_turn != nullptr);
 		m_turn = nullptr;
+	}
+
+	kitten::K_GameObject * Unit::getTile()
+	{
+		return m_attachedObject->getComponent<unit::UnitMove>()->getTile();
 	}
 
 	/*
