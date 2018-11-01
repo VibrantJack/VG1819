@@ -23,6 +23,6 @@ namespace kibble {
 	void destroyDatabank();
 	// returns an empty ability if none is found matching string, adds it internally to a late load list. 
 	// To be used only within kibble
-	unit::AbilityDescription* getAnyAbilityFromName(const std::string& p_name);
-	void addAbilityToLateLoadUpdate(unit::AbilityDescription*);
+	unit::AbilityDescription* getCopyAbilityFromName(const std::string& p_name);
+	void flagAbilityForLateLoad(unit::AbilityDescription*);
 }
