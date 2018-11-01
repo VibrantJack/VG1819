@@ -26,7 +26,7 @@ SpawnUnitOnKeyPress::SpawnUnitOnKeyPress()
 	:
 	m_iUnitId(0)
 {
-
+	unit::UnitSpawn::getInstanceSafe();
 }
 
 SpawnUnitOnKeyPress::~SpawnUnitOnKeyPress()

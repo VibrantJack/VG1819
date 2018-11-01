@@ -144,8 +144,8 @@ namespace unit
 			packet->packetType = PacketTypes::UNIT_MOVE;
 			packet->clientId = networking::ClientGame::getClientId();
 			packet->unitIndex = networking::ClientGame::getInstance()->getUnitGameObjectIndex(m_attachedObject);
-			packet->posX = m_attachedObject->getComponent<TileInfo>()->getPosX();
-			packet->posY = m_attachedObject->getComponent<TileInfo>()->getPosY();
+			packet->posX = getTile()->getComponent<TileInfo>()->getPosX();
+			packet->posY = getTile()->getComponent<TileInfo>()->getPosY();
 			
 			networking::ClientGame::getInstance()->sendPacket(packet);
 		}
