@@ -20,7 +20,7 @@ namespace unit
 		InitiativeTrackerUI* m_UI;
 
 		std::vector<kitten::K_GameObject*> m_unitObjectList;
-		std::vector<kitten::K_GameObject*>::iterator m_currentUnitIterator;
+		int m_currentUnitIndex;
 
 		void sortListByIn();
 	public:
@@ -36,7 +36,7 @@ namespace unit
 
 		//TO DO: by ID or name or something
 		kitten::K_GameObject* getCurrentUnit();
-		std::vector<kitten::K_GameObject*> getList();
+		std::vector<kitten::K_GameObject*> getUnitList();
 
 		//turn phase
 		//start of whole turn->unit turn->next->repeat until no more unit->start of whole turn

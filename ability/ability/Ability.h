@@ -113,6 +113,14 @@ namespace ability
 		virtual ~Slay();
 		int effect(const AbilityInfoPackage* p_info);
 	};
+
+	class SummonUnit : public Ability
+	{
+	public:
+		SummonUnit();
+
+		int effect(const AbilityInfoPackage* p_info);
+	};
 }
 
 

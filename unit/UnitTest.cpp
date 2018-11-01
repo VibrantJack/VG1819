@@ -7,14 +7,15 @@
 
 // Includes for tile highlighting and manipulating tile
 #include "_Project\UseAbilityWhenClicked.h"
-#include "_Project\PrintWhenClicked.h"
+//board clickable
+#include "board/clickable/PrintWhenClicked.h"
 #include "kitten\K_ComponentManager.h"
 
 //Includes for creating spawn tile
 #include "unit/unitComponent/UnitMove.h"
 #include "kitten/K_GameObjectManager.h"
 
-#include "_Project/BoardCreator.h"
+#include "board/BoardManager.h"
 
 //Rock
 //test the unit data
@@ -44,30 +45,33 @@ namespace unit
 		kibble::UnitDataParser* parser = kibble::getUnitDataParserInstance();
 
 		//comment for testing IT
-		/*
+		
 		// Testing highlighting tiles and manipulating tiles using testDummy.txt
 		{
-			kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
-			//kitten::K_GameObject* testDummyGO = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("testDummy.txt"));
 			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(0));
 			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
 			UnitMonitor::getInstanceSafe()->printUnit(testDummy);
-			// Moved PrintWhenClicked and UseAbilityWhenClicked into UnitSpawn::spawnUnitObject() for spawning a Commander
-			
+
 			//initialize position
-			testDummyGO->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(0, 0));
-		} 
+			testDummyGO->getComponent<unit::UnitMove>()->setTile(4,4);
+
+			kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
+			testDummyGO->addComponent(compMan->createComponent("UseAbilityWhenClicked"));
+			testDummyGO->addComponent(compMan->createComponent("SelectAbility"));
+
+			//PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
+			//printWhenClick->setMessage("Test Dummy");
+			//testDummyGO->addComponent(printWhenClick);
+		}
 		// End testing selecting spawned unit
-		*/
+		
 
 		/*
 		//create test tile for unit spawn
 		kitten::K_GameObject* testTile = kitten::K_GameObjectManager::getInstance()->createNewGameObject("tileobj.txt");
-
 		PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(kitten::K_ComponentManager::getInstance()->createComponent("PrintWhenClicked"));
 		printWhenClick->setMessage("spawn tile is clicked");
 		testTile->addComponent(printWhenClick);
-
 		kitten::K_Component* clickBox = kitten::K_ComponentManager::getInstance()->createComponent("ClickableBox");
 		testTile->addComponent(clickBox);
 
@@ -76,12 +80,14 @@ namespace unit
 		*/
 
 
-		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
-		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Engineer.txt"));
+		//kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
+		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(1));
+		//kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Engineer.txt"));
+		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(4));
 		//u1->getTransform().move(10.0f, 0.0f, 0.0f);
 		//set initial position
-		u1->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(1, 1));
-		u2->getComponent<unit::UnitMove>()->setTile(BoardCreator::getTile(0, 1));
+		u1->getComponent<unit::UnitMove>()->setTile(1,1);
+		u2->getComponent<unit::UnitMove>()->setTile(0,1);
 
 		//test unit 
 		unit::Unit* u = u1->getComponent<unit::Unit>();
@@ -98,4 +104,3 @@ namespace unit
 		//UnitMonitor::getInstanceSafe()->printIT();
 	}
 }
-

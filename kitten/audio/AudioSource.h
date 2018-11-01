@@ -18,6 +18,7 @@ namespace kitten
 		bool m_isLooped;
 		bool m_is3D;
 		bool m_effectsEnabled;
+		bool m_wasPaused;
 
 		float m_volume;
 		float m_minDist, m_maxDist;
@@ -35,9 +36,11 @@ namespace kitten
 		void tryDuckOthers(bool p_startDuck);
 
 		virtual void OnSoundStopped(irrklang::ISound* p_sound, irrklang::E_STOP_EVENT_CAUSE p_reason, void* p_userData) override;
+		virtual void onDisabled() override;
+		virtual void onEnabled() override;
 	public:
 		AudioSource(const std::string& p_pathToClip, bool p_is3D, bool p_enableEffects, bool p_causesDuck = false, bool p_getsDucked = false);
-		~AudioSource();
+		virtual ~AudioSource();
 
 		void start() override;
 		void onPosChanged(const glm::vec3& p_newPos) override;

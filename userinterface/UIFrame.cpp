@@ -1,90 +1,55 @@
 #include "UIFrame.h"
 #include "puppy\Renderer.h"
 #include "puppy\StaticRenderables.h"
+#include <iostream>
+
+
+//austin's UI frame
 
 namespace userinterface
 {
-	puppy::VertexEnvironment* UIFrame::sm_vao = nullptr;
-	int UIFrame::sm_instances = 0;
 
-	UIFrame::UIFrame(const char* p_pathToTex)
+	UIFrame::UIFrame(const char* p_pathToTex) : UIElement(p_pathToTex) //default params
 	{
-		m_mat = new puppy::Material(puppy::ShaderType::basic);
-		if (p_pathToTex != nullptr)
-		{
-			m_mat->setTexture(p_pathToTex);
-		}
+		m_isEnabled = true;
+	}
 
-		if (sm_instances < 1)
-		{
-			puppy::TexturedVertex verts[] =
-			{
-			{ 0.0, 0.0, 0, 0.0, 0.0 },
-			{ 1.0, 0.0, 0, 2.0, 0.0 },
-			{ 1.0, 1.0, 0, 2.0, 2.0 },
-
-			{ 1.0, 1.0, 0, 2.0, 2.0 },
-			{ 0.0, 1.0, 0, 2.0, 0.0 },
-			{ 0.0, 0.0, 0, 0.0, 0.0 },
-			};
-			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);
-
-			++sm_instances;
-
-			puppy::Renderer::getInstance()->addUIToRender(this);
-		}
-		else {
-			puppy::Renderer::getInstance()->addUIToRender(this);
-		}
+	UIFrame::UIFrame(const char* p_pathToTex, pivotType p_pivot, textureBehaviour p_texBehaviour) : UIElement(p_pathToTex, p_pivot, p_texBehaviour)
+	{
+		m_isEnabled = true;
 	}
 
 	UIFrame::~UIFrame()
 	{
-		delete m_mat;
-		if (--sm_instances == 0)
+
+	}
+
+	void UIFrame::addToFrame(UIObject* p_ouiToAdd)
+	{
+		m_innerObjects.push_back(p_ouiToAdd);
+	}
+
+	void UIFrame::removeFromFrame(UIObject* p_ouiToRemove)
+	{
+		auto end = m_innerObjects.end();
+		for (auto it = m_innerObjects.begin(); it != end; ++it)
 		{
-			delete sm_vao;
+			if (*it == p_ouiToRemove)
+			{
+				m_innerObjects.erase(it);
+				return;
+			}
 		}
-		puppy::Renderer::getInstance()->removeUIFromRender(this);
 	}
 
-	void UIFrame::start()
+	void UIFrame::onDisabled()
 	{
-		//Only need to add to staticRenderables if static (already added in normal renderer)
-		/*
-		puppy::TexturedVertex verts[] =
-		{
-			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
-			{ 0.5f, 0.0f, 0.5f,			0.0f, 1.0f },
-			{ 0.5f, 0.0f,-0.5f,			1.0f, 1.0f },
-			{ 0.5f, 0.0f,-0.5f,			1.0f, 1.0f },
-			{ -0.5f, 0.0f,-0.5f,		1.0f, 0.0f },
-			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
-		};
-
-		//Transform into world space
-		puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform());
-
-		//m_tex is null because it was not initialized in the constructor - Callum
-		puppy::StaticRenderables::getInstance()->addToUIRender(this, m_tex, verts, 6);
-		*/
+		removeFromDynamicRender();
 	}
 
-	void UIFrame::render(const glm::mat4& p_ortho)
+	void UIFrame::onEnabled()
 	{
-		m_mat->apply();
-
-		glm::mat4 wvp = p_ortho * getTransform().getWorldTransform();
-		m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
-
-		sm_vao->drawArrays(GL_TRIANGLES);
-	}
-
-	void UIFrame::setTexture(const char* p_pathToTex)
-	{
-		//delete m_tex;
-		//m_tex = new puppy::Texture(p_pathToTex);
-
-		m_mat->setTexture(p_pathToTex);
+		addToDynamicRender();
 	}
 }
+

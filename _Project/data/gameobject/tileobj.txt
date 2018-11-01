@@ -6,8 +6,8 @@
         }, 
         {
             "name" : "QuadRenderable",
-            "texture" : "textures/tiles/Grassland.tga",
-			"static" : false
+            "texture" : "textures/tiles/grassland.tga",
+			"static" : true
         }
     ]
 }

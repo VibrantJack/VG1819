@@ -30,7 +30,7 @@ namespace puppy
 			constructRightOrCenterAlignVertices(false);
 		}
 
-		Renderer::getInstance()->addUIToRender(this);
+		addToDynamicRender();
 	}
 
 	TextBox::TextBox(Font* p_fontToUse, std::string p_text, float p_boxWidth, float p_boxHeight)
@@ -43,13 +43,15 @@ namespace puppy
 		m_color[3] = 0; //alpha addition
 
 		constructLeftAlignVertices();
-		Renderer::getInstance()->addUIToRender(this);
 	}
 
 	puppy::TextBox::~TextBox()
 	{
 		removeOldText();
-		Renderer::getInstance()->removeUIFromRender(this);
+		if (m_isEnabled)
+		{
+			removeFromDynamicRender();
+		}
 	}
 
 	void TextBox::removeOldText()
@@ -331,6 +333,21 @@ namespace puppy
 		
 	}
 
+	void TextBox::start()
+	{
+		addToDynamicRender();
+	}
+
+	void TextBox::onDisabled()
+	{
+		removeFromDynamicRender();
+	}
+
+	void TextBox::onEnabled()
+	{
+		addToDynamicRender();
+	}
+
 	void TextBox::render(const glm::mat4& p_ortho)
 	{
 		if (m_isDirty)
@@ -350,6 +367,7 @@ namespace puppy
 					constructRightOrCenterAlignVertices(false);
 				}
 			}
+			m_isDirty = false;
 		}
 
 

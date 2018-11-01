@@ -4,6 +4,7 @@
 
 unit::UnitData* getUnitDataFrom(nlohmann::json& p_jsonfile) {
 	unit::UnitData* ud = new unit::UnitData();
+	ud->m_texPath = "textures/unit/Default.tga";
 
 	ud->m_name = p_jsonfile["name"].get<std::string>();
 	ud->m_HP = p_jsonfile["hp"];

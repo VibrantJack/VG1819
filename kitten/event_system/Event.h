@@ -4,6 +4,7 @@
 #define TILE_POS_X "pos_x"
 #define TILE_POS_Y "pos_y"
 #define TILE_OWNER_KEY "tile_owner_key"
+#define MANIPULATE_TILE_KEY "manip_tile_key"
 
 #include "kitten/K_GameObject.h"
 
@@ -22,6 +23,19 @@ namespace kitten
 			Object_Clicked, 
 			Highlight_Tile, 
 			Unhighlight_Tile,
+			Manipulate_Tile,
+			Highlight_Tile_Summon_Unit,
+			Summon_Unit,
+			Draw_Card,
+			Peek_Card,
+			Discard_Card,
+			Add_Card,
+			Shuffle_Deck,
+			Card_Drawn,
+			Card_Peeked,
+			Card_Discarded,
+			Deck_Empty,
+
 			Test_Event, 
 			MAX_VAL = Test_Event
 		};

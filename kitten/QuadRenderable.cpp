@@ -38,8 +38,6 @@ namespace kitten
 				sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::colorTint_alphaTest), 6);
 			}
 			++sm_instances;
-			
-			puppy::Renderer::getInstance()->addToRender(this);
 		}
 		else
 		{
@@ -56,35 +54,75 @@ namespace kitten
 			{
 				delete sm_vao;
 			}
-			puppy::Renderer::getInstance()->removeFromRender(this);
+
+			if (m_isEnabled)
+			{
+				removeFromDynamicRender();
+			}
 		}
 		else
 		{
-			puppy::StaticRenderables::getInstance()->removeFromRender(this, m_tex);
+			if (m_isEnabled)
+			{
+				removeFromStaticRender(m_tex);
+			}
+			
 			delete m_tex;
 		}
 	}
 
-	void QuadRenderable::start()
+	void QuadRenderable::addToStaticRender()
 	{
-		if (m_isStatic)
+		puppy::TexturedVertex verts[] =
 		{
-			puppy::TexturedVertex verts[] =
-			{
 			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
 			{ 0.5f, 0.0f, 0.5f,			0.0f, 1.0f },
 			{ 0.5f, 0.0f,-0.5f,			1.0f, 1.0f },
 			{ 0.5f, 0.0f,-0.5f,			1.0f, 1.0f },
 			{ -0.5f, 0.0f,-0.5f,		1.0f, 0.0f },
 			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
-			};
+		};
 
-			//Transform into world space
-			puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform());
+		//Transform into world space
+		puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform());
 
-			puppy::StaticRenderables::getInstance()->addToRender(this, m_tex, verts, 6);
+		Renderable::addToStaticRender(m_tex, verts, 6);
+	}
+
+	void QuadRenderable::start()
+	{
+		if (m_isStatic)
+		{
+			addToStaticRender();
 		}
-		
+		else
+		{
+			addToDynamicRender();
+		}
+	}
+
+	void QuadRenderable::onDisabled()
+	{
+		if (m_isStatic)
+		{
+			removeFromStaticRender(m_tex);
+		}
+		else
+		{
+			removeFromDynamicRender();
+		}
+	}
+
+	void QuadRenderable::onEnabled()
+	{
+		if (m_isStatic)
+		{
+			addToStaticRender();
+		}
+		else
+		{
+			addToDynamicRender();
+		}
 	}
 
 	void QuadRenderable::setTexture(const char* p_pathToTex)
@@ -93,7 +131,24 @@ namespace kitten
 		{
 			m_mat->setTexture(p_pathToTex);
 		}
-		else if(!m_hasStarted)
+		else if(m_hasStarted)
+		{
+			removeFromStaticRender(m_tex);
+			delete m_tex;
+
+			m_tex = new puppy::Texture(p_pathToTex);
+			puppy::TexturedVertex verts[] = { 
+			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
+			{ 0.5f, 0.0f, 0.5f,			0.0f, 1.0f },
+			{ 0.5f, 0.0f,-0.5f,			1.0f, 1.0f },
+			{ 0.5f, 0.0f,-0.5f,			1.0f, 1.0f },
+			{ -0.5f, 0.0f,-0.5f,		1.0f, 0.0f },
+			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f }, };
+
+			puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform());
+			Renderable::addToStaticRender(m_tex, verts, 6);
+		}
+		else
 		{
 			delete m_tex;
 			m_tex = new puppy::Texture(p_pathToTex);

@@ -4,7 +4,7 @@
         {
             "name" : "AudioSource",
 			"clippath" : "Sounds/WoodBlock.wav",
-			"is3d" : true,
+			"is3d" : false,
 			"enableeffects" : false,
 			"causesduck" : true
         },

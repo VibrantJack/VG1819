@@ -51,6 +51,10 @@ namespace ability
 		newAbility->m_name = "Dodge";
 		m_abilityList.push_back(newAbility);
 
+		newAbility = new SummonUnit();
+		newAbility->m_name = SUMMON_UNIT;
+		m_abilityList.push_back(newAbility);
+
 	}
 
 	AbilityManager::AbilityManager() : m_sLastAbilityUsed("NONE")
@@ -92,14 +96,16 @@ namespace ability
 		for (auto it = m_abilityList.begin(); it != m_abilityList.end(); it++)
 		{
 			if ((*it)->m_name == p_name)
+			{
+				m_sLastAbilityUsed = p_name;
 				return *it;
+			}
 		}
 		return nullptr;
 	}
 
 	int AbilityManager::useAbility(const std::string & p_name, AbilityInfoPackage * p_info)
 	{
-		m_sLastAbilityUsed = p_name;
 		return findAbility(p_name)->effect(p_info);
 	}
 

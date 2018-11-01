@@ -6,7 +6,7 @@ namespace kitten
 {
 	ClickableBox::ClickableBox(const glm::vec3& p_minPoint, const glm::vec3& p_maxPoint) : m_originalMinPoint(p_minPoint), m_originalMaxPoint(p_maxPoint)
 	{
-		ActiveClickables::getInstance()->addToActive(this);
+		
 		m_minPoint = m_originalMinPoint;
 		m_maxPoint = m_originalMaxPoint;
 	}
@@ -29,24 +29,28 @@ namespace kitten
 		m_maxPoint = m_originalMaxPoint * getTransform().getScale();
 
 		getTransform().addScaleListener(this);
+
+		ActiveClickables::getInstance()->addToActive(this);
+	}
+
+	void ClickableBox::onDisabled()
+	{
+		ActiveClickables::getInstance()->removeFromActive(this);
+	}
+
+	void ClickableBox::onEnabled()
+	{
+		ActiveClickables::getInstance()->addToActive(this);
 	}
 
 	void ClickableBox::addClickable(Clickable* p_toAdd)
 	{
-		m_listeners.push_back(p_toAdd);
+		m_listeners.insert(p_toAdd);
 	}
 
 	void ClickableBox::removeClickable(Clickable* p_toRemove)
 	{
-		auto end = m_listeners.end();
-		for (auto it = m_listeners.begin(); it != end; ++it)
-		{
-			if (*it == p_toRemove)
-			{
-				m_listeners.erase(it);
-				return;
-			}
-		}
+		m_listeners.erase(p_toRemove);
 	}
 
 	void ClickableBox::onScaleChanged(const glm::vec3& p_newScale)

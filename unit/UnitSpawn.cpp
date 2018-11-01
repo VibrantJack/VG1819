@@ -5,7 +5,9 @@
 #include "unit/InitiativeTracker/InitiativeTracker.h"
 #include "unit/unitComponent/UnitClickable.h"
 #include "unit/unitComponent/UnitMove.h"
-#include "_Project\PrintWhenClicked.h"
+//board clickable
+#include "board/clickable/PrintWhenClicked.h"
+
 //Rock
 
 namespace unit
@@ -55,7 +57,8 @@ namespace unit
 		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
 
 		//create unit graphic
-		kitten::K_Component* unitG = cm->createComponent("UnitGraphic");
+		UnitGraphic* unitG = static_cast<UnitGraphic*>(cm->createComponent("UnitGraphic"));
+		unitG->setTexture(p_unitData->m_texPath.c_str());
 
 		//create unit move
 		kitten::K_Component* uMove = cm->createComponent("UnitMove");
@@ -74,12 +77,12 @@ namespace unit
 		else {
 			unitObject->addComponent(commander);
 
-			PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(cm->createComponent("PrintWhenClicked"));
-			printWhenClick->setMessage("Unit clicked");
-			unitObject->addComponent(printWhenClick);
+			//PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(cm->createComponent("PrintWhenClicked"));
+			//printWhenClick->setMessage("Unit clicked");
+			//unitObject->addComponent(printWhenClick);
 
-			kitten::K_Component* useAbility = cm->createComponent("UseAbilityWhenClicked");
-			unitObject->addComponent(useAbility);
+			//kitten::K_Component* useAbility = cm->createComponent("UseAbilityWhenClicked");
+			//unitObject->addComponent(useAbility);
 
 		}
 
@@ -136,7 +139,7 @@ namespace unit
 		//readSD
 		for (auto it : p_unitData->m_sd)
 		{
-			readSD(it)->attach(unit);
+			unit->addStatus(readSD(it));
 		}
 
 		return unit;

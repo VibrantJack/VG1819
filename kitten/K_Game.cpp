@@ -3,8 +3,8 @@
 #include "kitten\K_Game.h"
 #include "kitten\K_Common.h"
 
-#include "kitten\K_Singletons.h"
-#include "puppy\P_Singletons.h"
+#include "kitten\K_Instance.h"
+#include "puppy\P_Instance.h"
 #include "kitten\audio\AudioEngineWrapper.h"
 
 #include "kitten\K_GameObject.h"
@@ -15,14 +15,18 @@
 #include "kitten\CubeRenderable.h"
 #include "kitten\QuadRenderable.h"
 #include "_Project\MoveByMouseRightClickDrag.h"
-#include "_Project\PrintWhenClicked.h"
 #include "kitten\mouse picking\ClickableBox.h"
 
 #include "gameworld\GameBoard.h"
 
 #include "kibble/kibble.hpp"
+#include "kibble/databank/databank.hpp"
 #include "unit/UnitTest.h"
 
+//board clickable
+#include "board/clickable/PrintWhenClicked.h"
+
+#include "board/BoardManager.h"
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
 
@@ -34,20 +38,9 @@ namespace kitten
 {
 	void createSingletons()
 	{
-		AudioEngineWrapper::createInstance();
+		K_Instance::createInstance();
 
-		input::InputManager::createInstance();
-		K_CameraList::createInstance();
-		K_ComponentManager::createInstance();
-		K_GameObjectManager::createInstance();
-		K_Time::createInstance();
-		ActiveClickables::createInstance();
-		EventManager::createInstance();
-
-		puppy::MaterialManager::createInstance();
-		puppy::Renderer::createInstance();
-		puppy::StaticRenderables::createInstance();
-		puppy::FontTable::createInstance();
+		puppy::P_Instance::createInstance();
 
 		kibble::initializeKibbleRelatedComponents();
 
@@ -56,6 +49,8 @@ namespace kitten
 		ability::AbilityNodeManager::createInstance();
 
 		unit::InitiativeTracker::createInstance();
+
+		BoardManager::createInstance();
 	}
 
 	// This is called once at the beginning of the game
@@ -70,6 +65,15 @@ namespace kitten
 		//Creating a gameobject
 		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
 		kibble::setSceneFrom(std::string("mainscene.txt"));
+
+		// Deck Data importing, and exporting
+		// Note that kibble assumes it's a newly generated DeckData, passing on existant DeckData would could deletion error because it's already deleted. 
+		DeckData* data = new DeckData(*kibble::getDeckDataFromId(0)); // Assumes there's already atleast one deck loaded
+		data->cards.push_back({ 9,2 });
+		//kibble::addNewDeckData(data); // this line works, comment out or FEAR THE WRATH OF THE EVER GROWING DECK NUMBAHS INFESTING YA SAVES
+
+		//board creator doesn't done by board manager
+		//BoardManager::getInstance()->createBoard();
 
 		/*
 		//Example of Parent / Children : REMOVE WHEN TESTING DONE OR BUGS NOT BEING FOUND
@@ -107,37 +111,22 @@ namespace kitten
 		secondChild->getTransform().rotateAbsolute(glm::vec3(0, -45, 0));
 		*/
 
-		userinterface::InterfaceBuilder* builder = new userinterface::InterfaceBuilder();
+		//userinterface::InterfaceBuilder* builder = new userinterface::InterfaceBuilder();
 		//builder->start();
-		/*
-		K_GameObject* gameObj = K_GameObjectManager::getInstance()->createNewGameObject();
-		K_Component* fpsCalc = compMan->createComponent("FPSCalc");
-		puppy::TextBox* testText = static_cast<puppy::TextBox*>(compMan->createComponent("TextBox"));
-		testText->setColor(1, 1, 1);
-		gameObj->addComponent(testText);
-		gameObj->addComponent(fpsCalc);
-		gameObj->getTransform().place2D(100, 700);
-		*/
+		//delete builder;
 
-		// Testing Events
-		Event* e = new Event(Event::Test_Event);
-		e->putString("key", "Testing Event Trigger");
-
-		EventExample ee;
-		ee.registerListener();
-		EventManager::getInstance()->triggerEvent(Event::Test_Event, e);
-		//ee.deregisterListener();
-
-		e = new Event(Event::Test_Event);
-		e->putString("key", "Testing Event queue");
-		EventManager::getInstance()->queueEvent(Event::Test_Event, e);
-
-		// End testing events
+		
 
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();
 
-		
+		//UIO TESTING
+		K_GameObject* hand = K_GameObjectManager::getInstance()->createNewGameObject();
+		K_Component* handFrame = compMan->createComponent("Hand");
+		hand->addComponent(handFrame);
+		hand->getTransform().scale2D(1.0, 0.4);
+		hand->getTransform().place2D(-0.9, -0.9);
+
 		/*
 		//testing ui frame and textbox
 		K_GameObject* go = K_GameObjectManager::getInstance()->createNewGameObject();
@@ -162,51 +151,28 @@ namespace kitten
 	{
 		kibble::destroyKibbleRelatedComponents();
 
-		input::InputManager::destroyInstance();
-		K_CameraList::destroyInstance();
-		K_ComponentManager::destroyInstance();
-		K_GameObjectManager::destroyInstance();
-		K_Time::destroyInstance();
-		ActiveClickables::destroyInstance();
-		EventManager::destroyInstance();
+		K_Instance::destroyInstance();
 
-		puppy::MaterialManager::destroyInstance();
-		puppy::Renderer::destroyInstance();
-		puppy::StaticRenderables::destroyInstance();
-		puppy::FontTable::destroyInstance();
-
-		AudioEngineWrapper::destroyInstance();
+		puppy::P_Instance::destroyInstance();
 
 		ability::StatusManager::destroyInstance();
 		ability::AbilityManager::destroyInstance();
 		ability::AbilityNodeManager::destroyInstance();
 
 		unit::InitiativeTracker::destroyInstance();
+
+		BoardManager::destroyInstance();
 	}
 
 	void updateGame()
 	{
-		//Update sound
-		AudioEngineWrapper::update();
-		//Update delta time
-		K_Time::getInstance()->updateTime();
-		//Update input
-		input::InputManager::getInstance()->update();
-		//Update event manager
-		EventManager::getInstance()->update();
-
-		//Update components
-		K_ComponentManager::getInstance()->updateComponents();
-		K_GameObjectManager::getInstance()->deleteQueuedObjects();
+		K_Instance::update();
 	}
 
 	void renderGame()
 	{
 		//@TODO: Combine these? 
-		kitten::Camera* cam = K_CameraList::getInstance()->getSceneCamera();
-
-		puppy::Renderer::getInstance()->renderAll(cam);
-		puppy::StaticRenderables::getInstance()->render(cam);
+		puppy::P_Instance::render();
 	}
 
 	// This is called every frame
@@ -218,6 +184,7 @@ namespace kitten
 
 	void shutdownGame()
 	{
+		kitten::K_GameObjectManager::getInstance()->destroyAllGameObjects();
 		destroySingletons();
 	}
 }

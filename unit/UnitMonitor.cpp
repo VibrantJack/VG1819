@@ -81,7 +81,7 @@ namespace unit
 	{
 		InitiativeTracker* tracker = InitiativeTracker::getInstance();
 
-		for (auto it : tracker->getList())
+		for (auto it : tracker->getUnitList())
 		{
 			std::string name = it->getComponent<unit::Unit>()->m_name;
 			int i = it->getComponent<unit::Unit>()->m_attributes["in"];

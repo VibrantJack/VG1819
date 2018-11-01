@@ -18,6 +18,8 @@ namespace kitten
 
 		Transform* m_transform;
 
+		bool m_isEnabled;
+
 		K_GameObject();
 		~K_GameObject();
 	public:
@@ -29,6 +31,9 @@ namespace kitten
 		T* getComponent();
 
 		Transform& getTransform() { return *m_transform; };
+
+		bool isEnabled() const;
+		void setEnabled(bool p_enabled);
 	};
 	
 	//This works, see K_GameObject.cpp for non-working

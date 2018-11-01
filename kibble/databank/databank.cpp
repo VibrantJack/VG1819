@@ -3,10 +3,12 @@
 
 std::vector<unit::UnitData*> unitDataVector;
 std::map<std::string, unit::AbilityDescription*> abilityDataMap;
-
 std::map<std::string, std::vector<int>> abilityToUnitMap, tagToUnitMap;
-
 std::vector<unit::AbilityDescription*> lateLoadAbility, lateUpdateAbility;
+std::vector<DeckData*> deckDataVector;
+
+#define DECK_LIST "data/gamedecklist.txt"
+#define UNIT_LIST "data/gameunitlist.txt"
 
 // Basically the deconstructor
 void kibble::destroyDatabank() {
@@ -20,6 +22,9 @@ void kibble::destroyDatabank() {
 
 		delete unit;
 	}
+	for (auto data : deckDataVector) {
+		delete data;
+	}
 }
 
 #include "kibble/kibble.hpp"
@@ -28,7 +33,7 @@ void kibble::setupDatabank() {
 	unitDataVector.reserve(50);
 	kibble::UnitDataParser* unitDataParser = kibble::getUnitDataParserInstance();
 
-	std::ifstream input("data/gameunitlist.txt");
+	std::ifstream input(UNIT_LIST);
 	if (input.is_open()) {
 		std::string unitFilename;
 		while (input >> unitFilename) {
@@ -55,6 +60,7 @@ void kibble::setupDatabank() {
 				unitDataVector.push_back(unit);
 			}
 		}
+		input.close();
 	}
 	else {
 		throw std::exception("Something went wrong, can't open the Unit List file."); // check if filename is correct.
@@ -75,6 +81,19 @@ void kibble::setupDatabank() {
 		// TODO delete the base tag if rock finds it annoying
 	}
 	lateUpdateAbility.clear();
+
+	std::ifstream deckListFile(DECK_LIST);
+	if (deckListFile.is_open()) {
+		std::string deckFilename;
+		while (deckListFile >> deckFilename) {
+			deckDataVector.push_back(kibble::getDeckDataParserInstance()->getDeckData(deckFilename));
+		}
+		deckListFile.close();
+	}
+	else {
+		throw std::exception("Something went wrong, can't open the deck List file."); // check if filename is correct.
+		return;
+	}
 }
 
 
@@ -122,4 +141,22 @@ std::vector<int> kibble::getUnitIdsThatHaveAbilityOfName(const std::string& p_na
 }
 std::vector<int> kibble::getUnitIdsThatHaveTag(const std::string& p_tag) {
 	return tagToUnitMap[p_tag];
+}
+
+
+int kibble::getDeckDataListCount() {
+	return deckDataVector.size();
+}
+
+DeckData* kibble::getDeckDataFromId(const int& p_identifier) {
+	return deckDataVector[p_identifier];
+}
+
+void kibble::addNewDeckData(DeckData* p_data) {
+	kibble::getDeckDataParserInstance()->saveDeckData(p_data, "DeckNumbah" + std::to_string(deckDataVector.size()) + ".txt");
+	std::ofstream deckList(DECK_LIST, std::ofstream::app | std::ofstream::out);
+	if (deckList.is_open()) {
+		deckList << std::endl << "DeckNumbah" + std::to_string(deckDataVector.size()) << ".txt" ;
+	}
+	deckDataVector.push_back(p_data);
 }

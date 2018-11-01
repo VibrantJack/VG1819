@@ -11,6 +11,10 @@ namespace kitten
 
 		static puppy::VertexEnvironment* sm_vao;
 		static int sm_instances;
+
+		virtual void start() override;
+		virtual void onDisabled() override;
+		virtual void onEnabled() override;
 	public:
 		CubeRenderable(const char* p_pathToTex = nullptr);
 		virtual ~CubeRenderable();

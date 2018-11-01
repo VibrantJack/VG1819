@@ -5,6 +5,7 @@
     "in":8,
     "cost":1,
 	"size":"point",
+	"texpath":"textures/unit/Priest.tga",
 	"tags":["Wizard","Terrans"],
 	"ability_description":[
 			{
