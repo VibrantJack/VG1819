@@ -1,11 +1,11 @@
 #include "databank.hpp"
 #include <map>
-#include <set>
+#include <unordered_set>
 
 std::vector<unit::UnitData*> unitDataVector;
 std::map<std::string, unit::AbilityDescription*> abilityDataMap;
 std::map<std::string, std::vector<int>> abilityToUnitMap, tagToUnitMap;
-std::set<unit::AbilityDescription*> lateLoadAbility;
+std::unordered_set<unit::AbilityDescription*> lateLoadAbility;
 std::vector<DeckData*> deckDataVector;
 
 #define DECK_LIST "data/gamedecklist.txt"
