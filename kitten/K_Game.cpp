@@ -27,12 +27,12 @@
 #include "board/clickable/PrintWhenClicked.h"
 
 #include "board/BoardManager.h"
-
-#include "unitInteraction/UnitInteractionManager.h"
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
 
 #include "userinterface\InterfaceBuilder.h"
+
+#include "unitInteraction/UnitInteractionManager.h"
 
 #define DEBUG
 
@@ -53,7 +53,7 @@ namespace kitten
 		unit::InitiativeTracker::createInstance();
 
 		BoardManager::createInstance();
-    
+
 		UnitInteractionManager::createInstance();
 	}
 
@@ -119,10 +119,11 @@ namespace kitten
 		//builder->start();
 		//delete builder;
 
+		
+
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();
 
-		
 		/*
 		//testing ui frame and textbox
 		K_GameObject* go = K_GameObjectManager::getInstance()->createNewGameObject();
@@ -160,7 +161,6 @@ namespace kitten
 		BoardManager::destroyInstance();
 
 		UnitInteractionManager::destroyInstance();
-
 	}
 
 	void updateGame()

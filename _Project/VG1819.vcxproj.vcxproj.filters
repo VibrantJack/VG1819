@@ -400,6 +400,12 @@
     <ClCompile Include="..\ability\status\statusEvent\TimePointEvent.cpp">
       <Filter>ability\status\statusEvent</Filter>
     </ClCompile>
+    <ClCompile Include="..\userinterface\UIElement.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\userinterface\UIObject.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -766,6 +772,15 @@
     </ClInclude>
     <ClInclude Include="..\ability\status\statusEvent\TimePointEvent.h">
       <Filter>ability\status\statusEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\userinterface\InterfaceBuilder.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\userinterface\UIElement.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\userinterface\UIObject.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

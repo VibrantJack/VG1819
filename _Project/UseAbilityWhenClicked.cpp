@@ -5,6 +5,7 @@
 //
 // @Ken
 
+
 // Change this to test different abilities on click; see switch in onClick()
 #define ABILITY_TEST 1
 
@@ -25,9 +26,9 @@ UseAbilityWhenClicked::UseAbilityWhenClicked()
 
 UseAbilityWhenClicked::~UseAbilityWhenClicked()
 {
-	kitten::K_ComponentManager::getInstance()->destroyComponent(m_textBox);
+	//kitten::K_ComponentManager::getInstance()->destroyComponent(m_textBox);
 }
-
+/*
 void UseAbilityWhenClicked::start()
 {
 	Clickable::start();
@@ -47,7 +48,6 @@ void UseAbilityWhenClicked::start()
 
 void UseAbilityWhenClicked::update()
 {
-	/*
 	if (m_bSelectingAbility)
 	{		
 		m_textBox->setText("1: Manipulate Tile \n 2: Summon Unit");
@@ -65,7 +65,7 @@ void UseAbilityWhenClicked::update()
 	else
 	{
 		m_textBox->setText("");
-	}*/
+	}
 }
 
 void UseAbilityWhenClicked::onClick()
@@ -124,4 +124,4 @@ void UseAbilityWhenClicked::onClick()
 	//		break;
 	//	}
 	//}
-}
+}*/

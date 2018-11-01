@@ -1,55 +1,46 @@
 #include "UIFrame.h"
 #include "puppy\Renderer.h"
 #include "puppy\StaticRenderables.h"
+#include <iostream>
+
+
+//austin's UI frame
 
 namespace userinterface
 {
-	puppy::VertexEnvironment* UIFrame::sm_vao = nullptr;
-	int UIFrame::sm_instances = 0;
 
-	UIFrame::UIFrame(const char* p_pathToTex)
+	UIFrame::UIFrame(const char* p_pathToTex) : UIElement(p_pathToTex) //default params
 	{
-		m_mat = new puppy::Material(puppy::ShaderType::basic);
-		if (p_pathToTex != nullptr)
-		{
-			m_mat->setTexture(p_pathToTex);
-		}
+		//nothing extra yet
+		m_isEnabled = true;
+	}
 
-		if (sm_instances < 1)
-		{
-			puppy::TexturedVertex verts[] =
-			{
-			{ 0.0, 0.0, 0, 0.0, 0.0 },
-			{ 1.0, 0.0, 0, 2.0, 0.0 },
-			{ 1.0, 1.0, 0, 2.0, 2.0 },
-
-			{ 1.0, 1.0, 0, 2.0, 2.0 },
-			{ 0.0, 1.0, 0, 2.0, 0.0 },
-			{ 0.0, 0.0, 0, 0.0, 0.0 },
-			};
-			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);
-
-			++sm_instances;
-		}
+	UIFrame::UIFrame(const char* p_pathToTex, pivotType p_pivot, textureBehaviour p_texBehaviour) : UIElement(p_pathToTex, p_pivot, p_texBehaviour)
+	{
+		//nothing extra yet
 	}
 
 	UIFrame::~UIFrame()
 	{
-		delete m_mat;
-		if (--sm_instances == 0)
-		{
-			delete sm_vao;
-		}
-		
-		if (!m_isEnabled)
-		{
-			removeFromDynamicRender();
-		}	
+
 	}
 
-	void UIFrame::start()
+	void UIFrame::addToFrame(UIObject* p_ouiToAdd)
 	{
-		addToDynamicRender();
+		m_innerObjects.push_back(p_ouiToAdd);
+	}
+
+	void UIFrame::removeFromFrame(UIObject* p_ouiToRemove)
+	{
+		auto end = m_innerObjects.end();
+		for (auto it = m_innerObjects.begin(); it != end; ++it)
+		{
+			if (*it == p_ouiToRemove)
+			{
+				m_innerObjects.erase(it);
+				return;
+			}
+		}
 	}
 
 	void UIFrame::onDisabled()
@@ -61,22 +52,5 @@ namespace userinterface
 	{
 		addToDynamicRender();
 	}
-
-	void UIFrame::render(const glm::mat4& p_ortho)
-	{
-		m_mat->apply();
-
-		glm::mat4 wvp = p_ortho * getTransform().getWorldTransform();
-		m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
-
-		sm_vao->drawArrays(GL_TRIANGLES);
-	}
-
-	void UIFrame::setTexture(const char* p_pathToTex)
-	{
-		//delete m_tex;
-		//m_tex = new puppy::Texture(p_pathToTex);
-
-		m_mat->setTexture(p_pathToTex);
-	}
 }
+
