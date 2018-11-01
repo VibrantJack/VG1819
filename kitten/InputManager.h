@@ -3,10 +3,16 @@
 #include "mouse picking\Clickable.h"
 #include "mouse picking\ClickableUI.h"
 
+namespace kitten
+{
+	class K_Instance;
+}
+
 namespace input
 {
 	class InputManager
 	{
+		friend class kitten::K_Instance;
 	private:
 		static InputManager* sm_inputManagerInstance;
 
@@ -25,10 +31,12 @@ namespace input
 
 		InputManager();
 		~InputManager();
-	public:
-		
+
 		static void createInstance();
 		static void destroyInstance();
+
+		void update();
+	public:
 		static InputManager* getInstance();
 
 		void resetMouse(bool p_shouldReset);
@@ -43,7 +51,5 @@ namespace input
 		int getMouseYChange();
 
 		int getMouseWheel();
-
-		void update();
 	};
 }

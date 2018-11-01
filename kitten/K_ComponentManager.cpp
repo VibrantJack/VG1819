@@ -24,6 +24,7 @@
 #include "kitten\mouse picking\ClickableFrame.h"
 #include "components\PowerTracker.h"
 #include "components\SelectAbility.h"
+#include "kibble/json/Datatypes/ComponentDataType.hpp"
 //#include "userinterface\UITestClickable.h"
 
 //board
@@ -167,18 +168,18 @@ namespace kitten
 			return nullptr;
 		}
 
-		m_toStart.push_back(comp);
+		m_toStart.insert(comp);
 
 		//Successful
 		return comp;
 	}
 
-	K_Component* K_ComponentManager::createComponent(kibble::ComponentDataParser* data)
+	K_Component* K_ComponentManager::createComponent(nlohmann::json* p_jsonfile)
 	{
-		K_Component* comp = data->getComponentInternally();
+		K_Component* comp = getRelatedComponentBy(p_jsonfile);
 		if (comp == nullptr) return nullptr;
 
-		m_toStart.push_back(comp);
+		m_toStart.insert(comp);
 
 		//Successful
 		return comp;
@@ -188,13 +189,10 @@ namespace kitten
 	//bool mostly for debugging
 	bool K_ComponentManager::destroyComponent(K_Component* p_toDestroy)
 	{
-		if (p_toDestroy != nullptr)
-		{
-			m_toDelete.push_back(p_toDestroy);
-		} else
-		{
-			return false;
-		}
+		assert(p_toDestroy != nullptr);
+		m_toDelete.insert(p_toDestroy);
+
+		return true;
 	}
 
 	void K_ComponentManager::destroyComponentImmediate(K_Component* p_toDestroy)
@@ -214,44 +212,30 @@ namespace kitten
 		delete (p_toDestroy);
 	}
 
-	//@TODO: Optimize adding and removing of components to update!
 	void K_ComponentManager::addToUpdate(K_Component* p_toAdd)
 	{
-		m_toUpdate.push_back(p_toAdd);
+		m_toUpdate.insert(p_toAdd);
 	}
 
-	bool K_ComponentManager::removeFromUpdate(const K_Component* p_toRemove)
+	bool K_ComponentManager::removeFromUpdate(K_Component* p_toRemove)
 	{
 		//find in update list and remove
-		for (auto it = m_toUpdate.begin(); it != m_toUpdate.end(); ++it)
-		{
-			if (*it == p_toRemove)
-			{
-				m_toUpdate.erase(it);
-				return true;
-			}
-		}
+		m_toUpdate.erase(p_toRemove);
 
-		return false;
+		return true;
 	}
 
 	void K_ComponentManager::addToStart(K_Component* p_toStart)
 	{
 		assert(!p_toStart->m_hasStarted);
-		//@TODO: assert p_toStart is not already in m_toStart
-		m_toStart.push_back(p_toStart);
+		assert(m_toStart.find(p_toStart) == m_toStart.end());
+
+		m_toStart.insert(p_toStart);
 	}
 
-	void K_ComponentManager::removeFromStart(const K_Component* p_toRemove)
+	void K_ComponentManager::removeFromStart(K_Component* p_toRemove)
 	{
-		for (auto it = m_toStart.begin(); it != m_toStart.cend(); ++it)
-		{
-			if (*it == p_toRemove)
-			{
-				m_toStart.erase(it);
-				return;
-			}
-		}
+		m_toStart.erase(p_toRemove);
 	}
 
 	void K_ComponentManager::queueAddToUpdate(K_Component* p_toAdd)
@@ -259,7 +243,7 @@ namespace kitten
 		m_toAddToUpdate.push_back(p_toAdd);
 	}
 
-	void K_ComponentManager::queueRemovalFromUpdate(const K_Component* p_toRemove)
+	void K_ComponentManager::queueRemovalFromUpdate(K_Component* p_toRemove)
 	{
 		m_toRemoveFromUpdate.push_back(p_toRemove);
 	}
@@ -273,7 +257,7 @@ namespace kitten
 			(*it)->start();
 			if ((*it)->hasUpdate())
 			{
-				m_toUpdate.push_back(*it);
+				m_toUpdate.insert(*it);
 			}
 		}
 
@@ -299,7 +283,7 @@ namespace kitten
 		//Add queued components to update
 		for (auto it = m_toAddToUpdate.begin(); it != m_toAddToUpdate.end(); it = m_toAddToUpdate.erase(it))
 		{
-			m_toUpdate.push_back(*it);
+			m_toUpdate.insert(*it);
 		}
 
 		//Update components

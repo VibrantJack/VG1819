@@ -11,7 +11,7 @@
 
 namespace shapes
 {
-	class Cube
+	class Cube //////////////////// Not used, see renderable cube
 	{
 	private:
 		static puppy::VertexEnvironment* sm_vao;
