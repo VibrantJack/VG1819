@@ -156,18 +156,18 @@ namespace kitten
 		} else if (p_componentName == "PointerUI") // Datadriven
 		{
 			comp = new userinterface::PointerUI();
-		} else if (p_componentName == "SelectAbility")
+		} else if (p_componentName == "SelectAbility") // Datadriven
 		{
 			comp = new SelectAbility();
-		} else if (p_componentName == "PowerTracker")
+		} else if (p_componentName == "PowerTracker") // Datadriven
 		{
 			comp = new PowerTracker();
 		}
-		else if (p_componentName == "Highlighter")
+		else if (p_componentName == "Highlighter") // Datadriven
 		{
 			comp = new Highlighter();
 		}
-		else if (p_componentName == "BoardCreator")
+		else if (p_componentName == "BoardCreator") // Datadriven
 		{
 			comp = new BoardCreator();
 		}
