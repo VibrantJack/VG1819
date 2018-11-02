@@ -422,6 +422,9 @@
     <ClCompile Include="..\userinterface\InterfaceBuilder.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\CooldownRecorder.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -770,9 +773,6 @@
     <ClInclude Include="..\userinterface\UIFrame.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\userinterface\UI_ElementComponent.h">
-      <Filter>UI</Filter>
-    </ClInclude>
     <ClInclude Include="..\unitInteraction\TileGetter.h">
       <Filter>unitInteraction</Filter>
     </ClInclude>
@@ -796,6 +796,9 @@
     </ClInclude>
     <ClInclude Include="..\userinterface\UIObject.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\CooldownRecorder.h">
+      <Filter>unit\unitComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

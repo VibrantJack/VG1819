@@ -12,12 +12,14 @@ namespace unit
 		m_turn = nullptr;
 		m_statusContainer = new StatusContainer();
 		m_statusContainer->m_unit = this;
+		m_cdRecorder = new CooldownRecorder();
 	}
 
 
 	Unit::~Unit()
 	{
 		delete m_statusContainer;
+		delete m_cdRecorder;
 		for (auto it = m_ADList.begin(); it != m_ADList.end(); it++)
 		{
 			delete it->second;
@@ -62,6 +64,8 @@ namespace unit
 	{
 		assert(m_turn == nullptr);
 		m_turn = p_t;
+
+		m_cdRecorder->reduceCD();//reduce cd at start of turn
 	}
 
 	bool Unit::canMove()
@@ -158,7 +162,7 @@ namespace unit
 		else
 		{
 			std::cout << "Ability: " << p_abilityName << " isn't found" << std::endl;
-			return -1;//doesn't have ability
+			return -2;//doesn't have ability
 		}
 
 		//check unit's lv
@@ -166,10 +170,24 @@ namespace unit
 		{
 			std::cout << p_abilityName << "require lv (" << ad->m_intValue["lv"] << ") " << std::endl;
 			std::cout << m_name << " is lv (" << m_attributes["lv"] << ")" << std::endl;
-			return 1;//means unit can not use this ability
+			return -3;//means unit can not use this ability
+		}
+		int c = m_cdRecorder->checkCD(ad);
+		//check cd
+		if (m_cdRecorder->checkCD(ad) != 0)
+		{//it's in cool down
+			return -4;
 		}
 
+		m_cdRecorder->addCD(ad);
 		UnitInteractionManager::getInstance()->request(this, ad);
+
+		return 0;
+	}
+
+	void Unit::cancelAbility(AbilityDescription* p_ad)
+	{
+		m_cdRecorder->cancelCD(p_ad);
 	}
 
 	int Unit::destroyedByDamage()

@@ -2,6 +2,7 @@
 #include "unit/UnitCommon.h"
 #include "unit/unitComponent/StatusContainer.h"
 #include "unit/InitiativeTracker/InitiativeTracker.h"
+#include "unit/unitComponent/CooldownRecorder.h"
 
 //@Rock
 //although unit is just a component of game object
@@ -15,6 +16,7 @@ namespace unit
 	private:
 		UnitTurn* m_turn;
 		StatusContainer * m_statusContainer;
+		CooldownRecorder * m_cdRecorder;
 	public:
 		std::string m_ID;
 		std::vector<std::string> m_tags;
@@ -55,6 +57,7 @@ namespace unit
 		void move(kitten::K_GameObject* p_tile);//move to a specific tile by ability
 
 		int useAbility(const std::string& p_abilityName);
+		void cancelAbility(AbilityDescription* p_ad);
 
 		int destroyedByDamage();
 	};
