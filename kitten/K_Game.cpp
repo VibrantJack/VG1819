@@ -32,9 +32,10 @@
 
 #include "userinterface\InterfaceBuilder.h"
 
+#include "unitInteraction/UnitInteractionManager.h"
 //ui testing
-#include "userinterface\CardUIO.h"
-#include "userinterface\HandFrame.h"
+#include "userinterface/CardUIO.h"
+#include "userinterface/HandFrame.h"
 
 #define DEBUG
 
@@ -55,6 +56,8 @@ namespace kitten
 		unit::InitiativeTracker::createInstance();
 
 		BoardManager::createInstance();
+
+		UnitInteractionManager::createInstance();
 	}
 
 	// This is called once at the beginning of the game
@@ -180,6 +183,8 @@ namespace kitten
 		unit::InitiativeTracker::destroyInstance();
 
 		BoardManager::destroyInstance();
+
+		UnitInteractionManager::destroyInstance();
 	}
 
 	void updateGame()

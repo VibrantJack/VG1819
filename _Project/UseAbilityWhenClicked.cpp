@@ -5,6 +5,7 @@
 //
 // @Ken
 
+
 // Change this to test different abilities on click; see switch in onClick()
 #define ABILITY_TEST 1
 
@@ -25,9 +26,9 @@ UseAbilityWhenClicked::UseAbilityWhenClicked()
 
 UseAbilityWhenClicked::~UseAbilityWhenClicked()
 {
-	kitten::K_ComponentManager::getInstance()->destroyComponent(m_textBox);
+	//kitten::K_ComponentManager::getInstance()->destroyComponent(m_textBox);
 }
-
+/*
 void UseAbilityWhenClicked::start()
 {
 	Clickable::start();
@@ -123,4 +124,4 @@ void UseAbilityWhenClicked::onClick()
 	//		break;
 	//	}
 	//}
-}
+}*/

@@ -1,5 +1,7 @@
 #include "ability/ability/Ability.h"
 
+#include "unit/Unit.h"
+
 //Rock
 
 namespace ability
@@ -12,18 +14,42 @@ namespace ability
 	{
 	}
 
-	int QuickShoot::effect(const AbilityInfoPackage* p_info)
+	int QuickShoot::effect(AbilityInfoPackage* p_info)
 	{
-		//deal damaga to all units
-
-		int power = -(p_info->m_intValue.find("power")->second);
-
-		for (unit::Unit* u : p_info->m_multipleTargets)
+		if (checkTarget(p_info))
 		{
-			//TO DO:send receive damage event to target
+			//deal damaga to all units
 
-			damage(u, power);
+			//trigger deal damage event
+			unit::StatusContainer* sc = p_info->m_source->getStatusContainer();
+			ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Deal_Damage);
+			t->putPackage(INFO_PACKAGE_KEY, p_info);
+			sc->triggerTP(ability::TimePointEvent::Deal_Damage, t);
+
+
+			for (unit::Unit* u : p_info->m_targets)
+			{
+				//trigger receive damage event
+				sc = u->getStatusContainer();
+				t = new ability::TimePointEvent(ability::TimePointEvent::Receive_Damage);
+
+				//get copy of package
+				AbilityInfoPackage* clonePackage = new AbilityInfoPackage(*p_info);
+				t->putPackage(INFO_PACKAGE_KEY, clonePackage);
+				sc->triggerTP(ability::TimePointEvent::Receive_Damage, t);
+
+				int power = -(clonePackage->m_intValue.find("power")->second);
+
+				damage(u, power);
+
+				//delete clone
+				delete clonePackage;
+			}
 		}
+
+		//delete package
+		done(p_info);
+
 		return 0;
 	}
 

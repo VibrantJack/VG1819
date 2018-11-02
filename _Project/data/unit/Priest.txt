@@ -31,7 +31,7 @@
 			{
 				"name":"Status_Priest_LV3",
 				"lv":3,
-				"time_point":[2],
+				"time_point":2,
 				"hp":5
 			}
 		]
