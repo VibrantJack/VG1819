@@ -74,7 +74,7 @@ void NetworkingConsoleMenu::update()
 			}
 
 			networking::ClientGame::createInstance();
-			if (networking::ClientGame::getInstance()->setupNetwork())
+			if (networking::ClientGame::getInstance()->isNetworkValid())
 			{
 				m_bClientUpdate = true;
 				printf("Host client network setup complete\n");
@@ -91,13 +91,13 @@ void NetworkingConsoleMenu::update()
 
 		if (input::InputManager::getInstance()->keyDown('8') && !input::InputManager::getInstance()->keyDownLast('8'))
 		{
-			networking::ClientGame::createInstance();
-
 			printf("Enter an address: ");
 			std::string addr;
 			std::cin >> addr;
 
-			if (networking::ClientGame::getInstance()->setupNetwork(addr))
+			networking::ClientGame::createInstance(addr);
+
+			if (networking::ClientGame::getInstance()->isNetworkValid())
 			{
 				m_bClientUpdate = true;
 				printf("Client network setup complete\n");

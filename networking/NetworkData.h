@@ -4,10 +4,10 @@
 #define MAX_PACKET_SIZE 1000000
 #define BUFSIZE 512
 
-//#define PACKET_SIZE = sizeof(Packet);
-//#define SUMMON_UNIT_PACKET_SIZE = sizeof(SummonUnitPacket);
-//#define UNIT_MOVE_PACKET_SIZE = sizeof(UnitMovePacket);
-//#define TEST_PACKET_SIZE sizeof(TestPacket);
+#define BASIC_PACKET_SIZE sizeof(Packet)
+#define SUMMON_UNIT_PACKET_SIZE sizeof(SummonUnitPacket)
+#define UNIT_MOVE_PACKET_SIZE sizeof(UnitMovePacket)
+#define TEST_PACKET_SIZE sizeof(TestPacket)
 
 enum PacketTypes {
 

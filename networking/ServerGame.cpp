@@ -112,20 +112,19 @@ namespace networking
 
 					case INIT_CONNECTION:
 					{
-						i += sizeof(Packet);
+						i += BASIC_PACKET_SIZE;
 						printf("\nserver received init packet from client %d\n", iter->first);
 
 						// Send a packet to the client to notify them what their ID is
 						unsigned int clientId = iter->first;
-						const unsigned int PACKET_SIZE = sizeof(Packet);
-						char packet_data[PACKET_SIZE];
+						char packet_data[BASIC_PACKET_SIZE];
 
 						Packet packet;
 						packet.packetType = SEND_CLIENT_ID;
 						packet.clientId = clientId;
 
 						packet.serialize(packet_data);
-						m_network->sendToClient(clientId, packet_data, PACKET_SIZE);
+						m_network->sendToClient(clientId, packet_data, BASIC_PACKET_SIZE);
 						break;
 					}
 					case SUMMON_UNIT:
@@ -134,7 +133,7 @@ namespace networking
 
 						SummonUnitPacket summonUnitPacket;
 						summonUnitPacket.deserialize(&(m_network_data[i]));
-						i += sizeof(SummonUnitPacket);
+						i += SUMMON_UNIT_PACKET_SIZE;
 						sendSummonedUnitPacket(iter->first, summonUnitPacket);
 
 						break;
@@ -145,15 +144,14 @@ namespace networking
 
 						UnitMovePacket packet;
 						packet.deserialize(&(m_network_data[i]));
-						i += sizeof(UnitMovePacket);
+						i += UNIT_MOVE_PACKET_SIZE;
 						printf("Server sending Unit index: %d, posX: %d, posY: %d\n", packet.unitIndex, packet.posX, packet.posY);
 
 						// Send received packet to other clients
-						const unsigned int packet_size = sizeof(UnitMovePacket);
-						char packet_data[packet_size];
+						char packet_data[UNIT_MOVE_PACKET_SIZE];
 
 						packet.serialize(packet_data);
-						m_network->sendToOthers(iter->first, packet_data, packet_size);
+						m_network->sendToOthers(iter->first, packet_data, UNIT_MOVE_PACKET_SIZE);
 
 
 						break;
@@ -169,11 +167,10 @@ namespace networking
 
 	void ServerGame::sendSummonedUnitPacket(unsigned int p_iClientId, SummonUnitPacket p_packet)
 	{
-		const unsigned int packet_size = sizeof(SummonUnitPacket);
-		char packet_data[packet_size];
+		char packet_data[SUMMON_UNIT_PACKET_SIZE];
 
 		p_packet.serialize(packet_data);
 
-		m_network->sendToOthers(p_iClientId, packet_data, packet_size);
+		m_network->sendToOthers(p_iClientId, packet_data, SUMMON_UNIT_PACKET_SIZE);
 	}
 }

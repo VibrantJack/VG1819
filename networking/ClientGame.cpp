@@ -28,10 +28,10 @@ namespace networking
 	int ClientGame::sm_iClientId = -1;
 
 	// Creates the singleton instance.
-	void ClientGame::createInstance()
+	void ClientGame::createInstance(const std::string &p_strAddr)
 	{
 		assert(sm_clientGameInstance == nullptr);
-		sm_clientGameInstance = new ClientGame();
+		sm_clientGameInstance = new ClientGame(p_strAddr);
 	}
 
 	// Destroys the singleton instance.
@@ -49,9 +49,9 @@ namespace networking
 		return sm_clientGameInstance;
 	}
 
-	ClientGame::ClientGame()
+	ClientGame::ClientGame(const std::string &p_strAddr)
 	{
-
+		setupNetwork(p_strAddr);
 	}
 
 
@@ -63,20 +63,21 @@ namespace networking
 		}
 	}
 
-	bool ClientGame::setupNetwork(const std::string &p_strAddr)
+	void ClientGame::setupNetwork(const std::string &p_strAddr)
 	{
 		m_network = new ClientNetwork();
 
 		if (m_network->init(p_strAddr))
 		{ 
 			// Client connects and sends INIT_CONNECTION packet
-			const unsigned int PACKET_SIZE = sizeof(Packet);
-			char packet_data[PACKET_SIZE];
+			char packet_data[BASIC_PACKET_SIZE];
 
 			Packet packet;
 			packet.packetType = INIT_CONNECTION;
 			packet.serialize(packet_data);
-			NetworkServices::sendMessage(m_network->m_connectSocket, packet_data, PACKET_SIZE);
+			NetworkServices::sendMessage(m_network->m_connectSocket, packet_data, BASIC_PACKET_SIZE);
+
+			m_networkValid = true;
 		}
 		else
 		{
@@ -85,10 +86,8 @@ namespace networking
 			delete m_network;
 			m_network = nullptr;
 
-			return false;
+			m_networkValid = false;
 		}
-
-		return true;
 	}
 
 	void ClientGame::sendPacket(Packet* p_packet)
@@ -97,23 +96,21 @@ namespace networking
 		{
 			case PacketTypes::SUMMON_UNIT :
 			{
-				const unsigned int PACKET_SIZE = sizeof(SummonUnitPacket);
-				char data[PACKET_SIZE];
+				char data[SUMMON_UNIT_PACKET_SIZE];
 
 				SummonUnitPacket* packet = static_cast<SummonUnitPacket*>(p_packet);
 				packet->serialize(data);
-				NetworkServices::sendMessage(m_network->m_connectSocket, data, PACKET_SIZE);
+				NetworkServices::sendMessage(m_network->m_connectSocket, data, SUMMON_UNIT_PACKET_SIZE);
 				break;
 			}
 
 			case PacketTypes::UNIT_MOVE:
 			{
-				const unsigned int PACKET_SIZE = sizeof(UnitMovePacket);
-				char data[PACKET_SIZE];
+				char data[UNIT_MOVE_PACKET_SIZE];
 
 				UnitMovePacket* packet = static_cast<UnitMovePacket*>(p_packet);
 				packet->serialize(data);
-				NetworkServices::sendMessage(m_network->m_connectSocket, data, PACKET_SIZE);
+				NetworkServices::sendMessage(m_network->m_connectSocket, data, UNIT_MOVE_PACKET_SIZE);
 				break;
 			}
 		}
@@ -150,7 +147,7 @@ namespace networking
 			{
 				Packet packet;
 				packet.deserialize(&(m_network_data[i]));
-				i += sizeof(Packet);
+				i += BASIC_PACKET_SIZE;
 
 				sm_iClientId = packet.clientId;
 				printf("Client ID: %d\n", sm_iClientId);
@@ -163,7 +160,7 @@ namespace networking
 
 				SummonUnitPacket summonUnitPacket;
 				summonUnitPacket.deserialize(&(m_network_data[i]));
-				i += sizeof(SummonUnitPacket);
+				i += SUMMON_UNIT_PACKET_SIZE;
 
 				// Call function here that summons a unit
 				summonUnit(summonUnitPacket.clientId, summonUnitPacket.unitId, summonUnitPacket.posX, summonUnitPacket.posY);
@@ -175,7 +172,7 @@ namespace networking
 
 				UnitMovePacket unitMovePacket;
 				unitMovePacket.deserialize(&(m_network_data[i]));
-				i += sizeof(UnitMovePacket);
+				i += UNIT_MOVE_PACKET_SIZE;
 				printf("Client received Unit index: %d, posX: %d, posY: %d\n", unitMovePacket.unitIndex, unitMovePacket.posX, unitMovePacket.posY);
 
 				// Call function here that summons a unit
