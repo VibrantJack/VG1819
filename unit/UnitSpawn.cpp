@@ -156,7 +156,7 @@ namespace unit
 		//readSD
 		for (auto it : p_unitData->m_sd)
 		{
-			unit->addStatus(readSD(it));
+			readSD(it)->attach(unit);
 		}
 
 		// Set unit's clientId to -1, meaning no player owns this unit yet
@@ -208,33 +208,39 @@ namespace unit
 
 		if (p_sd->m_stringValue.find("description") != p_sd->m_stringValue.end())
 		{
-			s->m_description = p_sd->m_stringValue["description"];
+			s->changeDescription(p_sd->m_stringValue["description"]);
 		}
-		
-		s->m_TPList.insert(s->m_TPList.end(),p_sd->m_TPList.begin(),p_sd->m_TPList.end());
+
+		if (p_sd->m_intValue.find("time_point") != p_sd->m_intValue.end())
+		{
+			int i = p_sd->m_intValue["time_point"];
+			s->addTimePoint(static_cast<ability::TimePointEvent::TPEventType>(i));
+		}
 
 		//for lv status
 		if (p_sd->m_intValue.find("lv") != p_sd->m_intValue.end())
 		{
-			s->m_LV = p_sd->m_intValue["lv"];
+			s->changeLV(p_sd->m_intValue["lv"]);
 			//hp
 			if (p_sd->m_intValue.find("hp") != p_sd->m_intValue.end())
 			{
 				int hp = p_sd->m_intValue["hp"];
-				s->m_attributeChange["hp"] = hp;
-				s->m_attributeChange["max_hp"] = p_sd->m_intValue["hp"];
+				s->addAttributeChange("hp", hp);
+				s->addAttributeChange("max_hp", hp);
 			}
 			//in
 			if (p_sd->m_intValue.find("in") != p_sd->m_intValue.end())
 			{
-				s->m_attributeChange["in"] = p_sd->m_intValue["in"];
-				s->m_attributeChange["base_in"] = p_sd->m_intValue["in"];
+				int in = p_sd->m_intValue["in"];
+				s->addAttributeChange("in", in);
+				s->addAttributeChange("base_in", in);
 			}
 			//mv
 			if (p_sd->m_intValue.find("mv") != p_sd->m_intValue.end())
 			{
-				s->m_attributeChange["mv"] = p_sd->m_intValue["mv"];
-				s->m_attributeChange["base_mv"] = p_sd->m_intValue["mv"];
+				int mv = p_sd->m_intValue["mv"];
+				s->addAttributeChange("mv", mv);
+				s->addAttributeChange("base_mv", mv);
 			}
 		}
 

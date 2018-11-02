@@ -27,12 +27,15 @@
 #include "board/clickable/PrintWhenClicked.h"
 
 #include "board/BoardManager.h"
-
-#include "unitInteraction/UnitInteractionManager.h"
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
 
 #include "userinterface\InterfaceBuilder.h"
+
+#include "unitInteraction/UnitInteractionManager.h"
+//ui testing
+#include "userinterface/CardUIO.h"
+#include "userinterface/HandFrame.h"
 
 #define DEBUG
 
@@ -54,7 +57,7 @@ namespace kitten
 		unit::InitiativeTracker::createInstance();
 
 		BoardManager::createInstance();
-    
+
 		UnitInteractionManager::createInstance();
 	}
 
@@ -119,10 +122,31 @@ namespace kitten
 		//userinterface::InterfaceBuilder* builder = new userinterface::InterfaceBuilder();
 		//builder->start();
 		//delete builder;
+
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();
 
-		
+		//UIO TESTING
+		K_GameObject* hand = K_GameObjectManager::getInstance()->createNewGameObject();
+		K_Component* handFrame = compMan->createComponent("Hand");
+		hand->addComponent(handFrame);
+		hand->getTransform().scale2D(1.0, 0.4);
+		hand->getTransform().place2D(-0.9, -0.9);
+
+		for (int x = 0; x < 5; x++)
+		{
+
+			K_GameObject* card = K_GameObjectManager::getInstance()->createNewGameObject();
+			K_Component* cardObj = compMan->createComponent("Card");
+			card->addComponent(cardObj);
+			userinterface::CardUIO* cardCasted = static_cast<userinterface::CardUIO*>(cardObj);
+			cardCasted->scaleAsCard();
+
+			userinterface::HandFrame* frameCasted = static_cast<userinterface::HandFrame*>(handFrame);
+			frameCasted->addCardToEnd(cardCasted);
+			cardCasted->assignParentHand(frameCasted);
+
+		}
 		/*
 		//testing ui frame and textbox
 		K_GameObject* go = K_GameObjectManager::getInstance()->createNewGameObject();
@@ -167,7 +191,6 @@ namespace kitten
 		BoardManager::destroyInstance();
 
 		UnitInteractionManager::destroyInstance();
-
 	}
 
 	void updateGame()

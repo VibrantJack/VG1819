@@ -15,7 +15,7 @@ namespace ability
 	{
 	}
 
-	int Build_the_Wall::effect(const AbilityInfoPackage* p_info)
+	int Build_the_Wall::effect(AbilityInfoPackage* p_info)
 	{
 		AbilityNode* node = AbilityNodeManager::getInstance()->findNode("SpawnUnitNode");
 

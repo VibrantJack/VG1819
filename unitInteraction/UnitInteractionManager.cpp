@@ -20,15 +20,12 @@ void UnitInteractionManager::request(unit::Unit* p_unit, unit::AbilityDescriptio
 	//create package
 	if (m_package != nullptr)
 		m_package = nullptr;
+
 	m_package = new ability::AbilityInfoPackage();
 
 	m_package->m_source = p_unit;
 
-	//get power
-	if (m_ad->m_intValue.find("power") != m_ad->m_intValue.end())
-	{
-		m_package->m_intValue["power"] = m_ad->m_intValue["power"];
-	}
+	addPropertyFromADToPack();
 
 	//ask player for targets
 	m_tileGetter->requireTile(m_ad,p_unit,true);
@@ -64,7 +61,10 @@ void UnitInteractionManager::cancel()
 	std::cout << "UnitInteractionManager Cancel Ability" << std::endl;
 	//delete package
 	if (m_package != nullptr)
+	{
 		delete m_package;
+		m_package = nullptr;
+	}
 
 	m_busy = false;
 }
@@ -72,6 +72,21 @@ void UnitInteractionManager::cancel()
 void UnitInteractionManager::send()
 {
 	ability::AbilityManager::getInstance()->useAbility(m_abilityName,m_package);
-
+	m_package = nullptr;
 	m_busy = false;
+}
+
+void UnitInteractionManager::addPropertyFromADToPack()
+{
+	/*
+	//get power
+	if (m_ad->m_intValue.find("power") != m_ad->m_intValue.end())
+	{
+		m_package->m_intValue["power"] = m_ad->m_intValue["power"];
+	}*/
+
+	for (auto it : m_ad->m_intValue)
+	{
+		m_package->m_intValue[it.first] = it.second;
+	}
 }

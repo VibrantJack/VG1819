@@ -4,6 +4,7 @@
 #include "ability/AbilityInfoPackage.h"
 #include "kitten/K_Common.h"
 #include "unit/unitComponent/UnitGraphic.h"
+#include "ability/status/Status.h"
 //@Rock
 
 namespace unit
@@ -34,7 +35,7 @@ namespace unit
 		//duration:int
 		//power:int
 		//lv:int
-		std::vector<ability::TimePointEvent> m_TPList;
+		std::vector<ability::TimePointEvent::TPEventType> m_TPList;
 		std::unordered_map<std::string, std::string> m_stringValue;
 		std::unordered_map<std::string, int> m_intValue;
 	};

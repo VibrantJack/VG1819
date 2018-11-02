@@ -69,7 +69,7 @@ std::vector<unit::UnitData*> getMultipleUnitDataFrom(nlohmann::json& p_jsonfile)
 
 unit::AbilityDescription* getAbilityDescriptionFrom(nlohmann::json& p_jsonfile) {
 	if (p_jsonfile.is_string()) {
-		return kibble::getAnyAbilityFromName(p_jsonfile);
+		return kibble::getCopyAbilityFromName(p_jsonfile);
 	}
 	else if (p_jsonfile.is_object()) {
 		unit::AbilityDescription* ad = new unit::AbilityDescription();
@@ -78,8 +78,9 @@ unit::AbilityDescription* getAbilityDescriptionFrom(nlohmann::json& p_jsonfile) 
 			if (it.key() == "basename") {
 				unit::AbilityDescription* target = kibble::getAbilityFromName(it.value());
 				if (target == nullptr) {
+					kibble::flagAbilityForLateLoad(ad);
 					ad->m_stringValue["basename"] = it.value();
-					kibble::addAbilityToLateLoadUpdate(ad);
+					ad->m_stringValue.emplace("name", it.value());
 				}
 				else {
 					ad->m_intValue.insert(target->m_intValue.begin(), target->m_intValue.end());

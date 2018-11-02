@@ -20,7 +20,7 @@ namespace ability
 	{
 	}
 
-	int ManipulateTile::effect(const AbilityInfoPackage* p_info)
+	int ManipulateTile::effect(AbilityInfoPackage* p_info)
 	{
 		TileInfo* tileInfo = p_info->m_targetTilesGO[0]->getComponent<TileInfo>();
 

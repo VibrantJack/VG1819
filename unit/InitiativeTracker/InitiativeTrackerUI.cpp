@@ -38,7 +38,7 @@ void unit::InitiativeTrackerUI::turnStart()
 {
 	resetPosition();
 
-	m_lastUnitIndex = unit::InitiativeTracker::getInstance()->m_currentUnitIndex;
+	m_lastUnitIndex = unit::InitiativeTracker::getInstance()->getCurrentUnitIndex();
 
 	//set all frames
 	for (int i = 0; i < m_maxUnitToShow; i++)
@@ -142,9 +142,9 @@ void unit::InitiativeTrackerUI::resetPosition()
 
 void unit::InitiativeTrackerUI::setNewFrame(int p_index)
 {
-	if (m_lastUnitIndex < InitiativeTracker::getInstance()->m_unitObjectList.size())
+	if (m_lastUnitIndex < InitiativeTracker::getInstance()->getUnitNumber())
 	{//still has units in list
-		kitten::K_GameObject* unitGO = InitiativeTracker::getInstance()->m_unitObjectList[m_lastUnitIndex];
+		kitten::K_GameObject* unitGO = InitiativeTracker::getInstance()->getUnitByIndex(m_lastUnitIndex);
 		m_blockList[p_index]->set(unitGO);
 		m_unitIndex[p_index] = m_lastUnitIndex;
 		m_lastUnitIndex++;

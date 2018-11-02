@@ -2,6 +2,7 @@
 #include "unit/UnitCommon.h"
 #include "unit/Unit.h"
 #include "unit/unitComponent/UnitMove.h"
+#include "unit/UnitMonitor.h"
 #include "unit/Commander.h"
 #include "puppy/Text/TextBox.h"
 #include "components/SelectAbility.h"
@@ -75,6 +76,10 @@ void unit::UnitClickable::onClick()
 
 void unit::UnitClickable::onHoverStart()
 {
+	/*test level up 
+	Unit* u = m_attachedObject->getComponent<Unit>();
+	u->levelup();
+	UnitMonitor::getInstanceSafe()->printUnit(u);*/
 }
 
 void unit::UnitClickable::onHoverEnd()
@@ -142,9 +147,9 @@ void unit::UnitClickable::update()
 			char numkey = '0' + i;
 			if (input::InputManager::getInstance()->keyDown(numkey))
 			{
-				m_textBoxGO->getComponent<SelectAbility>()->select(i);
 				std::cout << "Player choose " << i << std::endl;
 				m_select = false;
+				m_textBoxGO->getComponent<SelectAbility>()->select(i);
 				break;
 			}
 		}

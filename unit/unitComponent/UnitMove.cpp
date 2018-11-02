@@ -6,6 +6,17 @@
 #include <iostream>
 #include <cmath>
 
+void unit::UnitMove::triggerNewTileEvent()
+{
+	//trigger new tile event
+	Unit* u = m_attachedObject->getComponent<Unit>();
+	unit::StatusContainer* sc = u->getStatusContainer();
+
+	ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::New_Tile);
+	t->putGameObject("tile", m_currentTile);
+	sc->triggerTP(ability::TimePointEvent::New_Tile, t);
+}
+
 unit::UnitMove::UnitMove()
 {
 	m_currentTile = nullptr;
@@ -113,6 +124,8 @@ void unit::UnitMove::move(kitten::K_GameObject * p_targetTile)
 
 	//send unhighlight event
 	//triggerUnhighLightEvent();
+
+	triggerNewTileEvent();
 }
 
 void unit::UnitMove::setTile(kitten::K_GameObject * p_tile)

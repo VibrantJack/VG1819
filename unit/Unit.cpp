@@ -8,6 +8,7 @@
 #include "networking\ClientGame.h"
 #include "board\tile\TileInfo.h"
 
+
 //@Rock
 
 namespace unit
@@ -16,6 +17,7 @@ namespace unit
 	{
 		m_turn = nullptr;
 		m_statusContainer = new StatusContainer();
+		m_statusContainer->m_unit = this;
 	}
 
 
@@ -29,6 +31,7 @@ namespace unit
 	}
 
 	//status
+	/*
 	void Unit::addStatus(ability::Status *p_newStatus)
 	{
 		m_statusContainer->addStatus(p_newStatus);
@@ -43,10 +46,22 @@ namespace unit
 	{
 		return m_statusContainer->getStatus(p_name);
 	}
+	}*/
 
 	StatusContainer * Unit::getStatusContainer()
 	{
 		return m_statusContainer;
+	}
+
+	void Unit::levelup()
+	{
+		if (m_attributes["lv"] > 0)
+		{
+			m_attributes["lv"]++;
+			ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Level_Up);
+			t->putInt("lv", m_attributes["lv"]);
+			m_statusContainer->triggerTP(ability::TimePointEvent::Level_Up, t);
+		}
 	}
 
 	//turn
@@ -73,17 +88,14 @@ namespace unit
 
 	void Unit::moveDone()
 	{
-		if (m_turn == nullptr)
-			return;
-
+		assert(m_turn != nullptr);
 		m_turn->move = false;
 		m_turn->checkTurn();
 	}
 
 	void Unit::actDone()
 	{
-		if (m_turn == nullptr)
-			return;
+		assert(m_turn != nullptr);
 		m_turn->act = false;
 		m_turn->checkTurn();
 	}
@@ -105,7 +117,7 @@ namespace unit
 		assert(m_turn != nullptr);
 		m_turn->turnEnd();
 	}
-  
+
 	kitten::K_GameObject * Unit::getTile()
 	{
 		return m_attachedObject->getComponent<unit::UnitMove>()->getTile();
@@ -126,7 +138,7 @@ namespace unit
 			return;
 
 		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
-		moveComponet->attempToMove(p_min,p_max);
+		moveComponet->attempToMove(p_min, p_max);
 	}
 
 	void Unit::move(kitten::K_GameObject * p_tile)//move by ability with fixed target
@@ -165,26 +177,20 @@ namespace unit
 		}
 		else
 		{
-			std::cout << "Ability: " << p_abilityName <<" isn't found"<< std::endl;
+			std::cout << "Ability: " << p_abilityName << " isn't found" << std::endl;
 			return -1;//doesn't have ability
 		}
 
 		//check unit's lv
 		if (m_attributes["lv"] < ad->m_intValue["lv"])
 		{
-			std::cout <<p_abilityName<< "require lv ("<< ad->m_intValue["lv"]<<") " << std::endl;
-			std::cout <<m_name<<" is lv ("<<m_attributes["lv"] <<")"<< std::endl;
+			std::cout << p_abilityName << "require lv (" << ad->m_intValue["lv"] << ") " << std::endl;
+			std::cout << m_name << " is lv (" << m_attributes["lv"] << ")" << std::endl;
 			return 1;//means unit can not use this ability
 		}
 
 		UnitInteractionManager::getInstance()->request(this, ad);
 	}
-	/*
-	int Unit::callStatus(int p_StatusIndex, int p_event)
-	{
-		//TO DO: method call for status
-		return false;
-	}*/
 
 	int Unit::destroyedByDamage()
 	{

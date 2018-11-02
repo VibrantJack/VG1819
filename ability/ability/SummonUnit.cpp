@@ -19,7 +19,7 @@ namespace ability
 
 	}
 
-	int SummonUnit::effect(const AbilityInfoPackage* p_info)
+	int SummonUnit::effect(AbilityInfoPackage* p_info)
 	{
 		AbilityNode* node = AbilityNodeManager::getInstance()->findNode("SpawnUnitNode");
 

@@ -12,8 +12,7 @@ namespace unit
 	{
 		for (auto it : p_s->m_statusList)
 		{
-			std::cout << it->m_name << std::endl;
-			std::cout << it->m_description << std::endl;
+			it->print();
 		}
 	}
 

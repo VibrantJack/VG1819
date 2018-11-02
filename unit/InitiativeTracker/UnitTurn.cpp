@@ -54,3 +54,14 @@ void unit::UnitTurn::turnReset()
 	m_currentUnit->turnEnd();
 	m_currentUnit = nullptr;
 }
+
+bool unit::UnitTurn::isCurrent(kitten::K_GameObject * p_unitObj)
+{
+	Unit* u = p_unitObj->getComponent<Unit>();
+	return u == m_currentUnit;
+}
+
+void unit::UnitTurn::unitDestroyed()
+{
+	m_currentUnit = nullptr;
+}
