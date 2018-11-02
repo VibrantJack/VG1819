@@ -42,15 +42,18 @@ namespace networking
 		client_id = 0;
 
 		// set up the server network to listen 
-		//setupNetwork();
+		setupNetwork();
 	}
 
 	ServerGame::~ServerGame()
 	{
-		delete m_network;
+		if (m_network != nullptr)
+		{
+			delete m_network;
+		}
 	}
 
-	bool ServerGame::setupNetwork()
+	void ServerGame::setupNetwork()
 	{
 		m_network = new ServerNetwork();
 
@@ -61,10 +64,13 @@ namespace networking
 			delete m_network;
 			m_network = nullptr;
 
-			return false;
+			m_networkValid = false;
+		}
+		else
+		{
+			m_networkValid = true;
 		}
 
-		return true;
 	}
 
 	void ServerGame::update()
@@ -111,15 +117,15 @@ namespace networking
 
 						// Send a packet to the client to notify them what their ID is
 						unsigned int clientId = iter->first;
-						const unsigned int packet_size = sizeof(Packet);
-						char packet_data[packet_size];
+						const unsigned int PACKET_SIZE = sizeof(Packet);
+						char packet_data[PACKET_SIZE];
 
 						Packet packet;
 						packet.packetType = SEND_CLIENT_ID;
 						packet.clientId = clientId;
 
 						packet.serialize(packet_data);
-						m_network->sendToClient(clientId, packet_data, packet_size);
+						m_network->sendToClient(clientId, packet_data, PACKET_SIZE);
 						break;
 					}
 					case SUMMON_UNIT:

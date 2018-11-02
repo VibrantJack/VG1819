@@ -16,7 +16,7 @@ namespace networking
 		ClientGame();
 		~ClientGame();
 	public:
-	
+
 		static void createInstance();
 		static void destroyInstance();
 		static ClientGame* getInstance();
@@ -31,11 +31,11 @@ namespace networking
 
 		void update();
 
-	public:
+	private:
 		ClientNetwork* m_network;
 
 		char m_network_data[MAX_PACKET_SIZE];
-	private:
+
 		static int sm_iClientId;
 
 		// Unit GO list so clients can have a reference to the same unit GO without having the same mem address

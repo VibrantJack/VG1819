@@ -63,7 +63,7 @@ void NetworkingConsoleMenu::update()
 		if (input::InputManager::getInstance()->keyDown('7') && !input::InputManager::getInstance()->keyDownLast('7'))
 		{
 			networking::ServerGame::createInstance();
-			if (networking::ServerGame::getInstance()->setupNetwork())
+			if (networking::ServerGame::getInstance()->isNetworkValid())
 			{
 				m_bServerUpdate = true;		
 				printf("Server network setup complete\n");

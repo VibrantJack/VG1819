@@ -57,7 +57,10 @@ namespace networking
 
 	ClientGame::~ClientGame()
 	{
-		delete m_network;
+		if (m_network != nullptr)
+		{
+			delete m_network;
+		}
 	}
 
 	bool ClientGame::setupNetwork(const std::string &p_strAddr)
@@ -67,13 +70,13 @@ namespace networking
 		if (m_network->init(p_strAddr))
 		{ 
 			// Client connects and sends INIT_CONNECTION packet
-			const unsigned int packet_size = sizeof(Packet);
-			char packet_data[packet_size];
+			const unsigned int PACKET_SIZE = sizeof(Packet);
+			char packet_data[PACKET_SIZE];
 
 			Packet packet;
 			packet.packetType = INIT_CONNECTION;
 			packet.serialize(packet_data);
-			NetworkServices::sendMessage(m_network->m_connectSocket, packet_data, packet_size);
+			NetworkServices::sendMessage(m_network->m_connectSocket, packet_data, PACKET_SIZE);
 		}
 		else
 		{
@@ -94,23 +97,23 @@ namespace networking
 		{
 			case PacketTypes::SUMMON_UNIT :
 			{
-				const unsigned int packetSize = sizeof(SummonUnitPacket);
-				char data[packetSize];
+				const unsigned int PACKET_SIZE = sizeof(SummonUnitPacket);
+				char data[PACKET_SIZE];
 
 				SummonUnitPacket* packet = static_cast<SummonUnitPacket*>(p_packet);
 				packet->serialize(data);
-				NetworkServices::sendMessage(m_network->m_connectSocket, data, packetSize);
+				NetworkServices::sendMessage(m_network->m_connectSocket, data, PACKET_SIZE);
 				break;
 			}
 
 			case PacketTypes::UNIT_MOVE:
 			{
-				const unsigned int packetSize = sizeof(UnitMovePacket);
-				char data[packetSize];
+				const unsigned int PACKET_SIZE = sizeof(UnitMovePacket);
+				char data[PACKET_SIZE];
 
 				UnitMovePacket* packet = static_cast<UnitMovePacket*>(p_packet);
 				packet->serialize(data);
-				NetworkServices::sendMessage(m_network->m_connectSocket, data, packetSize);
+				NetworkServices::sendMessage(m_network->m_connectSocket, data, PACKET_SIZE);
 				break;
 			}
 		}
