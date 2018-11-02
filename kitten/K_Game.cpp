@@ -33,6 +33,9 @@
 #include "userinterface\InterfaceBuilder.h"
 
 #include "unitInteraction/UnitInteractionManager.h"
+//ui testing
+#include "userinterface/CardUIO.h"
+#include "userinterface/HandFrame.h"
 
 #define DEBUG
 
@@ -124,6 +127,27 @@ namespace kitten
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();
 
+		//UIO TESTING
+		K_GameObject* hand = K_GameObjectManager::getInstance()->createNewGameObject();
+		K_Component* handFrame = compMan->createComponent("Hand");
+		hand->addComponent(handFrame);
+		hand->getTransform().scale2D(1.0, 0.4);
+		hand->getTransform().place2D(-0.9, -0.9);
+
+		for (int x = 0; x < 5; x++)
+		{
+
+			K_GameObject* card = K_GameObjectManager::getInstance()->createNewGameObject();
+			K_Component* cardObj = compMan->createComponent("Card");
+			card->addComponent(cardObj);
+			userinterface::CardUIO* cardCasted = static_cast<userinterface::CardUIO*>(cardObj);
+			cardCasted->scaleAsCard();
+
+			userinterface::HandFrame* frameCasted = static_cast<userinterface::HandFrame*>(handFrame);
+			frameCasted->addCardToEnd(cardCasted);
+			cardCasted->assignParentHand(frameCasted);
+
+		}
 		/*
 		//testing ui frame and textbox
 		K_GameObject* go = K_GameObjectManager::getInstance()->createNewGameObject();

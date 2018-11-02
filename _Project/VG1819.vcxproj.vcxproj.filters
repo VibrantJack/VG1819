@@ -307,12 +307,10 @@
     <ClCompile Include="VolumeAdjustOnKeysPressed.cpp">
       <Filter>components\sound</Filter>
     </ClCompile>
-    <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
     <ClCompile Include="..\kitten\audio\SoundEffectsApplier.cpp">
       <Filter>kitten\audio</Filter>
     </ClCompile>
     <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
-    <ClCompile Include="..\userinterface\UIFrame.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
@@ -404,6 +402,24 @@
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="..\userinterface\UIObject.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\userinterface\CardUIO.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\userinterface\CardUIO.h">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\userinterface\HandFrame.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\userinterface\HandFrame.h">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\userinterface\UIFrame.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\userinterface\InterfaceBuilder.cpp">
       <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -657,7 +673,6 @@
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
     <ClInclude Include="..\kitten\K_Sprite.h" />
     <ClInclude Include="..\puppy\P_Sprite.h" />
-    <ClInclude Include="..\userinterface\UI_ElementComponent.h" />
     <ClInclude Include="ToggleSoundOnKeyPress.h">
       <Filter>components\sound</Filter>
     </ClInclude>
