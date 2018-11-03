@@ -1,6 +1,11 @@
 #include "Unit.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "kitten/K_GameObject.h"
+#include <iostream>
+
+// Networking
+#include "networking\ClientGame.h"
+#include "board\tile\TileInfo.h"
 //@Rock
 
 namespace unit
@@ -37,7 +42,6 @@ namespace unit
 	{
 		return m_statusContainer;
 	}
-
 	//turn
 	void Unit::turnStart(UnitTurn * p_t)
 	{

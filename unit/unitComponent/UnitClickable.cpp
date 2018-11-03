@@ -1,4 +1,3 @@
-
 #include "UnitClickable.h"
 #include "unit/UnitCommon.h"
 #include "unit/Unit.h"
@@ -30,8 +29,7 @@ void unit::UnitClickable::onClick()
 	}
 	else
 	{
-		//show unit info
-		
+		//show unit info		
 	}
 }
 
@@ -41,4 +39,5 @@ void unit::UnitClickable::onHoverStart()
 
 void unit::UnitClickable::onHoverEnd()
 {
+
 }

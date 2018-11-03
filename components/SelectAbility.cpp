@@ -65,7 +65,7 @@ void SelectAbility::useAbility(AbilityType p_ability)
 				printf("4pushed tile %f, %f\n", pos.x + unitOffsetX, pos.z + 1);
 			}*/
 			info->m_source = unit;
-			ability::AbilityManager::getInstance()->useAbility(SUMMON_UNIT, info);
+			ability::AbilityManager::getInstance()->useAbility(SUMMON_UNIT_ABILITY, info);
 			break;
 		}
 		default:

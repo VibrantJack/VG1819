@@ -146,9 +146,6 @@
     <ClCompile Include="..\ability\status\Status.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\Status_CD.cpp">
-      <Filter>ability\status</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\status\Status_Encourage.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
@@ -310,12 +307,9 @@
     <ClCompile Include="VolumeAdjustOnKeysPressed.cpp">
       <Filter>components\sound</Filter>
     </ClCompile>
-    <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
     <ClCompile Include="..\kitten\audio\SoundEffectsApplier.cpp">
       <Filter>kitten\audio</Filter>
     </ClCompile>
-    <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
-    <ClCompile Include="..\userinterface\UIFrame.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
@@ -373,14 +367,47 @@
     <ClCompile Include="..\puppy\P_Instance.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
-    <ClCompile Include="..\userinterface\UIFrame.cpp">
+    <ClCompile Include="..\networking\NetworkServices.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\ServerNetwork.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\ClientNetwork.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\ServerGame.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\ClientGame.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\SpawnUnitOnKeyPress.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\NetworkingConsoleMenu.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\CardUIO.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\userinterface\UIElement.cpp">
+    <ClCompile Include="..\UI\HandFrame.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\userinterface\UIObject.cpp">
+    <ClCompile Include="..\UI\InterfaceBuilder.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\UIElement.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\UIFrame.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\UIObject.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_CD.cpp">
+      <Filter>ability\status</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -619,7 +646,6 @@
       <Filter>unit\unitComponent</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
-    <ClInclude Include="..\kitten\K_Sprite.h" />
     <ClInclude Include="..\puppy\P_Sprite.h" />
     <ClInclude Include="..\kitten\audio\AudioEngineWrapper.h">
       <Filter>kitten\audio</Filter>
@@ -631,9 +657,7 @@
       <Filter>kitten\audio</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
-    <ClInclude Include="..\kitten\K_Sprite.h" />
     <ClInclude Include="..\puppy\P_Sprite.h" />
-    <ClInclude Include="..\userinterface\UI_ElementComponent.h" />
     <ClInclude Include="ToggleSoundOnKeyPress.h">
       <Filter>components\sound</Filter>
     </ClInclude>
@@ -728,19 +752,52 @@
     <ClInclude Include="..\kitten\mouse picking\ClickableUI.h">
       <Filter>kitten\mouse  picking</Filter>
     </ClInclude>
-    <ClInclude Include="..\userinterface\UIFrame.h">
+    <ClInclude Include="..\networking\NetworkServices.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\NetworkData.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\ServerNetwork.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\ClientNetwork.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\ServerGame.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\ClientGame.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\SpawnUnitOnKeyPress.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\NetworkingConsoleMenu.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\component\tilePipeline\TileFliter.h">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\CardUIO.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\userinterface\UI_ElementComponent.h">
+    <ClInclude Include="..\UI\HandFrame.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\userinterface\InterfaceBuilder.h">
+    <ClInclude Include="..\UI\InterfaceBuilder.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\userinterface\UIElement.h">
+    <ClInclude Include="..\UI\UIElement.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\userinterface\UIObject.h">
+    <ClInclude Include="..\UI\UIFrame.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\UIObject.h">
       <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -820,9 +877,6 @@
     <Filter Include="kibble\Custom">
       <UniqueIdentifier>{0b9dadcb-53bf-40a7-a741-ba2426505959}</UniqueIdentifier>
     </Filter>
-    <Filter Include="unitInteraction">
-      <UniqueIdentifier>{1fb89c97-aeff-4402-83e4-69ba3d5164c3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="board">
       <UniqueIdentifier>{18c905e4-e70f-4f75-9dfb-0895797498ff}</UniqueIdentifier>
     </Filter>
@@ -835,8 +889,17 @@
     <Filter Include="board\component">
       <UniqueIdentifier>{0ae05199-ea25-4694-8d77-89d227d2bec6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI">
+    <Filter Include="networking">
+      <UniqueIdentifier>{917724ca-7167-448a-8927-6be470d6ce1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\component\tilePipeline">
+      <UniqueIdentifier>{d1d86083-6ad0-41ac-8b44-7769bb229e42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="userinterface">
       <UniqueIdentifier>{b3f2d921-d676-4a5a-9200-68ea320734c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{7c515321-114f-4139-b36b-dbb6a43b7093}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -75,6 +75,9 @@ namespace unit
 		std::cout << "Status: " << std::endl;
 		printStatus(p_u->getStatusContainer());
 		std::cout << std::endl;
+
+		// Client ID
+		std::cout << "Client ID: " << p_u->m_clientId << std::endl;
 	}
 
 	void UnitMonitor::printIT()

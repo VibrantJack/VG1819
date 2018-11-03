@@ -30,11 +30,11 @@
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
 
-#include "userinterface\InterfaceBuilder.h"
+#include "ui\InterfaceBuilder.h"
 
 //ui testing
-#include "userinterface\CardUIO.h"
-#include "userinterface\HandFrame.h"
+#include "ui/CardUIO.h"
+#include "ui/HandFrame.h"
 
 #define DEBUG
 
@@ -52,6 +52,7 @@ namespace kitten
 		ability::AbilityManager::createInstance();
 		ability::AbilityNodeManager::createInstance();
 
+		// Management of InitiativeTracker moved into ServerGame
 		unit::InitiativeTracker::createInstance();
 
 		BoardManager::createInstance();
@@ -119,8 +120,6 @@ namespace kitten
 		//builder->start();
 		//delete builder;
 
-		
-
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();
 
@@ -161,6 +160,13 @@ namespace kitten
 		com->getTransform().scale2D(0.15, 0.2);
 		com->getTransform().place2D(0.1, 0.1);
 		//*/
+
+		// Networking
+		//networking::ServerGame::createInstance();
+		//_beginthread(serverLoop, 0, (void*)12);
+		//networking::ClientGame::createInstance();
+		K_GameObject* networkingMenu = K_GameObjectManager::getInstance()->createNewGameObject();
+		networkingMenu->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("NetworkingConsoleMenu"));
 
 		return true;
 	}

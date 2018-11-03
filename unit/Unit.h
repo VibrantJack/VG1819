@@ -21,6 +21,7 @@ namespace unit
 		std::string m_name;
 		std::unordered_map<std::string, int> m_attributes;//attributes includes all numerical attribute and counter
 		UnitSize m_size;
+		int m_clientId;
 
 		std::unordered_map<std::string, unit::AbilityDescription*> m_ADList;
 
@@ -53,5 +54,4 @@ namespace unit
 		int destroyedByDamage();
 	};
 }
-
 

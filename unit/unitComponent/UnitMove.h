@@ -39,6 +39,8 @@ namespace unit
 		void triggerUnhighLightEvent();
 		void move(kitten::K_GameObject* p_targetTile);
 
+		void sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY);
+
 		void setTile(kitten::K_GameObject* p_tile);
 		void setTile(int p_x, int p_z);
 
