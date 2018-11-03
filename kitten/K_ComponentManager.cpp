@@ -17,9 +17,8 @@
 #include "unit/unitComponent/UnitMove.h"
 #include "unit/unitComponent/UnitClickable.h"
 //ui
-#include "userinterface/UIFrame.h"
-#include "userinterface/HandFrame.h"
-#include "userinterface/CardUIO.h"
+#include "UI\CardUIO.h"
+#include "UI\HandFrame.h"
 
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
