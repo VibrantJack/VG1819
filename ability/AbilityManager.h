@@ -9,7 +9,7 @@
 #define MANIPULATE_TILE_ABILITY "ManipulateTile"
 #define HEAL_ABILITY "Heal"
 #define FIGHT_ABILITY "Fight"
-#define SUMMON_UNIT "SummonUnit"
+#define SUMMON_UNIT_ABILITY "SummonUnit"
 
 //Rock
 

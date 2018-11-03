@@ -16,7 +16,7 @@ namespace unit
 	void Commander::init()
 	{
 		m_adSpawn = new unit::AbilityDescription();
-		m_adSpawn->m_stringValue["name"] = SUMMON_UNIT;
+		m_adSpawn->m_stringValue["name"] = SUMMON_UNIT_ABILITY;
 		m_adSpawn->m_intValue["target"] = 1;
 		//range
 		m_adSpawn->m_intValue["min_range"] = 1;

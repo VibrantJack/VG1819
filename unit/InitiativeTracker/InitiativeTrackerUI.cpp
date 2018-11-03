@@ -2,7 +2,7 @@
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "kitten/K_ComponentManager.h"
 #include "kitten/K_GameObjectManager.h"
-#include "userinterface/UIFrame.h"
+#include "UI/UIFrame.h"
 #include "puppy/Text/TextBox.h"
 
 unit::InitiativeTrackerUI::InitiativeTrackerUI()
@@ -105,7 +105,7 @@ void unit::InitiativeTrackerUI::change(int p_i)
 
 int unit::InitiativeTrackerUI::isShown(int p_i)
 {
-	if (p_i < m_unitIndex[0])//unit is before the first unit shown
+	if (p_i < m_unitIndex[m_blockInSlot[0]])//unit is before the first unit shown
 	{
 		return -1;
 	}
