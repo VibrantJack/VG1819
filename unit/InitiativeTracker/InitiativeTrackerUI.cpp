@@ -38,7 +38,7 @@ void unit::InitiativeTrackerUI::turnStart()
 {
 	resetPosition();
 
-	m_lastUnitIndex = unit::InitiativeTracker::getInstance()->getCurrentUnitIndex();
+	m_lastUnitIndex = unit::InitiativeTracker::getInstance()->m_currentUnitIndex;
 
 	//set all frames
 	for (int i = 0; i < m_maxUnitToShow; i++)
@@ -109,7 +109,7 @@ int unit::InitiativeTrackerUI::isShown(int p_i)
 	{
 		return -1;
 	}
-	else if (p_i >= m_lastUnitIndex)//unit is after the last unit shown
+	else if (p_i > m_unitIndex[m_maxUnitToShow - 1])//unit is after the last unit shown
 	{
 		return -2;
 	}
@@ -118,7 +118,6 @@ int unit::InitiativeTrackerUI::isShown(int p_i)
 		if (m_unitIndex[i] == p_i)
 			return i;
 	}
-	assert(false);
 	return -3;
 }
 
@@ -142,9 +141,9 @@ void unit::InitiativeTrackerUI::resetPosition()
 
 void unit::InitiativeTrackerUI::setNewFrame(int p_index)
 {
-	if (m_lastUnitIndex < InitiativeTracker::getInstance()->getUnitNumber())
+	if (m_lastUnitIndex < InitiativeTracker::getInstance()->m_unitObjectList.size())
 	{//still has units in list
-		kitten::K_GameObject* unitGO = InitiativeTracker::getInstance()->getUnitByIndex(m_lastUnitIndex);
+		kitten::K_GameObject* unitGO = InitiativeTracker::getInstance()->m_unitObjectList[m_lastUnitIndex];
 		m_blockList[p_index]->set(unitGO);
 		m_unitIndex[p_index] = m_lastUnitIndex;
 		m_lastUnitIndex++;

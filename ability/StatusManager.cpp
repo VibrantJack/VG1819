@@ -11,10 +11,9 @@ namespace ability
 		Status* s;
 
 		//TO DO: need improve
-		/*CD is removed from status, will be part of unit component
 		s = new Status_CD();
 		s->m_name = "Status_CD";
-		m_statusList.push_back(s);*/
+		m_statusList.push_back(s);
 
 		s = new Status_Encourage();
 		s->m_name = "Status_Encourage";

@@ -45,8 +45,9 @@ namespace ability
 	{
 		return -1;
 	}
-	kitten::K_GameObject * AbilityNode::spawn(unit::UnitData * p_data)
+	int AbilityNode::effect(unit::UnitData * p_data)
 	{
-		return nullptr;
+		return -1;
 	}
+	;
 }
