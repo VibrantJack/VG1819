@@ -14,9 +14,7 @@
 				"min_range":1,
 				"max_range":1,
 				"target":1,
-				"description":"Deal 3 damage to target.",
-				"filter":1,
-				"filter0":"no_unit"
+				"description":"Deal 3 damage to target."
 			},
 			{
 				"name":"Build the Wall",
@@ -40,7 +38,7 @@
 			{
 				"name":"Status_LV",
 				"lv":3,
-				"time_point":2,
+				"time_point":[2],
 				"mv":1
 			}
 		]

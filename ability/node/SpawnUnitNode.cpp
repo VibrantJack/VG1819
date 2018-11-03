@@ -10,11 +10,11 @@ namespace ability
 	{
 	}
 
-	kitten::K_GameObject* SpawnUnitNode::spawn(unit::UnitData* p_data)
+	int SpawnUnitNode::effect(unit::UnitData* p_data)
 	{
-		kitten::K_GameObject* u = unit::UnitSpawn::getInstance()->spawnUnitObject(p_data);
+		unit::UnitSpawn::getInstance()->spawnUnitObject(p_data);
 
-		return u;
+		return 0;
 	}
 
 }

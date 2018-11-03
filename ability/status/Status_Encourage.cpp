@@ -5,28 +5,33 @@
 
 namespace ability
 {
-	Status_Encourage::Status_Encourage() : Status::Status()
+	Status_Encourage::Status_Encourage()
 	{
-		addTimePoint(TimePointEvent::Turn_Start);
-		addTimePoint(TimePointEvent::Deal_Damage);
+
 	}
 
-	int Status_Encourage::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)
+	Status_Encourage::~Status_Encourage()
 	{
-		if (p_type == ability::TimePointEvent::Turn_End)
+	}
+
+	int Status_Encourage::effect(TimePointEvent p_timePoint)
+	{
+		if (p_timePoint == ability::Turn_End)
 		{
 			//reduce duration
 			changeCounter();
 			checkDuration();
-			return 0;
 		}
-		else if (p_type == ability::TimePointEvent::Deal_Damage)
+		return 0;
+	}
+
+	int Status_Encourage::effect(TimePointEvent p_timePoint, ability::AbilityInfoPackage * p_pack)
+	{
+		if (p_timePoint == ability::Deal_Damage)
 		{
 			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode("ChangeAbilityInfoNode");
-			AbilityInfoPackage* pack = p_event->getPackage(INFO_PACKAGE_KEY);
-			node->effect(pack, "power", m_counter->at("power"));
-			return 0;
+			node->effect(p_pack, "power" , m_counter["power"]);
 		}
-		return 1;
+		return 0;
 	}
 }

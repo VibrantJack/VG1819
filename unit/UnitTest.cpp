@@ -52,10 +52,10 @@ namespace unit
 			//unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
 			//UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 
+
 			//initialize position
 			//testDummyGO->getComponent<unit::UnitMove>()->setTile(4,4);
 
-			//move to unit spawn
 			//kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
 			//testDummyGO->addComponent(compMan->createComponent("UseAbilityWhenClicked"));
 			//testDummyGO->addComponent(compMan->createComponent("SelectAbility"));
@@ -90,7 +90,9 @@ namespace unit
 		//u2->getComponent<unit::UnitMove>()->setTile(0,1);
 
 		//test unit 
+
 		//unit::Unit* u = u1->getComponent<unit::Unit>();
+
 		//UnitMonitor::getInstanceSafe()->printUnit(u);
 
 		//Test Initiative Tracker

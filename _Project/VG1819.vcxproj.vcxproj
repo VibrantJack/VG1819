@@ -99,7 +99,6 @@
     <ClCompile Include="..\ability\ability\Fight.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
     <ClCompile Include="..\ability\ability\ManipulateTile.cpp" />
-    <ClCompile Include="..\ability\ability\Move.cpp" />
     <ClCompile Include="..\ability\ability\QuickShoot.cpp" />
     <ClCompile Include="..\ability\ability\Sabotage.cpp" />
     <ClCompile Include="..\ability\ability\Shoot.cpp" />
@@ -114,18 +113,13 @@
     <ClCompile Include="..\ability\node\SpawnUnitNode.cpp" />
     <ClCompile Include="..\ability\StatusManager.cpp" />
     <ClCompile Include="..\ability\status\Status.cpp" />
-    <ClCompile Include="..\ability\status\statusEvent\TimePointEvent.cpp" />
     <ClCompile Include="..\ability\status\Status_Archer_LV3.cpp" />
+    <ClCompile Include="..\ability\status\Status_CD.cpp" />
     <ClCompile Include="..\ability\status\Status_Dodge.cpp" />
     <ClCompile Include="..\ability\status\Status_Duelist_LV3.cpp" />
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\ability\status\Status_LV.cpp" />
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
-    <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp" />
-    <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp" />
-    <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />
-    <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
-    <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\kibble\custom\CustomDeckDataParser.cpp" />
     <ClCompile Include="..\board\boardManager.cpp" />
@@ -199,8 +193,6 @@
     <ClCompile Include="..\puppy\Text\TextBox.cpp" />
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
-    <ClCompile Include="..\unitInteraction\TileGetter.cpp" />
-    <ClCompile Include="..\unitInteraction\UnitInteractionManager.cpp" />
     <ClCompile Include="..\unit\Commander.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp" />
@@ -245,9 +237,6 @@
     <ClInclude Include="..\ability\node\AbilityNodeManager.h" />
     <ClInclude Include="..\ability\StatusManager.h" />
     <ClInclude Include="..\ability\status\Status.h" />
-    <ClInclude Include="..\ability\status\statusEvent\TimePointEvent.h" />
-    <ClInclude Include="..\board\component\tilePipeline\TileFliter.h" />
-    <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />
     <ClInclude Include="..\DeckData.hpp" />
     <ClInclude Include="..\board\BoardManager.h" />
@@ -337,8 +326,6 @@
     <ClInclude Include="..\puppy\Text\TextBox.h" />
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
-    <ClInclude Include="..\unitInteraction\TileGetter.h" />
-    <ClInclude Include="..\unitInteraction\UnitInteractionManager.h" />
     <ClInclude Include="..\unit\Commander.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTrackerUI.h" />

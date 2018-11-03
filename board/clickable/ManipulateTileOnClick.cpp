@@ -33,7 +33,6 @@ ManipulateTileOnClick::~ManipulateTileOnClick()
 
 void ManipulateTileOnClick::onClick()
 {
-	/*
 	TileInfo* tileInfo = m_attachedObject->getComponent<TileInfo>();
 	if (ability::AbilityManager::getInstance()->lastAbilityUsed() == MANIPULATE_TILE_ABILITY)
 	{
@@ -86,10 +85,5 @@ void ManipulateTileOnClick::onClick()
 	else
 	{
 		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
-
 	}
-
-	// Rest the last ability used after we've used an ability or canceled it
-	ability::AbilityManager::getInstance()->resetLastAbilityUsed();
-	}*/
 }

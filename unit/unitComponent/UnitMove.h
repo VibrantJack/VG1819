@@ -25,25 +25,18 @@ namespace unit
 
 		kitten::K_GameObject* m_currentTile;
 		kitten::K_GameObject* m_lastTile;
-		unit::AbilityDescription* m_ad;
-
-		void triggerNewTileEvent();
 
 	public:
 		UnitMove();
 		~UnitMove();
 
-		void attempToMove(int p_min = 1, int p_max = -1);
-
-		/*
-		//move to unit interaction manager 
 		void registerListener();
 		void deregisterListener();
 		void listenEvent(kitten::Event::EventType p_type, kitten::Event* p_data);
 
-		void triggerHighLightEvent(int p_min = 1, int p_max = -1);
-		void triggerUnhighLightEvent();*/
-
+		void attempToMove();
+		void triggerHighLightEvent();
+		void triggerUnhighLightEvent();
 		void move(kitten::K_GameObject* p_targetTile);
 
 		void sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY);
@@ -53,7 +46,6 @@ namespace unit
 
 		kitten::K_GameObject* getTile();
 		void reset();
-
 		bool hasUpdate() const override;
 		void update() override;
 
