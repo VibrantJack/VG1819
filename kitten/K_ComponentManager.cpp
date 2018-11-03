@@ -17,8 +17,9 @@
 #include "unit/unitComponent/UnitMove.h"
 #include "unit/unitComponent/UnitClickable.h"
 //ui
-#include "UI\CardUIO.h"
-#include "UI\HandFrame.h"
+#include "userinterface/UIFrame.h"
+#include "userinterface/HandFrame.h"
+#include "userinterface/CardUIO.h"
 
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
@@ -27,8 +28,6 @@
 #include "kitten\mouse picking\ClickableFrame.h"
 #include "components\PowerTracker.h"
 #include "components\SelectAbility.h"
-#include "networking\SpawnUnitOnKeyPress.h"
-#include "networking\NetworkingConsoleMenu.h"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 
 //board
@@ -170,14 +169,6 @@ namespace kitten
 		else if (p_componentName == "BoardCreator")
 		{
 			comp = new BoardCreator();
-		}
-		else if (p_componentName == "SpawnUnitOnKeyPress")
-		{
-			comp = new SpawnUnitOnKeyPress();
-		}
-		else if (p_componentName == "NetworkingConsoleMenu")
-		{
-			comp = new NetworkingConsoleMenu();
 		}
 		else
 		{

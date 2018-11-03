@@ -52,7 +52,7 @@ namespace ability
 		m_abilityList.push_back(newAbility);
 
 		newAbility = new SummonUnit();
-		newAbility->m_name = SUMMON_UNIT_ABILITY;
+		newAbility->m_name = SUMMON_UNIT;
 		m_abilityList.push_back(newAbility);
 
 		newAbility = new Move();

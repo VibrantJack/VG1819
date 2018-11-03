@@ -159,9 +159,6 @@ namespace unit
 			readSD(it)->attach(unit);
 		}
 
-		//doesn't belong to any client
-		unit->m_clientId = -1;
-
 		return unit;
 	}
 
