@@ -26,7 +26,7 @@ void unit::UnitTurn::turnStart(kitten::K_GameObject* p_unitObj)
 		move = true;
 
 	//comment for testing
-	act = true;
+	//act = true;
 }
 
 void unit::UnitTurn::checkTurn()
@@ -52,16 +52,5 @@ void unit::UnitTurn::turnEnd()
 void unit::UnitTurn::turnReset()
 {
 	m_currentUnit->turnEnd();
-	m_currentUnit = nullptr;
-}
-
-bool unit::UnitTurn::isCurrent(kitten::K_GameObject * p_unitObj)
-{
-	Unit* u = p_unitObj->getComponent<Unit>();
-	return u == m_currentUnit;
-}
-
-void unit::UnitTurn::unitDestroyed()
-{
 	m_currentUnit = nullptr;
 }

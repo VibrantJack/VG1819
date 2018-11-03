@@ -1,4 +1,9 @@
+#pragma once
+#include "ability/node/AbilityNodeManager.h"
 
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 //Rock
 
@@ -18,18 +23,9 @@
 //it will decrease duration by 1 and see if it's zero
 //then decide to remove this effect
 
-#pragma once
-#include "ability/node/AbilityNodeManager.h"
-#include "ability/status/statusEvent/TimePointEvent.h"
-
-#include <string>
-#include <vector>
-
-#define INFO_PACKAGE_KEY "info"
 
 namespace ability
 {
-	/*move to TimePointEvent class
 	enum TimePointEvent
 	{
 		Turn_Start,
@@ -38,46 +34,40 @@ namespace ability
 		New_Tile,
 		Deal_Damage,
 		Receive_Damage,
-	};*/
+	};
+
 	class Status
 	{
 	public:
+		unit::Unit * m_unit;//the unit this status attached to
+
+		std::unordered_map<std::string, int> m_counter;
+		//Most commonly counter is duration. But it can be more, such as how many times it can be used
+
 		std::string m_name;
+		std::string m_description;//the text that will be showed to player
+		int m_LV;
+		std::unordered_map<std::string, int> m_attributeChange;
+
+		std::vector<ability::TimePointEvent> m_TPList;//the list of event that will be registered
+		//TO DO: Register Event
+
+		virtual int effect();//this is effect that activates when status is added
+		virtual int effect(TimePointEvent p_timePoint);
+		virtual int effect(TimePointEvent p_timePoint, ability::AbilityInfoPackage* p_pack);
+		virtual int effect(TimePointEvent p_timePoint, int p_value);
+		//TO DO: Listen Event and take effect
+		//Maybe use Chain of Responsibility
 
 		Status();
 		virtual ~Status();
-
-		void changeLV(int p_lv);
-		void changeDescription(const std::string & p_msg);
-		void addCounter(const std::string & p_key, int p_value);
-		void addAttributeChange(const std::string & p_key, int p_value);
-		void addTimePoint(ability::TimePointEvent::TPEventType p_value);
 
 		void attach(unit::Unit* p_u);
 
 		virtual Status* clone() const = 0;
 
-		virtual int effect();//activate when attached to unit
-		virtual int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
-
-		void registerTPEvent();
-
-		//for test
-		void print();
-
 	protected:
-		unit::Unit * m_unit;//the unit this status attached to
-
-		std::unordered_map<std::string, int>* m_counter;
-		//Most commonly counter is duration. But it can be more, such as how many times it can be used
-
-		std::string m_description;//the text that will be showed to player
-		int m_LV;
-		std::unordered_map<std::string, int>* m_attributeChange;
-
-		std::vector<ability::TimePointEvent::TPEventType>* m_TPList;//the list of event that will be registered
-
-		void removeThis();
+		void removeThis();//TO DO: remove this Status from Unit, and delete the instance
 		int changeCounter(const std::string& p_cName = "duration", int p_value = -1);
 		void checkDuration();
 	};
@@ -86,9 +76,22 @@ namespace ability
 	{
 		//this class handle the attribute change for all lv up status
 	public:
-		Status_LV();
 		virtual Status* clone() const { return new Status_LV(*this); };
-		virtual int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		virtual int effect(TimePointEvent p_timePoint, int p_value);
+	};
+
+	class Status_CD : public Status
+	{
+		//this status should store all cd and ct
+		//at turn start, all cd ct decrease by 1
+		//when unit use ability, it needs to check here
+	public:
+		std::string m_abilityName;//the name of the ability that's in cooldown
+
+		Status_CD();
+		virtual ~Status_CD();
+		Status* clone() const { return new Status_CD(*this); };
+		int effect(TimePointEvent p_timePoint);
 	};
 
 	class Status_Encourage : public Status
@@ -98,8 +101,10 @@ namespace ability
 		//then it increase the ability's power by this status power
 	public:
 		Status_Encourage();
+		virtual ~Status_Encourage();
 		Status* clone() const { return new Status_Encourage(*this); };
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(TimePointEvent p_timePoint);
+		int effect(TimePointEvent p_timePoint, ability::AbilityInfoPackage* p_pack);
 	};
 
 	class Status_Dodge : public Status
@@ -108,8 +113,10 @@ namespace ability
 		//it triggers when unit will receive damage
 	public:
 		Status_Dodge();
+		virtual ~Status_Dodge();
 		Status* clone() const { return new Status_Dodge(*this); };
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(TimePointEvent p_timePoint);
+		int effect(TimePointEvent p_timePoint, ability::AbilityInfoPackage* p_pack);
 	};
 
 	class Status_Priest_LV3 : public Status_LV
@@ -119,8 +126,10 @@ namespace ability
 		bool m_activate = false;
 	public:
 		Status_Priest_LV3();
+		virtual ~Status_Priest_LV3();
 		Status* clone() const { return new Status_Priest_LV3(*this); };
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(TimePointEvent p_timePoint);
+		int effect(TimePointEvent p_timePoint, int p_value);
 	}; 
 
 	class Status_Archer_LV3 : public Status_LV
@@ -128,9 +137,10 @@ namespace ability
 		//this is trigger when Archer is lv3
 	public:
 		Status_Archer_LV3();
+		virtual ~Status_Archer_LV3();
 		Status* clone() const { return new Status_Archer_LV3(*this); };
 
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(TimePointEvent p_timePoint, int p_value);
 	};
 
 	class Status_Duelist_LV3 : public Status_LV
@@ -138,9 +148,10 @@ namespace ability
 		//this is trigger when Duelist is lv3
 	public:
 		Status_Duelist_LV3();
+		virtual ~Status_Duelist_LV3();
 		Status* clone() const { return new Status_Duelist_LV3(*this); };
 
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(TimePointEvent p_timePoint, int p_value);
 	};
 }
 

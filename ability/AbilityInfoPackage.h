@@ -1,5 +1,4 @@
 #pragma once
-#include "kitten/K_Common.h"
 #include <vector>
 #include <unordered_map>
 //Rock
@@ -17,15 +16,11 @@ namespace ability
 	{
 	public:
 		unit::Unit * m_source;//the unit who uses the ability
-		std::vector<unit::Unit*> m_targets;//the list of units who will be effected
+		unit::Unit * m_target;//the single unit who will be effected
+		std::vector<unit::Unit*> m_multipleTargets;//the list of units who will be effected, used for area ability
 		std::unordered_map<std::string, int> m_intValue;
 		
 		// For passing which tiles are needed for the ability
-		std::vector<std::pair<int, int>> m_targetTilesPos;
-		std::vector<kitten::K_GameObject*> m_targetTilesGO;
-
-		AbilityInfoPackage() {};
-		~AbilityInfoPackage() {};
-
+		std::vector<std::pair<int, int>> m_targetTiles;
 	};
 }

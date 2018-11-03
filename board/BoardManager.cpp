@@ -2,7 +2,6 @@
 #include "kitten\event_system\EventManager.h"
 #include "kitten/K_ComponentManager.h"
 #include "kitten/K_GameObjectManager.h"
-#include <sstream>
 
 BoardManager* BoardManager::sm_instance = nullptr;
 
@@ -51,7 +50,6 @@ BoardManager::BoardManager()
 	//m_boardGO = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 	m_range = new Range();
 	m_highlighter = static_cast<Highlighter*>(kitten::K_ComponentManager::getInstance()->createComponent("Highlighter"));
-	m_pipeline = new TilePipeline();
 
 	registerEvent();
 }
@@ -60,7 +58,6 @@ BoardManager::~BoardManager()
 {
 	delete m_range;
 	delete m_highlighter;
-	delete m_pipeline;
 }
 
 void BoardManager::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data)
@@ -99,18 +96,6 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 		}
 	}
 
-	//apply filter
-	int filterNum = p_data->getInt("filter");
-	m_pipeline->resetFilter();
-	for (int i = 0; i < filterNum; i++)
-	{
-		std::stringstream stm;
-		stm << "filter" << i;
-		std::string fkey = stm.str();
-		m_pipeline->useFilter(p_data->getString(fkey));
-	}
-	m_pipeline->filterList(&list);
-  
 	m_highlighter->highlightTile(list);
 }
 

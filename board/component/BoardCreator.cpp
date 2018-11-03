@@ -57,7 +57,6 @@ void BoardCreator::start()
 	// PowerTracker component attached to Board GO
 	kitten::K_Component* powerTracker = kitten::K_ComponentManager::getInstance()->createComponent("PowerTracker");
 	m_attachedObject->addComponent(powerTracker);
-	BoardManager::getInstance()->setPowerTracker(static_cast<PowerTracker*>(powerTracker));
 
 	//delete this
 	kitten::K_ComponentManager::getInstance()->destroyComponent(this);
