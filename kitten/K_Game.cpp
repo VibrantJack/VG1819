@@ -30,12 +30,12 @@
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
 
-#include "userinterface\InterfaceBuilder.h"
+#include "ui\InterfaceBuilder.h"
 
 #include "unitInteraction/UnitInteractionManager.h"
 //ui testing
-#include "userinterface/CardUIO.h"
-#include "userinterface/HandFrame.h"
+#include "ui/CardUIO.h"
+#include "ui/HandFrame.h"
 
 #define DEBUG
 

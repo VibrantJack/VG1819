@@ -2,7 +2,7 @@
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "kitten/K_ComponentManager.h"
 #include "kitten/K_GameObjectManager.h"
-#include "userinterface/UIFrame.h"
+#include "ui/UIFrame.h"
 #include "puppy/Text/TextBox.h"
 
 unit::InitiativeTrackerUI::InitiativeTrackerUI()

@@ -310,7 +310,6 @@
     <ClCompile Include="..\kitten\audio\SoundEffectsApplier.cpp">
       <Filter>kitten\audio</Filter>
     </ClCompile>
-    <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
@@ -368,9 +367,6 @@
     <ClCompile Include="..\puppy\P_Instance.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
-    <ClCompile Include="..\userinterface\UIFrame.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\networking\NetworkServices.cpp">
       <Filter>networking</Filter>
     </ClCompile>
@@ -419,28 +415,28 @@
     <ClCompile Include="..\ability\status\statusEvent\TimePointEvent.cpp">
       <Filter>ability\status\statusEvent</Filter>
     </ClCompile>
-    <ClCompile Include="..\userinterface\UIElement.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\userinterface\UIObject.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\userinterface\CardUIO.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\userinterface\CardUIO.h">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\userinterface\HandFrame.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\userinterface\HandFrame.h">
-      <Filter>UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\userinterface\UIFrame.cpp">
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="..\userinterface\InterfaceBuilder.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\CardUIO.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\HandFrame.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\InterfaceBuilder.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\UIElement.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\UIFrame.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\UIObject.cpp">
       <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -680,7 +676,6 @@
       <Filter>unit\unitComponent</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
-    <ClInclude Include="..\kitten\K_Sprite.h" />
     <ClInclude Include="..\puppy\P_Sprite.h" />
     <ClInclude Include="..\kitten\audio\AudioEngineWrapper.h">
       <Filter>kitten\audio</Filter>
@@ -788,12 +783,6 @@
     <ClInclude Include="..\kitten\mouse picking\ClickableUI.h">
       <Filter>kitten\mouse  picking</Filter>
     </ClInclude>
-    <ClInclude Include="..\userinterface\UIFrame.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\userinterface\UI_ElementComponent.h">
-      <Filter>UI</Filter>
-    </ClInclude>
     <ClInclude Include="..\networking\NetworkServices.h">
       <Filter>networking</Filter>
     </ClInclude>
@@ -833,13 +822,22 @@
     <ClInclude Include="..\ability\status\statusEvent\TimePointEvent.h">
       <Filter>ability\status\statusEvent</Filter>
     </ClInclude>
-    <ClInclude Include="..\userinterface\InterfaceBuilder.h">
+    <ClInclude Include="..\UI\CardUIO.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\userinterface\UIElement.h">
+    <ClInclude Include="..\UI\HandFrame.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\userinterface\UIObject.h">
+    <ClInclude Include="..\UI\InterfaceBuilder.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\UIElement.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\UIFrame.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\UIObject.h">
       <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -934,9 +932,6 @@
     <Filter Include="board\component">
       <UniqueIdentifier>{0ae05199-ea25-4694-8d77-89d227d2bec6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI">
-      <UniqueIdentifier>{b3f2d921-d676-4a5a-9200-68ea320734c6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="networking">
       <UniqueIdentifier>{917724ca-7167-448a-8927-6be470d6ce1c}</UniqueIdentifier>
     </Filter>
@@ -945,6 +940,12 @@
     </Filter>
     <Filter Include="ability\status\statusEvent">
       <UniqueIdentifier>{9c5bb05c-660d-4132-938b-791318907714}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="userinterface">
+      <UniqueIdentifier>{b3f2d921-d676-4a5a-9200-68ea320734c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{7c515321-114f-4139-b36b-dbb6a43b7093}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
