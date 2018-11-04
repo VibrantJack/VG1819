@@ -10,8 +10,6 @@
 #define HEAL_ABILITY "Heal"
 #define FIGHT_ABILITY "Fight"
 #define SUMMON_UNIT_ABILITY "SummonUnit"
-#define DEFAULT_ABILITY "None"
-
 
 //Rock
 
@@ -41,6 +39,5 @@ namespace ability
 		int useAbility(const std::string& p_name, AbilityInfoPackage* p_info);
 
 		const std::string& lastAbilityUsed();
-		void resetLastAbilityUsed() { m_sLastAbilityUsed = DEFAULT_ABILITY; };
 	};
 }

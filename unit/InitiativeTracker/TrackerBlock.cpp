@@ -3,7 +3,7 @@
 #include "kitten/K_ComponentManager.h"
 #include "kitten/K_GameObjectManager.h"
 #include "puppy/Text/TextBox.h"
-#include "ui/UIFrame.h"
+#include "UI/UIFrame.h"
 
 //static value
 const std::string unit::TrackerBlock::sm_blankTexture = "textures/ui/blankFrame.tga";

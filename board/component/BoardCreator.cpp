@@ -57,11 +57,7 @@ void BoardCreator::start()
 	// PowerTracker component attached to Board GO
 	kitten::K_Component* powerTracker = kitten::K_ComponentManager::getInstance()->createComponent("PowerTracker");
 	m_attachedObject->addComponent(powerTracker);
-
-	// Add SpawnUnitOnKeyPress for testing unit spawning on the network
-	kitten::K_Component* spawnUnitOnKeyPress = kitten::K_ComponentManager::getInstance()->createComponent("SpawnUnitOnKeyPress");
-	m_attachedObject->addComponent(spawnUnitOnKeyPress);
-
+	BoardManager::getInstance()->setPowerTracker(static_cast<PowerTracker*>(powerTracker));
 
 	//delete this
 	kitten::K_ComponentManager::getInstance()->destroyComponent(this);

@@ -5,23 +5,19 @@
 
 namespace ability
 {
-	Status_Archer_LV3::Status_Archer_LV3()
+	Status_Archer_LV3::Status_Archer_LV3() : Status_LV::Status_LV()
 	{
 
 	}
 
-	Status_Archer_LV3::~Status_Archer_LV3()
+	int Status_Archer_LV3::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)
 	{
-	}
-
-	int Status_Archer_LV3::effect(TimePointEvent p_timePoint, int p_value)
-	{
-		if (Status_LV::effect(p_timePoint, p_value) == 0)
+		if (Status_LV::effect(p_type, p_event) == 0)
 		{
 			AbilityNode* node = AbilityNodeManager::getInstance()->findNode("ChangeAbilityDescriptionNode");
 
-			node->effect(m_unit,"QuickShoot","target",1);
-			node->effect(m_unit, "QuickShoot", "description", "Deal 2 damage three times.");
+			node->effect(m_unit, "QuickShoot", "target", 1);//increase target num by 1
+			node->effect(m_unit, "QuickShoot", "description", "Deal 2 damage three times.");//change description
 
 			return 0;
 		}

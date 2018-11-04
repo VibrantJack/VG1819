@@ -2,6 +2,8 @@
 #include "unit/UnitCommon.h"
 #include "unit/unitComponent/StatusContainer.h"
 #include "unit/InitiativeTracker/InitiativeTracker.h"
+#include "unit/unitComponent/CooldownRecorder.h"
+#include "unit/unitComponent/Commander.h"
 
 //@Rock
 //although unit is just a component of game object
@@ -15,23 +17,34 @@ namespace unit
 	private:
 		UnitTurn* m_turn;
 		StatusContainer * m_statusContainer;
+		CooldownRecorder * m_cdRecorder;
+		Commander * m_commander;
 	public:
 		std::string m_ID;
 		std::vector<std::string> m_tags;
 		std::string m_name;
 		std::unordered_map<std::string, int> m_attributes;//attributes includes all numerical attribute and counter
 		UnitSize m_size;
-		int m_clientId;
 
 		std::unordered_map<std::string, unit::AbilityDescription*> m_ADList;
+		int m_clientId;
 
 		Unit();
 		~Unit();
 
+		void levelup();
+
+		//commander interface
+		void addCommander(Commander* p_c);
+		bool isCommander();
+		void manipulateTile();
+		void summonUnit();
+
 		//status interface
+		/*
 		void addStatus(ability::Status *p_newStatus);
 		bool removeStatus(ability::Status *p_oldStatus);
-		ability::Status* getStatus(const std::string& p_name);
+		ability::Status* getStatus(const std::string& p_name);*/
 		StatusContainer* getStatusContainer();
 
 		//turn interface
@@ -42,16 +55,18 @@ namespace unit
 		void actDone();
 		bool isTurn();
 		void turnEnd();
+		void playerSkipTurn();
 
 		//position function
 		kitten::K_GameObject* getTile();
 
-		//int useAbility(const std::string& p_abilityName);
-		//int callStatus(int p_StatusIndex, int p_event);
-		//event is the one of the events that this status registered
-		//should be enum, I didn't define it yet, so use int as place holder
+		void move();//move action, no restriction, no info needs
+		void move(int p_min, int p_max);//move by ability, need range of ability
+		void move(kitten::K_GameObject* p_tile);//move to a specific tile by ability
+
+		int useAbility(const std::string& p_abilityName);
+		void cancelAbility(AbilityDescription* p_ad);
 
 		int destroyedByDamage();
 	};
 }
-

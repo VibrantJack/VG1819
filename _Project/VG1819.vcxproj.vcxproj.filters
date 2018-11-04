@@ -257,9 +257,6 @@
     <ClCompile Include="..\unit\InitiativeTracker\UnitTurn.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
-    <ClCompile Include="..\unit\Commander.cpp">
-      <Filter>unit</Filter>
-    </ClCompile>
     <ClCompile Include="..\unit\Unit.cpp">
       <Filter>unit</Filter>
     </ClCompile>
@@ -406,8 +403,38 @@
     <ClCompile Include="..\UI\UIObject.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\Status_CD.cpp">
-      <Filter>ability\status</Filter>
+    <ClCompile Include="..\unit\unitComponent\CooldownRecorder.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unitInteraction\TileGetter.cpp">
+      <Filter>unitInteraction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unitInteraction\UnitInteractionManager.cpp">
+      <Filter>unitInteraction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\statusEvent\TimePointEvent.cpp">
+      <Filter>ability\status\statusEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Move.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\Commander.cpp">
+      <Filter>unit\unitComponent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -633,9 +660,6 @@
     <ClInclude Include="..\unit\InitiativeTracker\UnitTurn.h">
       <Filter>unit\InitiativeTracker</Filter>
     </ClInclude>
-    <ClInclude Include="..\unit\Commander.h">
-      <Filter>unit</Filter>
-    </ClInclude>
     <ClInclude Include="..\unit\Unit.h">
       <Filter>unit</Filter>
     </ClInclude>
@@ -800,6 +824,21 @@
     <ClInclude Include="..\UI\UIObject.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\CooldownRecorder.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unitInteraction\TileGetter.h">
+      <Filter>unitInteraction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unitInteraction\UnitInteractionManager.h">
+      <Filter>unitInteraction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ability\status\statusEvent\TimePointEvent.h">
+      <Filter>ability\status\statusEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\Commander.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -895,11 +934,14 @@
     <Filter Include="board\component\tilePipeline">
       <UniqueIdentifier>{d1d86083-6ad0-41ac-8b44-7769bb229e42}</UniqueIdentifier>
     </Filter>
-    <Filter Include="userinterface">
-      <UniqueIdentifier>{b3f2d921-d676-4a5a-9200-68ea320734c6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{7c515321-114f-4139-b36b-dbb6a43b7093}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="unitInteraction">
+      <UniqueIdentifier>{8f4a6957-99a8-4683-be6d-17488ee23424}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ability\status\statusEvent">
+      <UniqueIdentifier>{aed19bd5-dab5-4536-9ee8-3781b9cfd8c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -8,6 +8,8 @@
 //board clickable
 #include "board/clickable/PrintWhenClicked.h"
 
+#include "puppy/Text/TextBox.h"
+
 //Rock
 
 namespace unit
@@ -16,6 +18,17 @@ namespace unit
 
 	UnitSpawn::UnitSpawn()
 	{
+		puppy::TextBox* textBox = static_cast<puppy::TextBox*>(kitten::K_ComponentManager::getInstance()->createComponent("TextBoxAbilities"));
+		textBox->setColor(1, 1, 1);
+		textBox->setText("");
+
+		kitten::K_Component* select = kitten::K_ComponentManager::getInstance()->createComponent("SelectAbility");
+
+		m_textBoxGO = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+		m_textBoxGO->addComponent(textBox);
+		m_textBoxGO->getTransform().place2D(1000, 600);
+
+		m_textBoxGO->addComponent(select);
 	}
 
 	UnitSpawn::~UnitSpawn()
@@ -37,21 +50,7 @@ namespace unit
 	kitten::K_GameObject * UnitSpawn::spawnUnitObject(UnitData * p_unitData)
 	{
 		//create unit 
-		Unit* unit = nullptr;
-		Commander* commander = nullptr;
-		//check every tag
-		for (int i = 0; i < p_unitData->m_tags.size(); i++)
-		{
-			if (p_unitData->m_tags[i] == "Commander")
-			{
-				commander = spawnCommanderFromData(p_unitData);
-				break;
-			}
-		}
-		if (commander == nullptr)
-		{	
-			unit = spawnUnitFromData(p_unitData);
-		}
+		Unit* unit = spawnUnitFromData(p_unitData);
 
 		//get component manager
 		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
@@ -68,23 +67,11 @@ namespace unit
 
 		//create clickable
 		unit::UnitClickable* uClick = static_cast<unit::UnitClickable*>(cm->createComponent("UnitClickable"));
-
+		uClick->setTextBox(m_textBoxGO);
 
 		//unit object
 		kitten::K_GameObject* unitObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-		if (commander == nullptr)
-			unitObject->addComponent(unit);
-		else {
-			unitObject->addComponent(commander);
-
-			//PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(cm->createComponent("PrintWhenClicked"));
-			//printWhenClick->setMessage("Unit clicked");
-			//unitObject->addComponent(printWhenClick);
-
-			//kitten::K_Component* useAbility = cm->createComponent("UseAbilityWhenClicked");
-			//unitObject->addComponent(useAbility);
-
-		}
+		unitObject->addComponent(unit);
 
 		//attach component
 		unitObject->addComponent(unitG);
@@ -101,7 +88,7 @@ namespace unit
 		return unitObject;
 	}
 
-	unit::Unit * UnitSpawn::spawnUnitFromData(UnitData * p_unitData)
+	Unit* UnitSpawn::spawnUnitFromData(UnitData * p_unitData)
 	{
 		Unit* unit = new Unit();
 
@@ -133,37 +120,49 @@ namespace unit
 		//readAD
 		for (auto it : p_unitData->m_ad)
 		{
-			unit->m_ADList[it->m_stringValue["name"]] = it;
+			//get copy
+			AbilityDescription * ad = new AbilityDescription();
+			ad->m_intValue = it->m_intValue;
+			ad->m_stringValue = it->m_stringValue;
+			unit->m_ADList[it->m_stringValue["name"]] = ad;
 		}
 
 		//readSD
 		for (auto it : p_unitData->m_sd)
 		{
-			unit->addStatus(readSD(it));
+			readSD(it)->attach(unit);
 		}
 
-		// Set unit's clientId to -1, meaning no player owns this unit yet
-		// Unit clientId gets set in ClientGame::summonUnit()
+		//doesn't belong to any client
 		unit->m_clientId = -1;
+
+		//check if it's commander
+		//check every tag
+		for (int i = 0; i < p_unitData->m_tags.size(); i++)
+		{
+			if (p_unitData->m_tags[i] == "Commander")
+			{
+				spawnCommander(unit, p_unitData);
+				break;
+			}
+		}
 
 		return unit;
 	}
 
-	unit::Commander * UnitSpawn::spawnCommanderFromData(UnitData * p_unitData)
+	void UnitSpawn::spawnCommander(Unit* p_u, UnitData * p_unitData)
 	{
-		unit::Commander* commander = static_cast<Commander*>(spawnUnitFromData(p_unitData));
-
 		//change lv to -1 since it doesn't apply to commander
-		//unit->m_LV = -1;
-		commander->m_attributes["lv"] = -1;
+		p_u->m_attributes["lv"] = -1;
 
-		commander->m_ID = "testCommander01";
+		p_u->m_ID = "testCommander01";
+
+		Commander * c = new Commander();
+		p_u->addCommander(c);
 
 		// Had to comment this out for testing Commander's ManipulateTile ability, using testDummy.txt
 		// Threw errors every other time
 		//commander->m_porPath = p_unitData->m_porPath;
-
-		return commander;
 	}
 
 	kitten::K_Component * UnitSpawn::createClickableBox(UnitSize p_size)
@@ -191,33 +190,39 @@ namespace unit
 
 		if (p_sd->m_stringValue.find("description") != p_sd->m_stringValue.end())
 		{
-			s->m_description = p_sd->m_stringValue["description"];
+			s->changeDescription(p_sd->m_stringValue["description"]);
 		}
-		
-		s->m_TPList.insert(s->m_TPList.end(),p_sd->m_TPList.begin(),p_sd->m_TPList.end());
+
+		if (p_sd->m_intValue.find("time_point") != p_sd->m_intValue.end())
+		{
+			int i = p_sd->m_intValue["time_point"];
+			s->addTimePoint(static_cast<ability::TimePointEvent::TPEventType>(i));
+		}
 
 		//for lv status
 		if (p_sd->m_intValue.find("lv") != p_sd->m_intValue.end())
 		{
-			s->m_LV = p_sd->m_intValue["lv"];
+			s->changeLV(p_sd->m_intValue["lv"]);
 			//hp
 			if (p_sd->m_intValue.find("hp") != p_sd->m_intValue.end())
 			{
 				int hp = p_sd->m_intValue["hp"];
-				s->m_attributeChange["hp"] = hp;
-				s->m_attributeChange["max_hp"] = p_sd->m_intValue["hp"];
+				s->addAttributeChange("hp", hp);
+				s->addAttributeChange("max_hp", hp);
 			}
 			//in
 			if (p_sd->m_intValue.find("in") != p_sd->m_intValue.end())
 			{
-				s->m_attributeChange["in"] = p_sd->m_intValue["in"];
-				s->m_attributeChange["base_in"] = p_sd->m_intValue["in"];
+				int in = p_sd->m_intValue["in"];
+				s->addAttributeChange("in", in);
+				s->addAttributeChange("base_in", in);
 			}
 			//mv
 			if (p_sd->m_intValue.find("mv") != p_sd->m_intValue.end())
 			{
-				s->m_attributeChange["mv"] = p_sd->m_intValue["mv"];
-				s->m_attributeChange["base_mv"] = p_sd->m_intValue["mv"];
+				int mv = p_sd->m_intValue["mv"];
+				s->addAttributeChange("mv", mv);
+				s->addAttributeChange("base_mv", mv);
 			}
 		}
 

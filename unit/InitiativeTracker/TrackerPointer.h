@@ -1,6 +1,6 @@
 #pragma once
 #include "kitten/K_Common.h"
-#include "ui/UIFrame.h"
+#include "UI/UIFrame.h"
 
 //Rock
 //This class handles the pointer in initiative tracker

@@ -23,5 +23,8 @@ namespace unit
 		void checkTurn();
 		void turnEnd();
 		void turnReset();
+
+		bool isCurrent(kitten::K_GameObject* p_unitObj);
+		void unitDestroyed();
 	};
 }
