@@ -28,6 +28,6 @@ private:
 		std::pair<int, int> p_currentTile, 
 		int p_distance, int p_minRange, int p_maxRange);
 
-	void removeUnit(kitten::Event::TileList* p_list);
-	void removeOwned(kitten::Event::TileList* p_list);
+	//void removeUnit(kitten::Event::TileList* p_list);
+	//void removeOwned(kitten::Event::TileList* p_list);
 };

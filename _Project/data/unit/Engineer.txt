@@ -14,15 +14,20 @@
 				"min_range":1,
 				"max_range":1,
 				"target":1,
-				"description":"Deal 3 damage to target."
+				"description":"Deal 3 damage to target.",
+				"filter":1,
+				"filter0":"no_unit"
 			},
 			{
 				"name":"Build the Wall",
 				"lv":2,
+				"cd":3,
 				"min_range":1,
 				"max_range":1,
 				"target":1,
-				"description":"Build a wall in front of this unit. Wall is a Structure with 12 HP."
+				"description":"Build a wall in front of this unit. Wall is a Structure with 12 HP.",
+				"filter":1,
+				"filter0":"unit"
 			},
 			{
 				"name":"Sabotage",
@@ -31,14 +36,16 @@
 				"min_range":1,
 				"max_range":1,
 				"target":1,
-				"description":"Deal 12 damage to a Structure."
+				"description":"Deal 12 damage to a Structure.",
+				"filter":1,
+				"filter0":"no_unit"
 			}
 		],
 	"status_description":[
 			{
 				"name":"Status_LV",
 				"lv":3,
-				"time_point":[2],
+				"time_point":2,
 				"mv":1
 			}
 		]

@@ -59,14 +59,15 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\irrKlang\include;$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\networking_libraries\include;$(SolutionDir)..\irrKlang\include;$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\networking_libraries;$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -99,6 +100,7 @@
     <ClCompile Include="..\ability\ability\Fight.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
     <ClCompile Include="..\ability\ability\ManipulateTile.cpp" />
+    <ClCompile Include="..\ability\ability\Move.cpp" />
     <ClCompile Include="..\ability\ability\QuickShoot.cpp" />
     <ClCompile Include="..\ability\ability\Sabotage.cpp" />
     <ClCompile Include="..\ability\ability\Shoot.cpp" />
@@ -113,13 +115,18 @@
     <ClCompile Include="..\ability\node\SpawnUnitNode.cpp" />
     <ClCompile Include="..\ability\StatusManager.cpp" />
     <ClCompile Include="..\ability\status\Status.cpp" />
+    <ClCompile Include="..\ability\status\statusEvent\TimePointEvent.cpp" />
     <ClCompile Include="..\ability\status\Status_Archer_LV3.cpp" />
-    <ClCompile Include="..\ability\status\Status_CD.cpp" />
     <ClCompile Include="..\ability\status\Status_Dodge.cpp" />
     <ClCompile Include="..\ability\status\Status_Duelist_LV3.cpp" />
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\ability\status\Status_LV.cpp" />
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\kibble\custom\CustomDeckDataParser.cpp" />
     <ClCompile Include="..\board\boardManager.cpp" />
@@ -170,6 +177,13 @@
     <ClCompile Include="..\kitten\Renderable.cpp" />
     <ClCompile Include="..\kitten\Transform.cpp" />
     <ClCompile Include="..\kitten\UIRenderable.cpp" />
+    <ClCompile Include="..\networking\ClientGame.cpp" />
+    <ClCompile Include="..\networking\ClientNetwork.cpp" />
+    <ClCompile Include="..\networking\NetworkingConsoleMenu.cpp" />
+    <ClCompile Include="..\networking\NetworkServices.cpp" />
+    <ClCompile Include="..\networking\ServerGame.cpp" />
+    <ClCompile Include="..\networking\ServerNetwork.cpp" />
+    <ClCompile Include="..\networking\SpawnUnitOnKeyPress.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
     <ClCompile Include="..\puppy\FBO.cpp" />
     <ClCompile Include="..\puppy\Material.cpp" />
@@ -186,7 +200,14 @@
     <ClCompile Include="..\puppy\Text\TextBox.cpp" />
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
-    <ClCompile Include="..\unit\Commander.cpp" />
+    <ClCompile Include="..\UI\CardUIO.cpp" />
+    <ClCompile Include="..\UI\HandFrame.cpp" />
+    <ClCompile Include="..\UI\InterfaceBuilder.cpp" />
+    <ClCompile Include="..\UI\UIElement.cpp" />
+    <ClCompile Include="..\UI\UIFrame.cpp" />
+    <ClCompile Include="..\UI\UIObject.cpp" />
+    <ClCompile Include="..\unitInteraction\TileGetter.cpp" />
+    <ClCompile Include="..\unitInteraction\UnitInteractionManager.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\PointerUI.cpp" />
@@ -195,6 +216,8 @@
     <ClCompile Include="..\unit\InitiativeTracker\TrackerPointer.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\UnitTurn.cpp" />
     <ClCompile Include="..\unit\Unit.cpp" />
+    <ClCompile Include="..\unit\unitComponent\Commander.cpp" />
+    <ClCompile Include="..\unit\unitComponent\CooldownRecorder.cpp" />
     <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp" />
     <ClCompile Include="..\unit\unitComponent\UnitClickable.cpp" />
     <ClCompile Include="..\unit\unitComponent\UnitGraphic.cpp" />
@@ -202,10 +225,6 @@
     <ClCompile Include="..\unit\UnitMonitor.cpp" />
     <ClCompile Include="..\unit\UnitSpawn.cpp" />
     <ClCompile Include="..\unit\UnitTest.cpp" />
-    <ClCompile Include="..\userinterface\InterfaceBuilder.cpp" />
-    <ClCompile Include="..\userinterface\UIElement.cpp" />
-    <ClCompile Include="..\userinterface\UIFrame.cpp" />
-    <ClCompile Include="..\userinterface\UIObject.cpp" />
     <ClCompile Include="..\wolf\W_Common.cpp" />
     <ClCompile Include="DebugPrintOnce.cpp" />
     <ClCompile Include="DestroyOnClick.cpp" />
@@ -228,6 +247,9 @@
     <ClInclude Include="..\ability\node\AbilityNodeManager.h" />
     <ClInclude Include="..\ability\StatusManager.h" />
     <ClInclude Include="..\ability\status\Status.h" />
+    <ClInclude Include="..\ability\status\statusEvent\TimePointEvent.h" />
+    <ClInclude Include="..\board\component\tilePipeline\TileFliter.h" />
+    <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />
     <ClInclude Include="..\DeckData.hpp" />
     <ClInclude Include="..\board\BoardManager.h" />
@@ -277,7 +299,6 @@
     <ClInclude Include="..\kitten\K_GameObjectManager.h" />
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
     <ClInclude Include="..\kitten\K_Instance.h" />
-    <ClInclude Include="..\kitten\K_Sprite.h" />
     <ClInclude Include="..\kitten\K_Time.h" />
     <ClInclude Include="..\kitten\mouse picking\ActiveClickables.h" />
     <ClInclude Include="..\kitten\mouse picking\Clickable.h" />
@@ -290,6 +311,14 @@
     <ClInclude Include="..\kitten\Renderable.h" />
     <ClInclude Include="..\kitten\Transform.h" />
     <ClInclude Include="..\kitten\UIRenderable.h" />
+    <ClInclude Include="..\networking\ClientGame.h" />
+    <ClInclude Include="..\networking\ClientNetwork.h" />
+    <ClInclude Include="..\networking\NetworkData.h" />
+    <ClInclude Include="..\networking\NetworkingConsoleMenu.h" />
+    <ClInclude Include="..\networking\NetworkServices.h" />
+    <ClInclude Include="..\networking\ServerGame.h" />
+    <ClInclude Include="..\networking\ServerNetwork.h" />
+    <ClInclude Include="..\networking\SpawnUnitOnKeyPress.h" />
     <ClInclude Include="..\pugixml\pugiconfig.hpp" />
     <ClInclude Include="..\pugixml\pugixml.hpp" />
     <ClInclude Include="..\puppy\FBO.h" />
@@ -309,7 +338,14 @@
     <ClInclude Include="..\puppy\Text\TextBox.h" />
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
-    <ClInclude Include="..\unit\Commander.h" />
+    <ClInclude Include="..\UI\CardUIO.h" />
+    <ClInclude Include="..\UI\HandFrame.h" />
+    <ClInclude Include="..\UI\InterfaceBuilder.h" />
+    <ClInclude Include="..\UI\UIElement.h" />
+    <ClInclude Include="..\UI\UIFrame.h" />
+    <ClInclude Include="..\UI\UIObject.h" />
+    <ClInclude Include="..\unitInteraction\TileGetter.h" />
+    <ClInclude Include="..\unitInteraction\UnitInteractionManager.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTrackerUI.h" />
     <ClInclude Include="..\unit\InitiativeTracker\PointerUI.h" />
@@ -319,6 +355,8 @@
     <ClInclude Include="..\unit\InitiativeTracker\UnitTurn.h" />
     <ClInclude Include="..\unit\Unit.h" />
     <ClInclude Include="..\unit\UnitCommon.h" />
+    <ClInclude Include="..\unit\unitComponent\Commander.h" />
+    <ClInclude Include="..\unit\unitComponent\CooldownRecorder.h" />
     <ClInclude Include="..\unit\unitComponent\StatusContainer.h" />
     <ClInclude Include="..\unit\unitComponent\UnitClickable.h" />
     <ClInclude Include="..\unit\unitComponent\UnitGraphic.h" />
@@ -326,11 +364,6 @@
     <ClInclude Include="..\unit\UnitMonitor.h" />
     <ClInclude Include="..\unit\UnitSpawn.h" />
     <ClInclude Include="..\unit\UnitTest.h" />
-    <ClInclude Include="..\userinterface\InterfaceBuilder.h" />
-    <ClInclude Include="..\userinterface\UIElement.h" />
-    <ClInclude Include="..\userinterface\UIFrame.h" />
-    <ClInclude Include="..\userinterface\UIObject.h" />
-    <ClInclude Include="..\userinterface\UI_ElementComponent.h" />
     <ClInclude Include="..\util\MathUtil.h" />
     <ClInclude Include="..\wolf\W_Common.h" />
     <ClInclude Include="DebugPrintOnce.h" />

@@ -2,7 +2,7 @@
     "name":"Dummy",
     "hp":1,
     "mv":2,
-    "in":3,
+    "in":40,
     "cost":4,
     "tags": ["Commander","Dummy"],
     "ad": ["Heal"]

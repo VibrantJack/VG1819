@@ -24,9 +24,6 @@ namespace userinterface
 
 		void onDisabled() ;
 		void onEnabled();
-
-	private:
-
 		std::list<UIObject*> m_innerObjects;
 
 	};
