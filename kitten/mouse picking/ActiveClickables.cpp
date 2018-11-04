@@ -21,6 +21,11 @@ namespace kitten
 
 	void ActiveClickables::removeFromActive(ClickableBox* p_toRemove)
 	{
+		if (p_toRemove == m_lastHover)
+		{
+			m_lastHover = nullptr;
+		}
+
 		m_clickables.erase(p_toRemove);
 	}
 
@@ -36,6 +41,11 @@ namespace kitten
 
 	void ActiveClickables::removeFromActiveUI(ClickableFrame* p_toRemove)
 	{
+		if (p_toRemove == m_lastUIHover)
+		{
+			m_lastUIHover == nullptr;
+		}
+
 		m_UIclickables.erase(p_toRemove);
 	}
 
