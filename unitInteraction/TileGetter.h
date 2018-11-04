@@ -24,6 +24,8 @@ private:
 	std::vector<kitten::K_GameObject*> m_tileList;
 	std::vector<unit::Unit*> m_unitList;
 
+	bool m_reg;
+	bool m_respond;
 	bool m_needUnit;
 	int m_targetNum;//number of times that player need to click on
 

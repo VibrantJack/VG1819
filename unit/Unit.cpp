@@ -14,6 +14,7 @@ namespace unit
 		m_statusContainer = new StatusContainer();
 		m_statusContainer->m_unit = this;
 		m_cdRecorder = new CooldownRecorder();
+		m_castTimer = new CastTimer();
 	}
 
 
@@ -21,6 +22,7 @@ namespace unit
 	{
 		delete m_statusContainer;
 		delete m_cdRecorder;
+		delete m_castTimer;
 		for (auto it = m_ADList.begin(); it != m_ADList.end(); it++)
 		{
 			delete it->second;
@@ -92,6 +94,11 @@ namespace unit
 		m_turn = p_t;
 
 		m_cdRecorder->reduceCD();//reduce cd at start of turn
+		m_castTimer->changeTimer();//reduce ct at start of turn
+		if (m_castTimer->isCasting())
+		{
+			playerSkipTurn();//if it still cast, it skips turn
+		}
 	}
 
 	bool Unit::canMove()
@@ -191,14 +198,14 @@ namespace unit
 			return -2;//doesn't have ability
 		}
 
-		//check unit's lv
-		if (m_attributes["lv"] < ad->m_intValue["lv"])
+		//non commander unit will check unit's lv
+		if (m_attributes["lv"] < ad->m_intValue["lv"] && !isCommander())
 		{
 			std::cout << p_abilityName << "require lv (" << ad->m_intValue["lv"] << ") " << std::endl;
 			std::cout << m_name << " is lv (" << m_attributes["lv"] << ")" << std::endl;
 			return -3;//means unit can not use this ability
 		}
-		int c = m_cdRecorder->checkCD(ad);
+
 		//check cd
 		if (m_cdRecorder->checkCD(ad) != 0)
 		{//it's in cool down
@@ -214,6 +221,19 @@ namespace unit
 	void Unit::cancelAbility(AbilityDescription* p_ad)
 	{
 		m_cdRecorder->cancelCD(p_ad);
+	}
+
+	void Unit::setCast(AbilityDescription * p_ad, ability::AbilityInfoPackage * p_pack)
+	{
+		std::string name = p_ad->m_stringValue["name"];
+		int time = p_ad->m_intValue["ct"];
+		m_castTimer->set(name,p_pack,time);
+		playerSkipTurn();
+	}
+
+	void Unit::cancelCast()
+	{
+		m_castTimer->cancelCast();
 	}
 
 	int Unit::destroyedByDamage()

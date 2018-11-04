@@ -94,6 +94,7 @@
   <ItemGroup>
     <ClCompile Include="..\ability\AbilityManager.cpp" />
     <ClCompile Include="..\ability\ability\Ability.cpp" />
+    <ClCompile Include="..\ability\ability\Blast.cpp" />
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp" />
     <ClCompile Include="..\ability\ability\Dodge.cpp" />
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
@@ -216,6 +217,7 @@
     <ClCompile Include="..\unit\InitiativeTracker\TrackerPointer.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\UnitTurn.cpp" />
     <ClCompile Include="..\unit\Unit.cpp" />
+    <ClCompile Include="..\unit\unitComponent\CastTimer.cpp" />
     <ClCompile Include="..\unit\unitComponent\Commander.cpp" />
     <ClCompile Include="..\unit\unitComponent\CooldownRecorder.cpp" />
     <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp" />
@@ -355,6 +357,7 @@
     <ClInclude Include="..\unit\InitiativeTracker\UnitTurn.h" />
     <ClInclude Include="..\unit\Unit.h" />
     <ClInclude Include="..\unit\UnitCommon.h" />
+    <ClInclude Include="..\unit\unitComponent\CastTimer.h" />
     <ClInclude Include="..\unit\unitComponent\Commander.h" />
     <ClInclude Include="..\unit\unitComponent\CooldownRecorder.h" />
     <ClInclude Include="..\unit\unitComponent\StatusContainer.h" />

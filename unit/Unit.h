@@ -4,6 +4,7 @@
 #include "unit/InitiativeTracker/InitiativeTracker.h"
 #include "unit/unitComponent/CooldownRecorder.h"
 #include "unit/unitComponent/Commander.h"
+#include "unit/unitComponent/CastTimer.h"
 
 //@Rock
 //although unit is just a component of game object
@@ -18,6 +19,7 @@ namespace unit
 		UnitTurn* m_turn;
 		StatusContainer * m_statusContainer;
 		CooldownRecorder * m_cdRecorder;
+		CastTimer * m_castTimer;
 		Commander * m_commander;
 	public:
 		std::string m_ID;
@@ -32,21 +34,20 @@ namespace unit
 		Unit();
 		~Unit();
 
+		//common
 		void levelup();
-
+		int destroyedByDamage();
 		//commander interface
 		void addCommander(Commander* p_c);
 		bool isCommander();
 		void manipulateTile();
 		void summonUnit();
-
 		//status interface
 		/*
 		void addStatus(ability::Status *p_newStatus);
 		bool removeStatus(ability::Status *p_oldStatus);
 		ability::Status* getStatus(const std::string& p_name);*/
 		StatusContainer* getStatusContainer();
-
 		//turn interface
 		void turnStart(UnitTurn* p_t);
 		bool canMove();
@@ -56,17 +57,16 @@ namespace unit
 		bool isTurn();
 		void turnEnd();
 		void playerSkipTurn();
-
 		//position function
 		kitten::K_GameObject* getTile();
-
+		//move
 		void move();//move action, no restriction, no info needs
 		void move(int p_min, int p_max);//move by ability, need range of ability
 		void move(kitten::K_GameObject* p_tile);//move to a specific tile by ability
-
+		//ability
 		int useAbility(const std::string& p_abilityName);
 		void cancelAbility(AbilityDescription* p_ad);
-
-		int destroyedByDamage();
+		void setCast(AbilityDescription* p_ad, ability::AbilityInfoPackage* p_pack);
+		void cancelCast();
 	};
 }

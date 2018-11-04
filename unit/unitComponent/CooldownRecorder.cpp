@@ -29,7 +29,8 @@ void unit::CooldownRecorder::addCD(AbilityDescription* p_ad)
 
 void unit::CooldownRecorder::cancelCD(AbilityDescription* p_ad)
 {
-	assert(m_cdmap != nullptr);
+	if (m_cdmap == nullptr)
+		return;
 
 	if (m_cdmap->find(p_ad) != m_cdmap->end())
 	{//find it and remove it
