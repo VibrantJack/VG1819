@@ -436,8 +436,14 @@
     <ClCompile Include="..\unit\unitComponent\Commander.cpp">
       <Filter>unit\unitComponent</Filter>
     </ClCompile>
-    <ClCompile Include="..\kitten\SpriteRenderable.cpp">
-      <Filter>kitten</Filter>
+    <ClCompile Include="..\kitten\sprites\SpriteAnimator.cpp">
+      <Filter>kitten\sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\sprites\SpriteRenderable.cpp">
+      <Filter>kitten\sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\sprites\SpriteSheet.cpp">
+      <Filter>kitten\sprites</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -842,8 +848,14 @@
     <ClInclude Include="..\unit\unitComponent\Commander.h">
       <Filter>unit\unitComponent</Filter>
     </ClInclude>
-    <ClInclude Include="..\kitten\SpriteRenderable.h">
-      <Filter>kitten</Filter>
+    <ClInclude Include="..\kitten\sprites\SpriteAnimator.h">
+      <Filter>kitten\sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\sprites\SpriteRenderable.h">
+      <Filter>kitten\sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\sprites\SpriteSheet.h">
+      <Filter>kitten\sprites</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -948,6 +960,9 @@
     </Filter>
     <Filter Include="ability\status\statusEvent">
       <UniqueIdentifier>{aed19bd5-dab5-4536-9ee8-3781b9cfd8c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kitten\sprites">
+      <UniqueIdentifier>{fa936de7-535e-4cb3-8dde-906d63749a58}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

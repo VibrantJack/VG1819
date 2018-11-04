@@ -1,0 +1,11 @@
+{
+	"name" : "cleric",
+	"animations" : [
+		{
+			"name" : "idle",
+			"start" : [0,0],
+			"end" : [0,5],
+			"time" : 3.5
+		}
+	]
+}
