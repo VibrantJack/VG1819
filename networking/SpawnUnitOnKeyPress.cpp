@@ -43,16 +43,7 @@ void SpawnUnitOnKeyPress::update()
 		
 		if (networking::ClientGame::getInstance())
 		{
-			networking::ClientGame::getInstance()->summonUnit(networking::ClientGame::getClientId(), m_iUnitId, posX, posY);
-
-			SummonUnitPacket* packet = new SummonUnitPacket();
-			packet->packetType = PacketTypes::SUMMON_UNIT;
-			packet->clientId = networking::ClientGame::getInstance()->getClientId();
-			packet->unitId = m_iUnitId;
-			packet->posX = posX;
-			packet->posY = posY;
-
-			networking::ClientGame::getInstance()->sendPacket(packet);
+			networking::ClientGame::getInstance()->summonUnit(networking::ClientGame::getInstance()->getClientId(), m_iUnitId, posX, posY);
 		}
 		else
 		{
