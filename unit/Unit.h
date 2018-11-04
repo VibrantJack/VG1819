@@ -25,6 +25,7 @@ namespace unit
 		UnitSize m_size;
 
 		std::unordered_map<std::string, unit::AbilityDescription*> m_ADList;
+		int m_clientId;
 
 		Unit();
 		~Unit();
