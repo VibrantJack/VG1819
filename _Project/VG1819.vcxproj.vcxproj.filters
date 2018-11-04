@@ -436,6 +436,9 @@
     <ClCompile Include="..\unit\unitComponent\Commander.cpp">
       <Filter>unit\unitComponent</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\SpriteRenderable.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -838,6 +841,9 @@
     </ClInclude>
     <ClInclude Include="..\unit\unitComponent\Commander.h">
       <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\SpriteRenderable.h">
+      <Filter>kitten</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
