@@ -115,7 +115,7 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 {
 	bool found = false;
 	int index;
-	for (auto it = m_unitObjectList.begin(); it != m_unitObjectList.end(); ++it)
+	for (auto it = m_unitObjectList.begin(); it != m_unitObjectList.end(); it++)
 	{
 		if (*it == p_unit)
 		{
@@ -125,19 +125,25 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 
 			//remove it from list
 			m_unitObjectList.erase(it);
+			break;
 		}
 	}
-	for (auto it = m_waitUnitObjectList.begin(); it != m_waitUnitObjectList.end(); it++)
-	{//check if the unit is in wait list
-		if (*it == p_unit)
-		{
-			found = true;
-			//get index
-			int i = it - m_waitUnitObjectList.begin();
-			index = m_unitObjectList.size() + i;
 
-			//remove it from list
-			m_waitUnitObjectList.erase(it);
+	if (!found)
+	{
+		for (auto it = m_waitUnitObjectList.begin(); it != m_waitUnitObjectList.end(); it++)
+		{//check if the unit is in wait list
+			if (*it == p_unit)
+			{
+				found = true;
+				//get index
+				int i = it - m_waitUnitObjectList.begin();
+				index = m_unitObjectList.size() + i;
+
+				//remove it from list
+				m_waitUnitObjectList.erase(it);
+				break;
+			}
 		}
 	}
 
@@ -153,6 +159,7 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 		}
 
 		kitten::K_GameObjectManager::getInstance()->destroyGameObject(p_unit);
+		return true;
 	}
 
 	assert(false);//not found
