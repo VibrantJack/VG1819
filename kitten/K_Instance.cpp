@@ -66,13 +66,6 @@ namespace kitten
 
 	void K_Instance::privateUpdate()
 	{
-		static bool once = false;
-		if (!once)
-		{
-			
-			once = true;
-		}
-
 		m_time->updateTime();
 
 		m_jobManager->update();
