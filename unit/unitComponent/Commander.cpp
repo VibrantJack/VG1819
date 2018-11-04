@@ -9,12 +9,14 @@ namespace unit
 
 	unit::Commander::~Commander()
 	{
-		//delete m_adSpawn;
+		delete m_adSpawn;
 		delete m_adTile;
 	}
 
-	void Commander::init()
+	void Commander::init(Unit* p_u)
 	{
+		m_unit = p_u;
+
 		m_adSpawn = new unit::AbilityDescription();
 		m_adSpawn->m_stringValue["name"] = SUMMON_UNIT_ABILITY;
 		m_adSpawn->m_intValue["target"] = 1;
@@ -35,12 +37,12 @@ namespace unit
 
 	void Commander::manipulateTile()
 	{
-		UnitInteractionManager::getInstance()->request(this, m_adTile);
+		UnitInteractionManager::getInstance()->request(m_unit, m_adTile);
 	}
 
 	void Commander::spawnUnit()
 	{
-		UnitInteractionManager::getInstance()->request(this, m_adSpawn);
+		UnitInteractionManager::getInstance()->request(m_unit, m_adSpawn);
 	}
 }
 

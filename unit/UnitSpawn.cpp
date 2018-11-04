@@ -50,21 +50,7 @@ namespace unit
 	kitten::K_GameObject * UnitSpawn::spawnUnitObject(UnitData * p_unitData)
 	{
 		//create unit 
-		Unit* unit = nullptr;
-		Commander* commander = nullptr;
-		//check every tag
-		for (int i = 0; i < p_unitData->m_tags.size(); i++)
-		{
-			if (p_unitData->m_tags[i] == "Commander")
-			{
-				commander = spawnCommanderFromData(p_unitData);
-				break;
-			}
-		}
-		if (commander == nullptr)
-		{	
-			unit = spawnUnitFromData(p_unitData);
-		}
+		Unit* unit = spawnUnitFromData(p_unitData);
 
 		//get component manager
 		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
@@ -85,19 +71,7 @@ namespace unit
 
 		//unit object
 		kitten::K_GameObject* unitObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-		if (commander == nullptr)
-			unitObject->addComponent(unit);
-		else {
-			unitObject->addComponent(commander);
-
-			//PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(cm->createComponent("PrintWhenClicked"));
-			//printWhenClick->setMessage("Unit clicked");
-			//unitObject->addComponent(printWhenClick);
-
-			//kitten::K_Component* useAbility = cm->createComponent("UseAbilityWhenClicked");
-			//unitObject->addComponent(useAbility);
-
-		}
+		unitObject->addComponent(unit);
 
 		//attach component
 		unitObject->addComponent(unitG);
@@ -114,7 +88,7 @@ namespace unit
 		return unitObject;
 	}
 
-	unit::Unit * UnitSpawn::spawnUnitFromData(UnitData * p_unitData)
+	Unit* UnitSpawn::spawnUnitFromData(UnitData * p_unitData)
 	{
 		Unit* unit = new Unit();
 
@@ -162,24 +136,33 @@ namespace unit
 		//doesn't belong to any client
 		unit->m_clientId = -1;
 
+		//check if it's commander
+		//check every tag
+		for (int i = 0; i < p_unitData->m_tags.size(); i++)
+		{
+			if (p_unitData->m_tags[i] == "Commander")
+			{
+				spawnCommander(unit, p_unitData);
+				break;
+			}
+		}
+
 		return unit;
 	}
 
-	unit::Commander * UnitSpawn::spawnCommanderFromData(UnitData * p_unitData)
+	void UnitSpawn::spawnCommander(Unit* p_u, UnitData * p_unitData)
 	{
-		unit::Commander* commander = static_cast<Commander*>(spawnUnitFromData(p_unitData));
-		commander->init();
 		//change lv to -1 since it doesn't apply to commander
-		//unit->m_LV = -1;
-		commander->m_attributes["lv"] = -1;
+		p_u->m_attributes["lv"] = -1;
 
-		commander->m_ID = "testCommander01";
+		p_u->m_ID = "testCommander01";
+
+		Commander * c = new Commander();
+		p_u->addCommander(c);
 
 		// Had to comment this out for testing Commander's ManipulateTile ability, using testDummy.txt
 		// Threw errors every other time
 		//commander->m_porPath = p_unitData->m_porPath;
-
-		return commander;
 	}
 
 	kitten::K_Component * UnitSpawn::createClickableBox(UnitSize p_size)

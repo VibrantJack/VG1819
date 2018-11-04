@@ -3,6 +3,7 @@
 #include "unit/unitComponent/StatusContainer.h"
 #include "unit/InitiativeTracker/InitiativeTracker.h"
 #include "unit/unitComponent/CooldownRecorder.h"
+#include "unit/unitComponent/Commander.h"
 
 //@Rock
 //although unit is just a component of game object
@@ -17,6 +18,7 @@ namespace unit
 		UnitTurn* m_turn;
 		StatusContainer * m_statusContainer;
 		CooldownRecorder * m_cdRecorder;
+		Commander * m_commander;
 	public:
 		std::string m_ID;
 		std::vector<std::string> m_tags;
@@ -32,13 +34,18 @@ namespace unit
 
 		void levelup();
 
+		//commander interface
+		void addCommander(Commander* p_c);
+		bool isCommander();
+		void manipulateTile();
+		void summonUnit();
+
 		//status interface
 		/*
 		void addStatus(ability::Status *p_newStatus);
 		bool removeStatus(ability::Status *p_oldStatus);
 		ability::Status* getStatus(const std::string& p_name);*/
 		StatusContainer* getStatusContainer();
-
 
 		//turn interface
 		void turnStart(UnitTurn* p_t);

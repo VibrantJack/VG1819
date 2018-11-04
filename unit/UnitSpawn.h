@@ -1,6 +1,5 @@
 #pragma once
 #include "unit/UnitCommon.h"
-#include "unit/Commander.h"
 #include "unit/unitComponent/StatusContainer.h"
 #include "ability/StatusManager.h"
 //Rock
@@ -28,8 +27,8 @@ namespace unit
 		std::vector<unit::AbilityDescription> readAD();
 		ability::Status* readSD(unit::StatusDescription* p_sd);
 
-		unit::Unit* spawnUnitFromData(UnitData* p_unitData);
-		unit::Commander* spawnCommanderFromData(UnitData* p_unitData);
+		Unit* spawnUnitFromData(UnitData* p_unitData);
+		void spawnCommander(Unit* p_u, UnitData* p_unitData);
 
 		kitten::K_Component* createClickableBox(UnitSize p_size);
 	};

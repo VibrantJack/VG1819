@@ -9,6 +9,7 @@ namespace unit
 {
 	Unit::Unit()
 	{
+		m_commander = nullptr;
 		m_turn = nullptr;
 		m_statusContainer = new StatusContainer();
 		m_statusContainer->m_unit = this;
@@ -23,6 +24,10 @@ namespace unit
 		for (auto it = m_ADList.begin(); it != m_ADList.end(); it++)
 		{
 			delete it->second;
+		}
+		if (isCommander())
+		{
+			delete m_commander;
 		}
 	}
 
@@ -50,13 +55,34 @@ namespace unit
 
 	void Unit::levelup()
 	{
-		if (m_attributes["lv"] > 0)
+		if (m_attributes["lv"] > 0 && m_attributes["lv"] < 3)
 		{
 			m_attributes["lv"]++;
 			ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Level_Up);
 			t->putInt("lv", m_attributes["lv"]);
 			m_statusContainer->triggerTP(ability::TimePointEvent::Level_Up, t);
 		}
+	}
+
+	void Unit::addCommander(Commander* p_c)
+	{
+		m_commander = p_c;
+		m_commander->init(this);
+	}
+
+	bool Unit::isCommander()
+	{
+		return m_commander != nullptr;
+	}
+
+	void Unit::manipulateTile()
+	{
+		m_commander->manipulateTile();
+	}
+
+	void Unit::summonUnit()
+	{
+		m_commander->spawnUnit();
 	}
 
 	//turn

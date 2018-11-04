@@ -62,7 +62,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)..\networking_libraries\include;$(SolutionDir)..\irrKlang\include;$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
-      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -208,7 +208,6 @@
     <ClCompile Include="..\UI\UIObject.cpp" />
     <ClCompile Include="..\unitInteraction\TileGetter.cpp" />
     <ClCompile Include="..\unitInteraction\UnitInteractionManager.cpp" />
-    <ClCompile Include="..\unit\Commander.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\PointerUI.cpp" />
@@ -217,6 +216,7 @@
     <ClCompile Include="..\unit\InitiativeTracker\TrackerPointer.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\UnitTurn.cpp" />
     <ClCompile Include="..\unit\Unit.cpp" />
+    <ClCompile Include="..\unit\unitComponent\Commander.cpp" />
     <ClCompile Include="..\unit\unitComponent\CooldownRecorder.cpp" />
     <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp" />
     <ClCompile Include="..\unit\unitComponent\UnitClickable.cpp" />
@@ -346,7 +346,6 @@
     <ClInclude Include="..\UI\UIObject.h" />
     <ClInclude Include="..\unitInteraction\TileGetter.h" />
     <ClInclude Include="..\unitInteraction\UnitInteractionManager.h" />
-    <ClInclude Include="..\unit\Commander.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTrackerUI.h" />
     <ClInclude Include="..\unit\InitiativeTracker\PointerUI.h" />
@@ -356,6 +355,7 @@
     <ClInclude Include="..\unit\InitiativeTracker\UnitTurn.h" />
     <ClInclude Include="..\unit\Unit.h" />
     <ClInclude Include="..\unit\UnitCommon.h" />
+    <ClInclude Include="..\unit\unitComponent\Commander.h" />
     <ClInclude Include="..\unit\unitComponent\CooldownRecorder.h" />
     <ClInclude Include="..\unit\unitComponent\StatusContainer.h" />
     <ClInclude Include="..\unit\unitComponent\UnitClickable.h" />

@@ -257,9 +257,6 @@
     <ClCompile Include="..\unit\InitiativeTracker\UnitTurn.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
-    <ClCompile Include="..\unit\Commander.cpp">
-      <Filter>unit</Filter>
-    </ClCompile>
     <ClCompile Include="..\unit\Unit.cpp">
       <Filter>unit</Filter>
     </ClCompile>
@@ -435,6 +432,9 @@
     </ClCompile>
     <ClCompile Include="..\ability\ability\Move.cpp">
       <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\Commander.cpp">
+      <Filter>unit\unitComponent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -660,9 +660,6 @@
     <ClInclude Include="..\unit\InitiativeTracker\UnitTurn.h">
       <Filter>unit\InitiativeTracker</Filter>
     </ClInclude>
-    <ClInclude Include="..\unit\Commander.h">
-      <Filter>unit</Filter>
-    </ClInclude>
     <ClInclude Include="..\unit\Unit.h">
       <Filter>unit</Filter>
     </ClInclude>
@@ -838,6 +835,9 @@
     </ClInclude>
     <ClInclude Include="..\ability\status\statusEvent\TimePointEvent.h">
       <Filter>ability\status\statusEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\Commander.h">
+      <Filter>unit\unitComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

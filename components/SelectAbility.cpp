@@ -1,6 +1,6 @@
 #include "components\SelectAbility.h"
 #include "kitten\InputManager.h"
-#include "unit/Commander.h"
+#include "unit/Unit.h"
 #include <iostream>
 
 SelectAbility::SelectAbility()
@@ -95,16 +95,15 @@ void SelectAbility::select(int p_i)
 	}
 	else if (instrction == "ManipulateTile")
 	{
-		static_cast<unit::Commander*>(m_unit)->manipulateTile();
+		m_unit->manipulateTile();
 	}
 	else if (instrction == "Summon")
 	{
-		static_cast<unit::Commander*>(m_unit)->spawnUnit();
+		m_unit->summonUnit();
 	}
 	else if (instrction == "For test: Level Up")
 	{
-		if(m_unit->m_attributes["lv"] >= 1)
-			m_unit->m_attributes["lv"] ++;
+		m_unit->levelup();
 		std::cout << "current lv is " << m_unit->m_attributes["lv"] << std::endl;
 	}
 	else if (instrction == "For test: Destroy")

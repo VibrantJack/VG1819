@@ -4,7 +4,6 @@
 #include "unit/Unit.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "unit/UnitMonitor.h"
-#include "unit/Commander.h"
 #include "puppy/Text/TextBox.h"
 #include "components/SelectAbility.h"
 #include "kitten/InputManager.h"
@@ -95,14 +94,10 @@ void unit::UnitClickable::start()
 	if (u->m_attributes["base_mv"] > 0)
 		addAbility("Move");
 
-	for (int i = 0; i < u->m_tags.size(); i++)
+	if (u->isCommander())
 	{
-		if (u->m_tags[i] == "Commander")
-		{
-			addAbility("ManipulateTile");
-			addAbility("Summon");
-			break;
-		}
+		addAbility("ManipulateTile");
+		addAbility("Summon");
 	}
 
 	for (auto it : u->m_ADList)
