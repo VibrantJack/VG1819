@@ -39,6 +39,53 @@ enum PacketTypes {
 //    }
 //};
 
+struct Packet2
+{
+	enum PacketType
+	{
+		INIT_CONNECTION = 0,
+		CLIENT_ARMY_DATA,
+		STARTING_DATA,
+		INITIATIVE_DATA,
+		UNIT_START_TURN,
+		UNIT_END_TURN,
+		CLIENT_MANIPULATE_TILE,
+		SERVER_MANIPULATE_TILE,
+		CLIENT_UNIT_MOVE,
+		SERVER_UNIT_MOVE,
+		UNIT_ATTACK,
+		UPDATE_UNIT_STATUS,
+		UNIT_DEATH,
+		CLIENT_SUMMON_UNIT,
+		SERVER_SUMMON_UNIT,
+		ACTION_EVENT,
+	};
+
+	uint8_t packetType;
+
+	struct Buffer
+	{
+		uint8_t* data;
+		int size;
+		int index;
+	};
+
+	union
+	{
+		struct TestPacket
+		{
+			int num;
+			char msg[BUFSIZE];
+		} testPacket;
+	};
+
+	void writeInteger(Buffer &buffer, uint32_t value);
+	void writeChar(Buffer & buffer, uint8_t value);
+
+	uint32_t readInteger(Buffer & buffer);
+	uint8_t readByte(Buffer & buffer);
+};
+
 // Use to get packet type first, then deserialize into appropriate packet
 struct Packet {
 

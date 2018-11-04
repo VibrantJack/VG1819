@@ -30,7 +30,14 @@
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
 
-#include "userinterface\InterfaceBuilder.h"
+#include "ui\InterfaceBuilder.h"
+
+//ui testing
+#include "ui/CardUIO.h"
+#include "ui/HandFrame.h"
+
+//unit interaction
+#include "unitInteraction/UnitInteractionManager.h"
 
 #define DEBUG
 
@@ -48,9 +55,12 @@ namespace kitten
 		ability::AbilityManager::createInstance();
 		ability::AbilityNodeManager::createInstance();
 
+		// Management of InitiativeTracker moved into ServerGame
 		unit::InitiativeTracker::createInstance();
 
 		BoardManager::createInstance();
+
+		UnitInteractionManager::createInstance();
 	}
 
 	// This is called once at the beginning of the game
@@ -115,11 +125,30 @@ namespace kitten
 		//builder->start();
 		//delete builder;
 
-		
-
 		//test unit
 		unit::UnitTest::getInstanceSafe()->test();
 
+		//UIO TESTING
+		K_GameObject* hand = K_GameObjectManager::getInstance()->createNewGameObject();
+		K_Component* handFrame = compMan->createComponent("Hand");
+		hand->addComponent(handFrame);
+		hand->getTransform().scale2D(1.0, 0.4);
+		hand->getTransform().place2D(-0.9, -0.9);
+
+		for (int x = 0; x < 5; x++)
+		{
+
+			K_GameObject* card = K_GameObjectManager::getInstance()->createNewGameObject();
+			K_Component* cardObj = compMan->createComponent("Card");
+			card->addComponent(cardObj);
+			userinterface::CardUIO* cardCasted = static_cast<userinterface::CardUIO*>(cardObj);
+			cardCasted->scaleAsCard();
+
+			userinterface::HandFrame* frameCasted = static_cast<userinterface::HandFrame*>(handFrame);
+			frameCasted->addCardToEnd(cardCasted);
+			cardCasted->assignParentHand(frameCasted);
+
+		}
 		/*
 		//testing ui frame and textbox
 		K_GameObject* go = K_GameObjectManager::getInstance()->createNewGameObject();
@@ -136,6 +165,13 @@ namespace kitten
 		com->getTransform().scale2D(0.15, 0.2);
 		com->getTransform().place2D(0.1, 0.1);
 		//*/
+
+		// Networking
+		//networking::ServerGame::createInstance();
+		//_beginthread(serverLoop, 0, (void*)12);
+		//networking::ClientGame::createInstance();
+		K_GameObject* networkingMenu = K_GameObjectManager::getInstance()->createNewGameObject();
+		networkingMenu->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("NetworkingConsoleMenu"));
 
 		return true;
 	}
@@ -155,6 +191,8 @@ namespace kitten
 		unit::InitiativeTracker::destroyInstance();
 
 		BoardManager::destroyInstance();
+
+		UnitInteractionManager::destroyInstance();
 	}
 
 	void updateGame()

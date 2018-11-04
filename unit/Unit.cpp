@@ -1,23 +1,38 @@
 #include "Unit.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "kitten/K_GameObject.h"
+#include "unitInteraction/UnitInteractionManager.h"
+#include <iostream>
 //@Rock
 
 namespace unit
 {
 	Unit::Unit()
 	{
+		m_commander = nullptr;
 		m_turn = nullptr;
 		m_statusContainer = new StatusContainer();
+		m_statusContainer->m_unit = this;
+		m_cdRecorder = new CooldownRecorder();
 	}
 
 
 	Unit::~Unit()
 	{
 		delete m_statusContainer;
+		delete m_cdRecorder;
+		for (auto it = m_ADList.begin(); it != m_ADList.end(); it++)
+		{
+			delete it->second;
+		}
+		if (isCommander())
+		{
+			delete m_commander;
+		}
 	}
 
 	//status
+	/*
 	void Unit::addStatus(ability::Status *p_newStatus)
 	{
 		m_statusContainer->addStatus(p_newStatus);
@@ -31,11 +46,43 @@ namespace unit
 	ability::Status* Unit::getStatus(const std::string & p_name)
 	{
 		return m_statusContainer->getStatus(p_name);
-	}
+	}*/
 
 	StatusContainer * Unit::getStatusContainer()
 	{
 		return m_statusContainer;
+	}
+
+	void Unit::levelup()
+	{
+		if (m_attributes["lv"] > 0 && m_attributes["lv"] < 3)
+		{
+			m_attributes["lv"]++;
+			ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Level_Up);
+			t->putInt("lv", m_attributes["lv"]);
+			m_statusContainer->triggerTP(ability::TimePointEvent::Level_Up, t);
+		}
+	}
+
+	void Unit::addCommander(Commander* p_c)
+	{
+		m_commander = p_c;
+		m_commander->init(this);
+	}
+
+	bool Unit::isCommander()
+	{
+		return m_commander != nullptr;
+	}
+
+	void Unit::manipulateTile()
+	{
+		m_commander->manipulateTile();
+	}
+
+	void Unit::summonUnit()
+	{
+		m_commander->spawnUnit();
 	}
 
 	//turn
@@ -43,12 +90,17 @@ namespace unit
 	{
 		assert(m_turn == nullptr);
 		m_turn = p_t;
+
+		m_cdRecorder->reduceCD();//reduce cd at start of turn
 	}
 
 	bool Unit::canMove()
 	{
-		assert(m_turn != nullptr);
-		return m_turn->move;
+		if (m_attributes["base_mv"] <= 0)//unit can not move, like structure
+			return false;
+		else if (m_turn != nullptr)//this is unit's turn and check if it can move
+			return m_turn->move;
+		return true;
 	}
 
 	bool Unit::canAct()
@@ -83,61 +135,91 @@ namespace unit
 		m_turn = nullptr;
 	}
 
+	void Unit::playerSkipTurn()
+	{
+		assert(m_turn != nullptr);
+		m_turn->turnEnd();
+	}
+
 	kitten::K_GameObject * Unit::getTile()
 	{
 		return m_attachedObject->getComponent<unit::UnitMove>()->getTile();
 	}
 
-	/*
-	int Unit::useAbility(const std::string& p_abilityName)
+	void Unit::move()//move by instruction
 	{
-		AbilityDescription* ad = m_ADList[p_abilityName];
+		if (!canMove())
+			return;
 
-		//check unit's lv
-		if (m_attributes["LV"] < ad->m_intValue["LV"])
-		{
-			return 1;//means unit can not use this ability
-		}
-
-		//TO DO: cost counter
-		if (ad->m_stringValue.find("counter") != ad->m_stringValue.end())
-		{
-			//TO DO:ask player to cost counter
-			std::string counterName = ad->m_stringValue["counter"];
-			int maxNum = m_attributes[counterName];
-			//info->m_counterNumber =
-		}
-
-		//TO DO: get target, passing range and area
-		//display range and area
-		//select
-		//get target info
-		//if targetNum = 0
-		//return 2
-		
-		//TO DO assemble info package
-
-		//test purpose
-		ability::AbilityInfoPackage* info = new ability::AbilityInfoPackage();
-		info->m_source = this;
-		info->m_target = this;
-
-		std::string name = ad->m_stringValue["name"];
-		info->m_intValue["power"] = ad->m_intValue["power"];
-
-		return ability::AbilityManager::getInstance()->useAbility(name, info);
+		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
+		moveComponet->attempToMove();
 	}
 
-	int Unit::callStatus(int p_StatusIndex, int p_event)
+	void Unit::move(int p_min, int p_max)//move by ability with range
 	{
-		//TO DO: method call for status
-		return false;
-	}*/
+		if (!canMove())
+			return;
+
+		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
+		moveComponet->attempToMove(p_min, p_max);
+	}
+
+	void Unit::move(kitten::K_GameObject * p_tile)//move by ability with fixed target
+	{
+		if (!canMove())
+			return;
+
+		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
+		moveComponet->move(p_tile);
+	}
+
+	int Unit::useAbility(const std::string& p_abilityName)
+	{
+		if (!canAct())
+			return -1;
+
+		AbilityDescription* ad;
+		bool find = m_ADList.find(p_abilityName) != m_ADList.end();
+		if (m_ADList.find(p_abilityName) != m_ADList.end())
+		{
+			std::cout << "use ability: " << p_abilityName << std::endl;
+			ad = m_ADList[p_abilityName];
+		}
+		else
+		{
+			std::cout << "Ability: " << p_abilityName << " isn't found" << std::endl;
+			return -2;//doesn't have ability
+		}
+
+		//check unit's lv
+		if (m_attributes["lv"] < ad->m_intValue["lv"])
+		{
+			std::cout << p_abilityName << "require lv (" << ad->m_intValue["lv"] << ") " << std::endl;
+			std::cout << m_name << " is lv (" << m_attributes["lv"] << ")" << std::endl;
+			return -3;//means unit can not use this ability
+		}
+		int c = m_cdRecorder->checkCD(ad);
+		//check cd
+		if (m_cdRecorder->checkCD(ad) != 0)
+		{//it's in cool down
+			return -4;
+		}
+
+		m_cdRecorder->addCD(ad);
+		UnitInteractionManager::getInstance()->request(this, ad);
+
+		return 0;
+	}
+
+	void Unit::cancelAbility(AbilityDescription* p_ad)
+	{
+		m_cdRecorder->cancelCD(p_ad);
+	}
 
 	int Unit::destroyedByDamage()
 	{
 		//send destroyed event
-		//destroy unit (game object)
+		std::cout << m_name << " is destroyed! " << std::endl;
 		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
 		return 0;
 	}

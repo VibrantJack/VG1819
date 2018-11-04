@@ -29,6 +29,8 @@ namespace kitten
 		std::map <Event::EventType, Event*> m_queuedEvents;
 		std::vector<std::pair<Event::EventType, const void*>> m_queuedRemovals;
 
+		unsigned int m_eventChain = 0;
+
 		void removeQueuedListeners();
 		void update();
 		void clear();

@@ -32,6 +32,8 @@ namespace kitten
 
 	void EventManager::triggerEvent(Event::EventType p_type, Event* p_data)
 	{
+		++m_eventChain;
+
 		auto range = m_listeners.equal_range(p_type);
 		for (auto it = range.first; it != range.second && it != m_listeners.end(); ++it)
 		{
@@ -39,7 +41,12 @@ namespace kitten
 			it->second.second(p_type, p_data);
 		}
 
-		removeQueuedListeners();
+		--m_eventChain;
+
+		if (m_eventChain == 0)
+		{
+			removeQueuedListeners();
+		}
 
 		delete p_data;
 	}

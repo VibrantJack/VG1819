@@ -16,7 +16,10 @@
 #include "puppy\Text\TextBox.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "unit/unitComponent/UnitClickable.h"
-#include "userinterface\UIFrame.h"
+//ui
+#include "UI\CardUIO.h"
+#include "UI\HandFrame.h"
+
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
 #include "unit/InitiativeTracker/TrackerPointer.h"
@@ -24,8 +27,9 @@
 #include "kitten\mouse picking\ClickableFrame.h"
 #include "components\PowerTracker.h"
 #include "components\SelectAbility.h"
+#include "networking\SpawnUnitOnKeyPress.h"
+#include "networking\NetworkingConsoleMenu.h"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
-//#include "userinterface\UITestClickable.h"
 
 //board
 #include "board/component/Highlighter.h"
@@ -77,7 +81,13 @@ namespace kitten
 		} else if (p_componentName == "ClickableFrame")
 		{
 			comp = new kitten::ClickableFrame(glm::vec2(0, 0), glm::vec2(1, 1));
-		} else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
+		} else if (p_componentName == "Hand")
+		{
+			comp = new userinterface::HandFrame("textures/ui/blankFrame.tga");
+		} else if (p_componentName == "Card")
+		{
+			comp = new userinterface::CardUIO("textures/ui/cardBack.tga");
+		}else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
 		{
 			comp = new MoveByMouseRightClickDrag(0.005f);
 		} else if (p_componentName == "ZoomByMouseWheel")// Datadriven
@@ -160,6 +170,14 @@ namespace kitten
 		else if (p_componentName == "BoardCreator")
 		{
 			comp = new BoardCreator();
+		}
+		else if (p_componentName == "SpawnUnitOnKeyPress")
+		{
+			comp = new SpawnUnitOnKeyPress();
+		}
+		else if (p_componentName == "NetworkingConsoleMenu")
+		{
+			comp = new NetworkingConsoleMenu();
 		}
 		else
 		{
