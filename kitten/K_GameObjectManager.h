@@ -23,7 +23,7 @@ namespace kitten
 		std::unordered_map<int, K_GameObject*> m_gameObjects;
 		std::list<K_GameObject*> m_toDelete;
 
-		int m_totalObjects = 0;
+		int m_createdObjects = 0;
 
 		void deleteQueuedObjects();
 	public:

@@ -27,7 +27,7 @@ void lerp(const float& amount, const glm::vec3& min, const glm::vec3& max, glm::
 int main( void )
 {
     int width, height, x;
-    double t;
+    
     
     // Initialise GLFW
     if( !glfwInit() )
@@ -35,7 +35,7 @@ int main( void )
         fprintf( stderr, "Failed to initialize GLFW\n" );
         exit( EXIT_FAILURE );
     }
-    
+
     glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
     glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
     glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -63,21 +63,26 @@ int main( void )
 	
 
     // Enable vertical sync (on cards that support it)
-    glfwSwapInterval( 1 );
+    glfwSwapInterval( 0 );
     
 	kitten::initGame();
 
 	float lerpVal = 0.5f;
-	float changeAmount = 0.0004f;
+	float changeAmount = 0.009f;
 	bool increasing = true;
 
 	glm::vec3 minColour(2.0f / 255.0f, 2.0f / 255.0f, 9.0f / 255.0f);
 	glm::vec3 maxColour(135.0f/255.0f, 206.0f/255.0f, 235.0f/255.0f);
 	glm::vec3 curColor;
+	double deltaTime = 0;
+	double oldTime = 0;
 
     do
-    {
-        t = glfwGetTime();
+	{
+		double currentTime = glfwGetTime();
+        deltaTime =  currentTime - oldTime;
+		oldTime = currentTime;
+
         glfwGetMousePos( &x, NULL );
         
         // Get window size (may be different than the requested size)
@@ -100,7 +105,7 @@ int main( void )
         
 		if (increasing)
 		{
-			lerpVal += changeAmount;
+			lerpVal += changeAmount * deltaTime;
 			if (lerpVal > 1.0f)
 			{
 				increasing = false;
@@ -109,7 +114,7 @@ int main( void )
 		}
 		else
 		{
-			lerpVal -= changeAmount;
+			lerpVal -= changeAmount * deltaTime;
 			if (lerpVal < 0.0f)
 			{
 				increasing = true;
