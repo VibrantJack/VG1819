@@ -209,6 +209,7 @@ namespace unit
 		//check cd
 		if (m_cdRecorder->checkCD(ad) != 0)
 		{//it's in cool down
+			std::cout << p_abilityName << " is in Cooldown. CD remain:"<<m_cdRecorder->checkCD(ad) << std::endl;
 			return -4;
 		}
 

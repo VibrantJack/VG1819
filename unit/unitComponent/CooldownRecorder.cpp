@@ -85,12 +85,12 @@ void unit::CooldownRecorder::reduceCD()
 		return;
 	}
 
-	for (auto it : *m_cdmap)
+	for (auto it = m_cdmap->begin(); it!=m_cdmap->end(); it++)
 	{
-		it.second--;//reduce cd by 1
-		if (it.second == 0)
+		it->second--;//reduce cd by 1
+		if (it->second == 0)
 		{//remove cd
-			m_cdmap->erase(it.first);
+			m_cdmap->erase(it->first);
 		}
 	}
 }
