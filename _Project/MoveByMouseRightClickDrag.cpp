@@ -28,8 +28,7 @@ void MoveByMouseRightClickDrag::update()
 
 		kitten::Transform& transform = getTransform();
 
-		float changeScalar = m_speed * kitten::K_Time::getInstance()->getDeltaTime();
-
-		transform.move(xChange*changeScalar, yChange*changeScalar, 0);
+		//Don't actually have to use delta time here, mouse change is independent of framerate
+		transform.move(xChange*m_speed, yChange*m_speed, 0);
 	}
 }
