@@ -132,6 +132,12 @@ namespace ability
 
 		int effect(AbilityInfoPackage* p_info);
 	};
+
+	class Blast : public Ability
+	{
+	public:
+		int effect(AbilityInfoPackage* p_info);
+	};
 }
 
 

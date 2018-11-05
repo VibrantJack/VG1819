@@ -436,6 +436,12 @@
     <ClCompile Include="..\unit\unitComponent\Commander.cpp">
       <Filter>unit\unitComponent</Filter>
     </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\CastTimer.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Blast.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
     <ClCompile Include="..\kitten\K_JobManager.cpp">
       <Filter>kitten\coroutines</Filter>
     </ClCompile>
@@ -843,6 +849,9 @@
       <Filter>ability\status\statusEvent</Filter>
     </ClInclude>
     <ClInclude Include="..\unit\unitComponent\Commander.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\CastTimer.h">
       <Filter>unit\unitComponent</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\K_Job.h">

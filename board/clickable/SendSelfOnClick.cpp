@@ -31,7 +31,6 @@ void SendSelfOnClick::onClick()
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
 
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Tile_Clicked, e);
-
 }
 
 void SendSelfOnClick::onHoverStart()

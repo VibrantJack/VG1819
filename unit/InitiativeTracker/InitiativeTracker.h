@@ -43,6 +43,7 @@ namespace unit
 		int getUnitNumber();
 		kitten::K_GameObject* getCurrentUnit();
 		int getCurrentUnitIndex();
+
 		std::vector<kitten::K_GameObject*> getUnitList();
 
 		//turn phase

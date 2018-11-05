@@ -29,7 +29,8 @@ void unit::CooldownRecorder::addCD(AbilityDescription* p_ad)
 
 void unit::CooldownRecorder::cancelCD(AbilityDescription* p_ad)
 {
-	assert(m_cdmap != nullptr);
+	if (m_cdmap == nullptr)
+		return;
 
 	if (m_cdmap->find(p_ad) != m_cdmap->end())
 	{//find it and remove it
@@ -84,12 +85,12 @@ void unit::CooldownRecorder::reduceCD()
 		return;
 	}
 
-	for (auto it : *m_cdmap)
+	for (auto it = m_cdmap->begin(); it!=m_cdmap->end(); it++)
 	{
-		it.second--;//reduce cd by 1
-		if (it.second == 0)
+		it->second--;//reduce cd by 1
+		if (it->second == 0)
 		{//remove cd
-			m_cdmap->erase(it.first);
+			m_cdmap->erase(it->first);
 		}
 	}
 }

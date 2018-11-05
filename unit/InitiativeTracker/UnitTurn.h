@@ -12,6 +12,7 @@ namespace unit
 	{
 	private:
 		unit::Unit* m_currentUnit;
+		void triggerTurnEvent(bool p_start);
 	public:
 		UnitTurn();
 		~UnitTurn();
