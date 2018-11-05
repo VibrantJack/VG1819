@@ -155,7 +155,8 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 		if (m_uturn->isCurrent(p_unit))
 		{
 			m_uturn->unitDestroyed();
-			m_uturn->turnStart(getCurrentUnit());
+			if(getUnitNumber() > 0)
+				m_uturn->turnStart(getCurrentUnit());
 		}
 
 		kitten::K_GameObjectManager::getInstance()->destroyGameObject(p_unit);
@@ -218,7 +219,9 @@ void unit::InitiativeTracker::gameTurnStart()
 
 	m_currentUnitIndex = 0;
 	m_UI->turnStart();
-	m_uturn->turnStart(getCurrentUnit());//let the unit start its turn
+
+	if(getUnitNumber() > 0)
+		m_uturn->turnStart(getCurrentUnit());//let the unit start its turn
 }
 
 void unit::InitiativeTracker::unitTurnEnd()
