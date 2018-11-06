@@ -20,7 +20,8 @@ namespace kitten
 		enum EventType 
 		{ 
 			Tile_Clicked,
-			Object_Clicked, 
+			Object_Clicked,
+			Set_Area_Pattern,
 			Highlight_Tile, 
 			Unhighlight_Tile,
 			Manipulate_Tile,
