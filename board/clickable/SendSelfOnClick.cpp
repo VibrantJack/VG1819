@@ -3,6 +3,7 @@
 #include "board/tile/TileInfo.h"
 #include "board/BoardManager.h"
 #include <iostream>
+#include <sstream>
 SendSelfOnClick::SendSelfOnClick()
 {
 }
@@ -21,8 +22,22 @@ void SendSelfOnClick::onClick()
 	if (highlighted)
 	{
 		e->putInt("highlighted", 1);
-		e->putInt("tile_number", 1);
-		e->putGameObj("tile0", m_attachedObject);
+
+		kitten::Event::TileList list = BoardManager::getInstance()->getArea();
+		e->putInt("tile_number", list.size());
+
+		for (int i = 0; i < list.size(); i++)
+		{
+			int x = list[i].first;
+			int z = list[i].second;
+			kitten::K_GameObject* tileGO = BoardManager::getInstance()->getTile(x, z);
+
+			std::stringstream stm;
+			stm << "tile" << i;
+			std::string key = stm.str();
+
+			e->putGameObj(key, tileGO);
+		}
 	}
 	else
 	{

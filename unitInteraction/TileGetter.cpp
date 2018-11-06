@@ -116,7 +116,6 @@ void TileGetter::triggerHighlightEvent()
 	putFilter("filter", e);
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Highlight_Tile, e);
 
-
 	//area
 	e = new kitten::Event(kitten::Event::Set_Area_Pattern);
 	putArea(e);

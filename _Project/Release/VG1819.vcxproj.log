@@ -1,35 +1,9 @@
-﻿  SummonUnit.cpp
-  boardManager.cpp
-d:\work\vg1819\board\boardmanager.cpp(138): warning C4018: '<': signed/unsigned mismatch
-  ManipulateTileOnClick.cpp
-  Generating Code...
-  LINK : 0 new modules and 22 (out of 225) modules have changed since prior linking
+﻿  SendSelfOnClick.cpp
+d:\work\vg1819\board\clickable\sendselfonclick.cpp(29): warning C4018: '<': signed/unsigned mismatch
+  LINK : 0 new modules and 1 (out of 225) modules have changed since prior linking
   Generating non-SAFESEH image.
   Starting pass 2
-       UnitTest.obj
-       UnitMove.obj
-       UnitClickable.obj
-       Commander.obj
-       Unit.obj
-       UnitInteractionManager.obj
-       TileGetter.obj
-       TextTable.obj
-       ClientGame.obj
-       K_Game.obj
-       Range.obj
-       Highlighter.obj
-       BoardCreator.obj
        SendSelfOnClick.obj
-       ManipulateTileOnClick.obj
-       boardManager.obj
-       UnitFilter.obj
-       TilePipeline.obj
-       TileFliter.obj
-       OwnedTileFilter.obj
-       NoUnitFilter.obj
-       SpanPattern.obj
-       AreaPattern.obj
-       SummonUnit.obj
        MSVCRTD.lib(loadcfg.obj)
   Finished pass 2
   VG1819.vcxproj.vcxproj -> D:\work\VG1819\_Project\Release\VG1819.exe
