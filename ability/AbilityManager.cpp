@@ -58,6 +58,10 @@ namespace ability
 		newAbility = new Move();
 		newAbility->m_name = "Move";
 		m_abilityList.push_back(newAbility);
+
+		newAbility = new Blast();
+		newAbility->m_name = "Blast";
+		m_abilityList.push_back(newAbility);
 	}
 
 	AbilityManager::AbilityManager() : m_sLastAbilityUsed("NONE")

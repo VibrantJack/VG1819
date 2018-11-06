@@ -436,6 +436,18 @@
     <ClCompile Include="..\unit\unitComponent\Commander.cpp">
       <Filter>unit\unitComponent</Filter>
     </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\CastTimer.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Blast.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_JobManager.cpp">
+      <Filter>kitten\coroutines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\util\AsyncFileOperations.cpp">
+      <Filter>kitten\util</Filter>
+    </ClCompile>
     <ClCompile Include="..\kitten\sprites\SpriteAnimator.cpp">
       <Filter>kitten\sprites</Filter>
     </ClCompile>
@@ -848,6 +860,21 @@
     <ClInclude Include="..\unit\unitComponent\Commander.h">
       <Filter>unit\unitComponent</Filter>
     </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\CastTimer.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_Job.h">
+      <Filter>kitten\coroutines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_Routine.h">
+      <Filter>kitten\coroutines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_JobManager.h">
+      <Filter>kitten\coroutines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\util\AsyncFileOperations.h">
+      <Filter>kitten\util</Filter>
+    </ClInclude>
     <ClInclude Include="..\kitten\sprites\SpriteAnimator.h">
       <Filter>kitten\sprites</Filter>
     </ClInclude>
@@ -960,6 +987,15 @@
     </Filter>
     <Filter Include="ability\status\statusEvent">
       <UniqueIdentifier>{aed19bd5-dab5-4536-9ee8-3781b9cfd8c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kitten\coroutines">
+      <UniqueIdentifier>{0f0a87b0-5319-40ad-962a-7ca808d68bea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="testing">
+      <UniqueIdentifier>{c83bb044-5a09-4dac-98f3-540e821f1362}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kitten\util">
+      <UniqueIdentifier>{92a11259-cd79-4fdb-8968-79de544df0c1}</UniqueIdentifier>
     </Filter>
     <Filter Include="kitten\sprites">
       <UniqueIdentifier>{fa936de7-535e-4cb3-8dde-906d63749a58}</UniqueIdentifier>
