@@ -19,12 +19,13 @@
 //ui
 #include "UI\CardUIO.h"
 #include "UI\HandFrame.h"
+#include "kitten\mouse picking\ClickableUI.h"
 
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
 #include "unit/InitiativeTracker/TrackerPointer.h"
 #include "unit/InitiativeTracker/PointerUI.h"
-#include "kitten\mouse picking\ClickableFrame.h"
+
 #include "components\PowerTracker.h"
 #include "components\SelectAbility.h"
 #include "networking\SpawnUnitOnKeyPress.h"
@@ -63,31 +64,42 @@ namespace kitten
 		if (p_componentName == "Camera")// Datadriven
 		{
 			comp = new Camera();
-		} else if (p_componentName == "CubeRenderable")// Datadriven
+		}
+		else if (p_componentName == "CubeRenderable")// Datadriven
 		{
 			comp = new CubeRenderable("textures/tiles/MISSING.tga");
-		} else if (p_componentName == "QuadRenderable")// Datadriven
+		}
+		else if (p_componentName == "QuadRenderable")// Datadriven
 		{
 			comp = new QuadRenderable("textures/tiles/Grassland.tga");
-		} else if (p_componentName == "StaticQuadRenderable")// QuadRenderable Variant
+		}
+		else if (p_componentName == "StaticQuadRenderable")// QuadRenderable Variant
 		{
 			comp = new QuadRenderable("textures/tiles/MISSING.tga", true);
-		} else if (p_componentName == "Grassland")// datadriven
+		}
+		else if (p_componentName == "Grassland")// datadriven
 		{
 			comp = new gameworld::GrasslandInfoComponent();
-		} else if (p_componentName == "Frame")// Datadriven
+		}
+		else if (p_componentName == "Frame")// Datadriven
 		{
 			comp = new userinterface::UIFrame("textures/ui/blankFrame.tga");
-		} else if (p_componentName == "ClickableFrame")
-		{
-			comp = new kitten::ClickableFrame(glm::vec2(0, 0), glm::vec2(1, 1));
-		} else if (p_componentName == "Hand")
+		}
+		else if (p_componentName == "Hand")
 		{
 			comp = new userinterface::HandFrame("textures/ui/blankFrame.tga");
-		} else if (p_componentName == "Card")
+		}
+		else if (p_componentName == "Card")
 		{
 			comp = new userinterface::CardUIO("textures/ui/cardBack.tga");
-		}else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
+		}else if(p_componentName == "ClickableFrame")
+		{
+			comp = new ClickableFrame(ClickableFrame::piv_BotLeft);
+		}else if (p_componentName == "ClickableUI")
+		{
+			comp = new ClickableUI();
+		}
+		else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
 		{
 			comp = new MoveByMouseRightClickDrag(0.005f);
 		} else if (p_componentName == "ZoomByMouseWheel")// Datadriven

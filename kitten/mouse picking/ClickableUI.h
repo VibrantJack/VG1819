@@ -12,7 +12,6 @@ namespace kitten
 		ClickableUI();
 		ClickableFrame* m_attachedFrame;
 	public:
-		
 		~ClickableUI();
 
 		virtual void start() override; // You MUST call this method or add yourself as a ClickableBox when overriding this class

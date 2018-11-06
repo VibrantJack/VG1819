@@ -6,11 +6,10 @@
 
 namespace kitten
 {
-	ClickableFrame::ClickableFrame(const glm::vec2& p_minPoint, const glm::vec2& p_maxPoint)
+	ClickableFrame::ClickableFrame(PivotType p_piv)
 	{
 		ActiveClickables::getInstance()->addToActiveUI(this);
-		m_minPoint = m_originalMinPoint;
-		m_maxPoint = m_originalMaxPoint;
+		m_piv = p_piv;
 	}
 
 	ClickableFrame::~ClickableFrame()
@@ -27,15 +26,63 @@ namespace kitten
 
 	void ClickableFrame::start()
 	{
-		glm::vec3 actualScale = getTransform().getScale();
-		glm::vec3 actualTranslation = getTransform().getTranslation();
-
-		glm::vec2 scale2D = glm::vec2(actualScale.x, actualScale.y); 
-		glm::vec2 trans2D = glm::vec2(actualTranslation.x, actualTranslation.y);
-
-		glm::vec2 scale = m_originalMinPoint * scale2D;
-		glm::vec2 pos = m_originalMaxPoint * trans2D;
-
+		switch (m_piv)
+		{
+			case piv_Right:
+			{
+				m_minPoint = glm::vec2(-1.0f, -0.5f);
+				m_maxPoint = glm::vec2(0.0f, 0.5f);
+				break;
+			}
+			case piv_Left:
+			{
+				m_minPoint = glm::vec2(0.0f, -0.5f);
+				m_maxPoint = glm::vec2(1.0f, 0.5f);
+				break;
+			}
+			case piv_Top:
+			{
+				m_minPoint = glm::vec2(-0.5f, -1.0f);
+				m_maxPoint = glm::vec2(0.5f, 0.0f);
+				break;
+			}
+			case piv_Bot:
+			{
+				m_minPoint = glm::vec2(-0.5f, 0.0f);
+				m_maxPoint = glm::vec2(0.5f, 1.0f);
+				break;
+			}
+			case piv_TopRight:
+			{
+				m_minPoint = glm::vec2(-1.0f, -1.0f);
+				m_maxPoint = glm::vec2(0.0f, 0.0f);
+				break;
+			}
+			case piv_BotRight:
+			{
+				m_minPoint = glm::vec2(-1.0f, 0.0f);
+				m_maxPoint = glm::vec2(0.0f, 1.0f);
+				break;
+			}
+			case piv_TopLeft:
+			{
+				m_minPoint = glm::vec2(0.0, -1.0f);
+				m_maxPoint = glm::vec2(1.0f, 0.0f);
+				break;
+			}
+			case piv_BotLeft:
+			{
+				m_minPoint = glm::vec2(0.0f, 0.0f);
+				m_maxPoint = glm::vec2(1.0f, 1.0f);
+				break;
+			}
+			case piv_Center:
+			{
+				m_minPoint = glm::vec2(-0.5, -0.5);
+				m_maxPoint = glm::vec2(0.5f, 0.5f);
+			}
+		}
+		
 		getTransform().addScaleListener(this);
 	}
 

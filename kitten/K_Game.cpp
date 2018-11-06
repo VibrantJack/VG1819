@@ -36,6 +36,10 @@
 #include "ui/CardUIO.h"
 #include "ui/HandFrame.h"
 
+//ui clickable testing
+#include "kitten/mouse picking/ClickableUI.h"
+#include "kitten/mouse picking/ClickableFrame.h"
+
 //unit interaction
 #include "unitInteraction/UnitInteractionManager.h"
 
@@ -147,6 +151,15 @@ namespace kitten
 			userinterface::HandFrame* frameCasted = static_cast<userinterface::HandFrame*>(handFrame);
 			frameCasted->addCardToEnd(cardCasted);
 			cardCasted->assignParentHand(frameCasted);
+
+			K_Component* cardCF = compMan->createComponent("ClickableFrame");
+			K_Component* clickUI = compMan->createComponent("ClickableUI");
+			card->addComponent(cardCF);
+			card->addComponent(clickUI);
+
+			PrintWhenClicked* onClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
+			card->addComponent(onClick);
+			onClick->setMessage("UI Clicked!!");
 
 		}
 		/*
