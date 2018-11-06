@@ -13,10 +13,10 @@ struct AreaInfo
 	kitten::K_GameObject* m_pivot;
 	kitten::K_GameObject* m_origin;
 
-	int m_length;//for lineV, lineH, square, triangle
+	int m_length;//for lineV, lineH, triangle
 
 	int m_minLen;
-	int m_maxLen;//for span
+	int m_maxLen;//for span,square
 };
 
 class AreaPattern

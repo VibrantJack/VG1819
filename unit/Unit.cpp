@@ -182,15 +182,6 @@ namespace unit
 
 	int Unit::useAbility(const std::string& p_abilityName)
 	{
-		kitten::Event* e = new kitten::Event(kitten::Event::Set_Area_Pattern);
-		e->putGameObj("tileAtOrigin", m_attachedObject);
-		e->putString("area_mode", "triangle");
-		e->putInt("area_min", 0);
-		e->putInt("area_max", 1);
-		e->putInt("area_len", 3);
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Set_Area_Pattern,e);
-		return 0;
-		/*
 		if (!canAct())
 			return -1;
 
@@ -225,7 +216,7 @@ namespace unit
 		m_cdRecorder->addCD(ad);
 		UnitInteractionManager::getInstance()->request(this, ad);
 
-		return 0;*/
+		return 0;
 	}
 
 	void Unit::cancelAbility(AbilityDescription* p_ad)

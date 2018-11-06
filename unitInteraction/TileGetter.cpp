@@ -113,11 +113,15 @@ void TileGetter::triggerHighlightEvent()
 	//normal range
 	kitten::Event* e = new kitten::Event(kitten::Event::Highlight_Tile);
 	putRange(e);
-	putFilter(e);
-	
-	//TO DO: area
-
+	putFilter("filter", e);
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Highlight_Tile, e);
+
+
+	//area
+	e = new kitten::Event(kitten::Event::Set_Area_Pattern);
+	putArea(e);
+	putFilter("area_filter", e);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Set_Area_Pattern, e);
 }
 
 void TileGetter::putRange(kitten::Event * e)
@@ -135,24 +139,51 @@ void TileGetter::putRange(kitten::Event * e)
 	}
 }
 
-void TileGetter::putFilter(kitten::Event * e)
+void TileGetter::putFilter(const std::string & p_filter, kitten::Event * e)
 {
-	if (m_ad->m_intValue.find("filter") != m_ad->m_intValue.end())
+	if (m_ad->m_intValue.find(p_filter) != m_ad->m_intValue.end())
 	{
-		int filterNum = m_ad->m_intValue["filter"];
-		e->putInt("filter", filterNum);
+		int filterNum = m_ad->m_intValue[p_filter];
+		e->putInt(p_filter, filterNum);
 		for (int i = 0; i < filterNum; i++)
 		{
 			std::stringstream stm;
-			stm << "filter" << i;
+			stm << p_filter << i;
 			std::string fkey = stm.str();
 			e->putString(fkey, m_ad->m_stringValue[fkey]);
 		}
 	}
 	else
 	{
-		e->putInt("filter", 0);
+		e->putInt(p_filter, 0);
 	}
+}
+
+void TileGetter::putArea(kitten::Event * e)
+{
+	e->putGameObj("tileAtOrigin", m_source->getTile());
+
+	std::unordered_map<std::string, int> iv = m_ad->m_intValue;
+	std::unordered_map<std::string, std::string> sv = m_ad->m_stringValue;
+
+	if (sv.find("area_mode") != sv.end())
+	{
+		e->putInt("area_fix", iv["area_fix"]);
+		e->putString("area_mode",sv["area_mode"]);
+		if (iv.find("area_len") != iv.end())
+			e->putInt("area_len", iv["area_len"]);
+		else if (iv.find("area_min") != iv.end())
+		{
+			e->putInt("area_min", iv["area_min"]);
+			e->putInt("area_max", iv["area_max"]);
+		}
+	}
+	else//default : point pattern
+	{
+		e->putInt("area_fix", 0);
+		e->putString("area_mode", "point");
+	}
+	
 }
 
 void TileGetter::triggerUnhighlightEvent()
@@ -162,9 +193,11 @@ void TileGetter::triggerUnhighlightEvent()
 
 void TileGetter::send()
 {
-	//deregisterEvent();
 	m_respond = false;
-	UnitInteractionManager::getInstance()->setTarget(m_tileList,m_unitList);
+	if (m_needUnit && m_unitList.empty())
+		cancel();
+	else
+		UnitInteractionManager::getInstance()->setTarget(m_tileList,m_unitList);
 }
 
 void TileGetter::cancel()

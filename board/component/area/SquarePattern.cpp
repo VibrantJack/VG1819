@@ -1,12 +1,12 @@
 #include "AreaPattern.h"
-
+#include <cmath>
 kitten::Event::TileList SquarePattern::getTileList(AreaInfo * p_info)
 {
 	kitten::Event::TileList list;
 
 	getInfo(p_info);
 
-	int half = m_len / 2;
+	int half = p_info->m_maxLen;
 
 	for (int ix = -half; ix <= half; ix++)//start from left most
 	{
@@ -23,6 +23,9 @@ kitten::Event::TileList SquarePattern::getTileList(AreaInfo * p_info)
 		{
 			for (int iz = -half; iz <= half; iz++)//start from bottom
 			{
+				if (abs(ix) < p_info->m_minLen && abs(iz) < p_info->m_minLen)
+					continue;
+
 				int tz = m_posP.second + iz;
 				if (tz < 0)
 				{

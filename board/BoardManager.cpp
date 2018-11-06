@@ -38,8 +38,12 @@ void BoardManager::showArea(kitten::K_GameObject* p_pivot)
 {
 	if (m_area->isActive())
 	{
-		kitten::Event::TileList list = m_area->getTileListWithPivot(p_pivot);
-		m_highlighter->highlightTile(list);
+		hideArea();
+
+		m_areaList = m_area->getTileListWithPivot(p_pivot);
+		applyFilter(&m_areaList);
+
+		m_highlighter->highlightTile(m_areaList);
 	}
 }
 
@@ -49,6 +53,17 @@ void BoardManager::hideArea()
 	{
 		m_highlighter->unHighlightCurrent();
 	}
+}
+
+kitten::Event::TileList BoardManager::getArea()
+{
+	if (m_area->isActive())
+	{
+		m_area->removePattern();
+		return m_areaList;
+	}
+	
+	return kitten::Event::TileList();
 }
 
 void BoardManager::registerEvent()
@@ -127,16 +142,8 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 	}
 
 	//apply filter
-	int filterNum = p_data->getInt("filter");
-	m_pipeline->resetFilter();
-	for (int i = 0; i < filterNum; i++)
-	{
-		std::stringstream stm;
-		stm << "filter" << i;
-		std::string fkey = stm.str();
-		m_pipeline->useFilter(p_data->getString(fkey));
-	}
-	m_pipeline->filterList(&list);
+	setFilter("filter", p_data);
+	applyFilter(&list);
   
 	m_highlighter->highlightTile(list);
 }
@@ -146,7 +153,30 @@ void BoardManager::unhighlightTile(kitten::Event * p_data)
 	m_highlighter->unHighlightCurrent();
 }
 
+void BoardManager::setFilter(const std::string & p_filter, kitten::Event * p_data)
+{
+	int filterNum = p_data->getInt(p_filter);
+	m_pipeline->resetFilter();
+	for (int i = 0; i < filterNum; i++)
+	{
+		std::stringstream stm;
+		stm << p_filter << i;
+		std::string fkey = stm.str();
+		m_pipeline->useFilter(p_data->getString(fkey));
+	}
+}
+
+void BoardManager::applyFilter(kitten::Event::TileList * p_list)
+{
+	m_pipeline->filterList(p_list);
+}
+
 void BoardManager::setArea(kitten::Event * p_data)
 {
 	m_area->setPattern(p_data);
+
+	setFilter("area_filter", p_data);
+
+	kitten::K_GameObject* p = p_data->getGameObj("tileAtOrigin");
+	showArea(p);
 }

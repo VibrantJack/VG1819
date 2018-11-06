@@ -41,5 +41,5 @@ void SendSelfOnClick::onHoverStart()
 
 void SendSelfOnClick::onHoverEnd()
 {
-	BoardManager::getInstance()->hideArea();
+	//BoardManager::getInstance()->hideArea();
 }

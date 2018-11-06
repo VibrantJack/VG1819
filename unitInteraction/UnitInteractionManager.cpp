@@ -27,8 +27,15 @@ void UnitInteractionManager::request(unit::Unit* p_unit, unit::AbilityDescriptio
 
 	addPropertyFromADToPack();
 
+	int nu = m_ad->m_intValue["need_unit"];
+	bool needunit;
+	if (nu == 0)
+		needunit = false;
+	else
+		needunit = true;
+
 	//ask player for targets
-	m_tileGetter->requireTile(m_ad,p_unit,true);
+	m_tileGetter->requireTile(m_ad,p_unit,needunit);
 }
 
 void UnitInteractionManager::setTarget(std::vector<kitten::K_GameObject*> p_tileList, std::vector<unit::Unit*> p_unitList)
@@ -87,13 +94,6 @@ void UnitInteractionManager::send()
 
 void UnitInteractionManager::addPropertyFromADToPack()
 {
-	/*
-	//get power
-	if (m_ad->m_intValue.find("power") != m_ad->m_intValue.end())
-	{
-		m_package->m_intValue["power"] = m_ad->m_intValue["power"];
-	}*/
-
 	for (auto it : m_ad->m_intValue)
 	{
 		m_package->m_intValue[it.first] = it.second;

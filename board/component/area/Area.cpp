@@ -1,10 +1,11 @@
 #include "Area.h"
-
+#include "unit/Unit.h"
 Area::Area()
 {
 	m_map = new std::unordered_map<std::string, AreaPattern*>();
 	m_info = new AreaInfo();
 	m_active = false;
+	m_fix = false;
 
 	AreaPattern* ap = new PointPattern();
 	std::string name = "point";
@@ -45,8 +46,14 @@ void Area::setPattern(kitten::Event * p_data)
 	m_info->m_origin = p_data->getGameObj("tileAtOrigin");
 
 	m_mode = p_data->getString("area_mode");
+	int fix = p_data->getInt("area_fix");
+	if(fix == 1)
+	{
+		m_fix = true;
+		m_info->m_pivot = m_info->m_origin;
+	}
 
-	if (m_mode == "span")
+	if (m_mode == "span" || m_mode == "square")
 	{
 		m_info->m_minLen = p_data->getInt("area_min");
 		m_info->m_maxLen = p_data->getInt("area_max");
@@ -66,6 +73,7 @@ void Area::setPattern(kitten::Event * p_data)
 void Area::removePattern()
 {
 	m_active = false;
+	m_fix = false;
 }
 
 bool Area::isActive()
@@ -75,6 +83,7 @@ bool Area::isActive()
 
 kitten::Event::TileList Area::getTileListWithPivot(kitten::K_GameObject * p_pivot)
 {
-	m_info->m_pivot = p_pivot;
+	if(!m_fix)
+		m_info->m_pivot = p_pivot;
 	return m_map->at(m_mode)->getTileList(m_info);
 }

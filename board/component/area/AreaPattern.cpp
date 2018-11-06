@@ -1,5 +1,4 @@
 #include "AreaPattern.h"
-#include "unit/Unit.h"
 #include "board/BoardManager.h"
 
 void AreaPattern::getInfo(AreaInfo * p_info)
@@ -8,8 +7,7 @@ void AreaPattern::getInfo(AreaInfo * p_info)
 	m_posP = p_info->m_pivot->getComponent<TileInfo>()->getPos();
 
 	//get origin
-	unit::Unit* u = p_info->m_origin->getComponent<unit::Unit>();
-	m_posO = u->getTile()->getComponent<TileInfo>()->getPos();
+	m_posO = p_info->m_origin->getComponent<TileInfo>()->getPos();
 
 	//get length
 	m_len = p_info->m_length;
