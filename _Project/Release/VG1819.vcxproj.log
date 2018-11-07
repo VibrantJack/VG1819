@@ -1,43 +1,4 @@
-﻿  K_ComponentManager.cpp
-  
-  Searching libraries
-      Searching C:\Users\Austin\Documents\GitHub\VG1819\_Project\..\glfw\lib-msvc100\GLFW.lib:
-      Searching C:\Users\Austin\Documents\GitHub\VG1819\_Project\..\glew\lib\glew32.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\opengl32.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\glu32.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\kernel32.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\user32.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\gdi32.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\winspool.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\comdlg32.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\advapi32.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\shell32.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\ole32.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\oleaut32.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\uuid.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\odbc32.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\odbccp32.lib:
-      Searching C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\lib\x86\msvcprtd.lib:
-      Searching C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\lib\x86\MSVCRTD.lib:
-      Searching C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\lib\x86\OLDNAMES.lib:
-      Searching C:\Users\Austin\Documents\GitHub\VG1819\_Project\..\irrKlang\lib\Win32-visualStudio\irrKlang.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\Ws2_32.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x86\Mswsock.lib:
-      Searching C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\lib\x86\MSVCRT.lib:
-      Searching C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\lib\x86\vcruntimed.lib:
-      Searching C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\ucrt\x86\ucrtd.lib:
-  
-  Finished searching libraries
-  Generating non-SAFESEH image.
-K_ComponentManager.obj : error LNK2001: unresolved external symbol "public: __thiscall kitten::ClickableUI::ClickableUI(void)" (??0ClickableUI@kitten@@QAE@XZ)
-  LINK : found 1 undefined symbols; performing full link
-  
-  Invoking LINK.EXE:
-   /ERRORREPORT:PROMPT @C:\Users\Austin\AppData\Local\Temp\tmp0b4e111cdcfb4d26bacf698143119273.rsp
-   /incremental
-   /nologo
-   /fullbuild
-  
+﻿  
   Starting pass 1
   Processed /DEFAULTLIB:msvcprtd
   Processed /DEFAULTLIB:MSVCRTD
@@ -5433,26 +5394,26 @@ LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; us
    /v
    /x
    /fo
-   "C:\Users\Austin\AppData\Local\Temp\lnk{AD2CA060-27A9-4CF4-8420-E807B759058B}.tmp"
-   "C:\Users\Austin\AppData\Local\Temp\lnk{BF7C0D9A-4D42-490B-AC35-C46B9FAAD873}.tmp"
+   "C:\Users\Austin\AppData\Local\Temp\lnk{CF9B2CFF-F293-4234-9B6B-02E77FFEF253}.tmp"
+   "C:\Users\Austin\AppData\Local\Temp\lnk{F66B5D57-830E-4757-BE8B-698B7E64D832}.tmp"
   Microsoft (R) Windows (R) Resource Compiler Version 10.0.10011.16384
   
   Copyright (C) Microsoft Corporation.  All rights reserved.
   
   
-  Creating C:\Users\Austin\AppData\Local\Temp\lnk{AD2CA060-27A9-4CF4-8420-E807B759058B}.tmp
+  Creating C:\Users\Austin\AppData\Local\Temp\lnk{CF9B2CFF-F293-4234-9B6B-02E77FFEF253}.tmp
   
-  Using codepage 1252 as default
-  
-  C:\Users\Austin\AppData\Local\Temp\lnk{BF7C0D9A-4D42-490B-AC35-C46B9FAAD873}.tmp.
-  Writing 24:1,	lang:0x409,	size 381
   
   Invoking cvtres.exe:
    /machine:x86
    /verbose
-   /out:"C:\Users\Austin\AppData\Local\Temp\lnk{0565D2F4-8429-4DE7-BC4C-C2279F642AB1}.tmp"
+   /out:"C:\Users\Austin\AppData\Local\Temp\lnk{AACBAA01-BFC0-4C2D-BA3D-C90B3A1B8BA9}.tmp"
    /readonly
-   "C:\Users\Austin\AppData\Local\Temp\lnk{AD2CA060-27A9-4CF4-8420-E807B759058B}.tmp"
+   "C:\Users\Austin\AppData\Local\Temp\lnk{CF9B2CFF-F293-4234-9B6B-02E77FFEF253}.tmp"
+  Using codepage 1252 as default
+  
+  C:\Users\Austin\AppData\Local\Temp\lnk{F66B5D57-830E-4757-BE8B-698B7E64D832}.tmp.
+  Writing 24:1,	lang:0x409,	size 381
   Microsoft (R) Windows Resource To Object Converter Version 14.11.25547.0
   Copyright (C) Microsoft Corporation.  All rights reserved.
   

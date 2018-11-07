@@ -19,5 +19,6 @@ namespace kitten
 		virtual void onClick();
 		virtual void onHoverStart();
 		virtual void onHoverEnd();
+		virtual void release();
 	};
 }
