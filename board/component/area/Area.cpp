@@ -8,27 +8,27 @@ Area::Area()
 	m_fix = false;
 
 	AreaPattern* ap = new PointPattern();
-	std::string name = "point";
+	std::string name = POINT_AREA;
 	m_map->insert(std::make_pair(name, ap));
 
 	ap = new SpanPattern();
-	name = "span";
+	name = SPAN_AREA;
 	m_map->insert(std::make_pair(name, ap));
 
 	ap = new LineVPattern();
-	name = "lineV";
+	name = LINEV_AREA;
 	m_map->insert(std::make_pair(name, ap));
 
 	ap = new LineHPattern();
-	name = "lineH";
+	name = LINEH_AREA;
 	m_map->insert(std::make_pair(name, ap));
 
 	ap = new SquarePattern();
-	name = "square";
+	name = SQUARE_AREA;
 	m_map->insert(std::make_pair(name, ap));
 
 	ap = new TrianglePattern();
-	name = "triangle";
+	name = TRIANGLE_AREA;
 	m_map->insert(std::make_pair(name, ap));
 }
 
@@ -47,18 +47,18 @@ void Area::setPattern(kitten::Event * p_data)
 
 	m_mode = p_data->getString("area_mode");
 	int fix = p_data->getInt("area_fix");
-	if(fix == 1)
+	if(fix == TRUE)
 	{
 		m_fix = true;
 		m_info->m_pivot = m_info->m_origin;
 	}
 
-	if (m_mode == "span" || m_mode == "square")
+	if (m_mode == SPAN_AREA || m_mode == SQUARE_AREA)
 	{
 		m_info->m_minLen = p_data->getInt("area_min");
 		m_info->m_maxLen = p_data->getInt("area_max");
 	}
-	else if (m_mode == "point")
+	else if (m_mode == POINT_AREA)
 	{
 		//nothing to add
 	}

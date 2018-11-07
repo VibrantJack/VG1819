@@ -71,11 +71,11 @@ void TileGetter::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_
 
 void TileGetter::getTiles(kitten::Event * p_data)
 {
-	int tnum = p_data->getInt("tile_number");//get total number of tiles in event
+	int tnum = p_data->getInt(TILE_NUMBER);//get total number of tiles in event
 	for (int i = 0; i < tnum; i++)
 	{
 		std::stringstream stm;
-		stm << "tile" << i;
+		stm << TILE << i;
 		std::string tkey = stm.str();
 		kitten::K_GameObject* tileGO = p_data->getGameObj(tkey);//find each tile
 
@@ -162,25 +162,26 @@ void TileGetter::putArea(kitten::Event * e)
 {
 	e->putGameObj("tileAtOrigin", m_source->getTile());
 
-	std::unordered_map<std::string, int> iv = m_ad->m_intValue;
-	std::unordered_map<std::string, std::string> sv = m_ad->m_stringValue;
+	const std::unordered_map<std::string, int> &iv = m_ad->m_intValue;
+	const std::unordered_map<std::string, std::string> &sv = m_ad->m_stringValue;
 
 	if (sv.find("area_mode") != sv.end())
 	{
-		e->putInt("area_fix", iv["area_fix"]);
-		e->putString("area_mode",sv["area_mode"]);
+		e->putInt("area_fix", iv.at("area_fix"));
+		e->putString("area_mode",sv.at("area_mode"));
+
 		if (iv.find("area_len") != iv.end())
-			e->putInt("area_len", iv["area_len"]);
+			e->putInt("area_len", iv.at("area_len"));
 		else if (iv.find("area_min") != iv.end())
 		{
-			e->putInt("area_min", iv["area_min"]);
-			e->putInt("area_max", iv["area_max"]);
+			e->putInt("area_min", iv.at("area_min"));
+			e->putInt("area_max", iv.at("area_max"));
 		}
 	}
 	else//default : point pattern
 	{
-		e->putInt("area_fix", 0);
-		e->putString("area_mode", "point");
+		e->putInt("area_fix", FALSE);
+		e->putString("area_mode", POINT_AREA);
 	}
 	
 }

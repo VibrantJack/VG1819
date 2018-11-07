@@ -4,6 +4,7 @@
 #include "board/BoardManager.h"
 #include <iostream>
 #include <sstream>
+
 SendSelfOnClick::SendSelfOnClick()
 {
 }
@@ -21,10 +22,10 @@ void SendSelfOnClick::onClick()
 	bool highlighted = m_attachedObject->getComponent<TileInfo>()->isHighlighted();
 	if (highlighted)
 	{
-		e->putInt("highlighted", 1);
+		e->putInt("highlighted", TRUE);
 
 		kitten::Event::TileList list = BoardManager::getInstance()->getArea();
-		e->putInt("tile_number", list.size());
+		e->putInt(TILE_NUMBER, list.size());
 
 		for (int i = 0; i < list.size(); i++)
 		{
@@ -33,7 +34,7 @@ void SendSelfOnClick::onClick()
 			kitten::K_GameObject* tileGO = BoardManager::getInstance()->getTile(x, z);
 
 			std::stringstream stm;
-			stm << "tile" << i;
+			stm << TILE << i;
 			std::string key = stm.str();
 
 			e->putGameObj(key, tileGO);
@@ -41,7 +42,7 @@ void SendSelfOnClick::onClick()
 	}
 	else
 	{
-		e->putInt("highlighted", 0);
+		e->putInt("highlighted", FALSE);
 	}
 
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);

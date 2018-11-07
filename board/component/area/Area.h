@@ -8,6 +8,13 @@
 #include "kitten/event_system/Event.h"
 #include "board/component/area/AreaPattern.h"
 
+#define POINT_AREA "point"
+#define SPAN_AREA "span"
+#define SQUARE_AREA "square"
+#define LINEV_AREA "lineV"
+#define LINEH_AREA "lineH"
+#define TRIANGLE_AREA "triangle"
+
 class Area
 {
 private:

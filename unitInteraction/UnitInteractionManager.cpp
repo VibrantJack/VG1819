@@ -27,12 +27,7 @@ void UnitInteractionManager::request(unit::Unit* p_unit, unit::AbilityDescriptio
 
 	addPropertyFromADToPack();
 
-	int nu = m_ad->m_intValue["need_unit"];
-	bool needunit;
-	if (nu == 0)
-		needunit = false;
-	else
-		needunit = true;
+	bool needunit = m_ad->m_intValue["need_unit"];
 
 	//ask player for targets
 	m_tileGetter->requireTile(m_ad,p_unit,needunit);
