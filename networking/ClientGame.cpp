@@ -182,16 +182,12 @@ namespace networking
 		unit::Unit* testDummy = unitGO->getComponent<unit::Unit>();
 		testDummy->m_clientId = p_iClientId;
 		unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
-
-		sendSummonUnitPacket(p_iClientId, p_iUnitId, p_iPosX, p_iPosY);
 	}
 
 	void ClientGame::moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY)
 	{
 		kitten::K_GameObject* targetTile = BoardManager::getInstance()->getTile(p_iPosX, p_iPosY);
 		m_unitGOList.at(p_iUnitIndex)->getComponent<unit::UnitMove>()->move(targetTile);
-
-		sendMovementPacket(p_iUnitIndex, p_iPosX, p_iPosY);
 	}
 
 	void ClientGame::sendPacket(Packet* p_packet)

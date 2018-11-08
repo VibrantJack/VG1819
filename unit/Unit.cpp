@@ -185,11 +185,13 @@ namespace unit
 			int posX = getTile()->getComponent<TileInfo>()->getPosX();
 			int posY = getTile()->getComponent<TileInfo>()->getPosY();
 
-			networking::ClientGame::getInstance()->moveUnit(unitIndex, posX, posY);
+			//networking::ClientGame::getInstance()->moveUnit(unitIndex, posX, posY);
+			networking::ClientGame::getInstance()->sendMovementPacket(unitIndex, posX, posY);
 		}
 
 		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
 		moveComponet->move(p_tile);
+
 	}
 
 	int Unit::useAbility(const std::string& p_abilityName)
