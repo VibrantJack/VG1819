@@ -3,7 +3,7 @@
 
 namespace sprites
 {
-	SpriteAnimator::SpriteAnimator(const SpriteSheet* p_spriteSheet) : m_renderable(nullptr), m_spriteSheet(p_spriteSheet)
+	SpriteAnimator::SpriteAnimator(const SpriteSheet* p_spriteSheet) : m_renderable(nullptr), m_spriteSheet(p_spriteSheet), m_currentAnimationFrameTime(0)
 	{
 		assert(m_spriteSheet != nullptr);
 	}
@@ -15,7 +15,7 @@ namespace sprites
 
 	void SpriteAnimator::start()
 	{
-		m_currentAnimation = m_spriteSheet->getDefaultAnimation();
+		m_currentFrame = m_spriteSheet->getDefaultAnimation();
 
 		m_renderable = m_attachedObject->getComponent<kitten::SpriteRenderable>();
 		assert(m_renderable != nullptr);
@@ -29,28 +29,31 @@ namespace sprites
 
 	void SpriteAnimator::setAnimation(const std::string& p_animationName)
 	{
-		m_currentAnimation = m_spriteSheet->getAnimation(p_animationName);
+		m_currentFrame = m_spriteSheet->getAnimation(p_animationName);
 		m_currentAnimationFrameTime = 0.0f;
 
-		assert(m_currentAnimation != nullptr);
+		assert(m_currentFrame != nullptr);
 
 		setRenderableTexture();
 	}
 
 	void SpriteAnimator::setRenderableTexture()
 	{
-		assert(m_currentAnimation != nullptr);
+		assert(m_currentFrame != nullptr);
 
-		//m_renderable->setTextureOffset(m_currentAnimation->offset);
+		m_renderable->setTextureOffset(m_currentFrame->textureOffset);
 	}
 
 	void SpriteAnimator::update()
 	{
-		if (m_currentAnimationFrameTime > m_currentAnimation->time)
+		if (m_currentAnimationFrameTime > m_currentFrame->time)
 		{
 			// go to next frame
+			m_currentFrame = m_currentFrame->next;
 
 			m_currentAnimationFrameTime = 0.0f;
+
+			setRenderableTexture();
 		}
 		else
 		{

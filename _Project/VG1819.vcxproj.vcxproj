@@ -152,6 +152,7 @@
     <ClCompile Include="..\kibble\json\JSONGameObjectDataParser.cpp" />
     <ClCompile Include="..\kibble\json\JSONUnitDataParser.cpp" />
     <ClCompile Include="..\kibble\kibble.cpp" />
+    <ClCompile Include="..\kibble\sprites\SpriteLoader.cpp" />
     <ClCompile Include="..\kitten\audio\AudioEngineWrapper.cpp" />
     <ClCompile Include="..\kitten\audio\AudioListener.cpp" />
     <ClCompile Include="..\kitten\audio\AudioSource.cpp" />
@@ -286,6 +287,7 @@
     <ClInclude Include="..\kibble\json\jsonextra.hpp" />
     <ClInclude Include="..\kibble\json\JSONGameObjectDataParser.hpp" />
     <ClInclude Include="..\kibble\kibble.hpp" />
+    <ClInclude Include="..\kibble\sprites\SpriteLoader.h" />
     <ClInclude Include="..\kibble\UnitDataParser.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp" />
     <ClInclude Include="..\kibble\json\JSONUnitDataParser.hpp" />

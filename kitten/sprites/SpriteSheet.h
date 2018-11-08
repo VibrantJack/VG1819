@@ -15,12 +15,15 @@ namespace sprites
 		struct AnimationFrame
 		{
 		public:
-			AnimationFrame();
-			~AnimationFrame();
+			AnimationFrame(const glm::vec2& p_texOffset, const float& p_time, bool p_isFirstFrame = false, bool p_isLastFrame = false)
+				: textureOffset(p_texOffset), time(p_time), isFirstFrame(p_isFirstFrame), isLastFrame(p_isLastFrame) {};
+			~AnimationFrame() {};
 
+			const bool isFirstFrame = false;
+			bool isLastFrame = false;
 			const glm::vec2 textureOffset;
 			const float time; //in seconds
-			AnimationFrame* next;
+			AnimationFrame* next = nullptr;
 		};
 
 	private:
@@ -40,7 +43,7 @@ namespace sprites
 
 		const std::string& getCharacterName() const;
 
-		void setAnimation(const std::string& p_name, const GridPosition& startPosition, const GridPosition& endPosition);
+		void setAnimation(const std::string& p_name, const GridPosition& startPosition, const GridPosition& endPosition, float p_animationTime);
 		void setDefaultAnimation(const std::string& p_name);
 
 		const AnimationFrame* getAnimation(const std::string& p_name) const;

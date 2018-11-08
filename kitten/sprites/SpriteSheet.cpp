@@ -1,4 +1,5 @@
 #include "SpriteSheet.h"
+#include "util\MathUtil.h"
 
 namespace sprites
 {
@@ -13,6 +14,26 @@ namespace sprites
 	SpriteSheet::~SpriteSheet()
 	{
 		delete m_material;
+
+		auto end = m_animations.cend();
+		for (auto it = m_animations.begin(); it != end; ++it)
+		{
+			auto currentAnimFrame = (*it).second;
+			AnimationFrame* nextFrame = currentAnimFrame->next;
+
+			bool lastFrame = currentAnimFrame->isLastFrame;
+			while (!lastFrame)
+			{
+				nextFrame = currentAnimFrame->next;
+				lastFrame = nextFrame->isLastFrame;
+
+				delete currentAnimFrame;
+				currentAnimFrame = nextFrame;
+			}
+
+			//delete last frame
+			delete currentAnimFrame;
+		}
 	}
 
 	const std::string& SpriteSheet::getCharacterName() const
@@ -20,11 +41,61 @@ namespace sprites
 		return m_characterName;
 	}
 
-	void SpriteSheet::setAnimation(const std::string& p_name, const GridPosition& p_startPosition, const GridPosition& p_endPosition)
-	{
-		AnimationFrame* firstFrame = new AnimationFrame();
+	void SpriteSheet::setAnimation(const std::string& p_name, const GridPosition& p_startPosition, const GridPosition& p_endPosition, float p_animationTime)
+	{	
+		assert(p_startPosition.first <= m_gridWidth && p_startPosition.first > 0);
+		assert(p_startPosition.second <= m_gridHeight && p_startPosition.second > 0);
+
+		assert(p_endPosition.first <= m_gridWidth && p_endPosition.first > 0);
+		assert(p_endPosition.second <= m_gridHeight && p_endPosition.second > 0);
+
+		int firstFrameToEndOfLine = m_gridWidth - p_startPosition.first;
+		int lastFrameToBeginningOfLine = p_endPosition.first+1;
+		int framesInBetween = ((p_endPosition.second - 1) - p_startPosition.second)  * m_gridWidth;
+
+		int totalFrames = firstFrameToEndOfLine + framesInBetween + lastFrameToBeginningOfLine;
+		
+		float frameTime = p_animationTime / (float)totalFrames;
 
 		//Chain together frames from startPosition to endPosition
+
+		//Do the first frame
+		glm::vec2 firstOffset((p_startPosition.first*m_characterWidth) / m_sheetWidth, (p_startPosition.second*m_characterHeight) / m_sheetHeight);
+		AnimationFrame* firstFrame = new AnimationFrame(firstOffset, frameTime, true);
+
+		AnimationFrame* previousFrame = firstFrame;
+		AnimationFrame* nextFrame = nullptr;
+
+		GridPosition currentPos = p_startPosition;
+		currentPos.first++;
+		if (currentPos.first > m_gridWidth)
+		{
+			currentPos.first = 0;
+			currentPos.second++;
+		}
+
+		bool ranOnce = false;
+
+		GridPosition nextPosition = currentPos;
+
+		while (currentPos != p_endPosition)
+		{
+			currentPos.first++;
+			if (currentPos.first > m_gridWidth)
+			{
+				currentPos.first = 0;
+				currentPos.second++;
+			}
+
+			glm::vec2 offset((currentPos.first*m_characterWidth) / m_sheetWidth, (currentPos.second*m_characterHeight) / m_sheetHeight);
+			nextFrame = new AnimationFrame(offset,frameTime);
+			previousFrame->next = nextFrame;
+			previousFrame = nextFrame;
+		}
+
+		//set the last frame to point to the first so it circles back
+		previousFrame->next = firstFrame;
+		previousFrame->isLastFrame = true;
 
 		m_animations.insert(std::make_pair(p_name, firstFrame));
 	}
@@ -34,7 +105,7 @@ namespace sprites
 		auto found = m_animations.find(p_name);
 		if (found != m_animations.cend())
 		{
-			m_defaultAnimation = &((*found).second);
+			m_defaultAnimation = ((*found).second);
 		}
 	}
 
@@ -43,7 +114,7 @@ namespace sprites
 		auto found = m_animations.find(p_name);
 		if (found != m_animations.cend())
 		{
-			return &(*found).second;
+			return (*found).second;
 		}
 		return nullptr;
 	}

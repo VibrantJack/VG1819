@@ -12,7 +12,6 @@ namespace sprites
 		kitten::SpriteRenderable* m_renderable;
 		
 		const SpriteSheet* m_spriteSheet;
-		const SpriteSheet::AnimationData* m_currentAnimation;
 		const SpriteSheet::AnimationFrame* m_currentFrame;
 		const kitten::K_Time* m_time;
 

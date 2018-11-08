@@ -19,9 +19,7 @@ namespace kitten
 		static int sm_instances;
 		puppy::Material* m_mat;
 
-		glm::vec2& m_texOffset;
-
-		
+		glm::vec2 m_texOffset;
 
 		virtual void start() override;
 		virtual void onDisabled() override;

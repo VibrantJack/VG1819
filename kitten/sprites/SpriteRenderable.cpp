@@ -1,5 +1,6 @@
 #include "SpriteRenderable.h"
 #include "puppy\ShaderManager.h"
+#include "kitten\K_GameObject.h"
 
 namespace kitten
 {
@@ -20,8 +21,10 @@ namespace kitten
 				{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f }
 			};
 
-			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
+			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::sprite), 6);
 		}
+
+		//Material is set in SpriteAnimator.cpp
 
 		++sm_instances;
 	}
@@ -43,6 +46,9 @@ namespace kitten
 	void SpriteRenderable::start()
 	{
 		addToDynamicRender();
+
+		auto animator = m_attachedObject->getComponent<SpriteRenderable>();
+		assert(animator != nullptr); //Every SpriteRenderable needs a sprite animator!
 	}
 
 	void SpriteRenderable::onEnabled()
@@ -55,6 +61,11 @@ namespace kitten
 		removeFromDynamicRender();
 	}
 
+	void SpriteRenderable::setTextureOffset(const glm::vec2& p_offset)
+	{
+		m_texOffset = p_offset;
+	}
+
 	void SpriteRenderable::render(const glm::mat4& p_viewProj)
 	{
 		assert(m_mat != nullptr);
@@ -65,7 +76,7 @@ namespace kitten
 		m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
 
 		//Set texture offset
-		
+		m_mat->setUniform(TEXTURE_OFFSET_UNIFORM_NAME, m_texOffset);
 
 		//render
 		sm_vao->drawArrays(GL_TRIANGLES);
