@@ -55,6 +55,29 @@ namespace unit
 		return m_statusContainer;
 	}
 
+	void Unit::triggerTP(ability::TimePointEvent::TPEventType p_tp, ability::TimePointEvent* p_event)
+	{
+		if (p_event == nullptr)
+		{
+			p_event = new ability::TimePointEvent(p_tp);
+		}
+		m_statusContainer->triggerTP(p_tp,p_event);
+
+		//special cases
+		kitten::K_GameObject* tileGO = getTile();
+		switch (p_tp)
+		{
+		case ability::TimePointEvent::Turn_Start:
+		case ability::TimePointEvent::Turn_End:
+		case ability::TimePointEvent::New_Tile:
+			if(tileGO != nullptr)
+				tileGO->getComponent<TileInfo>()->effect(p_tp, this);
+			break;
+		default:
+			break;
+		}
+	}
+
 	void Unit::levelup()
 	{
 		if (m_attributes["lv"] > 0 && m_attributes["lv"] < 3)
@@ -62,7 +85,7 @@ namespace unit
 			m_attributes["lv"]++;
 			ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Level_Up);
 			t->putInt("lv", m_attributes["lv"]);
-			m_statusContainer->triggerTP(ability::TimePointEvent::Level_Up, t);
+			triggerTP(ability::TimePointEvent::Level_Up, t);
 		}
 	}
 

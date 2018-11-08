@@ -10,11 +10,10 @@ void unit::UnitMove::triggerNewTileEvent()
 {
 	//trigger new tile event
 	Unit* u = m_attachedObject->getComponent<Unit>();
-	unit::StatusContainer* sc = u->getStatusContainer();
 
 	ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::New_Tile);
 	t->putGameObject("tile", m_currentTile);
-	sc->triggerTP(ability::TimePointEvent::New_Tile, t);
+	u->triggerTP(ability::TimePointEvent::New_Tile, t);
 }
 
 unit::UnitMove::UnitMove()

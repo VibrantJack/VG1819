@@ -131,6 +131,7 @@
     <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
+    <ClCompile Include="..\board\tile\landInfo\LandInfoManager.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\kibble\custom\CustomDeckDataParser.cpp" />
     <ClCompile Include="..\board\boardManager.cpp" />
@@ -257,6 +258,8 @@
     <ClInclude Include="..\ability\status\statusEvent\TimePointEvent.h" />
     <ClInclude Include="..\board\component\tilePipeline\TileFliter.h" />
     <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h" />
+    <ClInclude Include="..\board\tile\landInfo\LandInformation.h" />
+    <ClInclude Include="..\board\tile\landInfo\LandInfoManager.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />
     <ClInclude Include="..\DeckData.hpp" />
     <ClInclude Include="..\board\BoardManager.h" />

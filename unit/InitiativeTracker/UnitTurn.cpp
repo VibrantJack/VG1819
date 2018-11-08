@@ -1,22 +1,6 @@
 #include "UnitTurn.h"
 #include "unit/InitiativeTracker/InitiativeTracker.h"
 
-void unit::UnitTurn::triggerTurnEvent(bool p_start)
-{
-	unit::StatusContainer* sc = m_currentUnit->getStatusContainer();
-
-	if (p_start)
-	{
-		ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Turn_Start);
-		sc->triggerTP(ability::TimePointEvent::Turn_Start, t);
-	}
-	else
-	{
-		ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Turn_End);
-		sc->triggerTP(ability::TimePointEvent::Turn_End, t);
-	}
-}
-
 unit::UnitTurn::UnitTurn()
 {
 	act = false;
@@ -31,7 +15,7 @@ void unit::UnitTurn::turnStart(kitten::K_GameObject* p_unitObj)
 {
 	m_currentUnit = p_unitObj->getComponent<unit::Unit>();
 
-	triggerTurnEvent(true);
+	m_currentUnit->triggerTP(ability::TimePointEvent::Turn_Start);
 
 	m_currentUnit->turnStart(this);
 
@@ -55,7 +39,7 @@ void unit::UnitTurn::checkTurn()
 
 void unit::UnitTurn::turnEnd()
 {
-	triggerTurnEvent(false);
+	m_currentUnit->triggerTP(ability::TimePointEvent::Turn_End);
 
 	m_currentUnit->turnEnd();
 	m_currentUnit = nullptr;
