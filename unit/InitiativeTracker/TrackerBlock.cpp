@@ -9,13 +9,13 @@
 const std::string unit::TrackerBlock::sm_blankTexture = "textures/ui/blankFrame.tga";
 const std::string unit::TrackerBlock::sm_blankText = "NONE";
 
-const float unit::TrackerBlock::sm_scaleX = 0.15f;
-const float unit::TrackerBlock::sm_scaleY = 0.2f;//scale for unit frame
-const float unit::TrackerBlock::sm_frameY = 0.8f;//y coodinate for frame
+const float unit::TrackerBlock::sm_scaleX = 96.0f;
+const float unit::TrackerBlock::sm_scaleY = 108.0f;//scale for unit frame
+const float unit::TrackerBlock::sm_frameY = 612.0f;//y coodinate for frame
 
 const float unit::TrackerBlock::sm_halfWinX = 1280 / 2;
 const float unit::TrackerBlock::sm_halfWinY = 720 / 2;
-const float unit::TrackerBlock::sm_textY = 360 + 360 * 0.775f;
+const float unit::TrackerBlock::sm_textY = 500.0f;
 
 const float unit::TrackerBlock::sm_speed = 0.02f;
 
@@ -76,7 +76,7 @@ void unit::TrackerBlock::move(int p_slotIndex)
 		float x = m_trackerUI->m_xList[p_slotIndex];
 		float xx = sm_halfWinX * (1.0f + x);
 
-		m_frameObject->getTransform().place2D(x, sm_frameY);
+		m_frameObject->getTransform().place2D(xx, sm_frameY);
 		m_textObject->getTransform().place2D(xx, sm_textY);
 	}
 	else if (m_currentSlotIndex != (p_slotIndex + 1) )
@@ -87,7 +87,7 @@ void unit::TrackerBlock::move(int p_slotIndex)
 		float x = m_trackerUI->m_xList[p_slotIndex + 1];
 		float xx = sm_halfWinX * (1.0f + x);
 
-		m_frameObject->getTransform().place2D(x, sm_frameY);
+		m_frameObject->getTransform().place2D(xx, sm_frameY);
 		m_textObject->getTransform().place2D(xx, sm_textY);
 	}
 	//then set target slot
@@ -144,17 +144,17 @@ void unit::TrackerBlock::update()
 			{
 				if (distance > velocity)//not close
 				{
-					m_frameObject->getTransform().move2D(velocity, 0);
 					//convert to text
 					float xx = sm_halfWinX * velocity;
+					m_frameObject->getTransform().move2D(xx, 0);
 					m_textObject->getTransform().move2D(xx,0);
 					distance -= velocity;
 				}
 				else//vecy close, 
 				{
-					m_frameObject->getTransform().move2D(distance, 0);
 					//convert to text
 					float xx = sm_halfWinX * distance;
+					m_frameObject->getTransform().move2D(xx, 0);
 					m_textObject->getTransform().move2D(xx, 0);
 					distance = 0;
 				}
@@ -163,17 +163,17 @@ void unit::TrackerBlock::update()
 			{
 				if (distance < -velocity)//not close
 				{
-					m_frameObject->getTransform().move2D(-velocity, 0);
 					//convert to text
 					float xx = sm_halfWinX * (-velocity);
+					m_frameObject->getTransform().move2D(xx, 0);
 					m_textObject->getTransform().move2D(xx, 0);
 					distance += velocity;
 				}
 				else//vecy close, 
 				{
-					m_frameObject->getTransform().move2D(distance, 0);
 					//convert to text
 					float xx = sm_halfWinX * distance;
+					m_frameObject->getTransform().move2D(xx, 0);
 					m_textObject->getTransform().move2D(xx, 0);
 					distance = 0;
 				}
