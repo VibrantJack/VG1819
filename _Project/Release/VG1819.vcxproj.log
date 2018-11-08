@@ -1,8 +1,68 @@
-﻿  TileInfo.cpp
-  LINK : 0 new modules and 1 (out of 218) modules have changed since prior linking
+﻿  Blast.cpp
+d:\work\vg1819\ability\ability\blast.cpp(14): warning C4018: '<': signed/unsigned mismatch
+  ManipulateTile.cpp
+  SummonUnit.cpp
+  boardManager.cpp
+d:\work\vg1819\board\boardmanager.cpp(96): warning C4018: '<': signed/unsigned mismatch
+  ManipulateTileOnClick.cpp
+  PrintWhenClicked.cpp
+  SendSelfOnClick.cpp
+  BoardCreator.cpp
+d:\work\vg1819\board\component\boardcreator.cpp(99): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+  Highlighter.cpp
+  Range.cpp
+  NoUnitFilter.cpp
+  OwnedTileFilter.cpp
+  TileFliter.cpp
+  TilePipeline.cpp
+  UnitFilter.cpp
+  TileInfo.cpp
+  LandInfoManager.cpp
+  K_ComponentManager.cpp
+  K_Game.cpp
+d:\work\vg1819\kitten\k_game.cpp(138): warning C4305: 'argument': truncation from 'double' to 'const float'
+d:\work\vg1819\kitten\k_game.cpp(139): warning C4305: 'argument': truncation from 'double' to 'const float'
+  ClientGame.cpp
+d:\work\vg1819\networking\clientgame.cpp(138): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Compiling...
+  TileGetter.cpp
+  UnitInteractionManager.cpp
+  Unit.cpp
+  UnitTest.cpp
+  Commander.cpp
+  UnitMove.cpp
+d:\work\vg1819\unit\unitcomponent\unitmove.cpp(187): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  LINK : 0 new modules and 26 (out of 218) modules have changed since prior linking
   Generating non-SAFESEH image.
   Starting pass 2
+       UnitTest.obj
+       UnitMove.obj
+       Commander.obj
+       Unit.obj
+       UnitInteractionManager.obj
+       TileGetter.obj
+       ClientGame.obj
+       K_Game.obj
+       K_ComponentManager.obj
        TileInfo.obj
+       Range.obj
+       Highlighter.obj
+       BoardCreator.obj
+       SendSelfOnClick.obj
+       PrintWhenClicked.obj
+       ManipulateTileOnClick.obj
+       boardManager.obj
+       LandInfoManager.obj
+       UnitFilter.obj
+       TilePipeline.obj
+       TileFliter.obj
+       OwnedTileFilter.obj
+       NoUnitFilter.obj
+       SummonUnit.obj
+       ManipulateTile.obj
+       Blast.obj
        MSVCRTD.lib(loadcfg.obj)
   Finished pass 2
   VG1819.vcxproj.vcxproj -> D:\work\VG1819\_Project\Release\VG1819.exe

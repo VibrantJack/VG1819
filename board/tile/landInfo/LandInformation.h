@@ -23,22 +23,22 @@ public:
 	LandInformation() { };
 	~LandInformation() { };
 
-	TileType GetType()
+	virtual TileType GetType()
 	{
 		return m_Type;
 	};
 
-	const std::string getTexturePath()
+	virtual const std::string getTexturePath()
 	{
 		return m_TexturePath;
 	}
 
-	int getMVCost()
+	virtual int getMVCost()
 	{
 		return m_mvCost;
 	}
 
-	const std::string getDescription()
+	virtual const std::string getDescription()
 	{
 		return m_description;
 	}
@@ -60,16 +60,24 @@ protected:
 
 class GrassLand : public LandInformation
 {
-	TileType m_Type = Grassland;
-	std::string m_TexturePath = "textures/tiles/grassland.tga";
-	int m_mvCost = 1;
-	std::string m_description = "Ordinary land. Nothing special.";
+public:
+	GrassLand()
+	{
+		m_Type = Grassland;
+		m_TexturePath = "textures/tiles/grassland.tga";
+		m_mvCost = 1;
+		m_description = "Ordinary land. Nothing special.";
+	};
 };
 
 class SwampLand : public LandInformation
 {
-	TileType m_Type = Swampland;
-	std::string m_TexturePath = "textures/tiles/grassland.tga";
-	int m_mvCost = 2;
-	std::string m_description = "Dirty road. It's hard to move on it.";
+public:
+	SwampLand()
+	{
+		m_Type = Swampland;
+		m_TexturePath = "textures/tiles/missing.tga";
+		m_mvCost = 2;
+		m_description = "Dirty road. It's hard to move on it.";
+	};
 };

@@ -110,6 +110,12 @@ std::pair<int, int> TileInfo::getPos()
 	return std::pair<int, int>(m_iPosX,m_iPosY);
 }
 
+void TileInfo::setPos(int p_x, int p_z)
+{
+	m_iPosX = p_x;
+	m_iPosY = p_z;
+}
+
 void TileInfo::setPos(std::pair<int, int> p_pos)
 {
 	m_iPosX = p_pos.first;
