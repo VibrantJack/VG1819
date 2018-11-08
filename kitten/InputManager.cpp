@@ -181,7 +181,6 @@ namespace input
 			p_data->putGameObj(OBJECT_CLICKED_OBJ_KEY, &hitFrame->getGameObject());
 			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Object_Clicked, p_data);
 		}
-
 		//end UI click detection
 		
 		if (hitFrame == nullptr)

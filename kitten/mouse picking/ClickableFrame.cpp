@@ -1,6 +1,7 @@
 #include "ActiveClickables.h"
 #include "ClickableUI.h"
 #include "kitten\K_ComponentManager.h"
+#include <iostream>
 
 //austin's clickable ui frame (bounding box for clickables)
 
@@ -26,60 +27,71 @@ namespace kitten
 
 	void ClickableFrame::start()
 	{
+		glm::vec2 trans2D;
+		glm::vec3 trans = getTransform().getTranslation();
+		glm::vec3 scale = getTransform().getScale();
+		float width = scale.x;
+		float height = scale.y;
+		float halfWidth = width / 2.0f;
+		float halfHeight = height / 2.0f;
+
+
+		trans2D.x = trans.x;
+		trans2D.y = trans.y;
 		switch (m_piv)
 		{
 			case piv_Right:
 			{
-				m_minPoint = glm::vec2(-1.0f, -0.5f);
-				m_maxPoint = glm::vec2(0.0f, 0.5f);
+				m_minPoint = glm::vec2( -width + trans2D.x, -halfHeight + trans2D.y );
+				m_maxPoint = glm::vec2(  0.0f  + trans2D.x,  halfHeight + trans2D.y );
 				break;
 			}
 			case piv_Left:
 			{
-				m_minPoint = glm::vec2(0.0f, -0.5f);
-				m_maxPoint = glm::vec2(1.0f, 0.5f);
+				m_minPoint = glm::vec2(  0.0f   + trans2D.x, -halfHeight + trans2D.y );
+				m_maxPoint = glm::vec2(  width  + trans2D.x,  halfHeight + trans2D.y );
 				break;
 			}
 			case piv_Top:
 			{
-				m_minPoint = glm::vec2(-0.5f, -1.0f);
-				m_maxPoint = glm::vec2(0.5f, 0.0f);
+				m_minPoint = glm::vec2( -halfWidth + trans2D.x, -height + trans2D.y );
+				m_maxPoint = glm::vec2(  halfWidth + trans2D.x,  0.0f   + trans2D.y );
 				break;
 			}
 			case piv_Bot:
 			{
-				m_minPoint = glm::vec2(-0.5f, 0.0f);
-				m_maxPoint = glm::vec2(0.5f, 1.0f);
+				m_minPoint = glm::vec2( -halfWidth + trans2D.x, 0.0f   + trans2D.y );
+				m_maxPoint = glm::vec2(  halfWidth + trans2D.x, height + trans2D.y );
 				break;
 			}
 			case piv_TopRight:
 			{
-				m_minPoint = glm::vec2(-1.0f, -1.0f);
-				m_maxPoint = glm::vec2(0.0f, 0.0f);
+				m_minPoint = glm::vec2( -width + trans2D.x, -height + trans2D.y );
+				m_maxPoint = glm::vec2(  width + trans2D.x,  height + trans2D.y );
 				break;
 			}
 			case piv_BotRight:
 			{
-				m_minPoint = glm::vec2(-1.0f, 0.0f);
-				m_maxPoint = glm::vec2(0.0f, 1.0f);
+				m_minPoint = glm::vec2( -width + trans2D.x, 0.0f   + trans2D.y );
+				m_maxPoint = glm::vec2(  0.0f  + trans2D.x, height + trans2D.y );
 				break;
 			}
 			case piv_TopLeft:
 			{
-				m_minPoint = glm::vec2(0.0, -1.0f);
-				m_maxPoint = glm::vec2(1.0f, 0.0f);
+				m_minPoint = glm::vec2( 0.0f  + trans2D.x, -height + trans2D.y );
+				m_maxPoint = glm::vec2( width + trans2D.x,  0.0f   + trans2D.y );
 				break;
 			}
 			case piv_BotLeft:
 			{
-				m_minPoint = glm::vec2(0.0f, 0.0f);
-				m_maxPoint = glm::vec2(1.0f, 1.0f);
+				m_minPoint = glm::vec2( 0.0f  + trans2D.x, 0.0f   + trans2D.y);
+				m_maxPoint = glm::vec2( width + trans2D.x, height + trans2D.y);
 				break;
 			}
 			case piv_Center:
 			{
-				m_minPoint = glm::vec2(-0.5, -0.5);
-				m_maxPoint = glm::vec2(0.5f, 0.5f);
+				m_minPoint = glm::vec2( -halfWidth + trans2D.x, -halfHeight + trans2D.y);
+				m_maxPoint = glm::vec2(  halfWidth + trans2D.x, halfHeight  + trans2D.y);
 			}
 		}
 		
@@ -111,6 +123,7 @@ namespace kitten
 		{
 			(*it)->onHoverStart();
 		}
+		std::cout << "Frame Hovered!";
 	}
 
 	void ClickableFrame::onClick()
@@ -128,6 +141,15 @@ namespace kitten
 		for (auto it = m_listeners.begin(); it != end; ++it)
 		{
 			(*it)->onHoverEnd();
+		}
+	}
+
+	void ClickableFrame::release()
+	{
+		auto end = m_listeners.cend();
+		for (auto it = m_listeners.begin(); it != end; it++)
+		{
+			(*it)->release();
 		}
 	}
 }

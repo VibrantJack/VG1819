@@ -39,6 +39,7 @@ namespace kitten
 		void onHoverStart();
 		void onClick();
 		void onHoverEnd();
+		void release();
 
 	private:
 		std::unordered_set<ClickableUI*> m_listeners;

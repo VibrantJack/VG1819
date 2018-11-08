@@ -28,7 +28,6 @@ namespace input
 		int m_mouseWheel;
 
 		bool m_shouldResetMouse;
-		bool m_mouseDown;
 
 		InputManager();
 		~InputManager();

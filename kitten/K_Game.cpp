@@ -136,8 +136,9 @@ namespace kitten
 		K_GameObject* hand = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* handFrame = compMan->createComponent("Hand");
 		hand->addComponent(handFrame);
-		hand->getTransform().scale2D(1.0, 0.4);
-		hand->getTransform().place2D(-0.9, -0.9);
+		hand->getTransform().scale2D(600.0f, 150.0f);
+		hand->getTransform().place2D(50.0, 50.0);
+		hand->setEnabled(false);
 
 		for (int x = 0; x < 5; x++)
 		{
@@ -147,6 +148,7 @@ namespace kitten
 			card->addComponent(cardObj);
 			userinterface::CardUIO* cardCasted = static_cast<userinterface::CardUIO*>(cardObj);
 			cardCasted->scaleAsCard();
+			glm::vec3 cardScale = card->getTransform().getScale();
 
 			userinterface::HandFrame* frameCasted = static_cast<userinterface::HandFrame*>(handFrame);
 			frameCasted->addCardToEnd(cardCasted);
@@ -154,12 +156,18 @@ namespace kitten
 
 			K_Component* cardCF = compMan->createComponent("ClickableFrame");
 			K_Component* clickUI = compMan->createComponent("ClickableUI");
+
 			card->addComponent(cardCF);
 			card->addComponent(clickUI);
 
-			PrintWhenClicked* onClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
-			card->addComponent(onClick);
-			onClick->setMessage("UI Clicked!!");
+			cardCF->start();
+			clickUI->start();
+
+
+			
+		//	PrintWhenClicked* onClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
+		//	card->addComponent(onClick);
+		//	onClick->setMessage("UI Clicked!!");
 
 		}
 		/*

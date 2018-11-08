@@ -21,5 +21,6 @@ namespace userinterface
 	private:
 		
 		int m_totalCards;
+		float m_cardX, m_cardY, m_padding, m_contentMargin;
 	};
 }

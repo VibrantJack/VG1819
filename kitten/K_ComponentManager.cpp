@@ -19,7 +19,7 @@
 //ui
 #include "UI\CardUIO.h"
 #include "UI\HandFrame.h"
-#include "kitten/mouse picking/ClickableUI.h"
+#include "mouse picking/ClickableUI.h"
 
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
