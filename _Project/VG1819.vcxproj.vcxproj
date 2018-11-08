@@ -27,10 +27,10 @@
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <CLRSupport>true</CLRSupport>
-    <CharacterSet>Unicode</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CLRSupport>false</CLRSupport>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -39,7 +39,7 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -49,20 +49,21 @@
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
+    <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(IncludePath)</IncludePath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AdditionalIncludeDirectories>$(SolutionDir)..\networking_libraries\include;$(SolutionDir)..\irrKlang\include;$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
       <ObjectFileName>$(IntDir)</ObjectFileName>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -74,15 +75,17 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\irrKlang\include;$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>
-      </AdditionalDependencies>
+      <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -94,6 +97,7 @@
   <ItemGroup>
     <ClCompile Include="..\ability\AbilityManager.cpp" />
     <ClCompile Include="..\ability\ability\Ability.cpp" />
+    <ClCompile Include="..\ability\ability\Blast.cpp" />
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp" />
     <ClCompile Include="..\ability\ability\Dodge.cpp" />
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
@@ -165,6 +169,7 @@
     <ClCompile Include="..\kitten\K_GameObject.cpp" />
     <ClCompile Include="..\kitten\K_GameObjectManager.cpp" />
     <ClCompile Include="..\kitten\K_Instance.cpp" />
+    <ClCompile Include="..\kitten\K_JobManager.cpp" />
     <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
     <ClCompile Include="..\kitten\K_Time.cpp" />
     <ClCompile Include="..\kitten\mouse picking\ActiveClickables.cpp" />
@@ -184,6 +189,7 @@
     <ClCompile Include="..\networking\ServerGame.cpp" />
     <ClCompile Include="..\networking\ServerNetwork.cpp" />
     <ClCompile Include="..\networking\SpawnUnitOnKeyPress.cpp" />
+    <ClCompile Include="..\kitten\util\AsyncFileOperations.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
     <ClCompile Include="..\puppy\FBO.cpp" />
     <ClCompile Include="..\puppy\Material.cpp" />
@@ -216,6 +222,7 @@
     <ClCompile Include="..\unit\InitiativeTracker\TrackerPointer.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\UnitTurn.cpp" />
     <ClCompile Include="..\unit\Unit.cpp" />
+    <ClCompile Include="..\unit\unitComponent\CastTimer.cpp" />
     <ClCompile Include="..\unit\unitComponent\Commander.cpp" />
     <ClCompile Include="..\unit\unitComponent\CooldownRecorder.cpp" />
     <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp" />
@@ -297,8 +304,11 @@
     <ClInclude Include="..\kitten\K_Game.h" />
     <ClInclude Include="..\kitten\K_GameObject.h" />
     <ClInclude Include="..\kitten\K_GameObjectManager.h" />
+    <ClInclude Include="..\kitten\K_Job.h" />
+    <ClInclude Include="..\kitten\K_JobManager.h" />
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
     <ClInclude Include="..\kitten\K_Instance.h" />
+    <ClInclude Include="..\kitten\K_Routine.h" />
     <ClInclude Include="..\kitten\K_Time.h" />
     <ClInclude Include="..\kitten\mouse picking\ActiveClickables.h" />
     <ClInclude Include="..\kitten\mouse picking\Clickable.h" />
@@ -319,6 +329,7 @@
     <ClInclude Include="..\networking\ServerGame.h" />
     <ClInclude Include="..\networking\ServerNetwork.h" />
     <ClInclude Include="..\networking\SpawnUnitOnKeyPress.h" />
+    <ClInclude Include="..\kitten\util\AsyncFileOperations.h" />
     <ClInclude Include="..\pugixml\pugiconfig.hpp" />
     <ClInclude Include="..\pugixml\pugixml.hpp" />
     <ClInclude Include="..\puppy\FBO.h" />
@@ -355,6 +366,7 @@
     <ClInclude Include="..\unit\InitiativeTracker\UnitTurn.h" />
     <ClInclude Include="..\unit\Unit.h" />
     <ClInclude Include="..\unit\UnitCommon.h" />
+    <ClInclude Include="..\unit\unitComponent\CastTimer.h" />
     <ClInclude Include="..\unit\unitComponent\Commander.h" />
     <ClInclude Include="..\unit\unitComponent\CooldownRecorder.h" />
     <ClInclude Include="..\unit\unitComponent\StatusContainer.h" />

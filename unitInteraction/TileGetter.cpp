@@ -4,6 +4,8 @@
 
 TileGetter::TileGetter()
 {
+	m_reg = false;
+	m_respond;
 }
 
 TileGetter::~TileGetter()
@@ -12,6 +14,12 @@ TileGetter::~TileGetter()
 
 void TileGetter::requireTile(unit::AbilityDescription * p_ad, unit::Unit* p_source, bool p_needUnit)
 {
+	if (!m_reg)
+	{
+		registerEvent();
+		m_reg = true;
+	}
+
 	//set
 	m_ad = p_ad;
 	m_source = p_source;
@@ -25,7 +33,7 @@ void TileGetter::requireTile(unit::AbilityDescription * p_ad, unit::Unit* p_sour
 	m_unitList.shrink_to_fit();
 
 	triggerHighlightEvent();
-	registerEvent();//ready to receive response
+	m_respond = true;
 }
 
 void TileGetter::registerEvent()
@@ -43,7 +51,7 @@ void TileGetter::deregisterEvent()
 
 void TileGetter::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data)
 {
-	if (m_targetNum >= m_ad->m_intValue["target"])
+	if (!m_respond)
 		return;
 
 	if (p_type == kitten::Event::Tile_Clicked)
@@ -84,7 +92,6 @@ void TileGetter::getTiles(kitten::Event * p_data)
 	else
 	{//get more
 		triggerHighlightEvent();
-		registerEvent();
 	}
 }
 
@@ -155,13 +162,15 @@ void TileGetter::triggerUnhighlightEvent()
 
 void TileGetter::send()
 {
-	deregisterEvent();
+	//deregisterEvent();
+	m_respond = false;
 	UnitInteractionManager::getInstance()->setTarget(m_tileList,m_unitList);
 }
 
 void TileGetter::cancel()
 {
-	deregisterEvent();
+	//deregisterEvent();
 	//triggerUnhighlightEvent();
+	m_respond = false;
 	UnitInteractionManager::getInstance()->cancel();
 }

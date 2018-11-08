@@ -59,9 +59,11 @@ UnitInteractionManager::~UnitInteractionManager()
 void UnitInteractionManager::cancel()
 {
 	std::cout << "UnitInteractionManager Cancel Ability" << std::endl;
+
 	//delete package
 	if (m_package != nullptr)
 	{
+		m_package->m_source->cancelAbility(m_ad);
 		delete m_package;
 		m_package = nullptr;
 	}
@@ -71,7 +73,14 @@ void UnitInteractionManager::cancel()
 
 void UnitInteractionManager::send()
 {
-	ability::AbilityManager::getInstance()->useAbility(m_abilityName,m_package);
+	if (m_ad->m_intValue.find("ct") == m_ad->m_intValue.end())//no cast time
+	{
+		ability::AbilityManager::getInstance()->useAbility(m_abilityName, m_package);
+	}
+	else
+	{
+		m_unit->setCast(m_ad, m_package);
+	}
 	m_package = nullptr;
 	m_busy = false;
 }

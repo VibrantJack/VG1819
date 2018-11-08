@@ -21,7 +21,8 @@ namespace kitten
 
 	void K_Time::updateTime()
 	{
-		m_deltaTime = glfwGetTime() - m_elapsedTime;
-		m_elapsedTime = glfwGetTime();
+		double currentTime = glfwGetTime();
+		m_deltaTime = currentTime - m_elapsedTime;
+		m_elapsedTime = currentTime;
 	}
 }
