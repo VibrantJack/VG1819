@@ -27,5 +27,6 @@ namespace unit
 
 		bool isCurrent(kitten::K_GameObject* p_unitObj);
 		void unitDestroyed();
+		void setEnd();
 	};
 }

@@ -70,7 +70,7 @@ namespace ability
 
 	Status * StatusManager::findStatus(const std::string & p_name)
 	{
-		return m_statusList[p_name];
+		return m_statusList[p_name]->clone();
 	}
 
 }

@@ -72,3 +72,10 @@ void unit::UnitTurn::unitDestroyed()
 {
 	m_currentUnit = nullptr;
 }
+
+void unit::UnitTurn::setEnd()
+{
+	//no unit left, no unit takes turn
+	m_currentUnit = nullptr;
+	m_isEnd = false;
+}
