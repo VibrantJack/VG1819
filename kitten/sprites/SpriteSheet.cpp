@@ -5,7 +5,7 @@ namespace sprites
 {
 	SpriteSheet::SpriteSheet(const std::string& p_characterName, const std::string& p_pathToTex, int p_sheetWidth, int p_sheetHeight, int p_characterWidth, int p_characterHeight) : 
 		m_characterName(p_characterName),m_sheetWidth(p_sheetWidth), m_sheetHeight(p_sheetHeight), m_characterWidth(p_characterWidth), m_characterHeight(p_characterHeight), 
-		m_gridWidth(p_sheetWidth/p_characterWidth), m_gridHeight(p_sheetHeight/p_characterHeight), m_defaultAnimation(nullptr)
+		m_gridWidth((p_sheetWidth/p_characterWidth)-1), m_gridHeight((p_sheetHeight/p_characterHeight)-1), m_defaultAnimation(nullptr)
 	{
 		m_material = new puppy::Material(puppy::ShaderType::sprite);
 		m_material->setTexture(p_pathToTex.c_str());
