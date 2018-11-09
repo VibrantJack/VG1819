@@ -29,7 +29,7 @@ namespace kitten
 	{
 		glm::vec2 trans2D;
 		glm::vec3 trans = getTransform().getTranslation();
-		glm::vec3 scale = getTransform().getScale();
+		glm::vec2 scale = getTransform().getScale2D();
 		float width = scale.x;
 		float height = scale.y;
 		float halfWidth = width / 2.0f;
@@ -94,6 +94,9 @@ namespace kitten
 				m_maxPoint = glm::vec2(  halfWidth + trans2D.x, halfHeight  + trans2D.y);
 			}
 		}
+
+		m_originalMaxPoint = m_minPoint;
+		m_originalMinPoint = m_minPoint;
 		
 		getTransform().addScaleListener(this);
 	}

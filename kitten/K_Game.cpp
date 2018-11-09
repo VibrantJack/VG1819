@@ -160,6 +160,10 @@ namespace kitten
 			card->addComponent(cardCF);
 			card->addComponent(clickUI);
 
+			ClickableFrame* cfCasted = static_cast<ClickableFrame*>(cardCF);
+			ClickableUI* cUI = static_cast<ClickableUI*>(clickUI);
+			cfCasted->addCLickable(cUI);
+
 			cardCF->start();
 			clickUI->start();
 
