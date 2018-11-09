@@ -26,6 +26,7 @@ namespace puppy
 		~Material();
 
 		void setTexture(const char* p_pathToTex);
+		puppy::Texture* getTexture() const;
 
 		//Uniform will be set every time the material is applied
 		void memorizeUniform(const std::string& p_name, const glm::mat4& p_mat4);

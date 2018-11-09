@@ -55,7 +55,7 @@ namespace kibble
 	void SpriteLoader::loadSpriteSheet(const std::string& p_sheetJsonName)
 	{
 		//Set sheet info
-		nlohmann::json sheetFile = jsonIn(p_sheetJsonName);
+		nlohmann::json sheetFile = jsonIn(SPRITE_SHEET_DIRECTORY + p_sheetJsonName);
 
 		std::string characterName = sheetFile["name"];
 		std::string pathToTex = sheetFile["texture"];

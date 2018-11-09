@@ -18,6 +18,11 @@
 		{
 			"filename" : "FPSCounter.txt", 
 		    "translate2d" : [100,700]
+		},
+		{
+			"filename" : "spriteTest.txt",
+			"translate" : [7, 5.0, 5.0],
+			"scale" : [2,2,2]
 		}
     ],
 	"scenes" : ["interfacebuilder.txt"]

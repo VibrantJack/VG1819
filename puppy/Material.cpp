@@ -40,6 +40,11 @@ namespace puppy
 		m_tex = new Texture(p_pathToTex);
 	}
 
+	Texture* Material::getTexture() const
+	{
+		return m_tex;
+	}
+
 	int Material::getUniformPlace(const std::string& p_name)
 	{
 		return m_shader->getUniformPlace(p_name);

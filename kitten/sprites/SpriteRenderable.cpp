@@ -25,12 +25,12 @@ namespace kitten
 
 		puppy::TexturedVertex verts[] =
 		{
-			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
-			{ -0.5f,  0.0f, 0.5f,		0.0f, p_y },
-			{ 0.5f,  0.0f, 0.5f,		p_x, p_y },
-			{ 0.5f,  0.05f, 0.5f,		p_x, p_y },
-			{ 0.5f, 0.0f, 0.5f,			p_x, 0.0f },
-			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f }
+			{ -0.5f, -0.5f, 0.0f,		0.0f, 1.0f - p_y }, //bottom left
+			{ -0.5f,  0.5f, 0.0f,		0.0f, 1.0f}, //top left
+			{ 0.5f,  0.5f, 0.0f,		p_x, 1.0f}, //top right
+			{ 0.5f,  0.5f, 0.0f,		p_x, 1.0f }, //top right
+			{ 0.5f, -0.5f, 0.0f,		p_x, 1.0f - p_y }, //bottom right
+			{ -0.5f, -0.5f, 0.0f,		0.0f, 1.0f - p_y }, //bottom  left
 		};
 
 		m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::sprite), 6);

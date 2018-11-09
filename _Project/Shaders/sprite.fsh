@@ -8,7 +8,10 @@ out vec4 PixelColor;
 
 void main()
 {
-    PixelColor = texture(tex, v_uv1+texOffset);
-	if( PixelColor.a < 0.1 )
+	vec2 offsetUV = v_uv1 + texOffset;
+	
+    PixelColor = texture(tex, offsetUV);
+	
+	if(PixelColor.a < 0.1)
 		discard;
 }

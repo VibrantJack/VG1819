@@ -1,3 +1,21 @@
 {
-	"name" : "cleric"
+	"name" : "cleric",
+	"texture" : "textures/sprites/units/humans/cleric_sheet.tga",
+	
+	"sheetwidth" : 320,
+	"sheetheight" : 320,
+	
+	"characterwidth" : 32,
+	"characterheight" : 32,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [9,2],
+			"time" : 10
+		}	
+	],
+	
+	"defaultanimation" : "idle"
 }

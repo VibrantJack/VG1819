@@ -1,0 +1,13 @@
+{
+		"name" : "sprite test",
+		"components" : [
+			{
+				"name" : "SpriteRenderable"
+			},
+			{
+				"name" : "SpriteAnimator",
+				"spritename" : "cleric"
+			}
+		]
+}
+        

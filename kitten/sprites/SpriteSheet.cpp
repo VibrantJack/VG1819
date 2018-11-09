@@ -7,8 +7,12 @@ namespace sprites
 		m_characterName(p_characterName),m_sheetWidth(p_sheetWidth), m_sheetHeight(p_sheetHeight), m_characterWidth(p_characterWidth), m_characterHeight(p_characterHeight), 
 		m_gridWidth(p_sheetWidth/p_characterWidth), m_gridHeight(p_sheetHeight/p_characterHeight), m_defaultAnimation(nullptr)
 	{
-		m_material = new puppy::Material(puppy::ShaderType::alphaTest);
+		m_material = new puppy::Material(puppy::ShaderType::sprite);
 		m_material->setTexture(p_pathToTex.c_str());
+
+		m_material->getTexture()->setWrapping(GL_CLAMP_TO_EDGE);
+		m_material->getTexture()->setMagFiltering(GL_NEAREST);
+		m_material->getTexture()->setMinFiltering(GL_NEAREST);
 	}
 
 	SpriteSheet::~SpriteSheet()
@@ -43,11 +47,11 @@ namespace sprites
 
 	void SpriteSheet::setAnimation(const std::string& p_name, const GridPosition& p_startPosition, const GridPosition& p_endPosition, float p_animationTime)
 	{	
-		assert(p_startPosition.first <= m_gridWidth && p_startPosition.first > 0);
-		assert(p_startPosition.second <= m_gridHeight && p_startPosition.second > 0);
+		assert(p_startPosition.first <= m_gridWidth && p_startPosition.first >= 0);
+		assert(p_startPosition.second <= m_gridHeight && p_startPosition.second >= 0);
 
-		assert(p_endPosition.first <= m_gridWidth && p_endPosition.first > 0);
-		assert(p_endPosition.second <= m_gridHeight && p_endPosition.second > 0);
+		assert(p_endPosition.first <= m_gridWidth && p_endPosition.first >= 0);
+		assert(p_endPosition.second <= m_gridHeight && p_endPosition.second >= 0);
 
 		int firstFrameToEndOfLine = m_gridWidth - p_startPosition.first;
 		int lastFrameToBeginningOfLine = p_endPosition.first+1;
@@ -60,7 +64,7 @@ namespace sprites
 		//Chain together frames from startPosition to endPosition
 
 		//Do the first frame
-		glm::vec2 firstOffset((p_startPosition.first*m_characterWidth) / m_sheetWidth, (p_startPosition.second*m_characterHeight) / m_sheetHeight);
+		glm::vec2 firstOffset((float)(p_startPosition.first*m_characterWidth) / m_sheetWidth, -((float)(p_startPosition.second*m_characterHeight) / m_sheetHeight));
 		AnimationFrame* firstFrame = new AnimationFrame(firstOffset, frameTime, true);
 
 		AnimationFrame* previousFrame = firstFrame;
@@ -87,7 +91,7 @@ namespace sprites
 				currentPos.second++;
 			}
 
-			glm::vec2 offset((currentPos.first*m_characterWidth) / m_sheetWidth, (currentPos.second*m_characterHeight) / m_sheetHeight);
+			glm::vec2 offset((float)(currentPos.first*m_characterWidth) / m_sheetWidth, -(float)(currentPos.second*m_characterHeight) / m_sheetHeight);
 			nextFrame = new AnimationFrame(offset,frameTime);
 			previousFrame->next = nextFrame;
 			previousFrame = nextFrame;
