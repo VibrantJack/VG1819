@@ -2,6 +2,9 @@
 
 #define DEFAULT_OWNER "NONE"
 
+#define TILE_NUMBER "tile_number"
+#define TILE "tile"
+
 #include "kitten\K_Component.h"
 #include "board/tile/landInfo/LandInfoManager.h"
 class TileInfo : public kitten::K_Component

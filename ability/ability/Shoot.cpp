@@ -18,17 +18,12 @@ namespace ability
 	{
 		if (checkTarget(p_info))
 		{
-			unit::StatusContainer* sc = p_info->m_source->getStatusContainer();
-			ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Deal_Damage);
-			t->putPackage(INFO_PACKAGE_KEY, p_info);
-			sc->triggerTP(ability::TimePointEvent::Deal_Damage, t);
+			//trigger deal damage event
+			triggerTPEvent(ability::TimePointEvent::Deal_Damage, p_info->m_source, p_info);
 
-			//damage target by power
+			//trigger receive damage event
 			unit::Unit* target = p_info->m_targets[0];
-			sc = target->getStatusContainer();
-			t = new ability::TimePointEvent(ability::TimePointEvent::Receive_Damage);
-			t->putPackage(INFO_PACKAGE_KEY, p_info);
-			sc->triggerTP(ability::TimePointEvent::Receive_Damage, t);
+			triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_info);
 
 			//so power will change to negative
 			int power = -(p_info->m_intValue.find("power")->second);

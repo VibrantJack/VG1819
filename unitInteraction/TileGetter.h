@@ -38,7 +38,8 @@ private:
 
 	void triggerHighlightEvent();
 	void putRange(kitten::Event* e);
-	void putFilter(kitten::Event* e);
+	void putFilter(const std::string& p_filter, kitten::Event* e);
+	void putArea(kitten::Event* e);
 	void triggerUnhighlightEvent();
 
 	void send();

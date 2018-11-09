@@ -451,6 +451,30 @@
     <ClCompile Include="..\board\tile\landInfo\LandInfoManager.cpp">
       <Filter>board\tile\landInfo</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\component\area\Area.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\PointPattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\SpanPattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\LineVPattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\LineHPattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\SquarePattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\TrianglePattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\AreaPattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -875,6 +899,12 @@
     <ClInclude Include="..\board\tile\landInfo\LandInformation.h">
       <Filter>board\tile\landInfo</Filter>
     </ClInclude>
+    <ClInclude Include="..\board\component\area\Area.h">
+      <Filter>board\component\area</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\component\area\AreaPattern.h">
+      <Filter>board\component\area</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -990,6 +1020,9 @@
     </Filter>
     <Filter Include="board\tile\landInfo">
       <UniqueIdentifier>{d90d02bc-e413-458b-8305-d90c9d9a8a34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\component\area">
+      <UniqueIdentifier>{31062e74-efb4-41bd-b05e-c9cfbe8384fc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
