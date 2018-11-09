@@ -140,6 +140,7 @@
     <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
     <ClCompile Include="..\board\tile\landInfo\LandInfoManager.cpp" />
+    <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\kibble\custom\CustomDeckDataParser.cpp" />
     <ClCompile Include="..\board\boardManager.cpp" />

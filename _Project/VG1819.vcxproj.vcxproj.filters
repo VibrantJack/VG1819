@@ -475,6 +475,9 @@
     <ClCompile Include="..\board\component\area\AreaPattern.cpp">
       <Filter>board\component\area</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp">
+      <Filter>board\tile\landInfo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

@@ -12,7 +12,7 @@ namespace unit
 	{
 	private:
 		unit::Unit* m_currentUnit;
-
+		bool m_isEnd;
 	public:
 		UnitTurn();
 		~UnitTurn();

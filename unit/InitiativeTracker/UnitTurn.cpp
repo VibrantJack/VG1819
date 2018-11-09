@@ -5,6 +5,7 @@ unit::UnitTurn::UnitTurn()
 {
 	act = false;
 	move = false;
+	m_isEnd = false;
 }
 
 unit::UnitTurn::~UnitTurn()
@@ -13,6 +14,8 @@ unit::UnitTurn::~UnitTurn()
 
 void unit::UnitTurn::turnStart(kitten::K_GameObject* p_unitObj)
 {
+	m_isEnd = false;
+
 	m_currentUnit = p_unitObj->getComponent<unit::Unit>();
 
 	m_currentUnit->triggerTP(ability::TimePointEvent::Turn_Start);
@@ -39,13 +42,18 @@ void unit::UnitTurn::checkTurn()
 
 void unit::UnitTurn::turnEnd()
 {
+	m_isEnd = true;
 	m_currentUnit->triggerTP(ability::TimePointEvent::Turn_End);
 
-	m_currentUnit->turnEnd();
-	m_currentUnit = nullptr;
+	//in case unit is dead, and this unit is actually next unit
+	if (m_isEnd)
+	{
+		m_currentUnit->turnEnd();
+		m_currentUnit = nullptr;
 
-	//call initiative tracker
-	InitiativeTracker::getInstance()->unitTurnEnd();
+		//call initiative tracker
+		InitiativeTracker::getInstance()->unitTurnEnd();
+	}
 }
 
 void unit::UnitTurn::turnReset()

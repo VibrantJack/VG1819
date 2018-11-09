@@ -78,6 +78,8 @@ public:
 		m_Type = Swampland;
 		m_TexturePath = "textures/tiles/missing.tga";
 		m_mvCost = 2;
-		m_description = "Dirty road. It's hard to move on it.";
+		m_description = "It's hard to move cross it. When stay on it, unit will lost 1 HP.";
 	};
+
+	void effectOnStay(unit::Unit* p_unit) override;
 };
