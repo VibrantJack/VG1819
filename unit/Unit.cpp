@@ -182,8 +182,8 @@ namespace unit
 		if (networking::ClientGame::getInstance())
 		{
 			int unitIndex = networking::ClientGame::getInstance()->getUnitGameObjectIndex(m_attachedObject);
-			int posX = getTile()->getComponent<TileInfo>()->getPosX();
-			int posY = getTile()->getComponent<TileInfo>()->getPosY();
+			int posX = p_tile->getComponent<TileInfo>()->getPosX();
+			int posY = p_tile->getComponent<TileInfo>()->getPosY();
 
 			//networking::ClientGame::getInstance()->moveUnit(unitIndex, posX, posY);
 			networking::ClientGame::getInstance()->sendMovementPacket(unitIndex, posX, posY);
