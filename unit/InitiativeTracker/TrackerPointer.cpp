@@ -1,7 +1,7 @@
 #include "TrackerPointer.h"
 #include "kitten/K_ComponentManager.h"
 #include "kitten/K_GameObjectManager.h"
-
+#include "unit/InitiativeTracker/TrackerBlock.h"
 unit::TrackerPointer::TrackerPointer()
 {
 	
@@ -44,8 +44,8 @@ void unit::TrackerPointer::update()
 
 void unit::TrackerPointer::scale()
 {
-	m_attachedObject->getTransform().scale2D(m_scale, m_scale);
+	m_attachedObject->getTransform().scale2D(m_originalX * m_scale, m_originalY * m_scale);
 
-	float y = m_y - m_scale / 2.0f;
+	float y = m_y - TrackerBlock::sm_halfWinY * m_scale / 2.0f;
 	m_attachedObject->getTransform().place2D(m_x, y);
 }
