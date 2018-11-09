@@ -18,7 +18,7 @@
 class Area
 {
 private:
-	std::unordered_map<std::string, AreaPattern*>* m_map;
+	std::unordered_map<std::string, AreaPattern*> m_map;
 	AreaInfo* m_info;
 	bool m_active;
 	bool m_fix;
