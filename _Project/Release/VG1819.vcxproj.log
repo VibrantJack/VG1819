@@ -1,12 +1,1 @@
-﻿  TextBox.cpp
-c:\users\austin\documents\github\vg1819\puppy\text\textbox.cpp(192): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\austin\documents\github\vg1819\puppy\text\textbox.cpp(224): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\austin\documents\github\vg1819\puppy\text\textbox.cpp(228): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\austin\documents\github\vg1819\puppy\text\textbox.cpp(271): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\austin\documents\github\vg1819\puppy\text\textbox.cpp(275): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  Generating non-SAFESEH image.
-  Starting pass 2
-       TextBox.obj
-       MSVCRTD.lib(loadcfg.obj)
-  Finished pass 2
-  VG1819.vcxproj.vcxproj -> C:\Users\Austin\Documents\GitHub\VG1819\_Project\Release\VG1819.exe
+﻿
