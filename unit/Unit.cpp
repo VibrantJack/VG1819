@@ -3,6 +3,9 @@
 #include "kitten/K_GameObject.h"
 #include "unitInteraction/UnitInteractionManager.h"
 #include <iostream>
+
+// Networking
+#include "networking\ClientGame.h"
 //@Rock
 
 namespace unit
@@ -176,8 +179,19 @@ namespace unit
 		if (!canMove())
 			return;
 
+		if (networking::ClientGame::getInstance())
+		{
+			int unitIndex = networking::ClientGame::getInstance()->getUnitGameObjectIndex(m_attachedObject);
+			int posX = p_tile->getComponent<TileInfo>()->getPosX();
+			int posY = p_tile->getComponent<TileInfo>()->getPosY();
+
+			//networking::ClientGame::getInstance()->moveUnit(unitIndex, posX, posY);
+			networking::ClientGame::getInstance()->sendMovementPacket(unitIndex, posX, posY);
+		}
+
 		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
 		moveComponet->move(p_tile);
+
 	}
 
 	int Unit::useAbility(const std::string& p_abilityName)
