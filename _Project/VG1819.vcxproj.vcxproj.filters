@@ -448,6 +448,30 @@
     <ClCompile Include="..\kitten\util\AsyncFileOperations.cpp">
       <Filter>kitten\util</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\component\area\Area.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\PointPattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\SpanPattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\LineVPattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\LineHPattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\SquarePattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\TrianglePattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\AreaPattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -866,6 +890,12 @@
     <ClInclude Include="..\kitten\util\AsyncFileOperations.h">
       <Filter>kitten\util</Filter>
     </ClInclude>
+    <ClInclude Include="..\board\component\area\Area.h">
+      <Filter>board\component\area</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\component\area\AreaPattern.h">
+      <Filter>board\component\area</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -978,6 +1008,9 @@
     </Filter>
     <Filter Include="kitten\util">
       <UniqueIdentifier>{92a11259-cd79-4fdb-8968-79de544df0c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\component\area">
+      <UniqueIdentifier>{31062e74-efb4-41bd-b05e-c9cfbe8384fc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

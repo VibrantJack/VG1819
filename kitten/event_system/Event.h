@@ -6,6 +6,9 @@
 #define TILE_OWNER_KEY "tile_owner_key"
 #define MANIPULATE_TILE_KEY "manip_tile_key"
 
+#define FALSE 0
+#define TRUE 1
+
 #include "kitten/K_GameObject.h"
 
 #include <unordered_map>
@@ -20,7 +23,8 @@ namespace kitten
 		enum EventType 
 		{ 
 			Tile_Clicked,
-			Object_Clicked, 
+			Object_Clicked,
+			Set_Area_Pattern,
 			Highlight_Tile, 
 			Unhighlight_Tile,
 			Manipulate_Tile,

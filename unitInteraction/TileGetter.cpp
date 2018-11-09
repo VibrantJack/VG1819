@@ -71,11 +71,11 @@ void TileGetter::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_
 
 void TileGetter::getTiles(kitten::Event * p_data)
 {
-	int tnum = p_data->getInt("tile_number");//get total number of tiles in event
+	int tnum = p_data->getInt(TILE_NUMBER);//get total number of tiles in event
 	for (int i = 0; i < tnum; i++)
 	{
 		std::stringstream stm;
-		stm << "tile" << i;
+		stm << TILE << i;
 		std::string tkey = stm.str();
 		kitten::K_GameObject* tileGO = p_data->getGameObj(tkey);//find each tile
 
@@ -113,11 +113,14 @@ void TileGetter::triggerHighlightEvent()
 	//normal range
 	kitten::Event* e = new kitten::Event(kitten::Event::Highlight_Tile);
 	putRange(e);
-	putFilter(e);
-	
-	//TO DO: area
-
+	putFilter("filter", e);
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Highlight_Tile, e);
+
+	//area
+	e = new kitten::Event(kitten::Event::Set_Area_Pattern);
+	putArea(e);
+	putFilter("area_filter", e);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Set_Area_Pattern, e);
 }
 
 void TileGetter::putRange(kitten::Event * e)
@@ -135,24 +138,52 @@ void TileGetter::putRange(kitten::Event * e)
 	}
 }
 
-void TileGetter::putFilter(kitten::Event * e)
+void TileGetter::putFilter(const std::string & p_filter, kitten::Event * e)
 {
-	if (m_ad->m_intValue.find("filter") != m_ad->m_intValue.end())
+	if (m_ad->m_intValue.find(p_filter) != m_ad->m_intValue.end())
 	{
-		int filterNum = m_ad->m_intValue["filter"];
-		e->putInt("filter", filterNum);
+		int filterNum = m_ad->m_intValue[p_filter];
+		e->putInt(p_filter, filterNum);
 		for (int i = 0; i < filterNum; i++)
 		{
 			std::stringstream stm;
-			stm << "filter" << i;
+			stm << p_filter << i;
 			std::string fkey = stm.str();
 			e->putString(fkey, m_ad->m_stringValue[fkey]);
 		}
 	}
 	else
 	{
-		e->putInt("filter", 0);
+		e->putInt(p_filter, 0);
 	}
+}
+
+void TileGetter::putArea(kitten::Event * e)
+{
+	e->putGameObj("tileAtOrigin", m_source->getTile());
+
+	const std::unordered_map<std::string, int> &iv = m_ad->m_intValue;
+	const std::unordered_map<std::string, std::string> &sv = m_ad->m_stringValue;
+
+	if (sv.find("area_mode") != sv.end())
+	{
+		e->putInt("area_fix", iv.at("area_fix"));
+		e->putString("area_mode",sv.at("area_mode"));
+
+		if (iv.find("area_len") != iv.end())
+			e->putInt("area_len", iv.at("area_len"));
+		else if (iv.find("area_min") != iv.end())
+		{
+			e->putInt("area_min", iv.at("area_min"));
+			e->putInt("area_max", iv.at("area_max"));
+		}
+	}
+	else//default : point pattern
+	{
+		e->putInt("area_fix", FALSE);
+		e->putString("area_mode", POINT_AREA);
+	}
+	
 }
 
 void TileGetter::triggerUnhighlightEvent()
@@ -162,9 +193,11 @@ void TileGetter::triggerUnhighlightEvent()
 
 void TileGetter::send()
 {
-	//deregisterEvent();
 	m_respond = false;
-	UnitInteractionManager::getInstance()->setTarget(m_tileList,m_unitList);
+	if (m_needUnit && m_unitList.empty())
+		cancel();
+	else
+		UnitInteractionManager::getInstance()->setTarget(m_tileList,m_unitList);
 }
 
 void TileGetter::cancel()

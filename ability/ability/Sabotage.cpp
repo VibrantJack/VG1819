@@ -19,10 +19,7 @@ namespace ability
 			//damage target by power
 
 			//trigger deal damage event
-			unit::StatusContainer* sc = p_info->m_source->getStatusContainer();
-			ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Deal_Damage);
-			t->putPackage(INFO_PACKAGE_KEY, p_info);
-			sc->triggerTP(ability::TimePointEvent::Deal_Damage, t);
+			triggerTPEvent(ability::TimePointEvent::Deal_Damage, p_info->m_source, p_info);
 
 			unit::Unit* target = p_info->m_targets[0];
 
@@ -30,11 +27,7 @@ namespace ability
 			{
 				if (it == "Structure")
 				{
-					//trigger deal damage event
-					sc = target->getStatusContainer();
-					t = new ability::TimePointEvent(ability::TimePointEvent::Receive_Damage);
-					t->putPackage(INFO_PACKAGE_KEY, p_info);
-					sc->triggerTP(ability::TimePointEvent::Receive_Damage, t);
+					triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_info);
 
 					int power = -(p_info->m_intValue.find("power")->second);
 
