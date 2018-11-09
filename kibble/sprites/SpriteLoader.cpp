@@ -35,7 +35,12 @@ namespace kibble
 
 	void SpriteLoader::loadAllSprites(const std::string& p_masterJsonName)
 	{
-		nlohmann::json masterFile = jsonIn(SPRITE_SHEET_DIRECTORY +  p_masterJsonName);
+		sm_instance->privateLoadAllSprites(p_masterJsonName);
+	}
+
+	void SpriteLoader::privateLoadAllSprites(const std::string& p_masterJsonName)
+	{
+		nlohmann::json masterFile = jsonIn(SPRITE_SHEET_DIRECTORY + p_masterJsonName);
 		auto found = masterFile.find("spritesheets");
 		if (found != masterFile.end())
 		{

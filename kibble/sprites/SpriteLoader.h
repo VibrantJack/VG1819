@@ -24,11 +24,12 @@ namespace kibble
 
 		const sprites::SpriteSheet* getSpriteSheet(const std::string& p_spriteName) const;
 
+		void privateLoadAllSprites(const std::string& p_masterJsonName);
 		void loadSpriteSheet(const std::string& p_sheetJsonName);
 	public:
-		void createInstance();
-		void destroyInstance();
+		static void createInstance();
+		static void destroyInstance();
 
-		void loadAllSprites(const std::string& p_masterJsonName);
+		static void loadAllSprites(const std::string& p_masterJsonName);
 	};
 }

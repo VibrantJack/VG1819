@@ -75,6 +75,7 @@ namespace kitten
 		//Creating a gameobject
 		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
 		kibble::setSceneFrom(std::string("mainscene.txt"));
+		kibble::loadSpriteSheets("MasterSpriteSheet.json");
 
 		// Deck Data importing, and exporting
 		// Note that kibble assumes it's a newly generated DeckData, passing on existant DeckData would could deletion error because it's already deleted. 

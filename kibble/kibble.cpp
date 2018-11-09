@@ -18,7 +18,7 @@ void kibble::initializeKibbleRelatedComponents() {
 	gameObjectParser = new JSONGameObjectDataParser();
 	unitParser = new JSONUnitDataParser();
 	deckParser = new CustomDeckDataParser();
-
+	SpriteLoader::createInstance();
 
 	setupDatabank();
 }
@@ -44,6 +44,10 @@ kibble::DeckDataParser* kibble::getDeckDataParserInstance() {
 }
 
 #include "kibble/json/Datatypes/SceneDataType.hpp"
-void kibble::setSceneFrom(std::string& filename) {
-	setupSceneBy(jsonIn("data/scene/" + filename));
+void kibble::setSceneFrom(const std::string& fileName) {
+	setupSceneBy(jsonIn("data/scene/" + fileName));
+}
+
+void kibble::loadSpriteSheets(const std::string& p_masterSheetName){
+	SpriteLoader::loadAllSprites(p_masterSheetName);
 }
