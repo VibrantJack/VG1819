@@ -23,7 +23,7 @@ namespace sprites
 		assert(m_renderable != nullptr);
 		float uMax = (float)m_spriteSheet->m_characterWidth / m_spriteSheet->m_sheetWidth;
 		float vMax = (float)m_spriteSheet->m_characterHeight / m_spriteSheet->m_sheetHeight;
-		m_renderable->setupRenderable(uMax, vMax, *m_spriteSheet->m_material);
+		m_renderable->setupRenderable(uMax, vMax, m_spriteSheet->m_characterWidth, m_spriteSheet->m_characterHeight, *m_spriteSheet->m_material);
 
 		m_time = kitten::K_Time::getInstance();
 		assert(m_time != nullptr);

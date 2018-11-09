@@ -1,6 +1,6 @@
 {
 	"name" : "cleric",
-	"texture" : "textures/sprites/units/humans/clericmod.tga",
+	"texture" : "textures/sprites/units/humans/cleric_sheet.tga",
 	
 	"sheetwidth" : 320,
 	"sheetheight" : 320,
@@ -13,7 +13,7 @@
 			"name" : "idle",
 			"startpos" : [0,0],
 			"endpos" : [9,2],
-			"time" : 30
+			"time" : 10
 		}	
 	],
 	

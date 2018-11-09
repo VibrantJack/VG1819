@@ -24,7 +24,7 @@ namespace kitten
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
 	protected:
-		void setupRenderable(const float& p_x, const float& p_y, puppy::Material& p_mat);
+		void setupRenderable(const float& p_uWidth, const float& p_vHeight, const float& p_characterWidth, const float& p_characterHeight, puppy::Material& p_mat);
 		void setTextureOffset(const glm::vec2& p_offset);
 	public:
 		SpriteRenderable();

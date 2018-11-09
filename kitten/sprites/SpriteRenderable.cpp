@@ -19,18 +19,20 @@ namespace kitten
 		//Material deleted by sprite loader
 	}
 
-	void SpriteRenderable::setupRenderable(const float& p_x, const float& p_y, puppy::Material& p_mat)
+	void SpriteRenderable::setupRenderable(const float& p_uWidth, const float& p_vHeight, const float& p_characterWidth, const float& p_characterHeight, puppy::Material& p_mat)
 	{
 		m_mat = &p_mat;
 
+		float vertXWidth = (p_characterWidth / p_characterHeight) - 0.5f;
+
 		puppy::TexturedVertex verts[] =
 		{
-			{ -0.5f, -0.5f, 0.0f,		p_x, 1.0f - p_y }, //bottom left
-			{ -0.5f,  0.5f, 0.0f,		p_x, 1.0f}, //top left
-			{ 0.5f,  0.5f, 0.0f,		0.0f, 1.0f}, //top right
-			{ 0.5f,  0.5f, 0.0f,		0.0f, 1.0f }, //top right
-			{ 0.5f, -0.5f, 0.0f,		0.0f, 1.0f - p_y }, //bottom right
-			{ -0.5f, -0.5f, 0.0f,		p_x, 1.0f - p_y }, //bottom  left
+			{ -vertXWidth, -0.5f, 0.0f,		p_uWidth, 1.0f - p_vHeight }, //bottom left
+			{ -vertXWidth,  0.5f, 0.0f,		p_uWidth, 1.0f}, //top left
+			{ vertXWidth,  0.5f, 0.0f,		0.0f, 1.0f}, //top right
+			{ vertXWidth,  0.5f, 0.0f,		0.0f, 1.0f }, //top right
+			{ vertXWidth, -0.5f, 0.0f,		0.0f, 1.0f - p_vHeight }, //bottom right
+			{ -vertXWidth, -0.5f, 0.0f,		p_uWidth, 1.0f - p_vHeight }, //bottom  left
 		};
 
 		m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::sprite), 6);
