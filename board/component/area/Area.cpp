@@ -39,6 +39,7 @@ Area::~Area()
 	{
 		delete it->second;
 	}
+	delete m_map;
 }
 
 void Area::setPattern(kitten::Event * p_data)
