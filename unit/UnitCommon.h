@@ -5,6 +5,20 @@
 #include "kitten/K_Common.h"
 #include "unit/unitComponent/UnitGraphic.h"
 #include "ability/status/Status.h"
+
+#define UNIT_HP "hp"
+#define UNIT_MAX_HP "max_hp"
+#define UNIT_IN "in"
+#define UNIT_BASE_IN "base_in"
+#define UNIT_MV "mv"
+#define UNIT_BASE_MV "base_mv"
+#define UNIT_COST "cost"
+#define UNIT_BASE_COST "base_cost"
+#define UNIT_LV "lv"
+#define UNIT_CT "ct"
+#define UNIT_CD "cd"
+#define UNIT_DURATION "duration"
+#define UNIT_POWER "power"
 //@Rock
 
 namespace unit

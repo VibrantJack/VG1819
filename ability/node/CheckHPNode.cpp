@@ -12,9 +12,9 @@ namespace ability
 
 	int CheckHPNode::effect(unit::Unit* p_target)
 	{
-		if (p_target->m_attributes["hp"] > p_target->m_attributes["max_hp"])
-			p_target->m_attributes["hp"] = p_target->m_attributes["max_hp"];
-		else if (p_target->m_attributes["hp"] <= 0)
+		if (p_target->m_attributes[UNIT_HP] > p_target->m_attributes[UNIT_MAX_HP])
+			p_target->m_attributes[UNIT_HP] = p_target->m_attributes[UNIT_MAX_HP];
+		else if (p_target->m_attributes[UNIT_HP] <= 0)
 			p_target->destroyedByDamage();
 		return 0;
 	}

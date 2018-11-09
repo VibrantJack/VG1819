@@ -83,11 +83,11 @@ namespace unit
 
 	void Unit::levelup()
 	{
-		if (m_attributes["lv"] > 0 && m_attributes["lv"] < 3)
+		if (m_attributes[UNIT_LV] > 0 && m_attributes[UNIT_LV] < 3)
 		{
-			m_attributes["lv"]++;
+			m_attributes[UNIT_LV]++;
 			ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Level_Up);
-			t->putInt("lv", m_attributes["lv"]);
+			t->putInt(UNIT_LV, m_attributes[UNIT_LV]);
 			triggerTP(ability::TimePointEvent::Level_Up, t);
 		}
 	}
@@ -129,7 +129,7 @@ namespace unit
 
 	bool Unit::canMove()
 	{
-		if (m_attributes["base_mv"] <= 0)//unit can not move, like structure
+		if (m_attributes[UNIT_BASE_MV] <= 0)//unit can not move, like structure
 			return false;
 		else if (m_turn != nullptr)//this is unit's turn and check if it can move
 			return m_turn->move;
@@ -236,7 +236,7 @@ namespace unit
 		}
 
 		//non commander unit will check unit's lv
-		if (m_attributes["lv"] < ad->m_intValue["lv"] && !isCommander())
+		if (m_attributes[UNIT_LV] < ad->m_intValue[UNIT_LV] && !isCommander())
 		{
 			std::cout << p_abilityName << "require lv (" << ad->m_intValue["lv"] << ") " << std::endl;
 			std::cout << m_name << " is lv (" << m_attributes["lv"] << ")" << std::endl;
@@ -264,7 +264,7 @@ namespace unit
 	void Unit::setCast(AbilityDescription * p_ad, ability::AbilityInfoPackage * p_pack)
 	{
 		std::string name = p_ad->m_stringValue["name"];
-		int time = p_ad->m_intValue["ct"];
+		int time = p_ad->m_intValue[UNIT_CT];
 		m_castTimer->set(name,p_pack,time);
 		playerSkipTurn();
 	}

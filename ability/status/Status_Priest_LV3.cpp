@@ -14,11 +14,11 @@ namespace ability
 	{
 		if (p_type == ability::TimePointEvent::Turn_End && m_activate)
 		{
-			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode("ChangeAttributeNode");
+			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
 
-			int power = m_unit->m_ADList["Heal"]->m_intValue["power"];
+			int power = m_unit->m_ADList[ABILITY_HEAL]->m_intValue[UNIT_POWER];
 
-			node->effect(m_unit, "HP", power);
+			node->effect(m_unit, UNIT_HP, power);
 			return 0;
 		}
 		else if (!m_activate)

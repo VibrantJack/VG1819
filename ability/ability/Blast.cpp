@@ -23,7 +23,7 @@ namespace ability
 			//trigger receive damage
 			triggerTPEvent(ability::TimePointEvent::Receive_Damage, u, clonePackage);
 
-			int power = -(clonePackage->m_intValue.find("power")->second);
+			int power = -(clonePackage->m_intValue.find(UNIT_POWER)->second);
 
 			damage(u, power);
 

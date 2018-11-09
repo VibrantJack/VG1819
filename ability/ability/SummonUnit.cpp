@@ -21,7 +21,7 @@ namespace ability
 
 	int SummonUnit::effect(AbilityInfoPackage* p_info)
 	{
-		AbilityNode* node = AbilityNodeManager::getInstance()->findNode("SpawnUnitNode");
+		AbilityNode* node = AbilityNodeManager::getInstance()->findNode(SpawnUnit);
 
 		PowerTracker* powerTracker = BoardManager::getInstance()->getPowerTracker();
 

@@ -17,28 +17,22 @@ namespace ability
 		m_statusList.push_back(s);*/
 
 		s = new Status_Encourage();
-		s->m_name = "Status_Encourage";
-		m_statusList.push_back(s);
+		m_statusList[STATUS_ENCOURAGE] = s;
 
 		s = new Status_LV();
-		s->m_name = "Status_LV";
-		m_statusList.push_back(s);
+		m_statusList[STATUS_LV] = s;
 
 		s = new Status_Priest_LV3();
-		s->m_name = "Status_Priest_LV3";
-		m_statusList.push_back(s);
+		m_statusList[STATUS_PRIEST_LV3] = s;
 
 		s = new Status_Archer_LV3();
-		s->m_name = "Status_Archer_LV3";
-		m_statusList.push_back(s);
+		m_statusList[STATUS_ARCHER_LV3] = s;
 
 		s = new Status_Duelist_LV3();
-		s->m_name = "Status_Duelist_LV3";
-		m_statusList.push_back(s);
+		m_statusList[STATUS_DUELIST_LV3] = s;
 
 		s = new Status_Dodge();
-		s->m_name = "Status_Dodge";
-		m_statusList.push_back(s);
+		m_statusList[STATUS_DODGE] = s;
 	}
 
 	StatusManager::StatusManager()
@@ -48,10 +42,10 @@ namespace ability
 
 	StatusManager::~StatusManager()
 	{
-		auto end = m_statusList.end(); 
+		auto end = m_statusList.end();
 		for (auto it = m_statusList.begin(); it != end; ++it)
 		{
-			delete (*it);
+			delete it->second;
 		}
 	}
 
@@ -76,15 +70,7 @@ namespace ability
 
 	Status * StatusManager::findStatus(const std::string & p_name)
 	{
-		for (auto it = m_statusList.begin(); it != m_statusList.end(); it++)
-		{
-			if ((*it)->m_name == p_name)
-			{
-				//return a copy of the status
-				return (*it)->clone();
-			}
-		}
-		return nullptr;
+		return m_statusList[p_name];
 	}
 
 }
