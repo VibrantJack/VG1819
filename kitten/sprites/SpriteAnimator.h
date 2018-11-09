@@ -24,7 +24,7 @@ namespace sprites
 
 		void setRenderableTexture();
 	public:
-		SpriteAnimator(const SpriteSheet* p_spriteSheet);
+		SpriteAnimator(const std::string& p_spriteName);
 		~SpriteAnimator();
 
 		void setAnimation(const std::string& p_animationName);

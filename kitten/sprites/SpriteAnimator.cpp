@@ -1,10 +1,12 @@
 #include "SpriteAnimator.h"
 #include "kitten\K_GameObject.h"
+#include "kibble\sprites\SpriteLoader.h"
 
 namespace sprites
 {
-	SpriteAnimator::SpriteAnimator(const SpriteSheet* p_spriteSheet) : m_renderable(nullptr), m_spriteSheet(p_spriteSheet), m_currentAnimationFrameTime(0)
+	SpriteAnimator::SpriteAnimator(const std::string& p_spriteName) : m_renderable(nullptr), m_currentAnimationFrameTime(0)
 	{
+		m_spriteSheet = kibble::SpriteLoader::sm_instance->getSpriteSheet(p_spriteName);
 		assert(m_spriteSheet != nullptr);
 	}
 

@@ -548,6 +548,25 @@ kitten::K_Component* getToggleEnabledOnKeyPress(nlohmann::json* p_jsonFile) {
 	return new ToggleEnabledOnKeyPress(key);
 }
 
+#include "kitten\sprites\SpriteAnimator.h"
+kitten::K_Component* getSpriteAnimator(nlohmann::json* p_jsonFile) {
+
+	std::string characterName;
+
+	if (p_jsonFile->find("spritename") != p_jsonFile->end()) {
+		std::string name = p_jsonFile->operator[]("spritename");
+		characterName = name; // I do not know why this is needed but it is.
+	}
+
+	return new sprites::SpriteAnimator(characterName);
+}
+
+#include "kitten\sprites\SpriteRenderable.h"
+kitten::K_Component* getSpriteRenderable(nlohmann::json* p_jsonFile) {
+	return new kitten::SpriteRenderable();
+}
+
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -580,7 +599,9 @@ void setupComponentMap() {
 	jsonComponentMap["TextBox"] = &getTextBox;
 	jsonComponentMap["ToggleEnabledOnKeyPress"] = &getToggleEnabledOnKeyPress;
 	jsonComponentMap["BoardCreator"] = &getBoardCreator;
-	
+	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
+	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
+
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {
