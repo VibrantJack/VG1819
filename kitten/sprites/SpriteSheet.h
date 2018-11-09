@@ -38,7 +38,7 @@ namespace sprites
 		puppy::Material* m_material;
 
 	public:
-		SpriteSheet(const std::string& p_characterName, const std::string& p_pathToSheet, int p_sheetWidth, int p_sheetHeight, int p_characterWidth, int p_characterHeight);
+		SpriteSheet(const std::string& p_characterName, const std::string& p_pathToTex, int p_sheetWidth, int p_sheetHeight, int p_characterWidth, int p_characterHeight);
 		~SpriteSheet();
 
 		const std::string& getCharacterName() const;

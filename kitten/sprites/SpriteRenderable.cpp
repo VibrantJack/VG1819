@@ -4,29 +4,9 @@
 
 namespace kitten
 {
-	int SpriteRenderable::sm_instances = 0;
-	puppy::VertexEnvironment* SpriteRenderable::sm_vao = nullptr;
-
-	SpriteRenderable::SpriteRenderable() : m_mat(nullptr)
+	SpriteRenderable::SpriteRenderable() : m_mat(nullptr), m_vao(nullptr)
 	{
-		if (sm_instances < 1)
-		{
-			puppy::TexturedVertex verts[] = 
-			{
-				{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
-				{ -0.5f,  0.0f, 0.5f,		0.0f, 1.0f },
-				{ 0.5f,  0.0f, 0.5f,		1.0f, 1.0f },
-				{ 0.5f,  0.05f, 0.5f,		1.0f, 1.0f },
-				{ 0.5f, 0.0f, 0.5f,			1.0f, 0.0f },
-				{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f }
-			};
-
-			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::sprite), 6);
-		}
-
-		//Material is set in SpriteAnimator.cpp
-
-		++sm_instances;
+		//VAO and material set in by SpriteAnimator according to the sprite sheet
 	}
 
 	SpriteRenderable::~SpriteRenderable()
@@ -36,11 +16,24 @@ namespace kitten
 			removeFromDynamicRender();
 		}
 
-		--sm_instances;
-		if (sm_instances == 0)
+		//Material deleted by sprite loader
+	}
+
+	void SpriteRenderable::setupRenderable(const float& p_x, const float& p_y, puppy::Material& p_mat)
+	{
+		m_mat = &p_mat;
+
+		puppy::TexturedVertex verts[] =
 		{
-			delete sm_vao;
-		}
+			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
+			{ -0.5f,  0.0f, 0.5f,		0.0f, p_y },
+			{ 0.5f,  0.0f, 0.5f,		p_x, p_y },
+			{ 0.5f,  0.05f, 0.5f,		p_x, p_y },
+			{ 0.5f, 0.0f, 0.5f,			p_x, 0.0f },
+			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f }
+		};
+
+		m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::sprite), 6);
 	}
 
 	void SpriteRenderable::start()
@@ -79,6 +72,6 @@ namespace kitten
 		m_mat->setUniform(TEXTURE_OFFSET_UNIFORM_NAME, m_texOffset);
 
 		//render
-		sm_vao->drawArrays(GL_TRIANGLES);
+		m_vao->drawArrays(GL_TRIANGLES);
 	}
 }

@@ -5,10 +5,12 @@
 #include "kibble/json/JSONGameObjectDataParser.hpp"
 #include "kibble/json/JSONUnitDataParser.hpp"
 #include "kibble/custom/CustomDeckDataParser.hpp"
+#include "kibble\sprites\SpriteLoader.h"
 
 kibble::GameObjectDataParser* gameObjectParser;
 kibble::UnitDataParser* unitParser;
 kibble::DeckDataParser* deckParser;
+kibble::SpriteLoader* spriteLoader;
 
 void kibble::initializeKibbleRelatedComponents() {
 	setupComponentMap();
@@ -16,6 +18,7 @@ void kibble::initializeKibbleRelatedComponents() {
 	gameObjectParser = new JSONGameObjectDataParser();
 	unitParser = new JSONUnitDataParser();
 	deckParser = new CustomDeckDataParser();
+
 
 	setupDatabank();
 }

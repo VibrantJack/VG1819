@@ -19,7 +19,7 @@ namespace sprites
 
 		m_renderable = m_attachedObject->getComponent<kitten::SpriteRenderable>();
 		assert(m_renderable != nullptr);
-		m_renderable->m_mat = m_spriteSheet->m_material;
+		m_renderable->setupRenderable(m_spriteSheet->m_gridWidth / m_spriteSheet->m_sheetWidth, m_spriteSheet->m_gridHeight / m_spriteSheet->m_sheetHeight, *m_spriteSheet->m_material);
 
 		m_time = kitten::K_Time::getInstance();
 		assert(m_time != nullptr);

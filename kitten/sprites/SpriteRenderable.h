@@ -15,8 +15,7 @@ namespace kitten
 	{
 		friend class sprites::SpriteAnimator;
 	private:
-		static puppy::VertexEnvironment* sm_vao;
-		static int sm_instances;
+		puppy::VertexEnvironment* m_vao;
 		puppy::Material* m_mat;
 
 		glm::vec2 m_texOffset;
@@ -25,6 +24,7 @@ namespace kitten
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
 	protected:
+		void setupRenderable(const float& p_x, const float& p_y, puppy::Material& p_mat);
 		void setTextureOffset(const glm::vec2& p_offset);
 	public:
 		SpriteRenderable();
