@@ -13,6 +13,15 @@ namespace unit
 
 namespace ability
 {
+	enum NodeName
+	{
+		ChangeAttribute,
+		CheckHP,
+		ChangeAbilityDescription,
+		ChangeAbilityInfo,
+		SpawnUnit,
+	};
+
 	class AbilityNode
 	{
 	public:

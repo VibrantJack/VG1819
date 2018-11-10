@@ -1,26 +1,11 @@
 #include "UnitTurn.h"
 #include "unit/InitiativeTracker/InitiativeTracker.h"
 
-void unit::UnitTurn::triggerTurnEvent(bool p_start)
-{
-	unit::StatusContainer* sc = m_currentUnit->getStatusContainer();
-
-	if (p_start)
-	{
-		ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Turn_Start);
-		sc->triggerTP(ability::TimePointEvent::Turn_Start, t);
-	}
-	else
-	{
-		ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Turn_End);
-		sc->triggerTP(ability::TimePointEvent::Turn_End, t);
-	}
-}
-
 unit::UnitTurn::UnitTurn()
 {
 	act = false;
 	move = false;
+	m_isEnd = false;
 }
 
 unit::UnitTurn::~UnitTurn()
@@ -29,9 +14,11 @@ unit::UnitTurn::~UnitTurn()
 
 void unit::UnitTurn::turnStart(kitten::K_GameObject* p_unitObj)
 {
+	m_isEnd = false;
+
 	m_currentUnit = p_unitObj->getComponent<unit::Unit>();
 
-	triggerTurnEvent(true);
+	m_currentUnit->triggerTP(ability::TimePointEvent::Turn_Start);
 
 	m_currentUnit->turnStart(this);
 
@@ -55,13 +42,18 @@ void unit::UnitTurn::checkTurn()
 
 void unit::UnitTurn::turnEnd()
 {
-	triggerTurnEvent(false);
+	m_isEnd = true;
+	m_currentUnit->triggerTP(ability::TimePointEvent::Turn_End);
 
-	m_currentUnit->turnEnd();
-	m_currentUnit = nullptr;
+	//in case unit is dead, and this unit is actually next unit
+	if (m_isEnd)
+	{
+		m_currentUnit->turnEnd();
+		m_currentUnit = nullptr;
 
-	//call initiative tracker
-	InitiativeTracker::getInstance()->unitTurnEnd();
+		//call initiative tracker
+		InitiativeTracker::getInstance()->unitTurnEnd();
+	}
 }
 
 void unit::UnitTurn::turnReset()
@@ -79,4 +71,11 @@ bool unit::UnitTurn::isCurrent(kitten::K_GameObject * p_unitObj)
 void unit::UnitTurn::unitDestroyed()
 {
 	m_currentUnit = nullptr;
+}
+
+void unit::UnitTurn::setEnd()
+{
+	//no unit left, no unit takes turn
+	m_currentUnit = nullptr;
+	m_isEnd = false;
 }

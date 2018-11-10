@@ -48,6 +48,8 @@ namespace unit
 		bool removeStatus(ability::Status *p_oldStatus);
 		ability::Status* getStatus(const std::string& p_name);*/
 		StatusContainer* getStatusContainer();
+		//trigger event
+		void triggerTP(ability::TimePointEvent::TPEventType p_tp, ability::TimePointEvent* p_event = nullptr);
 		//turn interface
 		void turnStart(UnitTurn* p_t);
 		bool canMove();

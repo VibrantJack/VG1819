@@ -12,59 +12,46 @@ namespace ability
 
 		//TO DO: need improve
 		newAbility = new Heal();
-		newAbility->m_name = HEAL_ABILITY;
-		m_abilityList.push_back(newAbility);
+		m_abilityList[ABILITY_HEAL] = newAbility;
 
 		newAbility = new Fight();
-		newAbility->m_name = FIGHT_ABILITY;
-		m_abilityList.push_back(newAbility);
+		m_abilityList[ABILITY_FIGHT] = newAbility;
 
 		newAbility = new ManipulateTile();
-		newAbility->m_name = MANIPULATE_TILE_ABILITY;
-		m_abilityList.push_back(newAbility);
+		m_abilityList[ABILITY_MANIPULATE_TILE] = newAbility;
 
 		newAbility = new Shoot();
-		newAbility->m_name = "Shoot";
-		m_abilityList.push_back(newAbility);
+		m_abilityList[ABILITY_SHOOT] = newAbility;
 
 		newAbility = new Sabotage();
-		newAbility->m_name = "Sabotage";
-		m_abilityList.push_back(newAbility);
+		m_abilityList[ABILITY_SABOTAGE] = newAbility;
 
 		newAbility = new Build_the_Wall();
-		newAbility->m_name = "Build the Wall";
-		m_abilityList.push_back(newAbility);
+		m_abilityList[ABILITY_BUILD_WALL] = newAbility;
 
 		newAbility = new Encourage();
-		newAbility->m_name = "Encourage";
-		m_abilityList.push_back(newAbility);
+		m_abilityList[ABILITY_ENCOURAGE] = newAbility;
 
 		newAbility = new QuickShoot();
-		newAbility->m_name = "QuickShoot";
-		m_abilityList.push_back(newAbility);
+		m_abilityList[ABILITY_QUICK_SHOOT] = newAbility;
 
 		newAbility = new Slay();
-		newAbility->m_name = "Slay";
-		m_abilityList.push_back(newAbility);
+		m_abilityList[ABILITY_SLAY] = newAbility;
 
 		newAbility = new Dodge();
-		newAbility->m_name = "Dodge";
-		m_abilityList.push_back(newAbility);
+		m_abilityList[ABILITY_DODGE] = newAbility;
 
 		newAbility = new SummonUnit();
-		newAbility->m_name = SUMMON_UNIT_ABILITY;
-		m_abilityList.push_back(newAbility);
+		m_abilityList[ABILITY_SUMMON_UNIT] = newAbility;
 
 		newAbility = new Move();
-		newAbility->m_name = "Move";
-		m_abilityList.push_back(newAbility);
+		m_abilityList[ABILITY_MOVE] = newAbility;
 
 		newAbility = new Blast();
-		newAbility->m_name = "Blast";
-		m_abilityList.push_back(newAbility);
+		m_abilityList[ABILITY_BLAST] = newAbility;
 	}
 
-	AbilityManager::AbilityManager() : m_sLastAbilityUsed("NONE")
+	AbilityManager::AbilityManager()
 	{
 		init();
 	}
@@ -74,7 +61,7 @@ namespace ability
 		auto end = m_abilityList.end();
 		for (auto it = m_abilityList.begin(); it != end; ++it)
 		{
-			delete (*it);
+			delete it->second;
 		}
 	}
 
@@ -100,15 +87,7 @@ namespace ability
 
 	Ability * AbilityManager::findAbility(const std::string & p_name)
 	{
-		for (auto it = m_abilityList.begin(); it != m_abilityList.end(); it++)
-		{
-			if ((*it)->m_name == p_name)
-			{
-				m_sLastAbilityUsed = p_name;
-				return *it;
-			}
-		}
-		return nullptr;
+		return m_abilityList[p_name];
 	}
 
 	int AbilityManager::useAbility(const std::string & p_name, AbilityInfoPackage * p_info)
@@ -116,9 +95,10 @@ namespace ability
 		return findAbility(p_name)->effect(p_info);
 	}
 
+	/*
 	const std::string& AbilityManager::lastAbilityUsed()
 	{
 		return m_sLastAbilityUsed;
-	}
+	}*/
 
 }

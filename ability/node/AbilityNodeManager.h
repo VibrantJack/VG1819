@@ -13,7 +13,7 @@ namespace ability
 	private:
 		static AbilityNodeManager * sm_instance;
 
-		std::vector<AbilityNode*> m_nodeList;
+		std::unordered_map<NodeName, AbilityNode*> m_nodeList;
 
 		void init();
 	public:
@@ -24,7 +24,7 @@ namespace ability
 		static void destroyInstance();
 		static AbilityNodeManager* getInstance();
 
-		AbilityNode* findNode(const std::string& p_name);
+		AbilityNode* findNode(NodeName p_name);
 	};
 
 }

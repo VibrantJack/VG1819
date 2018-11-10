@@ -1,6 +1,6 @@
 #pragma once
 #include "ability/status/Status.h"
-
+#include "unit/UnitCommon.h"
 //Rock
 
 namespace ability
@@ -22,9 +22,9 @@ namespace ability
 		}
 		else if (p_type == ability::TimePointEvent::Deal_Damage)
 		{
-			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode("ChangeAbilityInfoNode");
+			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAbilityInfo);
 			AbilityInfoPackage* pack = p_event->getPackage(INFO_PACKAGE_KEY);
-			node->effect(pack, "power", m_counter->at("power"));
+			node->effect(pack, UNIT_POWER, m_counter->at(UNIT_POWER));
 			return 0;
 		}
 		return 1;

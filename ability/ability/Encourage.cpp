@@ -9,14 +9,14 @@ namespace ability
 	void Encourage::applyStatus(AbilityInfoPackage* p_info)
 	{
 		//apply Status_Encourage to target
-		ability::Status* se = ability::StatusManager::getInstance()->findStatus("Status_Encourage");
+		ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_ENCOURAGE);
 
 		//set properties
-		int dur = p_info->m_intValue.find("duration")->second;
-		int pow = p_info->m_intValue.find("power")->second;
+		int dur = p_info->m_intValue.find(UNIT_DURATION)->second;
+		int pow = p_info->m_intValue.find(UNIT_POWER)->second;
 
-		se->addCounter("duration", dur);
-		se->addCounter("power", pow);
+		se->addCounter(UNIT_DURATION, dur);
+		se->addCounter(UNIT_POWER, pow);
 
 		//attach to target
 		se->attach(p_info->m_targets[0]);
@@ -24,10 +24,10 @@ namespace ability
 
 	void Encourage::stackStatus( AbilityInfoPackage* p_info)
 	{
-		ability::Status* se = p_info->m_targets[0]->getStatusContainer()->getStatus("Status_Encourage");
+		ability::Status* se = p_info->m_targets[0]->getStatusContainer()->getStatus(STATUS_ENCOURAGE);
 		//reset duration
-		int dur = p_info->m_intValue.find("duration")->second;
-		se->addCounter("duration", dur);
+		int dur = p_info->m_intValue.find(UNIT_DURATION)->second;
+		se->addCounter(UNIT_DURATION, dur);
 	}
 
 	Encourage::Encourage()
@@ -43,7 +43,7 @@ namespace ability
 		if (checkTarget(p_info))
 		{
 			//check if unit has this status
-			if (p_info->m_targets[0]->getStatusContainer()->getStatus("Status_Encourage"))
+			if (p_info->m_targets[0]->getStatusContainer()->getStatus(STATUS_ENCOURAGE))
 				stackStatus(p_info);
 			else
 				applyStatus(p_info);
