@@ -36,8 +36,7 @@ namespace networking
 		// Initialize Winsock
 		m_iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
 		if (m_iResult != 0) {
-			m_strError = "WSAStartup failed with error: " + m_iResult;
-			//printf("WSAStartup failed with error: %d\n", m_iResult);
+			m_strError = "WSAStartup failed with error: " + std::to_string(m_iResult);
 			return false;
 		}
 
@@ -51,8 +50,7 @@ namespace networking
 		// Resolve the server address and port
 		m_iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
 		if (m_iResult != 0) {
-			m_strError = "getaddrinfo failed with error: " + m_iResult;
-			//printf("getaddrinfo failed with error: %d\n", m_iResult);
+			m_strError = "getaddrinfo failed with error: " + std::to_string(m_iResult);
 			WSACleanup();
 			return false;
 		}
@@ -60,8 +58,7 @@ namespace networking
 		// Create a SOCKET for connecting to server
 		m_listenSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
 		if (m_listenSocket == INVALID_SOCKET) {
-			m_strError = "socket failed with error: " + WSAGetLastError();
-			//printf("socket failed with error: %ld\n", WSAGetLastError());
+			m_strError = "socket failed with error: " + std::to_string(WSAGetLastError());
 			freeaddrinfo(result);
 			WSACleanup();
 			return false;
@@ -71,9 +68,9 @@ namespace networking
 		u_long iMode = 1;
 		m_iResult = ioctlsocket(m_listenSocket, FIONBIO, &iMode);
 		if (m_iResult == SOCKET_ERROR) {
-			m_strError = "ioctlsocket failed with error: " + WSAGetLastError();
-			//printf("ioctlsocket failed with error: %d\n", WSAGetLastError());
+			m_strError = "ioctlsocket failed with error: " + std::to_string(WSAGetLastError());
 			closesocket(m_listenSocket);
+			m_listenSocket = INVALID_SOCKET;
 			WSACleanup();
 			return false;
 		}
@@ -81,10 +78,10 @@ namespace networking
 		// Setup the TCP listening socket
 		m_iResult = bind(m_listenSocket, result->ai_addr, (int)result->ai_addrlen);
 		if (m_iResult == SOCKET_ERROR) {
-			m_strError = "bind failed with error: " + WSAGetLastError();
-			//printf("bind failed with error: %d\n", WSAGetLastError());
+			m_strError = "bind failed with error: " + std::to_string(WSAGetLastError());
 			freeaddrinfo(result);
 			closesocket(m_listenSocket);
+			m_listenSocket = INVALID_SOCKET;
 			WSACleanup();
 			return false;
 		}
@@ -95,9 +92,9 @@ namespace networking
 		// start listening for new clients attempting to connect
 		m_iResult = listen(m_listenSocket, SOMAXCONN);
 		if (m_iResult == SOCKET_ERROR) {
-			m_strError = "listen failed with error: " + WSAGetLastError();
-			//printf("listen failed with error: %d\n", WSAGetLastError());
+			m_strError = "listen failed with error: " + std::to_string(WSAGetLastError());
 			closesocket(m_listenSocket);
+			m_listenSocket = INVALID_SOCKET;
 			WSACleanup();
 			return false;
 		}
@@ -108,11 +105,13 @@ namespace networking
 	void ServerNetwork::shutdown()
 	{
 		closesocket(m_listenSocket);
+		m_listenSocket = INVALID_SOCKET;
 		SOCKET currentSocket;
 		for (auto iter = m_sessions.begin(); iter != m_sessions.end(); iter++)
 		{
 			currentSocket = iter->second;
 			closesocket(currentSocket);
+			currentSocket = INVALID_SOCKET;
 		}
 		WSACleanup();
 	}
@@ -149,6 +148,7 @@ namespace networking
 			{
 				printf("[Client: %d]: Connection lost\n", client_id);
 				closesocket(currentSocket);
+				currentSocket = INVALID_SOCKET;
 			}
 			return m_iResult;
 		}
@@ -158,7 +158,6 @@ namespace networking
 	// send data to all clients
 	void ServerNetwork::sendToAll(char * packets, int totalSize)
 	{
-		//printf("Send to all called\n");
 		SOCKET currentSocket;
 		std::map<unsigned int, SOCKET>::iterator iter;
 		int iSendResult;
@@ -176,6 +175,7 @@ namespace networking
 		}
 	}
 
+	// Send to a specific client
 	void ServerNetwork::sendToClient(unsigned int client_id, char * packets, int totalSize)
 	{
 		SOCKET currentSocket;
@@ -195,6 +195,7 @@ namespace networking
 		}
 	}
 
+	// Send to all clients except the one specified
 	void ServerNetwork::sendToOthers(unsigned int client_id, char * packets, int totalSize)
 	{
 		SOCKET currentSocket;
