@@ -32,7 +32,7 @@ namespace networking
 	// Access to singleton instance.
 	ServerGame* ServerGame::getInstance()
 	{
-		assert(sm_serverGameInstance);
+		//assert(sm_serverGameInstance);
 		return sm_serverGameInstance;
 	}
 

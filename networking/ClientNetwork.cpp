@@ -110,6 +110,7 @@ namespace networking
 			m_strError = "ioctlsocket failed with error: " + WSAGetLastError();
 			//printf("ioctlsocket failed with error: %d\n", WSAGetLastError());
 			closesocket(m_connectSocket);
+			m_connectSocket = INVALID_SOCKET;
 			WSACleanup();
 			return false;
 		}
@@ -124,6 +125,7 @@ namespace networking
 	void ClientNetwork::shutdown()
 	{
 		closesocket(m_connectSocket);
+		m_connectSocket = INVALID_SOCKET;
 		WSACleanup();
 	}
 
@@ -135,10 +137,10 @@ namespace networking
 		{
 			printf("Connection closed\n");
 			closesocket(m_connectSocket);
+			m_connectSocket = INVALID_SOCKET;
 			WSACleanup();
 			// TODO: Properly disconnect rather than shutdown lol
 			// Will need to clean up ClientNetwork and properly clean up ClientGame
-			exit(1);
 		}
 
 		return m_iResult;
