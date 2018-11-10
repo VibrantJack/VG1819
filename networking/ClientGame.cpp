@@ -89,6 +89,29 @@ namespace networking
 		}
 	}
 
+	void ClientGame::disconnectFromNetwork()
+	{
+		// Send a packet to alert server that client is disconnecting
+		Packet packet;
+		packet.packetType = CLIENT_DISCONNECT;
+		packet.clientId = m_iClientId;
+
+		char data[BASIC_PACKET_SIZE];
+		packet.serialize(data);
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
+
+
+		// Shutdown ClientNetwork
+		if (m_network != nullptr)
+		{
+			delete m_network;
+			m_network = nullptr;
+		}
+
+		m_networkValid = false;
+
+	}
+
 	void ClientGame::update()
 	{
 		Packet packet;

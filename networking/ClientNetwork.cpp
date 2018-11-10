@@ -35,8 +35,7 @@ namespace networking
 		m_iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
 
 		if (m_iResult != 0) {
-			m_strError = "WSAStartup failed with error: " + m_iResult;
-			//printf("WSAStartup failed with error: %d\n", m_iResult);
+			m_strError = "WSAStartup failed with error: " + std::to_string(m_iResult);
 			return false;
 		}
 
@@ -53,8 +52,7 @@ namespace networking
 
 		if (m_iResult != 0)
 		{
-			m_strError = "getaddrinfo failed with error: " + m_iResult;
-			//printf("getaddrinfo failed with error: %d\n", m_iResult);
+			m_strError = "getaddrinfo failed with error: " + std::to_string(m_iResult);
 			WSACleanup();
 			return false;
 		}
@@ -67,8 +65,7 @@ namespace networking
 				ptr->ai_protocol);
 
 			if (m_connectSocket == INVALID_SOCKET) {
-				m_strError = "socket failed with error: " + WSAGetLastError();
-				//printf("socket failed with error: %ld\n", WSAGetLastError());
+				m_strError = "socket failed with error: " + std::to_string(WSAGetLastError());
 				WSACleanup();
 				return false;
 			}
@@ -81,7 +78,6 @@ namespace networking
 				closesocket(m_connectSocket);
 				m_connectSocket = INVALID_SOCKET;
 				m_strError = "The server is down... did not connect";
-				//printf("The server is down... did not connect");
 			}
 		}
 
@@ -96,7 +92,6 @@ namespace networking
 		if (m_connectSocket == INVALID_SOCKET)
 		{
 			m_strError = "Unable to connect to server!";
-			//printf("Unable to connect to server!\n");
 			WSACleanup();
 			return false;
 		}
@@ -107,8 +102,7 @@ namespace networking
 		m_iResult = ioctlsocket(m_connectSocket, FIONBIO, &iMode);
 		if (m_iResult == SOCKET_ERROR)
 		{
-			m_strError = "ioctlsocket failed with error: " + WSAGetLastError();
-			//printf("ioctlsocket failed with error: %d\n", WSAGetLastError());
+			m_strError = "ioctlsocket failed with error: " + std::to_string(WSAGetLastError());
 			closesocket(m_connectSocket);
 			m_connectSocket = INVALID_SOCKET;
 			WSACleanup();

@@ -22,6 +22,7 @@ namespace networking
 		static ClientGame* getInstance();
 
 		void setupNetwork(const std::string &p_strAddr = "127.0.0.1");
+		void disconnectFromNetwork();
 
 		void update();
 
