@@ -147,10 +147,9 @@ namespace networking
 
 			if (m_iResult == 0)
 			{
-				printf("Connection closed\n");
+				printf("[Client: %d]: Connection lost\n", client_id);
 				closesocket(currentSocket);
 			}
-
 			return m_iResult;
 		}
 		return 0;
