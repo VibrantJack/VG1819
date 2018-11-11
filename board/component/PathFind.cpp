@@ -1,6 +1,6 @@
 #include "PathFind.h"
 #include "board/BoardManager.h"
-
+#include <algorithm>
 PathFind::PathFind()
 {
 	std::pair<int, int> d = BoardManager::getInstance()->getDimension();
@@ -152,6 +152,7 @@ kitten::Event::TileList PathFind::getList(node* p_n)
 		list.push_back(n->tile);
 		n = n->parent;
 	}
+	std::reverse(list.begin(), list.end());
 	return list;
 }
 

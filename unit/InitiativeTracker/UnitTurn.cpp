@@ -20,6 +20,9 @@ void unit::UnitTurn::turnStart(kitten::K_GameObject* p_unitObj)
 
 	m_currentUnit->triggerTP(ability::TimePointEvent::Turn_Start);
 
+	if (m_currentUnit == nullptr)
+		return;
+
 	m_currentUnit->turnStart(this);
 
 	//if the unit's movement is greater than 0, then it can move this turn
