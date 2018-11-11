@@ -126,7 +126,7 @@ namespace kitten
 		{
 			(*it)->onHoverStart();
 		}
-		std::cout << "Frame Hovered!";
+		std::cout << "Frame Hovered...";
 	}
 
 	void ClickableFrame::onClick()
@@ -136,6 +136,7 @@ namespace kitten
 		{
 			(*it)->onClick();
 		}
+		std::cout << "Frame Clicked!\n";
 	}
 
 	void ClickableFrame::onHoverEnd()
@@ -145,6 +146,7 @@ namespace kitten
 		{
 			(*it)->onHoverEnd();
 		}
+		std::cout << "Hover Ended...\n";
 	}
 
 	void ClickableFrame::release()
@@ -154,5 +156,6 @@ namespace kitten
 		{
 			(*it)->release();
 		}
+		std::cout << "Frame released!\n";
 	}
 }

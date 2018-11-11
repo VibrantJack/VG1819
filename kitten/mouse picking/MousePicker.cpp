@@ -77,16 +77,17 @@ namespace MousePicker
 		glm::vec2 maxpoint = p_clickable->getMaxPoint();
 		glm::vec2 minpoint = p_clickable->getMinPoint();
 
-		if (p_mouseX < minpoint.x || p_mouseY < minpoint.y)
+		if (p_mouseX > minpoint.x || p_mouseY  > minpoint.y)
 		{
+			if (p_mouseX < maxpoint.x || p_mouseY < maxpoint.y)
+			{
+				return true;
+			}
+			else {
+				return false;
+			}
+		} else {
 			return false;
-		}
-		else if (p_mouseX > maxpoint.x || p_mouseY > minpoint.y)
-		{
-			return false;
-		}
-		else {
-			return true;
 		}
 	}
 

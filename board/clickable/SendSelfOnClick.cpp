@@ -1,7 +1,10 @@
 #include "SendSelfOnClick.h"
 #include "kitten/event_system/EventManager.h"
 #include "board/tile/TileInfo.h"
+#include "board/BoardManager.h"
 #include <iostream>
+#include <sstream>
+
 SendSelfOnClick::SendSelfOnClick()
 {
 }
@@ -19,13 +22,27 @@ void SendSelfOnClick::onClick()
 	bool highlighted = m_attachedObject->getComponent<TileInfo>()->isHighlighted();
 	if (highlighted)
 	{
-		e->putInt("highlighted", 1);
-		e->putInt("tile_number", 1);
-		e->putGameObj("tile0", m_attachedObject);
+		e->putInt("highlighted", TRUE);
+
+		kitten::Event::TileList list = BoardManager::getInstance()->getArea();
+		e->putInt(TILE_NUMBER, list.size());
+
+		for (int i = 0; i < list.size(); i++)
+		{
+			int x = list[i].first;
+			int z = list[i].second;
+			kitten::K_GameObject* tileGO = BoardManager::getInstance()->getTile(x, z);
+
+			std::stringstream stm;
+			stm << TILE << i;
+			std::string key = stm.str();
+
+			e->putGameObj(key, tileGO);
+		}
 	}
 	else
 	{
-		e->putInt("highlighted", 0);
+		e->putInt("highlighted", FALSE);
 	}
 
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
@@ -34,21 +51,11 @@ void SendSelfOnClick::onClick()
 }
 
 void SendSelfOnClick::onHoverStart()
-{	/*
-	// for test Range 
-	kitten::Event* e = new kitten::Event(kitten::Event::Highlight_Tile);
-	e->putString(TILE_OWNER_KEY, "Area.");//highlight because of this unit move
-	e->putInt("minRange", 1);
-	e->putInt("maxRange", 2);//the range is between 1 and mv attributes
-	e->putGameObj("tileAtOrigin", m_attachedObject);
-	e->putString("use", "test");
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Highlight_Tile, e);*/
+{
+	BoardManager::getInstance()->showArea(m_attachedObject);
 }
 
 void SendSelfOnClick::onHoverEnd()
 {
-	/*
-	//for test Range
-	kitten::Event* e = new kitten::Event(kitten::Event::Unhighlight_Tile);
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Unhighlight_Tile, e);*/
+	//BoardManager::getInstance()->hideArea();
 }
