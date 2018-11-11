@@ -10,6 +10,7 @@
 
 #include "puppy/Text/TextBox.h"
 
+#include "kitten/sprites/SpriteAnimator.h"
 //Rock
 
 namespace unit
@@ -55,30 +56,43 @@ namespace unit
 		//get component manager
 		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
 
-		//create unit graphic
-		UnitGraphic* unitG = static_cast<UnitGraphic*>(cm->createComponent("UnitGraphic"));
-		unitG->setTexture(p_unitData->m_texPath.c_str());
-
-		//create unit move
-		kitten::K_Component* uMove = cm->createComponent("UnitMove");
-
-		//create click box
-		kitten::K_Component* uBox = createClickableBox(p_unitData->m_size);
-
-		//create clickable
-		unit::UnitClickable* uClick = static_cast<unit::UnitClickable*>(cm->createComponent("UnitClickable"));
-		uClick->setTextBox(m_textBoxGO);
-
 		//unit object
 		kitten::K_GameObject* unitObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 		unitObject->addComponent(unit);
 
-		//attach component
+		
+		//create unit graphic
+		UnitGraphic* unitG = static_cast<UnitGraphic*>(cm->createComponent("UnitGraphic"));
+		unitG->setTexture(p_unitData->m_texPath.c_str());
 		unitObject->addComponent(unitG);
-		unitObject->addComponent(uMove);
-		unitObject->addComponent(uBox);
-		unitObject->addComponent(uClick);
 
+		//create unit move
+		kitten::K_Component* uMove = cm->createComponent("UnitMove");
+		unitObject->addComponent(uMove);
+
+		//create click box
+		kitten::K_Component* uBox = createClickableBox(p_unitData->m_size);
+		unitObject->addComponent(uBox);
+
+		//create clickable
+		unit::UnitClickable* uClick = static_cast<unit::UnitClickable*>(cm->createComponent("UnitClickable"));
+		uClick->setTextBox(m_textBoxGO);
+		unitObject->addComponent(uClick);
+		
+		//check if there is sprite, for debuging
+		if (p_unitData->m_spriteName != std::string())
+		{//sprite render
+			kitten::K_Component* uSpriteRender = cm->createComponent("SpriteRenderable");
+			unitObject->addComponent(uSpriteRender);
+			//sprite animator
+			sprites::SpriteAnimator* uSpriteAnimator = static_cast<sprites::SpriteAnimator*>(cm->createComponent("SpriteAnimator"));
+			uSpriteAnimator->setSpriteSheet(p_unitData->m_spriteName);
+			unitObject->addComponent(uSpriteAnimator);
+
+			unitG->setEnabled(false);
+		}
+		
+		//hard coded, should be datadriven
 		//rotate to face camera
 		unitObject->getTransform().rotateRelative(glm::vec3(45, 0, 0));
 

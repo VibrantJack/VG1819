@@ -69,6 +69,7 @@ namespace unit
 		std::vector<unit::AbilityDescription*> m_ad;
 		std::vector<unit::StatusDescription*> m_sd;
 
+		std::string m_spriteName;
 		std::string m_texPath;
 		std::string m_porPath;
 	};
