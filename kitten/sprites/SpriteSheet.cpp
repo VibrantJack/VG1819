@@ -3,9 +3,9 @@
 
 namespace sprites
 {
-	SpriteSheet::SpriteSheet(const std::string& p_characterName, const std::string& p_pathToTex, int p_sheetWidth, int p_sheetHeight, int p_characterWidth, int p_characterHeight) : 
+	SpriteSheet::SpriteSheet(const std::string& p_characterName, const std::string& p_pathToTex, int p_sheetWidth, int p_sheetHeight, int p_characterWidth, int p_characterHeight, int p_padding) : 
 		m_characterName(p_characterName),m_sheetWidth(p_sheetWidth), m_sheetHeight(p_sheetHeight), m_characterWidth(p_characterWidth), m_characterHeight(p_characterHeight), 
-		m_gridWidth((p_sheetWidth/p_characterWidth)-1), m_gridHeight((p_sheetHeight/p_characterHeight)-1), m_defaultAnimation(nullptr)
+		m_gridWidth((p_sheetWidth/(p_characterWidth+p_padding))-1), m_gridHeight((p_sheetHeight/(p_characterHeight+p_padding))-1), m_defaultAnimation(nullptr), m_padding(p_padding)
 	{
 		m_material = new puppy::Material(puppy::ShaderType::sprite);
 		m_material->setTexture(p_pathToTex.c_str());
@@ -64,7 +64,7 @@ namespace sprites
 		//Chain together frames from startPosition to endPosition
 
 		//Do the first frame
-		glm::vec2 firstOffset((float)(p_startPosition.first*m_characterWidth) / m_sheetWidth, -((float)(p_startPosition.second*m_characterHeight) / m_sheetHeight));
+		glm::vec2 firstOffset((float)(p_startPosition.first*m_characterWidth + (m_padding * p_startPosition.first)) / m_sheetWidth, -((float)(p_startPosition.second*m_characterHeight + (m_padding * p_startPosition.second)) / m_sheetHeight));
 		AnimationFrame* firstFrame = new AnimationFrame(firstOffset, frameTime, true);
 
 		AnimationFrame* previousFrame = firstFrame;
@@ -78,24 +78,28 @@ namespace sprites
 			currentPos.second++;
 		}
 
-		bool ranOnce = false;
-
 		GridPosition nextPosition = currentPos;
 
 		while (currentPos != p_endPosition)
 		{
+			glm::vec2 offset((float)(currentPos.first*m_characterWidth + (m_padding * currentPos.first)) / m_sheetWidth, -(float)(currentPos.second*m_characterHeight + (m_padding * currentPos.second)) / m_sheetHeight);
+			nextFrame = new AnimationFrame(offset,frameTime);
+			previousFrame->next = nextFrame;
+			previousFrame = nextFrame;
+
 			currentPos.first++;
 			if (currentPos.first > m_gridWidth)
 			{
 				currentPos.first = 0;
 				currentPos.second++;
 			}
-
-			glm::vec2 offset((float)(currentPos.first*m_characterWidth) / m_sheetWidth, -(float)(currentPos.second*m_characterHeight) / m_sheetHeight);
-			nextFrame = new AnimationFrame(offset,frameTime);
-			previousFrame->next = nextFrame;
-			previousFrame = nextFrame;
 		}
+
+		//Do the last frame
+		glm::vec2 offset((float)(currentPos.first*m_characterWidth + (m_padding * currentPos.first)) / m_sheetWidth, -(float)(currentPos.second*m_characterHeight + (m_padding * currentPos.second)) / m_sheetHeight);
+		nextFrame = new AnimationFrame(offset, frameTime);
+		previousFrame->next = nextFrame;
+		previousFrame = nextFrame;
 
 		//set the last frame to point to the first so it circles back
 		previousFrame->next = firstFrame;

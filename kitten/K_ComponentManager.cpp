@@ -14,6 +14,8 @@
 #include "_Project\UseAbilityWhenClicked.h"
 #include "_Project\FPSCalc.h"
 #include "puppy\Text\TextBox.h"
+#include "kitten\sprites\SpriteAnimator.h"
+#include "kitten\sprites\SpriteRenderable.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "unit/unitComponent/UnitClickable.h"
 //ui
@@ -174,6 +176,14 @@ namespace kitten
 		else if (p_componentName == "SpawnUnitOnKeyPress")
 		{
 			comp = new SpawnUnitOnKeyPress();
+		}
+		else if (p_componentName == "SpriteRenderable") // Datadriven
+		{
+			comp = new SpriteRenderable();
+		}
+		else if (p_componentName == "SpriteAnimator") // Datadriven
+		{
+			comp = new sprites::SpriteAnimator("");
 		}
 		else if (p_componentName == "NetworkingConsoleMenu")
 		{

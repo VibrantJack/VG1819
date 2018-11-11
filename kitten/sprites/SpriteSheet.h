@@ -33,12 +33,13 @@ namespace sprites
 		const int m_sheetWidth, m_sheetHeight;
 		const int m_characterWidth, m_characterHeight;
 		const int m_gridWidth, m_gridHeight;
+		const int m_padding;
 
 		const AnimationFrame* m_defaultAnimation;
 		puppy::Material* m_material;
 
 	public:
-		SpriteSheet(const std::string& p_characterName, const std::string& p_pathToTex, int p_sheetWidth, int p_sheetHeight, int p_characterWidth, int p_characterHeight);
+		SpriteSheet(const std::string& p_characterName, const std::string& p_pathToTex, int p_sheetWidth, int p_sheetHeight, int p_characterWidth, int p_characterHeight, int p_padding);
 		~SpriteSheet();
 
 		const std::string& getCharacterName() const;

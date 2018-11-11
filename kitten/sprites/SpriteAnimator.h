@@ -27,6 +27,12 @@ namespace sprites
 		SpriteAnimator(const std::string& p_spriteName);
 		~SpriteAnimator();
 
+		//This is only exists because units do not construct their gameobjects like everything else..
+		//should be changed so this can be removed.
+		//Setting this after start will result in bonked animations
+		void setSpriteSheet(const std::string& p_characterName);
+
+
 		void setAnimation(const std::string& p_animationName);
 	};
 }

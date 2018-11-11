@@ -6,7 +6,7 @@
 			},
 			{
 				"name" : "SpriteAnimator",
-				"spritename" : "cleric"
+				"spritename" : "wizard"
 			}
 		]
 }

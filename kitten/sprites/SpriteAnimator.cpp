@@ -7,7 +7,6 @@ namespace sprites
 	SpriteAnimator::SpriteAnimator(const std::string& p_spriteName) : m_renderable(nullptr), m_currentAnimationFrameTime(0)
 	{
 		m_spriteSheet = kibble::SpriteLoader::sm_instance->getSpriteSheet(p_spriteName);
-		assert(m_spriteSheet != nullptr);
 	}
 
 	SpriteAnimator::~SpriteAnimator()
@@ -15,8 +14,18 @@ namespace sprites
 
 	}
 
+	//This only exists because units do not construct their gameobjects like everything else..
+	//should be changed so this can be removed.
+	//Setting this after start will result in bonked animations
+	void SpriteAnimator::setSpriteSheet(const std::string& p_characterName)
+	{
+		m_spriteSheet = kibble::SpriteLoader::sm_instance->getSpriteSheet(p_characterName);
+	}
+
 	void SpriteAnimator::start()
 	{
+		assert(m_spriteSheet != nullptr);
+
 		m_currentFrame = m_spriteSheet->getDefaultAnimation();
 
 		m_renderable = m_attachedObject->getComponent<kitten::SpriteRenderable>();

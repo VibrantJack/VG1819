@@ -25,6 +25,7 @@ void kibble::initializeKibbleRelatedComponents() {
 
 void kibble::destroyKibbleRelatedComponents() {
 	destroyDatabank();
+	SpriteLoader::destroyInstance();
 
 	delete gameObjectParser;
 	delete unitParser;

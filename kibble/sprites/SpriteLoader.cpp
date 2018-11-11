@@ -66,7 +66,9 @@ namespace kibble
 		int characterWidth = sheetFile["characterwidth"];
 		int characterHeight = sheetFile["characterheight"];
 
-		sprites::SpriteSheet* newSheet = new sprites::SpriteSheet(characterName, pathToTex, sheetWidth, sheetHeight, characterWidth, characterHeight);
+		int padding = sheetFile["padding"];
+
+		sprites::SpriteSheet* newSheet = new sprites::SpriteSheet(characterName, pathToTex, sheetWidth, sheetHeight, characterWidth, characterHeight, padding);
 
 		//Set animations
 		auto end = sheetFile["animations"].cend();
