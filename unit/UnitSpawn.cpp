@@ -90,9 +90,13 @@ namespace unit
 			unitObject->addComponent(uSpriteAnimator);
 
 			unitG->setEnabled(false);
+
+			//hard code, need to be datadriven
+			unitObject->getTransform().scaleRelative(2.0f, 2.0f, 0.0f);
 		}
 		
 		//hard coded, should be datadriven
+		//unitObject->getTransform().move(0.5f, 1.0f, 0.0f);
 		//rotate to face camera
 		unitObject->getTransform().rotateRelative(glm::vec3(45, 0, 0));
 

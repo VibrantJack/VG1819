@@ -112,7 +112,7 @@ namespace kitten
 			comp = new ClickableBox(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
 		} else if (p_componentName == "ClickableBoxForPointUnit") // Datadriven
 		{
-			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 2.0f, 0.0f));
+			comp = new ClickableBox(glm::vec3(-0.5f, -1.0f, 0.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 		} else if (p_componentName == "ClickableBoxForCubeUnit") // Datadriven
 		{
 			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(2.5f, 3.0f, 0.0f));
