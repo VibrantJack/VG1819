@@ -14,6 +14,7 @@
 #include "board/tile/TileInfo.h"
 #include "board/component/tilePipeline/TilePipeline.h"
 #include "board/component/area/Area.h"
+#include "board/component/PathFind.h"
 
 class TilePipeline;
 class BoardManager
@@ -48,6 +49,7 @@ private:
 	TilePipeline* m_pipeline;
 	PowerTracker* m_powerTracker;
 	Area* m_area;
+	PathFind* m_pathFind;
 
 	kitten::Event::TileList m_areaList;
 

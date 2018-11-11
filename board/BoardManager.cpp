@@ -96,7 +96,7 @@ BoardManager::BoardManager()
 	m_highlighter = static_cast<Highlighter*>(kitten::K_ComponentManager::getInstance()->createComponent("Highlighter"));
 	m_pipeline = new TilePipeline();
 	m_area = new Area();
-
+	m_pathFind = new PathFind();
 	registerEvent();
 }
 
@@ -106,6 +106,7 @@ BoardManager::~BoardManager()
 	delete m_highlighter;
 	delete m_pipeline;
 	delete m_area;
+	delete m_pathFind;
 }
 
 void BoardManager::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data)
