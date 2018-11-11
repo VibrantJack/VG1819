@@ -73,7 +73,7 @@ void unit::UnitMove::attempToMove(int p_min, int p_max)
 
 	m_ad = new unit::AbilityDescription();
 
-	m_ad->m_stringValue["name"] = "Move";
+	m_ad->m_stringValue["name"] = ABILITY_MOVE;
 	m_ad->m_intValue["target"] = 1;
 	m_ad->m_intValue["min_range"] = p_min;
 	if (p_max < 0)
@@ -81,8 +81,13 @@ void unit::UnitMove::attempToMove(int p_min, int p_max)
 	else
 		m_ad->m_intValue["max_range"] = p_max;
 	//filter
-	m_ad->m_intValue["filter"] = 1;
-	m_ad->m_stringValue["filter0"] = "unit";
+	m_ad->m_intValue["need_unit"] = FALSE;
+	m_ad->m_intValue[FILTER] = 1;
+	m_ad->m_stringValue["filter0"] = FILTER_UNIT;
+	//area, in this case, path
+	m_ad->m_stringValue[AREA_MODE] = PATH;
+	m_ad->m_intValue[AREA_FIX] = FALSE;
+	m_ad->m_intValue[AREA_LEN] = m_ad->m_intValue["max_range"];
 
 	UnitInteractionManager::getInstance()->request(u, m_ad);
 }

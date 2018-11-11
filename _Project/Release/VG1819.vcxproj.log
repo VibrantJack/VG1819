@@ -1,11 +1,9 @@
-﻿  StatusManager.cpp
-  LINK : 0 new modules and 1 (out of 227) modules have changed since prior linking
+﻿  BoardCreator.cpp
+d:\work\vg1819\board\component\boardcreator.cpp(106): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+  LINK : 0 new modules and 1 (out of 229) modules have changed since prior linking
   Generating non-SAFESEH image.
   Starting pass 2
-       StatusManager.obj
+       BoardCreator.obj
        MSVCRTD.lib(loadcfg.obj)
   Finished pass 2
-  Failed to connect to VCTIP: 'CreateFile' failed with 2
-  Not launching VCTIP: it is flagged as unstable
-  Telemetry event upload failed: 'Failed to open connection to VCTIP'
   VG1819.vcxproj.vcxproj -> D:\work\VG1819\_Project\Release\VG1819.exe

@@ -35,6 +35,7 @@ kitten::Event::TileList PathFind::getPath(std::pair<int, int> p_start, std::pair
 		}
 		else
 		{
+			getNeighbour(last);
 			m_closedList.push_back(last);
 		}
 	}

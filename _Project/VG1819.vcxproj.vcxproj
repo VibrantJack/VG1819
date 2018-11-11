@@ -130,10 +130,12 @@
     <ClCompile Include="..\board\component\area\AreaPattern.cpp" />
     <ClCompile Include="..\board\component\area\LineHPattern.cpp" />
     <ClCompile Include="..\board\component\area\LineVPattern.cpp" />
+    <ClCompile Include="..\board\component\area\PathPattern.cpp" />
     <ClCompile Include="..\board\component\area\PointPattern.cpp" />
     <ClCompile Include="..\board\component\area\SpanPattern.cpp" />
     <ClCompile Include="..\board\component\area\SquarePattern.cpp" />
     <ClCompile Include="..\board\component\area\TrianglePattern.cpp" />
+    <ClCompile Include="..\board\component\PathFind.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />
@@ -267,6 +269,7 @@
     <ClInclude Include="..\ability\status\statusEvent\TimePointEvent.h" />
     <ClInclude Include="..\board\component\area\Area.h" />
     <ClInclude Include="..\board\component\area\AreaPattern.h" />
+    <ClInclude Include="..\board\component\PathFind.h" />
     <ClInclude Include="..\board\component\tilePipeline\TileFliter.h" />
     <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInformation.h" />

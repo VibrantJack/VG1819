@@ -49,7 +49,7 @@ private:
 	TilePipeline* m_pipeline;
 	PowerTracker* m_powerTracker;
 	Area* m_area;
-	PathFind* m_pathFind;
+	//PathFind* m_pathFind;
 
 	kitten::Event::TileList m_areaList;
 
