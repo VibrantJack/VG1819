@@ -139,7 +139,7 @@ void NetworkingConsoleMenu::stopHosting()
 {
 	// Host player should be running an instance of ServerGame and ClientGame
 	// First, shutdown local ClientGame
-	disconnectFromHost();
+	//disconnectFromHost();
 
 	// Then, shutdown local server
 	if (networking::ServerGame::getInstance())
@@ -147,8 +147,9 @@ void NetworkingConsoleMenu::stopHosting()
 		if (networking::ServerGame::getInstance()->isNetworkValid())
 		{
 			printf("Shutting down server\n");
-			// Call function from ServerGame to shutdown ServerNetwork here
-
+			networking::ServerGame::getInstance()->shutdownNetwork();
+			networking::ServerGame::destroyInstance();
+			m_bClientUpdate = false;
 			m_bServerUpdate = false;
 		} else
 		{
@@ -196,7 +197,9 @@ void NetworkingConsoleMenu::disconnectFromHost()
 		if (networking::ClientGame::getInstance()->isNetworkValid())
 		{
 			printf("Disconnecting from server\n");
-			// Call function from ClientGame to disconnect from ClientNetwork here
+
+			networking::ClientGame::getInstance()->disconnectFromNetwork();
+			networking::ClientGame::destroyInstance();
 
 			m_bClientUpdate = false;
 		} else

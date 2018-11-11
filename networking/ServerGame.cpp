@@ -10,7 +10,7 @@
 
 namespace networking
 {
-	unsigned int ServerGame::client_id;
+	//unsigned int ServerGame::client_id;
 
 	ServerGame* ServerGame::sm_serverGameInstance = nullptr;
 
@@ -73,12 +73,31 @@ namespace networking
 
 	}
 
+	void ServerGame::shutdownNetwork()
+	{
+		Packet packet;
+		packet.packetType = SERVER_SHUTDOWN;
+
+		char data[BASIC_PACKET_SIZE];
+		packet.serialize(data);
+		m_network->sendToAll(data, BASIC_PACKET_SIZE);
+
+		// Shutdown ServerNetwork
+		if (m_network != nullptr)
+		{
+			delete m_network;
+			m_network = nullptr;
+		}
+
+		m_networkValid = false;
+	}
+
 	void ServerGame::update()
 	{
 		// get new clients
 		if (m_network->acceptNewClient(client_id))
 		{
-			printf("client %d has been connected to the server\n", client_id);
+			printf("[Client: %d] has been connected to the server\n", client_id);
 
 			client_id++;
 		}
@@ -125,6 +144,15 @@ namespace networking
 
 						packet.serialize(packet_data);
 						m_network->sendToClient(clientId, packet_data, BASIC_PACKET_SIZE);
+						break;
+					}
+					case CLIENT_DISCONNECT:
+					{
+						i += BASIC_PACKET_SIZE;
+						unsigned int clientId = iter->first;
+						printf("\nserver received CLIENT_DISCONNECT from client %d\n", clientId);						
+						m_network->removeClient(clientId);
+
 						break;
 					}
 					case SUMMON_UNIT:

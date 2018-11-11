@@ -33,7 +33,8 @@ namespace networking
 		int receiveData(unsigned int client_id, char * recvbuf);
 
 		// accept new connections
-		bool acceptNewClient(unsigned int & id);
+		bool acceptNewClient(unsigned int & p_iClientId);
+		void removeClient(unsigned int & p_iClientId);
 
 		const std::string& getError() const { return m_strError; }
 

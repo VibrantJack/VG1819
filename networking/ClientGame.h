@@ -22,7 +22,8 @@ namespace networking
 		static ClientGame* getInstance();
 
 		void setupNetwork(const std::string &p_strAddr = "127.0.0.1");
-		void disconnectFromNetwork();
+		void disconnectFromNetwork(bool p_bServerShutdown = false);
+		//void shutdown(bool p_bServerShutdown = false); // Group up disconnectFromNetwork and destroyInstance? 
 
 		void update();
 

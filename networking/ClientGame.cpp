@@ -13,7 +13,7 @@
 #include "kibble\databank\databank.hpp"
 
 // Units
-#include "kitten\K_GameObject.h"
+#include "kitten\K_GameObjectManager.h"
 #include "unit\UnitSpawn.h"
 #include "unit\unitComponent\UnitMove.h"
 #include "unit\UnitMonitor.h"
@@ -60,6 +60,12 @@ namespace networking
 		{
 			delete m_network;
 		}
+
+		auto end = m_unitGOList.end();
+		for (auto it = m_unitGOList.begin(); it != end; ++it)
+		{
+			kitten::K_GameObjectManager::getInstance()->destroyGameObject((*it).second);
+		}
 	}
 
 	void ClientGame::setupNetwork(const std::string &p_strAddr)
@@ -89,17 +95,20 @@ namespace networking
 		}
 	}
 
-	void ClientGame::disconnectFromNetwork()
+	void ClientGame::disconnectFromNetwork(bool p_bServerShutdown)
 	{
-		// Send a packet to alert server that client is disconnecting
-		Packet packet;
-		packet.packetType = CLIENT_DISCONNECT;
-		packet.clientId = m_iClientId;
+		// If Server sent disconnect then no need to send packet to server
+		if (!p_bServerShutdown)
+		{
+			// Send a packet to alert server that client is disconnecting
+			Packet packet;
+			packet.packetType = CLIENT_DISCONNECT;
+			packet.clientId = m_iClientId;
 
-		char data[BASIC_PACKET_SIZE];
-		packet.serialize(data);
-		NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
-
+			char data[BASIC_PACKET_SIZE];
+			packet.serialize(data);
+			NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
+		}
 
 		// Shutdown ClientNetwork
 		if (m_network != nullptr)
@@ -144,6 +153,16 @@ namespace networking
 				m_iClientId = packet.clientId;
 				printf("Client ID: %d\n", m_iClientId);
 
+				break;
+			}
+			case PacketTypes::SERVER_SHUTDOWN:
+			{
+				printf("client received SERVER_SHUTDOWN packet from server\n");
+
+				i += BASIC_PACKET_SIZE;
+				disconnectFromNetwork(true);
+				// @TODO: After disconnecting from network, we should prompt to return to main menu or something similar
+				// After returning to main menu, we then destroy ClientGame
 				break;
 			}
 			case PacketTypes::SUMMON_UNIT:
