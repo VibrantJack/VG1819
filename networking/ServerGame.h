@@ -19,6 +19,7 @@ namespace networking
 		bool isNetworkValid() { return m_networkValid; }
 
 		void setupNetwork();
+		void shutdownNetwork();
 
 		void update();
 		void receiveFromClients();
@@ -28,7 +29,7 @@ namespace networking
 	private:
 
 		// IDs for the clients connecting for table in ServerNetwork 
-		static unsigned int client_id;
+		unsigned int client_id;
 
 		// The ServerNetwork object 
 		ServerNetwork* m_network;

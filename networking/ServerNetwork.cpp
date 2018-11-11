@@ -106,18 +106,21 @@ namespace networking
 	{
 		closesocket(m_listenSocket);
 		m_listenSocket = INVALID_SOCKET;
+
 		SOCKET currentSocket;
 		for (auto iter = m_sessions.begin(); iter != m_sessions.end(); iter++)
 		{
 			currentSocket = iter->second;
-			closesocket(currentSocket);
-			currentSocket = INVALID_SOCKET;
+			if (currentSocket != INVALID_SOCKET)
+			{
+				closesocket(currentSocket);
+				currentSocket = INVALID_SOCKET;
+			}
 		}
 		WSACleanup();
 	}
 
-	// accept new connections
-	bool ServerNetwork::acceptNewClient(unsigned int & id)
+	bool ServerNetwork::acceptNewClient(unsigned int & p_iClientId)
 	{
 		// if client waiting, accept the connection and save the socket
 		m_clientSocket = accept(m_listenSocket, NULL, NULL);
@@ -129,11 +132,33 @@ namespace networking
 			setsockopt(m_clientSocket, IPPROTO_TCP, TCP_NODELAY, &value, sizeof(value));
 
 			// insert new client into session id table
-			m_sessions.insert(std::pair<unsigned int, SOCKET>(id, m_clientSocket));
+			m_sessions.insert(std::pair<unsigned int, SOCKET>(p_iClientId, m_clientSocket));
 
 			return true;
 		}
 		return false;
+	}
+
+	void ServerNetwork::removeClient(unsigned int & p_iClientId)
+	{
+		if (m_sessions.find(p_iClientId) != m_sessions.end())
+		{
+			printf("[Client: %d]: disconnecting\n", p_iClientId);
+
+			SOCKET currentSocket = m_sessions[p_iClientId];
+			closesocket(currentSocket);
+			currentSocket = INVALID_SOCKET;
+
+			// Cannot remove the socket from the map as this function is called from ServerGame::update()
+			// iterator that references the current socket
+			// Socket clean up should be taken care of in ServerNetwork::shutdown();
+			// Consider something similar to K_GameObjectManager::deleteQueuedObjects() if necessary 
+			//m_sessions.erase(p_iClientId);
+		}
+		else
+		{
+			printf("Cannot remove [Client: %d]: client not found\n", p_iClientId);
+		}
 	}
 
 	// receive incoming data
