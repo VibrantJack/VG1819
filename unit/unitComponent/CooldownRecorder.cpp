@@ -14,9 +14,9 @@ unit::CooldownRecorder::~CooldownRecorder()
 
 void unit::CooldownRecorder::addCD(AbilityDescription* p_ad)
 {
-	if (p_ad->m_intValue.find("cd") != p_ad->m_intValue.end())
+	if (p_ad->m_intValue.find(UNIT_CD) != p_ad->m_intValue.end())
 	{//check if the ability has cd
-		int cd = p_ad->m_intValue["cd"];
+		int cd = p_ad->m_intValue[UNIT_CD];
 
 		if (m_cdmap == nullptr)
 		{//create map

@@ -19,21 +19,15 @@ namespace ability
 	{
 		if (checkTarget(p_info))
 		{
-			//trigger Heal event
-			unit::StatusContainer* sc = p_info->m_source->getStatusContainer();
-			ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Heal);
-			t->putPackage(INFO_PACKAGE_KEY, p_info);
-			sc->triggerTP(ability::TimePointEvent::Heal, t);
+			//trigger deal damage event
+			triggerTPEvent(ability::TimePointEvent::Heal, p_info->m_source, p_info);
 
 			//trigger receive damage event
 			unit::Unit* target = p_info->m_targets[0];
-			sc = target->getStatusContainer();
-			t = new ability::TimePointEvent(ability::TimePointEvent::Receive_Damage);
-			t->putPackage(INFO_PACKAGE_KEY, p_info);
-			sc->triggerTP(ability::TimePointEvent::Receive_Damage, t);
+			triggerTPEvent(ability::TimePointEvent::Receive_Heal, target, p_info);
 
 			//heal target by power
-			int power = p_info->m_intValue.find("power")->second;
+			int power = p_info->m_intValue.find(UNIT_POWER)->second;
 
 			//positive power = heal
 			damage(target, power);

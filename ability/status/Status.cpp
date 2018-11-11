@@ -155,9 +155,9 @@ namespace ability
 
 	void Status::checkDuration()
 	{
-		if (m_counter->find("duration") != m_counter->end())
+		if (m_counter->find(UNIT_DURATION) != m_counter->end())
 		{
-			if (m_counter->at("duration") <= 0)
+			if (m_counter->at(UNIT_DURATION) <= 0)
 			{
 				removeThis();
 			}

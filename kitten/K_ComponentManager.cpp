@@ -189,6 +189,10 @@ namespace kitten
 		{
 			comp = new NetworkingConsoleMenu();
 		}
+		else if (p_componentName == "TileInfo")
+		{
+			comp = new TileInfo();
+		}
 		else
 		{
 			//Not found..

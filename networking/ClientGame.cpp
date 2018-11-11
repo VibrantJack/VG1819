@@ -25,7 +25,6 @@
 namespace networking
 {
 	ClientGame* ClientGame::sm_clientGameInstance = nullptr;
-	int ClientGame::sm_iClientId = -1;
 
 	// Creates the singleton instance.
 	void ClientGame::createInstance(const std::string &p_strAddr)
@@ -90,36 +89,6 @@ namespace networking
 		}
 	}
 
-	void ClientGame::sendPacket(Packet* p_packet)
-	{
-		switch (p_packet->packetType)
-		{
-			case PacketTypes::SUMMON_UNIT :
-			{
-				char data[SUMMON_UNIT_PACKET_SIZE];
-
-				SummonUnitPacket* packet = static_cast<SummonUnitPacket*>(p_packet);
-				packet->serialize(data);
-				NetworkServices::sendMessage(m_network->m_connectSocket, data, SUMMON_UNIT_PACKET_SIZE);
-				break;
-			}
-
-			case PacketTypes::UNIT_MOVE:
-			{
-				char data[UNIT_MOVE_PACKET_SIZE];
-
-				UnitMovePacket* packet = static_cast<UnitMovePacket*>(p_packet);
-				packet->serialize(data);
-				NetworkServices::sendMessage(m_network->m_connectSocket, data, UNIT_MOVE_PACKET_SIZE);
-				break;
-			}
-		}
-
-		delete p_packet;
-		p_packet = nullptr;
-
-	}
-
 	void ClientGame::update()
 	{
 		Packet packet;
@@ -149,8 +118,8 @@ namespace networking
 				packet.deserialize(&(m_network_data[i]));
 				i += BASIC_PACKET_SIZE;
 
-				sm_iClientId = packet.clientId;
-				printf("Client ID: %d\n", sm_iClientId);
+				m_iClientId = packet.clientId;
+				printf("Client ID: %d\n", m_iClientId);
 
 				break;
 			}
@@ -186,6 +155,18 @@ namespace networking
 		}
 	}
 
+	int ClientGame::getUnitGameObjectIndex(kitten::K_GameObject* p_unit)
+	{
+		for (auto it = m_unitGOList.begin(); it != m_unitGOList.end(); ++it)
+		{
+			if (it->second == p_unit)
+			{
+				return it->first;
+			}
+		}
+		return -1; // Not found
+	}
+
 	void ClientGame::summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
 	{
 		// Create the unit GO and add it to the list
@@ -195,7 +176,7 @@ namespace networking
 
 		//initialize position
 		unitGO->getComponent<unit::UnitMove>()->setTile(p_iPosX, p_iPosY);
-		unitGO->getComponent<unit::Unit>()->m_clientId = sm_iClientId;
+		unitGO->getComponent<unit::Unit>()->m_clientId = m_iClientId;
 
 		// Print out unit data for debug
 		unit::Unit* testDummy = unitGO->getComponent<unit::Unit>();
@@ -209,15 +190,61 @@ namespace networking
 		m_unitGOList.at(p_iUnitIndex)->getComponent<unit::UnitMove>()->move(targetTile);
 	}
 
-	int ClientGame::getUnitGameObjectIndex(kitten::K_GameObject* p_unit)
+	void ClientGame::sendPacket(Packet* p_packet)
 	{
-		for (auto it = m_unitGOList.begin(); it != m_unitGOList.end(); ++it)
+		switch (p_packet->packetType)
 		{
-			if (it->second == p_unit)
-			{
-				return it->first;
-			}
+		case PacketTypes::SUMMON_UNIT:
+		{
+			char data[SUMMON_UNIT_PACKET_SIZE];
+
+			SummonUnitPacket* packet = static_cast<SummonUnitPacket*>(p_packet);
+			packet->serialize(data);
+			NetworkServices::sendMessage(m_network->m_connectSocket, data, SUMMON_UNIT_PACKET_SIZE);
+			break;
 		}
-		return -1; // Not found
+
+		case PacketTypes::UNIT_MOVE:
+		{
+			char data[UNIT_MOVE_PACKET_SIZE];
+
+			UnitMovePacket* packet = static_cast<UnitMovePacket*>(p_packet);
+			packet->serialize(data);
+			NetworkServices::sendMessage(m_network->m_connectSocket, data, UNIT_MOVE_PACKET_SIZE);
+			break;
+		}
+		}
+
+		delete p_packet;
+		p_packet = nullptr;
+
+	}
+
+	void ClientGame::sendSummonUnitPacket(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
+	{
+		SummonUnitPacket packet;
+		packet.packetType = PacketTypes::SUMMON_UNIT;
+		packet.clientId = p_iClientId;
+		packet.unitId = p_iUnitId;
+		packet.posX = p_iPosX;
+		packet.posY = p_iPosY;
+
+		char data[SUMMON_UNIT_PACKET_SIZE];
+		packet.serialize(data);
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, SUMMON_UNIT_PACKET_SIZE);
+	}
+
+	void ClientGame::sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY)
+	{
+		UnitMovePacket packet;
+		packet.packetType = PacketTypes::UNIT_MOVE;
+		packet.clientId = m_iClientId;
+		packet.unitIndex = p_iUnitIndex;
+		packet.posX = p_iPosX;
+		packet.posY = p_iPosY;
+
+		char data[UNIT_MOVE_PACKET_SIZE];
+		packet.serialize(data);
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, UNIT_MOVE_PACKET_SIZE);
 	}
 }

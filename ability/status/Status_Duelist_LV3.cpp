@@ -14,10 +14,10 @@ namespace ability
 	{
 		if (Status_LV::effect(p_type, p_event) == 0)
 		{
-			AbilityNode* node = AbilityNodeManager::getInstance()->findNode("ChangeAbilityDescriptionNode");
+			AbilityNode* node = AbilityNodeManager::getInstance()->findNode(ChangeAbilityDescription);
 
-			node->effect(m_unit, "Slay", "power", 2);//increase slay dmg by 2
-			node->effect(m_unit, "Dodge", "CD", -1);//decrease dodge cd by 1
+			node->effect(m_unit, ABILITY_SLAY, UNIT_POWER, 2);//increase slay dmg by 2
+			node->effect(m_unit, ABILITY_DODGE, UNIT_CD, -1);//decrease dodge cd by 1
 
 			return 0;
 		}

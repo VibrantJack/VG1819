@@ -11,6 +11,12 @@ Range::~Range()
 {
 }
 
+void Range::setDimension(int p_x, int p_z)
+{
+	m_x = p_x;
+	m_z = p_z;
+}
+
 kitten::Event::TileList Range::getTilesInRange(kitten::Event * p_data)
 {
 	kitten::K_GameObject * tileAtOrigin = p_data->getGameObj("tileAtOrigin");
@@ -95,7 +101,7 @@ void Range::findNeighbour(std::map<std::pair<int, int>, int>* p_tilesAndRange, s
 	{
 		findNeighbour(p_tilesAndRange, std::pair<int, int>(x-1, z), p_distance + 1, p_minRange, p_maxRange);
 	}
-	if (x < 14)//check left
+	if (x < (m_x - 1))//check left
 	{
 		findNeighbour(p_tilesAndRange, std::pair<int, int>(x+1, z), p_distance + 1, p_minRange, p_maxRange);
 	}
@@ -103,7 +109,7 @@ void Range::findNeighbour(std::map<std::pair<int, int>, int>* p_tilesAndRange, s
 	{
 		findNeighbour(p_tilesAndRange, std::pair<int, int>(x, z-1), p_distance + 1, p_minRange, p_maxRange);
 	}
-	if (z < 14)//check up
+	if (z < (m_z - 1))//check up
 	{
 		findNeighbour(p_tilesAndRange, std::pair<int, int>(x, z+1), p_distance + 1, p_minRange, p_maxRange);
 	}
