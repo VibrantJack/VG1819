@@ -5,6 +5,8 @@
 
 class SendSelfOnClick : public kitten::Clickable
 {
+private:
+	bool m_showArea;
 public:
 	SendSelfOnClick();
 	virtual ~SendSelfOnClick();
