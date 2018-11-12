@@ -25,6 +25,7 @@
 namespace networking
 {
 	ClientGame* ClientGame::sm_clientGameInstance = nullptr;
+	bool ClientGame::sm_networkValid = false;
 
 	// Creates the singleton instance.
 	void ClientGame::createInstance(const std::string &p_strAddr)
@@ -39,6 +40,7 @@ namespace networking
 		assert(sm_clientGameInstance != nullptr);
 		delete sm_clientGameInstance;
 		sm_clientGameInstance = nullptr;
+		sm_networkValid = false;
 	}
 
 	// Access to singleton instance.
@@ -82,7 +84,7 @@ namespace networking
 			packet.serialize(packet_data);
 			NetworkServices::sendMessage(m_network->m_connectSocket, packet_data, BASIC_PACKET_SIZE);
 
-			m_networkValid = true;
+			sm_networkValid = true;
 		}
 		else
 		{
@@ -91,7 +93,7 @@ namespace networking
 			delete m_network;
 			m_network = nullptr;
 
-			m_networkValid = false;
+			sm_networkValid = false;
 		}
 	}
 
@@ -117,7 +119,7 @@ namespace networking
 			m_network = nullptr;
 		}
 
-		m_networkValid = false;
+		sm_networkValid = false;
 
 	}
 
@@ -223,7 +225,12 @@ namespace networking
 	void ClientGame::moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY)
 	{
 		kitten::K_GameObject* targetTile = BoardManager::getInstance()->getTile(p_iPosX, p_iPosY);
-		m_unitGOList.at(p_iUnitIndex)->getComponent<unit::UnitMove>()->move(targetTile);
+
+		auto it = m_unitGOList.find(p_iUnitIndex);
+		if (it != m_unitGOList.end())
+		{
+			it->second->getComponent<unit::UnitMove>()->move(targetTile);
+		}		
 	}
 
 	void ClientGame::sendPacket(Packet* p_packet)

@@ -16,6 +16,7 @@ public:
 	void disconnectFromHost(bool p_bServerShutdown = false);
 
 	bool checkClientNetwork();
+	bool checkServerNetwork();
 	void setMenuKeys(
 		char p_cEnterMenuKey, char p_cExitMenuKey,
 		char p_cHostKey, char p_cStopHostKey,	
