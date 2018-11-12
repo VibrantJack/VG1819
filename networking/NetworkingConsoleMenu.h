@@ -13,7 +13,7 @@ public:
 	void hostGame();
 	void stopHosting();
 	void connectToHost();
-	void disconnectFromHost();
+	void disconnectFromHost(bool p_bServerShutdown = false);
 
 	bool checkClientNetwork();
 	void setMenuKeys(

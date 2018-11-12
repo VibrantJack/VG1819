@@ -143,7 +143,7 @@ namespace networking
 	{
 		if (m_sessions.find(p_iClientId) != m_sessions.end())
 		{
-			printf("[Client: %d]: disconnecting\n", p_iClientId);
+			printf("Server disconnecting [Client: %d]\n", p_iClientId);
 
 			SOCKET currentSocket = m_sessions[p_iClientId];
 			closesocket(currentSocket);
@@ -157,7 +157,7 @@ namespace networking
 		}
 		else
 		{
-			printf("Cannot remove [Client: %d]: client not found\n", p_iClientId);
+			printf("Server cannot remove [Client: %d]: client not found\n", p_iClientId);
 		}
 	}
 
@@ -171,7 +171,7 @@ namespace networking
 
 			if (m_iResult == 0)
 			{
-				printf("[Client: %d]: Connection lost\n", client_id);
+				printf("Server lost connection to [Client: %d]\n", client_id);
 				closesocket(currentSocket);
 				currentSocket = INVALID_SOCKET;
 			}
