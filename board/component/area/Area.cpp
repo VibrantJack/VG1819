@@ -2,52 +2,54 @@
 #include "unit/Unit.h"
 Area::Area()
 {
-	m_map = new std::unordered_map<std::string, AreaPattern*>();
 	m_info = new AreaInfo();
 	m_active = false;
 	m_fix = false;
 
 	AreaPattern* ap = new PointPattern();
 	std::string name = POINT_AREA;
-	m_map->insert(std::make_pair(name, ap));
+	m_map[name] = ap;
 
 	ap = new SpanPattern();
 	name = SPAN_AREA;
-	m_map->insert(std::make_pair(name, ap));
+	m_map[name] = ap;
 
 	ap = new LineVPattern();
 	name = LINEV_AREA;
-	m_map->insert(std::make_pair(name, ap));
+	m_map[name] = ap;
 
 	ap = new LineHPattern();
 	name = LINEH_AREA;
-	m_map->insert(std::make_pair(name, ap));
+	m_map[name] = ap;
 
 	ap = new SquarePattern();
 	name = SQUARE_AREA;
-	m_map->insert(std::make_pair(name, ap));
+	m_map[name] = ap;
 
 	ap = new TrianglePattern();
 	name = TRIANGLE_AREA;
-	m_map->insert(std::make_pair(name, ap));
+	m_map[name] = ap;
+
+	ap = new PathPattern();
+	name = PATH;
+	m_map[name] = ap;
 }
 
 Area::~Area()
 {
 	delete m_info;//delete info
-	for (auto it = m_map->begin(); it != m_map->end(); it++)//delete all pattern
+	for (auto it = m_map.begin(); it != m_map.end(); it++)//delete all pattern
 	{
 		delete it->second;
 	}
-	delete m_map;
 }
 
 void Area::setPattern(kitten::Event * p_data)
 {
-	m_info->m_origin = p_data->getGameObj("tileAtOrigin");
+	m_info->m_origin = p_data->getGameObj(ORIGIN);
 
-	m_mode = p_data->getString("area_mode");
-	int fix = p_data->getInt("area_fix");
+	m_mode = p_data->getString(AREA_MODE);
+	int fix = p_data->getInt(AREA_FIX);
 	if(fix == TRUE)
 	{
 		m_fix = true;
@@ -56,8 +58,8 @@ void Area::setPattern(kitten::Event * p_data)
 
 	if (m_mode == SPAN_AREA || m_mode == SQUARE_AREA)
 	{
-		m_info->m_minLen = p_data->getInt("area_min");
-		m_info->m_maxLen = p_data->getInt("area_max");
+		m_info->m_minLen = p_data->getInt(AREA_MIN);
+		m_info->m_maxLen = p_data->getInt(AREA_MAX);
 	}
 	else if (m_mode == POINT_AREA)
 	{
@@ -65,7 +67,7 @@ void Area::setPattern(kitten::Event * p_data)
 	}
 	else
 	{
-		m_info->m_length = p_data->getInt("area_len");
+		m_info->m_length = p_data->getInt(AREA_LEN);
 	}
 
 	m_active = true;
@@ -86,5 +88,5 @@ kitten::Event::TileList Area::getTileListWithPivot(kitten::K_GameObject * p_pivo
 {
 	if(!m_fix)
 		m_info->m_pivot = p_pivot;
-	return m_map->at(m_mode)->getTileList(m_info);
+	return m_map[m_mode]->getTileList(m_info);
 }

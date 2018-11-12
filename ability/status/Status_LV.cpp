@@ -1,5 +1,6 @@
 #pragma once
 #include "ability/status/Status.h"
+#include "unit/UnitCommon.h"
 //Rock
 
 namespace ability
@@ -11,11 +12,11 @@ namespace ability
 
 	int Status_LV::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)
 	{
-		int lv = p_event->getInt("lv");
+		int lv = p_event->getInt(UNIT_LV);
 		if (p_type == ability::TimePointEvent::Level_Up && lv >= m_LV)
 		{
 			//change attribute
-			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode("ChangeAttributeNode");
+			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
 			for (auto it : *m_attributeChange)
 			{
 				node->effect(m_unit, it.first, it.second);

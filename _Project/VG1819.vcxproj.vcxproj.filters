@@ -448,6 +448,9 @@
     <ClCompile Include="..\kitten\util\AsyncFileOperations.cpp">
       <Filter>kitten\util</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\tile\landInfo\LandInfoManager.cpp">
+      <Filter>board\tile\landInfo</Filter>
+    </ClCompile>
     <ClCompile Include="..\board\component\area\Area.cpp">
       <Filter>board\component\area</Filter>
     </ClCompile>
@@ -470,6 +473,15 @@
       <Filter>board\component\area</Filter>
     </ClCompile>
     <ClCompile Include="..\board\component\area\AreaPattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp">
+      <Filter>board\tile\landInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\PathFind.cpp">
+      <Filter>board\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\PathPattern.cpp">
       <Filter>board\component\area</Filter>
     </ClCompile>
   </ItemGroup>
@@ -890,11 +902,20 @@
     <ClInclude Include="..\kitten\util\AsyncFileOperations.h">
       <Filter>kitten\util</Filter>
     </ClInclude>
+    <ClInclude Include="..\board\tile\landInfo\LandInfoManager.h">
+      <Filter>board\tile\landInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\tile\landInfo\LandInformation.h">
+      <Filter>board\tile\landInfo</Filter>
+    </ClInclude>
     <ClInclude Include="..\board\component\area\Area.h">
       <Filter>board\component\area</Filter>
     </ClInclude>
     <ClInclude Include="..\board\component\area\AreaPattern.h">
       <Filter>board\component\area</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\component\PathFind.h">
+      <Filter>board\component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1008,6 +1029,9 @@
     </Filter>
     <Filter Include="kitten\util">
       <UniqueIdentifier>{92a11259-cd79-4fdb-8968-79de544df0c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\tile\landInfo">
+      <UniqueIdentifier>{d90d02bc-e413-458b-8305-d90c9d9a8a34}</UniqueIdentifier>
     </Filter>
     <Filter Include="board\component\area">
       <UniqueIdentifier>{31062e74-efb4-41bd-b05e-c9cfbe8384fc}</UniqueIdentifier>

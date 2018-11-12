@@ -104,16 +104,16 @@ namespace unit
 		int mv = p_unitData->m_MV;
 		int cost = p_unitData->m_Cost;
 
-		unit->m_attributes["max_hp"] = hp;
-		unit->m_attributes["hp"] = hp;
-		unit->m_attributes["base_in"] = in;
-		unit->m_attributes["in"] = in;
-		unit->m_attributes["base_mv"] = mv;
-		unit->m_attributes["mv"] = mv;
-		unit->m_attributes["base_cost"] = cost;
-		unit->m_attributes["cost"] = cost;
+		unit->m_attributes[UNIT_HP] = hp;
+		unit->m_attributes[UNIT_MAX_HP] = hp;
+		unit->m_attributes[UNIT_IN] = in;
+		unit->m_attributes[UNIT_BASE_IN] = in;
+		unit->m_attributes[UNIT_MV] = mv;
+		unit->m_attributes[UNIT_BASE_MV] = mv;
+		unit->m_attributes[UNIT_COST] = cost;
+		unit->m_attributes[UNIT_BASE_COST] = cost;
 		//set lv to 1
-		unit->m_attributes["lv"] = 1;
+		unit->m_attributes[UNIT_LV] = 1;
 
 		unit->m_size = p_unitData->m_size;
 
@@ -153,7 +153,7 @@ namespace unit
 	void UnitSpawn::spawnCommander(Unit* p_u, UnitData * p_unitData)
 	{
 		//change lv to -1 since it doesn't apply to commander
-		p_u->m_attributes["lv"] = -1;
+		p_u->m_attributes[UNIT_LV] = -1;
 
 		p_u->m_ID = "testCommander01";
 
@@ -200,29 +200,29 @@ namespace unit
 		}
 
 		//for lv status
-		if (p_sd->m_intValue.find("lv") != p_sd->m_intValue.end())
+		if (p_sd->m_intValue.find(UNIT_LV) != p_sd->m_intValue.end())
 		{
-			s->changeLV(p_sd->m_intValue["lv"]);
+			s->changeLV(p_sd->m_intValue[UNIT_LV]);
 			//hp
-			if (p_sd->m_intValue.find("hp") != p_sd->m_intValue.end())
+			if (p_sd->m_intValue.find(UNIT_HP) != p_sd->m_intValue.end())
 			{
-				int hp = p_sd->m_intValue["hp"];
-				s->addAttributeChange("hp", hp);
-				s->addAttributeChange("max_hp", hp);
+				int hp = p_sd->m_intValue[UNIT_HP];
+				s->addAttributeChange(UNIT_HP, hp);
+				s->addAttributeChange(UNIT_MAX_HP, hp);
 			}
 			//in
-			if (p_sd->m_intValue.find("in") != p_sd->m_intValue.end())
+			if (p_sd->m_intValue.find(UNIT_IN) != p_sd->m_intValue.end())
 			{
-				int in = p_sd->m_intValue["in"];
-				s->addAttributeChange("in", in);
-				s->addAttributeChange("base_in", in);
+				int in = p_sd->m_intValue[UNIT_IN];
+				s->addAttributeChange(UNIT_IN, in);
+				s->addAttributeChange(UNIT_BASE_IN, in);
 			}
 			//mv
-			if (p_sd->m_intValue.find("mv") != p_sd->m_intValue.end())
+			if (p_sd->m_intValue.find(UNIT_MV) != p_sd->m_intValue.end())
 			{
-				int mv = p_sd->m_intValue["mv"];
-				s->addAttributeChange("mv", mv);
-				s->addAttributeChange("base_mv", mv);
+				int mv = p_sd->m_intValue[UNIT_MV];
+				s->addAttributeChange(UNIT_MV, mv);
+				s->addAttributeChange(UNIT_BASE_MV, mv);
 			}
 		}
 

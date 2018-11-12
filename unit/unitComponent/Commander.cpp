@@ -18,21 +18,21 @@ namespace unit
 		m_unit = p_u;
 
 		m_adSpawn = new unit::AbilityDescription();
-		m_adSpawn->m_stringValue["name"] = SUMMON_UNIT_ABILITY;
+		m_adSpawn->m_stringValue["name"] = ABILITY_SUMMON_UNIT;
 		m_adSpawn->m_intValue["target"] = 1;
 		//range
 		m_adSpawn->m_intValue["min_range"] = 1;
 		m_adSpawn->m_intValue["max_range"] = 1;
 		//filter
-		m_adSpawn->m_intValue["filter"] = 1;
-		m_adSpawn->m_stringValue["filter0"] = "unit";
+		m_adSpawn->m_intValue[FILTER] = 1;
+		m_adSpawn->m_stringValue["filter0"] = FILTER_UNIT;
 
 		m_adTile = new unit::AbilityDescription();
-		m_adTile->m_stringValue["name"] = MANIPULATE_TILE_ABILITY;
+		m_adTile->m_stringValue["name"] = ABILITY_MANIPULATE_TILE;
 		m_adTile->m_intValue["target"] = 1;
 		//filter
-		m_adTile->m_intValue["filter"] = 1;
-		m_adTile->m_stringValue["filter0"] = "owned_tile";
+		m_adTile->m_intValue[FILTER] = 1;
+		m_adTile->m_stringValue["filter0"] = FILTER_OWNED_TILE;
 	}
 
 	void Commander::manipulateTile()

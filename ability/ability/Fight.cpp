@@ -25,7 +25,7 @@ namespace ability
 			triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_info);
 
 			//so power will change to negative
-			int power = -(p_info->m_intValue.find("power")->second);
+			int power = -(p_info->m_intValue.find(UNIT_POWER)->second);
 
 			damage(target, power);
 		}

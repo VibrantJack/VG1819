@@ -16,9 +16,9 @@ namespace ability
 	{
 		unit::Unit* source = p_info->m_source;
 
-		kitten::K_GameObject* tile = p_info->m_targetTilesGO[0];
+		//kitten::K_GameObject* tile = p_info->m_targetTilesGO[0];
 
-		source->move(tile);
+		source->move(p_info->m_targetTilesGO);
 
 		//delete package
 		delete p_info;

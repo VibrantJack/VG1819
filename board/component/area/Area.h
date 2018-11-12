@@ -14,11 +14,19 @@
 #define LINEV_AREA "lineV"
 #define LINEH_AREA "lineH"
 #define TRIANGLE_AREA "triangle"
+#define PATH "path"
+
+#define ORIGIN "tileAtOrigin"
+#define AREA_LEN "area_len"
+#define AREA_MIN "area_min"
+#define AREA_MAX "area_max"
+#define AREA_MODE "area_mode"
+#define AREA_FIX "area_fix"
 
 class Area
 {
 private:
-	std::unordered_map<std::string, AreaPattern*>* m_map;
+	std::unordered_map<std::string, AreaPattern*> m_map;
 	AreaInfo* m_info;
 	bool m_active;
 	bool m_fix;
