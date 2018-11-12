@@ -52,7 +52,8 @@ namespace input
 
 	InputManager::~InputManager()
 	{
-
+		glfwSetKeyCallback(nullptr);
+		glfwSetCharCallback(nullptr);
 	}
 
 	void InputManager::resetMouse(bool p_shouldReset)
@@ -83,6 +84,11 @@ namespace input
 			glfwSetKeyCallback(keyCallback);
 			glfwSetCharCallback(charCallback);
 		}
+		else if (p_enabled && !m_captureKeyboard)
+		{
+			glfwSetKeyCallback(nullptr);
+			glfwSetCharCallback(nullptr);
+		}
 
 		m_captureKeyboard = p_enabled;
 	}
@@ -108,7 +114,7 @@ namespace input
 			}
 			else if (action == GLFW_PRESS && key == GLFW_KEY_BACKSPACE)
 			{
-				m_inputString = m_inputString.substr(0, m_inputString.length - 1);
+				m_inputString = m_inputString.substr(0, m_inputString.length() - 1);
 				m_inputStringChanged = true;
 			}
 		}

@@ -548,6 +548,23 @@ kitten::K_Component* getToggleEnabledOnKeyPress(nlohmann::json* p_jsonFile) {
 	return new ToggleEnabledOnKeyPress(key);
 }
 
+#include "_Project\ToggleStringInputOnKeyPress.h"
+kitten::K_Component* getToggleStringInputOnKeyPress(nlohmann::json* p_jsonFile) {
+	char key;
+	
+	if (p_jsonFile->find("key") != p_jsonFile->end()) {
+		std::string str = p_jsonFile->operator[]("key");
+		key = str[0];
+	}
+
+	return new ToggleStringInputOnKeyPress(key);
+}
+
+#include "_Project\StringInputDisplay.h"
+kitten::K_Component* getStringInputDisplay(nlohmann::json* p_jsonFile) {
+	return new StringInputDisplay();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -580,7 +597,8 @@ void setupComponentMap() {
 	jsonComponentMap["TextBox"] = &getTextBox;
 	jsonComponentMap["ToggleEnabledOnKeyPress"] = &getToggleEnabledOnKeyPress;
 	jsonComponentMap["BoardCreator"] = &getBoardCreator;
-	
+	jsonComponentMap["ToggleStringInputOnKeyPress"] = &getToggleStringInputOnKeyPress;
+	jsonComponentMap["StringInputDisplay"] = &getStringInputDisplay;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

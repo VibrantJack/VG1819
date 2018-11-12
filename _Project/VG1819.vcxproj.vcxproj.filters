@@ -484,9 +484,6 @@
     <ClCompile Include="..\board\component\area\PathPattern.cpp">
       <Filter>board\component\area</Filter>
     </ClCompile>
-    <ClCompile Include="..\kitten\StringInput.cpp">
-      <Filter>kitten</Filter>
-    </ClCompile>
     <ClCompile Include="StringInputDisplay.cpp">
       <Filter>components</Filter>
     </ClCompile>
@@ -925,9 +922,6 @@
     </ClInclude>
     <ClInclude Include="..\board\component\PathFind.h">
       <Filter>board\component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\kitten\StringInput.h">
-      <Filter>kitten</Filter>
     </ClInclude>
     <ClInclude Include="StringInputDisplay.h">
       <Filter>components</Filter>

@@ -192,7 +192,6 @@
     <ClCompile Include="..\kitten\mouse picking\MousePicker.cpp" />
     <ClCompile Include="..\kitten\QuadRenderable.cpp" />
     <ClCompile Include="..\kitten\Renderable.cpp" />
-    <ClCompile Include="..\kitten\StringInput.cpp" />
     <ClCompile Include="..\kitten\Transform.cpp" />
     <ClCompile Include="..\kitten\UIRenderable.cpp" />
     <ClCompile Include="..\networking\ClientGame.cpp" />
@@ -339,7 +338,6 @@
     <ClInclude Include="..\kitten\mouse picking\Ray.h" />
     <ClInclude Include="..\kitten\QuadRenderable.h" />
     <ClInclude Include="..\kitten\Renderable.h" />
-    <ClInclude Include="..\kitten\StringInput.h" />
     <ClInclude Include="..\kitten\Transform.h" />
     <ClInclude Include="..\kitten\UIRenderable.h" />
     <ClInclude Include="..\networking\ClientGame.h" />
