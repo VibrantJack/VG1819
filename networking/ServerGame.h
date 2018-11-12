@@ -16,7 +16,7 @@ namespace networking
 		static void createInstance();
 		static void destroyInstance();
 		static ServerGame* getInstance();
-		bool isNetworkValid() { return m_networkValid; }
+		static bool isNetworkValid() { return sm_networkValid; }
 
 		void setupNetwork();
 		void shutdownNetwork();
@@ -37,6 +37,6 @@ namespace networking
 		// data buffer
 		char m_network_data[MAX_PACKET_SIZE];
 
-		bool m_networkValid;
+		static bool sm_networkValid;
 	};
 }

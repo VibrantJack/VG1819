@@ -11,6 +11,7 @@ namespace networking
 	//unsigned int ServerGame::client_id;
 
 	ServerGame* ServerGame::sm_serverGameInstance = nullptr;
+	bool ServerGame::sm_networkValid = false;
 
 	// Creates the singleton instance.
 	void ServerGame::createInstance()
@@ -25,6 +26,7 @@ namespace networking
 		assert(sm_serverGameInstance != nullptr);
 		delete sm_serverGameInstance;
 		sm_serverGameInstance = nullptr;
+		sm_networkValid = false;
 	}
 
 	// Access to singleton instance.
@@ -62,11 +64,11 @@ namespace networking
 			delete m_network;
 			m_network = nullptr;
 
-			m_networkValid = false;
+			sm_networkValid = false;
 		}
 		else
 		{
-			m_networkValid = true;
+			sm_networkValid = true;
 		}
 
 	}
@@ -88,7 +90,7 @@ namespace networking
 			m_network = nullptr;
 		}
 
-		m_networkValid = false;
+		sm_networkValid = false;
 	}
 
 	void ServerGame::update()

@@ -190,12 +190,14 @@ namespace networking
 		for (iter = m_sessions.begin(); iter != m_sessions.end(); iter++)
 		{
 			currentSocket = iter->second;
-			iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
+			if (currentSocket != INVALID_SOCKET)
+				iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
 
 			if (iSendResult == SOCKET_ERROR)
 			{
-				printf("send failed with error: %d\n", WSAGetLastError());
+				printf("send to [Client: %d] failed with error: %d\n", iter->first, WSAGetLastError());
 				closesocket(currentSocket);
+				currentSocket = INVALID_SOCKET;
 			}
 		}
 	}
