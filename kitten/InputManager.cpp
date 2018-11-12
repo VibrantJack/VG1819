@@ -111,6 +111,9 @@ namespace input
 			{
 				m_captureKeyboard = true;
 				m_notifyStringFinished = true;
+
+				glfwSetKeyCallback(nullptr);
+				glfwSetCharCallback(nullptr);
 			}
 			else if (action == GLFW_PRESS && key == GLFW_KEY_BACKSPACE)
 			{
@@ -169,6 +172,23 @@ namespace input
 
 	void InputManager::update()
 	{
+		if (m_captureKeyboard && !m_notifyStringFinished)
+		{
+			for (int i = 0; i < GLFW_KEY_LAST; ++i)
+			{
+				m_keysDownLast[i] = m_keysDown[i];
+				m_keysDown[i] = (glfwGetKey(i) == GLFW_PRESS);
+			}
+		}
+		else if(m_notifyStringFinished)
+		{
+			//Clear the glfw buffer
+			for (int i = 0; i < GLFW_KEY_LAST; ++i)
+			{
+				glfwGetKey(i);
+			}
+		}
+
 		if (m_notifyStringFinished)
 		{
 			auto end = m_stringListeners.cend();
@@ -179,6 +199,12 @@ namespace input
 
 			m_inputString = "";
 			m_notifyStringFinished = false;
+
+			for (int i = 0; i < GLFW_KEY_LAST; ++i)
+			{
+				m_keysDownLast[i] = false;
+				m_keysDown[i] = false;
+			}
 		}
 		else if(m_inputStringChanged)
 		{
@@ -191,15 +217,7 @@ namespace input
 			m_inputStringChanged = false;
 		}
 
-		if (m_captureKeyboard)
-		{
-			//Keys
-			for (int i = 0; i < GLFW_KEY_LAST; ++i)
-			{
-				m_keysDownLast[i] = m_keysDown[i];
-				m_keysDown[i] = (glfwGetKey(i) == GLFW_PRESS);
-			}
-		}
+		
 		
 		//Mouse
 		for (int i = 0; i < GLFW_MOUSE_BUTTON_LAST; ++i)
