@@ -36,7 +36,7 @@ namespace input
 		return sm_inputManagerInstance;
 	}
 
-	InputManager::InputManager() : m_shouldResetMouse(false)
+	InputManager::InputManager() : m_shouldResetMouse(false), m_captureKeyboard(true), m_notifyStringFinished(false), m_inputStringChanged(false)
 	{
 		memset(m_keysDown, 0, sizeof(bool) * GLFW_KEY_LAST);
 		memset(m_keysDownLast, 0, sizeof(bool) * GLFW_KEY_LAST);
@@ -52,12 +52,78 @@ namespace input
 
 	InputManager::~InputManager()
 	{
-		//delete arrays?
+
 	}
 
 	void InputManager::resetMouse(bool p_shouldReset)
 	{
 		m_shouldResetMouse = p_shouldReset;
+	}
+
+	void InputManager::addStringListener(StringListener* p_toAdd)
+	{
+		m_stringListeners.insert(p_toAdd);
+	}
+
+	void InputManager::removeStringListener(StringListener* p_toRemove)
+	{
+		m_stringListeners.erase(p_toRemove);
+	}
+
+	void InputManager::toggleKeyboardInput(bool p_enabled)
+	{
+		if (!p_enabled && m_captureKeyboard)
+		{
+			for (int i = 0; i < GLFW_KEY_LAST; ++i)
+			{
+				m_keysDownLast[i] = false;
+				m_keysDown[i] = false;
+			}
+
+			glfwSetKeyCallback(keyCallback);
+			glfwSetCharCallback(charCallback);
+		}
+
+		m_captureKeyboard = p_enabled;
+	}
+
+	void GLFWCALL InputManager::keyCallback(int key, int action)
+	{
+		sm_inputManagerInstance->privateKeyCallback(key, action);
+	}
+
+	void GLFWCALL InputManager::charCallback(int key, int action)
+	{
+		sm_inputManagerInstance->privateCharCallback(key, action);
+	}
+
+	void InputManager::privateKeyCallback(int key, int action)
+	{
+		if (!m_captureKeyboard)
+		{
+			if (action == GLFW_PRESS && key == GLFW_KEY_ENTER)
+			{
+				m_captureKeyboard = true;
+				m_notifyStringFinished = true;
+			}
+			else if (action == GLFW_PRESS && key == GLFW_KEY_BACKSPACE)
+			{
+				m_inputString = m_inputString.substr(0, m_inputString.length - 1);
+				m_inputStringChanged = true;
+			}
+		}
+	}
+
+	void InputManager::privateCharCallback(int key, int action)
+	{
+		if (!m_captureKeyboard)
+		{
+			if (action == GLFW_PRESS)
+			{
+				m_inputString += (char)key;
+				m_inputStringChanged = true;
+			}
+		}
 	}
 
 	bool InputManager::keyDown(int p_key)
@@ -97,13 +163,38 @@ namespace input
 
 	void InputManager::update()
 	{
-		//Keys
-		for (int i = 0; i < GLFW_KEY_LAST; ++i)
+		if (m_notifyStringFinished)
 		{
-			m_keysDownLast[i] = m_keysDown[i];
-			m_keysDown[i] = (glfwGetKey(i) == GLFW_PRESS);
+			auto end = m_stringListeners.cend();
+			for (auto it = m_stringListeners.cbegin(); it != end; ++it)
+			{
+				(*it)->onStringFinished(m_inputString);
+			}
+
+			m_inputString = "";
+			m_notifyStringFinished = false;
+		}
+		else if(m_inputStringChanged)
+		{
+			auto end = m_stringListeners.cend();
+			for (auto it = m_stringListeners.cbegin(); it != end; ++it)
+			{
+				(*it)->onStringChanged(m_inputString);
+			}
+
+			m_inputStringChanged = false;
 		}
 
+		if (m_captureKeyboard)
+		{
+			//Keys
+			for (int i = 0; i < GLFW_KEY_LAST; ++i)
+			{
+				m_keysDownLast[i] = m_keysDown[i];
+				m_keysDown[i] = (glfwGetKey(i) == GLFW_PRESS);
+			}
+		}
+		
 		//Mouse
 		for (int i = 0; i < GLFW_MOUSE_BUTTON_LAST; ++i)
 		{

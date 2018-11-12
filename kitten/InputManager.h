@@ -3,6 +3,9 @@
 #include "mouse picking\Clickable.h"
 #include "mouse picking\ClickableUI.h"
 
+#include <string>
+#include <unordered_set>
+
 namespace kitten
 {
 	class K_Instance;
@@ -10,6 +13,14 @@ namespace kitten
 
 namespace input
 {
+	class StringListener
+	{
+	private:
+	public:
+		virtual void onStringFinished(const std::string& p_string) =0;
+		virtual void onStringChanged(const std::string& p_string) =0;
+	};
+
 	class InputManager
 	{
 		friend class kitten::K_Instance;
@@ -27,7 +38,12 @@ namespace input
 
 		int m_mouseWheel;
 
-		bool m_shouldResetMouse;
+		bool m_shouldResetMouse, m_captureKeyboard;
+		bool m_inputStringChanged, m_notifyStringFinished;
+
+		std::string m_inputString;
+		std::unordered_set<StringListener*> m_stringListeners;
+
 
 		InputManager();
 		~InputManager();
@@ -35,11 +51,21 @@ namespace input
 		static void createInstance();
 		static void destroyInstance();
 
+		static void GLFWCALL keyCallback(int key, int action);
+		static void GLFWCALL charCallback(int key, int action);
+
+		void privateKeyCallback(int key, int action);
+		void privateCharCallback(int key, int action);
+
 		void update();
 	public:
 		static InputManager* getInstance();
 
+		void addStringListener(StringListener* m_toAdd);
+		void removeStringListener(StringListener* m_toRemove);
+
 		void resetMouse(bool p_shouldReset);
+		void toggleKeyboardInput(bool p_enabled);
 
 		bool keyDown(int p_key);
 		bool keyDownLast(int p_key);

@@ -484,6 +484,15 @@
     <ClCompile Include="..\board\component\area\PathPattern.cpp">
       <Filter>board\component\area</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\StringInput.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="StringInputDisplay.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="ToggleStringInputOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -916,6 +925,15 @@
     </ClInclude>
     <ClInclude Include="..\board\component\PathFind.h">
       <Filter>board\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\StringInput.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="StringInputDisplay.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="ToggleStringInputOnKeyPress.h">
+      <Filter>components\debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
