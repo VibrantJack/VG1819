@@ -8,6 +8,7 @@
 #include "puppy\ShaderManager.h"
 #include "puppy\VertexEnvironment.h"
 #include "event_system\EventManager.h"
+#include <iostream>
 
 namespace input
 {
@@ -141,7 +142,7 @@ namespace input
 
 		//austin
 		//Call for nearest UI frame
-		kitten::ClickableFrame* hitFrame = MousePicker::getClosestHitFrame(m_lastMouseX, m_lastMouseY);
+		kitten::ClickableFrame* hitFrame = MousePicker::getClosestHitFrame((float) m_lastMouseX, windowY - (float) m_lastMouseY);
 		kitten::ClickableFrame* lastHoverFrame = kitten::ActiveClickables::getInstance()->m_lastUIHover;
 
 		if (hitFrame != nullptr && lastHoverFrame != nullptr)

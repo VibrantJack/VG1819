@@ -28,6 +28,7 @@ namespace kitten
 	void ClickableFrame::start()
 	{
 		glm::vec2 trans2D;
+		//get scale and position in usable form
 		glm::vec3 trans = getTransform().getTranslation();
 		glm::vec2 scale = getTransform().getScale2D();
 		float width = scale.x;
@@ -35,9 +36,10 @@ namespace kitten
 		float halfWidth = width / 2.0f;
 		float halfHeight = height / 2.0f;
 
-
+		//separate position
 		trans2D.x = trans.x;
 		trans2D.y = trans.y;
+
 		switch (m_piv)
 		{
 			case piv_Right:
@@ -84,18 +86,18 @@ namespace kitten
 			}
 			case piv_BotLeft:
 			{
-				m_minPoint = glm::vec2( 0.0f  + trans2D.x, 0.0f   + trans2D.y);
-				m_maxPoint = glm::vec2( width + trans2D.x, height + trans2D.y);
+				m_minPoint = glm::vec2( 0.0f  + trans2D.x, 0.0f   + trans2D.y );
+				m_maxPoint = glm::vec2( width + trans2D.x, height + trans2D.y );
 				break;
 			}
 			case piv_Center:
 			{
-				m_minPoint = glm::vec2( -halfWidth + trans2D.x, -halfHeight + trans2D.y);
-				m_maxPoint = glm::vec2(  halfWidth + trans2D.x, halfHeight  + trans2D.y);
+				m_minPoint = glm::vec2( -halfWidth + trans2D.x, -halfHeight + trans2D.y );
+				m_maxPoint = glm::vec2(  halfWidth + trans2D.x, halfHeight  + trans2D.y );
 			}
 		}
 
-		m_originalMaxPoint = m_minPoint;
+		m_originalMaxPoint = m_maxPoint;
 		m_originalMinPoint = m_minPoint;
 		
 		getTransform().addScaleListener(this);
@@ -112,11 +114,8 @@ namespace kitten
 	}
 
 	void ClickableFrame::onScaleChanged(const glm::vec3& p_newScale)
-	{
-		glm::vec2 scale2D = glm::vec2(p_newScale.x, p_newScale.y);
-
-		m_minPoint = m_originalMinPoint * scale2D;
-		m_maxPoint = m_originalMaxPoint * scale2D;
+	{ 
+		m_maxPoint = glm::vec2(p_newScale.x, p_newScale.y);
 	}
 
 	void ClickableFrame::onHoverStart()

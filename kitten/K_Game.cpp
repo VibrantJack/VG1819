@@ -153,7 +153,7 @@ namespace kitten
 			userinterface::HandFrame* frameCasted = static_cast<userinterface::HandFrame*>(handFrame);
 			frameCasted->addCardToEnd(cardCasted);
 			cardCasted->assignParentHand(frameCasted);
-
+			
 			K_Component* cardCF = compMan->createComponent("ClickableFrame");
 			K_Component* clickUI = compMan->createComponent("ClickableUI");
 
@@ -167,12 +167,7 @@ namespace kitten
 			cardCF->start();
 			clickUI->start();
 
-
 			
-		//	PrintWhenClicked* onClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
-		//	card->addComponent(onClick);
-		//	onClick->setMessage("UI Clicked!!");
-
 		}
 		/*
 		//testing ui frame and textbox

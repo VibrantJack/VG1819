@@ -1,7 +1,7 @@
-﻿  ClickableFrame.cpp
+﻿  K_Game.cpp
   Generating non-SAFESEH image.
   Starting pass 2
-       ClickableFrame.obj
+       K_Game.obj
        MSVCRTD.lib(loadcfg.obj)
   Finished pass 2
   VG1819.vcxproj.vcxproj -> C:\Users\Austin\Documents\GitHub\VG1819\_Project\Release\VG1819.exe

@@ -72,14 +72,14 @@ namespace MousePicker
 	}
 
 	//austin's ui hit check method
-	bool uiHit(const kitten::ClickableFrame* p_clickable, int p_mouseX, int p_mouseY)
+	bool uiHit(const kitten::ClickableFrame* p_clickable, float p_mouseX, float p_mouseY)
 	{
 		glm::vec2 maxpoint = p_clickable->getMaxPoint();
 		glm::vec2 minpoint = p_clickable->getMinPoint();
 
-		if (p_mouseX > minpoint.x || p_mouseY  > minpoint.y)
+		if (p_mouseX > minpoint.x && p_mouseY  > minpoint.y)
 		{
-			if (p_mouseX < maxpoint.x || p_mouseY < maxpoint.y)
+			if (p_mouseX < maxpoint.x && p_mouseY < maxpoint.y)
 			{
 				return true;
 			}
@@ -129,7 +129,6 @@ namespace MousePicker
 				break;
 			}
 		}
-
 		return hitFrame;
 	}
 }
