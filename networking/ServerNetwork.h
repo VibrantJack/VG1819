@@ -5,6 +5,7 @@
 #include "networking\NetworkServices.h"
 #include <ws2tcpip.h>
 #include <map>
+#include <string>
 #pragma comment (lib, "Ws2_32.lib")
 
 #define DEFAULT_BUFLEN 512
@@ -32,7 +33,8 @@ namespace networking
 		int receiveData(unsigned int client_id, char * recvbuf);
 
 		// accept new connections
-		bool acceptNewClient(unsigned int & id);
+		bool acceptNewClient(unsigned int & p_iClientId);
+		void removeClient(unsigned int & p_iClientId);
 
 		const std::string& getError() const { return m_strError; }
 

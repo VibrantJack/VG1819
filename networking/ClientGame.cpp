@@ -13,7 +13,7 @@
 #include "kibble\databank\databank.hpp"
 
 // Units
-#include "kitten\K_GameObject.h"
+#include "kitten\K_GameObjectManager.h"
 #include "unit\UnitSpawn.h"
 #include "unit\unitComponent\UnitMove.h"
 #include "unit\UnitMonitor.h"
@@ -25,6 +25,7 @@
 namespace networking
 {
 	ClientGame* ClientGame::sm_clientGameInstance = nullptr;
+	bool ClientGame::sm_networkValid = false;
 
 	// Creates the singleton instance.
 	void ClientGame::createInstance(const std::string &p_strAddr)
@@ -39,6 +40,7 @@ namespace networking
 		assert(sm_clientGameInstance != nullptr);
 		delete sm_clientGameInstance;
 		sm_clientGameInstance = nullptr;
+		sm_networkValid = false;
 	}
 
 	// Access to singleton instance.
@@ -60,6 +62,12 @@ namespace networking
 		{
 			delete m_network;
 		}
+
+		auto end = m_unitGOList.end();
+		for (auto it = m_unitGOList.begin(); it != end; ++it)
+		{
+			kitten::K_GameObjectManager::getInstance()->destroyGameObject((*it).second);
+		}
 	}
 
 	void ClientGame::setupNetwork(const std::string &p_strAddr)
@@ -76,7 +84,7 @@ namespace networking
 			packet.serialize(packet_data);
 			NetworkServices::sendMessage(m_network->m_connectSocket, packet_data, BASIC_PACKET_SIZE);
 
-			m_networkValid = true;
+			sm_networkValid = true;
 		}
 		else
 		{
@@ -85,8 +93,34 @@ namespace networking
 			delete m_network;
 			m_network = nullptr;
 
-			m_networkValid = false;
+			sm_networkValid = false;
 		}
+	}
+
+	void ClientGame::disconnectFromNetwork(bool p_bServerShutdown)
+	{
+		// If Server sent disconnect then no need to send packet to server
+		if (!p_bServerShutdown)
+		{
+			// Send a packet to alert server that client is disconnecting
+			Packet packet;
+			packet.packetType = CLIENT_DISCONNECT;
+			packet.clientId = m_iClientId;
+
+			char data[BASIC_PACKET_SIZE];
+			packet.serialize(data);
+			NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
+		}
+
+		// Shutdown ClientNetwork
+		if (m_network != nullptr)
+		{
+			delete m_network;
+			m_network = nullptr;
+		}
+
+		sm_networkValid = false;
+
 	}
 
 	void ClientGame::update()
@@ -102,30 +136,34 @@ namespace networking
 
 		int i = 0;
 		PacketTypes packetType;
-		unsigned int clientId;
 
 		while (i < (unsigned int)data_length)
 		{
 			packet.deserialize(&(m_network_data[i]));
 			packetType = (PacketTypes)packet.packetType;
-			clientId = packet.clientId;
 
 			switch (packetType) {
 
 			case PacketTypes::SEND_CLIENT_ID:
 			{
-				Packet packet;
-				packet.deserialize(&(m_network_data[i]));
 				i += BASIC_PACKET_SIZE;
 
 				m_iClientId = packet.clientId;
-				printf("Client ID: %d\n", m_iClientId);
+				break;
+			}
+			case PacketTypes::SERVER_SHUTDOWN:
+			{
+				printf("[Client: %d] received SERVER_SHUTDOWN packet from server\n", m_iClientId);
 
+				i += BASIC_PACKET_SIZE;
+				disconnectFromNetwork(true);
+				// @TODO: After disconnecting from network, we should prompt to return to main menu or something similar
+				// After returning to main menu, we then destroy ClientGame
 				break;
 			}
 			case PacketTypes::SUMMON_UNIT:
 			{
-				printf("client received CLIENT_SUMMON_UNIT packet from server\n");
+				printf("[Client: %d] received CLIENT_SUMMON_UNIT packet from server\n", m_iClientId);
 
 				SummonUnitPacket summonUnitPacket;
 				summonUnitPacket.deserialize(&(m_network_data[i]));
@@ -137,12 +175,12 @@ namespace networking
 			}
 			case PacketTypes::UNIT_MOVE:
 			{
-				printf("client received UNIT_MOVE packet from server\n");
+				printf("[Client: %d] received UNIT_MOVE packet from server\n", m_iClientId);
 
 				UnitMovePacket unitMovePacket;
 				unitMovePacket.deserialize(&(m_network_data[i]));
 				i += UNIT_MOVE_PACKET_SIZE;
-				printf("Client received Unit index: %d, posX: %d, posY: %d\n", unitMovePacket.unitIndex, unitMovePacket.posX, unitMovePacket.posY);
+				printf("[Client: %d] received Unit index: %d, posX: %d, posY: %d\n", m_iClientId, unitMovePacket.unitIndex, unitMovePacket.posX, unitMovePacket.posY);
 
 				// Call function here that summons a unit
 				moveUnit(unitMovePacket.unitIndex, unitMovePacket.posX, unitMovePacket.posY);
@@ -187,7 +225,12 @@ namespace networking
 	void ClientGame::moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY)
 	{
 		kitten::K_GameObject* targetTile = BoardManager::getInstance()->getTile(p_iPosX, p_iPosY);
-		m_unitGOList.at(p_iUnitIndex)->getComponent<unit::UnitMove>()->move(targetTile);
+
+		auto it = m_unitGOList.find(p_iUnitIndex);
+		if (it != m_unitGOList.end())
+		{
+			it->second->getComponent<unit::UnitMove>()->move(targetTile);
+		}		
 	}
 
 	void ClientGame::sendPacket(Packet* p_packet)
