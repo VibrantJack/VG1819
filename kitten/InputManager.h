@@ -38,7 +38,7 @@ namespace input
 
 		int m_mouseWheel;
 
-		bool m_shouldResetMouse, m_captureKeyboard;
+		bool m_shouldResetMouse, m_inputPollMode;
 		bool m_inputStringChanged, m_notifyStringFinished;
 
 		std::string m_inputString;
@@ -65,7 +65,7 @@ namespace input
 		void removeStringListener(StringListener* m_toRemove);
 
 		void resetMouse(bool p_shouldReset);
-		void toggleKeyboardInput(bool p_enabled);
+		void setPollMode(bool p_enabled);
 
 		bool keyDown(int p_key);
 		bool keyDownLast(int p_key);

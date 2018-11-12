@@ -20,6 +20,6 @@ void ToggleStringInputOnKeyPress::update()
 {
 	if (m_inputMan->keyDown(m_key) && !m_inputMan->keyDownLast(m_key))
 	{
-		m_inputMan->toggleKeyboardInput(false);
+		m_inputMan->setPollMode(false);
 	}
 }

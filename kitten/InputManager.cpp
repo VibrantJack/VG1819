@@ -36,7 +36,7 @@ namespace input
 		return sm_inputManagerInstance;
 	}
 
-	InputManager::InputManager() : m_shouldResetMouse(false), m_captureKeyboard(true), m_notifyStringFinished(false), m_inputStringChanged(false)
+	InputManager::InputManager() : m_shouldResetMouse(false), m_inputPollMode(true), m_notifyStringFinished(false), m_inputStringChanged(false)
 	{
 		memset(m_keysDown, 0, sizeof(bool) * GLFW_KEY_LAST);
 		memset(m_keysDownLast, 0, sizeof(bool) * GLFW_KEY_LAST);
@@ -71,9 +71,9 @@ namespace input
 		m_stringListeners.erase(p_toRemove);
 	}
 
-	void InputManager::toggleKeyboardInput(bool p_enabled)
+	void InputManager::setPollMode(bool p_enabled)
 	{
-		if (!p_enabled && m_captureKeyboard)
+		if (!p_enabled && m_inputPollMode)
 		{
 			for (int i = 0; i < GLFW_KEY_LAST; ++i)
 			{
@@ -84,13 +84,13 @@ namespace input
 			glfwSetKeyCallback(keyCallback);
 			glfwSetCharCallback(charCallback);
 		}
-		else if (p_enabled && !m_captureKeyboard)
+		else if (p_enabled && !m_inputPollMode)
 		{
 			glfwSetKeyCallback(nullptr);
 			glfwSetCharCallback(nullptr);
 		}
 
-		m_captureKeyboard = p_enabled;
+		m_inputPollMode = p_enabled;
 	}
 
 	void GLFWCALL InputManager::keyCallback(int key, int action)
@@ -105,11 +105,11 @@ namespace input
 
 	void InputManager::privateKeyCallback(int key, int action)
 	{
-		if (!m_captureKeyboard)
+		if (!m_inputPollMode)
 		{
 			if (action == GLFW_PRESS && key == GLFW_KEY_ENTER)
 			{
-				m_captureKeyboard = true;
+				m_inputPollMode = true;
 				m_notifyStringFinished = true;
 
 				glfwSetKeyCallback(nullptr);
@@ -125,7 +125,7 @@ namespace input
 
 	void InputManager::privateCharCallback(int key, int action)
 	{
-		if (!m_captureKeyboard)
+		if (!m_inputPollMode)
 		{
 			if (action == GLFW_PRESS)
 			{
@@ -172,7 +172,7 @@ namespace input
 
 	void InputManager::update()
 	{
-		if (m_captureKeyboard && !m_notifyStringFinished)
+		if (m_inputPollMode && !m_notifyStringFinished)
 		{
 			for (int i = 0; i < GLFW_KEY_LAST; ++i)
 			{
