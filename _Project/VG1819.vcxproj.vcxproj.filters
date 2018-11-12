@@ -490,6 +490,9 @@
     <ClCompile Include="..\kibble\sprites\SpriteLoader.cpp">
       <Filter>kibble\sprites</Filter>
     </ClCompile>
+    <ClCompile Include="..\kibble\UnitGameObject\UnitType.cpp">
+      <Filter>kibble\UnitGameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -932,6 +935,9 @@
     <ClInclude Include="..\kibble\sprites\SpriteLoader.h">
       <Filter>kibble\sprites</Filter>
     </ClInclude>
+    <ClInclude Include="..\kibble\UnitGameObject\UnitType.h">
+      <Filter>kibble\UnitGameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1056,6 +1062,9 @@
     </Filter>
     <Filter Include="kibble\sprites">
       <UniqueIdentifier>{2d6a0aee-b092-4d6d-a976-0b1679a63f9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kibble\UnitGameObject">
+      <UniqueIdentifier>{efd93ad5-378b-487c-8d5e-1a84ddc82e55}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

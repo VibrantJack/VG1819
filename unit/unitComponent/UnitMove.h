@@ -11,8 +11,8 @@ namespace unit
 	class UnitMove : public kitten::K_Component
 	{
 	private:
-		const float m_speed = 0.25f;
-		const glm::vec3 m_offset = glm::vec3(0.15f,1.0f,0.8f);
+		const float m_speed;
+		const glm::vec3 m_offset;
 
 		bool notRegistered = true;
 
@@ -30,7 +30,7 @@ namespace unit
 		void triggerNewTileEvent();
 
 	public:
-		UnitMove();
+		UnitMove(float p_speed = 0.25f, glm::vec3 p_offset = glm::vec3(0.15f, 1.0f, 0.8f));
 		~UnitMove();
 
 		void attempToMove(int p_min = 1, int p_max = -1);

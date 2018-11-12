@@ -25,7 +25,7 @@ namespace unit
 {
 	enum UnitSize
 	{
-		point,
+		point=0,
 		cube,
 	};
 
