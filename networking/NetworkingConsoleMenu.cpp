@@ -53,13 +53,13 @@ void NetworkingConsoleMenu::update()
 	{
 		if (m_bPrintText)
 		{
-			printf("** Networking Console Menu Opened **\n");
+			printf("\n** Networking Console Menu Opened **\n");
 			printf("%c - Host game\n", m_cHostKey);
 			printf("%c - Stop hosting game\n", m_cStopHostKey);
 			printf("%c - Connect to host\n", m_cConnectKey);
 			printf("%c - Disconnect from host\n", m_cDisconnectKey);
 			printf("%c - Exit menu\n", m_cExitMenuKey);
-			printf("************************************\n");
+			printf("************************************\n\n");
 			m_bPrintText = false;
 		}
 
@@ -75,7 +75,7 @@ void NetworkingConsoleMenu::update()
 		// Stop hosting option
 		if (input::InputManager::getInstance()->keyDown(m_cStopHostKey) && !input::InputManager::getInstance()->keyDownLast(m_cStopHostKey))
 		{
-			printf("Connect to host option selected\n");
+			printf("Stop hosting option selected\n");
 
 			stopHosting();
 			m_bMenuOpen = false;
@@ -121,27 +121,36 @@ void NetworkingConsoleMenu::update()
 
 void NetworkingConsoleMenu::hostGame()
 {
-	networking::ServerGame::createInstance();
-	if (networking::ServerGame::getInstance()->isNetworkValid())
+	// Check to make sure ServerGame and ClientGame are not initialized
+	if (!networking::ServerGame::getInstance() && !networking::ClientGame::getInstance())
 	{
-		m_bServerUpdate = true;
-		printf("Server network setup complete\n");
+		networking::ServerGame::createInstance();
+		if (networking::ServerGame::getInstance()->isNetworkValid())
+		{
+			m_bServerUpdate = true;
+			printf("Server network setup complete\n");
+
+			// Server setup successful, now setup ClientGame
+			networking::ClientGame::createInstance();
+			m_bClientUpdate = checkClientNetwork();
+		} else
+		{
+			networking::ServerGame::destroyInstance();
+		}
 	} else
 	{
-		networking::ServerGame::destroyInstance();
+		printf("Already hosting/connected to a server\n");
 	}
-
-	networking::ClientGame::createInstance();
-	m_bClientUpdate = checkClientNetwork();
+	
 }
 
 void NetworkingConsoleMenu::stopHosting()
 {
 	// Host player should be running an instance of ServerGame and ClientGame
 	// First, shutdown local ClientGame
-	//disconnectFromHost();
+	disconnectFromHost(true);
 
-	// Then, shutdown local server
+	// Then, shutdown local server, which alerts all connected clients
 	if (networking::ServerGame::getInstance())
 	{
 		if (networking::ServerGame::getInstance()->isNetworkValid())
@@ -149,7 +158,6 @@ void NetworkingConsoleMenu::stopHosting()
 			printf("Shutting down server\n");
 			networking::ServerGame::getInstance()->shutdownNetwork();
 			networking::ServerGame::destroyInstance();
-			m_bClientUpdate = false;
 			m_bServerUpdate = false;
 		} else
 		{
@@ -177,8 +185,11 @@ void NetworkingConsoleMenu::connectToHost()
 			client->setupNetwork(addr);
 
 			m_bClientUpdate = checkClientNetwork();
+		} else
+		{
+			printf("[Client: %d]: already connected to host\n", client->getClientId());
 		}
-	} else // Else, ClientGame not setup
+	} else // If not, get address and create ClientGame instance
 	{
 		printf("Enter an address: ");
 		std::string addr;
@@ -190,21 +201,24 @@ void NetworkingConsoleMenu::connectToHost()
 	}
 }
 
-void NetworkingConsoleMenu::disconnectFromHost()
+void NetworkingConsoleMenu::disconnectFromHost(bool p_bServerShutdown)
 {
-	if (networking::ClientGame::getInstance())
+	// If ServerGame exists and disconnectFromHost was not called by Server, then we should not 
+	// remove ClientGame. Host should always disconnect via Stop hosting game option
+	if (networking::ServerGame::getInstance() && !p_bServerShutdown)
 	{
-		if (networking::ClientGame::getInstance()->isNetworkValid())
+		printf("Host cannot disconnect from host!\n");
+	} else if (networking::ClientGame::getInstance())
+	{
+		// Make sure that ClientGame is connected to something otherwise don't do anything
+		if (checkClientNetwork())
 		{
-			printf("Disconnecting from server\n");
+			printf("[Client: %d] disconnecting from server\n", networking::ClientGame::getInstance()->getClientId());
 
-			networking::ClientGame::getInstance()->disconnectFromNetwork();
+			networking::ClientGame::getInstance()->disconnectFromNetwork(p_bServerShutdown);
 			networking::ClientGame::destroyInstance();
 
 			m_bClientUpdate = false;
-		} else
-		{
-			printf("Client was not connected to a host\n");
 		}
 	} else
 	{
@@ -218,12 +232,12 @@ bool NetworkingConsoleMenu::checkClientNetwork()
 	{
 		if (networking::ClientGame::getInstance()->isNetworkValid())
 		{
-			printf("Client network setup; connected to server\n");
+			//printf("Client network setup; connected to server\n");
 			return true;
 		} else
 		{
 			printf("Client network error; not connected to server\n");
-			//networking::ClientGame::destroyInstance();
+			networking::ClientGame::destroyInstance();
 			return false;
 		}
 	}

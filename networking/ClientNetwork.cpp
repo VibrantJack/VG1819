@@ -129,7 +129,7 @@ namespace networking
 
 		if (m_iResult == 0)
 		{
-			printf("Connection closed\n");
+			printf("Server connection closed; disconnecting\n");
 			closesocket(m_connectSocket);
 			m_connectSocket = INVALID_SOCKET;
 			WSACleanup();

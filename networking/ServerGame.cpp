@@ -4,9 +4,7 @@
 * clients
 */
 #include "ServerGame.h"
-
-// Game features to be run on the server
-#include "unit\InitiativeTracker\InitiativeTracker.h"
+#include "ClientGame.h"
 
 namespace networking
 {
@@ -80,6 +78,7 @@ namespace networking
 
 		char data[BASIC_PACKET_SIZE];
 		packet.serialize(data);
+		//m_network->sendToAll(data, BASIC_PACKET_SIZE);
 		m_network->sendToAll(data, BASIC_PACKET_SIZE);
 
 		// Shutdown ServerNetwork
@@ -132,7 +131,7 @@ namespace networking
 					case INIT_CONNECTION:
 					{
 						i += BASIC_PACKET_SIZE;
-						printf("\nserver received init packet from client %d\n", iter->first);
+						printf("Server received init packet from [Client: %d]\n", iter->first);
 
 						// Send a packet to the client to notify them what their ID is
 						unsigned int clientId = iter->first;
@@ -150,14 +149,14 @@ namespace networking
 					{
 						i += BASIC_PACKET_SIZE;
 						unsigned int clientId = iter->first;
-						printf("\nserver received CLIENT_DISCONNECT from client %d\n", clientId);						
+						printf("Server received CLIENT_DISCONNECT from [Client: %d]\n", clientId);						
 						m_network->removeClient(clientId);
 
 						break;
 					}
 					case SUMMON_UNIT:
 					{
-						printf("\nserver received CLIENT_SUMMON_UNIT packet from client %d\n", iter->first);
+						printf("Server received CLIENT_SUMMON_UNIT packet from [Client: %d]\n", iter->first);
 
 						SummonUnitPacket summonUnitPacket;
 						summonUnitPacket.deserialize(&(m_network_data[i]));
@@ -168,7 +167,7 @@ namespace networking
 					}
 					case UNIT_MOVE:
 					{
-						printf("\nserver received UNIT_MOVE packet from client %d\n", iter->first);
+						printf("Server received UNIT_MOVE packet from [Client: %d]\n", iter->first);
 
 						UnitMovePacket packet;
 						packet.deserialize(&(m_network_data[i]));

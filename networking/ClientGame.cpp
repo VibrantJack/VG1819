@@ -134,30 +134,24 @@ namespace networking
 
 		int i = 0;
 		PacketTypes packetType;
-		unsigned int clientId;
 
 		while (i < (unsigned int)data_length)
 		{
 			packet.deserialize(&(m_network_data[i]));
 			packetType = (PacketTypes)packet.packetType;
-			clientId = packet.clientId;
 
 			switch (packetType) {
 
 			case PacketTypes::SEND_CLIENT_ID:
 			{
-				Packet packet;
-				packet.deserialize(&(m_network_data[i]));
 				i += BASIC_PACKET_SIZE;
 
 				m_iClientId = packet.clientId;
-				printf("Client ID: %d\n", m_iClientId);
-
 				break;
 			}
 			case PacketTypes::SERVER_SHUTDOWN:
 			{
-				printf("client received SERVER_SHUTDOWN packet from server\n");
+				printf("[Client: %d] received SERVER_SHUTDOWN packet from server\n", m_iClientId);
 
 				i += BASIC_PACKET_SIZE;
 				disconnectFromNetwork(true);
@@ -167,7 +161,7 @@ namespace networking
 			}
 			case PacketTypes::SUMMON_UNIT:
 			{
-				printf("client received CLIENT_SUMMON_UNIT packet from server\n");
+				printf("[Client: %d] received CLIENT_SUMMON_UNIT packet from server\n", m_iClientId);
 
 				SummonUnitPacket summonUnitPacket;
 				summonUnitPacket.deserialize(&(m_network_data[i]));
@@ -179,12 +173,12 @@ namespace networking
 			}
 			case PacketTypes::UNIT_MOVE:
 			{
-				printf("client received UNIT_MOVE packet from server\n");
+				printf("[Client: %d] received UNIT_MOVE packet from server\n", m_iClientId);
 
 				UnitMovePacket unitMovePacket;
 				unitMovePacket.deserialize(&(m_network_data[i]));
 				i += UNIT_MOVE_PACKET_SIZE;
-				printf("Client received Unit index: %d, posX: %d, posY: %d\n", unitMovePacket.unitIndex, unitMovePacket.posX, unitMovePacket.posY);
+				printf("[Client: %d] received Unit index: %d, posX: %d, posY: %d\n", m_iClientId, unitMovePacket.unitIndex, unitMovePacket.posX, unitMovePacket.posY);
 
 				// Call function here that summons a unit
 				moveUnit(unitMovePacket.unitIndex, unitMovePacket.posX, unitMovePacket.posY);
