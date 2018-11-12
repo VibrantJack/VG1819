@@ -114,7 +114,7 @@ namespace networking
 			if (currentSocket != INVALID_SOCKET)
 			{
 				closesocket(currentSocket);
-				currentSocket = INVALID_SOCKET;
+				iter->second = INVALID_SOCKET;
 			}
 		}
 		WSACleanup();
@@ -147,7 +147,8 @@ namespace networking
 
 			SOCKET currentSocket = m_sessions[p_iClientId];
 			closesocket(currentSocket);
-			currentSocket = INVALID_SOCKET;
+			//currentSocket = INVALID_SOCKET;
+			m_sessions[p_iClientId] = INVALID_SOCKET;
 
 			// Cannot remove the socket from the map as this function is called from ServerGame::update()
 			// iterator that references the current socket
@@ -173,7 +174,7 @@ namespace networking
 			{
 				printf("Server lost connection to [Client: %d]\n", client_id);
 				closesocket(currentSocket);
-				currentSocket = INVALID_SOCKET;
+				m_sessions[client_id] = INVALID_SOCKET;
 			}
 			return m_iResult;
 		}
@@ -191,13 +192,15 @@ namespace networking
 		{
 			currentSocket = iter->second;
 			if (currentSocket != INVALID_SOCKET)
+			{
 				iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
 
-			if (iSendResult == SOCKET_ERROR)
-			{
-				printf("send to [Client: %d] failed with error: %d\n", iter->first, WSAGetLastError());
-				closesocket(currentSocket);
-				currentSocket = INVALID_SOCKET;
+				if (iSendResult == SOCKET_ERROR)
+				{
+					printf("send to [Client: %d] failed with error: %d\n", iter->first, WSAGetLastError());
+					closesocket(currentSocket);
+					iter->second = INVALID_SOCKET;
+				}
 			}
 		}
 	}
@@ -212,12 +215,16 @@ namespace networking
 		iter = m_sessions.find(client_id);
 		if (iter != m_sessions.end()) {
 			currentSocket = iter->second;
-			iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
-
-			if (iSendResult == SOCKET_ERROR)
+			if (currentSocket != INVALID_SOCKET)
 			{
-				printf("send failed with error: %d\n", WSAGetLastError());
-				closesocket(currentSocket);
+				iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
+
+				if (iSendResult == SOCKET_ERROR)
+				{
+					printf("send failed with error: %d\n", WSAGetLastError());
+					closesocket(currentSocket);
+					iter->second = INVALID_SOCKET;
+				}
 			}
 		}
 	}
@@ -234,12 +241,16 @@ namespace networking
 			if (iter->first != client_id)
 			{
 				currentSocket = iter->second;
-				iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
-
-				if (iSendResult == SOCKET_ERROR)
+				if (currentSocket != INVALID_SOCKET)
 				{
-					printf("send failed with error: %d\n", WSAGetLastError());
-					closesocket(currentSocket);
+					iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
+
+					if (iSendResult == SOCKET_ERROR)
+					{
+						printf("send failed with error: %d\n", WSAGetLastError());
+						closesocket(currentSocket);
+						iter->second = INVALID_SOCKET;
+					}
 				}
 			}
 		}
