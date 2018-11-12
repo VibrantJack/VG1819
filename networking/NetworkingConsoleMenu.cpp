@@ -108,12 +108,12 @@ void NetworkingConsoleMenu::update()
 	}
 
 	// Call updates if ClientGame/ServerGame are initialized
-	if (networking::ClientGame::isNetworkValid())
+	if (checkClientNetwork())
 	{
 		networking::ClientGame::getInstance()->update();
 	}
 
-	if (networking::ServerGame::isNetworkValid())
+	if (checkServerNetwork())
 	{
 		networking::ServerGame::getInstance()->update();
 	}
@@ -230,7 +230,7 @@ bool NetworkingConsoleMenu::checkClientNetwork()
 			return true;
 		} else
 		{
-			printf("Client network setup incomplete; please try again\n");
+			//printf("Client network setup incomplete; please try again\n");
 			networking::ClientGame::destroyInstance();
 			return false;
 		}
@@ -247,7 +247,7 @@ bool NetworkingConsoleMenu::checkServerNetwork()
 			return true;
 		} else
 		{
-			printf("Server network setup incomplete; please try again\n");
+			//printf("Server network setup incomplete; please try again\n");
 			networking::ServerGame::destroyInstance();
 			return false;
 		}
