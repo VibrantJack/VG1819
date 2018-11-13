@@ -14,7 +14,7 @@
 				"min_range":1,
 				"max_range":1,
 				"target":1,
-				"need_unit":0,
+				"need_unit":1,
 				"description":"Deal 3 damage to target."
 			},
 			{

@@ -8,6 +8,7 @@
 #define SUMMON_UNIT_PACKET_SIZE sizeof(SummonUnitPacket)
 #define UNIT_MOVE_PACKET_SIZE sizeof(UnitMovePacket)
 #define TEST_PACKET_SIZE sizeof(TestPacket)
+#define MANIPULATE_PACKET_SZE sizeof(ManipulateTilePacket)
 
 enum PacketTypes {
 
@@ -87,6 +88,47 @@ struct UnitMovePacket : Packet
 		int *q = (int*)data;
 		this->packetType = *q;		q++;
 		this->clientId = *q;		q++;
+
+		this->unitIndex = *q;		q++;
+		this->posX = *q;		q++;
+		this->posY = *q;		q++;
+	}
+};
+
+struct ManipulateTilePacket : Packet {
+
+	char abilityName[BUFSIZE];
+	int unitIndex;
+	int posX, posY;
+
+	void serialize(char* data) {
+		int *q = (int*)data;
+		*q = this->packetType;   q++;
+		*q = this->clientId;	q++;
+
+		char *p = (char*)q;
+		int i = 0;
+		for (int i = 0; i < BUFSIZE; i++) {
+			*p = this->abilityName[i];
+			p++;
+		}
+
+		*q = this->unitIndex;		q++;
+		*q = this->posX;		q++;
+		*q = this->posY;		q++;
+	}
+
+	void deserialize(char* data) {
+		int *q = (int*)data;
+		this->packetType = *q;		q++;
+		this->clientId = *q;		q++;
+
+		char *p = (char*)q;
+		int i = 0;
+		for (int i = 0; i < BUFSIZE; i++) {
+			this->abilityName[i] = *p;
+			p++;
+		}
 
 		this->unitIndex = *q;		q++;
 		this->posX = *q;		q++;

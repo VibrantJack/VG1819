@@ -1,5 +1,8 @@
 #include "AbilityManager.h"
 
+// Networking
+#include "networking\ClientGame.h"
+
 //Rock
 
 namespace ability
@@ -92,6 +95,10 @@ namespace ability
 
 	int AbilityManager::useAbility(const std::string & p_name, AbilityInfoPackage * p_info)
 	{
+		if (networking::ClientGame::isNetworkValid())
+		{
+			networking::ClientGame::getInstance()->sendAbilityPacket(p_name, p_info);
+		}
 		return findAbility(p_name)->effect(p_info);
 	}
 
