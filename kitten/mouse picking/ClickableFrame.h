@@ -10,17 +10,25 @@ namespace kitten
 
 	class ClickableFrame : public K_Component, public TransformScaleListener
 	{
-	private:
-		std::unordered_set<ClickableUI*> m_listeners;
-		glm::vec2 m_minPoint, m_maxPoint;
-		glm::vec2 m_originalMinPoint, m_originalMaxPoint;
+
 	public:
-		ClickableFrame(const glm::vec2& p_minPoint, const glm::vec2& p_maxPoint);
+		enum PivotType {
+			piv_Left,
+			piv_Right,
+			piv_Top,
+			piv_Bot,
+			piv_Center,
+			piv_BotLeft,
+			piv_BotRight,
+			piv_TopLeft,
+			piv_TopRight
+		};
+
+		ClickableFrame(PivotType p_piv);
 		~ClickableFrame();
 
 		virtual void start() override;
 		virtual void onScaleChanged(const glm::vec3& p_newScale) override;
-
 
 		void addCLickable(ClickableUI* p_toAdd);
 		void removeClickable(ClickableUI* p_toAdd);
@@ -31,5 +39,12 @@ namespace kitten
 		void onHoverStart();
 		void onClick();
 		void onHoverEnd();
+		void release();
+
+	private:
+		std::unordered_set<ClickableUI*> m_listeners;
+		glm::vec2 m_minPoint, m_maxPoint;
+		glm::vec2 m_originalMinPoint, m_originalMaxPoint;
+		PivotType m_piv;
 	};
 }

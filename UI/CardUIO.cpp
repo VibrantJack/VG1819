@@ -4,7 +4,7 @@ namespace userinterface
 {
 	CardUIO::CardUIO(const char* p_pathToTex) : UIObject(p_pathToTex)
 	{
-		//nothing extra to add
+		//nothing new to add
 	}
 
 	CardUIO::~CardUIO()
@@ -14,7 +14,7 @@ namespace userinterface
 
 	void CardUIO::scaleAsCard()
 	{
-		getTransform().scale2D(0.1, 0.25);
+		getTransform().scale2D(100, 170);
 	}
 
 
