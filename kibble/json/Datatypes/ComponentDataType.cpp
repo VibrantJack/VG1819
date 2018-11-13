@@ -1,17 +1,17 @@
 #include "ComponentDataType.hpp"
 #include <string>
 
-#define jsonHas(str) p_jsonFile->find(str) != p_jsonFile->end()
-#define lookUp(str) p_jsonFile->operator[](str)
-#define setVar(varName,jsonName) varName = p_jsonFile->operator[](jsonName)
-#define setOptionalVar(varName,jsonName) if(jsonHas(jsonName)) setVar(varName,jsonName)
-#define setOptionalVarWithDefault(varName,jsonName,defaultVal) if(jsonHas(jsonName)) setVar(varName,jsonName); else varName = defaultVal
+#define JSONHAS(str) p_jsonFile->find(str) != p_jsonFile->end()
+#define LOOKUP(str) p_jsonFile->operator[](str)
+#define SET(varName,jsonName) varName = p_jsonFile->operator[](jsonName)
+#define SETOPT(varName,jsonName) if(JSONHAS(jsonName)) SET(varName,jsonName)
+#define SETOPTDEF(varName,jsonName,defaultVal) if(JSONHAS(jsonName)) SET(varName,jsonName); else varName = defaultVal
 
 #include "_Project/MoveByMouseRightClickDrag.h"
 kitten::K_Component* getMoveByMouseRightClickDrag(nlohmann::json* p_jsonFile) {
 	float speed;
 
-	setOptionalVarWithDefault(speed, "speed", 0.005f);
+	SETOPTDEF(speed, "speed", 0.005f);
 
 	return new MoveByMouseRightClickDrag(speed);
 }
@@ -21,9 +21,9 @@ kitten::K_Component* getZoomByMouseWheel(nlohmann::json* p_jsonFile) {
 	float speed;
 	int minFOV, maxFOV;
 
-	setOptionalVarWithDefault(speed, "speed", 1.0f);
-	setOptionalVarWithDefault(minFOV, "minfov", 1);
-	setOptionalVarWithDefault(maxFOV, "maxfov", 90);
+	SETOPTDEF(speed, "speed", 1.0f);
+	SETOPTDEF(minFOV, "minfov", 1);
+	SETOPTDEF(maxFOV, "maxfov", 90);
 
 	return new ZoomByMouseWheel(speed, minFOV, maxFOV); 
 }
@@ -58,7 +58,7 @@ kitten::K_Component* getCamera(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getCubeRenderable(nlohmann::json* p_jsonFile) {
 	std::string texturefilename;
 
-	setOptionalVarWithDefault(texturefilename, "texture", "textures/tiles/MISSING.tga");
+	SETOPTDEF(texturefilename, "texture", "textures/tiles/MISSING.tga");
 
 	return new kitten::CubeRenderable(texturefilename.c_str());
 }
@@ -68,8 +68,8 @@ kitten::K_Component* getQuadRenderable(nlohmann::json* p_jsonFile) {
 	std::string texturefilename;
 	bool isStatic;
 
-	setOptionalVarWithDefault(texturefilename, "texture", "textures/tiles/MISSING.tga");
-	setOptionalVarWithDefault(isStatic, "static", false);
+	SETOPTDEF(texturefilename, "texture", "textures/tiles/MISSING.tga");
+	SETOPTDEF(isStatic, "static", false);
 
 	return new kitten::QuadRenderable(texturefilename.c_str(), isStatic);
 }
@@ -83,7 +83,7 @@ kitten::K_Component* getGrassLandInfo(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getDebugPrintOnce(nlohmann::json* p_jsonFile){
 	std::string message;
 
-	setOptionalVarWithDefault(message, "message", "Default Message");
+	SETOPTDEF(message, "message", "Default Message");
 
 	return new DebugPrintOnce(message);
 }
@@ -92,7 +92,7 @@ kitten::K_Component* getDebugPrintOnce(nlohmann::json* p_jsonFile){
 kitten::K_Component* getPrintWhenClicked(nlohmann::json* p_jsonFile) {
 	std::string message;
 
-	setOptionalVarWithDefault(message, "message", "Default Message");
+	SETOPTDEF(message, "message", "Default Message");
 
 	return new PrintWhenClicked(message);
 }
@@ -101,12 +101,12 @@ kitten::K_Component* getPrintWhenClicked(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getClickableBox(nlohmann::json* p_jsonFile) {
 	glm::vec3 minPoint, maxPoint;
 
-	if (jsonHas("minpoint")) {
-		minPoint = glm::vec3(lookUp("minpoint")[0], lookUp("minpoint")[1], lookUp("minpoint")[2]);
+	if (JSONHAS("minpoint")) {
+		minPoint = glm::vec3(LOOKUP("minpoint")[0], LOOKUP("minpoint")[1], LOOKUP("minpoint")[2]);
 	}
 
-	if (jsonHas("maxpoint")) {
-		minPoint = glm::vec3(lookUp("maxpoint")[0], lookUp("maxpoint")[1], lookUp("maxpoint")[2]);
+	if (JSONHAS("maxpoint")) {
+		minPoint = glm::vec3(LOOKUP("maxpoint")[0], LOOKUP("maxpoint")[1], LOOKUP("maxpoint")[2]);
 	}
 
 	return new kitten::ClickableBox(minPoint, maxPoint);
@@ -122,8 +122,8 @@ kitten::K_Component* getDestroyOnClick(nlohmann::json* p_jsonFile){
 kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
 	BoardCreator* component = new BoardCreator();
 	int x,z;
-	setOptionalVarWithDefault(x, "rows", 15);
-	setOptionalVarWithDefault(z, "columns", 15);
+	SETOPTDEF(x, "rows", 15);
+	SETOPTDEF(z, "columns", 15);
 	component->setDimension(x, z);
 	return component;
 }
@@ -134,34 +134,34 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 	std::string pathToClip;
 	bool is3D, enableEffects, causesDuck, getsDucked;
 
-	setVar(pathToClip, "clippath");
-	setOptionalVar(is3D, "is3d");
-	setOptionalVar(enableEffects, "enableeffects");
-	setOptionalVarWithDefault(causesDuck, "causesduck", false);
-	setOptionalVarWithDefault(getsDucked, "getsducked", false);
+	SET(pathToClip, "clippath");
+	SETOPT(is3D, "is3d");
+	SETOPT(enableEffects, "enableeffects");
+	SETOPTDEF(causesDuck, "causesduck", false);
+	SETOPTDEF(getsDucked, "getsducked", false);
 
 	kitten::AudioSource* toReturn = new kitten::AudioSource(pathToClip, is3D, enableEffects, causesDuck, getsDucked);
 
 	if (is3D) {
-		if (jsonHas("mindistance")) {
-			toReturn->setMinDistance(lookUp("mindistance"));
+		if (JSONHAS("mindistance")) {
+			toReturn->setMinDistance(LOOKUP("mindistance"));
 		}
 
-		if (jsonHas("maxdistance")) {
-			toReturn->setMaxDistance(lookUp("maxdistance"));
+		if (JSONHAS("maxdistance")) {
+			toReturn->setMaxDistance(LOOKUP("maxdistance"));
 		}
 	}
 
-	if (jsonHas("loop")) {
-		toReturn->setLooped(lookUp("loop"));
+	if (JSONHAS("loop")) {
+		toReturn->setLooped(LOOKUP("loop"));
 	}
 
-	if (jsonHas("volume")) {
-		toReturn->setVolume(lookUp("volume"));
+	if (JSONHAS("volume")) {
+		toReturn->setVolume(LOOKUP("volume"));
 	}
 
-	if (jsonHas("playprogress")) {
-		toReturn->setPlayProgress(lookUp("playprogress"));
+	if (JSONHAS("playprogress")) {
+		toReturn->setPlayProgress(LOOKUP("playprogress"));
 	}
 
 	if (enableEffects) {
@@ -332,8 +332,8 @@ kitten::K_Component* getAudioListener(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getPlaySoundOnKeyPress(nlohmann::json* p_jsonFile) {
 	char key;
 
-	if (jsonHas("key")) {
-		std::string strKey = lookUp("key");
+	if (JSONHAS("key")) {
+		std::string strKey = LOOKUP("key");
 		key = strKey[0];
 	}
 
@@ -349,8 +349,8 @@ kitten::K_Component* getPlaySoundOnStart(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getToggleSoundOnStart(nlohmann::json* p_jsonFile) {
 	char key;
 
-	if (jsonHas("key")) {
-		std::string strKey = lookUp("key");
+	if (JSONHAS("key")) {
+		std::string strKey = LOOKUP("key");
 		key = strKey[0];
 	}
 
@@ -362,17 +362,17 @@ kitten::K_Component* getVolumeAdjustOnKeysPressed(nlohmann::json* p_jsonFile) {
 	char increaseKey, decreaseKey;
 	float changeAmount;
 
-	if (jsonHas("increasekey")) {
-		std::string strKey = lookUp("increasekey");
+	if (JSONHAS("increasekey")) {
+		std::string strKey = LOOKUP("increasekey");
 		increaseKey = strKey[0];
 	}
 
-	if (jsonHas("decreasekey")) {
-		std::string strKey = lookUp("decreasekey");
+	if (JSONHAS("decreasekey")) {
+		std::string strKey = LOOKUP("decreasekey");
 		decreaseKey = strKey[0];
 	}
 
-	setOptionalVar(changeAmount, "changeamount");
+	SETOPT(changeAmount, "changeamount");
 
 	return new VolumeAdjustOnKeysPressed(increaseKey,decreaseKey,changeAmount);
 }
@@ -381,7 +381,7 @@ kitten::K_Component* getVolumeAdjustOnKeysPressed(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getUIFrame(nlohmann::json* p_jsonFile) {
 	std::string texture;
 
-	setOptionalVarWithDefault(texture, "texture", "textures/ui/blankFrame.tga");
+	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
 
 	return new userinterface::UIFrame(texture.c_str());
 }
@@ -441,7 +441,7 @@ kitten::K_Component* getUnitGraphic(nlohmann::json* p_jsonFile) {
 	std::string texture;
 	unit::UnitSize size = unit::point;
 
-	setOptionalVarWithDefault(texture, "texture", "textures/unit/Default.tga");
+	SETOPTDEF(texture, "texture", "textures/unit/Default.tga");
 
 	if (p_jsonFile->find("unitsize") != p_jsonFile->end()) {
 		std::string temp = p_jsonFile->operator[]("unitsize");
@@ -460,19 +460,19 @@ kitten::K_Component* getTextBox(nlohmann::json* p_jsonFile) {
 	float width, height;
 	puppy::TextBox* textbox;
 
-	setOptionalVarWithDefault(font, "font", "../fonts/common_consolas.fnt");
-	setOptionalVarWithDefault(message, "message", "DEFAULT TEXT");
-	setOptionalVarWithDefault(width, "width", 500);
-	setOptionalVarWithDefault(height, "height", 500);
+	SETOPTDEF(font, "font", "../fonts/common_consolas.fnt");
+	SETOPTDEF(message, "message", "DEFAULT TEXT");
+	SETOPTDEF(width, "width", 500);
+	SETOPTDEF(height, "height", 500);
 
 	textbox = new puppy::TextBox(puppy::FontTable::getInstance()->getFont(font.c_str()), message.c_str(), width, height);
 
-	if (jsonHas("color")) {
-		textbox->setColor(lookUp("color")[0], lookUp("color")[1], lookUp("color")[2]);
+	if (JSONHAS("color")) {
+		textbox->setColor(LOOKUP("color")[0], LOOKUP("color")[1], LOOKUP("color")[2]);
 	}
 
-	if (jsonHas("alignment")) {
-		std::string temp = lookUp("alignment");
+	if (JSONHAS("alignment")) {
+		std::string temp = LOOKUP("alignment");
 		if (temp == "left")
 			textbox->setAlignment(puppy::TextBox::Alignment::left);
 		else if (temp == "right")
