@@ -211,6 +211,19 @@ namespace networking
 				singleTargetPowerAbility(stpPacket.abilityName, stpPacket.sourceUnitIndex, stpPacket.targetUnitIndex, stpPacket.power);
 				break;
 			}
+			case PacketTypes::SINGLE_TILE_ABILITY:
+			{
+				printf("[Client: %d] received SINGLE_TILE_ABILITY packet from server\n", m_iClientId);
+
+				SingleTilePacket stPacket;
+				stPacket.deserialize(&(m_network_data[i]));
+				i += SINGLE_TILE_PACKET_SIZE;
+				printf("[Client: %d] received ability name: %s, posX: %d, posY: %d\n",
+					m_iClientId, stPacket.abilityName, stPacket.posX, stPacket.posY);
+
+				singleTileAbility(stPacket.abilityName, stPacket.posX, stPacket.posY);
+				break;
+			}
 			default:
 				printf("error in packet types\n");
 				break;
@@ -229,13 +242,46 @@ namespace networking
 			int unitIndex = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
 			sendManipulateTilePacket(p_strAbilityName, unitIndex, posX, posY);
 		}
-		else // Fight, Shoot, Heal are all done the same way
+		else if (p_strAbilityName == ABILITY_FIGHT || p_strAbilityName == ABILITY_HEAL 
+			|| p_strAbilityName == ABILITY_SHOOT || p_strAbilityName == ABILITY_SABOTAGE)// These have the same pkg contents
 		{
 			int sourceUnitIndex = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
 			int targetUnitIndex = getUnitGameObjectIndex(&p_info->m_targets[0]->getGameObject());
 			int power = p_info->m_intValue.find(UNIT_POWER)->second;
 			sendSingleTargetPacket(p_strAbilityName, sourceUnitIndex, targetUnitIndex, power);
 		}
+		else if (p_strAbilityName == ABILITY_BUILD_WALL || p_strAbilityName == ABILITY_SUMMON_UNIT)// These have the same package contents
+		{
+			TileInfo* tileInfo = p_info->m_targetTilesGO[0]->getComponent<TileInfo>();
+			int posX = tileInfo->getPosX();
+			int posY = tileInfo->getPosY();
+			sendSingleTilePacket(p_strAbilityName, posX, posY);
+		}
+	}
+
+	void ClientGame::singleTileAbility(const std::string &p_strAbilityName, int p_iPosX, int p_iPosY)
+	{
+		ability::AbilityInfoPackage* pkg = new ability::AbilityInfoPackage();
+
+		std::vector<kitten::K_GameObject*> tiles;
+		tiles.push_back(BoardManager::getInstance()->getTile(p_iPosX, p_iPosY));
+		pkg->m_targetTilesGO = tiles;
+
+		ability::AbilityManager::getInstance()->findAbility(p_strAbilityName)->effect(pkg);
+	}
+
+	void ClientGame::sendSingleTilePacket(const std::string &p_strAbilityName, int p_iPosX, int p_iPosY)
+	{
+		SingleTilePacket packet;
+		packet.packetType = SINGLE_TILE_ABILITY;
+		strcpy(packet.abilityName, p_strAbilityName.c_str());
+		packet.posX = p_iPosX;
+		packet.posY = p_iPosY;
+
+		char data[SINGLE_TILE_PACKET_SIZE];
+		packet.serialize(data);
+
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, SINGLE_TILE_PACKET_SIZE);
 	}
 
 	void ClientGame::singleTargetPowerAbility(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iPower)

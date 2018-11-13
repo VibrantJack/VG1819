@@ -218,6 +218,23 @@ namespace networking
 						m_network->sendToOthers(iter->first, packet_data, SINGLE_TARGET_PACKET_SIZE);
 						break;
 					}
+					case SINGLE_TILE_ABILITY:
+					{
+						printf("Server received SINGLE_TILE_ABILITY packet from [Client: %d]\n", iter->first);
+
+						SingleTilePacket stPacket;
+						stPacket.deserialize(&(m_network_data[i]));
+						i += SINGLE_TILE_PACKET_SIZE;
+						printf("Server sending ability name: %s, posX: %d, posY: %d\n",
+							stPacket.abilityName, stPacket.posX, stPacket.posY);
+
+						// Send received packet to other clients
+						char packet_data[SINGLE_TILE_PACKET_SIZE];
+						stPacket.serialize(packet_data);
+
+						m_network->sendToOthers(iter->first, packet_data, SINGLE_TILE_PACKET_SIZE);
+						break;
+					}
 					default:
 						printf("error in packet types received from client %d\n", iter->first);
 						i += (unsigned int)data_length;						
