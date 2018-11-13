@@ -511,6 +511,7 @@ kitten::K_Component* getToggleStringInputOnKeyPress(nlohmann::json* p_jsonFile) 
 #include "_Project\StringInputDisplay.h"
 kitten::K_Component* getStringInputDisplay(nlohmann::json* p_jsonFile) {
 	return new StringInputDisplay();
+}
 
 #include "components\SelectAbility.h"
 kitten::K_Component* getSelectAbility(nlohmann::json* p_jsonFile) {

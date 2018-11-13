@@ -1,0 +1,23 @@
+{
+	"name" : "archer",
+	"texture" : "textures/sprites/units/humans/archer_sheet.tga",
+	
+	"sheetwidth" : 1024,
+	"sheetheight" : 1024,
+	
+	"characterwidth" : 63,
+	"characterheight" : 98,
+	
+	"padding" : 10,
+	
+	"defaultanimation" : "idle",
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [6,0],
+			"time" : 3
+		}
+	]
+}
