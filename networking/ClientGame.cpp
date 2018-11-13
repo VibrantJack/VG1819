@@ -8,6 +8,7 @@
 #include "networking\ClientGame.h"
 #include <assert.h>
 #include <iostream>
+#include <unordered_map>
 
 // Kibble
 #include "kibble\databank\databank.hpp"
@@ -169,7 +170,6 @@ namespace networking
 				summonUnitPacket.deserialize(&(m_network_data[i]));
 				i += SUMMON_UNIT_PACKET_SIZE;
 
-				// Call function here that summons a unit
 				summonUnit(summonUnitPacket.clientId, summonUnitPacket.unitId, summonUnitPacket.posX, summonUnitPacket.posY);
 				break;
 			}
@@ -182,7 +182,6 @@ namespace networking
 				i += UNIT_MOVE_PACKET_SIZE;
 				printf("[Client: %d] received Unit index: %d, posX: %d, posY: %d\n", m_iClientId, unitMovePacket.unitIndex, unitMovePacket.posX, unitMovePacket.posY);
 
-				// Call function here that summons a unit
 				moveUnit(unitMovePacket.unitIndex, unitMovePacket.posX, unitMovePacket.posY);
 				break;
 			}
@@ -193,9 +192,23 @@ namespace networking
 				ManipulateTilePacket manipPacket;
 				manipPacket.deserialize(&(m_network_data[i]));
 				i += MANIPULATE_PACKET_SIZE;
-				printf("[Client: %d] received ability name: %s, unit index: %d, posX: %d, posY: %d\n", m_iClientId, manipPacket.abilityName, manipPacket.unitIndex, manipPacket.posX, manipPacket.posY);
-				// Call function here that summons a unit
-				moveUnit(manipPacket.unitIndex, manipPacket.posX, manipPacket.posY);
+				printf("[Client: %d] received ability name: %s, unit index: %d, posX: %d, posY: %d\n", 
+					m_iClientId, manipPacket.abilityName, manipPacket.unitIndex, manipPacket.posX, manipPacket.posY);
+				
+				manipulateTile(manipPacket.abilityName, manipPacket.unitIndex, manipPacket.posX, manipPacket.posY);
+				break;
+			}
+			case PacketTypes::SINGLE_TARGET_ABILITY:
+			{
+				printf("[Client: %d] received SINGLE_TARGET_ABILITY packet from server\n", m_iClientId);
+
+				SingleTargetPowerPacket stpPacket;
+				stpPacket.deserialize(&(m_network_data[i]));
+				i += SINGLE_TARGET_PACKET_SIZE;
+				printf("[Client: %d] received ability name: %s, source index: %d, target index: %d, power: %d\n",
+					m_iClientId, stpPacket.abilityName, stpPacket.sourceUnitIndex, stpPacket.targetUnitIndex, stpPacket.power);
+				
+				singleTargetPowerAbility(stpPacket.abilityName, stpPacket.sourceUnitIndex, stpPacket.targetUnitIndex, stpPacket.power);
 				break;
 			}
 			default:
@@ -216,12 +229,57 @@ namespace networking
 			int unitIndex = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
 			sendManipulateTilePacket(p_strAbilityName, unitIndex, posX, posY);
 		}
+		else // Fight, Shoot, Heal are all done the same way
+		{
+			int sourceUnitIndex = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
+			int targetUnitIndex = getUnitGameObjectIndex(&p_info->m_targets[0]->getGameObject());
+			int power = p_info->m_intValue.find(UNIT_POWER)->second;
+			sendSingleTargetPacket(p_strAbilityName, sourceUnitIndex, targetUnitIndex, power);
+		}
+	}
+
+	void ClientGame::singleTargetPowerAbility(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iPower)
+	{
+		// Reconstructing AbilityInfoPackage
+
+		// Getting the source unit
+		ability::AbilityInfoPackage* pkg = new ability::AbilityInfoPackage();
+		pkg->m_source = getUnitGameObject(p_iSourceUnitIndex)->getComponent<unit::Unit>();
+
+		// Getting the target unit; need to push into a vector then assign the new vector to m_targets
+		std::vector<unit::Unit*> targets;
+		targets.push_back(getUnitGameObject(p_iTargetUnitIndex)->getComponent<unit::Unit>());
+		pkg->m_targets = targets;
+
+		// Getting the power of the ability; need to assign to map then assign the new map to m_intValue
+		std::unordered_map<std::string, int> intValues;
+		intValues[UNIT_POWER] = p_iPower;
+		pkg->m_intValue = intValues;
+		
+		ability::AbilityManager::getInstance()->findAbility(p_strAbilityName)->effect(pkg);
+	}
+
+	void ClientGame::sendSingleTargetPacket(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iPower)
+	{
+		SingleTargetPowerPacket packet;
+		packet.packetType = SINGLE_TARGET_ABILITY;
+		strcpy(packet.abilityName, p_strAbilityName.c_str());
+		packet.sourceUnitIndex = p_iSourceUnitIndex;
+		packet.targetUnitIndex = p_iTargetUnitIndex;
+		packet.power = p_iPower;
+
+		char data[SINGLE_TARGET_PACKET_SIZE];
+		packet.serialize(data);
+
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, SINGLE_TARGET_PACKET_SIZE);
 	}
 
 	void ClientGame::manipulateTile(const std::string & p_strAbilityName, int p_iUnitIndex, int p_iPosX, int p_iPosY)
 	{
 		ability::AbilityInfoPackage* pkg = new ability::AbilityInfoPackage();
-		pkg->m_targetTilesGO[0] = BoardManager::getInstance()->getTile(p_iPosX, p_iPosY);
+		std::vector<kitten::K_GameObject*> tiles;
+		tiles.push_back(BoardManager::getInstance()->getTile(p_iPosX, p_iPosY));
+		pkg->m_targetTilesGO = tiles;
 		pkg->m_source = getUnitGameObject(p_iUnitIndex)->getComponent<unit::Unit>();
 
 		ability::AbilityManager::getInstance()->findAbility(p_strAbilityName)->effect(pkg);

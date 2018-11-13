@@ -185,9 +185,42 @@ namespace networking
 
 						break;
 					}
+					case MANIPULATE_TILE:
+					{
+						printf("Server received MANIPULATE_TILE packet from [Client: %d]\n", iter->first);
 
+						ManipulateTilePacket manipPacket;
+						manipPacket.deserialize(&(m_network_data[i]));
+						i += MANIPULATE_PACKET_SIZE;
+						printf("Server sending ability name: %s, unit index: %d, posX: %d, posY: %d\n", manipPacket.abilityName, manipPacket.unitIndex, manipPacket.posX, manipPacket.posY);
+
+						// Send received packet to other clients
+						char packet_data[MANIPULATE_PACKET_SIZE];
+						manipPacket.serialize(packet_data);
+
+						m_network->sendToOthers(iter->first, packet_data, MANIPULATE_PACKET_SIZE);
+						break;
+					}
+					case SINGLE_TARGET_ABILITY:
+					{
+						printf("Server received SINGLE_TARGET_ABILITY packet from [Client: %d]\n", iter->first);
+
+						SingleTargetPowerPacket stpPacket;
+						stpPacket.deserialize(&(m_network_data[i]));
+						i += SINGLE_TARGET_PACKET_SIZE;
+						printf("Server sending ability name: %s, source index: %d, target index: %d, power: %d\n", 
+							stpPacket.abilityName, stpPacket.sourceUnitIndex, stpPacket.targetUnitIndex, stpPacket.power);
+
+						// Send received packet to other clients
+						char packet_data[SINGLE_TARGET_PACKET_SIZE];
+						stpPacket.serialize(packet_data);
+
+						m_network->sendToOthers(iter->first, packet_data, SINGLE_TARGET_PACKET_SIZE);
+						break;
+					}
 					default:
-						//printf("error in packet types received from client %d\n", iter->first);
+						printf("error in packet types received from client %d\n", iter->first);
+						i += (unsigned int)data_length;						
 						break;
 				}
 			}
