@@ -25,6 +25,7 @@ public:
 	virtual void update() override;
 
 	void highlightTile(TileInfo::HighlightType p_type, kitten::Event::TileList p_list);
+	void unhighlightTile(TileInfo::HighlightType p_type, kitten::Event::TileList p_list);
 	void unhighlightAll(TileInfo::HighlightType p_type);
 	//void unHighlightCurrent();
 

@@ -2,13 +2,17 @@
 #include "kitten/QuadRenderable.h"
 #include "board/tile/TileInfo.h"
 #include "board/BoardManager.h"
-
+#include <iostream>
 Highlighter::Highlighter()
 {
 	for (int i = TileInfo::ForArea; i != TileInfo::Last; i++)
 	{
 		m_listForType[static_cast<TileInfo::HighlightType>(i)] = std::vector<kitten::K_GameObject*>();
 	}
+
+	m_texMap[TileInfo::ForArea] = "";
+	m_texMap[TileInfo::ForRange] = "";
+	m_texMap[TileInfo::ForOwnedTile] = "";
 }
 
 Highlighter::~Highlighter()
@@ -38,9 +42,13 @@ void Highlighter::update()
 
 			TileInfo::HighlightType type = info->getHighlightType();
 
+			int x = info->getPosX();
+			int z = info->getPosY();
+
 			if (type != TileInfo::Last)
 			{
 				//add blend
+				
 			}
 			else
 			{
@@ -99,6 +107,30 @@ void Highlighter::highlightTile(TileInfo::HighlightType p_type, kitten::Event::T
 
 		//add it to corresponding type list
 		m_listForType[p_type].push_back(tile);
+	}
+}
+
+void Highlighter::unhighlightTile(TileInfo::HighlightType p_type, kitten::Event::TileList p_list)
+{
+	for (int i = 0; i < p_list.size(); i++)
+	{
+		kitten::K_GameObject* tile = BoardManager::getInstance()->getTile(p_list[i].first, p_list[i].second);
+		TileInfo* tileInfo = tile->getComponent<TileInfo>();
+
+		//set it's highlight
+		tileInfo->setHighlighted(p_type, false);
+
+		//add it to change list
+		m_toBeChanged.push_back(tile);
+
+		//remove it from corresponding type list
+		for (int j = 0; j < m_listForType[p_type].size(); j++)
+		{
+			if (m_listForType[p_type].at(j) == tile)
+			{
+				m_listForType[p_type].erase(m_listForType[p_type].begin() + j);
+			}
+		}
 	}
 }
 
