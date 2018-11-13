@@ -34,10 +34,10 @@ void PrintWhenClicked::onClick()
 
 void PrintWhenClicked::onHoverStart()
 {
-	std::cout << "Started hovering!! (" << m_message << ")" << std::endl;
+	//std::cout << "Started hovering!! (" << m_message << ")" << std::endl;
 }
 
 void PrintWhenClicked::onHoverEnd()
 {
-	std::cout << "Stopped hovering!! (" << m_message << ")" << std::endl;
+	//std::cout << "Stopped hovering!! (" << m_message << ")" << std::endl;
 }

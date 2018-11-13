@@ -31,18 +31,23 @@ namespace networking
 
 		void update();
 
-		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);
-		void removeUnitGameObject(int p_iUnitIndex);
-		int getClientId() { return m_iClientId; }
+		void sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
+
+		void manipulateTile(const std::string & p_strAbilityName, int p_iUnitIndex, int p_iPosX, int p_iPosY);
+		void sendManipulateTilePacket(const std::string & p_strAbilityName, int p_iUnitIndex, int p_iPosX, int p_iPosY);
 
 		void summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
-		void moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY);
-
-		void sendPacket(Packet* p_packet);
-		void sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
 		void sendSummonUnitPacket(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
-		void sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY);
-		void sendManipulateTilePacket(const std::string & p_strAbilityName, int p_iUnitIndex, int p_iPosX, int p_iPosY);
+
+		void moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY);
+		void sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY);		
+
+		void sendPacket(Packet* p_packet);				
+
+		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);
+		kitten::K_GameObject* getUnitGameObject(int p_iIndex);
+		void removeUnitGameObject(int p_iUnitIndex);
+		int getClientId() { return m_iClientId; }
 
 	private:
 		ClientNetwork* m_network;
