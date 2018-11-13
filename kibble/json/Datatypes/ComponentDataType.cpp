@@ -496,6 +496,22 @@ kitten::K_Component* getToggleEnabledOnKeyPress(nlohmann::json* p_jsonFile) {
 	return new ToggleEnabledOnKeyPress(key);
 }
 
+#include "_Project\ToggleStringInputOnKeyPress.h"
+kitten::K_Component* getToggleStringInputOnKeyPress(nlohmann::json* p_jsonFile) {
+	char key;
+	
+	if (p_jsonFile->find("key") != p_jsonFile->end()) {
+		std::string str = p_jsonFile->operator[]("key");
+		key = str[0];
+	}
+
+	return new ToggleStringInputOnKeyPress(key);
+}
+
+#include "_Project\StringInputDisplay.h"
+kitten::K_Component* getStringInputDisplay(nlohmann::json* p_jsonFile) {
+	return new StringInputDisplay();
+
 #include "components\SelectAbility.h"
 kitten::K_Component* getSelectAbility(nlohmann::json* p_jsonFile) {
 	return new SelectAbility();
@@ -509,6 +525,7 @@ kitten::K_Component* getPowerTracker(nlohmann::json* p_jsonFile) {
 #include "board/component/Highlighter.h"
 kitten::K_Component* getHighlighter(nlohmann::json* p_jsonFile) {
 	return new Highlighter();
+
 }
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
@@ -543,10 +560,12 @@ void setupComponentMap() {
 	jsonComponentMap["TextBox"] = &getTextBox;
 	jsonComponentMap["ToggleEnabledOnKeyPress"] = &getToggleEnabledOnKeyPress;
 	jsonComponentMap["BoardCreator"] = &getBoardCreator;
+	jsonComponentMap["ToggleStringInputOnKeyPress"] = &getToggleStringInputOnKeyPress;
+	jsonComponentMap["StringInputDisplay"] = &getStringInputDisplay;
 	jsonComponentMap["SelectAbility"] = &getSelectAbility;
 	jsonComponentMap["PowerTracker"] = &getPowerTracker;
 	jsonComponentMap["Highlighter"] = &getHighlighter;
-	
+  
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {
