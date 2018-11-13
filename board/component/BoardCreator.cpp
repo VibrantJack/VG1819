@@ -90,6 +90,13 @@ kitten::K_GameObject * BoardCreator::createTile(int x, int z)
 	TileInfo* tileInfo = static_cast<TileInfo*>(compMan->createComponent("TileInfo"));
 	tileInfo->setPos(x, z);//set position
 	tileInfo->setType(LandInformation::Grassland);
+	//for test
+	{
+		if (x == 5 && z == 4)
+		{
+			tileInfo->setType(LandInformation::Swampland);
+		}
+	}
 	tileGO->addComponent(tileInfo);
 
 	kitten::K_Component* clickBox = compMan->createComponent("ClickableBox");

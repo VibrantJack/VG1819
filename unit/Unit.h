@@ -21,6 +21,8 @@ namespace unit
 		CooldownRecorder * m_cdRecorder;
 		CastTimer * m_castTimer;
 		Commander * m_commander;
+
+		std::vector<kitten::K_GameObject*> m_path;
 	public:
 		std::string m_ID;
 		std::vector<std::string> m_tags;
@@ -65,6 +67,8 @@ namespace unit
 		void move();//move action, no restriction, no info needs
 		void move(int p_min, int p_max);//move by ability, need range of ability
 		void move(kitten::K_GameObject* p_tile);//move to a specific tile by ability
+		void move(std::vector<kitten::K_GameObject*> p_path);
+
 		//ability
 		int useAbility(const std::string& p_abilityName);
 		void cancelAbility(AbilityDescription* p_ad);

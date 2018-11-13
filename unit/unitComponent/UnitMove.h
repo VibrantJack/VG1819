@@ -51,6 +51,7 @@ namespace unit
 
 		kitten::K_GameObject* getTile();
 		void reset();
+		void reach();
 
 		bool hasUpdate() const override;
 		void update() override;

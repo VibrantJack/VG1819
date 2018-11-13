@@ -96,7 +96,7 @@ BoardManager::BoardManager()
 	m_highlighter = static_cast<Highlighter*>(kitten::K_ComponentManager::getInstance()->createComponent("Highlighter"));
 	m_pipeline = new TilePipeline();
 	m_area = new Area();
-
+	//m_pathFind = new PathFind();
 	registerEvent();
 }
 
@@ -106,6 +106,7 @@ BoardManager::~BoardManager()
 	delete m_highlighter;
 	delete m_pipeline;
 	delete m_area;
+	//delete m_pathFind;
 }
 
 void BoardManager::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data)
@@ -142,7 +143,7 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 	}
 
 	//apply filter
-	setFilter("filter", p_data);
+	setFilter(FILTER, p_data);
 	applyFilter(&list);
   
 	m_highlighter->highlightTile(list);
@@ -175,8 +176,8 @@ void BoardManager::setArea(kitten::Event * p_data)
 {
 	m_area->setPattern(p_data);
 
-	setFilter("area_filter", p_data);
+	setFilter(AREA_FILTER, p_data);
 
-	kitten::K_GameObject* p = p_data->getGameObj("tileAtOrigin");
+	kitten::K_GameObject* p = p_data->getGameObj(ORIGIN);
 	showArea(p);
 }

@@ -37,6 +37,10 @@
 #include "ui/CardUIO.h"
 #include "ui/HandFrame.h"
 
+//ui clickable testing
+#include "kitten/mouse picking/ClickableUI.h"
+#include "kitten/mouse picking/ClickableFrame.h"
+
 //unit interaction
 #include "unitInteraction/UnitInteractionManager.h"
 
@@ -137,8 +141,9 @@ namespace kitten
 		K_GameObject* hand = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* handFrame = compMan->createComponent("Hand");
 		hand->addComponent(handFrame);
-		hand->getTransform().scale2D(1.0, 0.4);
-		hand->getTransform().place2D(-0.9, -0.9);
+		hand->getTransform().scale2D(600.0f, 150.0f);
+		hand->getTransform().place2D(50.0, 50.0);
+		hand->setEnabled(false);
 
 		for (int x = 0; x < 5; x++)
 		{
@@ -148,11 +153,26 @@ namespace kitten
 			card->addComponent(cardObj);
 			userinterface::CardUIO* cardCasted = static_cast<userinterface::CardUIO*>(cardObj);
 			cardCasted->scaleAsCard();
+			glm::vec3 cardScale = card->getTransform().getScale();
 
 			userinterface::HandFrame* frameCasted = static_cast<userinterface::HandFrame*>(handFrame);
 			frameCasted->addCardToEnd(cardCasted);
 			cardCasted->assignParentHand(frameCasted);
+			
+			K_Component* cardCF = compMan->createComponent("ClickableFrame");
+			K_Component* clickUI = compMan->createComponent("ClickableUI");
 
+			card->addComponent(cardCF);
+			card->addComponent(clickUI);
+
+			ClickableFrame* cfCasted = static_cast<ClickableFrame*>(cardCF);
+			ClickableUI* cUI = static_cast<ClickableUI*>(clickUI);
+			cfCasted->addCLickable(cUI);
+
+			cardCF->start();
+			clickUI->start();
+
+			
 		}
 		/*
 		//testing ui frame and textbox

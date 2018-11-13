@@ -96,20 +96,7 @@ namespace kitten
 	{
 		if (m_isProjDirty)
 		{
-			float screenRatio = (float)m_winWidth / m_winHeight;
-
-			m_proj = glm::perspective(m_fov, screenRatio, m_nearClip, m_farClip);
-
-			//view frustum calculations
-			float tang = (float)tan((PI / 180.0f) * m_fov * 0.5f);
-			m_nearRectHeight = m_nearClip * tang;
-			m_nearRectWidth = m_nearRectHeight * screenRatio;
-			m_farRectHeight = m_farClip * tang;
-			m_farRectWidth = m_farRectHeight * screenRatio;
-
-			m_ortho = glm::ortho(0.0f, (float)m_winWidth, 0.0f, (float)m_winHeight, 0.0f, m_farClip);
-
-			m_isProjDirty = false;
+			m_ortho = glm::ortho(0.0f, (float)m_winWidth, 0.0f, (float)m_winHeight, 0.0f, 1.0f);
 		}
 
 		return m_ortho;

@@ -15,6 +15,9 @@ namespace unit
 	class TrackerBlock : public kitten::K_Component
 	{
 	public:
+		const static float sm_halfWinX;
+		const static float sm_halfWinY;
+
 		TrackerBlock();
 		~TrackerBlock();
 		
@@ -28,9 +31,9 @@ namespace unit
 		bool hasUpdate() const override;
 		void update() override;
 
-		void registerEvent();
-		void deregisterEvent();
-		void listenEvent();
+		//void registerEvent();
+		//void deregisterEvent();
+		//void listenEvent();
 	private:
 		InitiativeTrackerUI* m_trackerUI;
 
@@ -41,8 +44,8 @@ namespace unit
 		int m_targetSlotIndex;//block is moving to this slot
 		float distance;//distance between current x position to target slot's x position
 
-		void showTextbox();
-		void hideTextbox();
+		//void showTextbox();
+		//void hideTextbox();
 
 		//static varibles
 		const static std::string sm_blankTexture;
@@ -52,11 +55,8 @@ namespace unit
 		const static float sm_scaleY;//scale for unit frame
 		const static float sm_frameY;//y coodinate for frame
 
-		const static float sm_halfWinX;
-		const static float sm_halfWinY;
 		const static float sm_textY;
 
 		const static float sm_speed;
-
 	};
 }

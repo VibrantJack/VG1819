@@ -41,4 +41,9 @@ namespace kitten
 	{
 		//Empty to not force override
 	}
+
+	void ClickableUI::release()
+	{
+		//empty to not force override
+	}
 }

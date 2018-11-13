@@ -478,6 +478,18 @@
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp">
       <Filter>board\tile\landInfo</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\component\PathFind.cpp">
+      <Filter>board\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\area\PathPattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="StringInputDisplay.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="ToggleStringInputOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
     <ClCompile Include="..\kitten\sprites\SpriteAnimator.cpp">
       <Filter>kitten\sprites</Filter>
     </ClCompile>
@@ -922,6 +934,15 @@
     </ClInclude>
     <ClInclude Include="..\board\component\area\AreaPattern.h">
       <Filter>board\component\area</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\component\PathFind.h">
+      <Filter>board\component</Filter>
+    </ClInclude>
+    <ClInclude Include="StringInputDisplay.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="ToggleStringInputOnKeyPress.h">
+      <Filter>components\debug</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\sprites\SpriteAnimator.h">
       <Filter>kitten\sprites</Filter>

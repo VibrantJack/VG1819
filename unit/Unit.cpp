@@ -145,8 +145,26 @@ namespace unit
 	void Unit::moveDone()
 	{
 		assert(m_turn != nullptr);
-		m_turn->move = false;
-		m_turn->checkTurn();
+		
+		bool moveDone = false;
+		if (!m_path.empty())//has next tile in path
+		{
+			auto it = m_path.erase(m_path.begin());//remove first tile
+			if (it != m_path.end())
+			{
+				move(*it);//move to next
+			}
+			else
+				moveDone = true;
+		}
+		else
+			moveDone = true;
+
+		if (moveDone)
+		{
+			m_turn->move = false;
+			m_turn->checkTurn();
+		}
 	}
 
 	void Unit::actDone()
@@ -214,7 +232,12 @@ namespace unit
 
 		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
 		moveComponet->move(p_tile);
+	}
 
+	void Unit::move(std::vector<kitten::K_GameObject*> p_path)
+	{
+		m_path = p_path;
+		move(m_path[0]);
 	}
 
 	int Unit::useAbility(const std::string& p_abilityName)

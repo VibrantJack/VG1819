@@ -20,14 +20,16 @@ namespace networking
 		static void createInstance(const std::string &p_strAddr = "127.0.0.1");
 		static void destroyInstance();
 		static ClientGame* getInstance();
+		static bool isNetworkValid() { return sm_networkValid; }
 
 		void setupNetwork(const std::string &p_strAddr = "127.0.0.1");
+		void disconnectFromNetwork(bool p_bServerShutdown = false);
+		//void shutdown(bool p_bServerShutdown = false); // Group up disconnectFromNetwork and destroyInstance? 
 
 		void update();
 
 		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);
 		int getClientId() { return m_iClientId; }
-		bool isNetworkValid() { return m_networkValid; }
 
 		void summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
 		void moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY);
@@ -47,6 +49,6 @@ namespace networking
 		std::map<int, kitten::K_GameObject*> m_unitGOList;
 		int m_iUnitIndex = 0;
 
-		bool m_networkValid;
+		static bool sm_networkValid;
 	};
 }

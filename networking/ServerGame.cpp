@@ -4,15 +4,14 @@
 * clients
 */
 #include "ServerGame.h"
-
-// Game features to be run on the server
-#include "unit\InitiativeTracker\InitiativeTracker.h"
+#include "ClientGame.h"
 
 namespace networking
 {
-	unsigned int ServerGame::client_id;
+	//unsigned int ServerGame::client_id;
 
 	ServerGame* ServerGame::sm_serverGameInstance = nullptr;
+	bool ServerGame::sm_networkValid = false;
 
 	// Creates the singleton instance.
 	void ServerGame::createInstance()
@@ -27,12 +26,13 @@ namespace networking
 		assert(sm_serverGameInstance != nullptr);
 		delete sm_serverGameInstance;
 		sm_serverGameInstance = nullptr;
+		sm_networkValid = false;
 	}
 
 	// Access to singleton instance.
 	ServerGame* ServerGame::getInstance()
 	{
-		assert(sm_serverGameInstance);
+		//assert(sm_serverGameInstance);
 		return sm_serverGameInstance;
 	}
 
@@ -64,13 +64,33 @@ namespace networking
 			delete m_network;
 			m_network = nullptr;
 
-			m_networkValid = false;
+			sm_networkValid = false;
 		}
 		else
 		{
-			m_networkValid = true;
+			sm_networkValid = true;
 		}
 
+	}
+
+	void ServerGame::shutdownNetwork()
+	{
+		Packet packet;
+		packet.packetType = SERVER_SHUTDOWN;
+
+		char data[BASIC_PACKET_SIZE];
+		packet.serialize(data);
+		//m_network->sendToAll(data, BASIC_PACKET_SIZE);
+		m_network->sendToAll(data, BASIC_PACKET_SIZE);
+
+		// Shutdown ServerNetwork
+		if (m_network != nullptr)
+		{
+			delete m_network;
+			m_network = nullptr;
+		}
+
+		sm_networkValid = false;
 	}
 
 	void ServerGame::update()
@@ -78,7 +98,7 @@ namespace networking
 		// get new clients
 		if (m_network->acceptNewClient(client_id))
 		{
-			printf("client %d has been connected to the server\n", client_id);
+			printf("[Client: %d] has been connected to the server\n", client_id);
 
 			client_id++;
 		}
@@ -113,7 +133,7 @@ namespace networking
 					case INIT_CONNECTION:
 					{
 						i += BASIC_PACKET_SIZE;
-						printf("\nserver received init packet from client %d\n", iter->first);
+						printf("Server received init packet from [Client: %d]\n", iter->first);
 
 						// Send a packet to the client to notify them what their ID is
 						unsigned int clientId = iter->first;
@@ -127,9 +147,18 @@ namespace networking
 						m_network->sendToClient(clientId, packet_data, BASIC_PACKET_SIZE);
 						break;
 					}
+					case CLIENT_DISCONNECT:
+					{
+						i += BASIC_PACKET_SIZE;
+						unsigned int clientId = iter->first;
+						printf("Server received CLIENT_DISCONNECT from [Client: %d]\n", clientId);						
+						m_network->removeClient(clientId);
+
+						break;
+					}
 					case SUMMON_UNIT:
 					{
-						printf("\nserver received CLIENT_SUMMON_UNIT packet from client %d\n", iter->first);
+						printf("Server received CLIENT_SUMMON_UNIT packet from [Client: %d]\n", iter->first);
 
 						SummonUnitPacket summonUnitPacket;
 						summonUnitPacket.deserialize(&(m_network_data[i]));
@@ -140,7 +169,7 @@ namespace networking
 					}
 					case UNIT_MOVE:
 					{
-						printf("\nserver received UNIT_MOVE packet from client %d\n", iter->first);
+						printf("Server received UNIT_MOVE packet from [Client: %d]\n", iter->first);
 
 						UnitMovePacket packet;
 						packet.deserialize(&(m_network_data[i]));

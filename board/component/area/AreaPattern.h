@@ -67,3 +67,9 @@ class TrianglePattern : public AreaPattern
 public:
 	kitten::Event::TileList getTileList(AreaInfo* p_info);
 };
+
+class PathPattern : public AreaPattern
+{	
+public:
+	kitten::Event::TileList getTileList(AreaInfo* p_info);
+};

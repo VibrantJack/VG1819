@@ -29,6 +29,10 @@ Area::Area()
 	ap = new TrianglePattern();
 	name = TRIANGLE_AREA;
 	m_map[name] = ap;
+
+	ap = new PathPattern();
+	name = PATH;
+	m_map[name] = ap;
 }
 
 Area::~Area()
@@ -42,10 +46,10 @@ Area::~Area()
 
 void Area::setPattern(kitten::Event * p_data)
 {
-	m_info->m_origin = p_data->getGameObj("tileAtOrigin");
+	m_info->m_origin = p_data->getGameObj(ORIGIN);
 
-	m_mode = p_data->getString("area_mode");
-	int fix = p_data->getInt("area_fix");
+	m_mode = p_data->getString(AREA_MODE);
+	int fix = p_data->getInt(AREA_FIX);
 	if(fix == TRUE)
 	{
 		m_fix = true;
@@ -54,8 +58,8 @@ void Area::setPattern(kitten::Event * p_data)
 
 	if (m_mode == SPAN_AREA || m_mode == SQUARE_AREA)
 	{
-		m_info->m_minLen = p_data->getInt("area_min");
-		m_info->m_maxLen = p_data->getInt("area_max");
+		m_info->m_minLen = p_data->getInt(AREA_MIN);
+		m_info->m_maxLen = p_data->getInt(AREA_MAX);
 	}
 	else if (m_mode == POINT_AREA)
 	{
@@ -63,7 +67,7 @@ void Area::setPattern(kitten::Event * p_data)
 	}
 	else
 	{
-		m_info->m_length = p_data->getInt("area_len");
+		m_info->m_length = p_data->getInt(AREA_LEN);
 	}
 
 	m_active = true;

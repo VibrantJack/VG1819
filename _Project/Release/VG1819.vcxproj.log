@@ -1,12 +1,16 @@
-﻿  boardManager.cpp
-d:\work\vg1819\board\boardmanager.cpp(138): warning C4018: '<': signed/unsigned mismatch
-  LINK : 0 new modules and 1 (out of 231) modules have changed since prior linking
+﻿  Unit.cpp
+c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
+  d:\work\vg1819\glfw\include\gl\glfw.h(74): note: see previous definition of 'APIENTRY'
+c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(36): warning C4005: 'WINGDIAPI': macro redefinition
+  d:\work\vg1819\glfw\include\gl\glfw.h(91): note: see previous definition of 'WINGDIAPI'
+  UnitMove.cpp
+d:\work\vg1819\unit\unitcomponent\unitmove.cpp(196): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  LINK : 0 new modules and 2 (out of 229) modules have changed since prior linking
   Generating non-SAFESEH image.
   Starting pass 2
-       boardManager.obj
+       UnitMove.obj
+       Unit.obj
        MSVCRTD.lib(loadcfg.obj)
   Finished pass 2
-  Failed to connect to VCTIP: 'CreateFile' failed with 2
-  Not launching VCTIP: it is flagged as unstable
-  Telemetry event upload failed: 'Failed to open connection to VCTIP'
   VG1819.vcxproj.vcxproj -> D:\work\VG1819\_Project\Release\VG1819.exe

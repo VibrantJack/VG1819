@@ -73,7 +73,7 @@ void unit::UnitMove::attempToMove(int p_min, int p_max)
 
 	m_ad = new unit::AbilityDescription();
 
-	m_ad->m_stringValue["name"] = "Move";
+	m_ad->m_stringValue["name"] = ABILITY_MOVE;
 	m_ad->m_intValue["target"] = 1;
 	m_ad->m_intValue["min_range"] = p_min;
 	if (p_max < 0)
@@ -81,8 +81,13 @@ void unit::UnitMove::attempToMove(int p_min, int p_max)
 	else
 		m_ad->m_intValue["max_range"] = p_max;
 	//filter
-	m_ad->m_intValue["filter"] = 1;
-	m_ad->m_stringValue["filter0"] = "unit";
+	m_ad->m_intValue["need_unit"] = FALSE;
+	m_ad->m_intValue[FILTER] = 1;
+	m_ad->m_stringValue["filter0"] = FILTER_UNIT;
+	//area, in this case, path
+	m_ad->m_stringValue[AREA_MODE] = PATH;
+	m_ad->m_intValue[AREA_FIX] = FALSE;
+	m_ad->m_intValue[AREA_LEN] = m_ad->m_intValue["max_range"];
 
 	UnitInteractionManager::getInstance()->request(u, m_ad);
 }
@@ -124,13 +129,6 @@ void unit::UnitMove::move(kitten::K_GameObject * p_targetTile)
 	distanceX = m_currentTile->getTransform().getTranslation().x - m_lastTile->getTransform().getTranslation().x;
 	distanceZ = m_currentTile->getTransform().getTranslation().z - m_lastTile->getTransform().getTranslation().z;
 
-	//tell unit object move is done
-	m_attachedObject->getComponent<unit::Unit>()->moveDone();
-
-	//send unhighlight event
-	//triggerUnhighLightEvent();
-
-	triggerNewTileEvent();
 }
 
 void unit::UnitMove::setTile(kitten::K_GameObject * p_tile)
@@ -167,6 +165,17 @@ void unit::UnitMove::reset()
 	glm::vec3 t = m_currentTile->getTransform().getTranslation();//get tile's translation
 	m_attachedObject->getTransform().place(t.x, t.y, t.z);//set unit object to that tile
 	m_attachedObject->getTransform().move(m_offset.x, m_offset.y, m_offset.z);//move unit upward
+}
+
+void unit::UnitMove::reach()
+{
+	m_lastTile = m_currentTile;//set current tile as last
+	reset();
+
+	triggerNewTileEvent();
+
+	//tell unit object move is done
+	m_attachedObject->getComponent<unit::Unit>()->moveDone();
 }
 
 bool unit::UnitMove::hasUpdate() const
@@ -216,8 +225,7 @@ void unit::UnitMove::update()
 			}
 			if (distanceZ == 0)//unit is at target tile
 			{
-				m_lastTile = m_currentTile;//set current tile as last
-				reset();
+				reach();
 			}
 		}
 		else//not have same x value

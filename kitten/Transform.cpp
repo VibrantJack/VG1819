@@ -135,6 +135,7 @@ namespace kitten
 
 	void Transform::scale2D(const float xScale, const float yScale)
 	{
+		m_scaleAsFloat = glm::vec2(xScale, yScale);
 		m_matScale = glm::scale(xScale, yScale, 1.0f);
 		m_isDirty = true;
 
@@ -272,6 +273,11 @@ namespace kitten
 			return m_derivedScale;
 		}
 		
+	}
+
+	const glm::vec2& Transform::getScale2D() const
+	{
+		return m_scaleAsFloat;
 	}
 
 	bool Transform::getIgnoreParent() const
