@@ -1,33 +1,29 @@
 #include "ComponentDataType.hpp"
 #include <string>
 
+#define JSONHAS(str) p_jsonFile->find(str) != p_jsonFile->end()
+#define LOOKUP(str) p_jsonFile->operator[](str)
+#define SET(varName,jsonName) varName = p_jsonFile->operator[](jsonName)
+#define SETOPT(varName,jsonName) if(JSONHAS(jsonName)) SET(varName,jsonName)
+#define SETOPTDEF(varName,jsonName,defaultVal) if(JSONHAS(jsonName)) SET(varName,jsonName); else varName = defaultVal
+
 #include "_Project/MoveByMouseRightClickDrag.h"
 kitten::K_Component* getMoveByMouseRightClickDrag(nlohmann::json* p_jsonFile) {
-	float speed = 0.005f;
+	float speed;
 
-	if (p_jsonFile->find("speed") != p_jsonFile->end()) {
-		speed = p_jsonFile->operator[]("speed");
-	}
+	SETOPTDEF(speed, "speed", 0.005f);
 
 	return new MoveByMouseRightClickDrag(speed);
 }
 
 #include "_Project/ZoomByMouseWheel.h"
 kitten::K_Component* getZoomByMouseWheel(nlohmann::json* p_jsonFile) {
-	float speed = 1.0f;
-	int minFOV = 1, maxFOV = 90;
+	float speed;
+	int minFOV, maxFOV;
 
-	if (p_jsonFile->find("speed") != p_jsonFile->end()) {
-		speed = p_jsonFile->operator[]("speed");
-	}
-
-	if (p_jsonFile->find("minfov") != p_jsonFile->end()) {
-		minFOV = p_jsonFile->operator[]("minfov");
-	}
-
-	if (p_jsonFile->find("maxfov") != p_jsonFile->end()) {
-		maxFOV = p_jsonFile->operator[]("maxfov");
-	}
+	SETOPTDEF(speed, "speed", 1.0f);
+	SETOPTDEF(minFOV, "minfov", 1);
+	SETOPTDEF(maxFOV, "maxfov", 90);
 
 	return new ZoomByMouseWheel(speed, minFOV, maxFOV); 
 }
@@ -62,28 +58,18 @@ kitten::K_Component* getCamera(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getCubeRenderable(nlohmann::json* p_jsonFile) {
 	std::string texturefilename;
 
-	if (p_jsonFile->find("texture") != p_jsonFile->end()) {
-		texturefilename = p_jsonFile->operator[]("texture");
-	}
-	else {
-		texturefilename = "textures/tiles/MISSING.tga";
-	}
+	SETOPTDEF(texturefilename, "texture", "textures/tiles/MISSING.tga");
 
 	return new kitten::CubeRenderable(texturefilename.c_str());
 }
 
 #include "kitten/QuadRenderable.h"
 kitten::K_Component* getQuadRenderable(nlohmann::json* p_jsonFile) {
-	std::string texturefilename = "textures/tiles/MISSING.tga";
-	bool isStatic = false;
+	std::string texturefilename;
+	bool isStatic;
 
-	if (p_jsonFile->find("texture") != p_jsonFile->end()) {
-		texturefilename = p_jsonFile->operator[]("texture");
-	}
-
-	if (p_jsonFile->find("static") != p_jsonFile->end()) {
-		isStatic = p_jsonFile->operator[]("static");
-	}
+	SETOPTDEF(texturefilename, "texture", "textures/tiles/MISSING.tga");
+	SETOPTDEF(isStatic, "static", false);
 
 	return new kitten::QuadRenderable(texturefilename.c_str(), isStatic);
 }
@@ -95,37 +81,32 @@ kitten::K_Component* getGrassLandInfo(nlohmann::json* p_jsonFile) {
 
 #include "_Project/DebugPrintOnce.h"
 kitten::K_Component* getDebugPrintOnce(nlohmann::json* p_jsonFile){
-	std::string message = "Default Message";
+	std::string message;
 
-	if (p_jsonFile->find("message") != p_jsonFile->end()) {
-		message = p_jsonFile->operator[]("message");
-	}
+	SETOPTDEF(message, "message", "Default Message");
 
 	return new DebugPrintOnce(message);
 }
 
 #include "board/clickable/PrintWhenClicked.h"
 kitten::K_Component* getPrintWhenClicked(nlohmann::json* p_jsonFile) {
-	std::string message = "Default Message";
+	std::string message;
 
-	if (p_jsonFile->find("message") != p_jsonFile->end()) {
-		message = p_jsonFile->operator[]("message");
-	}
+	SETOPTDEF(message, "message", "Default Message");
 
 	return new PrintWhenClicked(message);
 }
 
 #include "kitten\mouse picking\ClickableBox.h"
 kitten::K_Component* getClickableBox(nlohmann::json* p_jsonFile) {
-
 	glm::vec3 minPoint, maxPoint;
 
-	if (p_jsonFile->find("minpoint") != p_jsonFile->end()) {
-		minPoint = glm::vec3(p_jsonFile->operator[]("minpoint")[0], p_jsonFile->operator[]("minpoint")[1], p_jsonFile->operator[]("minpoint")[2]);
+	if (JSONHAS("minpoint")) {
+		minPoint = glm::vec3(LOOKUP("minpoint")[0], LOOKUP("minpoint")[1], LOOKUP("minpoint")[2]);
 	}
 
-	if (p_jsonFile->find("maxpoint") != p_jsonFile->end()) {
-		minPoint = glm::vec3(p_jsonFile->operator[]("maxpoint")[0], p_jsonFile->operator[]("maxpoint")[1], p_jsonFile->operator[]("maxpoint")[2]);
+	if (JSONHAS("maxpoint")) {
+		minPoint = glm::vec3(LOOKUP("maxpoint")[0], LOOKUP("maxpoint")[1], LOOKUP("maxpoint")[2]);
 	}
 
 	return new kitten::ClickableBox(minPoint, maxPoint);
@@ -139,71 +120,55 @@ kitten::K_Component* getDestroyOnClick(nlohmann::json* p_jsonFile){
 
 #include "board/component/BoardCreator.h"
 kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
-	return new BoardCreator();
+	BoardCreator* component = new BoardCreator();
+	int x,z;
+	SETOPTDEF(x, "rows", 15);
+	SETOPTDEF(z, "columns", 15);
+	component->setDimension(x, z);
+	return component;
 }
 
 #include "kitten\audio\AudioSource.h"
 kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 
 	std::string pathToClip;
-	bool is3D, enableEffects, causesDuck = false, getsDucked = false;
+	bool is3D, enableEffects, causesDuck, getsDucked;
 
-	if (p_jsonFile->find("clippath") != p_jsonFile->end()) {
-		pathToClip = p_jsonFile->operator[]("clippath");
-	}
-
-	if (p_jsonFile->find("is3d") != p_jsonFile->end()) {
-		is3D = p_jsonFile->operator[]("is3d");
-	}
-
-	if (p_jsonFile->find("enableeffects") != p_jsonFile->end()) {
-		enableEffects = p_jsonFile->operator[]("enableeffects");
-	}
-
-	if (p_jsonFile->find("causesduck") != p_jsonFile->end()) {
-		causesDuck = p_jsonFile->operator[]("causesduck");
-	}
-
-	if (p_jsonFile->find("getsducked") != p_jsonFile->end()) {
-		getsDucked = p_jsonFile->operator[]("getsducked");
-	}
+	SET(pathToClip, "clippath");
+	SETOPT(is3D, "is3d");
+	SETOPT(enableEffects, "enableeffects");
+	SETOPTDEF(causesDuck, "causesduck", false);
+	SETOPTDEF(getsDucked, "getsducked", false);
 
 	kitten::AudioSource* toReturn = new kitten::AudioSource(pathToClip, is3D, enableEffects, causesDuck, getsDucked);
 
 	if (is3D) {
-		
-		if (p_jsonFile->find("mindistance") != p_jsonFile->end()) {
-			float minDistance = p_jsonFile->operator[]("mindistance");
-			toReturn->setMinDistance(minDistance);
+		if (JSONHAS("mindistance")) {
+			toReturn->setMinDistance(LOOKUP("mindistance"));
 		}
 
-		if (p_jsonFile->find("maxdistance") != p_jsonFile->end()) {
-			float maxDistance = p_jsonFile->operator[]("maxdistance");
-			toReturn->setMaxDistance(maxDistance);
+		if (JSONHAS("maxdistance")) {
+			toReturn->setMaxDistance(LOOKUP("maxdistance"));
 		}
 	}
 
-	if (p_jsonFile->find("loop") != p_jsonFile->end()) {
-		if (p_jsonFile->operator[]("loop")) {
-			toReturn->setLooped(true);
-		}
+	if (JSONHAS("loop")) {
+		toReturn->setLooped(LOOKUP("loop"));
 	}
 
-	if (p_jsonFile->find("volume") != p_jsonFile->end()) {
-		float volume = p_jsonFile->operator[]("volume");
-		toReturn->setVolume(volume);
+	if (JSONHAS("volume")) {
+		toReturn->setVolume(LOOKUP("volume"));
 	}
 
-	if (p_jsonFile->find("playprogress") != p_jsonFile->end()) {
-		float progress = p_jsonFile->operator[]("playprogress");
-		toReturn->setPlayProgress(progress);
+	if (JSONHAS("playprogress")) {
+		toReturn->setPlayProgress(LOOKUP("playprogress"));
 	}
 
 	if (enableEffects) {
 		//Effects parsing here
 
-#define jsonHas(str) innerJson.find(str) != innerJson.end()
-#define setVar(varName,jsonName) if(jsonHas(jsonName)) varName = innerJson.operator[](jsonName)
+#define innerJsonHas(str) innerJson.find(str) != innerJson.end()
+#define setInnerVar(varName,jsonName) if(innerJsonHas(jsonName)) varName = innerJson.operator[](jsonName)
 
 		auto sfx = toReturn->getSFXControl();
 
@@ -214,13 +179,13 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 			
 			auto innerJson = p_jsonFile->operator[]("choruseffect");
 
-			setVar(wetDryMix, "wetdrymix");
-			setVar(depth, "depth");
-			setVar(feedback, "feedback");
-			setVar(frequency, "frequency");
-			setVar(sinusWaveForm, "sinuswaveform");
-			setVar(delay, "delay");
-			setVar(phase, "phase");
+			setInnerVar(wetDryMix, "wetdrymix");
+			setInnerVar(depth, "depth");
+			setInnerVar(feedback, "feedback");
+			setInnerVar(frequency, "frequency");
+			setInnerVar(sinusWaveForm, "sinuswaveform");
+			setInnerVar(delay, "delay");
+			setInnerVar(phase, "phase");
 
 			sfx->setChorusEffect(wetDryMix, depth, feedback, frequency, sinusWaveForm, delay, phase);
 		}
@@ -231,12 +196,12 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 
 			auto innerJson = p_jsonFile->operator[]("compressoreffect");
 
-			setVar(gain, "gain");
-			setVar(attack, "attack");
-			setVar(release, "release");
-			setVar(threshold, "threshold");
-			setVar(ratio, "ratio");
-			setVar(preDelay, "predelay");
+			setInnerVar(gain, "gain");
+			setInnerVar(attack, "attack");
+			setInnerVar(release, "release");
+			setInnerVar(threshold, "threshold");
+			setInnerVar(ratio, "ratio");
+			setInnerVar(preDelay, "predelay");
 
 			sfx->setCompressorEffect(gain, attack, release, threshold, ratio, preDelay);
 		}
@@ -247,11 +212,11 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 
 			auto innerJson = p_jsonFile->operator[]("distortioneffect");
 
-			setVar(gain, "gain");
-			setVar(edge, "edge");
-			setVar(postEQCenterFrequency, "posteqcenterfrequency");
-			setVar(postEQBandwidth, "posteqbandwidth");
-			setVar(preLowpassCutoff, "prelowpasscutoff");
+			setInnerVar(gain, "gain");
+			setInnerVar(edge, "edge");
+			setInnerVar(postEQCenterFrequency, "posteqcenterfrequency");
+			setInnerVar(postEQBandwidth, "posteqbandwidth");
+			setInnerVar(preLowpassCutoff, "prelowpasscutoff");
 
 			sfx->setDistortionEffect(gain, edge, postEQCenterFrequency, postEQBandwidth, preLowpassCutoff);
 		}
@@ -262,11 +227,11 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 
 			auto innerJson = p_jsonFile->operator[]("echoeffect");
 
-			setVar(wetDryMix, "wetdrymix");
-			setVar(feedback, "feedback");
-			setVar(leftDelay, "leftdelay");
-			setVar(rightDelay, "rightdelay");
-			setVar(panDelay, "pandelay");
+			setInnerVar(wetDryMix, "wetdrymix");
+			setInnerVar(feedback, "feedback");
+			setInnerVar(leftDelay, "leftdelay");
+			setInnerVar(rightDelay, "rightdelay");
+			setInnerVar(panDelay, "pandelay");
 
 			sfx->setEchoEffect(wetDryMix, feedback, leftDelay, rightDelay, panDelay);
 		}
@@ -279,13 +244,13 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 
 			auto innerJson = p_jsonFile->operator[]("flangereffect");
 
-			setVar(wetDryMix, "wetdrymix");
-			setVar(depth, "depth");
-			setVar(feedback, "feedback");
-			setVar(frequency, "frequency");
-			setVar(delay, "delay");
-			setVar(phase, "phase");
-			setVar(triangleWaveForm, "trianglewaveform");
+			setInnerVar(wetDryMix, "wetdrymix");
+			setInnerVar(depth, "depth");
+			setInnerVar(feedback, "feedback");
+			setInnerVar(frequency, "frequency");
+			setInnerVar(delay, "delay");
+			setInnerVar(phase, "phase");
+			setInnerVar(triangleWaveForm, "trianglewaveform");
 
 			sfx->setFlangerEffect(wetDryMix, depth, feedback, frequency, triangleWaveForm, delay, phase);
 		}
@@ -296,8 +261,8 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 
 			auto innerJson = p_jsonFile->operator[]("gargleffect");
 
-			setVar(rateHz, "ratehz");
-			setVar(sinusWaveForm, "sinuswaveform");
+			setInnerVar(rateHz, "ratehz");
+			setInnerVar(sinusWaveForm, "sinuswaveform");
 
 			sfx->setGargleEffect(rateHz, sinusWaveForm);
 		}
@@ -311,18 +276,18 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 
 			auto innerJson = p_jsonFile->operator[]("3dreverbeffect");
 
-			setVar(room, "room");
-			setVar(roomHF, "roomHF");
-			setVar(reflections, "reflections");
-			setVar(reverb, "reverb");
-			setVar(roomRolloffFactor, "roomrollofffactor");
-			setVar(decayTime, "decaytime");
-			setVar(decayHFRatio, "decayhfratio");
-			setVar(reflectionsDelay, "reflectionsdelay");
-			setVar(reverbDelay, "reverbdelay");
-			setVar(diffusion, "diffusion");
-			setVar(density, "density");
-			setVar(hfReference, "hfReference");
+			setInnerVar(room, "room");
+			setInnerVar(roomHF, "roomHF");
+			setInnerVar(reflections, "reflections");
+			setInnerVar(reverb, "reverb");
+			setInnerVar(roomRolloffFactor, "roomrollofffactor");
+			setInnerVar(decayTime, "decaytime");
+			setInnerVar(decayHFRatio, "decayhfratio");
+			setInnerVar(reflectionsDelay, "reflectionsdelay");
+			setInnerVar(reverbDelay, "reverbdelay");
+			setInnerVar(diffusion, "diffusion");
+			setInnerVar(density, "density");
+			setInnerVar(hfReference, "hfReference");
 
 			sfx->set3DReverbEffect(room, roomHF, roomRolloffFactor, decayTime, decayHFRatio, reflections, reflectionsDelay, reverb, reverbDelay, diffusion, density, hfReference);
 		}
@@ -333,9 +298,9 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 
 			auto innerJson = p_jsonFile->operator[]("parameqeffect");
 
-			setVar(center, "center");
-			setVar(bandwidth, "bandwidth");
-			setVar(gain, "gain");
+			setInnerVar(center, "center");
+			setInnerVar(bandwidth, "bandwidth");
+			setInnerVar(gain, "gain");
 
 			sfx->setParamEqEffect(center, bandwidth, gain);
 		}
@@ -346,10 +311,10 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 
 			auto innerJson = p_jsonFile->operator[]("wavesreverbeffect");
 
-			setVar(gain, "gain");
-			setVar(reverbMix, "reverbmix");
-			setVar(reverbTime, "reverbtime");
-			setVar(highFreqRTRatio, "highfreqrtratio");
+			setInnerVar(gain, "gain");
+			setInnerVar(reverbMix, "reverbmix");
+			setInnerVar(reverbTime, "reverbtime");
+			setInnerVar(highFreqRTRatio, "highfreqrtratio");
 
 			sfx->setWavesReverbEffect(gain, reverbMix, reverbTime, highFreqRTRatio);
 		}
@@ -367,8 +332,8 @@ kitten::K_Component* getAudioListener(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getPlaySoundOnKeyPress(nlohmann::json* p_jsonFile) {
 	char key;
 
-	if (p_jsonFile->find("key") != p_jsonFile->end()) {
-		std::string strKey = p_jsonFile->operator[]("key");
+	if (JSONHAS("key")) {
+		std::string strKey = LOOKUP("key");
 		key = strKey[0];
 	}
 
@@ -384,8 +349,8 @@ kitten::K_Component* getPlaySoundOnStart(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getToggleSoundOnStart(nlohmann::json* p_jsonFile) {
 	char key;
 
-	if (p_jsonFile->find("key") != p_jsonFile->end()) {
-		std::string strKey = p_jsonFile->operator[]("key");
+	if (JSONHAS("key")) {
+		std::string strKey = LOOKUP("key");
 		key = strKey[0];
 	}
 
@@ -397,30 +362,26 @@ kitten::K_Component* getVolumeAdjustOnKeysPressed(nlohmann::json* p_jsonFile) {
 	char increaseKey, decreaseKey;
 	float changeAmount;
 
-	if (p_jsonFile->find("increasekey") != p_jsonFile->end()) {
-		std::string strKey = p_jsonFile->operator[]("increasekey");
+	if (JSONHAS("increasekey")) {
+		std::string strKey = LOOKUP("increasekey");
 		increaseKey = strKey[0];
 	}
 
-	if (p_jsonFile->find("decreasekey") != p_jsonFile->end()) {
-		std::string strKey = p_jsonFile->operator[]("decreasekey");
+	if (JSONHAS("decreasekey")) {
+		std::string strKey = LOOKUP("decreasekey");
 		decreaseKey = strKey[0];
 	}
 
-	if (p_jsonFile->find("changeamount") != p_jsonFile->end()) {
-		changeAmount = p_jsonFile->operator[]("changeamount");
-	}
+	SETOPT(changeAmount, "changeamount");
 
 	return new VolumeAdjustOnKeysPressed(increaseKey,decreaseKey,changeAmount);
 }
 
 #include "ui/UIFrame.h"
 kitten::K_Component* getUIFrame(nlohmann::json* p_jsonFile) {
-	std::string texture = "textures/ui/blankFrame.tga";
+	std::string texture;
 
-	if (p_jsonFile->find("texture") != p_jsonFile->end()) {
-		texture = p_jsonFile->operator[]("texture");
-	}
+	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
 
 	return new userinterface::UIFrame(texture.c_str());
 }
@@ -477,12 +438,10 @@ kitten::K_Component* getPointerUI(nlohmann::json* p_jsonFile) {
 
 #include "unit/unitComponent/UnitGraphic.h"
 kitten::K_Component* getUnitGraphic(nlohmann::json* p_jsonFile) {
-	std::string texture = "textures/unit/Default.tga";
+	std::string texture;
 	unit::UnitSize size = unit::point;
 
-	if (p_jsonFile->find("texture") != p_jsonFile->end()) {
-		texture = p_jsonFile->operator[]("texture");
-	}
+	SETOPTDEF(texture, "texture", "textures/unit/Default.tga");
 
 	if (p_jsonFile->find("unitsize") != p_jsonFile->end()) {
 		std::string temp = p_jsonFile->operator[]("unitsize");
@@ -497,34 +456,23 @@ kitten::K_Component* getUnitGraphic(nlohmann::json* p_jsonFile) {
 
 #include "puppy/Text/TextBox.h"
 kitten::K_Component* getTextBox(nlohmann::json* p_jsonFile) {
-	std::string font = "../fonts/common_consolas.fnt", message = "DEFAULT TEXT";
-	float width = 500, height= 500;
+	std::string font , message;
+	float width, height;
 	puppy::TextBox* textbox;
 
-	if (p_jsonFile->find("font") != p_jsonFile->end()) {
-		font = p_jsonFile->operator[]("font");
-	}
-
-	if (p_jsonFile->find("message") != p_jsonFile->end()) {
-		message = p_jsonFile->operator[]("message");
-	}
-
-	if (p_jsonFile->find("width") != p_jsonFile->end()) {
-		width = p_jsonFile->operator[]("width");
-	}
-
-	if (p_jsonFile->find("height") != p_jsonFile->end()) {
-		height = p_jsonFile->operator[]("height");
-	}
+	SETOPTDEF(font, "font", "../fonts/common_consolas.fnt");
+	SETOPTDEF(message, "message", "DEFAULT TEXT");
+	SETOPTDEF(width, "width", 500);
+	SETOPTDEF(height, "height", 500);
 
 	textbox = new puppy::TextBox(puppy::FontTable::getInstance()->getFont(font.c_str()), message.c_str(), width, height);
 
-	if (p_jsonFile->find("color") != p_jsonFile->end()) {
-		textbox->setColor(p_jsonFile->operator[]("color")[0], p_jsonFile->operator[]("color")[1], p_jsonFile->operator[]("color")[2]);
+	if (JSONHAS("color")) {
+		textbox->setColor(LOOKUP("color")[0], LOOKUP("color")[1], LOOKUP("color")[2]);
 	}
 
-	if (p_jsonFile->find("alignment") != p_jsonFile->end()) {
-		std::string temp = p_jsonFile->operator[]("alignment");
+	if (JSONHAS("alignment")) {
+		std::string temp = LOOKUP("alignment");
 		if (temp == "left")
 			textbox->setAlignment(puppy::TextBox::Alignment::left);
 		else if (temp == "right")
@@ -563,6 +511,21 @@ kitten::K_Component* getToggleStringInputOnKeyPress(nlohmann::json* p_jsonFile) 
 #include "_Project\StringInputDisplay.h"
 kitten::K_Component* getStringInputDisplay(nlohmann::json* p_jsonFile) {
 	return new StringInputDisplay();
+
+#include "components\SelectAbility.h"
+kitten::K_Component* getSelectAbility(nlohmann::json* p_jsonFile) {
+	return new SelectAbility();
+}
+
+#include "components\PowerTracker.h"
+kitten::K_Component* getPowerTracker(nlohmann::json* p_jsonFile) {
+	return new PowerTracker();
+}
+
+#include "board/component/Highlighter.h"
+kitten::K_Component* getHighlighter(nlohmann::json* p_jsonFile) {
+	return new Highlighter();
+
 }
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
@@ -599,6 +562,10 @@ void setupComponentMap() {
 	jsonComponentMap["BoardCreator"] = &getBoardCreator;
 	jsonComponentMap["ToggleStringInputOnKeyPress"] = &getToggleStringInputOnKeyPress;
 	jsonComponentMap["StringInputDisplay"] = &getStringInputDisplay;
+	jsonComponentMap["SelectAbility"] = &getSelectAbility;
+	jsonComponentMap["PowerTracker"] = &getPowerTracker;
+	jsonComponentMap["Highlighter"] = &getHighlighter;
+  
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {
