@@ -36,8 +36,7 @@ namespace networking
 		// Initialize Winsock
 		m_iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
 		if (m_iResult != 0) {
-			m_strError = "WSAStartup failed with error: " + m_iResult;
-			//printf("WSAStartup failed with error: %d\n", m_iResult);
+			m_strError = "WSAStartup failed with error: " + std::to_string(m_iResult);
 			return false;
 		}
 
@@ -51,8 +50,7 @@ namespace networking
 		// Resolve the server address and port
 		m_iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
 		if (m_iResult != 0) {
-			m_strError = "getaddrinfo failed with error: " + m_iResult;
-			//printf("getaddrinfo failed with error: %d\n", m_iResult);
+			m_strError = "getaddrinfo failed with error: " + std::to_string(m_iResult);
 			WSACleanup();
 			return false;
 		}
@@ -60,8 +58,7 @@ namespace networking
 		// Create a SOCKET for connecting to server
 		m_listenSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
 		if (m_listenSocket == INVALID_SOCKET) {
-			m_strError = "socket failed with error: " + WSAGetLastError();
-			//printf("socket failed with error: %ld\n", WSAGetLastError());
+			m_strError = "socket failed with error: " + std::to_string(WSAGetLastError());
 			freeaddrinfo(result);
 			WSACleanup();
 			return false;
@@ -71,9 +68,9 @@ namespace networking
 		u_long iMode = 1;
 		m_iResult = ioctlsocket(m_listenSocket, FIONBIO, &iMode);
 		if (m_iResult == SOCKET_ERROR) {
-			m_strError = "ioctlsocket failed with error: " + WSAGetLastError();
-			//printf("ioctlsocket failed with error: %d\n", WSAGetLastError());
+			m_strError = "ioctlsocket failed with error: " + std::to_string(WSAGetLastError());
 			closesocket(m_listenSocket);
+			m_listenSocket = INVALID_SOCKET;
 			WSACleanup();
 			return false;
 		}
@@ -81,10 +78,10 @@ namespace networking
 		// Setup the TCP listening socket
 		m_iResult = bind(m_listenSocket, result->ai_addr, (int)result->ai_addrlen);
 		if (m_iResult == SOCKET_ERROR) {
-			m_strError = "bind failed with error: " + WSAGetLastError();
-			//printf("bind failed with error: %d\n", WSAGetLastError());
+			m_strError = "bind failed with error: " + std::to_string(WSAGetLastError());
 			freeaddrinfo(result);
 			closesocket(m_listenSocket);
+			m_listenSocket = INVALID_SOCKET;
 			WSACleanup();
 			return false;
 		}
@@ -95,9 +92,9 @@ namespace networking
 		// start listening for new clients attempting to connect
 		m_iResult = listen(m_listenSocket, SOMAXCONN);
 		if (m_iResult == SOCKET_ERROR) {
-			m_strError = "listen failed with error: " + WSAGetLastError();
-			//printf("listen failed with error: %d\n", WSAGetLastError());
+			m_strError = "listen failed with error: " + std::to_string(WSAGetLastError());
 			closesocket(m_listenSocket);
+			m_listenSocket = INVALID_SOCKET;
 			WSACleanup();
 			return false;
 		}
@@ -108,17 +105,22 @@ namespace networking
 	void ServerNetwork::shutdown()
 	{
 		closesocket(m_listenSocket);
+		m_listenSocket = INVALID_SOCKET;
+
 		SOCKET currentSocket;
 		for (auto iter = m_sessions.begin(); iter != m_sessions.end(); iter++)
 		{
 			currentSocket = iter->second;
-			closesocket(currentSocket);
+			if (currentSocket != INVALID_SOCKET)
+			{
+				closesocket(currentSocket);
+				iter->second = INVALID_SOCKET;
+			}
 		}
 		WSACleanup();
 	}
 
-	// accept new connections
-	bool ServerNetwork::acceptNewClient(unsigned int & id)
+	bool ServerNetwork::acceptNewClient(unsigned int & p_iClientId)
 	{
 		// if client waiting, accept the connection and save the socket
 		m_clientSocket = accept(m_listenSocket, NULL, NULL);
@@ -130,11 +132,34 @@ namespace networking
 			setsockopt(m_clientSocket, IPPROTO_TCP, TCP_NODELAY, &value, sizeof(value));
 
 			// insert new client into session id table
-			m_sessions.insert(std::pair<unsigned int, SOCKET>(id, m_clientSocket));
+			m_sessions.insert(std::pair<unsigned int, SOCKET>(p_iClientId, m_clientSocket));
 
 			return true;
 		}
 		return false;
+	}
+
+	void ServerNetwork::removeClient(unsigned int & p_iClientId)
+	{
+		if (m_sessions.find(p_iClientId) != m_sessions.end())
+		{
+			printf("Server disconnecting [Client: %d]\n", p_iClientId);
+
+			SOCKET currentSocket = m_sessions[p_iClientId];
+			closesocket(currentSocket);
+			//currentSocket = INVALID_SOCKET;
+			m_sessions[p_iClientId] = INVALID_SOCKET;
+
+			// Cannot remove the socket from the map as this function is called from ServerGame::update()
+			// iterator that references the current socket
+			// Socket clean up should be taken care of in ServerNetwork::shutdown();
+			// Consider something similar to K_GameObjectManager::deleteQueuedObjects() if necessary 
+			//m_sessions.erase(p_iClientId);
+		}
+		else
+		{
+			printf("Server cannot remove [Client: %d]: client not found\n", p_iClientId);
+		}
 	}
 
 	// receive incoming data
@@ -147,10 +172,10 @@ namespace networking
 
 			if (m_iResult == 0)
 			{
-				printf("Connection closed\n");
+				printf("Server lost connection to [Client: %d]\n", client_id);
 				closesocket(currentSocket);
+				m_sessions[client_id] = INVALID_SOCKET;
 			}
-
 			return m_iResult;
 		}
 		return 0;
@@ -159,7 +184,6 @@ namespace networking
 	// send data to all clients
 	void ServerNetwork::sendToAll(char * packets, int totalSize)
 	{
-		//printf("Send to all called\n");
 		SOCKET currentSocket;
 		std::map<unsigned int, SOCKET>::iterator iter;
 		int iSendResult;
@@ -167,16 +191,21 @@ namespace networking
 		for (iter = m_sessions.begin(); iter != m_sessions.end(); iter++)
 		{
 			currentSocket = iter->second;
-			iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
-
-			if (iSendResult == SOCKET_ERROR)
+			if (currentSocket != INVALID_SOCKET)
 			{
-				printf("send failed with error: %d\n", WSAGetLastError());
-				closesocket(currentSocket);
+				iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
+
+				if (iSendResult == SOCKET_ERROR)
+				{
+					printf("send to [Client: %d] failed with error: %d\n", iter->first, WSAGetLastError());
+					closesocket(currentSocket);
+					iter->second = INVALID_SOCKET;
+				}
 			}
 		}
 	}
 
+	// Send to a specific client
 	void ServerNetwork::sendToClient(unsigned int client_id, char * packets, int totalSize)
 	{
 		SOCKET currentSocket;
@@ -186,16 +215,21 @@ namespace networking
 		iter = m_sessions.find(client_id);
 		if (iter != m_sessions.end()) {
 			currentSocket = iter->second;
-			iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
-
-			if (iSendResult == SOCKET_ERROR)
+			if (currentSocket != INVALID_SOCKET)
 			{
-				printf("send failed with error: %d\n", WSAGetLastError());
-				closesocket(currentSocket);
+				iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
+
+				if (iSendResult == SOCKET_ERROR)
+				{
+					printf("send failed with error: %d\n", WSAGetLastError());
+					closesocket(currentSocket);
+					iter->second = INVALID_SOCKET;
+				}
 			}
 		}
 	}
 
+	// Send to all clients except the one specified
 	void ServerNetwork::sendToOthers(unsigned int client_id, char * packets, int totalSize)
 	{
 		SOCKET currentSocket;
@@ -207,12 +241,16 @@ namespace networking
 			if (iter->first != client_id)
 			{
 				currentSocket = iter->second;
-				iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
-
-				if (iSendResult == SOCKET_ERROR)
+				if (currentSocket != INVALID_SOCKET)
 				{
-					printf("send failed with error: %d\n", WSAGetLastError());
-					closesocket(currentSocket);
+					iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
+
+					if (iSendResult == SOCKET_ERROR)
+					{
+						printf("send failed with error: %d\n", WSAGetLastError());
+						closesocket(currentSocket);
+						iter->second = INVALID_SOCKET;
+					}
 				}
 			}
 		}

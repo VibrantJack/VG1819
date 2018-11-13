@@ -20,29 +20,35 @@ namespace networking
 		static void createInstance(const std::string &p_strAddr = "127.0.0.1");
 		static void destroyInstance();
 		static ClientGame* getInstance();
-		static int getClientId() { return sm_iClientId; }
-		bool isNetworkValid() { return m_networkValid; }
+		static bool isNetworkValid() { return sm_networkValid; }
 
 		void setupNetwork(const std::string &p_strAddr = "127.0.0.1");
-		void sendPacket(Packet* p_packet);
+		void disconnectFromNetwork(bool p_bServerShutdown = false);
+		//void shutdown(bool p_bServerShutdown = false); // Group up disconnectFromNetwork and destroyInstance? 
+
+		void update();
+
+		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);
+		int getClientId() { return m_iClientId; }
 
 		void summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
 		void moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY);
-		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);
 
-		void update();
+		void sendPacket(Packet* p_packet);
+		void sendSummonUnitPacket(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
+		void sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY);
 
 	private:
 		ClientNetwork* m_network;
 
 		char m_network_data[MAX_PACKET_SIZE];
 
-		static int sm_iClientId;
+		int m_iClientId = -1;
 
 		// Unit GO list so clients can have a reference to the same unit GO without having the same mem address
 		std::map<int, kitten::K_GameObject*> m_unitGOList;
 		int m_iUnitIndex = 0;
 
-		bool m_networkValid;
+		static bool sm_networkValid;
 	};
 }

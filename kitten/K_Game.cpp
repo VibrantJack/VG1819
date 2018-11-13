@@ -23,10 +23,11 @@
 #include "kibble/databank/databank.hpp"
 #include "unit/UnitTest.h"
 
-//board clickable
+//board
 #include "board/clickable/PrintWhenClicked.h"
-
 #include "board/BoardManager.h"
+#include "board/tile/landInfo/LandInfoManager.h"
+
 // Only for testing the event system
 #include "kitten\event_system\EventExample.h"
 
@@ -65,6 +66,8 @@ namespace kitten
 		BoardManager::createInstance();
 
 		UnitInteractionManager::createInstance();
+
+		LandInfoManager::createInstance();
 	}
 
 	// This is called once at the beginning of the game
@@ -193,6 +196,9 @@ namespace kitten
 		K_GameObject* networkingMenu = K_GameObjectManager::getInstance()->createNewGameObject();
 		networkingMenu->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("NetworkingConsoleMenu"));
 
+		K_GameObject* spawnUnitOnKeyPress = K_GameObjectManager::getInstance()->createNewGameObject();
+		spawnUnitOnKeyPress->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("SpawnUnitOnKeyPress"));
+
 		return true;
 	}
 
@@ -213,6 +219,8 @@ namespace kitten
 		BoardManager::destroyInstance();
 
 		UnitInteractionManager::destroyInstance();
+
+		LandInfoManager::destroyInstance();
 	}
 
 	void updateGame()

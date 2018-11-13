@@ -27,7 +27,7 @@ namespace ability
 			triggerTPEvent(ability::TimePointEvent::Receive_Heal, target, p_info);
 
 			//heal target by power
-			int power = p_info->m_intValue.find("power")->second;
+			int power = p_info->m_intValue.find(UNIT_POWER)->second;
 
 			//positive power = heal
 			damage(target, power);

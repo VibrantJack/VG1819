@@ -12,7 +12,7 @@ namespace unit
 	{
 	private:
 		unit::Unit* m_currentUnit;
-		void triggerTurnEvent(bool p_start);
+		bool m_isEnd;
 	public:
 		UnitTurn();
 		~UnitTurn();
@@ -27,5 +27,6 @@ namespace unit
 
 		bool isCurrent(kitten::K_GameObject* p_unitObj);
 		void unitDestroyed();
+		void setEnd();
 	};
 }

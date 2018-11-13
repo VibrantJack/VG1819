@@ -6,10 +6,19 @@
 #include <vector>
 #include <assert.h>
 
-#define MANIPULATE_TILE_ABILITY "ManipulateTile"
-#define HEAL_ABILITY "Heal"
-#define FIGHT_ABILITY "Fight"
-#define SUMMON_UNIT_ABILITY "SummonUnit"
+#define ABILITY_MANIPULATE_TILE "ManipulateTile"
+#define ABILITY_HEAL "Heal"
+#define ABILITY_FIGHT "Fight"
+#define ABILITY_SUMMON_UNIT "SummonUnit"
+#define ABILITY_SHOOT "Shoot"
+#define ABILITY_SABOTAGE "Sabotage"
+#define ABILITY_BUILD_WALL "Build the Wall"
+#define ABILITY_ENCOURAGE "Encourage"
+#define ABILITY_QUICK_SHOOT "QuickShoot"
+#define ABILITY_SLAY "Slay"
+#define ABILITY_DODGE "Dodge"
+#define ABILITY_MOVE "Move"
+#define ABILITY_BLAST "Blast"
 
 //Rock
 
@@ -22,8 +31,8 @@ namespace ability
 	private:
 		static AbilityManager * sm_instance;
 
-		std::vector<Ability*> m_abilityList;
-		std::string m_sLastAbilityUsed;
+		std::unordered_map<std::string, Ability*> m_abilityList;
+		//std::string m_sLastAbilityUsed;
 
 		void init();
 
@@ -38,6 +47,6 @@ namespace ability
 		Ability* findAbility(const std::string& p_name);
 		int useAbility(const std::string& p_name, AbilityInfoPackage* p_info);
 
-		const std::string& lastAbilityUsed();
+		//const std::string& lastAbilityUsed();
 	};
 }

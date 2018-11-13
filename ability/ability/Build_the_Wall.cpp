@@ -17,7 +17,7 @@ namespace ability
 
 	int Build_the_Wall::effect(AbilityInfoPackage* p_info)
 	{
-		AbilityNode* node = AbilityNodeManager::getInstance()->findNode("SpawnUnitNode");
+		AbilityNode* node = AbilityNodeManager::getInstance()->findNode(SpawnUnit);
 
 		kitten::K_GameObject* u = node->spawn(m_wallData);
 		kitten::K_GameObject* tile = p_info->m_targetTilesGO[0];

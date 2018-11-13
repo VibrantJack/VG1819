@@ -11,26 +11,20 @@ namespace ability
 	{
 		AbilityNode* newNode;
 
-		//TO DO: improve
 		newNode = new ChangeAttributeNode();
-		newNode->m_name = "ChangeAttributeNode";
-		m_nodeList.push_back(newNode);
+		m_nodeList[ability::ChangeAttribute] = newNode;
 
 		newNode = new CheckHPNode();
-		newNode->m_name = "CheckHPNode";
-		m_nodeList.push_back(newNode);
+		m_nodeList[ability::CheckHP] = newNode;
 
 		newNode = new ChangeAbilityDescriptionNode();
-		newNode->m_name = "ChangeAbilityDescriptionNode";
-		m_nodeList.push_back(newNode);
+		m_nodeList[ability::ChangeAbilityDescription] = newNode;
 
 		newNode = new ChangeAbilityInfoNode();
-		newNode->m_name = "ChangeAbilityInfoNode";
-		m_nodeList.push_back(newNode);
+		m_nodeList[ability::ChangeAbilityInfo] = newNode;
 
 		newNode = new SpawnUnitNode();
-		newNode->m_name = "SpawnUnitNode";
-		m_nodeList.push_back(newNode);
+		m_nodeList[ability::SpawnUnit] = newNode;
 	}
 
 	AbilityNodeManager::AbilityNodeManager()
@@ -40,10 +34,9 @@ namespace ability
 
 	AbilityNodeManager::~AbilityNodeManager()
 	{
-		auto end = m_nodeList.end();
-		for (auto it = m_nodeList.begin(); it != end; ++it)
+		for (auto it = m_nodeList.begin(); it != m_nodeList.end(); ++it)
 		{
-			delete (*it);
+			delete it->second;
 		}
 	}
 
@@ -66,14 +59,9 @@ namespace ability
 		return sm_instance;
 	}
 
-	AbilityNode* AbilityNodeManager::findNode(const std::string & p_name)
+	AbilityNode* AbilityNodeManager::findNode(NodeName p_name)
 	{
-		for (auto it = m_nodeList.begin(); it != m_nodeList.end(); it++)
-		{
-			if ((*it)->m_name == p_name)
-				return *it;
-		}
-		return nullptr;
+		return m_nodeList[p_name];
 	}
 
 }

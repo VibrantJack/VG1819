@@ -87,7 +87,16 @@ kitten::K_GameObject * BoardCreator::createTile(int x, int z)
 	SendSelfOnClick* sendSelfOnClick = static_cast<SendSelfOnClick*>(compMan->createComponent("SendSelfOnClick"));
 	tileGO->addComponent(sendSelfOnClick);
 
-	kitten::K_Component* tileInfo = new TileInfo(x, z);
+	TileInfo* tileInfo = static_cast<TileInfo*>(compMan->createComponent("TileInfo"));
+	tileInfo->setPos(x, z);//set position
+	tileInfo->setType(LandInformation::Grassland);
+	//for test
+	{
+		if (x == 5 && z == 4)
+		{
+			tileInfo->setType(LandInformation::Swampland);
+		}
+	}
 	tileGO->addComponent(tileInfo);
 
 	kitten::K_Component* clickBox = compMan->createComponent("ClickableBox");
