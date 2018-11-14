@@ -231,10 +231,10 @@ namespace networking
 				SingleTargetPacket sTgtPacket;
 				sTgtPacket.deserialize(&(m_network_data[i]));
 				i += SINGLE_TARGET_PACKET_SIZE;
-				printf("[Client: %d] received ability name: %s, target index: %d\n, dur: %d, pow: %d",
-					m_iClientId, sTgtPacket.abilityName, sTgtPacket.targetUnitIndex);
+				printf("[Client: %d] received ability name: %s, source unit: %d, target index: %d, dur: %d, pow: %d\n",
+					m_iClientId, sTgtPacket.abilityName, sTgtPacket.sourceUnitIndex, sTgtPacket.targetUnitIndex, sTgtPacket.dur, sTgtPacket.pow);
 
-				singleTargetAbility(sTgtPacket.abilityName, sTgtPacket.targetUnitIndex, sTgtPacket.dur, sTgtPacket.pow);
+				singleTargetAbility(sTgtPacket.abilityName, sTgtPacket.sourceUnitIndex, sTgtPacket.targetUnitIndex, sTgtPacket.dur, sTgtPacket.pow);
 				break;
 			}
 			default:
@@ -282,7 +282,7 @@ namespace networking
 			else
 				pow = 0;
 
-			sendSingleTargetPacket(p_strAbilityName, targetUnitIndex, dur, pow);
+			sendSingleTargetPacket(p_strAbilityName, sourceUnitIndex, targetUnitIndex, dur, pow);
 		}
 	}
 
@@ -291,6 +291,7 @@ namespace networking
 		// Reconstructing AbilityInfoPackage
 
 		ability::AbilityInfoPackage* pkg = new ability::AbilityInfoPackage();
+		pkg->m_source = getUnitGameObject(p_iSourceUnitIndex)->getComponent<unit::Unit>();
 
 		// Getting the target unit; need to push into a vector then assign the new vector to m_targets
 		std::vector<unit::Unit*> targets;
@@ -311,7 +312,7 @@ namespace networking
 		SingleTargetPacket packet;
 		packet.packetType = SINGLE_TARGET_ABILITY;
 		strcpy(packet.abilityName, p_strAbilityName.c_str());
-		packet.sourceUnitIndex = p_iTargetUnitIndex;
+		packet.sourceUnitIndex = p_iSourceUnitIndex;
 		packet.targetUnitIndex = p_iTargetUnitIndex;
 		packet.dur = p_iDur;
 		packet.pow = p_iPow;

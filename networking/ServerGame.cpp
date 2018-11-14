@@ -242,8 +242,8 @@ namespace networking
 						SingleTargetPacket sTgtPacket;
 						sTgtPacket.deserialize(&(m_network_data[i]));
 						i += SINGLE_TARGET_PACKET_SIZE;
-						printf("Server sending ability name: %s, target index: %d, sTgtPacket.dur, sTgtPacket.pow\n",
-							sTgtPacket.abilityName, sTgtPacket.targetUnitIndex);
+						printf("Server sending ability name: %s, source unit: %d, target index: %d, dur: %d, pow: %d\n",
+							sTgtPacket.abilityName, sTgtPacket.sourceUnitIndex, sTgtPacket.targetUnitIndex, sTgtPacket.dur, sTgtPacket.pow);
 
 						// Send received packet to other clients
 						char packet_data[SINGLE_TARGET_PACKET_SIZE];
