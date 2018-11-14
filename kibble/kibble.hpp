@@ -8,8 +8,12 @@
 namespace kibble {
 	void initializeKibbleRelatedComponents();
 	void destroyKibbleRelatedComponents();
+	
 	GameObjectDataParser* getGameObjectDataParserInstance();
 	UnitDataParser* getUnitDataParserInstance();
 	DeckDataParser* getDeckDataParserInstance();
-	void setSceneFrom(std::string& filename);
+	
+	void setSceneFrom(const std::string& p_fileName);
+
+	void loadSpriteSheets(const std::string& p_masterSheetName);
 }

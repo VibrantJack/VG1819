@@ -164,6 +164,8 @@
     <ClCompile Include="..\kibble\json\JSONGameObjectDataParser.cpp" />
     <ClCompile Include="..\kibble\json\JSONUnitDataParser.cpp" />
     <ClCompile Include="..\kibble\kibble.cpp" />
+    <ClCompile Include="..\kibble\sprites\SpriteLoader.cpp" />
+    <ClCompile Include="..\kibble\UnitGameObject\UnitType.cpp" />
     <ClCompile Include="..\kitten\audio\AudioEngineWrapper.cpp" />
     <ClCompile Include="..\kitten\audio\AudioListener.cpp" />
     <ClCompile Include="..\kitten\audio\AudioSource.cpp" />
@@ -192,6 +194,9 @@
     <ClCompile Include="..\kitten\mouse picking\MousePicker.cpp" />
     <ClCompile Include="..\kitten\QuadRenderable.cpp" />
     <ClCompile Include="..\kitten\Renderable.cpp" />
+    <ClCompile Include="..\kitten\sprites\SpriteAnimator.cpp" />
+    <ClCompile Include="..\kitten\sprites\SpriteRenderable.cpp" />
+    <ClCompile Include="..\kitten\sprites\SpriteSheet.cpp" />
     <ClCompile Include="..\kitten\Transform.cpp" />
     <ClCompile Include="..\kitten\UIRenderable.cpp" />
     <ClCompile Include="..\networking\ClientGame.cpp" />
@@ -252,8 +257,10 @@
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
     <ClCompile Include="PlaySoundOnStart.cpp" />
+    <ClCompile Include="StringInputDisplay.cpp" />
     <ClCompile Include="ToggleEnabledOnKeyPress.cpp" />
     <ClCompile Include="ToggleSoundOnKeyPress.cpp" />
+    <ClCompile Include="ToggleStringInputOnKeyPress.cpp" />
     <ClCompile Include="UseAbilityWhenClicked.cpp" />
     <ClCompile Include="VolumeAdjustOnKeysPressed.cpp" />
     <ClCompile Include="ZoomByMouseWheel.cpp" />
@@ -300,9 +307,11 @@
     <ClInclude Include="..\kibble\json\jsonextra.hpp" />
     <ClInclude Include="..\kibble\json\JSONGameObjectDataParser.hpp" />
     <ClInclude Include="..\kibble\kibble.hpp" />
+    <ClInclude Include="..\kibble\sprites\SpriteLoader.h" />
     <ClInclude Include="..\kibble\UnitDataParser.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp" />
     <ClInclude Include="..\kibble\json\JSONUnitDataParser.hpp" />
+    <ClInclude Include="..\kibble\UnitGameObject\UnitType.h" />
     <ClInclude Include="..\kitten\audio\AudioEngineWrapper.h" />
     <ClInclude Include="..\kitten\audio\AudioListener.h" />
     <ClInclude Include="..\kitten\audio\AudioSource.h" />
@@ -336,6 +345,9 @@
     <ClInclude Include="..\kitten\mouse picking\Ray.h" />
     <ClInclude Include="..\kitten\QuadRenderable.h" />
     <ClInclude Include="..\kitten\Renderable.h" />
+    <ClInclude Include="..\kitten\sprites\SpriteAnimator.h" />
+    <ClInclude Include="..\kitten\sprites\SpriteRenderable.h" />
+    <ClInclude Include="..\kitten\sprites\SpriteSheet.h" />
     <ClInclude Include="..\kitten\Transform.h" />
     <ClInclude Include="..\kitten\UIRenderable.h" />
     <ClInclude Include="..\networking\ClientGame.h" />
@@ -401,8 +413,10 @@
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />
     <ClInclude Include="PlaySoundOnStart.h" />
+    <ClInclude Include="StringInputDisplay.h" />
     <ClInclude Include="ToggleEnabledOnKeyPress.h" />
     <ClInclude Include="ToggleSoundOnKeyPress.h" />
+    <ClInclude Include="ToggleStringInputOnKeyPress.h" />
     <ClInclude Include="UseAbilityWhenClicked.h" />
     <ClInclude Include="VolumeAdjustOnKeysPressed.h" />
     <ClInclude Include="ZoomByMouseWheel.h" />

@@ -484,6 +484,27 @@
     <ClCompile Include="..\board\component\area\PathPattern.cpp">
       <Filter>board\component\area</Filter>
     </ClCompile>
+    <ClCompile Include="StringInputDisplay.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="ToggleStringInputOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\sprites\SpriteAnimator.cpp">
+      <Filter>kitten\sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\sprites\SpriteRenderable.cpp">
+      <Filter>kitten\sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\sprites\SpriteSheet.cpp">
+      <Filter>kitten\sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\sprites\SpriteLoader.cpp">
+      <Filter>kibble\sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\UnitGameObject\UnitType.cpp">
+      <Filter>kibble\UnitGameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -917,6 +938,27 @@
     <ClInclude Include="..\board\component\PathFind.h">
       <Filter>board\component</Filter>
     </ClInclude>
+    <ClInclude Include="StringInputDisplay.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="ToggleStringInputOnKeyPress.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\sprites\SpriteAnimator.h">
+      <Filter>kitten\sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\sprites\SpriteRenderable.h">
+      <Filter>kitten\sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\sprites\SpriteSheet.h">
+      <Filter>kitten\sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\sprites\SpriteLoader.h">
+      <Filter>kibble\sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\UnitGameObject\UnitType.h">
+      <Filter>kibble\UnitGameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1035,6 +1077,15 @@
     </Filter>
     <Filter Include="board\component\area">
       <UniqueIdentifier>{31062e74-efb4-41bd-b05e-c9cfbe8384fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kitten\sprites">
+      <UniqueIdentifier>{fa936de7-535e-4cb3-8dde-906d63749a58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kibble\sprites">
+      <UniqueIdentifier>{2d6a0aee-b092-4d6d-a976-0b1679a63f9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kibble\UnitGameObject">
+      <UniqueIdentifier>{efd93ad5-378b-487c-8d5e-1a84ddc82e55}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

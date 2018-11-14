@@ -9,6 +9,10 @@ namespace userinterface
 	HandFrame::HandFrame(const char* p_pathToTex) : UIFrame(p_pathToTex)
 	{
 		m_totalCards = 0;
+		m_cardX = 100;
+		m_cardY = 160;
+		m_padding = 15;
+		m_contentMargin = 10;
 	}
 
 	HandFrame::~HandFrame()
@@ -49,13 +53,13 @@ namespace userinterface
 	{
 		kitten::Transform T = getTransform();
 		glm::vec3 trans = T.getTranslation();
-		float differ = 0.0f;
+		float offset = m_padding;
 		auto end = m_innerObjects.end();
 		for (auto it = m_innerObjects.begin(); it != end; ++it)
 		{
-			(*it)->getTransform().place2D(trans.x + differ, trans.y);
-			differ += 0.11f;
+			(*it)->getTransform().place2D(trans.x + offset, trans.y + m_padding);
+			offset += m_cardX;
+			offset += m_contentMargin;
 		}
-		differ = 0.0f;
 	}
 }

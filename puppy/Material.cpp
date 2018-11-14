@@ -40,6 +40,11 @@ namespace puppy
 		m_tex = new Texture(p_pathToTex);
 	}
 
+	Texture* Material::getTexture() const
+	{
+		return m_tex;
+	}
+
 	int Material::getUniformPlace(const std::string& p_name)
 	{
 		return m_shader->getUniformPlace(p_name);
@@ -55,6 +60,12 @@ namespace puppy
 	{
 		GLint place = m_shader->getUniformPlace(p_name);
 		glUniform4fv(place, 1, glm::value_ptr(p_vec4));
+	}
+
+	void Material::setUniform(const std::string& p_name, const glm::vec2& p_vec2)
+	{
+		GLint place = m_shader->getUniformPlace(p_name);
+		glUniform2fv(place, 1, glm::value_ptr(p_vec2));
 	}
 
 	void Material::memorizeUniform(const std::string& p_name, const glm::mat4& p_mat4)

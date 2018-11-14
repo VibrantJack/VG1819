@@ -14,17 +14,20 @@
 #include "_Project\UseAbilityWhenClicked.h"
 #include "_Project\FPSCalc.h"
 #include "puppy\Text\TextBox.h"
+#include "kitten\sprites\SpriteAnimator.h"
+#include "kitten\sprites\SpriteRenderable.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "unit/unitComponent/UnitClickable.h"
 //ui
 #include "UI\CardUIO.h"
 #include "UI\HandFrame.h"
+#include "mouse picking/ClickableUI.h"
 
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
 #include "unit/InitiativeTracker/TrackerPointer.h"
 #include "unit/InitiativeTracker/PointerUI.h"
-#include "kitten\mouse picking\ClickableFrame.h"
+
 #include "components\PowerTracker.h"
 #include "components\SelectAbility.h"
 #include "networking\SpawnUnitOnKeyPress.h"
@@ -63,31 +66,43 @@ namespace kitten
 		if (p_componentName == "Camera")// Datadriven
 		{
 			comp = new Camera();
-		} else if (p_componentName == "CubeRenderable")// Datadriven
+		}
+		else if (p_componentName == "CubeRenderable")// Datadriven
 		{
 			comp = new CubeRenderable("textures/tiles/MISSING.tga");
-		} else if (p_componentName == "QuadRenderable")// Datadriven
+		}
+		else if (p_componentName == "QuadRenderable")// Datadriven
 		{
 			comp = new QuadRenderable("textures/tiles/Grassland.tga");
-		} else if (p_componentName == "StaticQuadRenderable")// QuadRenderable Variant
+		}
+		else if (p_componentName == "StaticQuadRenderable")// QuadRenderable Variant
 		{
 			comp = new QuadRenderable("textures/tiles/MISSING.tga", true);
-		} else if (p_componentName == "Grassland")// datadriven
+		}
+		else if (p_componentName == "Grassland")// datadriven
 		{
 			comp = new gameworld::GrasslandInfoComponent();
-		} else if (p_componentName == "Frame")// Datadriven
+		}
+		else if (p_componentName == "Frame")// Datadriven
 		{
 			comp = new userinterface::UIFrame("textures/ui/blankFrame.tga");
-		} else if (p_componentName == "ClickableFrame")
-		{
-			comp = new kitten::ClickableFrame(glm::vec2(0, 0), glm::vec2(1, 1));
-		} else if (p_componentName == "Hand")
+		}
+		else if (p_componentName == "Hand") // Datadriven
 		{
 			comp = new userinterface::HandFrame("textures/ui/blankFrame.tga");
-		} else if (p_componentName == "Card")
+		}
+		else if (p_componentName == "Card") // Datadriven
 		{
 			comp = new userinterface::CardUIO("textures/ui/cardBack.tga");
-		}else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
+		}else if(p_componentName == "ClickableFrame") // Datadriven
+		{
+			comp = new ClickableFrame(ClickableFrame::piv_BotLeft);
+		}
+		else if (p_componentName == "ClickableUI") // Datadriven
+		{
+			comp = new ClickableUI();
+		}
+		else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
 		{
 			comp = new MoveByMouseRightClickDrag(0.005f);
 		} else if (p_componentName == "ZoomByMouseWheel")// Datadriven
@@ -110,7 +125,7 @@ namespace kitten
 			comp = new ClickableBox(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
 		} else if (p_componentName == "ClickableBoxForPointUnit") // Datadriven
 		{
-			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 2.0f, 0.0f));
+			comp = new ClickableBox(glm::vec3(-0.5f, -1.0f, 0.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 		} else if (p_componentName == "ClickableBoxForCubeUnit") // Datadriven
 		{
 			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(2.5f, 3.0f, 0.0f));
@@ -156,30 +171,38 @@ namespace kitten
 		} else if (p_componentName == "PointerUI") // Datadriven
 		{
 			comp = new userinterface::PointerUI();
-		} else if (p_componentName == "SelectAbility")
+		} else if (p_componentName == "SelectAbility") // Datadriven
 		{
 			comp = new SelectAbility();
-		} else if (p_componentName == "PowerTracker")
+		} else if (p_componentName == "PowerTracker") // Datadriven
 		{
 			comp = new PowerTracker();
 		}
-		else if (p_componentName == "Highlighter")
+		else if (p_componentName == "Highlighter") // Datadriven
 		{
 			comp = new Highlighter();
 		}
-		else if (p_componentName == "BoardCreator")
+		else if (p_componentName == "BoardCreator") // Datadriven
 		{
 			comp = new BoardCreator();
 		}
-		else if (p_componentName == "SpawnUnitOnKeyPress")
+		else if (p_componentName == "SpawnUnitOnKeyPress") // Datadriven
 		{
 			comp = new SpawnUnitOnKeyPress();
+		}
+		else if (p_componentName == "SpriteRenderable") // Datadriven
+		{
+			comp = new SpriteRenderable();
+		}
+		else if (p_componentName == "SpriteAnimator") // Datadriven
+		{
+			comp = new sprites::SpriteAnimator("");
 		}
 		else if (p_componentName == "NetworkingConsoleMenu")
 		{
 			comp = new NetworkingConsoleMenu();
 		}
-		else if (p_componentName == "TileInfo")
+		else if (p_componentName == "TileInfo") // Datadriven
 		{
 			comp = new TileInfo();
 		}

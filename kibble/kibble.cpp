@@ -5,10 +5,12 @@
 #include "kibble/json/JSONGameObjectDataParser.hpp"
 #include "kibble/json/JSONUnitDataParser.hpp"
 #include "kibble/custom/CustomDeckDataParser.hpp"
+#include "kibble\sprites\SpriteLoader.h"
 
 kibble::GameObjectDataParser* gameObjectParser;
 kibble::UnitDataParser* unitParser;
 kibble::DeckDataParser* deckParser;
+kibble::SpriteLoader* spriteLoader;
 
 void kibble::initializeKibbleRelatedComponents() {
 	setupComponentMap();
@@ -16,12 +18,14 @@ void kibble::initializeKibbleRelatedComponents() {
 	gameObjectParser = new JSONGameObjectDataParser();
 	unitParser = new JSONUnitDataParser();
 	deckParser = new CustomDeckDataParser();
+	SpriteLoader::createInstance();
 
 	setupDatabank();
 }
 
 void kibble::destroyKibbleRelatedComponents() {
 	destroyDatabank();
+	SpriteLoader::destroyInstance();
 
 	delete gameObjectParser;
 	delete unitParser;
@@ -41,6 +45,10 @@ kibble::DeckDataParser* kibble::getDeckDataParserInstance() {
 }
 
 #include "kibble/json/Datatypes/SceneDataType.hpp"
-void kibble::setSceneFrom(std::string& filename) {
-	setupSceneBy(jsonIn("data/scene/" + filename));
+void kibble::setSceneFrom(const std::string& fileName) {
+	setupSceneBy(jsonIn("data/scene/" + fileName));
+}
+
+void kibble::loadSpriteSheets(const std::string& p_masterSheetName){
+	SpriteLoader::loadAllSprites(p_masterSheetName);
 }

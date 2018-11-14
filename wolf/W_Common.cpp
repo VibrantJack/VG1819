@@ -55,7 +55,6 @@ bool CompileShader(GLuint* p_pShader, GLenum p_eType, const std::string& p_strFi
     glShaderSource(*p_pShader, 1, &pSource, NULL);
     glCompileShader(*p_pShader);
     
-#if defined(DEBUG)
     GLint iLogLength;
     glGetShaderiv(*p_pShader, GL_INFO_LOG_LENGTH, &iLogLength);
     if( iLogLength > 0 )
@@ -65,7 +64,7 @@ bool CompileShader(GLuint* p_pShader, GLenum p_eType, const std::string& p_strFi
         printf("Shader compile log:\n%s\n", pLog);
         free(pLog);
     }
-#endif
+
     
 	delete pSource;
     glGetShaderiv(*p_pShader, GL_COMPILE_STATUS, &iStatus);
@@ -89,7 +88,7 @@ bool LinkProgram(GLuint p_uiProg)
     
     glLinkProgram(p_uiProg);
     
-#if defined(DEBUG)
+
     GLint iLogLength;
     glGetProgramiv(p_uiProg, GL_INFO_LOG_LENGTH, &iLogLength);
     if (iLogLength > 0)
@@ -99,7 +98,7 @@ bool LinkProgram(GLuint p_uiProg)
         printf("Program link log:\n%s\n", pLog);
         free(pLog);
     }
-#endif
+
     
     glGetProgramiv(p_uiProg, GL_LINK_STATUS, &iStatus);
     if (iStatus == 0)

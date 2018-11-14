@@ -1,0 +1,18 @@
+{
+    "name" : "String input display",
+    "components" : [
+        {
+            "name" : "TextBox",
+            "width" : 750 , 
+            "height" : 500 ,
+            "color" : [1,1,1]
+        },
+		{
+			"name" : "ToggleStringInputOnKeyPress",
+			"key" : "B"
+		},
+		{
+			"name" : "StringInputDisplay"
+		}
+    ]
+}

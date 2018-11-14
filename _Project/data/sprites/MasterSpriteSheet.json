@@ -1,0 +1,7 @@
+{
+	"spritesheets" :
+	[
+		"ClericSheet.json",
+		"WizardSheet.json"
+	]
+}
