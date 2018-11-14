@@ -529,6 +529,73 @@ kitten::K_Component* getHighlighter(nlohmann::json* p_jsonFile) {
 
 }
 
+#include "UI/HandFrame.h"
+kitten::K_Component* getHandFrame(nlohmann::json* p_jsonFile) {
+	std::string texture;
+
+	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
+
+	return new userinterface::HandFrame(texture.c_str());
+}
+
+#include "UI/CardUIO.h"
+kitten::K_Component* getCardUIO(nlohmann::json* p_jsonFile) {
+	std::string texture;
+
+	SETOPTDEF(texture, "texture", "textures/ui/cardBack.tga");
+
+	userinterface::CardUIO* object = new userinterface::CardUIO(texture.c_str());
+	object->scaleAsCard();
+	return object;
+}
+
+#include "kitten/mouse picking/ClickableFrame.h"
+kitten::K_Component* getClickableFrame(nlohmann::json* p_jsonFile) {
+	kitten::ClickableFrame::PivotType type = kitten::ClickableFrame::piv_BotLeft;
+	if (JSONHAS("pivot")) {
+		std::string temp = LOOKUP("pivot");
+		if (temp == "left")
+			type = kitten::ClickableFrame::piv_Left;
+		else if (temp == "right")
+			type = kitten::ClickableFrame::piv_Right;
+		else if (temp == "center")
+			type = kitten::ClickableFrame::piv_Center;
+		else if (temp == "top")
+			type = kitten::ClickableFrame::piv_Top;
+		else if (temp == "bottom")
+			type = kitten::ClickableFrame::piv_Bot;
+		else if (temp == "botleft")
+			type = kitten::ClickableFrame::piv_BotLeft;
+		else if (temp == "botright")
+			type = kitten::ClickableFrame::piv_BotRight;
+		else if (temp == "topleft")
+			type = kitten::ClickableFrame::piv_TopLeft;
+		else if (temp == "topright")
+			type = kitten::ClickableFrame::piv_TopRight;
+	}
+	return new kitten::ClickableFrame(kitten::ClickableFrame::piv_BotLeft);
+}
+
+#include "kitten/mouse picking/ClickableUI.h"
+kitten::K_Component* getClickableUI(nlohmann::json* p_jsonFile) {
+	return new kitten::ClickableUI();
+}
+
+#include "board/tile/TileInfo.h"
+kitten::K_Component* getTileInfo(nlohmann::json* p_jsonFile) {
+	return new TileInfo();
+}
+
+#include "networking\SpawnUnitOnKeyPress.h"
+kitten::K_Component* getSpawnUnitOnKeyPress(nlohmann::json* p_jsonFile) {
+	return new SpawnUnitOnKeyPress();
+}
+
+#include "networking\NetworkingConsoleMenu.h"
+kitten::K_Component* getNetworkingConsoleMenu(nlohmann::json* p_jsonFile) {
+	return new NetworkingConsoleMenu();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -566,6 +633,13 @@ void setupComponentMap() {
 	jsonComponentMap["SelectAbility"] = &getSelectAbility;
 	jsonComponentMap["PowerTracker"] = &getPowerTracker;
 	jsonComponentMap["Highlighter"] = &getHighlighter;
+	jsonComponentMap["HandFrame"] = &getHandFrame;
+	jsonComponentMap["CardUIO"] = &getCardUIO;
+	jsonComponentMap["ClickableFrame"] = &getClickableFrame;
+	jsonComponentMap["ClickableUI"] = &getClickableUI;
+	jsonComponentMap["TileInfo"] = &getTileInfo;
+	jsonComponentMap["SpawnUnitOnKeyPress"] = &getSpawnUnitOnKeyPress;
+	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
   
 }
 

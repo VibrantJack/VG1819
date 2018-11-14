@@ -85,17 +85,18 @@ namespace kitten
 		{
 			comp = new userinterface::UIFrame("textures/ui/blankFrame.tga");
 		}
-		else if (p_componentName == "Hand")
+		else if (p_componentName == "Hand") // Datadriven
 		{
 			comp = new userinterface::HandFrame("textures/ui/blankFrame.tga");
 		}
-		else if (p_componentName == "Card")
+		else if (p_componentName == "Card") // Datadriven
 		{
 			comp = new userinterface::CardUIO("textures/ui/cardBack.tga");
-		}else if(p_componentName == "ClickableFrame")
+		}else if(p_componentName == "ClickableFrame") // Datadriven
 		{
 			comp = new ClickableFrame(ClickableFrame::piv_BotLeft);
-		}else if (p_componentName == "ClickableUI")
+		}
+		else if (p_componentName == "ClickableUI") // Datadriven
 		{
 			comp = new ClickableUI();
 		}
@@ -183,15 +184,15 @@ namespace kitten
 		{
 			comp = new BoardCreator();
 		}
-		else if (p_componentName == "SpawnUnitOnKeyPress")
+		else if (p_componentName == "SpawnUnitOnKeyPress") // Datadriven
 		{
 			comp = new SpawnUnitOnKeyPress();
 		}
-		else if (p_componentName == "NetworkingConsoleMenu")
+		else if (p_componentName == "NetworkingConsoleMenu") // Datadriven
 		{
 			comp = new NetworkingConsoleMenu();
 		}
-		else if (p_componentName == "TileInfo")
+		else if (p_componentName == "TileInfo") // Datadriven
 		{
 			comp = new TileInfo();
 		}
