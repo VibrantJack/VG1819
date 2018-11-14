@@ -9,8 +9,9 @@
 #define UNIT_MOVE_PACKET_SIZE sizeof(UnitMovePacket)
 #define TEST_PACKET_SIZE sizeof(TestPacket)
 #define MANIPULATE_PACKET_SIZE sizeof(ManipulateTilePacket)
-#define SINGLE_TARGET_PACKET_SIZE sizeof(SingleTargetPowerPacket)
+#define SOURCE_TARGET_DAMAGE_PACKET_SIZE sizeof(SourceTargetDamagePacket)
 #define SINGLE_TILE_PACKET_SIZE sizeof(SingleTilePacket)
+#define SINGLE_TARGET_PACKET_SIZE sizeof(SingleTargetPacket)
 
 enum PacketTypes {
 
@@ -21,8 +22,10 @@ enum PacketTypes {
 	MANIPULATE_TILE,
 	UNIT_MOVE,
 	SUMMON_UNIT,
-	SINGLE_TARGET_ABILITY,
-	SINGLE_TILE_ABILITY
+	SOURCE_TARGET_DMG_ABILITY,
+	SINGLE_TILE_ABILITY,
+	SINGLE_TARGET_ABILITY
+
 };
 
 // Use to get packet type first, then deserialize into appropriate packet
@@ -137,7 +140,7 @@ struct ManipulateTilePacket : Packet {
 	}
 };
 
-struct SingleTargetPowerPacket : Packet {
+struct SourceTargetDamagePacket : Packet {
 
 	int sourceUnitIndex;
 	int targetUnitIndex;
@@ -203,6 +206,40 @@ struct SingleTilePacket : Packet {
 		this->clientId = *q;		q++;
 		this->posX = *q;		q++;
 		this->posY = *q;		q++;
+
+		char *p = (char*)q;
+		int i = 0;
+		for (int i = 0; i < BUFSIZE; i++) {
+			this->abilityName[i] = *p;
+			p++;
+		}
+	}
+};
+
+struct SingleTargetPacket : Packet {
+
+	int targetUnitIndex;
+	char abilityName[BUFSIZE];
+
+	void serialize(char* data) {
+		int *q = (int*)data;
+		*q = this->packetType;   q++;
+		*q = this->clientId;	q++;
+		*q = this->targetUnitIndex;		q++;
+
+		char *p = (char*)q;
+		int i = 0;
+		for (int i = 0; i < BUFSIZE; i++) {
+			*p = this->abilityName[i];
+			p++;
+		}
+	}
+
+	void deserialize(char* data) {
+		int *q = (int*)data;
+		this->packetType = *q;		q++;
+		this->clientId = *q;		q++;
+		this->targetUnitIndex = *q;		q++;
 
 		char *p = (char*)q;
 		int i = 0;

@@ -201,21 +201,21 @@ namespace networking
 						m_network->sendToOthers(iter->first, packet_data, MANIPULATE_PACKET_SIZE);
 						break;
 					}
-					case SINGLE_TARGET_ABILITY:
+					case SOURCE_TARGET_DMG_ABILITY:
 					{
-						printf("Server received SINGLE_TARGET_ABILITY packet from [Client: %d]\n", iter->first);
+						printf("Server received SOURCE_TARGET_DMG_ABILITY packet from [Client: %d]\n", iter->first);
 
-						SingleTargetPowerPacket stpPacket;
+						SourceTargetDamagePacket stpPacket;
 						stpPacket.deserialize(&(m_network_data[i]));
-						i += SINGLE_TARGET_PACKET_SIZE;
+						i += SOURCE_TARGET_DAMAGE_PACKET_SIZE;
 						printf("Server sending ability name: %s, source index: %d, target index: %d, power: %d\n", 
 							stpPacket.abilityName, stpPacket.sourceUnitIndex, stpPacket.targetUnitIndex, stpPacket.power);
 
 						// Send received packet to other clients
-						char packet_data[SINGLE_TARGET_PACKET_SIZE];
+						char packet_data[SOURCE_TARGET_DAMAGE_PACKET_SIZE];
 						stpPacket.serialize(packet_data);
 
-						m_network->sendToOthers(iter->first, packet_data, SINGLE_TARGET_PACKET_SIZE);
+						m_network->sendToOthers(iter->first, packet_data, SOURCE_TARGET_DAMAGE_PACKET_SIZE);
 						break;
 					}
 					case SINGLE_TILE_ABILITY:
@@ -233,6 +233,23 @@ namespace networking
 						stPacket.serialize(packet_data);
 
 						m_network->sendToOthers(iter->first, packet_data, SINGLE_TILE_PACKET_SIZE);
+						break;
+					}
+					case SINGLE_TARGET_ABILITY:
+					{
+						printf("Server received SINGLE_TARGET_ABILITY packet from [Client: %d]\n", iter->first);
+
+						SingleTargetPacket sTgtPacket;
+						sTgtPacket.deserialize(&(m_network_data[i]));
+						i += SINGLE_TARGET_PACKET_SIZE;
+						printf("Server sending ability name: %s, target index: %d\n",
+							sTgtPacket.abilityName, sTgtPacket.targetUnitIndex);
+
+						// Send received packet to other clients
+						char packet_data[SINGLE_TARGET_PACKET_SIZE];
+						sTgtPacket.serialize(packet_data);
+
+						m_network->sendToOthers(iter->first, packet_data, SINGLE_TARGET_PACKET_SIZE);
 						break;
 					}
 					default:

@@ -33,11 +33,14 @@ namespace networking
 
 		void sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
 
+		void singleTargetAbility(const std::string &p_strAbilityName, int p_iTargetUnitIndex);
+		void sendSingleTargetPacket(const std::string &p_strAbilityName, int p_iTargetUnitIndex);
+
 		void singleTileAbility(const std::string &p_strAbilityName, int p_iPosX, int p_iPosY);
 		void sendSingleTilePacket(const std::string &p_strAbilityName, int p_iPosX, int p_iPosY);
 
-		void singleTargetPowerAbility(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iPower);
-		void sendSingleTargetPacket(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iPower);
+		void sourceTargetDamageAbility(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iPower);
+		void sendSourceTargetDamagePacket(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iPower);
 
 		void manipulateTile(const std::string & p_strAbilityName, int p_iUnitIndex, int p_iPosX, int p_iPosY);
 		void sendManipulateTilePacket(const std::string & p_strAbilityName, int p_iUnitIndex, int p_iPosX, int p_iPosY);
