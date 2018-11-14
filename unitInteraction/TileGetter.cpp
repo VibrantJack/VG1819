@@ -165,23 +165,26 @@ void TileGetter::putArea(kitten::Event * e)
 	const std::unordered_map<std::string, int> &iv = m_ad->m_intValue;
 	const std::unordered_map<std::string, std::string> &sv = m_ad->m_stringValue;
 
-	if (sv.find("area_mode") != sv.end())
+	if (sv.find(AREA_MODE) != sv.end())
 	{
-		e->putInt("area_fix", iv.at("area_fix"));
-		e->putString("area_mode",sv.at("area_mode"));
+		if(iv.find(AREA_FIX) != iv.end())
+			e->putInt(AREA_FIX, iv.at(AREA_FIX));
+		else
+			e->putInt(AREA_FIX, FALSE);
+		e->putString(AREA_MODE,sv.at(AREA_MODE));
 
-		if (iv.find("area_len") != iv.end())
-			e->putInt("area_len", iv.at("area_len"));
-		else if (iv.find("area_min") != iv.end())
+		if (iv.find(AREA_LEN) != iv.end())
+			e->putInt(AREA_LEN, iv.at(AREA_LEN));
+		else if (iv.find(AREA_MIN) != iv.end())
 		{
-			e->putInt("area_min", iv.at("area_min"));
-			e->putInt("area_max", iv.at("area_max"));
+			e->putInt(AREA_MIN, iv.at(AREA_MIN));
+			e->putInt(AREA_MAX, iv.at(AREA_MAX));
 		}
 	}
 	else//default : point pattern
 	{
-		e->putInt("area_fix", FALSE);
-		e->putString("area_mode", POINT_AREA);
+		e->putInt(AREA_FIX, FALSE);
+		e->putString(AREA_MODE, POINT_AREA);
 	}
 	
 }
