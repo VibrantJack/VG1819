@@ -64,11 +64,11 @@ namespace networking
 			delete m_network;
 		}
 
-		auto end = m_unitGOList.end();
+		/*auto end = m_unitGOList.end();
 		for (auto it = m_unitGOList.begin(); it != end; ++it)
 		{
 			kitten::K_GameObjectManager::getInstance()->destroyGameObject((*it).second);
-		}
+		}*/
 	}
 
 	void ClientGame::setupNetwork(const std::string &p_strAddr)
