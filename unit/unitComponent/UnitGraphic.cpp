@@ -23,7 +23,7 @@ namespace unit
 			m_mat->setTexture(p_pathToTexture);
 		}
 
-		m_mat_shadow = new puppy::Material(puppy::ShaderType::basic);
+		//m_mat_shadow = new puppy::Material(puppy::ShaderType::basic);
 
 		//If we have not initialized the vao yet
 		if (sm_instances[p_size] < 1)
@@ -37,7 +37,7 @@ namespace unit
 	UnitGraphic::~UnitGraphic()
 	{
 		delete m_mat;
-		delete m_mat_shadow;
+//		delete m_mat_shadow;
 		if (--sm_instances[m_size] == 0)
 		{
 			delete sm_vao[m_size];
@@ -98,25 +98,25 @@ namespace unit
 		switch (p_size)
 		{
 		case unit::point:
-			height = 2.0f;
-			width = 1.0f;
+			height = 1.6f;
+			width = 0.8f;
 			break;
 		case unit::cube:
 			height = 2.8f;
 			width = 1.5f;
 			break;
 		}
-		float x = 0.0f;
-		float y = 0.0f;
+		float x = width / 2;
+		float y = height / 2;
 		float z = 0.0f;
 		puppy::TexturedVertex verts[] =
 		{
-		{ x, y, z,		0.0f, 0.0f },
-		{ x, y + height, z,			0.0f, 1.0f },
-		{ x + width, y + height, z,			1.0f, 1.0f },
-		{ x + width, y + height, z,			1.0f, 1.0f },
-		{ x + width, y, z,		1.0f, 0.0f },
-		{ x, y, z,		0.0f, 0.0f },
+		{ -x, -y, z,		0.0f, 0.0f },
+		{ -x, y, z,			0.0f, 1.0f },
+		{ x, y, z,			1.0f, 1.0f },
+		{ x, y, z,			1.0f, 1.0f },
+		{ x, -y, z,		1.0f, 0.0f },
+		{ -x, -y, z,		0.0f, 0.0f },
 		};
 
 		sm_vao[p_size] = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);

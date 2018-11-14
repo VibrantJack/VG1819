@@ -1,0 +1,23 @@
+{
+	"name" : "wizard",
+	"texture" : "textures/sprites/units/humans/wizard_sheet.tga",
+	
+	"sheetwidth" : 1024,
+	"sheetheight" : 1024,
+	
+	"characterwidth" : 84,
+	"characterheight" : 95,
+	
+	"padding" : 10,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [3,0],
+			"endpos" : [5,0],
+			"time" : 1.5
+		}	
+	],
+	
+	"defaultanimation" : "idle"
+}
