@@ -219,13 +219,16 @@ struct SingleTilePacket : Packet {
 struct SingleTargetPacket : Packet {
 
 	int targetUnitIndex;
+	int dur, pow;
 	char abilityName[BUFSIZE];
 
 	void serialize(char* data) {
 		int *q = (int*)data;
-		*q = this->packetType;   q++;
+		*q = this->packetType;  q++;
 		*q = this->clientId;	q++;
 		*q = this->targetUnitIndex;		q++;
+		*q = this->dur;			q++;
+		*q = this->pow;			q++;
 
 		char *p = (char*)q;
 		int i = 0;
@@ -237,9 +240,11 @@ struct SingleTargetPacket : Packet {
 
 	void deserialize(char* data) {
 		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
+		this->packetType = *q;	q++;
+		this->clientId = *q;	q++;
 		this->targetUnitIndex = *q;		q++;
+		this->dur = *q;			q++;
+		this->pow = *q;			q++;
 
 		char *p = (char*)q;
 		int i = 0;

@@ -231,10 +231,10 @@ namespace networking
 				SingleTargetPacket sTgtPacket;
 				sTgtPacket.deserialize(&(m_network_data[i]));
 				i += SINGLE_TARGET_PACKET_SIZE;
-				printf("[Client: %d] received ability name: %s, target index: %d\n",
+				printf("[Client: %d] received ability name: %s, target index: %d\n, dur: %d, pow: %d",
 					m_iClientId, sTgtPacket.abilityName, sTgtPacket.targetUnitIndex);
 
-				singleTargetAbility(sTgtPacket.abilityName, sTgtPacket.targetUnitIndex);
+				singleTargetAbility(sTgtPacket.abilityName, sTgtPacket.targetUnitIndex, sTgtPacket.dur, sTgtPacket.pow);
 				break;
 			}
 			default:
@@ -273,11 +273,19 @@ namespace networking
 		else if (p_strAbilityName == ABILITY_ENCOURAGE || p_strAbilityName == ABILITY_DODGE)// These have the same package contents
 		{
 			int targetUnitIndex = getUnitGameObjectIndex(&p_info->m_targets[0]->getGameObject());
-			sendSingleTargetPacket(p_strAbilityName, targetUnitIndex);
+			int dur = p_info->m_intValue.find(UNIT_DURATION)->second;
+			int pow;
+			auto iter = p_info->m_intValue.find(UNIT_POWER);
+			if (iter != p_info->m_intValue.end())
+				pow = iter->second;
+			else
+				pow = 0;
+
+			sendSingleTargetPacket(p_strAbilityName, targetUnitIndex, dur, pow);
 		}
 	}
 
-	void ClientGame::singleTargetAbility(const std::string &p_strAbilityName, int p_iTargetUnitIndex)
+	void ClientGame::singleTargetAbility(const std::string &p_strAbilityName, int p_iTargetUnitIndex, int p_iDur, int p_iPow)
 	{
 		// Reconstructing AbilityInfoPackage
 
@@ -288,15 +296,23 @@ namespace networking
 		targets.push_back(getUnitGameObject(p_iTargetUnitIndex)->getComponent<unit::Unit>());
 		pkg->m_targets = targets;
 
+		// Storing int values
+		std::unordered_map<std::string, int> intValues;
+		intValues[UNIT_DURATION] = p_iDur;
+		intValues[UNIT_POWER] = p_iPow;
+		pkg->m_intValue = intValues;
+
 		ability::AbilityManager::getInstance()->findAbility(p_strAbilityName)->effect(pkg);
 	}
 
-	void ClientGame::sendSingleTargetPacket(const std::string &p_strAbilityName, int p_iTargetUnitIndex)
+	void ClientGame::sendSingleTargetPacket(const std::string &p_strAbilityName, int p_iTargetUnitIndex, int p_iDur, int p_iPow)
 	{
 		SingleTargetPacket packet;
-		packet.packetType = SINGLE_TILE_ABILITY;
+		packet.packetType = SINGLE_TARGET_ABILITY;
 		strcpy(packet.abilityName, p_strAbilityName.c_str());
 		packet.targetUnitIndex = p_iTargetUnitIndex;
+		packet.dur = p_iDur;
+		packet.pow = p_iPow;
 
 		char data[SINGLE_TARGET_PACKET_SIZE];
 		packet.serialize(data);
