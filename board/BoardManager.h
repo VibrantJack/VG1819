@@ -60,7 +60,7 @@ private:
 
 	void listenEvent(kitten::Event::EventType p_type, kitten::Event* p_data);
 	void highlightTile(kitten::Event* p_data);
-	void unhighlightTile(kitten::Event* p_data);
+	//void unhighlightTile(kitten::Event* p_data);
 
 	void setFilter(const std::string& p_filter, kitten::Event* p_data);
 	void applyFilter(kitten::Event::TileList* p_list);

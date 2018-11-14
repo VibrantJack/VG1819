@@ -1,0 +1,9 @@
+﻿  SendSelfOnClick.cpp
+d:\work\vg1819\board\clickable\sendselfonclick.cpp(30): warning C4018: '<': signed/unsigned mismatch
+  LINK : 0 new modules and 1 (out of 236) modules have changed since prior linking
+  Generating non-SAFESEH image.
+  Starting pass 2
+       SendSelfOnClick.obj
+       MSVCRTD.lib(loadcfg.obj)
+  Finished pass 2
+  VG1819.vcxproj.vcxproj -> D:\work\VG1819\_Project\Release\VG1819.exe
