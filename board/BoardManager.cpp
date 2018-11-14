@@ -60,6 +60,7 @@ kitten::Event::TileList BoardManager::getArea()
 	if (m_area->isActive())
 	{
 		m_area->removePattern();
+		m_highlighter->unhighlightAll(TileInfo::ForArea);
 		return m_areaList;
 	}
 	
@@ -181,5 +182,11 @@ void BoardManager::setArea(kitten::Event * p_data)
 	setFilter(AREA_FILTER, p_data);
 
 	kitten::K_GameObject* p = p_data->getGameObj(ORIGIN);
-	showArea(p);
+
+	//show inital highlight
+	TileInfo* info = p->getComponent<TileInfo>();
+	if (info->isHighlighted(TileInfo::ForRange))
+	{
+		showArea(p);
+	}
 }

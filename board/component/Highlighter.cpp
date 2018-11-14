@@ -10,8 +10,8 @@ Highlighter::Highlighter()
 		m_listForType[static_cast<TileInfo::HighlightType>(i)] = std::vector<kitten::K_GameObject*>();
 	}
 
-	m_texMap[TileInfo::ForArea] = "";
-	m_texMap[TileInfo::ForRange] = "";
+	m_texMap[TileInfo::ForArea] = "textures/tiles/grasslandArea.tga";
+	m_texMap[TileInfo::ForRange] = "textures/tiles/highlightedGrassland.tga";
 	m_texMap[TileInfo::ForOwnedTile] = "";
 }
 
@@ -30,8 +30,6 @@ void Highlighter::start()
 
 void Highlighter::update()
 {
-	kitten::K_GameObject* tile;
-
 	//if there are tiles needs to change its highlight type
 	if (!m_toBeChanged.empty())
 	{
@@ -48,11 +46,21 @@ void Highlighter::update()
 			if (type != TileInfo::Last)
 			{
 				//add blend
-				
+
+				if (type == TileInfo::ForArea)
+				{
+					info->getDescription();
+				}
+				//temp
+				kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
+				quad->setTexture(m_texMap[type].c_str());
 			}
 			else
 			{
 				//remove blend
+
+				//temp
+				info->setRenderTexture();
 			}
 		}
 

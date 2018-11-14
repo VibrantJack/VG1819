@@ -5,7 +5,7 @@
 #include <iostream>
 #include <sstream>
 
-SendSelfOnClick::SendSelfOnClick(): m_showArea(false)
+SendSelfOnClick::SendSelfOnClick()
 {
 }
 
@@ -20,8 +20,7 @@ void SendSelfOnClick::onClick()
 	kitten::Event* e = new kitten::Event(kitten::Event::Tile_Clicked);
 
 	TileInfo* info = m_attachedObject->getComponent<TileInfo>();
-	TileInfo::HighlightType type = info->getHighlightType();
-	if (type == TileInfo::ForArea)
+	if (info->isHighlighted(TileInfo::ForRange))
 	{
 		e->putInt("highlighted", TRUE);
 
@@ -54,19 +53,12 @@ void SendSelfOnClick::onClick()
 void SendSelfOnClick::onHoverStart()
 {
 	TileInfo* info = m_attachedObject->getComponent<TileInfo>();
-	TileInfo::HighlightType type = info->getHighlightType();
-	if (type == TileInfo::ForRange)
+	if (info->isHighlighted(TileInfo::ForRange))
 	{
-		m_showArea = true;
 		BoardManager::getInstance()->showArea(m_attachedObject);
 	}
 }
 
 void SendSelfOnClick::onHoverEnd()
 {
-	if (m_showArea)
-	{
-		m_showArea = false;
-		BoardManager::getInstance()->hideArea();
-	}
 }

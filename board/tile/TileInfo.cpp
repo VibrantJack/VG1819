@@ -79,15 +79,9 @@ void TileInfo::effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit * p_
 	}
 }
 
-bool TileInfo::isHighlighted()
+bool TileInfo::isHighlighted(HighlightType p_type)
 {
-	for (int i = ForArea; i != Last; i++)
-	{
-		HighlightType p = static_cast<HighlightType>(i);
-		if (m_highlightType[p])
-			return true;
-	}
-	return false;
+	return m_highlightType[p_type];
 }
 
 void TileInfo::setHighlighted(HighlightType p_type, bool p_bool)

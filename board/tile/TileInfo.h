@@ -31,7 +31,7 @@ public:
 	void effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit* p_u);
 
 	//highlight 
-	bool isHighlighted();
+	bool isHighlighted(HighlightType p_type);
 	void setHighlighted(HighlightType p_type, bool p_bool);
 	HighlightType getHighlightType();
 
