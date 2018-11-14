@@ -505,6 +505,9 @@
     <ClCompile Include="..\kibble\UnitGameObject\UnitType.cpp">
       <Filter>kibble\UnitGameObject</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\SceneSwitchComponent.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -958,6 +961,9 @@
     </ClInclude>
     <ClInclude Include="..\kibble\UnitGameObject\UnitType.h">
       <Filter>kibble\UnitGameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\SceneSwitchComponent.hpp">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

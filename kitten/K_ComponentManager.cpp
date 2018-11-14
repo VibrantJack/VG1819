@@ -34,6 +34,8 @@
 #include "networking\NetworkingConsoleMenu.h"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 
+#include "components/SceneSwitchComponent.hpp"
+
 //board
 #include "board/component/Highlighter.h"
 #include "board/component/BoardCreator.h"
@@ -205,6 +207,9 @@ namespace kitten
 		else if (p_componentName == "TileInfo") // Datadriven
 		{
 			comp = new TileInfo();
+		}
+		else if (p_componentName == "DELETETHIS") {
+			comp = new SceneSwitchComponent("mainscene.txt");
 		}
 		else
 		{

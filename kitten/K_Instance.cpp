@@ -2,6 +2,7 @@
 
 #include <thread>
 #include <iostream>
+#include <kibble/kibble.hpp>
 
 namespace kitten
 {
@@ -66,6 +67,12 @@ namespace kitten
 
 	void K_Instance::privateUpdate()
 	{
+		if (m_SceneSwitchFlag) {
+			m_gameObjectManager->destroyAllGameObjects();
+			kibble::setSceneFrom(m_nextScene);
+			m_SceneSwitchFlag = false;
+		}
+
 		m_time->updateTime();
 
 		m_jobManager->update();
@@ -75,5 +82,11 @@ namespace kitten
 
 		m_componentManager->updateComponents();
 		m_gameObjectManager->deleteQueuedObjects();
+	}
+
+	void K_Instance::flagSceneChange(std::string nextScene) {
+		assert(sm_instance != nullptr);
+		sm_instance->m_SceneSwitchFlag = true;
+		sm_instance->m_nextScene = nextScene;
 	}
 }
