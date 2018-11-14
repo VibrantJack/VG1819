@@ -272,6 +272,7 @@ namespace networking
 		}
 		else if (p_strAbilityName == ABILITY_ENCOURAGE || p_strAbilityName == ABILITY_DODGE)// These have the same package contents
 		{
+			int sourceUnitIndex = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
 			int targetUnitIndex = getUnitGameObjectIndex(&p_info->m_targets[0]->getGameObject());
 			int dur = p_info->m_intValue.find(UNIT_DURATION)->second;
 			int pow;
@@ -285,7 +286,7 @@ namespace networking
 		}
 	}
 
-	void ClientGame::singleTargetAbility(const std::string &p_strAbilityName, int p_iTargetUnitIndex, int p_iDur, int p_iPow)
+	void ClientGame::singleTargetAbility(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iDur, int p_iPow)
 	{
 		// Reconstructing AbilityInfoPackage
 
@@ -305,11 +306,12 @@ namespace networking
 		ability::AbilityManager::getInstance()->findAbility(p_strAbilityName)->effect(pkg);
 	}
 
-	void ClientGame::sendSingleTargetPacket(const std::string &p_strAbilityName, int p_iTargetUnitIndex, int p_iDur, int p_iPow)
+	void ClientGame::sendSingleTargetPacket(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iDur, int p_iPow)
 	{
 		SingleTargetPacket packet;
 		packet.packetType = SINGLE_TARGET_ABILITY;
 		strcpy(packet.abilityName, p_strAbilityName.c_str());
+		packet.sourceUnitIndex = p_iTargetUnitIndex;
 		packet.targetUnitIndex = p_iTargetUnitIndex;
 		packet.dur = p_iDur;
 		packet.pow = p_iPow;

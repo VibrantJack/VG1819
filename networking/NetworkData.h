@@ -218,6 +218,7 @@ struct SingleTilePacket : Packet {
 
 struct SingleTargetPacket : Packet {
 
+	int sourceUnitIndex;
 	int targetUnitIndex;
 	int dur, pow;
 	char abilityName[BUFSIZE];
@@ -226,6 +227,7 @@ struct SingleTargetPacket : Packet {
 		int *q = (int*)data;
 		*q = this->packetType;  q++;
 		*q = this->clientId;	q++;
+		*q = this->sourceUnitIndex;		q++;
 		*q = this->targetUnitIndex;		q++;
 		*q = this->dur;			q++;
 		*q = this->pow;			q++;
@@ -242,6 +244,7 @@ struct SingleTargetPacket : Packet {
 		int *q = (int*)data;
 		this->packetType = *q;	q++;
 		this->clientId = *q;	q++;
+		this->sourceUnitIndex = *q;		q++;
 		this->targetUnitIndex = *q;		q++;
 		this->dur = *q;			q++;
 		this->pow = *q;			q++;

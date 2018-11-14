@@ -33,8 +33,8 @@ namespace networking
 
 		void sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
 
-		void singleTargetAbility(const std::string &p_strAbilityName, int p_iTargetUnitIndex, int p_iDur, int p_iPow);
-		void sendSingleTargetPacket(const std::string &p_strAbilityName, int p_iTargetUnitIndex, int p_iDur, int p_iPow);
+		void singleTargetAbility(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iDur, int p_iPow);
+		void sendSingleTargetPacket(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iDur, int p_iPow);
 
 		void singleTileAbility(const std::string &p_strAbilityName, int p_iPosX, int p_iPosY);
 		void sendSingleTilePacket(const std::string &p_strAbilityName, int p_iPosX, int p_iPosY);
