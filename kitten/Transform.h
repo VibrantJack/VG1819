@@ -48,6 +48,7 @@ namespace kitten
 
 		glm::mat4 m_matTranslation;
 		glm::mat4 m_matScale;
+		glm::vec2 m_scaleAsFloat;
 		glm::quat m_quatRotation;
 		glm::quat m_derivedQuatRotation;
 		glm::mat4 m_matRotation;
@@ -98,6 +99,7 @@ namespace kitten
 		const glm::vec3& getTranslation() const;
 		const glm::quat& getRotation() const;
 		const glm::vec3& getScale() const;
+		const glm::vec2& getScale2D() const;
 
 		const glm::mat4& getWorldTransform();
 		const glm::mat4& getWorldTransformNoScale();

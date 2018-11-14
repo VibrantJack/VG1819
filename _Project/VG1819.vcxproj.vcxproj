@@ -252,8 +252,10 @@
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
     <ClCompile Include="PlaySoundOnStart.cpp" />
+    <ClCompile Include="StringInputDisplay.cpp" />
     <ClCompile Include="ToggleEnabledOnKeyPress.cpp" />
     <ClCompile Include="ToggleSoundOnKeyPress.cpp" />
+    <ClCompile Include="ToggleStringInputOnKeyPress.cpp" />
     <ClCompile Include="UseAbilityWhenClicked.cpp" />
     <ClCompile Include="VolumeAdjustOnKeysPressed.cpp" />
     <ClCompile Include="ZoomByMouseWheel.cpp" />
@@ -401,8 +403,10 @@
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />
     <ClInclude Include="PlaySoundOnStart.h" />
+    <ClInclude Include="StringInputDisplay.h" />
     <ClInclude Include="ToggleEnabledOnKeyPress.h" />
     <ClInclude Include="ToggleSoundOnKeyPress.h" />
+    <ClInclude Include="ToggleStringInputOnKeyPress.h" />
     <ClInclude Include="UseAbilityWhenClicked.h" />
     <ClInclude Include="VolumeAdjustOnKeysPressed.h" />
     <ClInclude Include="ZoomByMouseWheel.h" />

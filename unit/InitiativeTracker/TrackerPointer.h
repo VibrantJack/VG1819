@@ -18,12 +18,14 @@ namespace unit
 		bool hasUpdate() const override;
 		void update() override;
 	private:
+		const float m_originalX = 700.0f;
+		const float m_originalY = 500.0f;
 		float m_scale = 0.1f;
-		float m_maxScale = 0.13f;
-		float m_minScale = 0.07f;
-		float m_speed = 0.001f;
-		float m_y = 0.9f;
-		float m_x = -0.35f;
+		const float m_maxScale = 0.13f;
+		const float m_minScale = 0.07f;
+		const float m_speed = 0.001f;
+		const float m_y = 666.0f;
+		const float m_x = 410.0f;
 		bool m_scaleUp = true;
 
 		void scale();
