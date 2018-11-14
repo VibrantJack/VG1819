@@ -1,0 +1,66 @@
+{
+    "gameobjects" : [
+        {
+            "filename" : "camgameobj.txt", 
+            "translate" : [7, 13.0, 0.0],
+            "rotate" : [-70,0,0]
+        },
+		{
+			"filename" : "soundsource.txt",
+			"translate" : [7,10,-8]
+		},
+		{
+			"filename" : "backgroundmusic.txt"
+		},
+		{
+			"filename" : "FPSCounter.txt", 
+		    "translate2d" : [100,700]
+		}, 
+		{
+			"name" : "newgame box",
+            "components" : [
+                {"name" : "UIFrame"},
+				{"name" : "ClickableFrame"},
+				{"name" : "ClickableUI"}
+            ],
+            "translate2d" : [320.0, 430.0],
+            "scale2d" : [150.0,75.0]
+        },
+		{
+			"name" : "newgame Textbox",
+			"components" : [
+				{
+					"name" : "TextBox",
+					"message" : "new game ^",
+					"width" : 150,
+					"height" : 75.0
+				}
+			],
+            "translate2d" : [320.0, 430.0]
+		}, 
+		{
+			"name" : "deckbuilder box",
+            "components" : [
+                {"name" : "UIFrame"},
+				{"name" : "ClickableFrame"},
+				{"name" : "ClickableUI"}
+            ],
+            "translate2d" : [620.0, 430.0],
+            "scale2d" : [150.0,75.0]
+        },
+		{
+			"name" : "deckbuilder Textbox",
+			"components" : [
+				{
+					"name" : "TextBox",
+					"message" : "deckbuilder ^",
+					"width" : 250,
+					"height" : 75.0
+				}
+			],
+            "translate2d" : [620.0, 430.0],
+			"scale2d" : [0.75,1]
+		}
+    ],
+	"scenes" : []
+}
