@@ -47,10 +47,6 @@ void Highlighter::update()
 			{
 				//add blend
 
-				if (type == TileInfo::ForArea)
-				{
-					info->getDescription();
-				}
 				//temp
 				kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
 				quad->setTexture(m_texMap[type].c_str());

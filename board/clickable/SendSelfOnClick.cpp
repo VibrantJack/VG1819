@@ -45,6 +45,8 @@ void SendSelfOnClick::onClick()
 		e->putInt("highlighted", FALSE);
 	}
 
+	BoardManager::getInstance()->hideArea();
+
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
 
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Tile_Clicked, e);
