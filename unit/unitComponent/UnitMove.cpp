@@ -16,7 +16,7 @@ void unit::UnitMove::triggerNewTileEvent()
 	u->triggerTP(ability::TimePointEvent::New_Tile, t);
 }
 
-unit::UnitMove::UnitMove()
+unit::UnitMove::UnitMove(float p_speed, glm::vec3 p_offset) : m_speed(p_speed),m_offset(p_offset)
 {
 	m_currentTile = nullptr;
 	m_ad = nullptr;

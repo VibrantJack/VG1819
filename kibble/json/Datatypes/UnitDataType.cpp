@@ -53,6 +53,10 @@ unit::UnitData* getUnitDataFrom(nlohmann::json& p_jsonfile) {
 		ud->m_texPath = p_jsonfile["texpath"].get<std::string>();
 	}
 
+	if (p_jsonfile.find("spritename") != p_jsonfile.end()) {
+		ud->m_spriteName = p_jsonfile["spritename"].get<std::string>();
+	}
+
 	//TODO portrait path (for commander)
 
 	return ud;

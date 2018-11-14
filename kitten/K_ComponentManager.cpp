@@ -14,6 +14,8 @@
 #include "_Project\UseAbilityWhenClicked.h"
 #include "_Project\FPSCalc.h"
 #include "puppy\Text\TextBox.h"
+#include "kitten\sprites\SpriteAnimator.h"
+#include "kitten\sprites\SpriteRenderable.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "unit/unitComponent/UnitClickable.h"
 //ui
@@ -123,7 +125,7 @@ namespace kitten
 			comp = new ClickableBox(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
 		} else if (p_componentName == "ClickableBoxForPointUnit") // Datadriven
 		{
-			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 2.0f, 0.0f));
+			comp = new ClickableBox(glm::vec3(-0.5f, -1.0f, 0.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 		} else if (p_componentName == "ClickableBoxForCubeUnit") // Datadriven
 		{
 			comp = new ClickableBox(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(2.5f, 3.0f, 0.0f));
@@ -188,7 +190,15 @@ namespace kitten
 		{
 			comp = new SpawnUnitOnKeyPress();
 		}
-		else if (p_componentName == "NetworkingConsoleMenu") // Datadriven
+		else if (p_componentName == "SpriteRenderable") // Datadriven
+		{
+			comp = new SpriteRenderable();
+		}
+		else if (p_componentName == "SpriteAnimator") // Datadriven
+		{
+			comp = new sprites::SpriteAnimator("");
+		}
+		else if (p_componentName == "NetworkingConsoleMenu")
 		{
 			comp = new NetworkingConsoleMenu();
 		}
