@@ -2,7 +2,11 @@
 
 #include <thread>
 #include <iostream>
+
+
 #include <kibble/kibble.hpp>
+#include <kitten/mouse picking/ActiveClickables.h>
+#include <puppy/Renderer.h>
 
 namespace kitten
 {
@@ -69,6 +73,9 @@ namespace kitten
 	{
 		if (m_SceneSwitchFlag) {
 			m_gameObjectManager->destroyAllGameObjects();
+			kitten::ActiveClickables::getInstance()->m_lastUIHover = nullptr;
+			puppy::Renderer::getInstance()->removeAll();
+
 			kibble::setSceneFrom(m_nextScene);
 			m_SceneSwitchFlag = false;
 		}

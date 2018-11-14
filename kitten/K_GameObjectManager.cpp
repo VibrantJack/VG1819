@@ -63,5 +63,6 @@ namespace kitten
 		{
 			delete  (*it).second;
 		}
+		m_gameObjects.clear();
 	}
 }
