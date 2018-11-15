@@ -1,44 +1,8 @@
-﻿  Ability.cpp
-  ChangeAttributeNode.cpp
-  Status_Priest_LV3.cpp
-  Generating Code...
-  LINK : 0 new modules and 3 (out of 237) modules have changed since prior linking
+﻿  Status_Dodge.cpp
+  LINK : 0 new modules and 1 (out of 237) modules have changed since prior linking
   Generating non-SAFESEH image.
   Starting pass 2
-       FPSCalc.obj
-       UnitSpawn.obj
-       Unit.obj
-       InitiativeTracker.obj
-       UnitInteractionManager.obj
-       TextBox.obj
-       StaticRenderables.obj
-       AsyncFileOperations.obj
-       ServerNetwork.obj
-       ClientNetwork.obj
-       UnitType.obj
-       SpriteLoader.obj
-       JSONUnitDataParser.obj
-       jsonextra.obj
-       UnitDataType.obj
-       SceneDataType.obj
-       GameObjectDataType.obj
-       ComponentDataType.obj
-       databank.obj
-       PowerTracker.obj
-       BoardCreator.obj
-       boardManager.obj
-       DeckComponent.obj
-       SwampLand.obj
-       PathFind.obj
-       Status_Priest_LV3.obj
-       Status_Encourage.obj
        Status_Dodge.obj
-       CheckHPNode.obj
-       ChangeAttributeNode.obj
-       Slay.obj
-       QuickShoot.obj
-       Blast.obj
-       Ability.obj
        MSVCRTD.lib(loadcfg.obj)
   Finished pass 2
   VG1819.vcxproj.vcxproj -> D:\work\VG1819\_Project\Release\VG1819.exe

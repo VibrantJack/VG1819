@@ -27,6 +27,8 @@ namespace ability
 			//decrease the amount of damage it deals, means the result is 0
 			int changedValue = -(pack->m_intValue[UNIT_POWER]);
 			node->effect(pack, UNIT_POWER, changedValue);
+
+			removeThis();//only effect onece
 			return 0;
 		}
 		return 1;
