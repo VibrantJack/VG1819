@@ -52,6 +52,7 @@ namespace ability
 		void addCounter(const std::string & p_key, int p_value);
 		void addAttributeChange(const std::string & p_key, int p_value);
 		void addTimePoint(ability::TimePointEvent::TPEventType p_value);
+		std::vector<ability::TimePointEvent::TPEventType> getTPlist();
 
 		void attach(unit::Unit* p_u);
 
@@ -68,14 +69,14 @@ namespace ability
 	protected:
 		unit::Unit * m_unit;//the unit this status attached to
 
-		std::unordered_map<std::string, int>* m_counter;
+		std::unordered_map<std::string, int> m_counter;
 		//Most commonly counter is duration. But it can be more, such as how many times it can be used
 
 		std::string m_description;//the text that will be showed to player
 		int m_LV;
-		std::unordered_map<std::string, int>* m_attributeChange;
+		std::unordered_map<std::string, int> m_attributeChange;
 
-		std::vector<ability::TimePointEvent::TPEventType>* m_TPList;//the list of event that will be registered
+		std::vector<ability::TimePointEvent::TPEventType> m_TPList;//the list of event that will be registered
 
 		void removeThis();
 		int changeCounter(const std::string& p_cName = "duration", int p_value = -1);
