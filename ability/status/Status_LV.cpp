@@ -17,7 +17,7 @@ namespace ability
 		{
 			//change attribute
 			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
-			for (auto it : *m_attributeChange)
+			for (auto it : m_attributeChange)
 			{
 				node->effect(m_unit, it.first, it.second);
 			}

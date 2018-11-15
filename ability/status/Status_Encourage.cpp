@@ -7,7 +7,7 @@ namespace ability
 {
 	Status_Encourage::Status_Encourage() : Status::Status()
 	{
-		addTimePoint(TimePointEvent::Turn_Start);
+		addTimePoint(TimePointEvent::Turn_End);
 		addTimePoint(TimePointEvent::Deal_Damage);
 	}
 
@@ -24,7 +24,7 @@ namespace ability
 		{
 			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAbilityInfo);
 			AbilityInfoPackage* pack = p_event->getPackage(INFO_PACKAGE_KEY);
-			node->effect(pack, UNIT_POWER, m_counter->at(UNIT_POWER));
+			node->effect(pack, UNIT_POWER, m_counter.at(UNIT_POWER));
 			return 0;
 		}
 		return 1;

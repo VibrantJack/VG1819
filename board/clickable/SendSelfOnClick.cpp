@@ -43,9 +43,9 @@ void SendSelfOnClick::onClick()
 	else
 	{
 		e->putInt("highlighted", FALSE);
+		BoardManager::getInstance()->getArea();
 	}
 
-	BoardManager::getInstance()->getArea();
 
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
 
