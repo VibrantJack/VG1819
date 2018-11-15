@@ -17,7 +17,7 @@
 				"description":"Deal 3 damage to target."
 			},
 			{
-				"name":"Quick Shot",
+				"name":"Quick Shoot",
 				"lv":2,
 				"cd":2,
 				"power":2,

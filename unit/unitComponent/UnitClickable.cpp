@@ -123,6 +123,7 @@ void unit::UnitClickable::start()
 	}
 
 	//for test
+	addAbility("Join");
 	addAbility("For test: Level Up");
 	addAbility("For test: Destroy");
 }

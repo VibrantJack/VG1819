@@ -8,8 +8,6 @@ int ability::Ability::damage(unit::Unit* p_target, int power)
 	AbilityNode* node1 = AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
 	AbilityNode* node2 = AbilityNodeManager::getInstance()->findNode(CheckHP);
 
-	std::cout <<p_target->m_name<<" is damaged by "<< power <<std::endl;
-
 	//change hp
 	node1->effect(p_target, UNIT_HP, power);
 	//then check hp

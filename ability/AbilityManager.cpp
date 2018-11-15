@@ -45,10 +45,13 @@ namespace ability
 		m_abilityList[ABILITY_SUMMON_UNIT] = newAbility;
 
 		newAbility = new Move();
-		m_abilityList[ABILITY_MOVE] = newAbility;
+		m_abilityList[ACTION_MOVE] = newAbility;
 
 		newAbility = new Blast();
 		m_abilityList[ABILITY_BLAST] = newAbility;
+
+		newAbility = new Join();
+		m_abilityList[ACTION_JOIN] = newAbility;
 	}
 
 	AbilityManager::AbilityManager()

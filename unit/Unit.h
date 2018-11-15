@@ -23,6 +23,9 @@ namespace unit
 		Commander * m_commander;
 
 		std::vector<kitten::K_GameObject*> m_path;
+
+		bool lateDestroy = false;
+		AbilityDescription m_joinAD;
 	public:
 		std::string m_ID;
 		std::vector<std::string> m_tags;
@@ -36,9 +39,11 @@ namespace unit
 		Unit();
 		~Unit();
 
-		//common
+		//level up
+		void setJoinAD();
+		void join();
 		void levelup();
-		int destroyedByDamage();
+		
 		//commander interface
 		void addCommander(Commander* p_c);
 		bool isCommander();
@@ -74,5 +79,10 @@ namespace unit
 		void cancelAbility(AbilityDescription* p_ad);
 		void setCast(AbilityDescription* p_ad, ability::AbilityInfoPackage* p_pack);
 		void cancelCast();
+
+		//destroy
+		int destroyedByDamage();
+		int destroyedByJoin();
+		void destroy();
 	};
 }
