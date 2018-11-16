@@ -14,11 +14,13 @@
 #define ABILITY_SABOTAGE "Sabotage"
 #define ABILITY_BUILD_WALL "Build the Wall"
 #define ABILITY_ENCOURAGE "Encourage"
-#define ABILITY_QUICK_SHOOT "QuickShoot"
+#define ABILITY_QUICK_SHOOT "Quick Shoot"
 #define ABILITY_SLAY "Slay"
 #define ABILITY_DODGE "Dodge"
-#define ABILITY_MOVE "Move"
 #define ABILITY_BLAST "Blast"
+
+#define ACTION_MOVE "Move"
+#define ACTION_JOIN "Join"
 
 //Rock
 

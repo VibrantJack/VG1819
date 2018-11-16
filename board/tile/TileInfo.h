@@ -7,9 +7,18 @@
 
 #include "kitten\K_Component.h"
 #include "board/tile/landInfo/LandInfoManager.h"
+
 class TileInfo : public kitten::K_Component
 {
 public:
+	enum HighlightType//descending order, ex: area highlight will cover range highlight
+	{
+		ForArea = 0,
+		ForRange,
+		ForOwnedTile,
+		Last,
+	};
+
 	TileInfo(int p_iPosX = 0, int p_iPosY = 0);
 	~TileInfo();
 
@@ -22,8 +31,9 @@ public:
 	void effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit* p_u);
 
 	//highlight 
-	bool isHighlighted();
-	void setHighlighted(bool p_bool);
+	bool isHighlighted(HighlightType p_type);
+	void setHighlighted(HighlightType p_type, bool p_bool);
+	HighlightType getHighlightType();
 
 	//position
 	int getPosX();
@@ -48,7 +58,7 @@ public:
 	void setHighlightedBy(const std::string& p_sId);
 
 private:
-	bool m_bHighlighted;
+	std::unordered_map<HighlightType,bool> m_highlightType;
 	int m_iPosX, m_iPosY;
 	std::string m_sOwnerId;
 	std::string m_sHighlightedBy;

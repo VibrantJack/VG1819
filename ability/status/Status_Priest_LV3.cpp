@@ -17,7 +17,7 @@ namespace ability
 			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
 
 			int power = m_unit->m_ADList[ABILITY_HEAL]->m_intValue[UNIT_POWER];
-
+			
 			node->effect(m_unit, UNIT_HP, power);
 			return 0;
 		}
@@ -27,10 +27,11 @@ namespace ability
 			{
 				m_activate = true;
 
+				addTimePoint(TimePointEvent::Turn_End);
+
 				unit::StatusContainer* sc = m_unit->getStatusContainer();
 				sc->registerTP(TimePointEvent::Turn_End, this);
-				sc->deregisterTP(TimePointEvent::Level_Up, this);
-
+				//sc->deregisterTP(TimePointEvent::Level_Up, this);
 				return 0;
 			}
 		}

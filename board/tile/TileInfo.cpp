@@ -10,7 +10,6 @@
 
 TileInfo::TileInfo(int p_iPosX, int p_iPosY)
 	:
-	m_bHighlighted(false),
 	m_iPosX(p_iPosX),
 	m_iPosY(p_iPosY),
 	m_sOwnerId("NONE"),
@@ -18,6 +17,11 @@ TileInfo::TileInfo(int p_iPosX, int p_iPosY)
 {
 	m_unitGO = nullptr;
 	m_landInfo = nullptr;
+
+	for (int i = ForArea; i != Last; i++)
+	{
+		m_highlightType[static_cast<HighlightType>(i)] = false;
+	}
 }
 
 TileInfo::~TileInfo()
@@ -75,14 +79,25 @@ void TileInfo::effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit * p_
 	}
 }
 
-bool TileInfo::isHighlighted()
+bool TileInfo::isHighlighted(HighlightType p_type)
 {
-	return m_bHighlighted;
+	return m_highlightType[p_type];
 }
 
-void TileInfo::setHighlighted(bool p_bool)
+void TileInfo::setHighlighted(HighlightType p_type, bool p_bool)
 {
-	m_bHighlighted = p_bool;
+	m_highlightType[p_type] = p_bool;
+}
+
+TileInfo::HighlightType TileInfo::getHighlightType()
+{
+	for (int i = ForArea; i != Last; i++)
+	{
+		HighlightType p = static_cast<HighlightType>(i);
+		if(m_highlightType[p])
+			return p;
+	}
+	return Last;
 }
 
 int TileInfo::getPosX()

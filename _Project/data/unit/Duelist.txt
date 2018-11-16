@@ -12,15 +12,21 @@
 				"power":5,
 				"min_range":1,
 				"max_range":1,
-				"area":"line3",
+				"area_mode":"lineH",
+				"area_fix":0,
+				"area_len":3,
 				"description":"Deal 5 damage to enemies."
 			},
 			{
 				"name":"Dodge",
 				"lv":2,
 				"cd":4,
-				"area":"self",
 				"duration":1,
+				"need_unit":1,
+				"min_range":0,
+				"max_range":0,
+				"area_mode":"point",
+				"area_fix":1,
 				"description":"Until next turn, this unit will ignore first damage received."
 			}
 		],

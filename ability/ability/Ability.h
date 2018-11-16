@@ -47,6 +47,12 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
+	class Join : public Ability
+	{
+	public:
+		int effect(AbilityInfoPackage* p_info);
+	};
+
 	class ManipulateTile : public Ability
 	{
 	public:

@@ -43,7 +43,7 @@ void BoardManager::showArea(kitten::K_GameObject* p_pivot)
 		m_areaList = m_area->getTileListWithPivot(p_pivot);
 		applyFilter(&m_areaList);
 
-		m_highlighter->highlightTile(m_areaList);
+		m_highlighter->highlightTile(TileInfo::ForArea, m_areaList);
 	}
 }
 
@@ -51,7 +51,7 @@ void BoardManager::hideArea()
 {
 	if (m_area->isActive())
 	{
-		m_highlighter->unHighlightCurrent();
+		m_highlighter->unhighlightAll(TileInfo::ForArea);
 	}
 }
 
@@ -60,6 +60,7 @@ kitten::Event::TileList BoardManager::getArea()
 	if (m_area->isActive())
 	{
 		m_area->removePattern();
+		m_highlighter->unhighlightAll(TileInfo::ForArea);
 		return m_areaList;
 	}
 	
@@ -117,7 +118,7 @@ void BoardManager::listenEvent(kitten::Event::EventType p_type, kitten::Event * 
 		highlightTile(p_data);
 		break;
 	case kitten::Event::Unhighlight_Tile:
-		unhighlightTile(p_data);
+		m_highlighter->unhighlightAll(TileInfo::ForRange);
 		break;
 	case kitten::Event::Set_Area_Pattern:
 		setArea(p_data);
@@ -146,13 +147,15 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 	setFilter(FILTER, p_data);
 	applyFilter(&list);
   
-	m_highlighter->highlightTile(list);
+	m_highlighter->highlightTile(TileInfo::ForRange, list);
 }
 
+/*
 void BoardManager::unhighlightTile(kitten::Event * p_data)
 {
-	m_highlighter->unHighlightCurrent();
+	m_highlighter->unhighlightAll(TileInfo::ForRange);
 }
+*/
 
 void BoardManager::setFilter(const std::string & p_filter, kitten::Event * p_data)
 {
@@ -179,5 +182,11 @@ void BoardManager::setArea(kitten::Event * p_data)
 	setFilter(AREA_FILTER, p_data);
 
 	kitten::K_GameObject* p = p_data->getGameObj(ORIGIN);
-	showArea(p);
+
+	//show inital highlight
+	TileInfo* info = p->getComponent<TileInfo>();
+	if (info->isHighlighted(TileInfo::ForRange))
+	{
+		showArea(p);
+	}
 }

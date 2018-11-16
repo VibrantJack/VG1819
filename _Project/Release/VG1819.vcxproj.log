@@ -1,2 +1,9 @@
-﻿  VG1819.vcxproj.vcxproj -> C:\Users\Kenneth\Git\VG1819\_Project\Release\VG1819.exe
-  VG1819.vcxproj.vcxproj -> C:\Users\Kenneth\Git\VG1819\_Project\Release\VG1819.pdb (Partial PDB)
+﻿﻿  Status_Dodge.cpp
+  LINK : 0 new modules and 1 (out of 237) modules have changed since prior linking
+  Generating non-SAFESEH image.
+  Starting pass 2
+       Status_Dodge.obj
+       MSVCRTD.lib(loadcfg.obj)
+  Finished pass 2
+  VG1819.vcxproj.vcxproj -> D:\work\VG1819\_Project\Release\VG1819.exe
+

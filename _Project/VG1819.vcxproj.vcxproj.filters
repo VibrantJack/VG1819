@@ -505,6 +505,9 @@
     <ClCompile Include="..\kibble\UnitGameObject\UnitType.cpp">
       <Filter>kibble\UnitGameObject</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\ability\Join.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
