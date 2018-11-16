@@ -80,8 +80,7 @@ void TileGetter::getTiles(kitten::Event * p_data)
 		kitten::K_GameObject* tileGO = p_data->getGameObj(tkey);//find each tile
 
 		m_tileList.push_back(tileGO);
-		if (m_needUnit)
-			getUnit(tileGO);
+		getUnit(tileGO);
 	}
 	m_targetNum++;
 	//check if player need to click more tiles

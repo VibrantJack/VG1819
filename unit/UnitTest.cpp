@@ -81,14 +81,18 @@ namespace unit
 		*/
 
 
-		//kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
-		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(1));
-		//kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Engineer.txt"));
-		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(4));
-		//u1->getTransform().move(10.0f, 0.0f, 0.0f);
+		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(1));//priest
+		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(2));//priest
+		kitten::K_GameObject* u3 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(3));//priest
+		kitten::K_GameObject* u4 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(4));//engineer
+
+		kitten::K_GameObject* u0 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(1));//priest
 		//set initial position
-		u1->getComponent<unit::UnitMove>()->setTile(1,1);
-		u2->getComponent<unit::UnitMove>()->setTile(0,1);
+		u0->getComponent<unit::UnitMove>()->setTile(1, 2);
+		u1->getComponent<unit::UnitMove>()->setTile(2, 2);
+		u2->getComponent<unit::UnitMove>()->setTile(3, 2);
+		u3->getComponent<unit::UnitMove>()->setTile(4, 2);
+		u4->getComponent<unit::UnitMove>()->setTile(5, 2);
 
 		//test unit 
 		unit::Unit* u = u1->getComponent<unit::Unit>();

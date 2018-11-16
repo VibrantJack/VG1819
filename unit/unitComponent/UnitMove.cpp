@@ -73,7 +73,7 @@ void unit::UnitMove::attempToMove(int p_min, int p_max)
 
 	m_ad = new unit::AbilityDescription();
 
-	m_ad->m_stringValue["name"] = ABILITY_MOVE;
+	m_ad->m_stringValue["name"] = ACTION_MOVE;
 	m_ad->m_intValue["target"] = 1;
 	m_ad->m_intValue["min_range"] = p_min;
 	if (p_max < 0)
@@ -119,8 +119,6 @@ void unit::UnitMove::move(kitten::K_GameObject * p_targetTile)
 {
 	//remove unit from current tile
 	m_currentTile->getComponent<TileInfo>()->removeUnit();
-	//add this to target tile
-	p_targetTile->getComponent<TileInfo>()->setUnit(m_attachedObject);
 
 	m_lastTile = m_currentTile;//set current to last
 	m_currentTile = p_targetTile;//set target to current
@@ -161,6 +159,8 @@ kitten::K_GameObject * unit::UnitMove::getTile()
 
 void unit::UnitMove::reset()
 {
+	//set current tile
+	m_currentTile->getComponent<TileInfo>()->setUnit(m_attachedObject);
 	//set the unit's position to current tile
 	glm::vec3 t = m_currentTile->getTransform().getTranslation();//get tile's translation
 	m_attachedObject->getTransform().place(t.x, t.y, t.z);//set unit object to that tile

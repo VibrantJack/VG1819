@@ -1,7 +1,7 @@
 #pragma once
 #include "ability/node/AbilityNode.h"
 #include "Unit/Unit.h"
-
+#include <iostream>
 //Rock
 
 namespace ability
@@ -14,6 +14,8 @@ namespace ability
 	int ChangeAttributeNode::effect(unit::Unit* p_target, const std::string & p_name, int p_value)
 	{
 		std::unordered_map<std::string, int>::iterator it;
+
+		std::cout << p_target->m_name << " : "<<p_name<<" is changed by " << p_value << std::endl;
 
 		it = p_target->m_attributes.find(p_name);
 		if (it != p_target->m_attributes.end())

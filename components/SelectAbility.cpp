@@ -101,6 +101,10 @@ void SelectAbility::select(int p_i)
 	{
 		m_unit->summonUnit();
 	}
+	else if (instrction == "Join")
+	{
+		m_unit->join();
+	}
 	else if (instrction == "For test: Level Up")
 	{
 		m_unit->levelup();

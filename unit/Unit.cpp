@@ -18,6 +18,8 @@ namespace unit
 		m_statusContainer->m_unit = this;
 		m_cdRecorder = new CooldownRecorder();
 		m_castTimer = new CastTimer();
+
+		setJoinAD();
 	}
 
 
@@ -81,8 +83,29 @@ namespace unit
 		}
 	}
 
+	void Unit::setJoinAD()
+	{
+		m_joinAD.m_stringValue["name"] = ACTION_JOIN;
+		m_joinAD.m_intValue["target"] = 1;
+		m_joinAD.m_intValue["need_unit"] = 1;
+		m_joinAD.m_intValue["min_range"] = 1;
+		m_joinAD.m_intValue["max_range"] = 1;
+	}
+
+	void Unit::join()
+	{
+		if (isCommander())//commander can't join to another unit
+			return;
+
+		UnitInteractionManager::getInstance()->request(this, &m_joinAD);
+	}
+
 	void Unit::levelup()
 	{
+		//reset tile
+		m_attachedObject->getComponent<UnitMove>()->reset();
+
+		std::cout << m_name << " is LV "<< m_attributes[UNIT_LV] << std::endl;
 		if (m_attributes[UNIT_LV] > 0 && m_attributes[UNIT_LV] < 3)
 		{
 			m_attributes[UNIT_LV]++;
@@ -144,27 +167,31 @@ namespace unit
 
 	void Unit::moveDone()
 	{
-		assert(m_turn != nullptr);
-		
-		bool moveDone = false;
-		if (!m_path.empty())//has next tile in path
+		if (m_turn != nullptr)//move by action
 		{
-			auto it = m_path.erase(m_path.begin());//remove first tile
-			if (it != m_path.end())
+			bool moveDone = false;
+			if (!m_path.empty())//has next tile in path
 			{
-				move(*it);//move to next
+				auto it = m_path.erase(m_path.begin());//remove first tile
+				if (it != m_path.end())
+				{
+					move(*it);//move to next
+				}
+				else
+					moveDone = true;
 			}
 			else
 				moveDone = true;
-		}
-		else
-			moveDone = true;
 
-		if (moveDone)
-		{
-			m_turn->move = false;
-			m_turn->checkTurn();
+			if (moveDone)
+			{
+				m_turn->move = false;
+				m_turn->checkTurn();
+			}
 		}
+
+		if (lateDestroy)
+			destroy();
 	}
 
 	void Unit::actDone()
@@ -299,9 +326,24 @@ namespace unit
 
 	int Unit::destroyedByDamage()
 	{
-		//send destroyed event
-		std::cout << m_name << " is destroyed! " << std::endl;
-		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
+		//TO DO: send destroyed event
+		destroy();
 		return 0;
+	}
+
+	int Unit::destroyedByJoin()
+	{
+		//TO DO: send destroyed event
+		lateDestroy = true;
+		return 0;
+	}
+
+	void Unit::destroy()
+	{
+		std::cout << m_name << " is destroyed! " << std::endl;
+		//remove from tile
+		getTile()->getComponent<TileInfo>()->removeUnit();
+		//remove from intiative tracker
+		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
 	}
 }
