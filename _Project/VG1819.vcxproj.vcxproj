@@ -219,6 +219,7 @@
     <ClCompile Include="..\puppy\ShaderProgram.cpp" />
     <ClCompile Include="..\puppy\StaticRenderables.cpp" />
     <ClCompile Include="..\puppy\Texture.cpp" />
+    <ClCompile Include="..\puppy\TextureBlendMaterial.cpp" />
     <ClCompile Include="..\puppy\Text\Font.cpp" />
     <ClCompile Include="..\puppy\Text\FontTable.cpp" />
     <ClCompile Include="..\puppy\Text\TextBox.cpp" />
@@ -374,6 +375,7 @@
     <ClInclude Include="..\puppy\ShaderProgram.h" />
     <ClInclude Include="..\puppy\StaticRenderables.h" />
     <ClInclude Include="..\puppy\Texture.h" />
+    <ClInclude Include="..\puppy\TextureBlendMaterial.h" />
     <ClInclude Include="..\puppy\Text\Font.h" />
     <ClInclude Include="..\puppy\Text\FontTable.h" />
     <ClInclude Include="..\puppy\Text\TextBox.h" />

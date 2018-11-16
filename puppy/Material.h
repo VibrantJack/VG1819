@@ -12,13 +12,12 @@ namespace puppy
 	class Material
 	{
 	private:
-		//
-
-	private:
 		//Member variables
 		std::string m_name;
 
 		puppy::Texture* m_tex;
+
+	protected:
 		puppy::ShaderProgram* m_shader;
 
 	public:
@@ -43,6 +42,6 @@ namespace puppy
 
 		int getUniformPlace(const std::string& p_name);
 
-		void apply();
+		virtual void apply();
 	};
 }

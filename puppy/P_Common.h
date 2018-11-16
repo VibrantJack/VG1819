@@ -12,13 +12,12 @@
 #define SIZE_OF_GLFLOAT 4
 #define SIZE_OF_GLSHORT 2
 
-#define PI 3.14159265359
-#define DEG_TO_RAD_FACTOR 0.01745329251
-
+#define MAX_BLEND_TEXTURES 4
 
 #ifndef __APPLE__
 #include <GL/glew.h>
 #endif
+#include "util\MathUtil.h"
 #include <GL/glfw.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
