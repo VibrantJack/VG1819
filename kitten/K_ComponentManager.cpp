@@ -22,6 +22,7 @@
 #include "UI\CardUIO.h"
 #include "UI\HandFrame.h"
 #include "mouse picking/ClickableUI.h"
+#include "UI\NetworkHostButton.h"
 
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
@@ -97,6 +98,13 @@ namespace kitten
 		}else if(p_componentName == "ClickableFrame") // Datadriven
 		{
 			comp = new ClickableFrame(ClickableFrame::piv_BotLeft);
+		} else if (p_componentName == "NetworkHostButton") // Datadriven
+		{
+			comp = new userinterface::NetworkHostButton();
+		}
+		else if (p_componentName == "ButtonFrame")// Datadriven
+		{
+			comp = new userinterface::UIFrame("textures/ui/host_button.tga");
 		}
 		else if (p_componentName == "ClickableUI") // Datadriven
 		{

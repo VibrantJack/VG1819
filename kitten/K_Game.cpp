@@ -36,6 +36,7 @@
 //ui testing
 #include "ui/CardUIO.h"
 #include "ui/HandFrame.h"
+#include "UI\NetworkingMenuUI.h"
 
 //ui clickable testing
 #include "kitten/mouse picking/ClickableUI.h"
@@ -60,8 +61,7 @@ namespace kitten
 		ability::AbilityManager::createInstance();
 		ability::AbilityNodeManager::createInstance();
 
-		// Management of InitiativeTracker moved into ServerGame
-		unit::InitiativeTracker::createInstance();
+		//unit::InitiativeTracker::createInstance();
 
 		BoardManager::createInstance();
 
@@ -82,7 +82,7 @@ namespace kitten
 		//Creating a gameobject
 		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
 		kibble::loadSpriteSheets("MasterSpriteSheet.json");
-		kibble::setSceneFrom(std::string("mainscene.txt"));
+		kibble::setSceneFrom(std::string("network_menu.txt"));
 		
 
 		// Deck Data importing, and exporting
@@ -135,10 +135,10 @@ namespace kitten
 		//delete builder;
 
 		//test unit
-		unit::UnitTest::getInstanceSafe()->test();
+		//unit::UnitTest::getInstanceSafe()->test();
 
 		//UIO TESTING
-		K_GameObject* hand = K_GameObjectManager::getInstance()->createNewGameObject();
+		/*K_GameObject* hand = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* handFrame = compMan->createComponent("Hand");
 		hand->addComponent(handFrame);
 		hand->getTransform().scale2D(600.0f, 150.0f);
@@ -173,7 +173,7 @@ namespace kitten
 			clickUI->start();
 
 			
-		}
+		}*/
 		/*
 		//testing ui frame and textbox
 		K_GameObject* go = K_GameObjectManager::getInstance()->createNewGameObject();
@@ -192,14 +192,22 @@ namespace kitten
 		//*/
 
 		// Networking
-		//networking::ServerGame::createInstance();
-		//_beginthread(serverLoop, 0, (void*)12);
-		//networking::ClientGame::createInstance();
-		K_GameObject* networkingMenu = K_GameObjectManager::getInstance()->createNewGameObject();
-		networkingMenu->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("NetworkingConsoleMenu"));
+		{
+			//networking::ServerGame::createInstance();
+			//_beginthread(serverLoop, 0, (void*)12);
+			//networking::ClientGame::createInstance();
+			//K_GameObject* networkingMenu = K_GameObjectManager::getInstance()->createNewGameObject();
+			//networkingMenu->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("NetworkingConsoleMenu"));
 
-		K_GameObject* spawnUnitOnKeyPress = K_GameObjectManager::getInstance()->createNewGameObject();
-		spawnUnitOnKeyPress->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("SpawnUnitOnKeyPress"));
+			//K_GameObject* spawnUnitOnKeyPress = K_GameObjectManager::getInstance()->createNewGameObject();
+			//spawnUnitOnKeyPress->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("SpawnUnitOnKeyPress"));
+			K_GameObject* networkMenuGO = K_GameObjectManager::getInstance()->createNewGameObject();
+			userinterface::NetworkingMenuUI* networkingUI = new userinterface::NetworkingMenuUI("textures/ui/blankFrame.tga");
+			networkMenuGO->addComponent(networkingUI);
+			networkMenuGO->getTransform().scale2D(1280.0, 720.0);
+			networkMenuGO->getTransform().place2D(0.0, 0.0);
+			networkingUI->init();
+		}
 
 		return true;
 	}
@@ -216,7 +224,7 @@ namespace kitten
 		ability::AbilityManager::destroyInstance();
 		ability::AbilityNodeManager::destroyInstance();
 
-		unit::InitiativeTracker::destroyInstance();
+		//unit::InitiativeTracker::destroyInstance();
 
 		BoardManager::destroyInstance();
 

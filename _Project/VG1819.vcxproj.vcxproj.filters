@@ -505,6 +505,12 @@
     <ClCompile Include="..\kibble\UnitGameObject\UnitType.cpp">
       <Filter>kibble\UnitGameObject</Filter>
     </ClCompile>
+    <ClCompile Include="..\UI\NetworkingMenuUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\NetworkHostButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -959,6 +965,12 @@
     <ClInclude Include="..\kibble\UnitGameObject\UnitType.h">
       <Filter>kibble\UnitGameObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\UI\NetworkingMenuUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\NetworkHostButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1086,6 +1098,9 @@
     </Filter>
     <Filter Include="kibble\UnitGameObject">
       <UniqueIdentifier>{efd93ad5-378b-487c-8d5e-1a84ddc82e55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="networking\networking_menu">
+      <UniqueIdentifier>{55bfff24-e6ce-423f-9f59-d806c680e062}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
