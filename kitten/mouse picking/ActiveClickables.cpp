@@ -43,7 +43,7 @@ namespace kitten
 	{
 		if (p_toRemove == m_lastUIHover)
 		{
-			m_lastUIHover == nullptr;
+			m_lastUIHover = nullptr;
 		}
 
 		m_UIclickables.erase(p_toRemove);

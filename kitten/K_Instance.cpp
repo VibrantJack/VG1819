@@ -73,8 +73,8 @@ namespace kitten
 	{
 		if (m_SceneSwitchFlag) {
 			m_gameObjectManager->destroyAllGameObjects();
-			kitten::ActiveClickables::getInstance()->m_lastUIHover = nullptr;
-			puppy::Renderer::getInstance()->removeAll();
+			//kitten::ActiveClickables::getInstance()->m_lastUIHover = nullptr;
+			//puppy::Renderer::getInstance()->removeAll();
 
 			kibble::setSceneFrom(m_nextScene);
 			m_SceneSwitchFlag = false;
@@ -91,7 +91,7 @@ namespace kitten
 		m_gameObjectManager->deleteQueuedObjects();
 	}
 
-	void K_Instance::flagSceneChange(std::string nextScene) {
+	void K_Instance::changeScene(std::string nextScene) {
 		assert(sm_instance != nullptr);
 		sm_instance->m_SceneSwitchFlag = true;
 		sm_instance->m_nextScene = nextScene;

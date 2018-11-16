@@ -1,0 +1,20 @@
+{
+	"name" : "StartGameButton",
+	"components" : 
+	[
+		{
+			"name" : "UIFrame",
+			"texture" : "textures/crap/cartoon_wood.tga"
+		},
+		{
+			"name" : "ClickableFrame"
+		},
+		{
+			"name" : "ClickableUI"
+		},
+		{
+			"name" : "C",
+			"scene" : "mainscene.txt"
+		}
+	]
+}
