@@ -51,7 +51,7 @@ namespace userinterface
 			delete sm_vao;
 		}
 
-		if (!m_isEnabled)
+		if (m_isEnabled)
 		{
 			removeFromDynamicRender();
 		}
@@ -187,32 +187,31 @@ namespace userinterface
 
 	}
 	
-
-		void UIElement::onDisabled()
-		{
-			removeFromDynamicRender();
-		}
-
-		void UIElement::onEnabled()
-		{
-			addToDynamicRender();
-		}
-
-		void UIElement::render(const glm::mat4& p_ortho)
-		{
-			m_mat->apply();
-
-			glm::mat4 wvp = p_ortho * getTransform().getWorldTransform();
-			m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
-
-			sm_vao->drawArrays(GL_TRIANGLES);
-		}
-
-		void UIElement::setTexture(const char* p_pathToTex)
-		{
-			//delete m_tex;
-			//m_tex = new puppy::Texture(p_pathToTex);
-
-			m_mat->setTexture(p_pathToTex);
-		}
+	void UIElement::onDisabled()
+	{
+		removeFromDynamicRender();
 	}
+
+	void UIElement::onEnabled()
+	{
+		addToDynamicRender();
+	}
+
+	void UIElement::render(const glm::mat4& p_ortho)
+	{
+		m_mat->apply();
+
+		glm::mat4 wvp = p_ortho * getTransform().getWorldTransform();
+		m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
+
+		sm_vao->drawArrays(GL_TRIANGLES);
+	}
+
+	void UIElement::setTexture(const char* p_pathToTex)
+	{
+		//delete m_tex;
+		//m_tex = new puppy::Texture(p_pathToTex);
+
+		m_mat->setTexture(p_pathToTex);
+	}
+}

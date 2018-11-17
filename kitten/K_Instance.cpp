@@ -71,10 +71,9 @@ namespace kitten
 
 	void K_Instance::privateUpdate()
 	{
-		if (m_SceneSwitchFlag) {
+		if (m_SceneSwitchFlag) 
+		{
 			m_gameObjectManager->destroyAllGameObjects();
-			//kitten::ActiveClickables::getInstance()->m_lastUIHover = nullptr;
-			//puppy::Renderer::getInstance()->removeAll();
 
 			kibble::setSceneFrom(m_nextScene);
 			m_SceneSwitchFlag = false;

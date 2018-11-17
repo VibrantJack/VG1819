@@ -13,7 +13,7 @@
 			"name" : "ClickableUI"
 		},
 		{
-			"name" : "C",
+			"name" : "ChangeSceneOnClick",
 			"scene" : "mainscene.txt"
 		}
 	]
