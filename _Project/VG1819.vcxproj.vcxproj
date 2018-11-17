@@ -127,6 +127,7 @@
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\ability\status\Status_LV.cpp" />
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
+    <ClCompile Include="..\ability\status\Status_Temp_Change.cpp" />
     <ClCompile Include="..\board\component\area\Area.cpp" />
     <ClCompile Include="..\board\component\area\AreaPattern.cpp" />
     <ClCompile Include="..\board\component\area\LineHPattern.cpp" />
@@ -142,7 +143,10 @@
     <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
+    <ClCompile Include="..\board\tile\landInfo\ForestLand.cpp" />
+    <ClCompile Include="..\board\tile\landInfo\GardenLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\LandInfoManager.cpp" />
+    <ClCompile Include="..\board\tile\landInfo\SandLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\kibble\custom\CustomDeckDataParser.cpp" />

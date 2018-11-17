@@ -17,7 +17,6 @@ namespace ability
 		{
 			//reduce duration
 			changeCounter();
-			checkDuration();
 			return 0;
 		}
 		else if (p_type == ability::TimePointEvent::Deal_Damage)

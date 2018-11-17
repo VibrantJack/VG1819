@@ -508,6 +508,18 @@
     <ClCompile Include="..\ability\ability\Join.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Temp_Change.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\landInfo\SandLand.cpp">
+      <Filter>board\tile\landInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\landInfo\ForestLand.cpp">
+      <Filter>board\tile\landInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\landInfo\GardenLand.cpp">
+      <Filter>board\tile\landInfo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

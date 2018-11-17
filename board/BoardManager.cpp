@@ -6,9 +6,9 @@
 
 BoardManager* BoardManager::sm_instance = nullptr;
 
-void BoardManager::setTileList(std::vector<kitten::K_GameObject*>* p_list)
+void BoardManager::setTileList(std::vector<kitten::K_GameObject*> p_list)
 {
-	m_tileList = *p_list;
+	m_tileList = p_list;
 }
 
 void BoardManager::setDimension(int p_x, int p_z)

@@ -24,7 +24,7 @@ public:
 	static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
 	static BoardManager * getInstance() { return sm_instance; };
 
-	void setTileList(std::vector<kitten::K_GameObject*>* p_list);
+	void setTileList(std::vector<kitten::K_GameObject*> p_list);
 	void setDimension(int p_x, int p_z);
 	std::pair<int, int> getDimension();
 	kitten::K_GameObject* getTile(int p_x, int p_z);

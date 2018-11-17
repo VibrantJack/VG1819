@@ -3,6 +3,7 @@
 #include "kitten\K_GameObject.h"
 #include "kitten\event_system\EventManager.h"
 #include "board/component/Range.h"
+#include "board/tile/landInfo/LandInformation.h"
 #include <vector>
 #include <array>
 
@@ -21,5 +22,5 @@ public:
 
 private:
 
-	kitten::K_GameObject* createTile(int x, int z);
+	kitten::K_GameObject* createTile(int x, int z, LandInformation::TileType p_type = LandInformation::Grass_land);
 };

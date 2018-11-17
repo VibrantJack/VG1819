@@ -113,6 +113,8 @@ namespace ability
 		if (m_counter.find(p_cName) != m_counter.end())
 		{
 			m_counter.at(p_cName) += p_value;
+			if (p_cName == UNIT_DURATION)
+				checkDuration();
 			return 0;
 		}
 		//not find target counter
@@ -125,9 +127,14 @@ namespace ability
 		{
 			if (m_counter.at(UNIT_DURATION) <= 0)
 			{
+				effectEnd();
 				removeThis();
 			}
 		}
+	}
+
+	void Status::effectEnd()
+	{
 	}
 }
 

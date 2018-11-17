@@ -29,16 +29,6 @@
 
 namespace ability
 {
-	/*move to TimePointEvent class
-	enum TimePointEvent
-	{
-		Turn_Start,
-		Turn_End,
-		Level_Up,
-		New_Tile,
-		Deal_Damage,
-		Receive_Damage,
-	};*/
 	class Status
 	{
 	public:
@@ -81,6 +71,7 @@ namespace ability
 		void removeThis();
 		int changeCounter(const std::string& p_cName = "duration", int p_value = -1);
 		void checkDuration();
+		virtual void effectEnd();
 	};
 
 	class Status_LV : public Status
@@ -142,6 +133,16 @@ namespace ability
 		Status* clone() const { return new Status_Duelist_LV3(*this); };
 
 		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+	};
+
+	class Status_Temp_Change : public Status
+	{
+	public:
+		Status_Temp_Change();
+		Status* clone() const { return new Status_Temp_Change(*this); };
+		int effect();
+		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		void effectEnd();
 	};
 }
 

@@ -28,6 +28,11 @@ namespace ability
 			p_target->m_attributes[p_name] = p_value;
 		}
 
+		if (p_name == UNIT_HP || p_name == UNIT_MAX_HP)
+		{
+			AbilityNodeManager::getInstance()->findNode(CheckHP)->effect();
+		}
+
 		if (p_target->m_attributes[p_name] < 0)
 			p_target->m_attributes[p_name];//no negative value
 
