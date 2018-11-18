@@ -4,3 +4,4 @@ Archer.txt
 Duelist.txt
 Engineer.txt
 Wall.txt
+newUnitObject.txt

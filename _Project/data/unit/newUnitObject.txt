@@ -7,7 +7,7 @@
 		"cost":4,
 		"tags": ["Commander","Dummy"],
 		"commander":{
-			"portrait_path" = "place_holder"
+			"portrait_path" : "place_holder"
 		},
 		"ability_description":[
 			{
@@ -37,8 +37,8 @@
 	"components" : [
 		{
 			"name" : "UnitGraphic",
-			"texpath":"textures/unit/Engineer.tga",
-			"size": 0
+			"texture":"textures/unit/Engineer.tga",
+			"unitsize": "point"
 		},
 		{
 			"name" : "UnitMove",
@@ -46,11 +46,8 @@
 		},
 		{
 			"name" : "ClickableBox",
-			"minPoint":[-0.5,-0.5,0],
-			"maxPoint":[0.5,0.5,0]
-		},
-		{
-			"name" : "UnitClickable"
+			"minpoint":[-0.5,-0.5,0],
+			"maxpoint":[0.5,0.5,0]
 		},
 		{
 			"name" : "SpriteRenderable"
@@ -60,6 +57,6 @@
 			"spritename" : "wizard"
 		}
 	],
-	"scaleRelative" : [2.0, 2.0, 0.0],
-	"rotateRelative" : [45, 0, 0]
+	"scale" : [2.0, 2.0, 0.0],
+	"rotate" : [45, 0, 0]
 }
