@@ -2,7 +2,7 @@
 
 namespace puppy
 {
-	TextureBlendMaterial::TextureBlendMaterial() : Material(ShaderType::basic)
+	TextureBlendMaterial::TextureBlendMaterial() : Material(ShaderType::texture_blend_zero)
 	{
 
 	}
@@ -16,6 +16,11 @@ namespace puppy
 		}
 	}
 
+	void TextureBlendMaterial::setTexture(const char* p_pathToTex)
+	{
+		addTexture(p_pathToTex);
+	}
+
 	void TextureBlendMaterial::addTexture(const char* p_pathToTexToAdd, const float& p_weight)
 	{
 		int numTextures = m_additionalTextures.size();
@@ -24,7 +29,7 @@ namespace puppy
 		std::tuple<Texture*, int, float> toInsert = std::make_tuple(new Texture(p_pathToTexToAdd, numTextures), numTextures+1, p_weight);
 
 		//Change shader
-		m_shader = ShaderManager::getShaderProgram(static_cast<ShaderType>(ShaderType::basic + numTextures+1));
+		m_shader = ShaderManager::getShaderProgram(static_cast<ShaderType>(ShaderType::texture_blend_zero + numTextures));
 	}
 
 	void TextureBlendMaterial::removeTexture(const char* p_pathToTexToRemove)
@@ -35,19 +40,29 @@ namespace puppy
 			delete std::get<0>((*found).second);
 			m_additionalTextures.erase(found);
 
-			m_shader = ShaderManager::getShaderProgram(static_cast<ShaderType>(ShaderType::basic + m_additionalTextures.size()));
+			m_shader = ShaderManager::getShaderProgram(static_cast<ShaderType>(ShaderType::texture_blend_zero + m_additionalTextures.size()));
 		}
 		else
 		{
 			assert(false);
 		}
 	}
+	
+	void TextureBlendMaterial::changeWeight(const char* p_pathToTex, const float& p_weight)
+	{
+		auto found = m_additionalTextures.find(p_pathToTex);
+
+		assert(found != m_additionalTextures.cend());
+
+		float& oldWeight = std::get<2>((*found).second);
+		oldWeight = p_weight;
+	}
 
 	void TextureBlendMaterial::apply()
 	{
-		Material::apply();
+		ShaderManager::applyShader(m_shader);
 
-		//Apply additional textures
+		//Apply textures
 		auto end = m_additionalTextures.cend();
 		for (auto it = m_additionalTextures.cbegin(); it != end; ++it)
 		{

@@ -15,8 +15,12 @@ namespace puppy
 		TextureBlendMaterial();
 		~TextureBlendMaterial();
 
+		virtual void setTexture(const char* p_pathToTex) override;
+
 		void addTexture(const char* p_pathToTexToAdd, const float& p_weight = 1.0f);
 		void removeTexture(const char* p_pathToTexToRemove);
+
+		void changeWeight(const char* p_pathToTex, const float& p_weight);
 
 		virtual void apply() override;
 	};

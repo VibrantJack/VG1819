@@ -24,7 +24,7 @@ namespace puppy
 		Material(ShaderType p_shaderType);
 		~Material();
 
-		void setTexture(const char* p_pathToTex);
+		virtual void setTexture(const char* p_pathToTex);
 		puppy::Texture* getTexture() const;
 
 		//Uniform will be set every time the material is applied
