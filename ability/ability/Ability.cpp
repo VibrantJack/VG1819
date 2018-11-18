@@ -6,12 +6,9 @@
 int ability::Ability::damage(unit::Unit* p_target, int power)
 {
 	AbilityNode* node1 = AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
-	AbilityNode* node2 = AbilityNodeManager::getInstance()->findNode(CheckHP);
 
 	//change hp
 	node1->effect(p_target, UNIT_HP, power);
-	//then check hp
-	node2->effect(p_target);
 
 	return 0;
 }

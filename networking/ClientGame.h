@@ -7,6 +7,9 @@
 #include "kitten\K_GameObject.h"
 #include <map>
 
+// Ability 
+#include "ability\AbilityInfoPackage.h"
+
 namespace networking
 {
 	class ClientGame
@@ -28,15 +31,32 @@ namespace networking
 
 		void update();
 
-		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);
-		int getClientId() { return m_iClientId; }
+		void sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
+
+		void singleTargetAbility(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iDur, int p_iPow);
+		void sendSingleTargetPacket(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iDur, int p_iPow);
+
+		void singleTileAbility(const std::string &p_strAbilityName, int p_iPosX, int p_iPosY);
+		void sendSingleTilePacket(const std::string &p_strAbilityName, int p_iPosX, int p_iPosY);
+
+		void sourceTargetDamageAbility(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iPower);
+		void sendSourceTargetDamagePacket(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iPower);
+
+		void manipulateTile(const std::string & p_strAbilityName, int p_iUnitIndex, int p_iPosX, int p_iPosY);
+		void sendManipulateTilePacket(const std::string & p_strAbilityName, int p_iUnitIndex, int p_iPosX, int p_iPosY);
 
 		void summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
-		void moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY);
-
-		void sendPacket(Packet* p_packet);
 		void sendSummonUnitPacket(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
-		void sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY);
+
+		void moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY);
+		void sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY);		
+
+		void sendPacket(Packet* p_packet);				
+
+		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);
+		kitten::K_GameObject* getUnitGameObject(int p_iIndex);
+		void removeUnitGameObject(int p_iUnitIndex);
+		int getClientId() { return m_iClientId; }
 
 	private:
 		ClientNetwork* m_network;

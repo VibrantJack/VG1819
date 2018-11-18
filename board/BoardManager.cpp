@@ -6,9 +6,9 @@
 
 BoardManager* BoardManager::sm_instance = nullptr;
 
-void BoardManager::setTileList(std::vector<kitten::K_GameObject*>* p_list)
+void BoardManager::setTileList(std::vector<kitten::K_GameObject*> p_list)
 {
-	m_tileList = *p_list;
+	m_tileList = p_list;
 }
 
 void BoardManager::setDimension(int p_x, int p_z)
@@ -25,10 +25,10 @@ std::pair<int, int> BoardManager::getDimension()
 kitten::K_GameObject * BoardManager::getTile(int p_x, int p_z)
 {
 	std::pair<int, int> pos(p_x, p_z);
-	int x_length = m_dimension.first;
-	if (pos == m_tileList[p_x * x_length + p_z]->getComponent<TileInfo>()->getPos())
+	int z_length = m_dimension.second;
+	if (pos == m_tileList[p_x * z_length + p_z]->getComponent<TileInfo>()->getPos())
 	{
-		return m_tileList[p_x * x_length + p_z];
+		return m_tileList[p_x * z_length + p_z];
 	}
 	assert(false);//not found tile or wrong in position
 	return nullptr;

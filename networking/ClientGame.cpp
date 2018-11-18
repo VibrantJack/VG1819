@@ -8,6 +8,7 @@
 #include "networking\ClientGame.h"
 #include <assert.h>
 #include <iostream>
+#include <unordered_map>
 
 // Kibble
 #include "kibble\databank\databank.hpp"
@@ -63,11 +64,11 @@ namespace networking
 			delete m_network;
 		}
 
-		auto end = m_unitGOList.end();
+		/*auto end = m_unitGOList.end();
 		for (auto it = m_unitGOList.begin(); it != end; ++it)
 		{
 			kitten::K_GameObjectManager::getInstance()->destroyGameObject((*it).second);
-		}
+		}*/
 	}
 
 	void ClientGame::setupNetwork(const std::string &p_strAddr)
@@ -169,7 +170,6 @@ namespace networking
 				summonUnitPacket.deserialize(&(m_network_data[i]));
 				i += SUMMON_UNIT_PACKET_SIZE;
 
-				// Call function here that summons a unit
 				summonUnit(summonUnitPacket.clientId, summonUnitPacket.unitId, summonUnitPacket.posX, summonUnitPacket.posY);
 				break;
 			}
@@ -182,8 +182,59 @@ namespace networking
 				i += UNIT_MOVE_PACKET_SIZE;
 				printf("[Client: %d] received Unit index: %d, posX: %d, posY: %d\n", m_iClientId, unitMovePacket.unitIndex, unitMovePacket.posX, unitMovePacket.posY);
 
-				// Call function here that summons a unit
 				moveUnit(unitMovePacket.unitIndex, unitMovePacket.posX, unitMovePacket.posY);
+				break;
+			}
+			case PacketTypes::MANIPULATE_TILE:
+			{
+				printf("[Client: %d] received MANIPULATE_TILE packet from server\n", m_iClientId);
+
+				ManipulateTilePacket manipPacket;
+				manipPacket.deserialize(&(m_network_data[i]));
+				i += MANIPULATE_PACKET_SIZE;
+				printf("[Client: %d] received ability name: %s, unit index: %d, posX: %d, posY: %d\n", 
+					m_iClientId, manipPacket.abilityName, manipPacket.unitIndex, manipPacket.posX, manipPacket.posY);
+				
+				manipulateTile(manipPacket.abilityName, manipPacket.unitIndex, manipPacket.posX, manipPacket.posY);
+				break;
+			}
+			case PacketTypes::SOURCE_TARGET_DMG_ABILITY:
+			{
+				printf("[Client: %d] received SOURCE_TARGET_DMG_ABILITY packet from server\n", m_iClientId);
+
+				SourceTargetDamagePacket stpPacket;
+				stpPacket.deserialize(&(m_network_data[i]));
+				i += SOURCE_TARGET_DAMAGE_PACKET_SIZE;
+				printf("[Client: %d] received ability name: %s, source index: %d, target index: %d, power: %d\n",
+					m_iClientId, stpPacket.abilityName, stpPacket.sourceUnitIndex, stpPacket.targetUnitIndex, stpPacket.power);
+				
+				sourceTargetDamageAbility(stpPacket.abilityName, stpPacket.sourceUnitIndex, stpPacket.targetUnitIndex, stpPacket.power);
+				break;
+			}
+			case PacketTypes::SINGLE_TILE_ABILITY:
+			{
+				printf("[Client: %d] received SINGLE_TILE_ABILITY packet from server\n", m_iClientId);
+
+				SingleTilePacket stPacket;
+				stPacket.deserialize(&(m_network_data[i]));
+				i += SINGLE_TILE_PACKET_SIZE;
+				printf("[Client: %d] received ability name: %s, posX: %d, posY: %d\n",
+					m_iClientId, stPacket.abilityName, stPacket.posX, stPacket.posY);
+
+				singleTileAbility(stPacket.abilityName, stPacket.posX, stPacket.posY);
+				break;
+			}
+			case PacketTypes::SINGLE_TARGET_ABILITY:
+			{
+				printf("[Client: %d] received SINGLE_TARGET_ABILITY packet from server\n", m_iClientId);
+
+				SingleTargetPacket sTgtPacket;
+				sTgtPacket.deserialize(&(m_network_data[i]));
+				i += SINGLE_TARGET_PACKET_SIZE;
+				printf("[Client: %d] received ability name: %s, source unit: %d, target index: %d, dur: %d, pow: %d\n",
+					m_iClientId, sTgtPacket.abilityName, sTgtPacket.sourceUnitIndex, sTgtPacket.targetUnitIndex, sTgtPacket.dur, sTgtPacket.pow);
+
+				singleTargetAbility(sTgtPacket.abilityName, sTgtPacket.sourceUnitIndex, sTgtPacket.targetUnitIndex, sTgtPacket.dur, sTgtPacket.pow);
 				break;
 			}
 			default:
@@ -193,16 +244,172 @@ namespace networking
 		}
 	}
 
-	int ClientGame::getUnitGameObjectIndex(kitten::K_GameObject* p_unit)
+	void ClientGame::sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info)
 	{
-		for (auto it = m_unitGOList.begin(); it != m_unitGOList.end(); ++it)
+		if (p_strAbilityName == ABILITY_MANIPULATE_TILE)
 		{
-			if (it->second == p_unit)
-			{
-				return it->first;
-			}
+			TileInfo* tileInfo = p_info->m_targetTilesGO[0]->getComponent<TileInfo>();
+			int posX = tileInfo->getPosX();
+			int posY = tileInfo->getPosY();
+
+			int unitIndex = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
+			sendManipulateTilePacket(p_strAbilityName, unitIndex, posX, posY);
 		}
-		return -1; // Not found
+		else if (p_strAbilityName == ABILITY_FIGHT || p_strAbilityName == ABILITY_HEAL 
+			|| p_strAbilityName == ABILITY_SHOOT || p_strAbilityName == ABILITY_SABOTAGE)// These have the same pkg contents
+		{
+			int sourceUnitIndex = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
+			int targetUnitIndex = getUnitGameObjectIndex(&p_info->m_targets[0]->getGameObject());
+			int power = p_info->m_intValue.find(UNIT_POWER)->second;
+			sendSourceTargetDamagePacket(p_strAbilityName, sourceUnitIndex, targetUnitIndex, power);
+		}
+		else if (p_strAbilityName == ABILITY_BUILD_WALL || p_strAbilityName == ABILITY_SUMMON_UNIT)// These have the same package contents
+		{
+			TileInfo* tileInfo = p_info->m_targetTilesGO[0]->getComponent<TileInfo>();
+			int posX = tileInfo->getPosX();
+			int posY = tileInfo->getPosY();
+			sendSingleTilePacket(p_strAbilityName, posX, posY);
+		}
+		else if (p_strAbilityName == ABILITY_ENCOURAGE || p_strAbilityName == ABILITY_DODGE)// These have the same package contents
+		{
+			int sourceUnitIndex = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
+			int targetUnitIndex = getUnitGameObjectIndex(&p_info->m_targets[0]->getGameObject());
+			int dur = p_info->m_intValue.find(UNIT_DURATION)->second;
+			int pow;
+			auto iter = p_info->m_intValue.find(UNIT_POWER);
+			if (iter != p_info->m_intValue.end())
+				pow = iter->second;
+			else
+				pow = 0;
+
+			sendSingleTargetPacket(p_strAbilityName, sourceUnitIndex, targetUnitIndex, dur, pow);
+		}
+	}
+
+	void ClientGame::singleTargetAbility(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iDur, int p_iPow)
+	{
+		// Reconstructing AbilityInfoPackage
+
+		ability::AbilityInfoPackage* pkg = new ability::AbilityInfoPackage();
+		pkg->m_source = getUnitGameObject(p_iSourceUnitIndex)->getComponent<unit::Unit>();
+
+		// Getting the target unit; need to push into a vector then assign the new vector to m_targets
+		std::vector<unit::Unit*> targets;
+		targets.push_back(getUnitGameObject(p_iTargetUnitIndex)->getComponent<unit::Unit>());
+		pkg->m_targets = targets;
+
+		// Storing int values
+		std::unordered_map<std::string, int> intValues;
+		intValues[UNIT_DURATION] = p_iDur;
+		intValues[UNIT_POWER] = p_iPow;
+		pkg->m_intValue = intValues;
+
+		ability::AbilityManager::getInstance()->findAbility(p_strAbilityName)->effect(pkg);
+	}
+
+	void ClientGame::sendSingleTargetPacket(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iDur, int p_iPow)
+	{
+		SingleTargetPacket packet;
+		packet.packetType = SINGLE_TARGET_ABILITY;
+		strcpy(packet.abilityName, p_strAbilityName.c_str());
+		packet.sourceUnitIndex = p_iSourceUnitIndex;
+		packet.targetUnitIndex = p_iTargetUnitIndex;
+		packet.dur = p_iDur;
+		packet.pow = p_iPow;
+
+		char data[SINGLE_TARGET_PACKET_SIZE];
+		packet.serialize(data);
+
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, SINGLE_TARGET_PACKET_SIZE);
+	}
+
+	void ClientGame::singleTileAbility(const std::string &p_strAbilityName, int p_iPosX, int p_iPosY)
+	{
+		ability::AbilityInfoPackage* pkg = new ability::AbilityInfoPackage();
+
+		std::vector<kitten::K_GameObject*> tiles;
+		tiles.push_back(BoardManager::getInstance()->getTile(p_iPosX, p_iPosY));
+		pkg->m_targetTilesGO = tiles;
+
+		ability::AbilityManager::getInstance()->findAbility(p_strAbilityName)->effect(pkg);
+	}
+
+	void ClientGame::sendSingleTilePacket(const std::string &p_strAbilityName, int p_iPosX, int p_iPosY)
+	{
+		SingleTilePacket packet;
+		packet.packetType = SINGLE_TILE_ABILITY;
+		strcpy(packet.abilityName, p_strAbilityName.c_str());
+		packet.posX = p_iPosX;
+		packet.posY = p_iPosY;
+
+		char data[SINGLE_TILE_PACKET_SIZE];
+		packet.serialize(data);
+
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, SINGLE_TILE_PACKET_SIZE);
+	}
+
+	void ClientGame::sourceTargetDamageAbility(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iPower)
+	{
+		// Reconstructing AbilityInfoPackage
+
+		// Getting the source unit
+		ability::AbilityInfoPackage* pkg = new ability::AbilityInfoPackage();
+		pkg->m_source = getUnitGameObject(p_iSourceUnitIndex)->getComponent<unit::Unit>();
+
+		// Getting the target unit; need to push into a vector then assign the new vector to m_targets
+		std::vector<unit::Unit*> targets;
+		targets.push_back(getUnitGameObject(p_iTargetUnitIndex)->getComponent<unit::Unit>());
+		pkg->m_targets = targets;
+
+		// Getting the power of the ability; need to assign to map then assign the new map to m_intValue
+		std::unordered_map<std::string, int> intValues;
+		intValues[UNIT_POWER] = p_iPower;
+		pkg->m_intValue = intValues;
+		
+		ability::AbilityManager::getInstance()->findAbility(p_strAbilityName)->effect(pkg);
+	}
+
+	void ClientGame::sendSourceTargetDamagePacket(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iPower)
+	{
+		SourceTargetDamagePacket packet;
+		packet.packetType = SOURCE_TARGET_DMG_ABILITY;
+		strcpy(packet.abilityName, p_strAbilityName.c_str());
+		packet.sourceUnitIndex = p_iSourceUnitIndex;
+		packet.targetUnitIndex = p_iTargetUnitIndex;
+		packet.power = p_iPower;
+
+		char data[SOURCE_TARGET_DAMAGE_PACKET_SIZE];
+		packet.serialize(data);
+
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, SOURCE_TARGET_DAMAGE_PACKET_SIZE);
+	}
+
+	void ClientGame::manipulateTile(const std::string & p_strAbilityName, int p_iUnitIndex, int p_iPosX, int p_iPosY)
+	{
+		ability::AbilityInfoPackage* pkg = new ability::AbilityInfoPackage();
+		std::vector<kitten::K_GameObject*> tiles;
+		tiles.push_back(BoardManager::getInstance()->getTile(p_iPosX, p_iPosY));
+		pkg->m_targetTilesGO = tiles;
+		pkg->m_source = getUnitGameObject(p_iUnitIndex)->getComponent<unit::Unit>();
+
+		ability::AbilityManager::getInstance()->findAbility(p_strAbilityName)->effect(pkg);
+	}
+
+	// p_iUnitIndex: The index of the unit GO that is manipulating the tile
+	// p_iPosX, p_iPosX: The x and y position of the tile being manipulated
+	void ClientGame::sendManipulateTilePacket(const std::string & p_strAbilityName, int p_iUnitIndex, int p_iPosX, int p_iPosY)
+	{
+		ManipulateTilePacket packet;
+		packet.packetType = MANIPULATE_TILE;
+		strcpy(packet.abilityName, p_strAbilityName.c_str());
+		packet.unitIndex = p_iUnitIndex;
+		packet.posX = p_iPosX;
+		packet.posY = p_iPosY;
+
+		char data[MANIPULATE_PACKET_SIZE];
+		packet.serialize(data);
+
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, MANIPULATE_PACKET_SIZE);
 	}
 
 	void ClientGame::summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
@@ -222,15 +429,39 @@ namespace networking
 		unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 	}
 
+	void ClientGame::sendSummonUnitPacket(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
+	{
+		SummonUnitPacket packet;
+		packet.packetType = PacketTypes::SUMMON_UNIT;
+		packet.clientId = p_iClientId;
+		packet.unitId = p_iUnitId;
+		packet.posX = p_iPosX;
+		packet.posY = p_iPosY;
+
+		char data[SUMMON_UNIT_PACKET_SIZE];
+		packet.serialize(data);
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, SUMMON_UNIT_PACKET_SIZE);
+	}
+
 	void ClientGame::moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY)
 	{
 		kitten::K_GameObject* targetTile = BoardManager::getInstance()->getTile(p_iPosX, p_iPosY);
 
-		auto it = m_unitGOList.find(p_iUnitIndex);
-		if (it != m_unitGOList.end())
-		{
-			it->second->getComponent<unit::UnitMove>()->move(targetTile);
-		}		
+		getUnitGameObject(p_iUnitIndex)->getComponent<unit::UnitMove>()->move(targetTile);	
+	}
+
+	void ClientGame::sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY)
+	{
+		UnitMovePacket packet;
+		packet.packetType = PacketTypes::UNIT_MOVE;
+		packet.clientId = m_iClientId;
+		packet.unitIndex = p_iUnitIndex;
+		packet.posX = p_iPosX;
+		packet.posY = p_iPosY;
+
+		char data[UNIT_MOVE_PACKET_SIZE];
+		packet.serialize(data);
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, UNIT_MOVE_PACKET_SIZE);
 	}
 
 	void ClientGame::sendPacket(Packet* p_packet)
@@ -263,31 +494,34 @@ namespace networking
 
 	}
 
-	void ClientGame::sendSummonUnitPacket(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
+	int ClientGame::getUnitGameObjectIndex(kitten::K_GameObject* p_unit)
 	{
-		SummonUnitPacket packet;
-		packet.packetType = PacketTypes::SUMMON_UNIT;
-		packet.clientId = p_iClientId;
-		packet.unitId = p_iUnitId;
-		packet.posX = p_iPosX;
-		packet.posY = p_iPosY;
-
-		char data[SUMMON_UNIT_PACKET_SIZE];
-		packet.serialize(data);
-		NetworkServices::sendMessage(m_network->m_connectSocket, data, SUMMON_UNIT_PACKET_SIZE);
+		for (auto it = m_unitGOList.begin(); it != m_unitGOList.end(); ++it)
+		{
+			if (it->second == p_unit)
+			{
+				return it->first;
+			}
+		}
+		return -1; // Not found
 	}
 
-	void ClientGame::sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY)
+	kitten::K_GameObject* ClientGame::getUnitGameObject(int p_iIndex)
 	{
-		UnitMovePacket packet;
-		packet.packetType = PacketTypes::UNIT_MOVE;
-		packet.clientId = m_iClientId;
-		packet.unitIndex = p_iUnitIndex;
-		packet.posX = p_iPosX;
-		packet.posY = p_iPosY;
+		auto it = m_unitGOList.find(p_iIndex);
+		if (it != m_unitGOList.end())
+		{
+			return it->second;
+		}
+		return nullptr;
+	}
 
-		char data[UNIT_MOVE_PACKET_SIZE];
-		packet.serialize(data);
-		NetworkServices::sendMessage(m_network->m_connectSocket, data, UNIT_MOVE_PACKET_SIZE);
+	void ClientGame::removeUnitGameObject(int p_iUnitIndex)
+	{
+		auto it = m_unitGOList.find(p_iUnitIndex);
+		if (it != m_unitGOList.end())
+		{
+			m_unitGOList.erase(it);
+		}
 	}
 }

@@ -23,7 +23,7 @@ public:
 	~TileInfo();
 
 	//land info
-	void setType(LandInformation::TileType p_type = LandInformation::Grassland);
+	void setType(LandInformation::TileType p_type = LandInformation::Grass_land);
 	void start();
 	void setRenderTexture();
 	int getMVCost();

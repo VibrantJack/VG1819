@@ -78,7 +78,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\irrKlang\include;$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\networking_libraries\include;$(SolutionDir)..\irrKlang\include;$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
       <AdditionalOptions>/Qpar %(AdditionalOptions)</AdditionalOptions>
@@ -86,7 +86,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\networking_libraries;$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -128,6 +128,7 @@
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\ability\status\Status_LV.cpp" />
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
+    <ClCompile Include="..\ability\status\Status_Temp_Change.cpp" />
     <ClCompile Include="..\board\component\area\Area.cpp" />
     <ClCompile Include="..\board\component\area\AreaPattern.cpp" />
     <ClCompile Include="..\board\component\area\LineHPattern.cpp" />
@@ -143,7 +144,10 @@
     <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
+    <ClCompile Include="..\board\tile\landInfo\ForestLand.cpp" />
+    <ClCompile Include="..\board\tile\landInfo\GardenLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\LandInfoManager.cpp" />
+    <ClCompile Include="..\board\tile\landInfo\SandLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\kibble\custom\CustomDeckDataParser.cpp" />

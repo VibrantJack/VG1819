@@ -72,6 +72,13 @@ void TileGetter::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_
 void TileGetter::getTiles(kitten::Event * p_data)
 {
 	int tnum = p_data->getInt(TILE_NUMBER);//get total number of tiles in event
+
+	if (tnum == 0)
+	{
+		cancel();
+		return;
+	}
+
 	for (int i = 0; i < tnum; i++)
 	{
 		std::stringstream stm;

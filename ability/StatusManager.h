@@ -13,6 +13,7 @@
 #define STATUS_ARCHER_LV3 "Status_Archer_LV3"
 #define STATUS_DUELIST_LV3 "Status_Duelist_LV3"
 #define STATUS_DODGE "Status_Dodge"
+#define STATUS_TEMP_CHANGE "Status_Temp_Change"
 //Rock
 
 namespace ability

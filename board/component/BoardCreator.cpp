@@ -22,6 +22,10 @@
 
 #include "board/BoardManager.h"
 
+#include <iostream>
+#include <string>
+#include <fstream>
+
 
 BoardCreator::BoardCreator() :m_x(15), m_z(15)
 {
@@ -38,11 +42,37 @@ void BoardCreator::start()
 	//create tile
 	std::vector<kitten::K_GameObject*> list;
 
+	std::vector<LandInformation::TileType> land;
+	bool hasmap = false;
+	std::ifstream file("data/map");
+	if (file.is_open())
+	{//read dimension
+		file >> m_x;
+		file >> m_z;
+		hasmap = true;
+		for (int i = 0; i < m_x * m_z; ++i)
+		{
+			int l;
+			file >> l;
+			land.push_back(static_cast<LandInformation::TileType>(l));
+		}
+	}
+
+	int i = 0;
 	for (int x = 0; x < m_x; x++)
 	{
 		for (int z = 0; z < m_z; z++)
 		{
-			kitten::K_GameObject* tileGO = createTile(x, z);
+			kitten::K_GameObject* tileGO;
+			if (hasmap)
+			{
+				tileGO = createTile(x, z, land[i]);
+				i++;
+			}
+			else
+			{
+				tileGO = createTile(x, z);
+			}
 			list.push_back(tileGO);
 
 			kitten::Transform& transform = tileGO->getTransform();
@@ -50,8 +80,9 @@ void BoardCreator::start()
 			transform.setIgnoreParent(true);
 		}
 	}
+
 	//pass tile list and dimension to board manager
-	BoardManager::getInstance()->setTileList(&list);
+	BoardManager::getInstance()->setTileList(list);
 	BoardManager::getInstance()->setDimension(m_x,m_z);
 
 	// PowerTracker component attached to Board GO
@@ -70,16 +101,17 @@ void BoardCreator::setDimension(int x, int z)
 }
 
 
-kitten::K_GameObject * BoardCreator::createTile(int x, int z)
+kitten::K_GameObject * BoardCreator::createTile(int x, int z, LandInformation::TileType p_type)
 {
 	kitten::K_GameObjectManager* gameObjMan = kitten::K_GameObjectManager::getInstance();
 	kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
 
 	kitten::K_GameObject* tileGO = gameObjMan->createNewGameObject("tileobj.txt");
 
+	/*this is test of clickable, not useful anymore
 	PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
 	printWhenClick->setMessage("grassy tile: " + std::to_string(x) + ", " + std::to_string(z));
-	tileGO->addComponent(printWhenClick);
+	tileGO->addComponent(printWhenClick);*/
 
 	ManipulateTileOnClick* manipTileOnClick = static_cast<ManipulateTileOnClick*>(compMan->createComponent("ManipulateTileOnClick"));
 	tileGO->addComponent(manipTileOnClick);
@@ -89,14 +121,7 @@ kitten::K_GameObject * BoardCreator::createTile(int x, int z)
 
 	TileInfo* tileInfo = static_cast<TileInfo*>(compMan->createComponent("TileInfo"));
 	tileInfo->setPos(x, z);//set position
-	tileInfo->setType(LandInformation::Grassland);
-	//for test
-	{
-		if (x == 5 && z == 4)
-		{
-			tileInfo->setType(LandInformation::Swampland);
-		}
-	}
+	tileInfo->setType(p_type);
 	tileGO->addComponent(tileInfo);
 
 	kitten::K_Component* clickBox = compMan->createComponent("ClickableBox");

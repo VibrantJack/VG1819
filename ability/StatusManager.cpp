@@ -33,6 +33,9 @@ namespace ability
 
 		s = new Status_Dodge();
 		m_statusList[STATUS_DODGE] = s;
+
+		s = new Status_Temp_Change();
+		m_statusList[STATUS_TEMP_CHANGE] = s;
 	}
 
 	StatusManager::StatusManager()

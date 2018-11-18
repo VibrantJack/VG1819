@@ -15,8 +15,12 @@ public:
 	//New types will be added here later
 	enum TileType {
 		Unknown,
-		Grassland,
-		Swampland,
+		Grass_land,
+		Swamp_land,
+		Sand_land,
+		Forest_land,
+		Garden_land,
+		Water_land,
 	};
 	//========================================================
 
@@ -63,7 +67,7 @@ class GrassLand : public LandInformation
 public:
 	GrassLand()
 	{
-		m_Type = Grassland;
+		m_Type = Grass_land;
 		m_TexturePath = "textures/tiles/grassland.tga";
 		m_mvCost = 1;
 		m_description = "Ordinary land. Nothing special.";
@@ -75,11 +79,65 @@ class SwampLand : public LandInformation
 public:
 	SwampLand()
 	{
-		m_Type = Swampland;
+		m_Type = Swamp_land;
 		m_TexturePath = "textures/tiles/missing.tga";
 		m_mvCost = 2;
 		m_description = "It's hard to move cross it. When stay on it, unit will lost 1 HP.";
 	};
 
 	void effectOnStay(unit::Unit* p_unit) override;
+};
+
+class SandLand : public LandInformation
+{
+public:
+	SandLand()
+	{
+		m_Type = Sand_land;
+		m_TexturePath = "textures/tiles/sand.tga";
+		m_mvCost = 1;
+		m_description = "Unit will temporarily -1 IN";
+	};
+
+	void effectOnStay(unit::Unit* p_unit) override;
+};
+
+class ForestLand : public LandInformation
+{
+public:
+	ForestLand()
+	{
+		m_Type = Forest_land;
+		m_TexturePath = "textures/tiles/forest.tga";
+		m_mvCost = 2;
+		m_description = "It's hard to move cross it. Unit will temporarily -1 MV.";
+	};
+
+	void effectOnStart(unit::Unit* p_unit) override;
+};
+
+class GardenLand : public LandInformation
+{
+public:
+	GardenLand()
+	{
+		m_Type = Garden_land;
+		m_TexturePath = "textures/tiles/garden.tga";
+		m_mvCost = 1;
+		m_description = "Nice place to rest. Unit will heal 1 HP and temporarily +1 Max HP.";
+	};
+
+	void effectOnStart(unit::Unit* p_unit) override;
+};
+
+class WaterLand : public LandInformation
+{
+public:
+	WaterLand()
+	{
+		m_Type = Water_land;
+		m_TexturePath = "textures/tiles/water.tga";
+		m_mvCost = 100;
+		m_description = "Can not move across";
+	};
 };

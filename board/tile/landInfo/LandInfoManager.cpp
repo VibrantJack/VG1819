@@ -11,6 +11,18 @@ LandInfoManager::LandInfoManager()
 
 	l = new SwampLand();
 	add(l);
+
+	l = new SandLand();
+	add(l);
+
+	l = new ForestLand();
+	add(l);
+
+	l = new GardenLand();
+	add(l);
+
+	l = new WaterLand();
+	add(l);
 }
 
 LandInfoManager::~LandInfoManager()
