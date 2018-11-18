@@ -128,6 +128,11 @@ namespace unit
 		uClick->setTextBox(m_textBoxGO);
 		unitObject->addComponent(uClick);
 
+		if (unitObject->getComponent<kitten::SpriteRenderable>() != nullptr) {
+			// disable unit Graphic
+			unitObject->getComponent<UnitGraphic>()->setEnabled(false);
+		}
+
 		//add object to Initiative Tracker
 		unit::InitiativeTracker::getInstance()->addUnit(unitObject);
 

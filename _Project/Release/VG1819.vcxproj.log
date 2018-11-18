@@ -1,11 +1,8 @@
-﻿  ComponentDataType.cpp
-c:\users\sycra\documents\github\vg1819vb\kibble\json\datatypes\componentdatatype.cpp(176): warning C4305: 'initializing': truncation from 'double' to 'irrklang::ik_f32'
-c:\users\sycra\documents\github\vg1819vb\kibble\json\datatypes\componentdatatype.cpp(190): warning C4244: 'argument': conversion from 'irrklang::ik_f32' to 'irrklang::ik_s32', possible loss of data
-c:\users\sycra\documents\github\vg1819vb\kibble\json\datatypes\componentdatatype.cpp(236): warning C4244: 'argument': conversion from 'irrklang::ik_f32' to 'irrklang::ik_s32', possible loss of data
+﻿  UnitTest.cpp
   LINK : 0 new modules and 1 (out of 241) modules have changed since prior linking
   Generating non-SAFESEH image.
   Starting pass 2
-       ComponentDataType.obj
+       UnitTest.obj
        MSVCRTD.lib(loadcfg.obj)
   Finished pass 2
   VG1819.vcxproj.vcxproj -> C:\Users\sycra\Documents\GitHub\VG1819VB\_Project\Release\VG1819.exe

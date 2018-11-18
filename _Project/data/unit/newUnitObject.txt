@@ -38,8 +38,7 @@
 		{
 			"name" : "UnitGraphic",
 			"texture":"textures/unit/Engineer.tga",
-			"unitsize": "point",
-			"enabled" : false
+			"unitsize": "point"
 		},
 		{
 			"name" : "UnitMove",
