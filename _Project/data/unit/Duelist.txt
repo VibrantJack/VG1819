@@ -1,12 +1,12 @@
 {
-    "name":"Duelist",
-    "hp":12,
-    "mv":3,
-    "in":10,
-    "cost":3,
-	"size":"point",
-	"tags":["Elf","Terrans","Soldier"],
-	"ability_description":[
+	"unit":{
+		"name":"Duelist",
+		"hp":12,
+		"mv":3,
+		"in":10,
+		"cost":3,
+		"tags":["Elf","Terrans","Soldier"],
+		"ability_description":[
 			{
 				"name":"Slay",
 				"power":5,
@@ -30,7 +30,7 @@
 				"description":"Until next turn, this unit will ignore first damage received."
 			}
 		],
-	"status_description":[
+		"status":[
 			{
 				"name":"Status_LV",
 				"lv":2,
@@ -43,4 +43,22 @@
 				"time_point":[2]
 			}
 		]
+	},
+	"components" : [
+		{
+			"name" : "UnitGraphic",
+			"texture":"textures/unit/Default.tga",
+			"unitsize": "point"
+		},
+		{
+			"name" : "UnitMove",
+			"offset":[0.15,1.0,0.8]
+		},
+		{
+			"name" : "ClickableBox",
+			"minpoint":[-0.5,-0.5,0],
+			"maxpoint":[0.5,0.5,0]
+		}
+	],
+	"rotate" : [45, 0, 0]
 }

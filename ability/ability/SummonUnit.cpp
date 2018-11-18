@@ -10,7 +10,8 @@
 #include "unit/unitComponent/UnitMove.h"
 #include "components/PowerTracker.h"
 #include "board/BoardManager.h"
-#include "kibble/databank/databank.hpp"
+#include "unit/UnitSpawn.h"
+#include "kitten/K_GameObjectManager.h"
 
 namespace ability
 {
@@ -21,21 +22,23 @@ namespace ability
 
 	int SummonUnit::effect(AbilityInfoPackage* p_info)
 	{
-		AbilityNode* node = AbilityNodeManager::getInstance()->findNode(SpawnUnit);
 
 		PowerTracker* powerTracker = BoardManager::getInstance()->getPowerTracker();
 
 		//get Unit data
 		//fixed for now
-		unit::UnitData* unitData = kibble::getUnitFromId(2);
-
-		if (unitData->m_Cost <= powerTracker->getCurrentPower())
+		kitten::K_GameObject* uGO = unit::UnitSpawn::getInstanceSafe()->spawnUnitObject(2);
+		unit::Unit* u = uGO->getComponent<unit::Unit>();
+		if (u->m_attributes[UNIT_COST] <= powerTracker->getCurrentPower())
 		{
-			powerTracker->summonUnitCost(unitData->m_Cost);
+			powerTracker->summonUnitCost(u->m_attributes[UNIT_COST]);
 
-			kitten::K_GameObject* u = node->spawn(unitData);
 			kitten::K_GameObject* tile = p_info->m_targetTilesGO[0];
-			u->getComponent<unit::UnitMove>()->setTile(tile);
+			uGO->getComponent<unit::UnitMove>()->setTile(tile);
+		}
+		else
+		{
+			kitten::K_GameObjectManager::getInstance()->destroyGameObject(uGO);
 		}
 
 		/*

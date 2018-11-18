@@ -23,8 +23,8 @@ namespace ability
 		newNode = new ChangeAbilityInfoNode();
 		m_nodeList[ability::ChangeAbilityInfo] = newNode;
 
-		newNode = new SpawnUnitNode();
-		m_nodeList[ability::SpawnUnit] = newNode;
+		//newNode = new SpawnUnitNode();
+		//m_nodeList[ability::SpawnUnit] = newNode;
 	}
 
 	AbilityNodeManager::AbilityNodeManager()

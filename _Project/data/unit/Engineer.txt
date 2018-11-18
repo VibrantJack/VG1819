@@ -1,50 +1,67 @@
 {
-    "name":"Engineer",
-    "hp":9,
-    "mv":3,
-    "in":11,
-    "cost":2,
-	"size":"point",
-	"tags":["Terrans"],
-	"texpath":"textures/unit/Engineer.tga",
-	"ability_description":[
+	"unit":{
+		"name":"Engineer",
+		"hp":9,
+		"mv":3,
+		"in":11,
+		"cost":2,
+		"tags":["Terrans"],
+		"ability_description":[
+			{
+				"name":"Fight",
+				"power":3,
+				"min_range":1,
+				"max_range":1,
+				"target":1,
+				"need_unit":1,
+				"description":"Deal 3 damage to target."
+			},
+			{
+				"name":"Build the Wall",
+				"lv":2,
+				"cd":3,
+				"min_range":1,
+				"max_range":1,
+				"target":1,
+				"description":"Build a wall in front of this unit. Wall is a Structure with 12 HP.",
+				"filter":1,
+				"filter0":"unit"
+			},
+			{
+				"name":"Sabotage",
+				"lv":3,
+				"power":12,
+				"min_range":1,
+				"max_range":1,
+				"target":1,
+				"need_unit":1,
+				"description":"Deal 12 damage to a Structure."
+			}
+		],
+		"status":[
+			{
+				"name":"Status_LV",
+				"lv":3,
+				"time_point":2,
+				"mv":1
+			}
+		]
+	},
+	"components" : [
 		{
-			"name":"Fight",
-			"power":3,
-			"min_range":1,
-			"max_range":1,
-			"target":1,
-			"need_unit":1,
-			"description":"Deal 3 damage to target."
+			"name" : "UnitGraphic",
+			"texture":"textures/unit/Engineer.tga",
+			"unitsize": "point"
 		},
 		{
-			"name":"Build the Wall",
-			"lv":2,
-			"cd":3,
-			"min_range":1,
-			"max_range":1,
-			"target":1,
-			"description":"Build a wall in front of this unit. Wall is a Structure with 12 HP.",
-			"filter":1,
-			"filter0":"unit"
+			"name" : "UnitMove",
+			"offset":[0.15,1.0,0.8]
 		},
 		{
-			"name":"Sabotage",
-			"lv":3,
-			"power":12,
-			"min_range":1,
-			"max_range":1,
-			"target":1,
-			"need_unit":1,
-			"description":"Deal 12 damage to a Structure."
+			"name" : "ClickableBox",
+			"minpoint":[-0.5,-0.5,0],
+			"maxpoint":[0.5,0.5,0]
 		}
 	],
-	"status":[
-		{
-			"name":"Status_LV",
-			"lv":3,
-			"time_point":2,
-			"mv":1
-		}
-	]
+	"rotate" : [45, 0, 0]
 }

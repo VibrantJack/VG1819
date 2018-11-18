@@ -114,7 +114,6 @@
     <ClCompile Include="..\ability\node\ChangeAbilityInfoNode.cpp" />
     <ClCompile Include="..\ability\node\ChangeAttributeNode.cpp" />
     <ClCompile Include="..\ability\node\CheckHPNode.cpp" />
-    <ClCompile Include="..\ability\node\SpawnUnitNode.cpp" />
     <ClCompile Include="..\ability\StatusManager.cpp" />
     <ClCompile Include="..\ability\status\Status.cpp" />
     <ClCompile Include="..\ability\status\statusEvent\TimePointEvent.cpp" />

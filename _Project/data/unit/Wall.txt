@@ -1,9 +1,27 @@
 {
-    "name":"Wall",
-    "hp":12,
-    "mv":0,
-    "in":0,
-    "cost":1,
-	"size":"point",
-	"tags":["Terrans","Structure"]
+	"unit":{
+		"name":"Wall",
+		"hp":12,
+		"mv":0,
+		"in":0,
+		"cost":1,
+		"tags":["Terrans","Structure"]
+	},
+	"components" : [
+		{
+			"name" : "UnitGraphic",
+			"texture":"textures/unit/Priest.tga",
+			"unitsize": "point"
+		},
+		{
+			"name" : "UnitMove",
+			"offset":[0.15,1.0,0.8]
+		},
+		{
+			"name" : "ClickableBox",
+			"minpoint":[-0.5,-0.5,0],
+			"maxpoint":[0.5,0.5,0]
+		}
+	],
+	"rotate" : [45, 0, 0]
 }

@@ -161,9 +161,6 @@
     <ClCompile Include="..\ability\node\ChangeAbilityInfoNode.cpp">
       <Filter>ability\node</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\node\SpawnUnitNode.cpp">
-      <Filter>ability\node</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\ability\Ability.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>

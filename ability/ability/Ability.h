@@ -111,7 +111,7 @@ namespace ability
 	class Build_the_Wall : public Ability
 	{
 	private:
-		unit::UnitData* m_wallData;
+		int m_unitIndex;
 	public:
 		Build_the_Wall();
 		virtual ~Build_the_Wall();
