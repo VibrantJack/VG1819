@@ -38,14 +38,10 @@ void TileInfo::start()
 {
 	m_landInfo = LandInfoManager::getInstance()->getLand(m_tileType);
 
-	setRenderTexture();
+	kitten::QuadRenderable * qr = m_attachedObject->getComponent<kitten::QuadRenderable>();
+	qr->addTexture(m_landInfo->getTexturePath().c_str(),1.0f);
 }
 
-void TileInfo::setRenderTexture()
-{
-	kitten::QuadRenderable * qr = m_attachedObject->getComponent<kitten::QuadRenderable>();
-	qr->setTexture(m_landInfo->getTexturePath().c_str());
-}
 
 int TileInfo::getMVCost()
 {

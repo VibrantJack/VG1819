@@ -68,7 +68,7 @@ kitten::K_Component* getQuadRenderable(nlohmann::json* p_jsonFile) {
 	std::string texturefilename;
 	bool isStatic;
 
-	SETOPTDEF(texturefilename, "texture", "textures/tiles/MISSING.tga");
+	SETOPTDEF(texturefilename, "texture", "");
 	SETOPTDEF(isStatic, "static", false);
 
 	return new kitten::QuadRenderable(texturefilename.c_str(), isStatic);

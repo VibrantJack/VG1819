@@ -9,14 +9,14 @@ namespace kitten
 	puppy::VertexEnvironment* QuadRenderable::sm_vao = nullptr;
 	int QuadRenderable::sm_instances = 0;
 
-	QuadRenderable::QuadRenderable(const char* p_pathToTexture, bool p_isStatic) : m_isStatic(p_isStatic)
+	QuadRenderable::QuadRenderable(const std::string& p_texPath, bool p_isStatic) : m_isStatic(p_isStatic), m_tex(nullptr)
 	{
 		if (!p_isStatic)
 		{
 			m_mat = new puppy::TextureBlendMaterial();
-			if (p_pathToTexture != nullptr)
+			if (!p_texPath.empty())
 			{
-				m_mat->setTexture(p_pathToTexture);
+				m_mat->setTexture(p_texPath.c_str());
 			}
 
 			//If we have not initialized the vao yet
@@ -38,7 +38,10 @@ namespace kitten
 		}
 		else
 		{
-			m_tex = new puppy::Texture(p_pathToTexture);
+			if (!p_texPath.empty())
+			{
+				m_tex = new puppy::Texture(p_texPath);
+			}
 		}
 	}
 
@@ -84,6 +87,16 @@ namespace kitten
 		puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform());
 
 		Renderable::addToStaticRender(m_tex, verts, 6);
+	}
+
+	void QuadRenderable::setTexture(const char* p_pathToTex)
+	{
+		if (m_tex != nullptr)
+		{
+			delete m_tex;
+		}
+
+		m_tex = new puppy::Texture(p_pathToTex);
 	}
 
 	void QuadRenderable::addTexture(const char* p_pathToTex, const float& p_weight)

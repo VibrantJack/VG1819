@@ -14,6 +14,7 @@
 #define SIZE_OF_GLSHORT 2
 
 #define MAX_BLEND_TEXTURES 4
+#define SAMPLER2D_NAME "tex"
 
 #ifndef __APPLE__
 #include <GL/glew.h>

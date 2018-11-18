@@ -14,6 +14,7 @@ public:
 	enum HighlightType//descending order, ex: area highlight will cover range highlight
 	{
 		ForArea = 0,
+		Highlight,
 		ForRange,
 		ForOwnedTile,
 		Last,
@@ -25,7 +26,7 @@ public:
 	//land info
 	void setType(LandInformation::TileType p_type = LandInformation::Grass_land);
 	void start();
-	void setRenderTexture();
+
 	int getMVCost();
 	const std::string getDescription();
 	void effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit* p_u);

@@ -74,6 +74,12 @@ namespace puppy
 		glUniform1f(place, p_float);
 	}
 
+	void Material::setUniform(const std::string& p_name, const int p_int)
+	{
+		GLint place = m_shader->getUniformPlace(p_name);
+		glUniform1i(place, p_int);
+	}
+
 	void Material::memorizeUniform(const std::string& p_name, const glm::mat4& p_mat4)
 	{
 

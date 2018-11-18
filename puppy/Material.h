@@ -40,6 +40,7 @@ namespace puppy
 		void setUniform(const std::string& p_name, const glm::vec4& p_vec4);
 		void setUniform(const std::string& p_name, const glm::vec2& p_vec2);
 		void setUniform(const std::string& p_name, const float& p_float);
+		void setUniform(const std::string& p_name, const int p_int);
 
 		int getUniformPlace(const std::string& p_name);
 

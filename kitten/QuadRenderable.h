@@ -22,8 +22,10 @@ namespace kitten
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
 	public:
-		QuadRenderable(const char* p_pathToTex = nullptr, bool p_isStatic = false);
+		QuadRenderable(const std::string& p_texPath ="", bool p_isStatic = false);
 		virtual ~QuadRenderable();
+
+		void setTexture(const char* p_pathToTex);
 
 		void addTexture(const char* p_pathToTex, const float& p_weight);
 		void removeTexture(const char* p_pathToTex);

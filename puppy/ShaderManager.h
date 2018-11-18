@@ -24,8 +24,8 @@ namespace puppy
 		*/
 		static bool getShaderPaths(ShaderType p_st, std::string* p_vertexShaderPath, std::string* p_pixelShaderPath);
 	public:
-		static void applyShader(ShaderType p_st);
-		static void applyShader(const ShaderProgram* p_sp);
+		static bool applyShader(ShaderType p_st); //Returns if it was bound (false if already bound)
+		static bool applyShader(ShaderProgram* p_sp);
 
 		static ShaderProgram* getShaderProgram(ShaderType p_st);
 

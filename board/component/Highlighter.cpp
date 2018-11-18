@@ -10,6 +10,7 @@ Highlighter::Highlighter()
 		m_listForType[static_cast<TileInfo::HighlightType>(i)] = std::vector<kitten::K_GameObject*>();
 	}
 
+	m_texMap[TileInfo::Highlight] = "textures/tiles/highlight.tga";
 	m_texMap[TileInfo::ForArea] = "textures/tiles/grasslandArea.tga";
 	m_texMap[TileInfo::ForRange] = "textures/tiles/highlightedGrassland.tga";
 	m_texMap[TileInfo::ForOwnedTile] = "";
@@ -43,20 +44,17 @@ void Highlighter::update()
 			int x = info->getPosX();
 			int z = info->getPosY();
 
+			kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
+
 			if (type != TileInfo::Last)
 			{
-				//add blend
-
-				//temp
-				kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
-				quad->setTexture(m_texMap[type].c_str());
+				//Add blending
+				quad->addTexture(m_texMap[TileInfo::Highlight].c_str(), 1.0f);
 			}
 			else
 			{
-				//remove blend
-
-				//temp
-				info->setRenderTexture();
+				//Remove blending
+				quad->removeTexture(m_texMap[TileInfo::Highlight].c_str());
 			}
 		}
 
@@ -108,6 +106,10 @@ void Highlighter::highlightTile(TileInfo::HighlightType p_type, kitten::Event::T
 
 		//add it to change list
 		m_toBeChanged.push_back(tile);
+		//kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
+		//Add blending
+		//quad->addTexture(m_texMap[TileInfo::Highlight].c_str(), 1.0f);
+
 
 		//add it to corresponding type list
 		m_listForType[p_type].push_back(tile);
@@ -126,6 +128,9 @@ void Highlighter::unhighlightTile(TileInfo::HighlightType p_type, kitten::Event:
 
 		//add it to change list
 		m_toBeChanged.push_back(tile);
+		//kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
+		//quad->removeTexture(m_texMap[TileInfo::Highlight].c_str());
+
 
 		//remove it from corresponding type list
 		for (int j = 0; j < m_listForType[p_type].size(); j++)
@@ -146,11 +151,20 @@ void Highlighter::unhighlightAll(TileInfo::HighlightType p_type)
 	{
 		TileInfo* tileInfo = list[i]->getComponent<TileInfo>();
 
-		//set it's highlight
-		tileInfo->setHighlighted(p_type, false);
-
 		//add it to change list
 		m_toBeChanged.push_back(list[i]);
+		
+		/*auto oldType = tileInfo->getHighlightType();
+
+		if (oldType != TileInfo::HighlightType::Last)
+		{
+			kitten::QuadRenderable* quad = list[i]->getComponent<kitten::QuadRenderable>();
+			quad->removeTexture(m_texMap[TileInfo::Highlight].c_str());
+		}
+		*/
+
+		//set it's highlight
+		tileInfo->setHighlighted(p_type, false);
 	}
 
 	//remove the list
