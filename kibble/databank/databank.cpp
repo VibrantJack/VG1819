@@ -1,27 +1,30 @@
 #include "databank.hpp"
 #include <map>
 #include <unordered_set>
+#include <kibble/kibble.hpp>
 
-std::vector<unit::UnitData*> unitDataVector;
+std::vector<kibble::UnitFileStruct> unitDataVector;
 std::map<std::string, unit::AbilityDescription*> abilityDataMap;
 std::map<std::string, std::vector<int>> abilityToUnitMap, tagToUnitMap;
 std::unordered_set<unit::AbilityDescription*> lateLoadAbility;
 std::vector<DeckData*> deckDataVector;
+
+std::vector<std::vector<kitten::K_Component*>> unitSpecificComponentVector;
 
 #define DECK_LIST "data/gamedecklist.txt"
 #define UNIT_LIST "data/gameunitlist.txt"
 
 // Basically the deconstructor
 void kibble::destroyDatabank() {
-	for (unit::UnitData* unit : unitDataVector) {
-		for (unit::AbilityDescription* ability : unit->m_ad) {
+	for (kibble::UnitFileStruct unit : unitDataVector) {
+		for (unit::AbilityDescription* ability : unit.data->m_ad) {
 			delete ability;
 		}
-		for (unit::StatusDescription* status : unit->m_sd) {
+		for (unit::StatusDescription* status : unit.data->m_sd) {
 			delete status;
 		}
 
-		delete unit;
+		delete unit.data;
 	}
 	for (auto data : deckDataVector) {
 		delete data;
@@ -38,27 +41,24 @@ void kibble::setupDatabank() {
 	if (input.is_open()) {
 		std::string unitFilename;
 		while (input >> unitFilename) {
-			std::vector<unit::UnitData*> target = unitDataParser->getUnitList(unitFilename);
-			//unitDataVector.insert(unitDataVector.end(), target.begin(), target.end());
-			for (unit::UnitData* unit : target) { // Go through all units
-				for (unit::AbilityDescription* ability : unit->m_ad) { // Set up Abilities
-					std::string name = ability->m_stringValue["name"];
-					abilityToUnitMap[name].push_back(unitDataVector.size()); // add unit to list of units that use the ability
-					if (abilityDataMap.find(name) == abilityDataMap.end()) { // check to see if a previous ability with the same name doesn't exist
-						// if it finds nothing, it checks if it's being late loaded
-						if(lateLoadAbility.find(ability) != lateLoadAbility.end())
-							abilityDataMap[name] = ability; // if its not being loaded late set it
-					}
+			UnitFileStruct target = unitDataParser->getUnit(unitFilename);
+			for (unit::AbilityDescription* ability : target.data->m_ad) { // Set up Abilities
+				std::string name = ability->m_stringValue["name"];
+				abilityToUnitMap[name].push_back(unitDataVector.size()); // add unit to list of units that use the ability
+				if (abilityDataMap.find(name) == abilityDataMap.end()) { // check to see if a previous ability with the same name doesn't exist
+					// if it finds nothing, it checks if it's being late loaded
+					if(lateLoadAbility.find(ability) != lateLoadAbility.end())
+						abilityDataMap[name] = ability; // if its not being loaded late set it
 				}
-
-				for (std::string tag : unit->m_tags) { // Set up Tags
-					tagToUnitMap[tag].push_back(unitDataVector.size());
-				}
-
-				// At the end push the unit into vector. 
-				//This is left to the end so that previous calls to size return the actual index of this unit
-				unitDataVector.push_back(unit);
 			}
+
+			for (std::string tag : target.data->m_tags) { // Set up Tags
+				tagToUnitMap[tag].push_back(unitDataVector.size());
+			}
+
+			// At the end push the unit into vector. 
+			//This is left to the end so that previous calls to size return the actual index of this unit
+			unitDataVector.push_back(target);
 		}
 		input.close();
 	}
@@ -91,13 +91,13 @@ void kibble::setupDatabank() {
 
 
 unit::UnitData* kibble::getUnitFromId(const int& p_identifier) {
-	return unitDataVector[p_identifier];
+	return unitDataVector[p_identifier].data;
 }
 
 std::vector<unit::UnitData*> kibble::getUnitsFromListOfIds(const std::vector<int>& p_identifiers) {
 	std::vector<unit::UnitData*> unitList; 
 	for (int index : p_identifiers) {
-		unitList.push_back(unitDataVector[index]);
+		unitList.push_back(unitDataVector[index].data);
 	}
 	return unitList;
 }

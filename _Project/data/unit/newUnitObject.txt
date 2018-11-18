@@ -7,7 +7,7 @@
 		"cost":4,
 		"tags": ["Commander","Dummy"],
 		"commander":{
-			"portrait_path" = "place_holder"
+			"portrait_path" : "place_holder"
 		},
 		"ability_description":[
 			{
@@ -60,6 +60,6 @@
 			"spritename" : "wizard"
 		}
 	],
-	"scaleRelative" : [2.0, 2.0, 0.0],
-	"rotateRelative" : [45, 0, 0]
+	"scale" : [2.0, 2.0, 0.0],
+	"rotate" : [45, 0, 0]
 }

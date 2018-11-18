@@ -2,6 +2,7 @@
 #include "unit/UnitCommon.h"
 #include "DeckData.hpp"
 #include <vector>
+#include "kitten/K_Component.h"
 
 namespace kibble {
 	unit::UnitData* getUnitFromId(const int& p_identifier);
