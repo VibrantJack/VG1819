@@ -2,6 +2,7 @@
 #include <map>
 #include <unordered_set>
 #include <kibble/kibble.hpp>
+#include <kitten/K_GameObjectManager.h>
 
 std::vector<kibble::UnitFileStruct> unitDataVector;
 std::map<std::string, unit::AbilityDescription*> abilityDataMap;
@@ -150,4 +151,19 @@ void kibble::addNewDeckData(DeckData* p_data) {
 		deckList << std::endl << "DeckNumbah" + std::to_string(deckDataVector.size()) << ".txt" ;
 	}
 	deckDataVector.push_back(p_data);
+}
+
+#include "kitten/K_ComponentManager.h"
+kitten::K_GameObject* kibble::attachCustomComponentsToGameObject(const int& p_identifier, kitten::K_GameObject* p_targetGameObject) {
+	kibble::UnitFileStruct& targetUnit = unitDataVector[p_identifier];
+	kitten::K_ComponentManager* componentManager = kitten::K_ComponentManager::getInstance();
+	
+	for (nlohmann::json component : targetUnit.components) {
+		p_targetGameObject->addComponent(componentManager->createComponent(&component));
+	}
+
+	p_targetGameObject->getTransform().rotateRelative(glm::vec3(targetUnit.rotate[0], targetUnit.rotate[1], targetUnit.rotate[2]));
+	p_targetGameObject->getTransform().scaleRelative(targetUnit.scale[0], targetUnit.scale[1], targetUnit.scale[2]);
+
+	return p_targetGameObject;
 }

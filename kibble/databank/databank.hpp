@@ -2,7 +2,7 @@
 #include "unit/UnitCommon.h"
 #include "DeckData.hpp"
 #include <vector>
-#include "kitten/K_Component.h"
+#include "kitten/K_GameObject.h"
 
 namespace kibble {
 	unit::UnitData* getUnitFromId(const int& p_identifier);
@@ -17,6 +17,8 @@ namespace kibble {
 	DeckData* getDeckDataFromId(const int& p_identifier);
 	int getDeckDataListCount();
 	void addNewDeckData(DeckData*);
+
+	kitten::K_GameObject* attachCustomComponentsToGameObject(const int& p_identifier, kitten::K_GameObject* p_targetGameObject);
 
 	// ===----- For internal Use Only after this comment ---------------------------------------------------
 

@@ -13,6 +13,8 @@
 #include "kitten/sprites/SpriteAnimator.h"
 //Rock
 
+#include "kibble/databank/databank.hpp"
+
 namespace unit
 {
 	UnitSpawn* UnitSpawn::m_instance = nullptr;
@@ -99,6 +101,32 @@ namespace unit
 		//unitObject->getTransform().move(0.5f, 1.0f, 0.0f);
 		//rotate to face camera
 		unitObject->getTransform().rotateRelative(glm::vec3(45, 0, 0));
+
+		//add object to Initiative Tracker
+		unit::InitiativeTracker::getInstance()->addUnit(unitObject);
+
+		return unitObject;
+	}
+
+	kitten::K_GameObject* UnitSpawn::spawnUnitObject(const int& p_unitIdentifier) {
+
+		UnitData * data = kibble::getUnitFromId(p_unitIdentifier);
+
+		//create unit 
+		Unit* unit = spawnUnitFromData(data);
+
+		//get component manager
+		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
+
+		//unit object
+		kitten::K_GameObject* unitObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+		unitObject->addComponent(unit);
+		kibble::attachCustomComponentsToGameObject(p_unitIdentifier, unitObject);
+
+		//create clickable
+		unit::UnitClickable* uClick = static_cast<unit::UnitClickable*>(cm->createComponent("UnitClickable"));
+		uClick->setTextBox(m_textBoxGO);
+		unitObject->addComponent(uClick);
 
 		//add object to Initiative Tracker
 		unit::InitiativeTracker::getInstance()->addUnit(unitObject);
