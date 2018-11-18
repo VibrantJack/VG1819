@@ -39,6 +39,7 @@ namespace ability
 
 		void changeLV(int p_lv);
 		void changeDescription(const std::string & p_msg);
+		void setEffectedAD(const std::string & p_msg);
 		void addCounter(const std::string & p_key, int p_value);
 		void addAttributeChange(const std::string & p_key, int p_value);
 		void addTimePoint(ability::TimePointEvent::TPEventType p_value);
@@ -65,6 +66,7 @@ namespace ability
 		std::string m_description;//the text that will be showed to player
 		int m_LV;
 		std::unordered_map<std::string, int> m_attributeChange;
+		std::string m_effectedAD;
 
 		std::vector<ability::TimePointEvent::TPEventType> m_TPList;//the list of event that will be registered
 
@@ -143,6 +145,34 @@ namespace ability
 		int effect();
 		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
 		void effectEnd();
+	};
+
+	class Status_AD_Change : public Status
+	{
+	public:
+		Status_AD_Change();
+		Status* clone() const { return new Status_AD_Change(*this); };
+		int effect();
+		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		void effectEnd();
+	};
+
+	class Status_Load : public Status
+	{
+	public:
+		Status_Load();
+		Status* clone() const { return new Status_Load(*this); };
+		int effect();
+		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		void effectEnd();
+	};
+
+	class Status_Shield : public Status
+	{
+	public:
+		Status_Shield();
+		Status* clone() const { return new Status_Shield(*this); };
+		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
 	};
 }
 

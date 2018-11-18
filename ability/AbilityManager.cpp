@@ -55,6 +55,27 @@ namespace ability
 
 		newAbility = new Join();
 		m_abilityList[ACTION_JOIN] = newAbility;
+
+		newAbility = new Burn();
+		m_abilityList[ABILITY_BURN] = newAbility;
+
+		newAbility = new FireDance();
+		m_abilityList[ABILITY_FIRE_DANCE] = newAbility;
+
+		newAbility = new Fire();
+		m_abilityList[ABILITY_FIRE] = newAbility;
+
+		newAbility = new Load();
+		m_abilityList[ABILITY_LOAD] = newAbility;
+
+		newAbility = new Volley();
+		m_abilityList[ABILITY_VOLLEY] = newAbility;
+
+		newAbility = new Arm();
+		m_abilityList[ABILITY_ARM] = newAbility;
+
+		newAbility = new TheLight();
+		m_abilityList[ABILITY_THE_LIGHT] = newAbility;
 	}
 
 	AbilityManager::AbilityManager()
