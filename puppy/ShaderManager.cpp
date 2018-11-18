@@ -70,6 +70,26 @@ namespace puppy
 			*p_vertexShaderPath = "Shaders/particles.vsh";
 			*p_pixelShaderPath = "Shaders/particles.fsh";
 			return true;
+		case ShaderType::texture_blend_zero:
+			*p_vertexShaderPath = "Shaders/basic.vsh";
+			*p_pixelShaderPath = "Shaders/basic_zero_blend.fsh";
+			return true;
+		case ShaderType::texture_blend_one:
+			*p_vertexShaderPath = "Shaders/basic.vsh";
+			*p_pixelShaderPath = "Shaders/basic_one_blend.fsh";
+			return true;
+		case ShaderType::texture_blend_two:
+			*p_vertexShaderPath = "Shaders/basic.vsh";
+			*p_pixelShaderPath = "Shaders/basic_two_blend.fsh";
+			return true;
+		case ShaderType::texture_blend_three:
+			*p_vertexShaderPath = "Shaders/basic.vsh";
+			*p_pixelShaderPath = "Shaders/basic_three_blend.fsh";
+			return true;
+		case ShaderType::texture_blend_four:
+			*p_vertexShaderPath = "Shaders/basic.vsh";
+			*p_pixelShaderPath = "Shaders/basic_four_blend.fsh";
+			return true;
 		default:
 			return false;
 		}

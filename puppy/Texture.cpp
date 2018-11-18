@@ -2,27 +2,34 @@
 
 namespace puppy
 {
-
-	GLuint Texture::sm_boundTexture = 0;
 	std::unordered_map<std::string, std::pair<GLuint, int>> Texture::sm_loadedTextures;
 
 	int Texture::sm_boundWrapMode = 0;
 	int Texture::sm_boundMagFiltering = 0;
 	int Texture::sm_boundMinFiltering = 0;
+	int Texture::sm_activeTexture = 0;
 
-	Texture::Texture(const std::string& p_texName)
+	GLuint Texture::sm_boundTexture[MAX_BLEND_TEXTURES];
+
+	Texture::Texture(const std::string& p_texName, int p_slot) : m_slot(p_slot), m_name(p_texName)
 	{
 		Texture::m_minFiltering = GL_NEAREST_MIPMAP_LINEAR;
 		Texture::m_magFiltering = GL_LINEAR;
 		Texture::m_wrapMode = GL_REPEAT;
-		Texture::m_name = p_texName;
 
 		if (Texture::sm_loadedTextures.find(p_texName) == Texture::sm_loadedTextures.end()) //If this texture has not already been loaded
 		{
+			//Activate texture if needed
+			if (sm_activeTexture != p_slot)
+			{
+				glActiveTexture(GL_TEXTURE0 + p_slot);
+				sm_activeTexture = p_slot;
+			}
+
 			//Generate the texture
 			glGenTextures(1, &(Texture::m_tex));
 			glBindTexture(GL_TEXTURE_2D, Texture::m_tex);
-			Texture::sm_boundTexture = Texture::m_tex;
+			Texture::sm_boundTexture[p_slot] = Texture::m_tex;
 
 			GLFWimage img;
 			glfwReadImage(p_texName.c_str(), &img, 0);
@@ -42,7 +49,7 @@ namespace puppy
 		}
 	}
 
-	Texture::Texture()
+	Texture::Texture() : m_slot(0)
 	{
 		glGenTextures(1, &m_tex);
 		Texture::bind();
@@ -88,9 +95,18 @@ namespace puppy
 
 	void Texture::bind() const
 	{
-		if (Texture::sm_boundTexture != Texture::m_tex) { //If we aren't using this texture already
+		//If we aren't using this texture already
+		if (Texture::sm_boundTexture[m_slot] != Texture::m_tex) 
+		{
+			//Activate texture if needed
+			if (sm_activeTexture != m_slot)
+			{
+				glActiveTexture(GL_TEXTURE0 + m_slot);
+				sm_activeTexture = m_slot;
+			}
+
 			glBindTexture(GL_TEXTURE_2D, Texture::m_tex); //Use this texture
-			Texture::sm_boundTexture = Texture::m_tex; //And update what we are using
+			Texture::sm_boundTexture[m_slot] = Texture::m_tex; //And update what we are using
 		}
 	}
 
@@ -116,12 +132,6 @@ namespace puppy
 		{
 			Texture::m_magFiltering = p_mode;
 		}
-	}
-
-	void Texture::removeAll()
-	{
-		Texture::sm_boundTexture = 0;
-		Texture::sm_loadedTextures.clear();
 	}
 
 	const GLuint* Texture::getTex() const

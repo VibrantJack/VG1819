@@ -12,6 +12,9 @@
 #include <string>
 #include "P_Common.h"
 
+#define BASE_TEXTURE GL_TEXTURE0
+#define MAX_TEXTURE BASE_TEXTURE + MAX_BLEND_TEXTURES
+
 namespace puppy
 {
 	class Texture
@@ -19,16 +22,19 @@ namespace puppy
 	private:
 		GLuint m_tex; //The member texture
 		std::string m_name;
+		int m_slot;
 
 		int m_wrapMode, m_minFiltering, m_magFiltering;
 		static int sm_boundWrapMode, sm_boundMinFiltering, sm_boundMagFiltering;
 
 		static std::unordered_map<std::string, std::pair<GLuint, int>> sm_loadedTextures;
-		static GLuint sm_boundTexture; //Currently bound tex
+		
+		static int sm_activeTexture;
+		static GLuint sm_boundTexture[MAX_BLEND_TEXTURES]; //Currently bound tex
 
 		void bind() const;
 	public:
-		Texture(const std::string& p_texName); //Takes the name of the file
+		Texture(const std::string& p_texName, int p_slot=0); //Takes the name of the file and where to bind it
 		Texture(); //empty texture
 
 		~Texture();
@@ -39,8 +45,6 @@ namespace puppy
 
 		const GLuint* getTex() const;
 		const std::string& getPath() const;
-
-		static void removeAll();
 
 		void apply() const;
 	};

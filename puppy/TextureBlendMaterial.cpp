@@ -21,10 +21,10 @@ namespace puppy
 		int numTextures = m_additionalTextures.size();
 		assert(numTextures + 1 <= MAX_BLEND_TEXTURES);
 
-		std::tuple<Texture*, int, float> toInsert = std::make_tuple(new Texture(p_pathToTexToAdd), numTextures+1, p_weight);
+		std::tuple<Texture*, int, float> toInsert = std::make_tuple(new Texture(p_pathToTexToAdd, numTextures), numTextures+1, p_weight);
 
 		//Change shader
-
+		m_shader = ShaderManager::getShaderProgram(static_cast<ShaderType>(ShaderType::basic + numTextures+1));
 	}
 
 	void TextureBlendMaterial::removeTexture(const char* p_pathToTexToRemove)
@@ -34,6 +34,8 @@ namespace puppy
 		{
 			delete std::get<0>((*found).second);
 			m_additionalTextures.erase(found);
+
+			m_shader = ShaderManager::getShaderProgram(static_cast<ShaderType>(ShaderType::basic + m_additionalTextures.size()));
 		}
 		else
 		{
@@ -45,6 +47,15 @@ namespace puppy
 	{
 		Material::apply();
 
+		//Apply additional textures
+		auto end = m_additionalTextures.cend();
+		for (auto it = m_additionalTextures.cbegin(); it != end; ++it)
+		{
+			auto texTuple = (*it).second;
+			std::get<0>(texTuple)->apply();
 
+			//Set weight
+			setUniform(TEXTURE_BLEND_WEIGHT_UNIFORM_NAME+std::get<1>(texTuple),std::get<2>(texTuple));
+		}
 	}
 }
