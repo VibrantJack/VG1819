@@ -49,7 +49,7 @@ namespace unit
 
 		// Testing highlighting tiles and manipulating tiles using testDummy.txt
 		{
-			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstanceSafe()->spawnUnitObject(kibble::getUnitFromId(0));
+			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstanceSafe()->spawnUnitObject(0);
 			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
 			UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 
@@ -82,12 +82,12 @@ namespace unit
 		*/
 
 
-		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(1));//priest
-		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(2));//priest
-		kitten::K_GameObject* u3 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(3));//priest
-		kitten::K_GameObject* u4 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(4));//engineer
+		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(1);//priest
+		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(2);//priest
+		kitten::K_GameObject* u3 = UnitSpawn::getInstance()->spawnUnitObject(3);//priest
+		kitten::K_GameObject* u4 = UnitSpawn::getInstance()->spawnUnitObject(4);//engineer
 
-		kitten::K_GameObject* u0 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(1));//priest
+		kitten::K_GameObject* u0 = UnitSpawn::getInstance()->spawnUnitObject(1);//priest
 
 
 		//set initial position

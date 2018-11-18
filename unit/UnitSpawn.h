@@ -17,7 +17,7 @@ namespace unit
 		static UnitSpawn* getInstance();
 		static UnitSpawn* getInstanceSafe();
 
-		kitten::K_GameObject* spawnUnitObject(UnitData* p_unitData);
+		kitten::K_GameObject* spawnUnitObject(Unit* p_unitData);
 
 		kitten::K_GameObject* spawnUnitObject(const int& p_unitIdentifier);
 	private:

@@ -48,7 +48,7 @@ void SpawnUnitOnKeyPress::update()
 		}
 		else
 		{
-			kitten::K_GameObject* testDummyGO = unit::UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(m_iUnitId));
+			kitten::K_GameObject* testDummyGO = unit::UnitSpawn::getInstance()->spawnUnitObject(m_iUnitId);
 			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
 			unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 
