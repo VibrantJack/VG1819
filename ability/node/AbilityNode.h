@@ -37,7 +37,7 @@ namespace ability
 		virtual int effect(unit::Unit* p_target, const std::string& p_abilityName, const std::string& p_valueName, int p_value);
 		virtual int effect(unit::Unit* p_target, const std::string& p_abilityName, const std::string& p_valueName, const std::string& p_value);
 		virtual int effect(ability::AbilityInfoPackage* p_pack, const std::string& p_valueName, int p_value);
-		virtual kitten::K_GameObject* spawn(unit::UnitData* p_data);
+		virtual kitten::K_GameObject* spawn(unit::Unit* p_data);
 		//the method call
 		//TO DO: override method with parameters
 	};
@@ -87,7 +87,7 @@ namespace ability
 	public:
 		SpawnUnitNode();
 
-		kitten::K_GameObject* spawn(unit::UnitData* p_data);
+		kitten::K_GameObject* spawn(unit::Unit* p_data);
 	};
 
 	//TO DO: implement

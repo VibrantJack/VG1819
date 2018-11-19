@@ -5,8 +5,8 @@
 #include "kitten/K_GameObject.h"
 
 namespace kibble {
-	unit::UnitData* getUnitFromId(const int& p_identifier);
-	std::vector<unit::UnitData*> getUnitsFromListOfIds(const std::vector<int>& p_identifier);
+	unit::Unit* getUnitFromId(const int& p_identifier);
+	std::vector<unit::Unit*> getUnitsFromListOfIds(const std::vector<int>& p_identifier);
 
 	//returns null if none is found matching string
 	unit::AbilityDescription* getAbilityFromName(const std::string& p_name);
@@ -19,6 +19,8 @@ namespace kibble {
 	void addNewDeckData(DeckData*);
 
 	kitten::K_GameObject* attachCustomComponentsToGameObject(const int& p_identifier, kitten::K_GameObject* p_targetGameObject);
+	unit::Unit* getUnitInstanceFromId(const int& p_identifier);
+	bool checkIfComponentDriven(const int& p_identifier);
 
 	// ===----- For internal Use Only after this comment ---------------------------------------------------
 
