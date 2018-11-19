@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Material.h"
-#include <unordered_map>
+#include <map>
 
 
 namespace puppy
@@ -10,7 +10,7 @@ namespace puppy
 	{
 	private:
 												//Texture,  slot,  weight
-		std::unordered_map<std::string, std::tuple<Texture*, int, float>> m_additionalTextures;
+		std::map<std::string, std::tuple<Texture*, int, float>> m_additionalTextures;
 	public:
 		TextureBlendMaterial();
 		~TextureBlendMaterial();
@@ -21,6 +21,9 @@ namespace puppy
 		void removeTexture(const char* p_pathToTexToRemove);
 
 		void changeWeight(const char* p_pathToTex, const float& p_weight);
+		int getNumberOfTextures() const;
+
+		Texture* getFirstTexture();
 
 		virtual void apply() override;
 	};

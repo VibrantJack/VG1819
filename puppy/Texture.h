@@ -43,6 +43,8 @@ namespace puppy
 		void setMinFiltering(const int p_mode);
 		void setMagFiltering(const int p_mode);
 
+		void setSlot(int p_slot);
+
 		const GLuint* getTex() const;
 		const std::string& getPath() const;
 

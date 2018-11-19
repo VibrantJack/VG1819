@@ -134,6 +134,11 @@ namespace puppy
 		}
 	}
 
+	void Texture::setSlot(int p_slot)
+	{
+		m_slot = p_slot;
+	}
+
 	const GLuint* Texture::getTex() const
 	{
 		return &(Texture::m_tex);

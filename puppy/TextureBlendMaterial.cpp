@@ -21,6 +21,12 @@ namespace puppy
 		addTexture(p_pathToTex);
 	}
 
+	Texture* TextureBlendMaterial::getFirstTexture()
+	{
+		auto tuple = (*m_additionalTextures.cbegin()).second;
+		return std::get<0>(tuple);
+	}
+
 	void TextureBlendMaterial::addTexture(const char* p_pathToTexToAdd, const float& p_weight)
 	{
 		int numTextures = m_additionalTextures.size();
@@ -48,6 +54,17 @@ namespace puppy
 			m_additionalTextures.erase(found);
 
 			m_shader = ShaderManager::getShaderProgram(static_cast<ShaderType>(ShaderType::texture_blend_zero + m_additionalTextures.size()-1));
+
+			//Shift texture slots
+			int i = 0;
+			auto end = m_additionalTextures.cend();
+			for (auto it = m_additionalTextures.cbegin(); it != end; ++it)
+			{
+				auto texTuple = (*it).second;
+				int& slot = std::get<1>(texTuple);
+				slot = i;
+				++i;
+			}
 		}
 		else
 		{
@@ -64,6 +81,11 @@ namespace puppy
 
 		float& oldWeight = std::get<2>((*found).second);
 		oldWeight = p_weight;
+	}
+
+	int TextureBlendMaterial::getNumberOfTextures() const
+	{
+		return m_additionalTextures.size();
 	}
 
 	void TextureBlendMaterial::apply()
@@ -87,11 +109,6 @@ namespace puppy
 		auto end = m_additionalTextures.cend();
 		for (auto it = m_additionalTextures.cbegin(); it != end; ++it)
 		{
-			if (it != m_additionalTextures.cbegin())
-			{
-				int i = 0;
-			}
-
 			auto texTuple = (*it).second;
 			std::get<0>(texTuple)->apply();
 

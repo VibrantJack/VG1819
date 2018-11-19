@@ -3,7 +3,6 @@
     "components" : [
         {
             "name" : "QuadRenderable",
-            "texture" : "textures/tiles/grassland.tga",
 			"static" : true
         }
     ]

@@ -10,11 +10,10 @@ namespace kitten
 		static puppy::VertexEnvironment* sm_vao;
 		static int sm_instances;
 
-		puppy::TextureBlendMaterial* m_mat;
+		puppy::TextureBlendMaterial m_mat;
 
 		bool m_isStatic;
-		puppy::Texture* m_tex;
-		
+		puppy::Texture* m_staticTex;
 
 		void addToStaticRender();
 

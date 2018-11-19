@@ -154,7 +154,12 @@ namespace puppy
 				p_toChange->insert(std::make_pair(m_idToTex[p_where], toRender));
 			}
 		}
-		
+		else
+		{
+			auto foundRender = p_toChange->find(m_idToTex[p_where]);
+			delete foundRender->second;
+			p_toChange->erase(m_idToTex[p_where]);
+		}
 
 		//clean dirty flag
 		found->second.second = false;
