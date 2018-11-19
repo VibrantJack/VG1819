@@ -517,6 +517,9 @@
     <ClCompile Include="..\ability\status\Status_Shield.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
+    <ClCompile Include="..\puppy\TextureBlendMaterial.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -970,6 +973,9 @@
     </ClInclude>
     <ClInclude Include="..\kibble\UnitGameObject\UnitType.h">
       <Filter>kibble\UnitGameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\TextureBlendMaterial.h">
+      <Filter>puppy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,10 +13,13 @@ class TileInfo : public kitten::K_Component
 public:
 	enum HighlightType//descending order, ex: area highlight will cover range highlight
 	{
-		ForArea = 0,
-		ForRange,
-		ForOwnedTile,
-		Last,
+		Area,
+		First = Area,
+		None,
+		Cursor,
+		Range,
+		Owned,
+		Count = Owned+1
 	};
 
 	TileInfo(int p_iPosX = 0, int p_iPosY = 0);
@@ -25,7 +28,7 @@ public:
 	//land info
 	void setType(LandInformation::TileType p_type = LandInformation::Grass_land);
 	void start();
-	void setRenderTexture();
+
 	int getMVCost();
 	const std::string getDescription();
 	void effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit* p_u);
