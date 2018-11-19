@@ -14,6 +14,9 @@
 #define STATUS_DUELIST_LV3 "Status_Duelist_LV3"
 #define STATUS_DODGE "Status_Dodge"
 #define STATUS_TEMP_CHANGE "Status_Temp_Change"
+#define STATUS_AD_CHANGE "Status_AD_Change"
+#define STATUS_LOAD "Status_Load"
+#define STATUS_SHIELD "Status_Shield"
 //Rock
 
 namespace ability

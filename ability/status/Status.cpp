@@ -58,6 +58,11 @@ namespace ability
 		m_description = p_msg;
 	}
 
+	void Status::setEffectedAD(const std::string & p_msg)
+	{
+		m_effectedAD = p_msg;
+	}
+
 	void Status::addCounter(const std::string & p_key, int p_value)
 	{
 		if (m_counter.find(p_key) == m_counter.end())

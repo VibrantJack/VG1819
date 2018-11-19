@@ -23,9 +23,9 @@ namespace ability
 
 			unit::Unit* target = p_info->m_targets[0];
 
-			for (auto it : target->m_tags)
+			for (std::string it : target->m_tags)
 			{
-				if (it == "Structure")
+				if (it == STRUCTURE)
 				{
 					triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_info);
 
@@ -33,7 +33,7 @@ namespace ability
 
 					damage(target, power);
 
-					return 1;
+					return 0;
 				}
 			}
 		}
@@ -42,7 +42,7 @@ namespace ability
 		done(p_info);
 		
 		//target isn't structure
-		return 0;
+		return 1;
 	}
 
 }

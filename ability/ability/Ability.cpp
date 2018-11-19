@@ -3,6 +3,58 @@
 #include "board/tile/TileInfo.h"
 #include <iostream>
 
+void ability::Ability::singleTargetDamage(AbilityInfoPackage * p_info)
+{
+	//damage target by power
+	if (checkTarget(p_info))
+	{
+		//trigger deal damage event
+		triggerTPEvent(ability::TimePointEvent::Deal_Damage, p_info->m_source, p_info);
+
+		//trigger receive damage event
+		unit::Unit* target = p_info->m_targets[0];
+		triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_info);
+
+		//so power will change to negative
+		int power = -(p_info->m_intValue.find(UNIT_POWER)->second);
+
+		damage(target, power);
+	}
+
+	//delete package
+	done(p_info);
+}
+
+void ability::Ability::multiTargetDamage(AbilityInfoPackage * p_info)
+{
+	if (checkTarget(p_info))
+	{
+		//deal damaga to all units
+
+		//trigger deal damage event
+		triggerTPEvent(ability::TimePointEvent::Deal_Damage, p_info->m_source, p_info);
+
+		for (unit::Unit* u : p_info->m_targets)
+		{
+			//get copy of package
+			AbilityInfoPackage* clonePackage = new AbilityInfoPackage(*p_info);
+
+			//trigger receive damage
+			triggerTPEvent(ability::TimePointEvent::Receive_Damage, u, clonePackage);
+
+			int power = -(clonePackage->m_intValue.find(UNIT_POWER)->second);
+
+			damage(u, power);
+
+			//delete clone
+			delete clonePackage;
+		}
+	}
+
+	//delete package
+	done(p_info);
+}
+
 int ability::Ability::damage(unit::Unit* p_target, int power)
 {
 	AbilityNode* node1 = AbilityNodeManager::getInstance()->findNode(ChangeAttribute);

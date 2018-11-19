@@ -50,6 +50,7 @@ namespace unit
 		return m_instance;
 	}
 
+	/*
 	kitten::K_GameObject * UnitSpawn::spawnUnitObject(Unit * p_unitData)
 	{
 		//create unit 
@@ -89,12 +90,14 @@ namespace unit
 		unit::InitiativeTracker::getInstance()->addUnit(unitObject);
 
 		return unitObject;
-	}
+	}*/
 
 	kitten::K_GameObject* UnitSpawn::spawnUnitObject(const int& p_unitIdentifier) { 
 
+		/*
 		if (!kibble::checkIfComponentDriven(p_unitIdentifier))
 			return spawnUnitObject(kibble::getUnitInstanceFromId(p_unitIdentifier));
+			*/
 
 		//get component manager
 		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
@@ -119,6 +122,7 @@ namespace unit
 		return unitObject;
 	}
 
+	/*
 	Unit* UnitSpawn::spawnUnitFromData(UnitData * p_unitData)
 	{
 		Unit* unit = new Unit();
@@ -194,7 +198,7 @@ namespace unit
 		// Had to comment this out for testing Commander's ManipulateTile ability, using testDummy.txt
 		// Threw errors every other time
 		//commander->m_porPath = p_unitData->m_porPath;
-	}
+	}*/
 
 	kitten::K_Component * UnitSpawn::createClickableBox(UnitSize p_size)
 	{
@@ -212,6 +216,7 @@ namespace unit
 		return nullptr;
 	}
 
+	/*
 	ability::Status* UnitSpawn::readSD(unit::StatusDescription* p_sd)
 	{
 		std::string name = p_sd->m_stringValue["name"];
@@ -258,5 +263,5 @@ namespace unit
 		}
 
 		return s;
-	}
+	}*/
 }

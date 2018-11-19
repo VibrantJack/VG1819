@@ -18,6 +18,13 @@
 #define ABILITY_SLAY "Slay"
 #define ABILITY_DODGE "Dodge"
 #define ABILITY_BLAST "Blast"
+#define ABILITY_BURN "Burn"
+#define ABILITY_FIRE_DANCE "Fire Dance"
+#define ABILITY_FIRE "Fire"
+#define ABILITY_LOAD "Load"
+#define ABILITY_VOLLEY "Volley"
+#define ABILITY_ARM "Arm"
+#define ABILITY_THE_LIGHT "The Light"
 
 #define ACTION_MOVE "Move"
 #define ACTION_JOIN "Join"
