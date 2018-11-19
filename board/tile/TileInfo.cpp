@@ -18,7 +18,7 @@ TileInfo::TileInfo(int p_iPosX, int p_iPosY)
 	m_unitGO = nullptr;
 	m_landInfo = nullptr;
 
-	for (int i = ForArea; i != Last; i++)
+	for (int i = TileInfo::First; i < TileInfo::Count; ++i)
 	{
 		m_highlightType[static_cast<HighlightType>(i)] = false;
 	}
@@ -87,13 +87,13 @@ void TileInfo::setHighlighted(HighlightType p_type, bool p_bool)
 
 TileInfo::HighlightType TileInfo::getHighlightType()
 {
-	for (int i = ForArea; i != Last; i++)
+	for (int i = TileInfo::First; i < TileInfo::Count; ++i)
 	{
 		HighlightType p = static_cast<HighlightType>(i);
 		if(m_highlightType[p])
 			return p;
 	}
-	return Last;
+	return None;
 }
 
 int TileInfo::getPosX()

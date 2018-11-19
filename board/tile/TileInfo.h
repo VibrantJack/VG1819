@@ -13,11 +13,13 @@ class TileInfo : public kitten::K_Component
 public:
 	enum HighlightType//descending order, ex: area highlight will cover range highlight
 	{
-		ForArea = 0,
-		Highlight,
-		ForRange,
-		ForOwnedTile,
-		Last,
+		Area,
+		First = Area,
+		None,
+		Cursor,
+		Range,
+		Owned,
+		Count = Owned+1
 	};
 
 	TileInfo(int p_iPosX = 0, int p_iPosY = 0);
