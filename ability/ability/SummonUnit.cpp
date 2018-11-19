@@ -27,11 +27,11 @@ namespace ability
 
 		//get Unit data
 		//fixed for now
-		unit::UnitData* unitData = kibble::getUnitFromId(2);
+		unit::Unit* unitData = kibble::getUnitFromId(2);
 
-		if (unitData->m_Cost <= powerTracker->getCurrentPower())
+		if (unitData->m_attributes["cost"] <= powerTracker->getCurrentPower())
 		{
-			powerTracker->summonUnitCost(unitData->m_Cost);
+			powerTracker->summonUnitCost(unitData->m_attributes["cost"]);
 
 			kitten::K_GameObject* u = node->spawn(unitData);
 			kitten::K_GameObject* tile = p_info->m_targetTilesGO[0];

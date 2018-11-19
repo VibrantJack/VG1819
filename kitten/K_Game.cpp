@@ -54,9 +54,9 @@ namespace kitten
 
 		puppy::P_Instance::createInstance();
 
-		kibble::initializeKibbleRelatedComponents();
-
 		ability::StatusManager::createInstance();
+
+		kibble::initializeKibbleRelatedComponents();
 		ability::AbilityManager::createInstance();
 		ability::AbilityNodeManager::createInstance();
 
@@ -68,6 +68,7 @@ namespace kitten
 		UnitInteractionManager::createInstance();
 
 		LandInfoManager::createInstance();
+
 	}
 
 	// This is called once at the beginning of the game

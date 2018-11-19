@@ -106,7 +106,7 @@ kitten::K_Component* getClickableBox(nlohmann::json* p_jsonFile) {
 	}
 
 	if (JSONHAS("maxpoint")) {
-		minPoint = glm::vec3(LOOKUP("maxpoint")[0], LOOKUP("maxpoint")[1], LOOKUP("maxpoint")[2]);
+		maxPoint = glm::vec3(LOOKUP("maxpoint")[0], LOOKUP("maxpoint")[1], LOOKUP("maxpoint")[2]);
 	}
 
 	return new kitten::ClickableBox(minPoint, maxPoint);
@@ -614,7 +614,6 @@ kitten::K_Component* getSpriteRenderable(nlohmann::json* p_jsonFile) {
 	return new kitten::SpriteRenderable();
 }
 
-
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -668,7 +667,11 @@ void setupComponentMap() {
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {
 	std::string key = p_jsonFile->operator[]("name");
 	if (jsonComponentMap.find(key) != jsonComponentMap.end()) {
-		return jsonComponentMap[key](p_jsonFile);
+		kitten::K_Component* component = jsonComponentMap[key](p_jsonFile);
+		if (JSONHAS("enabled")) {
+			component->setEnabled((int)LOOKUP("enabled"));
+		}
+		return component;
 	}
 	return nullptr;
 }

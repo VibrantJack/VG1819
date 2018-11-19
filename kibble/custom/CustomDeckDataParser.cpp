@@ -1,5 +1,6 @@
 #include "CustomDeckDataParser.hpp"
 #include "kibble/databank/databank.hpp"
+#include "unit/Unit.h"
 #include <iomanip>
 #include <fstream>
 DeckData* CustomDeckDataParser::getDeckData(const std::string& p_filename) {
