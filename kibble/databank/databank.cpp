@@ -17,14 +17,7 @@ std::vector<std::vector<kitten::K_Component*>> unitSpecificComponentVector;
 
 // Basically the deconstructor
 void kibble::destroyDatabank() {
-	for (kibble::UnitFileStruct unit : unitDataVector) {
-		for (unit::AbilityDescription* ability : unit.data->m_ad) {
-			delete ability;
-		}
-		for (unit::StatusDescription* status : unit.data->m_sd) {
-			delete status;
-		}
-
+	for (kibble::UnitFileStruct& unit : unitDataVector) {
 		delete unit.data;
 	}
 	for (auto data : deckDataVector) {
@@ -43,13 +36,14 @@ void kibble::setupDatabank() {
 		std::string unitFilename;
 		while (input >> unitFilename) {
 			UnitFileStruct target = unitDataParser->getUnit(unitFilename);
-			for (unit::AbilityDescription* ability : target.data->m_ad) { // Set up Abilities
-				std::string name = ability->m_stringValue["name"];
+
+			for (auto ability : target.data->m_ADList ) { // Set up Abilities
+				std::string name = ability.first;
 				abilityToUnitMap[name].push_back(unitDataVector.size()); // add unit to list of units that use the ability
 				if (abilityDataMap.find(name) == abilityDataMap.end()) { // check to see if a previous ability with the same name doesn't exist
 					// if it finds nothing, it checks if it's being late loaded
-					if(lateLoadAbility.find(ability) != lateLoadAbility.end())
-						abilityDataMap[name] = ability; // if its not being loaded late set it
+					if(lateLoadAbility.find(ability.second) != lateLoadAbility.end())
+						abilityDataMap[name] = ability.second; // if its not being loaded late set it
 				}
 			}
 
@@ -91,12 +85,12 @@ void kibble::setupDatabank() {
 }
 
 
-unit::UnitData* kibble::getUnitFromId(const int& p_identifier) {
+unit::Unit* kibble::getUnitFromId(const int& p_identifier) {
 	return unitDataVector[p_identifier].data;
 }
 
-std::vector<unit::UnitData*> kibble::getUnitsFromListOfIds(const std::vector<int>& p_identifiers) {
-	std::vector<unit::UnitData*> unitList; 
+std::vector<unit::Unit*> kibble::getUnitsFromListOfIds(const std::vector<int>& p_identifiers) {
+	std::vector<unit::Unit*> unitList; 
 	for (int index : p_identifiers) {
 		unitList.push_back(unitDataVector[index].data);
 	}
@@ -154,10 +148,12 @@ void kibble::addNewDeckData(DeckData* p_data) {
 }
 
 #include "kitten/K_ComponentManager.h"
+#include "kibble/UnitGameObject/UnitType.h"
 kitten::K_GameObject* kibble::attachCustomComponentsToGameObject(const int& p_identifier, kitten::K_GameObject* p_targetGameObject) {
 	kibble::UnitFileStruct& targetUnit = unitDataVector[p_identifier];
 	kitten::K_ComponentManager* componentManager = kitten::K_ComponentManager::getInstance();
 	
+	p_targetGameObject->addComponent(getUnitFrom(targetUnit.unitJson));
 	for (nlohmann::json component : targetUnit.components) {
 		p_targetGameObject->addComponent(componentManager->createComponent(&component));
 	}
@@ -166,4 +162,13 @@ kitten::K_GameObject* kibble::attachCustomComponentsToGameObject(const int& p_id
 	p_targetGameObject->getTransform().scaleRelative(targetUnit.scale[0], targetUnit.scale[1], targetUnit.scale[2]);
 
 	return p_targetGameObject;
+}
+
+
+bool kibble::checkIfComponentDriven(const int& p_identifier) {
+	return !unitDataVector[p_identifier].components.empty();
+}
+
+unit::Unit* kibble::getUnitInstanceFromId(const int& p_identifier) {
+	return getUnitFrom(unitDataVector[p_identifier].unitJson);
 }

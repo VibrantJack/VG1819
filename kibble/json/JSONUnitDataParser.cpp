@@ -1,7 +1,7 @@
 #include "jsonextra.hpp"
 #include "JSONUnitDataParser.hpp"
-#include "Datatypes/UnitDataType.hpp"
 #include "Datatypes/ComponentDataType.hpp"
+#include "kibble/UnitGameObject/UnitType.h"
 
 constexpr auto UNIT_DIRECTORY = "data/unit/";
 
@@ -10,7 +10,8 @@ kibble::UnitFileStruct kibble::JSONUnitDataParser::getUnit(const std::string& p_
 	kibble::UnitFileStruct result;
 
 	if (jsonfile.find("unit") != jsonfile.end()) {
-		result.data = getUnitDataFrom(jsonfile["unit"]);
+		result.data = getUnitFrom(jsonfile["unit"]);
+		result.unitJson = jsonfile["unit"];
 		for (nlohmann::json::iterator it = jsonfile["components"].begin(); it != jsonfile["components"].end(); ++it) {
 			result.components.push_back(*it);
 		}
@@ -34,7 +35,8 @@ kibble::UnitFileStruct kibble::JSONUnitDataParser::getUnit(const std::string& p_
 	}
 	else
 	{
-		result.data = getUnitDataFrom(jsonfile);
+		result.data = getUnitFrom(jsonfile);
+		result.unitJson = jsonfile;
 	}
 
 	return result;

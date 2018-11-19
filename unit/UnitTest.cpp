@@ -50,7 +50,7 @@ namespace unit
 		/*
 		// Testing highlighting tiles and manipulating tiles using testDummy.txt
 		{
-			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstanceSafe()->spawnUnitObject(kibble::getUnitFromId(0));
+			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstanceSafe()->spawnUnitObject(0);
 			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
 			UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 

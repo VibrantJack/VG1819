@@ -242,6 +242,7 @@ namespace kitten
 
 	void K_ComponentManager::destroyComponentImmediate(K_Component* p_toDestroy)
 	{
+
 		if (p_toDestroy->hasUpdate()) //&& isActive
 		{
 			removeFromUpdate(p_toDestroy);

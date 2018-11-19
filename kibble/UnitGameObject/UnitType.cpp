@@ -8,11 +8,18 @@ unit::Unit * getUnitFrom(nlohmann::json & p_jsonfile)
 	//TO DO: an ID system instead of random words
 	unit->m_ID = "testUnit01";//hard coded for now
 
-	unit->m_name = p_jsonfile["name"].get<std::string>();
+	unit->m_name = p_jsonfile["name"];
 	int hp = p_jsonfile["hp"];
 	int in = p_jsonfile["mv"];
 	int mv = p_jsonfile["in"];
 	int cost = p_jsonfile["cost"];
+	if (p_jsonfile.find("size") != p_jsonfile.end()) {
+		if (p_jsonfile["size"] == "cube")
+			unit->m_size = unit::UnitSize::cube;
+		else
+			unit->m_size = unit::UnitSize::point;
+	}
+	else { unit->m_size = unit::UnitSize::point; }
 
 	unit->m_attributes[UNIT_HP] = hp;
 	unit->m_attributes[UNIT_MAX_HP] = hp;
@@ -70,7 +77,7 @@ unit::Unit * getUnitFrom(nlohmann::json & p_jsonfile)
 	//doesn't belong to any client
 	unit->m_clientId = -1;
 
-	return nullptr;
+	return unit;
 }
 
 unit::Commander * getCommanderFrom(nlohmann::json & p_jsonfile)
