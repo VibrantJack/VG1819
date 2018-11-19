@@ -12,7 +12,7 @@ public:
 
 	void hostGame();
 	void stopHosting();
-	void connectToHost();
+	void connectToHost(const std::string& p_strAddr = "127.0.0.1");
 	void disconnectFromHost(bool p_bServerShutdown = false);
 
 	bool checkClientNetwork();

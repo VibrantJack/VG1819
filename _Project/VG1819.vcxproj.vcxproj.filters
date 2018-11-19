@@ -505,11 +505,14 @@
     <ClCompile Include="..\kibble\UnitGameObject\UnitType.cpp">
       <Filter>kibble\UnitGameObject</Filter>
     </ClCompile>
-    <ClCompile Include="..\UI\NetworkingMenuUI.cpp">
-      <Filter>UI</Filter>
+    <ClCompile Include="..\networking\menu\NetworkHostButton.cpp">
+      <Filter>networking\networking_menu</Filter>
     </ClCompile>
-    <ClCompile Include="..\UI\NetworkHostButton.cpp">
-      <Filter>UI</Filter>
+    <ClCompile Include="..\networking\menu\NetworkingMenuUI.cpp">
+      <Filter>networking\networking_menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp">
+      <Filter>networking\networking_menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -965,11 +968,14 @@
     <ClInclude Include="..\kibble\UnitGameObject\UnitType.h">
       <Filter>kibble\UnitGameObject</Filter>
     </ClInclude>
-    <ClInclude Include="..\UI\NetworkingMenuUI.h">
-      <Filter>UI</Filter>
+    <ClInclude Include="..\networking\menu\NetworkHostButton.h">
+      <Filter>networking\networking_menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\UI\NetworkHostButton.h">
-      <Filter>UI</Filter>
+    <ClInclude Include="..\networking\menu\NetworkingMenuUI.h">
+      <Filter>networking\networking_menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\menu\NetworkJoinButton.h">
+      <Filter>networking\networking_menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

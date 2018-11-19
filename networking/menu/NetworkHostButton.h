@@ -13,6 +13,7 @@ namespace userinterface
 		NetworkHostButton();
 		~NetworkHostButton();
 
+		virtual void start() override;
 		virtual void onClick();
 
 	private:

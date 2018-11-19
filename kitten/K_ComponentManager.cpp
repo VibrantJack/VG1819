@@ -22,7 +22,9 @@
 #include "UI\CardUIO.h"
 #include "UI\HandFrame.h"
 #include "mouse picking/ClickableUI.h"
-#include "UI\NetworkHostButton.h"
+#include "networking\menu\NetworkHostButton.h"
+#include "networking\menu\NetworkJoinButton.h"
+#include "_Project\StringInputDisplay.h"
 
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
@@ -33,6 +35,7 @@
 #include "components\SelectAbility.h"
 #include "networking\SpawnUnitOnKeyPress.h"
 #include "networking\NetworkingConsoleMenu.h"
+#include "networking\menu\NetworkingMenuUI.h"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 
 //board
@@ -95,16 +98,18 @@ namespace kitten
 		else if (p_componentName == "Card") // Datadriven
 		{
 			comp = new userinterface::CardUIO("textures/ui/cardBack.tga");
-		}else if(p_componentName == "ClickableFrame") // Datadriven
+		}
+		else if(p_componentName == "ClickableFrame") // Datadriven
 		{
 			comp = new ClickableFrame(ClickableFrame::piv_BotLeft);
-		} else if (p_componentName == "NetworkHostButton") // Datadriven
+		} 
+		else if (p_componentName == "NetworkHostButton") // Datadriven
 		{
 			comp = new userinterface::NetworkHostButton();
 		}
-		else if (p_componentName == "ButtonFrame")// Datadriven
+		else if (p_componentName == "NetworkJoinButton") // Datadriven
 		{
-			comp = new userinterface::UIFrame("textures/ui/host_button.tga");
+			comp = new userinterface::NetworkJoinButton();
 		}
 		else if (p_componentName == "ClickableUI") // Datadriven
 		{
@@ -210,9 +215,17 @@ namespace kitten
 		{
 			comp = new NetworkingConsoleMenu();
 		}
+		else if (p_componentName == "NetworkingMenuUI")
+		{
+			comp = new userinterface::NetworkingMenuUI("textures/ui/network_menu_bg.tga");
+		}
 		else if (p_componentName == "TileInfo") // Datadriven
 		{
 			comp = new TileInfo();
+		}
+		else if (p_componentName == "StringInputDisplay") // Datadriven
+		{
+			comp = new StringInputDisplay();
 		}
 		else
 		{

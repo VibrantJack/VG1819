@@ -85,8 +85,10 @@ void NetworkingConsoleMenu::update()
 		if (input::InputManager::getInstance()->keyDown(m_cConnectKey) && !input::InputManager::getInstance()->keyDownLast(m_cConnectKey))
 		{
 			printf("Connect to host option selected\n");
-			
-			connectToHost();
+			printf("Enter an address: ");
+			std::string addr;
+			std::cin >> addr;
+			connectToHost(addr);
 			m_bMenuOpen = false;
 		}
 
@@ -164,7 +166,7 @@ void NetworkingConsoleMenu::stopHosting()
 	}
 }
 
-void NetworkingConsoleMenu::connectToHost()
+void NetworkingConsoleMenu::connectToHost(const std::string& p_strAddr)
 {
 	networking::ClientGame* client = networking::ClientGame::getInstance();
 
@@ -173,22 +175,15 @@ void NetworkingConsoleMenu::connectToHost()
 	{
 		// Check if we're already connected to a host
 		if (!networking::ClientGame::isNetworkValid())
-		{
-			printf("Enter an address: ");
-			std::string addr;
-			std::cin >> addr;
-			client->setupNetwork(addr);
+		{			
+			client->setupNetwork(p_strAddr);
 		} else
 		{
 			printf("[Client: %d]: already connected to host\n", client->getClientId());
 		}
 	} else // If not, get address and create ClientGame instance
 	{
-		printf("Enter an address: ");
-		std::string addr;
-		std::cin >> addr;
-
-		networking::ClientGame::createInstance(addr);
+		networking::ClientGame::createInstance(p_strAddr);
 		checkClientNetwork();
 	}
 }
