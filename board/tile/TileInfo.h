@@ -34,6 +34,7 @@ public:
 	void effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit* p_u);
 
 	//highlight 
+	void changeHighlightTexture(const std::string& p_texpath);
 	bool isHighlighted(HighlightType p_type);
 	void setHighlighted(HighlightType p_type, bool p_bool);
 	HighlightType getHighlightType();
@@ -65,6 +66,7 @@ private:
 	int m_iPosX, m_iPosY;
 	std::string m_sOwnerId;
 	std::string m_sHighlightedBy;
+	std::string m_lasttexpath;
 
 	LandInformation::TileType m_tileType;
 
