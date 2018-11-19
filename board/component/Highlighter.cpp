@@ -42,20 +42,22 @@ void Highlighter::update()
 
 			TileInfo::HighlightType type = info->getHighlightType();
 
-			int x = info->getPosX();
-			int z = info->getPosY();
+			//int x = info->getPosX();
+			//int z = info->getPosY();
 
-			kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
+			//kitten::QuadRenderable* quad = tile->getComponent<kitten::QuadRenderable>();
 
 			if (type != TileInfo::None)
 			{
 				//Add blending
-				quad->addTexture(m_texMap[TileInfo::Area].c_str(), 1.0f);
+				info->changeHighlightTexture(m_texMap[type]);
+				//quad->addTexture(m_texMap[type].c_str(), 1.0f);
 			}
 			else
 			{
+				info->changeHighlightTexture("");
 				//Remove blending
-				quad->removeTexture(m_texMap[TileInfo::Area].c_str());
+				//quad->removeTexture(m_texMap[type].c_str());
 			}
 		}
 
