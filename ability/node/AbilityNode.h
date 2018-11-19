@@ -19,7 +19,7 @@ namespace ability
 		CheckHP,
 		ChangeAbilityDescription,
 		ChangeAbilityInfo,
-		SpawnUnit,
+		//SpawnUnit,
 	};
 
 	class AbilityNode
@@ -82,13 +82,14 @@ namespace ability
 		int effect(ability::AbilityInfoPackage* p_pack, const std::string& p_valueName, int p_value);
 	};
 
+	/*
 	class SpawnUnitNode : public ability::AbilityNode
 	{
 	public:
 		SpawnUnitNode();
 
-		kitten::K_GameObject* spawn(unit::Unit* p_data);
-	};
+		kitten::K_GameObject* spawn(unit::UnitData* p_data);
+	};*/
 
 	//TO DO: implement
 	class TileChangeNode : public ability::AbilityNode

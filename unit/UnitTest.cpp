@@ -45,8 +45,9 @@ namespace unit
 		//comment for testing IT
 
 		kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstanceSafe()->spawnUnitObject(6); // NewDummy !!!
-		uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(1, 1);
+		uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(4, 4);
 
+		/*
 		// Testing highlighting tiles and manipulating tiles using testDummy.txt
 		{
 			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstanceSafe()->spawnUnitObject(0);
@@ -64,7 +65,7 @@ namespace unit
 			//PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
 			//printWhenClick->setMessage("Test Dummy");
 			//testDummyGO->addComponent(printWhenClick);
-		}
+		}*/
 		// End testing selecting spawned unit
 		
 
@@ -82,12 +83,12 @@ namespace unit
 		*/
 
 
-		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(1);//priest
-		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(2);//priest
-		kitten::K_GameObject* u3 = UnitSpawn::getInstance()->spawnUnitObject(3);//priest
-		kitten::K_GameObject* u4 = UnitSpawn::getInstance()->spawnUnitObject(4);//engineer
+		kitten::K_GameObject* u1 = UnitSpawn::getInstanceSafe()->spawnUnitObject(1);//priest
+		kitten::K_GameObject* u2 = UnitSpawn::getInstanceSafe()->spawnUnitObject(2);//archer
+		kitten::K_GameObject* u3 = UnitSpawn::getInstanceSafe()->spawnUnitObject(3);//duelist
+		kitten::K_GameObject* u4 = UnitSpawn::getInstanceSafe()->spawnUnitObject(4);//engineer
 
-		kitten::K_GameObject* u0 = UnitSpawn::getInstance()->spawnUnitObject(1);//priest
+		kitten::K_GameObject* u0 = UnitSpawn::getInstanceSafe()->spawnUnitObject(1);//priest
 
 
 		//set initial position

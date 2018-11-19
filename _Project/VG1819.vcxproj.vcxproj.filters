@@ -161,19 +161,10 @@
     <ClCompile Include="..\ability\node\ChangeAbilityInfoNode.cpp">
       <Filter>ability\node</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\node\SpawnUnitNode.cpp">
-      <Filter>ability\node</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\ability\Ability.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\ability\Encourage.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\ability\Fight.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\ability\QuickShoot.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
     <ClCompile Include="..\kitten\event_system\Event.cpp">
@@ -198,12 +189,6 @@
       <Filter>ability\ability</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\ability\Sabotage.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\ability\Shoot.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\ability\Slay.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\status\Status_Archer_LV3.cpp">
@@ -439,9 +424,6 @@
     <ClCompile Include="..\unit\unitComponent\CastTimer.cpp">
       <Filter>unit\unitComponent</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\ability\Blast.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
     <ClCompile Include="..\kitten\K_JobManager.cpp">
       <Filter>kitten\coroutines</Filter>
     </ClCompile>
@@ -519,6 +501,21 @@
     </ClCompile>
     <ClCompile Include="..\board\tile\landInfo\GardenLand.cpp">
       <Filter>board\tile\landInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_AD_Change.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Load.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Arm.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Load.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Shield.cpp">
+      <Filter>ability\status</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

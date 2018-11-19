@@ -1,12 +1,12 @@
 {
-    "name":"Archer",
-    "hp":8,
-    "mv":2,
-    "in":14,
-    "cost":2,
-	"size":"point",
-	"tags":["Elf","Terrans"],
-	"ability_description":[
+	"unit":{
+		"name":"Archer",
+		"hp":8,
+		"mv":2,
+		"in":14,
+		"cost":2,
+		"tags":["Elf","Terrans"],
+		"ability_description":[
 			{
 				"name":"Shoot",
 				"power":3,
@@ -28,18 +28,37 @@
 				"description":"Deal 2 damage twice. Can be different targets."
 			}
 		],
-	"status_description":[
+		"status":[
 			{
 				"name":"Status_LV",
 				"lv":2,
-				"time_point":[2],
+				"time_point":2,
 				"hp":4
 			},
 			{
 				"name":"Status_Archer_LV3",
 				"lv":3,
-				"time_point":[2],
+				"time_point":2,
 				"hp":4
 			}
 		]
+	},
+	"components" : [
+		{
+			"name" : "UnitGraphic",
+			"texture":"textures/unit/Default.tga",
+			"unitsize": "point"
+		},
+		{
+			"name" : "UnitMove",
+			"offset":[0.15,1.0,0.8]
+		},
+		{
+			"name" : "ClickableBox",
+			"minpoint":[-0.5,-0.5,0],
+			"maxpoint":[0.5,0.5,0]
+		}
+	],
+	"scale" : [0.15,0.20,0],
+	"rotate" : [45, 0, 0]
 }

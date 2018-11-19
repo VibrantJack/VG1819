@@ -97,6 +97,12 @@ namespace unit
 		if (isCommander())//commander can't join to another unit
 			return;
 
+		for (std::string it : m_tags)//strucutre can't join to another unit
+		{
+			if (it == STRUCTURE)
+				return;
+		}
+
 		UnitInteractionManager::getInstance()->request(this, &m_joinAD);
 	}
 
