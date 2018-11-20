@@ -61,26 +61,19 @@ namespace puppy
 	{
 		const glm::mat4& viewProj = p_cam->getViewProj();
 
+		//3D objects
+
 		auto end = m_toRender.end();
 		for (auto it = m_toRender.begin(); it != end; ++it)
 		{
 			(*it)->render(viewProj);
 		}
 
-		//UI
-		const glm::mat4& ortho = p_cam->getOrtho();
-
-		auto uiEnd = m_uiToRender.end();
-		for (auto it = m_uiToRender.begin(); it != uiEnd; ++it)
-		{
-			(*it)->render(ortho);
-		}
-
 		//Particles
 		glEnable(GL_BLEND);
 		glDisable(GL_DEPTH_TEST);
 
-		const glm::mat4& viewInverse = p_cam->getMat4ViewInverse();
+		glm::mat4 viewInverse = (glm::mat4)p_cam->getMat3ViewInverse();
 
 		auto particlesEnd = m_particlesToRender.cend();
 		for (auto it = m_particlesToRender.cbegin(); it != particlesEnd; ++it)
@@ -91,6 +84,15 @@ namespace puppy
 		//blend off
 		glDisable(GL_BLEND);
 		glEnable(GL_DEPTH_TEST);
+
+		//UI
+		const glm::mat4& ortho = p_cam->getOrtho();
+
+		auto uiEnd = m_uiToRender.end();
+		for (auto it = m_uiToRender.begin(); it != uiEnd; ++it)
+		{
+			(*it)->render(ortho);
+		}
 	}
 
 	void Renderer::removeAll()

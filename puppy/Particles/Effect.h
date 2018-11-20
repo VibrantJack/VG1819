@@ -27,7 +27,7 @@ namespace puppy
 
 		void update(float p_delta);
 
-		void render(const glm::mat4& p_viewInverse, const glm::mat4& p_viewProj);
+		void render(const glm::mat4& p_viewInverse, const glm::mat4& p_viewProj, const glm::vec3& p_position, const glm::vec3& p_scale);
 
 		void play();
 		void pause();

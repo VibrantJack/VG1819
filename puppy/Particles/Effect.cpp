@@ -52,7 +52,7 @@ namespace puppy
 	{
 		if (m_state == playing)
 		{
-			for (auto it = m_emitters.begin(); it != m_emitters.end(); ++it)
+			for (auto it = m_emitters.cbegin(); it != m_emitters.cend(); ++it)
 			{
 				//Update emitters
 				(*it)->update(p_delta, true);
@@ -62,7 +62,7 @@ namespace puppy
 		{
 			if (m_state == paused)
 			{
-				for (auto it = m_emitters.begin(); it != m_emitters.end(); ++it)
+				for (auto it = m_emitters.cbegin(); it != m_emitters.cend(); ++it)
 				{
 					//Update emitters
 					(*it)->update(p_delta, false);
@@ -71,14 +71,14 @@ namespace puppy
 		}
 	}
 
-	void Effect::render(const glm::mat4& p_viewInverse, const glm::mat4& p_viewProj)
+	void Effect::render(const glm::mat4& p_viewInverse, const glm::mat4& p_viewProj, const glm::vec3& p_position, const glm::vec3& p_scale)
 	{
 		if (m_state != stopped)
 		{
-			for (auto it = m_emitters.begin(); it != m_emitters.end(); ++it)
+			for (auto it = m_emitters.cbegin(); it != m_emitters.cend(); ++it)
 			{
 				//Render emitters
-				(*it)->render(p_viewInverse, p_viewProj);
+				(*it)->render(p_viewInverse, p_viewProj, p_position, p_scale);
 			}
 		}
 	}

@@ -69,6 +69,8 @@ namespace kitten
 
 	void K_ParticleSystem::render(const glm::mat4& p_viewInverse, const glm::mat4& p_viewProj)
 	{
-		m_particleEffect.render(p_viewInverse, p_viewProj);
+		Transform& transform = getTransform();
+
+		m_particleEffect.render(p_viewInverse, p_viewProj, transform.getTranslation(), transform.getScale());
 	}
 }

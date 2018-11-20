@@ -24,7 +24,7 @@
 
 namespace puppy
 {
-	Emitter::Emitter(const char* p_pathToXML, const glm::vec3& p_offset) : m_vao(nullptr), m_tex(nullptr), m_isBurst(false), m_lastSpawn(0), m_offset(p_offset)
+	Emitter::Emitter(const char* p_pathToXML, const glm::vec3& p_offset) : m_vao(nullptr), m_tex(nullptr), m_isBurst(false), m_lastSpawn(0)
 	{
 		m_xmlPath = p_pathToXML;
 		m_parser = new parser::Parser();
@@ -222,7 +222,7 @@ namespace puppy
 					radius = child.attribute("radius").as_float();
 				}
 
-				OffsetSpawnAff* osa = new OffsetSpawnAff(this, shape, m_offset);
+				OffsetSpawnAff* osa = new OffsetSpawnAff(glm::vec3(0,0,0), shape);
 				osa->setBoxBounds(topLeft, bottomRight);
 				osa->setRadius(radius);
 
@@ -252,7 +252,7 @@ namespace puppy
 		//set emitter shape to default (point) if not defined in xml
 		if (!hasShape)
 		{
-			OffsetSpawnAff* osa = new OffsetSpawnAff(this, point, m_offset);
+			OffsetSpawnAff* osa = new OffsetSpawnAff(glm::vec3(0,0,0), point);
 			m_spawnProperties.push_back(osa);
 		}
 
@@ -720,7 +720,7 @@ namespace puppy
 		}
 	}
 
-	void Emitter::render(const glm::mat4& p_viewInverse, const glm::mat4& p_viewProj)
+	void Emitter::render(const glm::mat4& p_viewInverse, const glm::mat4& p_viewProj, const glm::vec3& p_position, const glm::vec3& p_scale)
 	{
 		if (m_activeParticles.size() > 0) //Do we have particles to render?
 		{	
@@ -733,10 +733,10 @@ namespace puppy
 			{
 				//Construct a world matrix to multiply each vertex by
 				glm::mat4 worldMat = 
-					glm::translate(glm::vec3(p->m_centerPoint.x, p->m_centerPoint.y, p->m_centerPoint.z)) *
+					glm::translate(glm::vec3(p->m_centerPoint.x + p_position.x, p->m_centerPoint.y + p_position.y, p->m_centerPoint.z + p_position.z)) *
 					p_viewInverse *
 					glm::rotate(p->m_rotation, glm::vec3(0, 0, 1)) *
-					glm::scale(glm::vec3(p->m_scale.x, p->m_scale.y, 1));
+					glm::scale(glm::vec3(p->m_scale.x * p_scale.x, p->m_scale.y * p_scale.y, 1));
 
 				//Bottom left
 				glm::vec4 pos = glm::vec4(-0.5, -0.5, 0, 1);
