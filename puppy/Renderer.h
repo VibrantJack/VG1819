@@ -42,7 +42,7 @@ namespace puppy
 		void removeUIFromRender(kitten::UIRenderable* p_toRemove);
 
 		void addParticleToRender(kitten::K_ParticleSystem* p_toAdd);
-		void removeParticleToRender(kitten::K_ParticleSystem* p_toRemove);
+		void removeParticleFromRender(kitten::K_ParticleSystem* p_toRemove);
 
 		void renderAll(kitten::Camera* p_cam);
 	public:

@@ -52,7 +52,7 @@ namespace puppy
 		m_particlesToRender.insert(p_toAdd);
 	}
 
-	void Renderer::removeParticleToRender(kitten::K_ParticleSystem* p_toRemove)
+	void Renderer::removeParticleFromRender(kitten::K_ParticleSystem* p_toRemove)
 	{
 		m_particlesToRender.erase(p_toRemove);
 	}

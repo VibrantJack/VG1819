@@ -1,4 +1,5 @@
 #include "K_ParticleSystem.h"
+#include "puppy\Renderer.h"
 
 namespace kitten
 {
@@ -9,13 +10,18 @@ namespace kitten
 
 	K_ParticleSystem::~K_ParticleSystem()
 	{
-
+		if (m_isEnabled)
+		{
+			onDisabled();
+		}
 	}
 
 	void K_ParticleSystem::start()
 	{
 		m_time = K_Time::getInstance();
 		assert(m_time != nullptr);
+
+		puppy::Renderer::sm_instance->addParticleToRender(this);
 	}
 
 	void K_ParticleSystem::update()
@@ -25,12 +31,12 @@ namespace kitten
 
 	void K_ParticleSystem::onDisabled()
 	{
-
+		puppy::Renderer::sm_instance->removeParticleFromRender(this);
 	}
 
 	void K_ParticleSystem::onEnabled()
 	{
-
+		puppy::Renderer::sm_instance->addParticleToRender(this);
 	}
 
 	void K_ParticleSystem::pause()

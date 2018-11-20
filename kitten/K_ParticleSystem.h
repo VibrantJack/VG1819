@@ -2,7 +2,6 @@
 #include "K_Component.h"
 #include "kitten\K_Time.h"
 
-#include "puppy\Renderer.h"
 #include "puppy\Particles\Effect.h"
 
 namespace kitten
