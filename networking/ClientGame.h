@@ -31,6 +31,7 @@ namespace networking
 
 		void update();
 
+		void testNewPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
 		void sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
 
 		void singleTargetAbility(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iDur, int p_iPow);

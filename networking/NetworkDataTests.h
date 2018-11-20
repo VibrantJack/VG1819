@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <assert.h>
+#include <vector>
 
 #define MAX_PACKET_SIZE 1000000
 #define MAX_BUFSIZE 512
@@ -23,19 +24,22 @@ enum PacketTypes {
 
 struct Buffer
 {
-	char* data;		// pointer to buffer data
-	int size;		// size of buffer data in bytes
-	int index;		// index of next byte to be read/written
+	friend struct Packet;
+	char* m_data;		// pointer to buffer data
+	int m_size;		// size of buffer data in bytes
+	int getIndex() { return m_index; }
+private:
+	int m_index = 0;		// index of next byte to be read/written
 };
 
 struct Packet
 {
 	void writeInt(Buffer &buffer, uint32_t value)
 	{
-		assert(buffer.index + sizeof(uint32_t) <= buffer.size);
+		assert(buffer.m_index + sizeof(uint32_t) <= buffer.m_size);
 
-		*((uint32_t*)(buffer.data + buffer.index)) = value;
-		buffer.index += sizeof(uint32_t);
+		*((uint32_t*)(buffer.m_data + buffer.m_index)) = value;
+		buffer.m_index += sizeof(uint32_t);
 	}
 
 	void writeChar(Buffer &buffer, uint8_t value)
@@ -45,17 +49,18 @@ struct Packet
 
 	uint32_t readInt(Buffer &buffer)
 	{
-		assert(buffer.index + 4 <= buffer.size);
+		assert(buffer.m_index + 4 <= buffer.m_size);
 
 		uint32_t value;
-		value = *((uint32_t*)(buffer.data + buffer.index));
-		buffer.index += 4;
+		value = *((uint32_t*)(buffer.m_data + buffer.m_index));
+		buffer.m_index += 4;
 		return value;
 	}
 };
 
 struct PacketA : Packet
 {
+	std::vector<int> m_values;
 	int x;
 
 	void write(Buffer &buffer)
