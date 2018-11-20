@@ -17,8 +17,8 @@
 
 #include "puppy\ShaderManager.h"
 #include "puppy\ShaderProgram.h"
-#include "CallumMacKenzie_As3\pugixml\pugixml.hpp"
-#include "CallumMacKenzie_As3\expressions\PostfixEval.h"
+#include "pugixml\pugixml.hpp"
+#include "expressions\PostfixEval.h"
 
 #include <iostream>
 
@@ -720,13 +720,10 @@ namespace puppy
 		}
 	}
 
-	void Emitter::render(scene::Camera* p_camera)
+	void Emitter::render(const glm::mat4& p_viewInverse, const glm::mat4& p_viewProj)
 	{
 		if (m_activeParticles.size() > 0) //Do we have particles to render?
 		{	
-			//Get the billboard rotation
-			glm::mat4 billboard = (glm::mat4) p_camera->getViewInverse();
-			
 			//map data
 			ParticleVertex* data = (ParticleVertex*)(m_vao->map(GL_WRITE_ONLY));
 			ParticleVertex d0 = data[0];
@@ -737,7 +734,7 @@ namespace puppy
 				//Construct a world matrix to multiply each vertex by
 				glm::mat4 worldMat = 
 					glm::translate(glm::vec3(p->m_centerPoint.x, p->m_centerPoint.y, p->m_centerPoint.z)) *
-					billboard *
+					p_viewInverse *
 					glm::rotate(p->m_rotation, glm::vec3(0, 0, 1)) *
 					glm::scale(glm::vec3(p->m_scale.x, p->m_scale.y, 1));
 
@@ -817,7 +814,7 @@ namespace puppy
 
 			//set uniforms
 			glUniformMatrix4fv(puppy::ShaderManager::getShaderProgram(ShaderType::particles)->getUniformPlace(WORLD_VIEW_PROJ_UNIFORM_NAME),
-				1, GL_FALSE, glm::value_ptr(p_camera->getViewProj()));
+				1, GL_FALSE, glm::value_ptr(p_viewProj));
 
 			//bind texture
 			m_tex->apply();

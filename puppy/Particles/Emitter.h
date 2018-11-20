@@ -8,8 +8,7 @@
 #include "puppy\P_Common.h"
 #include "puppy\VertexEnvironment.h"
 #include "puppy\Texture.h"
-#include "CallumMacKenzie_As3\SceneManagement\Camera.h"
-#include "CallumMacKenzie_As3\parser\parser.h"
+#include "expressions\parser.h"
 
 #include <list>
 #include <string>
@@ -48,7 +47,7 @@ namespace puppy
 		Emitter(const char* p_pathToXML, const glm::vec3& p_offset);
 
 		void update(float p_delta, bool p_canSpawn);
-		void render(scene::Camera* p_camera);
+		void render(const glm::mat4& p_viewInverse, const glm::mat4& p_viewProj);
 
 		void setSpawnRate(float p_spawnRate);
 		void refreshXML();

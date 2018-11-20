@@ -614,6 +614,15 @@ kitten::K_Component* getSpriteRenderable(nlohmann::json* p_jsonFile) {
 	return new kitten::SpriteRenderable();
 }
 
+#include "kitten\K_ParticleSystem.h"
+kitten::K_Component* getKParticleSystem(nlohmann::json* p_jsonFile) {
+	
+	std::string pathToXML = p_jsonFile->operator[]("effectpath");
+	
+	return new kitten::K_ParticleSystem(pathToXML.c_str());
+}
+
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -658,7 +667,7 @@ void setupComponentMap() {
 	jsonComponentMap["TileInfo"] = &getTileInfo;
 	jsonComponentMap["SpawnUnitOnKeyPress"] = &getSpawnUnitOnKeyPress;
 	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
-  
+	jsonComponentMap["K_ParticleSystem"] = &getKParticleSystem;
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
 	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
 

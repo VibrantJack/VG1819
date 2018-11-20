@@ -70,17 +70,16 @@ namespace puppy
 		}
 	}
 
-	void Effect::render(scene::Camera* p_cam)
+	void Effect::render(const glm::mat4& p_viewInverse, const glm::mat4& p_viewProj)
 	{
 		if (m_state != stopped)
 		{
 			for (auto it = m_emitters.begin(); it != m_emitters.end(); ++it)
 			{
 				//Render emitters
-				(*it)->render(p_cam);
+				(*it)->render(p_viewInverse, p_viewProj);
 			}
 		}
-
 	}
 
 	void Effect::play()
