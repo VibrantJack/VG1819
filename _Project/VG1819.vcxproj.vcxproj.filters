@@ -520,6 +520,9 @@
     <ClCompile Include="..\puppy\TextureBlendMaterial.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
+    <ClCompile Include="..\networking\ResizeablePacket.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -976,6 +979,9 @@
     </ClInclude>
     <ClInclude Include="..\puppy\TextureBlendMaterial.h">
       <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\NetworkDataTests.h">
+      <Filter>networking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

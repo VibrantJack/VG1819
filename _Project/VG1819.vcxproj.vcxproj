@@ -208,6 +208,7 @@
     <ClCompile Include="..\networking\ClientNetwork.cpp" />
     <ClCompile Include="..\networking\NetworkingConsoleMenu.cpp" />
     <ClCompile Include="..\networking\NetworkServices.cpp" />
+    <ClCompile Include="..\networking\ResizeablePacket.cpp" />
     <ClCompile Include="..\networking\ServerGame.cpp" />
     <ClCompile Include="..\networking\ServerNetwork.cpp" />
     <ClCompile Include="..\networking\SpawnUnitOnKeyPress.cpp" />
@@ -359,6 +360,7 @@
     <ClInclude Include="..\networking\ClientGame.h" />
     <ClInclude Include="..\networking\ClientNetwork.h" />
     <ClInclude Include="..\networking\NetworkData.h" />
+    <ClInclude Include="..\networking\NetworkDataTests.h" />
     <ClInclude Include="..\networking\NetworkingConsoleMenu.h" />
     <ClInclude Include="..\networking\NetworkServices.h" />
     <ClInclude Include="..\networking\ServerGame.h" />

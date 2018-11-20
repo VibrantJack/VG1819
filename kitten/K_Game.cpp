@@ -44,6 +44,8 @@
 //unit interaction
 #include "unitInteraction/UnitInteractionManager.h"
 
+#include "networking\NetworkDataTests.h"
+
 #define DEBUG
 
 namespace kitten
@@ -201,6 +203,29 @@ namespace kitten
 
 		K_GameObject* spawnUnitOnKeyPress = K_GameObjectManager::getInstance()->createNewGameObject();
 		spawnUnitOnKeyPress->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("SpawnUnitOnKeyPress"));
+
+		std::string testString = "Test123";
+		//const char * testChar = testString.c_str();
+		char testChar[BUFSIZ];
+		strcpy(testChar, testString.c_str());
+		printf("First char: %c\n", testChar[0]);
+		printf("Last char: %c\n", testChar[6]);
+		
+		Buffer buffer;
+		char bufData[sizeof(PacketA)];
+		buffer.data = bufData;
+		buffer.size = sizeof(PacketA);
+		buffer.index = 0;
+
+		PacketA packet;
+		packet.x = 22;
+		packet.write(buffer);
+
+		buffer.index = 0;
+		PacketA packet2;
+		packet2.read(buffer);
+		printf("Read number: %d", packet2.x);
+		
 
 		return true;
 	}
