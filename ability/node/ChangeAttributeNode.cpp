@@ -30,11 +30,11 @@ namespace ability
 
 		if (p_name == UNIT_HP || p_name == UNIT_MAX_HP)
 		{
-			AbilityNodeManager::getInstance()->findNode(CheckHP)->effect();
+			AbilityNodeManager::getInstance()->findNode(CheckHP)->effect(p_target);
 		}
 
-		if (p_target->m_attributes[p_name] < 0)
-			p_target->m_attributes[p_name];//no negative value
+		//if (p_target->m_attributes[p_name] < 0)
+		//	p_target->m_attributes[p_name] = 0;//no negative value
 
 		return 0;
 	}

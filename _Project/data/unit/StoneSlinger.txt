@@ -1,0 +1,65 @@
+{
+	"unit":{
+		"name":"Stone Slinger",
+		"hp":24,
+		"mv":2,
+		"in":7,
+		"cost":8,
+		"tags":["Machine","Terrans"],
+		"ability_description":[
+			{
+				"name":"Fire",
+				"ct":1,
+				"power":10,
+				"min_range":3,
+				"max_range":5,
+				"need_unit":1,
+				"target":1,
+				"area_mode":"square",
+				"area_fix":0,
+				"area_min":0,
+				"area_max":1,
+				"description":"Deal 10 damage after 1 turn."
+			},
+			{
+				"name":"Load",
+				"lv":2,
+				"power":2,
+				"cd":5,
+				"min_range":0,
+				"max_range":0,
+				"target":1,
+				"need_unit":1,
+				"area_max":1,
+				"description":"Next Fire will deal more damage in bigger area."
+			}
+		],
+		"status":[
+			{
+				"name":"Status_LV",
+				"lv":3,
+				"time_point":2,
+				"hp":10,
+				"in":7
+			}
+		]
+	},
+	"components" : [
+		{
+			"name" : "UnitGraphic",
+			"texture":"textures/unit/Default.tga",
+			"unitsize": "point"
+		},
+		{
+			"name" : "UnitMove",
+			"offset":[0.15,1.0,0.8]
+		},
+		{
+			"name" : "ClickableBox",
+			"minpoint":[-0.5,-0.5,0],
+			"maxpoint":[0.5,0.5,0]
+		}
+	],
+	"scale" : [0.15,0.20,0],
+	"rotate" : [45, 0, 0]
+}

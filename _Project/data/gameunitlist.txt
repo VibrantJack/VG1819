@@ -5,3 +5,6 @@ Duelist.txt
 Engineer.txt
 Wall.txt
 newUnitObject.txt
+Pyromancer.txt
+StoneSlinger.txt
+ArrowTower.txt
