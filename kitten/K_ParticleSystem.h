@@ -11,6 +11,7 @@ namespace kitten
 	private:
 		puppy::Effect m_particleEffect;
 		K_Time* m_time;
+		bool m_isPlaying;
 
 	public:
 		K_ParticleSystem(const char* p_pathToEffectXML);
@@ -23,6 +24,8 @@ namespace kitten
 
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
+
+		bool isPlaying() const;
 
 		void pause();
 		void play();

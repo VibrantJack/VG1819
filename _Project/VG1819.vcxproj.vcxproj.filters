@@ -583,6 +583,9 @@
     <ClCompile Include="..\kitten\K_ParticleSystem.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
+    <ClCompile Include="ToggleParticleSystemOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1111,6 +1114,9 @@
     </ClInclude>
     <ClInclude Include="..\kitten\K_ParticleSystem.h">
       <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="ToggleParticleSystemOnKeyPress.h">
+      <Filter>components\debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

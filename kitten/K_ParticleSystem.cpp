@@ -3,7 +3,7 @@
 
 namespace kitten
 {
-	K_ParticleSystem::K_ParticleSystem(const char* p_pathToEffectXML) : m_particleEffect(p_pathToEffectXML), m_time(nullptr)
+	K_ParticleSystem::K_ParticleSystem(const char* p_pathToEffectXML) : m_particleEffect(p_pathToEffectXML), m_time(nullptr), m_isPlaying(false)
 	{
 
 	}
@@ -39,19 +39,27 @@ namespace kitten
 		puppy::Renderer::sm_instance->addParticleToRender(this);
 	}
 
+	bool K_ParticleSystem::isPlaying() const
+	{
+		return m_isPlaying;
+	}
+
 	void K_ParticleSystem::pause()
 	{
 		m_particleEffect.pause();
+		m_isPlaying = false;
 	}
 
 	void K_ParticleSystem::play()
 	{
 		m_particleEffect.play();
+		m_isPlaying = true;
 	}
 
 	void K_ParticleSystem::stop()
 	{
 		m_particleEffect.stop();
+		m_isPlaying = false;
 	}
 
 	void K_ParticleSystem::refreshXML()

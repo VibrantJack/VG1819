@@ -286,6 +286,7 @@
     <ClCompile Include="PlaySoundOnStart.cpp" />
     <ClCompile Include="StringInputDisplay.cpp" />
     <ClCompile Include="ToggleEnabledOnKeyPress.cpp" />
+    <ClCompile Include="ToggleParticleSystemOnKeyPress.cpp" />
     <ClCompile Include="ToggleSoundOnKeyPress.cpp" />
     <ClCompile Include="ToggleStringInputOnKeyPress.cpp" />
     <ClCompile Include="UseAbilityWhenClicked.cpp" />
@@ -467,6 +468,7 @@
     <ClInclude Include="PlaySoundOnStart.h" />
     <ClInclude Include="StringInputDisplay.h" />
     <ClInclude Include="ToggleEnabledOnKeyPress.h" />
+    <ClInclude Include="ToggleParticleSystemOnKeyPress.h" />
     <ClInclude Include="ToggleSoundOnKeyPress.h" />
     <ClInclude Include="ToggleStringInputOnKeyPress.h" />
     <ClInclude Include="UseAbilityWhenClicked.h" />

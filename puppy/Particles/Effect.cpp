@@ -24,6 +24,7 @@ namespace puppy
 		if (!loadResult)
 		{
 			//invalid xml / file not opened correct
+			assert(false);
 			return;
 		}
 

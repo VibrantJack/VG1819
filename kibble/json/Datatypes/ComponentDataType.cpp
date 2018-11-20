@@ -622,6 +622,13 @@ kitten::K_Component* getKParticleSystem(nlohmann::json* p_jsonFile) {
 	return new kitten::K_ParticleSystem(pathToXML.c_str());
 }
 
+#include "_Project\ToggleParticleSystemOnKeyPress.h"
+kitten::K_Component* getToggleParticleSystemOnKeyPress(nlohmann::json* p_jsonFile) {
+
+	std::string keyStr = p_jsonFile->operator[]("key");
+	return new ToggleParticleSystemOnKeyPress(keyStr[0]);
+}
+
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
@@ -668,6 +675,7 @@ void setupComponentMap() {
 	jsonComponentMap["SpawnUnitOnKeyPress"] = &getSpawnUnitOnKeyPress;
 	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
 	jsonComponentMap["K_ParticleSystem"] = &getKParticleSystem;
+	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
 	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
 
