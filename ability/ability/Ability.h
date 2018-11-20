@@ -32,6 +32,10 @@ namespace ability
 
 		//check is there targets in package
 		bool checkTarget(const AbilityInfoPackage* p_info);
+		//check if target unit is ally
+		bool checkAlly(unit::Unit* p_source, unit::Unit* p_target);
+		//check if unit has the tag
+		bool checkTag(unit::Unit* p_u, const std::string& p_tag);
 
 		//get targets from tiles in the info package,
 		//for cast time ability which units may move in and out the range
@@ -189,8 +193,6 @@ namespace ability
 
 	class Arm : public Ability
 	{
-	private:
-		void applyStatus(AbilityInfoPackage* p_info);
 	public:
 		Arm();
 		virtual ~Arm();

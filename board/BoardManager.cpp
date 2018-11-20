@@ -67,6 +67,11 @@ kitten::Event::TileList BoardManager::getArea()
 	return kitten::Event::TileList();
 }
 
+kitten::Event::TileList BoardManager::getRange()
+{
+	return m_rangeList;
+}
+
 void BoardManager::registerEvent()
 {
 	kitten::EventManager::getInstance()->addListener(
@@ -147,6 +152,8 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 	setFilter(FILTER, p_data);
 	applyFilter(&list);
   
+	m_rangeList = list;
+
 	m_highlighter->highlightTile(TileInfo::Range, list);
 }
 
@@ -189,4 +196,5 @@ void BoardManager::setArea(kitten::Event * p_data)
 	{
 		showArea(p);
 	}
+
 }

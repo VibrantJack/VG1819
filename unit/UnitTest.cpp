@@ -106,6 +106,12 @@ namespace unit
 
 		kitten::K_GameObject* u7 = UnitSpawn::getInstanceSafe()->spawnUnitObject(9);//arrow tower
 		u7->getComponent<unit::UnitMove>()->setTile(8, 2);
+
+		kitten::K_GameObject* u8 = UnitSpawn::getInstanceSafe()->spawnUnitObject(10);//armory
+		u8->getComponent<unit::UnitMove>()->setTile(9, 2);
+
+		kitten::K_GameObject* u9 = UnitSpawn::getInstanceSafe()->spawnUnitObject(11);//divine status
+		u9->getComponent<unit::UnitMove>()->setTile(10, 2);
 		//test unit 
 		//unit::Unit* u = u1->getComponent<unit::Unit>();
 		//UnitMonitor::getInstanceSafe()->printUnit(u);

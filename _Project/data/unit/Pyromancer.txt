@@ -41,7 +41,6 @@
 				"description":"Deal 16 damage to target after 2 turns.",
 				"need_unit":0,
 				"area_mode":"span",
-				"area_fix":0,
 				"area_min":0,
 				"area_max":1
 			}

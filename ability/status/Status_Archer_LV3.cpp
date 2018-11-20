@@ -7,7 +7,7 @@ namespace ability
 {
 	Status_Archer_LV3::Status_Archer_LV3() : Status_LV::Status_LV()
 	{
-
+		m_name = STATUS_ARCHER_LV3;
 	}
 
 	int Status_Archer_LV3::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)

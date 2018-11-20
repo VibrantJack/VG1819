@@ -128,6 +128,7 @@
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
     <ClCompile Include="..\ability\status\Status_Shield.cpp" />
     <ClCompile Include="..\ability\status\Status_Temp_Change.cpp" />
+    <ClCompile Include="..\board\component\area\AllPattern.cpp" />
     <ClCompile Include="..\board\component\area\Area.cpp" />
     <ClCompile Include="..\board\component\area\AreaPattern.cpp" />
     <ClCompile Include="..\board\component\area\LineHPattern.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="..\board\component\area\SquarePattern.cpp" />
     <ClCompile Include="..\board\component\area\TrianglePattern.cpp" />
     <ClCompile Include="..\board\component\PathFind.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\NoCommanderFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />

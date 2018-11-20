@@ -13,6 +13,9 @@ TilePipeline::TilePipeline()
 
 	filter = new OwnedTileFilter();
 	m_filterList[FILTER_OWNED_TILE] = filter;
+
+	filter = new NoCommanderFilter();
+	m_filterList[FILTER_NO_COMMANDER] = filter;
 }
 
 TilePipeline::~TilePipeline()

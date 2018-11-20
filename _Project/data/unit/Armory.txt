@@ -1,0 +1,43 @@
+{
+	"unit":{
+		"name":"Armory",
+		"hp":10,
+		"mv":0,
+		"in":15,
+		"cost":6,
+		"tags":["Structure","Terrans"],
+		"ability_description":[
+			{
+				"name":"Arm",
+				"power":5,
+				"min_range":0,
+				"max_range":0,
+				"target":1,
+				"need_unit":0,
+				"area_mode":"span",
+				"area_fix":1,
+				"area_min":1,
+				"area_max":3,
+				"description":"Gain 5 [Shield] to all ally without [Shield]."
+			}
+		]
+	},
+	"components" : [
+		{
+			"name" : "UnitGraphic",
+			"texture":"textures/unit/Default.tga",
+			"unitsize": "point"
+		},
+		{
+			"name" : "UnitMove",
+			"offset":[0.15,1.0,0.8]
+		},
+		{
+			"name" : "ClickableBox",
+			"minpoint":[-0.5,-0.5,0],
+			"maxpoint":[0.5,0.5,0]
+		}
+	],
+	"scale" : [0.15,0.20,0],
+	"rotate" : [45, 0, 0]
+}

@@ -2,6 +2,7 @@
 
 ability::Status_Load::Status_Load()
 {
+	m_name = STATUS_LOAD;
 	addTimePoint(TimePointEvent::Deal_Damage);
 }
 

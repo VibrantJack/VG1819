@@ -7,7 +7,7 @@ namespace ability
 {
 	Status_Duelist_LV3::Status_Duelist_LV3() : Status_LV::Status_LV()
 	{
-
+		m_name = STATUS_DUELIST_LV3;
 	}
 
 	int Status_Duelist_LV3::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)

@@ -520,6 +520,12 @@
     <ClCompile Include="..\puppy\TextureBlendMaterial.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\component\area\AllPattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\NoCommanderFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

@@ -8,3 +8,5 @@ newUnitObject.txt
 Pyromancer.txt
 StoneSlinger.txt
 ArrowTower.txt
+Armory.txt
+DivineStatue.txt

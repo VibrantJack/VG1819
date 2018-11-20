@@ -38,3 +38,9 @@ public:
 	void filter(kitten::Event::TileList* p_list);
 };
 
+class NoCommanderFilter : public TileFilter
+{//remove tiles that doesn't have commander
+public:
+	void filter(kitten::Event::TileList* p_list);
+};
+

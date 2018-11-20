@@ -7,6 +7,7 @@ namespace ability
 {
 	Status_Encourage::Status_Encourage() : Status::Status()
 	{
+		m_name = STATUS_ENCOURAGE;
 		addTimePoint(TimePointEvent::Turn_End);
 		addTimePoint(TimePointEvent::Deal_Damage);
 	}
