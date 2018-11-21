@@ -276,6 +276,7 @@ namespace networking
 			}
 			default:
 				printf("error in packet types\n");
+				i += (unsigned int)data_length;
 				break;
 			}
 		}
@@ -286,7 +287,7 @@ namespace networking
 		std::string strAbilityName = p_packet.m_abilityName;
 		printf("[Client: %d] using ability: %s\n", m_iClientId, strAbilityName.c_str());
 
-		ability::AbilityInfoPackage* info;
+		ability::AbilityInfoPackage* info = new ability::AbilityInfoPackage();
 		info->m_source = getUnitGameObject(p_packet.sourceUnit)->getComponent<unit::Unit>();
 		info->m_targets = p_packet.getTargetUnits();
 		info->m_intValue = p_packet.getIntValues();
@@ -316,7 +317,8 @@ namespace networking
 		packet.addTargetTiles(p_info->m_targetTilesGO);
 
 		packet.m_abilityNameLength = p_strAbilityName.size();
-		strcpy(packet.m_abilityName, p_strAbilityName.c_str());
+		//strcpy(packet.m_abilityName, p_strAbilityName.c_str());
+		packet.m_abilityName = p_strAbilityName;
 
 		//char* data = new char[packet.getSize()];
 		char data[1000000];
@@ -345,7 +347,8 @@ namespace networking
 		packet.addIntValues(p_info->m_intValue);
 		packet.addTargetTiles(p_info->m_targetTilesGO);
 		packet.m_abilityNameLength = p_strAbilityName.size();
-		strcpy(packet.m_abilityName, p_strAbilityName.c_str());
+		//strcpy(packet.m_abilityName, p_strAbilityName.c_str());
+		packet.m_abilityName = p_strAbilityName;
 
 		char data[MAX_PACKET_SIZE];
 		Buffer buffer;

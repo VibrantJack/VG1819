@@ -384,7 +384,8 @@ public:
 	int sourceUnit;
 
 	int m_abilityNameLength;
-	char m_abilityName[MAX_CHAR_BUFSIZE];
+	//char m_abilityName[MAX_CHAR_BUFSIZE];
+	std::string m_abilityName = "";
 
 	void print();
 

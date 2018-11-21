@@ -185,7 +185,8 @@ void AbilityPacket::deserialize(Buffer& buffer)
 	m_abilityNameLength = readInt(buffer);	
 	for (int i = 0; i < m_abilityNameLength; ++i)
 	{
-		m_abilityName[i] = readChar(buffer);
+		//m_abilityName[i] = readChar(buffer);
+		m_abilityName += readChar(buffer);
 	}
 }
 
