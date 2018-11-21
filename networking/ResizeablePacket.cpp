@@ -92,6 +92,7 @@ void AbilityPacket::serialize(Buffer& buffer)
 {
 	writeInt(buffer, this->packetType);
 	writeInt(buffer, this->clientId);
+	writeInt(buffer, this->totalBytes);
 	writeInt(buffer, this->sourceUnit);
 
 	writeInt(buffer, this->m_numTargetUnits);
@@ -144,6 +145,7 @@ void AbilityPacket::deserialize(Buffer& buffer)
 {
 	this->packetType = readInt(buffer);
 	this->clientId = readInt(buffer);
+	this->totalBytes = readInt(buffer);
 	this->sourceUnit = readInt(buffer);
 
 	networking::ClientGame* client = networking::ClientGame::getInstance();
@@ -229,7 +231,9 @@ int AbilityPacket::getSize()
 	// sizeof ability name
 	int abilityNameSize = m_abilityNameLength * sizeof(char);
 
-	return intVariablesSize + targetUnitsSize + intValuesSize + targetTilesSize + abilityNameSize;
+	totalBytes = intVariablesSize + targetUnitsSize + intValuesSize + targetTilesSize + abilityNameSize + sizeof(int);
+
+	return totalBytes;
 }
 
 void AbilityPacket::addTargetUnits(TargetUnits p_targets)

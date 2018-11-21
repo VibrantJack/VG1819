@@ -177,15 +177,17 @@ namespace networking
 
 						AbilityPacket packet;
 						packet.deserialize(buffer);
-						i += MAX_PACKET_SIZE; // Change to += packet.m_bytesWritten if we add bytesWritten to AbilityPacket
+						int packetTotalBytes = packet.getBytes();
+						i += packetTotalBytes; // Change to += packet.m_bytesWritten if we add bytesWritten to AbilityPacket
 						packet.print();
 
-						char data[MAX_PACKET_SIZE];
+						char* data = new char[packetTotalBytes];
 						Buffer newBuffer;
 						newBuffer.m_data = data;
-						newBuffer.m_size = MAX_PACKET_SIZE;
+						newBuffer.m_size = packetTotalBytes;
 						packet.serialize(newBuffer);
-						m_network->sendToOthers(iter->first, data, MAX_PACKET_SIZE);
+						m_network->sendToOthers(iter->first, data, packetTotalBytes);
+						delete[] data;
 
 						break;
 					}

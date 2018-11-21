@@ -400,9 +400,11 @@ public:
 	IntValues getIntValues() { return m_intValue; }
 	TargetTiles getTargetTiles() { return m_targetTilesGO; }
 	int getSize();
+	int getBytes() { return totalBytes; }
 
 private:	
 	int sumKeysLength = 0;
+	int totalBytes = 0;
 
 	int m_numTargetUnits;
 	TargetUnits m_targets;

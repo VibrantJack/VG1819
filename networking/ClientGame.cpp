@@ -143,12 +143,13 @@ namespace networking
 			//no data recieved
 			return;
 		}
-
+		//printf("Bytes received: %d\n", data_length);
 		int i = 0;
 		PacketTypes packetType;
 
 		while (i < (unsigned int)data_length)
 		{
+			//printf("Start of Loop Count i: %d\n", i);
 			Buffer defaultBuffer;
 			defaultBuffer.m_data = &(m_network_data[i]);
 			defaultBuffer.m_size = BASIC_PACKET_SIZE;
@@ -157,6 +158,7 @@ namespace networking
 			defaultPacket.deserialize(defaultBuffer);
 
 			packetType = (PacketTypes)defaultPacket.m_packetType;
+			printf("PacketType received: %d\n", packetType);
 			switch (packetType) {
 
 			case PacketTypes::SEND_CLIENT_ID:
@@ -186,8 +188,10 @@ namespace networking
 				AbilityPacket packet;
 				packet.deserialize(buffer);
 				packet.print();
-				i += MAX_PACKET_SIZE;
-
+				printf("data_length: %d\n", data_length);
+				printf("Before increment Count i: %d\n", i);
+				i += packet.getBytes();
+				printf("Incremented Count i: %d\n", i);
 				useAbility(packet);
 				break;
 			}
@@ -275,8 +279,10 @@ namespace networking
 				break;
 			}
 			default:
-				printf("error in packet types\n");
+				//printf("error in packet types\n");
+				//printf("Count i before += data_length: %d\n", i);
 				i += (unsigned int)data_length;
+				//printf("Count i after += data_length: %d\n", i);
 				break;
 			}
 		}
@@ -350,7 +356,8 @@ namespace networking
 		//strcpy(packet.m_abilityName, p_strAbilityName.c_str());
 		packet.m_abilityName = p_strAbilityName;
 
-		char data[MAX_PACKET_SIZE];
+		//char data[MAX_PACKET_SIZE];
+		char* data = new char[packet.getSize()];
 		Buffer buffer;
 		buffer.m_data = data;
 		buffer.m_size = packet.getSize();
@@ -358,8 +365,9 @@ namespace networking
 		printf("[Client: %d] sending ABILITY_PACKET\n", m_iClientId);
 		packet.print();
 
-		NetworkServices::sendMessage(m_network->m_connectSocket, data, MAX_PACKET_SIZE); // Try buffer.m_size instead of MAX_PACKET_SIZE and see if data gets transferred successfully
-
+		//NetworkServices::sendMessage(m_network->m_connectSocket, data, MAX_PACKET_SIZE); // Try buffer.m_size instead of MAX_PACKET_SIZE and see if data gets transferred successfully
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, packet.getSize());
+		delete[] data;
 		// ****************
 
 		//if (p_strAbilityName == ABILITY_MANIPULATE_TILE)
