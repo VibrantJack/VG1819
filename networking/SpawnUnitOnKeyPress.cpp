@@ -24,7 +24,7 @@
 
 SpawnUnitOnKeyPress::SpawnUnitOnKeyPress()
 	:
-	m_iUnitId(0)
+	m_iUnitId(6)
 {
 	unit::UnitSpawn::getInstanceSafe();
 }
@@ -59,7 +59,9 @@ void SpawnUnitOnKeyPress::update()
 			testDummyGO->addComponent(compMan->createComponent("UseAbilityWhenClicked"));
 			testDummyGO->addComponent(compMan->createComponent("SelectAbility"));
 		}
-		m_iUnitId = (m_iUnitId + 1) % 4;
+		m_iUnitId = (m_iUnitId + 1) % 7;
+		if (m_iUnitId == 0)
+			++m_iUnitId;
 	}
 
 	if (input::InputManager::getInstance()->keyDown('G') && !input::InputManager::getInstance()->keyDownLast('G'))

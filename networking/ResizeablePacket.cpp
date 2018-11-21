@@ -42,6 +42,7 @@ void AbilityPacket::print()
 	{
 		printf("%c", m_abilityName[i]);
 	}
+	printf("\n");
 }
 
 // If an assert is failed, make sure you are using a fresh Buffer for serializing

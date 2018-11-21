@@ -38,7 +38,7 @@ enum PacketTypes {
 class Buffer
 {
 	friend class AbilityPacket;
-	friend class Packet;
+	friend struct Packet;
 public:
 	char* m_data;		// pointer to buffer data
 	int m_size;			// size of buffer data in bytes
@@ -105,24 +105,22 @@ struct SummonUnitPacket : Packet
 	int unitId;
 	int posX, posY;
 
-	void serialize(char* data) {
-		int *q = (int*)data;
-		*q = this->m_packetType;		q++;
-		*q = this->m_clientId;		q++;
-
-		*q = this->unitId;		q++;
-		*q = this->posX;		q++;
-		*q = this->posY;		q++;
+	void serialize(Buffer& buffer) 
+	{
+		writeInt(buffer, m_packetType);
+		writeInt(buffer, m_clientId);
+		writeInt(buffer, unitId);
+		writeInt(buffer, posX);
+		writeInt(buffer, posY);
 	}
 
-	void deserialize(char* data) {
-		int *q = (int*)data;
-		this->m_packetType = *q;		q++;
-		this->m_clientId = *q;		q++;
-
-		this->unitId = *q;		q++;
-		this->posX = *q;		q++;
-		this->posY = *q;		q++;
+	void deserialize(Buffer& buffer)
+	{
+		m_packetType = readInt(buffer);
+		m_clientId = readInt(buffer);
+		unitId = readInt(buffer);
+		posX = readInt(buffer);
+		posY = readInt(buffer);
 	}
 };
 
@@ -131,25 +129,22 @@ struct UnitMovePacket : Packet
 	int unitIndex;
 	int posX, posY;
 
-
-	void serialize(char* data) {
-		int *q = (int*)data;
-		*q = this->m_packetType;		q++;
-		*q = this->m_clientId;		q++;
-
-		*q = this->unitIndex;		q++;
-		*q = this->posX;		q++;
-		*q = this->posY;		q++;
+	void serialize(Buffer& buffer)
+	{
+		writeInt(buffer, m_packetType);
+		writeInt(buffer, m_clientId);
+		writeInt(buffer, unitIndex);
+		writeInt(buffer, posX);
+		writeInt(buffer, posY);
 	}
 
-	void deserialize(char* data) {
-		int *q = (int*)data;
-		this->m_packetType = *q;		q++;
-		this->m_clientId = *q;		q++;
-
-		this->unitIndex = *q;		q++;
-		this->posX = *q;		q++;
-		this->posY = *q;		q++;
+	void deserialize(Buffer& buffer)
+	{
+		m_packetType = readInt(buffer);
+		m_clientId = readInt(buffer);
+		unitIndex = readInt(buffer);
+		posX = readInt(buffer);
+		posY = readInt(buffer);
 	}
 };
 
@@ -384,7 +379,6 @@ class AbilityPacket
 	typedef std::unordered_map<std::string, int> IntValues;
 	typedef std::vector<kitten::K_GameObject*>  TargetTiles;
 public:
-	friend struct Buffer;
 	int packetType;
 	int clientId;
 	int sourceUnit;
@@ -400,6 +394,10 @@ public:
 	void addTargetUnits(TargetUnits p_targets);
 	void addIntValues(IntValues p_values);
 	void addTargetTiles(TargetTiles p_targetTilesGO);
+
+	TargetUnits getTargetUnits() { return m_targets; }
+	IntValues getIntValues() { return m_intValue; }
+	TargetTiles getTargetTiles() { return m_targetTilesGO; }
 	int getSize();
 
 private:	
