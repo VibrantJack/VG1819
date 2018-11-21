@@ -254,16 +254,30 @@ namespace networking
 		packet.m_numTargetUnits = p_info->m_targets.size();
 		packet.m_targets = p_info->m_targets;
 
-		packet.m_numIntValues = p_info->m_targets.size();
+		packet.m_numIntValues = p_info->m_intValue.size();
 		packet.m_intValue = p_info->m_intValue;
 
-		packet.m_abilityNameLength = p_info->m_targets.size();
+		packet.m_numTargetTiles = p_info->m_targetTilesGO.size();
 		packet.m_targetTilesGO = p_info->m_targetTilesGO;
 
 		packet.m_abilityNameLength = p_strAbilityName.size();
 		strcpy(packet.m_abilityName, p_strAbilityName.c_str());
 
+		//char* data = new char[packet.getSize()];
+		char data[1000000];
+		Buffer buffer;
+		buffer.m_data = data;
+		buffer.m_size = packet.getSize();
+		packet.serialize(buffer);
 
+		Buffer buffer2;
+		buffer2.m_data = data;
+		buffer2.m_size = packet.getSize();
+		ResizeablePacket packet2;
+		packet2.deserialize(buffer2);
+
+		packet2.print(packet2);
+		//delete[] data;
 	}
 
 	void ClientGame::sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info)
@@ -298,7 +312,8 @@ namespace networking
 			int posY = tileInfo->getPosY();
 
 			int unitIndex = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
-			sendManipulateTilePacket(p_strAbilityName, unitIndex, posX, posY);
+			//sendManipulateTilePacket(p_strAbilityName, unitIndex, posX, posY);
+			testNewPacket(p_strAbilityName, p_info);
 		}
 		else if (p_strAbilityName == ABILITY_FIGHT || p_strAbilityName == ABILITY_HEAL 
 			|| p_strAbilityName == ABILITY_SHOOT || p_strAbilityName == ABILITY_SABOTAGE)// These have the same pkg contents

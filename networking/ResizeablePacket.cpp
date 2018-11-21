@@ -4,6 +4,46 @@
 #include "unit\Unit.h"
 #include "board\BoardManager.h"
 
+void ResizeablePacket::print(ResizeablePacket& packet)
+{
+	networking::ClientGame* client = networking::ClientGame::getInstance();
+	printf("PacketType: %d\n", packet.packetType);
+	printf("clientId: %d\n", packet.clientId);
+	printf("sourceUnit: %d\n", packet.sourceUnit);
+	printf("m_numTargetUnits: %d\nTarget Units: ", packet.m_numTargetUnits);
+	for (int i = 0; i < packet.m_numTargetUnits; ++i)
+	{
+		packet.m_targets.at(i);
+		printf("%d, ", client->getUnitGameObjectIndex(&m_targets[i]->getGameObject()));
+	}
+
+	printf("\m_numIntValues: %d\nInt Values: ", packet.m_numIntValues);
+	for (auto it = packet.m_intValue.begin(); it != packet.m_intValue.end(); ++it)
+	{
+		printf("Key: ");
+		for (int i = 0; i < it->first.size(); ++i)
+		{
+			printf("%c", packet.m_abilityName[i]);
+		}
+		printf(", Value: %d\n", it->second);
+	}
+
+	printf("\nm_numTargetTiles: %d\n Tiles: ", packet.m_numTargetTiles);
+	for (int i = 0; i < m_numTargetTiles; ++i)
+	{
+		TileInfo* tileInfo = m_targetTilesGO[i]->getComponent<TileInfo>();
+		int posX = tileInfo->getPosX();
+		int posY = tileInfo->getPosY();
+		printf("(%d, %d), ", posX, posY);
+	}
+
+	printf("\nm_abilityNameLength: %d, Name: ", packet.m_abilityNameLength);
+	for (int i = 0; i < packet.m_abilityNameLength; ++i)
+	{
+		printf("%c", packet.m_abilityName[i]);
+	}
+}
+
 // If an assert is failed, make sure you are using a fresh Buffer for serializing
 // and a fresh one for deserializing
 void ResizeablePacket::writeInt(Buffer& buffer, int value)
@@ -66,7 +106,8 @@ void ResizeablePacket::serialize(Buffer& buffer)
 		// Get the key, the length of the key, and then write each char in the key to the buffer
 		// Finally, write the value tied to the key to the buffer
 		std::string strKey = it->first;
-		char * key;
+		//char key[BUFSIZE];
+		char * key = new char(strKey.size());
 		strcpy(key, strKey.c_str());
 		int keyLength = strKey.size();
 				
@@ -76,6 +117,7 @@ void ResizeablePacket::serialize(Buffer& buffer)
 			writeChar(buffer, key[i]);
 		}
 		writeInt(buffer, it->second);
+		delete[] key;
 	}
 
 	writeInt(buffer, this->m_numTargetTiles);

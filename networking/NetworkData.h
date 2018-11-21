@@ -373,7 +373,7 @@ struct Buffer
 	char* m_data;		// pointer to buffer data
 	int m_size;			// size of buffer data in bytes
 	int getIndex() { return m_index; }
-private:
+//private:
 	int m_index = 0;	// index of next byte to be read/written
 };
 class ResizeablePacket
@@ -397,6 +397,8 @@ public:
 
 	int m_abilityNameLength;
 	char m_abilityName[BUFSIZE];
+
+	void print(ResizeablePacket& packet);
 
 	void serialize(Buffer& buffer);
 	void deserialize(Buffer& buffer);
