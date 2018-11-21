@@ -13,7 +13,8 @@ TileInfo::TileInfo(int p_iPosX, int p_iPosY)
 	m_iPosX(p_iPosX),
 	m_iPosY(p_iPosY),
 	m_sOwnerId("NONE"),
-	m_sHighlightedBy("NONE")
+	m_sHighlightedBy("NONE"),
+	m_lasttexpath("")
 {
 	m_unitGO = nullptr;
 	m_landInfo = nullptr;
@@ -72,6 +73,27 @@ void TileInfo::effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit * p_
 	case ability::TimePointEvent::New_Tile:
 		m_landInfo->effectOnPass(p_u);
 		break;
+	}
+}
+
+void TileInfo::changeHighlightTexture(const std::string & p_texpath)
+{
+	if (m_lasttexpath != p_texpath)
+	{
+		kitten::QuadRenderable* quad = m_attachedObject->getComponent<kitten::QuadRenderable>();
+		if (m_lasttexpath != "")
+		{
+			//Remove blending
+			quad->removeTexture(m_lasttexpath.c_str());
+		}
+
+		m_lasttexpath = p_texpath;
+
+		if (m_lasttexpath != "")
+		{
+			//Add new blending
+			quad->addTexture(p_texpath.c_str(), 1.0f);
+		}
 	}
 }
 
