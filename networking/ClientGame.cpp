@@ -80,9 +80,14 @@ namespace networking
 			// Client connects and sends INIT_CONNECTION packet
 			char packet_data[BASIC_PACKET_SIZE];
 
+			Buffer buffer;
+			buffer.m_data = packet_data;
+			buffer.m_size = BASIC_PACKET_SIZE;
+
 			Packet packet;
-			packet.packetType = INIT_CONNECTION;
-			packet.serialize(packet_data);
+			packet.m_packetType = INIT_CONNECTION;
+			packet.serialize(buffer);
+
 			NetworkServices::sendMessage(m_network->m_connectSocket, packet_data, BASIC_PACKET_SIZE);
 
 			sm_networkValid = true;
@@ -104,12 +109,17 @@ namespace networking
 		if (!p_bServerShutdown)
 		{
 			// Send a packet to alert server that client is disconnecting
-			Packet packet;
-			packet.packetType = CLIENT_DISCONNECT;
-			packet.clientId = m_iClientId;
-
 			char data[BASIC_PACKET_SIZE];
-			packet.serialize(data);
+
+			Buffer buffer;
+			buffer.m_data = data;
+			buffer.m_size = BASIC_PACKET_SIZE;
+
+			Packet packet;
+			packet.m_packetType = CLIENT_DISCONNECT;
+			packet.m_clientId = m_iClientId;		
+
+			packet.serialize(buffer);
 			NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
 		}
 
@@ -126,7 +136,6 @@ namespace networking
 
 	void ClientGame::update()
 	{
-		Packet packet;
 		int data_length = m_network->receivePackets(m_network_data);
 
 		if (data_length <= 0)
@@ -140,16 +149,20 @@ namespace networking
 
 		while (i < (unsigned int)data_length)
 		{
-			packet.deserialize(&(m_network_data[i]));
-			packetType = (PacketTypes)packet.packetType;
+			Buffer defaultBuffer;
+			defaultBuffer.m_data = &(m_network_data[i]);
+			defaultBuffer.m_size = BASIC_PACKET_SIZE;
 
+			Packet defaultPacket;
+			defaultPacket.deserialize(defaultBuffer);
+
+			packetType = (PacketTypes)defaultPacket.m_packetType;
 			switch (packetType) {
 
 			case PacketTypes::SEND_CLIENT_ID:
 			{
 				i += BASIC_PACKET_SIZE;
-
-				m_iClientId = packet.clientId;
+				m_iClientId = defaultPacket.m_clientId;
 				break;
 			}
 			case PacketTypes::SERVER_SHUTDOWN:
@@ -170,7 +183,7 @@ namespace networking
 				summonUnitPacket.deserialize(&(m_network_data[i]));
 				i += SUMMON_UNIT_PACKET_SIZE;
 
-				summonUnit(summonUnitPacket.clientId, summonUnitPacket.unitId, summonUnitPacket.posX, summonUnitPacket.posY);
+				summonUnit(summonUnitPacket.m_clientId, summonUnitPacket.unitId, summonUnitPacket.posX, summonUnitPacket.posY);
 				break;
 			}
 			case PacketTypes::UNIT_MOVE:
@@ -246,7 +259,7 @@ namespace networking
 
 	void ClientGame::testNewPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info)
 	{
-		ResizeablePacket packet;
+		AbilityPacket packet;
 		packet.packetType = 0; // Create new enum for AbilityPacket
 		packet.clientId = 1;
 		packet.sourceUnit = 2;
@@ -277,7 +290,7 @@ namespace networking
 		Buffer buffer2;
 		buffer2.m_data = data;
 		buffer2.m_size = packet.getSize();
-		ResizeablePacket packet2;
+		AbilityPacket packet2;
 		packet2.deserialize(buffer2);
 
 		packet2.print();
@@ -354,7 +367,7 @@ namespace networking
 	void ClientGame::sendSingleTargetPacket(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iDur, int p_iPow)
 	{
 		SingleTargetPacket packet;
-		packet.packetType = SINGLE_TARGET_ABILITY;
+		packet.m_packetType = SINGLE_TARGET_ABILITY;
 		strcpy(packet.abilityName, p_strAbilityName.c_str());
 		packet.sourceUnitIndex = p_iSourceUnitIndex;
 		packet.targetUnitIndex = p_iTargetUnitIndex;
@@ -381,7 +394,7 @@ namespace networking
 	void ClientGame::sendSingleTilePacket(const std::string &p_strAbilityName, int p_iPosX, int p_iPosY)
 	{
 		SingleTilePacket packet;
-		packet.packetType = SINGLE_TILE_ABILITY;
+		packet.m_packetType = SINGLE_TILE_ABILITY;
 		strcpy(packet.abilityName, p_strAbilityName.c_str());
 		packet.posX = p_iPosX;
 		packet.posY = p_iPosY;
@@ -416,7 +429,7 @@ namespace networking
 	void ClientGame::sendSourceTargetDamagePacket(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iPower)
 	{
 		SourceTargetDamagePacket packet;
-		packet.packetType = SOURCE_TARGET_DMG_ABILITY;
+		packet.m_packetType = SOURCE_TARGET_DMG_ABILITY;
 		strcpy(packet.abilityName, p_strAbilityName.c_str());
 		packet.sourceUnitIndex = p_iSourceUnitIndex;
 		packet.targetUnitIndex = p_iTargetUnitIndex;
@@ -444,7 +457,7 @@ namespace networking
 	void ClientGame::sendManipulateTilePacket(const std::string & p_strAbilityName, int p_iUnitIndex, int p_iPosX, int p_iPosY)
 	{
 		ManipulateTilePacket packet;
-		packet.packetType = MANIPULATE_TILE;
+		packet.m_packetType = MANIPULATE_TILE;
 		strcpy(packet.abilityName, p_strAbilityName.c_str());
 		packet.unitIndex = p_iUnitIndex;
 		packet.posX = p_iPosX;
@@ -476,8 +489,8 @@ namespace networking
 	void ClientGame::sendSummonUnitPacket(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
 	{
 		SummonUnitPacket packet;
-		packet.packetType = PacketTypes::SUMMON_UNIT;
-		packet.clientId = p_iClientId;
+		packet.m_packetType = PacketTypes::SUMMON_UNIT;
+		packet.m_clientId = p_iClientId;
 		packet.unitId = p_iUnitId;
 		packet.posX = p_iPosX;
 		packet.posY = p_iPosY;
@@ -497,8 +510,8 @@ namespace networking
 	void ClientGame::sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY)
 	{
 		UnitMovePacket packet;
-		packet.packetType = PacketTypes::UNIT_MOVE;
-		packet.clientId = m_iClientId;
+		packet.m_packetType = PacketTypes::UNIT_MOVE;
+		packet.m_clientId = m_iClientId;
 		packet.unitIndex = p_iUnitIndex;
 		packet.posX = p_iPosX;
 		packet.posY = p_iPosY;
@@ -510,7 +523,7 @@ namespace networking
 
 	void ClientGame::sendPacket(Packet* p_packet)
 	{
-		switch (p_packet->packetType)
+		switch (p_packet->m_packetType)
 		{
 		case PacketTypes::SUMMON_UNIT:
 		{

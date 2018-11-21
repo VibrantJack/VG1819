@@ -4,7 +4,7 @@
 #include "unit\Unit.h"
 #include "board\BoardManager.h"
 
-void ResizeablePacket::print()
+void AbilityPacket::print()
 {
 	networking::ClientGame* client = networking::ClientGame::getInstance();
 	printf("*** Packet Info ***\n");
@@ -46,7 +46,7 @@ void ResizeablePacket::print()
 
 // If an assert is failed, make sure you are using a fresh Buffer for serializing
 // and a fresh one for deserializing
-void ResizeablePacket::writeInt(Buffer& buffer, int value)
+void AbilityPacket::writeInt(Buffer& buffer, int value)
 {
 	assert(buffer.m_index + sizeof(int) <= buffer.m_size);
 	
@@ -54,7 +54,7 @@ void ResizeablePacket::writeInt(Buffer& buffer, int value)
 	buffer.m_index += sizeof(int);
 }
 
-void ResizeablePacket::writeChar(Buffer &buffer, char value)
+void AbilityPacket::writeChar(Buffer &buffer, char value)
 {
 	assert(buffer.m_index + sizeof(char) <= buffer.m_size);
 
@@ -62,7 +62,7 @@ void ResizeablePacket::writeChar(Buffer &buffer, char value)
 	buffer.m_index += sizeof(char);
 }
 
-int ResizeablePacket::readInt(Buffer& buffer)
+int AbilityPacket::readInt(Buffer& buffer)
 {
 	// For ResizeablePacket, Can't check against buffer size when reading as the size is set
 	// from a non constant value (getsize()), so we don't know that actual size that the buffer should be
@@ -76,7 +76,7 @@ int ResizeablePacket::readInt(Buffer& buffer)
 	return value;
 }
 
-char ResizeablePacket::readChar(Buffer &buffer)
+char AbilityPacket::readChar(Buffer &buffer)
 {
 	//assert(buffer.m_index + sizeof(char) <= buffer.m_size);
 
@@ -87,7 +87,7 @@ char ResizeablePacket::readChar(Buffer &buffer)
 	return value;
 }
 
-void ResizeablePacket::serialize(Buffer& buffer)
+void AbilityPacket::serialize(Buffer& buffer)
 {
 	writeInt(buffer, this->packetType);
 	writeInt(buffer, this->clientId);
@@ -109,7 +109,7 @@ void ResizeablePacket::serialize(Buffer& buffer)
 		// Get the key, the length of the key, and then write each char in the key to the buffer
 		// Finally, write the value tied to the key to the buffer
 		std::string strKey = it->first;
-		char key[BUFSIZE];
+		char key[MAX_CHAR_BUFSIZE];
 		strcpy(key, strKey.c_str());
 		int keyLength = strKey.size();
 
@@ -139,7 +139,7 @@ void ResizeablePacket::serialize(Buffer& buffer)
 	}
 }
 
-void ResizeablePacket::deserialize(Buffer& buffer)
+void AbilityPacket::deserialize(Buffer& buffer)
 {
 	this->packetType = readInt(buffer);
 	this->clientId = readInt(buffer);
@@ -188,7 +188,7 @@ void ResizeablePacket::deserialize(Buffer& buffer)
 	}
 }
 
-int ResizeablePacket::getSize()
+int AbilityPacket::getSize()
 {
 	/*int total = 0;
 	total += sizeof(packetType);
@@ -230,13 +230,13 @@ int ResizeablePacket::getSize()
 	return intVariablesSize + targetUnitsSize + intValuesSize + targetTilesSize + abilityNameSize;
 }
 
-void ResizeablePacket::addTargetUnits(std::vector<unit::Unit*> p_targets)
+void AbilityPacket::addTargetUnits(TargetUnits p_targets)
 {
 	m_numTargetUnits = p_targets.size();
 	m_targets = p_targets;
 }
 
-void ResizeablePacket::addIntValues(IntValues p_values)
+void AbilityPacket::addIntValues(IntValues p_values)
 {
 	m_numIntValues = p_values.size();
 	m_intValue = p_values;
@@ -248,7 +248,7 @@ void ResizeablePacket::addIntValues(IntValues p_values)
 	}
 }
 
-void ResizeablePacket::addTargetTiles(std::vector<kitten::K_GameObject*> p_targetTilesGO)
+void AbilityPacket::addTargetTiles(TargetTiles p_targetTilesGO)
 {
 	m_numTargetTiles = p_targetTilesGO.size();
 	m_targetTilesGO = p_targetTilesGO;

@@ -75,17 +75,21 @@ namespace networking
 
 	void ServerGame::shutdownNetwork()
 	{
-		Packet packet;
-		packet.packetType = SERVER_SHUTDOWN;
-
-		char data[BASIC_PACKET_SIZE];
-		packet.serialize(data);
-		//m_network->sendToAll(data, BASIC_PACKET_SIZE);
-		m_network->sendToAll(data, BASIC_PACKET_SIZE);
-
 		// Shutdown ServerNetwork
 		if (m_network != nullptr)
 		{
+			char data[BASIC_PACKET_SIZE];
+
+			Buffer buffer;
+			buffer.m_data = data;
+			buffer.m_size = BASIC_PACKET_SIZE;
+
+			Packet packet;
+			packet.m_packetType = SERVER_SHUTDOWN;
+			packet.serialize(buffer);
+
+			m_network->sendToAll(data, BASIC_PACKET_SIZE);
+
 			delete m_network;
 			m_network = nullptr;
 		}
@@ -125,10 +129,14 @@ namespace networking
 			while (i < (unsigned int)data_length)
 			{
 				// Take all incoming packets as Packet initially to read the packetType
-				Packet packet;
-				packet.deserialize(&(m_network_data[i]));
+				Buffer defaultBuffer;
+				defaultBuffer.m_data = &(m_network_data[i]);
+				defaultBuffer.m_size = BASIC_PACKET_SIZE;
 
-				switch (packet.packetType) {
+				Packet defaultPacket;
+				defaultPacket.deserialize(defaultBuffer);
+
+				switch (defaultPacket.m_packetType) {
 
 					case INIT_CONNECTION:
 					{
@@ -136,15 +144,19 @@ namespace networking
 						printf("Server received init packet from [Client: %d]\n", iter->first);
 
 						// Send a packet to the client to notify them what their ID is
-						unsigned int clientId = iter->first;
-						char packet_data[BASIC_PACKET_SIZE];
+						int clientId = iter->first;
+						char packetData[BASIC_PACKET_SIZE];
+
+						Buffer buffer;// = NetworkServices::createBuffer(BASIC_PACKET_SIZE);
+						buffer.m_data = packetData;
+						buffer.m_size = BASIC_PACKET_SIZE;
 
 						Packet packet;
-						packet.packetType = SEND_CLIENT_ID;
-						packet.clientId = clientId;
+						packet.m_packetType = SEND_CLIENT_ID;
+						packet.m_clientId = clientId;
 
-						packet.serialize(packet_data);
-						m_network->sendToClient(clientId, packet_data, BASIC_PACKET_SIZE);
+						packet.serialize(buffer);
+						m_network->sendToClient(clientId, packetData, BASIC_PACKET_SIZE);
 						break;
 					}
 					case CLIENT_DISCONNECT:

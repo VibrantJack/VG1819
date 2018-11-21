@@ -8,7 +8,7 @@
 #include "unit\Unit.h"
 
 #define MAX_PACKET_SIZE 1000000
-#define BUFSIZE 512
+#define MAX_CHAR_BUFSIZE 512
 
 #define BASIC_PACKET_SIZE sizeof(Packet)
 #define SUMMON_UNIT_PACKET_SIZE sizeof(SummonUnitPacket)
@@ -35,23 +35,68 @@ enum PacketTypes {
 
 };
 
+class Buffer
+{
+	friend class AbilityPacket;
+	friend class Packet;
+public:
+	char* m_data;		// pointer to buffer data
+	int m_size;			// size of buffer data in bytes
+	int getIndex() { return m_index; }
+private:
+	int m_index = 0;	// index of next byte to be read/written
+};
+
 // Use to get packet type first, then deserialize into appropriate packet
 struct Packet {
 
-	unsigned int packetType;
-	int clientId;
+	unsigned int m_packetType;
+	int m_clientId;
 
+	void writeInt(Buffer& buffer, int value)
+	{
+		assert(buffer.m_index + sizeof(int) <= buffer.m_size);
 
-	void serialize(char* data) {
-		int *q = (int*)data;
-		*q = this->packetType;		q++;
-		*q = this->clientId;		q++;
+		*((int*)(buffer.m_data + buffer.m_index)) = value;
+		buffer.m_index += sizeof(int);
 	}
 
-	void deserialize(char* data) {
-		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
+	void writeChar(Buffer &buffer, char value)
+	{
+		assert(buffer.m_index + sizeof(char) <= buffer.m_size);
+
+		*((char*)(buffer.m_data + buffer.m_index)) = value;
+		buffer.m_index += sizeof(char);
+	}
+
+	int readInt(Buffer& buffer)
+	{
+		//assert(buffer.m_index + sizeof(int) <= buffer.m_size);
+
+		int value = *((int*)(buffer.m_data + buffer.m_index));
+		buffer.m_index += sizeof(int);
+
+		return value;
+	}
+
+	char readChar(Buffer &buffer)
+	{
+		//assert(buffer.m_index + sizeof(char) <= buffer.m_size);
+
+		char value = *((char*)(buffer.m_data + buffer.m_index));
+		buffer.m_index += sizeof(char);
+
+		return value;
+	}
+
+	void serialize(Buffer& buffer) {
+		writeInt(buffer, m_packetType);
+		writeInt(buffer, m_clientId);
+	}
+
+	void deserialize(Buffer& buffer) {
+		m_packetType = readInt(buffer);
+		m_clientId = readInt(buffer);
 	}
 };
 
@@ -62,8 +107,8 @@ struct SummonUnitPacket : Packet
 
 	void serialize(char* data) {
 		int *q = (int*)data;
-		*q = this->packetType;		q++;
-		*q = this->clientId;		q++;
+		*q = this->m_packetType;		q++;
+		*q = this->m_clientId;		q++;
 
 		*q = this->unitId;		q++;
 		*q = this->posX;		q++;
@@ -72,8 +117,8 @@ struct SummonUnitPacket : Packet
 
 	void deserialize(char* data) {
 		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
+		this->m_packetType = *q;		q++;
+		this->m_clientId = *q;		q++;
 
 		this->unitId = *q;		q++;
 		this->posX = *q;		q++;
@@ -89,8 +134,8 @@ struct UnitMovePacket : Packet
 
 	void serialize(char* data) {
 		int *q = (int*)data;
-		*q = this->packetType;		q++;
-		*q = this->clientId;		q++;
+		*q = this->m_packetType;		q++;
+		*q = this->m_clientId;		q++;
 
 		*q = this->unitIndex;		q++;
 		*q = this->posX;		q++;
@@ -99,8 +144,8 @@ struct UnitMovePacket : Packet
 
 	void deserialize(char* data) {
 		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
+		this->m_packetType = *q;		q++;
+		this->m_clientId = *q;		q++;
 
 		this->unitIndex = *q;		q++;
 		this->posX = *q;		q++;
@@ -112,19 +157,19 @@ struct ManipulateTilePacket : Packet {
 
 	int unitIndex;
 	int posX, posY;
-	char abilityName[BUFSIZE];
+	char abilityName[MAX_CHAR_BUFSIZE];
 
 	void serialize(char* data) {
 		int *q = (int*)data;
-		*q = this->packetType;   q++;
-		*q = this->clientId;	q++;
+		*q = this->m_packetType;   q++;
+		*q = this->m_clientId;	q++;
 		*q = this->unitIndex;	q++;
 		*q = this->posX;		q++;
 		*q = this->posY;		q++;
 
 		char *p = (char*)q;
 		int i = 0;
-		for (int i = 0; i < BUFSIZE; i++) {
+		for (int i = 0; i < MAX_CHAR_BUFSIZE; i++) {
 			*p = this->abilityName[i];
 			p++;
 		}
@@ -132,15 +177,15 @@ struct ManipulateTilePacket : Packet {
 
 	void deserialize(char* data) {
 		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
+		this->m_packetType = *q;		q++;
+		this->m_clientId = *q;		q++;
 		this->unitIndex = *q;		q++;
 		this->posX = *q;		q++;
 		this->posY = *q;		q++;
 
 		char *p = (char*)q;
 		int i = 0;
-		for (int i = 0; i < BUFSIZE; i++) {
+		for (int i = 0; i < MAX_CHAR_BUFSIZE; i++) {
 			this->abilityName[i] = *p;
 			p++;
 		}
@@ -152,19 +197,19 @@ struct SourceTargetDamagePacket : Packet {
 	int sourceUnitIndex;
 	int targetUnitIndex;
 	int power;
-	char abilityName[BUFSIZE];
+	char abilityName[MAX_CHAR_BUFSIZE];
 
 	void serialize(char* data) {
 		int *q = (int*)data;
-		*q = this->packetType;   q++;
-		*q = this->clientId;	q++;
+		*q = this->m_packetType;   q++;
+		*q = this->m_clientId;	q++;
 		*q = this->sourceUnitIndex;	q++;
 		*q = this->targetUnitIndex;		q++;
 		*q = this->power;		q++;
 
 		char *p = (char*)q;
 		int i = 0;
-		for (int i = 0; i < BUFSIZE; i++) {
+		for (int i = 0; i < MAX_CHAR_BUFSIZE; i++) {
 			*p = this->abilityName[i];
 			p++;
 		}
@@ -172,15 +217,15 @@ struct SourceTargetDamagePacket : Packet {
 
 	void deserialize(char* data) {
 		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
+		this->m_packetType = *q;		q++;
+		this->m_clientId = *q;		q++;
 		this->sourceUnitIndex = *q;		q++;
 		this->targetUnitIndex = *q;		q++;
 		this->power = *q;		q++;
 
 		char *p = (char*)q;
 		int i = 0;
-		for (int i = 0; i < BUFSIZE; i++) {
+		for (int i = 0; i < MAX_CHAR_BUFSIZE; i++) {
 			this->abilityName[i] = *p;
 			p++;
 		}
@@ -190,18 +235,18 @@ struct SourceTargetDamagePacket : Packet {
 struct SingleTilePacket : Packet {
 
 	int posX, posY;
-	char abilityName[BUFSIZE];
+	char abilityName[MAX_CHAR_BUFSIZE];
 
 	void serialize(char* data) {
 		int *q = (int*)data;
-		*q = this->packetType;   q++;
-		*q = this->clientId;	q++;
+		*q = this->m_packetType;   q++;
+		*q = this->m_clientId;	q++;
 		*q = this->posX;		q++;
 		*q = this->posY;		q++;
 
 		char *p = (char*)q;
 		int i = 0;
-		for (int i = 0; i < BUFSIZE; i++) {
+		for (int i = 0; i < MAX_CHAR_BUFSIZE; i++) {
 			*p = this->abilityName[i];
 			p++;
 		}
@@ -209,14 +254,14 @@ struct SingleTilePacket : Packet {
 
 	void deserialize(char* data) {
 		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
+		this->m_packetType = *q;		q++;
+		this->m_clientId = *q;		q++;
 		this->posX = *q;		q++;
 		this->posY = *q;		q++;
 
 		char *p = (char*)q;
 		int i = 0;
-		for (int i = 0; i < BUFSIZE; i++) {
+		for (int i = 0; i < MAX_CHAR_BUFSIZE; i++) {
 			this->abilityName[i] = *p;
 			p++;
 		}
@@ -228,12 +273,12 @@ struct SingleTargetPacket : Packet {
 	int sourceUnitIndex;
 	int targetUnitIndex;
 	int dur, pow;
-	char abilityName[BUFSIZE];
+	char abilityName[MAX_CHAR_BUFSIZE];
 
 	void serialize(char* data) {
 		int *q = (int*)data;
-		*q = this->packetType;  q++;
-		*q = this->clientId;	q++;
+		*q = this->m_packetType;  q++;
+		*q = this->m_clientId;	q++;
 		*q = this->sourceUnitIndex;		q++;
 		*q = this->targetUnitIndex;		q++;
 		*q = this->dur;			q++;
@@ -241,7 +286,7 @@ struct SingleTargetPacket : Packet {
 
 		char *p = (char*)q;
 		int i = 0;
-		for (int i = 0; i < BUFSIZE; i++) {
+		for (int i = 0; i < MAX_CHAR_BUFSIZE; i++) {
 			*p = this->abilityName[i];
 			p++;
 		}
@@ -249,8 +294,8 @@ struct SingleTargetPacket : Packet {
 
 	void deserialize(char* data) {
 		int *q = (int*)data;
-		this->packetType = *q;	q++;
-		this->clientId = *q;	q++;
+		this->m_packetType = *q;	q++;
+		this->m_clientId = *q;	q++;
 		this->sourceUnitIndex = *q;		q++;
 		this->targetUnitIndex = *q;		q++;
 		this->dur = *q;			q++;
@@ -258,41 +303,7 @@ struct SingleTargetPacket : Packet {
 
 		char *p = (char*)q;
 		int i = 0;
-		for (int i = 0; i < BUFSIZE; i++) {
-			this->abilityName[i] = *p;
-			p++;
-		}
-	}
-};
-
-struct AbilityPacket : Packet {
-
-	int sourceUnitIndex;
-	char abilityName[BUFSIZE];
-
-	void serialize(char* data) {
-		int *q = (int*)data;
-		*q = this->packetType;  q++;
-		*q = this->clientId;	q++;
-		*q = this->sourceUnitIndex;		q++;
-
-		char *p = (char*)q;
-		int i = 0;
-		for (int i = 0; i < BUFSIZE; i++) {
-			*p = this->abilityName[i];
-			p++;
-		}
-	}
-
-	void deserialize(char* data) {
-		int *q = (int*)data;
-		this->packetType = *q;	q++;
-		this->clientId = *q;	q++;
-		this->sourceUnitIndex = *q;		q++;
-
-		char *p = (char*)q;
-		int i = 0;
-		for (int i = 0; i < BUFSIZE; i++) {
+		for (int i = 0; i < MAX_CHAR_BUFSIZE; i++) {
 			this->abilityName[i] = *p;
 			p++;
 		}
@@ -302,17 +313,17 @@ struct AbilityPacket : Packet {
 struct TargetUnitPacket : Packet {
 
 	int targetUnitIndex;
-	char abilityName[BUFSIZE];
+	char abilityName[MAX_CHAR_BUFSIZE];
 
 	void serialize(char* data) {
 		int *q = (int*)data;
-		*q = this->packetType;  q++;
-		*q = this->clientId;	q++;
+		*q = this->m_packetType;  q++;
+		*q = this->m_clientId;	q++;
 		*q = this->targetUnitIndex;		q++;
 
 		char *p = (char*)q;
 		int i = 0;
-		for (int i = 0; i < BUFSIZE; i++) {
+		for (int i = 0; i < MAX_CHAR_BUFSIZE; i++) {
 			*p = this->abilityName[i];
 			p++;
 		}
@@ -320,13 +331,13 @@ struct TargetUnitPacket : Packet {
 
 	void deserialize(char* data) {
 		int *q = (int*)data;
-		this->packetType = *q;	q++;
-		this->clientId = *q;	q++;
+		this->m_packetType = *q;	q++;
+		this->m_clientId = *q;	q++;
 		this->targetUnitIndex = *q;		q++;
 
 		char *p = (char*)q;
 		int i = 0;
-		for (int i = 0; i < BUFSIZE; i++) {
+		for (int i = 0; i < MAX_CHAR_BUFSIZE; i++) {
 			this->abilityName[i] = *p;
 			p++;
 		}
@@ -336,17 +347,17 @@ struct TargetUnitPacket : Packet {
 struct TestPacket : Packet {
 
 	int num;
-	char msg[BUFSIZE];
+	char msg[MAX_CHAR_BUFSIZE];
 
 	void serialize(char* data) {
 		int *q = (int*)data;
-		*q = this->packetType;   q++;
-		*q = this->clientId;	q++;
+		*q = this->m_packetType;   q++;
+		*q = this->m_clientId;	q++;
 		*q = this->num;			q++;
 
 		char *p = (char*)q;
 		int i = 0;
-		for (int i = 0; i < BUFSIZE; i++) {
+		for (int i = 0; i < MAX_CHAR_BUFSIZE; i++) {
 			*p = this->msg[i];
 			p++;
 		}
@@ -354,40 +365,32 @@ struct TestPacket : Packet {
 
 	void deserialize(char* data) {
 		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
+		this->m_packetType = *q;		q++;
+		this->m_clientId = *q;		q++;
 		this->num = *q;				q++;
 
 		char *p = (char*)q;
 		int i = 0;
-		for (int i = 0; i < BUFSIZE; i++) {
+		for (int i = 0; i < MAX_CHAR_BUFSIZE; i++) {
 			this->msg[i] = *p;
 			p++;
 		}
 	}
 };
-struct Buffer
-{
-	friend class ResizeablePacket;
 
-	char* m_data;		// pointer to buffer data
-	int m_size;			// size of buffer data in bytes
-	int getIndex() { return m_index; }
-//private:
-	int m_index = 0;	// index of next byte to be read/written
-};
-class ResizeablePacket
+class AbilityPacket
 {
 	typedef std::vector<unit::Unit*> TargetUnits;
 	typedef std::unordered_map<std::string, int> IntValues;
 	typedef std::vector<kitten::K_GameObject*>  TargetTiles;
 public:
+	friend struct Buffer;
 	int packetType;
 	int clientId;
 	int sourceUnit;
 
 	int m_abilityNameLength;
-	char m_abilityName[BUFSIZE];
+	char m_abilityName[MAX_CHAR_BUFSIZE];
 
 	void print();
 
@@ -401,8 +404,6 @@ public:
 
 private:	
 	int sumKeysLength = 0;
-	int totalBytesWritten = 0;
-	int totalBytesRead = 0;
 
 	int m_numTargetUnits;
 	TargetUnits m_targets;
@@ -418,106 +419,4 @@ private:
 	int readInt(Buffer &buffer);
 	char readChar(Buffer &buffer);
 	
-};
-
-struct AbilityInfoPacket : Packet
-{
-	int sourceUnit;
-	int m_numTargetUnits;
-	int m_numIntValues;
-	int m_numTargetTiles;
-
-	void serialize(char* data) {
-		int *q = (int*)data;
-		*q = this->packetType;	q++;
-		*q = this->clientId;	q++;
-		*q = this->sourceUnit;		q++;
-		*q = this->m_numTargetUnits;	q++;
-		*q = this->m_numIntValues;		q++;
-		*q = this->m_numTargetTiles;	q++;
-	}
-
-	void deserialize(char* data) {
-		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
-		this->sourceUnit = *q;		q++;
-		this->m_numTargetUnits = *q;	q++;
-		this->m_numIntValues = *q;		q++;
-		this->m_numTargetTiles = *q;	q++;
-	}
-};
-
-struct TargetUnitPacketTest : Packet
-{
-	int targetUnitIndex;
-
-	void serialize(char* data) {
-		int *q = (int*)data;
-		*q = this->packetType;	q++;
-		*q = this->clientId;	q++;
-		*q = this->targetUnitIndex;		q++;
-	}
-
-	void deserialize(char* data) {
-		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
-		this->targetUnitIndex = *q;		q++;
-	}
-};
-
-struct IntValuePacket : Packet
-{
-	int value;
-	int keyLength;
-	char key[BUFSIZE];
-
-	void serialize(char* data) {
-		int *q = (int*)data;
-		*q = this->value;		q++;
-		*q = this->keyLength;	q++;
-
-		char *p = (char*)q;
-		int i = 0;
-		for (int i = 0; i < keyLength; i++) {
-			*p = this->key[i];
-			p++;
-		}
-	}
-
-	void deserialize(char* data) {
-		int *q = (int*)data;
-		this->value = *q;		q++;
-		this->keyLength = *q;	q++;
-
-		char *p = (char*)q;
-		int i = 0;
-		for (int i = 0; i < keyLength; i++) {
-			this->key[i] = *p;
-			p++;
-		}
-	}
-};
-
-struct TargetTilePacket : Packet
-{
-	int posX;
-	int posY;
-
-	void serialize(char* data) {
-		int *q = (int*)data;
-		*q = this->packetType;	q++;
-		*q = this->clientId;	q++;
-		*q = this->posX;		q++;
-		*q = this->posY;		q++;
-	}
-
-	void deserialize(char* data) {
-		int *q = (int*)data;
-		this->packetType = *q;		q++;
-		this->clientId = *q;		q++;
-		this->posX = *q;		q++;
-		this->posY = *q;		q++;
-	}
 };
