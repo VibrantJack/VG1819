@@ -89,6 +89,12 @@ namespace puppy
 		{
 			m_state = playing;
 		}
+
+		auto end = m_emitters.cend();
+		for (auto it = m_emitters.cbegin(); it != end; ++it)
+		{
+			(*it)->resetBurst();
+		}
 	}
 
 	void Effect::pause()

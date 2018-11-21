@@ -391,10 +391,9 @@ namespace puppy
 				std::string mode = child.attribute("mode").as_string();
 				if (mode == "over_life")
 				{
-					float min = child.attribute("min").as_float();
-					float max = child.attribute("max").as_float();
+					float accel = child.attribute("accel").as_float();
 
-					m_affectors.push_back(new AccelerationAff(true, min, max));
+					m_affectors.push_back(new AccelerationAff(accel));
 				}
 				else if (mode == "random")
 				{
@@ -613,36 +612,40 @@ namespace puppy
 				}
 				else
 				{
-					//Burst mode
-					if (!m_canRepeat)
+					if (!m_hasBursted)
 					{
-						m_hasBursted = true;
+						//Burst mode
+						if (!m_canRepeat)
+						{
+							m_hasBursted = true;
+						}
+						m_lastSpawn = 0;
+
+
+						//put all active particles into free list
+						for (auto it = m_activeParticles.begin(); it != m_activeParticles.end(); ++it)
+						{
+							//reset attributes
+							(*it)->m_lived = 0;
+							(*it)->m_pathProgress = 0;
+							(*it)->m_centerPoint.x = 0;
+							(*it)->m_centerPoint.y = 0;
+							(*it)->m_centerPoint.z = 0;
+							(*it)->m_colorTint.r = 0;
+							(*it)->m_colorTint.g = 0;
+							(*it)->m_colorTint.b = 0;
+							(*it)->m_colorTint.a = 0;
+							(*it)->m_velocity = 0;
+							(*it)->m_scale.x = 1;
+							(*it)->m_scale.y = 1;
+
+							m_freeParticles.push_back(*it);
+						}
+						m_activeParticles.clear();
+
+						numPartToSpawn = m_freeParticles.size();
+
 					}
-					m_lastSpawn = 0;
-
-
-					//put all active particles into free list
-					for (auto it = m_activeParticles.begin(); it != m_activeParticles.end(); ++it)
-					{
-						//reset attributes
-						(*it)->m_lived = 0;
-						(*it)->m_pathProgress = 0;
-						(*it)->m_centerPoint.x = 0;
-						(*it)->m_centerPoint.y = 0;
-						(*it)->m_centerPoint.z = 0;
-						(*it)->m_colorTint.r = 0;
-						(*it)->m_colorTint.g = 0;
-						(*it)->m_colorTint.b = 0;
-						(*it)->m_colorTint.a = 0;
-						(*it)->m_velocity = 0;
-						(*it)->m_scale.x = 1;
-						(*it)->m_scale.y = 1;
-
-						m_freeParticles.push_back(*it);
-					}
-					m_activeParticles.clear();
-
-					numPartToSpawn = m_freeParticles.size();
 					
 				}
 

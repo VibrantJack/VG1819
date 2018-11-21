@@ -46,6 +46,8 @@ namespace puppy
 		void update(float p_delta, bool p_canSpawn);
 		void render(const glm::mat4& p_viewInverse, const glm::mat4& p_viewProj, const glm::vec3& p_position, const glm::vec3& p_scale);
 
+		void resetBurst() { m_hasBursted = false; };
+
 		void setSpawnRate(float p_spawnRate);
 		void refreshXML();
 	};
