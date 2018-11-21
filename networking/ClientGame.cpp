@@ -248,17 +248,21 @@ namespace networking
 	{
 		ResizeablePacket packet;
 		packet.packetType = 0; // Create new enum for AbilityPacket
-		packet.clientId = getClientId();
-		packet.sourceUnit = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
+		packet.clientId = 1;
+		packet.sourceUnit = 2;
 
-		packet.m_numTargetUnits = p_info->m_targets.size();
-		packet.m_targets = p_info->m_targets;
+		//packet.m_numTargetUnits = p_info->m_targets.size();
+		//packet.m_targets = p_info->m_targets;
 
-		packet.m_numIntValues = p_info->m_intValue.size();
-		packet.m_intValue = p_info->m_intValue;
+		//packet.m_numIntValues = p_info->m_intValue.size();
+		//packet.m_intValue = p_info->m_intValue;
 
-		packet.m_numTargetTiles = p_info->m_targetTilesGO.size();
-		packet.m_targetTilesGO = p_info->m_targetTilesGO;
+		//packet.m_numTargetTiles = p_info->m_targetTilesGO.size();
+		//packet.m_targetTilesGO = p_info->m_targetTilesGO;
+
+		packet.addTargetUnits(p_info->m_targets);
+		packet.addIntValues(p_info->m_intValue);
+		packet.addTargetTiles(p_info->m_targetTilesGO);
 
 		packet.m_abilityNameLength = p_strAbilityName.size();
 		strcpy(packet.m_abilityName, p_strAbilityName.c_str());
@@ -276,32 +280,12 @@ namespace networking
 		ResizeablePacket packet2;
 		packet2.deserialize(buffer2);
 
-		packet2.print(packet2);
+		packet2.print();
 		//delete[] data;
 	}
 
 	void ClientGame::sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info)
 	{
-		ResizeablePacket packet;
-		packet.packetType = 0; // Create new enum for AbilityPacket
-		packet.clientId = getClientId();
-		packet.sourceUnit = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
-
-		packet.m_numTargetUnits = p_info->m_targets.size();
-		packet.m_targets = p_info->m_targets;
-
-		packet.m_numIntValues = p_info->m_targets.size();
-		packet.m_intValue = p_info->m_intValue;
-
-		packet.m_abilityNameLength = p_info->m_targets.size();
-		packet.m_targetTilesGO = p_info->m_targetTilesGO;
-
-		packet.m_abilityNameLength = p_strAbilityName.size();
-		strcpy(packet.m_abilityName, p_strAbilityName.c_str());
-
-		//packet.addTargetUnits(p_info->m_targets);
-		//packet.addIntValues(p_info->m_intValue);
-		//packet.addTargetTiles(p_info->m_targetTilesGO);
 
 		// ****************
 

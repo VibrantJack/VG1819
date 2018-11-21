@@ -386,6 +386,24 @@ public:
 	int clientId;
 	int sourceUnit;
 
+	int m_abilityNameLength;
+	char m_abilityName[BUFSIZE];
+
+	void print();
+
+	void serialize(Buffer& buffer);
+	void deserialize(Buffer& buffer);
+
+	void addTargetUnits(TargetUnits p_targets);
+	void addIntValues(IntValues p_values);
+	void addTargetTiles(TargetTiles p_targetTilesGO);
+	int getSize();
+
+private:	
+	int sumKeysLength = 0;
+	int totalBytesWritten = 0;
+	int totalBytesRead = 0;
+
 	int m_numTargetUnits;
 	TargetUnits m_targets;
 
@@ -394,23 +412,6 @@ public:
 
 	int m_numTargetTiles;
 	TargetTiles m_targetTilesGO;
-
-	int m_abilityNameLength;
-	char m_abilityName[BUFSIZE];
-
-	void print(ResizeablePacket& packet);
-
-	void serialize(Buffer& buffer);
-	void deserialize(Buffer& buffer);
-
-	int getSize();
-
-	/*void addTargetUnits(std::vector<unit::Unit*> p_targets);
-	void addIntValues(IntValues p_values);
-	void addTargetTiles(std::vector<kitten::K_GameObject*> p_targetTilesGO);*/
-
-private:
-	
 
 	void writeInt(Buffer &buffer, int value);
 	void writeChar(Buffer &buffer, char value);
