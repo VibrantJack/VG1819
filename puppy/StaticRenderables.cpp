@@ -157,8 +157,11 @@ namespace puppy
 		else
 		{
 			auto foundRender = p_toChange->find(m_idToTex[p_where]);
-			delete foundRender->second;
-			p_toChange->erase(m_idToTex[p_where]);
+			if (foundRender != p_toChange->end())
+			{
+				delete foundRender->second;
+				p_toChange->erase(m_idToTex[p_where]);
+			}
 		}
 
 		//clean dirty flag
