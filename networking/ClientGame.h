@@ -31,6 +31,7 @@ namespace networking
 
 		void update();
 
+		void useAbility(AbilityPacket& p_packet);
 		void testNewPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
 		void sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
 
@@ -50,9 +51,7 @@ namespace networking
 		void sendSummonUnitPacket(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
 
 		void moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY);
-		void sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY);		
-
-		void sendPacket(Packet* p_packet);				
+		void sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY);
 
 		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);
 		kitten::K_GameObject* getUnitGameObject(int p_iIndex);

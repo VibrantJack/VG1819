@@ -168,32 +168,70 @@ namespace networking
 
 						break;
 					}
+					case ABILITY_PACKET:
+					{
+						printf("Server received ABILITY_PACKET from [Client: %d]\n", iter->first);
+						Buffer buffer;
+						buffer.m_data = &(m_network_data[i]);
+						buffer.m_size = MAX_PACKET_SIZE;
+
+						AbilityPacket packet;
+						packet.deserialize(buffer);
+						i += MAX_PACKET_SIZE; // Change to += packet.m_bytesWritten if we add bytesWritten to AbilityPacket
+						packet.print();
+
+						char data[MAX_PACKET_SIZE];
+						Buffer newBuffer;
+						newBuffer.m_data = data;
+						newBuffer.m_size = MAX_PACKET_SIZE;
+						packet.serialize(newBuffer);
+						m_network->sendToOthers(iter->first, data, MAX_PACKET_SIZE);
+
+						break;
+					}
 					case SUMMON_UNIT:
 					{
-						printf("Server received CLIENT_SUMMON_UNIT packet from [Client: %d]\n", iter->first);
+						printf("Server received SUMMON_UNIT packet from [Client: %d]\n", iter->first);
+						Buffer buffer;
+						buffer.m_data = &(m_network_data[i]);
+						buffer.m_size = SUMMON_UNIT_PACKET_SIZE;
 
 						SummonUnitPacket summonUnitPacket;
-						summonUnitPacket.deserialize(&(m_network_data[i]));
+						summonUnitPacket.deserialize(buffer);
 						i += SUMMON_UNIT_PACKET_SIZE;
-						sendSummonedUnitPacket(iter->first, summonUnitPacket);
+						printf("Server sending Unit index: %d, posX: %d, posY: %d\n", summonUnitPacket.unitId, summonUnitPacket.posX, summonUnitPacket.posY);
+						
+						char data[SUMMON_UNIT_PACKET_SIZE];
+						Buffer newBuffer;
+						newBuffer.m_data = data;
+						newBuffer.m_size = SUMMON_UNIT_PACKET_SIZE;
+						summonUnitPacket.serialize(newBuffer);
+						m_network->sendToOthers(iter->first, data, SUMMON_UNIT_PACKET_SIZE);
+
+						//sendSummonedUnitPacket(iter->first, summonUnitPacket);
 
 						break;
 					}
 					case UNIT_MOVE:
 					{
 						printf("Server received UNIT_MOVE packet from [Client: %d]\n", iter->first);
+						Buffer buffer;
+						buffer.m_data = &(m_network_data[i]);
+						buffer.m_size = UNIT_MOVE_PACKET_SIZE;
 
 						UnitMovePacket packet;
-						packet.deserialize(&(m_network_data[i]));
+						packet.deserialize(buffer);
 						i += UNIT_MOVE_PACKET_SIZE;
 						printf("Server sending Unit index: %d, posX: %d, posY: %d\n", packet.unitIndex, packet.posX, packet.posY);
 
 						// Send received packet to other clients
-						char packet_data[UNIT_MOVE_PACKET_SIZE];
+						char data[UNIT_MOVE_PACKET_SIZE];
+						Buffer newBuffer;
+						newBuffer.m_data = data;
+						newBuffer.m_size = UNIT_MOVE_PACKET_SIZE;
 
-						packet.serialize(packet_data);
-						m_network->sendToOthers(iter->first, packet_data, UNIT_MOVE_PACKET_SIZE);
-
+						packet.serialize(newBuffer);
+						m_network->sendToOthers(iter->first, data, UNIT_MOVE_PACKET_SIZE);
 
 						break;
 					}
@@ -277,7 +315,7 @@ namespace networking
 	{
 		char packet_data[SUMMON_UNIT_PACKET_SIZE];
 
-		p_packet.serialize(packet_data);
+		//p_packet.serialize(packet_data);
 
 		m_network->sendToOthers(p_iClientId, packet_data, SUMMON_UNIT_PACKET_SIZE);
 	}
