@@ -980,9 +980,6 @@
     <ClInclude Include="..\puppy\TextureBlendMaterial.h">
       <Filter>puppy</Filter>
     </ClInclude>
-    <ClInclude Include="..\networking\NetworkDataTests.h">
-      <Filter>networking</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">

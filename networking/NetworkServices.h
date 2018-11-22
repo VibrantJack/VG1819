@@ -11,7 +11,5 @@ namespace networking
 	public:
 		static int sendMessage(SOCKET curSocket, char * message, int messageSize);
 		static int receiveMessage(SOCKET curSocket, char * buffer, int bufSize);
-
-		static Buffer& createBuffer(int p_packetSize);
 	};
 }

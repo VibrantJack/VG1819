@@ -158,7 +158,6 @@ namespace networking
 			defaultPacket.deserialize(defaultBuffer);
 
 			packetType = (PacketTypes)defaultPacket.m_packetType;
-			printf("PacketType received: %d\n", packetType);
 			switch (packetType) {
 
 			case PacketTypes::SEND_CLIENT_ID:
@@ -188,10 +187,10 @@ namespace networking
 				AbilityPacket packet;
 				packet.deserialize(buffer);
 				packet.print();
-				printf("data_length: %d\n", data_length);
-				printf("Before increment Count i: %d\n", i);
+				//printf("data_length: %d\n", data_length);
+				//printf("Before increment Count i: %d\n", i);
 				i += packet.getBytes();
-				printf("Incremented Count i: %d\n", i);
+				//printf("Incremented Count i: %d\n", i);
 				useAbility(packet);
 				break;
 			}
@@ -221,7 +220,7 @@ namespace networking
 				break;
 			}
 			default:
-				printf("[Client: %d] received %d; error in packet types\n", packetType);
+				printf("[Client: %d] received %d; error in packet types\n", m_iClientId, packetType);
 				i += (unsigned int)data_length;
 				break;
 			}
@@ -301,7 +300,7 @@ namespace networking
 		buffer.m_size = packet.getSize();
 		packet.serialize(buffer);
 		printf("[Client: %d] sending ABILITY_PACKET\n", m_iClientId);
-		packet.print();
+		//packet.print();
 
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, packet.getSize());
 		delete[] data;

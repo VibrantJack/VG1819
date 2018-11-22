@@ -50,7 +50,6 @@ void SpawnUnitOnKeyPress::update()
 		{
 			kitten::K_GameObject* testDummyGO = unit::UnitSpawn::getInstance()->spawnUnitObject(m_iUnitId);
 			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
-			unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 
 			//initialize position
 			testDummyGO->getComponent<unit::UnitMove>()->setTile(posX, posY);

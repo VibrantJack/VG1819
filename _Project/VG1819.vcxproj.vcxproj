@@ -360,7 +360,6 @@
     <ClInclude Include="..\networking\ClientGame.h" />
     <ClInclude Include="..\networking\ClientNetwork.h" />
     <ClInclude Include="..\networking\NetworkData.h" />
-    <ClInclude Include="..\networking\NetworkDataTests.h" />
     <ClInclude Include="..\networking\NetworkingConsoleMenu.h" />
     <ClInclude Include="..\networking\NetworkServices.h" />
     <ClInclude Include="..\networking\ServerGame.h" />

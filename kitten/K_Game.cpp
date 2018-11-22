@@ -44,9 +44,6 @@
 //unit interaction
 #include "unitInteraction/UnitInteractionManager.h"
 
-#include "networking\NetworkDataTests.h"
-#include "networking\NetworkData.h"
-
 #define DEBUG
 
 namespace kitten
@@ -139,7 +136,7 @@ namespace kitten
 		//delete builder;
 
 		//test unit
-		//unit::UnitTest::getInstanceSafe()->test();
+		unit::UnitTest::getInstanceSafe()->test();
 
 		//UIO TESTING
 		K_GameObject* hand = K_GameObjectManager::getInstance()->createNewGameObject();
@@ -202,36 +199,8 @@ namespace kitten
 		K_GameObject* networkingMenu = K_GameObjectManager::getInstance()->createNewGameObject();
 		networkingMenu->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("NetworkingConsoleMenu"));
 
-		K_GameObject* spawnUnitOnKeyPress = K_GameObjectManager::getInstance()->createNewGameObject();
-		spawnUnitOnKeyPress->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("SpawnUnitOnKeyPress"));
-
-		//std::string testString = "Test123";
-		////const char * testChar = testString.c_str();
-		//char testChar[BUFSIZ];
-		//strcpy(testChar, testString.c_str());
-		//printf("First char: %c\n", testChar[0]);
-		//printf("Last char: %c\n", testChar[6]);
-		//
-		//Buffer buffer;
-		//char bufData[sizeof(PacketA)];
-		//buffer.m_data = bufData;
-		//buffer.m_size = sizeof(PacketA);
-		////buffer.m_index = 0;
-
-		//PacketA packet;
-		//packet.x = 22;
-		//packet.write(buffer);
-
-		////buffer.m_index = 0;
-		//Buffer buffer2;
-		//buffer2.m_data = buffer.m_data;
-		//buffer2.m_size = buffer.m_size;
-		//PacketA packet2;
-		//packet2.read(buffer2);
-		//printf("Read number: %d\n", packet2.x);
-
-		//packet.m_values.push_back(21);
-		//printf("Packet vector value: %d\n", packet.m_values[0]);
+		//K_GameObject* spawnUnitOnKeyPress = K_GameObjectManager::getInstance()->createNewGameObject();
+		//spawnUnitOnKeyPress->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("SpawnUnitOnKeyPress"));
 
 		return true;
 	}
