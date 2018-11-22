@@ -17,8 +17,8 @@ void CounterGetter::requireCounter(unit::AbilityDescription * p_ad, unit::Unit *
 	{
 		return;
 	}
-	m_name = p_ad->m_stringValue[COUNTER_NAME];
-	//m_name = it->second;//get counter name
+
+	m_name = it->second;//get counter name
 
 	//then get selection method
 	std::string method = p_ad->m_stringValue[COUNTER_SELECT];

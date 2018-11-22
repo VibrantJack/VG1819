@@ -60,6 +60,7 @@ UnitInteractionManager::UnitInteractionManager()
 	m_package = nullptr;
 	m_ad = nullptr;
 	m_tileGetter = new TileGetter();
+	m_counterGetter = new CounterGetter();
 
 	m_busy = false;
 }
@@ -70,6 +71,7 @@ UnitInteractionManager::~UnitInteractionManager()
 		delete m_package;
 
 	delete m_tileGetter;
+	delete m_counterGetter;
 }
 
 void UnitInteractionManager::cancel()
