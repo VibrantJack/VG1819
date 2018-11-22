@@ -1,11 +1,11 @@
 <Emitter>
 	<SpawnProperties>
 		<color random="true" minR="0.3" minG="0.3" minB="0.5" maxR="0.5" maxG="0.5" maxB="0.9" />
-		<velocity random="true" min="2" max="3" />
-		<offset x="0" y="0" z="0" type="disc" radius="1.0"/>
+		<velocity random="true" min="4" max="6" />
+		<offset x="0" y="0" z="0" type="disc" radius="0.1"/>
 		<direction useOffset="true"/>
-		<maxParticles numParticles="10" />
-		<lifetime random="true" min="2" max="5" />
+		<maxParticles numParticles="25" />
+		<lifetime random="false" length="0.5"/>
 		<burst isBurst="true" repeat="false" />
 	</SpawnProperties>
 	
