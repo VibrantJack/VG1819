@@ -541,6 +541,12 @@
     <ClCompile Include="..\ability\status\Status_Temp_Change.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
+    <ClCompile Include="..\unitInteraction\CounterGetter.cpp">
+      <Filter>unitInteraction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unitInteraction\CounterGetterDisplay.cpp">
+      <Filter>unitInteraction</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1000,6 +1006,12 @@
     </ClInclude>
     <ClInclude Include="..\ability\AbilityMacro.h">
       <Filter>ability</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unitInteraction\CounterGetter.h">
+      <Filter>unitInteraction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unitInteraction\CounterGetterDisplay.h">
+      <Filter>unitInteraction</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

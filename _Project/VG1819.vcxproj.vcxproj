@@ -242,6 +242,8 @@
     <ClCompile Include="..\UI\UIElement.cpp" />
     <ClCompile Include="..\UI\UIFrame.cpp" />
     <ClCompile Include="..\UI\UIObject.cpp" />
+    <ClCompile Include="..\unitInteraction\CounterGetter.cpp" />
+    <ClCompile Include="..\unitInteraction\CounterGetterDisplay.cpp" />
     <ClCompile Include="..\unitInteraction\TileGetter.cpp" />
     <ClCompile Include="..\unitInteraction\UnitInteractionManager.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp" />
@@ -399,6 +401,8 @@
     <ClInclude Include="..\UI\UIElement.h" />
     <ClInclude Include="..\UI\UIFrame.h" />
     <ClInclude Include="..\UI\UIObject.h" />
+    <ClInclude Include="..\unitInteraction\CounterGetter.h" />
+    <ClInclude Include="..\unitInteraction\CounterGetterDisplay.h" />
     <ClInclude Include="..\unitInteraction\TileGetter.h" />
     <ClInclude Include="..\unitInteraction\UnitInteractionManager.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h" />

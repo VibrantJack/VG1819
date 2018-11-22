@@ -29,7 +29,8 @@ namespace ability
 
 		//delete package and tell unit it acts once
 		void done(const AbilityInfoPackage* p_info);
-
+		//remove cost counter
+		void removeCounter(unit::Unit* p_target, const std::string& p_name, int p_n);
 		//check is there targets in package
 		bool checkTarget(const AbilityInfoPackage* p_info);
 		//check if target unit is ally

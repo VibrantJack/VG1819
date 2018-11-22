@@ -1,5 +1,6 @@
 #include "UnitInteractionManager.h"
 #include "unitInteraction/TileGetter.h"
+#include "CounterGetter.h"
 #include <iostream>
 #include <sstream>
 
@@ -31,8 +32,19 @@ void UnitInteractionManager::request(unit::Unit* p_unit, unit::AbilityDescriptio
 	if(m_ad->m_intValue.find("need_unit")!= m_ad->m_intValue.end())
 		needunit = m_ad->m_intValue["need_unit"];
 
+	//ask player for counter
+	m_counterGetter->requireCounter(p_ad, p_unit);
+
+	if (!m_busy)//player cancel ability in get counter stage
+		return;
+
 	//ask player for targets
 	m_tileGetter->requireTile(m_ad,p_unit,needunit);
+}
+
+void UnitInteractionManager::setCounter(const std::string& p_counter, int p_n)
+{
+	m_package->m_intValue[p_counter] = p_n;
 }
 
 void UnitInteractionManager::setTarget(std::vector<kitten::K_GameObject*> p_tileList, std::vector<unit::Unit*> p_unitList)

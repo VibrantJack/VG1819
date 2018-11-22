@@ -97,7 +97,7 @@ namespace unit
 
 		//kitten::K_GameObject* u4 = UnitSpawn::getInstanceSafe()->spawnUnitObject(4);//engineer
 		//u4->getComponent<unit::UnitMove>()->setTile(5, 2);
-
+		/*
 		kitten::K_GameObject* u5 = UnitSpawn::getInstanceSafe()->spawnUnitObject(7);//pyromancer
 		u5->getComponent<unit::UnitMove>()->setTile(6, 2);
 
@@ -112,9 +112,10 @@ namespace unit
 
 		kitten::K_GameObject* u9 = UnitSpawn::getInstanceSafe()->spawnUnitObject(11);//divine status
 		u9->getComponent<unit::UnitMove>()->setTile(10, 2);
-
+		*/
 		kitten::K_GameObject* u10 = UnitSpawn::getInstanceSafe()->spawnUnitObject(12);//oligarch
-		u10->getComponent<unit::UnitMove>()->setTile(11, 2);
+		u10->getComponent<unit::UnitMove>()->setTile(11, 4);
+		u10->getComponent<Unit>()->m_attributes[COUNTER_MONEY] = 4;
 		//test unit 
 		//unit::Unit* u = u1->getComponent<unit::Unit>();
 		//UnitMonitor::getInstanceSafe()->printUnit(u);
