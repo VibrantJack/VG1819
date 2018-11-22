@@ -213,9 +213,10 @@ namespace networking
 			case PacketTypes::SKIP_TURN:
 			{
 				i += BASIC_PACKET_SIZE;
-				
+				m_bServerCalling = true;
 				unit::Unit* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit()->getComponent<unit::Unit>();
 				currentUnit->playerSkipTurn();
+				m_bServerCalling = false;
 
 				break;
 			}
