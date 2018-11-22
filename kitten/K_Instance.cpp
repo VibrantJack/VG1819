@@ -73,8 +73,6 @@ namespace kitten
 	{
 		if (m_sceneSwitchFlag) {
 			m_gameObjectManager->destroyMostGameObjects();
-			m_componentManager->m_toDelete.clear(); // TODO check why a few components still turn up on m_toDelete
-
 			kibble::setSceneFrom(m_nextScene);
 			m_sceneSwitchFlag = false;
 		}
