@@ -629,6 +629,20 @@ kitten::K_Component* getToggleParticleSystemOnKeyPress(nlohmann::json* p_jsonFil
 	return new ToggleParticleSystemOnKeyPress(keyStr[0]);
 }
 
+#include "_Project\UniversalPfx.h"
+kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
+	
+	std::list<std::pair<std::string, std::string>> effects;
+
+	auto end = p_jsonFile->at("effects").end();
+	for (auto it = p_jsonFile->at("effects").begin(); it != end; ++it)
+	{
+		std::string effectName = (*it)["name"];
+		std::string effectPath = (*it)["path"];
+
+		effects.push_back(std::make_pair(effectName, effectPath));
+	}
+}
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
@@ -674,6 +688,7 @@ void setupComponentMap() {
 	jsonComponentMap["TileInfo"] = &getTileInfo;
 	jsonComponentMap["SpawnUnitOnKeyPress"] = &getSpawnUnitOnKeyPress;
 	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
+	jsonComponentMap["UniversalPfx"] = &getUniversalPfx;
 	jsonComponentMap["K_ParticleSystem"] = &getKParticleSystem;
 	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;

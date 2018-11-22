@@ -25,6 +25,8 @@ namespace kitten
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
 
+		void setEffectXML(const char* p_pathToEffectXML);
+
 		bool isPlaying() const;
 
 		void pause();

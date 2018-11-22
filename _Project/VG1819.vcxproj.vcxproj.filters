@@ -586,6 +586,9 @@
     <ClCompile Include="ToggleParticleSystemOnKeyPress.cpp">
       <Filter>components\debug</Filter>
     </ClCompile>
+    <ClCompile Include="UniversalPfx.cpp">
+      <Filter>components\standard effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1118,6 +1121,9 @@
     <ClInclude Include="ToggleParticleSystemOnKeyPress.h">
       <Filter>components\debug</Filter>
     </ClInclude>
+    <ClInclude Include="UniversalPfx.h">
+      <Filter>components\standard effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1251,6 +1257,9 @@
     </Filter>
     <Filter Include="custom_expresssions">
       <UniqueIdentifier>{dce41785-df33-4efa-b1f2-dbea8b71589b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\standard effects">
+      <UniqueIdentifier>{8c3ab6ac-dae3-451f-9e21-7944dc100695}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

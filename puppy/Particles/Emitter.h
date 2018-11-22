@@ -30,6 +30,8 @@ namespace puppy
 
 		std::string m_xmlPath;
 
+		const glm::vec3 m_offset;
+
 		float m_spawnRate;
 		float m_lastSpawn;
 		float m_maxLife;

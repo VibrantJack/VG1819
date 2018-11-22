@@ -21,7 +21,7 @@ namespace kitten
 		m_time = K_Time::getInstance();
 		assert(m_time != nullptr);
 
-		puppy::Renderer::sm_instance->addParticleToRender(this);
+		onEnabled();
 	}
 
 	void K_ParticleSystem::update()
@@ -42,6 +42,11 @@ namespace kitten
 	bool K_ParticleSystem::isPlaying() const
 	{
 		return m_isPlaying;
+	}
+
+	void K_ParticleSystem::setEffectXML(const char* p_pathToEffectXML)
+	{
+		m_particleEffect = puppy::Effect(p_pathToEffectXML);
 	}
 
 	void K_ParticleSystem::pause()

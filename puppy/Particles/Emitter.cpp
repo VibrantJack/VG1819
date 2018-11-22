@@ -24,7 +24,7 @@
 
 namespace puppy
 {
-	Emitter::Emitter(const char* p_pathToXML, const glm::vec3& p_offset) : m_vao(nullptr), m_tex(nullptr), m_isBurst(false), m_lastSpawn(0)
+	Emitter::Emitter(const char* p_pathToXML, const glm::vec3& p_offset) : m_vao(nullptr), m_tex(nullptr), m_isBurst(false), m_lastSpawn(0), m_offset(p_offset)
 	{
 		m_xmlPath = p_pathToXML;
 		m_parser = new parser::Parser();
@@ -222,7 +222,7 @@ namespace puppy
 					radius = child.attribute("radius").as_float();
 				}
 
-				OffsetSpawnAff* osa = new OffsetSpawnAff(glm::vec3(0,0,0), shape);
+				OffsetSpawnAff* osa = new OffsetSpawnAff(m_offset, shape);
 				osa->setBoxBounds(topLeft, bottomRight);
 				osa->setRadius(radius);
 
@@ -252,7 +252,7 @@ namespace puppy
 		//set emitter shape to default (point) if not defined in xml
 		if (!hasShape)
 		{
-			OffsetSpawnAff* osa = new OffsetSpawnAff(glm::vec3(0,0,0), point);
+			OffsetSpawnAff* osa = new OffsetSpawnAff(m_offset, point);
 			m_spawnProperties.push_back(osa);
 		}
 
@@ -646,34 +646,36 @@ namespace puppy
 						numPartToSpawn = m_freeParticles.size();
 
 					}
-					
-				}
-
-				std::list<Particle*> newSpawns;
-
-				//Spawn particles from free list
-				for (int i = 0; i < numPartToSpawn; ++i)
-				{
-					//Get next particle
-					Particle* toSpawn = m_freeParticles.back();
-					m_freeParticles.pop_back();
-
-					//Push to newspawn list
-					newSpawns.push_back(toSpawn);
-					//Push to active list
-					m_activeParticles.push_front(toSpawn);
-
-					//set randoms
-					for (int n = 0; n < AffRandKeys::AFF_RAND_SIZE_MAX; ++n)
-					{
-						toSpawn->m_randFactor[n] = (float)rand() / (float)RAND_MAX;
-					}
 				}
 
 				//Set other spawn properties
-				for (SpawnAffector* spa : m_spawnProperties)
+				if (numPartToSpawn > 0)
 				{
-					spa->apply(newSpawns);
+					std::list<Particle*> newSpawns;
+
+					//Spawn particles from free list
+					for (int i = 0; i < numPartToSpawn; ++i)
+					{
+						//Get next particle
+						Particle* toSpawn = m_freeParticles.back();
+						m_freeParticles.pop_back();
+
+						//Push to newspawn list
+						newSpawns.push_back(toSpawn);
+						//Push to active list
+						m_activeParticles.push_front(toSpawn);
+
+						//set randoms
+						for (int n = 0; n < AffRandKeys::AFF_RAND_SIZE_MAX; ++n)
+						{
+							toSpawn->m_randFactor[n] = (float)rand() / (float)RAND_MAX;
+						}
+					}
+
+					for (SpawnAffector* spa : m_spawnProperties)
+					{
+						spa->apply(newSpawns);
+					}
 				}
 			}
 		}

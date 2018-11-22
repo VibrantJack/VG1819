@@ -5,7 +5,12 @@ namespace puppy
 	{
 		m_state = paused;
 		m_xmlPath = p_pathToXml;
-		refreshXML();
+
+		if (p_pathToXml != nullptr)
+		{
+			
+			refreshXML();
+		}
 	}
 
 	Effect::~Effect()

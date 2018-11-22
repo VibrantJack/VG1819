@@ -25,7 +25,7 @@ namespace puppy
 				position *= scale;
 				//add offset
 				p->m_centerPoint += position;
-				p->m_offset = p->m_centerPoint;
+				p->m_offset = position;
 			}
 			break;
 		case sphere:
