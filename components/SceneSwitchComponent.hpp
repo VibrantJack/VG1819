@@ -3,12 +3,13 @@
 #include <string>
 
 class SceneSwitchComponent : public kitten::ClickableUI {
+private:
 	std::string m_targetScene;
 public:
 	void onClick();
 
 	virtual void onPreSwitch();
 
-	SceneSwitchComponent(std::string p_scene);
+	SceneSwitchComponent(const std::string& p_scene);
 	~SceneSwitchComponent();
 };

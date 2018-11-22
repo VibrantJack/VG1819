@@ -71,14 +71,14 @@ namespace kitten
 
 	void K_Instance::privateUpdate()
 	{
-		if (m_SceneSwitchFlag) {
+		if (m_sceneSwitchFlag) {
 			m_gameObjectManager->destroyMostGameObjects();
 			m_componentManager->m_toDelete.clear(); // TODO check why a few components still turn up on m_toDelete
 			kitten::ActiveClickables::getInstance()->m_lastUIHover = nullptr;
 			puppy::Renderer::getInstance()->removeAll();
 
 			kibble::setSceneFrom(m_nextScene);
-			m_SceneSwitchFlag = false;
+			m_sceneSwitchFlag = false;
 		}
 
 		m_time->updateTime();
@@ -94,7 +94,7 @@ namespace kitten
 
 	void K_Instance::flagSceneChange(std::string nextScene) {
 		assert(sm_instance != nullptr);
-		sm_instance->m_SceneSwitchFlag = true;
+		sm_instance->m_sceneSwitchFlag = true;
 		sm_instance->m_nextScene = nextScene;
 	}
 }

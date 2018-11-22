@@ -28,7 +28,7 @@ namespace kitten
 		ActiveClickables* m_clickables;
 		K_JobManager* m_jobManager;
 
-		bool m_SceneSwitchFlag = false;
+		bool m_sceneSwitchFlag = false;
 		std::string m_nextScene;
 
 		void privateUpdate();

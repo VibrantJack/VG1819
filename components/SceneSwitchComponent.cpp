@@ -7,7 +7,7 @@ void SceneSwitchComponent::onClick(){
 	kitten::K_Instance::flagSceneChange(m_targetScene);
 }
 
-SceneSwitchComponent::SceneSwitchComponent(std::string p_sceneTarget) : m_targetScene(p_sceneTarget) {}
+SceneSwitchComponent::SceneSwitchComponent(const std::string& p_sceneTarget) : m_targetScene(p_sceneTarget) {}
 SceneSwitchComponent::~SceneSwitchComponent() {
 }
 
