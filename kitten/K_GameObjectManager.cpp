@@ -81,6 +81,7 @@ namespace kitten
 				it = m_gameObjects.erase(it);
 			}
 		}
+		m_toSurvive.clear();
 	}
 
 	void K_GameObjectManager::flagGameObjectToSurvive(K_GameObject* p_toSurvive) {

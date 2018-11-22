@@ -4,7 +4,7 @@
 
 class ChangeSceneOnClick : public kitten::ClickableUI {
 private:
-	std::string m_targetScene;
+	const std::string m_targetScene;
 public:
 	void onClick();
 
