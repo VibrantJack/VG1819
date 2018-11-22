@@ -10,3 +10,4 @@ StoneSlinger.txt
 ArrowTower.txt
 Armory.txt
 DivineStatue.txt
+Oligarch.txt

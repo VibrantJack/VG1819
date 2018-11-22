@@ -490,9 +490,6 @@
     <ClCompile Include="..\ability\ability\Join.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\Status_Temp_Change.cpp">
-      <Filter>ability\status</Filter>
-    </ClCompile>
     <ClCompile Include="..\board\tile\landInfo\SandLand.cpp">
       <Filter>board\tile\landInfo</Filter>
     </ClCompile>
@@ -525,6 +522,24 @@
     </ClCompile>
     <ClCompile Include="..\board\component\tilePipeline\NoCommanderFilter.cpp">
       <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\EnemyFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\AllyFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Invest.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\GoldRush.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\PowerOfMoney.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Temp_Change.cpp">
+      <Filter>ability\status</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -982,6 +997,9 @@
     </ClInclude>
     <ClInclude Include="..\puppy\TextureBlendMaterial.h">
       <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ability\AbilityMacro.h">
+      <Filter>ability</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

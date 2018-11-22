@@ -5,17 +5,23 @@ TilePipeline::TilePipeline()
 	//init all filter
 	TileFilter* filter;
 
-	filter = new UnitFilter();
+	filter = new UnitFilter(this);
 	m_filterList[FILTER_UNIT] = filter;
 
-	filter = new NoUnitFilter();
+	filter = new NoUnitFilter(this);
 	m_filterList[FILTER_NO_UNIT] = filter;
 
-	filter = new OwnedTileFilter();
+	filter = new OwnedTileFilter(this);
 	m_filterList[FILTER_OWNED_TILE] = filter;
 
-	filter = new NoCommanderFilter();
+	filter = new NoCommanderFilter(this);
 	m_filterList[FILTER_NO_COMMANDER] = filter;
+
+	filter = new EnemyFilter(this);
+	m_filterList[FILTER_ENEMY] = filter;
+
+	filter = new AllyFilter(this);
+	m_filterList[FILTER_ALLY] = filter;
 }
 
 TilePipeline::~TilePipeline()
@@ -32,6 +38,9 @@ void TilePipeline::filterList(kitten::Event::TileList * p_list)
 	{
 		it->second->filter(p_list);
 	}
+
+	m_source = nullptr;
+	resetFilter();
 }
 
 void TilePipeline::useFilter(const std::string & p_filter)

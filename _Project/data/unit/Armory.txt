@@ -14,10 +14,10 @@
 				"max_range":0,
 				"target":1,
 				"need_unit":0,
-				"area_mode":"span",
+				"area_mode":"square",
 				"area_fix":1,
-				"area_min":1,
-				"area_max":3,
+				"area_min":0,
+				"area_max":1,
 				"description":"Gain 5 [Shield] to all ally without [Shield]."
 			}
 		]

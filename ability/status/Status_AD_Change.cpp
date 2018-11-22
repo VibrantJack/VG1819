@@ -1,4 +1,5 @@
 #include "ability/status/Status.h"
+#include "ability/AbilityMacro.h"
 
 ability::Status_AD_Change::Status_AD_Change()
 {
@@ -24,6 +25,7 @@ int ability::Status_AD_Change::effect(ability::TimePointEvent::TPEventType p_typ
 		changeCounter();
 		return 0;
 	}
+	return 1;
 }
 
 void ability::Status_AD_Change::effectEnd()

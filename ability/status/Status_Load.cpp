@@ -1,5 +1,5 @@
 #include "ability/status/Status.h"
-
+#include "ability/AbilityMacro.h"
 ability::Status_Load::Status_Load()
 {
 	m_name = STATUS_LOAD;
@@ -24,6 +24,7 @@ int ability::Status_Load::effect(ability::TimePointEvent::TPEventType p_type, ab
 		changeCounter();
 		return 0;
 	}
+	return 1;
 }
 
 void ability::Status_Load::effectEnd()

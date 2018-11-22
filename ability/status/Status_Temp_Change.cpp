@@ -1,4 +1,5 @@
 #include "ability/status/Status.h"
+#include "ability/AbilityMacro.h"
 
 ability::Status_Temp_Change::Status_Temp_Change()
 {

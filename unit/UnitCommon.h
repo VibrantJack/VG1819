@@ -23,6 +23,11 @@
 #define UNIT_DURATION "duration"
 #define UNIT_POWER "power"
 
+//counter
+#define COUNTER_NAME "counter_name"
+#define COUNTER_MAX "counter_max"
+#define COUNTER_MONEY "money"
+
 //tags
 #define STRUCTURE "Structure"
 

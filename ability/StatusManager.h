@@ -3,6 +3,7 @@
 #include "ability/Ability.h"
 #include "status/Status.h"
 #include "unit/UnitCommon.h"
+#include "AbilityMacro.h"
 
 #include <vector>
 #include <assert.h>

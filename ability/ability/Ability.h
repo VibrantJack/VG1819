@@ -210,6 +210,24 @@ namespace ability
 	public:
 		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
 	};
+
+	class Invest : public Ability
+	{
+	public:
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class PowerOfMoney : public Ability
+	{
+	public:
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class GoldRush : public Ability
+	{
+	public:
+		int effect(AbilityInfoPackage* p_info);
+	};
 }
 
 

@@ -102,11 +102,14 @@
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp" />
     <ClCompile Include="..\ability\ability\Dodge.cpp" />
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
+    <ClCompile Include="..\ability\ability\GoldRush.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
+    <ClCompile Include="..\ability\ability\Invest.cpp" />
     <ClCompile Include="..\ability\ability\Join.cpp" />
     <ClCompile Include="..\ability\ability\Load.cpp" />
     <ClCompile Include="..\ability\ability\ManipulateTile.cpp" />
     <ClCompile Include="..\ability\ability\Move.cpp" />
+    <ClCompile Include="..\ability\ability\PowerOfMoney.cpp" />
     <ClCompile Include="..\ability\ability\Sabotage.cpp" />
     <ClCompile Include="..\ability\ability\SummonUnit.cpp" />
     <ClCompile Include="..\ability\node\AbilityNode.cpp" />
@@ -139,6 +142,8 @@
     <ClCompile Include="..\board\component\area\SquarePattern.cpp" />
     <ClCompile Include="..\board\component\area\TrianglePattern.cpp" />
     <ClCompile Include="..\board\component\PathFind.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\AllyFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\EnemyFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\NoCommanderFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp" />
@@ -275,6 +280,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ability\AbilityInfoPackage.h" />
+    <ClInclude Include="..\ability\AbilityMacro.h" />
     <ClInclude Include="..\ability\AbilityManager.h" />
     <ClInclude Include="..\ability\ability\Ability.h" />
     <ClInclude Include="..\ability\node\AbilityNode.h" />

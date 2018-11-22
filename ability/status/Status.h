@@ -1,5 +1,4 @@
 
-
 //Rock
 
 //Status include Buff, Debuff, Passive Ability, and level up bonus
@@ -26,17 +25,6 @@
 #include <vector>
 
 #define INFO_PACKAGE_KEY "info"
-
-#define STATUS_ENCOURAGE "Status_Encourage"
-#define STATUS_LV "Status_LV"
-#define STATUS_PRIEST_LV3 "Status_Priest_LV3"
-#define STATUS_ARCHER_LV3 "Status_Archer_LV3"
-#define STATUS_DUELIST_LV3 "Status_Duelist_LV3"
-#define STATUS_DODGE "Status_Dodge"
-#define STATUS_TEMP_CHANGE "Status_Temp_Change"
-#define STATUS_AD_CHANGE "Status_AD_Change"
-#define STATUS_LOAD "Status_Load"
-#define STATUS_SHIELD "Status_Shield"
 
 namespace ability
 {
