@@ -614,6 +614,15 @@ kitten::K_Component* getSpriteRenderable(nlohmann::json* p_jsonFile) {
 	return new kitten::SpriteRenderable();
 }
 
+#include "components/ChangeSceneOnClick.hpp"
+kitten::K_Component* getChangeSceneOnClick(nlohmann::json* p_jsonFile) {
+
+	std::string nextScene;
+
+	SET(nextScene, "scene");
+
+	return new ChangeSceneOnClick(nextScene);
+}
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
@@ -659,6 +668,7 @@ void setupComponentMap() {
 	jsonComponentMap["TileInfo"] = &getTileInfo;
 	jsonComponentMap["SpawnUnitOnKeyPress"] = &getSpawnUnitOnKeyPress;
 	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
+	jsonComponentMap["ChangeSceneOnClick"] = &getChangeSceneOnClick;
   
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
 	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;

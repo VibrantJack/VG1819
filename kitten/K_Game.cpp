@@ -160,7 +160,7 @@ namespace kitten
 			cardCasted->assignParentHand(frameCasted);
 			
 			K_Component* cardCF = compMan->createComponent("ClickableFrame");
-			K_Component* clickUI = compMan->createComponent("DELETETHIS");
+			K_Component* clickUI = compMan->createComponent("ClickableUI");
 
 			card->addComponent(cardCF);
 			card->addComponent(clickUI);

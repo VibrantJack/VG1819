@@ -2,7 +2,7 @@
 #include "kitten/mouse picking/ClickableUI.h"
 #include <string>
 
-class SceneSwitchComponent : public kitten::ClickableUI {
+class ChangeSceneOnClick : public kitten::ClickableUI {
 private:
 	std::string m_targetScene;
 public:
@@ -10,6 +10,6 @@ public:
 
 	virtual void onPreSwitch();
 
-	SceneSwitchComponent(const std::string& p_scene);
-	~SceneSwitchComponent();
+	ChangeSceneOnClick(const std::string& p_scene);
+	~ChangeSceneOnClick();
 };

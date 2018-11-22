@@ -505,7 +505,7 @@
     <ClCompile Include="..\kibble\UnitGameObject\UnitType.cpp">
       <Filter>kibble\UnitGameObject</Filter>
     </ClCompile>
-    <ClCompile Include="..\components\SceneSwitchComponent.cpp">
+    <ClCompile Include="..\components\ChangeSceneOnClick.cpp">
       <Filter>components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -962,7 +962,7 @@
     <ClInclude Include="..\kibble\UnitGameObject\UnitType.h">
       <Filter>kibble\UnitGameObject</Filter>
     </ClInclude>
-    <ClInclude Include="..\components\SceneSwitchComponent.hpp">
+    <ClInclude Include="..\components\ChangeSceneOnClick.hpp">
       <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
