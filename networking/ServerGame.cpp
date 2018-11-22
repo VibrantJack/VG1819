@@ -214,94 +214,23 @@ namespace networking
 
 						break;
 					}
-					case UNIT_MOVE:
+					case SKIP_TURN:
 					{
-						printf("Server received UNIT_MOVE packet from [Client: %d]\n", iter->first);
+						i += BASIC_PACKET_SIZE;
+						printf("Server received SKIP_TURN from [Client: %d]\n", iter->first);
+
+						char packetData[BASIC_PACKET_SIZE];
+
 						Buffer buffer;
-						buffer.m_data = &(m_network_data[i]);
-						buffer.m_size = UNIT_MOVE_PACKET_SIZE;
+						buffer.m_data = packetData;
+						buffer.m_size = BASIC_PACKET_SIZE;
 
-						UnitMovePacket packet;
-						packet.deserialize(buffer);
-						i += UNIT_MOVE_PACKET_SIZE;
-						printf("Server sending Unit index: %d, posX: %d, posY: %d\n", packet.unitIndex, packet.posX, packet.posY);
+						Packet packet;
+						packet.m_packetType = SKIP_TURN;
+						packet.m_clientId = iter->first;
 
-						// Send received packet to other clients
-						char data[UNIT_MOVE_PACKET_SIZE];
-						Buffer newBuffer;
-						newBuffer.m_data = data;
-						newBuffer.m_size = UNIT_MOVE_PACKET_SIZE;
-
-						packet.serialize(newBuffer);
-						m_network->sendToOthers(iter->first, data, UNIT_MOVE_PACKET_SIZE);
-
-						break;
-					}
-					case MANIPULATE_TILE:
-					{
-						printf("Server received MANIPULATE_TILE packet from [Client: %d]\n", iter->first);
-
-						ManipulateTilePacket manipPacket;
-						manipPacket.deserialize(&(m_network_data[i]));
-						i += MANIPULATE_PACKET_SIZE;
-						printf("Server sending ability name: %s, unit index: %d, posX: %d, posY: %d\n", manipPacket.abilityName, manipPacket.unitIndex, manipPacket.posX, manipPacket.posY);
-
-						// Send received packet to other clients
-						char packet_data[MANIPULATE_PACKET_SIZE];
-						manipPacket.serialize(packet_data);
-
-						m_network->sendToOthers(iter->first, packet_data, MANIPULATE_PACKET_SIZE);
-						break;
-					}
-					case SOURCE_TARGET_DMG_ABILITY:
-					{
-						printf("Server received SOURCE_TARGET_DMG_ABILITY packet from [Client: %d]\n", iter->first);
-
-						SourceTargetDamagePacket stpPacket;
-						stpPacket.deserialize(&(m_network_data[i]));
-						i += SOURCE_TARGET_DAMAGE_PACKET_SIZE;
-						printf("Server sending ability name: %s, source index: %d, target index: %d, power: %d\n", 
-							stpPacket.abilityName, stpPacket.sourceUnitIndex, stpPacket.targetUnitIndex, stpPacket.power);
-
-						// Send received packet to other clients
-						char packet_data[SOURCE_TARGET_DAMAGE_PACKET_SIZE];
-						stpPacket.serialize(packet_data);
-
-						m_network->sendToOthers(iter->first, packet_data, SOURCE_TARGET_DAMAGE_PACKET_SIZE);
-						break;
-					}
-					case SINGLE_TILE_ABILITY:
-					{
-						printf("Server received SINGLE_TILE_ABILITY packet from [Client: %d]\n", iter->first);
-
-						SingleTilePacket stPacket;
-						stPacket.deserialize(&(m_network_data[i]));
-						i += SINGLE_TILE_PACKET_SIZE;
-						printf("Server sending ability name: %s, posX: %d, posY: %d\n",
-							stPacket.abilityName, stPacket.posX, stPacket.posY);
-
-						// Send received packet to other clients
-						char packet_data[SINGLE_TILE_PACKET_SIZE];
-						stPacket.serialize(packet_data);
-
-						m_network->sendToOthers(iter->first, packet_data, SINGLE_TILE_PACKET_SIZE);
-						break;
-					}
-					case SINGLE_TARGET_ABILITY:
-					{
-						printf("Server received SINGLE_TARGET_ABILITY packet from [Client: %d]\n", iter->first);
-
-						SingleTargetPacket sTgtPacket;
-						sTgtPacket.deserialize(&(m_network_data[i]));
-						i += SINGLE_TARGET_PACKET_SIZE;
-						printf("Server sending ability name: %s, source unit: %d, target index: %d, dur: %d, pow: %d\n",
-							sTgtPacket.abilityName, sTgtPacket.sourceUnitIndex, sTgtPacket.targetUnitIndex, sTgtPacket.dur, sTgtPacket.pow);
-
-						// Send received packet to other clients
-						char packet_data[SINGLE_TARGET_PACKET_SIZE];
-						sTgtPacket.serialize(packet_data);
-
-						m_network->sendToOthers(iter->first, packet_data, SINGLE_TARGET_PACKET_SIZE);
+						packet.serialize(buffer);
+						m_network->sendToOthers(iter->first, packetData, BASIC_PACKET_SIZE);
 						break;
 					}
 					default:

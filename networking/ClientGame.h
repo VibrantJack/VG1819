@@ -35,28 +35,17 @@ namespace networking
 		void testNewPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
 		void sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
 
-		void singleTargetAbility(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iDur, int p_iPow);
-		void sendSingleTargetPacket(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iDur, int p_iPow);
-
-		void singleTileAbility(const std::string &p_strAbilityName, int p_iPosX, int p_iPosY);
-		void sendSingleTilePacket(const std::string &p_strAbilityName, int p_iPosX, int p_iPosY);
-
-		void sourceTargetDamageAbility(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iPower);
-		void sendSourceTargetDamagePacket(const std::string &p_strAbilityName, int p_iSourceUnitIndex, int p_iTargetUnitIndex, int p_iPower);
-
-		void manipulateTile(const std::string & p_strAbilityName, int p_iUnitIndex, int p_iPosX, int p_iPosY);
-		void sendManipulateTilePacket(const std::string & p_strAbilityName, int p_iUnitIndex, int p_iPosX, int p_iPosY);
-
 		void summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
 		void sendSummonUnitPacket(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
 
-		void moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY);
-		void sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY);
+		void sendSkipTurnPacket();
 
 		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);
 		kitten::K_GameObject* getUnitGameObject(int p_iIndex);
 		void removeUnitGameObject(int p_iUnitIndex);
+
 		int getClientId() { return m_iClientId; }
+		bool isServerCalling() { return m_bServerCalling; }
 
 	private:
 		ClientNetwork* m_network;
@@ -64,6 +53,7 @@ namespace networking
 		char m_network_data[MAX_PACKET_SIZE];
 
 		int m_iClientId = -1;
+		bool m_bServerCalling = false;
 
 		// Unit GO list so clients can have a reference to the same unit GO without having the same mem address
 		std::map<int, kitten::K_GameObject*> m_unitGOList;
