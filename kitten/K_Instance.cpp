@@ -72,7 +72,8 @@ namespace kitten
 	void K_Instance::privateUpdate()
 	{
 		if (m_SceneSwitchFlag) {
-			m_gameObjectManager->destroyAllGameObjects();
+			m_gameObjectManager->destroyMostGameObjects();
+			m_componentManager->m_toDelete.clear(); // TODO check why a few components still turn up on m_toDelete
 			kitten::ActiveClickables::getInstance()->m_lastUIHover = nullptr;
 			puppy::Renderer::getInstance()->removeAll();
 

@@ -7,6 +7,8 @@ class SceneSwitchComponent : public kitten::ClickableUI {
 public:
 	void onClick();
 
+	virtual void onPreSwitch();
+
 	SceneSwitchComponent(std::string p_scene);
 	~SceneSwitchComponent();
 };

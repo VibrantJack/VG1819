@@ -65,4 +65,25 @@ namespace kitten
 		}
 		m_gameObjects.clear();
 	}
+
+	void K_GameObjectManager::destroyMostGameObjects() 
+	{
+		deleteQueuedObjects();
+
+		auto end = m_gameObjects.end();
+		for (auto it = m_gameObjects.begin(); it != end;)
+		{
+			if (m_toSurvive.find((*it).second) != m_toSurvive.end()) {
+				++it;
+			}
+			else {
+				delete  (*it).second;
+				it = m_gameObjects.erase(it);
+			}
+		}
+	}
+
+	void K_GameObjectManager::flagGameObjectToSurvive(K_GameObject* p_toSurvive) {
+		m_toSurvive.insert(p_toSurvive);
+	}
 }
