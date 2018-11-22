@@ -35,7 +35,7 @@ userinterface::PointerUI::~PointerUI()
 		delete sm_vao;
 	}
 
-	if (!m_isEnabled)
+	if (m_isEnabled)
 	{
 		removeFromDynamicRender();
 	}
