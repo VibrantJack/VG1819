@@ -1,6 +1,6 @@
 #include "Renderer.h"
 
-#define DEFAULT_BLEND_SOURCE_FACTOR  GL_ALPHA
+#define DEFAULT_BLEND_SOURCE_FACTOR  GL_SRC_ALPHA
 #define DEFAULT_BLEND_DESTINATION_FACTOR GL_ONE
 
 namespace puppy
@@ -9,6 +9,7 @@ namespace puppy
 
 	Renderer::Renderer()
 	{
+		glBlendEquation(GL_FUNC_ADD);
 		glBlendFunc(DEFAULT_BLEND_SOURCE_FACTOR, DEFAULT_BLEND_DESTINATION_FACTOR);
 	}
 
@@ -70,6 +71,7 @@ namespace puppy
 		}
 
 		//Particles
+		
 		glEnable(GL_BLEND);
 		//glDisable(GL_DEPTH_TEST);
 
