@@ -32,6 +32,7 @@ void CounterGetterDisplay::set(int p_min, int p_max, const std::string & p_count
 		m_maxGO->addComponent(textBox);
 
 		m_maxGO->getTransform().setParent(&m_attachedObject->getTransform());
+		m_maxGO->getTransform().place2D(700, 360);
 	}
 
 	if (m_minGO == nullptr)
@@ -42,6 +43,7 @@ void CounterGetterDisplay::set(int p_min, int p_max, const std::string & p_count
 		m_minGO->addComponent(textBox);
 
 		m_minGO->getTransform().setParent(&m_attachedObject->getTransform());
+		m_minGO->getTransform().place2D(480, 360);
 	}
 
 	if (m_counterGO == nullptr)
@@ -52,11 +54,12 @@ void CounterGetterDisplay::set(int p_min, int p_max, const std::string & p_count
 		m_counterGO->addComponent(textBox);
 
 		m_counterGO->getTransform().setParent(&m_attachedObject->getTransform());
+		m_counterGO->getTransform().place2D(550, 400);
 	}
 
-	m_maxGO->getComponent<puppy::TextBox>()->setText("" + m_max);
-	m_minGO->getComponent<puppy::TextBox>()->setText("" + m_min);
-	m_counterGO->getComponent<puppy::TextBox>()->setText(m_counter);
+	m_maxGO->getComponent<puppy::TextBox>()->setText("Min: "+std::to_string(m_max));
+	m_minGO->getComponent<puppy::TextBox>()->setText("Max: " + std::to_string(m_min));
+	m_counterGO->getComponent<puppy::TextBox>()->setText("Counter:"+m_counter);
 }
 
 void CounterGetterDisplay::start()
@@ -64,7 +67,7 @@ void CounterGetterDisplay::start()
 	m_textBox = m_attachedObject->getComponent<puppy::TextBox>();
 
 	assert(m_textBox != nullptr);
-	m_textBox->setText(""+m_current);
+	m_textBox->setText(std::to_string(m_current));
 }
 
 bool CounterGetterDisplay::hasUpdate() const
@@ -82,7 +85,7 @@ void CounterGetterDisplay::update()
 		{
 			m_current = m_max;
 		}
-		m_textBox->setText(""+m_current);
+		m_textBox->setText(std::to_string(m_current));
 	}
 	else if (input::InputManager::getInstance()->keyDown(GLFW_KEY_RIGHT) &&
 		!input::InputManager::getInstance()->keyDownLast(GLFW_KEY_RIGHT) )
@@ -92,7 +95,7 @@ void CounterGetterDisplay::update()
 		{
 			m_current = m_min;
 		}
-		m_textBox->setText("" + m_current);
+		m_textBox->setText(std::to_string(m_current));
 	}
 	else if (input::InputManager::getInstance()->keyDown(GLFW_KEY_ENTER) &&
 		!input::InputManager::getInstance()->keyDownLast(GLFW_KEY_ENTER))

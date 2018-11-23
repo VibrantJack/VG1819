@@ -82,16 +82,16 @@ void CounterGetter::playerChooseCounter(unit::AbilityDescription * p_ad, unit::U
 			m_displayWindoGO->addComponent(textBox);
 
 			//background texture
-			//userinterface::UIFrame* frame = static_cast<userinterface::UIFrame*>(kitten::K_ComponentManager::getInstance()->createComponent("Frame"));
+			userinterface::UIFrame* frame = static_cast<userinterface::UIFrame*>(kitten::K_ComponentManager::getInstance()->createComponent("Frame"));
 			//kitten::QuadRenderable* q = static_cast<kitten::QuadRenderable*>(kitten::K_ComponentManager::getInstance()->createComponent("QuadRenderable"));
 			//q->setTexture("texture/ui/line.tga");
-			//frame->setTexture("texture/ui/line.tga");
-			//m_displayWindoGO->addComponent(frame);
+			frame->setTexture("texture/ui/line.tga");
+			m_displayWindoGO->addComponent(frame);
 
 			//counter getter display
 			m_displayWindoGO->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("CounterGetterDisplay"));
 
-			m_displayWindoGO->getTransform().place2D(500.0f,360.0f);
+			m_displayWindoGO->getTransform().place2D(640.0f,360.0f);
 		}
 
 		m_displayWindoGO->setEnabled(true);
