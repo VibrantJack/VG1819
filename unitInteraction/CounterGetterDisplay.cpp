@@ -69,7 +69,7 @@ void CounterGetterDisplay::start()
 
 bool CounterGetterDisplay::hasUpdate() const
 {
-	return false;
+	return true;
 }
 
 void CounterGetterDisplay::update()

@@ -2,6 +2,7 @@
 #include "kitten/K_ComponentManager.h"
 #include "kitten/K_GameObjectManager.h"
 #include "kitten/QuadRenderable.h"
+#include "UI/UIFrame.h"
 CounterGetter::CounterGetter():m_displayWindoGO(nullptr)
 {
 }
@@ -12,13 +13,7 @@ CounterGetter::~CounterGetter()
 
 void CounterGetter::requireCounter(unit::AbilityDescription * p_ad, unit::Unit * p_source)
 {
-	auto it = p_ad->m_stringValue.find(COUNTER_NAME);
-	if (it == p_ad->m_stringValue.end())//doesn't need counter
-	{
-		return;
-	}
-
-	m_name = it->second;//get counter name
+	m_name = p_ad->m_stringValue[COUNTER_NAME];//get counter name
 
 	//then get selection method
 	std::string method = p_ad->m_stringValue[COUNTER_SELECT];
@@ -83,15 +78,20 @@ void CounterGetter::playerChooseCounter(unit::AbilityDescription * p_ad, unit::U
 			//textbox
 			puppy::TextBox* textBox = static_cast<puppy::TextBox*>(kitten::K_ComponentManager::getInstance()->createComponent("TextBox"));
 			textBox->setColor(1, 1, 1);
+			textBox->setText("MAIN INTERACTIVE BOX");
 			m_displayWindoGO->addComponent(textBox);
 
 			//background texture
-			kitten::QuadRenderable* q = static_cast<kitten::QuadRenderable*>(kitten::K_ComponentManager::getInstance()->createComponent("QuadRenderable"));
-			q->setTexture("texture/ui/line.tga");
-			m_displayWindoGO->addComponent(q);
+			//userinterface::UIFrame* frame = static_cast<userinterface::UIFrame*>(kitten::K_ComponentManager::getInstance()->createComponent("Frame"));
+			//kitten::QuadRenderable* q = static_cast<kitten::QuadRenderable*>(kitten::K_ComponentManager::getInstance()->createComponent("QuadRenderable"));
+			//q->setTexture("texture/ui/line.tga");
+			//frame->setTexture("texture/ui/line.tga");
+			//m_displayWindoGO->addComponent(frame);
 
 			//counter getter display
 			m_displayWindoGO->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("CounterGetterDisplay"));
+
+			m_displayWindoGO->getTransform().place2D(500.0f,360.0f);
 		}
 
 		m_displayWindoGO->setEnabled(true);

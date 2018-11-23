@@ -42,6 +42,9 @@ private:
 	std::string m_abilityName;
 
 	bool m_busy;//already receive a request
+	bool m_getCounter;//need counter
+	bool m_getTile;//need target
+	bool m_needunit;//need unit
 
 	void send();
 	void addPropertyFromADToPack();

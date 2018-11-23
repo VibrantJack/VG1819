@@ -81,7 +81,7 @@ namespace unit
 		testTile->getTransform().place(0.0f, -1.0f, 16.0f);
 		//end of test tile
 		*/
-
+		/*
 		//set initial position
 		kitten::K_GameObject* u0 = UnitSpawn::getInstanceSafe()->spawnUnitObject(1);//priest
 		u0->getComponent<unit::UnitMove>()->setTile(1, 2);
@@ -97,7 +97,7 @@ namespace unit
 
 		//kitten::K_GameObject* u4 = UnitSpawn::getInstanceSafe()->spawnUnitObject(4);//engineer
 		//u4->getComponent<unit::UnitMove>()->setTile(5, 2);
-		/*
+		
 		kitten::K_GameObject* u5 = UnitSpawn::getInstanceSafe()->spawnUnitObject(7);//pyromancer
 		u5->getComponent<unit::UnitMove>()->setTile(6, 2);
 

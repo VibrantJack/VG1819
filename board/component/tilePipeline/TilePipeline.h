@@ -30,6 +30,7 @@ public:
 	void filterList(kitten::Event::TileList* p_list);
 
 	void useFilter(const std::string& p_filter);
+	void setSource(unit::Unit* p_u);
 
 	void resetFilter();
 private:

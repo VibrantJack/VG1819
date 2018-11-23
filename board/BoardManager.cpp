@@ -168,6 +168,10 @@ void BoardManager::setFilter(const std::string & p_filter, kitten::Event * p_dat
 {
 	int filterNum = p_data->getInt(p_filter);
 	m_pipeline->resetFilter();
+
+	kitten::K_GameObject* origin = p_data->getGameObj("tileAtOrigin");
+	kitten::K_GameObject* ugo = origin->getComponent<TileInfo>()->getUnit();
+	m_pipeline->setSource(ugo->getComponent<unit::Unit>());
 	for (int i = 0; i < filterNum; i++)
 	{
 		std::stringstream stm;

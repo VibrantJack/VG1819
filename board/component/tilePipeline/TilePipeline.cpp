@@ -39,7 +39,6 @@ void TilePipeline::filterList(kitten::Event::TileList * p_list)
 		it->second->filter(p_list);
 	}
 
-	m_source = nullptr;
 	resetFilter();
 }
 
@@ -48,8 +47,14 @@ void TilePipeline::useFilter(const std::string & p_filter)
 	m_filterList[p_filter]->enable();
 }
 
+void TilePipeline::setSource(unit::Unit * p_u)
+{
+	m_source = p_u;
+}
+
 void TilePipeline::resetFilter()
 {
+	m_source = nullptr;
 	for (auto it = m_filterList.begin(); it != m_filterList.end(); it++)
 	{
 		it->second->disable();
