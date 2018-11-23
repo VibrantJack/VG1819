@@ -92,25 +92,25 @@ struct Packet {
 
 struct SummonUnitPacket : Packet
 {
-	int unitId;
-	int posX, posY;
+	int m_unitId;
+	int m_posX, m_posY;
 
 	void serialize(Buffer& buffer) 
 	{
 		writeInt(buffer, m_packetType);
 		writeInt(buffer, m_clientId);
-		writeInt(buffer, unitId);
-		writeInt(buffer, posX);
-		writeInt(buffer, posY);
+		writeInt(buffer, m_unitId);
+		writeInt(buffer, m_posX);
+		writeInt(buffer, m_posY);
 	}
 
 	void deserialize(Buffer& buffer)
 	{
 		m_packetType = readInt(buffer);
 		m_clientId = readInt(buffer);
-		unitId = readInt(buffer);
-		posX = readInt(buffer);
-		posY = readInt(buffer);
+		m_unitId = readInt(buffer);
+		m_posX = readInt(buffer);
+		m_posY = readInt(buffer);
 	}
 };
 
@@ -120,9 +120,9 @@ class AbilityPacket
 	typedef std::unordered_map<std::string, int> IntValues;
 	typedef std::vector<kitten::K_GameObject*>  TargetTiles;
 public:
-	int packetType;
-	int clientId;
-	int sourceUnit;
+	int m_packetType;
+	int m_clientId;
+	int m_sourceUnit;
 
 	int m_abilityNameLength;
 	//char m_abilityName[MAX_CHAR_BUFSIZE];
@@ -137,24 +137,25 @@ public:
 	void addIntValues(IntValues p_values);
 	void addTargetTiles(TargetTiles p_targetTilesGO);
 
-	TargetUnits getTargetUnits() { return m_targets; }
-	IntValues getIntValues() { return m_intValue; }
-	TargetTiles getTargetTiles() { return m_targetTilesGO; }
+	TargetUnits getTargetUnits(); //{ return m_targets; }
+	IntValues getIntValues(); //{ return m_intValue; }
+	TargetTiles getTargetTiles(); //{ return m_targetTilesGO; }
+
 	int getSize();
-	int getBytes() { return totalBytes; }
+	int getBytes() { return m_totalBytes; }
 
 private:	
-	int sumKeysLength = 0;
-	int totalBytes = 0;
+	int m_sumKeysLength = 0;
+	int m_totalBytes = 0;
 
 	int m_numTargetUnits;
-	TargetUnits m_targets;
+	std::vector<int> m_targets;
 
 	int m_numIntValues;
 	IntValues m_intValue;
 
 	int m_numTargetTiles;
-	TargetTiles m_targetTilesGO;
+	std::vector<std::pair<int, int>> m_targetTilesGO;
 
 	void writeInt(Buffer &buffer, int value);
 	void writeChar(Buffer &buffer, char value);

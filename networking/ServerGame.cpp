@@ -178,7 +178,7 @@ namespace networking
 						AbilityPacket packet;
 						packet.deserialize(buffer);
 						int packetTotalBytes = packet.getBytes();
-						i += packetTotalBytes; // Change to += packet.m_bytesWritten if we add bytesWritten to AbilityPacket
+						i += packetTotalBytes;
 						packet.print();
 
 						char* data = new char[packetTotalBytes];
@@ -201,7 +201,7 @@ namespace networking
 						SummonUnitPacket summonUnitPacket;
 						summonUnitPacket.deserialize(buffer);
 						i += SUMMON_UNIT_PACKET_SIZE;
-						printf("Server sending Unit index: %d, posX: %d, posY: %d\n", summonUnitPacket.unitId, summonUnitPacket.posX, summonUnitPacket.posY);
+						printf("Server sending Unit index: %d, posX: %d, posY: %d\n", summonUnitPacket.m_unitId, summonUnitPacket.m_posX, summonUnitPacket.m_posY);
 						
 						char data[SUMMON_UNIT_PACKET_SIZE];
 						Buffer newBuffer;

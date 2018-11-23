@@ -6,15 +6,14 @@
 
 void AbilityPacket::print()
 {
-	networking::ClientGame* client = networking::ClientGame::getInstance();
-	printf("*** Packet Info ***\n");
-	printf("PacketType: %d\n", packetType);
-	printf("clientId: %d\n", clientId);
-	printf("sourceUnit: %d\n", sourceUnit);
-	printf("m_numTargetUnits: %d\nTarget Units: ", m_numTargetUnits);
+	printf("***** Packet Info *****\n\n");
+	printf("PacketType: %d\n", m_packetType);
+	printf("clientId: %d\n", m_clientId);
+	printf("sourceUnit: %d\n", m_sourceUnit);
+	printf("m_numTargetUnits: %d\nTarget Unit Indexes: ", m_numTargetUnits);
 	for (int i = 0; i < m_numTargetUnits; ++i)
 	{
-		printf("%d, ", client->getUnitGameObjectIndex(&m_targets[i]->getGameObject()));
+		printf("%d, ", m_targets[i]);
 	}
 
 	printf("\nm_numIntValues: %d\nInt Values: ", m_numIntValues);
@@ -31,9 +30,9 @@ void AbilityPacket::print()
 	printf("\nm_numTargetTiles: %d\nTiles: ", m_numTargetTiles);
 	for (int i = 0; i < m_numTargetTiles; ++i)
 	{
-		TileInfo* tileInfo = m_targetTilesGO[i]->getComponent<TileInfo>();
-		int posX = tileInfo->getPosX();
-		int posY = tileInfo->getPosY();
+		std::pair<int, int> tilePos = m_targetTilesGO[i];
+		int posX = tilePos.first;
+		int posY = tilePos.second;
 		printf("(%d, %d), ", posX, posY);
 	}
 
@@ -42,7 +41,7 @@ void AbilityPacket::print()
 	{
 		printf("%c", m_abilityName[i]);
 	}
-	printf("\n");
+	printf("\n\n*** End Packet Info ***\n");
 }
 
 // If an assert is failed, make sure you are using a fresh Buffer for serializing
@@ -90,17 +89,17 @@ char AbilityPacket::readChar(Buffer &buffer)
 
 void AbilityPacket::serialize(Buffer& buffer)
 {
-	writeInt(buffer, this->packetType);
-	writeInt(buffer, this->clientId);
-	writeInt(buffer, this->totalBytes);
-	writeInt(buffer, this->sourceUnit);
+	writeInt(buffer, this->m_packetType);
+	writeInt(buffer, this->m_clientId);
+	writeInt(buffer, this->m_totalBytes);
+	writeInt(buffer, this->m_sourceUnit);
 
 	writeInt(buffer, this->m_numTargetUnits);
 	networking::ClientGame* client = networking::ClientGame::getInstance();
 	assert(client != nullptr);
 	for (int i = 0; i < m_numTargetUnits; ++i)
 	{
-		int targetIndex = client->getUnitGameObjectIndex(&m_targets[i]->getGameObject());
+		int targetIndex = m_targets[i];
 		writeInt(buffer, targetIndex);
 	}
 
@@ -126,9 +125,9 @@ void AbilityPacket::serialize(Buffer& buffer)
 	writeInt(buffer, this->m_numTargetTiles);
 	for (int i = 0; i < m_numTargetTiles; ++i)
 	{
-		TileInfo* tileInfo = m_targetTilesGO[i]->getComponent<TileInfo>();
-		int posX = tileInfo->getPosX();
-		int posY = tileInfo->getPosY();
+		std::pair<int,int> tilePos = m_targetTilesGO[i];
+		int posX = tilePos.first;
+		int posY = tilePos.second;
 		writeInt(buffer, posX);
 		writeInt(buffer, posY);
 	}
@@ -143,51 +142,42 @@ void AbilityPacket::serialize(Buffer& buffer)
 
 void AbilityPacket::deserialize(Buffer& buffer)
 {
-	this->packetType = readInt(buffer);
-	this->clientId = readInt(buffer);
-	this->totalBytes = readInt(buffer);
-	this->sourceUnit = readInt(buffer);
+	this->m_packetType = readInt(buffer);
+	this->m_clientId = readInt(buffer);
+	this->m_totalBytes = readInt(buffer);
+	this->m_sourceUnit = readInt(buffer);
 
-	networking::ClientGame* client = networking::ClientGame::getInstance();
-	assert(client != nullptr);
 	m_numTargetUnits = readInt(buffer);	
 	for (int i = 0; i < m_numTargetUnits; ++i)
 	{
 		int targetIndex = readInt(buffer);
-		unit::Unit* targetUnit = client->getUnitGameObject(targetIndex)->getComponent<unit::Unit>();
-		m_targets.push_back(targetUnit);
+		m_targets.push_back(targetIndex);
 	}
 
 	m_numIntValues = readInt(buffer);
 	for (int i = 0; i < m_numIntValues; ++i)
 	{
 		int keyLength = readInt(buffer);
-		//char key[BUFSIZE];
 		std::string key = "";
 		for (int j = 0; j < keyLength; ++j)
 		{
-			//key[i] = readChar(buffer);
 			key += readChar(buffer);
 		}
 		int value = readInt(buffer);
 		m_intValue.insert({ key, value });
 	}
 
-	BoardManager* board = BoardManager::getInstance();
-	assert(board != nullptr);
 	m_numTargetTiles = readInt(buffer);
 	for (int i = 0; i < m_numTargetTiles; ++i)
 	{
 		int posX = readInt(buffer);
 		int posY = readInt(buffer);
-		
-		m_targetTilesGO.push_back(board->getTile(posX, posY));
+		m_targetTilesGO.push_back(std::make_pair(posX, posY));
 	}
 
 	m_abilityNameLength = readInt(buffer);	
 	for (int i = 0; i < m_abilityNameLength; ++i)
 	{
-		//m_abilityName[i] = readChar(buffer);
 		m_abilityName += readChar(buffer);
 	}
 }
@@ -211,9 +201,9 @@ int AbilityPacket::getSize()
 
 	// sizeof all member int variables
 	int intVariablesSize = 
-		sizeof(packetType) 
-		+ sizeof(clientId) 
-		+ sizeof(sourceUnit)
+		sizeof(m_packetType) 
+		+ sizeof(m_clientId) 
+		+ sizeof(m_sourceUnit)
 		+ sizeof(m_numTargetUnits) 
 		+ sizeof(m_numIntValues) 
 		+ sizeof(m_numTargetTiles)
@@ -223,7 +213,7 @@ int AbilityPacket::getSize()
 	int targetUnitsSize = sizeof(int) * m_numTargetUnits;
 
 	// sizeof all string values and int values in IntValues map
-	int intValuesSize = (sizeof(int) * m_numIntValues) + ((sizeof(char) * sumKeysLength)) + (sizeof(int) * m_numIntValues);
+	int intValuesSize = (sizeof(int) * m_numIntValues) + ((sizeof(char) * m_sumKeysLength)) + (sizeof(int) * m_numIntValues);
 
 	// sizeof all int values in TargetTiles vector, note it's a vector of int pairs
 	int  targetTilesSize = sizeof(int) * 2 * m_numTargetTiles;
@@ -231,15 +221,24 @@ int AbilityPacket::getSize()
 	// sizeof ability name
 	int abilityNameSize = m_abilityNameLength * sizeof(char);
 
-	totalBytes = intVariablesSize + targetUnitsSize + intValuesSize + targetTilesSize + abilityNameSize + sizeof(int);
+	m_totalBytes = intVariablesSize + targetUnitsSize + intValuesSize + targetTilesSize + abilityNameSize + sizeof(int);
 
-	return totalBytes;
+	return m_totalBytes;
 }
 
 void AbilityPacket::addTargetUnits(TargetUnits p_targets)
 {
 	m_numTargetUnits = p_targets.size();
-	m_targets = p_targets;
+
+	networking::ClientGame* client = networking::ClientGame::getInstance();
+	assert(client != nullptr);
+
+	std::vector<int> targets;
+	for (int i = 0; i < m_numTargetUnits; ++i)
+	{
+		targets.push_back(client->getUnitGameObjectIndex(&p_targets[i]->getGameObject()));
+	}
+	m_targets = targets;
 }
 
 void AbilityPacket::addIntValues(IntValues p_values)
@@ -250,12 +249,60 @@ void AbilityPacket::addIntValues(IntValues p_values)
 	for (auto it = m_intValue.begin(); it != m_intValue.end(); ++it)
 	{
 		std::string strKey = it->first;
-		sumKeysLength += strKey.size();
+		m_sumKeysLength += strKey.size();
 	}
 }
 
 void AbilityPacket::addTargetTiles(TargetTiles p_targetTilesGO)
 {
 	m_numTargetTiles = p_targetTilesGO.size();
-	m_targetTilesGO = p_targetTilesGO;
+
+	BoardManager* board = BoardManager::getInstance();
+	assert(board != nullptr);
+
+	std::vector<std::pair<int, int>> tiles;
+	for (int i = 0; i < m_numTargetTiles; ++i)
+	{
+		TileInfo* tileInfo = p_targetTilesGO[i]->getComponent<TileInfo>();
+		int x = tileInfo->getPosX();
+		int y = tileInfo->getPosY();
+		tiles.push_back(std::make_pair(x, y));
+	}
+	m_targetTilesGO = tiles;
+}
+
+std::vector<unit::Unit*> AbilityPacket::getTargetUnits()
+{
+	networking::ClientGame* client = networking::ClientGame::getInstance();
+	assert(client != nullptr);
+
+	TargetUnits targetUnits;
+	for (int i = 0; i < m_numTargetUnits; ++i)
+	{
+		targetUnits.push_back(client->getUnitGameObject(m_targets[i])->getComponent<unit::Unit>());
+	}
+
+	return targetUnits;
+}
+
+std::unordered_map<std::string, int> AbilityPacket::getIntValues()
+{
+	return m_intValue;
+}
+
+std::vector<kitten::K_GameObject*> AbilityPacket::getTargetTiles()
+{
+	BoardManager* board = BoardManager::getInstance();
+	assert(board != nullptr);
+
+	TargetTiles targetTiles;
+	for (int i = 0; i < m_numTargetTiles; ++i)
+	{
+		int x = m_targetTilesGO[i].first;
+		int y = m_targetTilesGO[i].second;
+		kitten::K_GameObject* tile = board->getTile(x, y);		
+		targetTiles.push_back(tile);
+	}
+
+	return targetTiles;
 }

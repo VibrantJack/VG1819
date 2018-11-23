@@ -186,7 +186,8 @@ namespace networking
 
 				AbilityPacket packet;
 				packet.deserialize(buffer);
-				packet.print();
+				//packet.print();
+				printf("Received ability: %s\n", packet.m_abilityName.c_str());
 				//printf("data_length: %d\n", data_length);
 				//printf("Before increment Count i: %d\n", i);
 				i += packet.getBytes();
@@ -206,11 +207,12 @@ namespace networking
 				summonUnitPacket.deserialize(buffer);
 				i += SUMMON_UNIT_PACKET_SIZE;
 
-				summonUnit(summonUnitPacket.m_clientId, summonUnitPacket.unitId, summonUnitPacket.posX, summonUnitPacket.posY);
+				summonUnit(summonUnitPacket.m_clientId, summonUnitPacket.m_unitId, summonUnitPacket.m_posX, summonUnitPacket.m_posY);
 				break;
 			}
 			case PacketTypes::SKIP_TURN:
 			{
+				printf("[Client: %d] received packet SKIP_TURN from server\n", m_iClientId);
 				i += BASIC_PACKET_SIZE;
 				m_bServerCalling = true;
 				unit::Unit* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit()->getComponent<unit::Unit>();
@@ -233,7 +235,7 @@ namespace networking
 		printf("[Client: %d] using ability: %s\n", m_iClientId, strAbilityName.c_str());
 
 		ability::AbilityInfoPackage* info = new ability::AbilityInfoPackage();
-		info->m_source = getUnitGameObject(p_packet.sourceUnit)->getComponent<unit::Unit>();
+		info->m_source = getUnitGameObject(p_packet.m_sourceUnit)->getComponent<unit::Unit>();
 		info->m_targets = p_packet.getTargetUnits();
 		info->m_intValue = p_packet.getIntValues();
 		info->m_targetTilesGO = p_packet.getTargetTiles();
@@ -244,9 +246,9 @@ namespace networking
 	void ClientGame::testNewPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info)
 	{
 		AbilityPacket packet;
-		packet.packetType = 0; // Create new enum for AbilityPacket
-		packet.clientId = 1;
-		packet.sourceUnit = 2;
+		packet.m_packetType = 0; // Create new enum for AbilityPacket
+		packet.m_clientId = 1;
+		packet.m_sourceUnit = 2;
 
 		//packet.m_numTargetUnits = p_info->m_targets.size();
 		//packet.m_targets = p_info->m_targets;
@@ -285,9 +287,9 @@ namespace networking
 	void ClientGame::sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info)
 	{
 		AbilityPacket packet;
-		packet.packetType = ABILITY_PACKET;
-		packet.clientId = m_iClientId;
-		packet.sourceUnit = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
+		packet.m_packetType = ABILITY_PACKET;
+		packet.m_clientId = m_iClientId;
+		packet.m_sourceUnit = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
 		packet.addTargetUnits(p_info->m_targets);
 		packet.addIntValues(p_info->m_intValue);
 		packet.addTargetTiles(p_info->m_targetTilesGO);
@@ -334,9 +336,9 @@ namespace networking
 		SummonUnitPacket packet;
 		packet.m_packetType = PacketTypes::SUMMON_UNIT;
 		packet.m_clientId = p_iClientId;
-		packet.unitId = p_iUnitId;
-		packet.posX = p_iPosX;
-		packet.posY = p_iPosY;
+		packet.m_unitId = p_iUnitId;
+		packet.m_posX = p_iPosX;
+		packet.m_posY = p_iPosY;
 		
 		packet.serialize(buffer);
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, SUMMON_UNIT_PACKET_SIZE);

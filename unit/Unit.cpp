@@ -222,7 +222,6 @@ namespace unit
 	void Unit::playerSkipTurn()
 	{
 		assert(m_turn != nullptr);
-		m_turn->turnEnd();
 		if (networking::ClientGame::getInstance())
 		{
 			if (!networking::ClientGame::getInstance()->isServerCalling())
@@ -230,6 +229,7 @@ namespace unit
 				networking::ClientGame::getInstance()->sendSkipTurnPacket();
 			}
 		}
+		m_turn->turnEnd();
 	}
 
 	kitten::K_GameObject * Unit::getTile()
