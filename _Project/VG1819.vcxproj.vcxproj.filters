@@ -520,7 +520,7 @@
     <ClCompile Include="..\puppy\TextureBlendMaterial.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
-    <ClCompile Include="..\networking\ResizeablePacket.cpp">
+    <ClCompile Include="..\networking\AbilityPacket.cpp">
       <Filter>networking</Filter>
     </ClCompile>
   </ItemGroup>
