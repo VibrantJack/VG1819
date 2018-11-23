@@ -522,6 +522,75 @@
     </ClCompile>
     <ClCompile Include="..\networking\AbilityPacket.cpp">
       <Filter>networking</Filter>
+	 </ClCompile>
+    <ClCompile Include="..\puppy\Particles\AccelerationAff.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Particles\Affector.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Particles\ColorChangeAff.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Particles\ColorSpawnAff.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Particles\DirectionSpawnAff.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Particles\Effect.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Particles\Emitter.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Particles\FadeChangeAff.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Particles\FadeSpawnAff.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Particles\LifetimeSpawnAff.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Particles\OffsetSpawnAff.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Particles\PathAff.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Particles\RotationChangeAff.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Particles\SizeChangeAff.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Particles\SizeSpawnAff.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\Particles\VelocitySpawnAff.cpp">
+      <Filter>puppy\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\expressions\lexer.cpp">
+      <Filter>custom_expresssions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\expressions\parser.cpp">
+      <Filter>custom_expresssions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\expressions\PostfixEval.cpp">
+      <Filter>custom_expresssions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\expressions\symbol.cpp">
+      <Filter>custom_expresssions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_ParticleSystem.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="ToggleParticleSystemOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="UniversalPfx.cpp">
+      <Filter>components\standard effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -980,6 +1049,84 @@
     <ClInclude Include="..\puppy\TextureBlendMaterial.h">
       <Filter>puppy</Filter>
     </ClInclude>
+    <ClInclude Include="..\puppy\Particles\AccelerationAff.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\Affector.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\ColorChangeAff.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\ColorSpawnAff.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\DirectionSpawnAff.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\Effect.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\Emitter.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\FadeChangeAff.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\FadeSpawnAff.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\LifetimeSpawnAff.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\OffsetSpawnAff.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\Particle.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\PathAff.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\RotationChangeAff.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\SizeChangeAff.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\SizeSpawnAff.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\SpawnAffector.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\Particles\VelocitySpawnAff.h">
+      <Filter>puppy\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\expressions\global.h">
+      <Filter>custom_expresssions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\expressions\lexer.h">
+      <Filter>custom_expresssions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\expressions\parser.h">
+      <Filter>custom_expresssions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\expressions\PostfixEval.h">
+      <Filter>custom_expresssions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\expressions\PostfixOperator.h">
+      <Filter>custom_expresssions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_ParticleSystem.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="ToggleParticleSystemOnKeyPress.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="UniversalPfx.h">
+      <Filter>components\standard effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1107,6 +1254,15 @@
     </Filter>
     <Filter Include="kibble\UnitGameObject">
       <UniqueIdentifier>{efd93ad5-378b-487c-8d5e-1a84ddc82e55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="puppy\particles">
+      <UniqueIdentifier>{45404199-b748-4643-992b-415002cb047c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="custom_expresssions">
+      <UniqueIdentifier>{dce41785-df33-4efa-b1f2-dbea8b71589b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\standard effects">
+      <UniqueIdentifier>{8c3ab6ac-dae3-451f-9e21-7944dc100695}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
