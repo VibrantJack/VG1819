@@ -61,14 +61,6 @@
 			"name" : "ClickableBox",
 			"minpoint":[-0.5,-0.5,0],
 			"maxpoint":[0.5,0.5,0]
-		},
-		{
-			"name" : "K_ParticleSystem",
-			"effectpath" : "data/particles/abilities/effects/blastEffect.xml"
-		},
-		{
-			"name" : "ToggleParticleSystemOnKeyPress",
-			"key" : "U"
 		}
 	],
 	"scale" : [0.15,0.20,0],
