@@ -6,9 +6,8 @@ namespace puppy
 		m_state = paused;
 		m_xmlPath = p_pathToXml;
 
-		if (p_pathToXml != nullptr)
+		if (!m_xmlPath.empty())
 		{
-			
 			refreshXML();
 		}
 	}
@@ -16,10 +15,12 @@ namespace puppy
 	Effect::~Effect()
 	{
 		//delete emitters
-		for (Emitter* e : m_emitters)
+		auto end = m_emitters.cend();
+		for (auto it = m_emitters.cbegin(); it != end; ++it)
 		{
-			delete e;
+			delete (*it);
 		}
+		m_emitters.clear();
 	}
 
 	void Effect::refreshXML()

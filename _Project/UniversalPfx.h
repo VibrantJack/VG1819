@@ -7,6 +7,8 @@
 #include <unordered_map>
 #include <list>
 
+#define UNIT_DEATH_EFFECT_NAME "UnitDeath"
+
 class UniversalPfx : public kitten::K_Component
 {
 private:
@@ -19,7 +21,7 @@ public:
 	UniversalPfx(const std::list<std::pair<std::string, std::string>>& p_effects);
 	~UniversalPfx();
 
-	UniversalPfx* getInstance() { return sm_instance; }
+	static UniversalPfx* getInstance() { assert(sm_instance != nullptr);  return sm_instance; }
 
 	void playEffect(const std::string& p_effectName, const glm::vec3& p_position);
 };

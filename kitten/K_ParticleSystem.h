@@ -9,12 +9,12 @@ namespace kitten
 	class K_ParticleSystem : public K_Component
 	{
 	private:
-		puppy::Effect m_particleEffect;
+		puppy::Effect* m_particleEffect;
 		K_Time* m_time;
 		bool m_isPlaying;
 
 	public:
-		K_ParticleSystem(const char* p_pathToEffectXML);
+		K_ParticleSystem(const std::string& p_pathToXML);
 		~K_ParticleSystem();
 
 		virtual bool hasUpdate() const override { return true; }
@@ -25,7 +25,7 @@ namespace kitten
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
 
-		void setEffectXML(const char* p_pathToEffectXML);
+		void setEffectXML(const std::string& p_pathToXML);
 
 		bool isPlaying() const;
 

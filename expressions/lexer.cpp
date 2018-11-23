@@ -121,7 +121,7 @@ namespace parser
 				//else, not float
 				--m_place;
 				p_toSet = std::to_string(m_tokenVal);
-				return INT;
+				return INTEGER;
 			}
 			else if (t == '.') { //check for float starting with .
 				createFloat(0);

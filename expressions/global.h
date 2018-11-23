@@ -36,7 +36,7 @@ namespace parser
 	#define BOOLOR 108
 
 	#define REAL 255
-	#define INT 256
+	#define INTEGER 256
 	#define ID 259
 	#define OP 300
 	#define CP 301

@@ -57,11 +57,21 @@ namespace puppy
 		}
 
 		//delete parser
-		delete m_parser;
+		if (m_parser != nullptr)
+		{
+			delete m_parser;
+		}
 
 		//delete vao and texture
-		delete m_vao;
-		delete m_tex;
+		if (m_vao != nullptr)
+		{
+			delete m_vao;
+		}
+
+		if (m_tex != nullptr)
+		{
+			delete m_tex;
+		}
 	}
 
 	void Emitter::refreshXML()

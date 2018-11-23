@@ -67,7 +67,7 @@ namespace kitten
 		//Kibble version -1.0
 		if (p_componentName == "K_ParticleSystem")
 		{
-			comp = new kitten::K_ParticleSystem(nullptr);
+			comp = new kitten::K_ParticleSystem("");
 		}
 		else if (p_componentName == "Camera")// Datadriven
 		{

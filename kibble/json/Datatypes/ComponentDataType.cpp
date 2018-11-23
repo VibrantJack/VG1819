@@ -642,6 +642,8 @@ kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 
 		effects.push_back(std::make_pair(effectName, effectPath));
 	}
+
+	return new UniversalPfx(effects);
 }
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;

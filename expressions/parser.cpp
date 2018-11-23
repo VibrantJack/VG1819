@@ -154,14 +154,14 @@ namespace parser
 				error("expected ')'");
 			}
 			break;
-		case INT:
+		case INTEGER:
 			//Push number
 			item = new postfix::PostfixItem();
 			item->m_type = postfix::number;
 			item->m_value = m_lexer->getTokenVal();
 			m_toReturn.push_back(item);
 			//printf("[%d]", tokenval);
-			if (!match(INT)) {
+			if (!match(INTEGER)) {
 				error("expected an int");
 			}
 			break;

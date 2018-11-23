@@ -39,7 +39,6 @@ namespace kitten
 
 		auto found = m_gameObjects.find(p_toDestroy->m_objectIndex);
 		assert(found != m_gameObjects.end());
-		m_gameObjects.erase(found);
 
 		m_toDelete.push_back(p_toDestroy);
 	}
@@ -48,6 +47,12 @@ namespace kitten
 	{
 		for (auto it = m_toDelete.begin(); it != m_toDelete.end(); ++it)
 		{
+			auto gameObject = (*it);
+			auto found = m_gameObjects.find(gameObject->m_objectIndex);
+			assert(found != m_gameObjects.end());
+
+			m_gameObjects.erase(found);
+
 			delete *it;
 		}
 

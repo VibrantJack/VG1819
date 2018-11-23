@@ -20,8 +20,9 @@ UniversalPfx::UniversalPfx(const std::list<std::pair<std::string, std::string>>&
 		//Make a gamobject with a particle system component for the effect
 		kitten::K_GameObject* gameObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 		kitten::K_ParticleSystem* particleSystem = static_cast<kitten::K_ParticleSystem*>(kitten::K_ComponentManager::getInstance()->createComponent("K_ParticleSystem"));
+		gameObject->addComponent(particleSystem);
 
-		particleSystem->setEnabled(false);
+		//particleSystem->setEnabled(false);
 		particleSystem->setEffectXML(effectPath.c_str());
 
 		//Insert effect into map
@@ -52,7 +53,7 @@ void UniversalPfx::playEffect(const std::string& p_effectName, const glm::vec3& 
 	auto particleSystem = (*found).second;
 
 	particleSystem->getTransform().place(p_where.x, p_where.y, p_where.z);
-	particleSystem->setEnabled(true);
+	//particleSystem->setEnabled(true);
 	particleSystem->play();
 
 	// @TODO: Disable particle system after it is done playing / bursting
