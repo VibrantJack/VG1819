@@ -22,6 +22,9 @@
 		{
 			"filename" : "StringInputDisplay.txt",
 			"translate2d" : [400, 700]
+		},
+		{
+			"filename" : "UniversalPfx.txt"
 		}
     ],
 	"scenes" : ["interfacebuilder.txt"]

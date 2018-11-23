@@ -34,6 +34,8 @@
 #include "networking\NetworkingConsoleMenu.h"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 
+#include "kitten\K_ParticleSystem.h"
+
 //board
 #include "board/component/Highlighter.h"
 #include "board/component/BoardCreator.h"
@@ -65,7 +67,11 @@ namespace kitten
 		K_Component* comp;
 
 		//Kibble version -1.0
-		if (p_componentName == "Camera")// Datadriven
+		if (p_componentName == "K_ParticleSystem")
+		{
+			comp = new kitten::K_ParticleSystem("");
+		}
+		else if (p_componentName == "Camera")// Datadriven
 		{
 			comp = new Camera();
 		}

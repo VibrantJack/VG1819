@@ -1,0 +1,3 @@
+<Effect>
+	<Emitter path = "data/particles/universal/emitters/dustEmitter.xml" x="0" y="-0.5" z="-0.5"/>
+</Effect>
