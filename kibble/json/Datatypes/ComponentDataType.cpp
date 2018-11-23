@@ -614,6 +614,38 @@ kitten::K_Component* getSpriteRenderable(nlohmann::json* p_jsonFile) {
 	return new kitten::SpriteRenderable();
 }
 
+#include "kitten\K_ParticleSystem.h"
+kitten::K_Component* getKParticleSystem(nlohmann::json* p_jsonFile) {
+	
+	std::string pathToXML = p_jsonFile->operator[]("effectpath");
+	
+	return new kitten::K_ParticleSystem(pathToXML.c_str());
+}
+
+#include "_Project\ToggleParticleSystemOnKeyPress.h"
+kitten::K_Component* getToggleParticleSystemOnKeyPress(nlohmann::json* p_jsonFile) {
+
+	std::string keyStr = p_jsonFile->operator[]("key");
+	return new ToggleParticleSystemOnKeyPress(keyStr[0]);
+}
+
+#include "_Project\UniversalPfx.h"
+kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
+	
+	std::list<std::pair<std::string, std::string>> effects;
+
+	auto end = p_jsonFile->at("effects").end();
+	for (auto it = p_jsonFile->at("effects").begin(); it != end; ++it)
+	{
+		std::string effectName = (*it)["name"];
+		std::string effectPath = (*it)["path"];
+
+		effects.push_back(std::make_pair(effectName, effectPath));
+	}
+
+	return new UniversalPfx(effects);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -658,7 +690,9 @@ void setupComponentMap() {
 	jsonComponentMap["TileInfo"] = &getTileInfo;
 	jsonComponentMap["SpawnUnitOnKeyPress"] = &getSpawnUnitOnKeyPress;
 	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
-  
+	jsonComponentMap["UniversalPfx"] = &getUniversalPfx;
+	jsonComponentMap["K_ParticleSystem"] = &getKParticleSystem;
+	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
 	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
 

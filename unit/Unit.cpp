@@ -4,6 +4,8 @@
 #include "unitInteraction/UnitInteractionManager.h"
 #include <iostream>
 
+#include "_Project\UniversalPfx.h"
+
 // Networking
 #include "networking\ClientGame.h"
 //@Rock
@@ -345,7 +347,13 @@ namespace unit
 	}
 
 	void Unit::destroy()
-	{
+	{	
+		const glm::vec3& pos = getTransform().getTranslation();
+		auto pfxInstance = UniversalPfx::getInstance();
+		assert(pfxInstance != nullptr);
+		pfxInstance->playEffect(UNIT_DEATH_EFFECT_NAME, pos);
+		
+
 		std::cout << m_name << " is destroyed! " << std::endl;
 		//remove from tile
 		getTile()->getComponent<TileInfo>()->removeUnit();

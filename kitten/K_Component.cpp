@@ -59,7 +59,7 @@ namespace kitten
 			{
 				if (hasUpdate())
 				{
-					K_ComponentManager::getInstance()->queueRemovalFromUpdate(this);
+					K_ComponentManager::getInstance()->queueAddToUpdate(this);
 				}
 			}
 			

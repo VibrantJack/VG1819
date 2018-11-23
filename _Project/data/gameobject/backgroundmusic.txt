@@ -11,9 +11,6 @@
 			"getsducked" : true
         },
 		{
-			"name" : "PlaySoundOnStart"
-		},
-		{
 			"name" : "ToggleSoundOnKeyPress",
 			"key" : "P"
 		},
