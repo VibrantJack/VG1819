@@ -24,17 +24,23 @@ public:
 	static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
 	static BoardManager * getInstance() { return sm_instance; };
 
+	//dimension and tiles
 	void setTileList(std::vector<kitten::K_GameObject*> p_list);
 	void setDimension(int p_x, int p_z);
 	std::pair<int, int> getDimension();
 	kitten::K_GameObject* getTile(int p_x, int p_z);
 
+	//power tracker
 	void setPowerTracker(PowerTracker* p_pt) { m_powerTracker = p_pt; };
 	PowerTracker* getPowerTracker() { return m_powerTracker; };
 
+	//highlight area
 	void showArea(kitten::K_GameObject* p_pivot);
 	void hideArea();
 	kitten::Event::TileList getArea();
+
+	//highlight range
+	kitten::Event::TileList getRange();
 
 	void registerEvent();
 	void deregisterEvent();
@@ -52,6 +58,7 @@ private:
 	//PathFind* m_pathFind;
 
 	kitten::Event::TileList m_areaList;
+	kitten::Event::TileList m_rangeList;
 
 	std::vector<kitten::K_GameObject*> m_tileList;
 

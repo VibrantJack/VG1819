@@ -20,7 +20,7 @@ void SendSelfOnClick::onClick()
 	kitten::Event* e = new kitten::Event(kitten::Event::Tile_Clicked);
 
 	TileInfo* info = m_attachedObject->getComponent<TileInfo>();
-	if (info->isHighlighted(TileInfo::Range))
+	if (info->isHighlighted(TileInfo::Range) || info->isHighlighted(TileInfo::Area))
 	{
 		e->putInt("highlighted", TRUE);
 

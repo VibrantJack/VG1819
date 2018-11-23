@@ -1,6 +1,6 @@
 #include "TileFliter.h"
 
-TileFilter::TileFilter()
+TileFilter::TileFilter(TilePipeline* p_p):m_pipe(p_p)
 {
 }
 
@@ -22,3 +22,4 @@ void TileFilter::disable()
 {
 	m_enabled = false;
 }
+

@@ -23,21 +23,16 @@ namespace ability
 
 			unit::Unit* target = p_info->m_targets[0];
 
-			for (std::string it : target->m_tags)
+			if (checkTag(target, STRUCTURE))
 			{
-				if (it == STRUCTURE)
-				{
-					triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_info);
+				triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_info);
 
-					int power = -(p_info->m_intValue.find(UNIT_POWER)->second);
+				int power = -(p_info->m_intValue.find(UNIT_POWER)->second);
 
-					damage(target, power);
-
-					return 0;
-				}
+				damage(target, power);
 			}
-		}
 
+		}
 		//delete package
 		done(p_info);
 		

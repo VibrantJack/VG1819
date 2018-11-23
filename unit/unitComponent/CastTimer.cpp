@@ -32,17 +32,19 @@ void unit::CastTimer::set(std::string p_abilityName, ability::AbilityInfoPackage
 	m_cast = true;
 }
 
-void unit::CastTimer::changeTimer(int p_n)
+int unit::CastTimer::changeTimer(int p_n)
 {
 	if (!m_cast)
-		return;
+		return -1;
 
 	m_timer += p_n;
 	if (m_timer <= 0)
 	{
-		cast();
 		m_cast = false;
+		cast();
+		return 0;
 	}
+	return 1;
 }
 
 void unit::CastTimer::cancelCast()

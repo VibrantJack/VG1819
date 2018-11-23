@@ -1,0 +1,69 @@
+{
+	"unit":{
+		"name":"Oligarch",
+		"hp":4,
+		"mv":2,
+		"in":8,
+		"cost":2,
+		"tags":["Terrans"],
+		"ability_description":[
+			{
+				"name":"Invest",
+				"power":1,
+				"min_range":0,
+				"max_range":0,
+				"target":1,
+				"need_unit":1,
+				"counter_max":4,
+				"description":"Gain 1 [Money Counter](max 4)."
+			},
+			{
+				"name":"Power of Money",
+				"power":3,
+				"min_range":0,
+				"max_range":3,
+				"target":1,
+				"need_unit":0,
+				"ct":1,
+				"counter_name":"money",
+				"counter_select":"choose",
+				"area_mode":"span",
+				"area_min":0,
+				"area_max":1,
+				"description":"Remove X [Money Counter] and deal 3*X damage to target."
+			},
+			{
+				"name":"Gold Rush",
+				"target":1,
+				"need_unit":0,
+				"filter":1,
+				"filter0":"enemy",
+				"area_mode":"all",
+				"in":10,
+				"mv":1,
+				"duration":1,
+				"counter_name":"money",
+				"counter_select":"all",
+				"description":"Remove all(X) [Money Counter], all friendly unit with Cost less than X gain +10 IN and +1 MV."
+			}
+		]
+	},
+	"components" : [
+		{
+			"name" : "UnitGraphic",
+			"texture":"textures/unit/Default.tga",
+			"unitsize": "point"
+		},
+		{
+			"name" : "UnitMove",
+			"offset":[0.15,1.0,0.8]
+		},
+		{
+			"name" : "ClickableBox",
+			"minpoint":[-0.5,-0.5,0],
+			"maxpoint":[0.5,0.5,0]
+		}
+	],
+	"scale" : [0.15,0.20,0],
+	"rotate" : [45, 0, 0]
+}
