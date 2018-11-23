@@ -17,8 +17,8 @@
 
 #include "puppy\ShaderManager.h"
 #include "puppy\ShaderProgram.h"
-#include "CallumMacKenzie_As3\pugixml\pugixml.hpp"
-#include "CallumMacKenzie_As3\expressions\PostfixEval.h"
+#include "pugixml\pugixml.hpp"
+#include "expressions\PostfixEval.h"
 
 #include <iostream>
 
@@ -57,11 +57,21 @@ namespace puppy
 		}
 
 		//delete parser
-		delete m_parser;
+		if (m_parser != nullptr)
+		{
+			delete m_parser;
+		}
 
 		//delete vao and texture
-		delete m_vao;
-		delete m_tex;
+		if (m_vao != nullptr)
+		{
+			delete m_vao;
+		}
+
+		if (m_tex != nullptr)
+		{
+			delete m_tex;
+		}
 	}
 
 	void Emitter::refreshXML()
@@ -222,7 +232,7 @@ namespace puppy
 					radius = child.attribute("radius").as_float();
 				}
 
-				OffsetSpawnAff* osa = new OffsetSpawnAff(this, shape, m_offset);
+				OffsetSpawnAff* osa = new OffsetSpawnAff(m_offset, shape);
 				osa->setBoxBounds(topLeft, bottomRight);
 				osa->setRadius(radius);
 
@@ -252,7 +262,7 @@ namespace puppy
 		//set emitter shape to default (point) if not defined in xml
 		if (!hasShape)
 		{
-			OffsetSpawnAff* osa = new OffsetSpawnAff(this, point, m_offset);
+			OffsetSpawnAff* osa = new OffsetSpawnAff(m_offset, point);
 			m_spawnProperties.push_back(osa);
 		}
 
@@ -391,10 +401,9 @@ namespace puppy
 				std::string mode = child.attribute("mode").as_string();
 				if (mode == "over_life")
 				{
-					float min = child.attribute("min").as_float();
-					float max = child.attribute("max").as_float();
+					float accel = child.attribute("accel").as_float();
 
-					m_affectors.push_back(new AccelerationAff(true, min, max));
+					m_affectors.push_back(new AccelerationAff(accel));
 				}
 				else if (mode == "random")
 				{
@@ -613,64 +622,70 @@ namespace puppy
 				}
 				else
 				{
-					//Burst mode
-					if (!m_canRepeat)
+					if (!m_hasBursted)
 					{
-						m_hasBursted = true;
-					}
-					m_lastSpawn = 0;
+						//Burst mode
+						if (!m_canRepeat)
+						{
+							m_hasBursted = true;
+						}
+						m_lastSpawn = 0;
 
 
-					//put all active particles into free list
-					for (auto it = m_activeParticles.begin(); it != m_activeParticles.end(); ++it)
-					{
-						//reset attributes
-						(*it)->m_lived = 0;
-						(*it)->m_pathProgress = 0;
-						(*it)->m_centerPoint.x = 0;
-						(*it)->m_centerPoint.y = 0;
-						(*it)->m_centerPoint.z = 0;
-						(*it)->m_colorTint.r = 0;
-						(*it)->m_colorTint.g = 0;
-						(*it)->m_colorTint.b = 0;
-						(*it)->m_colorTint.a = 0;
-						(*it)->m_velocity = 0;
-						(*it)->m_scale.x = 1;
-						(*it)->m_scale.y = 1;
+						//put all active particles into free list
+						for (auto it = m_activeParticles.begin(); it != m_activeParticles.end(); ++it)
+						{
+							//reset attributes
+							(*it)->m_lived = 0;
+							(*it)->m_pathProgress = 0;
+							(*it)->m_centerPoint.x = 0;
+							(*it)->m_centerPoint.y = 0;
+							(*it)->m_centerPoint.z = 0;
+							(*it)->m_colorTint.r = 0;
+							(*it)->m_colorTint.g = 0;
+							(*it)->m_colorTint.b = 0;
+							(*it)->m_colorTint.a = 0;
+							(*it)->m_velocity = 0;
+							(*it)->m_scale.x = 1;
+							(*it)->m_scale.y = 1;
 
-						m_freeParticles.push_back(*it);
-					}
-					m_activeParticles.clear();
+							m_freeParticles.push_back(*it);
+						}
+						m_activeParticles.clear();
 
-					numPartToSpawn = m_freeParticles.size();
-					
-				}
+						numPartToSpawn = m_freeParticles.size();
 
-				std::list<Particle*> newSpawns;
-
-				//Spawn particles from free list
-				for (int i = 0; i < numPartToSpawn; ++i)
-				{
-					//Get next particle
-					Particle* toSpawn = m_freeParticles.back();
-					m_freeParticles.pop_back();
-
-					//Push to newspawn list
-					newSpawns.push_back(toSpawn);
-					//Push to active list
-					m_activeParticles.push_front(toSpawn);
-
-					//set randoms
-					for (int n = 0; n < AffRandKeys::AFF_RAND_SIZE_MAX; ++n)
-					{
-						toSpawn->m_randFactor[n] = (float)rand() / (float)RAND_MAX;
 					}
 				}
 
 				//Set other spawn properties
-				for (SpawnAffector* spa : m_spawnProperties)
+				if (numPartToSpawn > 0)
 				{
-					spa->apply(newSpawns);
+					std::list<Particle*> newSpawns;
+
+					//Spawn particles from free list
+					for (int i = 0; i < numPartToSpawn; ++i)
+					{
+						//Get next particle
+						Particle* toSpawn = m_freeParticles.back();
+						m_freeParticles.pop_back();
+
+						//Push to newspawn list
+						newSpawns.push_back(toSpawn);
+						//Push to active list
+						m_activeParticles.push_front(toSpawn);
+
+						//set randoms
+						for (int n = 0; n < AffRandKeys::AFF_RAND_SIZE_MAX; ++n)
+						{
+							toSpawn->m_randFactor[n] = (float)rand() / (float)RAND_MAX;
+						}
+					}
+
+					for (SpawnAffector* spa : m_spawnProperties)
+					{
+						spa->apply(newSpawns);
+					}
 				}
 			}
 		}
@@ -720,13 +735,10 @@ namespace puppy
 		}
 	}
 
-	void Emitter::render(scene::Camera* p_camera)
+	void Emitter::render(const glm::mat4& p_viewInverse, const glm::mat4& p_viewProj, const glm::vec3& p_position, const glm::vec3& p_scale)
 	{
 		if (m_activeParticles.size() > 0) //Do we have particles to render?
 		{	
-			//Get the billboard rotation
-			glm::mat4 billboard = (glm::mat4) p_camera->getViewInverse();
-			
 			//map data
 			ParticleVertex* data = (ParticleVertex*)(m_vao->map(GL_WRITE_ONLY));
 			ParticleVertex d0 = data[0];
@@ -736,10 +748,10 @@ namespace puppy
 			{
 				//Construct a world matrix to multiply each vertex by
 				glm::mat4 worldMat = 
-					glm::translate(glm::vec3(p->m_centerPoint.x, p->m_centerPoint.y, p->m_centerPoint.z)) *
-					billboard *
+					glm::translate(glm::vec3(p->m_centerPoint.x + p_position.x, p->m_centerPoint.y + p_position.y, p->m_centerPoint.z + p_position.z)) *
+					p_viewInverse *
 					glm::rotate(p->m_rotation, glm::vec3(0, 0, 1)) *
-					glm::scale(glm::vec3(p->m_scale.x, p->m_scale.y, 1));
+					glm::scale(glm::vec3(p->m_scale.x * p_scale.x, p->m_scale.y * p_scale.y, 1));
 
 				//Bottom left
 				glm::vec4 pos = glm::vec4(-0.5, -0.5, 0, 1);
@@ -817,7 +829,7 @@ namespace puppy
 
 			//set uniforms
 			glUniformMatrix4fv(puppy::ShaderManager::getShaderProgram(ShaderType::particles)->getUniformPlace(WORLD_VIEW_PROJ_UNIFORM_NAME),
-				1, GL_FALSE, glm::value_ptr(p_camera->getViewProj()));
+				1, GL_FALSE, glm::value_ptr(p_viewProj));
 
 			//bind texture
 			m_tex->apply();

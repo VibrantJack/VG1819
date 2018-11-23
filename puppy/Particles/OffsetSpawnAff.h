@@ -11,14 +11,13 @@ namespace puppy
 	{
 	private:
 		OffsetType m_mode;
-		const Emitter* m_owner;
 
 		glm::vec3 m_offset; //always added
 
 		float m_radius; //For disc and sphere types
 		glm::vec3 m_topLeftBound, m_bottomRightBound; //For box type
 	public:
-		OffsetSpawnAff(const Emitter* p_owner, OffsetType p_type, const glm::vec3& p_offset) : m_owner(p_owner), m_mode(p_type), m_offset(p_offset) {};
+		OffsetSpawnAff(const glm::vec3& p_staticOffset, OffsetType p_type) : m_offset(p_staticOffset), m_mode(p_type) {};
 
 		void setRadius(float p_radius) { m_radius = p_radius; }
 		void setBoxBounds(const glm::vec3& p_topLeft, const glm::vec3& p_bottomRight) { m_topLeftBound = p_topLeft; m_bottomRightBound = p_bottomRight; }
