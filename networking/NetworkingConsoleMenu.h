@@ -1,6 +1,7 @@
 #pragma once
 #include "kitten\K_Component.h"
 #include "kitten\InputManager.h"
+#include "kitten\event_system\EventManager.h"
 
 class NetworkingConsoleMenu : public kitten::K_Component
 {
@@ -12,6 +13,7 @@ public:
 	virtual bool hasUpdate() const override { return true; };
 	virtual void update() override;
 
+	void stopHostingListener(kitten::Event::EventType p_type, kitten::Event* p_data);
 	void hostGame();
 	void stopHosting();
 	void connectToHost();

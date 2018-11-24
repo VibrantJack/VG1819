@@ -40,6 +40,7 @@
 //ui clickable testing
 #include "kitten/mouse picking/ClickableUI.h"
 #include "kitten/mouse picking/ClickableFrame.h"
+#include "components\TabMenu.h"
 
 //unit interaction
 #include "unitInteraction/UnitInteractionManager.h"
@@ -202,8 +203,12 @@ namespace kitten
 		K_GameObject* spawnUnitOnKeyPress = K_GameObjectManager::getInstance()->createNewGameObject();
 		spawnUnitOnKeyPress->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("SpawnUnitOnKeyPress"));
 
+		// Tab Menu
 		K_GameObject* tabMenu = K_GameObjectManager::getInstance()->createNewGameObject();
-		tabMenu->addComponent(compMan->createComponent("TabMenu"));
+		TabMenu* tabMenuFrame = static_cast<TabMenu*>(compMan->createComponent("TabMenu")); // Create parent frame
+		tabMenu->addComponent(tabMenuFrame);
+		tabMenu->getTransform().scale2D(1280, 720);
+		tabMenu->getTransform().place2D(0, 0);
 
 		return true;
 	}

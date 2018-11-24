@@ -41,6 +41,7 @@ namespace kitten
 			Card_Discarded,
 			Deck_Empty,
 			End_Game_Screen,
+			Return_to_Main_Menu,
 
 			Test_Event, 
 			MAX_VAL = Test_Event

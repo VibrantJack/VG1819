@@ -39,12 +39,19 @@ NetworkingConsoleMenu::~NetworkingConsoleMenu()
 	{
 		networking::ServerGame::destroyInstance();
 	}
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Return_to_Main_Menu, this);
 }
 
 void NetworkingConsoleMenu::start()
 {
 	m_input = input::InputManager::getInstance();
 	assert(m_input != nullptr);
+
+	// Add Listeners for exiting to Main Menu and disconnecting from network
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Return_to_Main_Menu,
+		this,
+		std::bind(&NetworkingConsoleMenu::stopHostingListener, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void NetworkingConsoleMenu::update()
@@ -123,6 +130,11 @@ void NetworkingConsoleMenu::update()
 	{
 		networking::ServerGame::getInstance()->update();
 	}
+}
+
+void NetworkingConsoleMenu::stopHostingListener(kitten::Event::EventType p_type, kitten::Event* p_data)
+{
+	stopHosting();
 }
 
 void NetworkingConsoleMenu::hostGame()

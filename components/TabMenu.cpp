@@ -23,7 +23,7 @@ void TabMenu::start()
 	m_input = input::InputManager::getInstance();
 	assert(m_input != nullptr);
 
-	// Add Listeners ofr enabling end game screen on Commander death
+	// Add Listeners for enabling end game screen on Commander death
 	kitten::EventManager::getInstance()->addListener(
 		kitten::Event::EventType::End_Game_Screen,
 		this,

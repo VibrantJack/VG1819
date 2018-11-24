@@ -1,6 +1,7 @@
 #include "UI\TabMenu\ReturnToMainMenuButton.h"
 #include "kitten\K_ComponentManager.h"
 #include "kitten\K_GameObjectManager.h"
+#include "kitten\event_system\EventManager.h"
 
 
 namespace userinterface
@@ -31,18 +32,9 @@ namespace userinterface
 		}
 	}
 
-	void ReturnToMainMenuButton::start()
-	{
-		ClickableUI::start();
-		// Menu buttons are their own GOs, but are attached as children to parent GO
-		kitten::K_GameObject* parent = &m_attachedObject->getTransform().getParent()->getAttachedGameObject();
-		//m_menu = parent->getComponent<NetworkingConsoleMenu>();
-		//assert(m_menu != nullptr);
-	}
-
 	void ReturnToMainMenuButton::onClick()
 	{
-		//m_menu->stopHosting();
 		printf("Return to Main Menu Button clicked!\n");
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Return_to_Main_Menu, nullptr);
 	}
 }

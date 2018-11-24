@@ -24,7 +24,7 @@
 
 SpawnUnitOnKeyPress::SpawnUnitOnKeyPress()
 	:
-	m_iUnitId(0)
+	m_iUnitId(6)
 {
 	unit::UnitSpawn::getInstanceSafe();
 }
@@ -46,20 +46,7 @@ void SpawnUnitOnKeyPress::update()
 			networking::ClientGame::getInstance()->summonUnit(networking::ClientGame::getInstance()->getClientId(), m_iUnitId, posX, posY);
 			networking::ClientGame::getInstance()->sendSummonUnitPacket(networking::ClientGame::getInstance()->getClientId(), m_iUnitId, posX, posY);
 		}
-		else
-		{
-			kitten::K_GameObject* testDummyGO = unit::UnitSpawn::getInstance()->spawnUnitObject(m_iUnitId);
-			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
-			unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
-
-			//initialize position
-			testDummyGO->getComponent<unit::UnitMove>()->setTile(posX, posY);
-
-			kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
-			testDummyGO->addComponent(compMan->createComponent("UseAbilityWhenClicked"));
-			testDummyGO->addComponent(compMan->createComponent("SelectAbility"));
-		}
-		m_iUnitId = (m_iUnitId + 1) % 4;
+		m_iUnitId = 2;
 	}
 
 	if (input::InputManager::getInstance()->keyDown('G') && !input::InputManager::getInstance()->keyDownLast('G'))

@@ -16,7 +16,7 @@ namespace userinterface
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
 
-		virtual void start() override;
+		//virtual void start() override;
 		virtual void onClick();
 
 	private:
