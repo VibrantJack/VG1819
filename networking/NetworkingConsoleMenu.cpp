@@ -1,5 +1,4 @@
 #include "networking\NetworkingConsoleMenu.h"
-#include "kitten\InputManager.h"
 
 #include <iostream>
 #include <process.h>
@@ -12,6 +11,7 @@
 
 NetworkingConsoleMenu::NetworkingConsoleMenu()
 	:
+	m_input(nullptr),
 	m_bMenuOpen(false),
 	m_bPrintText(false),
 	m_bClientUpdate(false),
@@ -41,9 +41,15 @@ NetworkingConsoleMenu::~NetworkingConsoleMenu()
 	}
 }
 
+void NetworkingConsoleMenu::start()
+{
+	m_input = input::InputManager::getInstance();
+	assert(m_input != nullptr);
+}
+
 void NetworkingConsoleMenu::update()
 {
-	if (input::InputManager::getInstance()->keyDown(m_cEnterMenuKey) && !input::InputManager::getInstance()->keyDownLast(m_cEnterMenuKey))
+	if (m_input->keyDown(m_cEnterMenuKey) && !m_input->keyDownLast(m_cEnterMenuKey))
 	{
 		m_bMenuOpen = true;
 		m_bPrintText = true;
@@ -64,7 +70,7 @@ void NetworkingConsoleMenu::update()
 		}
 
 		// Host game option
-		if (input::InputManager::getInstance()->keyDown(m_cHostKey) && !input::InputManager::getInstance()->keyDownLast(m_cHostKey))
+		if (m_input->keyDown(m_cHostKey) && !m_input->keyDownLast(m_cHostKey))
 		{
 			printf("Host Game option selected\n");
 			
@@ -73,7 +79,7 @@ void NetworkingConsoleMenu::update()
 		}
 
 		// Stop hosting option
-		if (input::InputManager::getInstance()->keyDown(m_cStopHostKey) && !input::InputManager::getInstance()->keyDownLast(m_cStopHostKey))
+		if (m_input->keyDown(m_cStopHostKey) && !m_input->keyDownLast(m_cStopHostKey))
 		{
 			printf("Stop hosting option selected\n");
 
@@ -82,7 +88,7 @@ void NetworkingConsoleMenu::update()
 		}
 
 		// Connect to host option
-		if (input::InputManager::getInstance()->keyDown(m_cConnectKey) && !input::InputManager::getInstance()->keyDownLast(m_cConnectKey))
+		if (m_input->keyDown(m_cConnectKey) && !m_input->keyDownLast(m_cConnectKey))
 		{
 			printf("Connect to host option selected\n");
 			
@@ -91,7 +97,7 @@ void NetworkingConsoleMenu::update()
 		}
 
 		// Disconnect from host option
-		if (input::InputManager::getInstance()->keyDown(m_cDisconnectKey) && !input::InputManager::getInstance()->keyDownLast(m_cDisconnectKey))
+		if (m_input->keyDown(m_cDisconnectKey) && !m_input->keyDownLast(m_cDisconnectKey))
 		{
 			printf("Disconnect from host option selected\n");
 			
@@ -100,7 +106,7 @@ void NetworkingConsoleMenu::update()
 		}
 
 		// Exit menu option
-		if (input::InputManager::getInstance()->keyDown(m_cExitMenuKey) && !input::InputManager::getInstance()->keyDownLast(m_cExitMenuKey))
+		if (m_input->keyDown(m_cExitMenuKey) && !m_input->keyDownLast(m_cExitMenuKey))
 		{
 			printf("** Networking Console Menu Closed **\n");
 			m_bMenuOpen = false;
@@ -230,7 +236,7 @@ bool NetworkingConsoleMenu::checkClientNetwork()
 			return true;
 		} else
 		{
-			//printf("Client network setup incomplete; please try again\n");
+			printf("Client network setup incomplete; please try again\n");
 			networking::ClientGame::destroyInstance();
 			return false;
 		}
@@ -247,7 +253,7 @@ bool NetworkingConsoleMenu::checkServerNetwork()
 			return true;
 		} else
 		{
-			//printf("Server network setup incomplete; please try again\n");
+			printf("Server network setup incomplete; please try again\n");
 			networking::ServerGame::destroyInstance();
 			return false;
 		}

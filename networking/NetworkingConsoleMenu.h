@@ -1,5 +1,6 @@
 #pragma once
 #include "kitten\K_Component.h"
+#include "kitten\InputManager.h"
 
 class NetworkingConsoleMenu : public kitten::K_Component
 {
@@ -7,6 +8,7 @@ public:
 	NetworkingConsoleMenu();
 	~NetworkingConsoleMenu();
 
+	virtual void start() override;
 	virtual bool hasUpdate() const override { return true; };
 	virtual void update() override;
 
@@ -24,6 +26,8 @@ public:
 	);
 
 private:
+	input::InputManager* m_input;
+
 	bool m_bMenuOpen;
 	bool m_bPrintText;
 
