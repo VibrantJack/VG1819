@@ -1,6 +1,7 @@
 {
 	"spritesheets" :
 	[
+		"ArcherSheet.json",
 		"ClericSheet.json",
 		"WizardSheet.json",
 		"StoneSlinger.json"
