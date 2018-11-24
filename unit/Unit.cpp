@@ -369,21 +369,27 @@ namespace unit
 				networking::ClientGame* client = networking::ClientGame::getInstance();
 				client->removeUnitGameObject(client->getUnitGameObjectIndex(m_attachedObject));
 
+				kitten::Event* eventData = new kitten::Event(kitten::Event::Tile_Clicked);
 				if (m_clientId == client->getClientId())
 				{
 					printf("Defeat; your Commander has been slain.");
+					eventData->putInt(PLAYER_COMMANDER_DEATH, FALSE);
 				}
 				else
 				{
 					printf("Victory, the enemy Commander has been slain!");
+					eventData->putInt(PLAYER_COMMANDER_DEATH, TRUE);
 				}
 				// Rather than straight disconnect, we should display a screen that says Victory or Defeat
 				// and a button that takes you back to the main menu
-				client->disconnectFromNetwork(true);
+				//client->disconnectFromNetwork(true);
+				
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
 			}
 			// Or maybe straight disconnect but disable unit control and display Victory/Defeat screen here
 			// This would allow for Victory/Defeat screen offline as well, but would need a way to determine whose
 			// Commander was defeated when offline
+			
 		}
 	}
 }
