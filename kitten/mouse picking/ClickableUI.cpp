@@ -11,7 +11,10 @@ namespace kitten
 
 	ClickableUI::~ClickableUI()
 	{
-		m_attachedFrame->removeClickable(this);
+		if (m_attachedFrame != nullptr)
+		{
+			m_attachedFrame->removeClickable(this);
+		}
 	}
 
 	void ClickableUI::start()
