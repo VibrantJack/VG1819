@@ -632,15 +632,16 @@ kitten::K_Component* getToggleParticleSystemOnKeyPress(nlohmann::json* p_jsonFil
 #include "_Project\UniversalPfx.h"
 kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 	
-	std::list<std::pair<std::string, std::string>> effects;
+	std::list<std::tuple<std::string, std::string, int>> effects;
 
 	auto end = p_jsonFile->at("effects").end();
 	for (auto it = p_jsonFile->at("effects").begin(); it != end; ++it)
 	{
 		std::string effectName = (*it)["name"];
 		std::string effectPath = (*it)["path"];
+		int numPfxToPool = (*it)["poolednumber"];
 
-		effects.push_back(std::make_pair(effectName, effectPath));
+		effects.push_back(std::make_tuple(effectName, effectPath, numPfxToPool));
 	}
 
 	return new UniversalPfx(effects);
