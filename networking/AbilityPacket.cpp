@@ -271,7 +271,7 @@ void AbilityPacket::addTargetTiles(TargetTiles p_targetTilesGO)
 	m_targetTilesGO = tiles;
 }
 
-std::vector<unit::Unit*> AbilityPacket::getTargetUnits()
+const std::vector<unit::Unit*>& AbilityPacket::getTargetUnits()
 {
 	networking::ClientGame* client = networking::ClientGame::getInstance();
 	assert(client != nullptr);
@@ -285,12 +285,12 @@ std::vector<unit::Unit*> AbilityPacket::getTargetUnits()
 	return targetUnits;
 }
 
-std::unordered_map<std::string, int> AbilityPacket::getIntValues()
+const std::unordered_map<std::string, int>& AbilityPacket::getIntValues()
 {
 	return m_intValue;
 }
 
-std::vector<kitten::K_GameObject*> AbilityPacket::getTargetTiles()
+const std::vector<kitten::K_GameObject*>& AbilityPacket::getTargetTiles()
 {
 	BoardManager* board = BoardManager::getInstance();
 	assert(board != nullptr);

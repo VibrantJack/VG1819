@@ -137,9 +137,9 @@ public:
 	void addIntValues(IntValues p_values);
 	void addTargetTiles(TargetTiles p_targetTilesGO);
 
-	TargetUnits getTargetUnits(); //{ return m_targets; }
-	IntValues getIntValues(); //{ return m_intValue; }
-	TargetTiles getTargetTiles(); //{ return m_targetTilesGO; }
+	const TargetUnits& getTargetUnits();
+	const IntValues& getIntValues();
+	const TargetTiles& getTargetTiles();
 
 	int getSize();
 	int getBytes() { return m_totalBytes; }
