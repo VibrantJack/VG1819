@@ -46,23 +46,23 @@ void AbilityPacket::print()
 
 // If an assert is failed, make sure you are using a fresh Buffer for serializing
 // and a fresh one for deserializing
-void AbilityPacket::writeInt(Buffer& buffer, int value)
+void AbilityPacket::writeInt(Buffer& p_buffer, int p_value)
 {
-	assert(buffer.m_index + sizeof(int) <= buffer.m_size);
+	assert(p_buffer.m_index + sizeof(int) <= p_buffer.m_size);
 	
-	*((int*)(buffer.m_data + buffer.m_index)) = value;
-	buffer.m_index += sizeof(int);
+	*((int*)(p_buffer.m_data + p_buffer.m_index)) = p_value;
+	p_buffer.m_index += sizeof(int);
 }
 
-void AbilityPacket::writeChar(Buffer &buffer, char value)
+void AbilityPacket::writeChar(Buffer &p_buffer, char p_value)
 {
-	assert(buffer.m_index + sizeof(char) <= buffer.m_size);
+	assert(p_buffer.m_index + sizeof(char) <= p_buffer.m_size);
 
-	*((char*)(buffer.m_data + buffer.m_index)) = value;
-	buffer.m_index += sizeof(char);
+	*((char*)(p_buffer.m_data + p_buffer.m_index)) = p_value;
+	p_buffer.m_index += sizeof(char);
 }
 
-int AbilityPacket::readInt(Buffer& buffer)
+int AbilityPacket::readInt(Buffer& p_buffer)
 {
 	// For ResizeablePacket, Can't check against buffer size when reading as the size is set
 	// from a non constant value (getsize()), so we don't know that actual size that the buffer should be
@@ -70,40 +70,40 @@ int AbilityPacket::readInt(Buffer& buffer)
 	//assert(buffer.m_index + sizeof(int) <= buffer.m_size);
 
 	int value;
-	value = *((int*)(buffer.m_data + buffer.m_index));
-	buffer.m_index += sizeof(int);
+	value = *((int*)(p_buffer.m_data + p_buffer.m_index));
+	p_buffer.m_index += sizeof(int);
 
 	return value;
 }
 
-char AbilityPacket::readChar(Buffer &buffer)
+char AbilityPacket::readChar(Buffer &p_buffer)
 {
 	//assert(buffer.m_index + sizeof(char) <= buffer.m_size);
 
 	char value;
-	value = *((char*)(buffer.m_data + buffer.m_index));
-	buffer.m_index += sizeof(char);
+	value = *((char*)(p_buffer.m_data + p_buffer.m_index));
+	p_buffer.m_index += sizeof(char);
 
 	return value;
 }
 
-void AbilityPacket::serialize(Buffer& buffer)
+void AbilityPacket::serialize(Buffer& p_buffer)
 {
-	writeInt(buffer, this->m_packetType);
-	writeInt(buffer, this->m_clientId);
-	writeInt(buffer, this->m_totalBytes);
-	writeInt(buffer, this->m_sourceUnit);
+	writeInt(p_buffer, this->m_packetType);
+	writeInt(p_buffer, this->m_clientId);
+	writeInt(p_buffer, this->m_totalBytes);
+	writeInt(p_buffer, this->m_sourceUnit);
 
-	writeInt(buffer, this->m_numTargetUnits);
+	writeInt(p_buffer, this->m_numTargetUnits);
 	networking::ClientGame* client = networking::ClientGame::getInstance();
 	assert(client != nullptr);
 	for (int i = 0; i < m_numTargetUnits; ++i)
 	{
 		int targetIndex = m_targets[i];
-		writeInt(buffer, targetIndex);
+		writeInt(p_buffer, targetIndex);
 	}
 
-	writeInt(buffer, this->m_numIntValues);
+	writeInt(p_buffer, this->m_numIntValues);
 	for (auto it = m_intValue.begin(); it != m_intValue.end(); ++it)
 	{
 		// For each key, value pair in the map, we need to:
@@ -114,71 +114,71 @@ void AbilityPacket::serialize(Buffer& buffer)
 		strcpy(key, strKey.c_str());
 		int keyLength = strKey.size();
 
-		writeInt(buffer, keyLength);
+		writeInt(p_buffer, keyLength);
 		for (int i = 0; i < keyLength; ++i)
 		{
-			writeChar(buffer, key[i]);
+			writeChar(p_buffer, key[i]);
 		}
-		writeInt(buffer, it->second);
+		writeInt(p_buffer, it->second);
 	}
 
-	writeInt(buffer, this->m_numTargetTiles);
+	writeInt(p_buffer, this->m_numTargetTiles);
 	for (int i = 0; i < m_numTargetTiles; ++i)
 	{
 		std::pair<int,int> tilePos = m_targetTilesGO[i];
 		int posX = tilePos.first;
 		int posY = tilePos.second;
-		writeInt(buffer, posX);
-		writeInt(buffer, posY);
+		writeInt(p_buffer, posX);
+		writeInt(p_buffer, posY);
 	}
 
 	// AbilityName
-	writeInt(buffer, m_abilityNameLength);
+	writeInt(p_buffer, m_abilityNameLength);
 	for (int i = 0; i < m_abilityNameLength; ++i)
 	{
-		writeChar(buffer, m_abilityName[i]);
+		writeChar(p_buffer, m_abilityName[i]);
 	}
 }
 
-void AbilityPacket::deserialize(Buffer& buffer)
+void AbilityPacket::deserialize(Buffer& p_buffer)
 {
-	this->m_packetType = readInt(buffer);
-	this->m_clientId = readInt(buffer);
-	this->m_totalBytes = readInt(buffer);
-	this->m_sourceUnit = readInt(buffer);
+	this->m_packetType = readInt(p_buffer);
+	this->m_clientId = readInt(p_buffer);
+	this->m_totalBytes = readInt(p_buffer);
+	this->m_sourceUnit = readInt(p_buffer);
 
-	m_numTargetUnits = readInt(buffer);	
+	m_numTargetUnits = readInt(p_buffer);	
 	for (int i = 0; i < m_numTargetUnits; ++i)
 	{
-		int targetIndex = readInt(buffer);
+		int targetIndex = readInt(p_buffer);
 		m_targets.push_back(targetIndex);
 	}
 
-	m_numIntValues = readInt(buffer);
+	m_numIntValues = readInt(p_buffer);
 	for (int i = 0; i < m_numIntValues; ++i)
 	{
-		int keyLength = readInt(buffer);
+		int keyLength = readInt(p_buffer);
 		std::string key = "";
 		for (int j = 0; j < keyLength; ++j)
 		{
-			key += readChar(buffer);
+			key += readChar(p_buffer);
 		}
-		int value = readInt(buffer);
+		int value = readInt(p_buffer);
 		m_intValue.insert({ key, value });
 	}
 
-	m_numTargetTiles = readInt(buffer);
+	m_numTargetTiles = readInt(p_buffer);
 	for (int i = 0; i < m_numTargetTiles; ++i)
 	{
-		int posX = readInt(buffer);
-		int posY = readInt(buffer);
+		int posX = readInt(p_buffer);
+		int posY = readInt(p_buffer);
 		m_targetTilesGO.push_back(std::make_pair(posX, posY));
 	}
 
-	m_abilityNameLength = readInt(buffer);	
+	m_abilityNameLength = readInt(p_buffer);	
 	for (int i = 0; i < m_abilityNameLength; ++i)
 	{
-		m_abilityName += readChar(buffer);
+		m_abilityName += readChar(p_buffer);
 	}
 }
 

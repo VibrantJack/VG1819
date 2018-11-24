@@ -43,12 +43,12 @@ struct Packet {
 	unsigned int m_packetType;
 	int m_clientId;
 
-	void writeInt(Buffer& buffer, int value)
+	void writeInt(Buffer& p_buffer, int p_value)
 	{
-		assert(buffer.m_index + sizeof(int) <= buffer.m_size);
+		assert(p_buffer.m_index + sizeof(int) <= p_buffer.m_size);
 
-		*((int*)(buffer.m_data + buffer.m_index)) = value;
-		buffer.m_index += sizeof(int);
+		*((int*)(p_buffer.m_data + p_buffer.m_index)) = p_value;
+		p_buffer.m_index += sizeof(int);
 	}
 
 	void writeChar(Buffer &buffer, char value)
@@ -59,34 +59,34 @@ struct Packet {
 		buffer.m_index += sizeof(char);
 	}
 
-	int readInt(Buffer& buffer)
+	int readInt(Buffer& p_buffer)
 	{
 		//assert(buffer.m_index + sizeof(int) <= buffer.m_size);
 
-		int value = *((int*)(buffer.m_data + buffer.m_index));
-		buffer.m_index += sizeof(int);
+		int value = *((int*)(p_buffer.m_data + p_buffer.m_index));
+		p_buffer.m_index += sizeof(int);
 
 		return value;
 	}
 
-	char readChar(Buffer &buffer)
+	char readChar(Buffer &p_buffer)
 	{
 		//assert(buffer.m_index + sizeof(char) <= buffer.m_size);
 
-		char value = *((char*)(buffer.m_data + buffer.m_index));
-		buffer.m_index += sizeof(char);
+		char value = *((char*)(p_buffer.m_data + p_buffer.m_index));
+		p_buffer.m_index += sizeof(char);
 
 		return value;
 	}
 
-	void serialize(Buffer& buffer) {
-		writeInt(buffer, m_packetType);
-		writeInt(buffer, m_clientId);
+	void serialize(Buffer& p_buffer) {
+		writeInt(p_buffer, m_packetType);
+		writeInt(p_buffer, m_clientId);
 	}
 
-	void deserialize(Buffer& buffer) {
-		m_packetType = readInt(buffer);
-		m_clientId = readInt(buffer);
+	void deserialize(Buffer& p_buffer) {
+		m_packetType = readInt(p_buffer);
+		m_clientId = readInt(p_buffer);
 	}
 };
 
@@ -95,22 +95,22 @@ struct SummonUnitPacket : Packet
 	int m_unitId;
 	int m_posX, m_posY;
 
-	void serialize(Buffer& buffer) 
+	void serialize(Buffer& p_buffer) 
 	{
-		writeInt(buffer, m_packetType);
-		writeInt(buffer, m_clientId);
-		writeInt(buffer, m_unitId);
-		writeInt(buffer, m_posX);
-		writeInt(buffer, m_posY);
+		writeInt(p_buffer, m_packetType);
+		writeInt(p_buffer, m_clientId);
+		writeInt(p_buffer, m_unitId);
+		writeInt(p_buffer, m_posX);
+		writeInt(p_buffer, m_posY);
 	}
 
-	void deserialize(Buffer& buffer)
+	void deserialize(Buffer& p_buffer)
 	{
-		m_packetType = readInt(buffer);
-		m_clientId = readInt(buffer);
-		m_unitId = readInt(buffer);
-		m_posX = readInt(buffer);
-		m_posY = readInt(buffer);
+		m_packetType = readInt(p_buffer);
+		m_clientId = readInt(p_buffer);
+		m_unitId = readInt(p_buffer);
+		m_posX = readInt(p_buffer);
+		m_posY = readInt(p_buffer);
 	}
 };
 
@@ -130,8 +130,8 @@ public:
 
 	void print();
 
-	void serialize(Buffer& buffer);
-	void deserialize(Buffer& buffer);
+	void serialize(Buffer& p_buffer);
+	void deserialize(Buffer& p_buffer);
 
 	void addTargetUnits(TargetUnits p_targets);
 	void addIntValues(IntValues p_values);
