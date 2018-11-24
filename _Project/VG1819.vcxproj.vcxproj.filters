@@ -589,10 +589,10 @@
     <ClCompile Include="UniversalPfx.cpp">
       <Filter>components\standard effects</Filter>
     </ClCompile>
-    <ClCompile Include="..\components\TabMenu.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="..\UI\TabMenu\ReturnToMainMenuButton.cpp">
+      <Filter>UI\TabMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\TabMenu\TabMenu.cpp">
       <Filter>UI\TabMenu</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1130,10 +1130,10 @@
     <ClInclude Include="UniversalPfx.h">
       <Filter>components\standard effects</Filter>
     </ClInclude>
-    <ClInclude Include="..\components\TabMenu.h">
-      <Filter>components</Filter>
-    </ClInclude>
     <ClInclude Include="..\UI\TabMenu\ReturnToMainMenuButton.h">
+      <Filter>UI\TabMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\TabMenu\TabMenu.h">
       <Filter>UI\TabMenu</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,4 @@
-#include "components\TabMenu.h"
+#include "UI\TabMenu\TabMenu.h"
 #include "kitten\K_GameObjectManager.h"
 #include "kitten\K_ComponentManager.h"
 

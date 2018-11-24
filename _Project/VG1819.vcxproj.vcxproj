@@ -149,7 +149,6 @@
     <ClCompile Include="..\board\tile\landInfo\SandLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
-    <ClCompile Include="..\components\TabMenu.cpp" />
     <ClCompile Include="..\expressions\lexer.cpp" />
     <ClCompile Include="..\expressions\parser.cpp" />
     <ClCompile Include="..\expressions\PostfixEval.cpp" />
@@ -255,6 +254,7 @@
     <ClCompile Include="..\UI\HandFrame.cpp" />
     <ClCompile Include="..\UI\InterfaceBuilder.cpp" />
     <ClCompile Include="..\UI\TabMenu\ReturnToMainMenuButton.cpp" />
+    <ClCompile Include="..\UI\TabMenu\TabMenu.cpp" />
     <ClCompile Include="..\UI\UIElement.cpp" />
     <ClCompile Include="..\UI\UIFrame.cpp" />
     <ClCompile Include="..\UI\UIObject.cpp" />
@@ -313,7 +313,6 @@
     <ClInclude Include="..\board\tile\landInfo\LandInformation.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInfoManager.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />
-    <ClInclude Include="..\components\TabMenu.h" />
     <ClInclude Include="..\DeckData.hpp" />
     <ClInclude Include="..\board\BoardManager.h" />
     <ClInclude Include="..\board\clickable\ManipulateTileOnClick.h" />
@@ -439,6 +438,7 @@
     <ClInclude Include="..\UI\HandFrame.h" />
     <ClInclude Include="..\UI\InterfaceBuilder.h" />
     <ClInclude Include="..\UI\TabMenu\ReturnToMainMenuButton.h" />
+    <ClInclude Include="..\UI\TabMenu\TabMenu.h" />
     <ClInclude Include="..\UI\UIElement.h" />
     <ClInclude Include="..\UI\UIFrame.h" />
     <ClInclude Include="..\UI\UIObject.h" />

@@ -33,7 +33,7 @@
 #include "components\SelectAbility.h"
 #include "networking\SpawnUnitOnKeyPress.h"
 #include "networking\NetworkingConsoleMenu.h"
-#include "components\TabMenu.h"
+#include "UI\TabMenu\TabMenu.h"
 #include "UI\TabMenu\ReturnToMainMenuButton.h"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 
