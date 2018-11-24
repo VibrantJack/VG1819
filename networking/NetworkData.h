@@ -125,7 +125,6 @@ public:
 	int m_sourceUnit;
 
 	int m_abilityNameLength;
-	//char m_abilityName[MAX_CHAR_BUFSIZE];
 	std::string m_abilityName = "";
 
 	void print();
@@ -157,10 +156,10 @@ private:
 	int m_numTargetTiles;
 	std::vector<std::pair<int, int>> m_targetTilesGO;
 
-	void writeInt(Buffer &buffer, int value);
-	void writeChar(Buffer &buffer, char value);
-	int readInt(Buffer &buffer);
-	char readChar(Buffer &buffer);
+	void writeInt(Buffer &p_buffer, int p_value);
+	void writeChar(Buffer &p_buffer, char p_value);
+	int readInt(Buffer &p_buffer);
+	char readChar(Buffer &p_buffer);
 	
 };
 
