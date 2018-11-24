@@ -19,6 +19,7 @@
 #include "unit/unitComponent/UnitMove.h"
 #include "unit/unitComponent/UnitClickable.h"
 //ui
+#include "UI\UIObject.h"
 #include "UI\CardUIO.h"
 #include "UI\HandFrame.h"
 #include "mouse picking/ClickableUI.h"
@@ -95,6 +96,10 @@ namespace kitten
 		{
 			comp = new userinterface::UIFrame("textures/ui/blankFrame.tga");
 		}
+		else if (p_componentName == "UIObject")
+		{
+			comp = new userinterface::UIObject("textures/ui/blankFrame.tga");
+		}
 		else if (p_componentName == "Hand") // Datadriven
 		{
 			comp = new userinterface::HandFrame("textures/ui/blankFrame.tga");
@@ -110,7 +115,7 @@ namespace kitten
 		{
 			comp = new ClickableUI();
 		}
-		else if (p_componentName == "ReturnToMainMenuButton") // Datadriven
+		else if (p_componentName == "ReturnToMainMenuButton")
 		{
 			comp = new userinterface::ReturnToMainMenuButton();
 		}
@@ -218,9 +223,9 @@ namespace kitten
 		{
 			comp = new TileInfo();
 		}
-		else if (p_componentName == "TabMenu") // Datadriven
+		else if (p_componentName == "TabMenu")
 		{
-			comp = new TabMenu();
+			comp = new TabMenu("textures/ui/blankFrame.tga");
 		}
 		else
 		{
