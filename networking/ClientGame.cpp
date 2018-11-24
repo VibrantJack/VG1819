@@ -63,12 +63,6 @@ namespace networking
 		{
 			delete m_network;
 		}
-
-		/*auto end = m_unitGOList.end();
-		for (auto it = m_unitGOList.begin(); it != end; ++it)
-		{
-			kitten::K_GameObjectManager::getInstance()->destroyGameObject((*it).second);
-		}*/
 	}
 
 	void ClientGame::setupNetwork(const std::string &p_strAddr)
@@ -120,8 +114,14 @@ namespace networking
 			m_network = nullptr;
 		}
 
-		sm_networkValid = false;
+		// Delete all stored unit GameObjects
+		auto end = m_unitGOList.end();
+		for (auto it = m_unitGOList.begin(); it != end; ++it)
+		{
+			kitten::K_GameObjectManager::getInstance()->destroyGameObject((*it).second);
+		}
 
+		sm_networkValid = false;
 	}
 
 	void ClientGame::update()

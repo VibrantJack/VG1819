@@ -359,5 +359,31 @@ namespace unit
 		getTile()->getComponent<TileInfo>()->removeUnit();
 		//remove from intiative tracker
 		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
+
+		// Commander Death Victory/Defeat Condition
+		if (isCommander())
+		{
+			if (networking::ClientGame::isNetworkValid())
+			{
+				// Pass in false as the parameter in order to signal to the other client of disconnect
+				networking::ClientGame* client = networking::ClientGame::getInstance();
+				client->removeUnitGameObject(client->getUnitGameObjectIndex(m_attachedObject));
+
+				if (m_clientId == client->getClientId())
+				{
+					printf("Defeat; your Commander has been slain.");
+				}
+				else
+				{
+					printf("Victory, the enemy Commander has been slain!");
+				}
+				// Rather than straight disconnect, we should display a screen that says Victory or Defeat
+				// and a button that takes you back to the main menu
+				client->disconnectFromNetwork(true);
+			}
+			// Or maybe straight disconnect but disable unit control and display Victory/Defeat screen here
+			// This would allow for Victory/Defeat screen offline as well, but would need a way to determine whose
+			// Commander was defeated when offline
+		}
 	}
 }
