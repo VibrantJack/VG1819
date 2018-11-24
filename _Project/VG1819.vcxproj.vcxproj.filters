@@ -589,6 +589,9 @@
     <ClCompile Include="UniversalPfx.cpp">
       <Filter>components\standard effects</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\TabMenu.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1124,6 +1127,9 @@
     <ClInclude Include="UniversalPfx.h">
       <Filter>components\standard effects</Filter>
     </ClInclude>
+    <ClInclude Include="..\components\TabMenu.h">
+      <Filter>components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1260,6 +1266,9 @@
     </Filter>
     <Filter Include="components\standard effects">
       <UniqueIdentifier>{8c3ab6ac-dae3-451f-9e21-7944dc100695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\TabMenu">
+      <UniqueIdentifier>{f65abade-0ab9-4b14-b9fa-06c669a75895}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

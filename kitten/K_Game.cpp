@@ -136,7 +136,7 @@ namespace kitten
 		//delete builder;
 
 		//test unit
-		unit::UnitTest::getInstanceSafe()->test();
+		//unit::UnitTest::getInstanceSafe()->test();
 
 		//UIO TESTING
 		K_GameObject* hand = K_GameObjectManager::getInstance()->createNewGameObject();
@@ -201,6 +201,8 @@ namespace kitten
 
 		K_GameObject* spawnUnitOnKeyPress = K_GameObjectManager::getInstance()->createNewGameObject();
 		spawnUnitOnKeyPress->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("SpawnUnitOnKeyPress"));
+
+		spawnUnitOnKeyPress->addComponent(compMan->createComponent("TabMenu"));
 
 		return true;
 	}

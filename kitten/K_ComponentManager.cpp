@@ -32,6 +32,7 @@
 #include "components\SelectAbility.h"
 #include "networking\SpawnUnitOnKeyPress.h"
 #include "networking\NetworkingConsoleMenu.h"
+#include "components\TabMenu.h"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 
 #include "kitten\K_ParticleSystem.h"
@@ -211,6 +212,10 @@ namespace kitten
 		else if (p_componentName == "TileInfo") // Datadriven
 		{
 			comp = new TileInfo();
+		}
+		else if (p_componentName == "TabMenu") // Datadriven
+		{
+			comp = new TabMenu();
 		}
 		else
 		{
