@@ -25,7 +25,7 @@
 	"components" : [
 		{
 			"name" : "UnitGraphic",
-			"texture":"textures/unit/Default.tga",
+			"texture":"textures/unit/ArrowTower.tga",
 			"unitsize": "point"
 		},
 		{
