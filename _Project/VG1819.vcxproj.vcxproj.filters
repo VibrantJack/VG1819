@@ -592,6 +592,9 @@
     <ClCompile Include="..\components\TabMenu.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\UI\TabMenu\ReturnToMainMenuButton.cpp">
+      <Filter>UI\TabMenu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1129,6 +1132,9 @@
     </ClInclude>
     <ClInclude Include="..\components\TabMenu.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\TabMenu\ReturnToMainMenuButton.h">
+      <Filter>UI\TabMenu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

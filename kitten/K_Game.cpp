@@ -139,7 +139,7 @@ namespace kitten
 		//unit::UnitTest::getInstanceSafe()->test();
 
 		//UIO TESTING
-		K_GameObject* hand = K_GameObjectManager::getInstance()->createNewGameObject();
+		/*K_GameObject* hand = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* handFrame = compMan->createComponent("Hand");
 		hand->addComponent(handFrame);
 		hand->getTransform().scale2D(600.0f, 150.0f);
@@ -174,7 +174,7 @@ namespace kitten
 			clickUI->start();
 
 			
-		}
+		}*/
 		/*
 		//testing ui frame and textbox
 		K_GameObject* go = K_GameObjectManager::getInstance()->createNewGameObject();
@@ -202,7 +202,8 @@ namespace kitten
 		K_GameObject* spawnUnitOnKeyPress = K_GameObjectManager::getInstance()->createNewGameObject();
 		spawnUnitOnKeyPress->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("SpawnUnitOnKeyPress"));
 
-		spawnUnitOnKeyPress->addComponent(compMan->createComponent("TabMenu"));
+		K_GameObject* tabMenu = K_GameObjectManager::getInstance()->createNewGameObject();
+		tabMenu->addComponent(compMan->createComponent("TabMenu"));
 
 		return true;
 	}

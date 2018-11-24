@@ -8,6 +8,8 @@ class TabMenu : public kitten::K_Component
 private:
 	input::InputManager* m_input;
 	bool m_bOpened;
+
+	kitten::K_GameObject* m_returnToMainButton;
 public:
 	TabMenu();
 	~TabMenu();

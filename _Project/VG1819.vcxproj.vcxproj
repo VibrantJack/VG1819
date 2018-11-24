@@ -254,6 +254,7 @@
     <ClCompile Include="..\UI\CardUIO.cpp" />
     <ClCompile Include="..\UI\HandFrame.cpp" />
     <ClCompile Include="..\UI\InterfaceBuilder.cpp" />
+    <ClCompile Include="..\UI\TabMenu\ReturnToMainMenuButton.cpp" />
     <ClCompile Include="..\UI\UIElement.cpp" />
     <ClCompile Include="..\UI\UIFrame.cpp" />
     <ClCompile Include="..\UI\UIObject.cpp" />
@@ -437,6 +438,7 @@
     <ClInclude Include="..\UI\CardUIO.h" />
     <ClInclude Include="..\UI\HandFrame.h" />
     <ClInclude Include="..\UI\InterfaceBuilder.h" />
+    <ClInclude Include="..\UI\TabMenu\ReturnToMainMenuButton.h" />
     <ClInclude Include="..\UI\UIElement.h" />
     <ClInclude Include="..\UI\UIFrame.h" />
     <ClInclude Include="..\UI\UIObject.h" />

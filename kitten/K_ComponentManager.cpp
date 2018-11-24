@@ -33,6 +33,7 @@
 #include "networking\SpawnUnitOnKeyPress.h"
 #include "networking\NetworkingConsoleMenu.h"
 #include "components\TabMenu.h"
+#include "UI\TabMenu\ReturnToMainMenuButton.h"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 
 #include "kitten\K_ParticleSystem.h"
@@ -108,6 +109,10 @@ namespace kitten
 		else if (p_componentName == "ClickableUI") // Datadriven
 		{
 			comp = new ClickableUI();
+		}
+		else if (p_componentName == "ReturnToMainMenuButton") // Datadriven
+		{
+			comp = new userinterface::ReturnToMainMenuButton();
 		}
 		else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
 		{
