@@ -45,6 +45,8 @@
 #include "board/clickable/SendSelfOnClick.h"
 //tile
 #include "board/tile/TileInfo.h"
+
+#include "unitInteraction/CounterGetterDisplay.h"
 namespace kitten
 {
 	K_ComponentManager* K_ComponentManager::sm_instance = nullptr;
@@ -211,6 +213,10 @@ namespace kitten
 		else if (p_componentName == "TileInfo") // Datadriven
 		{
 			comp = new TileInfo();
+		}
+		else if (p_componentName == "CounterGetterDisplay")
+		{
+			comp = new CounterGetterDisplay();
 		}
 		else
 		{

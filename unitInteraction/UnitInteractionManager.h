@@ -14,6 +14,7 @@ UnitInteractionManager:
 #include "unit/Unit.h"
 
 class TileGetter;
+class CounterGetter;
 class UnitInteractionManager
 {
 public:
@@ -23,6 +24,7 @@ public:
 
 	void request(unit::Unit* p_unit, unit::AbilityDescription * p_ad);
 
+	void setCounter(const std::string& p_counter, int p_n);
 	void setTarget(std::vector<kitten::K_GameObject*> p_tileList, std::vector<unit::Unit*> p_unitList);
 
 	void cancel();
@@ -32,6 +34,7 @@ private:
 	~UnitInteractionManager();
 
 	TileGetter* m_tileGetter;
+	CounterGetter* m_counterGetter;
 
 	unit::Unit* m_unit;
 	unit::AbilityDescription* m_ad;
@@ -39,6 +42,9 @@ private:
 	std::string m_abilityName;
 
 	bool m_busy;//already receive a request
+	bool m_getCounter;//need counter
+	bool m_getTile;//need target
+	bool m_needunit;//need unit
 
 	void send();
 	void addPropertyFromADToPack();

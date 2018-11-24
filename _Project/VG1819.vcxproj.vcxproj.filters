@@ -490,9 +490,6 @@
     <ClCompile Include="..\ability\ability\Join.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\Status_Temp_Change.cpp">
-      <Filter>ability\status</Filter>
-    </ClCompile>
     <ClCompile Include="..\board\tile\landInfo\SandLand.cpp">
       <Filter>board\tile\landInfo</Filter>
     </ClCompile>
@@ -522,7 +519,37 @@
     </ClCompile>
     <ClCompile Include="..\networking\AbilityPacket.cpp">
       <Filter>networking</Filter>
-	 </ClCompile>
+	</ClCompile>
+    <ClCompile Include="..\board\component\area\AllPattern.cpp">
+      <Filter>board\component\area</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\NoCommanderFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\EnemyFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\AllyFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Invest.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\GoldRush.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\PowerOfMoney.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Temp_Change.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unitInteraction\CounterGetter.cpp">
+      <Filter>unitInteraction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unitInteraction\CounterGetterDisplay.cpp">
+      <Filter>unitInteraction</Filter>
+    </ClCompile>
     <ClCompile Include="..\puppy\Particles\AccelerationAff.cpp">
       <Filter>puppy\particles</Filter>
     </ClCompile>
@@ -1048,6 +1075,15 @@
     </ClInclude>
     <ClInclude Include="..\puppy\TextureBlendMaterial.h">
       <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ability\AbilityMacro.h">
+      <Filter>ability</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unitInteraction\CounterGetter.h">
+      <Filter>unitInteraction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unitInteraction\CounterGetterDisplay.h">
+      <Filter>unitInteraction</Filter>
     </ClInclude>
     <ClInclude Include="..\puppy\Particles\AccelerationAff.h">
       <Filter>puppy\particles</Filter>

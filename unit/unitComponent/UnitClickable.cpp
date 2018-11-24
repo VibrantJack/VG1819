@@ -123,9 +123,16 @@ void unit::UnitClickable::start()
 	}
 
 	//for test
-	addAbility("Join");
 	addAbility("For test: Level Up");
 	addAbility("For test: Destroy");
+
+	for (std::string it : u->m_tags)//strucutre can't join to another unit
+	{
+		if (it == STRUCTURE)
+			return;
+	}
+
+	addAbility("Join");
 }
 
 void unit::UnitClickable::update()

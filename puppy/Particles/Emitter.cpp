@@ -240,8 +240,23 @@ namespace puppy
 			}
 			else if (propName == "direction")
 			{
-				bool useOff = child.attribute("useOffset").as_bool();
-				m_spawnProperties.push_back(new DirectionSpawnAff(useOff));
+				std::string modeStr = child.attribute("mode").as_string();
+				DirectionSpawnAff::mode mode;
+
+				if (modeStr == "useOffset")
+				{
+					mode = DirectionSpawnAff::mode::offset;
+				}
+				else if (modeStr == "random")
+				{
+					mode = DirectionSpawnAff::mode::random;
+				}
+				else if (modeStr == "up")
+				{
+					mode = DirectionSpawnAff::mode::up;
+				}
+
+				m_spawnProperties.push_back(new DirectionSpawnAff(mode));
 			}
 			else if (propName == "burst")
 			{

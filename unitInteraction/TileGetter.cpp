@@ -141,6 +141,7 @@ void TileGetter::putRange(kitten::Event * e)
 	else
 	{
 		e->putString("mode", "all");
+		e->putGameObj("tileAtOrigin", m_source->getTile());
 	}
 }
 
