@@ -517,6 +517,9 @@
     <ClCompile Include="..\puppy\TextureBlendMaterial.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
+    <ClCompile Include="..\networking\AbilityPacket.cpp">
+      <Filter>networking</Filter>
+	</ClCompile>
     <ClCompile Include="..\board\component\area\AllPattern.cpp">
       <Filter>board\component\area</Filter>
     </ClCompile>
