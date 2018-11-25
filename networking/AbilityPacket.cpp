@@ -30,7 +30,7 @@ void AbilityPacket::print()
 	printf("\nm_numTargetTiles: %d\nTiles: ", m_numTargetTiles);
 	for (int i = 0; i < m_numTargetTiles; ++i)
 	{
-		std::pair<int, int> tilePos = m_targetTilesGO[i];
+		std::pair<int, int> tilePos = m_targetTiles[i];
 		int posX = tilePos.first;
 		int posY = tilePos.second;
 		printf("(%d, %d), ", posX, posY);
@@ -125,7 +125,7 @@ void AbilityPacket::serialize(Buffer& p_buffer)
 	writeInt(p_buffer, this->m_numTargetTiles);
 	for (int i = 0; i < m_numTargetTiles; ++i)
 	{
-		std::pair<int,int> tilePos = m_targetTilesGO[i];
+		std::pair<int,int> tilePos = m_targetTiles[i];
 		int posX = tilePos.first;
 		int posY = tilePos.second;
 		writeInt(p_buffer, posX);
@@ -172,7 +172,7 @@ void AbilityPacket::deserialize(Buffer& p_buffer)
 	{
 		int posX = readInt(p_buffer);
 		int posY = readInt(p_buffer);
-		m_targetTilesGO.push_back(std::make_pair(posX, posY));
+		m_targetTiles.push_back(std::make_pair(posX, posY));
 	}
 
 	m_abilityNameLength = readInt(p_buffer);	
@@ -184,21 +184,6 @@ void AbilityPacket::deserialize(Buffer& p_buffer)
 
 int AbilityPacket::getSize()
 {
-	/*int total = 0;
-	total += sizeof(packetType);
-	total += sizeof(clientId);
-	total += sizeof(sourceUnit);
-	total += sizeof(m_numTargetUnits);
-	total += sizeof(int) * m_numTargetUnits; printf("Calculated TargetUnits size: %d\n", sizeof(int) * m_numTargetUnits);
-	total += sizeof(m_numIntValues);
-	total += sizeof(int) * m_numIntValues;
-	total += sizeof(char) * sumKeysLength;
-	total += sizeof(int) * m_numIntValues; printf("Calculated IntValues size: %d\n", (sizeof(int) * m_numIntValues) + (sizeof(char) * sumKeysLength) + (sizeof(int) * m_numIntValues));
-	total += sizeof(m_numTargetTiles);
-	total += sizeof(int) * 2 * m_numTargetTiles; printf("Calculated TargetTiles size: %d\n", sizeof(int) * 2 * m_numTargetTiles);
-	total += sizeof(m_abilityNameLength);
-	total += sizeof(char) * m_abilityNameLength; printf("Calculated AbilityName size: %d\n", sizeof(char) * m_abilityNameLength);*/
-
 	// sizeof all member int variables
 	int intVariablesSize = 
 		sizeof(m_packetType) 
@@ -268,7 +253,7 @@ void AbilityPacket::addTargetTiles(TargetTiles p_targetTilesGO)
 		int y = tileInfo->getPosY();
 		tiles.push_back(std::make_pair(x, y));
 	}
-	m_targetTilesGO = tiles;
+	m_targetTiles = tiles;
 }
 
 const std::vector<unit::Unit*>& AbilityPacket::getTargetUnits()
@@ -276,13 +261,13 @@ const std::vector<unit::Unit*>& AbilityPacket::getTargetUnits()
 	networking::ClientGame* client = networking::ClientGame::getInstance();
 	assert(client != nullptr);
 
-	TargetUnits targetUnits;
+	m_targetObj.clear();
 	for (int i = 0; i < m_numTargetUnits; ++i)
 	{
-		targetUnits.push_back(client->getUnitGameObject(m_targets[i])->getComponent<unit::Unit>());
+		m_targetObj.push_back(client->getUnitGameObject(m_targets[i])->getComponent<unit::Unit>());
 	}
 
-	return targetUnits;
+	return m_targetObj;
 }
 
 const std::unordered_map<std::string, int>& AbilityPacket::getIntValues()
@@ -295,14 +280,14 @@ const std::vector<kitten::K_GameObject*>& AbilityPacket::getTargetTiles()
 	BoardManager* board = BoardManager::getInstance();
 	assert(board != nullptr);
 
-	TargetTiles targetTiles;
+	m_targetTilesGO.clear();
 	for (int i = 0; i < m_numTargetTiles; ++i)
 	{
-		int x = m_targetTilesGO[i].first;
-		int y = m_targetTilesGO[i].second;
+		int x = m_targetTiles[i].first;
+		int y = m_targetTiles[i].second;
 		kitten::K_GameObject* tile = board->getTile(x, y);		
-		targetTiles.push_back(tile);
+		m_targetTilesGO.push_back(tile);
 	}
 
-	return targetTiles;
+	return m_targetTilesGO;
 }

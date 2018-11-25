@@ -32,7 +32,6 @@ namespace networking
 		void update();
 
 		void useAbility(AbilityPacket& p_packet);
-		void testNewPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
 		void sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
 
 		void summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);

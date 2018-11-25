@@ -32,7 +32,7 @@ void unit::UnitClickable::onClick()
 	{
 		if (client->getClientId() != u->m_clientId)
 		{
-			//return;
+			return;
 		}
 		// Should have an else here that allows a player to view the clicked units stats even though
 		// they cannot click on the unit to perform actions

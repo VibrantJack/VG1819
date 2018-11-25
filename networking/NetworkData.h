@@ -149,12 +149,14 @@ private:
 
 	int m_numTargetUnits;
 	std::vector<int> m_targets;
+	TargetUnits m_targetObj;
 
 	int m_numIntValues;
 	IntValues m_intValue;
 
 	int m_numTargetTiles;
-	std::vector<std::pair<int, int>> m_targetTilesGO;
+	std::vector<std::pair<int, int>> m_targetTiles;
+	TargetTiles m_targetTilesGO;
 
 	void writeInt(Buffer &p_buffer, int p_value);
 	void writeChar(Buffer &p_buffer, char p_value);

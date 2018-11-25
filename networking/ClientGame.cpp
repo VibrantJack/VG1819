@@ -186,12 +186,8 @@ namespace networking
 
 				AbilityPacket packet;
 				packet.deserialize(buffer);
-				//packet.print();
-				printf("Received ability: %s\n", packet.m_abilityName.c_str());
-				//printf("data_length: %d\n", data_length);
-				//printf("Before increment Count i: %d\n", i);
 				i += packet.getBytes();
-				//printf("Incremented Count i: %d\n", i);
+
 				useAbility(packet);
 				break;
 			}
@@ -241,47 +237,6 @@ namespace networking
 		info->m_targetTilesGO = p_packet.getTargetTiles();
 
 		ability::AbilityManager::getInstance()->findAbility(strAbilityName)->effect(info);
-	}
-
-	void ClientGame::testNewPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info)
-	{
-		AbilityPacket packet;
-		packet.m_packetType = 0; // Create new enum for AbilityPacket
-		packet.m_clientId = 1;
-		packet.m_sourceUnit = 2;
-
-		//packet.m_numTargetUnits = p_info->m_targets.size();
-		//packet.m_targets = p_info->m_targets;
-
-		//packet.m_numIntValues = p_info->m_intValue.size();
-		//packet.m_intValue = p_info->m_intValue;
-
-		//packet.m_numTargetTiles = p_info->m_targetTilesGO.size();
-		//packet.m_targetTilesGO = p_info->m_targetTilesGO;
-
-		packet.addTargetUnits(p_info->m_targets);
-		packet.addIntValues(p_info->m_intValue);
-		packet.addTargetTiles(p_info->m_targetTilesGO);
-
-		packet.m_abilityNameLength = p_strAbilityName.size();
-		//strcpy(packet.m_abilityName, p_strAbilityName.c_str());
-		packet.m_abilityName = p_strAbilityName;
-
-		//char* data = new char[packet.getSize()];
-		char data[1000000];
-		Buffer buffer;
-		buffer.m_data = data;
-		buffer.m_size = packet.getSize();
-		packet.serialize(buffer);
-
-		Buffer buffer2;
-		buffer2.m_data = data;
-		buffer2.m_size = packet.getSize();
-		AbilityPacket packet2;
-		packet2.deserialize(buffer2);
-
-		packet2.print();
-		//delete[] data;
 	}
 
 	void ClientGame::sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info)

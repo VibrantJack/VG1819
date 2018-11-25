@@ -62,12 +62,6 @@ void SpawnUnitOnKeyPress::update()
 						unitId++;
 				}
 				m_bUnitsSpawned = true;
-
-				if (!m_bGameStarted)
-				{
-					unit::InitiativeTracker::getInstance()->gameTurnStart();
-					m_bGameStarted = true;
-				}
 			} 
 			else if (clientId == 1)
 			{
@@ -84,13 +78,7 @@ void SpawnUnitOnKeyPress::update()
 					if (unitId == 5)
 						unitId++;
 				}
-				m_bUnitsSpawned = true;
-
-				if (!m_bGameStarted)
-				{
-					unit::InitiativeTracker::getInstance()->gameTurnStart();
-					m_bGameStarted = true;
-				}				
+				m_bUnitsSpawned = true;		
 			}
 		}
 
