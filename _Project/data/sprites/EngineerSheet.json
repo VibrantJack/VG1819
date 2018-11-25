@@ -1,0 +1,23 @@
+{
+	"name" : "engineer",
+	"texture" : "textures/sprites/units/humans/EngineerSheet.tga",
+	
+	"sheetwidth" : 492,
+	"sheetheight" : 101,
+	
+	"characterwidth" : 72,
+	"characterheight" : 91,
+	
+	"padding" : 10,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [5,0],
+			"time" : 1.5
+		}	
+	],
+	
+	"defaultanimation" : "idle"
+}

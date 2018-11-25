@@ -1,0 +1,23 @@
+{
+	"name" : "oligarch",
+	"texture" : "textures/sprites/units/humans/OligarchSheet.tga",
+	
+	"sheetwidth" : 371,
+	"sheetheight" : 102,
+	
+	"characterwidth" : 43,
+	"characterheight" : 92,
+	
+	"padding" : 10,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [6,0],
+			"time" : 2.0
+		}	
+	],
+	
+	"defaultanimation" : "idle"
+}

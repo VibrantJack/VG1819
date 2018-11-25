@@ -4,6 +4,8 @@
 		"ArcherSheet.json",
 		"ClericSheet.json",
 		"WizardSheet.json",
-		"StoneSlinger.json"
+		"StoneSlinger.json",
+		"OligarchSheet.json",
+		"EngineerSheet.json"
 	]
 }
