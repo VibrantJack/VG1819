@@ -215,22 +215,12 @@ namespace networking
 						break;
 					}
 					case SKIP_TURN:
+					case GAME_TURN_START:
 					{
 						i += BASIC_PACKET_SIZE;
-						printf("Server received SKIP_TURN from [Client: %d]\n", iter->first);
+						printf("Server received BasicPacket PacketType: %d from [Client: %d]\n", defaultPacket.m_packetType, iter->first);
 
-						char packetData[BASIC_PACKET_SIZE];
-
-						Buffer buffer;
-						buffer.m_data = packetData;
-						buffer.m_size = BASIC_PACKET_SIZE;
-
-						Packet packet;
-						packet.m_packetType = SKIP_TURN;
-						packet.m_clientId = iter->first;
-
-						packet.serialize(buffer);
-						m_network->sendToOthers(iter->first, packetData, BASIC_PACKET_SIZE);
+						m_network->sendToOthers(iter->first, defaultBuffer.m_data, BASIC_PACKET_SIZE);
 						break;
 					}
 					default:

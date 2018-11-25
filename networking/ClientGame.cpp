@@ -51,7 +51,7 @@ namespace networking
 		return sm_clientGameInstance;
 	}
 
-	ClientGame::ClientGame(const std::string &p_strAddr)
+	ClientGame::ClientGame(const std::string &p_strAddr) : m_bGameTurnStart(false)
 	{
 		setupNetwork(p_strAddr);
 	}
@@ -186,12 +186,8 @@ namespace networking
 
 				AbilityPacket packet;
 				packet.deserialize(buffer);
-				//packet.print();
-				printf("Received ability: %s\n", packet.m_abilityName.c_str());
-				//printf("data_length: %d\n", data_length);
-				//printf("Before increment Count i: %d\n", i);
 				i += packet.getBytes();
-				//printf("Incremented Count i: %d\n", i);
+
 				useAbility(packet);
 				break;
 			}
@@ -221,6 +217,18 @@ namespace networking
 
 				break;
 			}
+			case PacketTypes::GAME_TURN_START:
+			{
+				printf("[Client: %d] received packet GAME_TURN_START from server\n", m_iClientId);
+				i += BASIC_PACKET_SIZE;
+
+				if (!m_bGameTurnStart)
+				{
+					unit::InitiativeTracker::getInstance()->gameTurnStart();
+					m_bGameTurnStart = true;
+				}
+				break;
+			}
 			default:
 				printf("[Client: %d] received %d; error in packet types\n", m_iClientId, packetType);
 				i += (unsigned int)data_length;
@@ -241,47 +249,6 @@ namespace networking
 		info->m_targetTilesGO = p_packet.getTargetTiles();
 
 		ability::AbilityManager::getInstance()->findAbility(strAbilityName)->effect(info);
-	}
-
-	void ClientGame::testNewPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info)
-	{
-		AbilityPacket packet;
-		packet.m_packetType = 0; // Create new enum for AbilityPacket
-		packet.m_clientId = 1;
-		packet.m_sourceUnit = 2;
-
-		//packet.m_numTargetUnits = p_info->m_targets.size();
-		//packet.m_targets = p_info->m_targets;
-
-		//packet.m_numIntValues = p_info->m_intValue.size();
-		//packet.m_intValue = p_info->m_intValue;
-
-		//packet.m_numTargetTiles = p_info->m_targetTilesGO.size();
-		//packet.m_targetTilesGO = p_info->m_targetTilesGO;
-
-		packet.addTargetUnits(p_info->m_targets);
-		packet.addIntValues(p_info->m_intValue);
-		packet.addTargetTiles(p_info->m_targetTilesGO);
-
-		packet.m_abilityNameLength = p_strAbilityName.size();
-		//strcpy(packet.m_abilityName, p_strAbilityName.c_str());
-		packet.m_abilityName = p_strAbilityName;
-
-		//char* data = new char[packet.getSize()];
-		char data[1000000];
-		Buffer buffer;
-		buffer.m_data = data;
-		buffer.m_size = packet.getSize();
-		packet.serialize(buffer);
-
-		Buffer buffer2;
-		buffer2.m_data = data;
-		buffer2.m_size = packet.getSize();
-		AbilityPacket packet2;
-		packet2.deserialize(buffer2);
-
-		packet2.print();
-		//delete[] data;
 	}
 
 	void ClientGame::sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info)
@@ -344,7 +311,7 @@ namespace networking
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, SUMMON_UNIT_PACKET_SIZE);
 	}
 
-	void ClientGame::sendSkipTurnPacket()
+	void ClientGame::sendBasicPacket(PacketTypes p_packetType)
 	{
 		char data[BASIC_PACKET_SIZE];
 
@@ -353,12 +320,13 @@ namespace networking
 		buffer.m_size = BASIC_PACKET_SIZE;
 
 		Packet packet;
-		packet.m_packetType = SKIP_TURN;
+		packet.m_packetType = p_packetType;
 		packet.m_clientId = m_iClientId;
 
 		packet.serialize(buffer);
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
 	}
+
 
 	int ClientGame::getUnitGameObjectIndex(kitten::K_GameObject* p_unit)
 	{

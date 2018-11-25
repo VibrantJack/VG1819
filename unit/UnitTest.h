@@ -11,6 +11,7 @@ namespace unit
 	{
 	private:
 		static UnitTest * m_instance;
+		static bool m_bTested;
 	public:
 		UnitTest();
 		~UnitTest();
@@ -19,5 +20,7 @@ namespace unit
 		static UnitTest* getInstanceSafe();
 
 		void test();
+
+		static bool isTested() { return m_bTested; }
 	};
 }

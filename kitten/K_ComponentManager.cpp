@@ -32,6 +32,7 @@
 #include "components\SelectAbility.h"
 #include "networking\SpawnUnitOnKeyPress.h"
 #include "networking\NetworkingConsoleMenu.h"
+#include "_Project\StringInputDisplay.h"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 
 #include "kitten\K_ParticleSystem.h"
@@ -217,6 +218,10 @@ namespace kitten
 		else if (p_componentName == "CounterGetterDisplay")
 		{
 			comp = new CounterGetterDisplay();
+		}
+		else if (p_componentName == "StringInputDisplay")
+		{
+			comp = new StringInputDisplay();
 		}
 		else
 		{

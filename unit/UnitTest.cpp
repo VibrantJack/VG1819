@@ -23,6 +23,7 @@
 namespace unit
 {
 	UnitTest* UnitTest::m_instance = nullptr;
+	bool UnitTest::m_bTested = false;
 
 	UnitTest::UnitTest()
 	{
@@ -42,6 +43,7 @@ namespace unit
 
 	void UnitTest::test()
 	{
+		m_bTested = true;
 		//comment for testing IT
 
 		kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstanceSafe()->spawnUnitObject(6); // NewDummy !!!
