@@ -12,6 +12,7 @@
 #include "board/BoardManager.h"
 #include "unit/UnitSpawn.h"
 #include "kitten/K_GameObjectManager.h"
+#include "kibble/databank/databank.hpp"
 
 namespace ability
 {
@@ -27,18 +28,15 @@ namespace ability
 
 		//get Unit data
 		//fixed for now
-		kitten::K_GameObject* uGO = unit::UnitSpawn::getInstanceSafe()->spawnUnitObject(2);
-		unit::Unit* u = uGO->getComponent<unit::Unit>();
+		unit::Unit* u = kibble::getUnitFromId(2);
 		if (u->m_attributes[UNIT_COST] <= powerTracker->getCurrentPower())
 		{
+			kitten::K_GameObject* uGO = unit::UnitSpawn::getInstanceSafe()->spawnUnitObject(2);
+
 			powerTracker->summonUnitCost(u->m_attributes[UNIT_COST]);
 
 			kitten::K_GameObject* tile = p_info->m_targetTilesGO[0];
 			uGO->getComponent<unit::UnitMove>()->setTile(tile);
-		}
-		else
-		{
-			kitten::K_GameObjectManager::getInstance()->destroyGameObject(uGO);
 		}
 
 		/*

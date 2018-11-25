@@ -20,6 +20,8 @@ namespace unit
 		void turnStart();
 		void next();
 		void change(int p_i);
+		//void add(int p_i);
+		//void remove(int p_i);
 		int isShown(int p_i);
 
 	private:
