@@ -51,7 +51,7 @@ namespace networking
 		return sm_clientGameInstance;
 	}
 
-	ClientGame::ClientGame(const std::string &p_strAddr)
+	ClientGame::ClientGame(const std::string &p_strAddr) : m_bGameTurnStart(false)
 	{
 		setupNetwork(p_strAddr);
 	}

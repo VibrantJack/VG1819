@@ -22,8 +22,7 @@
 
 SpawnUnitOnKeyPress::SpawnUnitOnKeyPress()
 	:
-	m_bUnitsSpawned(false),
-	m_bGameStarted(false)
+	m_bUnitsSpawned(false)
 {
 	unit::UnitSpawn::getInstanceSafe();
 }
@@ -44,8 +43,8 @@ void SpawnUnitOnKeyPress::update()
 	{		
 		if (input::InputManager::getInstance()->keyDown('S') && !input::InputManager::getInstance()->keyDownLast('S') && !m_bUnitsSpawned)
 		{
-			m_client = networking::ClientGame::getInstance();
-			int clientId = m_client->getClientId();
+			networking::ClientGame* client = networking::ClientGame::getInstance();
+			int clientId = client->getClientId();
 			if (clientId == 0)
 			{
 				int posX = 7;
@@ -54,8 +53,8 @@ void SpawnUnitOnKeyPress::update()
 
 				for (int i = 0; i < 5; ++i)
 				{
-					m_client->summonUnit(clientId, unitId, posX, posY);
-					m_client->sendSummonUnitPacket(clientId, unitId, posX, posY);
+					client->summonUnit(clientId, unitId, posX, posY);
+					client->sendSummonUnitPacket(clientId, unitId, posX, posY);
 					posX++;
 					unitId++;
 					if (unitId == 5)
@@ -71,8 +70,8 @@ void SpawnUnitOnKeyPress::update()
 
 				for (int i = 0; i < 5; ++i)
 				{
-					m_client->summonUnit(clientId, unitId, posX, posY);
-					m_client->sendSummonUnitPacket(clientId, unitId, posX, posY);
+					client->summonUnit(clientId, unitId, posX, posY);
+					client->sendSummonUnitPacket(clientId, unitId, posX, posY);
 					posX++;
 					unitId++;
 					if (unitId == 5)
@@ -82,12 +81,13 @@ void SpawnUnitOnKeyPress::update()
 			}
 		}
 
-		if (input::InputManager::getInstance()->keyDown('G') && !input::InputManager::getInstance()->keyDownLast('G'))
+		if (input::InputManager::getInstance()->keyDown('G') && !input::InputManager::getInstance()->keyDownLast('G') && m_bUnitsSpawned)
 		{
-			if (!m_client->isGameTurnStarted())
+			networking::ClientGame* client = networking::ClientGame::getInstance();
+			if (!client->isGameTurnStarted())
 			{
 				unit::InitiativeTracker::getInstance()->gameTurnStart();
-				m_client->sendBasicPacket(GAME_TURN_START);
+				client->sendBasicPacket(GAME_TURN_START);
 			}
 		}
 	}

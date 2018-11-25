@@ -21,6 +21,4 @@ public:
 	virtual void update() override;
 private:
 	bool m_bUnitsSpawned, m_bGameStarted;
-
-	networking::ClientGame* m_client;
 };
