@@ -51,7 +51,7 @@
 		},
 		{
 			"name" : "UnitMove",
-			"offset":[0.15,1.0,0.8]
+			"offset":[0.0,1.0,0.8]
 		},
 		{
 			"name" : "ClickableBox",

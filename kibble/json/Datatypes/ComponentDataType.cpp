@@ -388,6 +388,13 @@ kitten::K_Component* getUIFrame(nlohmann::json* p_jsonFile) {
 
 #include "unit/unitComponent/UnitMove.h"
 kitten::K_Component* getUnitMove(nlohmann::json* p_jsonFile) {
+	glm::vec3 offset;
+
+	if (JSONHAS("offset")) {
+		offset = glm::vec3(LOOKUP("offset")[0], LOOKUP("offset")[1], LOOKUP("offset")[2]);
+		return new unit::UnitMove(offset);
+	}
+
 	return new unit::UnitMove();
 }
 

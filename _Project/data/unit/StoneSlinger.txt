@@ -51,12 +51,12 @@
 		},
 		{
 			"name" : "UnitMove",
-			"offset":[0.15,1.0,0.8]
+			"offset":[0.15,1.0,0.4]
 		},
 		{
 			"name" : "ClickableBox",
 			"minpoint":[-0.25,-0.5,0],
-			"maxpoint":[0.25,0.5,0]
+			"maxpoint":[0.25,0.0,0]
 		},
 		{
 			"name" : "SpriteRenderable"
@@ -66,6 +66,6 @@
 			"spritename" : "stoneslinger"
 		}
 	],
-	"scale" : [0.5,1,0],
+	"scale" : [0.3,1,0],
 	"rotate" : [45, 0, 0]
 }
