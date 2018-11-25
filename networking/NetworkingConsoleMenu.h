@@ -28,6 +28,7 @@ public:
 	);
 
 private:
+	puppy::TextBox* m_textBox;
 	StringInputDisplay* m_stringInputDisplay;
 	input::InputManager* m_inputMan;
 

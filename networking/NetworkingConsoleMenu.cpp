@@ -44,6 +44,9 @@ NetworkingConsoleMenu::~NetworkingConsoleMenu()
 
 void NetworkingConsoleMenu::start()
 {
+	m_textBox = m_attachedObject->getComponent<puppy::TextBox>();
+	assert(m_textBox != nullptr);
+
 	m_stringInputDisplay = m_attachedObject->getComponent<StringInputDisplay>();
 	assert(m_stringInputDisplay != nullptr);
 
@@ -101,7 +104,7 @@ void NetworkingConsoleMenu::update()
 			else
 			{
 				printf("Connect to host option selected, enter an address: \n");
-
+				m_textBox->setText("Enter IP Address");
 				m_inputMan->setPollMode(false);
 				m_bEnteringAddress = true;
 				m_bMenuOpen = false;
