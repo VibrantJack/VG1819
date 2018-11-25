@@ -82,10 +82,13 @@ void SpawnUnitOnKeyPress::update()
 			}
 		}
 
-		if (input::InputManager::getInstance()->keyDown('G') && !input::InputManager::getInstance()->keyDownLast('G') && !m_bGameStarted)
+		if (input::InputManager::getInstance()->keyDown('G') && !input::InputManager::getInstance()->keyDownLast('G'))
 		{
-			unit::InitiativeTracker::getInstance()->gameTurnStart();
-			m_bGameStarted = true;
+			if (!m_client->isGameTurnStarted())
+			{
+				unit::InitiativeTracker::getInstance()->gameTurnStart();
+				m_client->sendBasicPacket(GAME_TURN_START);
+			}
 		}
 	}
 }

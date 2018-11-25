@@ -217,6 +217,18 @@ namespace networking
 
 				break;
 			}
+			case PacketTypes::GAME_TURN_START:
+			{
+				printf("[Client: %d] received packet GAME_TURN_START from server\n", m_iClientId);
+				i += BASIC_PACKET_SIZE;
+
+				if (!m_bGameTurnStart)
+				{
+					unit::InitiativeTracker::getInstance()->gameTurnStart();
+					m_bGameTurnStart = true;
+				}
+				break;
+			}
 			default:
 				printf("[Client: %d] received %d; error in packet types\n", m_iClientId, packetType);
 				i += (unsigned int)data_length;
@@ -299,7 +311,7 @@ namespace networking
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, SUMMON_UNIT_PACKET_SIZE);
 	}
 
-	void ClientGame::sendSkipTurnPacket()
+	void ClientGame::sendBasicPacket(PacketTypes p_packetType)
 	{
 		char data[BASIC_PACKET_SIZE];
 
@@ -308,12 +320,13 @@ namespace networking
 		buffer.m_size = BASIC_PACKET_SIZE;
 
 		Packet packet;
-		packet.m_packetType = SKIP_TURN;
+		packet.m_packetType = p_packetType;
 		packet.m_clientId = m_iClientId;
 
 		packet.serialize(buffer);
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
 	}
+
 
 	int ClientGame::getUnitGameObjectIndex(kitten::K_GameObject* p_unit)
 	{

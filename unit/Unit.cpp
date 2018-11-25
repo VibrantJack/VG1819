@@ -246,7 +246,7 @@ namespace unit
 		{
 			if (!networking::ClientGame::getInstance()->isServerCalling())
 			{
-				networking::ClientGame::getInstance()->sendSkipTurnPacket();
+				networking::ClientGame::getInstance()->sendBasicPacket(PacketTypes::SKIP_TURN);
 			}
 		}
 		m_turn->turnEnd();

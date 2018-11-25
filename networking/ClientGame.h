@@ -37,7 +37,7 @@ namespace networking
 		void summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
 		void sendSummonUnitPacket(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
 
-		void sendSkipTurnPacket();
+		void sendBasicPacket(PacketTypes p_packetType);
 
 		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);
 		kitten::K_GameObject* getUnitGameObject(int p_iIndex);
@@ -45,6 +45,7 @@ namespace networking
 
 		int getClientId() { return m_iClientId; }
 		bool isServerCalling() { return m_bServerCalling; }
+		bool isGameTurnStarted() { return m_bGameTurnStart; }
 
 	private:
 		ClientNetwork* m_network;
@@ -53,6 +54,7 @@ namespace networking
 
 		int m_iClientId = -1;
 		bool m_bServerCalling = false;
+		bool m_bGameTurnStart = false;
 
 		// Unit GO list so clients can have a reference to the same unit GO without having the same mem address
 		std::map<int, kitten::K_GameObject*> m_unitGOList;
