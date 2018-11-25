@@ -20,10 +20,6 @@
 		    "translate2d" : [100,700]
 		},
 		{
-			"filename" : "StringInputDisplay.txt",
-			"translate2d" : [400, 700]
-		},
-		{
 			"filename" : "UniversalPfx.txt"
 		}
     ],

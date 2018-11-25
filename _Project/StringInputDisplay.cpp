@@ -24,6 +24,7 @@ void StringInputDisplay::start()
 void StringInputDisplay::onStringFinished(const std::string& p_string)
 {
 	m_textBox->setText("");
+	m_strEnteredString = p_string;
 }
 
 void StringInputDisplay::onStringChanged(const std::string& p_string)
