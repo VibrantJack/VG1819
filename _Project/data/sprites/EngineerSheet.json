@@ -1,6 +1,6 @@
 {
 	"name" : "engineer",
-	"texture" : "textures/sprites/units/humans/EngineerSheet.tga",
+	"texture" : "textures/sprites/units/humans/engineer_sheet.tga",
 	
 	"sheetwidth" : 492,
 	"sheetheight" : 101,

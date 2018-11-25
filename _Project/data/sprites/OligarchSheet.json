@@ -1,6 +1,6 @@
 {
 	"name" : "oligarch",
-	"texture" : "textures/sprites/units/humans/OligarchSheet.tga",
+	"texture" : "textures/sprites/units/humans/oligarch_sheet.tga",
 	
 	"sheetwidth" : 371,
 	"sheetheight" : 102,

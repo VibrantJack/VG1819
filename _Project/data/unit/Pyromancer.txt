@@ -66,10 +66,17 @@
 		},
 		{
 			"name" : "ClickableBox",
-			"minpoint":[-0.5,-0.5,0],
-			"maxpoint":[0.5,0.5,0]
+			"minpoint":[-0.0625,-0.333,0],
+			"maxpoint":[0.0625,0.333,0]
+		},
+		{
+			"name" : "SpriteRenderable"
+		},
+		{
+			"name" : "SpriteAnimator",
+			"spritename" : "pyromancer"
 		}
 	],
-	"scale" : [0.15,0.20,0],
+	"scale" : [8,1.5,0],
 	"rotate" : [45, 0, 0]
 }
