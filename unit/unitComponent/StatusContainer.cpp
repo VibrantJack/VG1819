@@ -24,7 +24,7 @@ namespace unit
 	void unit::StatusContainer::addStatus(ability::Status * p_newStatus)
 	{
 		m_statusList.push_back(p_newStatus);
-		unit::UnitMonitor().getInstanceSafe()->printUnit(m_unit);
+		unit::UnitMonitor().getInstanceSafe()->printStatus(this);
 	}
 
 	void StatusContainer::queueRemove(ability::Status * p_oldStatus)

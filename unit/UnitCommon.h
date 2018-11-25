@@ -23,6 +23,17 @@
 #define UNIT_DURATION "duration"
 #define UNIT_POWER "power"
 
+//counter attribute
+#define COUNTER_NAME "counter_name"
+#define COUNTER_MAX "counter_max"
+#define COUNTER_MIN "counter_min"
+#define COUNTER_SELECT "counter_select"
+//counter select option
+#define COUNTER_CHOOSE "choose"
+#define COUNTER_ALL "all"
+//counter type
+#define COUNTER_MONEY "money"
+
 //tags
 #define STRUCTURE "Structure"
 

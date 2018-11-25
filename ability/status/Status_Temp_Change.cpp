@@ -1,7 +1,9 @@
 #include "ability/status/Status.h"
+#include "ability/AbilityMacro.h"
 
 ability::Status_Temp_Change::Status_Temp_Change()
 {
+	m_name = STATUS_TEMP_CHANGE;
 	addTimePoint(TimePointEvent::Turn_End);
 }
 

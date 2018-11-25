@@ -1,0 +1,40 @@
+{
+	"unit":{
+		"name":"Divine Statue",
+		"hp":10,
+		"mv":0,
+		"in":17,
+		"cost":8,
+		"tags":["Structure","Terrans"],
+		"ability_description":[
+			{
+				"name":"The Light",
+				"power":2,
+				"target":1,
+				"need_unit":0,
+				"filter":1,
+				"filter0":"no_commander",
+				"area_mode":"all",
+				"description":"Deal 2 damage to both Commanders."
+			}
+		]
+	},
+	"components" : [
+		{
+			"name" : "UnitGraphic",
+			"texture":"textures/unit/Default.tga",
+			"unitsize": "point"
+		},
+		{
+			"name" : "UnitMove",
+			"offset":[0.15,1.0,0.8]
+		},
+		{
+			"name" : "ClickableBox",
+			"minpoint":[-0.5,-0.5,0],
+			"maxpoint":[0.5,0.5,0]
+		}
+	],
+	"scale" : [0.15,0.20,0],
+	"rotate" : [45, 0, 0]
+}

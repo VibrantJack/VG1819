@@ -1,5 +1,4 @@
 
-
 //Rock
 
 //Status include Buff, Debuff, Passive Ability, and level up bonus

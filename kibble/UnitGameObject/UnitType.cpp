@@ -120,11 +120,18 @@ ability::Status * getStatusFrom(nlohmann::json & p_jsonfile)
 		s->changeDescription(p_jsonfile["description"].get<std::string>());
 	}
 
+	/*time point is fixed in each status
 	//get trigger time point 
 	if (p_jsonfile.find("time_point") != p_jsonfile.end())
 	{
 		int i = p_jsonfile["time_point"];
 		s->addTimePoint(static_cast<ability::TimePointEvent::TPEventType>(i));
+	}*/
+
+	//effected thing
+	if (p_jsonfile.find("effected") != p_jsonfile.end())
+	{
+		s->setEffectedAD(p_jsonfile["effected"].get<std::string>());
 	}
 
 	//for lv status

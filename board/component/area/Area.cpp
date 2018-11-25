@@ -33,6 +33,10 @@ Area::Area()
 	ap = new PathPattern();
 	name = PATH;
 	m_map[name] = ap;
+
+	ap = new AllPattern();
+	name = ALL_AREA;
+	m_map[name] = ap;
 }
 
 Area::~Area()
@@ -49,6 +53,7 @@ void Area::setPattern(kitten::Event * p_data)
 	m_info->m_origin = p_data->getGameObj(ORIGIN);
 
 	m_mode = p_data->getString(AREA_MODE);
+
 	int fix = p_data->getInt(AREA_FIX);
 	if(fix == TRUE)
 	{
@@ -64,6 +69,10 @@ void Area::setPattern(kitten::Event * p_data)
 	else if (m_mode == POINT_AREA)
 	{
 		//nothing to add
+	}
+	else if (m_mode == ALL_AREA)
+	{
+		m_fix = true;
 	}
 	else
 	{

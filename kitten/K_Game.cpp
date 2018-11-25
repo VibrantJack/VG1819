@@ -136,7 +136,7 @@ namespace kitten
 		//delete builder;
 
 		//test unit
-		unit::UnitTest::getInstanceSafe()->test();
+		//unit::UnitTest::getInstanceSafe()->test();
 
 		//UIO TESTING
 		K_GameObject* hand = K_GameObjectManager::getInstance()->createNewGameObject();

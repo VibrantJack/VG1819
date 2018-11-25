@@ -67,6 +67,11 @@ kitten::Event::TileList BoardManager::getArea()
 	return kitten::Event::TileList();
 }
 
+kitten::Event::TileList BoardManager::getRange()
+{
+	return m_rangeList;
+}
+
 void BoardManager::registerEvent()
 {
 	kitten::EventManager::getInstance()->addListener(
@@ -147,6 +152,8 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 	setFilter(FILTER, p_data);
 	applyFilter(&list);
   
+	m_rangeList = list;
+
 	m_highlighter->highlightTile(TileInfo::Range, list);
 }
 
@@ -161,6 +168,10 @@ void BoardManager::setFilter(const std::string & p_filter, kitten::Event * p_dat
 {
 	int filterNum = p_data->getInt(p_filter);
 	m_pipeline->resetFilter();
+
+	kitten::K_GameObject* origin = p_data->getGameObj("tileAtOrigin");
+	kitten::K_GameObject* ugo = origin->getComponent<TileInfo>()->getUnit();
+	m_pipeline->setSource(ugo->getComponent<unit::Unit>());
 	for (int i = 0; i < filterNum; i++)
 	{
 		std::stringstream stm;
@@ -189,4 +200,5 @@ void BoardManager::setArea(kitten::Event * p_data)
 	{
 		showArea(p);
 	}
+
 }

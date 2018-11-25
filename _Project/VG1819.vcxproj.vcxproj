@@ -102,11 +102,14 @@
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp" />
     <ClCompile Include="..\ability\ability\Dodge.cpp" />
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
+    <ClCompile Include="..\ability\ability\GoldRush.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
+    <ClCompile Include="..\ability\ability\Invest.cpp" />
     <ClCompile Include="..\ability\ability\Join.cpp" />
     <ClCompile Include="..\ability\ability\Load.cpp" />
     <ClCompile Include="..\ability\ability\ManipulateTile.cpp" />
     <ClCompile Include="..\ability\ability\Move.cpp" />
+    <ClCompile Include="..\ability\ability\PowerOfMoney.cpp" />
     <ClCompile Include="..\ability\ability\Sabotage.cpp" />
     <ClCompile Include="..\ability\ability\SummonUnit.cpp" />
     <ClCompile Include="..\ability\node\AbilityNode.cpp" />
@@ -128,6 +131,7 @@
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
     <ClCompile Include="..\ability\status\Status_Shield.cpp" />
     <ClCompile Include="..\ability\status\Status_Temp_Change.cpp" />
+    <ClCompile Include="..\board\component\area\AllPattern.cpp" />
     <ClCompile Include="..\board\component\area\Area.cpp" />
     <ClCompile Include="..\board\component\area\AreaPattern.cpp" />
     <ClCompile Include="..\board\component\area\LineHPattern.cpp" />
@@ -138,6 +142,9 @@
     <ClCompile Include="..\board\component\area\SquarePattern.cpp" />
     <ClCompile Include="..\board\component\area\TrianglePattern.cpp" />
     <ClCompile Include="..\board\component\PathFind.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\AllyFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\EnemyFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\NoCommanderFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />
@@ -213,6 +220,7 @@
     <ClCompile Include="..\networking\ClientNetwork.cpp" />
     <ClCompile Include="..\networking\NetworkingConsoleMenu.cpp" />
     <ClCompile Include="..\networking\NetworkServices.cpp" />
+    <ClCompile Include="..\networking\AbilityPacket.cpp" />
     <ClCompile Include="..\networking\ServerGame.cpp" />
     <ClCompile Include="..\networking\ServerNetwork.cpp" />
     <ClCompile Include="..\networking\SpawnUnitOnKeyPress.cpp" />
@@ -256,6 +264,8 @@
     <ClCompile Include="..\UI\UIElement.cpp" />
     <ClCompile Include="..\UI\UIFrame.cpp" />
     <ClCompile Include="..\UI\UIObject.cpp" />
+    <ClCompile Include="..\unitInteraction\CounterGetter.cpp" />
+    <ClCompile Include="..\unitInteraction\CounterGetterDisplay.cpp" />
     <ClCompile Include="..\unitInteraction\TileGetter.cpp" />
     <ClCompile Include="..\unitInteraction\UnitInteractionManager.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp" />
@@ -296,6 +306,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ability\AbilityInfoPackage.h" />
+    <ClInclude Include="..\ability\AbilityMacro.h" />
     <ClInclude Include="..\ability\AbilityManager.h" />
     <ClInclude Include="..\ability\ability\Ability.h" />
     <ClInclude Include="..\ability\node\AbilityNode.h" />
@@ -438,6 +449,8 @@
     <ClInclude Include="..\UI\UIElement.h" />
     <ClInclude Include="..\UI\UIFrame.h" />
     <ClInclude Include="..\UI\UIObject.h" />
+    <ClInclude Include="..\unitInteraction\CounterGetter.h" />
+    <ClInclude Include="..\unitInteraction\CounterGetterDisplay.h" />
     <ClInclude Include="..\unitInteraction\TileGetter.h" />
     <ClInclude Include="..\unitInteraction\UnitInteractionManager.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h" />

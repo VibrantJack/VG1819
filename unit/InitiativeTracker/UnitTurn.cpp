@@ -24,14 +24,6 @@ void unit::UnitTurn::turnStart(kitten::K_GameObject* p_unitObj)
 		return;
 
 	m_currentUnit->turnStart(this);
-
-	//if the unit's movement is greater than 0, then it can move this turn
-	int mv = m_currentUnit->m_attributes["mv"];
-	if (mv > 0)
-		move = true;
-
-	//comment for testing
-	act = true;
 }
 
 void unit::UnitTurn::checkTurn()
