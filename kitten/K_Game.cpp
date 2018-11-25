@@ -192,19 +192,6 @@ namespace kitten
 		com->getTransform().place2D(0.1, 0.1);
 		//*/
 
-		// Networking
-		//networking::ServerGame::createInstance();
-		//_beginthread(serverLoop, 0, (void*)12);
-		//networking::ClientGame::createInstance();
-		K_GameObject* networkingMenu = K_GameObjectManager::getInstance()->createNewGameObject();
-		networkingMenu->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("NetworkingConsoleMenu"));
-		networkingMenu->addComponent(compMan->createComponent("TextBox"));
-		networkingMenu->addComponent(compMan->createComponent("StringInputDisplay"));
-		networkingMenu->getTransform().place2D(200, 50);
-
-		K_GameObject* spawnUnitOnKeyPress = K_GameObjectManager::getInstance()->createNewGameObject();
-		spawnUnitOnKeyPress->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("SpawnUnitOnKeyPress"));
-
 		return true;
 	}
 

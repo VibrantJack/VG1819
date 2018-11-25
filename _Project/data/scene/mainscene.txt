@@ -21,6 +21,10 @@
 		},
 		{
 			"filename" : "UniversalPfx.txt"
+		},
+		{
+			"filename" : "NetworkingConsoleMenu.txt",
+			"translate2d" : [200, 50]
 		}
     ],
 	"scenes" : ["interfacebuilder.txt"]
