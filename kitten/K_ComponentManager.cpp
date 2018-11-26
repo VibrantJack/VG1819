@@ -226,7 +226,7 @@ namespace kitten
 		}
 		else if (p_componentName == "NetworkingMenuUI")
 		{
-			comp = new userinterface::NetworkingMenuUI("textures/ui/network_menu_bg.tga");
+			comp = new userinterface::NetworkingMenuUI();
 		}
 		else if (p_componentName == "TileInfo") // Datadriven
 		{

@@ -1,0 +1,9 @@
+{
+    "name" : "Networking Menu Texture",
+    "components" : [
+		{
+			"name" : "UIFrame",
+			"texture" : "textures/ui/network_menu_alter.tga"
+		}
+    ]
+}

@@ -647,6 +647,11 @@ kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 	return new UniversalPfx(effects);
 }
 
+#include "networking\menu\NetworkingMenuUI.h"
+kitten::K_Component* getNetworkingMenuUI(nlohmann::json* p_jsonFile) {
+	return new userinterface::NetworkingMenuUI();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -696,6 +701,7 @@ void setupComponentMap() {
 	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
 	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
+	jsonComponentMap["NetworkingMenuUI"] = &getNetworkingMenuUI;
 
 }
 
