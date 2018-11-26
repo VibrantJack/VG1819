@@ -37,7 +37,7 @@ namespace kitten
 		void destroyGameObject(K_GameObject* p_toDestroy);
 
 		void destroyAllGameObjects();
-		void destroyMostGameObjects();
+		void destroySceneGameObjects();
 
 		void flagGameObjectToSurvive(K_GameObject* p_toSurvive);
 	};

@@ -7,9 +7,7 @@ private:
 	const std::string m_targetScene;
 public:
 	void onClick();
-
-	virtual void onPreSwitch();
-
+	
 	ChangeSceneOnClick(const std::string& p_scene);
 	~ChangeSceneOnClick();
 };

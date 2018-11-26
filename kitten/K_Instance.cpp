@@ -72,7 +72,7 @@ namespace kitten
 	void K_Instance::privateUpdate()
 	{
 		if (m_sceneSwitchFlag) {
-			m_gameObjectManager->destroyMostGameObjects();
+			m_gameObjectManager->destroySceneGameObjects();
 			kibble::setSceneFrom(m_nextScene);
 			m_sceneSwitchFlag = false;
 		}

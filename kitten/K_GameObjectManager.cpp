@@ -66,25 +66,24 @@ namespace kitten
 		m_gameObjects.clear();
 	}
 
-	void K_GameObjectManager::destroyMostGameObjects() 
+	void K_GameObjectManager::destroySceneGameObjects() 
 	{
 		deleteQueuedObjects();
 
 		auto end = m_gameObjects.end();
 		for (auto it = m_gameObjects.begin(); it != end;)
 		{
-			if (m_toSurvive.find((*it).second) != m_toSurvive.end()) {
-				++it;
-			}
-			else {
-				delete  (*it).second;
-				it = m_gameObjects.erase(it);
-			}
+			delete  (*it).second;
 		}
-		m_toSurvive.clear();
+		m_gameObjects.clear();
+		
+		for (auto gameObject : m_toSurvive) {
+			m_gameObjects.insert(std::make_pair(gameObject->m_objectIndex, gameObject));
+		}
 	}
 
 	void K_GameObjectManager::flagGameObjectToSurvive(K_GameObject* p_toSurvive) {
 		m_toSurvive.insert(p_toSurvive);
+		m_gameObjects.erase(m_gameObjects.find(p_toSurvive->m_objectIndex));
 	}
 }
