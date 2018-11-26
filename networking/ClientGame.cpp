@@ -124,7 +124,7 @@ namespace networking
 			m_network = nullptr;
 		}
 
-		// Delete all stored unit GameObjects
+		// For now, delete all stored unit GameObjects until we can disable interacting with units at game end
 		auto end = m_unitGOList.end();
 		for (auto it = m_unitGOList.begin(); it != end; ++it)
 		{

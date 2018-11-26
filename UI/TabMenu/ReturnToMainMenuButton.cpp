@@ -1,3 +1,12 @@
+// ReturnToMainMenuButton
+//
+// Button used to leave the current game state and return to the
+// main menu
+// Triggers an event onClick to signal to NetworkingConsoleMenu to
+// call the appropriate disconnect function
+//
+// @Ken
+
 #include "UI\TabMenu\ReturnToMainMenuButton.h"
 #include "kitten\K_ComponentManager.h"
 #include "kitten\K_GameObjectManager.h"

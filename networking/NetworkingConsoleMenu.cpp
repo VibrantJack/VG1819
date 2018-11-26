@@ -271,11 +271,10 @@ bool NetworkingConsoleMenu::checkClientNetwork()
 	{
 		if (networking::ClientGame::isNetworkValid())
 		{
-			//printf("Client network setup; connected to server\n");
 			return true;
 		} else
 		{
-			printf("Client network setup incomplete; please try again\n");
+			//printf("Client network setup incomplete; please try again\n");
 			networking::ClientGame::destroyInstance();
 			return false;
 		}
@@ -292,7 +291,7 @@ bool NetworkingConsoleMenu::checkServerNetwork()
 			return true;
 		} else
 		{
-			printf("Server network setup incomplete; please try again\n");
+			//printf("Server network setup incomplete; please try again\n");
 			networking::ServerGame::destroyInstance();
 			return false;
 		}

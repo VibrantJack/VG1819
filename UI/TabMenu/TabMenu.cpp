@@ -1,3 +1,13 @@
+// TabMenu
+//
+// Acts as something similar to a menu you would have when you hit 'Escape' in a game, 
+// but instead you hit 'Tab', showing a button to return to..
+// Hitting 'Tab' will either open the menu or close it depending on the state
+// This also functions as a way to display the end game screen when a Commander is defeated, 
+// alerted through events
+//
+// @Ken
+
 #include "UI\TabMenu\TabMenu.h"
 #include "kitten\K_GameObjectManager.h"
 #include "kitten\K_ComponentManager.h"
