@@ -2,6 +2,7 @@
 
 #include "kitten\mouse picking\ClickableUI.h"
 #include "networking\NetworkingConsoleMenu.h"
+#include "puppy\Text\TextBox.h"
 
 namespace userinterface
 {
@@ -18,6 +19,7 @@ namespace userinterface
 
 	private:
 		NetworkingConsoleMenu* m_menu;
+		puppy::TextBox* m_textBox;
 	};
 
 }

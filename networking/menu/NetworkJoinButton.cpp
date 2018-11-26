@@ -20,9 +20,8 @@ namespace userinterface
 	{
 		ClickableUI::start();
 
-		// Network Menu buttons are their own GOs, but are attached as children to another GO
-		// The parent GO is where the NetworkingConsoleMenu component is attached
 		kitten::K_GameObject* parent = &m_attachedObject->getTransform().getParent()->getAttachedGameObject();
+
 		m_menu = parent->getComponent<NetworkingConsoleMenu>();
 		assert(m_menu != nullptr);
 
@@ -30,35 +29,44 @@ namespace userinterface
 		assert(m_inputMan != nullptr);
 		m_inputMan->setPollMode(false);
 
-		m_stringInputDisplay = getStringInputDisplay();
+		m_stringInputDisplay = parent->getComponent<StringInputDisplay>();
 		assert(m_stringInputDisplay != nullptr);
+
+		m_textBox = parent->getComponent<puppy::TextBox>();
+	}
+
+	void NetworkJoinButton::update()
+	{
+		if (m_inputMan->keyDown(GLFW_KEY_ENTER) && !m_inputMan->keyDownLast(GLFW_KEY_ENTER))
+		{
+			std::string address = m_stringInputDisplay->getString();
+			printf("Entered address: %s\n", address.c_str());
+			m_menu->connectToHost(address);
+			if (m_menu->checkClientNetwork())
+			{
+				m_inputMan->setPollMode(true);
+				// TODO: Successful connection, create new gamestate/switch scenes
+				m_textBox->setText("Joined host");
+			} else
+			{
+				m_textBox->setText("Network Error");
+				m_inputMan->setPollMode(false);
+			}
+		}
 	}
 
 	void NetworkJoinButton::onClick()
 	{				
-		//printf("Input: %s\n", m_stringInputDisplay->getString().c_str());
 		m_menu->connectToHost(m_stringInputDisplay->getString());
 		if (m_menu->checkClientNetwork())
 		{
 			m_inputMan->setPollMode(true);
+			// TODO: Successful connection, create new gamestate/switch scenes
+			m_textBox->setText("Joined host");
 		}
-	}
-
-	StringInputDisplay*  NetworkJoinButton::getStringInputDisplay()
-	{
-		kitten::K_GameObject* parent = &m_attachedObject->getTransform().getParent()->getAttachedGameObject();
-		kitten::K_GameObject* child;
-		auto children = parent->getTransform().getChildren();
-
-		for (auto it = children.begin(); it != children.end(); ++it)
+		else
 		{
-			child = &(*it)->getAttachedGameObject();
-			StringInputDisplay* inputDisplay = child->getComponent<StringInputDisplay>();
-			if (inputDisplay != nullptr)
-			{
-				return inputDisplay;
-			}
+			m_textBox->setText("Network Error");
 		}
-		return nullptr;
 	}
 }

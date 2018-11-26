@@ -4,15 +4,16 @@
 
 #include "kitten/mouse picking/ClickableUI.h"
 #include "kitten/mouse picking/ClickableFrame.h"
+#include "UI\UIObject.h"
 
 #include "NetworkHostButton.h"
 #include "NetworkJoinButton.h"
 
 namespace userinterface
 {
-	NetworkingMenuUI::NetworkingMenuUI(const char* p_pathToTex) : UIFrame(p_pathToTex)
+	NetworkingMenuUI::NetworkingMenuUI()
 	{
-
+		
 	}
 
 	NetworkingMenuUI::~NetworkingMenuUI()
@@ -23,62 +24,25 @@ namespace userinterface
 	// Change to K_Component start()
 	void NetworkingMenuUI::start()
 	{
+		kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
+		assert(compMan != nullptr);
+
 		kitten::Transform* parent = &m_attachedObject->getTransform();
 
-		// Creating Host Button
-		kitten::K_GameObject* connectButton = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-		connectButton->getTransform().setParent(parent);
-		connectButton->getTransform().scale2D(170, 100);
-		connectButton->getTransform().place2D(420, 310);
-
-		K_Component* buttonObj = kitten::K_ComponentManager::getInstance()->createComponent("Frame"); // UIFrame : UIElement
-		userinterface::UIFrame* buttonFrame = static_cast<userinterface::UIFrame*>(buttonObj);
-		buttonFrame->setTexture("textures/ui/host_button.tga");
-		connectButton->addComponent(buttonObj);
-
-
-		K_Component* buttonCF = kitten::K_ComponentManager::getInstance()->createComponent("ClickableFrame"); // ClickableFrame : K_Component
-		K_Component* clickUI = kitten::K_ComponentManager::getInstance()->createComponent("NetworkHostButton"); // ClickableUI : K_Component
-		connectButton->addComponent(buttonCF);
-		connectButton->addComponent(clickUI);
-
-		kitten::ClickableFrame* cfCasted = static_cast<kitten::ClickableFrame*>(buttonCF);
-		kitten::ClickableUI* cUI = static_cast<kitten::ClickableUI*>(clickUI);
-		cfCasted->addCLickable(cUI);
-		// End creating Host Button
-
-		// Creating Join Game Button
+		// Create ClickableUI for JoinButton
 		kitten::K_GameObject* joinButton = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-		joinButton->getTransform().setParent(parent);
 		joinButton->getTransform().scale2D(170, 100);
-		joinButton->getTransform().place2D(690, 310);
+		joinButton->getTransform().place2D(555, 185);
+		joinButton->addComponent(compMan->createComponent("ClickableFrame"));
+		joinButton->addComponent(compMan->createComponent("NetworkJoinButton")); // ClickableUI Component
+		joinButton->getTransform().setParent(parent);
 
-		K_Component* joinButtonObj = kitten::K_ComponentManager::getInstance()->createComponent("Frame"); // UIFrame : UIElement
-		userinterface::UIFrame* joinButtonFrame = static_cast<userinterface::UIFrame*>(joinButtonObj);
-		joinButtonFrame->setTexture("textures/ui/join_button.tga");
-		joinButton->addComponent(joinButtonObj);
-
-
-		//K_Component* joinButtonCF = kitten::K_ComponentManager::getInstance()->createComponent("ClickableFrame"); // ClickableFrame : K_Component
-		//K_Component* joinClickUI = kitten::K_ComponentManager::getInstance()->createComponent("NetworkJoinButton"); // ClickableUI : K_Component
-		//joinButton->addComponent(joinButtonCF);
-		//joinButton->addComponent(joinClickUI);
-
-		//kitten::ClickableFrame* jcfCasted = static_cast<kitten::ClickableFrame*>(joinButtonCF);
-		//NetworkJoinButton* joinButtonComponent = static_cast<NetworkJoinButton*>(joinClickUI);
-		//jcfCasted->addCLickable(joinButtonComponent);
-
-		kitten::ClickableFrame* jcfCasted = static_cast<kitten::ClickableFrame*>(kitten::K_ComponentManager::getInstance()->createComponent("ClickableFrame"));
-		NetworkJoinButton* joinButtonComponent = static_cast<NetworkJoinButton*>(kitten::K_ComponentManager::getInstance()->createComponent("NetworkJoinButton"));
-		jcfCasted->addCLickable(joinButtonComponent);
-
-		joinButton->addComponent(jcfCasted);
-		joinButton->addComponent(joinButtonComponent);
-		// End creating Join Game Button
-	}
-
-	void NetworkingMenuUI::addButton(ClickableUI* p_button)
-	{
-
+		// Create ClickableUI for HostButton
+		kitten::K_GameObject* hostButton = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+		hostButton->getTransform().scale2D(170, 100);
+		hostButton->getTransform().place2D(555, 395);
+		hostButton->addComponent(compMan->createComponent("ClickableFrame"));
+		hostButton->addComponent(compMan->createComponent("NetworkHostButton")); // ClickableUI Component		
+		hostButton->getTransform().setParent(parent);
 	}
 }

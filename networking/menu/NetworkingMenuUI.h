@@ -1,26 +1,18 @@
 #pragma once
 
-#include "UI/UIFrame.h"
-#include "networking\NetworkingConsoleMenu.h"
+#include "kitten\K_Component.h"
 
 namespace userinterface
 {
 	class ClickableUI;
 
-	class NetworkingMenuUI : public UIFrame
+	class NetworkingMenuUI : public kitten::K_Component
 	{
 		friend class NetworkHostButton;
 	public:
-		NetworkingMenuUI(const char* p_pathToTex);
+		NetworkingMenuUI();
 		~NetworkingMenuUI();
 
 		virtual void start() override;
-		//void init();
-		void addButton(ClickableUI* p_button);
-
-	private:
-		NetworkingConsoleMenu* m_menu;
-
-
 	};
 }
