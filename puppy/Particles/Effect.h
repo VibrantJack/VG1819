@@ -4,8 +4,8 @@
 
 #include "Emitter.h"
 #include "puppy\P_Common.h"
-#include "CallumMacKenzie_As3\SceneManagement\Camera.h"
-#include "CallumMacKenzie_As3\pugixml\pugixml.hpp"
+#include "kitten\Camera.h"
+#include "pugixml\pugixml.hpp"
 
 namespace puppy
 {
@@ -24,8 +24,11 @@ namespace puppy
 		virtual ~Effect();
 
 		void refreshXML();
+
 		void update(float p_delta);
-		void render(scene::Camera* p_cam);
+
+		void render(const glm::mat4& p_viewInverse, const glm::mat4& p_viewProj, const glm::vec3& p_position, const glm::vec3& p_scale);
+
 		void play();
 		void pause();
 		void stop();

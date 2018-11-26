@@ -8,8 +8,7 @@
 #include "puppy\P_Common.h"
 #include "puppy\VertexEnvironment.h"
 #include "puppy\Texture.h"
-#include "CallumMacKenzie_As3\SceneManagement\Camera.h"
-#include "CallumMacKenzie_As3\parser\parser.h"
+#include "expressions\parser.h"
 
 #include <list>
 #include <string>
@@ -19,9 +18,6 @@ namespace puppy
 	class Emitter
 	{
 	private:
-		glm::vec3 m_position;
-		glm::vec3 m_offset;
-
 		bool m_isBurst;
 		bool m_canRepeat;
 		bool m_hasBursted;
@@ -33,6 +29,8 @@ namespace puppy
 		std::list<SpawnAffector*> m_spawnProperties;
 
 		std::string m_xmlPath;
+
+		const glm::vec3 m_offset;
 
 		float m_spawnRate;
 		float m_lastSpawn;
@@ -48,12 +46,11 @@ namespace puppy
 		Emitter(const char* p_pathToXML, const glm::vec3& p_offset);
 
 		void update(float p_delta, bool p_canSpawn);
-		void render(scene::Camera* p_camera);
+		void render(const glm::mat4& p_viewInverse, const glm::mat4& p_viewProj, const glm::vec3& p_position, const glm::vec3& p_scale);
+
+		void resetBurst() { m_hasBursted = false; };
 
 		void setSpawnRate(float p_spawnRate);
 		void refreshXML();
-
-		void place(const glm::vec3& p_position) { m_position = p_position; }
-		const glm::vec3& getPosition() const { return m_position; }
 	};
 }

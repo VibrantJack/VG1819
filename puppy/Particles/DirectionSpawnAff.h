@@ -7,10 +7,17 @@ namespace puppy
 {
 	class DirectionSpawnAff : public SpawnAffector
 	{
-	private:
-		bool m_useOffset;
 	public:
-		DirectionSpawnAff(bool p_useOffset) : m_useOffset(p_useOffset) {}
+		enum mode
+		{
+			offset,
+			up,
+			random
+		};
+	private:
+		bool m_mode;
+	public:
+		DirectionSpawnAff(mode p_mode) : m_mode(p_mode) {}
 
 		virtual void apply(std::list<Particle*>& p_toApply);
 	};

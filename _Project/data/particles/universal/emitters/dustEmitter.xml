@@ -1,0 +1,19 @@
+<Emitter>
+	<SpawnProperties>
+		<color random="true" minR="0.55" minG="0.27" minB="0.07" maxR="0.8" maxG="0.52" maxB="0.25" />
+		<velocity random="true" min="2" max="2.5" />
+		<offset x="0" y="0" z="0" type="disc" radius="0.01"/>
+		<direction mode="useOffset"/>
+		<maxParticles numParticles="35" />
+		<lifetime random="false" length="1.0"/>
+		<burst isBurst="true" repeat="false" />
+	</SpawnProperties>
+	
+	<Affectors>
+		<path isPreset="true" type="direction" scalar="1"/>
+		<sizeChange mode="over_life" startX="0.0" startY="0.0" endX="0.33" endY="0.33" />
+		<acceleration mode="over_life" accel="-0.3" />
+	</Affectors>
+	
+	<Misc path="textures/particles/orb2.tga" spawnRate="0.0"/>
+</Emitter>

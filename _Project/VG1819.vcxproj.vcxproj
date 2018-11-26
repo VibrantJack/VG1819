@@ -78,14 +78,15 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\irrKlang\include;$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\networking_libraries\include;$(SolutionDir)..\irrKlang\include;$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
+      <AdditionalOptions>/Qpar %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\networking_libraries;$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -97,18 +98,19 @@
   <ItemGroup>
     <ClCompile Include="..\ability\AbilityManager.cpp" />
     <ClCompile Include="..\ability\ability\Ability.cpp" />
-    <ClCompile Include="..\ability\ability\Blast.cpp" />
+    <ClCompile Include="..\ability\ability\Arm.cpp" />
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp" />
     <ClCompile Include="..\ability\ability\Dodge.cpp" />
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
-    <ClCompile Include="..\ability\ability\Fight.cpp" />
+    <ClCompile Include="..\ability\ability\GoldRush.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
+    <ClCompile Include="..\ability\ability\Invest.cpp" />
+    <ClCompile Include="..\ability\ability\Join.cpp" />
+    <ClCompile Include="..\ability\ability\Load.cpp" />
     <ClCompile Include="..\ability\ability\ManipulateTile.cpp" />
     <ClCompile Include="..\ability\ability\Move.cpp" />
-    <ClCompile Include="..\ability\ability\QuickShoot.cpp" />
+    <ClCompile Include="..\ability\ability\PowerOfMoney.cpp" />
     <ClCompile Include="..\ability\ability\Sabotage.cpp" />
-    <ClCompile Include="..\ability\ability\Shoot.cpp" />
-    <ClCompile Include="..\ability\ability\Slay.cpp" />
     <ClCompile Include="..\ability\ability\SummonUnit.cpp" />
     <ClCompile Include="..\ability\node\AbilityNode.cpp" />
     <ClCompile Include="..\ability\node\AbilityNodeManager.cpp" />
@@ -116,16 +118,20 @@
     <ClCompile Include="..\ability\node\ChangeAbilityInfoNode.cpp" />
     <ClCompile Include="..\ability\node\ChangeAttributeNode.cpp" />
     <ClCompile Include="..\ability\node\CheckHPNode.cpp" />
-    <ClCompile Include="..\ability\node\SpawnUnitNode.cpp" />
     <ClCompile Include="..\ability\StatusManager.cpp" />
     <ClCompile Include="..\ability\status\Status.cpp" />
     <ClCompile Include="..\ability\status\statusEvent\TimePointEvent.cpp" />
+    <ClCompile Include="..\ability\status\Status_AD_Change.cpp" />
     <ClCompile Include="..\ability\status\Status_Archer_LV3.cpp" />
     <ClCompile Include="..\ability\status\Status_Dodge.cpp" />
     <ClCompile Include="..\ability\status\Status_Duelist_LV3.cpp" />
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
+    <ClCompile Include="..\ability\status\Status_Load.cpp" />
     <ClCompile Include="..\ability\status\Status_LV.cpp" />
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
+    <ClCompile Include="..\ability\status\Status_Shield.cpp" />
+    <ClCompile Include="..\ability\status\Status_Temp_Change.cpp" />
+    <ClCompile Include="..\board\component\area\AllPattern.cpp" />
     <ClCompile Include="..\board\component\area\Area.cpp" />
     <ClCompile Include="..\board\component\area\AreaPattern.cpp" />
     <ClCompile Include="..\board\component\area\LineHPattern.cpp" />
@@ -136,14 +142,24 @@
     <ClCompile Include="..\board\component\area\SquarePattern.cpp" />
     <ClCompile Include="..\board\component\area\TrianglePattern.cpp" />
     <ClCompile Include="..\board\component\PathFind.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\AllyFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\EnemyFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\NoCommanderFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
+    <ClCompile Include="..\board\tile\landInfo\ForestLand.cpp" />
+    <ClCompile Include="..\board\tile\landInfo\GardenLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\LandInfoManager.cpp" />
+    <ClCompile Include="..\board\tile\landInfo\SandLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
+    <ClCompile Include="..\expressions\lexer.cpp" />
+    <ClCompile Include="..\expressions\parser.cpp" />
+    <ClCompile Include="..\expressions\PostfixEval.cpp" />
+    <ClCompile Include="..\expressions\symbol.cpp" />
     <ClCompile Include="..\kibble\custom\CustomDeckDataParser.cpp" />
     <ClCompile Include="..\board\boardManager.cpp" />
     <ClCompile Include="..\board\clickable\ManipulateTileOnClick.cpp" />
@@ -184,6 +200,7 @@
     <ClCompile Include="..\kitten\K_GameObjectManager.cpp" />
     <ClCompile Include="..\kitten\K_Instance.cpp" />
     <ClCompile Include="..\kitten\K_JobManager.cpp" />
+    <ClCompile Include="..\kitten\K_ParticleSystem.cpp" />
     <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
     <ClCompile Include="..\kitten\K_Time.cpp" />
     <ClCompile Include="..\kitten\mouse picking\ActiveClickables.cpp" />
@@ -206,6 +223,7 @@
     <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp" />
     <ClCompile Include="..\networking\NetworkingConsoleMenu.cpp" />
     <ClCompile Include="..\networking\NetworkServices.cpp" />
+    <ClCompile Include="..\networking\AbilityPacket.cpp" />
     <ClCompile Include="..\networking\ServerGame.cpp" />
     <ClCompile Include="..\networking\ServerNetwork.cpp" />
     <ClCompile Include="..\networking\SpawnUnitOnKeyPress.cpp" />
@@ -214,6 +232,22 @@
     <ClCompile Include="..\puppy\FBO.cpp" />
     <ClCompile Include="..\puppy\Material.cpp" />
     <ClCompile Include="..\puppy\MaterialManager.cpp" />
+    <ClCompile Include="..\puppy\Particles\AccelerationAff.cpp" />
+    <ClCompile Include="..\puppy\Particles\Affector.cpp" />
+    <ClCompile Include="..\puppy\Particles\ColorChangeAff.cpp" />
+    <ClCompile Include="..\puppy\Particles\ColorSpawnAff.cpp" />
+    <ClCompile Include="..\puppy\Particles\DirectionSpawnAff.cpp" />
+    <ClCompile Include="..\puppy\Particles\Effect.cpp" />
+    <ClCompile Include="..\puppy\Particles\Emitter.cpp" />
+    <ClCompile Include="..\puppy\Particles\FadeChangeAff.cpp" />
+    <ClCompile Include="..\puppy\Particles\FadeSpawnAff.cpp" />
+    <ClCompile Include="..\puppy\Particles\LifetimeSpawnAff.cpp" />
+    <ClCompile Include="..\puppy\Particles\OffsetSpawnAff.cpp" />
+    <ClCompile Include="..\puppy\Particles\PathAff.cpp" />
+    <ClCompile Include="..\puppy\Particles\RotationChangeAff.cpp" />
+    <ClCompile Include="..\puppy\Particles\SizeChangeAff.cpp" />
+    <ClCompile Include="..\puppy\Particles\SizeSpawnAff.cpp" />
+    <ClCompile Include="..\puppy\Particles\VelocitySpawnAff.cpp" />
     <ClCompile Include="..\puppy\P_Instance.cpp" />
     <ClCompile Include="..\puppy\RenderBuffer.cpp" />
     <ClCompile Include="..\puppy\Renderer.cpp" />
@@ -221,6 +255,7 @@
     <ClCompile Include="..\puppy\ShaderProgram.cpp" />
     <ClCompile Include="..\puppy\StaticRenderables.cpp" />
     <ClCompile Include="..\puppy\Texture.cpp" />
+    <ClCompile Include="..\puppy\TextureBlendMaterial.cpp" />
     <ClCompile Include="..\puppy\Text\Font.cpp" />
     <ClCompile Include="..\puppy\Text\FontTable.cpp" />
     <ClCompile Include="..\puppy\Text\TextBox.cpp" />
@@ -232,6 +267,8 @@
     <ClCompile Include="..\UI\UIElement.cpp" />
     <ClCompile Include="..\UI\UIFrame.cpp" />
     <ClCompile Include="..\UI\UIObject.cpp" />
+    <ClCompile Include="..\unitInteraction\CounterGetter.cpp" />
+    <ClCompile Include="..\unitInteraction\CounterGetterDisplay.cpp" />
     <ClCompile Include="..\unitInteraction\TileGetter.cpp" />
     <ClCompile Include="..\unitInteraction\UnitInteractionManager.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp" />
@@ -262,14 +299,17 @@
     <ClCompile Include="PlaySoundOnStart.cpp" />
     <ClCompile Include="StringInputDisplay.cpp" />
     <ClCompile Include="ToggleEnabledOnKeyPress.cpp" />
+    <ClCompile Include="ToggleParticleSystemOnKeyPress.cpp" />
     <ClCompile Include="ToggleSoundOnKeyPress.cpp" />
     <ClCompile Include="ToggleStringInputOnKeyPress.cpp" />
+    <ClCompile Include="UniversalPfx.cpp" />
     <ClCompile Include="UseAbilityWhenClicked.cpp" />
     <ClCompile Include="VolumeAdjustOnKeysPressed.cpp" />
     <ClCompile Include="ZoomByMouseWheel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ability\AbilityInfoPackage.h" />
+    <ClInclude Include="..\ability\AbilityMacro.h" />
     <ClInclude Include="..\ability\AbilityManager.h" />
     <ClInclude Include="..\ability\ability\Ability.h" />
     <ClInclude Include="..\ability\node\AbilityNode.h" />
@@ -296,6 +336,11 @@
     <ClInclude Include="..\board\tile\TileInfo.h" />
     <ClInclude Include="..\components\PowerTracker.h" />
     <ClInclude Include="..\components\SelectAbility.h" />
+    <ClInclude Include="..\expressions\global.h" />
+    <ClInclude Include="..\expressions\lexer.h" />
+    <ClInclude Include="..\expressions\parser.h" />
+    <ClInclude Include="..\expressions\PostfixEval.h" />
+    <ClInclude Include="..\expressions\PostfixOperator.h" />
     <ClInclude Include="..\gameworld\GameBoard.h" />
     <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
     <ClInclude Include="..\gameworld\TileInformationComponent.h" />
@@ -335,6 +380,7 @@
     <ClInclude Include="..\kitten\K_GameObjectManager.h" />
     <ClInclude Include="..\kitten\K_Job.h" />
     <ClInclude Include="..\kitten\K_JobManager.h" />
+    <ClInclude Include="..\kitten\K_ParticleSystem.h" />
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
     <ClInclude Include="..\kitten\K_Instance.h" />
     <ClInclude Include="..\kitten\K_Routine.h" />
@@ -370,6 +416,24 @@
     <ClInclude Include="..\puppy\FBO.h" />
     <ClInclude Include="..\puppy\Material.h" />
     <ClInclude Include="..\puppy\MaterialManager.h" />
+    <ClInclude Include="..\puppy\Particles\AccelerationAff.h" />
+    <ClInclude Include="..\puppy\Particles\Affector.h" />
+    <ClInclude Include="..\puppy\Particles\ColorChangeAff.h" />
+    <ClInclude Include="..\puppy\Particles\ColorSpawnAff.h" />
+    <ClInclude Include="..\puppy\Particles\DirectionSpawnAff.h" />
+    <ClInclude Include="..\puppy\Particles\Effect.h" />
+    <ClInclude Include="..\puppy\Particles\Emitter.h" />
+    <ClInclude Include="..\puppy\Particles\FadeChangeAff.h" />
+    <ClInclude Include="..\puppy\Particles\FadeSpawnAff.h" />
+    <ClInclude Include="..\puppy\Particles\LifetimeSpawnAff.h" />
+    <ClInclude Include="..\puppy\Particles\OffsetSpawnAff.h" />
+    <ClInclude Include="..\puppy\Particles\Particle.h" />
+    <ClInclude Include="..\puppy\Particles\PathAff.h" />
+    <ClInclude Include="..\puppy\Particles\RotationChangeAff.h" />
+    <ClInclude Include="..\puppy\Particles\SizeChangeAff.h" />
+    <ClInclude Include="..\puppy\Particles\SizeSpawnAff.h" />
+    <ClInclude Include="..\puppy\Particles\SpawnAffector.h" />
+    <ClInclude Include="..\puppy\Particles\VelocitySpawnAff.h" />
     <ClInclude Include="..\puppy\P_Common.h" />
     <ClInclude Include="..\puppy\P_Instance.h" />
     <ClInclude Include="..\puppy\P_Sprite.h" />
@@ -379,6 +443,7 @@
     <ClInclude Include="..\puppy\ShaderProgram.h" />
     <ClInclude Include="..\puppy\StaticRenderables.h" />
     <ClInclude Include="..\puppy\Texture.h" />
+    <ClInclude Include="..\puppy\TextureBlendMaterial.h" />
     <ClInclude Include="..\puppy\Text\Font.h" />
     <ClInclude Include="..\puppy\Text\FontTable.h" />
     <ClInclude Include="..\puppy\Text\TextBox.h" />
@@ -390,6 +455,8 @@
     <ClInclude Include="..\UI\UIElement.h" />
     <ClInclude Include="..\UI\UIFrame.h" />
     <ClInclude Include="..\UI\UIObject.h" />
+    <ClInclude Include="..\unitInteraction\CounterGetter.h" />
+    <ClInclude Include="..\unitInteraction\CounterGetterDisplay.h" />
     <ClInclude Include="..\unitInteraction\TileGetter.h" />
     <ClInclude Include="..\unitInteraction\UnitInteractionManager.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h" />
@@ -421,8 +488,10 @@
     <ClInclude Include="PlaySoundOnStart.h" />
     <ClInclude Include="StringInputDisplay.h" />
     <ClInclude Include="ToggleEnabledOnKeyPress.h" />
+    <ClInclude Include="ToggleParticleSystemOnKeyPress.h" />
     <ClInclude Include="ToggleSoundOnKeyPress.h" />
     <ClInclude Include="ToggleStringInputOnKeyPress.h" />
+    <ClInclude Include="UniversalPfx.h" />
     <ClInclude Include="UseAbilityWhenClicked.h" />
     <ClInclude Include="VolumeAdjustOnKeysPressed.h" />
     <ClInclude Include="ZoomByMouseWheel.h" />

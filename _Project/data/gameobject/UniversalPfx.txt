@@ -1,0 +1,15 @@
+{
+    "name" : "UniversalPFX", 
+    "components" : [
+        {
+			"name" : "UniversalPfx",
+			"effects" : [
+				{
+					"name" : "UnitDeath",
+					"path" : "data/particles/universal/effects/deathEffect.xml",
+					"poolednumber" : 6
+				}
+			]
+        }
+    ]
+}

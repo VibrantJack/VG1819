@@ -7,7 +7,7 @@ class StringInputDisplay : public kitten::K_Component, public input::StringListe
 {
 private:
 	puppy::TextBox* m_textBox;
-	std::string m_strString;
+	std::string m_strEnteredString;
 public:
 	StringInputDisplay();
 	~StringInputDisplay();
@@ -17,5 +17,5 @@ public:
 	virtual void onStringFinished(const std::string& p_string) override;
 	virtual void onStringChanged(const std::string& p_string) override;
 
-	const std::string& getString() { return m_strString; }
+	const std::string& getString() { return m_strEnteredString; }
 };

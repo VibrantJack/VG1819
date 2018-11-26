@@ -19,7 +19,7 @@ namespace ability
 	{
 		if (checkTarget(p_info))
 		{
-			//trigger deal damage event
+			//trigger heal event
 			triggerTPEvent(ability::TimePointEvent::Heal, p_info->m_source, p_info);
 
 			//trigger receive damage event

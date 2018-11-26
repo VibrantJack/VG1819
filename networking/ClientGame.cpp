@@ -8,6 +8,7 @@
 #include "networking\ClientGame.h"
 #include <assert.h>
 #include <iostream>
+#include <unordered_map>
 
 // Kibble
 #include "kibble\databank\databank.hpp"
@@ -50,7 +51,7 @@ namespace networking
 		return sm_clientGameInstance;
 	}
 
-	ClientGame::ClientGame(const std::string &p_strAddr)
+	ClientGame::ClientGame(const std::string &p_strAddr) : m_bGameTurnStart(false)
 	{
 		setupNetwork(p_strAddr);
 	}
@@ -63,11 +64,11 @@ namespace networking
 			delete m_network;
 		}
 
-		auto end = m_unitGOList.end();
+		/*auto end = m_unitGOList.end();
 		for (auto it = m_unitGOList.begin(); it != end; ++it)
 		{
 			kitten::K_GameObjectManager::getInstance()->destroyGameObject((*it).second);
-		}
+		}*/
 	}
 
 	void ClientGame::setupNetwork(const std::string &p_strAddr)
@@ -79,9 +80,14 @@ namespace networking
 			// Client connects and sends INIT_CONNECTION packet
 			char packet_data[BASIC_PACKET_SIZE];
 
+			Buffer buffer;
+			buffer.m_data = packet_data;
+			buffer.m_size = BASIC_PACKET_SIZE;
+
 			Packet packet;
-			packet.packetType = INIT_CONNECTION;
-			packet.serialize(packet_data);
+			packet.m_packetType = INIT_CONNECTION;
+			packet.serialize(buffer);
+
 			NetworkServices::sendMessage(m_network->m_connectSocket, packet_data, BASIC_PACKET_SIZE);
 
 			sm_networkValid = true;
@@ -103,12 +109,17 @@ namespace networking
 		if (!p_bServerShutdown)
 		{
 			// Send a packet to alert server that client is disconnecting
-			Packet packet;
-			packet.packetType = CLIENT_DISCONNECT;
-			packet.clientId = m_iClientId;
-
 			char data[BASIC_PACKET_SIZE];
-			packet.serialize(data);
+
+			Buffer buffer;
+			buffer.m_data = data;
+			buffer.m_size = BASIC_PACKET_SIZE;
+
+			Packet packet;
+			packet.m_packetType = CLIENT_DISCONNECT;
+			packet.m_clientId = m_iClientId;		
+
+			packet.serialize(buffer);
 			NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
 		}
 
@@ -125,7 +136,6 @@ namespace networking
 
 	void ClientGame::update()
 	{
-		Packet packet;
 		int data_length = m_network->receivePackets(m_network_data);
 
 		if (data_length <= 0)
@@ -133,22 +143,27 @@ namespace networking
 			//no data recieved
 			return;
 		}
-
+		//printf("Bytes received: %d\n", data_length);
 		int i = 0;
 		PacketTypes packetType;
 
 		while (i < (unsigned int)data_length)
 		{
-			packet.deserialize(&(m_network_data[i]));
-			packetType = (PacketTypes)packet.packetType;
+			//printf("Start of Loop Count i: %d\n", i);
+			Buffer defaultBuffer;
+			defaultBuffer.m_data = &(m_network_data[i]);
+			defaultBuffer.m_size = BASIC_PACKET_SIZE;
 
+			Packet defaultPacket;
+			defaultPacket.deserialize(defaultBuffer);
+
+			packetType = (PacketTypes)defaultPacket.m_packetType;
 			switch (packetType) {
 
 			case PacketTypes::SEND_CLIENT_ID:
 			{
 				i += BASIC_PACKET_SIZE;
-
-				m_iClientId = packet.clientId;
+				m_iClientId = defaultPacket.m_clientId;
 				break;
 			}
 			case PacketTypes::SERVER_SHUTDOWN:
@@ -161,54 +176,109 @@ namespace networking
 				// After returning to main menu, we then destroy ClientGame
 				break;
 			}
+			case PacketTypes::ABILITY_PACKET:
+			{
+				printf("[Client: %d] received ABILITY_PACKET packet from server\n", m_iClientId);
+
+				Buffer buffer;
+				buffer.m_data = &(m_network_data[i]);
+				buffer.m_size = MAX_PACKET_SIZE;
+
+				AbilityPacket packet;
+				packet.deserialize(buffer);
+				i += packet.getBytes();
+
+				useAbility(packet);
+				break;
+			}
 			case PacketTypes::SUMMON_UNIT:
 			{
 				printf("[Client: %d] received CLIENT_SUMMON_UNIT packet from server\n", m_iClientId);
 
+				Buffer buffer;
+				buffer.m_data = &(m_network_data[i]);
+				buffer.m_size = SUMMON_UNIT_PACKET_SIZE;
+
 				SummonUnitPacket summonUnitPacket;
-				summonUnitPacket.deserialize(&(m_network_data[i]));
+				summonUnitPacket.deserialize(buffer);
 				i += SUMMON_UNIT_PACKET_SIZE;
 
-				// Call function here that summons a unit
-				summonUnit(summonUnitPacket.clientId, summonUnitPacket.unitId, summonUnitPacket.posX, summonUnitPacket.posY);
+				summonUnit(summonUnitPacket.m_clientId, summonUnitPacket.m_unitId, summonUnitPacket.m_posX, summonUnitPacket.m_posY);
 				break;
 			}
-			case PacketTypes::UNIT_MOVE:
+			case PacketTypes::SKIP_TURN:
 			{
-				printf("[Client: %d] received UNIT_MOVE packet from server\n", m_iClientId);
+				printf("[Client: %d] received packet SKIP_TURN from server\n", m_iClientId);
+				i += BASIC_PACKET_SIZE;
+				m_bServerCalling = true;
+				unit::Unit* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit()->getComponent<unit::Unit>();
+				currentUnit->playerSkipTurn();
+				m_bServerCalling = false;
 
-				UnitMovePacket unitMovePacket;
-				unitMovePacket.deserialize(&(m_network_data[i]));
-				i += UNIT_MOVE_PACKET_SIZE;
-				printf("[Client: %d] received Unit index: %d, posX: %d, posY: %d\n", m_iClientId, unitMovePacket.unitIndex, unitMovePacket.posX, unitMovePacket.posY);
+				break;
+			}
+			case PacketTypes::GAME_TURN_START:
+			{
+				printf("[Client: %d] received packet GAME_TURN_START from server\n", m_iClientId);
+				i += BASIC_PACKET_SIZE;
 
-				// Call function here that summons a unit
-				moveUnit(unitMovePacket.unitIndex, unitMovePacket.posX, unitMovePacket.posY);
+				if (!m_bGameTurnStart)
+				{
+					unit::InitiativeTracker::getInstance()->gameTurnStart();
+					m_bGameTurnStart = true;
+				}
 				break;
 			}
 			default:
-				printf("error in packet types\n");
+				printf("[Client: %d] received %d; error in packet types\n", m_iClientId, packetType);
+				i += (unsigned int)data_length;
 				break;
 			}
 		}
 	}
 
-	int ClientGame::getUnitGameObjectIndex(kitten::K_GameObject* p_unit)
+	void ClientGame::useAbility(AbilityPacket& p_packet)
 	{
-		for (auto it = m_unitGOList.begin(); it != m_unitGOList.end(); ++it)
-		{
-			if (it->second == p_unit)
-			{
-				return it->first;
-			}
-		}
-		return -1; // Not found
+		std::string strAbilityName = p_packet.m_abilityName;
+		printf("[Client: %d] using ability: %s\n", m_iClientId, strAbilityName.c_str());
+
+		ability::AbilityInfoPackage* info = new ability::AbilityInfoPackage();
+		info->m_source = getUnitGameObject(p_packet.m_sourceUnit)->getComponent<unit::Unit>();
+		info->m_targets = p_packet.getTargetUnits();
+		info->m_intValue = p_packet.getIntValues();
+		info->m_targetTilesGO = p_packet.getTargetTiles();
+
+		ability::AbilityManager::getInstance()->findAbility(strAbilityName)->effect(info);
+	}
+
+	void ClientGame::sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info)
+	{
+		AbilityPacket packet;
+		packet.m_packetType = ABILITY_PACKET;
+		packet.m_clientId = m_iClientId;
+		packet.m_sourceUnit = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
+		packet.addTargetUnits(p_info->m_targets);
+		packet.addIntValues(p_info->m_intValue);
+		packet.addTargetTiles(p_info->m_targetTilesGO);
+		packet.m_abilityNameLength = p_strAbilityName.size();
+		packet.m_abilityName = p_strAbilityName;
+
+		char* data = new char[packet.getSize()];
+		Buffer buffer;
+		buffer.m_data = data;
+		buffer.m_size = packet.getSize();
+		packet.serialize(buffer);
+		printf("[Client: %d] sending ABILITY_PACKET\n", m_iClientId);
+		//packet.print();
+
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, packet.getSize());
+		delete[] data;
 	}
 
 	void ClientGame::summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
 	{
 		// Create the unit GO and add it to the list
-		kitten::K_GameObject* unitGO = unit::UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(p_iUnitId));
+		kitten::K_GameObject* unitGO = unit::UnitSpawn::getInstance()->spawnUnitObject(p_iUnitId);
 		m_unitGOList.insert(std::make_pair(m_iUnitIndex, unitGO));
 		m_iUnitIndex++;
 
@@ -222,72 +292,70 @@ namespace networking
 		unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 	}
 
-	void ClientGame::moveUnit(int p_iUnitIndex, int p_iPosX, int p_iPosY)
-	{
-		kitten::K_GameObject* targetTile = BoardManager::getInstance()->getTile(p_iPosX, p_iPosY);
-
-		auto it = m_unitGOList.find(p_iUnitIndex);
-		if (it != m_unitGOList.end())
-		{
-			it->second->getComponent<unit::UnitMove>()->move(targetTile);
-		}		
-	}
-
-	void ClientGame::sendPacket(Packet* p_packet)
-	{
-		switch (p_packet->packetType)
-		{
-		case PacketTypes::SUMMON_UNIT:
-		{
-			char data[SUMMON_UNIT_PACKET_SIZE];
-
-			SummonUnitPacket* packet = static_cast<SummonUnitPacket*>(p_packet);
-			packet->serialize(data);
-			NetworkServices::sendMessage(m_network->m_connectSocket, data, SUMMON_UNIT_PACKET_SIZE);
-			break;
-		}
-
-		case PacketTypes::UNIT_MOVE:
-		{
-			char data[UNIT_MOVE_PACKET_SIZE];
-
-			UnitMovePacket* packet = static_cast<UnitMovePacket*>(p_packet);
-			packet->serialize(data);
-			NetworkServices::sendMessage(m_network->m_connectSocket, data, UNIT_MOVE_PACKET_SIZE);
-			break;
-		}
-		}
-
-		delete p_packet;
-		p_packet = nullptr;
-
-	}
-
 	void ClientGame::sendSummonUnitPacket(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
 	{
-		SummonUnitPacket packet;
-		packet.packetType = PacketTypes::SUMMON_UNIT;
-		packet.clientId = p_iClientId;
-		packet.unitId = p_iUnitId;
-		packet.posX = p_iPosX;
-		packet.posY = p_iPosY;
-
 		char data[SUMMON_UNIT_PACKET_SIZE];
-		packet.serialize(data);
+
+		Buffer buffer;
+		buffer.m_data = data;
+		buffer.m_size = SUMMON_UNIT_PACKET_SIZE;
+
+		SummonUnitPacket packet;
+		packet.m_packetType = PacketTypes::SUMMON_UNIT;
+		packet.m_clientId = p_iClientId;
+		packet.m_unitId = p_iUnitId;
+		packet.m_posX = p_iPosX;
+		packet.m_posY = p_iPosY;
+		
+		packet.serialize(buffer);
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, SUMMON_UNIT_PACKET_SIZE);
 	}
 
-	void ClientGame::sendMovementPacket(int p_iUnitIndex, int p_iPosX, int p_iPosY)
+	void ClientGame::sendBasicPacket(PacketTypes p_packetType)
 	{
-		UnitMovePacket packet;
-		packet.packetType = PacketTypes::UNIT_MOVE;
-		packet.clientId = m_iClientId;
-		packet.unitIndex = p_iUnitIndex;
-		packet.posX = p_iPosX;
-		packet.posY = p_iPosY;
+		char data[BASIC_PACKET_SIZE];
 
-		char data[UNIT_MOVE_PACKET_SIZE];
-		packet.serialize(data);
-		NetworkServices::sendMessage(m_network->m_connectSocket, data, UNIT_MOVE_PACKET_SIZE);
+		Buffer buffer;
+		buffer.m_data = data;
+		buffer.m_size = BASIC_PACKET_SIZE;
+
+		Packet packet;
+		packet.m_packetType = p_packetType;
+		packet.m_clientId = m_iClientId;
+
+		packet.serialize(buffer);
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
+	}
+
+
+	int ClientGame::getUnitGameObjectIndex(kitten::K_GameObject* p_unit)
+	{
+		for (auto it = m_unitGOList.begin(); it != m_unitGOList.end(); ++it)
+		{
+			if (it->second == p_unit)
+			{
+				return it->first;
+			}
+		}
+		return -1; // Not found
+	}
+
+	kitten::K_GameObject* ClientGame::getUnitGameObject(int p_iIndex)
+	{
+		auto it = m_unitGOList.find(p_iIndex);
+		if (it != m_unitGOList.end())
+		{
+			return it->second;
+		}
+		return nullptr;
+	}
+
+	void ClientGame::removeUnitGameObject(int p_iUnitIndex)
+	{
+		auto it = m_unitGOList.find(p_iUnitIndex);
+		if (it != m_unitGOList.end())
+		{
+			m_unitGOList.erase(it);
+		}
 	}
 }

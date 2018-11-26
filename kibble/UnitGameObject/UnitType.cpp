@@ -10,9 +10,17 @@ unit::Unit * getUnitFrom(nlohmann::json & p_jsonfile)
 
 	unit->m_name = p_jsonfile["name"].get<std::string>();
 	int hp = p_jsonfile["hp"];
-	int in = p_jsonfile["mv"];
-	int mv = p_jsonfile["in"];
+	int in = p_jsonfile["in"];
+	int mv = p_jsonfile["mv"];
 	int cost = p_jsonfile["cost"];
+
+	if (p_jsonfile.find("size") != p_jsonfile.end()) {
+		if (p_jsonfile["size"] == "cube")
+			unit->m_size = unit::UnitSize::cube;
+		else
+			unit->m_size = unit::UnitSize::point;
+	}
+	else { unit->m_size = unit::UnitSize::point; }
 
 	unit->m_attributes[UNIT_HP] = hp;
 	unit->m_attributes[UNIT_MAX_HP] = hp;
@@ -70,7 +78,7 @@ unit::Unit * getUnitFrom(nlohmann::json & p_jsonfile)
 	//doesn't belong to any client
 	unit->m_clientId = -1;
 
-	return nullptr;
+	return unit;
 }
 
 unit::Commander * getCommanderFrom(nlohmann::json & p_jsonfile)
@@ -112,11 +120,18 @@ ability::Status * getStatusFrom(nlohmann::json & p_jsonfile)
 		s->changeDescription(p_jsonfile["description"].get<std::string>());
 	}
 
+	/*time point is fixed in each status
 	//get trigger time point 
 	if (p_jsonfile.find("time_point") != p_jsonfile.end())
 	{
 		int i = p_jsonfile["time_point"];
 		s->addTimePoint(static_cast<ability::TimePointEvent::TPEventType>(i));
+	}*/
+
+	//effected thing
+	if (p_jsonfile.find("effected") != p_jsonfile.end())
+	{
+		s->setEffectedAD(p_jsonfile["effected"].get<std::string>());
 	}
 
 	//for lv status

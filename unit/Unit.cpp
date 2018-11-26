@@ -4,6 +4,8 @@
 #include "unitInteraction/UnitInteractionManager.h"
 #include <iostream>
 
+#include "_Project\UniversalPfx.h"
+
 // Networking
 #include "networking\ClientGame.h"
 //@Rock
@@ -18,6 +20,8 @@ namespace unit
 		m_statusContainer->m_unit = this;
 		m_cdRecorder = new CooldownRecorder();
 		m_castTimer = new CastTimer();
+
+		setJoinAD();
 	}
 
 
@@ -81,8 +85,35 @@ namespace unit
 		}
 	}
 
+	void Unit::setJoinAD()
+	{
+		m_joinAD.m_stringValue["name"] = ACTION_JOIN;
+		m_joinAD.m_intValue["target"] = 1;
+		m_joinAD.m_intValue["need_unit"] = 1;
+		m_joinAD.m_intValue["min_range"] = 1;
+		m_joinAD.m_intValue["max_range"] = 1;
+	}
+
+	void Unit::join()
+	{
+		if (isCommander())//commander can't join to another unit
+			return;
+
+		for (std::string it : m_tags)//strucutre can't join to another unit
+		{
+			if (it == STRUCTURE)
+				return;
+		}
+
+		UnitInteractionManager::getInstance()->request(this, &m_joinAD);
+	}
+
 	void Unit::levelup()
 	{
+		//reset tile
+		m_attachedObject->getComponent<UnitMove>()->reset();
+
+		std::cout << m_name << " is LV "<< m_attributes[UNIT_LV] << std::endl;
 		if (m_attributes[UNIT_LV] > 0 && m_attributes[UNIT_LV] < 3)
 		{
 			m_attributes[UNIT_LV]++;
@@ -120,11 +151,29 @@ namespace unit
 		m_turn = p_t;
 
 		m_cdRecorder->reduceCD();//reduce cd at start of turn
-		m_castTimer->changeTimer();//reduce ct at start of turn
+		int i = m_castTimer->changeTimer();//reduce ct at start of turn
+
 		if (m_castTimer->isCasting())
 		{
 			playerSkipTurn();//if it still cast, it skips turn
 		}
+		else if(i == 0)//used casting ability
+		{
+			m_turn->act = false;//can not use action this turn
+		}
+		else
+		{
+			m_turn->act = true;
+		}
+
+		//if the unit's movement is greater than 0, then it can move this turn
+		int mv = m_attributes["mv"];
+		if (mv <= 0)
+			m_turn->move = false;
+		else
+			m_turn->move = true;
+
+		m_turn->checkTurn();
 	}
 
 	bool Unit::canMove()
@@ -144,27 +193,31 @@ namespace unit
 
 	void Unit::moveDone()
 	{
-		assert(m_turn != nullptr);
-		
-		bool moveDone = false;
-		if (!m_path.empty())//has next tile in path
+		if (m_turn != nullptr)//move by action
 		{
-			auto it = m_path.erase(m_path.begin());//remove first tile
-			if (it != m_path.end())
+			bool moveDone = false;
+			if (!m_path.empty())//has next tile in path
 			{
-				move(*it);//move to next
+				auto it = m_path.erase(m_path.begin());//remove first tile
+				if (it != m_path.end())
+				{
+					move(*it);//move to next
+				}
+				else
+					moveDone = true;
 			}
 			else
 				moveDone = true;
-		}
-		else
-			moveDone = true;
 
-		if (moveDone)
-		{
-			m_turn->move = false;
-			m_turn->checkTurn();
+			if (moveDone)
+			{
+				m_turn->move = false;
+				m_turn->checkTurn();
+			}
 		}
+
+		if (lateDestroy)
+			destroy();
 	}
 
 	void Unit::actDone()
@@ -189,6 +242,13 @@ namespace unit
 	void Unit::playerSkipTurn()
 	{
 		assert(m_turn != nullptr);
+		if (networking::ClientGame::getInstance())
+		{
+			if (!networking::ClientGame::getInstance()->isServerCalling())
+			{
+				networking::ClientGame::getInstance()->sendBasicPacket(PacketTypes::SKIP_TURN);
+			}
+		}
 		m_turn->turnEnd();
 	}
 
@@ -219,16 +279,6 @@ namespace unit
 	{
 		if (!canMove())
 			return;
-
-		if (networking::ClientGame::getInstance())
-		{
-			int unitIndex = networking::ClientGame::getInstance()->getUnitGameObjectIndex(m_attachedObject);
-			int posX = p_tile->getComponent<TileInfo>()->getPosX();
-			int posY = p_tile->getComponent<TileInfo>()->getPosY();
-
-			//networking::ClientGame::getInstance()->moveUnit(unitIndex, posX, posY);
-			networking::ClientGame::getInstance()->sendMovementPacket(unitIndex, posX, posY);
-		}
 
 		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
 		moveComponet->move(p_tile);
@@ -299,9 +349,30 @@ namespace unit
 
 	int Unit::destroyedByDamage()
 	{
-		//send destroyed event
-		std::cout << m_name << " is destroyed! " << std::endl;
-		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
+		//TO DO: send destroyed event
+		destroy();
 		return 0;
+	}
+
+	int Unit::destroyedByJoin()
+	{
+		//TO DO: send destroyed event
+		lateDestroy = true;
+		return 0;
+	}
+
+	void Unit::destroy()
+	{	
+		const glm::vec3& pos = getTransform().getTranslation();
+		auto pfxInstance = UniversalPfx::getInstance();
+		assert(pfxInstance != nullptr);
+		pfxInstance->playEffect(UNIT_DEATH_EFFECT_NAME, pos);
+		
+
+		std::cout << m_name << " is destroyed! " << std::endl;
+		//remove from tile
+		getTile()->getComponent<TileInfo>()->removeUnit();
+		//remove from intiative tracker
+		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
 	}
 }

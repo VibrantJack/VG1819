@@ -6,13 +6,6 @@
             "rotate" : [-70,0,0]
         },
 		{
-			"filename" : "soundsource.txt",
-			"translate" : [7,10,-8]
-		},
-		{
-			"filename" : "backgroundmusic.txt"
-		},
-		{
 			"filename" : "FPSCounter.txt", 
 		    "translate2d" : [100,700]
 		}

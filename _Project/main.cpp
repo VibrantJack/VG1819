@@ -98,6 +98,8 @@ int main( void )
         glClearColor(curColor.x, curColor.y, curColor.z, 0.0f);
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
         
+		
+
 		kitten::gameCycle();
 
         // Swap buffers

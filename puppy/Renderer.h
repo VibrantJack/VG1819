@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 
 #include "kitten\Renderable.h"
+#include "kitten\K_ParticleSystem.h"
 #include "kitten\UIRenderable.h"
 #include "kitten\Camera.h"
 
@@ -21,6 +22,7 @@ namespace puppy
 		friend class P_Instance;
 		friend class kitten::Renderable;
 		friend class kitten::UIRenderable;
+		friend class kitten::K_ParticleSystem;
 	private:
 		//Singleton related
 		Renderer();
@@ -31,7 +33,7 @@ namespace puppy
 
 		std::unordered_set<kitten::Renderable*> m_toRender;
 		std::unordered_set<kitten::UIRenderable*> m_uiToRender;
-
+		std::unordered_set<kitten::K_ParticleSystem*> m_particlesToRender;
 
 		void addToRender(kitten::Renderable* p_toAdd);
 		void removeFromRender(kitten::Renderable* p_toRemove);
@@ -39,10 +41,16 @@ namespace puppy
 		void addUIToRender(kitten::UIRenderable* p_toAdd);
 		void removeUIFromRender(kitten::UIRenderable* p_toRemove);
 
+		void addParticleToRender(kitten::K_ParticleSystem* p_toAdd);
+		void removeParticleFromRender(kitten::K_ParticleSystem* p_toRemove);
+
 		void renderAll(kitten::Camera* p_cam);
 	public:
 		static Renderer* getInstance() { return sm_instance; };
 
 		void removeAll();
+
+		void setBlendFunc(GLenum p_sourceFactor, GLenum p_destinationFactor);
+		void setBlendEquation(GLenum p_mode) const;
 	};
 }

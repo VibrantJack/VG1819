@@ -70,7 +70,8 @@ void unit::InitiativeTrackerUI::next()
 }
 
 void unit::InitiativeTrackerUI::change(int p_i)
-{//p_i is the index of unit
+{
+	//p_i is the index of unit
 	int blockIndex = isShown(p_i);
 	if (blockIndex >= 0)
 	{
@@ -93,13 +94,13 @@ void unit::InitiativeTrackerUI::change(int p_i)
 			setNewFrame(m_blockInSlot[i]);
 		}
 	}
-	else if (blockIndex == -1)//unit is at front
+	else if (blockIndex == -1)//changed unit is at left, it must be removed
 	{
-		m_lastUnitIndex++;//move last index right
+		m_lastUnitIndex--;//move last index left
 	}
-	else if (blockIndex == -2)//unit is at back
+	else if (blockIndex == -2)//changed unit is at right, it changes nothing
 	{
-		m_lastUnitIndex--;
+		//m_lastUnitIndex--;
 	}
 }
 
@@ -111,13 +112,21 @@ int unit::InitiativeTrackerUI::isShown(int p_i)
 	}
 	else if (p_i >= m_lastUnitIndex)//unit is after the last unit shown
 	{
+		for (int i = 0; i < m_maxUnitToShow; i++)
+		{
+			if (m_unitIndex[i] == -1)//return a block that is empty
+				return i;
+		}
+
 		return -2;
 	}
+
 	for (int i = 0; i < m_maxUnitToShow; i++)
 	{
 		if (m_unitIndex[i] == p_i)
 			return i;
 	}
+
 	assert(false);
 	return -3;
 }

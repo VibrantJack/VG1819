@@ -43,7 +43,7 @@ namespace puppy
 	{
 		kitten::Camera* cam = kitten::K_CameraList::getInstance()->getSceneCamera();
 
-		puppy::Renderer::getInstance()->renderAll(cam);
 		puppy::StaticRenderables::getInstance()->render(cam);
+		puppy::Renderer::getInstance()->renderAll(cam);
 	}
 }

@@ -15,7 +15,6 @@
 				"ct":1,
 				"target":1,
 				"description":"Deal 10 damage to target after 1 turn.",
-				"need_unit":0,
 				"area_mode":"span",
 				"area_fix":0,
 				"area_min":0,

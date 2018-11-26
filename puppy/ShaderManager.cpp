@@ -7,21 +7,25 @@ namespace puppy
 	const ShaderProgram* ShaderManager::m_boundShader = nullptr;
 	ShaderProgram* ShaderManager::m_createdPresetShaders[ShaderType::SHADERTYPE_MAX+1];
 
-	void ShaderManager::applyShader(const ShaderProgram* p_sp)
+	bool ShaderManager::applyShader(ShaderProgram* p_sp)
 	{
 		//Use shader if it isn't currently being used
 		if (m_boundShader != p_sp)
 		{
 			p_sp->apply();
 			m_boundShader = p_sp;
+
+			
+			return true;
 		}
+		return false;
 	}
 
-	void ShaderManager::applyShader(ShaderType p_st)
+	bool ShaderManager::applyShader(ShaderType p_st)
 	{
 		if (m_boundShader == m_createdPresetShaders[p_st] && m_boundShader != nullptr)
 		{
-			return; //shader already bound
+			return false; //shader already bound
 		}
 		//else
 
@@ -29,9 +33,7 @@ namespace puppy
 		if (m_createdPresetShaders[p_st] != nullptr)
 		{
 			//Shader already created, use it.
-			m_createdPresetShaders[p_st]->apply();
-			m_boundShader = m_createdPresetShaders[p_st];
-			return;
+			return applyShader(m_createdPresetShaders[p_st]);
 		}
 		//else
 
@@ -39,10 +41,9 @@ namespace puppy
 		std::string vertexShaderPath, pixelShaderPath;
 		if (getShaderPaths(p_st, &vertexShaderPath, &pixelShaderPath))
 		{
-			m_createdPresetShaders[p_st] = new ShaderProgram(vertexShaderPath, pixelShaderPath);
+			m_createdPresetShaders[p_st] = new ShaderProgram(vertexShaderPath, pixelShaderPath,p_st);
 			//apply 
-			m_createdPresetShaders[p_st]->apply();
-			m_boundShader = m_createdPresetShaders[p_st];
+			return applyShader(m_createdPresetShaders[p_st]);
 		}
 	}
 
@@ -70,6 +71,26 @@ namespace puppy
 			*p_vertexShaderPath = "Shaders/particles.vsh";
 			*p_pixelShaderPath = "Shaders/particles.fsh";
 			return true;
+		case ShaderType::texture_blend_zero:
+			*p_vertexShaderPath = "Shaders/basic.vsh";
+			*p_pixelShaderPath = "Shaders/basic_zero_blend.fsh";
+			return true;
+		case ShaderType::texture_blend_one:
+			*p_vertexShaderPath = "Shaders/basic.vsh";
+			*p_pixelShaderPath = "Shaders/basic_one_blend.fsh";
+			return true;
+		case ShaderType::texture_blend_two:
+			*p_vertexShaderPath = "Shaders/basic.vsh";
+			*p_pixelShaderPath = "Shaders/basic_two_blend.fsh";
+			return true;
+		case ShaderType::texture_blend_three:
+			*p_vertexShaderPath = "Shaders/basic.vsh";
+			*p_pixelShaderPath = "Shaders/basic_three_blend.fsh";
+			return true;
+		case ShaderType::texture_blend_four:
+			*p_vertexShaderPath = "Shaders/basic.vsh";
+			*p_pixelShaderPath = "Shaders/basic_four_blend.fsh";
+			return true;
 		default:
 			return false;
 		}
@@ -82,7 +103,7 @@ namespace puppy
 			std::string vertexShaderPath, pixelShaderPath;
 			if (getShaderPaths(p_st, &vertexShaderPath, &pixelShaderPath))
 			{
-				m_createdPresetShaders[p_st] = new ShaderProgram(vertexShaderPath, pixelShaderPath);
+				m_createdPresetShaders[p_st] = new ShaderProgram(vertexShaderPath, pixelShaderPath, p_st);
 			}
 		}
 

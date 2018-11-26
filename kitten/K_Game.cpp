@@ -56,9 +56,9 @@ namespace kitten
 
 		puppy::P_Instance::createInstance();
 
-		kibble::initializeKibbleRelatedComponents();
-
 		ability::StatusManager::createInstance();
+
+		kibble::initializeKibbleRelatedComponents();
 		ability::AbilityManager::createInstance();
 		ability::AbilityNodeManager::createInstance();
 
@@ -69,6 +69,7 @@ namespace kitten
 		UnitInteractionManager::createInstance();
 
 		LandInfoManager::createInstance();
+
 	}
 
 	// This is called once at the beginning of the game
@@ -266,7 +267,6 @@ namespace kitten
 			//textInput->getTransform().move2D(400, 700);
 			textInput->getTransform().setParent(parent);
 		}
-
 		return true;
 	}
 

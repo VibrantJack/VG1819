@@ -13,7 +13,7 @@ namespace unit
 	{
 	private:
 		std::unordered_map<ability::TimePointEvent::TPEventType, std::vector<ability::Status*>*>* m_TPStatusList;
-
+		std::vector<ability::Status*> m_removeQueue;
 	public:
 		std::vector<ability::Status*> m_statusList;
 		Unit* m_unit;
@@ -22,6 +22,7 @@ namespace unit
 		~StatusContainer();
 
 		void addStatus(ability::Status *p_newStatus);
+		void queueRemove(ability::Status *p_oldStatus);
 		bool removeStatus(const ability::Status *p_oldStatus);
 		ability::Status* getStatus(const std::string& p_name);
 

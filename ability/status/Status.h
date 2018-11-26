@@ -1,5 +1,4 @@
 
-
 //Rock
 
 //Status include Buff, Debuff, Passive Ability, and level up bonus
@@ -29,16 +28,6 @@
 
 namespace ability
 {
-	/*move to TimePointEvent class
-	enum TimePointEvent
-	{
-		Turn_Start,
-		Turn_End,
-		Level_Up,
-		New_Tile,
-		Deal_Damage,
-		Receive_Damage,
-	};*/
 	class Status
 	{
 	public:
@@ -49,9 +38,11 @@ namespace ability
 
 		void changeLV(int p_lv);
 		void changeDescription(const std::string & p_msg);
+		void setEffectedAD(const std::string & p_msg);
 		void addCounter(const std::string & p_key, int p_value);
 		void addAttributeChange(const std::string & p_key, int p_value);
 		void addTimePoint(ability::TimePointEvent::TPEventType p_value);
+		std::vector<ability::TimePointEvent::TPEventType> getTPlist();
 
 		void attach(unit::Unit* p_u);
 
@@ -68,18 +59,20 @@ namespace ability
 	protected:
 		unit::Unit * m_unit;//the unit this status attached to
 
-		std::unordered_map<std::string, int>* m_counter;
+		std::unordered_map<std::string, int> m_counter;
 		//Most commonly counter is duration. But it can be more, such as how many times it can be used
 
 		std::string m_description;//the text that will be showed to player
 		int m_LV;
-		std::unordered_map<std::string, int>* m_attributeChange;
+		std::unordered_map<std::string, int> m_attributeChange;
+		std::string m_effectedAD;
 
-		std::vector<ability::TimePointEvent::TPEventType>* m_TPList;//the list of event that will be registered
+		std::vector<ability::TimePointEvent::TPEventType> m_TPList;//the list of event that will be registered
 
 		void removeThis();
 		int changeCounter(const std::string& p_cName = "duration", int p_value = -1);
 		void checkDuration();
+		virtual void effectEnd();
 	};
 
 	class Status_LV : public Status
@@ -140,6 +133,44 @@ namespace ability
 		Status_Duelist_LV3();
 		Status* clone() const { return new Status_Duelist_LV3(*this); };
 
+		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+	};
+
+	class Status_Temp_Change : public Status
+	{
+	public:
+		Status_Temp_Change();
+		Status* clone() const { return new Status_Temp_Change(*this); };
+		int effect();
+		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		void effectEnd();
+	};
+
+	class Status_AD_Change : public Status
+	{
+	public:
+		Status_AD_Change();
+		Status* clone() const { return new Status_AD_Change(*this); };
+		int effect();
+		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		void effectEnd();
+	};
+
+	class Status_Load : public Status
+	{
+	public:
+		Status_Load();
+		Status* clone() const { return new Status_Load(*this); };
+		int effect();
+		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		void effectEnd();
+	};
+
+	class Status_Shield : public Status
+	{
+	public:
+		Status_Shield();
+		Status* clone() const { return new Status_Shield(*this); };
 		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
 	};
 }

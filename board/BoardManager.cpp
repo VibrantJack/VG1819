@@ -6,9 +6,9 @@
 
 BoardManager* BoardManager::sm_instance = nullptr;
 
-void BoardManager::setTileList(std::vector<kitten::K_GameObject*>* p_list)
+void BoardManager::setTileList(std::vector<kitten::K_GameObject*> p_list)
 {
-	m_tileList = *p_list;
+	m_tileList = p_list;
 }
 
 void BoardManager::setDimension(int p_x, int p_z)
@@ -25,10 +25,10 @@ std::pair<int, int> BoardManager::getDimension()
 kitten::K_GameObject * BoardManager::getTile(int p_x, int p_z)
 {
 	std::pair<int, int> pos(p_x, p_z);
-	int x_length = m_dimension.first;
-	if (pos == m_tileList[p_x * x_length + p_z]->getComponent<TileInfo>()->getPos())
+	int z_length = m_dimension.second;
+	if (pos == m_tileList[p_x * z_length + p_z]->getComponent<TileInfo>()->getPos())
 	{
-		return m_tileList[p_x * x_length + p_z];
+		return m_tileList[p_x * z_length + p_z];
 	}
 	assert(false);//not found tile or wrong in position
 	return nullptr;
@@ -43,7 +43,7 @@ void BoardManager::showArea(kitten::K_GameObject* p_pivot)
 		m_areaList = m_area->getTileListWithPivot(p_pivot);
 		applyFilter(&m_areaList);
 
-		m_highlighter->highlightTile(m_areaList);
+		m_highlighter->highlightTile(TileInfo::Area, m_areaList);
 	}
 }
 
@@ -51,7 +51,7 @@ void BoardManager::hideArea()
 {
 	if (m_area->isActive())
 	{
-		m_highlighter->unHighlightCurrent();
+		m_highlighter->unhighlightAll(TileInfo::Area);
 	}
 }
 
@@ -60,10 +60,16 @@ kitten::Event::TileList BoardManager::getArea()
 	if (m_area->isActive())
 	{
 		m_area->removePattern();
+		m_highlighter->unhighlightAll(TileInfo::Area);
 		return m_areaList;
 	}
 	
 	return kitten::Event::TileList();
+}
+
+kitten::Event::TileList BoardManager::getRange()
+{
+	return m_rangeList;
 }
 
 void BoardManager::registerEvent()
@@ -117,7 +123,7 @@ void BoardManager::listenEvent(kitten::Event::EventType p_type, kitten::Event * 
 		highlightTile(p_data);
 		break;
 	case kitten::Event::Unhighlight_Tile:
-		unhighlightTile(p_data);
+		m_highlighter->unhighlightAll(TileInfo::Range);
 		break;
 	case kitten::Event::Set_Area_Pattern:
 		setArea(p_data);
@@ -146,18 +152,26 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 	setFilter(FILTER, p_data);
 	applyFilter(&list);
   
-	m_highlighter->highlightTile(list);
+	m_rangeList = list;
+
+	m_highlighter->highlightTile(TileInfo::Range, list);
 }
 
+/*
 void BoardManager::unhighlightTile(kitten::Event * p_data)
 {
-	m_highlighter->unHighlightCurrent();
+	m_highlighter->unhighlightAll(TileInfo::ForRange);
 }
+*/
 
 void BoardManager::setFilter(const std::string & p_filter, kitten::Event * p_data)
 {
 	int filterNum = p_data->getInt(p_filter);
 	m_pipeline->resetFilter();
+
+	kitten::K_GameObject* origin = p_data->getGameObj("tileAtOrigin");
+	kitten::K_GameObject* ugo = origin->getComponent<TileInfo>()->getUnit();
+	m_pipeline->setSource(ugo->getComponent<unit::Unit>());
 	for (int i = 0; i < filterNum; i++)
 	{
 		std::stringstream stm;
@@ -179,5 +193,12 @@ void BoardManager::setArea(kitten::Event * p_data)
 	setFilter(AREA_FILTER, p_data);
 
 	kitten::K_GameObject* p = p_data->getGameObj(ORIGIN);
-	showArea(p);
+
+	//show inital highlight
+	TileInfo* info = p->getComponent<TileInfo>();
+	if (info->isHighlighted(TileInfo::Range))
+	{
+		showArea(p);
+	}
+
 }

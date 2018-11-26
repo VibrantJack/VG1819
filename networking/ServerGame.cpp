@@ -75,17 +75,21 @@ namespace networking
 
 	void ServerGame::shutdownNetwork()
 	{
-		Packet packet;
-		packet.packetType = SERVER_SHUTDOWN;
-
-		char data[BASIC_PACKET_SIZE];
-		packet.serialize(data);
-		//m_network->sendToAll(data, BASIC_PACKET_SIZE);
-		m_network->sendToAll(data, BASIC_PACKET_SIZE);
-
 		// Shutdown ServerNetwork
 		if (m_network != nullptr)
 		{
+			char data[BASIC_PACKET_SIZE];
+
+			Buffer buffer;
+			buffer.m_data = data;
+			buffer.m_size = BASIC_PACKET_SIZE;
+
+			Packet packet;
+			packet.m_packetType = SERVER_SHUTDOWN;
+			packet.serialize(buffer);
+
+			m_network->sendToAll(data, BASIC_PACKET_SIZE);
+
 			delete m_network;
 			m_network = nullptr;
 		}
@@ -125,10 +129,14 @@ namespace networking
 			while (i < (unsigned int)data_length)
 			{
 				// Take all incoming packets as Packet initially to read the packetType
-				Packet packet;
-				packet.deserialize(&(m_network_data[i]));
+				Buffer defaultBuffer;
+				defaultBuffer.m_data = &(m_network_data[i]);
+				defaultBuffer.m_size = BASIC_PACKET_SIZE;
 
-				switch (packet.packetType) {
+				Packet defaultPacket;
+				defaultPacket.deserialize(defaultBuffer);
+
+				switch (defaultPacket.m_packetType) {
 
 					case INIT_CONNECTION:
 					{
@@ -136,15 +144,19 @@ namespace networking
 						printf("Server received init packet from [Client: %d]\n", iter->first);
 
 						// Send a packet to the client to notify them what their ID is
-						unsigned int clientId = iter->first;
-						char packet_data[BASIC_PACKET_SIZE];
+						int clientId = iter->first;
+						char packetData[BASIC_PACKET_SIZE];
+
+						Buffer buffer;// = NetworkServices::createBuffer(BASIC_PACKET_SIZE);
+						buffer.m_data = packetData;
+						buffer.m_size = BASIC_PACKET_SIZE;
 
 						Packet packet;
-						packet.packetType = SEND_CLIENT_ID;
-						packet.clientId = clientId;
+						packet.m_packetType = SEND_CLIENT_ID;
+						packet.m_clientId = clientId;
 
-						packet.serialize(packet_data);
-						m_network->sendToClient(clientId, packet_data, BASIC_PACKET_SIZE);
+						packet.serialize(buffer);
+						m_network->sendToClient(clientId, packetData, BASIC_PACKET_SIZE);
 						break;
 					}
 					case CLIENT_DISCONNECT:
@@ -156,38 +168,64 @@ namespace networking
 
 						break;
 					}
+					case ABILITY_PACKET:
+					{
+						printf("Server received ABILITY_PACKET from [Client: %d]\n", iter->first);
+						Buffer buffer;
+						buffer.m_data = &(m_network_data[i]);
+						buffer.m_size = MAX_PACKET_SIZE;
+
+						AbilityPacket packet;
+						packet.deserialize(buffer);
+						int packetTotalBytes = packet.getBytes();
+						i += packetTotalBytes;
+						packet.print();
+
+						char* data = new char[packetTotalBytes];
+						Buffer newBuffer;
+						newBuffer.m_data = data;
+						newBuffer.m_size = packetTotalBytes;
+						packet.serialize(newBuffer);
+						m_network->sendToOthers(iter->first, data, packetTotalBytes);
+						delete[] data;
+
+						break;
+					}
 					case SUMMON_UNIT:
 					{
-						printf("Server received CLIENT_SUMMON_UNIT packet from [Client: %d]\n", iter->first);
+						printf("Server received SUMMON_UNIT packet from [Client: %d]\n", iter->first);
+						Buffer buffer;
+						buffer.m_data = &(m_network_data[i]);
+						buffer.m_size = SUMMON_UNIT_PACKET_SIZE;
 
 						SummonUnitPacket summonUnitPacket;
-						summonUnitPacket.deserialize(&(m_network_data[i]));
+						summonUnitPacket.deserialize(buffer);
 						i += SUMMON_UNIT_PACKET_SIZE;
-						sendSummonedUnitPacket(iter->first, summonUnitPacket);
+						printf("Server sending Unit index: %d, posX: %d, posY: %d\n", summonUnitPacket.m_unitId, summonUnitPacket.m_posX, summonUnitPacket.m_posY);
+						
+						char data[SUMMON_UNIT_PACKET_SIZE];
+						Buffer newBuffer;
+						newBuffer.m_data = data;
+						newBuffer.m_size = SUMMON_UNIT_PACKET_SIZE;
+						summonUnitPacket.serialize(newBuffer);
+						m_network->sendToOthers(iter->first, data, SUMMON_UNIT_PACKET_SIZE);
+
+						//sendSummonedUnitPacket(iter->first, summonUnitPacket);
 
 						break;
 					}
-					case UNIT_MOVE:
+					case SKIP_TURN:
+					case GAME_TURN_START:
 					{
-						printf("Server received UNIT_MOVE packet from [Client: %d]\n", iter->first);
+						i += BASIC_PACKET_SIZE;
+						printf("Server received BasicPacket PacketType: %d from [Client: %d]\n", defaultPacket.m_packetType, iter->first);
 
-						UnitMovePacket packet;
-						packet.deserialize(&(m_network_data[i]));
-						i += UNIT_MOVE_PACKET_SIZE;
-						printf("Server sending Unit index: %d, posX: %d, posY: %d\n", packet.unitIndex, packet.posX, packet.posY);
-
-						// Send received packet to other clients
-						char packet_data[UNIT_MOVE_PACKET_SIZE];
-
-						packet.serialize(packet_data);
-						m_network->sendToOthers(iter->first, packet_data, UNIT_MOVE_PACKET_SIZE);
-
-
+						m_network->sendToOthers(iter->first, defaultBuffer.m_data, BASIC_PACKET_SIZE);
 						break;
 					}
-
 					default:
-						//printf("error in packet types received from client %d\n", iter->first);
+						printf("error in packet types received from client %d\n", iter->first);
+						i += (unsigned int)data_length;						
 						break;
 				}
 			}
@@ -198,7 +236,7 @@ namespace networking
 	{
 		char packet_data[SUMMON_UNIT_PACKET_SIZE];
 
-		p_packet.serialize(packet_data);
+		//p_packet.serialize(packet_data);
 
 		m_network->sendToOthers(p_iClientId, packet_data, SUMMON_UNIT_PACKET_SIZE);
 	}

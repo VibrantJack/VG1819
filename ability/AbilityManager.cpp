@@ -1,5 +1,8 @@
 #include "AbilityManager.h"
 
+// Networking
+#include "networking\ClientGame.h"
+
 //Rock
 
 namespace ability
@@ -45,10 +48,43 @@ namespace ability
 		m_abilityList[ABILITY_SUMMON_UNIT] = newAbility;
 
 		newAbility = new Move();
-		m_abilityList[ABILITY_MOVE] = newAbility;
+		m_abilityList[ACTION_MOVE] = newAbility;
 
 		newAbility = new Blast();
 		m_abilityList[ABILITY_BLAST] = newAbility;
+
+		newAbility = new Join();
+		m_abilityList[ACTION_JOIN] = newAbility;
+
+		newAbility = new Burn();
+		m_abilityList[ABILITY_BURN] = newAbility;
+
+		newAbility = new FireDance();
+		m_abilityList[ABILITY_FIRE_DANCE] = newAbility;
+
+		newAbility = new Fire();
+		m_abilityList[ABILITY_FIRE] = newAbility;
+
+		newAbility = new Load();
+		m_abilityList[ABILITY_LOAD] = newAbility;
+
+		newAbility = new Volley();
+		m_abilityList[ABILITY_VOLLEY] = newAbility;
+
+		newAbility = new Arm();
+		m_abilityList[ABILITY_ARM] = newAbility;
+
+		newAbility = new TheLight();
+		m_abilityList[ABILITY_THE_LIGHT] = newAbility;
+
+		newAbility = new Invest();
+		m_abilityList[ABILITY_INVEST] = newAbility;
+
+		newAbility = new PowerOfMoney();
+		m_abilityList[ABILITY_POWER_OF_MONEY] = newAbility;
+
+		newAbility = new GoldRush();
+		m_abilityList[ABILITY_GOLD_RUSH] = newAbility;
 	}
 
 	AbilityManager::AbilityManager()
@@ -92,6 +128,10 @@ namespace ability
 
 	int AbilityManager::useAbility(const std::string & p_name, AbilityInfoPackage * p_info)
 	{
+		if (networking::ClientGame::isNetworkValid())
+		{
+			networking::ClientGame::getInstance()->sendAbilityPacket(p_name, p_info);
+		}
 		return findAbility(p_name)->effect(p_info);
 	}
 

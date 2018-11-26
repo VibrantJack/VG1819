@@ -6,6 +6,7 @@
 #include "unit/unitComponent/UnitGraphic.h"
 #include "ability/status/Status.h"
 
+//attributes
 #define UNIT_HP "hp"
 #define UNIT_MAX_HP "max_hp"
 #define UNIT_IN "in"
@@ -15,10 +16,27 @@
 #define UNIT_COST "cost"
 #define UNIT_BASE_COST "base_cost"
 #define UNIT_LV "lv"
+
+//ability related
 #define UNIT_CT "ct"
 #define UNIT_CD "cd"
 #define UNIT_DURATION "duration"
 #define UNIT_POWER "power"
+
+//counter attribute
+#define COUNTER_NAME "counter_name"
+#define COUNTER_MAX "counter_max"
+#define COUNTER_MIN "counter_min"
+#define COUNTER_SELECT "counter_select"
+//counter select option
+#define COUNTER_CHOOSE "choose"
+#define COUNTER_ALL "all"
+//counter type
+#define COUNTER_MONEY "money"
+
+//tags
+#define STRUCTURE "Structure"
+
 //@Rock
 
 namespace unit

@@ -13,6 +13,8 @@
 #include "kitten/sprites/SpriteAnimator.h"
 //Rock
 
+#include "kibble/databank/databank.hpp"
+
 namespace unit
 {
 	UnitSpawn* UnitSpawn::m_instance = nullptr;
@@ -48,10 +50,11 @@ namespace unit
 		return m_instance;
 	}
 
-	kitten::K_GameObject * UnitSpawn::spawnUnitObject(UnitData * p_unitData)
+	/*
+	kitten::K_GameObject * UnitSpawn::spawnUnitObject(Unit * p_unitData)
 	{
 		//create unit 
-		Unit* unit = spawnUnitFromData(p_unitData);
+		Unit* unit = p_unitData;
 
 		//get component manager
 		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
@@ -63,7 +66,6 @@ namespace unit
 		
 		//create unit graphic
 		UnitGraphic* unitG = static_cast<UnitGraphic*>(cm->createComponent("UnitGraphic"));
-		unitG->setTexture(p_unitData->m_texPath.c_str());
 		unitObject->addComponent(unitG);
 
 		//create unit move
@@ -79,22 +81,6 @@ namespace unit
 		uClick->setTextBox(m_textBoxGO);
 		unitObject->addComponent(uClick);
 		
-		//check if there is sprite, for debuging
-		if (p_unitData->m_spriteName != std::string())
-		{//sprite render
-			kitten::K_Component* uSpriteRender = cm->createComponent("SpriteRenderable");
-			unitObject->addComponent(uSpriteRender);
-			//sprite animator
-			sprites::SpriteAnimator* uSpriteAnimator = static_cast<sprites::SpriteAnimator*>(cm->createComponent("SpriteAnimator"));
-			uSpriteAnimator->setSpriteSheet(p_unitData->m_spriteName);
-			unitObject->addComponent(uSpriteAnimator);
-
-			unitG->setEnabled(false);
-
-			//hard code, need to be datadriven
-			unitObject->getTransform().scaleRelative(2.0f, 2.0f, 0.0f);
-		}
-		
 		//hard coded, should be datadriven
 		//unitObject->getTransform().move(0.5f, 1.0f, 0.0f);
 		//rotate to face camera
@@ -104,8 +90,39 @@ namespace unit
 		unit::InitiativeTracker::getInstance()->addUnit(unitObject);
 
 		return unitObject;
+	}*/
+
+	kitten::K_GameObject* UnitSpawn::spawnUnitObject(const int& p_unitIdentifier) { 
+
+		/*
+		if (!kibble::checkIfComponentDriven(p_unitIdentifier))
+			return spawnUnitObject(kibble::getUnitInstanceFromId(p_unitIdentifier));
+			*/
+
+		//get component manager
+		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
+
+		//unit object
+		kitten::K_GameObject* unitObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+		kibble::attachCustomComponentsToGameObject(p_unitIdentifier, unitObject);
+
+		//create clickable
+		unit::UnitClickable* uClick = static_cast<unit::UnitClickable*>(cm->createComponent("UnitClickable"));
+		uClick->setTextBox(m_textBoxGO);
+		unitObject->addComponent(uClick);
+
+		if (unitObject->getComponent<kitten::SpriteRenderable>() != nullptr) {
+			// disable unit Graphic
+			unitObject->getComponent<UnitGraphic>()->setEnabled(false);
+		}
+
+		//add object to Initiative Tracker
+		unit::InitiativeTracker::getInstance()->addUnit(unitObject);
+
+		return unitObject;
 	}
 
+	/*
 	Unit* UnitSpawn::spawnUnitFromData(UnitData * p_unitData)
 	{
 		Unit* unit = new Unit();
@@ -181,7 +198,7 @@ namespace unit
 		// Had to comment this out for testing Commander's ManipulateTile ability, using testDummy.txt
 		// Threw errors every other time
 		//commander->m_porPath = p_unitData->m_porPath;
-	}
+	}*/
 
 	kitten::K_Component * UnitSpawn::createClickableBox(UnitSize p_size)
 	{
@@ -199,6 +216,7 @@ namespace unit
 		return nullptr;
 	}
 
+	/*
 	ability::Status* UnitSpawn::readSD(unit::StatusDescription* p_sd)
 	{
 		std::string name = p_sd->m_stringValue["name"];
@@ -245,5 +263,5 @@ namespace unit
 		}
 
 		return s;
-	}
+	}*/
 }

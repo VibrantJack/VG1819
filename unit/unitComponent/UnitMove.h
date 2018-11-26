@@ -30,7 +30,7 @@ namespace unit
 		void triggerNewTileEvent();
 
 	public:
-		UnitMove(float p_speed = 0.25f, glm::vec3 p_offset = glm::vec3(0.15f, 1.0f, 0.8f));
+		UnitMove(float p_speed = 0.25f, glm::vec3 p_offset = glm::vec3(0.075f, 1.0f, 0.8f));
 		~UnitMove();
 
 		void attempToMove(int p_min = 1, int p_max = -1);

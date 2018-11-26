@@ -100,6 +100,7 @@ namespace MousePicker
 		const auto& activeClickables = kitten::ActiveClickables::getInstance()->getClickableList();
 
 		auto end = activeClickables.cend();
+#pragma loop(hint_parallel(2))
 		for (auto it = activeClickables.cbegin(); it != end; ++it)
 		{
 			if (rayHits(p_ray, *it, &tempHit))

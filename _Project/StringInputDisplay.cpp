@@ -1,7 +1,7 @@
 #include "StringInputDisplay.h"
 #include "kitten\K_GameObject.h"
 
-StringInputDisplay::StringInputDisplay() : m_textBox(nullptr), m_strString("")
+StringInputDisplay::StringInputDisplay() : m_textBox(nullptr), m_strEnteredString("")
 {
 
 }
@@ -24,11 +24,10 @@ void StringInputDisplay::start()
 void StringInputDisplay::onStringFinished(const std::string& p_string)
 {
 	m_textBox->setText("");
-	m_strString = "";
+	m_strEnteredString = p_string;
 }
 
 void StringInputDisplay::onStringChanged(const std::string& p_string)
 {
 	m_textBox->setText(p_string);
-	m_strString = p_string;
 }

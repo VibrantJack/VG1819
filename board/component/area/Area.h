@@ -15,6 +15,7 @@
 #define LINEH_AREA "lineH"
 #define TRIANGLE_AREA "triangle"
 #define PATH "path"
+#define ALL_AREA "all"
 
 #define ORIGIN "tileAtOrigin"
 #define AREA_LEN "area_len"
