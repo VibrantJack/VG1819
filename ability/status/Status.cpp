@@ -25,8 +25,9 @@ namespace ability
 
 	void Status::print()
 	{
-		std::cout << m_name << std::endl;
-		std::cout << m_description << std::endl;
+		std::cout << "Name: "<<m_name << std::endl;
+		std::cout << "Description: " << m_description << std::endl;
+		std::cout << "Attached Unit: " << m_unit->m_name << std::endl;
 		
 		std::cout << "Counter: " << std::endl;
 		for (auto it = m_counter.begin(); it != m_counter.end(); it++)

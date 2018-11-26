@@ -73,7 +73,7 @@ namespace puppy
 		//Particles
 		
 		glEnable(GL_BLEND);
-		//glDisable(GL_DEPTH_TEST);
+		glDisable(GL_DEPTH_TEST);
 
 		glm::mat4 viewInverse = (glm::mat4)p_cam->getMat3ViewInverse();
 
@@ -85,7 +85,7 @@ namespace puppy
 
 		//blend off
 		glDisable(GL_BLEND);
-		//glEnable(GL_DEPTH_TEST);
+		glEnable(GL_DEPTH_TEST);
 
 		//UI
 		const glm::mat4& ortho = p_cam->getOrtho();

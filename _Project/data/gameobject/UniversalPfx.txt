@@ -6,7 +6,8 @@
 			"effects" : [
 				{
 					"name" : "UnitDeath",
-					"path" : "data/particles/universal/effects/deathEffect.xml"
+					"path" : "data/particles/universal/effects/deathEffect.xml",
+					"poolednumber" : 6
 				}
 			]
         }

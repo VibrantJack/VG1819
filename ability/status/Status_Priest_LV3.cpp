@@ -7,7 +7,8 @@ namespace ability
 {
 	Status_Priest_LV3::Status_Priest_LV3() : Status_LV::Status_LV()
 	{
-
+		m_name = STATUS_PRIEST_LV3;
+		addTimePoint(TimePointEvent::Level_Up);
 	}
 
 	int Status_Priest_LV3::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)

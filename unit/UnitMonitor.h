@@ -11,7 +11,6 @@ namespace unit
 	{
 	private:
 		static UnitMonitor * m_instance;
-		void printStatus(unit::StatusContainer* p_s);
 	public:
 		UnitMonitor();
 		~UnitMonitor();
@@ -20,6 +19,7 @@ namespace unit
 		static UnitMonitor* getInstanceSafe();
 
 		void printUnit(Unit* p_u);
+		void printStatus(unit::StatusContainer* p_s);
 		void printIT();
 	};
 }

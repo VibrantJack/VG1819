@@ -76,6 +76,15 @@ namespace ability
 
 		newAbility = new TheLight();
 		m_abilityList[ABILITY_THE_LIGHT] = newAbility;
+
+		newAbility = new Invest();
+		m_abilityList[ABILITY_INVEST] = newAbility;
+
+		newAbility = new PowerOfMoney();
+		m_abilityList[ABILITY_POWER_OF_MONEY] = newAbility;
+
+		newAbility = new GoldRush();
+		m_abilityList[ABILITY_GOLD_RUSH] = newAbility;
 	}
 
 	AbilityManager::AbilityManager()

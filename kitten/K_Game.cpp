@@ -197,18 +197,18 @@ namespace kitten
 		//networking::ServerGame::createInstance();
 		//_beginthread(serverLoop, 0, (void*)12);
 		//networking::ClientGame::createInstance();
-		K_GameObject* networkingMenu = K_GameObjectManager::getInstance()->createNewGameObject();
-		networkingMenu->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("NetworkingConsoleMenu"));
+		//K_GameObject* networkingMenu = K_GameObjectManager::getInstance()->createNewGameObject();
+		//networkingMenu->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("NetworkingConsoleMenu"));
 
-		K_GameObject* spawnUnitOnKeyPress = K_GameObjectManager::getInstance()->createNewGameObject();
-		spawnUnitOnKeyPress->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("SpawnUnitOnKeyPress"));
+		//K_GameObject* spawnUnitOnKeyPress = K_GameObjectManager::getInstance()->createNewGameObject();
+		//spawnUnitOnKeyPress->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("SpawnUnitOnKeyPress"));
 
-		// Tab Menu
-		K_GameObject* tabMenu = K_GameObjectManager::getInstance()->createNewGameObject();
-		TabMenu* tabMenuFrame = static_cast<TabMenu*>(compMan->createComponent("TabMenu")); // Create parent frame
-		tabMenu->addComponent(tabMenuFrame);
-		tabMenu->getTransform().scale2D(1280, 720);
-		tabMenu->getTransform().place2D(0, 0);
+		//// Tab Menu
+		//K_GameObject* tabMenu = K_GameObjectManager::getInstance()->createNewGameObject();
+		//TabMenu* tabMenuFrame = static_cast<TabMenu*>(compMan->createComponent("TabMenu")); // Create parent frame
+		//tabMenu->addComponent(tabMenuFrame);
+		//tabMenu->getTransform().scale2D(1280, 720);
+		//tabMenu->getTransform().place2D(0, 0);
 
 		return true;
 	}

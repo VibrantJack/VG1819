@@ -73,3 +73,9 @@ class PathPattern : public AreaPattern
 public:
 	kitten::Event::TileList getTileList(AreaInfo* p_info);
 };
+
+class AllPattern : public AreaPattern
+{
+public:
+	kitten::Event::TileList getTileList(AreaInfo* p_info);
+};

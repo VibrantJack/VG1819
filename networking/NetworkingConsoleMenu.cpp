@@ -11,9 +11,10 @@
 
 NetworkingConsoleMenu::NetworkingConsoleMenu()
 	:
-	m_input(nullptr),
+	m_inputMan(nullptr),
 	m_bMenuOpen(false),
 	m_bPrintText(false),
+	m_bEnteringAddress(false),
 	m_bClientUpdate(false),
 	m_bServerUpdate(false)
 {
@@ -44,8 +45,8 @@ NetworkingConsoleMenu::~NetworkingConsoleMenu()
 
 void NetworkingConsoleMenu::start()
 {
-	m_input = input::InputManager::getInstance();
-	assert(m_input != nullptr);
+	m_inputMan = input::InputManager::getInstance();
+	assert(m_inputMan != nullptr);
 
 	// Add Listeners for exiting to Main Menu and disconnecting from network
 	kitten::EventManager::getInstance()->addListener(
@@ -54,9 +55,21 @@ void NetworkingConsoleMenu::start()
 		std::bind(&NetworkingConsoleMenu::stopHostingListener, this, std::placeholders::_1, std::placeholders::_2));
 }
 
+void NetworkingConsoleMenu::start()
+{
+	m_textBox = m_attachedObject->getComponent<puppy::TextBox>();
+	assert(m_textBox != nullptr);
+
+	m_stringInputDisplay = m_attachedObject->getComponent<StringInputDisplay>();
+	assert(m_stringInputDisplay != nullptr);
+
+	m_inputMan = input::InputManager::getInstance();
+	assert(m_inputMan != nullptr);
+}
+
 void NetworkingConsoleMenu::update()
 {
-	if (m_input->keyDown(m_cEnterMenuKey) && !m_input->keyDownLast(m_cEnterMenuKey))
+	if (m_inputMan->keyDown(m_cEnterMenuKey) && !m_inputMan->keyDownLast(m_cEnterMenuKey))
 	{
 		m_bMenuOpen = true;
 		m_bPrintText = true;
@@ -77,7 +90,7 @@ void NetworkingConsoleMenu::update()
 		}
 
 		// Host game option
-		if (m_input->keyDown(m_cHostKey) && !m_input->keyDownLast(m_cHostKey))
+		if (m_inputMan->keyDown(m_cHostKey) && !m_inputMan->keyDownLast(m_cHostKey))
 		{
 			printf("Host Game option selected\n");
 			
@@ -86,7 +99,7 @@ void NetworkingConsoleMenu::update()
 		}
 
 		// Stop hosting option
-		if (m_input->keyDown(m_cStopHostKey) && !m_input->keyDownLast(m_cStopHostKey))
+		if (m_inputMan->keyDown(m_cStopHostKey) && !m_inputMan->keyDownLast(m_cStopHostKey))
 		{
 			printf("Stop hosting option selected\n");
 
@@ -95,16 +108,24 @@ void NetworkingConsoleMenu::update()
 		}
 
 		// Connect to host option
-		if (m_input->keyDown(m_cConnectKey) && !m_input->keyDownLast(m_cConnectKey))
+		if (m_inputMan->keyDown(m_cConnectKey) && !m_inputMan->keyDownLast(m_cConnectKey))
 		{
-			printf("Connect to host option selected\n");
-			
-			connectToHost();
-			m_bMenuOpen = false;
+			if (networking::ClientGame::isNetworkValid())
+			{
+				printf("[Client: %d]: already connected to host\n", networking::ClientGame::getInstance()->getClientId());
+			}
+			else
+			{
+				printf("Connect to host option selected, enter an address: \n");
+				m_textBox->setText("Enter IP Address");
+				m_inputMan->setPollMode(false);
+				m_bEnteringAddress = true;
+				m_bMenuOpen = false;
+			}
 		}
 
 		// Disconnect from host option
-		if (m_input->keyDown(m_cDisconnectKey) && !m_input->keyDownLast(m_cDisconnectKey))
+		if (m_inputMan->keyDown(m_cDisconnectKey) && !m_inputMan->keyDownLast(m_cDisconnectKey))
 		{
 			printf("Disconnect from host option selected\n");
 			
@@ -113,11 +134,20 @@ void NetworkingConsoleMenu::update()
 		}
 
 		// Exit menu option
-		if (m_input->keyDown(m_cExitMenuKey) && !m_input->keyDownLast(m_cExitMenuKey))
+		if (m_inputMan->keyDown(m_cExitMenuKey) && !m_inputMan->keyDownLast(m_cExitMenuKey))
 		{
 			printf("** Networking Console Menu Closed **\n");
 			m_bMenuOpen = false;
 		}
+	}
+
+	if (m_inputMan->keyDown(GLFW_KEY_ENTER) && !m_inputMan->keyDownLast(GLFW_KEY_ENTER) && m_bEnteringAddress)
+	{
+		std::string address = m_stringInputDisplay->getString();
+		printf("Entered address: %s\n", address.c_str());
+		connectToHost(address);
+		m_bEnteringAddress = false;
+		m_inputMan->setPollMode(true);
 	}
 
 	// Call updates if ClientGame/ServerGame are initialized
@@ -182,7 +212,7 @@ void NetworkingConsoleMenu::stopHosting()
 	}
 }
 
-void NetworkingConsoleMenu::connectToHost()
+void NetworkingConsoleMenu::connectToHost(const std::string& p_strAddress)
 {
 	networking::ClientGame* client = networking::ClientGame::getInstance();
 
@@ -192,21 +222,12 @@ void NetworkingConsoleMenu::connectToHost()
 		// Check if we're already connected to a host
 		if (!networking::ClientGame::isNetworkValid())
 		{
-			printf("Enter an address: ");
-			std::string addr;
-			std::cin >> addr;
-			client->setupNetwork(addr);
-		} else
-		{
-			printf("[Client: %d]: already connected to host\n", client->getClientId());
-		}
-	} else // If not, get address and create ClientGame instance
+			client->setupNetwork(p_strAddress);
+		} 
+	} 
+	else // If not, get address and create ClientGame instance
 	{
-		printf("Enter an address: ");
-		std::string addr;
-		std::cin >> addr;
-
-		networking::ClientGame::createInstance(addr);
+		networking::ClientGame::createInstance(p_strAddress);
 		checkClientNetwork();
 	}
 }

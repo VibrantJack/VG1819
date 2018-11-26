@@ -22,7 +22,7 @@ namespace unit
 		bool isCasting();
 		std::vector<kitten::K_GameObject*> getTarget();
 		void set(std::string p_abilityName, ability::AbilityInfoPackage* p_pack, int p_timer);
-		void changeTimer(int p_n = -1);
+		int changeTimer(int p_n = -1);
 		void cancelCast();
 	private:
 		void cast();

@@ -151,11 +151,29 @@ namespace unit
 		m_turn = p_t;
 
 		m_cdRecorder->reduceCD();//reduce cd at start of turn
-		m_castTimer->changeTimer();//reduce ct at start of turn
+		int i = m_castTimer->changeTimer();//reduce ct at start of turn
+
 		if (m_castTimer->isCasting())
 		{
 			playerSkipTurn();//if it still cast, it skips turn
 		}
+		else if(i == 0)//used casting ability
+		{
+			m_turn->act = false;//can not use action this turn
+		}
+		else
+		{
+			m_turn->act = true;
+		}
+
+		//if the unit's movement is greater than 0, then it can move this turn
+		int mv = m_attributes["mv"];
+		if (mv <= 0)
+			m_turn->move = false;
+		else
+			m_turn->move = true;
+
+		m_turn->checkTurn();
 	}
 
 	bool Unit::canMove()
@@ -224,6 +242,13 @@ namespace unit
 	void Unit::playerSkipTurn()
 	{
 		assert(m_turn != nullptr);
+		if (networking::ClientGame::getInstance())
+		{
+			if (!networking::ClientGame::getInstance()->isServerCalling())
+			{
+				networking::ClientGame::getInstance()->sendBasicPacket(PacketTypes::SKIP_TURN);
+			}
+		}
 		m_turn->turnEnd();
 	}
 
@@ -254,16 +279,6 @@ namespace unit
 	{
 		if (!canMove())
 			return;
-
-		if (networking::ClientGame::getInstance())
-		{
-			int unitIndex = networking::ClientGame::getInstance()->getUnitGameObjectIndex(m_attachedObject);
-			int posX = p_tile->getComponent<TileInfo>()->getPosX();
-			int posY = p_tile->getComponent<TileInfo>()->getPosY();
-
-			//networking::ClientGame::getInstance()->moveUnit(unitIndex, posX, posY);
-			networking::ClientGame::getInstance()->sendMovementPacket(unitIndex, posX, posY);
-		}
 
 		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
 		moveComponet->move(p_tile);

@@ -13,18 +13,16 @@
 
 // Unit stuff
 #include "unit/unitComponent/UnitMove.h"
-#include "unit\UnitMonitor.h"
-#include "unit\UnitSpawn.h"
+#include "unit/UnitTest.h"
 
 #include "unit\InitiativeTracker\InitiativeTracker.h"
 
-// Networking stuff
-#include "networking\ClientGame.h"
+// Networking stuf
 #include "networking\NetworkData.h"
 
 SpawnUnitOnKeyPress::SpawnUnitOnKeyPress()
 	:
-	m_iUnitId(6)
+	m_bUnitsSpawned(false)
 {
 	unit::UnitSpawn::getInstanceSafe();
 }
@@ -34,23 +32,63 @@ SpawnUnitOnKeyPress::~SpawnUnitOnKeyPress()
 
 }
 
+void SpawnUnitOnKeyPress::start()
+{
+	
+}
+
 void SpawnUnitOnKeyPress::update()
 {
-	if (input::InputManager::getInstance()->keyDown('S') && !input::InputManager::getInstance()->keyDownLast('S'))
-	{
-		int posX = 4;
-		int posY = 4;
-		
-		if (networking::ClientGame::getInstance())
+	if (networking::ClientGame::isNetworkValid() && !unit::UnitTest::isTested())
+	{		
+		if (input::InputManager::getInstance()->keyDown('S') && !input::InputManager::getInstance()->keyDownLast('S') && !m_bUnitsSpawned)
 		{
-			networking::ClientGame::getInstance()->summonUnit(networking::ClientGame::getInstance()->getClientId(), m_iUnitId, posX, posY);
-			networking::ClientGame::getInstance()->sendSummonUnitPacket(networking::ClientGame::getInstance()->getClientId(), m_iUnitId, posX, posY);
-		}
-		m_iUnitId = 2;
-	}
+			networking::ClientGame* client = networking::ClientGame::getInstance();
+			int clientId = client->getClientId();
+			if (clientId == 0)
+			{
+				int posX = 7;
+				int posY = 4;
+				int unitId = 1;
 
-	if (input::InputManager::getInstance()->keyDown('G') && !input::InputManager::getInstance()->keyDownLast('G'))
-	{
-		unit::InitiativeTracker::getInstance()->gameTurnStart();
+				for (int i = 0; i < 5; ++i)
+				{
+					client->summonUnit(clientId, unitId, posX, posY);
+					client->sendSummonUnitPacket(clientId, unitId, posX, posY);
+					posX++;
+					unitId++;
+					if (unitId == 5)
+						unitId++;
+				}
+				m_bUnitsSpawned = true;
+			} 
+			else if (clientId == 1)
+			{
+				int posX = 7;
+				int posY = 6;
+				int unitId = 1;
+
+				for (int i = 0; i < 5; ++i)
+				{
+					client->summonUnit(clientId, unitId, posX, posY);
+					client->sendSummonUnitPacket(clientId, unitId, posX, posY);
+					posX++;
+					unitId++;
+					if (unitId == 5)
+						unitId++;
+				}
+				m_bUnitsSpawned = true;		
+			}
+		}
+
+		if (input::InputManager::getInstance()->keyDown('G') && !input::InputManager::getInstance()->keyDownLast('G') && m_bUnitsSpawned)
+		{
+			networking::ClientGame* client = networking::ClientGame::getInstance();
+			if (!client->isGameTurnStarted())
+			{
+				unit::InitiativeTracker::getInstance()->gameTurnStart();
+				client->sendBasicPacket(GAME_TURN_START);
+			}
+		}
 	}
 }
