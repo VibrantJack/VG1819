@@ -39,6 +39,6 @@ namespace kitten
 
 		static void destroyInstance();
 
-		static void changeScene( const std::string&);
+		static void changeScene(const std::string& p_nextScene);
 	};
 }

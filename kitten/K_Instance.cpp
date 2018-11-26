@@ -88,9 +88,10 @@ namespace kitten
 		m_gameObjectManager->deleteQueuedObjects();
 	}
 
-	void K_Instance::changeScene( const std::string& nextScene) {
+	void K_Instance::changeScene(const std::string& p_nextScene)
+	{
 		assert(sm_instance != nullptr);
 		sm_instance->m_sceneSwitchFlag = true;
-		sm_instance->m_nextScene = nextScene;
+		sm_instance->m_nextScene = p_nextScene;
 	}
 }
