@@ -34,7 +34,6 @@ namespace userinterface
 
 	void ReturnToMainMenuButton::onClick()
 	{
-		printf("Return to Main Menu Button clicked!\n");
 		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Return_to_Main_Menu, nullptr);
 	}
 }

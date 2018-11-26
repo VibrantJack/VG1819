@@ -647,6 +647,14 @@ kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 	return new UniversalPfx(effects);
 }
 
+#include "UI\TabMenu\TabMenu.h"
+kitten::K_Component* getTabMenu(nlohmann::json* p_jsonFile) {
+	std::string texture;
+
+	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
+	return new TabMenu(texture.c_str());
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -696,6 +704,7 @@ void setupComponentMap() {
 	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
 	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
+	jsonComponentMap["TabMenu"] = &getTabMenu;
 
 }
 

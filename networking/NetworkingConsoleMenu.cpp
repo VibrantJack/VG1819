@@ -45,18 +45,6 @@ NetworkingConsoleMenu::~NetworkingConsoleMenu()
 
 void NetworkingConsoleMenu::start()
 {
-	m_inputMan = input::InputManager::getInstance();
-	assert(m_inputMan != nullptr);
-
-	// Add Listeners for exiting to Main Menu and disconnecting from network
-	kitten::EventManager::getInstance()->addListener(
-		kitten::Event::EventType::Return_to_Main_Menu,
-		this,
-		std::bind(&NetworkingConsoleMenu::stopHostingListener, this, std::placeholders::_1, std::placeholders::_2));
-}
-
-void NetworkingConsoleMenu::start()
-{
 	m_textBox = m_attachedObject->getComponent<puppy::TextBox>();
 	assert(m_textBox != nullptr);
 
@@ -65,6 +53,12 @@ void NetworkingConsoleMenu::start()
 
 	m_inputMan = input::InputManager::getInstance();
 	assert(m_inputMan != nullptr);
+
+	// Add Listeners for exiting to Main Menu and disconnecting from network
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Return_to_Main_Menu,
+		this,
+		std::bind(&NetworkingConsoleMenu::stopHostingListener, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void NetworkingConsoleMenu::update()
@@ -164,7 +158,19 @@ void NetworkingConsoleMenu::update()
 
 void NetworkingConsoleMenu::stopHostingListener(kitten::Event::EventType p_type, kitten::Event* p_data)
 {
-	stopHosting();
+	// ClientId 0 is the host, 1 is the connecting player
+	networking::ClientGame* client = networking::ClientGame::getInstance();
+	if (client != nullptr)
+	{
+		switch (client->getClientId())
+		{
+			case 0:
+				stopHosting();
+				break;
+			case 1:
+				disconnectFromHost();
+		}
+	}
 }
 
 void NetworkingConsoleMenu::hostGame()

@@ -1,0 +1,8 @@
+{
+    "name" : "Tab Menu",
+    "components" : [
+		{
+			"name" : "TabMenu"
+		}
+    ]
+}

@@ -25,6 +25,9 @@
 		{
 			"filename" : "NetworkingConsoleMenu.txt",
 			"translate2d" : [200, 50]
+		},
+		{
+			"filename" : "TabMenu.txt"
 		}
     ],
 	"scenes" : ["interfacebuilder.txt"]
