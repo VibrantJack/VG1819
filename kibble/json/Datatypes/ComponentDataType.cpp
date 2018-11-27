@@ -703,6 +703,7 @@ void setupComponentMap() {
 	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
 	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
+	jsonComponentMap["ModelRenderable"] = &getModelRenderable;
 
 }
 

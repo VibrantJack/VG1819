@@ -62,7 +62,7 @@ namespace puppy
 				normal = glm::vec3(aiNormal.x, aiNormal.y, aiNormal.z);
 			}
 
-			if (p_mesh->HasTextureCoords)
+			if (p_mesh->HasTextureCoords(i))
 			{
 				const auto& aiUV = p_mesh->mTextureCoords[0][i];
 				uv = glm::vec2(aiUV.x, aiUV.y);
