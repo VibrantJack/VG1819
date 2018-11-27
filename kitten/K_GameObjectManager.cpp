@@ -64,6 +64,11 @@ namespace kitten
 			delete  (*it).second;
 		}
 		m_gameObjects.clear();
+
+		for (auto gameObject : m_toSurvive)
+		{
+			delete gameObject;
+		}
 	}
 
 	void K_GameObjectManager::destroySceneGameObjects() 
@@ -77,9 +82,6 @@ namespace kitten
 		}
 		m_gameObjects.clear();
 		
-		for (auto gameObject : m_toSurvive) {
-			m_gameObjects.insert(std::make_pair(gameObject->m_objectIndex, gameObject));
-		}
 	}
 
 	void K_GameObjectManager::flagGameObjectToSurvive(K_GameObject* p_toSurvive)
