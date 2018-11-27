@@ -10,12 +10,6 @@ namespace ability
 	{
 		Status* s;
 
-		//TO DO: need improve
-		/*CD is removed from status, will be part of unit component
-		s = new Status_CD();
-		s->m_name = "Status_CD";
-		m_statusList.push_back(s);*/
-
 		s = new Status_Encourage();
 		m_statusList[STATUS_ENCOURAGE] = s;
 
@@ -33,6 +27,18 @@ namespace ability
 
 		s = new Status_Dodge();
 		m_statusList[STATUS_DODGE] = s;
+
+		s = new Status_Temp_Change();
+		m_statusList[STATUS_TEMP_CHANGE] = s;
+
+		s = new Status_AD_Change();
+		m_statusList[STATUS_AD_CHANGE] = s;
+
+		s = new Status_Load();
+		m_statusList[STATUS_LOAD] = s;
+
+		s = new Status_Shield();
+		m_statusList[STATUS_SHIELD] = s;
 	}
 
 	StatusManager::StatusManager()

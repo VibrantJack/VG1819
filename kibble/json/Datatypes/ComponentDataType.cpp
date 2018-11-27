@@ -68,7 +68,7 @@ kitten::K_Component* getQuadRenderable(nlohmann::json* p_jsonFile) {
 	std::string texturefilename;
 	bool isStatic;
 
-	SETOPTDEF(texturefilename, "texture", "textures/tiles/MISSING.tga");
+	SETOPTDEF(texturefilename, "texture", "");
 	SETOPTDEF(isStatic, "static", false);
 
 	return new kitten::QuadRenderable(texturefilename.c_str(), isStatic);
@@ -106,7 +106,7 @@ kitten::K_Component* getClickableBox(nlohmann::json* p_jsonFile) {
 	}
 
 	if (JSONHAS("maxpoint")) {
-		minPoint = glm::vec3(LOOKUP("maxpoint")[0], LOOKUP("maxpoint")[1], LOOKUP("maxpoint")[2]);
+		maxPoint = glm::vec3(LOOKUP("maxpoint")[0], LOOKUP("maxpoint")[1], LOOKUP("maxpoint")[2]);
 	}
 
 	return new kitten::ClickableBox(minPoint, maxPoint);
@@ -388,6 +388,13 @@ kitten::K_Component* getUIFrame(nlohmann::json* p_jsonFile) {
 
 #include "unit/unitComponent/UnitMove.h"
 kitten::K_Component* getUnitMove(nlohmann::json* p_jsonFile) {
+	glm::vec3 offset;
+
+	if (JSONHAS("offset")) {
+		offset = glm::vec3(LOOKUP("offset")[0], LOOKUP("offset")[1], LOOKUP("offset")[2]);
+		return new unit::UnitMove(offset);
+	}
+
 	return new unit::UnitMove();
 }
 
@@ -624,6 +631,39 @@ kitten::K_Component* getChangeSceneOnClick(nlohmann::json* p_jsonFile) {
 	return new ChangeSceneOnClick(nextScene);
 }
 
+#include "kitten\K_ParticleSystem.h"
+kitten::K_Component* getKParticleSystem(nlohmann::json* p_jsonFile) {
+	
+	std::string pathToXML = p_jsonFile->operator[]("effectpath");
+	
+	return new kitten::K_ParticleSystem(pathToXML.c_str());
+}
+
+#include "_Project\ToggleParticleSystemOnKeyPress.h"
+kitten::K_Component* getToggleParticleSystemOnKeyPress(nlohmann::json* p_jsonFile) {
+
+	std::string keyStr = p_jsonFile->operator[]("key");
+	return new ToggleParticleSystemOnKeyPress(keyStr[0]);
+}
+
+#include "_Project\UniversalPfx.h"
+kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
+	
+	std::list<std::tuple<std::string, std::string, int>> effects;
+
+	auto end = p_jsonFile->at("effects").end();
+	for (auto it = p_jsonFile->at("effects").begin(); it != end; ++it)
+	{
+		std::string effectName = (*it)["name"];
+		std::string effectPath = (*it)["path"];
+		int numPfxToPool = (*it)["poolednumber"];
+
+		effects.push_back(std::make_tuple(effectName, effectPath, numPfxToPool));
+	}
+
+	return new UniversalPfx(effects);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -669,7 +709,9 @@ void setupComponentMap() {
 	jsonComponentMap["SpawnUnitOnKeyPress"] = &getSpawnUnitOnKeyPress;
 	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
 	jsonComponentMap["ChangeSceneOnClick"] = &getChangeSceneOnClick;
-  
+	jsonComponentMap["UniversalPfx"] = &getUniversalPfx;
+	jsonComponentMap["K_ParticleSystem"] = &getKParticleSystem;
+	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
 	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
 
@@ -678,7 +720,11 @@ void setupComponentMap() {
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {
 	std::string key = p_jsonFile->operator[]("name");
 	if (jsonComponentMap.find(key) != jsonComponentMap.end()) {
-		return jsonComponentMap[key](p_jsonFile);
+		kitten::K_Component* component = jsonComponentMap[key](p_jsonFile);
+		if (JSONHAS("enabled")) {
+			component->setEnabled((int)LOOKUP("enabled"));
+		}
+		return component;
 	}
 	return nullptr;
 }

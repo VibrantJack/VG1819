@@ -1,7 +1,13 @@
 {
 	"spritesheets" :
 	[
+		"ArcherSheet.json",
 		"ClericSheet.json",
-		"WizardSheet.json"
+		"WizardSheet.json",
+		"StoneSlinger.json",
+		"OligarchSheet.json",
+		"EngineerSheet.json",
+		"PyromancerSheet.json",
+		"DuelistSheet.json"
 	]
 }

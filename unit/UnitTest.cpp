@@ -23,6 +23,7 @@
 namespace unit
 {
 	UnitTest* UnitTest::m_instance = nullptr;
+	bool UnitTest::m_bTested = false;
 
 	UnitTest::UnitTest()
 	{
@@ -42,13 +43,16 @@ namespace unit
 
 	void UnitTest::test()
 	{
-		kibble::UnitDataParser* parser = kibble::getUnitDataParserInstance();
-
+		m_bTested = true;
 		//comment for testing IT
-		
+
+		kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstanceSafe()->spawnUnitObject(6); // NewDummy !!!
+		uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(4, 4);
+
+		/*
 		// Testing highlighting tiles and manipulating tiles using testDummy.txt
 		{
-			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstanceSafe()->spawnUnitObject(kibble::getUnitFromId(0));
+			kitten::K_GameObject* testDummyGO = UnitSpawn::getInstanceSafe()->spawnUnitObject(0);
 			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
 			UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 
@@ -63,7 +67,7 @@ namespace unit
 			//PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));
 			//printWhenClick->setMessage("Test Dummy");
 			//testDummyGO->addComponent(printWhenClick);
-		}
+		}*/
 		// End testing selecting spawned unit
 		
 
@@ -79,20 +83,44 @@ namespace unit
 		testTile->getTransform().place(0.0f, -1.0f, 16.0f);
 		//end of test tile
 		*/
-
-
-		//kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Priest.txt"));
-		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(1));
-		//kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Engineer.txt"));
-		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(kibble::getUnitFromId(4));
-		//u1->getTransform().move(10.0f, 0.0f, 0.0f);
+		
 		//set initial position
-		u1->getComponent<unit::UnitMove>()->setTile(1,1);
-		u2->getComponent<unit::UnitMove>()->setTile(0,1);
+		kitten::K_GameObject* u0 = UnitSpawn::getInstanceSafe()->spawnUnitObject(1);//priest
+		u0->getComponent<unit::UnitMove>()->setTile(1, 2);
 
+		kitten::K_GameObject* u1 = UnitSpawn::getInstanceSafe()->spawnUnitObject(1);//priest
+		u1->getComponent<unit::UnitMove>()->setTile(2, 2);
+
+		kitten::K_GameObject* u2 = UnitSpawn::getInstanceSafe()->spawnUnitObject(2);//archer
+		u2->getComponent<unit::UnitMove>()->setTile(3, 2);
+
+		kitten::K_GameObject* u3 = UnitSpawn::getInstanceSafe()->spawnUnitObject(3);//duelist
+		u3->getComponent<unit::UnitMove>()->setTile(4, 2);
+
+		kitten::K_GameObject* u4 = UnitSpawn::getInstanceSafe()->spawnUnitObject(4);//engineer
+		u4->getComponent<unit::UnitMove>()->setTile(5, 2);
+		
+		kitten::K_GameObject* u5 = UnitSpawn::getInstanceSafe()->spawnUnitObject(7);//pyromancer
+		u5->getComponent<unit::UnitMove>()->setTile(6, 2);
+
+		kitten::K_GameObject* u6 = UnitSpawn::getInstanceSafe()->spawnUnitObject(8);//stone slinger
+		u6->getComponent<unit::UnitMove>()->setTile(7, 2);
+
+		kitten::K_GameObject* u7 = UnitSpawn::getInstanceSafe()->spawnUnitObject(9);//arrow tower
+		u7->getComponent<unit::UnitMove>()->setTile(8, 2);
+
+		kitten::K_GameObject* u8 = UnitSpawn::getInstanceSafe()->spawnUnitObject(10);//armory
+		u8->getComponent<unit::UnitMove>()->setTile(9, 2);
+
+		kitten::K_GameObject* u9 = UnitSpawn::getInstanceSafe()->spawnUnitObject(11);//divine status
+		u9->getComponent<unit::UnitMove>()->setTile(10, 2);
+		
+		kitten::K_GameObject* u10 = UnitSpawn::getInstanceSafe()->spawnUnitObject(12);//oligarch
+		u10->getComponent<unit::UnitMove>()->setTile(11, 4);
+		u10->getComponent<Unit>()->m_attributes[COUNTER_MONEY] = 4;
 		//test unit 
-		unit::Unit* u = u1->getComponent<unit::Unit>();
-		UnitMonitor::getInstanceSafe()->printUnit(u);
+		//unit::Unit* u = u1->getComponent<unit::Unit>();
+		//UnitMonitor::getInstanceSafe()->printUnit(u);
 
 		//Test Initiative Tracker
 		//kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(parser->getUnit("Engineer.txt"));

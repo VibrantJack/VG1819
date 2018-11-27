@@ -58,7 +58,7 @@ int unit::InitiativeTracker::getUnitObjectIndex(kitten::K_GameObject * p_uGO)
 		if (*it == p_uGO)
 		{
 			int i = it - m_waitUnitObjectList.begin();
-			int index = m_waitUnitObjectList.size() + i;
+			int index = m_unitObjectList.size() + i;
 			return index;
 		}
 	}

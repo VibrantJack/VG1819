@@ -3,9 +3,7 @@
 
 namespace puppy
 {
-	
-
-	ShaderProgram::ShaderProgram(const std::string& p_vertexShaderPath, const std::string& p_pixelShaderPath)
+	ShaderProgram::ShaderProgram(const std::string& p_vertexShaderPath, const std::string& p_pixelShaderPath, ShaderType p_type) : m_type(p_type)
 	{
 		//If I were to write my own shader compiling / loading it would be the same as wolf's.
 		m_id = wolf::LoadShaders(p_vertexShaderPath, p_pixelShaderPath);

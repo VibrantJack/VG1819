@@ -23,13 +23,20 @@ namespace ability
 
 	protected:
 		//simple ability
+		void singleTargetDamage(AbilityInfoPackage* p_info);
+		void multiTargetDamage(AbilityInfoPackage* p_info);
 		int damage(unit::Unit* p_target, int power);
 
 		//delete package and tell unit it acts once
 		void done(const AbilityInfoPackage* p_info);
-
+		//remove cost counter
+		void removeCounter(unit::Unit* p_target, const std::string& p_name, int p_n);
 		//check is there targets in package
 		bool checkTarget(const AbilityInfoPackage* p_info);
+		//check if target unit is ally
+		bool checkAlly(unit::Unit* p_source, unit::Unit* p_target);
+		//check if unit has the tag
+		bool checkTag(unit::Unit* p_u, const std::string& p_tag);
 
 		//get targets from tiles in the info package,
 		//for cast time ability which units may move in and out the range
@@ -44,6 +51,12 @@ namespace ability
 	public:
 		Move();
 		virtual ~Move();
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Join : public Ability
+	{
+	public:
 		int effect(AbilityInfoPackage* p_info);
 	};
 
@@ -66,17 +79,13 @@ namespace ability
 	class Fight : public Ability
 	{
 	public:
-		Fight();
-		virtual ~Fight();
-		int effect(AbilityInfoPackage* p_info);
+		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
 	};
 
 	class Shoot : public Ability
 	{
 	public:
-		Shoot();
-		virtual ~Shoot();
-		int effect(AbilityInfoPackage* p_info);
+		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
 	};
 
 	class Encourage : public Ability
@@ -93,9 +102,7 @@ namespace ability
 	class QuickShoot : public Ability
 	{
 	public:
-		QuickShoot();
-		virtual ~QuickShoot();
-		int effect(AbilityInfoPackage* p_info);
+		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
 	};
 
 	class Sabotage : public Ability
@@ -109,7 +116,7 @@ namespace ability
 	class Build_the_Wall : public Ability
 	{
 	private:
-		unit::UnitData* m_wallData;
+		int m_unitIndex;
 	public:
 		Build_the_Wall();
 		virtual ~Build_the_Wall();
@@ -130,9 +137,7 @@ namespace ability
 	class Slay : public Ability
 	{
 	public:
-		Slay();
-		virtual ~Slay();
-		int effect(AbilityInfoPackage* p_info);
+		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
 	};
 
 	class SummonUnit : public Ability
@@ -144,6 +149,82 @@ namespace ability
 	};
 
 	class Blast : public Ability
+	{
+	public:
+		int effect(AbilityInfoPackage* p_info) 
+		{
+			getTarget(p_info);
+			multiTargetDamage(p_info); 
+			return 0; 
+		};
+	};
+
+	class Burn : public Ability
+	{
+	public:
+		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
+	};
+
+	class FireDance : public Ability
+	{
+	public:
+		int effect(AbilityInfoPackage* p_info)
+		{
+			getTarget(p_info);
+			multiTargetDamage(p_info);
+			return 0;
+		};
+	};
+
+	class Fire : public Ability
+	{
+	public:
+		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+	};
+
+	class Load : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info);
+	public:
+		Load();
+		virtual ~Load();
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Arm : public Ability
+	{
+	public:
+		Arm();
+		virtual ~Arm();
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Volley : public Ability
+	{
+	public:
+		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+	};
+
+	class TheLight : public Ability
+	{
+	public:
+		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+	};
+
+	class Invest : public Ability
+	{
+	public:
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class PowerOfMoney : public Ability
+	{
+	public:
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class GoldRush : public Ability
 	{
 	public:
 		int effect(AbilityInfoPackage* p_info);

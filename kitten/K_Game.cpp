@@ -54,9 +54,9 @@ namespace kitten
 
 		puppy::P_Instance::createInstance();
 
-		kibble::initializeKibbleRelatedComponents();
-
 		ability::StatusManager::createInstance();
+
+		kibble::initializeKibbleRelatedComponents();
 		ability::AbilityManager::createInstance();
 		ability::AbilityNodeManager::createInstance();
 
@@ -68,6 +68,7 @@ namespace kitten
 		UnitInteractionManager::createInstance();
 
 		LandInfoManager::createInstance();
+
 	}
 
 	// This is called once at the beginning of the game
@@ -135,7 +136,7 @@ namespace kitten
 		//delete builder;
 
 		//test unit
-		unit::UnitTest::getInstanceSafe()->test();
+		//unit::UnitTest::getInstanceSafe()->test();
 
 		//UIO TESTING
 		K_GameObject* hand = K_GameObjectManager::getInstance()->createNewGameObject();
@@ -190,16 +191,6 @@ namespace kitten
 		com->getTransform().scale2D(0.15, 0.2);
 		com->getTransform().place2D(0.1, 0.1);
 		//*/
-
-		// Networking
-		//networking::ServerGame::createInstance();
-		//_beginthread(serverLoop, 0, (void*)12);
-		//networking::ClientGame::createInstance();
-		K_GameObject* networkingMenu = K_GameObjectManager::getInstance()->createNewGameObject();
-		networkingMenu->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("NetworkingConsoleMenu"));
-
-		K_GameObject* spawnUnitOnKeyPress = K_GameObjectManager::getInstance()->createNewGameObject();
-		spawnUnitOnKeyPress->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("SpawnUnitOnKeyPress"));
 
 		return true;
 	}

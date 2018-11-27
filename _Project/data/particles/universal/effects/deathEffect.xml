@@ -1,0 +1,4 @@
+<Effect>
+	<Emitter path = "data/particles/universal/emitters/arcaneBlastEmitter.xml" x="0" y="-0.5" z="-0.5"/>
+	<Emitter path = "data/particles/universal/emitters/arcaneSmokeEmitter.xml" x="0" y="0" z="-0.5"/>
+</Effect>

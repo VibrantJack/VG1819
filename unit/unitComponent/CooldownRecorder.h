@@ -11,7 +11,7 @@ namespace unit
 	class CooldownRecorder
 	{
 	private:
-		std::unordered_map<AbilityDescription*, int> *m_cdmap;
+		std::unordered_map<AbilityDescription*, int> m_cdmap;
 
 	public:
 		CooldownRecorder();

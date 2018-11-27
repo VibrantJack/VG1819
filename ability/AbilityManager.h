@@ -2,23 +2,10 @@
 #include "ability/AbilityInfoPackage.h"
 #include "ability/ability/Ability.h"
 #include "ability/status/Status.h"
+#include "AbilityMacro.h"
 
 #include <vector>
 #include <assert.h>
-
-#define ABILITY_MANIPULATE_TILE "ManipulateTile"
-#define ABILITY_HEAL "Heal"
-#define ABILITY_FIGHT "Fight"
-#define ABILITY_SUMMON_UNIT "SummonUnit"
-#define ABILITY_SHOOT "Shoot"
-#define ABILITY_SABOTAGE "Sabotage"
-#define ABILITY_BUILD_WALL "Build the Wall"
-#define ABILITY_ENCOURAGE "Encourage"
-#define ABILITY_QUICK_SHOOT "QuickShoot"
-#define ABILITY_SLAY "Slay"
-#define ABILITY_DODGE "Dodge"
-#define ABILITY_MOVE "Move"
-#define ABILITY_BLAST "Blast"
 
 //Rock
 

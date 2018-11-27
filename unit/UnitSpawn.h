@@ -17,18 +17,20 @@ namespace unit
 		static UnitSpawn* getInstance();
 		static UnitSpawn* getInstanceSafe();
 
-		kitten::K_GameObject* spawnUnitObject(UnitData* p_unitData);
+		//kitten::K_GameObject* spawnUnitObject(Unit* p_unitData);
+
+		kitten::K_GameObject* spawnUnitObject(const int& p_unitIdentifier);
 	private:
 
 		static UnitSpawn * m_instance;
 
 		kitten::K_GameObject* m_textBoxGO;
 
-		std::vector<unit::AbilityDescription> readAD();
-		ability::Status* readSD(unit::StatusDescription* p_sd);
+		//std::vector<unit::AbilityDescription> readAD();
+		//ability::Status* readSD(unit::StatusDescription* p_sd);
 
-		Unit* spawnUnitFromData(UnitData* p_unitData);
-		void spawnCommander(Unit* p_u, UnitData* p_unitData);
+		//Unit* spawnUnitFromData(UnitData* p_unitData);
+		//void spawnCommander(Unit* p_u, UnitData* p_unitData);
 
 		kitten::K_Component* createClickableBox(UnitSize p_size);
 	};

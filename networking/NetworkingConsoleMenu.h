@@ -1,5 +1,7 @@
 #pragma once
 #include "kitten\K_Component.h"
+#include "_Project\StringInputDisplay.h"
+#include "kitten\InputManager.h"
 
 class NetworkingConsoleMenu : public kitten::K_Component
 {
@@ -7,12 +9,14 @@ public:
 	NetworkingConsoleMenu();
 	~NetworkingConsoleMenu();
 
+	virtual void start() override;
+
 	virtual bool hasUpdate() const override { return true; };
 	virtual void update() override;
 
 	void hostGame();
 	void stopHosting();
-	void connectToHost();
+	void connectToHost(const std::string& p_strAddress);
 	void disconnectFromHost(bool p_bServerShutdown = false);
 
 	bool checkClientNetwork();
@@ -24,9 +28,13 @@ public:
 	);
 
 private:
+	puppy::TextBox* m_textBox;
+	StringInputDisplay* m_stringInputDisplay;
+	input::InputManager* m_inputMan;
+
 	bool m_bMenuOpen;
 	bool m_bPrintText;
-
+	bool m_bEnteringAddress;
 	bool m_bClientUpdate, m_bServerUpdate;
 
 	char m_cEnterMenuKey = '`';

@@ -5,16 +5,22 @@ namespace puppy
 	{
 		m_state = paused;
 		m_xmlPath = p_pathToXml;
-		refreshXML();
+
+		if (!m_xmlPath.empty())
+		{
+			refreshXML();
+		}
 	}
 
 	Effect::~Effect()
 	{
 		//delete emitters
-		for (Emitter* e : m_emitters)
+		auto end = m_emitters.cend();
+		for (auto it = m_emitters.cbegin(); it != end; ++it)
 		{
-			delete e;
+			delete (*it);
 		}
+		m_emitters.clear();
 	}
 
 	void Effect::refreshXML()
@@ -24,6 +30,7 @@ namespace puppy
 		if (!loadResult)
 		{
 			//invalid xml / file not opened correct
+			assert(false);
 			return;
 		}
 
@@ -51,7 +58,7 @@ namespace puppy
 	{
 		if (m_state == playing)
 		{
-			for (auto it = m_emitters.begin(); it != m_emitters.end(); ++it)
+			for (auto it = m_emitters.cbegin(); it != m_emitters.cend(); ++it)
 			{
 				//Update emitters
 				(*it)->update(p_delta, true);
@@ -61,7 +68,7 @@ namespace puppy
 		{
 			if (m_state == paused)
 			{
-				for (auto it = m_emitters.begin(); it != m_emitters.end(); ++it)
+				for (auto it = m_emitters.cbegin(); it != m_emitters.cend(); ++it)
 				{
 					//Update emitters
 					(*it)->update(p_delta, false);
@@ -70,17 +77,16 @@ namespace puppy
 		}
 	}
 
-	void Effect::render(scene::Camera* p_cam)
+	void Effect::render(const glm::mat4& p_viewInverse, const glm::mat4& p_viewProj, const glm::vec3& p_position, const glm::vec3& p_scale)
 	{
 		if (m_state != stopped)
 		{
-			for (auto it = m_emitters.begin(); it != m_emitters.end(); ++it)
+			for (auto it = m_emitters.cbegin(); it != m_emitters.cend(); ++it)
 			{
 				//Render emitters
-				(*it)->render(p_cam);
+				(*it)->render(p_viewInverse, p_viewProj, p_position, p_scale);
 			}
 		}
-
 	}
 
 	void Effect::play()
@@ -88,6 +94,12 @@ namespace puppy
 		if (m_state != stopped)
 		{
 			m_state = playing;
+		}
+
+		auto end = m_emitters.cend();
+		for (auto it = m_emitters.cbegin(); it != end; ++it)
+		{
+			(*it)->resetBurst();
 		}
 	}
 

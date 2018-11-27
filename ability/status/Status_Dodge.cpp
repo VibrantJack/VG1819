@@ -7,6 +7,7 @@ namespace ability
 {
 	Status_Dodge::Status_Dodge() : Status::Status()
 	{
+		m_name = STATUS_DODGE;
 		addTimePoint(TimePointEvent::Turn_Start);
 		addTimePoint(TimePointEvent::Receive_Damage);
 	}
@@ -17,7 +18,6 @@ namespace ability
 		{
 			//reduce duration
 			changeCounter();
-			checkDuration();
 			return 0;
 		}
 		else if (p_type == ability::TimePointEvent::Receive_Damage)
@@ -27,6 +27,8 @@ namespace ability
 			//decrease the amount of damage it deals, means the result is 0
 			int changedValue = -(pack->m_intValue[UNIT_POWER]);
 			node->effect(pack, UNIT_POWER, changedValue);
+
+			removeThis();//only effect onece
 			return 0;
 		}
 		return 1;

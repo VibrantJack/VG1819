@@ -24,7 +24,12 @@ namespace unit
 	void unit::StatusContainer::addStatus(ability::Status * p_newStatus)
 	{
 		m_statusList.push_back(p_newStatus);
-		unit::UnitMonitor().getInstanceSafe()->printUnit(m_unit);
+		unit::UnitMonitor().getInstanceSafe()->printStatus(this);
+	}
+
+	void StatusContainer::queueRemove(ability::Status * p_oldStatus)
+	{
+		m_removeQueue.push_back(p_oldStatus);
 	}
 
 	bool unit::StatusContainer::removeStatus(const ability::Status * p_oldStatus)
@@ -33,8 +38,15 @@ namespace unit
 		{
 			if ((*it) == p_oldStatus)
 			{
+				std::vector<ability::TimePointEvent::TPEventType> list = (*it)->getTPlist();
+				for (int i = 0; i < list.size(); i++)
+				{
+					deregisterTP(list[i], *it);
+				}
+
 				delete *it;
 				m_statusList.erase(it);
+
 				return true;
 			}
 		}
@@ -111,6 +123,12 @@ namespace unit
 		{
 			(*it)->effect(p_type,p_event);
 		}
+
+		for (int i = 0; i < m_removeQueue.size(); i++)
+		{
+			removeStatus(m_removeQueue[i]);
+		}
+		m_removeQueue.clear();
 
 		//then delete event
 		delete p_event;

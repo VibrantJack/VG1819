@@ -7,23 +7,37 @@
 
 #include "kitten\K_Component.h"
 #include "board/tile/landInfo/LandInfoManager.h"
+
 class TileInfo : public kitten::K_Component
 {
 public:
+	enum HighlightType//descending order, ex: area highlight will cover range highlight
+	{
+		Area,
+		First = Area,
+		None,
+		Cursor,
+		Range,
+		Owned,
+		Count = Owned+1
+	};
+
 	TileInfo(int p_iPosX = 0, int p_iPosY = 0);
 	~TileInfo();
 
 	//land info
-	void setType(LandInformation::TileType p_type = LandInformation::Grassland);
+	void setType(LandInformation::TileType p_type = LandInformation::Grass_land);
 	void start();
-	void setRenderTexture();
+
 	int getMVCost();
 	const std::string getDescription();
 	void effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit* p_u);
 
 	//highlight 
-	bool isHighlighted();
-	void setHighlighted(bool p_bool);
+	void changeHighlightTexture(const std::string& p_texpath);
+	bool isHighlighted(HighlightType p_type);
+	void setHighlighted(HighlightType p_type, bool p_bool);
+	HighlightType getHighlightType();
 
 	//position
 	int getPosX();
@@ -48,10 +62,11 @@ public:
 	void setHighlightedBy(const std::string& p_sId);
 
 private:
-	bool m_bHighlighted;
+	std::unordered_map<HighlightType,bool> m_highlightType;
 	int m_iPosX, m_iPosY;
 	std::string m_sOwnerId;
 	std::string m_sHighlightedBy;
+	std::string m_lasttexpath;
 
 	LandInformation::TileType m_tileType;
 

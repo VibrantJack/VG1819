@@ -14,8 +14,7 @@ namespace kitten
 
 	K_Instance::K_Instance() : m_inputManager(input::InputManager::getInstance()), m_cameraList(K_CameraList::getInstance()),
 		m_componentManager(K_ComponentManager::getInstance()), m_gameObjectManager(K_GameObjectManager::getInstance()),
-		m_time(K_Time::getInstance()), m_clickables(ActiveClickables::getInstance()), m_eventManager(EventManager::getInstance()),
-		m_jobManager(K_JobManager::getInstance())
+		m_time(K_Time::getInstance()), m_clickables(ActiveClickables::getInstance()), m_eventManager(EventManager::getInstance())
 	{
 		
 	}
@@ -29,7 +28,7 @@ namespace kitten
 	{
 		assert(sm_instance == nullptr);
 
-		K_JobManager::createInstance();
+		//K_JobManager::createInstance();
 		input::InputManager::createInstance();
 		K_CameraList::createInstance();
 		K_ComponentManager::createInstance();
@@ -38,7 +37,7 @@ namespace kitten
 		ActiveClickables::createInstance();
 		EventManager::createInstance();
 		AudioEngineWrapper::createInstance();	
-		AsyncFileOperations::startService();
+		//AsyncFileOperations::startService();
 
 		sm_instance = new K_Instance();
 	}
@@ -55,10 +54,10 @@ namespace kitten
 		ActiveClickables::destroyInstance();
 		EventManager::destroyInstance();
 		AudioEngineWrapper::destroyInstance();
-		AsyncFileOperations::stopService();
+		//AsyncFileOperations::stopService();
 
 
-		K_JobManager::destroyInstance();
+		//K_JobManager::destroyInstance();
 		
 
 		delete sm_instance;
@@ -79,7 +78,7 @@ namespace kitten
 
 		m_time->updateTime();
 
-		m_jobManager->update();
+		//m_jobManager->update();
 		AudioEngineWrapper::update();
 		m_inputManager->update();
 		m_eventManager->update();

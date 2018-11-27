@@ -3,17 +3,61 @@
 #include "board/tile/TileInfo.h"
 #include <iostream>
 
+void ability::Ability::singleTargetDamage(AbilityInfoPackage * p_info)
+{
+	//damage target by power
+	if (checkTarget(p_info))
+	{
+		//trigger deal damage event
+		triggerTPEvent(ability::TimePointEvent::Deal_Damage, p_info->m_source, p_info);
+
+		//trigger receive damage event
+		unit::Unit* target = p_info->m_targets[0];
+		triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_info);
+
+		//so power will change to negative
+		int power = -(p_info->m_intValue.find(UNIT_POWER)->second);
+
+		damage(target, power);
+	}
+
+	//delete package
+	done(p_info);
+}
+
+void ability::Ability::multiTargetDamage(AbilityInfoPackage * p_info)
+{
+	//deal damaga to all units
+
+	//trigger deal damage event
+	triggerTPEvent(ability::TimePointEvent::Deal_Damage, p_info->m_source, p_info);
+
+	for (unit::Unit* u : p_info->m_targets)
+	{
+		//get copy of package
+		AbilityInfoPackage* clonePackage = new AbilityInfoPackage(*p_info);
+
+		//trigger receive damage
+		triggerTPEvent(ability::TimePointEvent::Receive_Damage, u, clonePackage);
+
+		int power = -(clonePackage->m_intValue.find(UNIT_POWER)->second);
+
+		damage(u, power);
+
+		//delete clone
+		delete clonePackage;
+	}
+
+	//delete package
+	done(p_info);
+}
+
 int ability::Ability::damage(unit::Unit* p_target, int power)
 {
 	AbilityNode* node1 = AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
-	AbilityNode* node2 = AbilityNodeManager::getInstance()->findNode(CheckHP);
-
-	std::cout <<p_target->m_name<<" is damaged by "<< power <<std::endl;
 
 	//change hp
 	node1->effect(p_target, UNIT_HP, power);
-	//then check hp
-	node2->effect(p_target);
 
 	return 0;
 }
@@ -25,11 +69,36 @@ void ability::Ability::done(const AbilityInfoPackage* p_info)
 	delete p_info;
 }
 
+void ability::Ability::removeCounter(unit::Unit * p_target, const std::string & p_name, int p_n)
+{
+	AbilityNode* node1 = AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
+
+	//change hp
+	node1->effect(p_target, p_name, -p_n);
+}
+
 bool ability::Ability::checkTarget(const AbilityInfoPackage * p_info)
 {
 	if (&(p_info->m_targets) != nullptr)
 	{
 		if (p_info->m_targets.size() > 0)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool ability::Ability::checkAlly(unit::Unit* p_source, unit::Unit* p_target)
+{
+	return p_source->m_clientId == p_target->m_clientId;
+}
+
+bool ability::Ability::checkTag(unit::Unit* p_u, const std::string& p_tag)
+{
+	for (std::string it : p_u->m_tags)
+	{
+		if (it == p_tag)
 		{
 			return true;
 		}

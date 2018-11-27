@@ -32,9 +32,11 @@
 #include "components\SelectAbility.h"
 #include "networking\SpawnUnitOnKeyPress.h"
 #include "networking\NetworkingConsoleMenu.h"
+#include "_Project\StringInputDisplay.h"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 
 #include "components/ChangeSceneOnClick.hpp"
+#include "kitten\K_ParticleSystem.h"
 
 //board
 #include "board/component/Highlighter.h"
@@ -45,6 +47,8 @@
 #include "board/clickable/SendSelfOnClick.h"
 //tile
 #include "board/tile/TileInfo.h"
+
+#include "unitInteraction/CounterGetterDisplay.h"
 namespace kitten
 {
 	K_ComponentManager* K_ComponentManager::sm_instance = nullptr;
@@ -65,7 +69,11 @@ namespace kitten
 		K_Component* comp;
 
 		//Kibble version -1.0
-		if (p_componentName == "Camera")// Datadriven
+		if (p_componentName == "K_ParticleSystem")
+		{
+			comp = new kitten::K_ParticleSystem("");
+		}
+		else if (p_componentName == "Camera")// Datadriven
 		{
 			comp = new Camera();
 		}
@@ -208,6 +216,14 @@ namespace kitten
 		{
 			comp = new TileInfo();
 		}
+		else if (p_componentName == "CounterGetterDisplay")
+		{
+			comp = new CounterGetterDisplay();
+		}
+		else if (p_componentName == "StringInputDisplay")
+		{
+			comp = new StringInputDisplay();
+		}
 		else
 		{
 			//Not found..
@@ -244,6 +260,7 @@ namespace kitten
 
 	void K_ComponentManager::destroyComponentImmediate(K_Component* p_toDestroy)
 	{
+
 		if (p_toDestroy->hasUpdate()) //&& isActive
 		{
 			removeFromUpdate(p_toDestroy);

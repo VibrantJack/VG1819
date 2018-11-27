@@ -36,3 +36,8 @@ Debug/
 _Project/Debug/
 _Project/.vs/
 _Project/Release/
+*.log
+*.tlog
+*.pdb
+*.ilk
+*.lastbuildstate

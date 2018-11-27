@@ -3,16 +3,10 @@
 #include "ability/Ability.h"
 #include "status/Status.h"
 #include "unit/UnitCommon.h"
+#include "AbilityMacro.h"
 
 #include <vector>
 #include <assert.h>
-
-#define STATUS_ENCOURAGE "Status_Encourage"
-#define STATUS_LV "Status_LV"
-#define STATUS_PRIEST_LV3 "Status_Priest_LV3"
-#define STATUS_ARCHER_LV3 "Status_Archer_LV3"
-#define STATUS_DUELIST_LV3 "Status_Duelist_LV3"
-#define STATUS_DODGE "Status_Dodge"
 //Rock
 
 namespace ability

@@ -10,14 +10,19 @@
 
 TileInfo::TileInfo(int p_iPosX, int p_iPosY)
 	:
-	m_bHighlighted(false),
 	m_iPosX(p_iPosX),
 	m_iPosY(p_iPosY),
 	m_sOwnerId("NONE"),
-	m_sHighlightedBy("NONE")
+	m_sHighlightedBy("NONE"),
+	m_lasttexpath("")
 {
 	m_unitGO = nullptr;
 	m_landInfo = nullptr;
+
+	for (int i = TileInfo::First; i < TileInfo::Count; ++i)
+	{
+		m_highlightType[static_cast<HighlightType>(i)] = false;
+	}
 }
 
 TileInfo::~TileInfo()
@@ -34,14 +39,10 @@ void TileInfo::start()
 {
 	m_landInfo = LandInfoManager::getInstance()->getLand(m_tileType);
 
-	setRenderTexture();
-}
-
-void TileInfo::setRenderTexture()
-{
 	kitten::QuadRenderable * qr = m_attachedObject->getComponent<kitten::QuadRenderable>();
 	qr->setTexture(m_landInfo->getTexturePath().c_str());
 }
+
 
 int TileInfo::getMVCost()
 {
@@ -75,14 +76,46 @@ void TileInfo::effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit * p_
 	}
 }
 
-bool TileInfo::isHighlighted()
+void TileInfo::changeHighlightTexture(const std::string & p_texpath)
 {
-	return m_bHighlighted;
+	if (m_lasttexpath != p_texpath)
+	{
+		kitten::QuadRenderable* quad = m_attachedObject->getComponent<kitten::QuadRenderable>();
+		if (m_lasttexpath != "")
+		{
+			//Remove blending
+			quad->removeTexture(m_lasttexpath.c_str());
+		}
+
+		m_lasttexpath = p_texpath;
+
+		if (m_lasttexpath != "")
+		{
+			//Add new blending
+			quad->addTexture(p_texpath.c_str(), 1.0f);
+		}
+	}
 }
 
-void TileInfo::setHighlighted(bool p_bool)
+bool TileInfo::isHighlighted(HighlightType p_type)
 {
-	m_bHighlighted = p_bool;
+	return m_highlightType[p_type];
+}
+
+void TileInfo::setHighlighted(HighlightType p_type, bool p_bool)
+{
+	m_highlightType[p_type] = p_bool;
+}
+
+TileInfo::HighlightType TileInfo::getHighlightType()
+{
+	for (int i = TileInfo::First; i < TileInfo::Count; ++i)
+	{
+		HighlightType p = static_cast<HighlightType>(i);
+		if(m_highlightType[p])
+			return p;
+	}
+	return None;
 }
 
 int TileInfo::getPosX()

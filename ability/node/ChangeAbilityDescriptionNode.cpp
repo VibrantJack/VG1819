@@ -1,7 +1,7 @@
 #pragma once
 #include "ability/node/AbilityNode.h"
 #include "Unit/Unit.h"
-
+#include <iostream>
 //Rock
 
 namespace ability
@@ -15,6 +15,7 @@ namespace ability
 		//find ability
 		if (p_target->m_ADList.find(p_abilityName) != p_target->m_ADList.end())
 		{
+			std::cout << p_abilityName << " : " << p_valueName << " is changed by " << p_value << std::endl;
 			p_target->m_ADList[p_abilityName]->m_intValue[p_valueName] += p_value;
 			return 0;
 		}
@@ -27,6 +28,7 @@ namespace ability
 		//find ability
 		if (p_target->m_ADList.find(p_abilityName) != p_target->m_ADList.end())
 		{
+			std::cout << p_abilityName << " : " << p_valueName << " is changed to " << p_value << std::endl;
 			p_target->m_ADList[p_abilityName]->m_stringValue[p_valueName] = p_value;
 			return 0;
 		}
