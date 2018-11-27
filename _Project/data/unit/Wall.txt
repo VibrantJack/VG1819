@@ -10,12 +10,12 @@
 	"components" : [
 		{
 			"name" : "UnitGraphic",
-			"texture":"textures/unit/Priest.tga",
+			"texture":"textures/unit/Wall.tga",
 			"unitsize": "point"
 		},
 		{
 			"name" : "UnitMove",
-			"offset":[0.15,1.0,0.8]
+			"offset":[0.1,1.0,0.4]
 		},
 		{
 			"name" : "ClickableBox",
