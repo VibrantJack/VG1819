@@ -8,6 +8,10 @@
 		"OligarchSheet.json",
 		"EngineerSheet.json",
 		"PyromancerSheet.json",
-		"DuelistSheet.json"
+		"DuelistSheet.json",
+		"ArrowTowerSheet.json",
+		"FactorySheet.json",
+		"DivineStatueSheet.json",
+		"ArmorySheet.json"
 	]
 }
