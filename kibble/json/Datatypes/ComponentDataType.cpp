@@ -646,6 +646,14 @@ kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 	return new UniversalPfx(effects);
 }
 
+#include "kitten\ModelRenderable.h"
+kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
+
+	std::string modelPath = p_jsonFile->operator[]("path");
+
+	return new ModelRenderable(modelPath.c_str());
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
