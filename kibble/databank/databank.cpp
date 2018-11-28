@@ -158,8 +158,8 @@ kitten::K_GameObject* kibble::attachCustomComponentsToGameObject(const int& p_id
 		p_targetGameObject->addComponent(componentManager->createComponent(&component));
 	}
 
-	p_targetGameObject->getTransform().rotateRelative(glm::vec3(targetUnit.rotate[0], targetUnit.rotate[1], targetUnit.rotate[2]));
-	p_targetGameObject->getTransform().scaleRelative(targetUnit.scale[0], targetUnit.scale[1], targetUnit.scale[2]);
+	p_targetGameObject->getTransform().rotateAbsolute(glm::vec3(targetUnit.rotate[0], targetUnit.rotate[1], targetUnit.rotate[2]));
+	p_targetGameObject->getTransform().scaleAbsolute(targetUnit.scale[0], targetUnit.scale[1], targetUnit.scale[2]);
 
 	return p_targetGameObject;
 }
