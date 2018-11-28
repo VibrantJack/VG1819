@@ -519,7 +519,7 @@
     </ClCompile>
     <ClCompile Include="..\networking\AbilityPacket.cpp">
       <Filter>networking</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="..\board\component\area\AllPattern.cpp">
       <Filter>board\component\area</Filter>
     </ClCompile>
@@ -618,6 +618,9 @@
     </ClCompile>
     <ClCompile Include="UniversalPfx.cpp">
       <Filter>components\standard effects</Filter>
+    </ClCompile>
+    <ClCompile Include="ClickableBoxRenderable.cpp">
+      <Filter>components\debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1162,6 +1165,9 @@
     </ClInclude>
     <ClInclude Include="UniversalPfx.h">
       <Filter>components\standard effects</Filter>
+    </ClInclude>
+    <ClInclude Include="ClickableBoxRenderable.h">
+      <Filter>components\debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
