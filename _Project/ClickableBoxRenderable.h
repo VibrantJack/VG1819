@@ -12,7 +12,7 @@ private:
 	virtual void onDisabled() override;
 
 	puppy::VertexEnvironment* m_vao;
-	puppy::Material m_mat;
+	puppy::Material* m_mat;
 public:
 	ClickableBoxRenderable();
 	~ClickableBoxRenderable();

@@ -1,9 +1,9 @@
 #include "ClickableBoxRenderable.h"
 #include "kitten\K_GameObject.h"
 
-ClickableBoxRenderable::ClickableBoxRenderable() : m_vao(nullptr), m_mat(puppy::ShaderType::basic)
+ClickableBoxRenderable::ClickableBoxRenderable() : m_vao(nullptr), m_mat(new puppy::Material(puppy::ShaderType::basic))
 {
-	m_mat.setTexture("textures/crap/cocacola.tga"); // Makes the lines red
+	m_mat->setTexture("textures/crap/cocacola.tga"); // Makes the lines red
 }
 
 ClickableBoxRenderable::~ClickableBoxRenderable()
@@ -24,8 +24,8 @@ void ClickableBoxRenderable::start()
 	kitten::ClickableBox* clickableBox = m_attachedObject->getComponent<kitten::ClickableBox>();
 	assert(clickableBox != nullptr);
 
-	const glm::vec3& minPoint = clickableBox->getMinPoint();
-	const glm::vec3& maxPoint = clickableBox->getMaxPoint();
+	const glm::vec3& minPoint = clickableBox->getOriginalMinPoint();
+	const glm::vec3& maxPoint = clickableBox->getOriginalMaxPoint();
 	
 	puppy::TexturedVertex verts[] =
 	{
@@ -107,8 +107,9 @@ void ClickableBoxRenderable::onDisabled()
 
 void ClickableBoxRenderable::render(const glm::mat4& p_viewProj)
 {
-	m_mat.apply();
-	m_mat.setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_viewProj * getTransform().getWorldTransform());
+	m_mat->apply();
+
+	m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_viewProj * getTransform().getWorldTransform());
 
 	m_vao->drawArrays(GL_LINES);
 }
