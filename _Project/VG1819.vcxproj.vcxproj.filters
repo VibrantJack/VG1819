@@ -622,6 +622,9 @@
     <ClCompile Include="UniversalPfx.cpp">
       <Filter>components\standard effects</Filter>
     </ClCompile>
+    <ClCompile Include="ClickableBoxRenderable.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1168,6 +1171,9 @@
     </ClInclude>
     <ClInclude Include="UniversalPfx.h">
       <Filter>components\standard effects</Filter>
+    </ClInclude>
+    <ClInclude Include="ClickableBoxRenderable.h">
+      <Filter>components\debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

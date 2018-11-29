@@ -187,7 +187,14 @@ void unit::UnitMove::update()
 {
 	if (set)
 	{
-		setTile(BoardManager::getInstance()->getTile(m_tileX,m_tileZ));
+		if (m_tileX >= 0 && m_tileZ >= 0)
+		{
+			setTile(BoardManager::getInstance()->getTile(m_tileX, m_tileZ));
+		}
+		else
+		{
+			setTile(BoardManager::getInstance()->getSpawnPoint());
+		}
 		set = false;
 	}
 

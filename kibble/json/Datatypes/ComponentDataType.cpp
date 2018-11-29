@@ -664,6 +664,12 @@ kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 	return new UniversalPfx(effects);
 }
 
+#include "_Project\ClickableBoxRenderable.h"
+kitten::K_Component* getClickableBoxRenderable(nlohmann::json* p_jsonFile) {
+
+	return new ClickableBoxRenderable();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -714,6 +720,7 @@ void setupComponentMap() {
 	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
 	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
+	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
 
 }
 

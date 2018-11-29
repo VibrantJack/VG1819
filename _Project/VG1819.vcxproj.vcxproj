@@ -288,6 +288,7 @@
     <ClCompile Include="..\unit\UnitSpawn.cpp" />
     <ClCompile Include="..\unit\UnitTest.cpp" />
     <ClCompile Include="..\wolf\W_Common.cpp" />
+    <ClCompile Include="ClickableBoxRenderable.cpp" />
     <ClCompile Include="DebugPrintOnce.cpp" />
     <ClCompile Include="DestroyOnClick.cpp" />
     <ClCompile Include="FPSCalc.cpp" />
@@ -476,6 +477,7 @@
     <ClInclude Include="..\unit\UnitTest.h" />
     <ClInclude Include="..\util\MathUtil.h" />
     <ClInclude Include="..\wolf\W_Common.h" />
+    <ClInclude Include="ClickableBoxRenderable.h" />
     <ClInclude Include="DebugPrintOnce.h" />
     <ClInclude Include="DestroyOnClick.h" />
     <ClInclude Include="FPSCalc.h" />
