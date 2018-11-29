@@ -62,12 +62,12 @@
 		},
 		{
 			"name" : "UnitMove",
-			"offset":[-0.1,1.0,0.8]
+			"offset":[0,1.0,0.3]
 		},
 		{
 			"name" : "ClickableBox",
-			"minpoint":[-0.5,-0.5,0],
-			"maxpoint":[0.5,0.5,0]
+			"minpoint":[-0.045,-0.5,0],
+			"maxpoint":[0.05,0.2,0]
 		},
 		{
 			"name" : "SpriteRenderable"
@@ -75,8 +75,11 @@
 		{
 			"name" : "SpriteAnimator",
 			"spritename" : "pyromancer"
+		},
+		{
+			"name" : "ClickableBoxRenderable"
 		}
 	],
-	"scale" : [8,1.5,0],
+	"scale" : [9,2,0],
 	"rotate" : [45, 0, 0]
 }

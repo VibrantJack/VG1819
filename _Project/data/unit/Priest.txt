@@ -47,12 +47,12 @@
 		},
 		{
 			"name" : "UnitMove",
-			"offset":[0.15,1.0,0.4]
+			"offset":[0.15,1.0,0.2]
 		},
 		{
 			"name" : "ClickableBox",
-			"minpoint":[-0.5,-0.5,0],
-			"maxpoint":[0.5,0.5,0]
+			"minpoint":[-0.2,-0.5,0],
+			"maxpoint":[0.2,0.5,0]
 		},
 		{
 			"name" : "SpriteRenderable"
@@ -60,8 +60,11 @@
 		{
 			"name" : "SpriteAnimator",
 			"spritename" : "cleric"
+		},
+		{
+			"name" : "ClickableBoxRenderable"
 		}
 	],
-	"scale" : [0.7,0.7,0],
+	"scale" : [1.5,1.5,0],
 	"rotate" : [45, 0, 0]
 }

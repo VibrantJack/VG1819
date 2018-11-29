@@ -51,12 +51,12 @@
 		},
 		{
 			"name" : "UnitMove",
-			"offset":[0.0,1.0,0.8]
+			"offset":[0.0,1.0,0.6]
 		},
 		{
 			"name" : "ClickableBox",
-			"minpoint":[-0.15,-0.25,0],
-			"maxpoint":[0.15,0.25,0]
+			"minpoint":[-0.06,-0.5,0],
+			"maxpoint":[0.09,0.15,0]
 		},
 		{
 			"name" : "SpriteRenderable"
@@ -64,8 +64,11 @@
 		{
 			"name" : "SpriteAnimator",
 			"spritename" : "archer"
+		},
+		{
+			"name" : "ClickableBoxRenderable"
 		}
 	],
-	"scale" : [3,2,0],
+	"scale" : [4.5,2.5,0],
 	"rotate" : [45, 0, 0]
 }

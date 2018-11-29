@@ -40,8 +40,11 @@
 		{
 			"name" : "SpriteAnimator",
 			"spritename" : "divine_statue"
+		},
+		{
+			"name" : "ClickableBoxRenderable"
 		}
 	],
-	"scale" : [0.001,0.3,0],
+	"scale" : [0.5,1,0],
 	"rotate" : [45, 0, 0]
 }

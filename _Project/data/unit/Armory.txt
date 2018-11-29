@@ -30,12 +30,12 @@
 		},
 		{
 			"name" : "UnitMove",
-			"offset":[0.15,0.5,0.0]
+			"offset":[0.0,0.5,0.2]
 		},
 		{
 			"name" : "ClickableBox",
-			"minpoint":[-0.5,-0.5,0],
-			"maxpoint":[0.5,0.5,0]
+			"minpoint":[-0.5,-0.4,0],
+			"maxpoint":[0.5,0.4,0]
 		},
 		{
 			"name" : "SpriteRenderable"
@@ -43,8 +43,11 @@
 		{
 			"name" : "SpriteAnimator",
 			"spritename" : "armory"
+		},
+		{
+			"name" : "ClickableBoxRenderable"
 		}
 	],
-	"scale" : [0.005,0.25,0],
+	"scale" : [0.7,1.5,0],
 	"rotate" : [45, 0, 0]
 }
