@@ -1,0 +1,9 @@
+{
+    "name" : "Deck Display Frame",
+    "components" : [
+        {
+            "name" : "UIFrame"
+        }
+    ],
+    "scale2d" : [175.0,300.0]
+}
