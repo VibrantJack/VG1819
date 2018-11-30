@@ -1,0 +1,17 @@
+{
+    "name" : "right arrow button", 
+    "components" : [
+        {
+            "name" : "UIFrame",
+            "texture" : "textures/ui/button_square-right_arrow.tga"
+        },
+        {
+            "name" : "DecksDisplaySetChangeOnClick",
+            "offset" : 1
+        },
+        {
+            "name" : "ClickableFrame"
+        }
+    ],
+    "scale2d" : [50,50]
+}

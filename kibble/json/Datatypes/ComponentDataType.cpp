@@ -580,7 +580,7 @@ kitten::K_Component* getClickableFrame(nlohmann::json* p_jsonFile) {
 		else if (temp == "topright")
 			type = kitten::ClickableFrame::piv_TopRight;
 	}
-	return new kitten::ClickableFrame(kitten::ClickableFrame::piv_BotLeft);
+	return new kitten::ClickableFrame(type);
 }
 
 #include "kitten/mouse picking/ClickableUI.h"
@@ -664,9 +664,25 @@ kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 	return new UniversalPfx(effects);
 }
 
+#include "components/DecksDisplay/DecksDisplaySetChangeOnClick.h"
+kitten::K_Component* getDecksDisplaySetChangeOnClick(nlohmann::json* p_jsonFile) {
+	int offset;
+
+	SETOPTDEF(offset, "offset", 0);
+
+	return new DecksDisplaySetChangeOnClick(offset);
+}
+
+#include "components/DecksDisplayFrame.h"
+kitten::K_Component* getDecksDisplayFrame(nlohmann::json* p_jsonFile) {
+	int margin;
+	SETOPTDEF(margin, "margin", 0);
+
+	return new DecksDisplayFrame(margin);
+}
+
 #include "_Project\ClickableBoxRenderable.h"
 kitten::K_Component* getClickableBoxRenderable(nlohmann::json* p_jsonFile) {
-
 	return new ClickableBoxRenderable();
 }
 
@@ -720,6 +736,8 @@ void setupComponentMap() {
 	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
 	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
+	jsonComponentMap["DecksDisplaySetChangeOnClick"] = &getDecksDisplaySetChangeOnClick;
+	jsonComponentMap["DecksDisplayFrame"] = &getDecksDisplayFrame;
 	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
 
 }

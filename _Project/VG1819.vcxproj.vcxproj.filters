@@ -625,6 +625,12 @@
     <ClCompile Include="ClickableBoxRenderable.cpp">
       <Filter>components\debug</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\DecksDisplayFrame.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.cpp">
+      <Filter>components\decksdisplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1175,6 +1181,12 @@
     <ClInclude Include="ClickableBoxRenderable.h">
       <Filter>components\debug</Filter>
     </ClInclude>
+    <ClInclude Include="..\components\DecksDisplayFrame.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.h">
+      <Filter>components\decksdisplay</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1311,6 +1323,9 @@
     </Filter>
     <Filter Include="components\standard effects">
       <UniqueIdentifier>{8c3ab6ac-dae3-451f-9e21-7944dc100695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\decksdisplay">
+      <UniqueIdentifier>{cc3644fd-64c1-472c-9553-f5208238bec6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

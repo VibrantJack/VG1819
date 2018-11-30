@@ -1,2 +1,8 @@
 decktest.txt
   
+DeckNumbah1.txt
+DeckNumbah2.txt
+DeckNumbah3.txt
+DeckNumbah4.txt
+DeckNumbah5.txt
+DeckNumbah6.txt

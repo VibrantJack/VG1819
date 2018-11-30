@@ -1,0 +1,20 @@
+{
+    "gameobjects" : [
+        {
+            "filename" : "camgameobj.txt", 
+            "translate" : [7, 13.0, 0.0],
+            "rotate" : [-70,0,0]
+        },
+        {
+            "name" : "Deck Display Frame",
+            "components" : [
+                {
+                    "name":"DecksDisplayFrame",
+                    "margin": 10
+                }
+            ],
+			"translate2d" : [200, 50],
+            "scale2d" : [600,600]
+        }
+    ]
+}

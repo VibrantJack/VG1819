@@ -1,0 +1,11 @@
+{
+    "name" : "Deck Display TextBox",
+    "components" : [
+        {
+            "name" : "TextBox",
+            "alignment" : "center",
+            "width" : 175,
+            "height" : 24
+        }
+    ]
+}
