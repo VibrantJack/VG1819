@@ -621,6 +621,16 @@ kitten::K_Component* getSpriteRenderable(nlohmann::json* p_jsonFile) {
 	return new kitten::SpriteRenderable();
 }
 
+#include "components/ChangeSceneOnClick.hpp"
+kitten::K_Component* getChangeSceneOnClick(nlohmann::json* p_jsonFile) {
+
+	std::string nextScene;
+
+	SET(nextScene, "scene");
+
+	return new ChangeSceneOnClick(nextScene);
+}
+
 #include "kitten\K_ParticleSystem.h"
 kitten::K_Component* getKParticleSystem(nlohmann::json* p_jsonFile) {
 	
@@ -704,6 +714,7 @@ void setupComponentMap() {
 	jsonComponentMap["TileInfo"] = &getTileInfo;
 	jsonComponentMap["SpawnUnitOnKeyPress"] = &getSpawnUnitOnKeyPress;
 	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
+	jsonComponentMap["ChangeSceneOnClick"] = &getChangeSceneOnClick;
 	jsonComponentMap["UniversalPfx"] = &getUniversalPfx;
 	jsonComponentMap["K_ParticleSystem"] = &getKParticleSystem;
 	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;

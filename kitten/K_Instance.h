@@ -28,6 +28,9 @@ namespace kitten
 		ActiveClickables* m_clickables;
 		K_JobManager* m_jobManager;
 
+		bool m_sceneSwitchFlag = false;
+		std::string m_nextScene;
+
 		void privateUpdate();
 	public:
 		static void createInstance();
@@ -35,5 +38,7 @@ namespace kitten
 		static void update();
 
 		static void destroyInstance();
+
+		static void changeScene(const std::string& p_nextScene);
 	};
 }

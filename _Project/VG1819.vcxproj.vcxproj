@@ -156,6 +156,7 @@
     <ClCompile Include="..\board\tile\landInfo\SandLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
+    <ClCompile Include="..\components\ChangeSceneOnClick.cpp" />
     <ClCompile Include="..\expressions\lexer.cpp" />
     <ClCompile Include="..\expressions\parser.cpp" />
     <ClCompile Include="..\expressions\PostfixEval.cpp" />
@@ -323,6 +324,7 @@
     <ClInclude Include="..\board\tile\landInfo\LandInformation.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInfoManager.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />
+    <ClInclude Include="..\components\ChangeSceneOnClick.hpp" />
     <ClInclude Include="..\DeckData.hpp" />
     <ClInclude Include="..\board\BoardManager.h" />
     <ClInclude Include="..\board\clickable\ManipulateTileOnClick.h" />

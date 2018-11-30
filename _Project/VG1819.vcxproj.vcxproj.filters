@@ -487,6 +487,9 @@
     <ClCompile Include="..\kibble\UnitGameObject\UnitType.cpp">
       <Filter>kibble\UnitGameObject</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\ChangeSceneOnClick.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
     <ClCompile Include="..\ability\ability\Join.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
@@ -519,7 +522,7 @@
     </ClCompile>
     <ClCompile Include="..\networking\AbilityPacket.cpp">
       <Filter>networking</Filter>
-    </ClCompile>
+	</ClCompile>
     <ClCompile Include="..\board\component\area\AllPattern.cpp">
       <Filter>board\component\area</Filter>
     </ClCompile>
@@ -1075,6 +1078,9 @@
     </ClInclude>
     <ClInclude Include="..\kibble\UnitGameObject\UnitType.h">
       <Filter>kibble\UnitGameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\ChangeSceneOnClick.hpp">
+      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="..\puppy\TextureBlendMaterial.h">
       <Filter>puppy</Filter>

@@ -35,6 +35,7 @@
 #include "_Project\StringInputDisplay.h"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 
+#include "components/ChangeSceneOnClick.hpp"
 #include "kitten\K_ParticleSystem.h"
 
 //board
