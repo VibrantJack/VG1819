@@ -664,6 +664,11 @@ kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 	return new UniversalPfx(effects);
 }
 
+#include "components/DecksDisplay/DecksDisplayPickerOnClick.h"
+kitten::K_Component* getDecksDisplayPickerOnClick(nlohmann::json* p_jsonFile) {
+	return new DecksDisplayPickerOnClick();
+}
+
 #include "components/DecksDisplay/DecksDisplaySetChangeOnClick.h"
 kitten::K_Component* getDecksDisplaySetChangeOnClick(nlohmann::json* p_jsonFile) {
 	int offset;
@@ -737,6 +742,7 @@ void setupComponentMap() {
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
 	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
 	jsonComponentMap["DecksDisplaySetChangeOnClick"] = &getDecksDisplaySetChangeOnClick;
+	jsonComponentMap["DecksDisplayPickerOnClick"] = &getDecksDisplayPickerOnClick;
 	jsonComponentMap["DecksDisplayFrame"] = &getDecksDisplayFrame;
 	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
 

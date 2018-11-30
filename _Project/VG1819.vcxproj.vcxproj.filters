@@ -628,6 +628,9 @@
     <ClCompile Include="..\components\DecksDisplayFrame.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.cpp">
+      <Filter>components\decksdisplay</Filter>
+    </ClCompile>
     <ClCompile Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.cpp">
       <Filter>components\decksdisplay</Filter>
     </ClCompile>
@@ -1183,6 +1186,9 @@
     </ClInclude>
     <ClInclude Include="..\components\DecksDisplayFrame.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.h">
+      <Filter>components\decksdisplay</Filter>
     </ClInclude>
     <ClInclude Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.h">
       <Filter>components\decksdisplay</Filter>

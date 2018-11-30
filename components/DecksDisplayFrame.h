@@ -10,8 +10,8 @@ private:
 	kitten::K_GameObject* m_arrows[2];
 	int m_margin = 10, // the space between elements within this frame
 		m_currentSet = 0,  // the current set of decks being displayed
-		m_currentActive = 0,
-		m_currentPick;
+		m_currentActive = 0, // the number of decks currently need to be displayed
+		m_currentPick = 0; // the current picked deck
 
 	void updateDeckDisplay();
 
@@ -23,6 +23,8 @@ public:
 	void start() override;
 
 	void offsetCurrentSet(const int& p_offset);
+	const int& getCurrentPickedDeckId() const; // gives back -1 if no deck has been picked yet
+	void pickDisplayedDeck(kitten::K_GameObject* p_gameObject);
 
 	DecksDisplayFrame( const int& p_margin);
 	~DecksDisplayFrame();
