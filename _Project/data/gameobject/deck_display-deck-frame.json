@@ -3,6 +3,12 @@
     "components" : [
         {
             "name" : "UIFrame"
+        },
+        {
+            "name" : "DecksDisplayPickerOnClick"
+        },
+        {
+            "name" : "ClickableFrame"
         }
     ],
     "scale2d" : [175.0,300.0]

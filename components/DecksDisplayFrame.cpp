@@ -108,6 +108,10 @@ void DecksDisplayFrame::onDisabled()
 	{
 		textBox->setEnabled(false);
 	}
+	for (auto arrow : m_arrows)
+	{
+		arrow->setEnabled(false);
+	}
 }
 
 void DecksDisplayFrame::onEnabled()
@@ -117,4 +121,16 @@ void DecksDisplayFrame::onEnabled()
 		m_slots[index]->setEnabled(true);
 		m_slotTexts[index]->setEnabled(true);
 	}
+	for (auto arrow : m_arrows)
+	{
+		arrow->setEnabled(true);
+	}
+}
+
+
+const int& DecksDisplayFrame::getCurrentPickedDeckId() const {
+	return m_currentPick + (m_currentSet*m_slots.size());
+}
+void DecksDisplayFrame::pickDisplayedDeck(kitten::K_GameObject* p_gameObject) {
+	m_currentPick =	std::find(m_slots.begin(), m_slots.end(), p_gameObject) - m_slots.begin();
 }

@@ -158,6 +158,7 @@
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\components\ChangeSceneOnClick.cpp" />
     <ClCompile Include="..\components\DecksDisplayFrame.cpp" />
+    <ClCompile Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.cpp" />
     <ClCompile Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.cpp" />
     <ClCompile Include="..\expressions\lexer.cpp" />
     <ClCompile Include="..\expressions\parser.cpp" />
@@ -328,6 +329,7 @@
     <ClInclude Include="..\components\DeckComponent.hpp" />
     <ClInclude Include="..\components\ChangeSceneOnClick.hpp" />
     <ClInclude Include="..\components\DecksDisplayFrame.h" />
+    <ClInclude Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.h" />
     <ClInclude Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.h" />
     <ClInclude Include="..\DeckData.hpp" />
     <ClInclude Include="..\board\BoardManager.h" />
