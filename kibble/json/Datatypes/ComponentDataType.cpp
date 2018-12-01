@@ -691,6 +691,21 @@ kitten::K_Component* getClickableBoxRenderable(nlohmann::json* p_jsonFile) {
 	return new ClickableBoxRenderable();
 }
 
+#include "components/DeckInitializingComponent.h"
+kitten::K_Component* getDeckInitializingComponent(nlohmann::json* p_jsonFile) {
+	return new DeckInitializingComponent();
+}
+
+#include "components/scene change/StartGameOnClick.h"
+kitten::K_Component* getStartGameOnClick(nlohmann::json* p_jsonFile) {
+	return new StartGameOnClick();
+}
+
+#include "components/DeckComponent.hpp"
+kitten::K_Component* getDeckComponent(nlohmann::json* p_jsonFile) {
+	return new DeckComponent();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -745,6 +760,9 @@ void setupComponentMap() {
 	jsonComponentMap["DecksDisplayPickerOnClick"] = &getDecksDisplayPickerOnClick;
 	jsonComponentMap["DecksDisplayFrame"] = &getDecksDisplayFrame;
 	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
+	jsonComponentMap["DeckInitializingComponent"] = &getDeckInitializingComponent;
+	jsonComponentMap["StartGameOnClick"] = &getStartGameOnClick;
+	jsonComponentMap["DeckComponent"] = &getDeckComponent;
 
 }
 

@@ -22,7 +22,7 @@
                     "texture" : "textures/ui/button_new-game.tga"
                 },
                 {
-                    "name" : "ClickableUI"
+                    "name" : "StartGameOnClick"
                 },
                 {
                     "name" : "ClickableFrame"

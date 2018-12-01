@@ -1,4 +1,5 @@
 #include "DeckComponent.hpp"
+#include "DeckInitializingComponent.h"
 #include <random>
 #include <chrono> 
 #include <algorithm>
@@ -11,9 +12,6 @@ std::default_random_engine RNGzuz(std::random_device{}());// our holy lord, dete
 #define CARD_ID "cardID"
 #define CARD_PLACEMENT "placement"
 
-DeckComponent::DeckComponent(DeckData* p_data, int p_playerID) : m_deckSource(p_data), m_playerID(p_playerID) {
-	m_cardPool.reserve(p_data->totalCardCount);
-}
 DeckComponent::~DeckComponent() {
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Shuffle_Deck, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Discard_Card, this);
@@ -44,6 +42,10 @@ void DeckComponent::start() {
 		kitten::Event::EventType::Peek_Card,
 		this,
 		std::bind(&DeckComponent::peekEventReceiver, this, std::placeholders::_1, std::placeholders::_2));
+
+	// Set up Parameters
+	this->m_deckSource = DeckInitializingComponent::getActiveInstance()->getDeckData();
+	this->m_playerID = DeckInitializingComponent::getActiveInstance()->getPlayerId();
 
 	// Set up Pool
 	for (std::pair<int, int> card : m_deckSource->cards) {
