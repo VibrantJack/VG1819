@@ -363,10 +363,10 @@ namespace unit
 
 	void Unit::destroy()
 	{	
-		const glm::vec3& pos = getTransform().getTranslation();
+		/*const glm::vec3& pos = getTransform().getTranslation();
 		auto pfxInstance = UniversalPfx::getInstance();
 		assert(pfxInstance != nullptr);
-		pfxInstance->playEffect(UNIT_DEATH_EFFECT_NAME, pos);
+		pfxInstance->playEffect(UNIT_DEATH_EFFECT_NAME, pos);*/
 		
 
 		std::cout << m_name << " is destroyed! " << std::endl;
