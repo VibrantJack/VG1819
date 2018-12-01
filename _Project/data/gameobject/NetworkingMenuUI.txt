@@ -1,5 +1,5 @@
 {
-    "name" : "Networking Console Menu",
+    "name" : "Networking Menu UI",
     "components" : [
         {
             "name" : "TextBox",
@@ -15,6 +15,9 @@
 		},
 		{
 			"name" : "SpawnUnitOnKeyPress"
+		},
+		{
+			"name" : "NetworkingMenuUI"
 		}
     ]
 }

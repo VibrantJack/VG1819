@@ -10,7 +10,7 @@
 		    "translate2d" : [100,700]
 		},
 		{
-			"filename" : "NetworkingConsoleMenu.txt",
+			"filename" : "NetworkingMenuUI.txt",
 			"translate2d" : [525, 140]
 		},
 		{
