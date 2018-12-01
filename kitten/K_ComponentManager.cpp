@@ -25,6 +25,7 @@
 #include "networking\menu\NetworkHostButton.h"
 #include "networking\menu\NetworkJoinButton.h"
 #include "_Project\StringInputDisplay.h"
+#include "networking\menu\NetworkingMenuUI.h"
 
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
@@ -35,10 +36,10 @@
 #include "components\SelectAbility.h"
 #include "networking\SpawnUnitOnKeyPress.h"
 #include "networking\NetworkingConsoleMenu.h"
-#include "networking\menu\NetworkingMenuUI.h"
 #include "_Project\StringInputDisplay.h"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 
+#include "components/ChangeSceneOnClick.hpp"
 #include "kitten\K_ParticleSystem.h"
 
 //board
@@ -107,18 +108,9 @@ namespace kitten
 		else if (p_componentName == "Card") // Datadriven
 		{
 			comp = new userinterface::CardUIO("textures/ui/cardBack.tga");
-		}
-		else if(p_componentName == "ClickableFrame") // Datadriven
+		}else if(p_componentName == "ClickableFrame") // Datadriven
 		{
 			comp = new ClickableFrame(ClickableFrame::piv_BotLeft);
-		} 
-		else if (p_componentName == "NetworkHostButton") // Datadriven
-		{
-			comp = new userinterface::NetworkHostButton();
-		}
-		else if (p_componentName == "NetworkJoinButton") // Datadriven
-		{
-			comp = new userinterface::NetworkJoinButton();
 		}
 		else if (p_componentName == "ClickableUI") // Datadriven
 		{
@@ -224,10 +216,6 @@ namespace kitten
 		{
 			comp = new NetworkingConsoleMenu();
 		}
-		else if (p_componentName == "NetworkingMenuUI")
-		{
-			comp = new userinterface::NetworkingMenuUI();
-		}
 		else if (p_componentName == "TileInfo") // Datadriven
 		{
 			comp = new TileInfo();
@@ -236,9 +224,20 @@ namespace kitten
 		{
 			comp = new CounterGetterDisplay();
 		}
-		else if (p_componentName == "StringInputDisplay") // Datadriven
+		else if (p_componentName == "StringInputDisplay")
 		{
 			comp = new StringInputDisplay();
+		}
+		else if (p_componentName == "NetworkHostButton")
+		{
+			comp = new userinterface::NetworkHostButton();
+		} else if (p_componentName == "NetworkJoinButton") 
+		{
+			comp = new userinterface::NetworkJoinButton();
+		}
+		else if (p_componentName == "NetworkingMenuUI")
+		{
+			comp = new userinterface::NetworkingMenuUI();
 		}
 		else
 		{

@@ -388,6 +388,13 @@ kitten::K_Component* getUIFrame(nlohmann::json* p_jsonFile) {
 
 #include "unit/unitComponent/UnitMove.h"
 kitten::K_Component* getUnitMove(nlohmann::json* p_jsonFile) {
+	glm::vec3 offset;
+
+	if (JSONHAS("offset")) {
+		offset = glm::vec3(LOOKUP("offset")[0], LOOKUP("offset")[1], LOOKUP("offset")[2]);
+		return new unit::UnitMove(offset);
+	}
+
 	return new unit::UnitMove();
 }
 
@@ -573,7 +580,7 @@ kitten::K_Component* getClickableFrame(nlohmann::json* p_jsonFile) {
 		else if (temp == "topright")
 			type = kitten::ClickableFrame::piv_TopRight;
 	}
-	return new kitten::ClickableFrame(kitten::ClickableFrame::piv_BotLeft);
+	return new kitten::ClickableFrame(type);
 }
 
 #include "kitten/mouse picking/ClickableUI.h"
@@ -614,6 +621,16 @@ kitten::K_Component* getSpriteRenderable(nlohmann::json* p_jsonFile) {
 	return new kitten::SpriteRenderable();
 }
 
+#include "components/ChangeSceneOnClick.hpp"
+kitten::K_Component* getChangeSceneOnClick(nlohmann::json* p_jsonFile) {
+
+	std::string nextScene;
+
+	SET(nextScene, "scene");
+
+	return new ChangeSceneOnClick(nextScene);
+}
+
 #include "kitten\K_ParticleSystem.h"
 kitten::K_Component* getKParticleSystem(nlohmann::json* p_jsonFile) {
 	
@@ -645,6 +662,33 @@ kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 	}
 
 	return new UniversalPfx(effects);
+}
+
+#include "components/DecksDisplay/DecksDisplayPickerOnClick.h"
+kitten::K_Component* getDecksDisplayPickerOnClick(nlohmann::json* p_jsonFile) {
+	return new DecksDisplayPickerOnClick();
+}
+
+#include "components/DecksDisplay/DecksDisplaySetChangeOnClick.h"
+kitten::K_Component* getDecksDisplaySetChangeOnClick(nlohmann::json* p_jsonFile) {
+	int offset;
+
+	SETOPTDEF(offset, "offset", 0);
+
+	return new DecksDisplaySetChangeOnClick(offset);
+}
+
+#include "components/DecksDisplayFrame.h"
+kitten::K_Component* getDecksDisplayFrame(nlohmann::json* p_jsonFile) {
+	int margin;
+	SETOPTDEF(margin, "margin", 0);
+
+	return new DecksDisplayFrame(margin);
+}
+
+#include "_Project\ClickableBoxRenderable.h"
+kitten::K_Component* getClickableBoxRenderable(nlohmann::json* p_jsonFile) {
+	return new ClickableBoxRenderable();
 }
 
 #include "networking\menu\NetworkingMenuUI.h"
@@ -696,11 +740,16 @@ void setupComponentMap() {
 	jsonComponentMap["TileInfo"] = &getTileInfo;
 	jsonComponentMap["SpawnUnitOnKeyPress"] = &getSpawnUnitOnKeyPress;
 	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
+	jsonComponentMap["ChangeSceneOnClick"] = &getChangeSceneOnClick;
 	jsonComponentMap["UniversalPfx"] = &getUniversalPfx;
 	jsonComponentMap["K_ParticleSystem"] = &getKParticleSystem;
 	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
 	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
+	jsonComponentMap["DecksDisplaySetChangeOnClick"] = &getDecksDisplaySetChangeOnClick;
+	jsonComponentMap["DecksDisplayPickerOnClick"] = &getDecksDisplayPickerOnClick;
+	jsonComponentMap["DecksDisplayFrame"] = &getDecksDisplayFrame;
+	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
 	jsonComponentMap["NetworkingMenuUI"] = &getNetworkingMenuUI;
 
 }

@@ -33,6 +33,9 @@ namespace kitten
 		const glm::vec3& getMinPoint() const { return m_minPoint; };
 		const glm::vec3& getMaxPoint() const { return m_maxPoint; };
 
+		const glm::vec3& getOriginalMaxPoint() const { return m_originalMaxPoint; };
+		const glm::vec3& getOriginalMinPoint() const { return m_originalMinPoint; };
+
 		void onHoverStart();
 		void onClick();
 		void onHoverEnd();

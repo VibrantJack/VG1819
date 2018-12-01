@@ -1,0 +1,17 @@
+{
+    "name" : "left arrow button", 
+    "components" : [
+        {
+            "name" : "UIFrame",
+            "texture" : "textures/ui/button_square-left_arrow.tga"
+        },
+        {
+            "name" : "DecksDisplaySetChangeOnClick",
+            "offset" : -1
+        },
+        {
+            "name" : "ClickableFrame"
+        }
+    ],
+    "scale2d" : [50,50]
+}

@@ -16,6 +16,9 @@
         width: 15px;
         margin: 2px 2px;
     }
+    .player {
+        background-color: red;
+    }
     .grass {
         background-color: lightgreen;
     }
@@ -23,7 +26,7 @@
         background-color: yellow;
     }
     .swamp {
-        background-color: black;
+        background-color: darkgreen;
     }
     .forest {
         background-color: green;
@@ -42,13 +45,15 @@
 
     </div>
     <div id = "set">
-    <p><button class="button grass" onclick="set('button grass')"> Grass</button></p>
-    <p><button class="button forest" onclick="set('button forest')"> Forest</button></p>
-    <p><button class="button garden" onclick="set('button garden')"> Garden</button></p>
-    <p><button class="button sand" onclick="set('button sand')"> Sand</button></p>
-    <p><button class="button swamp" onclick="set('button swamp')"> Swamp</button></p>
-    <p><button class="button water" onclick="set('button water')"> Water</button></p>
-    </div>
+        
+    <button class="button player" onclick="set('button player')"></button>Player Spawn Point<br>
+    <button class="button grass" onclick="set('button grass')"></button>Grass<br>
+    <button class="button forest" onclick="set('button forest')"></button>Forest<br>
+    <button class="button garden" onclick="set('button garden')"></button>Garden<br>
+    <button class="button sand" onclick="set('button sand')"></button>Sand<br>
+    <button class="button swamp" onclick="set('button swamp')"></button>Swamp<br>
+    <button class="button water" onclick="set('button water')"></button>Water<br>
+</div>
     <p><button onclick="output()" value = "OutPut">Out put</button></p>
     <div id = "data">
     </div>
@@ -96,6 +101,7 @@
                     var c = document.getElementById(j+"."+i).className;
                     var n ;
                     switch (c) {
+                        case "button player":n=-1;break;
                         case "button grass": n=1;break;
                         case "button swamp": n=2;break;
                         case "button sand": n=3;break;

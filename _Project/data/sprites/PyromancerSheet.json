@@ -1,0 +1,35 @@
+{
+	"name" : "pyromancer",
+	"texture" : "textures/sprites/units/humans/pyromancer_sheet.tga",
+	
+	"sheetwidth" : 710,
+	"sheetheight" : 348,
+	
+	"characterwidth" : 61,
+	"characterheight" : 106,
+	
+	"padding" : 10,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [6,0],
+			"time" : 1.5
+		},
+		{
+			"name" : "death",
+			"startpos" : [0,1],
+			"endpos" : [8,1],
+			"time" : 1.5
+		},
+		{
+			"name" : "cast",
+			"startpos" : [0,2],
+			"endpos" : [3,2],
+			"time" : 1.5
+		}	
+	],
+	
+	"defaultanimation" : "idle"
+}

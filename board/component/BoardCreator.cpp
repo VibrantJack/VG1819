@@ -42,7 +42,8 @@ void BoardCreator::start()
 	//create tile
 	std::vector<kitten::K_GameObject*> list;
 
-	std::vector<LandInformation::TileType> land;
+	std::vector<int> landList;
+
 	bool hasmap = false;
 	std::ifstream file("data/map");
 	if (file.is_open())
@@ -54,7 +55,7 @@ void BoardCreator::start()
 		{
 			int l;
 			file >> l;
-			land.push_back(static_cast<LandInformation::TileType>(l));
+			landList.push_back(l);
 		}
 	}
 
@@ -66,7 +67,17 @@ void BoardCreator::start()
 			kitten::K_GameObject* tileGO;
 			if (hasmap)
 			{
-				tileGO = createTile(x, z, land[i]);
+				LandInformation::TileType landtype;
+				if (landList[i] >= 0)//normal land
+				{
+					landtype = static_cast<LandInformation::TileType>(landList[i]);
+				}
+				else//spawn point
+				{
+					landtype = LandInformation::Grass_land;//commander spawn at normal land
+					m_spawnPointList.push_back(std::make_pair(x, z));
+				}
+				tileGO = createTile(x, z, landtype);
 				i++;
 			}
 			else
@@ -80,6 +91,10 @@ void BoardCreator::start()
 			transform.setIgnoreParent(true);
 		}
 	}
+
+	assert(m_spawnPointList.size() == 2);//number of spawn point must be 2
+	//set spawn point
+	BoardManager::getInstance()->setSpawnPoint(m_spawnPointList);
 
 	//pass tile list and dimension to board manager
 	BoardManager::getInstance()->setTileList(list);

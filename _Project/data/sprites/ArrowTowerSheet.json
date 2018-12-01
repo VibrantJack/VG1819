@@ -1,0 +1,23 @@
+{
+	"name" : "arrow_tower",
+	"texture" : "textures/sprites/units/humans/arrow_tower_sheet.tga",
+	
+	"sheetwidth" : 210,
+	"sheetheight" : 201,
+	
+	"characterwidth" : 105,
+	"characterheight" : 201,
+	
+	"padding" : 0,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [1,0],
+			"time" : 10
+		}	
+	],
+	
+	"defaultanimation" : "idle"
+}
