@@ -46,6 +46,10 @@
 //unit interaction
 #include "unitInteraction/UnitInteractionManager.h"
 
+// Networking
+#include "networking\ClientGame.h"
+#include "networking\ServerGame.h"
+
 #define DEBUG
 
 namespace kitten
@@ -85,6 +89,7 @@ namespace kitten
 		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
 		kibble::loadSpriteSheets("MasterSpriteSheet.json");
 		kibble::setSceneFrom(std::string("network_menu.txt"));
+		//kibble::setSceneFrom(std::string("mainscene.txt"));
 		
 
 		// Deck Data importing, and exporting
@@ -214,6 +219,16 @@ namespace kitten
 		UnitInteractionManager::destroyInstance();
 
 		LandInfoManager::destroyInstance();
+
+		if (networking::ClientGame::getInstance())
+		{
+			networking::ClientGame::destroyInstance();
+		}
+
+		if (networking::ServerGame::getInstance())
+		{
+			networking::ServerGame::destroyInstance();
+		}
 	}
 
 	void updateGame()

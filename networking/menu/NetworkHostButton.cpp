@@ -1,7 +1,7 @@
 #include "NetworkHostButton.h"
 #include "kitten\K_ComponentManager.h"
 #include "kitten\K_GameObjectManager.h"
-#include "networking\menu\NetworkingMenuUI.h"
+#include "kitten\K_Instance.h"
 
 namespace userinterface
 {
@@ -34,8 +34,9 @@ namespace userinterface
 		if (m_menu->checkClientNetwork() && m_menu->checkServerNetwork())
 		{
 			// Successful network setup
-			// TODO: Setup new gamestate (get deck data and spawn each player's Commander)
 			m_textBox->setText("Connected");
+			//kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(&m_menu->getGameObject());
+			kitten::K_Instance::changeScene("mainscene.txt");
 		}
 		else
 		{

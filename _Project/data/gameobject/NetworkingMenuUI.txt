@@ -14,9 +14,6 @@
 			"name" : "StringInputDisplay"
 		},
 		{
-			"name" : "SpawnUnitOnKeyPress"
-		},
-		{
 			"name" : "NetworkingMenuUI"
 		}
     ]

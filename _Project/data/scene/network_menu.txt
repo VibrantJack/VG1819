@@ -17,6 +17,5 @@
 			"filename" : "NetworkingMenuTexture.txt",
 			"scale2d" : [1280, 720]
 		}
-    ],
-	"scenes" : []
+    ]
 }

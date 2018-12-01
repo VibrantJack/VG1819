@@ -31,15 +31,7 @@ NetworkingConsoleMenu::NetworkingConsoleMenu()
 
 NetworkingConsoleMenu::~NetworkingConsoleMenu()
 {
-	if (networking::ClientGame::getInstance())
-	{
-		networking::ClientGame::destroyInstance();
-	}
-
-	if (networking::ServerGame::getInstance())
-	{
-		networking::ServerGame::destroyInstance();
-	}
+	
 }
 
 void NetworkingConsoleMenu::start()

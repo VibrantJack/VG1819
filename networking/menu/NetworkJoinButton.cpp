@@ -1,5 +1,5 @@
 #include "NetworkJoinButton.h"
-
+#include "kitten\K_Instance.h"
 #include "kitten\K_GameObjectManager.h"
 
 namespace userinterface
@@ -13,7 +13,7 @@ namespace userinterface
 
 	NetworkJoinButton::~NetworkJoinButton()
 	{
-
+		m_inputMan->setPollMode(true);
 	}
 
 	void NetworkJoinButton::start()
@@ -45,12 +45,10 @@ namespace userinterface
 			if (m_menu->checkClientNetwork())
 			{
 				m_inputMan->setPollMode(true);
-				// TODO: Successful connection, create new gamestate/switch scenes
 				m_textBox->setText("Joined host");
 			} else
 			{
 				m_textBox->setText("Network Error");
-				m_inputMan->setPollMode(false);
 			}
 		}
 	}
@@ -61,8 +59,9 @@ namespace userinterface
 		if (m_menu->checkClientNetwork())
 		{
 			m_inputMan->setPollMode(true);
-			// TODO: Successful connection, create new gamestate/switch scenes
 			m_textBox->setText("Joined host");
+			//kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(&m_menu->getGameObject());
+			kitten::K_Instance::changeScene("mainscene.txt");
 		}
 		else
 		{
