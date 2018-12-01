@@ -181,6 +181,7 @@
     <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\GameObjectDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\SceneDataType.cpp" />
+    <ClCompile Include="..\kibble\json\Datatypes\ScriptDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp" />
     <ClCompile Include="..\kibble\json\jsonextra.cpp" />
     <ClCompile Include="..\kibble\json\JSONGameObjectDataParser.cpp" />
@@ -362,6 +363,7 @@
     <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\GameObjectDataType.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\SceneDataType.hpp" />
+    <ClInclude Include="..\kibble\json\Datatypes\ScriptDataType.h" />
     <ClInclude Include="..\kibble\json\jsonextra.hpp" />
     <ClInclude Include="..\kibble\json\JSONGameObjectDataParser.hpp" />
     <ClInclude Include="..\kibble\kibble.hpp" />

@@ -2,6 +2,7 @@
 #include "kibble.hpp"
 #include "databank/databank.hpp"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
+#include "kibble/json/Datatypes/ScriptDataType.h"
 #include "kibble/json/JSONGameObjectDataParser.hpp"
 #include "kibble/json/JSONUnitDataParser.hpp"
 #include "kibble/custom/CustomDeckDataParser.hpp"
@@ -14,6 +15,7 @@ kibble::SpriteLoader* spriteLoader;
 
 void kibble::initializeKibbleRelatedComponents() {
 	setupComponentMap();
+	setupScriptMap();
 
 	gameObjectParser = new JSONGameObjectDataParser();
 	unitParser = new JSONUnitDataParser();

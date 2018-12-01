@@ -698,7 +698,9 @@ kitten::K_Component* getDeckInitializingComponent(nlohmann::json* p_jsonFile) {
 
 #include "components/scene change/StartGameOnClick.h"
 kitten::K_Component* getStartGameOnClick(nlohmann::json* p_jsonFile) {
-	return new StartGameOnClick();
+	std::string targetScene;
+	SET(targetScene, "scene");
+	return new StartGameOnClick(targetScene);
 }
 
 #include "components/DeckComponent.hpp"

@@ -1,5 +1,6 @@
 #include "GameObjectDataType.hpp"
 #include "kitten/K_GameObjectManager.h"
+#include "ScriptDataType.h"
 
 void setupSceneBy(nlohmann::json& p_jsonfile) {
 
@@ -14,6 +15,13 @@ void setupSceneBy(nlohmann::json& p_jsonfile) {
 		//assert(p_jsonfile["gameobjects"].is_array());
 		for (nlohmann::json::iterator it = p_jsonfile["gameobjects"].begin(); it != p_jsonfile["gameobjects"].end(); ++it) {
 			kitten::K_GameObject* gameobject = getGameObjectBy(*it);
+		}
+	}
+
+	// After all gameobjects are setup
+	if (p_jsonfile.find("scripts") != p_jsonfile.end())	{
+		for (nlohmann::json::iterator it = p_jsonfile["scripts"].begin(); it != p_jsonfile["scripts"].end(); ++it) {
+			runRelatedScript(&*it);
 		}
 	}
 }

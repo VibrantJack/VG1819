@@ -20,5 +20,5 @@ void StartGameOnClick::onClick()
 
 	// --------------------------
 	kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(survivor);
-	kitten::K_Instance::changeScene("mainscene.txt");
+	kitten::K_Instance::changeScene(m_targetScene);
 }
