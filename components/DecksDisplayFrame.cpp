@@ -7,7 +7,7 @@
 DecksDisplayFrame* instance;
 DecksDisplayFrame* DecksDisplayFrame::getActiveInstance() { return instance; }
 
-DecksDisplayFrame::DecksDisplayFrame( const int& p_margin) : m_margin(p_margin)
+DecksDisplayFrame::DecksDisplayFrame(const int p_margin) : m_margin(p_margin)
 {
 	instance = this;
 }
@@ -58,7 +58,7 @@ void DecksDisplayFrame::start()
 }
 
 
-void DecksDisplayFrame::offsetCurrentSet(const int& p_offset)
+void DecksDisplayFrame::offsetCurrentSet(const int p_offset)
 {
 	int deckCount = kibble::getDeckDataListCount();
 	if ((m_currentSet + p_offset)*m_slots.size() >= deckCount ||
@@ -121,16 +121,19 @@ void DecksDisplayFrame::onEnabled()
 		m_slots[index]->setEnabled(true);
 		m_slotTexts[index]->setEnabled(true);
 	}
-	for (auto arrow : m_arrows)
-	{
-		arrow->setEnabled(true);
-	}
+	if (m_currentSet == 0) m_arrows[0]->setEnabled(false);
+	else m_arrows[0]->setEnabled(true);
+
+	if (m_currentActive != m_slots.size() &&
+		m_slots.size() * (m_currentSet + 1) > kibble::getDeckDataListCount())
+		m_arrows[1]->setEnabled(false);
+	else m_arrows[1]->setEnabled(true);
 }
 
 
 const int& DecksDisplayFrame::getCurrentPickedDeckId() const {
 	return m_currentPick;
 }
-void DecksDisplayFrame::pickDisplayedDeck(kitten::K_GameObject* p_gameObject) {
+void DecksDisplayFrame::pickDisplayedDeck(const kitten::K_GameObject* p_gameObject) {
 	m_currentPick =	std::find(m_slots.begin(), m_slots.end(), p_gameObject) - m_slots.begin() + (m_currentSet*m_slots.size());
 }

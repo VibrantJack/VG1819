@@ -22,10 +22,10 @@ public:
 
 	void start() override;
 
-	void offsetCurrentSet(const int& p_offset);
+	void offsetCurrentSet(const int p_offset);
 	const int& getCurrentPickedDeckId() const; // gives back -1 if no deck has been picked yet
-	void pickDisplayedDeck(kitten::K_GameObject* p_gameObject);
+	void pickDisplayedDeck(const kitten::K_GameObject* p_gameObject);
 
-	DecksDisplayFrame( const int& p_margin);
+	DecksDisplayFrame(const int p_margin);
 	~DecksDisplayFrame();
 };
