@@ -18,6 +18,8 @@ namespace userinterface
 
 		void reorderAllCards();
 
+		static void makeAHand();
+
 	private:
 		
 		int m_totalCards;

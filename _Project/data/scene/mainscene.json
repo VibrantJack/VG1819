@@ -118,7 +118,10 @@
 		},
 		{
 			"name" : "startInitiativeTrackerTurn"
-		}
+		},
+		{
+			"name" : "makeAHand"
+ 		}
 	]
 	
 }

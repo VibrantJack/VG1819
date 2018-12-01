@@ -20,6 +20,11 @@ void printSpawnedUnits(nlohmann::json* p_jsonFile) {
 	unit::UnitMonitor::getInstance()->printIT();
 }
 
+#include "UI/HandFrame.h"
+void makeAHand(nlohmann::json* p_jsonFile) {
+	userinterface::HandFrame::makeAHand();
+}
+
 #include "unit/UnitSpawn.h"
 #include "unit/unitComponent/UnitMove.h"
 void spawnUnit(nlohmann::json* p_jsonFile) {
@@ -42,6 +47,7 @@ void setupScriptMap() {
 	scriptMap["startInitiativeTrackerTurn"]=&startInitiativeTrackerTurn;
 	scriptMap["printSpawnedUnits"]=&printSpawnedUnits;
 	scriptMap["setupInitiativeTracker"]=&setupInitiativeTracker;
+	scriptMap["makeAHand"]=&makeAHand;
 
 }
 
