@@ -1,9 +1,7 @@
 {
     "gameobjects" : [
         {
-            "filename" : "camgameobj.txt", 
-            "translate" : [7, 13.0, 0.0],
-            "rotate" : [-70,0,0]
+            "filename" : "camgameobj.txt"
         },
         {
             "name" : "Deck Display Frame",
@@ -13,8 +11,43 @@
                     "margin": 10
                 }
             ],
-			"translate2d" : [200, 50],
-            "scale2d" : [600,600]
+			"translate2d" : [200, 10],
+            "scale2d" : [1070,700]
+        },
+        {
+            "name" : "New Game Button",
+            "components" : [
+                {
+                    "name" : "UIFrame",
+                    "texture" : "textures/ui/button_new-game.tga"
+                },
+                {
+                    "name" : "ClickableUI"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [10, 600],
+            "scale2d" : [170, 100]
+            
+        },
+        {
+            "name" : "Edit Deck Button",
+            "components" : [
+                {
+                    "name" : "UIFrame",
+                    "texture" : "textures/ui/button_deck-builder.tga"
+                },
+                {
+                    "name" : "ClickableUI"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [10, 480],
+            "scale2d" : [170, 100]
         }
     ]
 }

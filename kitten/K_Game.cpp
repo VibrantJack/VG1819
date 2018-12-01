@@ -83,7 +83,7 @@ namespace kitten
 		//Creating a gameobject
 		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
 		kibble::loadSpriteSheets("MasterSpriteSheet.json");
-		kibble::setSceneFrom(std::string("mainscene.txt"));
+		kibble::setSceneFrom(std::string("mainmenu.json"));
 		
 
 		// Deck Data importing, and exporting
@@ -136,6 +136,7 @@ namespace kitten
 		//delete builder;
 
 		//test unit
+		/*
 		unit::UnitTest::getInstanceSafe()->test();
 
 		//UIO TESTING
