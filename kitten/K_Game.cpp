@@ -129,14 +129,14 @@ namespace kitten
 		builder->start();
 		delete builder;*/
 
-		//test unit
+		// test unit Block
 		//unit::UnitTest::getInstanceSafe()->test();
 
 
 
 
 
-		/* 
+		/*  really old UI testing block
 		//testing ui frame and textbox
 		K_GameObject* go = K_GameObjectManager::getInstance()->createNewGameObject();
 		puppy::TextBox* tt = static_cast<puppy::TextBox*>(compMan->createComponent("TextBox"));
@@ -153,26 +153,7 @@ namespace kitten
 		com->getTransform().place2D(0.1, 0.1);
 		//*/
 		
-	}
-
-	// This is called once at the beginning of the game
-	bool initGame()
-	{
-		createSingletons();
-		input::InputManager::getInstance()->resetMouse(false);
-
-		// Temporary stuff until Kibble is ready
-		K_ComponentManager* compMan = K_ComponentManager::getInstance();
-
-		//Creating a gameobject
-		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
-		kibble::setSceneFrom(std::string("mainmenu.json"));
-		
-		
-		
-
-
-		//UIO TESTING
+		//UIO TESTING BLOCK
 		/*
 		K_GameObject* hand = K_GameObjectManager::getInstance()->createNewGameObject();
 		K_Component* handFrame = compMan->createComponent("Hand");
@@ -194,7 +175,7 @@ namespace kitten
 			userinterface::HandFrame* frameCasted = static_cast<userinterface::HandFrame*>(handFrame);
 			frameCasted->addCardToEnd(cardCasted);
 			cardCasted->assignParentHand(frameCasted);
-			
+
 			K_Component* cardCF = compMan->createComponent("ClickableFrame");
 			K_Component* clickUI = compMan->createComponent("ClickableUI");
 
@@ -208,9 +189,24 @@ namespace kitten
 			cardCF->start();
 			clickUI->start();
 
-			
+
 		}
 		*/
+
+	}
+
+	// This is called once at the beginning of the game
+	bool initGame()
+	{
+		createSingletons();
+		input::InputManager::getInstance()->resetMouse(false);
+
+		// Temporary stuff until Kibble is ready
+		K_ComponentManager* compMan = K_ComponentManager::getInstance();
+
+		//Creating a gameobject
+		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
+		kibble::setSceneFrom(std::string("mainmenu.json"));
 
 		return true;
 	}

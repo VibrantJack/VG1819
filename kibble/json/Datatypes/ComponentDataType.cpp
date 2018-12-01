@@ -552,7 +552,6 @@ kitten::K_Component* getCardUIO(nlohmann::json* p_jsonFile) {
 	SETOPTDEF(texture, "texture", "textures/ui/cardBack.tga");
 
 	userinterface::CardUIO* object = new userinterface::CardUIO(texture.c_str());
-	object->scaleAsCard();
 	return object;
 }
 
