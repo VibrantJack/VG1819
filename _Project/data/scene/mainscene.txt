@@ -25,7 +25,16 @@
 		{
 			"filename" : "NetworkingConsoleMenu.txt",
 			"translate2d" : [200, 50]
+		},
+		{
+			"name" : "Deck",
+			"components" : [
+				{
+					"name" : "DeckComponent"
+				}
+			]
 		}
+
     ],
 	"scenes" : ["interfacebuilder.txt"]
 }
