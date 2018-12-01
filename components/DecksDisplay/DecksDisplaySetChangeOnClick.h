@@ -8,6 +8,6 @@ private:
 public:
 	void onClick();
 
-	DecksDisplaySetChangeOnClick(const int& p_offset) : m_offset(p_offset) {}
+	DecksDisplaySetChangeOnClick(const int p_offset) : m_offset(p_offset) {}
 	~DecksDisplaySetChangeOnClick() {}
 };
