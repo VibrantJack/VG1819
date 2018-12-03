@@ -214,6 +214,34 @@ namespace networking
 
 						break;
 					}
+					case STARTING_COMMANDER_DATA:
+					{
+						Buffer buffer;
+						buffer.m_data = &(m_network_data[i]);
+						buffer.m_size = SUMMON_UNIT_PACKET_SIZE;
+
+						SummonUnitPacket commanderDataPacket;
+						commanderDataPacket.deserialize(buffer);
+
+						m_commanders.push_back(commanderDataPacket);
+						printf("Received Starting data\n");
+						if (m_commanders.size() == 2)
+						{
+							for (auto &commanderData : m_commanders)
+							{
+								char data[SUMMON_UNIT_PACKET_SIZE];
+								Buffer newBuffer;
+								newBuffer.m_data = data;
+								newBuffer.m_size = SUMMON_UNIT_PACKET_SIZE;
+								commanderData.m_packetType = SUMMON_UNIT;
+								commanderData.serialize(newBuffer);
+								m_network->sendToAll(data, SUMMON_UNIT_PACKET_SIZE);
+							}
+						}
+
+						i += SUMMON_UNIT_PACKET_SIZE;
+						break;
+					}
 					case SKIP_TURN:
 					case GAME_TURN_START:
 					{

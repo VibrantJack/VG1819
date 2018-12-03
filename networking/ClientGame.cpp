@@ -164,6 +164,25 @@ namespace networking
 			{
 				i += BASIC_PACKET_SIZE;
 				m_iClientId = defaultPacket.m_clientId;
+
+				// Send starting data
+				char commanderData[SUMMON_UNIT_PACKET_SIZE];
+				Buffer commanderDataBuffer;
+				commanderDataBuffer.m_data = commanderData;
+				commanderDataBuffer.m_size = SUMMON_UNIT_PACKET_SIZE;
+
+				kitten::K_GameObject* tile = BoardManager::getInstance()->getInstance()->getSpawnPoint(m_iClientId);
+				SummonUnitPacket commanderDataPacket;
+				commanderDataPacket.m_packetType = STARTING_COMMANDER_DATA;
+				commanderDataPacket.m_clientId = m_iClientId;
+				// TODO: Assign the Commander unit ID according to the first unit in the player's deck data
+				commanderDataPacket.m_unitId = 6;
+				commanderDataPacket.m_posX = tile->getComponent<TileInfo>()->getPosX();
+				commanderDataPacket.m_posY = tile->getComponent<TileInfo>()->getPosY();
+
+				commanderDataPacket.serialize(commanderDataBuffer);
+				NetworkServices::sendMessage(m_network->m_connectSocket, commanderData, SUMMON_UNIT_PACKET_SIZE);
+
 				break;
 			}
 			case PacketTypes::SERVER_SHUTDOWN:

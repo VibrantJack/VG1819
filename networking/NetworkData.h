@@ -24,6 +24,7 @@ enum PacketTypes {
 	SUMMON_UNIT,
 	SKIP_TURN,
 	GAME_TURN_START,
+	STARTING_COMMANDER_DATA,
 };
 
 class Buffer
