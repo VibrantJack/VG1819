@@ -36,7 +36,6 @@
 //ui testing
 #include "ui/CardUIO.h"
 #include "ui/HandFrame.h"
-#include "networking\menu\NetworkingMenuUI.h"
 #include "networking\menu\NetworkJoinButton.h"
 
 //ui clickable testing

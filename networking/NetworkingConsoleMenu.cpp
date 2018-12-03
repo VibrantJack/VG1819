@@ -1,5 +1,5 @@
 #include "networking\NetworkingConsoleMenu.h"
-#include "kitten\InputManager.h"
+#include "kitten\K_Instance.h"
 
 #include <iostream>
 #include <process.h>
@@ -31,7 +31,8 @@ NetworkingConsoleMenu::NetworkingConsoleMenu()
 
 NetworkingConsoleMenu::~NetworkingConsoleMenu()
 {
-	
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Join_Button_Clicked, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Host_Button_Clicked, this);
 }
 
 void NetworkingConsoleMenu::start()
@@ -44,6 +45,16 @@ void NetworkingConsoleMenu::start()
 
 	m_inputMan = input::InputManager::getInstance();
 	assert(m_inputMan != nullptr);
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Join_Button_Clicked,
+		this,
+		std::bind(&NetworkingConsoleMenu::joinButtonClickedListener, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Host_Button_Clicked,
+		this,
+		std::bind(&NetworkingConsoleMenu::hostButtonClickedListener, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void NetworkingConsoleMenu::update()
@@ -125,8 +136,14 @@ void NetworkingConsoleMenu::update()
 		std::string address = m_stringInputDisplay->getString();
 		printf("Entered address: %s\n", address.c_str());
 		connectToHost(address);
-		m_bEnteringAddress = false;
-		m_inputMan->setPollMode(true);
+		if (checkClientNetwork())
+		{
+			m_bEnteringAddress = false;
+			m_textBox->setText("Joined host");
+		} else
+		{
+			m_textBox->setText("Network Error");
+		}
 	}
 
 	// Call updates if ClientGame/ServerGame are initialized
@@ -266,6 +283,26 @@ bool NetworkingConsoleMenu::checkServerNetwork()
 		}
 	}
 	return false;
+}
+
+void NetworkingConsoleMenu::joinButtonClickedListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+{
+	m_inputMan->setPollMode(false);
+	m_bEnteringAddress = true;
+}
+
+void NetworkingConsoleMenu::hostButtonClickedListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+{
+	hostGame();
+	if (checkClientNetwork() && checkServerNetwork())
+	{
+		// Successful network setup, setup main scene
+		kitten::K_Instance::changeScene("mainscene.txt");
+	}
+	else
+	{
+		m_textBox->setText("Network Error");
+	}
 }
 
 void NetworkingConsoleMenu::setMenuKeys(

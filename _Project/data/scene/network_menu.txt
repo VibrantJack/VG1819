@@ -10,12 +10,25 @@
 		    "translate2d" : [100,700]
 		},
 		{
-			"filename" : "NetworkingMenuUI.txt",
+			"filename" : "netmenu_ui.txt",
 			"translate2d" : [525, 140]
 		},
 		{
-			"filename" : "NetworkingMenuTexture.txt",
-			"scale2d" : [1280, 720]
+			"filename" : "netmenu_background.txt",
+			"scale2d" : [1280, 720],
+			"translate" : [0.0, 0.0, -0.9]
+		},
+		{
+			"filename" : "netmenu_join_button.txt",
+			"scale2d" : [170, 100],
+			"translate" : [0.0, 0.0, -0.1],
+		    "translate2d" : [555,185]
+		},
+		{
+			"filename" : "netmenu_host_button.txt",
+			"scale2d" : [170, 100],
+			"translate" : [0.0, 0.0, -0.1],
+		    "translate2d" : [555,395]
 		}
     ]
 }

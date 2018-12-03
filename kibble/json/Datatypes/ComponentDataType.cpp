@@ -691,9 +691,14 @@ kitten::K_Component* getClickableBoxRenderable(nlohmann::json* p_jsonFile) {
 	return new ClickableBoxRenderable();
 }
 
-#include "networking\menu\NetworkingMenuUI.h"
-kitten::K_Component* getNetworkingMenuUI(nlohmann::json* p_jsonFile) {
-	return new userinterface::NetworkingMenuUI();
+#include "networking\menu\NetworkJoinButton.h"
+kitten::K_Component* getNetworkJoinButton(nlohmann::json* p_jsonFile) {
+	return new userinterface::NetworkJoinButton();
+}
+
+#include "networking\menu\NetworkHostButton.h"
+kitten::K_Component* getNetworkHostButton(nlohmann::json* p_jsonFile) {
+	return new userinterface::NetworkHostButton();
 }
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
@@ -750,7 +755,8 @@ void setupComponentMap() {
 	jsonComponentMap["DecksDisplayPickerOnClick"] = &getDecksDisplayPickerOnClick;
 	jsonComponentMap["DecksDisplayFrame"] = &getDecksDisplayFrame;
 	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
-	jsonComponentMap["NetworkingMenuUI"] = &getNetworkingMenuUI;
+	jsonComponentMap["NetworkJoinButton"] = &getNetworkJoinButton;
+	jsonComponentMap["NetworkHostButton"] = &getNetworkHostButton;
 
 }
 

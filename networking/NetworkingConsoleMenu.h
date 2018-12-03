@@ -2,6 +2,7 @@
 #include "kitten\K_Component.h"
 #include "_Project\StringInputDisplay.h"
 #include "kitten\InputManager.h"
+#include "kitten\event_system\EventManager.h"
 
 class NetworkingConsoleMenu : public kitten::K_Component
 {
@@ -22,6 +23,10 @@ public:
 
 	bool checkClientNetwork();
 	bool checkServerNetwork();
+
+	void joinButtonClickedListener(kitten::Event::EventType p_type, kitten::Event* p_event);
+	void hostButtonClickedListener(kitten::Event::EventType p_type, kitten::Event* p_event);
+
 	void setMenuKeys(
 		char p_cEnterMenuKey, char p_cExitMenuKey,
 		char p_cHostKey, char p_cStopHostKey,	
