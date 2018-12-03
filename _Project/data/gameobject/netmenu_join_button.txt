@@ -1,0 +1,15 @@
+{
+    "name" : "Networking Menu Join Button",
+    "components" : [
+		{
+			"name" : "UIFrame",
+			"texture" : "textures/ui/join_button.tga"
+		},
+		{
+			"name" : "ClickableFrame"
+		},
+		{
+			"name" : "NetworkJoinButton"
+		}
+    ]
+}

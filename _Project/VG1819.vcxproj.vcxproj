@@ -223,7 +223,6 @@
     <ClCompile Include="..\networking\ClientGame.cpp" />
     <ClCompile Include="..\networking\ClientNetwork.cpp" />
     <ClCompile Include="..\networking\menu\NetworkHostButton.cpp" />
-    <ClCompile Include="..\networking\menu\NetworkingMenuUI.cpp" />
     <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp" />
     <ClCompile Include="..\networking\NetworkingConsoleMenu.cpp" />
     <ClCompile Include="..\networking\NetworkServices.cpp" />
@@ -411,7 +410,6 @@
     <ClInclude Include="..\networking\ClientGame.h" />
     <ClInclude Include="..\networking\ClientNetwork.h" />
     <ClInclude Include="..\networking\menu\NetworkHostButton.h" />
-    <ClInclude Include="..\networking\menu\NetworkingMenuUI.h" />
     <ClInclude Include="..\networking\menu\NetworkJoinButton.h" />
     <ClInclude Include="..\networking\NetworkData.h" />
     <ClInclude Include="..\networking\NetworkingConsoleMenu.h" />

@@ -25,7 +25,6 @@
 #include "networking\menu\NetworkHostButton.h"
 #include "networking\menu\NetworkJoinButton.h"
 #include "_Project\StringInputDisplay.h"
-#include "networking\menu\NetworkingMenuUI.h"
 
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
@@ -234,10 +233,6 @@ namespace kitten
 		} else if (p_componentName == "NetworkJoinButton") 
 		{
 			comp = new userinterface::NetworkJoinButton();
-		}
-		else if (p_componentName == "NetworkingMenuUI")
-		{
-			comp = new userinterface::NetworkingMenuUI();
 		}
 		else
 		{

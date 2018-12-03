@@ -637,9 +637,6 @@
     <ClCompile Include="..\networking\menu\NetworkHostButton.cpp">
       <Filter>networking\networking_menu</Filter>
     </ClCompile>
-    <ClCompile Include="..\networking\menu\NetworkingMenuUI.cpp">
-      <Filter>networking\networking_menu</Filter>
-    </ClCompile>
     <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp">
       <Filter>networking\networking_menu</Filter>
     </ClCompile>
@@ -1203,9 +1200,6 @@
       <Filter>components\decksdisplay</Filter>
     </ClInclude>
     <ClInclude Include="..\networking\menu\NetworkHostButton.h">
-      <Filter>networking\networking_menu</Filter>
-    </ClInclude>
-    <ClInclude Include="..\networking\menu\NetworkingMenuUI.h">
       <Filter>networking\networking_menu</Filter>
     </ClInclude>
     <ClInclude Include="..\networking\menu\NetworkJoinButton.h">
