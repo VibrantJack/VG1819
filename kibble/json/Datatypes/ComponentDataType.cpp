@@ -707,6 +707,11 @@ kitten::K_Component* getDeckComponent(nlohmann::json* p_jsonFile) {
 	return new DeckComponent();
 }
 
+#include "components/testing/gameplay-init.h"
+kitten::K_Component* getGameplayInit(nlohmann::json* p_jsonFile) {
+	return new GameplayInit();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -764,6 +769,7 @@ void setupComponentMap() {
 	jsonComponentMap["DeckInitializingComponent"] = &getDeckInitializingComponent;
 	jsonComponentMap["StartGameOnClick"] = &getStartGameOnClick;
 	jsonComponentMap["DeckComponent"] = &getDeckComponent;
+	jsonComponentMap["GameplayInit"] = &getGameplayInit;
 
 }
 

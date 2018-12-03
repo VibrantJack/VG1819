@@ -640,8 +640,8 @@
     <ClCompile Include="..\components\DeckInitializingComponent.cpp">
       <Filter>components\survivors</Filter>
     </ClCompile>
-    <ClCompile Include="..\kibble\json\Datatypes\ScriptDataType.cpp">
-      <Filter>kibble\JSON\Datatypes</Filter>
+    <ClCompile Include="..\components\testing\gameplay-init.cpp">
+      <Filter>components\testing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1208,8 +1208,8 @@
     <ClInclude Include="..\components\DeckInitializingComponent.h">
       <Filter>components\survivors</Filter>
     </ClInclude>
-    <ClInclude Include="..\kibble\json\Datatypes\ScriptDataType.h">
-      <Filter>kibble\JSON\Datatypes</Filter>
+    <ClInclude Include="..\components\testing\gameplay-init.h">
+      <Filter>components\testing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1356,6 +1356,9 @@
     </Filter>
     <Filter Include="components\sound\standard effects">
       <UniqueIdentifier>{8c3ab6ac-dae3-451f-9e21-7944dc100695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\testing">
+      <UniqueIdentifier>{c232c111-d3ae-4c6c-b644-493f749d1069}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
