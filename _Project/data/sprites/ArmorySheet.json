@@ -1,0 +1,23 @@
+{
+	"name" : "armory",
+	"texture" : "textures/sprites/units/humans/armory_sheet.tga",
+	
+	"sheetwidth" : 600,
+	"sheetheight" : 247,
+	
+	"characterwidth" : 295,
+	"characterheight" : 247,
+	
+	"padding" : 0,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [1,0],
+			"time" : 10
+		}	
+	],
+	
+	"defaultanimation" : "idle"
+}

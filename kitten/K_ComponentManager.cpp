@@ -36,9 +36,9 @@
 #include "UI\TabMenu\TabMenu.h"
 #include "UI\TabMenu\ReturnToMainMenuButton.h"
 #include "_Project\StringInputDisplay.h"
-
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 
+#include "components/ChangeSceneOnClick.hpp"
 #include "kitten\K_ParticleSystem.h"
 
 //board
@@ -100,13 +100,13 @@ namespace kitten
 		{
 			comp = new userinterface::UIFrame("textures/ui/blankFrame.tga");
 		}
-		else if (p_componentName == "UIObject")
-		{
-			comp = new userinterface::UIObject("textures/ui/blankFrame.tga");
-		}
 		else if (p_componentName == "Hand") // Datadriven
 		{
 			comp = new userinterface::HandFrame("textures/ui/blankFrame.tga");
+		}
+		else if (p_componentName == "UIObject")
+		{
+			comp = new userinterface::UIObject("textures/ui/blankFrame.tga");
 		}
 		else if (p_componentName == "Card") // Datadriven
 		{
@@ -118,10 +118,6 @@ namespace kitten
 		else if (p_componentName == "ClickableUI") // Datadriven
 		{
 			comp = new ClickableUI();
-		}
-		else if (p_componentName == "ReturnToMainMenuButton")
-		{
-			comp = new userinterface::ReturnToMainMenuButton();
 		}
 		else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
 		{
@@ -227,10 +223,6 @@ namespace kitten
 		{
 			comp = new TileInfo();
 		}
-		else if (p_componentName == "TabMenu")
-		{
-			comp = new TabMenu("textures/ui/blankFrame.tga");
-		}
 		else if (p_componentName == "CounterGetterDisplay")
 		{
 			comp = new CounterGetterDisplay();
@@ -238,6 +230,14 @@ namespace kitten
 		else if (p_componentName == "StringInputDisplay")
 		{
 			comp = new StringInputDisplay();
+		}
+		else if (p_componentName == "ReturnToMainMenuButton")
+		{
+			comp = new userinterface::ReturnToMainMenuButton();
+		}
+		else if (p_componentName == "TabMenu")
+		{
+			comp = new TabMenu("textures/ui/blankFrame.tga");
 		}
 		else
 		{
