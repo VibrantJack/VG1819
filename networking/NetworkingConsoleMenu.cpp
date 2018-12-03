@@ -1,4 +1,5 @@
 #include "networking\NetworkingConsoleMenu.h"
+#include "kitten\K_Instance.h"
 
 #include <iostream>
 #include <process.h>
@@ -31,15 +32,6 @@ NetworkingConsoleMenu::NetworkingConsoleMenu()
 
 NetworkingConsoleMenu::~NetworkingConsoleMenu()
 {
-	if (networking::ClientGame::getInstance())
-	{
-		networking::ClientGame::destroyInstance();
-	}
-
-	if (networking::ServerGame::getInstance())
-	{
-		networking::ServerGame::destroyInstance();
-	}
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Return_to_Main_Menu, this);
 }
 
@@ -170,6 +162,7 @@ void NetworkingConsoleMenu::stopHostingListener(kitten::Event::EventType p_type,
 			case 1:
 				disconnectFromHost();
 		}
+		kitten::K_Instance::changeScene("mainmenu.json");
 	}
 }
 

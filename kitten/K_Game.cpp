@@ -45,6 +45,10 @@
 //unit interaction
 #include "unitInteraction/UnitInteractionManager.h"
 
+// Networking
+#include "networking\ClientGame.h"
+#include "networking\ServerGame.h"
+
 #define DEBUG
 
 namespace kitten
@@ -61,7 +65,6 @@ namespace kitten
 		ability::AbilityManager::createInstance();
 		ability::AbilityNodeManager::createInstance();
 
-		// Management of InitiativeTracker moved into ServerGame
 		unit::InitiativeTracker::createInstance();
 
 		BoardManager::createInstance();
@@ -232,6 +235,16 @@ namespace kitten
 		UnitInteractionManager::destroyInstance();
 
 		LandInfoManager::destroyInstance();
+
+		if (networking::ClientGame::getInstance())
+		{
+			networking::ClientGame::destroyInstance();
+		}
+
+		if (networking::ServerGame::getInstance())
+		{
+			networking::ServerGame::destroyInstance();
+		}
 	}
 
 	void updateGame()

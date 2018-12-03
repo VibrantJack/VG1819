@@ -699,6 +699,20 @@ kitten::K_Component* getTabMenu(nlohmann::json* p_jsonFile) {
 	return new TabMenu(texture.c_str());
 }
 
+#include "ui/UIObject.h"
+kitten::K_Component* getUIObject(nlohmann::json* p_jsonFile) {
+	std::string texture;
+
+	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
+
+	return new userinterface::UIObject(texture.c_str());
+}
+
+#include "UI\TabMenu\ReturnToMainMenuButton.h"
+kitten::K_Component* getReturnToMainMenuButton(nlohmann::json* p_jsonFile) {
+	return new userinterface::ReturnToMainMenuButton();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -754,6 +768,8 @@ void setupComponentMap() {
 	jsonComponentMap["DecksDisplayFrame"] = &getDecksDisplayFrame;
 	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
 	jsonComponentMap["TabMenu"] = &getTabMenu;
+	jsonComponentMap["UIObject"] = &getUIObject;
+	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

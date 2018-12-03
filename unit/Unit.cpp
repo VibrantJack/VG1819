@@ -384,15 +384,13 @@ namespace unit
 				networking::ClientGame* client = networking::ClientGame::getInstance();
 				client->removeUnitGameObject(client->getUnitGameObjectIndex(m_attachedObject));
 
-				kitten::Event* eventData = new kitten::Event(kitten::Event::Tile_Clicked);
+				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
 				if (m_clientId == client->getClientId())
 				{
-					printf("Defeat; your Commander has been slain.");
 					eventData->putInt(PLAYER_COMMANDER_DEATH, FALSE);
 				}
 				else
 				{
-					printf("Victory, the enemy Commander has been slain!");
 					eventData->putInt(PLAYER_COMMANDER_DEATH, TRUE);
 				}
 				

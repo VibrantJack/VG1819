@@ -30,6 +30,8 @@ TabMenu::~TabMenu()
 
 void TabMenu::start()
 {
+	removeFromDynamicRender();
+
 	m_input = input::InputManager::getInstance();
 	assert(m_input != nullptr);
 
@@ -40,32 +42,16 @@ void TabMenu::start()
 		std::bind(&TabMenu::enableEndGameScreen, this, std::placeholders::_1, std::placeholders::_2));
 
 	// Create Return to Main Menu Button
-	m_returnToMainButton = kitten::K_GameObjectManager::getInstance()->createNewGameObject(); 
-	m_returnToMainButton->getTransform().scale2D(170, 100);
-	m_returnToMainButton->getTransform().place2D(1110, 620);
-
-	userinterface::UIObject* mainMenuButtonObj = static_cast<userinterface::UIObject*>(kitten::K_ComponentManager::getInstance()->createComponent("UIObject"));
-	mainMenuButtonObj->setTexture("textures/ui/return_to_mm.tga");
-	addToFrame(mainMenuButtonObj);
-	m_returnToMainButton->addComponent(mainMenuButtonObj);	
-
-	m_returnToMainButton->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("ClickableFrame"));
-	m_returnToMainButton->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("ReturnToMainMenuButton"));
+	m_returnToMainButton = kitten::K_GameObjectManager::getInstance()->createNewGameObject("return_to_main_menu_button.txt"); 
+	addToFrame(static_cast<userinterface::UIObject*>(m_returnToMainButton->getComponent<userinterface::UIObject>()));
 
 	// Create End Game screen UI
-	kitten::K_GameObject* endGameScreen = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-	endGameScreen->getTransform().scale2D(780, 247);
-	endGameScreen->getTransform().place2D(250, 260);
-	//m_victoryUI->getTransform().scale2D(390, 124);
-
-	m_endGameScreenObj = static_cast<userinterface::UIObject*>(kitten::K_ComponentManager::getInstance()->createComponent("UIObject"));
-	m_endGameScreenObj->setTexture("textures/ui/victory.tga");
+	kitten::K_GameObject* endGameScreen = kitten::K_GameObjectManager::getInstance()->createNewGameObject("game_result_screen.txt");
+	m_endGameScreenObj = static_cast<userinterface::UIObject*>(endGameScreen->getComponent<userinterface::UIObject>());
 	addToFrame(m_endGameScreenObj);
-	endGameScreen->addComponent(m_endGameScreenObj);
 
 	m_returnToMainButton->setEnabled(false);
 	m_endGameScreenObj->setEnabled(false);
-	removeFromDynamicRender();
 }
 
 void TabMenu::update()
