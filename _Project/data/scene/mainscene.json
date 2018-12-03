@@ -33,95 +33,17 @@
 					"name" : "DeckComponent"
 				}
 			]
+		},
+		{
+			"name" : "more scene init stuff",
+			"components" : [
+				{
+					"name": "GameplayInit"
+				}
+			]
 		}
 
     ],
-	"scenes" : ["interfacebuilder.txt"],
-	"scripts" : [
-		{
-			"name" : "setupInitiativeTracker"
-		},
-		{
-			"name" : "SpawnUnit",
-			"unit" : 6,
-			"tile2d" : [-1, -1],
-			"_comment_" : "NewDummy !!!"
-		},
-		{
-			"name" : "SpawnUnit",
-			"unit" : 1,
-			"tile2d" : [1, 2],
-			"_comment_" : "priest"
-		},
-		{
-			"name" : "SpawnUnit",
-			"unit" : 1,
-			"tile2d" : [2, 2],
-			"_comment_" : "priest"
-		},
-		{
-			"name" : "SpawnUnit",
-			"unit" : 2,
-			"tile2d" : [3, 2],
-			"_comment_" : "archer"
-		},
-		{
-			"name" : "SpawnUnit",
-			"unit" : 3,
-			"tile2d" : [4, 2],
-			"_comment_" : "duelist"
-		},
-		{
-			"name" : "SpawnUnit",
-			"unit" : 4,
-			"tile2d" : [5, 2],
-			"_comment_" : "engineer"
-		},
-		{
-			"name" : "SpawnUnit",
-			"unit" : 7,
-			"tile2d" : [6, 2],
-			"_comment_" : "pyromancer"
-		},
-		{
-			"name" : "SpawnUnit",
-			"unit" : 8,
-			"tile2d" : [7, 2],
-			"_comment_" : "stone slinger"
-		},
-		{
-			"name" : "SpawnUnit",
-			"unit" : 9,
-			"tile2d" : [8, 2],
-			"_comment_" : "arrow tower"
-		},
-		{
-			"name" : "SpawnUnit",
-			"unit" : 10,
-			"tile2d" : [9, 2],
-			"_comment_" : "armory"
-		},
-		{
-			"name" : "SpawnUnit",
-			"unit" : 11,
-			"tile2d" : [10, 2],
-			"_comment_" : "divine status"
-		},
-		{
-			"name" : "SpawnUnit",
-			"unit" : 12,
-			"tile2d" : [11, 4],
-			"_comment_" : "oligarch"
-		},
-		{
-			"name" : "printSpawnedUnits"
-		},
-		{
-			"name" : "startInitiativeTrackerTurn"
-		},
-		{
-			"name" : "makeAHand"
- 		}
-	]
+	"scenes" : ["interfacebuilder.txt"]
 	
 }

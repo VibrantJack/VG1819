@@ -4,6 +4,12 @@
         {
             "name" : "CardUIO",
             "texture" : "textures/ui/cardBack.tga"
+        },
+        {
+            "name" : "ClickableFrame"
+        },
+        {
+            "name" : "ClickableUI"
         }
     ]
 }

@@ -162,6 +162,7 @@
     <ClCompile Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.cpp" />
     <ClCompile Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.cpp" />
     <ClCompile Include="..\components\scene change\StartGameOnClick.cpp" />
+    <ClCompile Include="..\components\testing\gameplay-init.cpp" />
     <ClCompile Include="..\expressions\lexer.cpp" />
     <ClCompile Include="..\expressions\parser.cpp" />
     <ClCompile Include="..\expressions\PostfixEval.cpp" />
@@ -181,7 +182,6 @@
     <ClCompile Include="..\kibble\json\Datatypes\ComponentDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\GameObjectDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\SceneDataType.cpp" />
-    <ClCompile Include="..\kibble\json\Datatypes\ScriptDataType.cpp" />
     <ClCompile Include="..\kibble\json\Datatypes\UnitDataType.cpp" />
     <ClCompile Include="..\kibble\json\jsonextra.cpp" />
     <ClCompile Include="..\kibble\json\JSONGameObjectDataParser.cpp" />
@@ -336,6 +336,7 @@
     <ClInclude Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.h" />
     <ClInclude Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.h" />
     <ClInclude Include="..\components\scene change\StartGameOnClick.h" />
+    <ClInclude Include="..\components\testing\gameplay-init.h" />
     <ClInclude Include="..\DeckData.hpp" />
     <ClInclude Include="..\board\BoardManager.h" />
     <ClInclude Include="..\board\clickable\ManipulateTileOnClick.h" />
@@ -363,7 +364,6 @@
     <ClInclude Include="..\kibble\json\Datatypes\ComponentDataType.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\GameObjectDataType.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\SceneDataType.hpp" />
-    <ClInclude Include="..\kibble\json\Datatypes\ScriptDataType.h" />
     <ClInclude Include="..\kibble\json\jsonextra.hpp" />
     <ClInclude Include="..\kibble\json\JSONGameObjectDataParser.hpp" />
     <ClInclude Include="..\kibble\kibble.hpp" />
