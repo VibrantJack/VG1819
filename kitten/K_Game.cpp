@@ -227,7 +227,7 @@ namespace kitten
 		ability::AbilityManager::destroyInstance();
 		ability::AbilityNodeManager::destroyInstance();
 
-		//unit::InitiativeTracker::destroyInstance();
+		unit::InitiativeTracker::destroyInstance();
 
 		BoardManager::destroyInstance();
 
