@@ -52,7 +52,7 @@
             "scale2d" : [170, 100]
         },
         {
-            "name" : "Edit Deck Button",
+            "name" : "Testing Button",
             "components" : [
                 {
                     "name" : "UIFrame",
@@ -60,7 +60,7 @@
                 },				
                 {
                     "name" : "StartGameOnClick",
-                    "scene" : "mainscene.json"
+                    "scene" : "testinggrounds.json"
 
                 },
                 {
