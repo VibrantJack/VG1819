@@ -552,7 +552,6 @@ kitten::K_Component* getCardUIO(nlohmann::json* p_jsonFile) {
 	SETOPTDEF(texture, "texture", "textures/ui/cardBack.tga");
 
 	userinterface::CardUIO* object = new userinterface::CardUIO(texture.c_str());
-	object->scaleAsCard();
 	return object;
 }
 
@@ -691,6 +690,28 @@ kitten::K_Component* getClickableBoxRenderable(nlohmann::json* p_jsonFile) {
 	return new ClickableBoxRenderable();
 }
 
+#include "components/DeckInitializingComponent.h"
+kitten::K_Component* getDeckInitializingComponent(nlohmann::json* p_jsonFile) {
+	return new DeckInitializingComponent();
+}
+
+#include "components/scene change/StartGameOnClick.h"
+kitten::K_Component* getStartGameOnClick(nlohmann::json* p_jsonFile) {
+	std::string targetScene;
+	SET(targetScene, "scene");
+	return new StartGameOnClick(targetScene);
+}
+
+#include "components/DeckComponent.hpp"
+kitten::K_Component* getDeckComponent(nlohmann::json* p_jsonFile) {
+	return new DeckComponent();
+}
+
+#include "components/testing/gameplay-init.h"
+kitten::K_Component* getGameplayInit(nlohmann::json* p_jsonFile) {
+	return new GameplayInit();
+}
+
 #include "networking\menu\NetworkJoinButton.h"
 kitten::K_Component* getNetworkJoinButton(nlohmann::json* p_jsonFile) {
 	return new userinterface::NetworkJoinButton();
@@ -755,8 +776,12 @@ void setupComponentMap() {
 	jsonComponentMap["DecksDisplayPickerOnClick"] = &getDecksDisplayPickerOnClick;
 	jsonComponentMap["DecksDisplayFrame"] = &getDecksDisplayFrame;
 	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
+	jsonComponentMap["DeckInitializingComponent"] = &getDeckInitializingComponent;
+	jsonComponentMap["StartGameOnClick"] = &getStartGameOnClick;
+	jsonComponentMap["DeckComponent"] = &getDeckComponent;
+	jsonComponentMap["GameplayInit"] = &getGameplayInit;
 	jsonComponentMap["NetworkJoinButton"] = &getNetworkJoinButton;
-	jsonComponentMap["NetworkHostButton"] = &getNetworkHostButton;
+	jsonComponentMap["NetworkHostButton"] = &getNetworkHostButton;	
 
 }
 

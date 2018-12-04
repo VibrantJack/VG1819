@@ -620,7 +620,7 @@
       <Filter>components\debug</Filter>
     </ClCompile>
     <ClCompile Include="UniversalPfx.cpp">
-      <Filter>components\standard effects</Filter>
+      <Filter>components\sound\standard effects</Filter>
     </ClCompile>
     <ClCompile Include="ClickableBoxRenderable.cpp">
       <Filter>components\debug</Filter>
@@ -634,12 +634,21 @@
     <ClCompile Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.cpp">
       <Filter>components\decksdisplay</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\scene change\StartGameOnClick.cpp">
+      <Filter>components\scene changers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DeckInitializingComponent.cpp">
+      <Filter>components\survivors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\testing\gameplay-init.cpp">
+      <Filter>components\testing</Filter>
+    </ClCompile>
     <ClCompile Include="..\networking\menu\NetworkHostButton.cpp">
       <Filter>networking\networking_menu</Filter>
     </ClCompile>
     <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp">
       <Filter>networking\networking_menu</Filter>
-    </ClCompile>
+    </ClCompile>    
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1185,7 +1194,7 @@
       <Filter>components\debug</Filter>
     </ClInclude>
     <ClInclude Include="UniversalPfx.h">
-      <Filter>components\standard effects</Filter>
+      <Filter>components\sound\standard effects</Filter>
     </ClInclude>
     <ClInclude Include="ClickableBoxRenderable.h">
       <Filter>components\debug</Filter>
@@ -1199,11 +1208,20 @@
     <ClInclude Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.h">
       <Filter>components\decksdisplay</Filter>
     </ClInclude>
+    <ClInclude Include="..\components\scene change\StartGameOnClick.h">
+      <Filter>components\scene changers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DeckInitializingComponent.h">
+      <Filter>components\survivors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\testing\gameplay-init.h">
+      <Filter>components\testing</Filter>
+    </ClInclude>
     <ClInclude Include="..\networking\menu\NetworkHostButton.h">
       <Filter>networking\networking_menu</Filter>
     </ClInclude>
     <ClInclude Include="..\networking\menu\NetworkJoinButton.h">
-      <Filter>networking\networking_menu</Filter>
+      <Filter>networking\networking_menu</Filter>      
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1333,20 +1351,29 @@
     <Filter Include="kibble\UnitGameObject">
       <UniqueIdentifier>{efd93ad5-378b-487c-8d5e-1a84ddc82e55}</UniqueIdentifier>
     </Filter>
-    <Filter Include="networking\networking_menu">
-      <UniqueIdentifier>{55bfff24-e6ce-423f-9f59-d806c680e062}</UniqueIdentifier>
-    </Filter>
     <Filter Include="puppy\particles">
       <UniqueIdentifier>{45404199-b748-4643-992b-415002cb047c}</UniqueIdentifier>
     </Filter>
     <Filter Include="custom_expresssions">
       <UniqueIdentifier>{dce41785-df33-4efa-b1f2-dbea8b71589b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="components\standard effects">
-      <UniqueIdentifier>{8c3ab6ac-dae3-451f-9e21-7944dc100695}</UniqueIdentifier>
-    </Filter>
     <Filter Include="components\decksdisplay">
       <UniqueIdentifier>{cc3644fd-64c1-472c-9553-f5208238bec6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="components\scene changers">
+      <UniqueIdentifier>{39f54870-107c-4390-9169-e4df493df3e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\survivors">
+      <UniqueIdentifier>{b9405a1a-95c9-4f9e-b1f8-e231662308ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\sound\standard effects">
+      <UniqueIdentifier>{8c3ab6ac-dae3-451f-9e21-7944dc100695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\testing">
+      <UniqueIdentifier>{c232c111-d3ae-4c6c-b644-493f749d1069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="networking\networking_menu">
+      <UniqueIdentifier>{55bfff24-e6ce-423f-9f59-d806c680e062}</UniqueIdentifier>
+    </Filter>    
   </ItemGroup>
 </Project>

@@ -25,7 +25,29 @@
 		},
 		{
 			"filename" : "UniversalPfx.txt"
+		},
+		{
+			"filename" : "NetworkingConsoleMenu.txt",
+			"translate2d" : [200, 50]
+		},
+		{
+			"name" : "Deck",
+			"components" : [
+				{
+					"name" : "DeckComponent"
+				}
+			]
+		},
+		{
+			"name" : "more scene init stuff",
+			"components" : [
+				{
+					"name": "GameplayInit"
+				}
+			]
 		}
+
     ],
 	"scenes" : ["interfacebuilder.txt"]
+	
 }
