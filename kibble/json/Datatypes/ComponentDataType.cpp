@@ -709,7 +709,9 @@ kitten::K_Component* getDeckComponent(nlohmann::json* p_jsonFile) {
 
 #include "components/testing/gameplay-init.h"
 kitten::K_Component* getGameplayInit(nlohmann::json* p_jsonFile) {
-	return new GameplayInit();
+	bool testing;
+	SETOPTDEF(testing, "testing", true);
+	return new GameplayInit(testing);
 }
 
 #include "networking\menu\NetworkJoinButton.h"

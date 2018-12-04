@@ -43,7 +43,6 @@ void SpawnUnitOnKeyPress::update()
 	{		
 		if (input::InputManager::getInstance()->keyDown('S') && !input::InputManager::getInstance()->keyDownLast('S') && !m_bUnitsSpawned)
 		{
-			unit::InitiativeTracker::createInstance();
 			networking::ClientGame* client = networking::ClientGame::getInstance();
 			int clientId = client->getClientId();
 			if (clientId == 0)

@@ -261,10 +261,11 @@ namespace networking
 				StartingCommandersPacket commandersPacket;
 				commandersPacket.deserialize(buffer);
 				i += STARTING_COMMANDERS_PACKET_SIZE;
-				unit::InitiativeTracker::createInstance();
+				
 				summonUnit(commandersPacket.m_client1Id, commandersPacket.m_player1Commander, commandersPacket.m_pos1X, commandersPacket.m_pos1Y);
 				summonUnit(commandersPacket.m_client2Id, commandersPacket.m_player2Commander, commandersPacket.m_pos2X, commandersPacket.m_pos2Y);
 				unit::InitiativeTracker::getInstance()->gameTurnStart();
+				m_bGameTurnStart = true;
 				break;
 			}
 			default:

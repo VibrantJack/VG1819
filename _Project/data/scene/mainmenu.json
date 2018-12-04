@@ -23,7 +23,7 @@
                 },
                 {
                     "name" : "StartGameOnClick",
-                    "scene" : "mainscene.json"
+                    "scene" : "network_menu.json"
 
                 },
                 {
@@ -49,6 +49,28 @@
                 }
             ],
             "translate2d" : [10, 480],
+            "scale2d" : [170, 100]
+        },
+        {
+            "name" : "Edit Deck Button",
+            "components" : [
+                {
+                    "name" : "UIFrame",
+                    "texture" : "textures/ui/button_testing.tga"
+                },				
+                {
+                    "name" : "StartGameOnClick",
+                    "scene" : "mainscene.json"
+
+                },
+                {
+                    "name" : "ClickableUI"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [10, 360],
             "scale2d" : [170, 100]
         }
     ]

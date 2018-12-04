@@ -140,7 +140,7 @@ void NetworkingConsoleMenu::update()
 		{
 			m_bEnteringAddress = false;
 			m_textBox->setText("Joined host");
-			kitten::K_Instance::changeScene("mainscene.txt");
+			kitten::K_Instance::changeScene("mainscene.json");
 		} else
 		{
 			m_textBox->setText("Network Error");
@@ -298,7 +298,7 @@ void NetworkingConsoleMenu::hostButtonClickedListener(kitten::Event::EventType p
 	if (checkClientNetwork() && checkServerNetwork())
 	{
 		// Successful network setup, setup main scene
-		kitten::K_Instance::changeScene("mainscene.txt");
+		kitten::K_Instance::changeScene("mainscene.json");
 	}
 	else
 	{
