@@ -3,9 +3,9 @@
     "components" : [
         {
             "name" : "TextBox",
-            "width" : 750 , 
-            "height" : 500 ,
-            "color" : [0,0,0]
+            "width" : 300 , 
+            "height" : 100 ,
+            "color" : [1,1,1]
         },
 		{
 			"name" : "NetworkingConsoleMenu"

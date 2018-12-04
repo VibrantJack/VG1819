@@ -552,7 +552,6 @@ kitten::K_Component* getCardUIO(nlohmann::json* p_jsonFile) {
 	SETOPTDEF(texture, "texture", "textures/ui/cardBack.tga");
 
 	userinterface::CardUIO* object = new userinterface::CardUIO(texture.c_str());
-	object->scaleAsCard();
 	return object;
 }
 
@@ -691,6 +690,40 @@ kitten::K_Component* getClickableBoxRenderable(nlohmann::json* p_jsonFile) {
 	return new ClickableBoxRenderable();
 }
 
+#include "components/DeckInitializingComponent.h"
+kitten::K_Component* getDeckInitializingComponent(nlohmann::json* p_jsonFile) {
+	return new DeckInitializingComponent();
+}
+
+#include "components/scene change/StartGameOnClick.h"
+kitten::K_Component* getStartGameOnClick(nlohmann::json* p_jsonFile) {
+	std::string targetScene;
+	SET(targetScene, "scene");
+	return new StartGameOnClick(targetScene);
+}
+
+#include "components/DeckComponent.hpp"
+kitten::K_Component* getDeckComponent(nlohmann::json* p_jsonFile) {
+	return new DeckComponent();
+}
+
+#include "components/testing/gameplay-init.h"
+kitten::K_Component* getGameplayInit(nlohmann::json* p_jsonFile) {
+	bool testing;
+	SETOPTDEF(testing, "testing", true);
+	return new GameplayInit(testing);
+}
+
+#include "networking\menu\NetworkJoinButton.h"
+kitten::K_Component* getNetworkJoinButton(nlohmann::json* p_jsonFile) {
+	return new userinterface::NetworkJoinButton();
+}
+
+#include "networking\menu\NetworkHostButton.h"
+kitten::K_Component* getNetworkHostButton(nlohmann::json* p_jsonFile) {
+	return new userinterface::NetworkHostButton();
+}
+
 #include "UI\TabMenu\TabMenu.h"
 kitten::K_Component* getTabMenu(nlohmann::json* p_jsonFile) {
 	std::string texture;
@@ -767,9 +800,16 @@ void setupComponentMap() {
 	jsonComponentMap["DecksDisplayPickerOnClick"] = &getDecksDisplayPickerOnClick;
 	jsonComponentMap["DecksDisplayFrame"] = &getDecksDisplayFrame;
 	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
+	jsonComponentMap["DeckInitializingComponent"] = &getDeckInitializingComponent;
+	jsonComponentMap["StartGameOnClick"] = &getStartGameOnClick;
+	jsonComponentMap["DeckComponent"] = &getDeckComponent;
+	jsonComponentMap["GameplayInit"] = &getGameplayInit;
+	jsonComponentMap["NetworkJoinButton"] = &getNetworkJoinButton;
+	jsonComponentMap["NetworkHostButton"] = &getNetworkHostButton;	
 	jsonComponentMap["TabMenu"] = &getTabMenu;
 	jsonComponentMap["UIObject"] = &getUIObject;
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
+
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

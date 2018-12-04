@@ -11,11 +11,21 @@ void BoardManager::setSpawnPoint(kitten::Event::TileList p_list)
 	m_spawnPointList = p_list;
 }
 
-kitten::K_GameObject* BoardManager::getSpawnPoint()
+kitten::K_GameObject* BoardManager::getSpawnPoint(int m_clientId)
 {
-	std::pair<int, int> point = m_spawnPointList.back();
-	kitten::K_GameObject* tile = getTile(point.first, point.second);
-	m_spawnPointList.pop_back();
+	kitten::K_GameObject* tile;
+	if (m_clientId > -1 && m_clientId < m_spawnPointList.size())
+	{
+		std::pair<int, int> point = m_spawnPointList[m_clientId];
+		tile = getTile(point.first, point.second);
+	}
+	else
+	{
+		std::pair<int, int> point = m_spawnPointList.back();
+		tile = getTile(point.first, point.second);
+		m_spawnPointList.pop_back();
+	}
+
 	return tile;
 }
 

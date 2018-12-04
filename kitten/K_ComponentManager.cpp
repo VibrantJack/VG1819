@@ -23,6 +23,9 @@
 #include "UI\CardUIO.h"
 #include "UI\HandFrame.h"
 #include "mouse picking/ClickableUI.h"
+#include "networking\menu\NetworkHostButton.h"
+#include "networking\menu\NetworkJoinButton.h"
+#include "_Project\StringInputDisplay.h"
 
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
@@ -238,6 +241,14 @@ namespace kitten
 		else if (p_componentName == "TabMenu")
 		{
 			comp = new TabMenu("textures/ui/blankFrame.tga");
+		}
+		else if (p_componentName == "NetworkHostButton")
+		{
+			comp = new userinterface::NetworkHostButton();
+		} 
+		else if (p_componentName == "NetworkJoinButton") 
+		{
+			comp = new userinterface::NetworkJoinButton();
 		}
 		else
 		{

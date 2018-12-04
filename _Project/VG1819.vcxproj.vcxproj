@@ -157,9 +157,12 @@
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\components\ChangeSceneOnClick.cpp" />
+    <ClCompile Include="..\components\DeckInitializingComponent.cpp" />
     <ClCompile Include="..\components\DecksDisplayFrame.cpp" />
     <ClCompile Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.cpp" />
     <ClCompile Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.cpp" />
+    <ClCompile Include="..\components\scene change\StartGameOnClick.cpp" />
+    <ClCompile Include="..\components\testing\gameplay-init.cpp" />
     <ClCompile Include="..\expressions\lexer.cpp" />
     <ClCompile Include="..\expressions\parser.cpp" />
     <ClCompile Include="..\expressions\PostfixEval.cpp" />
@@ -228,6 +231,8 @@
     <ClCompile Include="..\networking\ServerGame.cpp" />
     <ClCompile Include="..\networking\ServerNetwork.cpp" />
     <ClCompile Include="..\networking\SpawnUnitOnKeyPress.cpp" />
+    <ClCompile Include="..\networking\menu\NetworkHostButton.cpp" />
+    <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp" />    
     <ClCompile Include="..\kitten\util\AsyncFileOperations.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
     <ClCompile Include="..\puppy\FBO.cpp" />
@@ -330,9 +335,12 @@
     <ClInclude Include="..\board\tile\landInfo\LandInfoManager.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />
     <ClInclude Include="..\components\ChangeSceneOnClick.hpp" />
+    <ClInclude Include="..\components\DeckInitializingComponent.h" />
     <ClInclude Include="..\components\DecksDisplayFrame.h" />
     <ClInclude Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.h" />
     <ClInclude Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.h" />
+    <ClInclude Include="..\components\scene change\StartGameOnClick.h" />
+    <ClInclude Include="..\components\testing\gameplay-init.h" />
     <ClInclude Include="..\DeckData.hpp" />
     <ClInclude Include="..\board\BoardManager.h" />
     <ClInclude Include="..\board\clickable\ManipulateTileOnClick.h" />
@@ -409,6 +417,8 @@
     <ClInclude Include="..\kitten\UIRenderable.h" />
     <ClInclude Include="..\networking\ClientGame.h" />
     <ClInclude Include="..\networking\ClientNetwork.h" />
+    <ClInclude Include="..\networking\menu\NetworkHostButton.h" />
+    <ClInclude Include="..\networking\menu\NetworkJoinButton.h" />    
     <ClInclude Include="..\networking\NetworkData.h" />
     <ClInclude Include="..\networking\NetworkingConsoleMenu.h" />
     <ClInclude Include="..\networking\NetworkServices.h" />

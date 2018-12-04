@@ -1,7 +1,7 @@
 #include "StringInputDisplay.h"
 #include "kitten\K_GameObject.h"
 
-StringInputDisplay::StringInputDisplay() : m_textBox(nullptr)
+StringInputDisplay::StringInputDisplay() : m_textBox(nullptr), m_strEnteredString("")
 {
 
 }

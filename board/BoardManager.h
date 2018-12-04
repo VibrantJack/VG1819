@@ -26,7 +26,7 @@ public:
 
 	//spawn point
 	void setSpawnPoint(kitten::Event::TileList p_list);
-	kitten::K_GameObject* getSpawnPoint();
+	kitten::K_GameObject* getSpawnPoint(int m_clientId = -1);
 
 	//dimension and tiles
 	void setTileList(std::vector<kitten::K_GameObject*> p_list);

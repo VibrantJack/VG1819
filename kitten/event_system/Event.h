@@ -42,6 +42,9 @@ namespace kitten
 			Deck_Empty,
 			End_Game_Screen,
 			Return_to_Main_Menu,
+			Join_Button_Clicked,
+			IP_Address_Entered,
+			Host_Button_Clicked,
 
 			Test_Event, 
 			MAX_VAL = Test_Event

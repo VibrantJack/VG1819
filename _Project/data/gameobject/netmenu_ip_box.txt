@@ -1,0 +1,9 @@
+{
+    "name" : "Networking Menu IP Box",
+    "components" : [
+		{
+			"name" : "UIFrame",
+			"texture" : "textures/ui/ip_box.tga"
+		}
+    ]
+}

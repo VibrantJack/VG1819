@@ -12,6 +12,7 @@
 
 #define BASIC_PACKET_SIZE sizeof(Packet)
 #define SUMMON_UNIT_PACKET_SIZE sizeof(SummonUnitPacket)
+#define STARTING_COMMANDERS_PACKET_SIZE sizeof(StartingCommandersPacket)
 #define TEST_PACKET_SIZE sizeof(TestPacket)
 
 enum PacketTypes {
@@ -24,6 +25,7 @@ enum PacketTypes {
 	SUMMON_UNIT,
 	SKIP_TURN,
 	GAME_TURN_START,
+	STARTING_COMMANDER_DATA,
 };
 
 class Buffer
@@ -112,6 +114,41 @@ struct SummonUnitPacket : Packet
 		m_unitId = readInt(p_buffer);
 		m_posX = readInt(p_buffer);
 		m_posY = readInt(p_buffer);
+	}
+};
+
+struct StartingCommandersPacket : Packet
+{
+	int m_client1Id, m_client2Id;
+	int m_player1Commander, m_player2Commander;
+	int m_pos1X, m_pos1Y, m_pos2X, m_pos2Y;
+
+	void serialize(Buffer& p_buffer)
+	{
+		writeInt(p_buffer, m_packetType);
+		writeInt(p_buffer, m_clientId);
+		writeInt(p_buffer, m_client1Id);
+		writeInt(p_buffer, m_client2Id);
+		writeInt(p_buffer, m_player1Commander);
+		writeInt(p_buffer, m_pos1X);
+		writeInt(p_buffer, m_pos1Y);
+		writeInt(p_buffer, m_player2Commander);
+		writeInt(p_buffer, m_pos2X);
+		writeInt(p_buffer, m_pos2Y);
+	}
+
+	void deserialize(Buffer& p_buffer)
+	{
+		m_packetType = readInt(p_buffer);
+		m_clientId = readInt(p_buffer);
+		m_client1Id = readInt(p_buffer);
+		m_client2Id = readInt(p_buffer);
+		m_player1Commander = readInt(p_buffer);
+		m_pos1X = readInt(p_buffer);
+		m_pos1Y = readInt(p_buffer);
+		m_player2Commander = readInt(p_buffer);
+		m_pos2X = readInt(p_buffer);
+		m_pos2Y = readInt(p_buffer);
 	}
 };
 
