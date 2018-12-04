@@ -214,6 +214,42 @@ namespace networking
 
 						break;
 					}
+					case STARTING_COMMANDER_DATA:
+					{
+						Buffer buffer;
+						buffer.m_data = &(m_network_data[i]);
+						buffer.m_size = SUMMON_UNIT_PACKET_SIZE;
+
+						SummonUnitPacket commanderDataPacket;
+						commanderDataPacket.deserialize(buffer);
+
+						m_commanders.push_back(commanderDataPacket);
+						if (m_commanders.size() == 2)
+						{
+							char data[STARTING_COMMANDERS_PACKET_SIZE];
+							Buffer newBuffer;
+							newBuffer.m_data = data;
+							newBuffer.m_size = STARTING_COMMANDERS_PACKET_SIZE;
+
+							StartingCommandersPacket commandersPacket;
+							commandersPacket.m_packetType = STARTING_COMMANDER_DATA;
+							commandersPacket.m_clientId = -1;
+
+							commandersPacket.m_client1Id = m_commanders[0].m_clientId;
+							commandersPacket.m_player1Commander = m_commanders[0].m_unitId;
+							commandersPacket.m_pos1X = m_commanders[0].m_posX;
+							commandersPacket.m_pos1Y = m_commanders[0].m_posY;
+
+							commandersPacket.m_client2Id = m_commanders[1].m_clientId;
+							commandersPacket.m_player2Commander = m_commanders[1].m_unitId;
+							commandersPacket.m_pos2X = m_commanders[1].m_posX;
+							commandersPacket.m_pos2Y = m_commanders[1].m_posY;
+							commandersPacket.serialize(newBuffer);
+							m_network->sendToAll(data, STARTING_COMMANDERS_PACKET_SIZE);
+						}
+						i += SUMMON_UNIT_PACKET_SIZE;
+						break;
+					}
 					case SKIP_TURN:
 					case GAME_TURN_START:
 					{

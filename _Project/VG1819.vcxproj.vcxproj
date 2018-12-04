@@ -231,6 +231,8 @@
     <ClCompile Include="..\networking\ServerGame.cpp" />
     <ClCompile Include="..\networking\ServerNetwork.cpp" />
     <ClCompile Include="..\networking\SpawnUnitOnKeyPress.cpp" />
+    <ClCompile Include="..\networking\menu\NetworkHostButton.cpp" />
+    <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp" />    
     <ClCompile Include="..\kitten\util\AsyncFileOperations.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
     <ClCompile Include="..\puppy\FBO.cpp" />
@@ -413,6 +415,8 @@
     <ClInclude Include="..\kitten\UIRenderable.h" />
     <ClInclude Include="..\networking\ClientGame.h" />
     <ClInclude Include="..\networking\ClientNetwork.h" />
+    <ClInclude Include="..\networking\menu\NetworkHostButton.h" />
+    <ClInclude Include="..\networking\menu\NetworkJoinButton.h" />    
     <ClInclude Include="..\networking\NetworkData.h" />
     <ClInclude Include="..\networking\NetworkingConsoleMenu.h" />
     <ClInclude Include="..\networking\NetworkServices.h" />

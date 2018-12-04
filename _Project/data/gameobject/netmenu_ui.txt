@@ -1,20 +1,17 @@
 {
-    "name" : "String input display",
+    "name" : "Networking Menu UI",
     "components" : [
         {
             "name" : "TextBox",
-            "width" : 230 , 
+            "width" : 300 , 
             "height" : 100 ,
             "color" : [1,1,1]
         },
 		{
-			"name" : "ToggleStringInputOnKeyPress",
-			"key" : "B"
+			"name" : "NetworkingConsoleMenu"
 		},
 		{
 			"name" : "StringInputDisplay"
 		}
-    ],
-	"translate2d" : [525.0,506.0]
-    
+    ]
 }

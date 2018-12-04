@@ -36,6 +36,7 @@
 //ui testing
 #include "ui/CardUIO.h"
 #include "ui/HandFrame.h"
+#include "networking\menu\NetworkJoinButton.h"
 
 //ui clickable testing
 #include "kitten/mouse picking/ClickableUI.h"
@@ -43,6 +44,10 @@
 
 //unit interaction
 #include "unitInteraction/UnitInteractionManager.h"
+
+// Networking
+#include "networking\ClientGame.h"
+#include "networking\ServerGame.h"
 
 #define DEBUG
 
@@ -60,7 +65,6 @@ namespace kitten
 		ability::AbilityManager::createInstance();
 		ability::AbilityNodeManager::createInstance();
 
-		// Management of InitiativeTracker moved into ServerGame
 		// MOVED THIS TO BEING A SCRIPT
 		//unit::InitiativeTracker::createInstance();
 
@@ -230,6 +234,16 @@ namespace kitten
 		UnitInteractionManager::destroyInstance();
 
 		LandInfoManager::destroyInstance();
+
+		if (networking::ClientGame::getInstance())
+		{
+			networking::ClientGame::destroyInstance();
+		}
+
+		if (networking::ServerGame::getInstance())
+		{
+			networking::ServerGame::destroyInstance();
+		}
 	}
 
 	void updateGame()

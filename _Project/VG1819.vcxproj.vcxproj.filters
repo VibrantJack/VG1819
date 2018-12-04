@@ -643,6 +643,12 @@
     <ClCompile Include="..\components\testing\gameplay-init.cpp">
       <Filter>components\testing</Filter>
     </ClCompile>
+    <ClCompile Include="..\networking\menu\NetworkHostButton.cpp">
+      <Filter>networking\networking_menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp">
+      <Filter>networking\networking_menu</Filter>
+    </ClCompile>    
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1211,6 +1217,12 @@
     <ClInclude Include="..\components\testing\gameplay-init.h">
       <Filter>components\testing</Filter>
     </ClInclude>
+    <ClInclude Include="..\networking\menu\NetworkHostButton.h">
+      <Filter>networking\networking_menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\menu\NetworkJoinButton.h">
+      <Filter>networking\networking_menu</Filter>      
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1360,5 +1372,8 @@
     <Filter Include="components\testing">
       <UniqueIdentifier>{c232c111-d3ae-4c6c-b644-493f749d1069}</UniqueIdentifier>
     </Filter>
+    <Filter Include="networking\networking_menu">
+      <UniqueIdentifier>{55bfff24-e6ce-423f-9f59-d806c680e062}</UniqueIdentifier>
+    </Filter>    
   </ItemGroup>
 </Project>

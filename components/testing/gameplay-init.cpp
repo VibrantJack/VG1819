@@ -3,11 +3,17 @@
 #include "UI/HandFrame.h"
 #include "kitten/K_ComponentManager.h"
 
+GameplayInit::GameplayInit(bool p_testing)
+{ 
+	m_testing = p_testing; 
+}
+
 void GameplayInit::start() {
 	// TODO put this in a separate component or something. 
 	unit::InitiativeTracker::createInstance();
 	
-	unit::UnitTest::getInstanceSafe()->test();
+	if (m_testing)
+		unit::UnitTest::getInstanceSafe()->test();
 
 	userinterface::HandFrame::makeAHand();
 

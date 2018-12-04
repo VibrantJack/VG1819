@@ -39,6 +39,9 @@ namespace kitten
 			Card_Peeked,
 			Card_Discarded,
 			Deck_Empty,
+			Join_Button_Clicked,
+			IP_Address_Entered,
+			Host_Button_Clicked,
 
 			Test_Event, 
 			MAX_VAL = Test_Event

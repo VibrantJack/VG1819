@@ -709,7 +709,19 @@ kitten::K_Component* getDeckComponent(nlohmann::json* p_jsonFile) {
 
 #include "components/testing/gameplay-init.h"
 kitten::K_Component* getGameplayInit(nlohmann::json* p_jsonFile) {
-	return new GameplayInit();
+	bool testing;
+	SETOPTDEF(testing, "testing", true);
+	return new GameplayInit(testing);
+}
+
+#include "networking\menu\NetworkJoinButton.h"
+kitten::K_Component* getNetworkJoinButton(nlohmann::json* p_jsonFile) {
+	return new userinterface::NetworkJoinButton();
+}
+
+#include "networking\menu\NetworkHostButton.h"
+kitten::K_Component* getNetworkHostButton(nlohmann::json* p_jsonFile) {
+	return new userinterface::NetworkHostButton();
 }
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
@@ -770,6 +782,8 @@ void setupComponentMap() {
 	jsonComponentMap["StartGameOnClick"] = &getStartGameOnClick;
 	jsonComponentMap["DeckComponent"] = &getDeckComponent;
 	jsonComponentMap["GameplayInit"] = &getGameplayInit;
+	jsonComponentMap["NetworkJoinButton"] = &getNetworkJoinButton;
+	jsonComponentMap["NetworkHostButton"] = &getNetworkHostButton;	
 
 }
 

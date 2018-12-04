@@ -1,6 +1,7 @@
 #pragma once
 #include "networking/ServerNetwork.h"
 #include "networking/NetworkData.h"
+#include <vector>
 
 namespace networking
 {
@@ -38,5 +39,8 @@ namespace networking
 		char m_network_data[MAX_PACKET_SIZE];
 
 		static bool sm_networkValid;
+
+		// Vector to hold the starting data of all player's Commanders
+		std::vector<SummonUnitPacket> m_commanders;
 	};
 }

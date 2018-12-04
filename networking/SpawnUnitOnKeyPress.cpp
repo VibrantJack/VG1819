@@ -29,7 +29,7 @@ SpawnUnitOnKeyPress::SpawnUnitOnKeyPress()
 
 SpawnUnitOnKeyPress::~SpawnUnitOnKeyPress()
 {
-
+	//unit::InitiativeTracker::destroyInstance();
 }
 
 void SpawnUnitOnKeyPress::start()

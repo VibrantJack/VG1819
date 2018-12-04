@@ -20,11 +20,11 @@
 		    "translate2d" : [100,700]
 		},
 		{
-			"filename" : "UniversalPfx.txt"
+			"filename" : "netmenu_console.txt",
+			"translate2d" : [200, 50]
 		},
 		{
-			"filename" : "NetworkingConsoleMenu.txt",
-			"translate2d" : [200, 50]
+			"filename" : "UniversalPfx.txt"
 		},
 		{
 			"name" : "Deck",
@@ -38,7 +38,8 @@
 			"name" : "more scene init stuff",
 			"components" : [
 				{
-					"name": "GameplayInit"
+					"name": "GameplayInit",
+					"testing" : false
 				}
 			]
 		}
