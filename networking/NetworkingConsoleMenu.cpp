@@ -181,8 +181,8 @@ void NetworkingConsoleMenu::stopHostingListener(kitten::Event::EventType p_type,
 			case 1:
 				disconnectFromHost();
 		}
-		kitten::K_Instance::changeScene("mainmenu.json");
 	}
+	kitten::K_Instance::changeScene("mainmenu.json");
 }
 
 void NetworkingConsoleMenu::hostGame()

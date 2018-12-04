@@ -39,7 +39,7 @@ void SpawnUnitOnKeyPress::start()
 
 void SpawnUnitOnKeyPress::update()
 {
-	if (networking::ClientGame::isNetworkValid() && !unit::UnitTest::isTested())
+	if (networking::ClientGame::isNetworkValid())
 	{		
 		if (input::InputManager::getInstance()->keyDown('S') && !input::InputManager::getInstance()->keyDownLast('S') && !m_bUnitsSpawned)
 		{
