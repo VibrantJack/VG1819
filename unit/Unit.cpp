@@ -374,5 +374,28 @@ namespace unit
 		getTile()->getComponent<TileInfo>()->removeUnit();
 		//remove from intiative tracker
 		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
+
+		// Commander Death Victory/Defeat Condition
+		if (isCommander())
+		{
+			if (networking::ClientGame::isNetworkValid())
+			{
+				// Pass in false as the parameter in order to signal to the other client of disconnect
+				networking::ClientGame* client = networking::ClientGame::getInstance();
+				client->removeUnitGameObject(client->getUnitGameObjectIndex(m_attachedObject));
+
+				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+				if (m_clientId == client->getClientId())
+				{
+					eventData->putInt(PLAYER_COMMANDER_DEATH, FALSE);
+				}
+				else
+				{
+					eventData->putInt(PLAYER_COMMANDER_DEATH, TRUE);
+				}
+				
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+			}			
+		}
 	}
 }

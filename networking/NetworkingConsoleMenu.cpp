@@ -12,6 +12,7 @@
 
 NetworkingConsoleMenu::NetworkingConsoleMenu()
 	:
+	m_inputMan(nullptr),
 	m_bMenuOpen(false),
 	m_bPrintText(false),
 	m_bEnteringAddress(false),
@@ -31,6 +32,7 @@ NetworkingConsoleMenu::NetworkingConsoleMenu()
 
 NetworkingConsoleMenu::~NetworkingConsoleMenu()
 {
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Return_to_Main_Menu, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Join_Button_Clicked, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Host_Button_Clicked, this);
 }
@@ -46,6 +48,12 @@ void NetworkingConsoleMenu::start()
 	m_inputMan = input::InputManager::getInstance();
 	assert(m_inputMan != nullptr);
 
+	// Add Listeners for exiting to Main Menu and disconnecting from network
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Return_to_Main_Menu,
+		this,
+		std::bind(&NetworkingConsoleMenu::stopHostingListener, this, std::placeholders::_1, std::placeholders::_2));
+		
 	kitten::EventManager::getInstance()->addListener(
 		kitten::Event::EventType::Join_Button_Clicked,
 		this,
@@ -59,7 +67,7 @@ void NetworkingConsoleMenu::start()
 
 void NetworkingConsoleMenu::update()
 {
-	if (input::InputManager::getInstance()->keyDown(m_cEnterMenuKey) && !input::InputManager::getInstance()->keyDownLast(m_cEnterMenuKey))
+	if (m_inputMan->keyDown(m_cEnterMenuKey) && !m_inputMan->keyDownLast(m_cEnterMenuKey))
 	{
 		m_bMenuOpen = true;
 		m_bPrintText = true;
@@ -157,6 +165,24 @@ void NetworkingConsoleMenu::update()
 	{
 		networking::ServerGame::getInstance()->update();
 	}
+}
+
+void NetworkingConsoleMenu::stopHostingListener(kitten::Event::EventType p_type, kitten::Event* p_data)
+{
+	// ClientId 0 is the host, 1 is the connecting player
+	networking::ClientGame* client = networking::ClientGame::getInstance();
+	if (client != nullptr)
+	{
+		switch (client->getClientId())
+		{
+			case 0:
+				stopHosting();
+				break;
+			case 1:
+				disconnectFromHost();
+		}
+	}
+	kitten::K_Instance::changeScene("mainmenu.json");
 }
 
 void NetworkingConsoleMenu::hostGame()
@@ -257,7 +283,6 @@ bool NetworkingConsoleMenu::checkClientNetwork()
 	{
 		if (networking::ClientGame::isNetworkValid())
 		{
-			//printf("Client network setup; connected to server\n");
 			return true;
 		} else
 		{

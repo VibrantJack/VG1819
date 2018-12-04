@@ -5,6 +5,7 @@
 #define TILE_POS_Y "pos_y"
 #define TILE_OWNER_KEY "tile_owner_key"
 #define MANIPULATE_TILE_KEY "manip_tile_key"
+#define PLAYER_COMMANDER_DEATH "player_commander_death_key"
 
 #define FALSE 0
 #define TRUE 1
@@ -39,6 +40,8 @@ namespace kitten
 			Card_Peeked,
 			Card_Discarded,
 			Deck_Empty,
+			End_Game_Screen,
+			Return_to_Main_Menu,
 			Join_Button_Clicked,
 			IP_Address_Entered,
 			Host_Button_Clicked,

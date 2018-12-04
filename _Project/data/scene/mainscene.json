@@ -24,6 +24,9 @@
 			"translate2d" : [200, 50]
 		},
 		{
+			"filename" : "TabMenu.txt"
+		},
+		{
 			"filename" : "UniversalPfx.txt"
 		},
 		{

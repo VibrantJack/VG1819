@@ -8,6 +8,11 @@ GameplayInit::GameplayInit(bool p_testing)
 	m_testing = p_testing; 
 }
 
+GameplayInit::~GameplayInit()
+{
+	unit::InitiativeTracker::destroyInstance();
+}
+
 void GameplayInit::start() {
 	// TODO put this in a separate component or something. 
 	unit::InitiativeTracker::createInstance();
@@ -17,5 +22,5 @@ void GameplayInit::start() {
 
 	userinterface::HandFrame::makeAHand();
 
-	kitten::K_ComponentManager::getInstance()->destroyComponent(this);
+	//kitten::K_ComponentManager::getInstance()->destroyComponent(this);
 }

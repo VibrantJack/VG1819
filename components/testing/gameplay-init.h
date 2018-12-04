@@ -9,5 +9,5 @@ public:
 	void start();
 
 	GameplayInit(bool p_testing);
-	~GameplayInit() {}
+	~GameplayInit();
 };

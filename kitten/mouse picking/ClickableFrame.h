@@ -41,6 +41,9 @@ namespace kitten
 		void onHoverEnd();
 		void release();
 
+		virtual void onDisabled() override;
+		virtual void onEnabled() override;
+
 	private:
 		std::unordered_set<ClickableUI*> m_listeners;
 		glm::vec2 m_minPoint, m_maxPoint;

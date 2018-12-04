@@ -41,6 +41,7 @@
 //ui clickable testing
 #include "kitten/mouse picking/ClickableUI.h"
 #include "kitten/mouse picking/ClickableFrame.h"
+#include "UI\TabMenu\TabMenu.h"
 
 //unit interaction
 #include "unitInteraction/UnitInteractionManager.h"
@@ -212,6 +213,23 @@ namespace kitten
 		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
 		kibble::setSceneFrom(std::string("mainmenu.json"));
 
+		// Networking
+		//networking::ServerGame::createInstance();
+		//_beginthread(serverLoop, 0, (void*)12);
+		//networking::ClientGame::createInstance();
+		//K_GameObject* networkingMenu = K_GameObjectManager::getInstance()->createNewGameObject();
+		//networkingMenu->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("NetworkingConsoleMenu"));
+
+		//K_GameObject* spawnUnitOnKeyPress = K_GameObjectManager::getInstance()->createNewGameObject();
+		//spawnUnitOnKeyPress->addComponent(kitten::K_ComponentManager::getInstance()->createComponent("SpawnUnitOnKeyPress"));
+
+		//// Tab Menu
+		//K_GameObject* tabMenu = K_GameObjectManager::getInstance()->createNewGameObject();
+		//TabMenu* tabMenuFrame = static_cast<TabMenu*>(compMan->createComponent("TabMenu")); // Create parent frame
+		//tabMenu->addComponent(tabMenuFrame);
+		//tabMenu->getTransform().scale2D(1280, 720);
+		//tabMenu->getTransform().place2D(0, 0);
+
 		return true;
 	}
 
@@ -227,7 +245,8 @@ namespace kitten
 		ability::AbilityManager::destroyInstance();
 		ability::AbilityNodeManager::destroyInstance();
 
-		unit::InitiativeTracker::destroyInstance();
+		// Create/Destroy of IT handled in gameplay-init component
+		//unit::InitiativeTracker::destroyInstance();
 
 		BoardManager::destroyInstance();
 

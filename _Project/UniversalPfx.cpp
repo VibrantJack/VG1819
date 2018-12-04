@@ -39,7 +39,7 @@ UniversalPfx::~UniversalPfx()
 	auto gameObjMan = kitten::K_GameObjectManager::getInstance();
 
 	// Destroy effects
-	auto end = m_effects.cend();
+	/*auto end = m_effects.cend();
 	for (auto it = m_effects.cbegin(); it != end; ++it)
 	{
 		auto queue = (*it).second;
@@ -49,7 +49,7 @@ UniversalPfx::~UniversalPfx()
 			queue.pop();
 			gameObjMan->destroyGameObject(&gameObj);
 		}
-	}
+	}*/
 
 	sm_instance = nullptr;
 }

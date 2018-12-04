@@ -157,4 +157,14 @@ namespace kitten
 		}
 		std::cout << "Frame released!\n";
 	}
+
+	void ClickableFrame::onDisabled()
+	{
+		ActiveClickables::getInstance()->removeFromActiveUI(this);
+	}
+
+	void ClickableFrame::onEnabled()
+	{
+		ActiveClickables::getInstance()->addToActiveUI(this);
+	}
 }
