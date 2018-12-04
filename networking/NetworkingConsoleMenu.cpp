@@ -140,6 +140,7 @@ void NetworkingConsoleMenu::update()
 		{
 			m_bEnteringAddress = false;
 			m_textBox->setText("Joined host");
+			kitten::K_Instance::changeScene("mainscene.txt");
 		} else
 		{
 			m_textBox->setText("Network Error");

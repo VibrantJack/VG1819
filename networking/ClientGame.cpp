@@ -179,6 +179,8 @@ namespace networking
 				commanderDataPacket.m_unitId = 6;
 				commanderDataPacket.m_posX = tile->getComponent<TileInfo>()->getPosX();
 				commanderDataPacket.m_posY = tile->getComponent<TileInfo>()->getPosY();
+				//commanderDataPacket.m_posX = (m_iClientId == 0) ? 0 : 14;
+				//commanderDataPacket.m_posY = (m_iClientId == 0) ? 0 : 14;
 
 				commanderDataPacket.serialize(commanderDataBuffer);
 				NetworkServices::sendMessage(m_network->m_connectSocket, commanderData, SUMMON_UNIT_PACKET_SIZE);
@@ -248,6 +250,23 @@ namespace networking
 				}
 				break;
 			}
+			case PacketTypes::STARTING_COMMANDER_DATA:
+			{
+				printf("[Client: %d] received STARTING_COMMANDER_DATA packet from server\n", m_iClientId);
+
+				Buffer buffer;
+				buffer.m_data = &(m_network_data[i]);
+				buffer.m_size = STARTING_COMMANDERS_PACKET_SIZE;
+
+				StartingCommandersPacket commandersPacket;
+				commandersPacket.deserialize(buffer);
+				i += STARTING_COMMANDERS_PACKET_SIZE;
+				unit::InitiativeTracker::createInstance();
+				summonUnit(commandersPacket.m_client1Id, commandersPacket.m_player1Commander, commandersPacket.m_pos1X, commandersPacket.m_pos1Y);
+				summonUnit(commandersPacket.m_client2Id, commandersPacket.m_player2Commander, commandersPacket.m_pos2X, commandersPacket.m_pos2Y);
+				unit::InitiativeTracker::getInstance()->gameTurnStart();
+				break;
+			}
 			default:
 				printf("[Client: %d] received %d; error in packet types\n", m_iClientId, packetType);
 				i += (unsigned int)data_length;
@@ -297,7 +316,7 @@ namespace networking
 	void ClientGame::summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
 	{
 		// Create the unit GO and add it to the list
-		kitten::K_GameObject* unitGO = unit::UnitSpawn::getInstance()->spawnUnitObject(p_iUnitId);
+		kitten::K_GameObject* unitGO = unit::UnitSpawn::getInstanceSafe()->spawnUnitObject(p_iUnitId);
 		m_unitGOList.insert(std::make_pair(m_iUnitIndex, unitGO));
 		m_iUnitIndex++;
 
