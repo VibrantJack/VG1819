@@ -36,6 +36,7 @@ Debug/
 _Project/Debug/
 _Project/.vs/
 _Project/Release/
+.vscode/
 *.log
 *.tlog
 *.pdb
