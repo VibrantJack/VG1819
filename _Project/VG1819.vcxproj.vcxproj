@@ -78,15 +78,15 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\assimp\include;$(SolutionDir)..\networking_libraries\include;$(SolutionDir)..\irrKlang\include;$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\FreeImage\Dist\x32;$(SolutionDir)..\assimp\include;$(SolutionDir)..\networking_libraries\include;$(SolutionDir)..\irrKlang\include;$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
       <AdditionalOptions>/Qpar %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutoinDir)..\assimp\debug;$(SolutionDir)..\networking_libraries;$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;assimp-vc140-mt.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\FreeImage\Dist\x32;$(SolutoinDir)..\assimp\debug;$(SolutionDir)..\networking_libraries;$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -433,6 +433,7 @@
     <ClInclude Include="..\expressions\parser.h" />
     <ClInclude Include="..\expressions\PostfixEval.h" />
     <ClInclude Include="..\expressions\PostfixOperator.h" />
+    <ClInclude Include="..\FreeImage\Dist\x32\FreeImage.h" />
     <ClInclude Include="..\gameworld\GameBoard.h" />
     <ClInclude Include="..\gameworld\GrassLandInfoComponent.h" />
     <ClInclude Include="..\gameworld\TileInformationComponent.h" />

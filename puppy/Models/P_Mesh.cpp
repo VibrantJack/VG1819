@@ -5,7 +5,9 @@ namespace puppy
 	P_Mesh::P_Mesh(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices, const char* p_pathToTexture) : m_mat(ShaderType::basic),
 		m_vao(p_vertices.data(), p_indices.data(), ShaderManager::getShaderProgram(ShaderType::basic), p_vertices.size(), p_indices.size())
 	{
-		m_mat.setTexture(p_pathToTexture);
+		std::string newTexPath(p_pathToTexture);
+		newTexPath = "models/textures/" + newTexPath;
+		m_mat.setTexture(newTexPath.c_str());
 	}
 
 	P_Mesh::~P_Mesh()

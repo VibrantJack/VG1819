@@ -37,7 +37,7 @@ namespace parser
 
 	#define REAL 255
 	#define INTEGER 256
-	#define ID 259
+	#define IDENTIFIER 259
 	#define OP 300
 	#define CP 301
 	#define SEMICOLON 302

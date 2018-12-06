@@ -50,11 +50,8 @@
 			"maxpoint":[0.25,0.25,0]
 		},
 		{
-			"name" : "SpriteRenderable"
-		},
-		{
-			"name" : "SpriteAnimator",
-			"spritename" : "wizard"
+			"name" : "ModelRenderable",
+			"path" : "models/test/nanosuit/nanosuit.obj"
 		}
 	],
 	"scale" : [2.0, 2.0, 0.0],

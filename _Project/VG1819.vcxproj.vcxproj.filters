@@ -1242,14 +1242,14 @@
       <Filter>networking\networking_menu</Filter>
     </ClInclude>
     <ClInclude Include="..\networking\menu\NetworkJoinButton.h">
-      <Filter>networking\networking_menu</Filter>      
+      <Filter>networking\networking_menu</Filter>
     </ClInclude>
     <ClInclude Include="..\UI\TabMenu\ReturnToMainMenuButton.h">
       <Filter>UI\TabMenu</Filter>
     </ClInclude>
     <ClInclude Include="..\UI\TabMenu\TabMenu.h">
       <Filter>UI\TabMenu</Filter>
-	  </ClInclude>
+    </ClInclude>
     <ClInclude Include="..\puppy\Models\MTLParser.h">
       <Filter>puppy\Models</Filter>
     </ClInclude>
@@ -1478,6 +1478,9 @@
     <ClInclude Include="..\kitten\ModelRenderable.h">
       <Filter>kitten</Filter>
     </ClInclude>
+    <ClInclude Include="..\FreeImage\Dist\x32\FreeImage.h">
+      <Filter>FreeImage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1615,7 +1618,7 @@
     <Filter Include="components\decksdisplay">
       <UniqueIdentifier>{cc3644fd-64c1-472c-9553-f5208238bec6}</UniqueIdentifier>
     </Filter>
-	  <Filter Include="UI\TabMenu">
+    <Filter Include="UI\TabMenu">
       <UniqueIdentifier>{f65abade-0ab9-4b14-b9fa-06c669a75895}</UniqueIdentifier>
     </Filter>
     <Filter Include="components\scene changers">
@@ -1632,12 +1635,15 @@
     </Filter>
     <Filter Include="networking\networking_menu">
       <UniqueIdentifier>{55bfff24-e6ce-423f-9f59-d806c680e062}</UniqueIdentifier>
-    </Filter>    
+    </Filter>
     <Filter Include="puppy\Models">
       <UniqueIdentifier>{7a2a3dcb-6a86-4d49-b44e-67c8706ecbaf}</UniqueIdentifier>
     </Filter>
     <Filter Include="assimp">
       <UniqueIdentifier>{b789f8b8-6268-456e-91d3-c88d9486a875}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FreeImage">
+      <UniqueIdentifier>{e62edd41-bbbc-495b-921a-a9ed5797e001}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
