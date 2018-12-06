@@ -85,8 +85,8 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\assimp\lib\x64;$(SolutionDir)..\networking_libraries;$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutoinDir)..\assimp\debug;$(SolutionDir)..\networking_libraries;$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -233,7 +233,7 @@
     <ClCompile Include="..\networking\ServerNetwork.cpp" />
     <ClCompile Include="..\networking\SpawnUnitOnKeyPress.cpp" />
     <ClCompile Include="..\networking\menu\NetworkHostButton.cpp" />
-    <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp" />    
+    <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp" />
     <ClCompile Include="..\kitten\util\AsyncFileOperations.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
     <ClCompile Include="..\puppy\FBO.cpp" />
@@ -275,7 +275,7 @@
     <ClCompile Include="..\UI\CardUIO.cpp" />
     <ClCompile Include="..\UI\HandFrame.cpp" />
     <ClCompile Include="..\UI\InterfaceBuilder.cpp" />
-	<ClCompile Include="..\UI\TabMenu\ReturnToMainMenuButton.cpp" />
+    <ClCompile Include="..\UI\TabMenu\ReturnToMainMenuButton.cpp" />
     <ClCompile Include="..\UI\TabMenu\TabMenu.cpp" />
     <ClCompile Include="..\UI\UIElement.cpp" />
     <ClCompile Include="..\UI\UIFrame.cpp" />
@@ -495,7 +495,7 @@
     <ClInclude Include="..\networking\ClientGame.h" />
     <ClInclude Include="..\networking\ClientNetwork.h" />
     <ClInclude Include="..\networking\menu\NetworkHostButton.h" />
-    <ClInclude Include="..\networking\menu\NetworkJoinButton.h" />    
+    <ClInclude Include="..\networking\menu\NetworkJoinButton.h" />
     <ClInclude Include="..\networking\NetworkData.h" />
     <ClInclude Include="..\networking\NetworkingConsoleMenu.h" />
     <ClInclude Include="..\networking\NetworkServices.h" />
