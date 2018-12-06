@@ -28,14 +28,6 @@ namespace ability
 		se->addCounter(UNIT_DURATION, dur);
 	}
 
-	Dodge::Dodge()
-	{
-	}
-
-	Dodge::~Dodge()
-	{
-	}
-
 	int Dodge::effect(AbilityInfoPackage* p_info)
 	{
 		//check if unit has this status

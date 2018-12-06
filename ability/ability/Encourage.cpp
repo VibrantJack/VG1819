@@ -30,14 +30,6 @@ namespace ability
 		se->addCounter(UNIT_DURATION, dur);
 	}
 
-	Encourage::Encourage()
-	{
-	}
-
-	Encourage::~Encourage()
-	{
-	}
-
 	int Encourage::effect(AbilityInfoPackage* p_info)
 	{
 		if (checkTarget(p_info))

@@ -216,8 +216,8 @@ namespace unit
 			}
 		}
 
-		if (lateDestroy)
-			destroy();
+		if (m_lateDestroy)
+			simpleDestroy();
 	}
 
 	void Unit::actDone()
@@ -356,9 +356,16 @@ namespace unit
 
 	int Unit::destroyedByJoin()
 	{
-		//TO DO: send destroyed event
-		lateDestroy = true;
+		m_lateDestroy = true;
 		return 0;
+	}
+
+	void Unit::simpleDestroy()
+	{
+		//remove from tile
+		getTile()->getComponent<TileInfo>()->removeUnit();
+		//remove from intiative tracker
+		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
 	}
 
 	void Unit::destroy()
@@ -370,10 +377,8 @@ namespace unit
 		
 
 		std::cout << m_name << " is destroyed! " << std::endl;
-		//remove from tile
-		getTile()->getComponent<TileInfo>()->removeUnit();
-		//remove from intiative tracker
-		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
+		
+		simpleDestroy();
 
 		// Commander Death Victory/Defeat Condition
 		if (isCommander())

@@ -22,14 +22,6 @@ namespace ability
 		se->attach(p_info->m_targets[0]);
 	}
 
-	Load::Load()
-	{
-	}
-
-	Load::~Load()
-	{
-	}
-
 	int Load::effect(AbilityInfoPackage* p_info)
 	{
 		//check if unit has this status

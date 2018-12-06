@@ -16,11 +16,6 @@
 
 namespace ability
 {
-	SummonUnit::SummonUnit()
-	{
-
-	}
-
 	int SummonUnit::effect(AbilityInfoPackage* p_info)
 	{
 

@@ -6,14 +6,6 @@
 
 namespace ability
 {
-	Arm::Arm()
-	{
-	}
-
-	Arm::~Arm()
-	{
-	}
-
 	int Arm::effect(AbilityInfoPackage* p_info)
 	{
 		if (checkTarget(p_info))
