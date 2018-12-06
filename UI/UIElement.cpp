@@ -215,4 +215,14 @@ namespace userinterface
 
 			m_mat->setTexture(p_pathToTex);
 		}
+
+		void UIElement::setPivotType(const pivotType p_piv)
+		{
+			m_pivotType = p_piv;
+		}
+
+		void UIElement::setTexBehaviour(const textureBehaviour p_tb)
+		{
+			m_texBehaviour = p_tb;
+		}
 	}

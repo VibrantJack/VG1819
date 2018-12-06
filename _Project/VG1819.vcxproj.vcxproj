@@ -232,7 +232,7 @@
     <ClCompile Include="..\networking\ServerNetwork.cpp" />
     <ClCompile Include="..\networking\SpawnUnitOnKeyPress.cpp" />
     <ClCompile Include="..\networking\menu\NetworkHostButton.cpp" />
-    <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp" />    
+    <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp" />
     <ClCompile Include="..\kitten\util\AsyncFileOperations.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
     <ClCompile Include="..\puppy\FBO.cpp" />
@@ -268,9 +268,11 @@
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
     <ClCompile Include="..\UI\CardUIO.cpp" />
+    <ClCompile Include="..\UI\ClickableCard.cpp" />
+    <ClCompile Include="..\UI\ContextMenu.cpp" />
     <ClCompile Include="..\UI\HandFrame.cpp" />
     <ClCompile Include="..\UI\InterfaceBuilder.cpp" />
-	<ClCompile Include="..\UI\TabMenu\ReturnToMainMenuButton.cpp" />
+    <ClCompile Include="..\UI\TabMenu\ReturnToMainMenuButton.cpp" />
     <ClCompile Include="..\UI\TabMenu\TabMenu.cpp" />
     <ClCompile Include="..\UI\UIElement.cpp" />
     <ClCompile Include="..\UI\UIFrame.cpp" />
@@ -418,7 +420,7 @@
     <ClInclude Include="..\networking\ClientGame.h" />
     <ClInclude Include="..\networking\ClientNetwork.h" />
     <ClInclude Include="..\networking\menu\NetworkHostButton.h" />
-    <ClInclude Include="..\networking\menu\NetworkJoinButton.h" />    
+    <ClInclude Include="..\networking\menu\NetworkJoinButton.h" />
     <ClInclude Include="..\networking\NetworkData.h" />
     <ClInclude Include="..\networking\NetworkingConsoleMenu.h" />
     <ClInclude Include="..\networking\NetworkServices.h" />
@@ -465,6 +467,8 @@
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
     <ClInclude Include="..\UI\CardUIO.h" />
+    <ClInclude Include="..\UI\ClickableCard.h" />
+    <ClInclude Include="..\UI\ContextMenu.h" />
     <ClInclude Include="..\UI\HandFrame.h" />
     <ClInclude Include="..\UI\InterfaceBuilder.h" />
     <ClInclude Include="..\UI\TabMenu\ReturnToMainMenuButton.h" />

@@ -655,6 +655,12 @@
     <ClCompile Include="..\UI\TabMenu\TabMenu.cpp">
       <Filter>UI\TabMenu</Filter>
     </ClCompile>
+    <ClCompile Include="..\UI\ClickableCard.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\ContextMenu.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1227,14 +1233,20 @@
       <Filter>networking\networking_menu</Filter>
     </ClInclude>
     <ClInclude Include="..\networking\menu\NetworkJoinButton.h">
-      <Filter>networking\networking_menu</Filter>      
+      <Filter>networking\networking_menu</Filter>
     </ClInclude>
     <ClInclude Include="..\UI\TabMenu\ReturnToMainMenuButton.h">
       <Filter>UI\TabMenu</Filter>
     </ClInclude>
     <ClInclude Include="..\UI\TabMenu\TabMenu.h">
       <Filter>UI\TabMenu</Filter>
-	  </ClInclude>
+    </ClInclude>
+    <ClInclude Include="..\UI\ClickableCard.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\ContextMenu.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1372,7 +1384,7 @@
     <Filter Include="components\decksdisplay">
       <UniqueIdentifier>{cc3644fd-64c1-472c-9553-f5208238bec6}</UniqueIdentifier>
     </Filter>
-	  <Filter Include="UI\TabMenu">
+    <Filter Include="UI\TabMenu">
       <UniqueIdentifier>{f65abade-0ab9-4b14-b9fa-06c669a75895}</UniqueIdentifier>
     </Filter>
     <Filter Include="components\scene changers">
@@ -1389,6 +1401,6 @@
     </Filter>
     <Filter Include="networking\networking_menu">
       <UniqueIdentifier>{55bfff24-e6ce-423f-9f59-d806c680e062}</UniqueIdentifier>
-    </Filter>    
+    </Filter>
   </ItemGroup>
 </Project>

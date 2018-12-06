@@ -4,6 +4,7 @@
 #include "UIObject.h"
 #include "kitten/Transform.h"
 #include "ClickableCard.h"
+#include "ContextMenu.h"
 
 namespace userinterface
 {
@@ -88,11 +89,8 @@ void userinterface::HandFrame::makeAHand() {
 		frameCasted->addCardToEnd(cardCasted);
 		cardCasted->assignParentHand(frameCasted);
 
-		kitten::K_GameObject* context = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 		kitten::K_Component* clickableCom = kitten::K_ComponentManager::getInstance()->createComponent("ClickableCard");
-		ClickableCard* clickableCard = static_cast<ClickableCard*>(clickableCom);
-
-		
+		card->addComponent(clickableCom);
 	}
 }
 
