@@ -273,6 +273,8 @@
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
     <ClCompile Include="..\UI\CardUIO.cpp" />
+    <ClCompile Include="..\UI\ClickableCard.cpp" />
+    <ClCompile Include="..\UI\ContextMenu.cpp" />
     <ClCompile Include="..\UI\HandFrame.cpp" />
     <ClCompile Include="..\UI\InterfaceBuilder.cpp" />
     <ClCompile Include="..\UI\TabMenu\ReturnToMainMenuButton.cpp" />
@@ -547,6 +549,8 @@
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
     <ClInclude Include="..\UI\CardUIO.h" />
+    <ClInclude Include="..\UI\ClickableCard.h" />
+    <ClInclude Include="..\UI\ContextMenu.h" />
     <ClInclude Include="..\UI\HandFrame.h" />
     <ClInclude Include="..\UI\InterfaceBuilder.h" />
     <ClInclude Include="..\UI\TabMenu\ReturnToMainMenuButton.h" />

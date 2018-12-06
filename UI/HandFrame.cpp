@@ -3,6 +3,8 @@
 #include "kitten/K_GameObject.h"
 #include "UIObject.h"
 #include "kitten/Transform.h"
+#include "ClickableCard.h"
+#include "ContextMenu.h"
 
 namespace userinterface
 {
@@ -86,6 +88,9 @@ void userinterface::HandFrame::makeAHand() {
 		userinterface::HandFrame* frameCasted = static_cast<userinterface::HandFrame*>(handFrame);
 		frameCasted->addCardToEnd(cardCasted);
 		cardCasted->assignParentHand(frameCasted);
+
+		kitten::K_Component* clickableCom = kitten::K_ComponentManager::getInstance()->createComponent("ClickableCard");
+		card->addComponent(clickableCom);
 	}
 }
 

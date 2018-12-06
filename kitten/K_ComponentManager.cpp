@@ -22,6 +22,8 @@
 #include "UI\UIObject.h"
 #include "UI\CardUIO.h"
 #include "UI\HandFrame.h"
+#include "UI\ClickableCard.h"
+#include "UI\ContextMenu.h"
 #include "mouse picking/ClickableUI.h"
 #include "networking\menu\NetworkHostButton.h"
 #include "networking\menu\NetworkJoinButton.h"
@@ -121,6 +123,14 @@ namespace kitten
 		else if (p_componentName == "ClickableUI") // Datadriven
 		{
 			comp = new ClickableUI();
+		}
+		else if (p_componentName == "ClickableCard")
+		{
+			comp = new userinterface::ClickableCard();
+		}
+		else if (p_componentName == "ContextMenu")
+		{
+			comp = new userinterface::ContextMenu();
 		}
 		else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
 		{
