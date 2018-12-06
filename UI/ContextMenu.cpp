@@ -22,7 +22,7 @@ namespace userinterface
 		m_ht = ht_WrapContent;
 		m_ft = ft_List;
 		m_width = 100;
-		m_height = 10;
+		m_height = 20;
 		m_padding = 0;
 		m_margin = 0;
 	}
