@@ -50,7 +50,6 @@ namespace puppy
 		{
 			//There will always be a position vertex
 			const auto& aiVertex = p_mesh->mVertices[i];
-			glm::vec3 vertex(aiVertex.x, aiVertex.y, aiVertex.z);
 
 			//Normals and UVs are optional
 			glm::vec3 normal(0, 0, 0);
@@ -110,6 +109,14 @@ namespace puppy
 				material->GetTexture(aiTextureType_DIFFUSE, 0, &texPath);
 				tex = texPath.C_Str();
 			}
+			else
+			{
+				std::cerr << "No diffuse texture found for mesh: " << p_mesh->mName.C_Str() << std::endl;
+			}
+		}
+		else
+		{
+			std::cerr << "No material for found for mesh: " << p_mesh->mName.C_Str() << std::endl;
 		}
 
 		m_meshes.push_back(new P_Mesh(vertices, indices, tex));
