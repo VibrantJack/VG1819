@@ -242,6 +242,13 @@ namespace unit
 	void Unit::playerSkipTurn()
 	{
 		assert(m_turn != nullptr);
+		if (networking::ClientGame::getInstance())
+		{
+			if (!networking::ClientGame::getInstance()->isServerCalling())
+			{
+				networking::ClientGame::getInstance()->sendBasicPacket(PacketTypes::SKIP_TURN);
+			}
+		}
 		m_turn->turnEnd();
 	}
 
@@ -272,16 +279,6 @@ namespace unit
 	{
 		if (!canMove())
 			return;
-
-		if (networking::ClientGame::getInstance())
-		{
-			int unitIndex = networking::ClientGame::getInstance()->getUnitGameObjectIndex(m_attachedObject);
-			int posX = p_tile->getComponent<TileInfo>()->getPosX();
-			int posY = p_tile->getComponent<TileInfo>()->getPosY();
-
-			//networking::ClientGame::getInstance()->moveUnit(unitIndex, posX, posY);
-			networking::ClientGame::getInstance()->sendMovementPacket(unitIndex, posX, posY);
-		}
 
 		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
 		moveComponet->move(p_tile);
@@ -377,5 +374,28 @@ namespace unit
 		getTile()->getComponent<TileInfo>()->removeUnit();
 		//remove from intiative tracker
 		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
+
+		// Commander Death Victory/Defeat Condition
+		if (isCommander())
+		{
+			if (networking::ClientGame::isNetworkValid())
+			{
+				// Pass in false as the parameter in order to signal to the other client of disconnect
+				networking::ClientGame* client = networking::ClientGame::getInstance();
+				client->removeUnitGameObject(client->getUnitGameObjectIndex(m_attachedObject));
+
+				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+				if (m_clientId == client->getClientId())
+				{
+					eventData->putInt(PLAYER_COMMANDER_DEATH, FALSE);
+				}
+				else
+				{
+					eventData->putInt(PLAYER_COMMANDER_DEATH, TRUE);
+				}
+				
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+			}			
+		}
 	}
 }

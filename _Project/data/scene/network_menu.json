@@ -1,0 +1,35 @@
+{
+    "gameobjects" : [
+        {
+            "filename" : "camgameobj.txt", 
+            "translate" : [7, 13.0, 0.0],
+            "rotate" : [-70,0,0]
+        },
+		{
+			"filename" : "FPSCounter.txt", 
+		    "translate2d" : [100,700]
+		},
+		{
+			"filename" : "netmenu_ui.txt",
+			"translate" : [0.0, 0.0, -0.1],
+			"translate2d" : [525, 140]
+		},
+		{
+			"filename" : "netmenu_background.txt",
+			"scale2d" : [1280, 720],
+			"translate" : [0.0, 0.0, -0.9]
+		},
+		{
+			"filename" : "netmenu_join_button.txt",
+			"scale2d" : [170, 100],
+			"translate" : [0.0, 0.0, -0.1],
+		    "translate2d" : [555,185]
+		},
+		{
+			"filename" : "netmenu_host_button.txt",
+			"scale2d" : [170, 100],
+			"translate" : [0.0, 0.0, -0.1],
+		    "translate2d" : [555,395]
+		}
+    ]
+}

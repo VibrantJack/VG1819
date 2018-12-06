@@ -3,8 +3,8 @@
     "components" : [
         {
             "name" : "TextBox",
-            "width" : 750 , 
-            "height" : 500 ,
+            "width" : 230 , 
+            "height" : 100 ,
             "color" : [1,1,1]
         },
 		{
@@ -14,5 +14,7 @@
 		{
 			"name" : "StringInputDisplay"
 		}
-    ]
+    ],
+	"translate2d" : [525.0,506.0]
+    
 }

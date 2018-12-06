@@ -325,6 +325,16 @@ namespace puppy
 		return m_text;
 	}
 
+	const int& TextBox::getBoxHeight() const
+	{
+		return m_boxHeight;
+	}
+
+	const int& TextBox::getBoxWidth() const
+	{
+		return m_boxWidth;
+	}
+
 	void TextBox::setColor(GLfloat p_redVal, GLfloat p_greenVal, GLfloat p_blueVal)
 	{
 		m_color[0] = p_redVal;

@@ -1,0 +1,23 @@
+{
+	"name" : "divine_statue",
+	"texture" : "textures/sprites/units/humans/divine_statue_sheet.tga",
+	
+	"sheetwidth" : 642,
+	"sheetheight" : 82,
+	
+	"characterwidth" : 106,
+	"characterheight" : 81,
+	
+	"padding" : 1,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [5,0],
+			"time" : 5
+		}
+	],
+	
+	"defaultanimation" : "idle"
+}

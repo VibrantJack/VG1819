@@ -19,9 +19,13 @@
 #include "unit/unitComponent/UnitMove.h"
 #include "unit/unitComponent/UnitClickable.h"
 //ui
+#include "UI\UIObject.h"
 #include "UI\CardUIO.h"
 #include "UI\HandFrame.h"
 #include "mouse picking/ClickableUI.h"
+#include "networking\menu\NetworkHostButton.h"
+#include "networking\menu\NetworkJoinButton.h"
+#include "_Project\StringInputDisplay.h"
 
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
@@ -32,8 +36,12 @@
 #include "components\SelectAbility.h"
 #include "networking\SpawnUnitOnKeyPress.h"
 #include "networking\NetworkingConsoleMenu.h"
+#include "UI\TabMenu\TabMenu.h"
+#include "UI\TabMenu\ReturnToMainMenuButton.h"
+#include "_Project\StringInputDisplay.h"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 
+#include "components/ChangeSceneOnClick.hpp"
 #include "kitten\K_ParticleSystem.h"
 
 //board
@@ -98,6 +106,10 @@ namespace kitten
 		else if (p_componentName == "Hand") // Datadriven
 		{
 			comp = new userinterface::HandFrame("textures/ui/blankFrame.tga");
+		}
+		else if (p_componentName == "UIObject")
+		{
+			comp = new userinterface::UIObject("textures/ui/blankFrame.tga");
 		}
 		else if (p_componentName == "Card") // Datadriven
 		{
@@ -217,6 +229,26 @@ namespace kitten
 		else if (p_componentName == "CounterGetterDisplay")
 		{
 			comp = new CounterGetterDisplay();
+		}
+		else if (p_componentName == "StringInputDisplay")
+		{
+			comp = new StringInputDisplay();
+		}
+		else if (p_componentName == "ReturnToMainMenuButton")
+		{
+			comp = new userinterface::ReturnToMainMenuButton();
+		}
+		else if (p_componentName == "TabMenu")
+		{
+			comp = new TabMenu("textures/ui/blankFrame.tga");
+		}
+		else if (p_componentName == "NetworkHostButton")
+		{
+			comp = new userinterface::NetworkHostButton();
+		} 
+		else if (p_componentName == "NetworkJoinButton") 
+		{
+			comp = new userinterface::NetworkJoinButton();
 		}
 		else
 		{

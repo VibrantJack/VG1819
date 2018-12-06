@@ -24,6 +24,10 @@ public:
 	static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
 	static BoardManager * getInstance() { return sm_instance; };
 
+	//spawn point
+	void setSpawnPoint(kitten::Event::TileList p_list);
+	kitten::K_GameObject* getSpawnPoint(int m_clientId = -1);
+
 	//dimension and tiles
 	void setTileList(std::vector<kitten::K_GameObject*> p_list);
 	void setDimension(int p_x, int p_z);
@@ -48,7 +52,7 @@ private:
 	static BoardManager* sm_instance;
 
 	std::pair<int, int> m_dimension;
-	//kitten::K_GameObject* m_boardGO;
+	kitten::Event::TileList m_spawnPointList;
 
 	Range* m_range;
 	Highlighter* m_highlighter;

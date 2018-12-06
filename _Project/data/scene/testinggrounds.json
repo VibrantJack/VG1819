@@ -1,0 +1,52 @@
+{
+    "gameobjects" : [
+        {
+            "filename" : "camgameobj.txt", 
+            "translate" : [7, 13.0, 0.0],
+            "rotate" : [-70,0,0]
+        },
+		{
+			"filename" : "boardcreator.txt"
+		},
+		{
+			"filename" : "soundsource.txt",
+			"translate" : [7,10,-8]
+		},
+		{
+			"filename" : "backgroundmusic.txt"
+		},
+		{
+			"filename" : "FPSCounter.txt", 
+		    "translate2d" : [100,700]
+		},
+		{
+			"filename" : "netmenu_console.txt",
+			"translate2d" : [200, 50]
+		},
+		{
+			"filename" : "TabMenu.txt"
+		},
+		{
+			"filename" : "UniversalPfx.txt"
+		},
+		{
+			"name" : "Deck",
+			"components" : [
+				{
+					"name" : "DeckComponent"
+				}
+			]
+		},
+		{
+			"name" : "more scene init stuff",
+			"components" : [
+				{
+					"name": "GameplayInit"
+				}
+			]
+		}
+
+    ],
+	"scenes" : ["interfacebuilder.txt"]
+	
+}

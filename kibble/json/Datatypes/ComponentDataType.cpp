@@ -388,6 +388,13 @@ kitten::K_Component* getUIFrame(nlohmann::json* p_jsonFile) {
 
 #include "unit/unitComponent/UnitMove.h"
 kitten::K_Component* getUnitMove(nlohmann::json* p_jsonFile) {
+	glm::vec3 offset;
+
+	if (JSONHAS("offset")) {
+		offset = glm::vec3(LOOKUP("offset")[0], LOOKUP("offset")[1], LOOKUP("offset")[2]);
+		return new unit::UnitMove(offset);
+	}
+
 	return new unit::UnitMove();
 }
 
@@ -545,7 +552,6 @@ kitten::K_Component* getCardUIO(nlohmann::json* p_jsonFile) {
 	SETOPTDEF(texture, "texture", "textures/ui/cardBack.tga");
 
 	userinterface::CardUIO* object = new userinterface::CardUIO(texture.c_str());
-	object->scaleAsCard();
 	return object;
 }
 
@@ -573,7 +579,7 @@ kitten::K_Component* getClickableFrame(nlohmann::json* p_jsonFile) {
 		else if (temp == "topright")
 			type = kitten::ClickableFrame::piv_TopRight;
 	}
-	return new kitten::ClickableFrame(kitten::ClickableFrame::piv_BotLeft);
+	return new kitten::ClickableFrame(type);
 }
 
 #include "kitten/mouse picking/ClickableUI.h"
@@ -614,6 +620,16 @@ kitten::K_Component* getSpriteRenderable(nlohmann::json* p_jsonFile) {
 	return new kitten::SpriteRenderable();
 }
 
+#include "components/ChangeSceneOnClick.hpp"
+kitten::K_Component* getChangeSceneOnClick(nlohmann::json* p_jsonFile) {
+
+	std::string nextScene;
+
+	SET(nextScene, "scene");
+
+	return new ChangeSceneOnClick(nextScene);
+}
+
 #include "kitten\K_ParticleSystem.h"
 kitten::K_Component* getKParticleSystem(nlohmann::json* p_jsonFile) {
 	
@@ -632,18 +648,102 @@ kitten::K_Component* getToggleParticleSystemOnKeyPress(nlohmann::json* p_jsonFil
 #include "_Project\UniversalPfx.h"
 kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 	
-	std::list<std::pair<std::string, std::string>> effects;
+	std::list<std::tuple<std::string, std::string, int>> effects;
 
 	auto end = p_jsonFile->at("effects").end();
 	for (auto it = p_jsonFile->at("effects").begin(); it != end; ++it)
 	{
 		std::string effectName = (*it)["name"];
 		std::string effectPath = (*it)["path"];
+		int numPfxToPool = (*it)["poolednumber"];
 
-		effects.push_back(std::make_pair(effectName, effectPath));
+		effects.push_back(std::make_tuple(effectName, effectPath, numPfxToPool));
 	}
 
 	return new UniversalPfx(effects);
+}
+
+#include "components/DecksDisplay/DecksDisplayPickerOnClick.h"
+kitten::K_Component* getDecksDisplayPickerOnClick(nlohmann::json* p_jsonFile) {
+	return new DecksDisplayPickerOnClick();
+}
+
+#include "components/DecksDisplay/DecksDisplaySetChangeOnClick.h"
+kitten::K_Component* getDecksDisplaySetChangeOnClick(nlohmann::json* p_jsonFile) {
+	int offset;
+
+	SETOPTDEF(offset, "offset", 0);
+
+	return new DecksDisplaySetChangeOnClick(offset);
+}
+
+#include "components/DecksDisplayFrame.h"
+kitten::K_Component* getDecksDisplayFrame(nlohmann::json* p_jsonFile) {
+	int margin;
+	SETOPTDEF(margin, "margin", 0);
+
+	return new DecksDisplayFrame(margin);
+}
+
+#include "_Project\ClickableBoxRenderable.h"
+kitten::K_Component* getClickableBoxRenderable(nlohmann::json* p_jsonFile) {
+	return new ClickableBoxRenderable();
+}
+
+#include "components/DeckInitializingComponent.h"
+kitten::K_Component* getDeckInitializingComponent(nlohmann::json* p_jsonFile) {
+	return new DeckInitializingComponent();
+}
+
+#include "components/scene change/StartGameOnClick.h"
+kitten::K_Component* getStartGameOnClick(nlohmann::json* p_jsonFile) {
+	std::string targetScene;
+	SET(targetScene, "scene");
+	return new StartGameOnClick(targetScene);
+}
+
+#include "components/DeckComponent.hpp"
+kitten::K_Component* getDeckComponent(nlohmann::json* p_jsonFile) {
+	return new DeckComponent();
+}
+
+#include "components/testing/gameplay-init.h"
+kitten::K_Component* getGameplayInit(nlohmann::json* p_jsonFile) {
+	bool testing;
+	SETOPTDEF(testing, "testing", true);
+	return new GameplayInit(testing);
+}
+
+#include "networking\menu\NetworkJoinButton.h"
+kitten::K_Component* getNetworkJoinButton(nlohmann::json* p_jsonFile) {
+	return new userinterface::NetworkJoinButton();
+}
+
+#include "networking\menu\NetworkHostButton.h"
+kitten::K_Component* getNetworkHostButton(nlohmann::json* p_jsonFile) {
+	return new userinterface::NetworkHostButton();
+}
+
+#include "UI\TabMenu\TabMenu.h"
+kitten::K_Component* getTabMenu(nlohmann::json* p_jsonFile) {
+	std::string texture;
+
+	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
+	return new TabMenu(texture.c_str());
+}
+
+#include "ui/UIObject.h"
+kitten::K_Component* getUIObject(nlohmann::json* p_jsonFile) {
+	std::string texture;
+
+	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
+
+	return new userinterface::UIObject(texture.c_str());
+}
+
+#include "UI\TabMenu\ReturnToMainMenuButton.h"
+kitten::K_Component* getReturnToMainMenuButton(nlohmann::json* p_jsonFile) {
+	return new userinterface::ReturnToMainMenuButton();
 }
 
 #include "kitten\ModelRenderable.h"
@@ -698,11 +798,25 @@ void setupComponentMap() {
 	jsonComponentMap["TileInfo"] = &getTileInfo;
 	jsonComponentMap["SpawnUnitOnKeyPress"] = &getSpawnUnitOnKeyPress;
 	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
+	jsonComponentMap["ChangeSceneOnClick"] = &getChangeSceneOnClick;
 	jsonComponentMap["UniversalPfx"] = &getUniversalPfx;
 	jsonComponentMap["K_ParticleSystem"] = &getKParticleSystem;
 	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
 	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
+	jsonComponentMap["DecksDisplaySetChangeOnClick"] = &getDecksDisplaySetChangeOnClick;
+	jsonComponentMap["DecksDisplayPickerOnClick"] = &getDecksDisplayPickerOnClick;
+	jsonComponentMap["DecksDisplayFrame"] = &getDecksDisplayFrame;
+	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
+	jsonComponentMap["DeckInitializingComponent"] = &getDeckInitializingComponent;
+	jsonComponentMap["StartGameOnClick"] = &getStartGameOnClick;
+	jsonComponentMap["DeckComponent"] = &getDeckComponent;
+	jsonComponentMap["GameplayInit"] = &getGameplayInit;
+	jsonComponentMap["NetworkJoinButton"] = &getNetworkJoinButton;
+	jsonComponentMap["NetworkHostButton"] = &getNetworkHostButton;	
+	jsonComponentMap["TabMenu"] = &getTabMenu;
+	jsonComponentMap["UIObject"] = &getUIObject;
+	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
 	jsonComponentMap["ModelRenderable"] = &getModelRenderable;
 
 }

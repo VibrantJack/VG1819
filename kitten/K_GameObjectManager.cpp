@@ -27,10 +27,10 @@ namespace kitten
 		return toReturn;
 	}
 
-	K_GameObject* K_GameObjectManager::createNewGameObject(const std::string& filename)
+	K_GameObject* K_GameObjectManager::createNewGameObject(const std::string& p_filename)
 	{
 		kibble::GameObjectDataParser* parser = kibble::getGameObjectDataParserInstance();
-		return parser->getGameObject(filename);
+		return parser->getGameObject(p_filename);
 	}
 
 	void K_GameObjectManager::destroyGameObject(K_GameObject* p_toDestroy)
@@ -68,5 +68,30 @@ namespace kitten
 		{
 			delete  (*it).second;
 		}
+		m_gameObjects.clear();
+
+		for (auto gameObject : m_toSurvive)
+		{
+			delete gameObject;
+		}
+	}
+
+	void K_GameObjectManager::destroySceneGameObjects() 
+	{
+		deleteQueuedObjects();
+
+		auto end = m_gameObjects.end();
+		for (auto it = m_gameObjects.begin(); it != end;++it)
+		{
+			delete  (*it).second;
+		}
+		m_gameObjects.clear();
+		
+	}
+
+	void K_GameObjectManager::flagGameObjectToSurvive(K_GameObject* p_toSurvive)
+	{
+		m_toSurvive.insert(p_toSurvive);
+		m_gameObjects.erase(m_gameObjects.find(p_toSurvive->m_objectIndex));
 	}
 }

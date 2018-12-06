@@ -1,0 +1,77 @@
+{
+    "gameobjects" : [
+        {
+            "filename" : "camgameobj.txt"
+        },
+        {
+            "name" : "Deck Display Frame",
+            "components" : [
+                {
+                    "name":"DecksDisplayFrame",
+                    "margin": 10
+                }
+            ],
+			"translate2d" : [200, 10],
+            "scale2d" : [1070,700]
+        },
+        {
+            "name" : "New Game Button",
+            "components" : [
+                {
+                    "name" : "UIFrame",
+                    "texture" : "textures/ui/button_new-game.tga"
+                },
+                {
+                    "name" : "StartGameOnClick",
+                    "scene" : "network_menu.json"
+
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [10, 600],
+            "scale2d" : [170, 100]
+            
+        },
+        {
+            "name" : "Edit Deck Button",
+            "components" : [
+                {
+                    "name" : "UIFrame",
+                    "texture" : "textures/ui/button_deck-builder.tga"
+                },
+                {
+                    "name" : "ClickableUI"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [10, 480],
+            "scale2d" : [170, 100]
+        },
+        {
+            "name" : "Testing Button",
+            "components" : [
+                {
+                    "name" : "UIFrame",
+                    "texture" : "textures/ui/button_testing.tga"
+                },				
+                {
+                    "name" : "StartGameOnClick",
+                    "scene" : "testinggrounds.json"
+
+                },
+                {
+                    "name" : "ClickableUI"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [10, 360],
+            "scale2d" : [170, 100]
+        }
+    ]
+}

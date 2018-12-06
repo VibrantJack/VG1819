@@ -32,6 +32,8 @@ namespace unit
 		m_textBoxGO->getTransform().place2D(1000, 600);
 
 		m_textBoxGO->addComponent(select);
+
+		kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(m_textBoxGO);
 	}
 
 	UnitSpawn::~UnitSpawn()

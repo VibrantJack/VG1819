@@ -1,0 +1,17 @@
+{
+    "name" : "Return to Main Menu Button",
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/return_to_mm.tga"
+        },
+        {
+            "name" : "ClickableFrame"
+        },
+        {
+            "name" : "ReturnToMainMenuButton"
+        }
+    ],
+    "scale2d" : [170.0,100.0],
+	"translate2d" : [1110.0,620.0]
+}

@@ -2,6 +2,7 @@
 #include <list>
 #include <unordered_map>
 #include <cassert>
+#include <unordered_set>
 
 #include "K_GameObject.h"
 
@@ -22,6 +23,7 @@ namespace kitten
 
 		std::unordered_map<int, K_GameObject*> m_gameObjects;
 		std::list<K_GameObject*> m_toDelete;
+		std::unordered_set<K_GameObject*> m_toSurvive;
 
 		int m_createdObjects = 0;
 
@@ -35,5 +37,8 @@ namespace kitten
 		void destroyGameObject(K_GameObject* p_toDestroy);
 
 		void destroyAllGameObjects();
+		void destroySceneGameObjects();
+
+		void flagGameObjectToSurvive(K_GameObject* p_toSurvive);
 	};
 }

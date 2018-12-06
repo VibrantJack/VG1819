@@ -3,6 +3,11 @@
 #include <thread>
 #include <iostream>
 
+
+#include <kibble/kibble.hpp>
+#include <kitten/mouse picking/ActiveClickables.h>
+#include <puppy/Renderer.h>
+
 namespace kitten
 {
 	K_Instance* K_Instance::sm_instance = nullptr;
@@ -65,6 +70,12 @@ namespace kitten
 
 	void K_Instance::privateUpdate()
 	{
+		if (m_sceneSwitchFlag) {
+			m_gameObjectManager->destroySceneGameObjects();
+			kibble::setSceneFrom(m_nextScene);
+			m_sceneSwitchFlag = false;
+		}
+
 		m_time->updateTime();
 
 		//m_jobManager->update();
@@ -74,5 +85,12 @@ namespace kitten
 
 		m_componentManager->updateComponents();
 		m_gameObjectManager->deleteQueuedObjects();
+	}
+
+	void K_Instance::changeScene(const std::string& p_nextScene)
+	{
+		assert(sm_instance != nullptr);
+		sm_instance->m_sceneSwitchFlag = true;
+		sm_instance->m_nextScene = p_nextScene;
 	}
 }

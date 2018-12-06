@@ -487,6 +487,9 @@
     <ClCompile Include="..\kibble\UnitGameObject\UnitType.cpp">
       <Filter>kibble\UnitGameObject</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\ChangeSceneOnClick.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
     <ClCompile Include="..\ability\ability\Join.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
@@ -516,6 +519,9 @@
     </ClCompile>
     <ClCompile Include="..\puppy\TextureBlendMaterial.cpp">
       <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\AbilityPacket.cpp">
+      <Filter>networking</Filter>
     </ClCompile>
     <ClCompile Include="..\board\component\area\AllPattern.cpp">
       <Filter>board\component\area</Filter>
@@ -614,7 +620,40 @@
       <Filter>components\debug</Filter>
     </ClCompile>
     <ClCompile Include="UniversalPfx.cpp">
-      <Filter>components\standard effects</Filter>
+      <Filter>components\sound\standard effects</Filter>
+    </ClCompile>
+    <ClCompile Include="ClickableBoxRenderable.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DecksDisplayFrame.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.cpp">
+      <Filter>components\decksdisplay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.cpp">
+      <Filter>components\decksdisplay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\scene change\StartGameOnClick.cpp">
+      <Filter>components\scene changers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DeckInitializingComponent.cpp">
+      <Filter>components\survivors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\testing\gameplay-init.cpp">
+      <Filter>components\testing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\menu\NetworkHostButton.cpp">
+      <Filter>networking\networking_menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp">
+      <Filter>networking\networking_menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\TabMenu\ReturnToMainMenuButton.cpp">
+      <Filter>UI\TabMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\TabMenu\TabMenu.cpp">
+      <Filter>UI\TabMenu</Filter>
     </ClCompile>
     <ClCompile Include="..\puppy\Models\MTLParser.cpp">
       <Filter>puppy\Models</Filter>
@@ -1085,6 +1124,9 @@
     <ClInclude Include="..\kibble\UnitGameObject\UnitType.h">
       <Filter>kibble\UnitGameObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\components\ChangeSceneOnClick.hpp">
+      <Filter>components</Filter>
+    </ClInclude>
     <ClInclude Include="..\puppy\TextureBlendMaterial.h">
       <Filter>puppy</Filter>
     </ClInclude>
@@ -1173,8 +1215,41 @@
       <Filter>components\debug</Filter>
     </ClInclude>
     <ClInclude Include="UniversalPfx.h">
-      <Filter>components\standard effects</Filter>
+      <Filter>components\sound\standard effects</Filter>
     </ClInclude>
+    <ClInclude Include="ClickableBoxRenderable.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DecksDisplayFrame.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.h">
+      <Filter>components\decksdisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.h">
+      <Filter>components\decksdisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\scene change\StartGameOnClick.h">
+      <Filter>components\scene changers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DeckInitializingComponent.h">
+      <Filter>components\survivors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\testing\gameplay-init.h">
+      <Filter>components\testing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\menu\NetworkHostButton.h">
+      <Filter>networking\networking_menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\menu\NetworkJoinButton.h">
+      <Filter>networking\networking_menu</Filter>      
+    </ClInclude>
+    <ClInclude Include="..\UI\TabMenu\ReturnToMainMenuButton.h">
+      <Filter>UI\TabMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\TabMenu\TabMenu.h">
+      <Filter>UI\TabMenu</Filter>
+	  </ClInclude>
     <ClInclude Include="..\puppy\Models\MTLParser.h">
       <Filter>puppy\Models</Filter>
     </ClInclude>
@@ -1537,9 +1612,27 @@
     <Filter Include="custom_expresssions">
       <UniqueIdentifier>{dce41785-df33-4efa-b1f2-dbea8b71589b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="components\standard effects">
+    <Filter Include="components\decksdisplay">
+      <UniqueIdentifier>{cc3644fd-64c1-472c-9553-f5208238bec6}</UniqueIdentifier>
+    </Filter>
+	  <Filter Include="UI\TabMenu">
+      <UniqueIdentifier>{f65abade-0ab9-4b14-b9fa-06c669a75895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\scene changers">
+      <UniqueIdentifier>{39f54870-107c-4390-9169-e4df493df3e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\survivors">
+      <UniqueIdentifier>{b9405a1a-95c9-4f9e-b1f8-e231662308ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\sound\standard effects">
       <UniqueIdentifier>{8c3ab6ac-dae3-451f-9e21-7944dc100695}</UniqueIdentifier>
     </Filter>
+    <Filter Include="components\testing">
+      <UniqueIdentifier>{c232c111-d3ae-4c6c-b644-493f749d1069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="networking\networking_menu">
+      <UniqueIdentifier>{55bfff24-e6ce-423f-9f59-d806c680e062}</UniqueIdentifier>
+    </Filter>    
     <Filter Include="puppy\Models">
       <UniqueIdentifier>{7a2a3dcb-6a86-4d49-b44e-67c8706ecbaf}</UniqueIdentifier>
     </Filter>

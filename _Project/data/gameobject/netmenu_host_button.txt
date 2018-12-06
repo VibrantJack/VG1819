@@ -1,0 +1,15 @@
+{
+    "name" : "Networking Menu Host Button",
+    "components" : [
+		{
+			"name" : "UIFrame",
+			"texture" : "textures/ui/host_button.tga"
+		},
+		{
+			"name" : "ClickableFrame"
+		},
+		{
+			"name" : "NetworkHostButton"
+		}
+    ]
+}

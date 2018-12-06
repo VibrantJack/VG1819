@@ -1,5 +1,5 @@
 #include "networking\NetworkingConsoleMenu.h"
-#include "kitten\InputManager.h"
+#include "kitten\K_Instance.h"
 
 #include <iostream>
 #include <process.h>
@@ -12,8 +12,10 @@
 
 NetworkingConsoleMenu::NetworkingConsoleMenu()
 	:
+	m_inputMan(nullptr),
 	m_bMenuOpen(false),
 	m_bPrintText(false),
+	m_bEnteringAddress(false),
 	m_bClientUpdate(false),
 	m_bServerUpdate(false)
 {
@@ -30,20 +32,42 @@ NetworkingConsoleMenu::NetworkingConsoleMenu()
 
 NetworkingConsoleMenu::~NetworkingConsoleMenu()
 {
-	if (networking::ClientGame::getInstance())
-	{
-		networking::ClientGame::destroyInstance();
-	}
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Return_to_Main_Menu, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Join_Button_Clicked, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Host_Button_Clicked, this);
+}
 
-	if (networking::ServerGame::getInstance())
-	{
-		networking::ServerGame::destroyInstance();
-	}
+void NetworkingConsoleMenu::start()
+{
+	m_textBox = m_attachedObject->getComponent<puppy::TextBox>();
+	assert(m_textBox != nullptr);
+
+	m_stringInputDisplay = m_attachedObject->getComponent<StringInputDisplay>();
+	assert(m_stringInputDisplay != nullptr);
+
+	m_inputMan = input::InputManager::getInstance();
+	assert(m_inputMan != nullptr);
+
+	// Add Listeners for exiting to Main Menu and disconnecting from network
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Return_to_Main_Menu,
+		this,
+		std::bind(&NetworkingConsoleMenu::stopHostingListener, this, std::placeholders::_1, std::placeholders::_2));
+		
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Join_Button_Clicked,
+		this,
+		std::bind(&NetworkingConsoleMenu::joinButtonClickedListener, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Host_Button_Clicked,
+		this,
+		std::bind(&NetworkingConsoleMenu::hostButtonClickedListener, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void NetworkingConsoleMenu::update()
 {
-	if (input::InputManager::getInstance()->keyDown(m_cEnterMenuKey) && !input::InputManager::getInstance()->keyDownLast(m_cEnterMenuKey))
+	if (m_inputMan->keyDown(m_cEnterMenuKey) && !m_inputMan->keyDownLast(m_cEnterMenuKey))
 	{
 		m_bMenuOpen = true;
 		m_bPrintText = true;
@@ -64,7 +88,7 @@ void NetworkingConsoleMenu::update()
 		}
 
 		// Host game option
-		if (input::InputManager::getInstance()->keyDown(m_cHostKey) && !input::InputManager::getInstance()->keyDownLast(m_cHostKey))
+		if (m_inputMan->keyDown(m_cHostKey) && !m_inputMan->keyDownLast(m_cHostKey))
 		{
 			printf("Host Game option selected\n");
 			
@@ -73,7 +97,7 @@ void NetworkingConsoleMenu::update()
 		}
 
 		// Stop hosting option
-		if (input::InputManager::getInstance()->keyDown(m_cStopHostKey) && !input::InputManager::getInstance()->keyDownLast(m_cStopHostKey))
+		if (m_inputMan->keyDown(m_cStopHostKey) && !m_inputMan->keyDownLast(m_cStopHostKey))
 		{
 			printf("Stop hosting option selected\n");
 
@@ -82,16 +106,24 @@ void NetworkingConsoleMenu::update()
 		}
 
 		// Connect to host option
-		if (input::InputManager::getInstance()->keyDown(m_cConnectKey) && !input::InputManager::getInstance()->keyDownLast(m_cConnectKey))
+		if (m_inputMan->keyDown(m_cConnectKey) && !m_inputMan->keyDownLast(m_cConnectKey))
 		{
-			printf("Connect to host option selected\n");
-			
-			connectToHost();
-			m_bMenuOpen = false;
+			if (networking::ClientGame::isNetworkValid())
+			{
+				printf("[Client: %d]: already connected to host\n", networking::ClientGame::getInstance()->getClientId());
+			}
+			else
+			{
+				printf("Connect to host option selected, enter an address: \n");
+				m_textBox->setText("Enter IP Address");
+				m_inputMan->setPollMode(false);
+				m_bEnteringAddress = true;
+				m_bMenuOpen = false;
+			}
 		}
 
 		// Disconnect from host option
-		if (input::InputManager::getInstance()->keyDown(m_cDisconnectKey) && !input::InputManager::getInstance()->keyDownLast(m_cDisconnectKey))
+		if (m_inputMan->keyDown(m_cDisconnectKey) && !m_inputMan->keyDownLast(m_cDisconnectKey))
 		{
 			printf("Disconnect from host option selected\n");
 			
@@ -100,10 +132,26 @@ void NetworkingConsoleMenu::update()
 		}
 
 		// Exit menu option
-		if (input::InputManager::getInstance()->keyDown(m_cExitMenuKey) && !input::InputManager::getInstance()->keyDownLast(m_cExitMenuKey))
+		if (m_inputMan->keyDown(m_cExitMenuKey) && !m_inputMan->keyDownLast(m_cExitMenuKey))
 		{
 			printf("** Networking Console Menu Closed **\n");
 			m_bMenuOpen = false;
+		}
+	}
+
+	if (m_inputMan->keyDown(GLFW_KEY_ENTER) && !m_inputMan->keyDownLast(GLFW_KEY_ENTER) && m_bEnteringAddress)
+	{
+		std::string address = m_stringInputDisplay->getString();
+		printf("Entered address: %s\n", address.c_str());
+		connectToHost(address);
+		if (checkClientNetwork())
+		{
+			m_bEnteringAddress = false;
+			m_textBox->setText("Joined host");
+			kitten::K_Instance::changeScene("mainscene.json");
+		} else
+		{
+			m_textBox->setText("Network Error");
 		}
 	}
 
@@ -117,6 +165,24 @@ void NetworkingConsoleMenu::update()
 	{
 		networking::ServerGame::getInstance()->update();
 	}
+}
+
+void NetworkingConsoleMenu::stopHostingListener(kitten::Event::EventType p_type, kitten::Event* p_data)
+{
+	// ClientId 0 is the host, 1 is the connecting player
+	networking::ClientGame* client = networking::ClientGame::getInstance();
+	if (client != nullptr)
+	{
+		switch (client->getClientId())
+		{
+			case 0:
+				stopHosting();
+				break;
+			case 1:
+				disconnectFromHost();
+		}
+	}
+	kitten::K_Instance::changeScene("mainmenu.json");
 }
 
 void NetworkingConsoleMenu::hostGame()
@@ -164,7 +230,7 @@ void NetworkingConsoleMenu::stopHosting()
 	}
 }
 
-void NetworkingConsoleMenu::connectToHost()
+void NetworkingConsoleMenu::connectToHost(const std::string& p_strAddress)
 {
 	networking::ClientGame* client = networking::ClientGame::getInstance();
 
@@ -174,21 +240,12 @@ void NetworkingConsoleMenu::connectToHost()
 		// Check if we're already connected to a host
 		if (!networking::ClientGame::isNetworkValid())
 		{
-			printf("Enter an address: ");
-			std::string addr;
-			std::cin >> addr;
-			client->setupNetwork(addr);
-		} else
-		{
-			printf("[Client: %d]: already connected to host\n", client->getClientId());
-		}
-	} else // If not, get address and create ClientGame instance
+			client->setupNetwork(p_strAddress);
+		} 
+	} 
+	else // If not, get address and create ClientGame instance
 	{
-		printf("Enter an address: ");
-		std::string addr;
-		std::cin >> addr;
-
-		networking::ClientGame::createInstance(addr);
+		networking::ClientGame::createInstance(p_strAddress);
 		checkClientNetwork();
 	}
 }
@@ -226,7 +283,6 @@ bool NetworkingConsoleMenu::checkClientNetwork()
 	{
 		if (networking::ClientGame::isNetworkValid())
 		{
-			//printf("Client network setup; connected to server\n");
 			return true;
 		} else
 		{
@@ -253,6 +309,26 @@ bool NetworkingConsoleMenu::checkServerNetwork()
 		}
 	}
 	return false;
+}
+
+void NetworkingConsoleMenu::joinButtonClickedListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+{
+	m_inputMan->setPollMode(false);
+	m_bEnteringAddress = true;
+}
+
+void NetworkingConsoleMenu::hostButtonClickedListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+{
+	hostGame();
+	if (checkClientNetwork() && checkServerNetwork())
+	{
+		// Successful network setup, setup main scene
+		kitten::K_Instance::changeScene("mainscene.json");
+	}
+	else
+	{
+		m_textBox->setText("Network Error");
+	}
 }
 
 void NetworkingConsoleMenu::setMenuKeys(

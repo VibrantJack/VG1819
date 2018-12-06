@@ -4,15 +4,9 @@ namespace puppy
 {
 	void DirectionSpawnAff::apply(std::list<Particle*>& p_toApply)
 	{
-		if (m_useOffset)
+		switch (m_mode)
 		{
-			for (Particle* p : p_toApply)
-			{
-				p->m_direction = glm::normalize(p->m_offset);
-			}
-		}
-		else
-		{
+		case random:
 			//Random direction
 			for (Particle* p : p_toApply)
 			{
@@ -20,6 +14,25 @@ namespace puppy
 				dir = glm::normalize(dir);
 				p->m_direction = dir;
 			}
+
+			break;
+		case offset:
+
+			for (Particle* p : p_toApply)
+			{
+				p->m_direction = glm::normalize(p->m_offset);
+			}
+
+			break;
+
+		case up:
+
+			for (Particle* p : p_toApply)
+			{
+				p->m_direction = glm::vec3(0, 1, 0);
+			}
+
+			break;
 		}
 	}
 }

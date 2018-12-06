@@ -16,7 +16,7 @@ void unit::UnitMove::triggerNewTileEvent()
 	u->triggerTP(ability::TimePointEvent::New_Tile, t);
 }
 
-unit::UnitMove::UnitMove(float p_speed, glm::vec3 p_offset) : m_speed(p_speed),m_offset(p_offset)
+unit::UnitMove::UnitMove(glm::vec3 p_offset, float p_speed) : m_speed(p_speed),m_offset(p_offset)
 {
 	m_currentTile = nullptr;
 	m_ad = nullptr;
@@ -187,7 +187,14 @@ void unit::UnitMove::update()
 {
 	if (set)
 	{
-		setTile(BoardManager::getInstance()->getTile(m_tileX,m_tileZ));
+		if (m_tileX >= 0 && m_tileZ >= 0)
+		{
+			setTile(BoardManager::getInstance()->getTile(m_tileX, m_tileZ));
+		}
+		else
+		{
+			setTile(BoardManager::getInstance()->getSpawnPoint());
+		}
 		set = false;
 	}
 

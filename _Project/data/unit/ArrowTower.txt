@@ -25,19 +25,29 @@
 	"components" : [
 		{
 			"name" : "UnitGraphic",
-			"texture":"textures/unit/Default.tga",
+			"texture":"textures/unit/ArrowTower.tga",
 			"unitsize": "point"
 		},
 		{
 			"name" : "UnitMove",
-			"offset":[0.15,1.0,0.8]
+			"offset":[0.07,1.0,0.2]
 		},
 		{
 			"name" : "ClickableBox",
-			"minpoint":[-0.5,-0.5,0],
-			"maxpoint":[0.5,0.5,0]
+			"minpoint":[-0.02,-0.5,0],
+			"maxpoint":[0.02,0.5,0]
+		},
+		{
+			"name" : "SpriteRenderable"
+		},
+		{
+			"name" : "SpriteAnimator",
+			"spritename" : "arrow_tower"
+		},
+		{
+			"name" : "ClickableBoxRenderable"
 		}
 	],
-	"scale" : [0.15,0.20,0],
+	"scale" : [12,1.5,0],
 	"rotate" : [45, 0, 0]
 }

@@ -1,0 +1,11 @@
+{
+    "name" : "Game Result Screen",
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/victory.tga"
+        }
+    ],
+    "scale2d" : [780.0,247.0],
+	"translate2d" : [250.0,260.0]
+}

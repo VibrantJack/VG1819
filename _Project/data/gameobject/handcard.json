@@ -1,0 +1,15 @@
+{
+    "name" : "hand card",
+    "components" : [
+        {
+            "name" : "CardUIO",
+            "texture" : "textures/ui/cardBack.tga"
+        },
+        {
+            "name" : "ClickableFrame"
+        },
+        {
+            "name" : "ClickableUI"
+        }
+    ]
+}

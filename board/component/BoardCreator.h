@@ -12,6 +12,7 @@ class BoardCreator : public kitten::K_Component
 private:
 	int m_x;
 	int m_z;
+	kitten::Event::TileList m_spawnPointList;
 public:
 	BoardCreator();
 	~BoardCreator();

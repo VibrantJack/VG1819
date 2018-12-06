@@ -1,0 +1,9 @@
+{
+    "name": "new game init",
+    "components" : [
+        {
+            "name" : "DeckInitializingComponent"
+        }
+    ]
+
+}

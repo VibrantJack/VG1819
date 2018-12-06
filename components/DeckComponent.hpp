@@ -6,7 +6,7 @@
 
 class DeckComponent : public kitten::K_Component
 {
-	DeckData* m_deckSource;
+	const DeckData* m_deckSource;
 	std::vector<int> m_cardPool;
 	int m_playerID;
 
@@ -18,7 +18,7 @@ class DeckComponent : public kitten::K_Component
 	void onDisabled();
 	void onEnabled();
 public:
-	DeckComponent(DeckData*, int);
+	DeckComponent(){}
 	~DeckComponent();
 
 	void start() override;

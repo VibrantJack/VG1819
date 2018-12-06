@@ -1,0 +1,23 @@
+{
+	"name" : "factory",
+	"texture" : "textures/sprites/units/humans/factory_sheet.tga",
+	
+	"sheetwidth" : 762,
+	"sheetheight" : 279,
+	
+	"characterwidth" : 381,
+	"characterheight" : 279,
+	
+	"padding" : 0,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [1,0],
+			"time" : 10
+		}	
+	],
+	
+	"defaultanimation" : "idle"
+}

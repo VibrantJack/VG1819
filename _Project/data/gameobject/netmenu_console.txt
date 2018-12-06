@@ -1,0 +1,20 @@
+{
+    "name" : "Networking Console Menu",
+    "components" : [
+        {
+            "name" : "TextBox",
+            "width" : 300 , 
+            "height" : 100 ,
+            "color" : [1,1,1]
+        },
+		{
+			"name" : "NetworkingConsoleMenu"
+		},
+		{
+			"name" : "StringInputDisplay"
+		},
+		{
+			"name" : "SpawnUnitOnKeyPress"
+		}
+    ]
+}

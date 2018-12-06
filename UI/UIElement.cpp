@@ -10,7 +10,7 @@ namespace userinterface
 	UIElement::UIElement(const char* p_pathToTex)
 	{
 		m_tex = new puppy::Texture(p_pathToTex);
-		m_mat = new puppy::Material(puppy::ShaderType::basic);
+		m_mat = new puppy::Material(puppy::ShaderType::alphaTest);
 		if (p_pathToTex != nullptr)
 		{
 			m_mat->setTexture(p_pathToTex);
@@ -29,7 +29,7 @@ namespace userinterface
 	UIElement::UIElement(const char* p_pathToTex, pivotType p_pivot, textureBehaviour p_texBehaviour)
 	{
 		m_tex = new puppy::Texture(p_pathToTex);
-		m_mat = new puppy::Material(puppy::ShaderType::basic);
+		m_mat = new puppy::Material(puppy::ShaderType::alphaTest);
 		if (p_pathToTex != nullptr)
 		{
 			m_mat->setTexture(p_pathToTex);
@@ -51,7 +51,7 @@ namespace userinterface
 			delete sm_vao;
 		}
 
-		if (!m_isEnabled)
+		if (m_isEnabled)
 		{
 			removeFromDynamicRender();
 		}
@@ -178,7 +178,7 @@ namespace userinterface
 
 		if (sm_vao == nullptr)
 		{
-			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);
+			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
 		}
 
 		++sm_instances;

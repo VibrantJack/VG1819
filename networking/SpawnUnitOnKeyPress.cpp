@@ -13,57 +13,82 @@
 
 // Unit stuff
 #include "unit/unitComponent/UnitMove.h"
-#include "unit\UnitMonitor.h"
-#include "unit\UnitSpawn.h"
+#include "unit/UnitTest.h"
 
 #include "unit\InitiativeTracker\InitiativeTracker.h"
 
-// Networking stuff
-#include "networking\ClientGame.h"
+// Networking stuf
 #include "networking\NetworkData.h"
 
 SpawnUnitOnKeyPress::SpawnUnitOnKeyPress()
 	:
-	m_iUnitId(0)
+	m_bUnitsSpawned(false)
 {
 	unit::UnitSpawn::getInstanceSafe();
 }
 
 SpawnUnitOnKeyPress::~SpawnUnitOnKeyPress()
 {
+	//unit::InitiativeTracker::destroyInstance();
+}
 
+void SpawnUnitOnKeyPress::start()
+{
+	
 }
 
 void SpawnUnitOnKeyPress::update()
 {
-	if (input::InputManager::getInstance()->keyDown('S') && !input::InputManager::getInstance()->keyDownLast('S'))
-	{
-		int posX = 4;
-		int posY = 4;
-		
-		if (networking::ClientGame::getInstance())
+	if (networking::ClientGame::isNetworkValid())
+	{		
+		if (input::InputManager::getInstance()->keyDown('S') && !input::InputManager::getInstance()->keyDownLast('S') && !m_bUnitsSpawned)
 		{
-			networking::ClientGame::getInstance()->summonUnit(networking::ClientGame::getInstance()->getClientId(), m_iUnitId, posX, posY);
-			networking::ClientGame::getInstance()->sendSummonUnitPacket(networking::ClientGame::getInstance()->getClientId(), m_iUnitId, posX, posY);
+			networking::ClientGame* client = networking::ClientGame::getInstance();
+			int clientId = client->getClientId();
+			if (clientId == 0)
+			{
+				int posX = 7;
+				int posY = 4;
+				int unitId = 1;
+
+				for (int i = 0; i < 5; ++i)
+				{
+					client->summonUnit(clientId, unitId, posX, posY);
+					client->sendSummonUnitPacket(clientId, unitId, posX, posY);
+					posX++;
+					unitId++;
+					if (unitId == 5)
+						unitId++;
+				}
+				m_bUnitsSpawned = true;
+			} 
+			else if (clientId == 1)
+			{
+				int posX = 7;
+				int posY = 6;
+				int unitId = 1;
+
+				for (int i = 0; i < 5; ++i)
+				{
+					client->summonUnit(clientId, unitId, posX, posY);
+					client->sendSummonUnitPacket(clientId, unitId, posX, posY);
+					posX++;
+					unitId++;
+					if (unitId == 5)
+						unitId++;
+				}
+				m_bUnitsSpawned = true;		
+			}
 		}
-		else
+
+		if (input::InputManager::getInstance()->keyDown('G') && !input::InputManager::getInstance()->keyDownLast('G') && m_bUnitsSpawned)
 		{
-			kitten::K_GameObject* testDummyGO = unit::UnitSpawn::getInstance()->spawnUnitObject(m_iUnitId);
-			unit::Unit* testDummy = testDummyGO->getComponent<unit::Unit>();
-			unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
-
-			//initialize position
-			testDummyGO->getComponent<unit::UnitMove>()->setTile(posX, posY);
-
-			kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
-			testDummyGO->addComponent(compMan->createComponent("UseAbilityWhenClicked"));
-			testDummyGO->addComponent(compMan->createComponent("SelectAbility"));
+			networking::ClientGame* client = networking::ClientGame::getInstance();
+			if (!client->isGameTurnStarted())
+			{
+				unit::InitiativeTracker::getInstance()->gameTurnStart();
+				client->sendBasicPacket(GAME_TURN_START);
+			}
 		}
-		m_iUnitId = (m_iUnitId + 1) % 4;
-	}
-
-	if (input::InputManager::getInstance()->keyDown('G') && !input::InputManager::getInstance()->keyDownLast('G'))
-	{
-		unit::InitiativeTracker::getInstance()->gameTurnStart();
 	}
 }
