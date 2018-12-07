@@ -17,7 +17,7 @@ namespace ability
 	{
 		TileInfo* tileInfo = p_info->m_targetTilesGO[0]->getComponent<TileInfo>();
 
-		tileInfo->setOwnerId(p_info->m_source->m_ID);
+		tileInfo->setOwnerId(p_info->m_source->m_clientId);
 
 		//kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
 

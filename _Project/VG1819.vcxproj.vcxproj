@@ -104,12 +104,14 @@
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
     <ClCompile Include="..\ability\ability\GoldRush.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
+    <ClCompile Include="..\ability\ability\Homeland.cpp" />
     <ClCompile Include="..\ability\ability\Invest.cpp" />
     <ClCompile Include="..\ability\ability\Join.cpp" />
     <ClCompile Include="..\ability\ability\Load.cpp" />
     <ClCompile Include="..\ability\ability\ManipulateTile.cpp" />
     <ClCompile Include="..\ability\ability\Move.cpp" />
     <ClCompile Include="..\ability\ability\PowerOfMoney.cpp" />
+    <ClCompile Include="..\ability\ability\Rally.cpp" />
     <ClCompile Include="..\ability\ability\Sabotage.cpp" />
     <ClCompile Include="..\ability\ability\SummonUnit.cpp" />
     <ClCompile Include="..\ability\node\AbilityNode.cpp" />
@@ -152,6 +154,7 @@
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
     <ClCompile Include="..\board\tile\landInfo\ForestLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\GardenLand.cpp" />
+    <ClCompile Include="..\board\tile\landInfo\HomeLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\LandInfoManager.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SandLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
@@ -328,6 +331,7 @@
     <ClInclude Include="..\ability\StatusManager.h" />
     <ClInclude Include="..\ability\status\Status.h" />
     <ClInclude Include="..\ability\status\statusEvent\TimePointEvent.h" />
+    <ClInclude Include="..\ability\status\Status_Block.cpp" />
     <ClInclude Include="..\board\component\area\Area.h" />
     <ClInclude Include="..\board\component\area\AreaPattern.h" />
     <ClInclude Include="..\board\component\PathFind.h" />

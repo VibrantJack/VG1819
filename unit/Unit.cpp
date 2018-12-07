@@ -77,6 +77,7 @@ namespace unit
 		case ability::TimePointEvent::Turn_Start:
 		case ability::TimePointEvent::Turn_End:
 		case ability::TimePointEvent::New_Tile:
+		case ability::TimePointEvent::Leave_Tile:
 			if(tileGO != nullptr)
 				tileGO->getComponent<TileInfo>()->effect(p_tp, this);
 			break;

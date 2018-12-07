@@ -12,8 +12,18 @@ void unit::UnitMove::triggerNewTileEvent()
 	Unit* u = m_attachedObject->getComponent<Unit>();
 
 	ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::New_Tile);
-	t->putGameObject("tile", m_currentTile);
-	u->triggerTP(ability::TimePointEvent::New_Tile, t);
+	//t->putGameObject("tile", m_currentTile);
+	u->triggerTP(ability::TimePointEvent::New_Tile);
+}
+
+void unit::UnitMove::triggerLeaveTileEvent()
+{
+	//trigger new tile event
+	Unit* u = m_attachedObject->getComponent<Unit>();
+
+	ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Leave_Tile);
+	//t->putGameObject("tile", m_currentTile);
+	u->triggerTP(ability::TimePointEvent::Leave_Tile);
 }
 
 unit::UnitMove::UnitMove(glm::vec3 p_offset, float p_speed) : m_speed(p_speed),m_offset(p_offset)
@@ -121,6 +131,9 @@ void unit::UnitMove::move(kitten::K_GameObject * p_targetTile)
 	m_currentTile->getComponent<TileInfo>()->removeUnit();
 
 	m_lastTile = m_currentTile;//set current to last
+
+	triggerLeaveTileEvent();
+
 	m_currentTile = p_targetTile;//set target to current
 
 	//set distance

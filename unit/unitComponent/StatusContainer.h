@@ -24,7 +24,7 @@ namespace unit
 		void addStatus(ability::Status *p_newStatus);
 		void queueRemove(ability::Status *p_oldStatus);
 		bool removeStatus(const ability::Status *p_oldStatus);
-		ability::Status* getStatus(const std::string& p_name);
+		ability::Status* getStatus(const std::string& p_name, const std::string& p_source);
 
 		void registerTP(ability::TimePointEvent::TPEventType p_type, ability::Status* p_status);
 		void deregisterTP(ability::TimePointEvent::TPEventType p_type, ability::Status* p_status);

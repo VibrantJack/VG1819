@@ -234,6 +234,20 @@ namespace ability
 		std::string m_name = ABILITY_GOLD_RUSH;
 		int effect(AbilityInfoPackage* p_info);
 	};
+
+	class Rally : public Ability
+	{
+	public:
+		std::string m_name = ABILITY_RALLY;
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Homeland : public Ability
+	{
+	public:
+		std::string m_name = ABILITY_HOMELAND;
+		int effect(AbilityInfoPackage* p_info);
+	};
 }
 
 

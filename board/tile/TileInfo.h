@@ -28,6 +28,7 @@ public:
 	//land info
 	void setType(LandInformation::TileType p_type = LandInformation::Grass_land);
 	void start();
+	void setLand();
 
 	int getMVCost();
 	const std::string getDescription();
@@ -55,8 +56,8 @@ public:
 	kitten::K_GameObject* getUnit();
 
 	// TODO: Change according to finalized unit id structure
-	const std::string& getOwnerId();
-	void setOwnerId(const std::string& p_sId);
+	const int getOwnerId();
+	void setOwnerId(const int p_sId);
 
 	const std::string& getHighlightedBy();
 	void setHighlightedBy(const std::string& p_sId);
@@ -64,7 +65,7 @@ public:
 private:
 	std::unordered_map<HighlightType,bool> m_highlightType;
 	int m_iPosX, m_iPosY;
-	std::string m_sOwnerId;
+	int m_sOwnerId;
 	std::string m_sHighlightedBy;
 	std::string m_lasttexpath;
 

@@ -661,6 +661,15 @@
     <ClCompile Include="..\UI\ContextMenu.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\ability\Rally.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Homeland.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\landInfo\HomeLand.cpp">
+      <Filter>board\tile\landInfo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1246,6 +1255,9 @@
     </ClInclude>
     <ClInclude Include="..\UI\ContextMenu.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ability\status\Status_Block.cpp">
+      <Filter>ability\status</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

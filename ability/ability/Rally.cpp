@@ -1,0 +1,26 @@
+#pragma once
+#include "ability/ability/Ability.h"
+
+#include "unit/Unit.h"
+
+//Rock
+
+int ability::Rally::effect(AbilityInfoPackage * p_info)
+{
+	for (unit::Unit* u : p_info->m_targets)
+	{
+		//apply Status_Encourage to target
+		ability::Status* status = ability::StatusManager::getInstance()->findStatus(STATUS_TEMP_CHANGE);
+
+		status->m_source = m_name;
+		status->addAttributeChange(UNIT_IN, -1);
+		status->addCounter(UNIT_DURATION, 2);
+
+		status->attach(u);
+	}
+
+	//delete package
+	done(p_info);
+
+	return 0;
+}
