@@ -746,6 +746,14 @@ kitten::K_Component* getReturnToMainMenuButton(nlohmann::json* p_jsonFile) {
 	return new userinterface::ReturnToMainMenuButton();
 }
 
+#include "kitten\ModelRenderable.h"
+kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
+
+	std::string modelPath = p_jsonFile->operator[]("path");
+
+	return new ModelRenderable(modelPath.c_str());
+}
+
 #include "unit\unitComponent\UnitHealthBar.h"
 kitten::K_Component* getUnitHealthBar(nlohmann::json* p_jsonFile) {
 
@@ -817,7 +825,8 @@ void setupComponentMap() {
 	jsonComponentMap["TabMenu"] = &getTabMenu;
 	jsonComponentMap["UIObject"] = &getUIObject;
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
-
+	jsonComponentMap["ModelRenderable"] = &getModelRenderable;
+	jsonComponentMap["UnitHealthBar"] = &getUnitHealthBar;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {
