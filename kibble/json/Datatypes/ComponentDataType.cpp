@@ -746,6 +746,14 @@ kitten::K_Component* getReturnToMainMenuButton(nlohmann::json* p_jsonFile) {
 	return new userinterface::ReturnToMainMenuButton();
 }
 
+#include "unit\unitComponent\UnitHealthBar.h"
+kitten::K_Component* getUnitHealthBar(nlohmann::json* p_jsonFile) {
+
+	glm::vec2 offset = glm::vec2(LOOKUP("offset")[0], LOOKUP("offset")[1]);
+
+	return new unit::UnitHealthBar(offset);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
