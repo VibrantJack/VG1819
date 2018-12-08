@@ -1265,7 +1265,6 @@
     <ClInclude Include="..\UI\ContextMenu.h">
       <Filter>UI</Filter>
     </ClInclude>
-    </ClInclude>
     <ClInclude Include="..\puppy\Models\MTLParser.h">
       <Filter>puppy\Models</Filter>
     </ClInclude>
@@ -1654,7 +1653,6 @@
     </Filter>
     <Filter Include="networking\networking_menu">
       <UniqueIdentifier>{55bfff24-e6ce-423f-9f59-d806c680e062}</UniqueIdentifier>
-    </Filter>
     </Filter>
     <Filter Include="puppy\Models">
       <UniqueIdentifier>{7a2a3dcb-6a86-4d49-b44e-67c8706ecbaf}</UniqueIdentifier>
