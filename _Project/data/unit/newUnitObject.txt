@@ -1,7 +1,7 @@
 {
 	"unit":{
 		"name":"NewDummy",
-		"hp":1,
+		"hp":20,
 		"mv":8,
 		"in":40,
 		"cost":4,
@@ -55,8 +55,12 @@
 		{
 			"name" : "SpriteAnimator",
 			"spritename" : "wizard"
+		},
+		{
+			"name" : "UnitHealthBar",
+			"offset" : [0.0,1.0]
 		}
 	],
-	"scale" : [2.0, 2.0, 0.0],
+	"scale" : [2.0, 2.0, 1.0],
 	"rotate" : [45, 0, 0]
 }

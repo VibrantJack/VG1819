@@ -33,15 +33,15 @@ namespace unit
 
 			puppy::TexturedVertex foreVerts[] =
 			{
-				{ 0.0f, -0.5f, 0.01f,		0.0f, 0.0f },
-				{ 0.0f,  0.5f, 0.01f,		0.0f, 1.0f },
-				{ 1.0f,  0.5f, 0.01f,		1.0f, 1.0f },
-				{ 1.0f,  0.5f, 0.01f,		1.0f, 1.0f },
-				{ 1.0f, -0.5f, 0.01f,		1.0f, 0.0f },
-				{ 0.0f, -0.5f, 0.01f,		0.0f, 0.0f }
+				{ 0.0f, -0.5f, -0.01f,		0.0f, 0.0f },
+				{ 0.0f,  0.5f, -0.01f,		0.0f, 1.0f },
+				{ 1.0f,  0.5f, -0.01f,		1.0f, 1.0f },
+				{ 1.0f,  0.5f, -0.01f,		1.0f, 1.0f },
+				{ 1.0f, -0.5f, -0.01f,		1.0f, 0.0f },
+				{ 0.0f, -0.5f, -0.01f,		0.0f, 0.0f }
 			};
 
-			m_backVao = new puppy::VertexEnvironment(foreVerts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);
+			m_foreVao = new puppy::VertexEnvironment(foreVerts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);
 		}
 
 		++instances;
