@@ -11,6 +11,9 @@
 #define HEALTH_MAT_TEXTURE_PATH "textures/ui/emerald.png"
 #define DAMAGE_MAT_TEXTURE_PATH "textures/ui/red_quilt.jpg"
 
+#define BAR_X_SCALE 1.0f
+#define BAR_Y_SCALE 0.25f
+
 namespace unit
 {
 	class UnitHealthBar : public kitten::K_Component

@@ -59,8 +59,11 @@ namespace unit
 		background->getTransform().setParent(&getTransform());
 		foreground->getTransform().setParent(&getTransform());
 		
+		background->getTransform().scaleAbsolute(BAR_X_SCALE, BAR_Y_SCALE, 1.0f);
+		foreground->getTransform().scaleAbsolute(BAR_X_SCALE, BAR_Y_SCALE, 1.0f);
 
-		foreground->getTransform().move(0, 0, -0.1f);
+		foreground->getTransform().move(0, 0, -0.01f);
+
 
 		auto compMan = kitten::K_ComponentManager::getInstance();
 
@@ -88,7 +91,7 @@ namespace unit
 		{
 			//scale foreground
 			const glm::vec3& currentScale = getTransform().getScale();
-			m_foregroundLerpController->scaleLerp(glm::vec3(percentFull,1.0f,currentScale.z), abs(m_oldHealthPercent - percentFull) * m_lerpTimeScalar);
+			m_foregroundLerpController->scaleLerp(glm::vec3(BAR_X_SCALE*percentFull,BAR_Y_SCALE,currentScale.z), abs(m_oldHealthPercent - percentFull) * m_lerpTimeScalar);
 			m_oldHealthPercent = percentFull;
 		}
 	}
