@@ -762,6 +762,13 @@ kitten::K_Component* getUnitHealthBar(nlohmann::json* p_jsonFile) {
 	return new unit::UnitHealthBar(offset);
 }
 
+#include "_Project\LerpController.h"
+kitten::K_Component* getLerpController(nlohmann::json* p_jsonFile) {
+
+	return new LerpController();
+}
+
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -827,6 +834,8 @@ void setupComponentMap() {
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
 	jsonComponentMap["ModelRenderable"] = &getModelRenderable;
 	jsonComponentMap["UnitHealthBar"] = &getUnitHealthBar;
+	jsonComponentMap["LerpController"] = &getLerpController;
+
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

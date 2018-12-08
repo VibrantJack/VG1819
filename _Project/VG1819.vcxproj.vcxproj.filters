@@ -233,9 +233,6 @@
     <ClCompile Include="..\components\SelectAbility.cpp">
       <Filter>components</Filter>
     </ClCompile>
-    <ClCompile Include="..\components\DeckComponent.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
@@ -487,9 +484,6 @@
     <ClCompile Include="..\kibble\UnitGameObject\UnitType.cpp">
       <Filter>kibble\UnitGameObject</Filter>
     </ClCompile>
-    <ClCompile Include="..\components\ChangeSceneOnClick.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\ability\Join.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
@@ -625,9 +619,6 @@
     <ClCompile Include="ClickableBoxRenderable.cpp">
       <Filter>components\debug</Filter>
     </ClCompile>
-    <ClCompile Include="..\components\DecksDisplayFrame.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.cpp">
       <Filter>components\decksdisplay</Filter>
     </ClCompile>
@@ -678,6 +669,21 @@
     </ClCompile>
     <ClCompile Include="..\unit\unitComponent\UnitHealthBar.cpp">
       <Filter>unit\unitComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\BarRenderable.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\ChangeSceneOnClick.cpp">
+      <Filter>components\scene changers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DeckComponent.cpp">
+      <Filter>components\deck</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DecksDisplayFrame.cpp">
+      <Filter>components\deck</Filter>
+    </ClCompile>
+    <ClCompile Include="LerpController.cpp">
+      <Filter>components\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -892,9 +898,6 @@
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="..\components\SelectAbility.h">
-      <Filter>components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\components\DeckComponent.hpp">
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h">
@@ -1133,9 +1136,6 @@
     <ClInclude Include="..\kibble\UnitGameObject\UnitType.h">
       <Filter>kibble\UnitGameObject</Filter>
     </ClInclude>
-    <ClInclude Include="..\components\ChangeSceneOnClick.hpp">
-      <Filter>components</Filter>
-    </ClInclude>
     <ClInclude Include="..\puppy\TextureBlendMaterial.h">
       <Filter>puppy</Filter>
     </ClInclude>
@@ -1228,9 +1228,6 @@
     </ClInclude>
     <ClInclude Include="ClickableBoxRenderable.h">
       <Filter>components\debug</Filter>
-    </ClInclude>
-    <ClInclude Include="..\components\DecksDisplayFrame.h">
-      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.h">
       <Filter>components\decksdisplay</Filter>
@@ -1499,6 +1496,21 @@
     <ClInclude Include="..\unit\unitComponent\UnitHealthBar.h">
       <Filter>unit\unitComponent</Filter>
     </ClInclude>
+    <ClInclude Include="..\kitten\BarRenderable.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\ChangeSceneOnClick.hpp">
+      <Filter>components\scene changers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DecksDisplayFrame.h">
+      <Filter>components\deck</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DeckComponent.hpp">
+      <Filter>components\deck</Filter>
+    </ClInclude>
+    <ClInclude Include="LerpController.h">
+      <Filter>components\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1662,6 +1674,12 @@
     </Filter>
     <Filter Include="FreeImage">
       <UniqueIdentifier>{e62edd41-bbbc-495b-921a-a9ed5797e001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\util">
+      <UniqueIdentifier>{fc11beef-788e-4c5f-a043-6c9b980b40eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\deck">
+      <UniqueIdentifier>{db703d00-2c93-411b-9af5-7e520ab037b3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

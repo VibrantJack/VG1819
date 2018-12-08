@@ -193,6 +193,7 @@
     <ClCompile Include="..\kitten\audio\AudioListener.cpp" />
     <ClCompile Include="..\kitten\audio\AudioSource.cpp" />
     <ClCompile Include="..\kitten\audio\SoundEffectsApplier.cpp" />
+    <ClCompile Include="..\kitten\BarRenderable.cpp" />
     <ClCompile Include="..\kitten\Camera.cpp" />
     <ClCompile Include="..\kitten\CubeRenderable.cpp" />
     <ClCompile Include="..\kitten\event_system\Event.cpp" />
@@ -310,6 +311,7 @@
     <ClCompile Include="DebugPrintOnce.cpp" />
     <ClCompile Include="DestroyOnClick.cpp" />
     <ClCompile Include="FPSCalc.cpp" />
+    <ClCompile Include="LerpController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
@@ -460,6 +462,7 @@
     <ClInclude Include="..\kitten\audio\AudioListener.h" />
     <ClInclude Include="..\kitten\audio\AudioSource.h" />
     <ClInclude Include="..\kitten\audio\SoundEffectsApplier.h" />
+    <ClInclude Include="..\kitten\BarRenderable.h" />
     <ClInclude Include="..\kitten\Camera.h" />
     <ClInclude Include="..\kitten\CubeRenderable.h" />
     <ClInclude Include="..\kitten\event_system\Event.h" />
@@ -589,6 +592,7 @@
     <ClInclude Include="DebugPrintOnce.h" />
     <ClInclude Include="DestroyOnClick.h" />
     <ClInclude Include="FPSCalc.h" />
+    <ClInclude Include="LerpController.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />
     <ClInclude Include="PlaySoundOnStart.h" />

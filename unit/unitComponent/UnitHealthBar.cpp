@@ -1,15 +1,18 @@
 #include "UnitHealthBar.h"
+
 #include "kitten\K_GameObject.h"
+#include "kitten\K_GameObjectManager.h"
+#include "kitten\K_ComponentManager.h"
+
+#include "kitten\BarRenderable.h"
 
 namespace unit
 {
-	puppy::VertexEnvironment* UnitHealthBar::m_backVao = nullptr;
-	puppy::VertexEnvironment* UnitHealthBar::m_foreVao = nullptr;
 	puppy::Material* UnitHealthBar::m_healthMat = nullptr;
 	puppy::Material* UnitHealthBar::m_damageMat = nullptr;
 	unsigned int UnitHealthBar::instances = 0;
 
-	UnitHealthBar::UnitHealthBar(const glm::vec2& p_offset) : m_attachedUnit(nullptr), m_offset(glm::translate(glm::vec3(p_offset.x, p_offset.y, 0)))
+	UnitHealthBar::UnitHealthBar(const glm::vec2& p_offset, float p_lerpTimeScalar) : m_attachedUnit(nullptr), m_oldHealthPercent(0.0f), m_lerpTimeScalar(p_lerpTimeScalar)
 	{
 		if (instances == 0)
 		{
@@ -18,30 +21,6 @@ namespace unit
 
 			m_damageMat = new puppy::Material(puppy::ShaderType::basic);
 			m_damageMat->setTexture(DAMAGE_MAT_TEXTURE_PATH);
-
-			puppy::TexturedVertex verts[] =
-			{
-				{ 0.0f, -0.5f, 0.0f,		0.0f, 0.0f },
-				{ 0.0f,  0.5f, 0.0f,		0.0f, 1.0f },
-				{ 1.0f,  0.5f, 0.0f,		1.0f, 1.0f },
-				{ 1.0f,  0.5f, 0.0f,		1.0f, 1.0f },
-				{ 1.0f, -0.5f, 0.0f,		1.0f, 0.0f },
-				{ 0.0f, -0.5f, 0.0f,		0.0f, 0.0f }
-			};
-
-			m_backVao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);
-
-			puppy::TexturedVertex foreVerts[] =
-			{
-				{ 0.0f, -0.5f, -0.01f,		0.0f, 0.0f },
-				{ 0.0f,  0.5f, -0.01f,		0.0f, 1.0f },
-				{ 1.0f,  0.5f, -0.01f,		1.0f, 1.0f },
-				{ 1.0f,  0.5f, -0.01f,		1.0f, 1.0f },
-				{ 1.0f, -0.5f, -0.01f,		1.0f, 0.0f },
-				{ 0.0f, -0.5f, -0.01f,		0.0f, 0.0f }
-			};
-
-			m_foreVao = new puppy::VertexEnvironment(foreVerts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);
 		}
 
 		++instances;
@@ -53,12 +32,6 @@ namespace unit
 
 		if (instances == 0)
 		{
-			delete m_backVao;
-			m_backVao = nullptr;
-
-			delete m_foreVao;
-			m_foreVao = nullptr;
-
 			delete m_healthMat;
 			m_healthMat = nullptr;
 
@@ -77,40 +50,44 @@ namespace unit
 		m_attachedUnit = m_attachedObject->getComponent<Unit>();
 		assert(m_attachedUnit != nullptr);
 
-		onEnabled();
+		// Health bar is made up of a background and a foreground
+		kitten::K_GameObject* background = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+		kitten::K_GameObject* foreground = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+
+		background->getTransform().setParent(&getTransform());
+		background->getTransform().setIgnoreParent(false);
+		foreground->getTransform().setParent(&getTransform());
+		foreground->getTransform().setIgnoreParent(false);
+
+		foreground->getTransform().move(0, 0, -0.1f);
+
+		auto compMan = kitten::K_ComponentManager::getInstance();
+
+		kitten::BarRenderable* backgroundBar = static_cast<kitten::BarRenderable*>(compMan->createComponent("BarRenderable"));
+		backgroundBar->setTexture(DAMAGE_MAT_TEXTURE_PATH);
+		background->addComponent(backgroundBar);
+
+		kitten::BarRenderable* foregroundBar = static_cast<kitten::BarRenderable*>(compMan->createComponent("BarRenderable"));
+		foregroundBar->setTexture(HEALTH_MAT_TEXTURE_PATH);
+		foreground->addComponent(foregroundBar);
+
+		m_foregroundLerpController = static_cast<LerpController*>(compMan->createComponent("LerpController"));
+		foreground->addComponent(m_foregroundLerpController);
 	}
 
-	void UnitHealthBar::onEnabled()
-	{
-		addToDynamicRender();
-	}
-
-	void UnitHealthBar::onDisabled()
-	{
-		removeFromDynamicRender();
-	}
-
-	void UnitHealthBar::render(const glm::mat4& p_viewProj)
+	void UnitHealthBar::update()
 	{
 		//@TODO: don't do two map lookups each frame per unit
 		int currentHealth = m_attachedUnit->m_attributes[UNIT_HP];
 		int maxHealth = m_attachedUnit->m_attributes[UNIT_MAX_HP];
 
 		float percentFull = (float)currentHealth / (float)maxHealth;
-		glm::mat4 healthScale = glm::scale(glm::vec3(percentFull, 1, 1));
 
-		//@TODO: split these up into different game objects to minimize multiplication
-
-		//Render background(damage) bar
-		m_damageMat->apply();
-		m_damageMat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_viewProj * m_offset * getTransform().getWorldTransform());
-
-		m_backVao->drawArrays(GL_TRIANGLES);
-
-		//Render foreground(health) bar
-		m_healthMat->apply();
-		m_healthMat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_viewProj * m_offset * (getTransform().getWorldTransform() * healthScale));
-
-		m_foreVao->drawArrays(GL_TRIANGLES);
+		if (percentFull != m_oldHealthPercent)
+		{
+			//scale foreground
+			m_foregroundLerpController->scaleLerp(glm::vec3(percentFull,1,1), percentFull * m_lerpTimeScalar);
+			m_oldHealthPercent = percentFull;
+		}
 	}
 }

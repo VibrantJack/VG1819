@@ -2,7 +2,8 @@
 
 #include "puppy\VertexEnvironment.h"
 #include "puppy\Material.h"
-#include "kitten\Renderable.h"
+#include "kitten\K_Component.h"
+#include "_Project\LerpController.h"
 
 #include "unit\UnitCommon.h"
 #include "unit\Unit.h"
@@ -12,26 +13,26 @@
 
 namespace unit
 {
-	class UnitHealthBar : public kitten::Renderable
+	class UnitHealthBar : public kitten::K_Component
 	{
 	private:
-		static puppy::VertexEnvironment* m_backVao;
-		static puppy::VertexEnvironment* m_foreVao;
 		static puppy::Material* m_healthMat;
 		static puppy::Material* m_damageMat;
 		static unsigned int instances;
 
 		Unit* m_attachedUnit;
-		const glm::mat4 m_offset;
+		float m_oldHealthPercent;
+
+		float m_lerpTimeScalar = 10.0f;
+		LerpController* m_foregroundLerpController;
 
 
 		virtual void start() override;
-		virtual void onDisabled() override;
-		virtual void onEnabled() override;
-	public:
-		UnitHealthBar(const glm::vec2& p_offset);
-		~UnitHealthBar();
 
-		virtual void render(const glm::mat4& p_viewProj) override;
+		virtual bool hasUpdate() const override { return true; };
+		virtual void update() override;
+	public:
+		UnitHealthBar(const glm::vec2& p_offset, float p_lerpTimeScalar = 10.0f);
+		~UnitHealthBar();
 	};
 }
