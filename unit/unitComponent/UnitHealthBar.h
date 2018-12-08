@@ -29,6 +29,7 @@ namespace unit
 		float m_lerpTimeScalar = 4.0f;
 		LerpController* m_foregroundLerpController;
 
+		const glm::vec2 m_offset;
 
 		virtual void start() override;
 
