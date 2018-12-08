@@ -101,6 +101,7 @@ namespace kitten
 		const glm::quat& getRotation() const;
 		const glm::vec3& getScale() const;
 		const glm::vec2& getScale2D() const;
+		const glm::vec3& getLocalScale() const;
 
 		const glm::mat4& getWorldTransform();
 		const glm::mat4& getWorldTransformNoScale();

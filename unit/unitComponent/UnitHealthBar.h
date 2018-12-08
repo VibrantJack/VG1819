@@ -23,7 +23,7 @@ namespace unit
 		Unit* m_attachedUnit;
 		float m_oldHealthPercent;
 
-		float m_lerpTimeScalar = 10.0f;
+		float m_lerpTimeScalar = 4.0f;
 		LerpController* m_foregroundLerpController;
 
 
@@ -32,7 +32,7 @@ namespace unit
 		virtual bool hasUpdate() const override { return true; };
 		virtual void update() override;
 	public:
-		UnitHealthBar(const glm::vec2& p_offset, float p_lerpTimeScalar = 10.0f);
+		UnitHealthBar(const glm::vec2& p_offset, float p_lerpTimeScalar = 4.0f);
 		~UnitHealthBar();
 	};
 }

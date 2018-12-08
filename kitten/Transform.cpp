@@ -290,7 +290,11 @@ namespace kitten
 		{
 			return m_derivedScale;
 		}
-		
+	}
+
+	const glm::vec3& Transform::getLocalScale() const
+	{
+		return m_scale;
 	}
 
 	const glm::vec2& Transform::getScale2D() const

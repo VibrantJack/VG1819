@@ -54,10 +54,11 @@ namespace unit
 		kitten::K_GameObject* background = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 		kitten::K_GameObject* foreground = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 
-		background->getTransform().setParent(&getTransform());
 		background->getTransform().setIgnoreParent(false);
-		foreground->getTransform().setParent(&getTransform());
 		foreground->getTransform().setIgnoreParent(false);
+		background->getTransform().setParent(&getTransform());
+		foreground->getTransform().setParent(&getTransform());
+		
 
 		foreground->getTransform().move(0, 0, -0.1f);
 
@@ -86,7 +87,8 @@ namespace unit
 		if (percentFull != m_oldHealthPercent)
 		{
 			//scale foreground
-			m_foregroundLerpController->scaleLerp(glm::vec3(percentFull,1,1), percentFull * m_lerpTimeScalar);
+			const glm::vec3& currentScale = getTransform().getScale();
+			m_foregroundLerpController->scaleLerp(glm::vec3(percentFull,1.0f,currentScale.z), abs(m_oldHealthPercent - percentFull) * m_lerpTimeScalar);
 			m_oldHealthPercent = percentFull;
 		}
 	}

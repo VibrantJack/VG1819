@@ -52,7 +52,7 @@ void LerpController::scaleLerp(const glm::vec3& p_scale, const float& p_time)
 	m_lerpScale = p_scale;
 	m_scaleLerpTime = p_time;
 	m_scaleTimeElapsed = 0.0f;
-	m_originalScale = getTransform().getScale();
+	m_originalScale = getTransform().getLocalScale();
 }
 
 void LerpController::update()
@@ -61,7 +61,7 @@ void LerpController::update()
 	assert(m_isLerping);
 
 	float deltaTime = m_time->getDeltaTime();
-	auto transform = getTransform();
+	auto& transform = getTransform();
 
 	if (m_isPositionLerping)
 	{
