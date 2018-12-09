@@ -664,11 +664,14 @@
     <ClCompile Include="..\ability\ability\Rally.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\ability\Homeland.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
     <ClCompile Include="..\board\tile\landInfo\HomeLand.cpp">
       <Filter>board\tile\landInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\UnownedTileFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\HereHomeland.cpp">
+      <Filter>ability\ability</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

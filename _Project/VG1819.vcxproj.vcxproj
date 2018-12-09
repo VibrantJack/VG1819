@@ -104,7 +104,7 @@
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
     <ClCompile Include="..\ability\ability\GoldRush.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
-    <ClCompile Include="..\ability\ability\Homeland.cpp" />
+    <ClCompile Include="..\ability\ability\HereHomeland.cpp" />
     <ClCompile Include="..\ability\ability\Invest.cpp" />
     <ClCompile Include="..\ability\ability\Join.cpp" />
     <ClCompile Include="..\ability\ability\Load.cpp" />
@@ -152,6 +152,7 @@
     <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\UnownedTileFilter.cpp" />
     <ClCompile Include="..\board\tile\landInfo\ForestLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\GardenLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\HomeLand.cpp" />

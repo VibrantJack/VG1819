@@ -24,7 +24,7 @@
 #define ABILITY_INVEST "Invest"
 #define ABILITY_GOLD_RUSH "Gold Rush"
 #define ABILITY_RALLY "Rally"
-#define ABILITY_HOMELAND "Homeland"
+#define ABILITY_HOMELAND "Here is Homeland"
 //ability-action
 #define ACTION_MOVE "Move"
 #define ACTION_JOIN "Join"

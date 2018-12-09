@@ -242,7 +242,7 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Homeland : public Ability
+	class HereHomeland : public Ability
 	{
 	public:
 		std::string m_name = ABILITY_HOMELAND;
