@@ -23,6 +23,9 @@ LandInfoManager::LandInfoManager()
 
 	l = new WaterLand();
 	add(l);
+
+	l = new HomeLand();
+	add(l);
 }
 
 LandInfoManager::~LandInfoManager()

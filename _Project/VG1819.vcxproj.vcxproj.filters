@@ -652,6 +652,18 @@
     <ClCompile Include="..\UI\ContextMenu.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\ability\Rally.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\landInfo\HomeLand.cpp">
+      <Filter>board\tile\landInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\UnownedTileFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\HereHomeland.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
     <ClCompile Include="..\puppy\Models\MTLParser.cpp">
       <Filter>puppy\Models</Filter>
     </ClCompile>
@@ -1261,6 +1273,9 @@
     </ClInclude>
     <ClInclude Include="..\UI\ContextMenu.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ability\status\Status_Block.cpp">
+      <Filter>ability\status</Filter>
     </ClInclude>
     <ClInclude Include="..\puppy\Models\MTLParser.h">
       <Filter>puppy\Models</Filter>

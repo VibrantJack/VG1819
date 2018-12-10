@@ -41,7 +41,6 @@ namespace puppy
 		std::tuple<Texture*, int, float> toInsert = std::make_tuple(new Texture(p_pathToTexToAdd, numTextures), numTextures, p_weight);
 		m_additionalTextures.insert(std::make_pair(p_pathToTexToAdd,toInsert));
 
-		
 		m_shader = ShaderManager::getShaderProgram(static_cast<ShaderType>(ShaderType::texture_blend_zero + numTextures));
 	}
 
@@ -63,6 +62,9 @@ namespace puppy
 				auto texTuple = (*it).second;
 				int& slot = std::get<1>(texTuple);
 				slot = i;
+				auto tex = std::get<0>(texTuple);
+				tex->setSlot(i);
+
 				++i;
 			}
 		}
@@ -92,7 +94,7 @@ namespace puppy
 	{
 		bool wasBound = ShaderManager::applyShader(m_shader);
 
-		if (wasBound)
+		if (!wasBound)
 		{
 			//Set texture (sampler) uniforms
 			if (m_shader->getType() > texture_blend_zero)

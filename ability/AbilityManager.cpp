@@ -1,3 +1,4 @@
+#pragma once
 #include "AbilityManager.h"
 
 // Networking
@@ -85,6 +86,12 @@ namespace ability
 
 		newAbility = new GoldRush();
 		m_abilityList[ABILITY_GOLD_RUSH] = newAbility;
+
+		newAbility = new Rally();
+		m_abilityList[ABILITY_RALLY] = newAbility;
+
+		newAbility = new HereHomeland();
+		m_abilityList[ABILITY_HOMELAND] = newAbility;
 	}
 
 	AbilityManager::AbilityManager()

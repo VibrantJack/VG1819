@@ -9,7 +9,7 @@ namespace kitten
 	puppy::VertexEnvironment* QuadRenderable::sm_vao = nullptr;
 	int QuadRenderable::sm_instances = 0;
 
-	QuadRenderable::QuadRenderable(const std::string& p_texPath, bool p_isStatic) : m_isStatic(p_isStatic)
+	QuadRenderable::QuadRenderable(const std::string& p_texPath, bool p_isStatic) : m_isStatic(p_isStatic), m_isRenderingStatic(false)
 	{
 		if (!p_texPath.empty())
 		{
@@ -50,9 +50,13 @@ namespace kitten
 		}
 		else
 		{
-			if (m_isEnabled)
+			if (m_isEnabled && m_isRenderingStatic)
 			{
-				removeFromStaticRender(m_mat.getFirstTexture());
+				removeFromStaticRender(m_staticTex);
+			}
+			else if(m_isEnabled)
+			{
+				removeFromDynamicRender();
 			}
 		}
 	}
@@ -82,40 +86,40 @@ namespace kitten
 
 	void QuadRenderable::setTexture(const char* p_pathToTex)
 	{
-		if (m_isStatic)
-		{
-			m_mat.setTexture(p_pathToTex);
+		m_mat.setTexture(p_pathToTex);
 
-			if (m_hasStarted)  
-			{
-				if (m_mat.getNumberOfTextures() == 1) //Started, but we were not added to static render because we had no texture
-				{
-					addToStaticRender();
-				}
-			}
-		}
-		else
+		if (m_isStatic && m_isEnabled)
 		{
-			m_mat.addTexture(p_pathToTex, 1.0f);
+			if (m_isRenderingStatic && m_mat.getNumberOfTextures() > 1)
+			{
+				removeFromStaticRender(m_staticTex);
+				addToDynamicRender();
+				m_isRenderingStatic = false;
+			}
+			else if (m_hasStarted && m_mat.getNumberOfTextures() == 1)
+			{
+				m_isRenderingStatic = true;
+				addToStaticRender(); //Started, but we were not added to static render because we had no texture
+			}
 		}
 	}
 
 	void QuadRenderable::addTexture(const char* p_pathToTex, const float& p_weight)
 	{
 		m_mat.addTexture(p_pathToTex, p_weight);
-		if (m_isStatic)
+
+		if (m_isStatic && m_isEnabled)
 		{
-			if (m_mat.getNumberOfTextures() > 1)
+			if (m_isRenderingStatic && m_mat.getNumberOfTextures() > 1)
 			{
 				removeFromStaticRender(m_staticTex);
 				addToDynamicRender();
+				m_isRenderingStatic = false;
 			}
-			else
+			else if (m_hasStarted && m_mat.getNumberOfTextures() == 1)
 			{
-				if(m_hasStarted) //Started, but we were not added to static render because we had no texture
-				{
-					addToStaticRender();
-				}
+				m_isRenderingStatic = true;
+				addToStaticRender(); //Started, but we were not added to static render because we had no texture
 			}
 		}
 	}
@@ -126,10 +130,11 @@ namespace kitten
 		
 		if (m_isStatic)
 		{
-			if (m_mat.getNumberOfTextures() == 1)
+			if (m_mat.getNumberOfTextures() == 1 && m_isEnabled)
 			{
 				removeFromDynamicRender();
 				addToStaticRender();
+				m_isRenderingStatic = true;
 			}
 		}
 	}
@@ -141,11 +146,12 @@ namespace kitten
 
 	void QuadRenderable::start()
 	{
-		if (m_isStatic)
+		if (m_isStatic && m_mat.getNumberOfTextures() == 1)
 		{
+			m_isRenderingStatic = true;
 			addToStaticRender();
 		}
-		else
+		else if(!m_isStatic)
 		{
 			addToDynamicRender();
 		}
@@ -200,5 +206,6 @@ namespace kitten
 
 		//render
 		sm_vao->drawArrays(GL_TRIANGLES);
+		
 	}
 }

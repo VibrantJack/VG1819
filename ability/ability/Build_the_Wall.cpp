@@ -5,15 +5,6 @@
 
 namespace ability
 {
-	Build_the_Wall::Build_the_Wall()
-	{
-		m_unitIndex = 5;
-	}
-
-	Build_the_Wall::~Build_the_Wall()
-	{
-	}
-
 	int Build_the_Wall::effect(AbilityInfoPackage* p_info)
 	{
 		kitten::K_GameObject* u = unit::UnitSpawn::getInstanceSafe()->spawnUnitObject(m_unitIndex);
@@ -25,5 +16,4 @@ namespace ability
 
 		return 0;
 	}
-
 }

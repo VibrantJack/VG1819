@@ -8,6 +8,7 @@ It will be part of tile info
 #include "kitten/K_Common.h"
 #include "unit/Unit.h"
 
+class TileInfo;
 class LandInformation
 {
 public:
@@ -21,6 +22,9 @@ public:
 		Forest_land,
 		Garden_land,
 		Water_land,
+
+		//special land, change by abilities
+		Home_land,
 	};
 	//========================================================
 
@@ -47,14 +51,16 @@ public:
 		return m_description;
 	}
 
-	virtual void effectOnPass(unit::Unit* p_unit) { };
+	virtual void effectOnPass(unit::Unit* p_unit, TileInfo* p_tInfo) { };
 	//will be triggered when unit enter this tile
 
-	virtual void effectOnStay(unit::Unit* p_unit) { };
+	virtual void effectOnStay(unit::Unit* p_unit, TileInfo* p_tInfo) { };
 	//will be triggered when unit that's on this tile ends its turn
 
-	virtual void effectOnStart(unit::Unit* p_unit) { };
+	virtual void effectOnStart(unit::Unit* p_unit, TileInfo* p_tInfo) { };
 	//will be triggered when unit that's on this tile starts its turn
+
+	virtual void effectOnLeave(unit::Unit* p_unit, TileInfo* p_tInfo) {};
 protected:
 	TileType m_Type = Unknown;
 	std::string m_TexturePath = "textures/tiles/MISSING.tga";
@@ -85,7 +91,7 @@ public:
 		m_description = "It's hard to move cross it. When stay on it, unit will lost 1 HP.";
 	};
 
-	void effectOnStay(unit::Unit* p_unit) override;
+	void effectOnStay(unit::Unit* p_unit, TileInfo* p_tInfo) override;
 };
 
 class SandLand : public LandInformation
@@ -99,7 +105,7 @@ public:
 		m_description = "Unit will temporarily -1 IN";
 	};
 
-	void effectOnStay(unit::Unit* p_unit) override;
+	void effectOnStay(unit::Unit* p_unit, TileInfo* p_tInfo) override;
 };
 
 class ForestLand : public LandInformation
@@ -113,7 +119,7 @@ public:
 		m_description = "It's hard to move cross it. Unit will temporarily -1 MV.";
 	};
 
-	void effectOnStart(unit::Unit* p_unit) override;
+	void effectOnStart(unit::Unit* p_unit, TileInfo* p_tInfo) override;
 };
 
 class GardenLand : public LandInformation
@@ -127,7 +133,7 @@ public:
 		m_description = "Nice place to rest. Unit will heal 1 HP and temporarily +1 Max HP.";
 	};
 
-	void effectOnStart(unit::Unit* p_unit) override;
+	void effectOnStart(unit::Unit* p_unit, TileInfo* p_tInfo) override;
 };
 
 class WaterLand : public LandInformation
@@ -140,4 +146,19 @@ public:
 		m_mvCost = 100;
 		m_description = "Can not move across";
 	};
+};
+
+class HomeLand : public LandInformation
+{
+public:
+	HomeLand()
+	{
+		m_Type = Home_land;
+		m_TexturePath = "textures/tiles/homeland.tga";
+		m_mvCost = 1;
+		m_description = "A place to protect you.";
+	};
+
+	void effectOnStay(unit::Unit* p_unit, TileInfo* p_tInfo) override;
+	void effectOnLeave(unit::Unit* p_unit, TileInfo* p_tInfo) override;
 };

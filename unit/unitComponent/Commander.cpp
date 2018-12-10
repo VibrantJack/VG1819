@@ -17,6 +17,7 @@ namespace unit
 	{
 		m_unit = p_u;
 
+		//ad for summon unit
 		m_adSpawn = new unit::AbilityDescription();
 		m_adSpawn->m_stringValue["name"] = ABILITY_SUMMON_UNIT;
 		m_adSpawn->m_intValue["target"] = 1;
@@ -27,6 +28,7 @@ namespace unit
 		m_adSpawn->m_intValue[FILTER] = 1;
 		m_adSpawn->m_stringValue["filter0"] = FILTER_UNIT;
 
+		//ad for manipulate tile
 		m_adTile = new unit::AbilityDescription();
 		m_adTile->m_stringValue["name"] = ABILITY_MANIPULATE_TILE;
 		m_adTile->m_intValue["target"] = 1;
@@ -37,7 +39,8 @@ namespace unit
 
 	void Commander::manipulateTile()
 	{
-		UnitInteractionManager::getInstance()->request(m_unit, m_adTile);
+		if(m_unit->canAct())
+			UnitInteractionManager::getInstance()->request(m_unit, m_adTile);
 	}
 
 	void Commander::spawnUnit()

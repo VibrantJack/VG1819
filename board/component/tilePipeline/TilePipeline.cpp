@@ -14,6 +14,9 @@ TilePipeline::TilePipeline()
 	filter = new OwnedTileFilter(this);
 	m_filterList[FILTER_OWNED_TILE] = filter;
 
+	filter = new UnownedTileFilter(this);
+	m_filterList[FILTER_UNOWNED_TILE] = filter;
+
 	filter = new NoCommanderFilter(this);
 	m_filterList[FILTER_NO_COMMANDER] = filter;
 
@@ -39,7 +42,7 @@ void TilePipeline::filterList(kitten::Event::TileList * p_list)
 		it->second->filter(p_list);
 	}
 
-	resetFilter();
+	//resetFilter();
 }
 
 void TilePipeline::useFilter(const std::string & p_filter)

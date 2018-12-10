@@ -4,14 +4,6 @@
 
 namespace ability
 {
-	Sabotage::Sabotage()
-	{
-	}
-
-	Sabotage::~Sabotage()
-	{
-	}
-
 	int Sabotage::effect(AbilityInfoPackage* p_info)
 	{
 		if (checkTarget(p_info))
