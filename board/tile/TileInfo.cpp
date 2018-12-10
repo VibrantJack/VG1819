@@ -32,11 +32,6 @@ TileInfo::~TileInfo()
 
 void TileInfo::setType(LandInformation::TileType p_type)
 {
-	//for test
-	if (p_type == LandInformation::Home_land)
-	{
-		int a=5;
-	}
 	m_tileType = p_type;
 	if (m_landInfo != nullptr)
 		setLand();
@@ -93,12 +88,6 @@ void TileInfo::effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit * p_
 
 void TileInfo::changeHighlightTexture(const std::string & p_texpath)
 {
-	//for test
-	if (m_tileType == LandInformation::Home_land)
-	{
-		int a = 5;
-	}
-
 	if (m_lasttexpath != p_texpath)
 	{
 		kitten::QuadRenderable* quad = m_attachedObject->getComponent<kitten::QuadRenderable>();
@@ -125,12 +114,6 @@ bool TileInfo::isHighlighted(HighlightType p_type)
 
 void TileInfo::setHighlighted(HighlightType p_type, bool p_bool)
 {
-	//for test
-	if (m_tileType == LandInformation::Home_land)
-	{
-		int a = 5;
-	}
-
 	m_highlightType[p_type] = p_bool;
 }
 

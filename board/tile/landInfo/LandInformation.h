@@ -154,7 +154,7 @@ public:
 	HomeLand()
 	{
 		m_Type = Home_land;
-		m_TexturePath = "textures/tiles/MISSING.tga";//this doesn't matter
+		m_TexturePath = "textures/tiles/homeland.tga";
 		m_mvCost = 1;
 		m_description = "A place to protect you.";
 	};
