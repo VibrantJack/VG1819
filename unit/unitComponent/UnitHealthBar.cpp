@@ -62,8 +62,8 @@ namespace unit
 		background->getTransform().scaleAbsolute(BAR_X_SCALE, BAR_Y_SCALE, 1.0f);
 		foreground->getTransform().scaleAbsolute(BAR_X_SCALE, BAR_Y_SCALE, 1.0f);
 
-		background->getTransform().move(m_offset.x, m_offset.y, 0.0f);
-		foreground->getTransform().move(m_offset.x, m_offset.y, -0.01f);
+		background->getTransform().move(m_offset.x, m_offset.y, -0.001f);
+		foreground->getTransform().move(m_offset.x, m_offset.y, -0.002f);
 
 
 		auto compMan = kitten::K_ComponentManager::getInstance();
