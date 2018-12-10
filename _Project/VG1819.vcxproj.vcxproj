@@ -297,6 +297,7 @@
     <ClCompile Include="..\unit\unitComponent\UnitClickable.cpp" />
     <ClCompile Include="..\unit\unitComponent\UnitGraphic.cpp" />
     <ClCompile Include="..\unit\unitComponent\UnitMove.cpp" />
+    <ClCompile Include="..\unit\unitComponent\UnitSelect.cpp" />
     <ClCompile Include="..\unit\UnitMonitor.cpp" />
     <ClCompile Include="..\unit\UnitSpawn.cpp" />
     <ClCompile Include="..\unit\UnitTest.cpp" />

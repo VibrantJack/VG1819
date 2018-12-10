@@ -30,6 +30,7 @@ namespace unit
 		void start() override;
 		void setTextBox(kitten::K_GameObject* p_tb);
 
+		void onClick();
 		void addAbility(const std::string& p_instructionName);
 	};
 }

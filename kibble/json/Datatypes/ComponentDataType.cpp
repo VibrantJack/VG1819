@@ -751,6 +751,11 @@ kitten::K_Component* getUnitAura(nlohmann::json* p_jsonFile) {
 	return new unit::UnitAura();
 }
 
+#include "unit/unitComponent/UnitSelect.h"
+kitten::K_Component* getUnitSelect(nlohmann::json* p_jsonFile) {
+	return new unit::UnitSelect();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -815,7 +820,7 @@ void setupComponentMap() {
 	jsonComponentMap["UIObject"] = &getUIObject;
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
 	jsonComponentMap["UnitAura"] = &getUnitAura;
-
+	jsonComponentMap["UnitSelect"] = &getUnitSelect;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

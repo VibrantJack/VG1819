@@ -2,6 +2,7 @@
 #include "kitten/event_system/EventManager.h"
 #include "board/tile/TileInfo.h"
 #include "board/BoardManager.h"
+#include "unit/unitComponent/UnitSelect.h"
 #include <iostream>
 #include <sstream>
 
@@ -18,10 +19,7 @@ void SendSelfOnClick::onClick()
 	TileInfo* info = m_attachedObject->getComponent<TileInfo>();
 	if (info->hasUnit())
 	{
-		std::cout << "send unit obj" << std::endl;
-		kitten::Event* e = new kitten::Event(kitten::Event::Unit_Clicked);
-		e->putGameObj("unit", info->getUnit());
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unit_Clicked, e);
+		info->getUnit()->getComponent<unit::UnitSelect>()->onClick();
 	}
 
 	std::cout << "send tile obj" << std::endl;

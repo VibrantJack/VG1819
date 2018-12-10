@@ -664,6 +664,9 @@
     <ClCompile Include="..\unit\InitiativeTracker\UnitAura.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\UnitSelect.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
