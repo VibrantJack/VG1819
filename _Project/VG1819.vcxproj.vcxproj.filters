@@ -661,6 +661,9 @@
     <ClCompile Include="..\UI\ContextMenu.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\UnitAura.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1246,6 +1249,12 @@
     </ClInclude>
     <ClInclude Include="..\UI\ContextMenu.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\UnitSelect.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\UnitAura.h">
+      <Filter>unit\InitiativeTracker</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

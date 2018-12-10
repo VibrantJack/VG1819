@@ -287,6 +287,7 @@
     <ClCompile Include="..\unit\InitiativeTracker\TrackerBlock.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\TrackerBlockClickable.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\TrackerPointer.cpp" />
+    <ClCompile Include="..\unit\InitiativeTracker\UnitAura.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\UnitTurn.cpp" />
     <ClCompile Include="..\unit\Unit.cpp" />
     <ClCompile Include="..\unit\unitComponent\CastTimer.cpp" />
@@ -486,6 +487,7 @@
     <ClInclude Include="..\unit\InitiativeTracker\TrackerBlock.h" />
     <ClInclude Include="..\unit\InitiativeTracker\TrackerBlockClickable.h" />
     <ClInclude Include="..\unit\InitiativeTracker\TrackerPointer.h" />
+    <ClInclude Include="..\unit\InitiativeTracker\UnitAura.h" />
     <ClInclude Include="..\unit\InitiativeTracker\UnitTurn.h" />
     <ClInclude Include="..\unit\Unit.h" />
     <ClInclude Include="..\unit\UnitCommon.h" />
@@ -496,6 +498,7 @@
     <ClInclude Include="..\unit\unitComponent\UnitClickable.h" />
     <ClInclude Include="..\unit\unitComponent\UnitGraphic.h" />
     <ClInclude Include="..\unit\unitComponent\UnitMove.h" />
+    <ClInclude Include="..\unit\unitComponent\UnitSelect.h" />
     <ClInclude Include="..\unit\UnitMonitor.h" />
     <ClInclude Include="..\unit\UnitSpawn.h" />
     <ClInclude Include="..\unit\UnitTest.h" />

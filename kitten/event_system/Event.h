@@ -45,6 +45,7 @@ namespace kitten
 			Join_Button_Clicked,
 			IP_Address_Entered,
 			Host_Button_Clicked,
+			Unit_Clicked,
 
 			Test_Event, 
 			MAX_VAL = Test_Event

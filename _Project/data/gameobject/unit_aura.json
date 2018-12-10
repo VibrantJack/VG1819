@@ -1,0 +1,12 @@
+{
+    "name" : "unit aura",
+    "components" : [
+        {
+            "name" : "UnitAura"
+        },
+        {
+            "name" : "QuadRenderable",
+            "texture":"textures/ui/circle.tga"
+        }
+    ]
+}

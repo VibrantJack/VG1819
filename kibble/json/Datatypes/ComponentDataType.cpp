@@ -746,6 +746,11 @@ kitten::K_Component* getReturnToMainMenuButton(nlohmann::json* p_jsonFile) {
 	return new userinterface::ReturnToMainMenuButton();
 }
 
+#include "unit/InitiativeTracker/UnitAura.h"
+kitten::K_Component* getUnitAura(nlohmann::json* p_jsonFile) {
+	return new unit::UnitAura();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -809,6 +814,7 @@ void setupComponentMap() {
 	jsonComponentMap["TabMenu"] = &getTabMenu;
 	jsonComponentMap["UIObject"] = &getUIObject;
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
+	jsonComponentMap["UnitAura"] = &getUnitAura;
 
 }
 

@@ -15,11 +15,19 @@ SendSelfOnClick::~SendSelfOnClick()
 
 void SendSelfOnClick::onClick()
 {
+	TileInfo* info = m_attachedObject->getComponent<TileInfo>();
+	if (info->hasUnit())
+	{
+		std::cout << "send unit obj" << std::endl;
+		kitten::Event* e = new kitten::Event(kitten::Event::Unit_Clicked);
+		e->putGameObj("unit", info->getUnit());
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unit_Clicked, e);
+	}
+
 	std::cout << "send tile obj" << std::endl;
 	//send event when click
 	kitten::Event* e = new kitten::Event(kitten::Event::Tile_Clicked);
 
-	TileInfo* info = m_attachedObject->getComponent<TileInfo>();
 	if (info->isHighlighted(TileInfo::Range) || info->isHighlighted(TileInfo::Area))
 	{
 		e->putInt("highlighted", TRUE);
