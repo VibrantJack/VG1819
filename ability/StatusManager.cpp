@@ -1,6 +1,6 @@
 #pragma once
 #include "StatusManager.h"
-
+//#include "ability/status/Status_Block.cpp"
 //Rock
 
 namespace ability
@@ -40,6 +40,9 @@ namespace ability
 
 		s = new Status_Shield();
 		m_statusList[STATUS_SHIELD] = s;
+
+		s = new Status_Block();
+		m_statusList[STATUS_BLOCK] = s;
 	}
 
 	StatusManager::StatusManager()
