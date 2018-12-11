@@ -24,7 +24,7 @@ namespace unit
 
 		std::vector<kitten::K_GameObject*> m_path;
 
-		bool lateDestroy = false;
+		bool m_lateDestroy = false;
 		AbilityDescription m_joinAD;
 	public:
 		std::string m_ID;
@@ -83,6 +83,7 @@ namespace unit
 		//destroy
 		int destroyedByDamage();
 		int destroyedByJoin();
+		void simpleDestroy();
 		void destroy();
 	};
 }

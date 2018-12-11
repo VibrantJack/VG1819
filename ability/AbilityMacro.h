@@ -23,6 +23,8 @@
 #define ABILITY_POWER_OF_MONEY "Power of Money"
 #define ABILITY_INVEST "Invest"
 #define ABILITY_GOLD_RUSH "Gold Rush"
+#define ABILITY_RALLY "Rally"
+#define ABILITY_HOMELAND "Here is Homeland"
 //ability-action
 #define ACTION_MOVE "Move"
 #define ACTION_JOIN "Join"
@@ -38,3 +40,4 @@
 #define STATUS_AD_CHANGE "Status_AD_Change"
 #define STATUS_LOAD "Status_Load"
 #define STATUS_SHIELD "Status_Shield"
+#define STATUS_BLOCK "Status_Block"

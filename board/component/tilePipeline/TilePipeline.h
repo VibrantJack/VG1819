@@ -11,6 +11,7 @@ Remove tiles that meets some conditions from tile list.
 #define FILTER_NO_UNIT "no_unit"
 #define FILTER_UNIT "unit"
 #define FILTER_OWNED_TILE "owned_tile"
+#define FILTER_UNOWNED_TILE "unowned_tile"
 #define FILTER_NO_COMMANDER "no_commander"
 #define FILTER_ENEMY "enemy"
 #define FILTER_ALLY "ally"

@@ -12,7 +12,7 @@ TileInfo::TileInfo(int p_iPosX, int p_iPosY)
 	:
 	m_iPosX(p_iPosX),
 	m_iPosY(p_iPosY),
-	m_sOwnerId("NONE"),
+	m_sOwnerId(-1),
 	m_sHighlightedBy("NONE"),
 	m_lasttexpath("")
 {
@@ -33,9 +33,16 @@ TileInfo::~TileInfo()
 void TileInfo::setType(LandInformation::TileType p_type)
 {
 	m_tileType = p_type;
+	if (m_landInfo != nullptr)
+		setLand();
 }
 
 void TileInfo::start()
+{
+	setLand();
+}
+
+void TileInfo::setLand()
 {
 	m_landInfo = LandInfoManager::getInstance()->getLand(m_tileType);
 
@@ -65,13 +72,16 @@ void TileInfo::effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit * p_
 	switch (p_tp)
 	{
 	case ability::TimePointEvent::Turn_Start :
-		m_landInfo->effectOnStart(p_u);
+		m_landInfo->effectOnStart(p_u,this);
 		break;
 	case ability::TimePointEvent::Turn_End:
-		m_landInfo->effectOnStay(p_u);
+		m_landInfo->effectOnStay(p_u, this);
 		break;
 	case ability::TimePointEvent::New_Tile:
-		m_landInfo->effectOnPass(p_u);
+		m_landInfo->effectOnPass(p_u, this);
+		break;
+	case ability::TimePointEvent::Leave_Tile:
+		m_landInfo->effectOnPass(p_u, this);
 		break;
 	}
 }
@@ -175,12 +185,12 @@ kitten::K_GameObject * TileInfo::getUnit()
 	return m_unitGO;
 }
 
-const std::string& TileInfo::getOwnerId()
+const int TileInfo::getOwnerId()
 {
 	return m_sOwnerId;
 }
 
-void TileInfo::setOwnerId(const std::string& p_sId)
+void TileInfo::setOwnerId(const int p_sId)
 {
 	m_sOwnerId = p_sId;
 }

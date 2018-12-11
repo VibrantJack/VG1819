@@ -18,22 +18,15 @@ namespace ability
 		se->addAttributeChange(UNIT_POWER, p_info->m_intValue[UNIT_POWER]);
 		se->addAttributeChange(AREA_MAX, p_info->m_intValue[AREA_MAX]);
 
+		se->m_source = ABILITY_LOAD;
 		//attach to target
 		se->attach(p_info->m_targets[0]);
-	}
-
-	Load::Load()
-	{
-	}
-
-	Load::~Load()
-	{
 	}
 
 	int Load::effect(AbilityInfoPackage* p_info)
 	{
 		//check if unit has this status
-		if (!p_info->m_targets[0]->getStatusContainer()->getStatus(STATUS_LOAD))
+		if (!p_info->m_targets[0]->getStatusContainer()->getStatus(STATUS_LOAD,ABILITY_LOAD))
 			applyStatus(p_info);
 
 		//delete package

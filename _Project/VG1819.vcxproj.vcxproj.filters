@@ -667,6 +667,18 @@
     <ClCompile Include="..\unit\unitComponent\UnitSelect.cpp">
       <Filter>unit\unitComponent</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\ability\Rally.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\landInfo\HomeLand.cpp">
+      <Filter>board\tile\landInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\UnownedTileFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\HereHomeland.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1258,6 +1270,9 @@
     </ClInclude>
     <ClInclude Include="..\unit\InitiativeTracker\UnitAura.h">
       <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ability\status\Status_Block.cpp">
+      <Filter>ability\status</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -7,14 +7,6 @@
 
 namespace ability
 {
-	Heal::Heal()
-	{
-	}
-
-	Heal::~Heal()
-	{
-	}
-
 	int Heal::effect(AbilityInfoPackage* p_info)
 	{
 		if (checkTarget(p_info))

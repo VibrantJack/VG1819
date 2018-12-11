@@ -12,7 +12,7 @@ namespace kitten
 
 		puppy::TextureBlendMaterial m_mat;
 
-		bool m_isStatic;
+		bool m_isStatic, m_isRenderingStatic;
 		puppy::Texture* m_staticTex;
 
 		void addToStaticRender();

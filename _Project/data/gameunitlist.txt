@@ -11,3 +11,5 @@ ArrowTower.txt
 Armory.txt
 DivineStatue.txt
 Oligarch.txt
+King.txt
+Queen.txt

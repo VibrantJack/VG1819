@@ -104,12 +104,14 @@
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
     <ClCompile Include="..\ability\ability\GoldRush.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
+    <ClCompile Include="..\ability\ability\HereHomeland.cpp" />
     <ClCompile Include="..\ability\ability\Invest.cpp" />
     <ClCompile Include="..\ability\ability\Join.cpp" />
     <ClCompile Include="..\ability\ability\Load.cpp" />
     <ClCompile Include="..\ability\ability\ManipulateTile.cpp" />
     <ClCompile Include="..\ability\ability\Move.cpp" />
     <ClCompile Include="..\ability\ability\PowerOfMoney.cpp" />
+    <ClCompile Include="..\ability\ability\Rally.cpp" />
     <ClCompile Include="..\ability\ability\Sabotage.cpp" />
     <ClCompile Include="..\ability\ability\SummonUnit.cpp" />
     <ClCompile Include="..\ability\node\AbilityNode.cpp" />
@@ -131,6 +133,7 @@
     <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp" />
     <ClCompile Include="..\ability\status\Status_Shield.cpp" />
     <ClCompile Include="..\ability\status\Status_Temp_Change.cpp" />
+    <ClCompile Include="..\ability\status\Status_Block.cpp" />
     <ClCompile Include="..\board\component\area\AllPattern.cpp" />
     <ClCompile Include="..\board\component\area\Area.cpp" />
     <ClCompile Include="..\board\component\area\AreaPattern.cpp" />
@@ -150,8 +153,10 @@
     <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\UnownedTileFilter.cpp" />
     <ClCompile Include="..\board\tile\landInfo\ForestLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\GardenLand.cpp" />
+    <ClCompile Include="..\board\tile\landInfo\HomeLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\LandInfoManager.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SandLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
