@@ -59,7 +59,5 @@
 			"name" : "SpriteAnimator",
 			"spritename" : "wizard"
 		}
-	],
-	"scale" : [2.0, 2.0, 0.0],
-	"rotate" : [45, 0, 0]
+	]
 }

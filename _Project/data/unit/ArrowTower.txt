@@ -38,6 +38,9 @@
 			"maxpoint":[0.02,0.5,0]
 		},
 		{
+			"name" : "UnitSelect"
+		},
+		{
 			"name" : "SpriteRenderable"
 		},
 		{
