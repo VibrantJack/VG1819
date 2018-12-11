@@ -72,6 +72,7 @@ unit::InitiativeTracker::InitiativeTracker()
 	m_uturn = new unit::UnitTurn();
 	m_UI = new unit::InitiativeTrackerUI();
 	m_uAura =kibble::getGameObjectDataParserInstance()->getGameObject("unit_aura.json");
+	m_uAura->getTransform().setIgnoreParent(false);
 	m_currentUnitIndex = -1;//flag, means object list isn't initialize
 }
 
