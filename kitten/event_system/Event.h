@@ -6,6 +6,7 @@
 #define TILE_OWNER_KEY "tile_owner_key"
 #define MANIPULATE_TILE_KEY "manip_tile_key"
 #define PLAYER_COMMANDER_DEATH "player_commander_death_key"
+#define PAUSE_MENU_OPEN "pause_menu_open_key"
 
 #define FALSE 0
 #define TRUE 1
@@ -45,6 +46,7 @@ namespace kitten
 			Join_Button_Clicked,
 			IP_Address_Entered,
 			Host_Button_Clicked,
+			Pause_Menu_Open,
 
 			Test_Event, 
 			MAX_VAL = Test_Event

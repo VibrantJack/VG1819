@@ -14,12 +14,16 @@ namespace userinterface
 		UIElement* ctxElement = static_cast<UIElement*>(contextComp);
 		contextObj->addComponent(contextComp);
 		m_context = contextObj;
-		
+
+		kitten::EventManager::getInstance()->addListener(
+			kitten::Event::EventType::Pause_Menu_Open,
+			this,
+			std::bind(&ClickableCard::toggleEnabledListener, this, std::placeholders::_1, std::placeholders::_2));
 	}
 
 	ClickableCard::~ClickableCard()
 	{
-
+		kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Pause_Menu_Open, this);
 	}
 
 	void ClickableCard::onHoverStart()
@@ -39,5 +43,13 @@ namespace userinterface
 		std::cout << " Card Hover Ended.\n";
 
 		m_context->setEnabled(false);
+	}
+
+	void ClickableCard::toggleEnabledListener(kitten::Event::EventType p_type, kitten::Event* p_data)
+	{
+		bool isEnabled = p_data->getInt(PAUSE_MENU_OPEN);
+		if (!isEnabled)
+			onHoverEnd();
+		m_attachedFrame->setEnabled(isEnabled);		
 	}
 }
