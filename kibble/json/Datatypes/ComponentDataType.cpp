@@ -756,6 +756,26 @@ kitten::K_Component* getUnitSelect(nlohmann::json* p_jsonFile) {
 	return new unit::UnitSelect();
 }
 
+#include "kitten/sprites/SpriteGroup.h"
+kitten::K_Component* getSpriteGroup(nlohmann::json* p_jsonFile) {
+	std::string name;
+	int n;
+	SETOPT(name, "spritename");
+	SETOPTDEF(n, "number", 1);
+
+	sprites::SpriteGroup* sg = new sprites::SpriteGroup(name, n);
+
+	if (p_jsonFile->find("rotate") != p_jsonFile->end()) {
+		sg->setRotation(glm::vec3(p_jsonFile->operator[]("rotate")[0], p_jsonFile->operator[]("rotate")[1], p_jsonFile->operator[]("rotate")[2]));
+	}
+
+	if (p_jsonFile->find("scale") != p_jsonFile->end()) {
+		sg->setScale(p_jsonFile->operator[]("scale")[0], p_jsonFile->operator[]("scale")[1], p_jsonFile->operator[]("scale")[2]);
+	}
+
+	return sg;
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -821,6 +841,8 @@ void setupComponentMap() {
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
 	jsonComponentMap["UnitAura"] = &getUnitAura;
 	jsonComponentMap["UnitSelect"] = &getUnitSelect;
+	jsonComponentMap["SpriteGroup"] = &getSpriteGroup;
+
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

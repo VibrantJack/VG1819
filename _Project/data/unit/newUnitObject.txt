@@ -41,8 +41,7 @@
 			"unitsize": "point"
 		},
 		{
-			"name" : "UnitMove",
-			"offset":[0.15,1.0,0.8]
+			"name" : "UnitMove"
 		},
 		{
 			"name" : "ClickableBox",
@@ -53,11 +52,11 @@
 			"name" : "UnitSelect"
 		},
 		{
-			"name" : "SpriteRenderable"
-		},
-		{
-			"name" : "SpriteAnimator",
-			"spritename" : "wizard"
+			"name" : "SpriteGroup",
+			"spritename":"wizard",
+			"number":1,
+			"rotate":[45,0,0],
+			"scale":[10,10,0]
 		}
 	]
 }

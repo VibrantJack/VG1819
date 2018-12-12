@@ -46,11 +46,11 @@ namespace unit
 		m_bTested = true;
 		//comment for testing IT
 
-		kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstanceSafe()->spawnUnitObject(13); // king !!!
+		kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstanceSafe()->spawnUnitObject(6); // 13 king !!!
 		uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(-1, -1);
 
-		kitten::K_GameObject* uNEWDUMMY2 = UnitSpawn::getInstanceSafe()->spawnUnitObject(14); // queen !!!
-		uNEWDUMMY2->getComponent<unit::UnitMove>()->setTile(-1, -1);
+		//kitten::K_GameObject* uNEWDUMMY2 = UnitSpawn::getInstanceSafe()->spawnUnitObject(14); // queen !!!
+		//uNEWDUMMY2->getComponent<unit::UnitMove>()->setTile(-1, -1);
 		/*
 		// Testing highlighting tiles and manipulating tiles using testDummy.txt
 		{
@@ -117,8 +117,8 @@ namespace unit
 		kitten::K_GameObject* u9 = UnitSpawn::getInstanceSafe()->spawnUnitObject(11);//divine status
 		u9->getComponent<unit::UnitMove>()->setTile(10, 2);
 		*/
-		kitten::K_GameObject* u10 = UnitSpawn::getInstanceSafe()->spawnUnitObject(12);//oligarch
-		u10->getComponent<unit::UnitMove>()->setTile(11, 4);
+		//kitten::K_GameObject* u10 = UnitSpawn::getInstanceSafe()->spawnUnitObject(12);//oligarch
+		//u10->getComponent<unit::UnitMove>()->setTile(11, 4);
 		//u10->getComponent<Unit>()->m_attributes[COUNTER_MONEY] = 4;
 		
 		
