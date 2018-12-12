@@ -54,9 +54,10 @@
 		{
 			"name" : "SpriteGroup",
 			"spritename":"wizard",
-			"number":1,
+			"number":4,
 			"rotate":[45,0,0],
-			"scale":[10,10,0]
+			"scale":[1,1,1],
+			"translate":[0,0,0.15]
 		}
 	]
 }

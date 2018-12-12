@@ -34,8 +34,10 @@
 			"unitsize": "point"
 		},
 		{
-			"name" : "UnitMove",
-			"offset":[0.0,1.0,0.4]
+			"name" : "UnitMove"
+		},
+		{
+			"name" : "UnitSelect"
 		},
 		{
 			"name" : "ClickableBox",
@@ -43,16 +45,15 @@
 			"maxpoint":[0.01,0.15,0]
 		},
 		{
-			"name" : "SpriteRenderable"
-		},
-		{
-			"name" : "SpriteAnimator",
-			"spritename" : "king"
+			"name" : "SpriteGroup",
+			"spritename":"king",
+			"number":1,
+			"rotate":[45,0,0],
+			"scale":[20,1.5,0],
+			"translate":[0,0,0.15]
 		},
 		{
 			"name" : "ClickableBoxRenderable"
 		}
-	],
-	"scale" : [25,2,0],
-	"rotate" : [45, 0, 0]
+	]
 }

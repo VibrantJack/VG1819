@@ -15,19 +15,19 @@ namespace sprites
 		SpriteGroup(const std::string& p_spriteName, int p_num = 1);
 		~SpriteGroup();
 
-		void setScale(float p_x, float p_y, float p_z);
+		void setScale(const glm::vec3& p_sc);
 		void setRotation(const glm::vec3& p_rot);
+		void setTranslation(const glm::vec3& p_tran);
 		void start() override;
 	private:
 		const int m_maxNum = 4;
 
 		std::string m_spriteName;
 		int m_spriteNum;
-		float m_scaleX;
-		float m_scaleY;
-		float m_scaleZ;
 
+		glm::vec3 m_scale;
 		glm::vec3 m_rotation;
+		glm::vec3 m_translation;
 
 		std::vector<kitten::K_GameObject*> m_spriteGOList;
 

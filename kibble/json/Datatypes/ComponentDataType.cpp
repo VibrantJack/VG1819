@@ -770,7 +770,11 @@ kitten::K_Component* getSpriteGroup(nlohmann::json* p_jsonFile) {
 	}
 
 	if (p_jsonFile->find("scale") != p_jsonFile->end()) {
-		sg->setScale(p_jsonFile->operator[]("scale")[0], p_jsonFile->operator[]("scale")[1], p_jsonFile->operator[]("scale")[2]);
+		sg->setScale(glm::vec3(p_jsonFile->operator[]("scale")[0], p_jsonFile->operator[]("scale")[1], p_jsonFile->operator[]("scale")[2]));
+	}
+
+	if (p_jsonFile->find("translate") != p_jsonFile->end()) {
+		sg->setTranslation(glm::vec3(p_jsonFile->operator[]("translate")[0], p_jsonFile->operator[]("translate")[1], p_jsonFile->operator[]("translate")[2]));
 	}
 
 	return sg;

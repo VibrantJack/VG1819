@@ -51,8 +51,7 @@
 			"unitsize": "point"
 		},
 		{
-			"name" : "UnitMove",
-			"offset":[-0.3,1.0,0.3]
+			"name" : "UnitMove"
 		},
 		{
 			"name" : "ClickableBox",
@@ -63,16 +62,15 @@
 			"name" : "UnitSelect"
 		},
 		{
-			"name" : "SpriteRenderable"
-		},
-		{
-			"name" : "SpriteAnimator",
-			"spritename" : "duelist"
+			"name" : "SpriteGroup",
+			"spritename":"duelist",
+			"number":3,
+			"rotate":[45,0,0],
+			"scale":[0.7,0.7,0],
+			"translate":[-0.20,0,0.15]
 		},
 		{
 			"name" : "ClickableBoxRenderable"
 		}
-	],
-	"scale" : [1.5,2,0],
-	"rotate" : [45, 0, 0]
+	]
 }

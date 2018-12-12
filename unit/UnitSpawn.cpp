@@ -11,6 +11,7 @@
 #include "puppy/Text/TextBox.h"
 
 #include "kitten/sprites/SpriteAnimator.h"
+#include "kitten/sprites/SpriteGroup.h"
 //Rock
 
 #include "kibble/databank/databank.hpp"
@@ -113,7 +114,13 @@ namespace unit
 		uClick->setTextBox(m_textBoxGO);
 		unitObject->addComponent(uClick);
 
+		/*sprite renderable is replaced by sprite group
 		if (unitObject->getComponent<kitten::SpriteRenderable>() != nullptr) {
+			// disable unit Graphic
+			unitObject->getComponent<UnitGraphic>()->setEnabled(false);
+		}*/
+
+		if (unitObject->getComponent<sprites::SpriteGroup>() != nullptr) {
 			// disable unit Graphic
 			unitObject->getComponent<UnitGraphic>()->setEnabled(false);
 		}
