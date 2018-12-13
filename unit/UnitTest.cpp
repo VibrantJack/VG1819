@@ -120,7 +120,8 @@ namespace unit
 		kitten::K_GameObject* u10 = UnitSpawn::getInstanceSafe()->spawnUnitObject(12);//oligarch
 		u10->getComponent<unit::UnitMove>()->setTile(11, 4);
 		//u10->getComponent<Unit>()->m_attributes[COUNTER_MONEY] = 4;
-		
+		//kitten::K_GameObject* u11 = UnitSpawn::getInstanceSafe()->spawnUnitObject(5);//wall
+		//u11->getComponent<unit::UnitMove>()->setTile(12, 2);
 		
 		//test unit 
 		//unit::Unit* u = u1->getComponent<unit::Unit>();

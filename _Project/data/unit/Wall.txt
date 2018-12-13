@@ -14,8 +14,7 @@
 			"unitsize": "point"
 		},
 		{
-			"name" : "UnitMove",
-			"offset":[0.05,1.0,0.4]
+			"name" : "UnitMove"
 		},
 		{
 			"name" : "ClickableBox",
@@ -26,9 +25,15 @@
 			"name" : "UnitSelect"
 		},
 		{
+			"name" : "SpriteGroup",
+			"spritename":"wall",
+			"number":1,
+			"rotate":[45,0,0],
+			"scale":[20,1.3,0],
+			"translate":[0,0,0.05]
+		},
+		{
 			"name" : "ClickableBoxRenderable"
 		}
-	],
-	"scale" : [1,1,0],
-	"rotate" : [45, 0, 0]
+	]
 }
