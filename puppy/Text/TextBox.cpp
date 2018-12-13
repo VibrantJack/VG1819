@@ -29,8 +29,6 @@ namespace puppy
 		case center:
 			constructRightOrCenterAlignVertices(false);
 		}
-
-		addToDynamicRender();
 	}
 
 	TextBox::TextBox(Font* p_fontToUse, std::string p_text, float p_boxWidth, float p_boxHeight)
@@ -48,6 +46,7 @@ namespace puppy
 	puppy::TextBox::~TextBox()
 	{
 		removeOldText();
+
 		if (m_isEnabled)
 		{
 			removeFromDynamicRender();
