@@ -23,7 +23,7 @@ namespace userinterface
 	{
 		if (m_isEnabled)
 		{
-			removeFromDynamicRender();
+			//removeFromDynamicRender();
 		}
 	}
 
