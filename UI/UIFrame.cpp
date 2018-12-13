@@ -11,17 +11,20 @@ namespace userinterface
 
 	UIFrame::UIFrame(const char* p_pathToTex) : UIElement(p_pathToTex) //default params
 	{
-		m_isEnabled = true;
+
 	}
 
 	UIFrame::UIFrame(const char* p_pathToTex, pivotType p_pivot, textureBehaviour p_texBehaviour) : UIElement(p_pathToTex, p_pivot, p_texBehaviour)
 	{
-		m_isEnabled = true;
+
 	}
 
 	UIFrame::~UIFrame()
 	{
-
+		if (m_isEnabled)
+		{
+			removeFromDynamicRender();
+		}
 	}
 
 	void UIFrame::addToFrame(UIObject* p_ouiToAdd)
