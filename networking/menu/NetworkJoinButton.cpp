@@ -16,7 +16,7 @@ namespace userinterface
 
 	void NetworkJoinButton::start()
 	{
-		ClickableUI::start();
+		ClickableButton::start();
 
 		m_inputMan = input::InputManager::getInstance();
 		assert(m_inputMan != nullptr);

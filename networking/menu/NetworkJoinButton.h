@@ -1,11 +1,11 @@
 #pragma once
 
-#include "kitten\mouse picking\ClickableUI.h"
+#include "UI\ClickableButton.h"
 #include "kitten\InputManager.h"
 
 namespace userinterface
 {
-	class NetworkJoinButton : public kitten::ClickableUI
+	class NetworkJoinButton : public ClickableButton
 	{
 
 	public:
