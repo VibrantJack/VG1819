@@ -3,7 +3,7 @@
     "components" : [
 		{
 			"name" : "UIFrame",
-			"texture" : "textures/ui/network_menu_bg.tga"
+			"texture" : "textures/ui/main_menu_interface.tga"
 		}
     ]
 }
