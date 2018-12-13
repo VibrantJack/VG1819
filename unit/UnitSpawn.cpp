@@ -11,6 +11,8 @@
 #include "puppy/Text/TextBox.h"
 
 #include "kitten/sprites/SpriteAnimator.h"
+#include "kitten\mouse picking\ClickableBox.h"
+#include "_Project\ClickableBoxRenderable.h"
 //Rock
 
 #include "kibble/databank/databank.hpp"
@@ -122,6 +124,29 @@ namespace unit
 		unit::InitiativeTracker::getInstance()->addUnit(unitObject);
 
 		return unitObject;
+	}
+
+	kitten::K_GameObject* UnitSpawn::spawnSimpleUnitObject(const int& p_unitIdentifier) 
+	{
+		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
+
+		kitten::K_GameObject* unit = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+		kibble::attachCustomComponentsToGameObject(p_unitIdentifier, unit);
+
+		kitten::K_Component* comp;
+		comp = unit->getComponent<UnitGraphic>();
+		if (comp != nullptr)
+			cm->destroyComponentImmediate(comp);
+
+		comp = unit->getComponent<kitten::ClickableBox>();
+		if (comp != nullptr)
+			cm->destroyComponentImmediate(comp);
+
+		comp = unit->getComponent<ClickableBoxRenderable>();
+		if (comp != nullptr)
+			cm->destroyComponentImmediate(comp);
+
+		return unit;
 	}
 
 	/*

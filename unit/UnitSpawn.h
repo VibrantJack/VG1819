@@ -20,6 +20,7 @@ namespace unit
 		//kitten::K_GameObject* spawnUnitObject(Unit* p_unitData);
 
 		kitten::K_GameObject* spawnUnitObject(const int& p_unitIdentifier);
+		kitten::K_GameObject* spawnSimpleUnitObject(const int& p_unitIdentifier);
 	private:
 
 		static UnitSpawn * m_instance;

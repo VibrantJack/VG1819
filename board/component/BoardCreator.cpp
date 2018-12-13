@@ -27,7 +27,7 @@
 #include <fstream>
 
 
-BoardCreator::BoardCreator() :m_x(15), m_z(15)
+BoardCreator::BoardCreator() :m_x(15), m_z(15), m_attachPowerTracker(true), m_createSimpleTiles(false)
 {
 
 }
@@ -65,25 +65,25 @@ void BoardCreator::start()
 		for (int z = 0; z < m_z; z++)
 		{
 			kitten::K_GameObject* tileGO;
+			LandInformation::TileType landtype = LandInformation::Grass_land;//commander spawn at normal land
 			if (hasmap)
 			{
-				LandInformation::TileType landtype;
 				if (landList[i] >= 0)//normal land
 				{
 					landtype = static_cast<LandInformation::TileType>(landList[i]);
 				}
 				else//spawn point
 				{
-					landtype = LandInformation::Grass_land;//commander spawn at normal land
 					m_spawnPointList.push_back(std::make_pair(x, z));
 				}
-				tileGO = createTile(x, z, landtype);
 				i++;
 			}
+
+			if (m_createSimpleTiles)
+				tileGO = createSimpleTile(x, z, landtype);
 			else
-			{
-				tileGO = createTile(x, z);
-			}
+				tileGO = createTile(x, z, landtype);
+
 			list.push_back(tileGO);
 
 			kitten::Transform& transform = tileGO->getTransform();
@@ -101,9 +101,12 @@ void BoardCreator::start()
 	BoardManager::getInstance()->setDimension(m_x,m_z);
 
 	// PowerTracker component attached to Board GO
-	kitten::K_Component* powerTracker = kitten::K_ComponentManager::getInstance()->createComponent("PowerTracker");
-	m_attachedObject->addComponent(powerTracker);
-	BoardManager::getInstance()->setPowerTracker(static_cast<PowerTracker*>(powerTracker));
+	if (m_attachPowerTracker)
+	{
+		kitten::K_Component* powerTracker = kitten::K_ComponentManager::getInstance()->createComponent("PowerTracker");
+		m_attachedObject->addComponent(powerTracker);
+		BoardManager::getInstance()->setPowerTracker(static_cast<PowerTracker*>(powerTracker));
+	}
 
 	//delete this
 	kitten::K_ComponentManager::getInstance()->destroyComponent(this);
@@ -141,6 +144,23 @@ kitten::K_GameObject * BoardCreator::createTile(int x, int z, LandInformation::T
 
 	kitten::K_Component* clickBox = compMan->createComponent("ClickableBox");
 	tileGO->addComponent(clickBox);
+
+	kitten::Transform& transform = tileGO->getTransform();
+	transform.move(x, -1, z);
+	return tileGO;
+}
+
+kitten::K_GameObject * BoardCreator::createSimpleTile(int x, int z, LandInformation::TileType p_type)
+{
+	kitten::K_GameObjectManager* gameObjMan = kitten::K_GameObjectManager::getInstance();
+	kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
+
+	kitten::K_GameObject* tileGO = gameObjMan->createNewGameObject("tileobj.txt");
+
+	TileInfo* tileInfo = static_cast<TileInfo*>(compMan->createComponent("TileInfo"));
+	tileInfo->setPos(x, z);//set position
+	tileInfo->setType(p_type);
+	tileGO->addComponent(tileInfo);
 
 	kitten::Transform& transform = tileGO->getTransform();
 	transform.move(x, -1, z);
