@@ -74,6 +74,21 @@ kitten::K_Component* getQuadRenderable(nlohmann::json* p_jsonFile) {
 	return new kitten::QuadRenderable(texturefilename.c_str(), isStatic);
 }
 
+#include "kitten/QuadRenderableRepeat.h"
+kitten::K_Component* getQuadRenderableRepeat(nlohmann::json* p_jsonFile) {
+	std::string texturefilename;
+	bool isStatic, texRepeat;
+	float uRepeat, vRepeat;
+
+	SETOPTDEF(texturefilename, "texture", "");
+	SETOPTDEF(isStatic, "static", false);
+	SETOPTDEF(texRepeat, "texRepeat", false);
+	SETOPTDEF(uRepeat, "uRepeat", 1.0f);
+	SETOPTDEF(vRepeat, "vRepeat", 1.0f);
+
+	return new kitten::QuadRenderableRepeat(texturefilename.c_str(), isStatic, texRepeat, uRepeat, vRepeat);
+}
+
 #include "gameworld/GrassLandInfoComponent.h"
 kitten::K_Component* getGrassLandInfo(nlohmann::json* p_jsonFile) {
 	return new gameworld::GrasslandInfoComponent();
@@ -126,14 +141,6 @@ kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
 	SETOPTDEF(x, "rows", 15);
 	SETOPTDEF(z, "columns", 15);
 	component->setDimension(x, z);
-
-	bool enablePowerTracker;
-	SETOPTDEF(enablePowerTracker, "enablePowerTracker", true);
-	component->enablePowerTracker(enablePowerTracker);
-
-	bool enableSimpleTiles;
-	SETOPTDEF(enableSimpleTiles, "enableSimpleTiles", false);
-	component->enableSimpleTiles(enableSimpleTiles);
 
 	return component;
 }
@@ -809,6 +816,7 @@ void setupComponentMap() {
 	jsonComponentMap["ZoomByMouseWheel"] = &getZoomByMouseWheel;
 	jsonComponentMap["Camera"] = &getCamera;
 	jsonComponentMap["QuadRenderable"] = &getQuadRenderable;
+	jsonComponentMap["QuadRenderableRepeat"] = &getQuadRenderableRepeat;
 	jsonComponentMap["CubeRenderable"] = &getCubeRenderable;
 	jsonComponentMap["GrassLandInfo"] = &getGrassLandInfo;
 	jsonComponentMap["DebugPrintOnce"] = &getDebugPrintOnce;

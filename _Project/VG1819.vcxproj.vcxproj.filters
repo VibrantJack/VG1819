@@ -680,6 +680,9 @@
     <ClCompile Include="..\components\MainMenuBoard.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\QuadRenderableRepeat.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1271,6 +1274,9 @@
     </ClInclude>
     <ClInclude Include="..\components\MainMenuBoard.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\QuadRenderableRepeat.h">
+      <Filter>kitten</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
