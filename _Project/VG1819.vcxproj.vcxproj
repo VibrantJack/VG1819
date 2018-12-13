@@ -166,6 +166,7 @@
     <ClCompile Include="..\components\DecksDisplayFrame.cpp" />
     <ClCompile Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.cpp" />
     <ClCompile Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.cpp" />
+    <ClCompile Include="..\components\MainMenuBoard.cpp" />
     <ClCompile Include="..\components\scene change\StartGameOnClick.cpp" />
     <ClCompile Include="..\components\testing\gameplay-init.cpp" />
     <ClCompile Include="..\expressions\lexer.cpp" />
@@ -273,6 +274,7 @@
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
     <ClCompile Include="..\UI\CardUIO.cpp" />
+    <ClCompile Include="..\UI\ClickableButton.cpp" />
     <ClCompile Include="..\UI\ClickableCard.cpp" />
     <ClCompile Include="..\UI\ContextMenu.cpp" />
     <ClCompile Include="..\UI\HandFrame.cpp" />
@@ -346,6 +348,7 @@
     <ClInclude Include="..\components\DecksDisplayFrame.h" />
     <ClInclude Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.h" />
     <ClInclude Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.h" />
+    <ClInclude Include="..\components\MainMenuBoard.h" />
     <ClInclude Include="..\components\scene change\StartGameOnClick.h" />
     <ClInclude Include="..\components\testing\gameplay-init.h" />
     <ClInclude Include="..\DeckData.hpp" />
@@ -472,6 +475,7 @@
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
     <ClInclude Include="..\UI\CardUIO.h" />
+    <ClInclude Include="..\UI\ClickableButton.h" />
     <ClInclude Include="..\UI\ClickableCard.h" />
     <ClInclude Include="..\UI\ContextMenu.h" />
     <ClInclude Include="..\UI\HandFrame.h" />

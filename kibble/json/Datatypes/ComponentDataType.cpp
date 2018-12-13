@@ -121,10 +121,20 @@ kitten::K_Component* getDestroyOnClick(nlohmann::json* p_jsonFile){
 #include "board/component/BoardCreator.h"
 kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
 	BoardCreator* component = new BoardCreator();
+
 	int x,z;
 	SETOPTDEF(x, "rows", 15);
 	SETOPTDEF(z, "columns", 15);
 	component->setDimension(x, z);
+
+	bool enablePowerTracker;
+	SETOPTDEF(enablePowerTracker, "enablePowerTracker", true);
+	component->enablePowerTracker(enablePowerTracker);
+
+	bool enableSimpleTiles;
+	SETOPTDEF(enableSimpleTiles, "enableSimpleTiles", false);
+	component->enableSimpleTiles(enableSimpleTiles);
+
 	return component;
 }
 
@@ -716,12 +726,30 @@ kitten::K_Component* getGameplayInit(nlohmann::json* p_jsonFile) {
 
 #include "networking\menu\NetworkJoinButton.h"
 kitten::K_Component* getNetworkJoinButton(nlohmann::json* p_jsonFile) {
-	return new userinterface::NetworkJoinButton();
+	std::string regularTexture, highlightedTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+
+	userinterface::NetworkJoinButton* button = new userinterface::NetworkJoinButton();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+
+	return button;
 }
 
 #include "networking\menu\NetworkHostButton.h"
 kitten::K_Component* getNetworkHostButton(nlohmann::json* p_jsonFile) {
-	return new userinterface::NetworkHostButton();
+	std::string regularTexture, highlightedTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+
+	userinterface::NetworkHostButton* button = new userinterface::NetworkHostButton();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+
+	return button;
 }
 
 #include "UI\TabMenu\TabMenu.h"
@@ -743,7 +771,36 @@ kitten::K_Component* getUIObject(nlohmann::json* p_jsonFile) {
 
 #include "UI\TabMenu\ReturnToMainMenuButton.h"
 kitten::K_Component* getReturnToMainMenuButton(nlohmann::json* p_jsonFile) {
-	return new userinterface::ReturnToMainMenuButton();
+	std::string regularTexture, highlightedTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+
+	userinterface::ReturnToMainMenuButton* button = new userinterface::ReturnToMainMenuButton();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+
+	return button;
+}
+
+#include "UI\ClickableButton.h"
+kitten::K_Component* getClickableButton(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+
+	userinterface::ClickableButton* button = new userinterface::ClickableButton();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+
+	return button;
+}
+
+#include "components\MainMenuBoard.h"
+kitten::K_Component* getMainMenuBoard(nlohmann::json* p_jsonFile)
+{
+	return new MainMenuBoard();
 }
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
@@ -809,6 +866,8 @@ void setupComponentMap() {
 	jsonComponentMap["TabMenu"] = &getTabMenu;
 	jsonComponentMap["UIObject"] = &getUIObject;
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
+	jsonComponentMap["ClickableButton"] = &getClickableButton;
+	jsonComponentMap["MainMenuBoard"] = &getMainMenuBoard;
 
 }
 
