@@ -12,6 +12,7 @@ private:
 		m_currentSet = 0,  // the current set of decks being displayed
 		m_currentActive = 0, // the number of decks currently need to be displayed
 		m_currentPick = -1; // the current picked deck
+	static bool sm_survivorFlagged;
 
 	void updateDeckDisplay();
 
