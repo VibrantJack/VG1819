@@ -55,8 +55,7 @@
 			"unitsize": "point"
 		},
 		{
-			"name" : "UnitMove",
-			"offset":[0.0,1.0,0.2]
+			"name" : "UnitMove"
 		},
 		{
 			"name" : "ClickableBox",
@@ -67,16 +66,15 @@
 			"name" : "UnitSelect"
 		},
 		{
-			"name" : "SpriteRenderable"
-		},
-		{
-			"name" : "SpriteAnimator",
-			"spritename" : "oligarch"
+			"name" : "SpriteGroup",
+			"spritename":"oligarch",
+			"number":3,
+			"rotate":[45,0,0],
+			"scale":[6,0.6,0],
+			"translate":[0,0,0.05]
 		},
 		{
 			"name" : "ClickableBoxRenderable"
 		}
-	],
-	"scale" : [10,1.5,0],
-	"rotate" : [45, 0, 0]
+	]
 }

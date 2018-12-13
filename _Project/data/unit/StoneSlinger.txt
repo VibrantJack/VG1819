@@ -50,8 +50,7 @@
 			"unitsize": "point"
 		},
 		{
-			"name" : "UnitMove",
-			"offset":[0.16,1.0,0.0]
+			"name" : "UnitMove"
 		},
 		{
 			"name" : "ClickableBox",
@@ -62,16 +61,15 @@
 			"name" : "UnitSelect"
 		},
 		{
-			"name" : "SpriteRenderable"
-		},
-		{
-			"name" : "SpriteAnimator",
-			"spritename" : "stoneslinger"
+			"name" : "SpriteGroup",
+			"spritename":"stoneslinger",
+			"number":2,
+			"rotate":[45,0,0],
+			"scale":[0.8,0.8,1],
+			"translate":[0,0,0.15]
 		},
 		{
 			"name" : "ClickableBoxRenderable"
 		}
-	],
-	"scale" : [0.9,1,0],
-	"rotate" : [45, 0, 0]
+	]
 }

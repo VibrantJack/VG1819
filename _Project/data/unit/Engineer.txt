@@ -54,8 +54,7 @@
 			"unitsize": "point"
 		},
 		{
-			"name" : "UnitMove",
-			"offset":[0.2,1.0,0.2]
+			"name" : "UnitMove"
 		},
 		{
 			"name" : "ClickableBox",
@@ -66,16 +65,15 @@
 			"name" : "UnitSelect"
 		},
 		{
-			"name" : "SpriteRenderable"
-		},
-		{
-			"name" : "SpriteAnimator",
-			"spritename" : "engineer"
+			"name" : "SpriteGroup",
+			"spritename":"engineer",
+			"number":4,
+			"rotate":[45,0,0],
+			"scale":[0.7,0.7,1],
+			"translate":[0.1,0,0.05]
 		},
 		{
 			"name" : "ClickableBoxRenderable"
 		}
-	],
-	"scale" : [1.5,1.75,0],
-	"rotate" : [45, 0, 0]
+	]
 }

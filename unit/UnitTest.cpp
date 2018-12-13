@@ -16,7 +16,7 @@
 #include "kitten/K_GameObjectManager.h"
 
 #include "board/BoardManager.h"
-
+#include "kitten/sprites/SpriteGroup.h"
 //Rock
 //test the unit data
 
@@ -46,7 +46,7 @@ namespace unit
 		m_bTested = true;
 		//comment for testing IT
 
-		kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstanceSafe()->spawnUnitObject(13); // king !!!
+		kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstanceSafe()->spawnUnitObject(13); // 13 king !!!
 		uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(-1, -1);
 
 		kitten::K_GameObject* uNEWDUMMY2 = UnitSpawn::getInstanceSafe()->spawnUnitObject(14); // queen !!!
@@ -85,7 +85,7 @@ namespace unit
 		testTile->getTransform().place(0.0f, -1.0f, 16.0f);
 		//end of test tile
 		*/
-		/*
+		
 		//set initial position
 		kitten::K_GameObject* u0 = UnitSpawn::getInstanceSafe()->spawnUnitObject(1);//priest
 		u0->getComponent<unit::UnitMove>()->setTile(1, 2);
@@ -116,11 +116,12 @@ namespace unit
 
 		kitten::K_GameObject* u9 = UnitSpawn::getInstanceSafe()->spawnUnitObject(11);//divine status
 		u9->getComponent<unit::UnitMove>()->setTile(10, 2);
-		*/
+		
 		kitten::K_GameObject* u10 = UnitSpawn::getInstanceSafe()->spawnUnitObject(12);//oligarch
 		u10->getComponent<unit::UnitMove>()->setTile(11, 4);
 		//u10->getComponent<Unit>()->m_attributes[COUNTER_MONEY] = 4;
-		
+		//kitten::K_GameObject* u11 = UnitSpawn::getInstanceSafe()->spawnUnitObject(5);//wall
+		//u11->getComponent<unit::UnitMove>()->setTile(12, 2);
 		
 		//test unit 
 		//unit::Unit* u = u1->getComponent<unit::Unit>();
@@ -135,5 +136,28 @@ namespace unit
 		//UnitMonitor::getInstanceSafe()->printIT();
 		//InitiativeTracker::getInstance()->removeUnit(u2);
 		//UnitMonitor::getInstanceSafe()->printIT();
+
+		//test sprite group
+		/*
+		kitten::K_GameObjectManager* gm = kitten::K_GameObjectManager::getInstance();
+		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
+
+		kitten::K_GameObject* g = gm->createNewGameObject();
+		g->getTransform().place(2.0, 0.5, 2.0);
+
+		kitten::K_GameObject* go = gm->createNewGameObject();
+
+		go->addComponent(cm->createComponent("SpriteRenderable"));
+
+		sprites::SpriteAnimator* animator = static_cast<sprites::SpriteAnimator*>(cm->createComponent("SpriteAnimator"));
+		animator->setSpriteSheet("wizard");
+		go->addComponent(animator);
+
+		go->getTransform().setIgnoreParent(false);
+		go->getTransform().setParent(&g->getTransform());
+
+		go->getTransform().place(0, 0, 0);
+		go->getTransform().rotateAbsolute(glm::vec3(45, 0, 0));
+		go->getTransform().scaleAbsolute(10, 10, 10);*/
 	}
 }
