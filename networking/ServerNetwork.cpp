@@ -177,10 +177,13 @@ namespace networking
 				closesocket(currentSocket);
 				m_sessions[client_id] = INVALID_SOCKET;
 
-				// Display disconnect screen; Server detected client disconnect
-				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
-				eventData->putInt(GAME_END_RESULT, 2);
-				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+				if (client_id != 0)
+				{
+					// Display disconnect screen; Server detected client disconnect
+					kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+					eventData->putInt(GAME_END_RESULT, 2);
+					kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+				}
 			}
 			return m_iResult;
 		}
