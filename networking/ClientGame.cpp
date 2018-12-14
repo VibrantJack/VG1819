@@ -186,6 +186,11 @@ namespace networking
 
 				i += BASIC_PACKET_SIZE;
 				disconnectFromNetwork(true);
+
+				// Display disconnect screen; Server received manual disconnect from server
+				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+				eventData->putInt(GAME_END_RESULT, 2);
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
 				break;
 			}
 			case PacketTypes::ABILITY_PACKET:

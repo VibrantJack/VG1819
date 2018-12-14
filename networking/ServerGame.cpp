@@ -38,7 +38,7 @@ namespace networking
 		return sm_serverGameInstance;
 	}
 
-	ServerGame::ServerGame()
+	ServerGame::ServerGame() : m_shutdown(false)
 	{
 		// id's to assign clients for our table
 		client_id = 0;
@@ -110,6 +110,11 @@ namespace networking
 		}
 
 		receiveFromClients();
+
+		if (m_shutdown)
+		{
+			shutdownNetwork();
+		}
 	}
 
 	void ServerGame::receiveFromClients()
@@ -168,6 +173,11 @@ namespace networking
 						printf("Server received CLIENT_DISCONNECT from [Client: %d]\n", clientId);						
 						m_network->removeClient(clientId);
 						kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Disconnect_From_Network, nullptr);
+
+						// Display disconnect screen; Server received manual disconnect from client
+						kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+						eventData->putInt(GAME_END_RESULT, 2);
+						kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
 
 						break;
 					}
