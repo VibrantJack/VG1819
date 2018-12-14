@@ -23,6 +23,8 @@ namespace sprites
 		virtual void update() override;
 
 		void setRenderableTexture();
+
+		void setRandomStartFrame();
 	public:
 		SpriteAnimator(const std::string& p_spriteName);
 		~SpriteAnimator();
