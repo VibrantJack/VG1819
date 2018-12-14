@@ -5,6 +5,7 @@
 * Also has a function that receives data from the server
 */
 #include "networking\ClientNetwork.h"
+#include "kitten\event_system\EventManager.h"
 
 namespace networking
 {
@@ -133,8 +134,9 @@ namespace networking
 			closesocket(m_connectSocket);
 			m_connectSocket = INVALID_SOCKET;
 			WSACleanup();
-			// TODO: Properly disconnect rather than shutdown lol
-			// Will need to clean up ClientNetwork and properly clean up ClientGame
+			kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+			eventData->putInt(GAME_END_RESULT, 2);
+			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
 		}
 
 		return m_iResult;

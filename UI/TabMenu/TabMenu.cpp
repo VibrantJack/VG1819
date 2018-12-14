@@ -14,6 +14,10 @@
 
 #include "UI\UIObject.h"
 
+#define VICTORY_TEXTURE "textures/ui/victory.tga"
+#define DEFEAT_TEXTURE "textures/ui/defeat.tga"
+#define DISCONNECT_TEXTURE "textures/ui/disconnect_message.tga"
+
 TabMenu::TabMenu(const char* p_pathToTex)
 	:
 	UIFrame(p_pathToTex),
@@ -73,11 +77,21 @@ void TabMenu::update()
 
 void TabMenu::enableEndGameScreen(kitten::Event::EventType p_type, kitten::Event* p_data)
 {
-	m_bGameEnded = true;
-	bool bVictory = p_data->getInt(PLAYER_COMMANDER_DEATH);
-	if (!bVictory)
-		m_endGameScreenObj->setTexture("textures/ui/defeat.tga");
+	int gameResult = p_data->getInt(GAME_END_RESULT);
+	switch (gameResult)
+	{
+		case 0: // Host Commander died
+			m_endGameScreenObj->setTexture(DEFEAT_TEXTURE);
+			break;
+		case 1: // Client Commander died
+			// m_endGameScreenObj starting texture is Victory texture
+			break;
+		case 2: // Player disconnected
+			m_endGameScreenObj->setTexture(DISCONNECT_TEXTURE);
+			break;
+	}		
 
-	m_endGameScreenObj->setEnabled(true);	// Show UIObject indicating Victory or Defeat
-	m_returnToMainButton->setEnabled(true); // Permanently show main menu button
+	m_endGameScreenObj->setEnabled(true);	// Show UIObject with appropriate end game message
+	m_returnToMainButton->setEnabled(true); 
+	m_bGameEnded = true; // Permanently show main menu button
 }

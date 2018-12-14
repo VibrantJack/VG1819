@@ -4,7 +4,9 @@
 * clients
 */
 #include "ServerGame.h"
+
 #include "ClientGame.h"
+#include "kitten\event_system\EventManager.h"
 
 namespace networking
 {
@@ -165,6 +167,7 @@ namespace networking
 						unsigned int clientId = iter->first;
 						printf("Server received CLIENT_DISCONNECT from [Client: %d]\n", clientId);						
 						m_network->removeClient(clientId);
+						kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Disconnect_From_Network, nullptr);
 
 						break;
 					}

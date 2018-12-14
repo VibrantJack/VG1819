@@ -123,13 +123,9 @@ namespace networking
 			delete m_network;
 			m_network = nullptr;
 		}
-
-		// For now, delete all stored unit GameObjects until we can disable interacting with units at game end
-		auto end = m_unitGOList.end();
-		for (auto it = m_unitGOList.begin(); it != end; ++it)
-		{
-			kitten::K_GameObjectManager::getInstance()->destroyGameObject((*it).second);
-		}
+		kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+		eventData->putInt(GAME_END_RESULT, 2);
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
 
 		sm_networkValid = false;
 	}
@@ -193,8 +189,6 @@ namespace networking
 
 				i += BASIC_PACKET_SIZE;
 				disconnectFromNetwork(true);
-				// @TODO: After disconnecting from network, we should prompt to return to main menu or something similar
-				// After returning to main menu, we then destroy ClientGame
 				break;
 			}
 			case PacketTypes::ABILITY_PACKET:

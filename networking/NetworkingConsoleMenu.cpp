@@ -33,6 +33,7 @@ NetworkingConsoleMenu::NetworkingConsoleMenu()
 NetworkingConsoleMenu::~NetworkingConsoleMenu()
 {
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Return_to_Main_Menu, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Disconnect_From_Network, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Join_Button_Clicked, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Host_Button_Clicked, this);
 }
@@ -51,6 +52,11 @@ void NetworkingConsoleMenu::start()
 	// Add Listeners for exiting to Main Menu and disconnecting from network
 	kitten::EventManager::getInstance()->addListener(
 		kitten::Event::EventType::Return_to_Main_Menu,
+		this,
+		std::bind(&NetworkingConsoleMenu::stopHostingListener, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Disconnect_From_Network,
 		this,
 		std::bind(&NetworkingConsoleMenu::stopHostingListener, this, std::placeholders::_1, std::placeholders::_2));
 		
@@ -182,7 +188,9 @@ void NetworkingConsoleMenu::stopHostingListener(kitten::Event::EventType p_type,
 				disconnectFromHost();
 		}
 	}
-	kitten::K_Instance::changeScene("mainmenu.json");
+
+	if (p_type == kitten::Event::Return_to_Main_Menu)
+		kitten::K_Instance::changeScene("mainmenu.json");
 }
 
 void NetworkingConsoleMenu::hostGame()
