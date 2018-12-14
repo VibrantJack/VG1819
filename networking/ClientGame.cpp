@@ -123,9 +123,6 @@ namespace networking
 			delete m_network;
 			m_network = nullptr;
 		}
-		kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
-		eventData->putInt(GAME_END_RESULT, 2);
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
 
 		sm_networkValid = false;
 	}

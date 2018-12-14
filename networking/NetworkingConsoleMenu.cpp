@@ -191,6 +191,12 @@ void NetworkingConsoleMenu::stopHostingListener(kitten::Event::EventType p_type,
 
 	if (p_type == kitten::Event::Return_to_Main_Menu)
 		kitten::K_Instance::changeScene("mainmenu.json");
+	else
+	{
+		kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+		eventData->putInt(GAME_END_RESULT, 2);
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+	}
 }
 
 void NetworkingConsoleMenu::hostGame()
