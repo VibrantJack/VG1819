@@ -674,6 +674,9 @@
       <Filter>ability\ability</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\status\Status_Block.cpp" />
+    <ClCompile Include="..\components\CustomCursor.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1259,6 +1262,9 @@
     </ClInclude>
     <ClInclude Include="..\UI\ContextMenu.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\CustomCursor.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

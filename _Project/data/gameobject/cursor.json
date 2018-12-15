@@ -2,8 +2,14 @@
     "name" : "Cursor", 
     "components" : [
         {
-            "name" : "QuadRenderable",
-			"texture" : "textures/ui/cursor.tga"
+            "name" : "UIElement",
+            "texture" : "textures/ui/cursor.tga",
+            "pivot" : "botleft"
+        },
+        {
+            "name":"CustomCursor",
+            "offset":[-5,-45]
         }
-    ]
+    ],
+    "scale2d" : [50,50]
 }
