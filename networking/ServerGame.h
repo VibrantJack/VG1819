@@ -27,6 +27,8 @@ namespace networking
 		
 		void sendSummonedUnitPacket(unsigned int p_iClientId, SummonUnitPacket p_packet);
 
+		void flagShutdown(bool p_flag) { m_shutdown = p_flag; }
+
 	private:
 
 		// IDs for the clients connecting for table in ServerNetwork 
@@ -37,6 +39,7 @@ namespace networking
 
 		// data buffer
 		char m_network_data[MAX_PACKET_SIZE];
+		bool m_shutdown;
 
 		static bool sm_networkValid;
 

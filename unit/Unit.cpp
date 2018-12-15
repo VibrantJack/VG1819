@@ -393,11 +393,11 @@ namespace unit
 				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
 				if (m_clientId == client->getClientId())
 				{
-					eventData->putInt(PLAYER_COMMANDER_DEATH, FALSE);
+					eventData->putInt(GAME_END_RESULT, 0); // 0: Host Commander died
 				}
 				else
 				{
-					eventData->putInt(PLAYER_COMMANDER_DEATH, TRUE);
+					eventData->putInt(GAME_END_RESULT, 1); // 1: Client Commander died
 				}
 				
 				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
