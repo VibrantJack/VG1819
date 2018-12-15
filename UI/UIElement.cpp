@@ -50,6 +50,11 @@ namespace userinterface
 		{
 			delete sm_vao;
 		}
+
+		if (m_isEnabled)
+		{
+			removeFromDynamicRender();
+		}
 	}
 
 	void UIElement::start()
