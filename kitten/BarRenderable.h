@@ -1,3 +1,4 @@
+#pragma once
 #include "puppy\VertexEnvironment.h"
 #include "puppy\Material.h"
 #include "Renderable.h"
@@ -11,6 +12,7 @@ namespace kitten
 		static unsigned int instances;
 
 		puppy::Material m_mat;
+		float m_uScale;
 
 		virtual void start() override;
 		virtual void onDisabled() override;
@@ -20,6 +22,7 @@ namespace kitten
 		~BarRenderable();
 
 		void setTexture(const char* p_pathToTexture);
+		void setUScale(const float& p_scale);
 
 		virtual void render(const glm::mat4& p_viewProj) override;
 	};

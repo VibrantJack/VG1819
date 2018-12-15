@@ -72,9 +72,10 @@ namespace unit
 		backgroundBar->setTexture(DAMAGE_MAT_TEXTURE_PATH);
 		background->addComponent(backgroundBar);
 
-		kitten::BarRenderable* foregroundBar = static_cast<kitten::BarRenderable*>(compMan->createComponent("BarRenderable"));
-		foregroundBar->setTexture(HEALTH_MAT_TEXTURE_PATH);
-		foreground->addComponent(foregroundBar);
+		m_foregroundBar = static_cast<kitten::BarRenderable*>(compMan->createComponent("BarRenderable"));
+		m_foregroundBar->setTexture(HEALTH_MAT_TEXTURE_PATH);
+		m_foregroundBar->setUScale(BAR_X_SCALE);
+		foreground->addComponent(m_foregroundBar);
 
 		m_foregroundLerpController = static_cast<LerpController*>(compMan->createComponent("LerpController"));
 		foreground->addComponent(m_foregroundLerpController);
@@ -93,6 +94,7 @@ namespace unit
 			//scale foreground
 			const glm::vec3& currentScale = getTransform().getScale();
 			m_foregroundLerpController->scaleLerp(glm::vec3(BAR_X_SCALE*percentFull,BAR_Y_SCALE,currentScale.z), abs(m_oldHealthPercent - percentFull) * m_lerpTimeScalar);
+
 			m_oldHealthPercent = percentFull;
 		}
 	}

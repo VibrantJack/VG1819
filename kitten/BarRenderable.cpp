@@ -6,7 +6,7 @@ namespace kitten
 	unsigned int BarRenderable::instances = 0;
 
 
-	BarRenderable::BarRenderable(const char* p_pathToTexture) : m_mat(puppy::ShaderType::basic)
+	BarRenderable::BarRenderable(const char* p_pathToTexture) : m_mat(puppy::ShaderType::basic_u_scale), m_uScale(1.0f)
 	{
 		if (instances == 0)
 		{
@@ -20,7 +20,7 @@ namespace kitten
 				{ 0.0f, -0.5f, 0.0f,		0.0f, 0.0f }
 			};
 
-			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 6);
+			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic_u_scale), 6);
 		}
 
 		++instances;
@@ -53,6 +53,11 @@ namespace kitten
 		m_mat.setTexture(p_pathToTexture);
 	}
 
+	void BarRenderable::setUScale(const float& p_uScale)
+	{
+		m_uScale = 1/p_uScale;
+	}
+
 	void BarRenderable::start()
 	{
 		onEnabled();
@@ -72,6 +77,8 @@ namespace kitten
 	{
 		m_mat.apply();
 		m_mat.setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_viewProj * getTransform().getWorldTransform());
+		m_mat.setUniform("xScale", getTransform().getLocalScale().x);
+		m_mat.setUniform("uScale", m_uScale);
 
 		sm_vao->drawArrays(GL_TRIANGLES);
 	}

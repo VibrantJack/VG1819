@@ -4,6 +4,7 @@
 #include "puppy\Material.h"
 #include "kitten\K_Component.h"
 #include "_Project\LerpController.h"
+#include "kitten\BarRenderable.h"
 
 #include "unit\UnitCommon.h"
 #include "unit\Unit.h"
@@ -28,6 +29,8 @@ namespace unit
 
 		float m_lerpTimeScalar = 4.0f;
 		LerpController* m_foregroundLerpController;
+		
+		kitten::BarRenderable* m_foregroundBar;
 
 		const glm::vec2 m_offset;
 
