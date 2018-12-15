@@ -11,6 +11,7 @@ Highlighter::Highlighter()
 	}
 
 	m_texMap[TileInfo::Cursor] = "textures/tiles/highlight.tga";
+	m_texMap[TileInfo::Select] = "textures/tiles/highlight.tga";
 	m_texMap[TileInfo::Area] = "textures/tiles/grasslandArea.tga";
 	m_texMap[TileInfo::Range] = "textures/tiles/highlightedGrassland.tga";
 	m_texMap[TileInfo::Owned] = "textures/tiles/red.tga";

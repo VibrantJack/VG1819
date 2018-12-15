@@ -17,6 +17,7 @@ public:
 		First = Area,
 		None,
 		Cursor,
+		Select,
 		Range,
 		Owned,
 		Count = Owned+1

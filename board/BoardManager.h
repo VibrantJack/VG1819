@@ -42,12 +42,17 @@ public:
 	void showArea(kitten::K_GameObject* p_pivot);
 	void hideArea();
 	kitten::Event::TileList getArea();
-
+	//change select
+	bool m_selectRepeat;
+	void select();
+	void deselect();
 	//highlight range
 	kitten::Event::TileList getRange();
 
 	void registerEvent();
 	void deregisterEvent();
+
+	void tileClicked(bool p_send);
 private:
 	static BoardManager* sm_instance;
 
@@ -63,6 +68,10 @@ private:
 
 	kitten::Event::TileList m_areaList;
 	kitten::Event::TileList m_rangeList;
+	kitten::Event::TileList m_selectList;
+	bool m_select;
+	int m_targetNum;
+	int m_selectNum;
 
 	std::vector<kitten::K_GameObject*> m_tileList;
 

@@ -673,6 +673,7 @@
     <ClCompile Include="..\ability\ability\HereHomeland.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Block.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1258,9 +1259,6 @@
     </ClInclude>
     <ClInclude Include="..\UI\ContextMenu.h">
       <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ability\status\Status_Block.cpp">
-      <Filter>ability\status</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -27,7 +27,7 @@ private:
 	bool m_reg;
 	bool m_respond;
 	bool m_needUnit;
-	int m_targetNum;//number of times that player need to click on
+	//int m_targetNum;//number of times that player need to click on
 
 	void registerEvent();
 	void deregisterEvent();
