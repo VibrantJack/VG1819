@@ -778,6 +778,8 @@ kitten::K_Component* getSpriteGroup(nlohmann::json* p_jsonFile) {
 	}
 
 	return sg;
+}
+
 #include "components/CustomCursor.h"
 kitten::K_Component* getCustomCursor(nlohmann::json* p_jsonFile) {
 	if (JSONHAS("offset"))
