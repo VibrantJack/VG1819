@@ -84,6 +84,7 @@ void BoardCreator::start()
 			{
 				tileGO = createTile(x, z);
 			}
+
 			list.push_back(tileGO);
 
 			kitten::Transform& transform = tileGO->getTransform();

@@ -1,0 +1,13 @@
+{
+	"components" : [
+		{
+			"name" : "SpriteRenderable"
+		},
+		{
+			"name" : "SpriteAnimator",
+			"spritename" : "engineer"
+		}
+	],
+	"scale" : [1.5,1.75,0],
+	"rotate" : [45, 0, 0]
+}

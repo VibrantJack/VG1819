@@ -1,0 +1,13 @@
+{
+	"components" : [
+		{
+			"name" : "SpriteRenderable"
+		},
+		{
+			"name" : "SpriteAnimator",
+			"spritename" : "pyromancer"
+		}
+	],
+	"scale" : [9,2,0],
+	"rotate" : [45, 0, 0]
+}

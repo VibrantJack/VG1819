@@ -1,80 +1,127 @@
 {
     "gameobjects" : [
         {
-            "filename" : "camgameobj.txt"
+            "filename" : "camgameobj_main_menu.txt", 
+            "translate" : [7, 7.0, 2.0],
+            "rotate" : [-70,0,0]
+        },
+		{
+			"filename" : "quad_repeat.txt"
+		},
+		{
+			"name" : "MainMenuBoard",
+			"components" : [
+				{
+					"name" : "MainMenuBoard"
+				}
+			]
+		},
+        {
+			"name" : "Main Menu Texture",
+			"components" : [
+				{
+					"name" : "UIFrame",
+					"texture" : "textures/ui/main_menu_interface.tga"
+				}
+			],
+			"scale2d" : [1280, 720],
+			"translate" : [0.0, 0.0, -0.9]
         },
         {
             "filename" : "cursor.json"
         },
-        {
-            "name" : "Deck Display Frame",
+		{
+            "name" : "Exit Game Button",
             "components" : [
                 {
-                    "name":"DecksDisplayFrame",
-                    "margin": 10
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_exit_game.tga"
+                },
+				{
+					"name" : "ExitGameButton",
+					"regularTexture" : "textures/ui/buttons/button_exit_game.tga",
+					"highlightedTexture" : "textures/ui/buttons/button_exit_game_highlighted.tga"
+				},
+                {
+                    "name" : "ClickableFrame"
                 }
             ],
-			"translate2d" : [200, 10],
-            "scale2d" : [1070,700]
+            "translate2d" : [35, 22],
+            "scale2d" : [250, 80]
+            
         },
         {
             "name" : "New Game Button",
             "components" : [
                 {
-                    "name" : "UIFrame",
-                    "texture" : "textures/ui/button_new-game.tga"
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_new_game.tga"
                 },
                 {
                     "name" : "StartGameOnClick",
                     "scene" : "network_menu.json"
 
                 },
+				{
+					"name" : "ClickableButton",
+					"regularTexture" : "textures/ui/buttons/button_new_game.tga",
+					"highlightedTexture" : "textures/ui/buttons/button_new_game_highlighted.tga"
+				},
                 {
                     "name" : "ClickableFrame"
                 }
             ],
-            "translate2d" : [10, 600],
-            "scale2d" : [170, 100]
+            "translate2d" : [354, 22],
+            "scale2d" : [250, 80]
             
         },
         {
             "name" : "Edit Deck Button",
             "components" : [
                 {
-                    "name" : "UIFrame",
-                    "texture" : "textures/ui/button_deck-builder.tga"
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_decks.tga"
                 },
-                {
-                    "name" : "ClickableUI"
+				{
+                    "name" : "ChangeSceneOnClick",
+                    "scene" : "deck_menu.json"
+
                 },
+				{
+					"name" : "ClickableButton",
+					"regularTexture" : "textures/ui/buttons/button_decks.tga",
+					"highlightedTexture" : "textures/ui/buttons/button_decks_highlighted.tga"
+				},
                 {
                     "name" : "ClickableFrame"
                 }
             ],
-            "translate2d" : [10, 480],
-            "scale2d" : [170, 100]
+            "translate2d" : [676, 22],
+            "scale2d" : [250, 80]
         },
         {
             "name" : "Testing Button",
             "components" : [
                 {
-                    "name" : "UIFrame",
-                    "texture" : "textures/ui/button_testing.tga"
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_testing.tga"
                 },				
                 {
                     "name" : "StartGameOnClick",
                     "scene" : "testinggrounds.json"
 
                 },
-                {
-                    "name" : "ClickableUI"
-                },
+				{
+					"name" : "ClickableButton",
+					"regularTexture" : "textures/ui/buttons/button_testing.tga",
+					"highlightedTexture" : "textures/ui/buttons/button_testing_highlighted.tga"
+				},
                 {
                     "name" : "ClickableFrame"
                 }
             ],
-            "translate2d" : [10, 360],
-            "scale2d" : [170, 100]
+            "translate2d" : [995, 22],
+            "scale2d" : [250, 80]
         }
     ]
 }
