@@ -78,7 +78,7 @@ namespace kitten
 			//Transform into world space
 			puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform());
 
-			m_staticTex = m_mat.getFirstTexture();
+			m_staticTex = m_mat.getOwnedTexture();
 
 			Renderable::addToStaticRender(m_staticTex, verts, 6);
 		}
@@ -104,9 +104,9 @@ namespace kitten
 		}
 	}
 
-	void QuadRenderable::addTexture(const char* p_pathToTex, const float& p_weight)
+	void QuadRenderable::addTexture(puppy::Texture* p_tex, const float& p_weight)
 	{
-		m_mat.addTexture(p_pathToTex, p_weight);
+		m_mat.addTexture(p_tex, p_weight);
 
 		if (m_isStatic && m_isEnabled)
 		{
@@ -124,9 +124,9 @@ namespace kitten
 		}
 	}
 
-	void QuadRenderable::removeTexture(const char* p_pathToTex)
+	void QuadRenderable::removeTexture(puppy::Texture* p_tex)
 	{
-		m_mat.removeTexture(p_pathToTex);
+		m_mat.removeTexture(p_tex);
 		
 		if (m_isStatic)
 		{
@@ -139,9 +139,9 @@ namespace kitten
 		}
 	}
 
-	void QuadRenderable::changeWeight(const char* p_pathToTex, const float& p_weight)
+	void QuadRenderable::changeWeight(puppy::Texture* p_tex, const float& p_weight)
 	{
-		m_mat.changeWeight(p_pathToTex, p_weight);
+		m_mat.changeWeight(p_tex, p_weight);
 	}
 
 	void QuadRenderable::start()

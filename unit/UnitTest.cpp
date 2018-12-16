@@ -159,5 +159,6 @@ namespace unit
 		go->getTransform().place(0, 0, 0);
 		go->getTransform().rotateAbsolute(glm::vec3(45, 0, 0));
 		go->getTransform().scaleAbsolute(10, 10, 10);*/
+		//kitten::K_GameObjectManager::getInstance()->createNewGameObject("cursor.json");
 	}
 }

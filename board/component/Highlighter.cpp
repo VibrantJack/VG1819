@@ -10,10 +10,11 @@ Highlighter::Highlighter()
 		m_listForType[static_cast<TileInfo::HighlightType>(i)] = std::vector<kitten::K_GameObject*>();
 	}
 
-	m_texMap[TileInfo::Cursor] = "textures/tiles/highlight.tga";
-	m_texMap[TileInfo::Area] = "textures/tiles/grasslandArea.tga";
-	m_texMap[TileInfo::Range] = "textures/tiles/highlightedGrassland.tga";
-	m_texMap[TileInfo::Owned] = "textures/tiles/red.tga";
+	m_texMap[TileInfo::Cursor] = new puppy::Texture("textures/tiles/highlight.tga");
+	m_texMap[TileInfo::Select] = new puppy::Texture("textures/tiles/highlight.tga");
+	m_texMap[TileInfo::Area] = new puppy::Texture("textures/tiles/grasslandArea.tga");
+	m_texMap[TileInfo::Range] = new puppy::Texture("textures/tiles/highlightedGrassland.tga");
+	m_texMap[TileInfo::Owned] = new puppy::Texture("textures/tiles/red.tga");
 }
 
 Highlighter::~Highlighter()
@@ -55,7 +56,7 @@ void Highlighter::update()
 			}
 			else
 			{
-				info->changeHighlightTexture("");
+				info->changeHighlightTexture(nullptr);
 				//Remove blending
 				//quad->removeTexture(m_texMap[type].c_str());
 			}

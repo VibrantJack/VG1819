@@ -673,6 +673,10 @@
     <ClCompile Include="..\kitten\sprites\SpriteGroup.cpp">
       <Filter>kitten\sprites</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Block.cpp" />
+    <ClCompile Include="..\components\CustomCursor.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
     <ClCompile Include="..\puppy\Models\P_Model.cpp">
       <Filter>puppy\Models</Filter>
     </ClCompile>
@@ -1286,6 +1290,9 @@
     </ClInclude>
     <ClInclude Include="..\kitten\sprites\SpriteGroup.h">
       <Filter>kitten\sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\CustomCursor.h">
+      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="..\puppy\Models\P_Model.h">
       <Filter>puppy\Models</Filter>
