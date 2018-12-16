@@ -142,7 +142,7 @@ namespace parser
 					--m_place;
 				p = lookup(m_lexbuf);
 				if (p == 0)
-					p = insert(m_lexbuf, ID);
+					p = insert(m_lexbuf, IDENTIFIER);
 				m_tokenVal = p;
 				p_toSet = m_lexbuf;
 				return symtable[p].token;

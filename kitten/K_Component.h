@@ -1,6 +1,6 @@
 #pragma once
-
 #include "Transform.h"
+#include "K_GameObject.h"
 
 namespace kitten
 {
@@ -28,9 +28,12 @@ namespace kitten
 		virtual void start();
 		virtual void update();
 
-		K_GameObject& getGameObject() { return *m_attachedObject; };
+		K_GameObject& getGameObject() { return *m_attachedObject; }
 		//For convenience
-		Transform& getTransform() const;
+		inline Transform& getTransform() const
+		{
+			return m_attachedObject->getTransform();
+		}
 
 		bool isEnabled() const;
 		void setEnabled(bool p_enabled);

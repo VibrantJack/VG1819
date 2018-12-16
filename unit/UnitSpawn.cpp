@@ -14,6 +14,7 @@
 //Rock
 
 #include "kibble/databank/databank.hpp"
+#include "kibble\GameObjectDataParser.hpp"
 
 namespace unit
 {
@@ -105,7 +106,7 @@ namespace unit
 		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
 
 		//unit object
-		kitten::K_GameObject* unitObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+		kitten::K_GameObject* unitObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UnitBase.txt");
 		kibble::attachCustomComponentsToGameObject(p_unitIdentifier, unitObject);
 
 		//create clickable

@@ -45,6 +45,8 @@
 
 #include "components/ChangeSceneOnClick.hpp"
 #include "kitten\K_ParticleSystem.h"
+#include "kitten\BarRenderable.h"
+#include "_Project\LerpController.h"
 
 //board
 #include "board/component/Highlighter.h"
@@ -57,6 +59,7 @@
 #include "board/tile/TileInfo.h"
 
 #include "unitInteraction/CounterGetterDisplay.h"
+
 namespace kitten
 {
 	K_ComponentManager* K_ComponentManager::sm_instance = nullptr;
@@ -77,9 +80,17 @@ namespace kitten
 		K_Component* comp;
 
 		//Kibble version -1.0
-		if (p_componentName == "K_ParticleSystem")
+		if (p_componentName == "K_ParticleSystem") //datadriven
 		{
 			comp = new kitten::K_ParticleSystem("");
+		}
+		else if (p_componentName == "BarRenderable") //datadriven
+		{
+			comp = new kitten::BarRenderable();
+		}
+		else if (p_componentName == "LerpController")
+		{
+			comp = new LerpController();
 		}
 		else if (p_componentName == "Camera")// Datadriven
 		{
@@ -412,6 +423,12 @@ namespace kitten
 		}
 		
 		//No if, likely to always have to update
+		//Remove queued components from update
+		for (auto it = m_toRemoveFromUpdate.begin(); it != m_toRemoveFromUpdate.end(); it = m_toRemoveFromUpdate.erase(it))
+		{
+			removeFromUpdate(*it);
+		}
+
 		//Update components
 		auto updateEnd = m_toUpdate.cend();
 		for (auto it = m_toUpdate.cbegin(); it != updateEnd; ++it)

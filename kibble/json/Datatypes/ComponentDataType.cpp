@@ -810,6 +810,29 @@ kitten::K_Component* getMainMenuBoard(nlohmann::json* p_jsonFile)
 	return new MainMenuBoard();
 }
 
+#include "kitten\ModelRenderable.h"
+kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
+
+	std::string modelPath = p_jsonFile->operator[]("path");
+
+	return new ModelRenderable(modelPath.c_str());
+}
+
+#include "unit\unitComponent\UnitHealthBar.h"
+kitten::K_Component* getUnitHealthBar(nlohmann::json* p_jsonFile) {
+
+	glm::vec2 offset = glm::vec2(LOOKUP("offset")[0], LOOKUP("offset")[1]);
+
+	return new unit::UnitHealthBar(offset);
+}
+
+#include "_Project\LerpController.h"
+kitten::K_Component* getLerpController(nlohmann::json* p_jsonFile) {
+
+	return new LerpController();
+}
+
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -876,6 +899,9 @@ void setupComponentMap() {
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
 	jsonComponentMap["ClickableButton"] = &getClickableButton;
 	jsonComponentMap["MainMenuBoard"] = &getMainMenuBoard;
+	jsonComponentMap["ModelRenderable"] = &getModelRenderable;
+	jsonComponentMap["UnitHealthBar"] = &getUnitHealthBar;
+	jsonComponentMap["LerpController"] = &getLerpController;
 
 }
 

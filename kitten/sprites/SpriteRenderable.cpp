@@ -1,6 +1,7 @@
 #include "SpriteRenderable.h"
 #include "puppy\ShaderManager.h"
 #include "kitten\K_GameObject.h"
+#include "SpriteAnimator.h"
 
 namespace kitten
 {
@@ -42,7 +43,7 @@ namespace kitten
 	{
 		addToDynamicRender();
 
-		auto animator = m_attachedObject->getComponent<SpriteRenderable>();
+		auto animator = m_attachedObject->getComponent<sprites::SpriteAnimator>();
 		assert(animator != nullptr); //Every SpriteRenderable needs a sprite animator!
 	}
 
