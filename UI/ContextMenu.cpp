@@ -6,13 +6,11 @@
 
 namespace userinterface
 {
-	ContextMenu::ContextMenu(int p_width, int p_height, int p_padding, int p_margain, fillType p_ft) : UIElement("texture/ui/blankFrame.tga")
+	ContextMenu::ContextMenu(int p_padding, int p_margain, fillType p_ft) : UIElement("texture/ui/blankFrame.tga")
 	{
 		m_ft = p_ft;
-		m_width = p_width;
-		m_height = p_height;
 		m_padding = p_padding;
-		m_margin = p_margain;
+		setPivotType(piv_TopLeft);
 	}
 
 	ContextMenu::ContextMenu() : UIElement("textures/ui/blankFrame.tga")
@@ -20,7 +18,6 @@ namespace userinterface
 		m_width = 100;
 		m_height = 20;
 		m_padding = 0;
-		m_margin = 0;
 	}
 
 	ContextMenu::~ContextMenu()
@@ -35,39 +32,46 @@ namespace userinterface
 		setEnabled(true);
 	}
 
-	void ContextMenu::addRow( const rowType p_rt )
+	ContextMenu::Row ContextMenu::addRow( const rowType p_rt )
 	{
 		Row r;
 		r.type = p_rt;
+		m_rows.push_back(r);
+		arrange();
+		return r;
 	}
 
-	bool ContextMenu::addToRow(const int p_index, kitten::K_GameObject* p_GO)
+	bool ContextMenu::addToEnd(const kitten::K_GameObject* p_GO)
 	{
-		try {
-			m_rows.at(p_index).elements.push_back(p_GO);
-		}
-		catch (const std::out_of_range& error) {
-			std::cerr << "Row Does Not Exist - OutOfBoundsException: " << error.what() << '\n';
-			return false;
-		}
-		return true;
-	}
+		
+	}  
 
-	bool ContextMenu::addToEnd(kitten::K_GameObject* p_GO)
+
+	void ContextMenu::arrange()
 	{
-		Row r = m_rows.at(m_rows.size() - 1);
-		if (r.type == rt_OneElement || m_ft == ft_Vertical)
+		int offset = m_padding;
+		int currentX = offset;
+		int currentY = -offset;
+		getTransform().scale2D(m_padding * 2, m_padding * 2);
+	
+		for (Row r : m_rows)
 		{
-			addRow(rt_ForceOverflow);
-			r = m_rows.at(m_rows.size() - 1);
-			r.elements.push_back(p_GO);
-		}
-		else {
-			r.elements.push_back(p_GO);
+			for (kitten::K_GameObject* GO : r.elements)
+			{
+				GO->getComponent<UIElement>()->setPivotType(UIElement::piv_TopLeft);
+				if (GO != nullptr)
+				{
+					GO->getTransform().place2D(currentX, currentY);
+					if (m_ft == ft_Vertical || r.type == rt_OneElement)
+					{
+						currentY -= (r.height - r.contentMargin);
+					}
+					else if (r.type == rt_FillRow)
+					{
+						currentX += (r.width + r.contentMargin);
+					}
+				}
+			}
 		}
 	}
-
-	/* TODO 
-			add configuration method for positioning all of the elements in the context menu to be rendered properly.
-	*/
 }
