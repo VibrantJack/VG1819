@@ -4,6 +4,9 @@
             "filename" : "camgameobj.txt"
         },
         {
+            "filename" : "cursor.json"
+        },
+        {
             "name" : "Deck Display Frame",
             "components" : [
                 {

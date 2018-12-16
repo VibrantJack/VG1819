@@ -664,6 +664,10 @@
     <ClCompile Include="..\ability\ability\HereHomeland.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Block.cpp" />
+    <ClCompile Include="..\components\CustomCursor.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
     <ClCompile Include="..\puppy\Models\P_Model.cpp">
       <Filter>puppy\Models</Filter>
     </ClCompile>
@@ -1268,6 +1272,9 @@
     </ClInclude>
     <ClInclude Include="..\UI\ContextMenu.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\CustomCursor.h">
+      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="..\puppy\Models\P_Model.h">
       <Filter>puppy\Models</Filter>

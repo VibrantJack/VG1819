@@ -1,3 +1,4 @@
+#pragma once
 #include "Renderable.h"
 #include "puppy\TextureBlendMaterial.h"
 #include "puppy\VertexEnvironment.h"
@@ -26,10 +27,10 @@ namespace kitten
 
 		void setTexture(const char* p_pathToTex);
 
-		void addTexture(const char* p_pathToTex, const float& p_weight);
-		void removeTexture(const char* p_pathToTex);
+		void addTexture(puppy::Texture* p_tex, const float& p_weight = 1.0f);
+		void removeTexture(puppy::Texture* p_tex);
 
-		void changeWeight(const char* p_pathToTex, const float& p_weight);
+		void changeWeight(puppy::Texture* p_tex, const float& p_weight);
 
 		void render(const glm::mat4& p_viewProj) override;
 	};

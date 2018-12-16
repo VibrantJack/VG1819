@@ -9,21 +9,22 @@ namespace puppy
 	class TextureBlendMaterial : public Material
 	{
 	private:
-												//Texture,  slot,  weight
-		std::map<std::string, std::tuple<Texture*, int, float>> m_additionalTextures;
+		std::unordered_map<Texture*, float> m_textures;
+
+		Texture* m_ownedTexture;
+
 	public:
 		TextureBlendMaterial();
 		~TextureBlendMaterial();
 
 		virtual void setTexture(const char* p_pathToTex) override;
+		Texture* getOwnedTexture();
 
-		void addTexture(const char* p_pathToTexToAdd, const float& p_weight = 1.0f);
-		void removeTexture(const char* p_pathToTexToRemove);
+		void addTexture(Texture* p_tex, const float& p_weight = 1.0f);
+		void removeTexture(Texture* p_tex);
 
-		void changeWeight(const char* p_pathToTex, const float& p_weight);
+		void changeWeight(Texture* p_tex, const float& p_weight);
 		int getNumberOfTextures() const;
-
-		Texture* getFirstTexture();
 
 		virtual void apply() override;
 	};
