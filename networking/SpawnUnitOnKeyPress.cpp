@@ -51,14 +51,12 @@ void SpawnUnitOnKeyPress::update()
 				int posY = 4;
 				int unitId = 1;
 
-				for (int i = 0; i < 5; ++i)
+				for (int i = 0; i < 4; ++i)
 				{
 					client->summonUnit(clientId, unitId, posX, posY);
 					client->sendSummonUnitPacket(clientId, unitId, posX, posY);
 					posX++;
 					unitId++;
-					if (unitId == 5)
-						unitId++;
 				}
 				m_bUnitsSpawned = true;
 			} 

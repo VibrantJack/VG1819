@@ -1,0 +1,14 @@
+{
+	"name" : "SimpleArcher", 
+	"components" : [
+		{
+			"name" : "SpriteRenderable"
+		},
+		{
+			"name" : "SpriteAnimator",
+			"spritename" : "archer"
+		}
+	],
+	"scale" : [4.5,2.5,0],
+	"rotate" : [45, 0, 0]
+}

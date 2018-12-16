@@ -11,6 +11,25 @@ namespace unit
 	class UnitSpawn
 	{
 	public:
+		enum UnitIndex
+		{
+			testDummy = 0,
+			Priest,
+			Archer,
+			Duelist, 
+			Engineer,
+			Wall,
+			newUnitObject,
+			Pyromancer,
+			StoneSlinger,
+			ArrowTower,
+			Armory,
+			DivineStatue,
+			Oligarch,
+			King,
+			Queen
+		};
+
 		UnitSpawn();
 		~UnitSpawn();
 

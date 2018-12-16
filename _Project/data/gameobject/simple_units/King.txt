@@ -1,0 +1,13 @@
+{
+	"components" : [
+		{
+			"name" : "SpriteRenderable"
+		},
+		{
+			"name" : "SpriteAnimator",
+			"spritename" : "king"
+		}
+	],
+	"scale" : [25,2,0],
+	"rotate" : [45, 0, 0]
+}

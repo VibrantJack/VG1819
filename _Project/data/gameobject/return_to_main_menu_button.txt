@@ -3,13 +3,15 @@
     "components" : [
         {
             "name" : "UIObject",
-            "texture" : "textures/ui/return_to_mm.tga"
+            "texture" : "textures/ui/buttons/return_to_mm.tga"
         },
         {
             "name" : "ClickableFrame"
         },
         {
-            "name" : "ReturnToMainMenuButton"
+            "name" : "ReturnToMainMenuButton",
+			"regularTexture" : "textures/ui/buttons/return_to_mm.tga",
+			"highlightedTexture" : "textures/ui/buttons/return_to_mm_highlighted.tga"
         }
     ],
     "scale2d" : [170.0,100.0],

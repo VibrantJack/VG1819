@@ -2,14 +2,16 @@
     "name" : "Networking Menu Join Button",
     "components" : [
 		{
-			"name" : "UIFrame",
-			"texture" : "textures/ui/join_button.tga"
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/join_button.tga"
 		},
 		{
 			"name" : "ClickableFrame"
 		},
 		{
-			"name" : "NetworkJoinButton"
+			"name" : "NetworkJoinButton",
+			"regularTexture" : "textures/ui/buttons/join_button.tga",
+			"highlightedTexture" : "textures/ui/buttons/join_button_highlighted.tga"
 		}
     ]
 }

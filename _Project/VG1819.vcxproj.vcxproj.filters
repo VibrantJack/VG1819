@@ -665,6 +665,15 @@
       <Filter>ability\ability</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\status\Status_Block.cpp" />
+    <ClCompile Include="..\UI\ClickableButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\MainMenuBoard.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\QuadRenderableRepeat.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
     <ClCompile Include="..\components\CustomCursor.cpp">
       <Filter>components</Filter>
     </ClCompile>
@@ -695,7 +704,9 @@
     <ClCompile Include="LerpController.cpp">
       <Filter>components\util</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\Status_Block.cpp" />
+    <ClCompile Include="..\components\ExitGameButton.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1279,6 +1290,15 @@
     <ClInclude Include="..\puppy\Models\P_Model.h">
       <Filter>puppy\Models</Filter>
     </ClInclude>
+    <ClInclude Include="..\UI\ClickableButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\MainMenuBoard.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\QuadRenderableRepeat.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
     <ClInclude Include="..\assimp\include\assimp\ai_assert.h">
       <Filter>assimp</Filter>
     </ClInclude>
@@ -1518,6 +1538,9 @@
     </ClInclude>
     <ClInclude Include="LerpController.h">
       <Filter>components\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\ExitGameButton.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
