@@ -907,9 +907,15 @@ kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
 #include "unit\unitComponent\UnitHealthBar.h"
 kitten::K_Component* getUnitHealthBar(nlohmann::json* p_jsonFile) {
 
-	glm::vec2 offset = glm::vec2(LOOKUP("offset")[0], LOOKUP("offset")[1]);
+	glm::vec3 offset = glm::vec3(LOOKUP("offset")[0], LOOKUP("offset")[1], LOOKUP("offset")[2]);
 
-	return new unit::UnitHealthBar(offset);
+	float lerpTime;
+	SETOPTDEF(lerpTime, "lerptime", 4.0f);
+
+	float rotation;
+	SETOPTDEF(rotation, "rotation", -45);
+
+	return new unit::UnitHealthBar(offset,lerpTime,rotation);
 }
 
 #include "_Project\LerpController.h"
