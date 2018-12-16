@@ -1,6 +1,11 @@
 #pragma once
 #include "kitten\mouse picking\ClickableUI.h"
 #include "kitten\K_GameObject.h"
+#include "puppy\Text\FontTable.h"
+#include "puppy\Text\Font.h"
+#include "puppy\Text\TextBox.h"
+#include "puppy\Text\TextTable.h"
+
 
 namespace userinterface
 {
