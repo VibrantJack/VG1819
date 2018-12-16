@@ -34,12 +34,6 @@
 			"unitsize": "point"
 		},
 		{
-			"name" : "UnitMove"
-		},
-		{
-			"name" : "UnitSelect"
-		},
-		{
 			"name" : "ClickableBox",
 			"minpoint":[-0.01,-0.5,0],
 			"maxpoint":[0.01,0.15,0]

@@ -41,15 +41,9 @@
 			"unitsize": "point"
 		},
 		{
-			"name" : "UnitMove"
-		},
-		{
 			"name" : "ClickableBox",
 			"minpoint":[-0.25,-0.25,0],
 			"maxpoint":[0.25,0.25,0]
-		},
-		{
-			"name" : "UnitSelect"
 		},
 		{
 			"name" : "SpriteGroup",

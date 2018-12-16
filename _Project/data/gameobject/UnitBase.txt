@@ -3,6 +3,12 @@
 		{
 			"name" : "UnitHealthBar",
 			"offset" : [-0.5, -1.0]
+		},
+		{
+			"name" : "UnitSelect"
+		},
+		{
+			"name" : "UnitMove"
 		}
 	]
 }
