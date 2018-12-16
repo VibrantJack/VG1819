@@ -41,7 +41,6 @@ namespace userinterface
 
 		void start() override;
 		Row addRow(const rowType p_rt);
-		bool addToEnd(const kitten::K_GameObject* p_GO); //must be a UIObject or Textbox
 		void arrange();
 	};
 }

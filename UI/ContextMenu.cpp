@@ -41,12 +41,6 @@ namespace userinterface
 		return r;
 	}
 
-	bool ContextMenu::addToEnd(const kitten::K_GameObject* p_GO)
-	{
-		
-	}  
-
-
 	void ContextMenu::arrange()
 	{
 		int offset = m_padding;
