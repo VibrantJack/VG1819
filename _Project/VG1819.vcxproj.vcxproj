@@ -160,6 +160,7 @@
     <ClCompile Include="..\board\tile\landInfo\LandInfoManager.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SandLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
+    <ClCompile Include="..\components\CustomCursor.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\components\ChangeSceneOnClick.cpp" />
     <ClCompile Include="..\components\DeckInitializingComponent.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.cpp" />
     <ClCompile Include="..\components\MainMenuBoard.cpp" />
     <ClCompile Include="..\components\scene change\StartGameOnClick.cpp" />
+    <ClCompile Include="..\components\ExitGameButton.cpp" />
     <ClCompile Include="..\components\testing\gameplay-init.cpp" />
     <ClCompile Include="..\expressions\lexer.cpp" />
     <ClCompile Include="..\expressions\parser.cpp" />
@@ -420,12 +422,14 @@
     <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInformation.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInfoManager.h" />
+    <ClInclude Include="..\components\CustomCursor.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />
     <ClInclude Include="..\components\ChangeSceneOnClick.hpp" />
     <ClInclude Include="..\components\DeckInitializingComponent.h" />
     <ClInclude Include="..\components\DecksDisplayFrame.h" />
     <ClInclude Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.h" />
     <ClInclude Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.h" />
+    <ClInclude Include="..\components\ExitGameButton.h" />
     <ClInclude Include="..\components\MainMenuBoard.h" />
     <ClInclude Include="..\components\scene change\StartGameOnClick.h" />
     <ClInclude Include="..\components\testing\gameplay-init.h" />

@@ -82,9 +82,7 @@ namespace kitten
 			//Transform into world space
 			puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform());
 
-			m_staticTex = m_mat.getFirstTexture();
-			if (m_texRepeat)
-				m_staticTex->setWrapping(GL_REPEAT);
+			m_staticTex = m_mat.getOwnedTexture();
 
 			Renderable::addToStaticRender(m_staticTex, verts, 6);
 		}
@@ -109,9 +107,9 @@ namespace kitten
 		}
 	}
 
-	void QuadRenderableRepeat::addTexture(const char* p_pathToTex, const float& p_weight)
+	void QuadRenderableRepeat::addTexture(puppy::Texture* p_tex, const float& p_weight)
 	{
-		m_mat.addTexture(p_pathToTex, p_weight);
+		m_mat.addTexture(p_tex, p_weight);
 
 		if (m_isStatic && m_isEnabled)
 		{
@@ -128,9 +126,9 @@ namespace kitten
 		}
 	}
 
-	void QuadRenderableRepeat::removeTexture(const char* p_pathToTex)
+	void QuadRenderableRepeat::removeTexture(puppy::Texture* p_tex)
 	{
-		m_mat.removeTexture(p_pathToTex);
+		m_mat.removeTexture(p_tex);
 
 		if (m_isStatic)
 		{
@@ -143,9 +141,9 @@ namespace kitten
 		}
 	}
 
-	void QuadRenderableRepeat::changeWeight(const char* p_pathToTex, const float& p_weight)
+	void QuadRenderableRepeat::changeWeight(puppy::Texture* p_tex, const float& p_weight)
 	{
-		m_mat.changeWeight(p_pathToTex, p_weight);
+		m_mat.changeWeight(p_tex, p_weight);
 	}
 
 	void QuadRenderableRepeat::start()

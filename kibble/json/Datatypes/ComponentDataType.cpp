@@ -810,6 +810,58 @@ kitten::K_Component* getMainMenuBoard(nlohmann::json* p_jsonFile)
 	return new MainMenuBoard();
 }
 
+#include "components/CustomCursor.h"
+kitten::K_Component* getCustomCursor(nlohmann::json* p_jsonFile) {
+	if (JSONHAS("offset"))
+	{
+		return new CustomCursor(p_jsonFile->operator[]("offset")[0], p_jsonFile->operator[]("offset")[1]);
+	}
+	return new CustomCursor();
+}
+
+#include "UI/UIElement.h"
+kitten::K_Component* getUIElement(nlohmann::json* p_jsonFile) {
+	//
+	std::string texture;
+	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
+
+	userinterface::UIElement::pivotType type = userinterface::UIElement::piv_BotLeft;
+	if (JSONHAS("pivot")) {
+		std::string temp = LOOKUP("pivot");
+		if (temp == "left")
+			type = userinterface::UIElement::piv_Left;
+		else if (temp == "right")
+			type = userinterface::UIElement::piv_Right;
+		else if (temp == "center")
+			type = userinterface::UIElement::piv_Center;
+		else if (temp == "top")
+			type = userinterface::UIElement::piv_Top;
+		else if (temp == "bottom")
+			type = userinterface::UIElement::piv_Bot;
+		else if (temp == "botleft")
+			type = userinterface::UIElement::piv_BotLeft;
+		else if (temp == "botright")
+			type = userinterface::UIElement::piv_BotRight;
+		else if (temp == "topleft")
+			type = userinterface::UIElement::piv_TopLeft;
+		else if (temp == "topright")
+			type = userinterface::UIElement::piv_TopRight;
+	}
+
+	userinterface::UIElement::textureBehaviour tb = userinterface::UIElement::tbh_Stretch;
+	
+	if (JSONHAS("behavior"))
+	{
+		std::string temp = LOOKUP("behavior");
+		if (temp == "repeat")
+			tb = userinterface::UIElement::tbh_Repeat;
+		else if (temp == "repeat_mirror")
+			tb = userinterface::UIElement::tbh_RepeatMirrored;
+	}
+	
+	return new userinterface::UIElement(texture.c_str(),type, tb);
+}
+
 #include "kitten\ModelRenderable.h"
 kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
 
@@ -832,6 +884,19 @@ kitten::K_Component* getLerpController(nlohmann::json* p_jsonFile) {
 	return new LerpController();
 }
 
+#include "components\ExitGameButton.h"
+kitten::K_Component* getExitGameButton(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+
+	ExitGameButton* button = new ExitGameButton();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+
+	return button;
+}
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
@@ -899,9 +964,12 @@ void setupComponentMap() {
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
 	jsonComponentMap["ClickableButton"] = &getClickableButton;
 	jsonComponentMap["MainMenuBoard"] = &getMainMenuBoard;
+	jsonComponentMap["CustomCursor"] = &getCustomCursor;
+	jsonComponentMap["UIElement"] = &getUIElement;
 	jsonComponentMap["ModelRenderable"] = &getModelRenderable;
 	jsonComponentMap["UnitHealthBar"] = &getUnitHealthBar;
 	jsonComponentMap["LerpController"] = &getLerpController;
+	jsonComponentMap["ExitGameButton"] = &getExitGameButton;
 
 }
 

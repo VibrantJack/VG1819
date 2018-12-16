@@ -674,6 +674,9 @@
     <ClCompile Include="..\kitten\QuadRenderableRepeat.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\CustomCursor.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
     <ClCompile Include="..\puppy\Models\P_Model.cpp">
       <Filter>puppy\Models</Filter>
     </ClCompile>
@@ -700,6 +703,9 @@
     </ClCompile>
     <ClCompile Include="LerpController.cpp">
       <Filter>components\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\ExitGameButton.cpp">
+      <Filter>components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1278,6 +1284,9 @@
     <ClInclude Include="..\UI\ContextMenu.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\components\CustomCursor.h">
+      <Filter>components</Filter>
+    </ClInclude>
     <ClInclude Include="..\puppy\Models\P_Model.h">
       <Filter>puppy\Models</Filter>
     </ClInclude>
@@ -1529,6 +1538,9 @@
     </ClInclude>
     <ClInclude Include="LerpController.h">
       <Filter>components\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\ExitGameButton.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

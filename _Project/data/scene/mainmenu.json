@@ -17,7 +17,7 @@
 			]
 		},
         {
-			"name" : "Networking Menu Texture",
+			"name" : "Main Menu Texture",
 			"components" : [
 				{
 					"name" : "UIFrame",
@@ -26,7 +26,30 @@
 			],
 			"scale2d" : [1280, 720],
 			"translate" : [0.0, 0.0, -0.9]
-		},
+        },
+        {
+            "filename" : "cursor.json"
+        },
+		{
+            "name" : "Exit Game Button",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_exit_game.tga"
+                },
+				{
+					"name" : "ExitGameButton",
+					"regularTexture" : "textures/ui/buttons/button_exit_game.tga",
+					"highlightedTexture" : "textures/ui/buttons/button_exit_game_highlighted.tga"
+				},
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [35, 22],
+            "scale2d" : [250, 80]
+            
+        },
         {
             "name" : "New Game Button",
             "components" : [
@@ -48,7 +71,7 @@
                     "name" : "ClickableFrame"
                 }
             ],
-            "translate2d" : [353, 21],
+            "translate2d" : [354, 22],
             "scale2d" : [250, 80]
             
         },
@@ -73,7 +96,7 @@
                     "name" : "ClickableFrame"
                 }
             ],
-            "translate2d" : [698, 21],
+            "translate2d" : [676, 22],
             "scale2d" : [250, 80]
         },
         {
@@ -97,7 +120,7 @@
                     "name" : "ClickableFrame"
                 }
             ],
-            "translate2d" : [1030, 21],
+            "translate2d" : [995, 22],
             "scale2d" : [250, 80]
         }
     ]

@@ -30,13 +30,13 @@
 			"filename" : "netmenu_join_button.txt",
 			"scale2d" : [250, 80],
 			"translate" : [0.0, 0.0, -0.1],
-			"translate2d" : [698, 21]
+			"translate2d" : [676, 22]
 		},
 		{
 			"filename" : "netmenu_host_button.txt",
 			"scale2d" : [250, 80],
 			"translate" : [0.0, 0.0, -0.1],
-            "translate2d" : [353, 21]
+            "translate2d" : [354, 22]
 		},
         {
             "name" : "ReturnToMainMenu",
