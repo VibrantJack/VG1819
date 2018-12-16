@@ -664,12 +664,6 @@
     <ClCompile Include="..\ability\ability\HereHomeland.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
-    <ClCompile Include="..\puppy\Models\MTLParser.cpp">
-      <Filter>puppy\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="..\puppy\Models\OBJParser.cpp">
-      <Filter>puppy\Models</Filter>
-    </ClCompile>
     <ClCompile Include="..\puppy\Models\P_Model.cpp">
       <Filter>puppy\Models</Filter>
     </ClCompile>
@@ -697,6 +691,7 @@
     <ClCompile Include="LerpController.cpp">
       <Filter>components\util</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Block.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1273,15 +1268,6 @@
     </ClInclude>
     <ClInclude Include="..\UI\ContextMenu.h">
       <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ability\status\Status_Block.cpp">
-      <Filter>ability\status</Filter>
-    </ClInclude>
-    <ClInclude Include="..\puppy\Models\MTLParser.h">
-      <Filter>puppy\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="..\puppy\Models\OBJParser.h">
-      <Filter>puppy\Models</Filter>
     </ClInclude>
     <ClInclude Include="..\puppy\Models\P_Model.h">
       <Filter>puppy\Models</Filter>

@@ -245,8 +245,6 @@
     <ClCompile Include="..\puppy\FBO.cpp" />
     <ClCompile Include="..\puppy\Material.cpp" />
     <ClCompile Include="..\puppy\MaterialManager.cpp" />
-    <ClCompile Include="..\puppy\Models\MTLParser.cpp" />
-    <ClCompile Include="..\puppy\Models\OBJParser.cpp" />
     <ClCompile Include="..\puppy\Models\P_Mesh.cpp" />
     <ClCompile Include="..\puppy\Models\P_Model.cpp" />
     <ClCompile Include="..\puppy\Particles\AccelerationAff.cpp" />
@@ -520,8 +518,6 @@
     <ClInclude Include="..\puppy\FBO.h" />
     <ClInclude Include="..\puppy\Material.h" />
     <ClInclude Include="..\puppy\MaterialManager.h" />
-    <ClInclude Include="..\puppy\Models\MTLParser.h" />
-    <ClInclude Include="..\puppy\Models\OBJParser.h" />
     <ClInclude Include="..\puppy\Models\P_Mesh.h" />
     <ClInclude Include="..\puppy\Models\P_Model.h" />
     <ClInclude Include="..\puppy\Particles\AccelerationAff.h" />
