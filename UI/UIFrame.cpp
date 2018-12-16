@@ -21,10 +21,7 @@ namespace userinterface
 
 	UIFrame::~UIFrame()
 	{
-		if (m_isEnabled)
-		{
-			//removeFromDynamicRender();
-		}
+		
 	}
 
 	void UIFrame::addToFrame(UIObject* p_ouiToAdd)
