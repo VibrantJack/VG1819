@@ -6,7 +6,9 @@
 #define TILE "tile"
 
 #include "kitten\K_Component.h"
+#include "kitten\QuadRenderable.h"
 #include "board/tile/landInfo/LandInfoManager.h"
+#include "puppy\Texture.h"
 
 class TileInfo : public kitten::K_Component
 {
@@ -36,7 +38,7 @@ public:
 	void effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit* p_u);
 
 	//highlight 
-	void changeHighlightTexture(const std::string& p_texpath);
+	void changeHighlightTexture(puppy::Texture* p_tex);
 	bool isHighlighted(HighlightType p_type);
 	void setHighlighted(HighlightType p_type, bool p_bool);
 	HighlightType getHighlightType();
@@ -68,10 +70,11 @@ private:
 	int m_iPosX, m_iPosY;
 	int m_sOwnerId;
 	std::string m_sHighlightedBy;
-	std::string m_lasttexpath;
+	puppy::Texture* m_lastHighlightTexture;
 
 	LandInformation::TileType m_tileType;
 
 	kitten::K_GameObject* m_unitGO;
 	LandInformation* m_landInfo;
+	kitten::QuadRenderable* m_quadRenderable;
 };
