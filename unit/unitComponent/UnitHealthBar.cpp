@@ -81,9 +81,8 @@ namespace unit
 		foreground->addComponent(m_foregroundLerpController);
 	}
 
-	void UnitHealthBar::update()
+	void UnitHealthBar::updateBar()
 	{
-		//@TODO: don't do two map lookups each frame per unit
 		int currentHealth = m_attachedUnit->m_attributes[UNIT_HP];
 		int maxHealth = m_attachedUnit->m_attributes[UNIT_MAX_HP];
 
@@ -93,7 +92,7 @@ namespace unit
 		{
 			//scale foreground
 			const glm::vec3& currentScale = getTransform().getScale();
-			m_foregroundLerpController->scaleLerp(glm::vec3(BAR_X_SCALE*percentFull,BAR_Y_SCALE,currentScale.z), abs(m_oldHealthPercent - percentFull) * m_lerpTimeScalar);
+			m_foregroundLerpController->scaleLerp(glm::vec3(BAR_X_SCALE*percentFull, BAR_Y_SCALE, currentScale.z), abs(m_oldHealthPercent - percentFull) * m_lerpTimeScalar);
 
 			m_oldHealthPercent = percentFull;
 		}

@@ -35,11 +35,10 @@ namespace unit
 		const glm::vec2 m_offset;
 
 		virtual void start() override;
-
-		virtual bool hasUpdate() const override { return true; };
-		virtual void update() override;
 	public:
 		UnitHealthBar(const glm::vec2& p_offset, float p_lerpTimeScalar = 4.0f);
 		~UnitHealthBar();
+
+		void updateBar();
 	};
 }
