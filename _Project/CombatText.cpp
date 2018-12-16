@@ -1,5 +1,9 @@
 #include "CombatText.h"
+
+#include "DisableAfterTime.h"
+
 #include "kitten\K_GameObjectManager.h"
+#include "kitten\K_GameObject.h"
 #include "kitten\K_ComponentManager.h"
 
 CombatText* CombatText::sm_instance = nullptr;
@@ -15,7 +19,9 @@ CombatText::~CombatText()
 	assert(sm_instance == this);
 	sm_instance = nullptr;
 
-	//Delete the pooled objects
+	// @TODO
+	// Delete the pooled objects
+	// (Same situation as UniversalPFX)
 }
 
 void CombatText::start()
@@ -25,9 +31,11 @@ void CombatText::start()
 
 	for (int i = 0; i < m_poolSize; ++i)
 	{
-		kitten::K_GameObject* obj = gameObjMan->createNewGameObject();
-		auto textBox = static_cast<puppy::TextBox*>(compMan->createComponent("TextBox"));
-		obj->addComponent(textBox);
+		kitten::K_GameObject* obj = gameObjMan->createNewGameObject("pooled_combat_text.json");
+		auto textBox = obj->getComponent<puppy::TextBox>();
+		assert(textBox != nullptr);
+
+		obj->setEnabled(false);
 
 		m_textBoxes.push(textBox);
 	}
@@ -41,5 +49,19 @@ void CombatText::floatText(const std::string& p_text, const glm::vec3& p_place, 
 
 void CombatText::privateFloatText(const std::string& p_text, const glm::vec3& p_place, const float& p_time, const glm::vec3& p_color, const glm::vec2& p_scale)
 {
+	auto textBox = m_textBoxes.front();
+	m_textBoxes.pop();
 
+	textBox->setText(p_text);
+	textBox->setColor(p_color.x, p_color.y, p_color.z);
+
+	textBox->getTransform().place(p_place.x, p_place.y, p_place.z);
+	textBox->getTransform().scale2D(p_scale.x, p_scale.y);
+
+	auto disabler = textBox->getGameObject().getComponent<DisableAfterTime>();
+	disabler->setTime(p_time);
+
+	textBox->getGameObject().setEnabled(true);
+
+	m_textBoxes.push(textBox);
 }

@@ -746,6 +746,18 @@ kitten::K_Component* getReturnToMainMenuButton(nlohmann::json* p_jsonFile) {
 	return new userinterface::ReturnToMainMenuButton();
 }
 
+#include "_Project\CombatText.h"
+kitten::K_Component* getCombatText(nlohmann::json* p_jsonFile) {
+	int poolSize = p_jsonFile->operator[]("poolsize");
+	return new CombatText(poolSize);
+}
+
+#include "_Project\DisableAfterTime.h"
+kitten::K_Component* getDisableAfterTime(nlohmann::json* p_jsonFile) {
+	float time = p_jsonFile->operator[]("time");
+	return new DisableAfterTime(time);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -809,6 +821,8 @@ void setupComponentMap() {
 	jsonComponentMap["TabMenu"] = &getTabMenu;
 	jsonComponentMap["UIObject"] = &getUIObject;
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
+	jsonComponentMap["CombatText"] = &getCombatText;
+	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
 
 }
 

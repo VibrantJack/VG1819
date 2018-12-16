@@ -309,6 +309,7 @@
     <ClCompile Include="CombatText.cpp" />
     <ClCompile Include="DebugPrintOnce.cpp" />
     <ClCompile Include="DestroyOnClick.cpp" />
+    <ClCompile Include="DisableAfterTime.cpp" />
     <ClCompile Include="FPSCalc.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
@@ -511,6 +512,7 @@
     <ClInclude Include="CombatText.h" />
     <ClInclude Include="DebugPrintOnce.h" />
     <ClInclude Include="DestroyOnClick.h" />
+    <ClInclude Include="DisableAfterTime.h" />
     <ClInclude Include="FPSCalc.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />

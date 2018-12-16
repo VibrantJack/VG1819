@@ -677,6 +677,9 @@
     <ClCompile Include="CombatText.cpp">
       <Filter>components\standard effects</Filter>
     </ClCompile>
+    <ClCompile Include="DisableAfterTime.cpp">
+      <Filter>components\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1266,6 +1269,9 @@
     <ClInclude Include="CombatText.h">
       <Filter>components\standard effects</Filter>
     </ClInclude>
+    <ClInclude Include="DisableAfterTime.h">
+      <Filter>components\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1420,6 +1426,9 @@
     </Filter>
     <Filter Include="components\standard effects">
       <UniqueIdentifier>{8c3ab6ac-dae3-451f-9e21-7944dc100695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\util">
+      <UniqueIdentifier>{db9cabd4-1c56-4fea-8cf8-4d8917f17ad9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

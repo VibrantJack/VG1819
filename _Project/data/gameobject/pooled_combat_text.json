@@ -1,0 +1,13 @@
+{
+	"components" : 
+	[
+		{
+			"name" : "TextBox",
+			"font" : "../fonts/common_terminal_small.fnt",
+			"color" : [1,1,1],
+            "alignment" : "center",
+            "width" : 100,
+            "height" : 100
+		}
+	]
+}
