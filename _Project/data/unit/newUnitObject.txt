@@ -1,7 +1,7 @@
 {
 	"unit":{
 		"name":"NewDummy",
-		"hp":1,
+		"hp":20,
 		"mv":8,
 		"in":40,
 		"cost":4,

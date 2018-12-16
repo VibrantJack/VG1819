@@ -91,6 +91,10 @@ namespace puppy
 			*p_vertexShaderPath = "Shaders/basic.vsh";
 			*p_pixelShaderPath = "Shaders/basic_four_blend.fsh";
 			return true;
+		case ShaderType::basic_u_scale:
+			*p_vertexShaderPath = "Shaders/basic_u_scale.vsh";
+			*p_pixelShaderPath = "Shaders/basic_u_scale.fsh";
+			return true;
 		default:
 			return false;
 		}

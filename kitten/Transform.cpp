@@ -178,12 +178,9 @@ namespace kitten
 		notifyScaleListeners();
 	}
 
-	//NOT FUNCTIONAL ANYMORE!!
 	void Transform::rotate2D(const float deg)
 	{
-		m_rotateDeg += deg;
-		m_matRotation = glm::rotate(m_rotateDeg, glm::vec3(0.0f, 0.0f, 1.0f));
-		m_isDirty = true;
+		rotateRelative(glm::vec3(0, 0, deg));
 	}
 
 	void Transform::rotateRelative(const glm::vec3& rot)
@@ -215,6 +212,27 @@ namespace kitten
 		if (!m_ignoresParent && m_parent != nullptr)
 		{
 			m_derivedQuatRotation = m_quatRotation * m_parent->getRotation();
+			m_forward = glm::vec3(0, 0, 1) * m_derivedQuatRotation;
+			m_upVector = glm::vec3(0, 1, 0) * m_derivedQuatRotation;
+		}
+		else
+		{
+			m_forward = glm::vec3(0, 0, 1) * m_quatRotation;
+			m_upVector = glm::vec3(0, 1, 0) * m_quatRotation;
+		}
+
+		setChildrenDirty(rotation);
+		notifyRotationListeners();
+	}
+
+	void Transform::rotateAbsQuat(const glm::quat& rot)
+	{
+		m_quatRotation = rot;
+		m_isDirty = true;
+
+		if (!m_ignoresParent && m_parent != nullptr)
+		{
+			m_derivedQuatRotation = rot * m_parent->getRotation();
 			m_forward = glm::vec3(0, 0, 1) * m_derivedQuatRotation;
 			m_upVector = glm::vec3(0, 1, 0) * m_derivedQuatRotation;
 		}
@@ -272,7 +290,11 @@ namespace kitten
 		{
 			return m_derivedScale;
 		}
-		
+	}
+
+	const glm::vec3& Transform::getLocalScale() const
+	{
+		return m_scale;
 	}
 
 	const glm::vec2& Transform::getScale2D() const

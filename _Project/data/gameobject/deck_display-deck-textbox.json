@@ -3,6 +3,8 @@
     "components" : [
         {
             "name" : "TextBox",
+			"font" : "../fonts/common_bebas.fnt",
+			"color" : [1,1,1],
             "alignment" : "center",
             "width" : 175,
             "height" : 24
