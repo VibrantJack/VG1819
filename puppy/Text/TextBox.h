@@ -48,6 +48,8 @@ namespace puppy
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
 
+		void setFont(Font* p_font);
+		void setBoxBounds(float p_width, float p_height);
 		void setColor(GLfloat p_redVal, GLfloat p_greenVal, GLfloat p_blueVal);
 		void setText(const std::string& p_text);
 		void setAlignment(Alignment p_alignment);

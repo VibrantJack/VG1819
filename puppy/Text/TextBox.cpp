@@ -299,6 +299,21 @@ namespace puppy
 		}
 	}
 
+	void TextBox::setFont(Font* p_font)
+	{
+		m_font = p_font;
+		m_isDirty = true;
+		removeOldText();
+	}
+
+	void TextBox::setBoxBounds(float p_width, float p_height)
+	{
+		m_boxWidth = p_width;
+		m_boxHeight = p_height;
+		m_isDirty = true;
+		removeOldText();
+	}
+
 	void TextBox::setAlignment(Alignment p_alignment)
 	{
 		if (m_alignment != p_alignment)
