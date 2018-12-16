@@ -6,6 +6,7 @@ It disable windows cursor and handles cursor movement.
 
 #pragma once
 #include "kitten/K_Common.h"
+#include "kitten\InputManager.h"
 
 class CustomCursor : public kitten::K_Component
 {
@@ -14,6 +15,8 @@ private:
 
 	int m_lastX;
 	int m_lastY;
+
+	input::InputManager* m_inputMan;
 public:
 	CustomCursor(int p_x=0, int p_y=0);
 	~CustomCursor();

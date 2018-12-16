@@ -1,18 +1,24 @@
 #include "CustomCursor.h"
 #include "kitten/K_GameObjectManager.h"
 
-CustomCursor::CustomCursor(int p_x, int p_y)
+CustomCursor::CustomCursor(int p_x, int p_y) : m_inputMan(nullptr)
 {
 	m_offset = std::make_pair(p_x, p_y);
 }
 
 CustomCursor::~CustomCursor()
 {
-	glfwEnable(GLFW_MOUSE_CURSOR);
+	if(m_isEnabled)
+	{
+		onDisabled();
+	}
 }
 
 void CustomCursor::start()
 {
+	m_inputMan = input::InputManager::getInstance();
+	assert(m_inputMan != nullptr);
+
 	//disable original mouse
 	glfwDisable(GLFW_MOUSE_CURSOR);
 
@@ -27,13 +33,11 @@ bool CustomCursor::hasUpdate() const
 
 void CustomCursor::update()
 {
-	int mouseX, mouseY;
-	glfwGetMousePos(&mouseX, &mouseY);
+	int mouseX = m_inputMan->getMouseXPos();
+	int mouseY = m_inputMan->getMouseYOpenGLPos();
 
-	//I don't know why but y is inversed, so I have to flip it
-	int windowX, windowY;
-	glfwGetWindowSize(&windowX, &windowY);
-	mouseY = windowY - mouseY;
+	int windowX = m_inputMan->getWindowWidth();
+	int windowY = m_inputMan->getWindowHeight();
 
 	//out of screen
 	if (mouseX > windowX || mouseX < 0)

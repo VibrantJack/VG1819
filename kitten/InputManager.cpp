@@ -156,6 +156,21 @@ namespace input
 		return m_mouseDownLast[p_button];
 	}
 
+	int InputManager::getMouseXPos()
+	{
+		return m_lastMouseX;
+	}
+
+	int InputManager::getMouseYWindowPos()
+	{
+		return m_lastMouseY;
+	}
+
+	int InputManager::getMouseYOpenGLPos()
+	{
+		return m_mouseYOpenGL;
+	}
+
 	int InputManager::getMouseXChange()
 	{
 		return m_mouseXChange;
@@ -169,6 +184,16 @@ namespace input
 	int InputManager::getMouseWheel()
 	{
 		return m_mouseWheel;
+	}
+
+	int InputManager::getWindowHeight()
+	{
+		return m_windowY;
+	}
+
+	int InputManager::getWindowWidth()
+	{
+		return m_windowX;
 	}
 
 	void InputManager::update()
@@ -232,19 +257,18 @@ namespace input
 
 		int mouseX, mouseY;
 		glfwGetMousePos(&mouseX, &mouseY);
-		int windowX, windowY;
-		glfwGetWindowSize(&windowX, &windowY);
+		glfwGetWindowSize(&m_windowX, &m_windowY);
 
 		if (m_shouldResetMouse)
 		{
-			m_mouseXChange = ((float)windowX / 2.0f) - mouseX;
-			m_mouseYChange = ((float)windowY / 2.0f) - mouseY;
+			m_mouseXChange = ((float)m_windowX / 2.0f) - mouseX;
+			m_mouseYChange = ((float)m_windowY / 2.0f) - mouseY;
 			
 
 			m_lastMouseX = mouseX;
 			m_lastMouseY = mouseY;
 			//Reset the position so it can't go out of screen
-			glfwSetMousePos(windowX / 2, windowY / 2);
+			glfwSetMousePos(m_windowX / 2, m_windowY / 2);
 		}
 		else
 		{
@@ -257,7 +281,8 @@ namespace input
 
 		//austin
 		//Call for nearest UI frame
-		kitten::ClickableFrame* hitFrame = MousePicker::getClosestHitFrame((float) m_lastMouseX, windowY - (float) m_lastMouseY);
+		m_mouseYOpenGL = m_windowY - m_lastMouseY;
+		kitten::ClickableFrame* hitFrame = MousePicker::getClosestHitFrame((float) m_lastMouseX, m_mouseYOpenGL);
 		kitten::ClickableFrame* lastHoverFrame = kitten::ActiveClickables::getInstance()->m_lastUIHover;
 
 		if (hitFrame != nullptr && lastHoverFrame != nullptr)
@@ -311,8 +336,8 @@ namespace input
 			mouseRay.origin = activeCam->getTransform().getTranslation();
 
 			//Put mouse position in clipspace
-			float ndX = (2.0f * mouseX) / windowX - 1.0f;
-			float ndY = 1.0f - (2.0f * mouseY) / windowY;
+			float ndX = (2.0f * mouseX) / m_windowX - 1.0f;
+			float ndY = 1.0f - (2.0f * mouseY) / m_windowY;
 
 			glm::vec3 clip = glm::vec3(ndX, ndY, 1.0f);
 
