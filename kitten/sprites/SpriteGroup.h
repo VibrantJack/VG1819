@@ -19,11 +19,15 @@ namespace sprites
 		void setRotation(const glm::vec3& p_rot);
 		void setTranslation(const glm::vec3& p_tran);
 		void start() override;
+
+		//sprite number will change with hp
+		void checkHP(int p_hp, int p_max);
 	private:
 		const int m_maxNum = 4;
 
 		std::string m_spriteName;
 		int m_spriteNum;
+		int m_spriteNumToShow;
 
 		glm::vec3 m_scale;
 		glm::vec3 m_rotation;
@@ -33,5 +37,7 @@ namespace sprites
 
 		void createSpriteGO();
 		const glm::vec3 getSubTranslation(int p_n);
+
+		void changeEnable();
 	};
 }

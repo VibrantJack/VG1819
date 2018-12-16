@@ -1,0 +1,11 @@
+{
+    "component" : [{
+        "name" : "ClickableBoxRenderable"
+    },
+    {
+        "name" : "ClickableFrame"
+    },
+    {
+        "name" : "ClickableUI"
+    }]
+}

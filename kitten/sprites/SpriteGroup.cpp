@@ -5,6 +5,7 @@
 sprites::SpriteGroup::SpriteGroup(const std::string & p_spriteName, int p_num)
 	:m_spriteName(p_spriteName),
 	m_spriteNum(p_num),
+	m_spriteNumToShow(p_num),
 	m_scale(glm::vec3(1,1,1)),
 	m_rotation(glm::vec3(45, 0, 0)),
 	m_translation(glm::vec3(0, 0, 0))
@@ -33,6 +34,22 @@ void sprites::SpriteGroup::setTranslation(const glm::vec3& p_tran)
 void sprites::SpriteGroup::start()
 {
 	createSpriteGO();
+}
+
+void sprites::SpriteGroup::checkHP(int p_hp, int p_max)
+{
+	//get percentage
+	float percent = (float)p_hp / (float)p_max;
+
+	//get number of sprite shoulbe be shown
+	int show = m_spriteNum * percent + 1;
+
+	//if the number is different than current number to show
+	if (show != m_spriteNumToShow)
+	{
+		m_spriteNumToShow = show;
+		changeEnable();
+	}
 }
 
 void sprites::SpriteGroup::createSpriteGO()
@@ -99,5 +116,20 @@ const glm::vec3 sprites::SpriteGroup::getSubTranslation(int p_n)
 		case 3:
 			return glm::vec3(-0.25, 0, -0.25);
 		}
+	}
+}
+
+void sprites::SpriteGroup::changeEnable()
+{
+	//enable the number of sprite
+	for (int i = 0; i < m_spriteNumToShow; i++)
+	{
+		m_spriteGOList[i]->setEnabled(true);
+	}
+
+	//disable the rest
+	for (int i = m_spriteNumToShow; i < m_spriteGOList.size(); i++)
+	{
+		m_spriteGOList[i]->setEnabled(false);
 	}
 }
