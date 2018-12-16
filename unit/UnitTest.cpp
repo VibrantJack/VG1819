@@ -136,6 +136,6 @@ namespace unit
 		//InitiativeTracker::getInstance()->removeUnit(u2);
 		//UnitMonitor::getInstanceSafe()->printIT();
 
-		kitten::K_GameObjectManager::getInstance()->createNewGameObject("cursor.json");
+		//kitten::K_GameObjectManager::getInstance()->createNewGameObject("cursor.json");
 	}
 }

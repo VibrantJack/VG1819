@@ -1,4 +1,5 @@
 #include "CustomCursor.h"
+#include "kitten/K_GameObjectManager.h"
 
 CustomCursor::CustomCursor(int p_x, int p_y)
 {
@@ -7,11 +8,16 @@ CustomCursor::CustomCursor(int p_x, int p_y)
 
 CustomCursor::~CustomCursor()
 {
+	glfwEnable(GLFW_MOUSE_CURSOR);
 }
 
 void CustomCursor::start()
 {
+	//disable original mouse
 	glfwDisable(GLFW_MOUSE_CURSOR);
+
+	//make game object survive
+	kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(m_attachedObject);
 }
 
 bool CustomCursor::hasUpdate() const
@@ -44,4 +50,14 @@ void CustomCursor::update()
 	m_lastX = mouseX;
 	m_lastY = mouseY;
 	m_attachedObject->getTransform().move2D(m_offset.first, m_offset.second);
+}
+
+void CustomCursor::onEnabled()
+{
+	glfwDisable(GLFW_MOUSE_CURSOR);
+}
+
+void CustomCursor::onDisabled()
+{
+	glfwEnable(GLFW_MOUSE_CURSOR);
 }

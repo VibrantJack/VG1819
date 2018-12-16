@@ -21,4 +21,7 @@ public:
 	void start() override;
 	bool hasUpdate() const override;
 	void update() override;
+
+	void onEnabled() override;
+	void onDisabled() override;
 };
