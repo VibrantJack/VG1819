@@ -1,6 +1,8 @@
 #pragma once
 #include "ability/node/AbilityNode.h"
 #include "Unit/Unit.h"
+#include "unit\unitComponent\UnitHealthBar.h"
+
 #include <iostream>
 //Rock
 
@@ -31,6 +33,8 @@ namespace ability
 		if (p_name == UNIT_HP || p_name == UNIT_MAX_HP)
 		{
 			AbilityNodeManager::getInstance()->findNode(CheckHP)->effect(p_target);
+			unit::UnitHealthBar* healthBar = p_target->getGameObject().getComponent<unit::UnitHealthBar>();
+			healthBar->updateBar();
 		}
 
 		//if (p_target->m_attributes[p_name] < 0)

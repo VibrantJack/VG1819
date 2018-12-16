@@ -37,9 +37,9 @@ namespace parser
 	}
 
 	void Parser::assign() {
-		if (m_lookahead == ID) {
+		if (m_lookahead == IDENTIFIER) {
 			const char* name = symtable[m_lexer->getTokenVal()].lexname.c_str();
-			if (!match(ID)) {
+			if (!match(IDENTIFIER)) {
 				error("expected identifier");
 			}
 			if (!match(ASSIGN)) {

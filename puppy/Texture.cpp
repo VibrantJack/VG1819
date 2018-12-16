@@ -1,4 +1,5 @@
 #include "Texture.h"
+#include "FreeImage.h"
 
 namespace puppy
 {
@@ -30,11 +31,21 @@ namespace puppy
 			glGenTextures(1, &(Texture::m_tex));
 			glBindTexture(GL_TEXTURE_2D, Texture::m_tex);
 			Texture::sm_boundTexture[p_slot] = Texture::m_tex;
+			
+			FIBITMAP* img = FreeImage_Load(FreeImage_GetFileType(p_texName.c_str(), 0), p_texName.c_str());
+			FIBITMAP* convertedImg = FreeImage_ConvertTo32Bits(img);
+			
+			int width = FreeImage_GetWidth(convertedImg);
+			int height = FreeImage_GetHeight(convertedImg);
 
-			GLFWimage img;
-			glfwReadImage(p_texName.c_str(), &img, 0);
-			glTexImage2D(GL_TEXTURE_2D, 0, img.Format, img.Width, img.Height, 0, img.Format, GL_UNSIGNED_BYTE, img.Data);
-			glfwFreeImage(&img);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, (void*)FreeImage_GetBits(convertedImg));
+
+			FreeImage_Unload(convertedImg);
+
+			//GLFWimage img;
+			//glfwReadImage(p_texName.c_str(), &img, 0);
+			//glTexImage2D(GL_TEXTURE_2D, 0, img.Format, img.Width, img.Height, 0, img.Format, GL_UNSIGNED_BYTE, img.Data);
+			//glfwFreeImage(&img);
 
 			glGenerateMipmap(GL_TEXTURE_2D); //Mipmaps
 			
