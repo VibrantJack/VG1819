@@ -2,6 +2,7 @@
 #include "kitten\K_ComponentManager.h"
 #include "kitten\K_GameObjectManager.h"
 #include "kitten\K_GameObject.h"
+
 #include "UIElement.h"
 #include <iostream>
 
@@ -11,7 +12,6 @@ namespace userinterface
 	{
 		kitten::K_GameObject* contextObj = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 		kitten::K_Component* contextComp = kitten::K_ComponentManager::getInstance()->createComponent("ContextMenu");
-		UIElement* ctxElement = static_cast<UIElement*>(contextComp);
 		contextObj->addComponent(contextComp);
 		m_context = contextObj;
 		

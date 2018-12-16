@@ -2,29 +2,22 @@
 #include "kitten\InputManager.h"
 #include "kitten\K_GameObject.h"
 #include "kitten\K_GameObjectManager.h"
+#include <iostream>
 
 namespace userinterface
 {
-	ContextMenu::ContextMenu(int p_width, int p_height, int p_padding, int p_margain, widthType p_wt, heightType p_ht, fillType p_ft) : UIElement("texture/ui/blankFrame.tga")
+	ContextMenu::ContextMenu(int p_padding, int p_margain, fillType p_ft) : UIElement("texture/ui/blankFrame.tga")
 	{
-		m_wt = p_wt;
-		m_ht = p_ht;
 		m_ft = p_ft;
-		m_width = p_width;
-		m_height = p_height;
 		m_padding = p_padding;
-		m_margin = p_margain;
+		setPivotType(piv_TopLeft);
 	}
 
 	ContextMenu::ContextMenu() : UIElement("textures/ui/blankFrame.tga")
 	{
-		m_wt = wt_WrapContent;
-		m_ht = ht_WrapContent;
-		m_ft = ft_List;
 		m_width = 100;
 		m_height = 20;
 		m_padding = 0;
-		m_margin = 0;
 	}
 
 	ContextMenu::~ContextMenu()
@@ -39,17 +32,40 @@ namespace userinterface
 		setEnabled(true);
 	}
 
-	void ContextMenu::setWidthType(widthType p_wt)
+	ContextMenu::Row ContextMenu::addRow( const rowType p_rt )
 	{
-		m_wt = p_wt;
-	}
-	void ContextMenu::setHeightType(heightType p_ht)
-	{
-		m_ht = p_ht;
-	}
-	void ContextMenu::setFillType(fillType p_ft)
-	{
-		m_ft = p_ft;
+		Row r;
+		r.type = p_rt;
+		m_rows.push_back(r);
+		arrange();
+		return r;
 	}
 
+	void ContextMenu::arrange()
+	{
+		int offset = m_padding;
+		int currentX = offset;
+		int currentY = -offset;
+		getTransform().scale2D(m_padding * 2, m_padding * 2);
+	
+		for (Row r : m_rows)
+		{
+			for (kitten::K_GameObject* GO : r.elements)
+			{
+				GO->getComponent<UIElement>()->setPivotType(UIElement::piv_TopLeft);
+				if (GO != nullptr)
+				{
+					GO->getTransform().place2D(currentX, currentY);
+					if (m_ft == ft_Vertical || r.type == rt_OneElement)
+					{
+						currentY -= (r.height - r.contentMargin);
+					}
+					else if (r.type == rt_FillRow)
+					{
+						currentX += (r.width + r.contentMargin);
+					}
+				}
+			}
+		}
+	}
 }
