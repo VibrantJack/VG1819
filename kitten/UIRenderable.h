@@ -13,13 +13,13 @@ namespace kitten
 		UIRenderable();
 		virtual ~UIRenderable();
 
-		void addToStaticRender(const puppy::Texture* p_texNeeded, puppy::TexturedVertex p_data[], int p_numElements);
-		void addToDynamicRender();
+		void addToStaticUIRender(const puppy::Texture* p_texNeeded, puppy::TexturedVertex p_data[], int p_numElements);
+		void addToDynamicUIRender();
 
-		void removeFromStaticRender(const puppy::Texture* p_tex);
-		void removeFromDynamicRender();
+		void removeFromStaticUIRender(const puppy::Texture* p_tex);
+		void removeFromDynamicUIRender();
 	public:
 		
-		virtual void render(const glm::mat4& p_ortho) = 0;
+		virtual void uiRender(const glm::mat4& p_ortho) = 0;
 	};
 }

@@ -13,10 +13,6 @@
 
 namespace puppy
 {
-	/*
-	TextBox - Renderable thing that shows text
-	@TODO: Have a UI element abstract class for this to extend instead ? Wait for Austin UI
-	*/
 	class TextBox : public kitten::UIRenderable
 	{
 	public:
@@ -40,8 +36,8 @@ namespace puppy
 		void constructQuad(int p_charId, int p_xPos, int p_yPos, TexturedVertex p_toSet[]);
 		void removeOldText();
 	public:
-		TextBox(Font* p_fontToUse, std::string p_text, float p_boxWidth, float p_boxHeight);
-		TextBox(Font* p_fontToUse, std::string p_text, float p_boxWidth, float p_boxHeight, Alignment p_alignment);
+		TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight);
+		TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, Alignment p_alignment);
 		~TextBox();
 
 		virtual void start() override;
@@ -58,6 +54,6 @@ namespace puppy
 		const int& getBoxWidth() const;
 		const int& getBoxHeight() const;
 
-		virtual void render(const glm::mat4& p_ortho) override;
+		virtual void uiRender(const glm::mat4& p_ortho) override;
 	};
 }

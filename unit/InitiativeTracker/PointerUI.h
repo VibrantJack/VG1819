@@ -15,7 +15,7 @@ namespace userinterface
 		PointerUI();
 		~PointerUI();
 
-		void render(const glm::mat4& p_ortho);
+		void uiRender(const glm::mat4& p_ortho);
 
 	private:
 		puppy::Material* m_mat;

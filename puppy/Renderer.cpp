@@ -93,7 +93,7 @@ namespace puppy
 		auto uiEnd = m_uiToRender.end();
 		for (auto it = m_uiToRender.begin(); it != uiEnd; ++it)
 		{
-			(*it)->render(ortho);
+			(*it)->uiRender(ortho);
 		}
 	}
 

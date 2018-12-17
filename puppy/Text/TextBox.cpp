@@ -9,7 +9,7 @@
 
 namespace puppy
 {
-	TextBox::TextBox(Font* p_fontToUse, std::string p_text, float p_boxWidth, float p_boxHeight, Alignment p_alignment)
+	TextBox::TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, Alignment p_alignment)
 	{
 		assert(p_fontToUse != nullptr);
 		
@@ -31,7 +31,7 @@ namespace puppy
 		}
 	}
 
-	TextBox::TextBox(Font* p_fontToUse, std::string p_text, float p_boxWidth, float p_boxHeight)
+	TextBox::TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight)
 	{
 		m_alignment = left;
 		m_text = p_text;
@@ -49,7 +49,7 @@ namespace puppy
 
 		if (m_isEnabled)
 		{
-			removeFromDynamicRender();
+			removeFromDynamicUIRender();
 		}
 	}
 
@@ -359,20 +359,20 @@ namespace puppy
 
 	void TextBox::start()
 	{
-		addToDynamicRender();
+		addToDynamicUIRender();
 	}
 
 	void TextBox::onDisabled()
 	{
-		removeFromDynamicRender();
+		removeFromDynamicUIRender();
 	}
 
 	void TextBox::onEnabled()
 	{
-		addToDynamicRender();
+		addToDynamicUIRender();
 	}
 
-	void TextBox::render(const glm::mat4& p_ortho)
+	void TextBox::uiRender(const glm::mat4& p_ortho)
 	{
 		if (m_isDirty)
 		{
