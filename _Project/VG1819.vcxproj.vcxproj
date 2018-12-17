@@ -309,7 +309,8 @@
     <ClCompile Include="..\unit\unitComponent\Commander.cpp" />
     <ClCompile Include="..\unit\unitComponent\CooldownRecorder.cpp" />
     <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp" />
-    <ClCompile Include="..\unit\unitComponent\UnitClickable.cpp" />
+    <ClCompile Include="..\unit\unitComponent\unitAction\ActionButtonStore.cpp" />
+    <ClCompile Include="..\unit\unitComponent\unitAction\ActionSelect.cpp" />
     <ClCompile Include="..\unit\unitComponent\UnitGraphic.cpp" />
     <ClCompile Include="..\unit\unitComponent\UnitHealthBar.cpp" />
     <ClCompile Include="..\unit\unitComponent\UnitMove.cpp" />
@@ -595,7 +596,8 @@
     <ClInclude Include="..\unit\unitComponent\Commander.h" />
     <ClInclude Include="..\unit\unitComponent\CooldownRecorder.h" />
     <ClInclude Include="..\unit\unitComponent\StatusContainer.h" />
-    <ClInclude Include="..\unit\unitComponent\UnitClickable.h" />
+    <ClInclude Include="..\unit\unitComponent\unitAction\ActionButtonStore.h" />
+    <ClInclude Include="..\unit\unitComponent\unitAction\ActionSelect.h" />
     <ClInclude Include="..\unit\unitComponent\UnitGraphic.h" />
     <ClInclude Include="..\unit\unitComponent\UnitHealthBar.h" />
     <ClInclude Include="..\unit\unitComponent\UnitMove.h" />

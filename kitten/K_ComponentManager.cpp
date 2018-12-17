@@ -17,7 +17,6 @@
 #include "kitten\sprites\SpriteAnimator.h"
 #include "kitten\sprites\SpriteRenderable.h"
 #include "unit/unitComponent/UnitMove.h"
-#include "unit/unitComponent/UnitClickable.h"
 //ui
 #include "UI\UIObject.h"
 #include "UI\CardUIO.h"
@@ -176,9 +175,6 @@ namespace kitten
 		} else if (p_componentName == "UnitMove") // Datadriven
 		{
 			comp = new unit::UnitMove();
-		} else if (p_componentName == "UnitClickable") // DataDriven
-		{
-			comp = new unit::UnitClickable();
 		} else if (p_componentName == "UnitGraphic")//hard code, need special function for unit graphic, Data driven with these as defaults
 		{
 			comp = new unit::UnitGraphic(unit::point, "textures/unit/Default.tga");

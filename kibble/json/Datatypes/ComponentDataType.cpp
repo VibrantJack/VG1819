@@ -415,11 +415,6 @@ kitten::K_Component* getUnitMove(nlohmann::json* p_jsonFile) {
 	return new unit::UnitMove();
 }
 
-#include "unit/unitComponent/UnitClickable.h"
-kitten::K_Component* getUnitClickable(nlohmann::json* p_jsonFile) {
-	return new unit::UnitClickable();
-}
-
 #include "board/clickable/ManipulateTileOnClick.h"
 kitten::K_Component* getManipulateTileOnClick(nlohmann::json* p_jsonFile) {
 	return new ManipulateTileOnClick();
@@ -938,6 +933,18 @@ kitten::K_Component* getExitGameButton(nlohmann::json* p_jsonFile) {
 	return button;
 }
 
+#include "unit/unitComponent/unitAction/ActionSelect.h"
+kitten::K_Component* getActionSelect(nlohmann::json* p_jsonFile) {
+	std::string action;
+
+	unit::ActionSelect* select = new unit::ActionSelect();
+
+	if (JSONHAS("action"))
+		select->setAction(LOOKUP("action"));
+
+	return select;
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -959,7 +966,6 @@ void setupComponentMap() {
 	jsonComponentMap["VolumeAdjustOnKeysPressed"] = &getVolumeAdjustOnKeysPressed;
 	jsonComponentMap["UIFrame"] = &getUIFrame;
 	jsonComponentMap["UnitMove"] = &getUnitMove;
-	jsonComponentMap["UnitClickable"] = &getUnitClickable;
 	jsonComponentMap["ManipulateTileOnClick"] = &getManipulateTileOnClick;
 	jsonComponentMap["UseAbilityWhenClicked"] = &getUseAbilityWhenClicked;
 	jsonComponentMap["SendSelfOnClick"] = &getSendSelfOnClick;
@@ -1013,6 +1019,7 @@ void setupComponentMap() {
 	jsonComponentMap["UnitHealthBar"] = &getUnitHealthBar;
 	jsonComponentMap["LerpController"] = &getLerpController;
 	jsonComponentMap["ExitGameButton"] = &getExitGameButton;
+	jsonComponentMap["ActionSelect"] = &getActionSelect;
 
 }
 

@@ -28,18 +28,24 @@ unit::TrackerBlock::TrackerBlock()
 	m_frameObject = goMan->createNewGameObject("tracker_block.json");
 	//text object
 	m_textObject = goMan->createNewGameObject();
-
+	
 	//component
 	kitten::K_ComponentManager* comMan = kitten::K_ComponentManager::getInstance();
+	
+	/*
 	//add frame
 	kitten::K_Component* frame = comMan->createComponent("Frame");
 	m_frameObject->addComponent(frame);
+	kitten::K_Component* f = comMan->createComponent("ClickableFrame");
+	m_frameObject->addComponent(f);
+	kitten::K_Component* c = comMan->createComponent("TrackerBlockClickable");
+	m_frameObject->addComponent(c);*/
 	//add clickbox
-	kitten::K_Component* clickbox = comMan->createComponent("ClickableBoxForTrackerBlock");
-	m_frameObject->addComponent(clickbox);
+	//kitten::K_Component* clickbox = comMan->createComponent("ClickableBoxForTrackerBlock");
+	//m_frameObject->addComponent(clickbox);
 	//add clickable
-	unit::TrackerBlockClickable* clickable = static_cast<unit::TrackerBlockClickable*>(comMan->createComponent("TrackerBlockClickable"));
-	m_frameObject->addComponent(clickable);
+	//unit::TrackerBlockClickable* clickable = static_cast<unit::TrackerBlockClickable*>(comMan->createComponent("TrackerBlockClickable"));
+	//m_frameObject->addComponent(clickable);
 
 	//add textbox
 	puppy::TextBox* textbox = static_cast<puppy::TextBox*>(comMan->createComponent("TextBox"));
@@ -51,7 +57,7 @@ unit::TrackerBlock::TrackerBlock()
 	m_textObject->getTransform().setIgnoreParent(false);
 
 	//disable text object
-	//clickable->setTextBox(m_textObject);
+	m_frameObject->getComponent<TrackerBlockClickable>()->setTextBox(m_textObject);
 
 	//slot index
 	m_currentSlotIndex = -1;

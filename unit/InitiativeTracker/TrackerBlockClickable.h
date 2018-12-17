@@ -6,7 +6,7 @@
 
 namespace unit
 {
-	class TrackerBlockClickable : public kitten::Clickable
+	class TrackerBlockClickable : public kitten::ClickableUI
 	{
 	private:
 		kitten::K_GameObject* m_txtGO;

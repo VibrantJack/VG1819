@@ -1,6 +1,7 @@
 #pragma once
 
 #include "kitten\K_Common.h"
+#include "unitAction/ActionButtonStore.h"
 #include <string>
 
 //Rock
@@ -12,25 +13,14 @@ namespace unit
 	class UnitSelect : public kitten::K_Component
 	{
 	private:
-		std::vector<std::string>* m_instructionList;
-
-		std::string m_message;
-		bool m_set;
-
-		bool m_select;
-
-		int counter;
-
-		kitten::K_GameObject* m_textBoxGO;
-
+		ActionButtonStore* m_storage;
 	public:
 		UnitSelect();
 		virtual ~UnitSelect();
 
 		void start() override;
-		void setTextBox(kitten::K_GameObject* p_tb);
+		void setActionButtonStore(ActionButtonStore* p_s) { m_storage = p_s; };
 
 		void onClick();
-		void addAbility(const std::string& p_instructionName);
 	};
 }

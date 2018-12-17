@@ -5,6 +5,7 @@
 #include "unit/InitiativeTracker/InitiativeTracker.h"
 #include "unit/unitComponent/UnitClickable.h"
 #include "unit/unitComponent/UnitMove.h"
+#include "unit/unitComponent/UnitSelect.h"
 //board clickable
 #include "board/clickable/PrintWhenClicked.h"
 
@@ -23,6 +24,8 @@ namespace unit
 
 	UnitSpawn::UnitSpawn()
 	{
+		m_storage = new ActionButtonStore();
+		/*
 		puppy::TextBox* textBox = static_cast<puppy::TextBox*>(kitten::K_ComponentManager::getInstance()->createComponent("TextBoxAbilities"));
 		textBox->setColor(1, 1, 1);
 		textBox->setText("");
@@ -35,7 +38,7 @@ namespace unit
 
 		m_textBoxGO->addComponent(select);
 
-		kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(m_textBoxGO);
+		kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(m_textBoxGO);*/
 	}
 
 	UnitSpawn::~UnitSpawn()
@@ -110,10 +113,13 @@ namespace unit
 		kitten::K_GameObject* unitObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UnitBase.txt");
 		kibble::attachCustomComponentsToGameObject(p_unitIdentifier, unitObject);
 
+		unitObject->getComponent<UnitSelect>()->setActionButtonStore(m_storage);
+
 		//create clickable
+		/*
 		unit::UnitClickable* uClick = static_cast<unit::UnitClickable*>(cm->createComponent("UnitClickable"));
 		uClick->setTextBox(m_textBoxGO);
-		unitObject->addComponent(uClick);
+		unitObject->addComponent(uClick);*/
 
 		/*sprite renderable is replaced by sprite group
 		if (unitObject->getComponent<kitten::SpriteRenderable>() != nullptr) {

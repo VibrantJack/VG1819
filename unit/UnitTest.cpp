@@ -159,6 +159,31 @@ namespace unit
 		go->getTransform().place(0, 0, 0);
 		go->getTransform().rotateAbsolute(glm::vec3(45, 0, 0));
 		go->getTransform().scaleAbsolute(10, 10, 10);*/
+
+		//test cursor
 		//kitten::K_GameObjectManager::getInstance()->createNewGameObject("cursor.json");
+
+		//test ui clickable
+		/*
+		//initialize
+		kitten::K_GameObjectManager* goMan = kitten::K_GameObjectManager::getInstance();
+		//frame object
+		kitten::K_GameObject* fgo = goMan->createNewGameObject();
+
+		//component
+		kitten::K_ComponentManager* comMan = kitten::K_ComponentManager::getInstance();
+		//add frame
+		kitten::K_Component* frame = comMan->createComponent("Frame");
+		fgo->addComponent(frame);
+		kitten::K_Component* f = comMan->createComponent("ClickableFrame");
+		fgo->addComponent(f);
+		kitten::K_Component* c = comMan->createComponent("TrackerBlockClickable");
+		fgo->addComponent(c);
+
+		fgo->getTransform().scale2D(10,10);
+		fgo->getTransform().place2D(500,500);*/
+
+		//test action button
+		//kitten::K_GameObjectManager::getInstance()->createNewGameObject("unit_action_button.json");
 	}
 }
