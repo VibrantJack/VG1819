@@ -10,10 +10,13 @@
             "height" : 100,
 			"3D" : true
 		},
-		{
-			"name" : "DisableAfterTime",
-			"time" : 1.5
-		}
+    {
+      "name": "DisableAfterTime",
+      "time": 1.5
+    },
+    {
+      "name": "LerpController"
+    }
 	],
 	"scale" : [0.1,0.1,1]
 }
