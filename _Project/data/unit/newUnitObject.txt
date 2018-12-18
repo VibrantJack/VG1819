@@ -41,11 +41,6 @@
 			"unitsize": "point"
 		},
 		{
-			"name" : "ClickableBox",
-			"minpoint":[-0.25,-0.25,0],
-			"maxpoint":[0.25,0.25,0]
-		},
-		{
 			"name" : "SpriteGroup",
 			"spritename":"wizard",
 			"number":4,

@@ -29,6 +29,8 @@ namespace unit
 		int m_index;
 		Unit* m_unit;
 	
+		bool m_show;
+
 		void createNewButton();
 		void setButton(const std::string& p_msg);
 	};

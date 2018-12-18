@@ -39,6 +39,7 @@ namespace unit
 		//kitten::K_GameObject* spawnUnitObject(Unit* p_unitData);
 
 		kitten::K_GameObject* spawnUnitObject(const int& p_unitIdentifier);
+		ActionButtonStore* getActionButtonStorage() { return m_storage; };
 	private:
 
 		static UnitSpawn * m_instance;

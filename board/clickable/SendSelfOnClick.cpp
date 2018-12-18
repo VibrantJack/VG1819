@@ -3,6 +3,7 @@
 #include "board/tile/TileInfo.h"
 #include "board/BoardManager.h"
 #include "unit/unitComponent/UnitSelect.h"
+#include "unit/UnitSpawn.h"
 #include <iostream>
 #include <sstream>
 
@@ -20,6 +21,10 @@ void SendSelfOnClick::onClick()
 	if (info->hasUnit())
 	{
 		info->getUnit()->getComponent<unit::UnitSelect>()->onClick();
+	}
+	else
+	{
+		unit::UnitSpawn::getInstanceSafe()->getActionButtonStorage()->hide();
 	}
 
 	std::cout << "send tile obj" << std::endl;

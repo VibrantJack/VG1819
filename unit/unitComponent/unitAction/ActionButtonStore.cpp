@@ -3,6 +3,7 @@
 #include "kitten/InputManager.h"
 unit::ActionButtonStore::ActionButtonStore()
 {
+	m_show = false;
 }
 
 unit::ActionButtonStore::~ActionButtonStore()
@@ -50,23 +51,33 @@ void unit::ActionButtonStore::display(Unit * p_u)
 			}
 		}
 		if (canJoin)
+		{
 			setButton("Join");
+
+			//for test
+			setButton("For test: Level Up");
+		}
 	}
 	
 	setButton("Turn End");
 
-	/*
-	//for test
-	addAbility("For test: Level Up");
-	addAbility("For test: Destroy");*/
+	
+	setButton("For test: Destroy");
+
+	m_show = true;
 }
 
 void unit::ActionButtonStore::hide()
 {
-	for (int i = 0; i < m_buttonList.size(); i++)
+	if (m_show)
 	{
-		m_buttonList[i]->setEnabled(false);
+		for (int i = 0; i < m_buttonList.size(); i++)
+		{
+			m_buttonList[i]->setEnabled(false);
+		}
+		m_show = false;
 	}
+	
 }
 
 void unit::ActionButtonStore::createNewButton()

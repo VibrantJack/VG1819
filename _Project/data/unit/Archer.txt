@@ -51,20 +51,12 @@
 			"unitsize": "point"
 		},
 		{
-			"name" : "ClickableBox",
-			"minpoint":[-0.06,-0.5,0],
-			"maxpoint":[0.09,0.15,0]
-		},
-		{
 			"name" : "SpriteGroup",
 			"spritename":"archer",
 			"number":4,
 			"rotate":[45,0,0],
 			"scale":[2,1,1],
 			"translate":[0,0,0.15]
-		},
-		{
-			"name" : "ClickableBoxRenderable"
 		}
 	]
 }
