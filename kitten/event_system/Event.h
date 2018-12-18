@@ -46,6 +46,7 @@ namespace kitten
 			IP_Address_Entered,
 			Host_Button_Clicked,
 			Disconnect_From_Network,
+			Tile_Clicked_Debug,
 
 			Test_Event, 
 			MAX_VAL = Test_Event

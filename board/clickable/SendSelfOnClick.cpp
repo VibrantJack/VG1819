@@ -53,6 +53,12 @@ void SendSelfOnClick::onClick()
 	{
 		BoardManager::getInstance()->tileClicked(false);
 	}
+
+	// Debug: For SpawnUnitOnKeyPress to summon a unit on a clicked tile
+	kitten::Event* tileData = new kitten::Event(kitten::Event::Tile_Clicked_Debug);
+	tileData->putInt(TILE_POS_X, info->getPosX());
+	tileData->putInt(TILE_POS_Y, info->getPosY());
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Tile_Clicked_Debug, tileData);
 }
 
 void SendSelfOnClick::onHoverStart()
