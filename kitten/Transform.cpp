@@ -323,11 +323,10 @@ namespace kitten
 
 	void Transform::setParent(Transform* p_parent)
 	{
-		/*
 		if (m_parent != nullptr)
 		{
 			m_parent->removeChild(this);
-		}*/
+		}
 
 		m_parent = p_parent;
 
