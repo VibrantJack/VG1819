@@ -43,6 +43,7 @@ namespace unit
 
 	UnitSpawn::~UnitSpawn()
 	{
+		delete m_storage;
 	}
 
 	UnitSpawn * UnitSpawn::getInstance()
