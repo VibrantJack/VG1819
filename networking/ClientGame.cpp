@@ -166,16 +166,15 @@ namespace networking
 				commanderDataBuffer.m_data = commanderData;
 				commanderDataBuffer.m_size = SUMMON_UNIT_PACKET_SIZE;
 
-				kitten::K_GameObject* tile = BoardManager::getInstance()->getInstance()->getSpawnPoint(sm_iClientId);
 				SummonUnitPacket commanderDataPacket;
 				commanderDataPacket.m_packetType = STARTING_COMMANDER_DATA;
 				commanderDataPacket.m_clientId = sm_iClientId;
 				// TODO: Assign the Commander unit ID according to the first unit in the player's deck data
-				commanderDataPacket.m_unitId = 6;
+				commanderDataPacket.m_unitId = unit::UnitSpawn::King + sm_iClientId;
+				//kitten::K_GameObject* tile = BoardManager::getInstance()->getSpawnPoint(sm_iClientId);
+				kitten::K_GameObject* tile = BoardManager::getInstance()->getTile(9 - (sm_iClientId * 4), 8);
 				commanderDataPacket.m_posX = tile->getComponent<TileInfo>()->getPosX();
 				commanderDataPacket.m_posY = tile->getComponent<TileInfo>()->getPosY();
-				//commanderDataPacket.m_posX = (m_iClientId == 0) ? 0 : 14;
-				//commanderDataPacket.m_posY = (m_iClientId == 0) ? 0 : 14;
 
 				commanderDataPacket.serialize(commanderDataBuffer);
 				NetworkServices::sendMessage(m_network->m_connectSocket, commanderData, SUMMON_UNIT_PACKET_SIZE);

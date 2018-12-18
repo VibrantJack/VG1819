@@ -78,7 +78,12 @@ void SpawnUnitOnKeyPress::update()
 				if (unitId == "all" && !m_initialUnitsSpawned)
 				{
 					summonAllUnits();
-				} else
+				} 
+				else if (unitId == "network" && !m_initialUnitsSpawned && !m_bUnitsSpawned)
+				{
+					summonUnitsForNetworkExample();
+				}
+				else
 				{
 					// Convert id from string to int
 					try
@@ -138,59 +143,95 @@ void SpawnUnitOnKeyPress::summonAllUnits()
 
 	// King
 	client->summonUnit(clientId, unit::UnitSpawn::King, 7, 7);
-	client->sendSummonUnitPacket(clientId, 13, 7, 7);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::King, 7, 7);
 
 	// Queen
 	client->summonUnit(clientId, unit::UnitSpawn::Queen, 6, 7);
-	client->sendSummonUnitPacket(clientId, 14, 6, 7);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Queen, 6, 7);
 
 	// StoneSlinger
 	client->summonUnit(clientId, unit::UnitSpawn::StoneSlinger, 2, 4);
-	client->sendSummonUnitPacket(clientId, 8, 2, 4);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::StoneSlinger, 2, 4);
 
 	// Priest
 	client->summonUnit(clientId, unit::UnitSpawn::Priest, 3, 4);
-	client->sendSummonUnitPacket(clientId, 1, 3, 4);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Priest, 3, 4);
 
 	// Priest
 	client->summonUnit(clientId, unit::UnitSpawn::Priest, 4, 4);
-	client->sendSummonUnitPacket(clientId, 1, 4, 4);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Priest, 4, 4);
 
 	// Oligarch
 	client->summonUnit(clientId, unit::UnitSpawn::Oligarch, 5, 4);
-	client->sendSummonUnitPacket(clientId, 12, 5, 4);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Oligarch, 5, 4);
 
 	// Duelist
 	client->summonUnit(clientId, unit::UnitSpawn::Duelist, 6, 4);
-	client->sendSummonUnitPacket(clientId, 3, 6, 4);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Duelist, 6, 4);
 
 	// Engineer
 	client->summonUnit(clientId, unit::UnitSpawn::Engineer, 7, 4);
-	client->sendSummonUnitPacket(clientId, 4, 7, 4);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Engineer, 7, 4);
 
 	// Pyromancer
 	client->summonUnit(clientId, unit::UnitSpawn::Pyromancer, 8, 4);
-	client->sendSummonUnitPacket(clientId, 7, 8, 4);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Pyromancer, 8, 4);
 
 	// Archer
 	client->summonUnit(clientId, unit::UnitSpawn::Archer, 9, 4);
-	client->sendSummonUnitPacket(clientId, 2, 9, 4);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Archer, 9, 4);
 
 	// Wall
 	client->summonUnit(clientId, unit::UnitSpawn::Wall, 5, 2);
-	client->sendSummonUnitPacket(clientId, 5, 5, 2);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Wall, 5, 2);
 
 	// Armory
 	client->summonUnit(clientId, unit::UnitSpawn::Armory, 7, 2);
-	client->sendSummonUnitPacket(clientId, 10, 7, 2);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Armory, 7, 2);
 
 	// ArrowTower
 	client->summonUnit(clientId, unit::UnitSpawn::ArrowTower, 8, 2);
-	client->sendSummonUnitPacket(clientId, 9, 8, 2);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::ArrowTower, 8, 2);
 
 	// DivineStatue
 	client->summonUnit(clientId, unit::UnitSpawn::DivineStatue, 9, 2);
-	client->sendSummonUnitPacket(clientId, 11, 9, 2);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::DivineStatue, 9, 2);
+
+	m_initialUnitsSpawned = true;
+	m_bUnitsSpawned = true;
+}
+
+void SpawnUnitOnKeyPress::summonUnitsForNetworkExample()
+{
+	networking::ClientGame* client = networking::ClientGame::getInstance();
+	int clientId = client->getClientId();
+	int col = 0;
+
+	if (clientId == 0)
+		col = 9;
+	else if (clientId == 1)
+		col = 5;
+	int row = 8;
+
+	// Commander, King for host, Queen for client
+	// For testing, Spawned in on 2 connections in ClientGame/ServerGame
+	//client->summonUnit			(clientId, unit::UnitSpawn::King + clientId, col, row);
+	//client->sendSummonUnitPacket(clientId, unit::UnitSpawn::King + clientId, col, row);
+
+	client->summonUnit			(clientId, unit::UnitSpawn::Priest, col, row - 1);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Priest, col, row - 1);
+
+	client->summonUnit			(clientId, unit::UnitSpawn::Priest, col, row - 2);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Priest, col, row - 2);
+
+	client->summonUnit			(clientId, unit::UnitSpawn::Archer, col, row - 3);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Archer, col, row - 3);
+
+	client->summonUnit			(clientId, unit::UnitSpawn::Duelist, col, row - 4);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Duelist, col, row - 4);
+
+	client->summonUnit			(clientId, unit::UnitSpawn::DivineStatue, col, row - 5);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::DivineStatue, col, row - 5);
 
 	m_initialUnitsSpawned = true;
 	m_bUnitsSpawned = true;

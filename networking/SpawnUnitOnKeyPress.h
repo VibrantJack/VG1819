@@ -37,4 +37,5 @@ private:
 	input::InputManager* m_inputMan;
 
 	void summonAllUnits();
+	void summonUnitsForNetworkExample();
 };
