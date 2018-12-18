@@ -10,6 +10,7 @@
 #include "unit/Unit.h"
 #include "board/tile/TileInfo.h"
 #include "board/BoardManager.h"
+#include "networking\ClientGame.h"
 
 namespace ability
 {
@@ -21,9 +22,13 @@ namespace ability
 
 		//kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
 
-		kitten::Event* e = new kitten::Event(kitten::Event::EventType::Manipulate_Tile);
-		e->putInt(MANIPULATE_TILE_KEY, 1);
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Manipulate_Tile, e);
+		int clientId = networking::ClientGame::getClientId();
+		if (p_info->m_source->m_clientId == clientId || clientId == -1)
+		{
+			kitten::Event* e = new kitten::Event(kitten::Event::EventType::Manipulate_Tile);
+			e->putInt(MANIPULATE_TILE_KEY, 1);
+			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Manipulate_Tile, e);
+		}
 
 		//highlight the tile
 		kitten::Event* t = new kitten::Event(kitten::Event::EventType::Highlight_Tile);
