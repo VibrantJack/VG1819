@@ -104,7 +104,7 @@ namespace kitten
 	{
 		m_translation[0] = x;
 		m_translation[1] = y;
-		m_matTranslation = glm::translate(x, y, 0.0f);
+		m_matTranslation = glm::translate(x, y, m_translation.z);
 		m_isDirty = true;
 
 		if (!m_ignoresParent && m_parent != nullptr)

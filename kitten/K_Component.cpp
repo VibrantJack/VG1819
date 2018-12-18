@@ -40,6 +40,7 @@ namespace kitten
 			}
 
 			onDisabled();
+			
 		}
 		else if (!m_isEnabled && p_enabled)
 		{
@@ -56,7 +57,7 @@ namespace kitten
 					K_ComponentManager::getInstance()->queueAddToUpdate(this);
 				}
 			}
-			
+
 			onEnabled();
 		}
 	}
