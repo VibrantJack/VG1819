@@ -32,7 +32,8 @@ void CounterGetterDisplay::set(int p_min, int p_max, const std::string & p_count
 		m_maxGO->addComponent(textBox);
 
 		m_maxGO->getTransform().setParent(&m_attachedObject->getTransform());
-		m_maxGO->getTransform().place2D(700, 360);
+		m_maxGO->getTransform().setIgnoreParent(false);
+		m_maxGO->getTransform().place2D(-200, 0);
 	}
 
 	if (m_minGO == nullptr)
@@ -43,7 +44,8 @@ void CounterGetterDisplay::set(int p_min, int p_max, const std::string & p_count
 		m_minGO->addComponent(textBox);
 
 		m_minGO->getTransform().setParent(&m_attachedObject->getTransform());
-		m_minGO->getTransform().place2D(480, 360);
+		m_minGO->getTransform().setIgnoreParent(false);
+		m_minGO->getTransform().place2D(120,0);
 	}
 
 	if (m_counterGO == nullptr)
@@ -54,7 +56,8 @@ void CounterGetterDisplay::set(int p_min, int p_max, const std::string & p_count
 		m_counterGO->addComponent(textBox);
 
 		m_counterGO->getTransform().setParent(&m_attachedObject->getTransform());
-		m_counterGO->getTransform().place2D(550, 400);
+		m_counterGO->getTransform().setIgnoreParent(false);
+		m_counterGO->getTransform().place2D(-75, 50);
 	}
 
 	m_maxGO->getComponent<puppy::TextBox>()->setText("Min: "+std::to_string(m_max));

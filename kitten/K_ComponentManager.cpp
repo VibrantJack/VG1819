@@ -17,7 +17,6 @@
 #include "kitten\sprites\SpriteAnimator.h"
 #include "kitten\sprites\SpriteRenderable.h"
 #include "unit/unitComponent/UnitMove.h"
-#include "unit/unitComponent/UnitClickable.h"
 //ui
 #include "UI\UIObject.h"
 #include "UI\CardUIO.h"
@@ -45,6 +44,8 @@
 
 #include "components/ChangeSceneOnClick.hpp"
 #include "kitten\K_ParticleSystem.h"
+#include "kitten\BarRenderable.h"
+#include "_Project\LerpController.h"
 
 //board
 #include "board/component/Highlighter.h"
@@ -57,6 +58,7 @@
 #include "board/tile/TileInfo.h"
 
 #include "unitInteraction/CounterGetterDisplay.h"
+
 namespace kitten
 {
 	K_ComponentManager* K_ComponentManager::sm_instance = nullptr;
@@ -77,9 +79,17 @@ namespace kitten
 		K_Component* comp;
 
 		//Kibble version -1.0
-		if (p_componentName == "K_ParticleSystem")
+		if (p_componentName == "K_ParticleSystem") //datadriven
 		{
 			comp = new kitten::K_ParticleSystem("");
+		}
+		else if (p_componentName == "BarRenderable") //datadriven
+		{
+			comp = new kitten::BarRenderable();
+		}
+		else if (p_componentName == "LerpController")
+		{
+			comp = new LerpController();
 		}
 		else if (p_componentName == "Camera")// Datadriven
 		{
@@ -165,9 +175,6 @@ namespace kitten
 		} else if (p_componentName == "UnitMove") // Datadriven
 		{
 			comp = new unit::UnitMove();
-		} else if (p_componentName == "UnitClickable") // DataDriven
-		{
-			comp = new unit::UnitClickable();
 		} else if (p_componentName == "UnitGraphic")//hard code, need special function for unit graphic, Data driven with these as defaults
 		{
 			comp = new unit::UnitGraphic(unit::point, "textures/unit/Default.tga");
@@ -267,7 +274,7 @@ namespace kitten
 			return nullptr;
 		}
 
-		m_toStart.insert(comp);
+		m_toAddToStart.insert(comp);
 
 		//Successful
 		return comp;
@@ -278,7 +285,7 @@ namespace kitten
 		K_Component* comp = getRelatedComponentBy(p_jsonfile);
 		if (comp == nullptr) return nullptr;
 
-		m_toStart.insert(comp);
+		m_toAddToStart.insert(comp);
 
 		//Successful
 		return comp;
@@ -330,12 +337,12 @@ namespace kitten
 		assert(!p_toStart->m_hasStarted);
 		assert(m_toStart.find(p_toStart) == m_toStart.end());
 
-		m_toStart.insert(p_toStart);
+		m_toAddToStart.insert(p_toStart);
 	}
 
 	void K_ComponentManager::removeFromStart(K_Component* p_toRemove)
 	{
-		m_toStart.erase(p_toRemove);
+		m_toAddToStart.erase(p_toRemove);
 	}
 
 	void K_ComponentManager::queueAddToUpdate(K_Component* p_toAdd)
@@ -350,40 +357,72 @@ namespace kitten
 
 	void K_ComponentManager::updateComponents()
 	{
-		//Start components
-		for (auto it = m_toStart.begin(); it != m_toStart.end(); it = m_toStart.erase(it))
+		if (!m_toAddToStart.empty())
 		{
-			(*it)->m_hasStarted = true;
-			(*it)->start();
-			if ((*it)->hasUpdate())
+			for (auto it = m_toAddToStart.cbegin(); it != m_toAddToStart.cend(); ++it)
+			{
+				m_toStart.insert(*it);
+			}
+			m_toAddToStart.clear();
+		}
+		
+		//Start components
+		if (!m_toStart.empty())
+		{
+			for (auto it = m_toStart.cbegin(); it != m_toStart.cend(); ++it)
+			{
+				(*it)->m_hasStarted = true;
+				(*it)->start();
+				if ((*it)->hasUpdate())
+				{
+					m_toUpdate.insert(*it);
+				}
+			}
+			m_toStart.clear();
+		}
+		
+		//Delete queued deletions
+		if (!m_toDelete.empty())
+		{
+			auto it = m_toDelete.begin();
+			while(!m_toDelete.empty())
+			{
+				if ((*it)->hasUpdate()) //&& isActive
+				{
+					removeFromUpdate(*it);
+				}
+
+				if (!(*it)->m_hasStarted)
+				{
+					removeFromStart(*it);
+				}
+
+				(*it)->m_attachedObject->removeComponent(*it);
+
+				
+				delete (*it);
+
+				m_toDelete.erase(it);
+				it = m_toDelete.begin();
+			}
+
+		}
+		
+		//Add queued components to update
+		if (!m_toAddToUpdate.empty())
+		{
+			for (auto it = m_toAddToUpdate.begin(); it != m_toAddToUpdate.end(); ++it)
 			{
 				m_toUpdate.insert(*it);
 			}
+			m_toAddToUpdate.clear();
 		}
-
-		//Delete queued deletions
-		for (auto it = m_toDelete.begin(); it != m_toDelete.end(); it = m_toDelete.erase(it))
+		
+		//No if, likely to always have to update
+		//Remove queued components from update
+		for (auto it = m_toRemoveFromUpdate.begin(); it != m_toRemoveFromUpdate.end(); it = m_toRemoveFromUpdate.erase(it))
 		{
-			if ((*it)->hasUpdate()) //&& isActive
-			{
-				removeFromUpdate(*it);
-			}
-
-			if (!(*it)->m_hasStarted)
-			{
-				removeFromStart(*it);
-			}
-
-			(*it)->m_attachedObject->removeComponent(*it);
-
-			delete (*it);
-
-		}
-
-		//Add queued components to update
-		for (auto it = m_toAddToUpdate.begin(); it != m_toAddToUpdate.end(); it = m_toAddToUpdate.erase(it))
-		{
-			m_toUpdate.insert(*it);
+			removeFromUpdate(*it);
 		}
 
 		//Update components
@@ -394,9 +433,15 @@ namespace kitten
 		}
 
 		//Remove queued components from update
-		for (auto it = m_toRemoveFromUpdate.begin(); it != m_toRemoveFromUpdate.end(); it = m_toRemoveFromUpdate.erase(it))
+		if (!m_toRemoveFromUpdate.empty())
 		{
-			removeFromUpdate(*it);
+			for (auto it = m_toRemoveFromUpdate.begin(); it != m_toRemoveFromUpdate.end(); ++it)
+			{
+				removeFromUpdate(*it);
+			}
+
+			m_toRemoveFromUpdate.clear();
 		}
+		
 	}
 }

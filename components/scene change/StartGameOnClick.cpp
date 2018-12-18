@@ -7,18 +7,7 @@
 
 void StartGameOnClick::onClick() 
 {
-	// Add All canceling components here
-	if (DecksDisplayFrame::getActiveInstance()->getCurrentPickedDeckId() < 0) return;
-
-	// --------------------------
-	kitten::K_GameObject * survivor = kitten::K_GameObjectManager::getInstance()->createNewGameObject("newgame_survivor.json");
-
-	// ADD ALL INFORMATION COMPONENTS ON SURVIVOR
-	DeckInitializingComponent* deckInitComponent = survivor->getComponent<DeckInitializingComponent>();
-	deckInitComponent->setDeckData(kibble::getDeckDataFromId(DecksDisplayFrame::getActiveInstance()->getCurrentPickedDeckId()));
-	deckInitComponent->setPlayerId(1);
-
-	// --------------------------
-	kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(survivor);
+	if (DeckInitializingComponent::getActiveInstance() == nullptr) return;
+	if (DeckInitializingComponent::getActiveInstance()->getDeckData() == nullptr) return;
 	kitten::K_Instance::changeScene(m_targetScene);
 }

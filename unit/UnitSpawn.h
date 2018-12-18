@@ -2,15 +2,34 @@
 #include "unit/UnitCommon.h"
 #include "unit/unitComponent/StatusContainer.h"
 #include "ability/StatusManager.h"
+#include "unitComponent/unitAction/ActionButtonStore.h"
+
 //Rock
 
-//I think this class can be merged to kibble unit data parser
-//then we don't need unit data as a middle point
 namespace unit
 {
 	class UnitSpawn
 	{
 	public:
+		enum UnitIndex
+		{
+			testDummy = 0,
+			Priest,
+			Archer,
+			Duelist, 
+			Engineer,
+			Wall,
+			newUnitObject,
+			Pyromancer,
+			StoneSlinger,
+			ArrowTower,
+			Armory,
+			DivineStatue,
+			Oligarch,
+			King,
+			Queen
+		};
+
 		UnitSpawn();
 		~UnitSpawn();
 
@@ -20,11 +39,12 @@ namespace unit
 		//kitten::K_GameObject* spawnUnitObject(Unit* p_unitData);
 
 		kitten::K_GameObject* spawnUnitObject(const int& p_unitIdentifier);
+		ActionButtonStore* getActionButtonStorage() { return m_storage; };
 	private:
 
 		static UnitSpawn * m_instance;
 
-		kitten::K_GameObject* m_textBoxGO;
+		ActionButtonStore* m_storage;
 
 		//std::vector<unit::AbilityDescription> readAD();
 		//ability::Status* readSD(unit::StatusDescription* p_sd);

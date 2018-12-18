@@ -2,17 +2,24 @@
     "gameobjects" : [
         {
             "filename" : "camgameobj.txt", 
-            "translate" : [7, 13.0, 0.0],
+            "translate" : [7, 7.0, 2.0],
             "rotate" : [-70,0,0]
         },
 		{
-			"filename" : "FPSCounter.txt", 
-		    "translate2d" : [100,700]
+			"filename" : "quad_repeat.txt"
+		},
+		{
+			"name" : "MainMenuBoard",
+			"components" : [
+				{
+					"name" : "MainMenuBoard"
+				}
+			]
 		},
 		{
 			"filename" : "netmenu_ui.txt",
 			"translate" : [0.0, 0.0, -0.1],
-			"translate2d" : [525, 140]
+			"translate2d" : [999, 76]
 		},
 		{
 			"filename" : "netmenu_background.txt",
@@ -21,15 +28,34 @@
 		},
 		{
 			"filename" : "netmenu_join_button.txt",
-			"scale2d" : [170, 100],
+			"scale2d" : [250, 80],
 			"translate" : [0.0, 0.0, -0.1],
-		    "translate2d" : [555,185]
+			"translate2d" : [676, 22]
 		},
 		{
 			"filename" : "netmenu_host_button.txt",
-			"scale2d" : [170, 100],
+			"scale2d" : [250, 80],
 			"translate" : [0.0, 0.0, -0.1],
-		    "translate2d" : [555,395]
-		}
+            "translate2d" : [354, 22]
+		},
+        {
+            "name" : "ReturnToMainMenu",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_return.tga"
+                },
+				{
+					"name" : "ReturnToMainMenuButton",
+					"regularTexture" : "textures/ui/buttons/button_return.tga",
+					"highlightedTexture" : "textures/ui/buttons/button_return_highlighted.tga"
+				},
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [71, 21],
+            "scale2d" : [125, 80]
+        }
     ]
 }

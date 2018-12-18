@@ -26,7 +26,7 @@ void TileGetter::requireTile(unit::AbilityDescription * p_ad, unit::Unit* p_sour
 	m_needUnit = p_needUnit;
 
 	//initialize
-	m_targetNum = 0;
+	//m_targetNum = 0;
 	m_tileList.clear();
 	m_tileList.shrink_to_fit();
 	m_unitList.clear();
@@ -89,6 +89,10 @@ void TileGetter::getTiles(kitten::Event * p_data)
 		m_tileList.push_back(tileGO);
 		getUnit(tileGO);
 	}
+
+	send();
+
+	/* target check is move to board manager
 	m_targetNum++;
 	//check if player need to click more tiles
 	if (m_targetNum >= m_ad->m_intValue["target"])
@@ -98,7 +102,7 @@ void TileGetter::getTiles(kitten::Event * p_data)
 	else
 	{//get more
 		triggerHighlightEvent();
-	}
+	}*/
 }
 
 void TileGetter::getUnit(kitten::K_GameObject * p_tile)
@@ -120,12 +124,33 @@ void TileGetter::triggerHighlightEvent()
 	kitten::Event* e = new kitten::Event(kitten::Event::Highlight_Tile);
 	putRange(e);
 	putFilter("filter", e);
+	//move mode
+	if (m_ad->m_stringValue["name"] == ACTION_MOVE)
+		e->putInt("path", TRUE);
+	else
+		e->putInt("path", FALSE);
+
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Highlight_Tile, e);
 
 	//area
 	e = new kitten::Event(kitten::Event::Set_Area_Pattern);
 	putArea(e);
 	putFilter("area_filter", e);
+
+	//select mode
+	int t = m_ad->m_intValue["target"];
+	if (t > 1)
+	{
+		e->putInt("select", TRUE);
+		e->putInt("target", t);
+		if (m_ad->m_stringValue["select_repeat"] == "true")
+			e->putInt("repeat", TRUE);
+		else
+			e->putInt("repeat", FALSE);
+	}
+	else
+		e->putInt("select", FALSE);
+
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Set_Area_Pattern, e);
 }
 

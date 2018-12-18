@@ -77,6 +77,7 @@ namespace unit
 		case ability::TimePointEvent::Turn_Start:
 		case ability::TimePointEvent::Turn_End:
 		case ability::TimePointEvent::New_Tile:
+		case ability::TimePointEvent::Leave_Tile:
 			if(tileGO != nullptr)
 				tileGO->getComponent<TileInfo>()->effect(p_tp, this);
 			break;
@@ -216,8 +217,8 @@ namespace unit
 			}
 		}
 
-		if (lateDestroy)
-			destroy();
+		if (m_lateDestroy)
+			simpleDestroy();
 	}
 
 	void Unit::actDone()
@@ -356,9 +357,16 @@ namespace unit
 
 	int Unit::destroyedByJoin()
 	{
-		//TO DO: send destroyed event
-		lateDestroy = true;
+		m_lateDestroy = true;
 		return 0;
+	}
+
+	void Unit::simpleDestroy()
+	{
+		//remove from tile
+		getTile()->getComponent<TileInfo>()->removeUnit();
+		//remove from intiative tracker
+		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
 	}
 
 	void Unit::destroy()
@@ -370,10 +378,8 @@ namespace unit
 		
 
 		std::cout << m_name << " is destroyed! " << std::endl;
-		//remove from tile
-		getTile()->getComponent<TileInfo>()->removeUnit();
-		//remove from intiative tracker
-		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
+		
+		simpleDestroy();
 
 		// Commander Death Victory/Defeat Condition
 		if (isCommander())
@@ -387,11 +393,11 @@ namespace unit
 				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
 				if (m_clientId == client->getClientId())
 				{
-					eventData->putInt(PLAYER_COMMANDER_DEATH, FALSE);
+					eventData->putInt(GAME_END_RESULT, 0); // 0: Host Commander died
 				}
 				else
 				{
-					eventData->putInt(PLAYER_COMMANDER_DEATH, TRUE);
+					eventData->putInt(GAME_END_RESULT, 1); // 1: Client Commander died
 				}
 				
 				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);

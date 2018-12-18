@@ -1,0 +1,41 @@
+{
+	"unit":{
+		"name":"Queen",
+		"hp":30,
+		"mv":3,
+		"in":45,
+		"cost":99,
+		"tags":["Commander","Elf","Terrans"],
+		"commander":{
+			"portrait_path" : "place_holder"
+		},
+		"ability_description":[
+			{
+				"name":"Here is Homeland",
+				"min_range":0,
+				"max_range":3,
+				"target":4,
+				"select_repeat":"false",
+				"need_unit":0,
+				"filter":1,
+				"filter0":"unowned_tile",
+				"description":"Select 4 owned tile, change them into Homeland."
+			}
+		]
+	},
+	"components" : [
+		{
+			"name" : "UnitGraphic",
+			"texture":"textures/unit/Queen.tga",
+			"unitsize": "point"
+		},
+		{
+			"name" : "SpriteGroup",
+			"spritename":"queen",
+			"number":1,
+			"rotate":[45,0,0],
+			"scale":[20,1.5,0],
+			"translate":[0,0,0.15]
+		}
+	]
+}

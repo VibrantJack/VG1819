@@ -6,6 +6,8 @@ namespace puppy
 
 	void VertexEnvironment::setupCommon()
 	{
+		m_hasEBO = false;
+
 		//Setup vao
 		glGenVertexArrays(1, &m_vao);
 		glBindVertexArray(m_vao);
@@ -19,7 +21,7 @@ namespace puppy
 	VertexEnvironment::VertexEnvironment(const TexturedVertex p_data[], const ShaderProgram* p_program, int p_numElements)
 	{
 		setupCommon();
-		m_numIndices = p_numElements;
+		m_numVertices = p_numElements;
 
 		glBufferData(GL_ARRAY_BUFFER, SIZE_OF_TEXTURED_VERTEX * p_numElements, p_data, GL_STATIC_DRAW);
 		
@@ -38,7 +40,7 @@ namespace puppy
 	VertexEnvironment::VertexEnvironment(const NormalVertex p_data[], const ShaderProgram* p_program, int p_numElements)
 	{
 		setupCommon();
-		m_numIndices = p_numElements;
+		m_numVertices = p_numElements;
 		
 		glBufferData(GL_ARRAY_BUFFER, SIZE_OF_NORMAL_VERTEX * p_numElements, p_data, GL_STATIC_DRAW);
 
@@ -61,7 +63,7 @@ namespace puppy
 	VertexEnvironment::VertexEnvironment(const ParticleVertex p_data[], const ShaderProgram* p_program, int p_numElements)
 	{
 		setupCommon();
-		m_numIndices = p_numElements;
+		m_numVertices = p_numElements;
 
 		glBufferData(GL_ARRAY_BUFFER, SIZE_OF_PARTICLE_VERTEX * p_numElements, p_data, GL_DYNAMIC_DRAW);
 
@@ -81,6 +83,33 @@ namespace puppy
 		glEnableVertexAttribArray(tintAttr);
 	}
 
+	VertexEnvironment::VertexEnvironment(const NormalVertex p_data[], const unsigned int p_indices[], const ShaderProgram* p_program, int p_numVertices, int p_numIndicies) : m_numVertices(p_numVertices), m_numIndices(p_numIndicies)
+	{
+		setupCommon();
+		m_hasEBO = true;
+
+		glBufferData(GL_ARRAY_BUFFER, SIZE_OF_NORMAL_VERTEX * p_numVertices, p_data, GL_STATIC_DRAW);
+
+		glGenBuffers(1, &m_ebo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, p_numIndicies * sizeof(unsigned int), p_indices, GL_STATIC_DRAW);
+
+		//Get attrib locations
+		int posAttr = p_program->getAttrLocation("a_position");
+		int uvAttr = p_program->getAttrLocation("a_uv1");
+		int normalAttr = p_program->getAttrLocation("a_normal");
+
+		//Enable attribs
+		glVertexAttribPointer(posAttr, 3, GL_FLOAT, GL_FALSE, SIZE_OF_NORMAL_VERTEX, 0);
+		glEnableVertexAttribArray(posAttr);
+
+		glVertexAttribPointer(normalAttr, 3, GL_FLOAT, GL_FALSE, SIZE_OF_NORMAL_VERTEX, (void*)(SIZE_OF_GLFLOAT * 3));
+		glEnableVertexAttribArray(normalAttr);
+
+		glVertexAttribPointer(uvAttr, 2, GL_FLOAT, GL_FALSE, SIZE_OF_NORMAL_VERTEX, (void*)(SIZE_OF_GLFLOAT * 6));
+		glEnableVertexAttribArray(uvAttr);
+	}
+
 	VertexEnvironment::~VertexEnvironment()
 	{
 		glDeleteBuffers(1, &m_vbo);
@@ -88,8 +117,13 @@ namespace puppy
 		{
 			m_boundVao = 0;
 		}
+
+		if (m_hasEBO)
+		{
+			glDeleteBuffers(1, &m_ebo);
+		}
+
 		glDeleteVertexArrays(1, &m_vao);
-		
 	}
 
 	void VertexEnvironment::drawArrays(GLenum p_mode)
@@ -100,7 +134,14 @@ namespace puppy
 			m_boundVao = m_vao;
 		}
 
-		glDrawArrays(p_mode, 0, m_numIndices);
+		if (m_hasEBO)
+		{
+			glDrawElements(p_mode, m_numIndices, GL_UNSIGNED_INT, 0);
+		}
+		else
+		{
+			glDrawArrays(p_mode, 0, m_numVertices);
+		}
 	}
 
 	void VertexEnvironment::drawArrays(GLenum p_mode, int p_offset, int p_numTriangles)
@@ -127,7 +168,6 @@ namespace puppy
 		return glMapBuffer(GL_ARRAY_BUFFER, p_access);
 	}
 
-	//broken?
 	void* VertexEnvironment::mapRange(GLenum p_access, int p_offset, int p_length)
 	{
 		if (m_boundVao != m_vao)

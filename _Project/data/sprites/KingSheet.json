@@ -1,0 +1,23 @@
+{
+	"name" : "king",
+	"texture" : "textures/sprites/units/humans/king_sheet.tga",
+	
+	"sheetwidth" : 1149,
+	"sheetheight" : 116,
+	
+	"characterwidth" : 58,
+	"characterheight" : 113,
+	
+	"padding" : 3,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [6,0],
+			"time" : 1.5
+		}	
+	],
+	
+	"defaultanimation" : "idle"
+}

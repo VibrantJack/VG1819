@@ -6,7 +6,9 @@
 #define TILE "tile"
 
 #include "kitten\K_Component.h"
+#include "kitten\QuadRenderable.h"
 #include "board/tile/landInfo/LandInfoManager.h"
+#include "puppy\Texture.h"
 
 class TileInfo : public kitten::K_Component
 {
@@ -17,6 +19,7 @@ public:
 		First = Area,
 		None,
 		Cursor,
+		Select,
 		Range,
 		Owned,
 		Count = Owned+1
@@ -28,13 +31,14 @@ public:
 	//land info
 	void setType(LandInformation::TileType p_type = LandInformation::Grass_land);
 	void start();
+	void setLand();
 
 	int getMVCost();
 	const std::string getDescription();
 	void effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit* p_u);
 
 	//highlight 
-	void changeHighlightTexture(const std::string& p_texpath);
+	void changeHighlightTexture(puppy::Texture* p_tex);
 	bool isHighlighted(HighlightType p_type);
 	void setHighlighted(HighlightType p_type, bool p_bool);
 	HighlightType getHighlightType();
@@ -55,8 +59,8 @@ public:
 	kitten::K_GameObject* getUnit();
 
 	// TODO: Change according to finalized unit id structure
-	const std::string& getOwnerId();
-	void setOwnerId(const std::string& p_sId);
+	const int getOwnerId();
+	void setOwnerId(const int p_sId);
 
 	const std::string& getHighlightedBy();
 	void setHighlightedBy(const std::string& p_sId);
@@ -64,12 +68,13 @@ public:
 private:
 	std::unordered_map<HighlightType,bool> m_highlightType;
 	int m_iPosX, m_iPosY;
-	std::string m_sOwnerId;
+	int m_sOwnerId;
 	std::string m_sHighlightedBy;
-	std::string m_lasttexpath;
+	puppy::Texture* m_lastHighlightTexture;
 
 	LandInformation::TileType m_tileType;
 
 	kitten::K_GameObject* m_unitGO;
 	LandInformation* m_landInfo;
+	kitten::QuadRenderable* m_quadRenderable;
 };

@@ -1,0 +1,45 @@
+{
+	"unit":{
+		"name":"King",
+		"hp":30,
+		"mv":3,
+		"in":45,
+		"cost":99,
+		"tags":["Commander","Terrans"],
+		"commander":{
+			"portrait_path" : "place_holder"
+		},
+		"ability_description":[
+			{
+				"name":"Rally",
+				"power":5,
+				"min_range":0,
+				"max_range":0,
+				"target":1,
+				"need_unit":0,
+				"area_mode":"span",
+				"area_fix":1,
+				"area_min":1,
+				"area_max":3,
+				"area_filter":1,
+				"area_filter0":"enemy",
+				"description":"Nearby allies +5 IN for one turn."
+			}
+		]
+	},
+	"components" : [
+		{
+			"name" : "UnitGraphic",
+			"texture":"textures/unit/King.tga",
+			"unitsize": "point"
+		},
+		{
+			"name" : "SpriteGroup",
+			"spritename":"king",
+			"number":1,
+			"rotate":[45,0,0],
+			"scale":[20,1.5,0],
+			"translate":[0,0,0.15]
+		}
+	]
+}

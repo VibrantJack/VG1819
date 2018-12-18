@@ -32,6 +32,7 @@ namespace ability
 	{
 	public:
 		std::string m_name;
+		std::string m_source;
 
 		Status();
 		virtual ~Status();
@@ -171,6 +172,14 @@ namespace ability
 	public:
 		Status_Shield();
 		Status* clone() const { return new Status_Shield(*this); };
+		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+	};
+
+	class Status_Block : public Status
+	{
+	public:
+		Status_Block();
+		Status* clone() const { return new Status_Block(*this); };
 		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
 	};
 }

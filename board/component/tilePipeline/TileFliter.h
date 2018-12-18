@@ -36,6 +36,13 @@ public:
 	void filter(kitten::Event::TileList* p_list);
 };
 
+class UnownedTileFilter : public TileFilter
+{//remove tiles that owner isn't player
+public:
+	UnownedTileFilter(TilePipeline* p_p) :TileFilter(p_p) {};
+	void filter(kitten::Event::TileList* p_list);
+};
+
 class NoUnitFilter : public TileFilter
 {//remove tiles that doesn't have unit
 public:

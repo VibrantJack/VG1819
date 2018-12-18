@@ -6,14 +6,6 @@
 
 namespace ability
 {
-	Arm::Arm()
-	{
-	}
-
-	Arm::~Arm()
-	{
-	}
-
 	int Arm::effect(AbilityInfoPackage* p_info)
 	{
 		if (checkTarget(p_info))
@@ -23,7 +15,7 @@ namespace ability
 			{
 				if (!checkAlly(source, it))//not ally
 					break;
-				if (!it->getStatusContainer()->getStatus(STATUS_SHIELD))//don't have shield
+				if (!it->getStatusContainer()->getStatus(STATUS_SHIELD,ABILITY_ARM))//don't have shield
 				{
 					//apply Status_Encourage to target
 					ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_SHIELD);
@@ -31,6 +23,7 @@ namespace ability
 					//set properties
 					int pow = p_info->m_intValue.find(UNIT_POWER)->second;
 
+					se->m_source = ABILITY_ARM;
 					se->addCounter(UNIT_POWER, pow);
 
 					//attach to target

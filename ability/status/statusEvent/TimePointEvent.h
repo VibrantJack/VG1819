@@ -25,6 +25,7 @@ namespace ability
 			Turn_End,
 			Level_Up,
 			New_Tile,
+			Leave_Tile,
 			Deal_Damage,
 			Receive_Damage,
 			Heal,

@@ -1,7 +1,7 @@
 {
 	"unit":{
 		"name":"NewDummy",
-		"hp":1,
+		"hp":20,
 		"mv":8,
 		"in":40,
 		"cost":4,
@@ -41,22 +41,12 @@
 			"unitsize": "point"
 		},
 		{
-			"name" : "UnitMove",
-			"offset":[0.15,1.0,0.8]
-		},
-		{
-			"name" : "ClickableBox",
-			"minpoint":[-0.25,-0.25,0],
-			"maxpoint":[0.25,0.25,0]
-		},
-		{
-			"name" : "SpriteRenderable"
-		},
-		{
-			"name" : "SpriteAnimator",
-			"spritename" : "wizard"
+			"name" : "SpriteGroup",
+			"spritename":"wizard",
+			"number":4,
+			"rotate":[45,0,0],
+			"scale":[1,1,1],
+			"translate":[0,0,0.15]
 		}
-	],
-	"scale" : [2.0, 2.0, 0.0],
-	"rotate" : [45, 0, 0]
+	]
 }

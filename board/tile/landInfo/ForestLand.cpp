@@ -1,7 +1,7 @@
 #include "board/tile/landInfo/LandInformation.h"
 #include "ability/StatusManager.h"
 
-void ForestLand::effectOnStart(unit::Unit* p_unit)
+void ForestLand::effectOnStart(unit::Unit* p_unit, TileInfo* p_tInfo)
 {
 	//Unit will temporarily -1 mv
 

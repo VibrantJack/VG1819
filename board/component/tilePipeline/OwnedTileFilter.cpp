@@ -10,8 +10,8 @@ void OwnedTileFilter::filter(kitten::Event::TileList * p_list)
 	while (it != p_list->end())
 	{
 		kitten::K_GameObject* tileGO = BoardManager::getInstance()->getTile(it->first, it->second);
-		std::string owner = tileGO->getComponent<TileInfo>()->getOwnerId();
-		if (owner != DEFAULT_OWNER)
+		int owner = tileGO->getComponent<TileInfo>()->getOwnerId();
+		if (owner != -1)
 		{
 			it = p_list->erase(it);
 		}

@@ -3,7 +3,7 @@
 DeckInitializingComponent* instance = nullptr;
 
 
-DeckInitializingComponent::DeckInitializingComponent()
+DeckInitializingComponent::DeckInitializingComponent() : m_source(nullptr)
 {
 	instance = this;
 }

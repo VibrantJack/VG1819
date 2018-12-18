@@ -6,6 +6,7 @@
 * data to all clients, and send data to a specific client
 */
 #include "networking\ServerNetwork.h"
+#include "kitten\event_system\EventManager.h"
 
 namespace networking
 {
@@ -175,6 +176,14 @@ namespace networking
 				printf("Server lost connection to [Client: %d]\n", client_id);
 				closesocket(currentSocket);
 				m_sessions[client_id] = INVALID_SOCKET;
+
+				if (client_id != 0)
+				{
+					// Display disconnect screen; Server detected client disconnect
+					kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+					eventData->putInt(GAME_END_RESULT, 2);
+					kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+				}
 			}
 			return m_iResult;
 		}

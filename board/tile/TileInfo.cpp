@@ -12,9 +12,9 @@ TileInfo::TileInfo(int p_iPosX, int p_iPosY)
 	:
 	m_iPosX(p_iPosX),
 	m_iPosY(p_iPosY),
-	m_sOwnerId("NONE"),
+	m_sOwnerId(-1),
 	m_sHighlightedBy("NONE"),
-	m_lasttexpath("")
+	m_lastHighlightTexture(nullptr)
 {
 	m_unitGO = nullptr;
 	m_landInfo = nullptr;
@@ -33,14 +33,21 @@ TileInfo::~TileInfo()
 void TileInfo::setType(LandInformation::TileType p_type)
 {
 	m_tileType = p_type;
+	if (m_landInfo != nullptr)
+		setLand();
 }
 
 void TileInfo::start()
 {
+	m_quadRenderable = m_attachedObject->getComponent<kitten::QuadRenderable>();
+	setLand();
+}
+
+void TileInfo::setLand()
+{
 	m_landInfo = LandInfoManager::getInstance()->getLand(m_tileType);
 
-	kitten::QuadRenderable * qr = m_attachedObject->getComponent<kitten::QuadRenderable>();
-	qr->setTexture(m_landInfo->getTexturePath().c_str());
+	m_quadRenderable->setTexture(m_landInfo->getTexturePath().c_str());
 }
 
 
@@ -65,35 +72,37 @@ void TileInfo::effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit * p_
 	switch (p_tp)
 	{
 	case ability::TimePointEvent::Turn_Start :
-		m_landInfo->effectOnStart(p_u);
+		m_landInfo->effectOnStart(p_u,this);
 		break;
 	case ability::TimePointEvent::Turn_End:
-		m_landInfo->effectOnStay(p_u);
+		m_landInfo->effectOnStay(p_u, this);
 		break;
 	case ability::TimePointEvent::New_Tile:
-		m_landInfo->effectOnPass(p_u);
+		m_landInfo->effectOnPass(p_u, this);
+		break;
+	case ability::TimePointEvent::Leave_Tile:
+		m_landInfo->effectOnPass(p_u, this);
 		break;
 	}
 }
 
-void TileInfo::changeHighlightTexture(const std::string & p_texpath)
+void TileInfo::changeHighlightTexture(puppy::Texture* p_tex)
 {
-	if (m_lasttexpath != p_texpath)
+	if (m_lastHighlightTexture != p_tex)
 	{
-		kitten::QuadRenderable* quad = m_attachedObject->getComponent<kitten::QuadRenderable>();
-		if (m_lasttexpath != "")
-		{
-			//Remove blending
-			quad->removeTexture(m_lasttexpath.c_str());
-		}
-
-		m_lasttexpath = p_texpath;
-
-		if (m_lasttexpath != "")
+		if (p_tex != nullptr)
 		{
 			//Add new blending
-			quad->addTexture(p_texpath.c_str(), 1.0f);
+			m_quadRenderable->addTexture(p_tex, 1.0f);
 		}
+
+		if (m_lastHighlightTexture != nullptr)
+		{
+			//Remove blending
+			m_quadRenderable->removeTexture(m_lastHighlightTexture);
+		}
+
+		m_lastHighlightTexture = p_tex;
 	}
 }
 
@@ -175,12 +184,12 @@ kitten::K_GameObject * TileInfo::getUnit()
 	return m_unitGO;
 }
 
-const std::string& TileInfo::getOwnerId()
+const int TileInfo::getOwnerId()
 {
 	return m_sOwnerId;
 }
 
-void TileInfo::setOwnerId(const std::string& p_sId)
+void TileInfo::setOwnerId(const int p_sId)
 {
 	m_sOwnerId = p_sId;
 }

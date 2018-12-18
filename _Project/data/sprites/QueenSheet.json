@@ -1,0 +1,23 @@
+{
+	"name" : "queen",
+	"texture" : "textures/sprites/units/humans/queen_sheet.tga",
+	
+	"sheetwidth" : 965,
+	"sheetheight" : 113,
+	
+	"characterwidth" : 55,
+	"characterheight" : 107,
+	
+	"padding" : 6,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [6,0],
+			"time" : 1.5
+		}	
+	],
+	
+	"defaultanimation" : "idle"
+}
