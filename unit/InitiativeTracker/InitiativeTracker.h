@@ -1,7 +1,7 @@
 #pragma once
 #include "unit/InitiativeTracker/UnitTurn.h"
 #include "kitten/K_GameObject.h"
-
+#include "unit/InitiativeTracker/UnitAura.h"
 //Rock
 //This class should be singleton
 //it handles all units on the board
@@ -17,6 +17,7 @@ namespace unit
 		static InitiativeTracker * sm_instance;
 		UnitTurn* m_uturn;
 		InitiativeTrackerUI* m_UI;
+		kitten::K_GameObject* m_uAura;
 
 		//list for new units
 		std::vector<kitten::K_GameObject*> m_waitUnitObjectList;

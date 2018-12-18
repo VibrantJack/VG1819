@@ -415,11 +415,6 @@ kitten::K_Component* getUnitMove(nlohmann::json* p_jsonFile) {
 	return new unit::UnitMove();
 }
 
-#include "unit/unitComponent/UnitClickable.h"
-kitten::K_Component* getUnitClickable(nlohmann::json* p_jsonFile) {
-	return new unit::UnitClickable();
-}
-
 #include "board/clickable/ManipulateTileOnClick.h"
 kitten::K_Component* getManipulateTileOnClick(nlohmann::json* p_jsonFile) {
 	return new ManipulateTileOnClick();
@@ -820,6 +815,40 @@ kitten::K_Component* getMainMenuBoard(nlohmann::json* p_jsonFile)
 	return new MainMenuBoard();
 }
 
+#include "unit/InitiativeTracker/UnitAura.h"
+kitten::K_Component* getUnitAura(nlohmann::json* p_jsonFile) {
+	return new unit::UnitAura();
+}
+
+#include "unit/unitComponent/UnitSelect.h"
+kitten::K_Component* getUnitSelect(nlohmann::json* p_jsonFile) {
+	return new unit::UnitSelect();
+}
+
+#include "kitten/sprites/SpriteGroup.h"
+kitten::K_Component* getSpriteGroup(nlohmann::json* p_jsonFile) {
+	std::string name;
+	int n;
+	SETOPT(name, "spritename");
+	SETOPTDEF(n, "number", 1);
+
+	sprites::SpriteGroup* sg = new sprites::SpriteGroup(name, n);
+
+	if (p_jsonFile->find("rotate") != p_jsonFile->end()) {
+		sg->setRotation(glm::vec3(p_jsonFile->operator[]("rotate")[0], p_jsonFile->operator[]("rotate")[1], p_jsonFile->operator[]("rotate")[2]));
+	}
+
+	if (p_jsonFile->find("scale") != p_jsonFile->end()) {
+		sg->setScale(glm::vec3(p_jsonFile->operator[]("scale")[0], p_jsonFile->operator[]("scale")[1], p_jsonFile->operator[]("scale")[2]));
+	}
+
+	if (p_jsonFile->find("translate") != p_jsonFile->end()) {
+		sg->setTranslation(glm::vec3(p_jsonFile->operator[]("translate")[0], p_jsonFile->operator[]("translate")[1], p_jsonFile->operator[]("translate")[2]));
+	}
+
+	return sg;
+}
+
 #include "components/CustomCursor.h"
 kitten::K_Component* getCustomCursor(nlohmann::json* p_jsonFile) {
 	if (JSONHAS("offset"))
@@ -883,9 +912,15 @@ kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
 #include "unit\unitComponent\UnitHealthBar.h"
 kitten::K_Component* getUnitHealthBar(nlohmann::json* p_jsonFile) {
 
-	glm::vec2 offset = glm::vec2(LOOKUP("offset")[0], LOOKUP("offset")[1]);
+	glm::vec3 offset = glm::vec3(LOOKUP("offset")[0], LOOKUP("offset")[1], LOOKUP("offset")[2]);
 
-	return new unit::UnitHealthBar(offset);
+	float lerpTime;
+	SETOPTDEF(lerpTime, "lerptime", 4.0f);
+
+	float rotation;
+	SETOPTDEF(rotation, "rotation", -45);
+
+	return new unit::UnitHealthBar(offset,lerpTime,rotation);
 }
 
 #include "_Project\LerpController.h"
@@ -906,6 +941,18 @@ kitten::K_Component* getExitGameButton(nlohmann::json* p_jsonFile) {
 	button->setHighlightedTexture(highlightedTexture);
 
 	return button;
+}
+
+#include "unit/unitComponent/unitAction/ActionSelect.h"
+kitten::K_Component* getActionSelect(nlohmann::json* p_jsonFile) {
+	std::string action;
+
+	unit::ActionSelect* select = new unit::ActionSelect();
+
+	if (JSONHAS("action"))
+		select->setAction(LOOKUP("action"));
+
+	return select;
 }
 
 #include "_Project\CombatText.h"
@@ -941,7 +988,6 @@ void setupComponentMap() {
 	jsonComponentMap["VolumeAdjustOnKeysPressed"] = &getVolumeAdjustOnKeysPressed;
 	jsonComponentMap["UIFrame"] = &getUIFrame;
 	jsonComponentMap["UnitMove"] = &getUnitMove;
-	jsonComponentMap["UnitClickable"] = &getUnitClickable;
 	jsonComponentMap["ManipulateTileOnClick"] = &getManipulateTileOnClick;
 	jsonComponentMap["UseAbilityWhenClicked"] = &getUseAbilityWhenClicked;
 	jsonComponentMap["SendSelfOnClick"] = &getSendSelfOnClick;
@@ -984,6 +1030,9 @@ void setupComponentMap() {
 	jsonComponentMap["TabMenu"] = &getTabMenu;
 	jsonComponentMap["UIObject"] = &getUIObject;
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
+	jsonComponentMap["UnitAura"] = &getUnitAura;
+	jsonComponentMap["UnitSelect"] = &getUnitSelect;
+	jsonComponentMap["SpriteGroup"] = &getSpriteGroup;
 	jsonComponentMap["ClickableButton"] = &getClickableButton;
 	jsonComponentMap["MainMenuBoard"] = &getMainMenuBoard;
 	jsonComponentMap["CustomCursor"] = &getCustomCursor;
@@ -992,6 +1041,7 @@ void setupComponentMap() {
 	jsonComponentMap["UnitHealthBar"] = &getUnitHealthBar;
 	jsonComponentMap["LerpController"] = &getLerpController;
 	jsonComponentMap["ExitGameButton"] = &getExitGameButton;
+	jsonComponentMap["ActionSelect"] = &getActionSelect;
 	jsonComponentMap["CombatText"] = &getCombatText;
 	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
 

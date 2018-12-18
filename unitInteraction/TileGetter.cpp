@@ -124,6 +124,12 @@ void TileGetter::triggerHighlightEvent()
 	kitten::Event* e = new kitten::Event(kitten::Event::Highlight_Tile);
 	putRange(e);
 	putFilter("filter", e);
+	//move mode
+	if (m_ad->m_stringValue["name"] == ACTION_MOVE)
+		e->putInt("path", TRUE);
+	else
+		e->putInt("path", FALSE);
+
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Highlight_Tile, e);
 
 	//area

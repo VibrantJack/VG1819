@@ -3,6 +3,7 @@
 #include "unit/Unit.h"
 #include "kitten/K_GameObjectManager.h"
 #include "unit/InitiativeTracker/InitiativeTrackerUI.h"
+#include "kibble/kibble.hpp"
 #include <algorithm>
 
 //Rock
@@ -70,6 +71,8 @@ unit::InitiativeTracker::InitiativeTracker()
 {
 	m_uturn = new unit::UnitTurn();
 	m_UI = new unit::InitiativeTrackerUI();
+	m_uAura =kibble::getGameObjectDataParserInstance()->getGameObject("unit_aura.json");
+	m_uAura->getTransform().setIgnoreParent(false);
 	m_currentUnitIndex = -1;//flag, means object list isn't initialize
 }
 
@@ -224,8 +227,11 @@ void unit::InitiativeTracker::gameTurnStart()
 	m_currentUnitIndex = 0;
 	m_UI->turnStart();
 
-	if(getUnitNumber() > 0)
+	if (getUnitNumber() > 0)
+	{
+		m_uAura->getTransform().setParent(&getCurrentUnit()->getTransform());
 		m_uturn->turnStart(getCurrentUnit());//let the unit start its turn
+	}
 }
 
 void unit::InitiativeTracker::unitTurnEnd()
@@ -233,6 +239,7 @@ void unit::InitiativeTracker::unitTurnEnd()
 	m_currentUnitIndex++;//iterator point next unit
 	if (m_currentUnitIndex < getUnitNumber())
 	{
+		m_uAura->getTransform().setParent(&getCurrentUnit()->getTransform());
 		m_uturn->turnStart(getCurrentUnit());//let next unit start its turn
 		m_UI->next();
 	}
