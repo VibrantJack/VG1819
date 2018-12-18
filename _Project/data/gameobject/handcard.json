@@ -9,7 +9,8 @@
             "name" : "ClickableFrame"
         },
         {
-            "name" : "ClickableUI"
+            "name" : "DragNDrop",
+            "backtoorigin" : false
         }
     ]
 }

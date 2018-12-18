@@ -14,12 +14,12 @@ namespace userinterface
 		kitten::K_Component* contextComp = kitten::K_ComponentManager::getInstance()->createComponent("ContextMenu");
 		contextObj->addComponent(contextComp);
 		m_context = contextObj;
-		
+
 	}
 
 	ClickableCard::~ClickableCard()
 	{
-
+		getTransform().removePositionListener(this);
 	}
 
 	void ClickableCard::onHoverStart()
@@ -32,6 +32,7 @@ namespace userinterface
 		m_context->getTransform().place2D(cardPos.x, cardPos.y - 20);
 
 		m_context->setEnabled(true);
+		getTransform().addPositionListener(this);
 	}
 
 	void ClickableCard::onHoverEnd()
@@ -39,5 +40,14 @@ namespace userinterface
 		std::cout << " Card Hover Ended.\n";
 
 		m_context->setEnabled(false);
+		getTransform().removePositionListener(this);
+	}
+
+	void ClickableCard::onPosChanged(const glm::vec3 & p_newPos)
+	{
+		glm::vec2 cardScale = getTransform().getScale2D();
+		m_context->getTransform().place(0.0f, 0.0f, 0.1f);
+		glm::vec3 cardPos = getTransform().getTranslation();
+		m_context->getTransform().place2D(cardPos.x, cardPos.y - 20);
 	}
 }

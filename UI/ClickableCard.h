@@ -11,7 +11,7 @@ namespace userinterface
 {
 	class ContextMenu;
 
-	class ClickableCard : public kitten::ClickableUI
+	class ClickableCard : public kitten::ClickableUI, public kitten::TransformPositionListener
 	{
 	protected:
 		ContextMenu* m_currentContext;
@@ -21,6 +21,7 @@ namespace userinterface
 
 		void onHoverStart() override;
 		void onHoverEnd() override;
+		void onPosChanged(const glm::vec3& p_newPos) override;
 
 		kitten::K_GameObject* m_context;
 	};

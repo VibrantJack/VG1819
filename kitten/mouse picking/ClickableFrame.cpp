@@ -23,6 +23,8 @@ namespace kitten
 			kitten::K_ComponentManager::getInstance()->destroyComponentImmediate(*it);
 			it = m_listeners.begin();
 		}
+		getTransform().removeScaleListener(this);
+		getTransform().removePositionListener(this);
 	}
 
 	void ClickableFrame::start()

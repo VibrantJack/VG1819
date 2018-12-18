@@ -721,6 +721,9 @@
     <ClCompile Include="..\unit\unitComponent\unitAction\ActionButtonStore.cpp">
       <Filter>unit\unitComponent\unitAction</Filter>
     </ClCompile>
+    <ClCompile Include="..\UI\DragNDrop.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1567,6 +1570,9 @@
     </ClInclude>
     <ClInclude Include="..\unit\unitComponent\unitAction\ActionButtonStore.h">
       <Filter>unit\unitComponent\unitAction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\DragNDrop.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

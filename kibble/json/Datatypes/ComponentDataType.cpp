@@ -919,6 +919,15 @@ kitten::K_Component* getLerpController(nlohmann::json* p_jsonFile) {
 	return new LerpController();
 }
 
+#include "UI/DragNDrop.h"
+kitten::K_Component* getDragNDrop(nlohmann::json* p_jsonFile) {
+	bool backToOrigin;
+
+	SETOPTDEF(backToOrigin, "backtoorigin", false);
+
+	return new DragNDrop(backToOrigin);
+}
+
 #include "components\ExitGameButton.h"
 kitten::K_Component* getExitGameButton(nlohmann::json* p_jsonFile) {
 	std::string regularTexture, highlightedTexture;
@@ -1020,6 +1029,7 @@ void setupComponentMap() {
 	jsonComponentMap["LerpController"] = &getLerpController;
 	jsonComponentMap["ExitGameButton"] = &getExitGameButton;
 	jsonComponentMap["ActionSelect"] = &getActionSelect;
+	jsonComponentMap["DragNDrop"] = &getDragNDrop;
 
 }
 
