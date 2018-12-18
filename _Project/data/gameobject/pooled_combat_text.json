@@ -3,7 +3,7 @@
 	[
 		{
 			"name" : "TextBox",
-			"font" : "../fonts/common_terminal_small.fnt",
+			"font" : "../fonts/common_terminal_hex.fnt",
 			"color" : [1,1,1],
             "alignment" : "center",
             "width" : 100,
