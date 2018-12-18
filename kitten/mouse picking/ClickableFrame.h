@@ -8,7 +8,7 @@ namespace kitten
 {
 	class ClickableUI;
 
-	class ClickableFrame : public K_Component, public TransformScaleListener
+	class ClickableFrame : public K_Component, public TransformScaleListener, public TransformPositionListener
 	{
 
 	public:
@@ -40,6 +40,7 @@ namespace kitten
 		void onClick();
 		void onHoverEnd();
 		void release();
+		void onPosChanged(const glm::vec3& p_newPos) override;
 
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;

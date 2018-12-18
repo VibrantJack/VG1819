@@ -4,6 +4,7 @@
 #include "kitten/K_GameObjectManager.h"
 #include "puppy/Text/TextBox.h"
 #include "UI/UIFrame.h"
+#include "unit/InitiativeTracker/TrackerBlockClickable.h"
 
 //static value
 const std::string unit::TrackerBlock::sm_blankTexture = "textures/ui/blankFrame.tga";
@@ -24,26 +25,39 @@ unit::TrackerBlock::TrackerBlock()
 	//initialize
 	kitten::K_GameObjectManager* goMan = kitten::K_GameObjectManager::getInstance();
 	//frame object
-	m_frameObject = goMan->createNewGameObject();
+	m_frameObject = goMan->createNewGameObject("tracker_block.json");
 	//text object
 	m_textObject = goMan->createNewGameObject();
-
+	
 	//component
 	kitten::K_ComponentManager* comMan = kitten::K_ComponentManager::getInstance();
+	
+	/*
 	//add frame
-	kitten::K_Component* frame = kitten::K_ComponentManager::getInstance()->createComponent("Frame");
+	kitten::K_Component* frame = comMan->createComponent("Frame");
 	m_frameObject->addComponent(frame);
+	kitten::K_Component* f = comMan->createComponent("ClickableFrame");
+	m_frameObject->addComponent(f);
+	kitten::K_Component* c = comMan->createComponent("TrackerBlockClickable");
+	m_frameObject->addComponent(c);*/
 	//add clickbox
-	kitten::K_Component* clickbox = kitten::K_ComponentManager::getInstance()->createComponent("ClickableBoxForTrackerBlock");
-	m_frameObject->addComponent(clickbox);
+	//kitten::K_Component* clickbox = comMan->createComponent("ClickableBoxForTrackerBlock");
+	//m_frameObject->addComponent(clickbox);
 	//add clickable
-	kitten::K_Component* clickable = kitten::K_ComponentManager::getInstance()->createComponent("TrackerBlockClickable");
-	m_frameObject->addComponent(clickable);
+	//unit::TrackerBlockClickable* clickable = static_cast<unit::TrackerBlockClickable*>(comMan->createComponent("TrackerBlockClickable"));
+	//m_frameObject->addComponent(clickable);
 
 	//add textbox
 	puppy::TextBox* textbox = static_cast<puppy::TextBox*>(comMan->createComponent("TextBox"));
 	textbox->setColor(1, 1, 1);
 	m_textObject->addComponent(textbox);
+
+	//make text object be child of frame object
+	m_textObject->getTransform().setParent(&m_frameObject->getTransform());
+	m_textObject->getTransform().setIgnoreParent(false);
+
+	//disable text object
+	m_frameObject->getComponent<TrackerBlockClickable>()->setTextBox(m_textObject);
 
 	//slot index
 	m_currentSlotIndex = -1;
@@ -77,7 +91,7 @@ void unit::TrackerBlock::move(int p_slotIndex)
 		float xx = sm_halfWinX * (1.0f + x);
 
 		m_frameObject->getTransform().place2D(xx, sm_frameY);
-		m_textObject->getTransform().place2D(xx, sm_textY);
+		//m_textObject->getTransform().place2D(xx, sm_textY);
 	}
 	else if (m_currentSlotIndex != (p_slotIndex + 1) )
 	{
@@ -88,7 +102,7 @@ void unit::TrackerBlock::move(int p_slotIndex)
 		float xx = sm_halfWinX * (1.0f + x);
 
 		m_frameObject->getTransform().place2D(xx, sm_frameY);
-		m_textObject->getTransform().place2D(xx, sm_textY);
+		//m_textObject->getTransform().place2D(xx, sm_textY);
 	}
 	//then set target slot
 	m_targetSlotIndex = p_slotIndex;
@@ -147,7 +161,7 @@ void unit::TrackerBlock::update()
 					//convert to text
 					float xx = sm_halfWinX * velocity;
 					m_frameObject->getTransform().move2D(xx, 0);
-					m_textObject->getTransform().move2D(xx,0);
+					//m_textObject->getTransform().move2D(xx,0);
 					distance -= velocity;
 				}
 				else//vecy close, 
@@ -155,7 +169,7 @@ void unit::TrackerBlock::update()
 					//convert to text
 					float xx = sm_halfWinX * distance;
 					m_frameObject->getTransform().move2D(xx, 0);
-					m_textObject->getTransform().move2D(xx, 0);
+					//m_textObject->getTransform().move2D(xx, 0);
 					distance = 0;
 				}
 			}
@@ -166,7 +180,7 @@ void unit::TrackerBlock::update()
 					//convert to text
 					float xx = sm_halfWinX * (-velocity);
 					m_frameObject->getTransform().move2D(xx, 0);
-					m_textObject->getTransform().move2D(xx, 0);
+					//m_textObject->getTransform().move2D(xx, 0);
 					distance += velocity;
 				}
 				else//vecy close, 
@@ -174,7 +188,7 @@ void unit::TrackerBlock::update()
 					//convert to text
 					float xx = sm_halfWinX * distance;
 					m_frameObject->getTransform().move2D(xx, 0);
-					m_textObject->getTransform().move2D(xx, 0);
+					//m_textObject->getTransform().move2D(xx, 0);
 					distance = 0;
 				}
 			}

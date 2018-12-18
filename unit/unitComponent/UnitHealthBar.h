@@ -12,8 +12,8 @@
 #define HEALTH_MAT_TEXTURE_PATH "textures/ui/emerald.png"
 #define DAMAGE_MAT_TEXTURE_PATH "textures/ui/red_quilt.jpg"
 
-#define BAR_X_SCALE 1.0f
-#define BAR_Y_SCALE 0.25f
+#define BAR_X_SCALE 0.85f
+#define BAR_Y_SCALE 0.10f
 
 namespace unit
 {
@@ -32,11 +32,12 @@ namespace unit
 		
 		kitten::BarRenderable* m_foregroundBar;
 
-		const glm::vec2 m_offset;
+		const glm::vec3 m_offset;
+		const float m_rotation;
 
 		virtual void start() override;
 	public:
-		UnitHealthBar(const glm::vec2& p_offset, float p_lerpTimeScalar = 4.0f);
+		UnitHealthBar(const glm::vec3& p_offset, float p_lerpTimeScalar = 4.0f, float p_rotation = -45);
 		~UnitHealthBar();
 
 		void updateBar();

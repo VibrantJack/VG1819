@@ -142,8 +142,8 @@ ability::Status * getStatusFrom(nlohmann::json & p_jsonfile)
 		if (p_jsonfile.find(UNIT_HP) != p_jsonfile.end())
 		{
 			int hp = p_jsonfile[UNIT_HP];
-			s->addAttributeChange(UNIT_HP, hp);
 			s->addAttributeChange(UNIT_MAX_HP, hp);
+			s->addAttributeChange(UNIT_HP, hp);
 		}
 		//in
 		if (p_jsonfile.find(UNIT_IN) != p_jsonfile.end())

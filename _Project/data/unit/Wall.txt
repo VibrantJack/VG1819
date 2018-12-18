@@ -12,20 +12,14 @@
 			"name" : "UnitGraphic",
 			"texture":"textures/unit/Wall.tga",
 			"unitsize": "point"
-		},
-		{
-			"name" : "UnitMove",
-			"offset":[0.05,1.0,0.4]
-		},
-		{
-			"name" : "ClickableBox",
-			"minpoint":[-0.4,-0.6,0],
-			"maxpoint":[0.4,0.6,0]
-		},
-		{
-			"name" : "ClickableBoxRenderable"
 		}
-	],
-	"scale" : [1,1,0],
-	"rotate" : [45, 0, 0]
+		{
+			"name" : "SpriteGroup",
+			"spritename":"wall",
+			"number":1,
+			"rotate":[45,0,0],
+			"scale":[20,1.3,0],
+			"translate":[0,0,0.05]
+		}
+	]
 }

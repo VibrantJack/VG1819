@@ -29,25 +29,12 @@
 			"unitsize": "point"
 		},
 		{
-			"name" : "UnitMove",
-			"offset":[0.07,1.0,0.2]
-		},
-		{
-			"name" : "ClickableBox",
-			"minpoint":[-0.02,-0.5,0],
-			"maxpoint":[0.02,0.5,0]
-		},
-		{
-			"name" : "SpriteRenderable"
-		},
-		{
-			"name" : "SpriteAnimator",
-			"spritename" : "arrow_tower"
-		},
-		{
-			"name" : "ClickableBoxRenderable"
+			"name" : "SpriteGroup",
+			"spritename":"arrow_tower",
+			"number":1,
+			"rotate":[45,0,0],
+			"scale":[10,1.5,0],
+			"translate":[0,0,0.15]
 		}
-	],
-	"scale" : [12,1.5,0],
-	"rotate" : [45, 0, 0]
+	]
 }

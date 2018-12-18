@@ -1,0 +1,15 @@
+{
+    "name" : "Tracker Block", 
+    "components" : [
+        {
+            "name" : "UIFrame"
+        },
+        {
+            "name" : "ClickableFrame"
+        },
+        {
+            "name" : "TrackerBlockClickable"
+        }
+    ],
+    "scale2d": [96,108]
+}

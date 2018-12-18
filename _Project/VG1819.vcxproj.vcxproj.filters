@@ -245,9 +245,6 @@
     <ClCompile Include="..\unit\unitComponent\UnitMove.cpp">
       <Filter>unit\unitComponent</Filter>
     </ClCompile>
-    <ClCompile Include="..\unit\unitComponent\UnitClickable.cpp">
-      <Filter>unit\unitComponent</Filter>
-    </ClCompile>
     <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
     <ClCompile Include="..\kitten\audio\AudioEngineWrapper.cpp">
       <Filter>kitten\audio</Filter>
@@ -652,6 +649,12 @@
     <ClCompile Include="..\UI\ContextMenu.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\UnitAura.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\UnitSelect.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
     <ClCompile Include="..\ability\ability\Rally.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
@@ -664,7 +667,9 @@
     <ClCompile Include="..\ability\ability\HereHomeland.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\Status_Block.cpp" />
+    <ClCompile Include="..\kitten\sprites\SpriteGroup.cpp">
+      <Filter>kitten\sprites</Filter>
+    </ClCompile>
     <ClCompile Include="..\UI\ClickableButton.cpp">
       <Filter>UI</Filter>
     </ClCompile>
@@ -706,6 +711,15 @@
     </ClCompile>
     <ClCompile Include="..\components\ExitGameButton.cpp">
       <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Block.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\unitAction\ActionSelect.cpp">
+      <Filter>unit\unitComponent\unitAction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\unitAction\ActionButtonStore.cpp">
+      <Filter>unit\unitComponent\unitAction</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -932,9 +946,6 @@
       <Filter>unit</Filter>
     </ClInclude>
     <ClInclude Include="..\unit\unitComponent\UnitMove.h">
-      <Filter>unit\unitComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\unit\unitComponent\UnitClickable.h">
       <Filter>unit\unitComponent</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
@@ -1284,6 +1295,15 @@
     <ClInclude Include="..\UI\ContextMenu.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\UnitSelect.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\UnitAura.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\sprites\SpriteGroup.h">
+      <Filter>kitten\sprites</Filter>
+    </ClInclude>
     <ClInclude Include="..\components\CustomCursor.h">
       <Filter>components</Filter>
     </ClInclude>
@@ -1542,6 +1562,12 @@
     <ClInclude Include="..\components\ExitGameButton.h">
       <Filter>components</Filter>
     </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\unitAction\ActionSelect.h">
+      <Filter>unit\unitComponent\unitAction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\unitAction\ActionButtonStore.h">
+      <Filter>unit\unitComponent\unitAction</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1711,6 +1737,9 @@
     </Filter>
     <Filter Include="components\deck">
       <UniqueIdentifier>{db703d00-2c93-411b-9af5-7e520ab037b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="unit\unitComponent\unitAction">
+      <UniqueIdentifier>{1b105903-47cd-4152-a940-fd0f64b999dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

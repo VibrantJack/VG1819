@@ -1,0 +1,23 @@
+{
+	"name" : "wall",
+	"texture" : "textures/sprites/units/humans/wall_sheet.tga",
+	
+	"sheetwidth" : 64,
+	"sheetheight" : 62,
+	
+	"characterwidth" : 32,
+	"characterheight" : 62,
+	
+	"padding" : 0,
+	
+	"defaultanimation" : "idle",
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [1,0],
+			"time" : 2
+		}
+	]
+}
