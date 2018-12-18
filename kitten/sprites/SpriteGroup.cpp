@@ -42,7 +42,7 @@ void sprites::SpriteGroup::checkHP(int p_hp, int p_max)
 	float percent = (float)p_hp / (float)p_max;
 
 	//get number of sprite shoulbe be shown
-	int show = m_spriteNum * percent + 1;
+	int show = ceil(m_spriteNum * percent);
 
 	//if the number is different than current number to show
 	if (show != m_spriteNumToShow)
