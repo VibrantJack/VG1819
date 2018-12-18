@@ -141,6 +141,10 @@ kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
 	SETOPTDEF(x, "rows", 15);
 	SETOPTDEF(z, "columns", 15);
 	component->setDimension(x, z);
+	
+	bool enableTileInfoDisplay;
+	SETOPTDEF(enableTileInfoDisplay, "enableTileInfoDisplay", false);
+	component->setTileInfoDisplay(enableTileInfoDisplay);
 
 	return component;
 }
