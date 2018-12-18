@@ -12,7 +12,8 @@ namespace unit
 	puppy::Material* UnitHealthBar::m_damageMat = nullptr;
 	unsigned int UnitHealthBar::instances = 0;
 
-	UnitHealthBar::UnitHealthBar(const glm::vec2& p_offset, float p_lerpTimeScalar) : m_attachedUnit(nullptr), m_oldHealthPercent(0.0f), m_lerpTimeScalar(p_lerpTimeScalar), m_offset(p_offset)
+	UnitHealthBar::UnitHealthBar(const glm::vec3& p_offset, float p_lerpTimeScalar, float p_rotation)
+		: m_attachedUnit(nullptr), m_oldHealthPercent(1.0f), m_lerpTimeScalar(p_lerpTimeScalar), m_offset(p_offset), m_rotation(p_rotation)
 	{
 		if (instances == 0)
 		{
@@ -62,9 +63,11 @@ namespace unit
 		background->getTransform().scaleAbsolute(BAR_X_SCALE, BAR_Y_SCALE, 1.0f);
 		foreground->getTransform().scaleAbsolute(BAR_X_SCALE, BAR_Y_SCALE, 1.0f);
 
-		background->getTransform().move(m_offset.x, m_offset.y, -0.001f);
-		foreground->getTransform().move(m_offset.x, m_offset.y, -0.002f);
+		background->getTransform().move(m_offset.x, m_offset.y,  m_offset.z + -0.001f);
+		foreground->getTransform().move(m_offset.x, m_offset.y, m_offset.z + -0.002f);
 
+		background->getTransform().rotateAbsolute(glm::vec3(m_rotation,0,0));
+		foreground->getTransform().rotateAbsolute(glm::vec3(m_rotation,0,0));
 
 		auto compMan = kitten::K_ComponentManager::getInstance();
 

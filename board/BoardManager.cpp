@@ -307,6 +307,30 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 	//apply filter
 	setFilter(FILTER, p_data);
 	applyFilter(&list);
+
+	//check path
+	if (p_data->getInt("path") == TRUE)
+	{
+		kitten::K_GameObject * tileAtOrigin = p_data->getGameObj("tileAtOrigin");
+		std::pair<int, int> start = tileAtOrigin->getComponent<TileInfo>()->getPos();
+		int len = p_data->getInt("max_range");
+
+		auto it = list.begin();
+		while (it != list.end())
+		{
+			PathFind p;
+			std::pair<int, int> end = *it;
+			kitten::Event::TileList l = p.getPath(start, end, len);
+			if (l.size()<=0)//no path to target
+			{
+				it = list.erase(it);
+			}
+			else
+			{
+				it++;
+			}
+		}
+	}
   
 	m_rangeList = list;
 

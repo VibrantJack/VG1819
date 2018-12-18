@@ -1,0 +1,22 @@
+{
+    "name" : "Unit Action Button", 
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/buttons/blank_button.tga"
+        },
+        {
+            "name" : "ClickableButton",
+            "regularTexture" : "textures/ui/buttons/blank_button.tga",
+            "highlightedTexture" : "textures/ui/buttons/blank_button_highlighted.tga"
+        },
+        {
+            "name" : "ClickableFrame"
+        },
+        {
+            "name" : "ActionSelect"
+        }
+    ],
+    "translate" :[0,0,0.1],
+    "scale2d": [300,30]
+}

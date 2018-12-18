@@ -2,7 +2,15 @@
 	"components" : [
 		{
 			"name" : "UnitHealthBar",
-			"offset" : [-0.5, -1.0]
+			"offset" : [-0.415, -0.2, -0.5],
+			"rotation" : 45,
+			"lerptime" : 4
+		},
+		{
+			"name" : "UnitSelect"
+		},
+		{
+			"name" : "UnitMove"
 		}
 	]
 }

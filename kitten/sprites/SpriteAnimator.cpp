@@ -37,6 +37,8 @@ namespace sprites
 		m_time = kitten::K_Time::getInstance();
 		assert(m_time != nullptr);
 
+		setRandomStartFrame();
+
 		setRenderableTexture();
 	}
 
@@ -71,6 +73,15 @@ namespace sprites
 		else
 		{
 			m_currentAnimationFrameTime += m_time->getDeltaTime();
+		}
+	}
+
+	void SpriteAnimator::setRandomStartFrame()
+	{
+		int random = rand() % 10;
+		for (int i = 0; i < random; i++)
+		{
+			m_currentFrame = m_currentFrame->next;
 		}
 	}
 }
