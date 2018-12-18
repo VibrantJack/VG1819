@@ -19,12 +19,6 @@ namespace kitten
 		return false;
 	}
 
-
-	Transform& K_Component::getTransform() const
-	{
-		return m_attachedObject->getTransform();
-	}
-
 	bool K_Component::isEnabled() const
 	{
 		return m_isEnabled;

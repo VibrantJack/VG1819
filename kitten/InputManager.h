@@ -34,7 +34,9 @@ namespace input
 		bool m_mouseDownLast[GLFW_MOUSE_BUTTON_LAST];
 
 		int m_mouseXChange, m_mouseYChange;
-		int m_lastMouseX, m_lastMouseY;
+		int m_lastMouseX, m_lastMouseY, m_mouseYOpenGL;
+
+		int m_windowX, m_windowY;
 
 		int m_mouseWheel;
 
@@ -75,6 +77,13 @@ namespace input
 
 		int getMouseXChange();
 		int getMouseYChange();
+
+		int getMouseXPos();
+		int getMouseYWindowPos();
+		int getMouseYOpenGLPos();
+
+		int getWindowWidth();
+		int getWindowHeight();
 
 		int getMouseWheel();
 	};

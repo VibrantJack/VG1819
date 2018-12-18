@@ -95,11 +95,13 @@ namespace kitten
 		void rotate2D(const float deg);
 		void rotateRelative(const glm::vec3& rot);
 		void rotateAbsolute(const glm::vec3& rot);
+		void rotateAbsQuat(const glm::quat& rot);
 
 		const glm::vec3& getTranslation() const;
 		const glm::quat& getRotation() const;
 		const glm::vec3& getScale() const;
 		const glm::vec2& getScale2D() const;
+		const glm::vec3& getLocalScale() const;
 
 		const glm::mat4& getWorldTransform();
 		const glm::mat4& getWorldTransformNoScale();

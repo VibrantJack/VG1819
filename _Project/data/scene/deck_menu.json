@@ -1,0 +1,41 @@
+{
+    "gameobjects" : [
+        {
+            "filename" : "camgameobj.txt"
+        },
+        {
+            "name" : "Deck Display Frame",
+            "components" : [
+                {
+                    "name":"DecksDisplayFrame",
+                    "margin": 10
+                }
+            ],
+			"translate2d" : [200, 10],
+            "scale2d" : [1070,700]
+        },
+        {
+            "filename" : "return_to_main_menu_button.txt",
+            "translate2d" : [10, 600],
+            "scale2d" : [170, 100]
+            
+        },
+        {
+            "name" : "Edit Deck Button",
+            "components" : [
+                {
+                    "name" : "UIFrame",
+                    "texture" : "textures/ui/buttons/button_deck-builder.tga"
+                },
+                {
+                    "name" : "ClickableUI"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [10, 480],
+            "scale2d" : [170, 100]
+        }
+    ]
+}

@@ -1,26 +1,18 @@
 #pragma once
 
-#include "kitten\mouse picking\ClickableUI.h"
-#include "networking\NetworkingConsoleMenu.h"
+#include "UI\ClickableButton.h"
 
 namespace userinterface
 {
 
-	class ReturnToMainMenuButton : public kitten::ClickableUI
+	class ReturnToMainMenuButton : public ClickableButton
 	{
 
 	public:
 		ReturnToMainMenuButton();
 		~ReturnToMainMenuButton();
 
-		virtual void onDisabled() override;
-		virtual void onEnabled() override;
-
-		//virtual void start() override;
-		virtual void onClick();
-
-	private:
-		NetworkingConsoleMenu* m_menu;
+		virtual void onClick() override;
 	};
 
 }

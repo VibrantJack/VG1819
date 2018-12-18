@@ -1,0 +1,8 @@
+{
+    "name" : "MainMenuCamGameObj", 
+    "components" : [
+        {
+            "name" : "Camera"
+        }
+    ]
+}

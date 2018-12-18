@@ -84,7 +84,7 @@ namespace kitten
 			m_farRectHeight = m_farClip * tang;
 			m_farRectWidth = m_farRectHeight * screenRatio;
 
-			m_ortho = glm::ortho(0.0f, (float)m_winWidth, 0.0f, (float)m_winHeight, 0.0f, 1.0f);
+			m_ortho = glm::ortho(0.0f, (float)m_winWidth, 0.0f, (float)m_winHeight, -0.1f, 1.0f);
 
 			m_isProjDirty = false;
 		}

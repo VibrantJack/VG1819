@@ -4,6 +4,7 @@
 #include "puppy/Text/TextBox.h"
 #include <math.h>
 
+bool DecksDisplayFrame::sm_survivorFlagged = false;
 DecksDisplayFrame* instance;
 DecksDisplayFrame* DecksDisplayFrame::getActiveInstance() { return instance; }
 
@@ -55,6 +56,13 @@ void DecksDisplayFrame::start()
 	}
 
 	updateDeckDisplay();
+
+	if (!sm_survivorFlagged)
+	{
+		kitten::K_GameObject * survivor = kitten::K_GameObjectManager::getInstance()->createNewGameObject("newgame_survivor.json");
+		kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(survivor);
+		sm_survivorFlagged = true;
+	}
 }
 
 

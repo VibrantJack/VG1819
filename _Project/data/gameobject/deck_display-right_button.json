@@ -3,7 +3,7 @@
     "components" : [
         {
             "name" : "UIFrame",
-            "texture" : "textures/ui/button_square-right_arrow.tga"
+            "texture" : "textures/ui/buttons/button_square-right_arrow.tga"
         },
         {
             "name" : "DecksDisplaySetChangeOnClick",

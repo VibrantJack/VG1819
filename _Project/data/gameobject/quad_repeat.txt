@@ -1,0 +1,15 @@
+{
+    "name" : "Quad", 
+    "components" : [
+        {
+            "name" : "QuadRenderableRepeat",
+			"texture" : "textures/tiles/grassland.tga",
+			"static" : false,
+			"texRepeat" : true,
+			"uRepeat" : 15.0,
+			"vRepeat" : 15.0
+        }
+    ],
+    "scale" : [15.0, 0.0, 15.0],
+    "translate" : [7.0, -1.0, 7.0]
+}

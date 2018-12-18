@@ -38,6 +38,9 @@ namespace userinterface
 			m_mat->setTexture("textures/ui/blankFrame.tga");
 		}
 
+		m_texBehaviour = p_texBehaviour;
+		m_pivotType = p_pivot;
+
 		m_isEnabled = true;
 
 		start();
@@ -50,7 +53,6 @@ namespace userinterface
 		{
 			delete sm_vao;
 		}
-
 		if (m_isEnabled)
 		{
 			removeFromDynamicUIRender();

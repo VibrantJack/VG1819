@@ -13,6 +13,8 @@ Move it from BoardCreator
 #include "kitten/event_system/EventManager.h"
 #include "board/tile/TileInfo.h"
 
+#include "puppy\Texture.h"
+
 class Highlighter : public kitten::K_Component
 {
 public:
@@ -30,7 +32,7 @@ public:
 	//void unHighlightCurrent();
 
 private:
-	std::unordered_map<TileInfo::HighlightType, std::string> m_texMap;
+	std::unordered_map<TileInfo::HighlightType, puppy::Texture*> m_texMap;
 	std::vector<kitten::K_GameObject*> m_toBeChanged;
 	std::unordered_map<TileInfo::HighlightType, std::vector<kitten::K_GameObject*>> m_listForType;
 
