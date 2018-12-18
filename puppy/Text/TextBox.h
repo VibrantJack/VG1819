@@ -28,6 +28,7 @@ namespace puppy
 		Alignment m_alignment;
 		Font* m_font;
 
+		bool m_is3D;
 		bool m_isDirty;
 
 		void constructLeftAlignVertices();
@@ -36,8 +37,8 @@ namespace puppy
 		void constructQuad(int p_charId, int p_xPos, int p_yPos, TexturedVertex p_toSet[]);
 		void removeOldText();
 	public:
-		TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight);
-		TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, Alignment p_alignment);
+		TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, bool p_is3D = false);
+		TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, Alignment p_alignment, bool p_is3D = false);
 		~TextBox();
 
 		virtual void start() override;

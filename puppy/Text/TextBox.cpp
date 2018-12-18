@@ -9,15 +9,11 @@
 
 namespace puppy
 {
-	TextBox::TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, Alignment p_alignment)
+	TextBox::TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, Alignment p_alignment, bool p_is3D) :  
+		m_alignment(p_alignment), m_text(p_text), m_font(p_fontToUse), m_boxHeight(p_boxHeight), m_boxWidth(p_boxWidth), m_is3D(p_is3D)
 	{
 		assert(p_fontToUse != nullptr);
-		
-		m_alignment = p_alignment;
-		m_text = p_text;
-		m_font = p_fontToUse;
-		m_boxHeight = p_boxHeight;
-		m_boxWidth = p_boxWidth;
+
 		m_color[3] = 0; //alpha addition
 
 		switch (p_alignment)
@@ -31,13 +27,9 @@ namespace puppy
 		}
 	}
 
-	TextBox::TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight)
+	TextBox::TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, bool p_is3D) :
+		m_alignment(left), m_text(p_text), m_font(p_fontToUse), m_boxHeight(p_boxHeight), m_boxWidth(p_boxWidth), m_is3D(p_is3D)
 	{
-		m_alignment = left;
-		m_text = p_text;
-		m_font = p_fontToUse;
-		m_boxHeight = p_boxHeight;
-		m_boxWidth = p_boxWidth;
 		m_color[3] = 0; //alpha addition
 
 		constructLeftAlignVertices();
@@ -49,7 +41,14 @@ namespace puppy
 
 		if (m_isEnabled)
 		{
-			removeFromDynamicUIRender();
+			if (!m_is3D)
+			{
+				removeFromDynamicUIRender();
+			}
+			else
+			{
+				removeFromDynamicRender();
+			}
 		}
 	}
 
@@ -359,17 +358,33 @@ namespace puppy
 
 	void TextBox::start()
 	{
-		addToDynamicUIRender();
+		onEnabled();
 	}
 
 	void TextBox::onDisabled()
 	{
-		removeFromDynamicUIRender();
+		if (!m_is3D)
+		{
+			removeFromDynamicUIRender();
+		}
+		else
+		{
+			removeFromDynamicRender();
+		}
+		
 	}
 
 	void TextBox::onEnabled()
 	{
-		addToDynamicUIRender();
+		if (!m_is3D)
+		{
+			addToDynamicUIRender();
+		}
+		else
+		{
+			addToDynamicRender();
+		}
+		
 	}
 
 	void TextBox::render(const glm::mat4& p_viewProj)
