@@ -38,6 +38,14 @@
 			]
 		},
 		{
+		  "name" : "commander portrait",
+		  "components" : [
+		    {
+		      "name" : "CommanderContext"
+		    }
+		  ]
+		},
+		{
 			"name" : "more scene init stuff",
 			"components" : [
 				{
@@ -45,8 +53,6 @@
 				}
 			]
 		}
-
-    ],
-	"scenes" : ["interfacebuilder.txt"]
+    ]
 	
 }

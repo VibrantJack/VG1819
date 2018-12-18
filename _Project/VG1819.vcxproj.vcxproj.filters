@@ -707,6 +707,9 @@
     <ClCompile Include="..\components\ExitGameButton.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\UI\CommanderContext.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1541,6 +1544,9 @@
     </ClInclude>
     <ClInclude Include="..\components\ExitGameButton.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\CommanderContext.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

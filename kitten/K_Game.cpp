@@ -36,6 +36,7 @@
 //ui testing
 #include "ui/CardUIO.h"
 #include "ui/HandFrame.h"
+#include "kitten/InputManager.h"
 #include "networking\menu\NetworkJoinButton.h"
 
 //ui clickable testing
@@ -198,6 +199,8 @@ namespace kitten
 		}
 		*/
 
+	
+
 	}
 
 	// This is called once at the beginning of the game
@@ -229,6 +232,8 @@ namespace kitten
 		//tabMenu->addComponent(tabMenuFrame);
 		//tabMenu->getTransform().scale2D(1280, 720);
 		//tabMenu->getTransform().place2D(0, 0);
+
+
 
 		return true;
 	}

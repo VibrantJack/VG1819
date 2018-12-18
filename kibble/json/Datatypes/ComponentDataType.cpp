@@ -604,6 +604,11 @@ kitten::K_Component* getClickableUI(nlohmann::json* p_jsonFile) {
 	return new kitten::ClickableUI();
 }
 
+#include "UI/CommanderContext.h"
+kitten::K_Component* getCommanderContext(nlohmann::json* p_jsonFile) {
+	return new userinterface::CommanderContext();
+}
+
 #include "board/tile/TileInfo.h"
 kitten::K_Component* getTileInfo(nlohmann::json* p_jsonFile) {
 	return new TileInfo();
@@ -970,6 +975,7 @@ void setupComponentMap() {
 	jsonComponentMap["UnitHealthBar"] = &getUnitHealthBar;
 	jsonComponentMap["LerpController"] = &getLerpController;
 	jsonComponentMap["ExitGameButton"] = &getExitGameButton;
+	jsonComponentMap["CommanderContext"] = &getCommanderContext;
 
 }
 

@@ -23,7 +23,6 @@ namespace userinterface
 
 		m_isEnabled = true;
 
-		start();
 	}
 
 	UIElement::UIElement(const char* p_pathToTex, pivotType p_pivot, textureBehaviour p_texBehaviour)
@@ -43,7 +42,6 @@ namespace userinterface
 
 		m_isEnabled = true;
 
-		start();
 	}
 
 	UIElement::~UIElement()
@@ -52,6 +50,7 @@ namespace userinterface
 		if (--sm_instances == 0)
 		{
 			delete sm_vao;
+			sm_vao = nullptr;
 		}
 		if (m_isEnabled)
 		{
