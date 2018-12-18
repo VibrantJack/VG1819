@@ -87,8 +87,8 @@ namespace unit
 		*/
 		
 		//set initial position
-		kitten::K_GameObject* u0 = UnitSpawn::getInstanceSafe()->spawnUnitObject(1);//priest
-		u0->getComponent<unit::UnitMove>()->setTile(1, 2);
+		kitten::K_GameObject* u0 = UnitSpawn::getInstanceSafe()->spawnUnitObject(2);//archer
+		u0->getComponent<unit::UnitMove>()->setTile(3, 3);
 
 		kitten::K_GameObject* u1 = UnitSpawn::getInstanceSafe()->spawnUnitObject(1);//priest
 		u1->getComponent<unit::UnitMove>()->setTile(2, 2);
