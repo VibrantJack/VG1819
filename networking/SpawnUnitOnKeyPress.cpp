@@ -24,7 +24,8 @@ SpawnUnitOnKeyPress::SpawnUnitOnKeyPress()
 	:
 	m_bUnitsSpawned(false)
 {
-	unit::UnitSpawn::getInstanceSafe();
+	//unit spawn create is in gameplay-init now
+	//unit::UnitSpawn::getInstance();
 }
 
 SpawnUnitOnKeyPress::~SpawnUnitOnKeyPress()

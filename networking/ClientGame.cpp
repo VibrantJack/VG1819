@@ -313,7 +313,7 @@ namespace networking
 	void ClientGame::summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
 	{
 		// Create the unit GO and add it to the list
-		kitten::K_GameObject* unitGO = unit::UnitSpawn::getInstanceSafe()->spawnUnitObject(p_iUnitId);
+		kitten::K_GameObject* unitGO = unit::UnitSpawn::getInstance()->spawnUnitObject(p_iUnitId);
 		m_unitGOList.insert(std::make_pair(m_iUnitIndex, unitGO));
 		m_iUnitIndex++;
 
