@@ -1,14 +1,14 @@
 #pragma once
 
 #include "kitten\K_Common.h"
-#include "kitten\UIRenderable.h"
+#include "kitten\K_UIRenderable.h"
 #include "puppy\Material.h"
 #include "puppy\VertexEnvironment.h"
 //austin's UI element :)
 
 namespace userinterface
 {
-	class UIElement : public kitten::UIRenderable
+	class UIElement : public kitten::K_UIRenderable
 	{
 	public:
 

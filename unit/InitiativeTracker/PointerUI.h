@@ -1,6 +1,6 @@
 #pragma once
 #include "UI/UIFrame.h"
-#include "kitten\UIRenderable.h"
+#include "kitten\K_UIRenderable.h"
 
 //Rock
 //inherite from UIFrame
@@ -9,7 +9,7 @@
 
 namespace userinterface
 {
-	class PointerUI : public kitten::UIRenderable
+	class PointerUI : public kitten::K_UIRenderable
 	{
 	public:
 		PointerUI();

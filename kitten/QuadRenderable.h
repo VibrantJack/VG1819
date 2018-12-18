@@ -1,11 +1,11 @@
 #pragma once
-#include "Renderable.h"
+#include "K_Renderable.h"
 #include "puppy\TextureBlendMaterial.h"
 #include "puppy\VertexEnvironment.h"
 
 namespace kitten
 {
-	class QuadRenderable : public Renderable
+	class QuadRenderable : public K_Renderable
 	{
 	private:
 		static puppy::VertexEnvironment* sm_vao;

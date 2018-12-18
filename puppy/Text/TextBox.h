@@ -3,8 +3,8 @@
 #include "Font.h"
 #include "../VertexEnvironment.h"
 #include "../Texture.h"
-#include "kitten\UIRenderable.h"
-
+#include "kitten\K_UIRenderable.h"
+#include "puppy\P_Renderable.h"
 #include <map>
 #include <string>
 /*
@@ -13,7 +13,7 @@
 
 namespace puppy
 {
-	class TextBox : public kitten::UIRenderable
+	class TextBox : public kitten::K_UIRenderable, public P_Renderable
 	{
 	public:
 		enum Alignment { left, right, center };
@@ -55,5 +55,6 @@ namespace puppy
 		const int& getBoxHeight() const;
 
 		virtual void uiRender(const glm::mat4& p_ortho) override;
+		virtual void render(const glm::mat4& p_viewProj) override;
 	};
 }

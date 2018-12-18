@@ -372,6 +372,11 @@ namespace puppy
 		addToDynamicUIRender();
 	}
 
+	void TextBox::render(const glm::mat4& p_viewProj)
+	{
+		uiRender(p_viewProj);
+	}
+
 	void TextBox::uiRender(const glm::mat4& p_ortho)
 	{
 		if (m_isDirty)
