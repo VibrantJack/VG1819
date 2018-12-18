@@ -9,8 +9,7 @@
             "name" : "ClickableFrame"
         },
         {
-            "name" : "DragNDrop",
-            "backtoorigin" : false
+            "name" : "SpawnUnitOnDrop"
         }
     ]
 }

@@ -2,6 +2,7 @@
 #include "puppy\P_Common.h"
 #include "mouse picking\Clickable.h"
 #include "mouse picking\ClickableUI.h"
+#include "K_GameObject.h"
 
 #include <string>
 #include <unordered_set>
@@ -86,5 +87,7 @@ namespace input
 		int getWindowHeight();
 
 		int getMouseWheel();
+
+		kitten::K_GameObject* getMouseClosesHit();
 	};
 }

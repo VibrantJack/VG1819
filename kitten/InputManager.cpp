@@ -387,4 +387,28 @@ namespace input
 			}
 		}
 	}
+
+	kitten::K_GameObject* InputManager::getMouseClosesHit()
+	{
+		kitten::Ray mouseRay;
+
+		kitten::Camera* activeCam = kitten::K_CameraList::getInstance()->getSceneCamera();
+
+		mouseRay.origin = activeCam->getTransform().getTranslation();
+
+		//Put mouse position in clipspace
+		float ndX = (2.0f * m_lastMouseX) / m_windowX - 1.0f;
+		float ndY = 1.0f - (2.0f * m_lastMouseY) / m_windowY;
+
+		glm::vec3 clip = glm::vec3(ndX, ndY, 1.0f);
+
+		//Put mouse into worldspace - mat3 to not have translation!
+		glm::vec3 worldRay = (glm::inverse((glm::mat3)activeCam->getViewProj()) * clip);
+
+		mouseRay.direction = glm::normalize(worldRay);
+
+		kitten::ClickableBox* hit = MousePicker::getClosestHit(mouseRay);
+		if (hit == nullptr) return nullptr;
+		return &hit->getGameObject();
+	}
 }

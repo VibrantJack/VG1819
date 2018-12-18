@@ -167,6 +167,7 @@
     <ClCompile Include="..\components\DecksDisplayFrame.cpp" />
     <ClCompile Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.cpp" />
     <ClCompile Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.cpp" />
+    <ClCompile Include="..\components\DragNDrop\SpawnUnitOnDrop.cpp" />
     <ClCompile Include="..\components\MainMenuBoard.cpp" />
     <ClCompile Include="..\components\scene change\StartGameOnClick.cpp" />
     <ClCompile Include="..\components\ExitGameButton.cpp" />
@@ -434,6 +435,7 @@
     <ClInclude Include="..\components\DecksDisplayFrame.h" />
     <ClInclude Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.h" />
     <ClInclude Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.h" />
+    <ClInclude Include="..\components\DragNDrop\SpawnUnitOnDrop.h" />
     <ClInclude Include="..\components\ExitGameButton.h" />
     <ClInclude Include="..\components\MainMenuBoard.h" />
     <ClInclude Include="..\components\scene change\StartGameOnClick.h" />

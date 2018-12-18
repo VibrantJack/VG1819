@@ -919,6 +919,11 @@ kitten::K_Component* getLerpController(nlohmann::json* p_jsonFile) {
 	return new LerpController();
 }
 
+#include "components/DragNDrop/SpawnUnitOnDrop.h"
+kitten::K_Component* getSpawnUnitOnDrop(nlohmann::json* p_jsonFile) {
+	return new SpawnUnitOnDrop();
+}
+
 #include "UI/DragNDrop.h"
 kitten::K_Component* getDragNDrop(nlohmann::json* p_jsonFile) {
 	bool backToOrigin;
@@ -1030,6 +1035,7 @@ void setupComponentMap() {
 	jsonComponentMap["ExitGameButton"] = &getExitGameButton;
 	jsonComponentMap["ActionSelect"] = &getActionSelect;
 	jsonComponentMap["DragNDrop"] = &getDragNDrop;
+	jsonComponentMap["SpawnUnitOnDrop"] = &getSpawnUnitOnDrop;
 
 }
 

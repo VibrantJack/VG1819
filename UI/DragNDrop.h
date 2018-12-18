@@ -1,3 +1,4 @@
+#pragma once
 #include "kitten/mouse picking/ClickableUI.h"
 
 class DragNDrop : public kitten::ClickableUI
