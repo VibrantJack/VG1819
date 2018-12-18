@@ -27,6 +27,7 @@ namespace networking
 {
 	ClientGame* ClientGame::sm_clientGameInstance = nullptr;
 	bool ClientGame::sm_networkValid = false;
+	int ClientGame::sm_iClientId = -1;
 
 	// Creates the singleton instance.
 	void ClientGame::createInstance(const std::string &p_strAddr)
@@ -41,7 +42,6 @@ namespace networking
 		assert(sm_clientGameInstance != nullptr);
 		delete sm_clientGameInstance;
 		sm_clientGameInstance = nullptr;
-		sm_networkValid = false;
 	}
 
 	// Access to singleton instance.
@@ -63,6 +63,8 @@ namespace networking
 		{
 			delete m_network;
 		}
+		sm_networkValid = false;
+		sm_iClientId = -1;
 	}
 
 	void ClientGame::setupNetwork(const std::string &p_strAddr)
@@ -111,7 +113,7 @@ namespace networking
 
 			Packet packet;
 			packet.m_packetType = CLIENT_DISCONNECT;
-			packet.m_clientId = m_iClientId;		
+			packet.m_clientId = sm_iClientId;		
 
 			packet.serialize(buffer);
 			NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
@@ -156,7 +158,7 @@ namespace networking
 			case PacketTypes::SEND_CLIENT_ID:
 			{
 				i += BASIC_PACKET_SIZE;
-				m_iClientId = defaultPacket.m_clientId;
+				sm_iClientId = defaultPacket.m_clientId;
 
 				// Send starting data
 				char commanderData[SUMMON_UNIT_PACKET_SIZE];
@@ -164,10 +166,10 @@ namespace networking
 				commanderDataBuffer.m_data = commanderData;
 				commanderDataBuffer.m_size = SUMMON_UNIT_PACKET_SIZE;
 
-				kitten::K_GameObject* tile = BoardManager::getInstance()->getInstance()->getSpawnPoint(m_iClientId);
+				kitten::K_GameObject* tile = BoardManager::getInstance()->getInstance()->getSpawnPoint(sm_iClientId);
 				SummonUnitPacket commanderDataPacket;
 				commanderDataPacket.m_packetType = STARTING_COMMANDER_DATA;
-				commanderDataPacket.m_clientId = m_iClientId;
+				commanderDataPacket.m_clientId = sm_iClientId;
 				// TODO: Assign the Commander unit ID according to the first unit in the player's deck data
 				commanderDataPacket.m_unitId = 6;
 				commanderDataPacket.m_posX = tile->getComponent<TileInfo>()->getPosX();
@@ -182,7 +184,7 @@ namespace networking
 			}
 			case PacketTypes::SERVER_SHUTDOWN:
 			{
-				printf("[Client: %d] received SERVER_SHUTDOWN packet from server\n", m_iClientId);
+				printf("[Client: %d] received SERVER_SHUTDOWN packet from server\n", sm_iClientId);
 
 				i += BASIC_PACKET_SIZE;
 				disconnectFromNetwork(true);
@@ -195,7 +197,7 @@ namespace networking
 			}
 			case PacketTypes::ABILITY_PACKET:
 			{
-				printf("[Client: %d] received ABILITY_PACKET packet from server\n", m_iClientId);
+				printf("[Client: %d] received ABILITY_PACKET packet from server\n", sm_iClientId);
 
 				Buffer buffer;
 				buffer.m_data = &(m_network_data[i]);
@@ -210,7 +212,7 @@ namespace networking
 			}
 			case PacketTypes::SUMMON_UNIT:
 			{
-				printf("[Client: %d] received CLIENT_SUMMON_UNIT packet from server\n", m_iClientId);
+				printf("[Client: %d] received CLIENT_SUMMON_UNIT packet from server\n", sm_iClientId);
 
 				Buffer buffer;
 				buffer.m_data = &(m_network_data[i]);
@@ -225,7 +227,7 @@ namespace networking
 			}
 			case PacketTypes::SKIP_TURN:
 			{
-				printf("[Client: %d] received packet SKIP_TURN from server\n", m_iClientId);
+				printf("[Client: %d] received packet SKIP_TURN from server\n", sm_iClientId);
 				i += BASIC_PACKET_SIZE;
 				m_bServerCalling = true;
 				unit::Unit* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit()->getComponent<unit::Unit>();
@@ -236,7 +238,7 @@ namespace networking
 			}
 			case PacketTypes::GAME_TURN_START:
 			{
-				printf("[Client: %d] received packet GAME_TURN_START from server\n", m_iClientId);
+				printf("[Client: %d] received packet GAME_TURN_START from server\n", sm_iClientId);
 				i += BASIC_PACKET_SIZE;
 
 				if (!m_bGameTurnStart)
@@ -248,7 +250,7 @@ namespace networking
 			}
 			case PacketTypes::STARTING_COMMANDER_DATA:
 			{
-				printf("[Client: %d] received STARTING_COMMANDER_DATA packet from server\n", m_iClientId);
+				printf("[Client: %d] received STARTING_COMMANDER_DATA packet from server\n", sm_iClientId);
 
 				Buffer buffer;
 				buffer.m_data = &(m_network_data[i]);
@@ -265,7 +267,7 @@ namespace networking
 				break;
 			}
 			default:
-				printf("[Client: %d] received %d; error in packet types\n", m_iClientId, packetType);
+				printf("[Client: %d] received %d; error in packet types\n", sm_iClientId, packetType);
 				i += (unsigned int)data_length;
 				break;
 			}
@@ -275,13 +277,14 @@ namespace networking
 	void ClientGame::useAbility(AbilityPacket& p_packet)
 	{
 		std::string strAbilityName = p_packet.m_abilityName;
-		printf("[Client: %d] using ability: %s\n", m_iClientId, strAbilityName.c_str());
+		printf("[Client: %d] using ability: %s\n", sm_iClientId, strAbilityName.c_str());
 
 		ability::AbilityInfoPackage* info = new ability::AbilityInfoPackage();
 		info->m_source = getUnitGameObject(p_packet.m_sourceUnit)->getComponent<unit::Unit>();
 		info->m_targets = p_packet.getTargetUnits();
 		info->m_intValue = p_packet.getIntValues();
 		info->m_targetTilesGO = p_packet.getTargetTiles();
+		info->m_sourceClientId = p_packet.m_clientId;
 
 		ability::AbilityManager::getInstance()->findAbility(strAbilityName)->effect(info);
 	}
@@ -290,7 +293,7 @@ namespace networking
 	{
 		AbilityPacket packet;
 		packet.m_packetType = ABILITY_PACKET;
-		packet.m_clientId = m_iClientId;
+		packet.m_clientId = sm_iClientId;
 		packet.m_sourceUnit = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
 		packet.addTargetUnits(p_info->m_targets);
 		packet.addIntValues(p_info->m_intValue);
@@ -303,28 +306,25 @@ namespace networking
 		buffer.m_data = data;
 		buffer.m_size = packet.getSize();
 		packet.serialize(buffer);
-		printf("[Client: %d] sending ABILITY_PACKET\n", m_iClientId);
+		printf("[Client: %d] sending ABILITY_PACKET\n", sm_iClientId);
 		//packet.print();
 
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, packet.getSize());
 		delete[] data;
 	}
 
+	// This method should only be called when summoning a unit for debug purposes
+	// The SummonUnit ability should be going through the AbilityPacket and useAbility()
 	void ClientGame::summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
 	{
-		// Create the unit GO and add it to the list
+		// Create the unit GO and set its position
 		kitten::K_GameObject* unitGO = unit::UnitSpawn::getInstanceSafe()->spawnUnitObject(p_iUnitId);
-		m_unitGOList.insert(std::make_pair(m_iUnitIndex, unitGO));
-		m_iUnitIndex++;
 
-		//initialize position
+		// Reset the client ID to the client that summoned the unit
 		unitGO->getComponent<unit::UnitMove>()->setTile(p_iPosX, p_iPosY);
-		unitGO->getComponent<unit::Unit>()->m_clientId = m_iClientId;
+		unitGO->getComponent<unit::Unit>()->m_clientId = p_iClientId;
 
-		// Print out unit data for debug
-		unit::Unit* testDummy = unitGO->getComponent<unit::Unit>();
-		testDummy->m_clientId = p_iClientId;
-		unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
+		//unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 	}
 
 	void ClientGame::sendSummonUnitPacket(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
@@ -356,7 +356,7 @@ namespace networking
 
 		Packet packet;
 		packet.m_packetType = p_packetType;
-		packet.m_clientId = m_iClientId;
+		packet.m_clientId = sm_iClientId;
 
 		packet.serialize(buffer);
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
@@ -383,6 +383,12 @@ namespace networking
 			return it->second;
 		}
 		return nullptr;
+	}
+
+	void ClientGame::addUnitGameObject(kitten::K_GameObject* p_unit)
+	{
+		m_unitGOList.insert(std::make_pair(m_iUnitIndex, p_unit));
+		m_iUnitIndex++;
 	}
 
 	void ClientGame::removeUnitGameObject(int p_iUnitIndex)

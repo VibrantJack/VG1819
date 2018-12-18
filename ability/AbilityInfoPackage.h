@@ -24,6 +24,9 @@ namespace ability
 		std::vector<std::pair<int, int>> m_targetTilesPos;
 		std::vector<kitten::K_GameObject*> m_targetTilesGO;
 
+		// Source ClientID, for networking
+		int m_sourceClientId;
+
 		AbilityInfoPackage() {};
 		~AbilityInfoPackage() {};
 
