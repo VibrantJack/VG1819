@@ -16,10 +16,6 @@
 			"filename" : "backgroundmusic.txt"
 		},
 		{
-			"filename" : "FPSCounter.txt", 
-		    "translate2d" : [100,700]
-		},
-		{
 			"filename" : "netmenu_console.txt",
 			"translate2d" : [200, 50]
 		},
@@ -56,7 +52,6 @@
 			]
 		}
 
-    ],
-	"scenes" : ["interfacebuilder.txt"]
+    ]
 	
 }

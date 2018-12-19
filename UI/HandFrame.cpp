@@ -74,9 +74,11 @@ namespace userinterface
 void userinterface::HandFrame::makeAHand() {
 	kitten::K_GameObject* hand = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 	kitten::K_Component* handFrame = kitten::K_ComponentManager::getInstance()->createComponent("Hand");
+	userinterface::HandFrame* frameCasted = static_cast<userinterface::HandFrame*>(handFrame);
+
 	hand->addComponent(handFrame);
 	hand->getTransform().scale2D(600.0f, 150.0f);
-	hand->getTransform().place2D(50.0, 50.0);
+	hand->getTransform().place2D(30.0, -100.0);
 	hand->setEnabled(false);
 
 	for (int x = 0; x < 5; x++)
@@ -85,7 +87,6 @@ void userinterface::HandFrame::makeAHand() {
 		userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
 		cardCasted->scaleAsCard();
 
-		userinterface::HandFrame* frameCasted = static_cast<userinterface::HandFrame*>(handFrame);
 		frameCasted->addCardToEnd(cardCasted);
 		cardCasted->assignParentHand(frameCasted);
 

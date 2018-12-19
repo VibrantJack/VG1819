@@ -483,7 +483,7 @@ kitten::K_Component* getTextBox(nlohmann::json* p_jsonFile) {
 	float width, height;
 	puppy::TextBox* textbox;
 
-	SETOPTDEF(font, "font", "../fonts/common_consolas.fnt");
+	SETOPTDEF(font, "font", "../fonts/common_dejavu.fnt");
 	SETOPTDEF(message, "message", "DEFAULT TEXT");
 	SETOPTDEF(width, "width", 500);
 	SETOPTDEF(height, "height", 500);
