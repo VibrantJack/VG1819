@@ -4,7 +4,7 @@
 class DragNDrop : public kitten::ClickableUI
 {
 private:
-	bool m_dragMode=false, m_backToOrigin= false;
+	bool m_isDragging=false, m_backToOrigin= false;
 	glm::vec3 m_origin;
 public:
 	DragNDrop(bool p_backToOrigin = false);

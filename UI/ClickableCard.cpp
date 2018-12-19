@@ -27,8 +27,8 @@ namespace userinterface
 	{
 		std::cout << "Card Hover Started: Generating context menu...\n";
 
-		glm::vec2 cardScale = getTransform().getScale2D();
-		glm::vec3 cardPos = getTransform().getTranslation();
+		const glm::vec2& cardScale = getTransform().getScale2D();
+		const glm::vec3& cardPos = getTransform().getTranslation();
 		m_context->getTransform().place(0.0f, 0.0f, 0.1f);
 		m_context->getTransform().place2D(cardPos.x, cardPos.y - 20);
 
@@ -46,9 +46,9 @@ namespace userinterface
 
 	void ClickableCard::onPosChanged(const glm::vec3 & p_newPos)
 	{
-		glm::vec2 cardScale = getTransform().getScale2D();
+		const glm::vec2& cardScale = getTransform().getScale2D();
 		m_context->getTransform().place(0.0f, 0.0f, 0.1f);
-		glm::vec3 cardPos = getTransform().getTranslation();
+		const glm::vec3& cardPos = getTransform().getTranslation();
 		m_context->getTransform().place2D(cardPos.x, cardPos.y - 20);
 	}
 }

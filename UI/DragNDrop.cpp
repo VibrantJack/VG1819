@@ -13,8 +13,8 @@ DragNDrop::~DragNDrop()
 
 void DragNDrop::onClick() 
 {
-	m_dragMode = !m_dragMode;
-	if (!m_dragMode)
+	m_isDragging = !m_isDragging;
+	if (!m_isDragging)
 	{
 		onDrop();
 	}
@@ -22,7 +22,7 @@ void DragNDrop::onClick()
 
 void DragNDrop::update()
 {
-	if (m_dragMode)
+	if (m_isDragging)
 	{
 		m_attachedObject->getTransform().move2D(
 			-input::InputManager::getInstance()->getMouseXChange(),
@@ -34,7 +34,7 @@ void DragNDrop::update()
 void DragNDrop::start()
 {
 	m_origin =	this->m_attachedObject->getTransform().getTranslation();
-	m_dragMode = false;
+	m_isDragging = false;
 	ClickableUI::start();
 }
 

@@ -60,6 +60,8 @@ namespace input
 		void privateKeyCallback(int key, int action);
 		void privateCharCallback(int key, int action);
 
+		kitten::K_GameObject*  m_lastMouseHitObject = nullptr, *m_lastMouseHitFrame = nullptr;
+
 		void update();
 	public:
 		static InputManager* getInstance();
@@ -88,6 +90,7 @@ namespace input
 
 		int getMouseWheel();
 
-		kitten::K_GameObject* getMouseClosesHit();
+		kitten::K_GameObject* getMouseLastHitObject();
+		kitten::K_GameObject* getMouseLastHitFrame();
 	};
 }

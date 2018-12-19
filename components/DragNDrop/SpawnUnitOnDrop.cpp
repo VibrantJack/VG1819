@@ -12,15 +12,23 @@
 
 void SpawnUnitOnDrop::onDrop()
 {
-	unit::Unit* unit = m_attachedObject->getComponent<unit::Unit>();
-	if(unit == nullptr) unit = kibble::getUnitFromId(1); // basically defaults to a priest. TODO remove this line when hand fully functional.
-
-	// Check if it's a tile
-	kitten::K_GameObject* targetTile = input::InputManager::getInstance()->getMouseClosesHit();
+	// Check if we hit something
+	kitten::K_GameObject* targetTile = input::InputManager::getInstance()->getMouseLastHitObject();
 	if (targetTile == nullptr  // No Target
 		|| targetTile->getComponent<TileInfo>() == nullptr // Target isn't a tile
 		|| targetTile->getComponent<TileInfo>()->hasUnit() // Target tile already has a unit on it
-		|| BoardManager::getInstance()->getPowerTracker()->getCurrentPower() < unit->m_attributes[UNIT_COST] // Check if there is enough power to spawn this. 
+		)
+	{
+		DragNDrop::onDrop();
+		return;
+	}
+	
+	// Unit setup
+	unit::Unit* unit = m_attachedObject->getComponent<unit::Unit>();
+	if (unit == nullptr) unit = kibble::getUnitFromId(1); // basically defaults to a priest. TODO remove this line when hand fully functional.
+
+	// Check for unit stuff.
+	if(BoardManager::getInstance()->getPowerTracker()->getCurrentPower() < unit->m_attributes[UNIT_COST] // Check if there is enough power to spawn this.
 		)
 	{
 		DragNDrop::onDrop();
