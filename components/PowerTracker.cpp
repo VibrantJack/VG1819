@@ -22,7 +22,6 @@ PowerTracker::~PowerTracker()
 void PowerTracker::start()
 {
 	kitten::K_GameObject* textBox = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-	textBox->getTransform().place2D(700, 50);
 
 	m_textBox = static_cast<puppy::TextBox*>(kitten::K_ComponentManager::getInstance()->createComponent("TextBox"));
 	textBox->addComponent(m_textBox);
