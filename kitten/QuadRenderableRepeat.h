@@ -1,10 +1,10 @@
-#include "Renderable.h"
+#include "K_Renderable.h"
 #include "puppy\TextureBlendMaterial.h"
 #include "puppy\VertexEnvironment.h"
 
 namespace kitten
 {
-	class QuadRenderableRepeat : public Renderable
+	class QuadRenderableRepeat : public K_Renderable
 	{
 	private:
 		static puppy::VertexEnvironment* sm_vao;

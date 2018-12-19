@@ -1,5 +1,5 @@
 #pragma once
-#include "kitten\Renderable.h"
+#include "kitten\K_Renderable.h"
 #include "puppy\VertexEnvironment.h"
 #include "puppy\Material.h"
 #include <unordered_map>
@@ -11,7 +11,7 @@ namespace sprites
 
 namespace kitten
 {
-	class SpriteRenderable : public Renderable
+	class SpriteRenderable : public K_Renderable
 	{
 		friend class sprites::SpriteAnimator;
 	private:

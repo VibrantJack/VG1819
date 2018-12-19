@@ -4,24 +4,26 @@
 // Original Author:	Callum MacKenzie
 //-----------------------------------------------------------------------------
 
-#include "kitten\Renderable.h"
 #include "kitten\K_ParticleSystem.h"
-#include "kitten\UIRenderable.h"
 #include "kitten\Camera.h"
 
 #include "P_Common.h"
+#include "P_Renderable.h"
+#include "P_UIRenderable.h"
 
 #include <unordered_set>
 
 namespace puppy
 {
 	class P_Instance;
+	class P_Renderable;
+	class P_UIRenderable;
 
 	class Renderer
 	{
 		friend class P_Instance;
-		friend class kitten::Renderable;
-		friend class kitten::UIRenderable;
+		friend class P_Renderable;
+		friend class P_UIRenderable;
 		friend class kitten::K_ParticleSystem;
 	private:
 		//Singleton related
@@ -31,15 +33,15 @@ namespace puppy
 		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new Renderer(); };
 		static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
 
-		std::unordered_set<kitten::Renderable*> m_toRender;
-		std::unordered_set<kitten::UIRenderable*> m_uiToRender;
+		std::unordered_set<P_Renderable*> m_toRender;
+		std::unordered_set<P_UIRenderable*> m_uiToRender;
 		std::unordered_set<kitten::K_ParticleSystem*> m_particlesToRender;
 
-		void addToRender(kitten::Renderable* p_toAdd);
-		void removeFromRender(kitten::Renderable* p_toRemove);
+		void addToRender(P_Renderable* p_toAdd);
+		void removeFromRender(P_Renderable* p_toRemove);
 
-		void addUIToRender(kitten::UIRenderable* p_toAdd);
-		void removeUIFromRender(kitten::UIRenderable* p_toRemove);
+		void addUIToRender(P_UIRenderable* p_toAdd);
+		void removeUIFromRender(P_UIRenderable* p_toRemove);
 
 		void addParticleToRender(kitten::K_ParticleSystem* p_toAdd);
 		void removeParticleFromRender(kitten::K_ParticleSystem* p_toRemove);

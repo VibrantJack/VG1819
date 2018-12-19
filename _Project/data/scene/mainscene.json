@@ -45,6 +45,15 @@
 					"testing" : false
 				}
 			]
+		},
+		{
+			"name" : "CombatTextInstance",
+			"components": [
+				{
+					"name" : "CombatText"
+					"poolsize" : 9
+				}
+			]
 		}
 
     ],
