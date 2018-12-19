@@ -7,6 +7,15 @@
 #define MANIPULATE_TILE_KEY "manip_tile_key"
 #define GAME_END_RESULT "game_end_result_key"
 
+#define PLAYER_ID "playerID"
+#define CARD_ID "cardID"
+#define CARD_COUNT "count"
+#define CARD_PLACEMENT "placement"
+
+#define CAM_FOV "FOV"
+#define POSITION_X "x"
+#define POSITION_Z "z"
+
 #define FALSE 0
 #define TRUE 1
 

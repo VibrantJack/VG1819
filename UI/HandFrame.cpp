@@ -1,14 +1,25 @@
 #include "ui/HandFrame.h"
 #include "glm/glm.hpp"
-#include "kitten/K_GameObject.h"
 #include "UIObject.h"
 #include "kitten/Transform.h"
 #include "ClickableCard.h"
 #include "ContextMenu.h"
+#include "kibble/databank/databank.hpp"
+#include "unit/Unit.h"
+
+#include "kitten/K_GameObjectManager.h"
+#include "kitten/K_ComponentManager.h"
+#include "UI/CardUIO.h"
 #include "kitten/InputManager.h"
 
 namespace userinterface
 {
+	HandFrame* instance = nullptr;
+	HandFrame* HandFrame::getActiveInstance() 
+	{
+		return instance;
+	}
+
 	HandFrame::HandFrame(const char* p_pathToTex) : UIFrame(p_pathToTex)
 	{
 		m_totalCards = 0;
@@ -16,12 +27,15 @@ namespace userinterface
 		m_cardY = 170;
 		m_padding = 10;
 		m_contentMargin = 10;
+
+		instance = this;
 		m_texBehaviour = tbh_Repeat;
 	}
 
 	HandFrame::~HandFrame()
 	{
-
+		instance = nullptr;
+		kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Card_Drawn, this);
 	}
 
 	void HandFrame::addCardToEnd(UIObject* p_cardToAdd)
@@ -69,12 +83,64 @@ namespace userinterface
 		}
 	}
 
+	void HandFrame::receiveDrawnCard(kitten::Event::EventType p_type, kitten::Event* p_event)
+	{
+		if(m_playerID != p_event->getInt(PLAYER_ID)) return;
+
+		for (int i = 0; i < p_event->getInt(CARD_COUNT);i++) {
+			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
+			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
+			cardCasted->scaleAsCard();
+
+			this->addCardToEnd(cardCasted);
+			cardCasted->assignParentHand(this);
+
+			kitten::K_Component* clickableCom = kitten::K_ComponentManager::getInstance()->createComponent("ClickableCard");
+			card->addComponent(clickableCom);
+
+			card->addComponent(
+				kibble::getUnitInstanceFromId(
+					p_event->getInt(CARD_ID + std::to_string(i))
+				)
+			);
+
+			// TODO prompt a newer event linking the Unit component for buffs or debuffs. 
+		}
+
+		reorderAllCards();
+	}
+
+	void HandFrame::start()
+	{
+		UIFrame::start();
+		kitten::EventManager::getInstance()->addListener(
+			kitten::Event::EventType::Card_Drawn,
+			this,
+			std::bind(&HandFrame::receiveDrawnCard, this, std::placeholders::_1, std::placeholders::_2));
+	}
+
+	void HandFrame::onEnabled()
+	{
+		UIFrame::onEnabled();
+		kitten::EventManager::getInstance()->addListener(
+			kitten::Event::EventType::Card_Drawn,
+			this,
+			std::bind(&HandFrame::receiveDrawnCard, this, std::placeholders::_1, std::placeholders::_2));
+	}
+
+	void HandFrame::onDisabled()
+	{
+		UIFrame::onDisabled();
+		kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Card_Drawn, this);
+	}
+
+
+	void HandFrame::setPlayerID(int p_playerId) {
+		this->m_playerID = p_playerId;
+	}
 }
 
 
-#include "kitten/K_GameObjectManager.h"
-#include "kitten/K_ComponentManager.h"
-#include "UI/CardUIO.h"
 void userinterface::HandFrame::makeAHand() {
 	input::InputManager* inman = input::InputManager::getInstance();
 	kitten::K_GameObject* hand = kitten::K_GameObjectManager::getInstance()->createNewGameObject();

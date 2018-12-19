@@ -8,11 +8,6 @@
 
 std::default_random_engine RNGzuz(std::random_device{}());// our holy lord, determiner of fate
 
-#define PLAYERID "playerID"
-#define CARD_COUNT	"count"
-#define CARD_ID "cardID"
-#define CARD_PLACEMENT "placement"
-
 DeckComponent::~DeckComponent() {
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Shuffle_Deck, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Discard_Card, this);
@@ -67,27 +62,27 @@ void DeckComponent::start() {
 }
 
 void DeckComponent::shuffleEventReceiver(kitten::Event::EventType p_type, kitten::Event* p_data) {
-	if (p_data->getInt(PLAYERID) == m_playerID) {
+	if (p_data->getInt(PLAYER_ID) == m_playerID) {
 		shuffle();
 	}
 }
 void DeckComponent::discardEventReceiver(kitten::Event::EventType p_type, kitten::Event* p_data) {
-	if (p_data->getInt(PLAYERID) == m_playerID) {
+	if (p_data->getInt(PLAYER_ID) == m_playerID) {
 		discard(p_data->getInt(CARD_COUNT));
 	}
 }
 void DeckComponent::drawEventReceiver(kitten::Event::EventType p_type, kitten::Event* p_data) {
-	if (p_data->getInt(PLAYERID) == m_playerID) {
+	if (p_data->getInt(PLAYER_ID) == m_playerID) {
 		draw(p_data->getInt(CARD_COUNT));
 	}
 }
 void DeckComponent::peekEventReceiver(kitten::Event::EventType p_type, kitten::Event* p_data) {
-	if (p_data->getInt(PLAYERID) == m_playerID) {
+	if (p_data->getInt(PLAYER_ID) == m_playerID) {
 		peek(p_data->getInt(CARD_COUNT));
 	}
 }
 void DeckComponent::addEventReceiver(kitten::Event::EventType p_type, kitten::Event* p_data) {
-	if (p_data->getInt(PLAYERID) == m_playerID) {
+	if (p_data->getInt(PLAYER_ID) == m_playerID) {
 		addTop(p_data->getInt(CARD_ID));
 	}
 }
@@ -98,7 +93,7 @@ void DeckComponent::shuffle() {
 void DeckComponent::draw(int p_topNum) {
 
 	kitten::Event* eventData = new kitten::Event(kitten::Event::EventType::Card_Drawn);
-	eventData->putInt(PLAYERID, m_playerID);
+	eventData->putInt(PLAYER_ID, m_playerID);
 	int countLookOver = std::min(p_topNum,(int)m_cardPool.size());
 	eventData->putInt(CARD_COUNT, countLookOver);
 
@@ -118,7 +113,7 @@ void DeckComponent::draw(int p_topNum) {
 }
 void DeckComponent::discard(int p_topNum) {
 	kitten::Event* eventData = new kitten::Event(kitten::Event::EventType::Card_Discarded);
-	eventData->putInt(PLAYERID, m_playerID);
+	eventData->putInt(PLAYER_ID, m_playerID);
 	int countLookOver = std::min(p_topNum, (int)m_cardPool.size());
 	eventData->putInt(CARD_COUNT, countLookOver);
 
@@ -147,7 +142,7 @@ void DeckComponent::peek(int p_topNum) {
 	}
 
 	kitten::Event* eventData = new kitten::Event(kitten::Event::EventType::Card_Peeked);
-	eventData->putInt(PLAYERID, m_playerID);
+	eventData->putInt(PLAYER_ID, m_playerID);
 	int countLookOver = std::min(p_topNum, (int)m_cardPool.size());
 	eventData->putInt(CARD_COUNT, countLookOver);
 
@@ -164,7 +159,7 @@ void DeckComponent::peek(int p_topNum) {
 
 void DeckComponent::informEmptyDeck() {
 	kitten::Event* eventData = new kitten::Event(kitten::Event::EventType::Deck_Empty);
-	eventData->putInt(PLAYERID, m_playerID);
+	eventData->putInt(PLAYER_ID, m_playerID);
 	kitten::EventManager::getInstance()->queueEvent(
 		kitten::Event::EventType::Deck_Empty,
 		eventData
