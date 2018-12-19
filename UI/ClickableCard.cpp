@@ -49,7 +49,10 @@ namespace userinterface
 	{
 		bool isEnabled = p_data->getInt(PAUSE_MENU_OPEN);
 		if (!isEnabled)
-			onHoverEnd();
-		m_attachedFrame->setEnabled(isEnabled);		
+		{
+			if (m_context->isEnabled())
+				m_context->setEnabled(false);
+		}
+		m_attachedFrame->setEnabled(!isEnabled);		
 	}
 }

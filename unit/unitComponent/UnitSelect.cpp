@@ -6,7 +6,7 @@
 // Networking
 #include "networking\ClientGame.h"
 
-unit::UnitSelect::UnitSelect() : m_toggleClickable(true)
+unit::UnitSelect::UnitSelect() : m_disableInteraction(false)
 {
 }
 
@@ -30,9 +30,13 @@ void unit::UnitSelect::onClick()
 	// If ClientGame is not nullptr, then we're networking
 	// If the player client id doesn't match the unit client id, then they cannot perform actions on the unit
 	networking::ClientGame* client = networking::ClientGame::getInstance();
-	if (client || m_toggleClickable)
+	if (m_disableInteraction)
 	{
-		if (client->getClientId() != u->m_clientId || m_toggleClickable)
+		return;
+	}
+	else if (client)
+	{
+		if (client->getClientId() != u->m_clientId)
 		{
 			return;
 		}
@@ -54,7 +58,8 @@ void unit::UnitSelect::onClick()
 
 void unit::UnitSelect::toggleUnitClickableListener(kitten::Event::EventType p_type, kitten::Event* p_data)
 {
+	m_storage->hide();
 	bool isEnabled = p_data->getInt(PAUSE_MENU_OPEN);
-	m_toggleClickable = isEnabled;
+	m_disableInteraction = isEnabled;
 }
 
