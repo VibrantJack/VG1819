@@ -6,6 +6,7 @@
 #include "board/tile/landInfo/LandInformation.h"
 #include <vector>
 #include <array>
+#include "puppy\Text\TextBox.h"
 
 class BoardCreator : public kitten::K_Component
 {
@@ -20,8 +21,10 @@ public:
 	virtual void start() override;
 
 	void setDimension(int x, int z);
-
+	void setTileInfoDisplay(bool p_set) { m_enableTileInfoDisplay = p_set; }
 private:
 
 	kitten::K_GameObject* createTile(int x, int z, LandInformation::TileType p_type = LandInformation::Grass_land);
+	puppy::TextBox* m_tileInfoDisplay;
+	bool m_enableTileInfoDisplay;
 };

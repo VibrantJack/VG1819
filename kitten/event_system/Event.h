@@ -49,6 +49,7 @@ namespace kitten
 			Host_Button_Clicked,
 			Pause_Menu_Open,
 			Disconnect_From_Network,
+			Tile_Clicked_Debug,
 			Move_Camera,
 
 			Test_Event, 

@@ -3,6 +3,7 @@
 #include "CounterGetter.h"
 #include <iostream>
 #include <sstream>
+#include "networking\ClientGame.h"
 
 UnitInteractionManager* UnitInteractionManager::sm_instance = nullptr;
 
@@ -40,6 +41,8 @@ void UnitInteractionManager::request(unit::Unit* p_unit, unit::AbilityDescriptio
 	}
 
 	m_getTile = false;
+
+	m_package->m_sourceClientId = networking::ClientGame::getClientId();
 
 	send();
 }

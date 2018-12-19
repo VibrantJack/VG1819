@@ -30,6 +30,9 @@ namespace userinterface
 	{
 		std::cout << "Card Hover Started: Generating context menu...\n";
 
+		glm::vec3 pos = getTransform().getTranslation();
+		getTransform().place2D(pos.x, pos.y + 50);
+
 		glm::vec2 cardScale = getTransform().getScale2D();
 		glm::vec3 cardPos = getTransform().getTranslation();
 		m_context->getTransform().place(0.0f, 0.0f, 0.1f);
@@ -41,6 +44,9 @@ namespace userinterface
 	void ClickableCard::onHoverEnd()
 	{
 		std::cout << " Card Hover Ended.\n";
+
+		glm::vec3 pos = getTransform().getTranslation();
+		getTransform().place2D(pos.x, pos.y - 50);
 
 		m_context->setEnabled(false);
 	}
