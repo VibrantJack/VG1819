@@ -119,6 +119,11 @@ void DecksDisplayFrame::updateHighlight()
 			m_slots[m_currentPick%m_slots.size()]->getTransform().getTranslation()[0] - 5,
 			m_slots[m_currentPick%m_slots.size()]->getTransform().getTranslation()[1] - 5
 		);
+		m_highlight->getTransform().place(
+			m_highlight->getTransform().getTranslation().x,
+			m_highlight->getTransform().getTranslation().y,
+			-0.1
+		);
 	}
 	else
 	{
