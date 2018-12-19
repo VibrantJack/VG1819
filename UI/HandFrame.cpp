@@ -85,9 +85,9 @@ namespace userinterface
 
 	void HandFrame::receiveDrawnCard(kitten::Event::EventType p_type, kitten::Event* p_event)
 	{
-		if(m_playerID != p_event->getInt("playerID")) return;
+		if(m_playerID != p_event->getInt(PLAYER_ID)) return;
 
-		for (int i = 0; i < p_event->getInt("count");i++) {
+		for (int i = 0; i < p_event->getInt(CARD_COUNT);i++) {
 			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
 			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
 			cardCasted->scaleAsCard();
@@ -100,7 +100,7 @@ namespace userinterface
 
 			card->addComponent(
 				kibble::getUnitInstanceFromId(
-					p_event->getInt("cardID" + std::to_string(i))
+					p_event->getInt(CARD_ID + std::to_string(i))
 				)
 			);
 
