@@ -29,12 +29,12 @@ void PowerTracker::start()
 	// Creating a GO inside a component feels wrong
 	kitten::K_GameObject* textBox = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 	textBox->addComponent(m_textBox);
-	textBox->getTransform().place2D(700, 30);
+	textBox->getTransform().place2D(410, 130);
 }
 
 void PowerTracker::update()
 {
-	m_textBox->setText("Max Power: " + std::to_string(m_iMaxPower) + " Current Power: " + std::to_string(getCurrentPower()));
+	m_textBox->setText(std::to_string(m_iMaxPower) + " / " + std::to_string(getCurrentPower()));
 }
 
 void PowerTracker::increaseMaxPower(int p_iAmount)

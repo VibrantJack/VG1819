@@ -55,8 +55,6 @@ namespace userinterface
 
 		bool m_isEnabled;
 
-		static std::map<pivotType, puppy::VertexEnvironment*> sm_vao;
-
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
 	};

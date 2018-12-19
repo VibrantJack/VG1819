@@ -27,10 +27,12 @@ namespace userinterface
 		posY = inMan->getWindowHeight();
 		int posY2 = posY - 50;
 		getTransform().place2D(50, posY2);
-		getTransform().scale2D(100, 100);
+		getTransform().scale2D(200, 100);
 		setPivotType(piv_BotLeft);
 		setTexBehaviour(tbh_Repeat);
-		setEnabled(true);
+
+		//DOING THIS TO HIDE IT CAUSE NE
+		setEnabled(false);
 
 		//quad coords (ortho)
 		float xmin, ymin, xmax, ymax, z, u, v;
