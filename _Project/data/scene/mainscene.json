@@ -50,7 +50,7 @@
 			"name" : "CombatTextInstance",
 			"components": [
 				{
-					"name" : "CombatText"
+					"name" : "CombatText",
 					"poolsize" : 9
 				}
 			]
