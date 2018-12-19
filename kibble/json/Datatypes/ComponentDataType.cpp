@@ -919,6 +919,12 @@ kitten::K_Component* getLerpController(nlohmann::json* p_jsonFile) {
 	return new LerpController();
 }
 
+#include "components/CameraMoveByEvent.h"
+kitten::K_Component* getCameraMoveByEvent(nlohmann::json* p_jsonFile) {
+
+	return new CameraMoveByEvent();
+}
+
 #include "components\ExitGameButton.h"
 kitten::K_Component* getExitGameButton(nlohmann::json* p_jsonFile) {
 	std::string regularTexture, highlightedTexture;
@@ -1017,6 +1023,7 @@ void setupComponentMap() {
 	jsonComponentMap["UIElement"] = &getUIElement;
 	jsonComponentMap["ModelRenderable"] = &getModelRenderable;
 	jsonComponentMap["UnitHealthBar"] = &getUnitHealthBar;
+	jsonComponentMap["CameraMoveByEvent"] = &getCameraMoveByEvent;
 	jsonComponentMap["LerpController"] = &getLerpController;
 	jsonComponentMap["ExitGameButton"] = &getExitGameButton;
 	jsonComponentMap["ActionSelect"] = &getActionSelect;

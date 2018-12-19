@@ -16,6 +16,7 @@ DecksDisplayFrame::DecksDisplayFrame(const int p_margin) : m_margin(p_margin)
 DecksDisplayFrame::~DecksDisplayFrame()
 {
 	instance = nullptr;
+
 }
 
 void DecksDisplayFrame::start() 
@@ -26,6 +27,8 @@ void DecksDisplayFrame::start()
 	m_slotTexts[0] = kitten::K_GameObjectManager::getInstance()->createNewGameObject("deck_display-deck-textbox.json");
 	m_arrows[0] = kitten::K_GameObjectManager::getInstance()->createNewGameObject("deck_display-left_button.json");
 	m_arrows[1] = kitten::K_GameObjectManager::getInstance()->createNewGameObject("deck_display-right_button.json");
+	m_highlight = kitten::K_GameObjectManager::getInstance()->createNewGameObject("deck_display-highlight.json");
+
 	const glm::vec2 &deckScale = m_slots[0]->getTransform().getScale2D(),
 		&displayFrameScale = this->m_attachedObject->getTransform().getScale2D(),
 		&arrowButtons = m_arrows[0]->getTransform().getScale2D();
@@ -103,6 +106,29 @@ void DecksDisplayFrame::updateDeckDisplay()
 		m_slots.size() * (m_currentSet+1) > deckCount ) 
 		m_arrows[1]->setEnabled(false);
 	else m_arrows[1]->setEnabled(true);
+
+	updateHighlight();
+}
+
+void DecksDisplayFrame::updateHighlight()
+{
+	if (m_currentPick >= 0 && m_currentPick >= m_currentSet * m_slots.size() && m_currentPick < (m_currentSet + 1) * m_slots.size())
+	{
+		m_highlight->setEnabled(true);
+		m_highlight->getTransform().place2D(
+			m_slots[m_currentPick%m_slots.size()]->getTransform().getTranslation()[0] - 5,
+			m_slots[m_currentPick%m_slots.size()]->getTransform().getTranslation()[1] - 5
+		);
+		m_highlight->getTransform().place(
+			m_highlight->getTransform().getTranslation().x,
+			m_highlight->getTransform().getTranslation().y,
+			-0.1
+		);
+	}
+	else
+	{
+		m_highlight->setEnabled(false);
+	}
 }
 
 
@@ -144,4 +170,5 @@ const int& DecksDisplayFrame::getCurrentPickedDeckId() const {
 }
 void DecksDisplayFrame::pickDisplayedDeck(const kitten::K_GameObject* p_gameObject) {
 	m_currentPick =	std::find(m_slots.begin(), m_slots.end(), p_gameObject) - m_slots.begin() + (m_currentSet*m_slots.size());
+	updateHighlight();
 }

@@ -4,6 +4,7 @@
 #include <chrono> 
 #include <algorithm>
 #include <climits>
+#include "kibble/databank/databank.hpp"
 
 std::default_random_engine RNGzuz(std::random_device{}());// our holy lord, determiner of fate
 
@@ -44,10 +45,18 @@ void DeckComponent::start() {
 		std::bind(&DeckComponent::peekEventReceiver, this, std::placeholders::_1, std::placeholders::_2));
 
 	// Set up Parameters
-	this->m_deckSource = DeckInitializingComponent::getActiveInstance()->getDeckData();
-	this->m_playerID = DeckInitializingComponent::getActiveInstance()->getPlayerId();
+	if (DeckInitializingComponent::getActiveInstance() == nullptr) {
+		this->m_deckSource = kibble::getDeckDataFromId(0);
+		this->m_playerID = 0;
+	}
+	else
+	{
+		this->m_deckSource = DeckInitializingComponent::getActiveInstance()->getDeckData();
+		this->m_playerID = DeckInitializingComponent::getActiveInstance()->getPlayerId();
+	}
 
 	// Set up Pool
+	this->m_cardPool.reserve(m_deckSource->totalCardCount);
 	for (std::pair<int, int> card : m_deckSource->cards) {
 		this->m_cardPool.resize(m_cardPool.size() + card.second, card.first); // expand it by repetition, and value set by index of card
 	}

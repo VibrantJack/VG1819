@@ -160,6 +160,7 @@
     <ClCompile Include="..\board\tile\landInfo\LandInfoManager.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SandLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
+    <ClCompile Include="..\components\CameraMoveByEvent.cpp" />
     <ClCompile Include="..\components\CustomCursor.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\components\ChangeSceneOnClick.cpp" />
@@ -426,6 +427,7 @@
     <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInformation.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInfoManager.h" />
+    <ClInclude Include="..\components\CameraMoveByEvent.h" />
     <ClInclude Include="..\components\CustomCursor.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />
     <ClInclude Include="..\components\ChangeSceneOnClick.hpp" />
