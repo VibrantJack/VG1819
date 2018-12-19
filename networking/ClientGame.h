@@ -41,9 +41,10 @@ namespace networking
 
 		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);
 		kitten::K_GameObject* getUnitGameObject(int p_iIndex);
+		void addUnitGameObject(kitten::K_GameObject* p_unit);
 		void removeUnitGameObject(int p_iUnitIndex);
 
-		int getClientId() { return m_iClientId; }
+		static int getClientId() { return sm_iClientId; }
 		bool isServerCalling() { return m_bServerCalling; }
 		bool isGameTurnStarted() { return m_bGameTurnStart; }
 
@@ -52,7 +53,7 @@ namespace networking
 
 		char m_network_data[MAX_PACKET_SIZE];
 
-		int m_iClientId = -1;
+		static int sm_iClientId;
 		bool m_bServerCalling = false;
 		bool m_bGameTurnStart = false;
 

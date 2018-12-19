@@ -2,7 +2,8 @@
     "name" : "boardCreator", 
     "components" : [
         {
-            "name" : "BoardCreator"
+            "name" : "BoardCreator",
+			"enableTileInfoDisplay" : true
         }
     ]
 }

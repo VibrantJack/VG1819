@@ -17,7 +17,7 @@
 		},
 		{
 			"filename" : "netmenu_console.txt",
-			"translate2d" : [200, 50]
+			"translate2d" : [950, 100]
 		},
 		{
 			"filename" : "TabMenu.txt"
@@ -49,7 +49,7 @@
 			"name" : "CombatTextInstance",
 			"components": [
 				{
-					"name" : "CombatText"
+					"name" : "CombatText",
 					"poolsize" : 9
 				}
 			]
