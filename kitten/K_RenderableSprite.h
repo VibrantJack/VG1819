@@ -1,10 +1,10 @@
-#include "Renderable.h"
+#include "K_Renderable.h"
 #include "puppy\Material.h"
 #include "puppy\VertexEnvironment.h"
 
 namespace kitten
 {
-	class K_RenderableSprite : public Renderable
+	class K_RenderableSprite : public K_Renderable
 	{
 	private:
 		puppy::Material* m_mat;

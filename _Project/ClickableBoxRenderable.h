@@ -1,10 +1,10 @@
 #pragma once
 #include "kitten\mouse picking\ClickableBox.h"
-#include "kitten\Renderable.h"
+#include "kitten\K_Renderable.h"
 #include "puppy\VertexEnvironment.h"
 #include "puppy\Material.h"
 
-class ClickableBoxRenderable : public kitten::Renderable
+class ClickableBoxRenderable : public kitten::K_Renderable
 {
 private:
 	virtual void start() override;

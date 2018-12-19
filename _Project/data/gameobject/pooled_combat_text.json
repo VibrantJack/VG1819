@@ -1,0 +1,22 @@
+{
+	"components" : 
+	[
+		{
+			"name" : "TextBox",
+			"font" : "../fonts/common_terminal_hex.fnt",
+			"color" : [1,1,1],
+            "alignment" : "center",
+            "width" : 100,
+            "height" : 100,
+			"3D" : true
+		},
+    {
+      "name": "DisableAfterTime",
+      "time": 1.5
+    },
+    {
+      "name": "LerpController"
+    }
+	],
+	"scale" : [0.1,0.1,1]
+}
