@@ -62,9 +62,6 @@
     <ClCompile Include="..\kitten\CubeRenderable.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
-    <ClCompile Include="..\kitten\Renderable.cpp">
-      <Filter>kitten</Filter>
-    </ClCompile>
     <ClCompile Include="..\wolf\W_Common.cpp">
       <Filter>wolf</Filter>
     </ClCompile>
@@ -214,9 +211,6 @@
     </ClCompile>
     <ClCompile Include="..\puppy\Text\TextTable.cpp">
       <Filter>puppy\Text</Filter>
-    </ClCompile>
-    <ClCompile Include="..\kitten\UIRenderable.cpp">
-      <Filter>kitten</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\ability\ManipulateTile.cpp">
       <Filter>ability\ability</Filter>
@@ -611,7 +605,7 @@
       <Filter>components\debug</Filter>
     </ClCompile>
     <ClCompile Include="UniversalPfx.cpp">
-      <Filter>components\sound\standard effects</Filter>
+      <Filter>components\standard effects</Filter>
     </ClCompile>
     <ClCompile Include="ClickableBoxRenderable.cpp">
       <Filter>components\debug</Filter>
@@ -721,6 +715,28 @@
     <ClCompile Include="..\unit\unitComponent\unitAction\ActionButtonStore.cpp">
       <Filter>unit\unitComponent\unitAction</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\CameraMoveByEvent.cpp">
+      <Filter>components\camera controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Block.cpp" />
+    <ClCompile Include="CombatText.cpp">
+      <Filter>components\standard effects</Filter>
+    </ClCompile>
+    <ClCompile Include="DisableAfterTime.cpp">
+      <Filter>components\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_Renderable.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_UIRenderable.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\P_Renderable.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\P_UIRenderable.cpp">
+      <Filter>puppy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -776,9 +792,6 @@
     </ClInclude>
     <ClInclude Include="..\puppy\VertexEnvironment.h">
       <Filter>puppy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\kitten\Renderable.h">
-      <Filter>kitten</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\CubeRenderable.h">
       <Filter>kitten</Filter>
@@ -923,9 +936,6 @@
     </ClInclude>
     <ClInclude Include="..\puppy\Text\TextTable.h">
       <Filter>puppy\Text</Filter>
-    </ClInclude>
-    <ClInclude Include="..\kitten\UIRenderable.h">
-      <Filter>kitten</Filter>
     </ClInclude>
     <ClInclude Include="UseAbilityWhenClicked.h">
       <Filter>components</Filter>
@@ -1257,7 +1267,7 @@
       <Filter>components\debug</Filter>
     </ClInclude>
     <ClInclude Include="UniversalPfx.h">
-      <Filter>components\sound\standard effects</Filter>
+      <Filter>components\standard effects</Filter>
     </ClInclude>
     <ClInclude Include="ClickableBoxRenderable.h">
       <Filter>components\debug</Filter>
@@ -1306,6 +1316,9 @@
     </ClInclude>
     <ClInclude Include="..\components\CustomCursor.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="CombatText.h">
+      <Filter>components\standard effects</Filter>
     </ClInclude>
     <ClInclude Include="..\puppy\Models\P_Model.h">
       <Filter>puppy\Models</Filter>
@@ -1568,6 +1581,24 @@
     <ClInclude Include="..\unit\unitComponent\unitAction\ActionButtonStore.h">
       <Filter>unit\unitComponent\unitAction</Filter>
     </ClInclude>
+    <ClInclude Include="..\components\CameraMoveByEvent.h">
+      <Filter>components\camera controls</Filter>
+    </ClInclude>
+    <ClInclude Include="DisableAfterTime.h">
+      <Filter>components\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\P_Renderable.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\P_UIRenderable.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_Renderable.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_UIRenderable.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1714,9 +1745,6 @@
     <Filter Include="components\survivors">
       <UniqueIdentifier>{b9405a1a-95c9-4f9e-b1f8-e231662308ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="components\sound\standard effects">
-      <UniqueIdentifier>{8c3ab6ac-dae3-451f-9e21-7944dc100695}</UniqueIdentifier>
-    </Filter>
     <Filter Include="components\testing">
       <UniqueIdentifier>{c232c111-d3ae-4c6c-b644-493f749d1069}</UniqueIdentifier>
     </Filter>
@@ -1740,6 +1768,12 @@
     </Filter>
     <Filter Include="unit\unitComponent\unitAction">
       <UniqueIdentifier>{1b105903-47cd-4152-a940-fd0f64b999dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\standard effects">
+      <UniqueIdentifier>{8c3ab6ac-dae3-451f-9e21-7944dc100695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\util">
+      <UniqueIdentifier>{db9cabd4-1c56-4fea-8cf8-4d8917f17ad9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

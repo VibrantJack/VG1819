@@ -21,7 +21,7 @@
 
 namespace unit
 {
-	UnitSpawn* UnitSpawn::m_instance = nullptr;
+	UnitSpawn* UnitSpawn::sm_instance = nullptr;
 
 	UnitSpawn::UnitSpawn()
 	{
@@ -44,18 +44,7 @@ namespace unit
 
 	UnitSpawn::~UnitSpawn()
 	{
-	}
-
-	UnitSpawn * UnitSpawn::getInstance()
-	{
-		return m_instance;
-	}
-
-	UnitSpawn * UnitSpawn::getInstanceSafe()
-	{
-		if (m_instance == nullptr)
-			m_instance = new UnitSpawn();
-		return m_instance;
+		delete m_storage;
 	}
 
 	/*

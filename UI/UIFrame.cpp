@@ -44,12 +44,12 @@ namespace userinterface
 
 	void UIFrame::onDisabled()
 	{
-		removeFromDynamicRender();
+		removeFromDynamicUIRender();
 	}
 
 	void UIFrame::onEnabled()
 	{
-		addToDynamicRender();
+		addToDynamicUIRender();
 	}
 }
 

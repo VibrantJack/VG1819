@@ -31,7 +31,8 @@ SpawnUnitOnKeyPress::SpawnUnitOnKeyPress()
 	m_tileDataReceived(false),
 	m_initialUnitsSpawned(false)
 {
-	unit::UnitSpawn::getInstanceSafe();
+	//unit spawn create is in gameplay-init now
+	//unit::UnitSpawn::getInstance();
 }
 
 SpawnUnitOnKeyPress::~SpawnUnitOnKeyPress()

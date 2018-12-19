@@ -36,8 +36,9 @@ namespace unit
 		UnitSpawn();
 		~UnitSpawn();
 
-		static UnitSpawn* getInstance();
-		static UnitSpawn* getInstanceSafe();
+		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new UnitSpawn(); };
+		static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
+		static UnitSpawn* getInstance() { return sm_instance; };
 
 		//kitten::K_GameObject* spawnUnitObject(Unit* p_unitData);
 
@@ -45,7 +46,7 @@ namespace unit
 		ActionButtonStore* getActionButtonStorage() { return m_storage; };
 	private:
 
-		static UnitSpawn * m_instance;
+		static UnitSpawn * sm_instance;
 
 		ActionButtonStore* m_storage;
 

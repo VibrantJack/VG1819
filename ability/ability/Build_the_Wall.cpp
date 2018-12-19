@@ -8,7 +8,7 @@ namespace ability
 {
 	int Build_the_Wall::effect(AbilityInfoPackage* p_info)
 	{
-		kitten::K_GameObject* u = unit::UnitSpawn::getInstanceSafe()->spawnUnitObject(m_unitIndex);
+		kitten::K_GameObject* u = unit::UnitSpawn::getInstance()->spawnUnitObject(m_unitIndex);
 		kitten::K_GameObject* tile = p_info->m_targetTilesGO[0];
 		u->getComponent<unit::UnitMove>()->setTile(tile);
 

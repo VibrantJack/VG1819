@@ -7,7 +7,7 @@ class DecksDisplayFrame : public kitten::K_Component
 {
 private:
 	std::vector<kitten::K_GameObject*> m_slots, m_slotTexts;
-	kitten::K_GameObject* m_arrows[2];
+	kitten::K_GameObject* m_arrows[2], *m_highlight;
 	int m_margin = 10, // the space between elements within this frame
 		m_currentSet = 0,  // the current set of decks being displayed
 		m_currentActive = 0, // the number of decks currently need to be displayed
@@ -15,6 +15,7 @@ private:
 	static bool sm_survivorFlagged;
 
 	void updateDeckDisplay();
+	void updateHighlight();
 
 	virtual void onDisabled();
 	virtual void onEnabled();

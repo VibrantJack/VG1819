@@ -44,6 +44,15 @@
 					"name": "GameplayInit"
 				}
 			]
+		},
+		{
+			"name" : "CombatTextInstance",
+			"components": [
+				{
+					"name" : "CombatText",
+					"poolsize" : 9
+				}
+			]
 		}
 
     ],

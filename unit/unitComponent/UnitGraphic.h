@@ -2,7 +2,7 @@
 #include "unit/UnitCommon.h"
 #include "puppy\Material.h"
 #include "puppy\VertexEnvironment.h"
-#include "kitten/Renderable.h"
+#include "kitten/K_Renderable.h"
 
 //Rock
 //a component with unit, it handle the unit's texture and animation
@@ -10,7 +10,7 @@
 namespace unit
 {
 	enum UnitSize;
-	class UnitGraphic : public kitten::Renderable
+	class UnitGraphic : public kitten::K_Renderable
 	{
 	public:
 		UnitGraphic(const UnitSize p_size, const char* p_pathToTexture = nullptr);
