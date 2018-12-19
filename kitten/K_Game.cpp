@@ -67,9 +67,6 @@ namespace kitten
 		ability::AbilityManager::createInstance();
 		ability::AbilityNodeManager::createInstance();
 
-		// MOVED THIS TO BEING A SCRIPT
-		//unit::InitiativeTracker::createInstance();
-
 		BoardManager::createInstance();
 
 		UnitInteractionManager::createInstance();

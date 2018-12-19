@@ -1,7 +1,7 @@
 #pragma once
 
 #include "kitten\K_Common.h"
-#include "kitten\UIRenderable.h"
+#include "kitten\K_UIRenderable.h"
 #include "puppy\Material.h"
 #include "puppy\VertexEnvironment.h"
 #include <map>
@@ -10,7 +10,7 @@
 
 namespace userinterface
 {
-	class UIElement : public kitten::UIRenderable
+	class UIElement : public kitten::K_UIRenderable
 	{
 	public:
 
@@ -38,7 +38,7 @@ namespace userinterface
 		
 		virtual ~UIElement();
 		virtual void start() override;
-		virtual void render(const glm::mat4& p_ortho);
+		virtual void uiRender(const glm::mat4& p_ortho);
 		virtual void setTexture(const char* p_pathToTex);
 		virtual void setTexBehaviour(const textureBehaviour p_tb);
 		virtual void setPivotType(const pivotType p_piv);

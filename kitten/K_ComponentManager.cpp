@@ -96,6 +96,10 @@ namespace kitten
 		{
 			comp = new Camera();
 		}
+		else if (p_componentName == "TextBox")  // Datadriven
+		{
+			comp = new puppy::TextBox(puppy::FontTable::getInstance()->getFont("../fonts/common_consolas.fnt"), "DEFAULT TEXT", 500, 500);
+		}
 		else if (p_componentName == "CubeRenderable")// Datadriven
 		{
 			comp = new CubeRenderable("textures/tiles/MISSING.tga");
@@ -195,9 +199,6 @@ namespace kitten
 		} else if (p_componentName == "FPSCalc") // Datadriven
 		{
 			comp = new FPSCalc();
-		} else if (p_componentName == "TextBox")  // Datadriven
-		{
-			comp = new puppy::TextBox(puppy::FontTable::getInstance()->getFont("../fonts/common_consolas.fnt"), "DEFAULT TEXT", 500, 500);
 		} else if (p_componentName == "TextBoxAbilities")
 		{
 			comp = new puppy::TextBox(puppy::FontTable::getInstance()->getFont("../fonts/common_consolas.fnt"), "DEFAULT TEXT", 300, 500);

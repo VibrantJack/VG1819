@@ -37,26 +37,26 @@ userinterface::PointerUI::~PointerUI()
 
 	if (m_isEnabled)
 	{
-		removeFromDynamicRender();
+		removeFromDynamicUIRender();
 	}
 }
 
 void userinterface::PointerUI::start()
 {
-	addToDynamicRender();
+	addToDynamicUIRender();
 }
 
 void userinterface::PointerUI::onEnabled()
 {
-	addToDynamicRender();
+	addToDynamicUIRender();
 }
 
 void userinterface::PointerUI::onDisabled()
 {
-	removeFromDynamicRender();
+	removeFromDynamicUIRender();
 }
 
-void userinterface::PointerUI::render(const glm::mat4 & p_ortho)
+void userinterface::PointerUI::uiRender(const glm::mat4 & p_ortho)
 {
 	m_mat->apply();
 

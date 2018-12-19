@@ -9,15 +9,11 @@
 
 namespace puppy
 {
-	TextBox::TextBox(Font* p_fontToUse, std::string p_text, float p_boxWidth, float p_boxHeight, Alignment p_alignment)
+	TextBox::TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, Alignment p_alignment, bool p_is3D) :  
+		m_alignment(p_alignment), m_text(p_text), m_font(p_fontToUse), m_boxHeight(p_boxHeight), m_boxWidth(p_boxWidth), m_is3D(p_is3D)
 	{
 		assert(p_fontToUse != nullptr);
-		
-		m_alignment = p_alignment;
-		m_text = p_text;
-		m_font = p_fontToUse;
-		m_boxHeight = p_boxHeight;
-		m_boxWidth = p_boxWidth;
+
 		m_color[3] = 0; //alpha addition
 
 		switch (p_alignment)
@@ -31,13 +27,9 @@ namespace puppy
 		}
 	}
 
-	TextBox::TextBox(Font* p_fontToUse, std::string p_text, float p_boxWidth, float p_boxHeight)
+	TextBox::TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, bool p_is3D) :
+		m_alignment(left), m_text(p_text), m_font(p_fontToUse), m_boxHeight(p_boxHeight), m_boxWidth(p_boxWidth), m_is3D(p_is3D)
 	{
-		m_alignment = left;
-		m_text = p_text;
-		m_font = p_fontToUse;
-		m_boxHeight = p_boxHeight;
-		m_boxWidth = p_boxWidth;
 		m_color[3] = 0; //alpha addition
 
 		constructLeftAlignVertices();
@@ -49,7 +41,14 @@ namespace puppy
 
 		if (m_isEnabled)
 		{
-			removeFromDynamicRender();
+			if (!m_is3D)
+			{
+				removeFromDynamicUIRender();
+			}
+			else
+			{
+				removeFromDynamicRender();
+			}
 		}
 	}
 
@@ -299,6 +298,21 @@ namespace puppy
 		}
 	}
 
+	void TextBox::setFont(Font* p_font)
+	{
+		m_font = p_font;
+		m_isDirty = true;
+		removeOldText();
+	}
+
+	void TextBox::setBoxBounds(float p_width, float p_height)
+	{
+		m_boxWidth = p_width;
+		m_boxHeight = p_height;
+		m_isDirty = true;
+		removeOldText();
+	}
+
 	void TextBox::setAlignment(Alignment p_alignment)
 	{
 		if (m_alignment != p_alignment)
@@ -344,20 +358,41 @@ namespace puppy
 
 	void TextBox::start()
 	{
-		addToDynamicRender();
+		onEnabled();
 	}
 
 	void TextBox::onDisabled()
 	{
-		removeFromDynamicRender();
+		if (!m_is3D)
+		{
+			removeFromDynamicUIRender();
+		}
+		else
+		{
+			removeFromDynamicRender();
+		}
+		
 	}
 
 	void TextBox::onEnabled()
 	{
-		addToDynamicRender();
+		if (!m_is3D)
+		{
+			addToDynamicUIRender();
+		}
+		else
+		{
+			addToDynamicRender();
+		}
+		
 	}
 
-	void TextBox::render(const glm::mat4& p_ortho)
+	void TextBox::render(const glm::mat4& p_viewProj)
+	{
+		uiRender(p_viewProj);
+	}
+
+	void TextBox::uiRender(const glm::mat4& p_ortho)
 	{
 		if (m_isDirty)
 		{

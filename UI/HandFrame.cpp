@@ -56,14 +56,13 @@ namespace userinterface
 	void HandFrame::reorderAllCards()
 	{
 		glm::vec3 currentPos = getTransform().getTranslation();
-		getTransform().place(currentPos.x, currentPos.y, -0.01f);
+		getTransform().place(currentPos.x, currentPos.y, -0.03f);
 		kitten::Transform T = getTransform();
 		glm::vec3 trans = T.getTranslation();
 		float offset = m_padding;
 		auto end = m_innerObjects.end();
 		for (auto it = m_innerObjects.begin(); it != end; ++it)
 		{
-			(*it)->getTransform().place(0.0f, 0.0f, 0.1f);
 			(*it)->getTransform().place2D(trans.x + offset, trans.y + m_padding - (m_cardY/2));
 			offset += m_cardX;
 			offset += m_contentMargin;
@@ -80,6 +79,8 @@ void userinterface::HandFrame::makeAHand() {
 	input::InputManager* inman = input::InputManager::getInstance();
 	kitten::K_GameObject* hand = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 	kitten::K_Component* handFrame = kitten::K_ComponentManager::getInstance()->createComponent("Hand");
+	userinterface::HandFrame* frameCasted = static_cast<userinterface::HandFrame*>(handFrame);
+
 	hand->addComponent(handFrame);
 	hand->getTransform().scale2D(560.0f, 130.0f);
 	hand->getTransform().place2D(400.0, 0.0);
@@ -91,7 +92,6 @@ void userinterface::HandFrame::makeAHand() {
 		userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
 		cardCasted->scaleAsCard();
 
-		userinterface::HandFrame* frameCasted = static_cast<userinterface::HandFrame*>(handFrame);
 		frameCasted->addCardToEnd(cardCasted);
 		cardCasted->assignParentHand(frameCasted);
 

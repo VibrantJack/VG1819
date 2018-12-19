@@ -54,7 +54,7 @@ namespace userinterface
 		}
 		if (m_isEnabled)
 		{
-			removeFromDynamicRender();
+			removeFromDynamicUIRender();
 		}
 	}
 
@@ -184,22 +184,22 @@ namespace userinterface
 
 		++sm_instances;
 
-		addToDynamicRender();
+		addToDynamicUIRender();
 
 	}
 	
 
 		void UIElement::onDisabled()
 		{
-			removeFromDynamicRender();
+			removeFromDynamicUIRender();
 		}
 
 		void UIElement::onEnabled()
 		{
-			addToDynamicRender();
+			addToDynamicUIRender();
 		}
 
-		void UIElement::render(const glm::mat4& p_ortho)
+		void UIElement::uiRender(const glm::mat4& p_ortho)
 		{
 			m_mat->apply();
 

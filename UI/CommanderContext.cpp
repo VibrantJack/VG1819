@@ -158,6 +158,6 @@ namespace userinterface
 
 		++sm_instances;
 
-		addToDynamicRender();
+		this->addToDynamicUIRender();
 	}
 }

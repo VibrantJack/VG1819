@@ -1,6 +1,6 @@
 #pragma once
 
-#include "kitten\UIRenderable.h"
+#include "kitten\K_UIRenderable.h"
 #include "puppy\Material.h"
 #include "puppy\VertexEnvironment.h"
 #include "UIElement.h"
