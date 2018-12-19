@@ -24,7 +24,7 @@ void SendSelfOnClick::onClick()
 	}
 	else
 	{
-		unit::UnitSpawn::getInstanceSafe()->getActionButtonStorage()->hide();
+		unit::UnitSpawn::getInstance()->getActionButtonStorage()->hide();
 	}
 
 	std::cout << "send tile obj" << std::endl;

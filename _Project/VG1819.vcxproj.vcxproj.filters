@@ -715,6 +715,9 @@
     <ClCompile Include="..\unit\unitComponent\unitAction\ActionButtonStore.cpp">
       <Filter>unit\unitComponent\unitAction</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\CameraMoveByEvent.cpp">
+      <Filter>components\camera controls</Filter>
+    </ClCompile>
     <ClCompile Include="..\ability\status\Status_Block.cpp" />
     <ClCompile Include="CombatText.cpp">
       <Filter>components\standard effects</Filter>
@@ -1577,6 +1580,9 @@
     </ClInclude>
     <ClInclude Include="..\unit\unitComponent\unitAction\ActionButtonStore.h">
       <Filter>unit\unitComponent\unitAction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\CameraMoveByEvent.h">
+      <Filter>components\camera controls</Filter>
     </ClInclude>
     <ClInclude Include="DisableAfterTime.h">
       <Filter>components\util</Filter>
