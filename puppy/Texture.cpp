@@ -1,5 +1,5 @@
 #include "Texture.h"
-#include "FreeImage.h"
+#include "FreeImage\Dist\x64\FreeImage.h"
 
 namespace puppy
 {
