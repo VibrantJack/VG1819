@@ -34,7 +34,7 @@ TabMenu::~TabMenu()
 
 void TabMenu::start()
 {
-	removeFromDynamicRender();
+	removeFromDynamicUIRender();
 
 	m_input = input::InputManager::getInstance();
 	assert(m_input != nullptr);

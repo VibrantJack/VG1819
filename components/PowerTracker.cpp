@@ -1,7 +1,7 @@
 #include "components\PowerTracker.h"
 #include "kitten\K_ComponentManager.h"
 #include "kitten\K_GameObjectManager.h"
-
+#include "puppy\Text\FontTable.h"
 
 PowerTracker::PowerTracker()
 	:
@@ -21,20 +21,20 @@ PowerTracker::~PowerTracker()
 
 void PowerTracker::start()
 {
-	m_textBox = static_cast<puppy::TextBox*>(kitten::K_ComponentManager::getInstance()->createComponent("TextBox"));
-	m_textBox->setColor(1, 1, 1);
-
-	// TextBox relies on attached GO Transform, so we need a new GO just for the TextBox
-	// to prevent issues with the Transforms
-	// Creating a GO inside a component feels wrong
 	kitten::K_GameObject* textBox = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+
+	m_textBox = static_cast<puppy::TextBox*>(kitten::K_ComponentManager::getInstance()->createComponent("TextBox"));
 	textBox->addComponent(m_textBox);
-	textBox->getTransform().place2D(700, 30);
+	textBox->getTransform().place2D(410, 130);
+
+	m_textBox->setFont(puppy::FontTable::getInstance()->getFont("../fonts/nsimsun.fnt"));
+	m_textBox->setColor(1.0, 1.0, 1.0);
+	m_textBox->setBoxBounds(1000, 400);
 }
 
 void PowerTracker::update()
 {
-	m_textBox->setText("Max Power: " + std::to_string(m_iMaxPower) + " Current Power: " + std::to_string(getCurrentPower()));
+	m_textBox->setText(std::to_string(m_iMaxPower) + " / " + std::to_string(getCurrentPower()));
 }
 
 void PowerTracker::increaseMaxPower(int p_iAmount)

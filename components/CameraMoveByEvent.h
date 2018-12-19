@@ -8,14 +8,12 @@ class CameraMoveByEvent : public kitten::K_Component
 private:
 	kitten::Camera* m_cam;
 
-public:
-
-	CameraMoveByEvent();
-	virtual ~CameraMoveByEvent();
-
 	virtual void start() override;
 	virtual void onEnabled() override;
 	virtual void onDisabled() override;
 
-	void moveCameraListener(kitten::Event::EventType p_type, kitten::Event* p_event);
+	void onCameraEvent(kitten::Event::EventType p_type, kitten::Event* p_event);
+public:
+	CameraMoveByEvent();
+	virtual ~CameraMoveByEvent();
 };

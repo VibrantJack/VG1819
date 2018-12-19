@@ -2,9 +2,15 @@
 
 #include <string>
 #include "kitten/mouse picking/Clickable.h"
+#include "puppy\Text\TextBox.h"
 
 class SendSelfOnClick : public kitten::Clickable
 {
+private:
+	puppy::TextBox* m_tileInfoDisplay;
+
+	void setTileInfoDisplayText();
+	void getPadding(const std::string& p_string, std::string& p_dest);
 public:
 	SendSelfOnClick();
 	virtual ~SendSelfOnClick();
@@ -12,4 +18,6 @@ public:
 	virtual void onClick() override;
 	virtual void onHoverStart() override;
 	virtual void onHoverEnd() override;
+
+	void setTileInfoDisplay(puppy::TextBox* p_info) { m_tileInfoDisplay = p_info; }
 };

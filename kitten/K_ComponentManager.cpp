@@ -23,6 +23,7 @@
 #include "UI\HandFrame.h"
 #include "UI\ClickableCard.h"
 #include "UI\ContextMenu.h"
+#include "UI\CommanderContext.h"
 #include "mouse picking/ClickableUI.h"
 #include "networking\menu\NetworkHostButton.h"
 #include "networking\menu\NetworkJoinButton.h"
@@ -95,6 +96,10 @@ namespace kitten
 		{
 			comp = new Camera();
 		}
+		else if (p_componentName == "TextBox")  // Datadriven
+		{
+			comp = new puppy::TextBox(puppy::FontTable::getInstance()->getFont("../fonts/common_consolas.fnt"), "DEFAULT TEXT", 500, 500);
+		}
 		else if (p_componentName == "CubeRenderable")// Datadriven
 		{
 			comp = new CubeRenderable("textures/tiles/MISSING.tga");
@@ -141,6 +146,10 @@ namespace kitten
 		else if (p_componentName == "ContextMenu")
 		{
 			comp = new userinterface::ContextMenu();
+		}
+		else if (p_componentName == "CommanderContext")
+		{
+			comp = new userinterface::CommanderContext();
 		}
 		else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
 		{
@@ -190,9 +199,6 @@ namespace kitten
 		} else if (p_componentName == "FPSCalc") // Datadriven
 		{
 			comp = new FPSCalc();
-		} else if (p_componentName == "TextBox")  // Datadriven
-		{
-			comp = new puppy::TextBox(puppy::FontTable::getInstance()->getFont("../fonts/common_consolas.fnt"), "DEFAULT TEXT", 500, 500);
 		} else if (p_componentName == "TextBoxAbilities")
 		{
 			comp = new puppy::TextBox(puppy::FontTable::getInstance()->getFont("../fonts/common_consolas.fnt"), "DEFAULT TEXT", 300, 500);

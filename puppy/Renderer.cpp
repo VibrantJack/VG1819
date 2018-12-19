@@ -28,22 +28,22 @@ namespace puppy
 		glBlendFunc(p_sourceFactor, p_destinationFactor);
 	}
 
-	void Renderer::addToRender(kitten::Renderable* p_toAdd) 
+	void Renderer::addToRender(P_Renderable* p_toAdd) 
 	{	
 		m_toRender.insert(p_toAdd);
 	}
 
-	void Renderer::removeFromRender(kitten::Renderable* p_toRemove) 
+	void Renderer::removeFromRender(P_Renderable* p_toRemove) 
 	{
 		m_toRender.erase(p_toRemove);
 	}
 
-	void Renderer::addUIToRender(kitten::UIRenderable* p_toAdd)
+	void Renderer::addUIToRender(P_UIRenderable* p_toAdd)
 	{
 		m_uiToRender.insert(p_toAdd);
 	}
 
-	void Renderer::removeUIFromRender(kitten::UIRenderable* p_toRemove)
+	void Renderer::removeUIFromRender(P_UIRenderable* p_toRemove)
 	{
 		m_uiToRender.erase(p_toRemove);
 	}
@@ -93,7 +93,7 @@ namespace puppy
 		auto uiEnd = m_uiToRender.end();
 		for (auto it = m_uiToRender.begin(); it != uiEnd; ++it)
 		{
-			(*it)->render(ortho);
+			(*it)->uiRender(ortho);
 		}
 	}
 

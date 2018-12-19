@@ -13,6 +13,8 @@
 #include "unit/UnitSpawn.h"
 #include "kitten/K_GameObjectManager.h"
 #include "kibble/databank/databank.hpp"
+#include "networking\ClientGame.h"
+#include "board\tile\TileInfo.h"
 
 namespace ability
 {
@@ -32,6 +34,11 @@ namespace ability
 
 			kitten::K_GameObject* tile = p_info->m_targetTilesGO[0];
 			uGO->getComponent<unit::UnitMove>()->setTile(tile);
+
+			if (networking::ClientGame::getInstance() != nullptr)
+			{
+				uGO->getComponent<unit::Unit>()->m_clientId = p_info->m_sourceClientId;
+			}
 		}
 
 		/*

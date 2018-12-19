@@ -17,6 +17,7 @@
 
 #include "kibble/databank/databank.hpp"
 #include "kibble\GameObjectDataParser.hpp"
+#include "networking\ClientGame.h"
 
 namespace unit
 {
@@ -119,6 +120,14 @@ namespace unit
 		if (unitObject->getComponent<sprites::SpriteGroup>() != nullptr) {
 			// disable unit Graphic
 			unitObject->getComponent<UnitGraphic>()->setEnabled(false);
+		}
+
+		// Set client Id to unit
+		if (networking::ClientGame::getInstance())
+		{
+			unit::Unit* unit = unitObject->getComponent<unit::Unit>();
+			unit->m_clientId = networking::ClientGame::getInstance()->getClientId();
+			networking::ClientGame::getInstance()->addUnitGameObject(unitObject);
 		}
 
 		//add object to Initiative Tracker

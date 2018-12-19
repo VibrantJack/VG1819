@@ -23,7 +23,6 @@ namespace userinterface
 
 		m_isEnabled = true;
 
-		start();
 	}
 
 	UIElement::UIElement(const char* p_pathToTex, pivotType p_pivot, textureBehaviour p_texBehaviour)
@@ -43,7 +42,6 @@ namespace userinterface
 
 		m_isEnabled = true;
 
-		start();
 	}
 
 	UIElement::~UIElement()
@@ -52,10 +50,11 @@ namespace userinterface
 		if (--sm_instances == 0)
 		{
 			delete sm_vao;
+			sm_vao = nullptr;
 		}
 		if (m_isEnabled)
 		{
-			removeFromDynamicRender();
+			removeFromDynamicUIRender();
 		}
 	}
 
@@ -185,22 +184,22 @@ namespace userinterface
 
 		++sm_instances;
 
-		addToDynamicRender();
+		addToDynamicUIRender();
 
 	}
 	
 
 		void UIElement::onDisabled()
 		{
-			removeFromDynamicRender();
+			removeFromDynamicUIRender();
 		}
 
 		void UIElement::onEnabled()
 		{
-			addToDynamicRender();
+			addToDynamicUIRender();
 		}
 
-		void UIElement::render(const glm::mat4& p_ortho)
+		void UIElement::uiRender(const glm::mat4& p_ortho)
 		{
 			m_mat->apply();
 
