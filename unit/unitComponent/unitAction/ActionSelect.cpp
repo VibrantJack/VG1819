@@ -41,8 +41,10 @@ void unit::ActionSelect::setUnit(Unit * p_u)
 	const glm::vec3 tran = getTransform().getTranslation();
 	int posX = tran.x + m_offsetX;
 	int posY = tran.y + m_offsetY;
+	int posz = tran.z - 0.1;
 
 	//m_text->getTransform().place(0, 0, -0.1);
+	//m_text->getTransform().place(0, 0, posz);
 	m_text->getTransform().place2D(posX, posY);
 }
 

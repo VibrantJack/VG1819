@@ -11,11 +11,13 @@ GameplayInit::GameplayInit(bool p_testing)
 GameplayInit::~GameplayInit()
 {
 	unit::InitiativeTracker::destroyInstance();
+	unit::UnitSpawn::destroyInstance();
 }
 
 void GameplayInit::start() {
 	// TODO put this in a separate component or something. 
 	unit::InitiativeTracker::createInstance();
+	unit::UnitSpawn::createInstance();
 	
 	if (m_testing)
 		unit::UnitTest::getInstanceSafe()->test();

@@ -49,6 +49,7 @@ namespace kitten
 			Host_Button_Clicked,
 			Pause_Menu_Open,
 			Disconnect_From_Network,
+			Move_Camera,
 
 			Test_Event, 
 			MAX_VAL = Test_Event
