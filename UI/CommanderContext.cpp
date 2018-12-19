@@ -28,7 +28,7 @@ namespace userinterface
 		int posY2 = posY - 50;
 		getTransform().place2D(50, posY2);
 		getTransform().scale2D(100, 100);
-		setPivotType(piv_TopLeft);
+		setPivotType(piv_BotLeft);
 		setTexBehaviour(tbh_Repeat);
 		setEnabled(true);
 

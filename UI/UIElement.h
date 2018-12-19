@@ -4,6 +4,8 @@
 #include "kitten\UIRenderable.h"
 #include "puppy\Material.h"
 #include "puppy\VertexEnvironment.h"
+#include <map>
+#include <iterator>  
 //austin's UI element :)
 
 namespace userinterface
@@ -52,6 +54,8 @@ namespace userinterface
 		static int sm_instances;
 
 		bool m_isEnabled;
+
+		static std::map<pivotType, puppy::VertexEnvironment*> sm_vao;
 
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
