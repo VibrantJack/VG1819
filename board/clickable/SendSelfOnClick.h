@@ -6,13 +6,10 @@
 
 class SendSelfOnClick : public kitten::Clickable
 {
-private:
-	bool m_isDisabled;
 public:
 	SendSelfOnClick();
 	virtual ~SendSelfOnClick();
 
-	//virtual void start() override;
 	virtual void onClick() override;
 	virtual void onHoverStart() override;
 	virtual void onHoverEnd() override;

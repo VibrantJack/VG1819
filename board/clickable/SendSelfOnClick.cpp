@@ -7,7 +7,7 @@
 #include <iostream>
 #include <sstream>
 
-SendSelfOnClick::SendSelfOnClick() : m_isDisabled(false)
+SendSelfOnClick::SendSelfOnClick()
 {
 	kitten::EventManager::getInstance()->addListener(
 		kitten::Event::EventType::Pause_Menu_Open,
@@ -22,9 +22,6 @@ SendSelfOnClick::~SendSelfOnClick()
 
 void SendSelfOnClick::onClick()
 {
-	if (m_isDisabled)
-		return;
-
 	TileInfo* info = m_attachedObject->getComponent<TileInfo>();
 	if (info->hasUnit())
 	{
@@ -65,9 +62,6 @@ void SendSelfOnClick::onClick()
 
 void SendSelfOnClick::onHoverStart()
 {
-	if (m_isDisabled)
-		return;
-
 	TileInfo* info = m_attachedObject->getComponent<TileInfo>();
 	if (info->isHighlighted(TileInfo::Range))
 	{
@@ -81,5 +75,6 @@ void SendSelfOnClick::onHoverEnd()
 
 void SendSelfOnClick::pausedListener(kitten::Event::EventType p_type, kitten::Event* p_data)
 {
-	m_isDisabled = p_data->getInt(PAUSE_MENU_OPEN);
+	bool opened = p_data->getInt(PAUSE_MENU_OPEN);
+	m_attachedBox->setEnabled(!opened);
 }
