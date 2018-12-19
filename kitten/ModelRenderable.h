@@ -1,9 +1,9 @@
 #pragma once
 
-#include "kitten\Renderable.h"
+#include "kitten\K_Renderable.h"
 #include "puppy\Models\P_Model.h"
 
-class ModelRenderable : public kitten::Renderable
+class ModelRenderable : public kitten::K_Renderable
 {
 private:
 	puppy::P_Model m_model;

@@ -9,19 +9,6 @@ unit::ActionSelect::ActionSelect()
 	m_unit(nullptr),
 	m_text(nullptr)
 {
-	m_text = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-
-	kitten::K_ComponentManager* comMan = kitten::K_ComponentManager::getInstance();
-	puppy::TextBox* textbox = static_cast<puppy::TextBox*>(comMan->createComponent("TextBox"));
-	m_text->addComponent(textbox);
-
-	//make text object be child of frame object
-	//m_text->getTransform().setParent(&getTransform());
-	//m_text->getTransform().setIgnoreParent(false);
-
-	//set property
-	textbox->setColor(1, 1, 1);
-	textbox->setText(m_action);
 }
 
 unit::ActionSelect::~ActionSelect()
@@ -30,22 +17,32 @@ unit::ActionSelect::~ActionSelect()
 
 void unit::ActionSelect::start()
 {
+	m_text = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+
+	kitten::K_ComponentManager* comMan = kitten::K_ComponentManager::getInstance();
+	puppy::TextBox* textbox = static_cast<puppy::TextBox*>(comMan->createComponent("TextBox"));
+	m_text->addComponent(textbox);
+
+	//make text object be child of frame object
+	m_text->getTransform().setParent(&getTransform());
+	m_text->getTransform().setIgnoreParent(false);
+
+	//set text position
+	const glm::vec3 tran = getTransform().getTranslation();
+
+	//m_text->getTransform().place(0, 0, -0.1);
+	m_text->getTransform().move(m_offsetX,m_offsetY, 0.1);
+
+	//set property
+	textbox->setColor(1, 1, 1);
+	textbox->setText(m_action);
+
 	ClickableUI::start();
 }
 
 void unit::ActionSelect::setUnit(Unit * p_u)
 {
 	m_unit = p_u;
-
-	//set text position
-	const glm::vec3 tran = getTransform().getTranslation();
-	int posX = tran.x + m_offsetX;
-	int posY = tran.y + m_offsetY;
-	int posz = tran.z - 0.1;
-
-	//m_text->getTransform().place(0, 0, -0.1);
-	//m_text->getTransform().place(0, 0, posz);
-	m_text->getTransform().place2D(posX, posY);
 }
 
 void unit::ActionSelect::setAction(const std::string & p_a)
@@ -107,5 +104,5 @@ void unit::ActionSelect::onClick()
 
 void unit::ActionSelect::onDisabled()
 {
-	m_text->getComponent<puppy::TextBox>()->setText("");
+	//m_text->getComponent<puppy::TextBox>()->setText("");
 }

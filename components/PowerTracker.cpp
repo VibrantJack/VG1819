@@ -1,7 +1,7 @@
 #include "components\PowerTracker.h"
 #include "kitten\K_ComponentManager.h"
 #include "kitten\K_GameObjectManager.h"
-
+#include "puppy\Text\FontTable.h"
 
 PowerTracker::PowerTracker()
 	:
@@ -21,15 +21,15 @@ PowerTracker::~PowerTracker()
 
 void PowerTracker::start()
 {
-	m_textBox = static_cast<puppy::TextBox*>(kitten::K_ComponentManager::getInstance()->createComponent("TextBox"));
-	m_textBox->setColor(1, 1, 1);
-
-	// TextBox relies on attached GO Transform, so we need a new GO just for the TextBox
-	// to prevent issues with the Transforms
-	// Creating a GO inside a component feels wrong
 	kitten::K_GameObject* textBox = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+	textBox->getTransform().place2D(700, 50);
+
+	m_textBox = static_cast<puppy::TextBox*>(kitten::K_ComponentManager::getInstance()->createComponent("TextBox"));
 	textBox->addComponent(m_textBox);
-	textBox->getTransform().place2D(700, 30);
+
+	m_textBox->setFont(puppy::FontTable::getInstance()->getFont("../fonts/nsimsun.fnt"));
+	m_textBox->setColor(1.0, 1.0, 1.0);
+	m_textBox->setBoxBounds(1000, 400);
 }
 
 void PowerTracker::update()
