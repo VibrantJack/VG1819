@@ -6,16 +6,21 @@
 // Networking
 #include "networking\ClientGame.h"
 
-unit::UnitSelect::UnitSelect()
+unit::UnitSelect::UnitSelect() : m_toggleClickable(true)
 {
 }
 
 unit::UnitSelect::~UnitSelect()
 {
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Pause_Menu_Open, this);
 }
 
 void unit::UnitSelect::start()
 {
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Pause_Menu_Open,
+		this,
+		std::bind(&unit::UnitSelect::toggleUnitClickableListener, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void unit::UnitSelect::onClick()
@@ -25,9 +30,9 @@ void unit::UnitSelect::onClick()
 	// If ClientGame is not nullptr, then we're networking
 	// If the player client id doesn't match the unit client id, then they cannot perform actions on the unit
 	networking::ClientGame* client = networking::ClientGame::getInstance();
-	if (client)
+	if (client || m_toggleClickable)
 	{
-		if (client->getClientId() != u->m_clientId)
+		if (client->getClientId() != u->m_clientId || m_toggleClickable)
 		{
 			return;
 		}
@@ -45,5 +50,11 @@ void unit::UnitSelect::onClick()
 	{
 		m_storage->hide();
 	}
+}
+
+void unit::UnitSelect::toggleUnitClickableListener(kitten::Event::EventType p_type, kitten::Event* p_data)
+{
+	bool isEnabled = p_data->getInt(PAUSE_MENU_OPEN);
+	m_toggleClickable = isEnabled;
 }
 

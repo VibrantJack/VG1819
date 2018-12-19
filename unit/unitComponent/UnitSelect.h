@@ -3,6 +3,7 @@
 #include "kitten\K_Common.h"
 #include "unitAction/ActionButtonStore.h"
 #include <string>
+#include "kitten\event_system\EventManager.h"
 
 //Rock
 //This class will handle all click for the unit
@@ -14,6 +15,7 @@ namespace unit
 	{
 	private:
 		ActionButtonStore* m_storage;
+		bool m_toggleClickable;
 	public:
 		UnitSelect();
 		virtual ~UnitSelect();
@@ -22,5 +24,7 @@ namespace unit
 		void setActionButtonStore(ActionButtonStore* p_s) { m_storage = p_s; };
 
 		void onClick();
+
+		void toggleUnitClickableListener(kitten::Event::EventType p_type, kitten::Event* p_data);
 	};
 }
