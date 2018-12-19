@@ -59,6 +59,14 @@ void BoardCreator::start()
 		}
 	}
 
+	if (m_enableTileInfoDisplay)
+	{
+		kitten::K_GameObject* tileText = kitten::K_GameObjectManager::getInstance()->createNewGameObject("debug_textbox.txt");
+		m_tileInfoDisplay = static_cast<puppy::TextBox*>(tileText->getComponent<puppy::TextBox>());
+		tileText->getTransform().scale2D(0.8, 0.8);
+		tileText->getTransform().move2D(1030, 720);
+	}
+
 	int i = 0;
 	for (int x = 0; x < m_x; x++)
 	{
@@ -133,6 +141,7 @@ kitten::K_GameObject * BoardCreator::createTile(int x, int z, LandInformation::T
 	tileGO->addComponent(manipTileOnClick);
 
 	SendSelfOnClick* sendSelfOnClick = static_cast<SendSelfOnClick*>(compMan->createComponent("SendSelfOnClick"));
+	sendSelfOnClick->setTileInfoDisplay(m_tileInfoDisplay);
 	tileGO->addComponent(sendSelfOnClick);
 
 	TileInfo* tileInfo = static_cast<TileInfo*>(compMan->createComponent("TileInfo"));

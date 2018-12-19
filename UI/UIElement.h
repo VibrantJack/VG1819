@@ -4,6 +4,8 @@
 #include "kitten\K_UIRenderable.h"
 #include "puppy\Material.h"
 #include "puppy\VertexEnvironment.h"
+#include <map>
+#include <iterator>  
 //austin's UI element :)
 
 namespace userinterface

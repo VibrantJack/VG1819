@@ -8,5 +8,7 @@ public:
 	SpawnUnitOnDrop():DragNDrop(true){}
 	~SpawnUnitOnDrop(){}
 
+	void onHoverStart() override;
+	void onHoverEnd() override;
 	void onDrop() override;
 };

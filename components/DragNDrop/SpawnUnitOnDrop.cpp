@@ -44,3 +44,17 @@ void SpawnUnitOnDrop::onDrop()
 	// Delete Card
 	kitten::K_GameObjectManager::getInstance()->destroyGameObject(this->m_attachedObject);
 }
+
+void SpawnUnitOnDrop::onHoverEnd() {
+	if (!m_isDragging)
+	{
+		getTransform().place2D(m_origin.x, m_origin.y);
+	}
+}
+
+void SpawnUnitOnDrop::onHoverStart() {
+	if (!m_isDragging)
+	{
+		getTransform().place2D(m_origin.x, m_origin.y + 50);
+	}
+}

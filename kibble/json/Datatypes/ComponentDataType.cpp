@@ -141,6 +141,10 @@ kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
 	SETOPTDEF(x, "rows", 15);
 	SETOPTDEF(z, "columns", 15);
 	component->setDimension(x, z);
+	
+	bool enableTileInfoDisplay;
+	SETOPTDEF(enableTileInfoDisplay, "enableTileInfoDisplay", false);
+	component->setTileInfoDisplay(enableTileInfoDisplay);
 
 	return component;
 }
@@ -479,7 +483,7 @@ kitten::K_Component* getTextBox(nlohmann::json* p_jsonFile) {
 	float width, height;
 	puppy::TextBox* textbox;
 
-	SETOPTDEF(font, "font", "../fonts/common_consolas.fnt");
+	SETOPTDEF(font, "font", "../fonts/common_dejavu.fnt");
 	SETOPTDEF(message, "message", "DEFAULT TEXT");
 	SETOPTDEF(width, "width", 500);
 	SETOPTDEF(height, "height", 500);
@@ -607,6 +611,11 @@ kitten::K_Component* getClickableFrame(nlohmann::json* p_jsonFile) {
 #include "kitten/mouse picking/ClickableUI.h"
 kitten::K_Component* getClickableUI(nlohmann::json* p_jsonFile) {
 	return new kitten::ClickableUI();
+}
+
+#include "UI/CommanderContext.h"
+kitten::K_Component* getCommanderContext(nlohmann::json* p_jsonFile) {
+	return new userinterface::CommanderContext();
 }
 
 #include "board/tile/TileInfo.h"
@@ -1062,6 +1071,7 @@ void setupComponentMap() {
 	jsonComponentMap["CameraMoveByEvent"] = &getCameraMoveByEvent;
 	jsonComponentMap["LerpController"] = &getLerpController;
 	jsonComponentMap["ExitGameButton"] = &getExitGameButton;
+	jsonComponentMap["CommanderContext"] = &getCommanderContext;
 	jsonComponentMap["ActionSelect"] = &getActionSelect;
 	jsonComponentMap["DragNDrop"] = &getDragNDrop;
 	jsonComponentMap["SpawnUnitOnDrop"] = &getSpawnUnitOnDrop;

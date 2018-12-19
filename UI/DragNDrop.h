@@ -3,9 +3,10 @@
 
 class DragNDrop : public kitten::ClickableUI
 {
-private:
+protected:
 	bool m_isDragging=false, m_backToOrigin= false;
 	glm::vec3 m_origin;
+
 public:
 	DragNDrop(bool p_backToOrigin = false);
 	~DragNDrop();

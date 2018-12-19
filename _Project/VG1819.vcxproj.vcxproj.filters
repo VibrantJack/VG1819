@@ -706,6 +706,9 @@
     <ClCompile Include="..\components\ExitGameButton.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\UI\CommanderContext.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
     <ClCompile Include="..\ability\status\Status_Block.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
@@ -1592,6 +1595,9 @@
     </ClInclude>
     <ClInclude Include="..\components\DragNDrop\SpawnUnitOnDrop.h">
       <Filter>components\dragNdrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\CommanderContext.h">
+      <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="..\components\CameraMoveByEvent.h">
       <Filter>components\camera controls</Filter>

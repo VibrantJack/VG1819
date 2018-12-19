@@ -16,7 +16,7 @@ namespace unit
 			testDummy = 0,
 			Priest,
 			Archer,
-			Duelist, 
+			Duelist,
 			Engineer,
 			Wall,
 			newUnitObject,
@@ -27,7 +27,10 @@ namespace unit
 			DivineStatue,
 			Oligarch,
 			King,
-			Queen
+			Queen,
+
+			FIRST_UNIT_INDEX = Priest,
+			MAX_UNIT_INDEX = Queen
 		};
 
 		UnitSpawn();

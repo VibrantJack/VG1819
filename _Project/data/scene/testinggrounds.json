@@ -16,10 +16,6 @@
 			"filename" : "backgroundmusic.txt"
 		},
 		{
-			"filename" : "FPSCounter.txt", 
-		    "translate2d" : [100,700]
-		},
-		{
 			"filename" : "netmenu_console.txt",
 			"translate2d" : [200, 50]
 		},
@@ -38,6 +34,14 @@
 			]
 		},
 		{
+		  "name" : "commander portrait",
+		  "components" : [
+		    {
+		      "name" : "CommanderContext"
+		    }
+		  ]
+		},
+		{
 			"name" : "more scene init stuff",
 			"components" : [
 				{
@@ -54,8 +58,6 @@
 				}
 			]
 		}
-
-    ],
-	"scenes" : ["interfacebuilder.txt"]
+    ]
 	
 }
