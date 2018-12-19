@@ -80,7 +80,8 @@ void SendSelfOnClick::onHoverStart()
 
 	if (m_tileInfoDisplay != nullptr)
 	{
-		setTileInfoDisplayText();
+		if (m_tileInfoDisplay->isEnabled())
+			setTileInfoDisplayText();
 	}
 }
 

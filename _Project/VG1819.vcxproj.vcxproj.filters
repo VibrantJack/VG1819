@@ -740,6 +740,9 @@
     <ClCompile Include="..\puppy\P_UIRenderable.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\TileInfoDisplayOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1604,6 +1607,9 @@
     </ClInclude>
     <ClInclude Include="..\kitten\K_UIRenderable.h">
       <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\TileInfoDisplayOnKeyPress.h">
+      <Filter>components\debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
