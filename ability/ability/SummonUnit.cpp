@@ -26,7 +26,7 @@ namespace ability
 		unit::Unit* u = kibble::getUnitFromId(2);
 		if (u->m_attributes[UNIT_COST] <= powerTracker->getCurrentPower())
 		{
-			kitten::K_GameObject* uGO = unit::UnitSpawn::getInstanceSafe()->spawnUnitObject(2);
+			kitten::K_GameObject* uGO = unit::UnitSpawn::getInstance()->spawnUnitObject(2);
 
 			powerTracker->summonUnitCost(u->m_attributes[UNIT_COST]);
 
