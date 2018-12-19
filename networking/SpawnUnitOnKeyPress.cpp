@@ -221,17 +221,14 @@ void SpawnUnitOnKeyPress::summonUnitsForNetworkExample()
 	client->summonUnit			(clientId, unit::UnitSpawn::Priest, col, row - 1);
 	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Priest, col, row - 1);
 
-	client->summonUnit			(clientId, unit::UnitSpawn::Priest, col, row - 2);
-	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Priest, col, row - 2);
+	client->summonUnit			(clientId, unit::UnitSpawn::Archer, col, row - 2);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Archer, col, row - 2);
 
-	client->summonUnit			(clientId, unit::UnitSpawn::Archer, col, row - 3);
-	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Archer, col, row - 3);
+	client->summonUnit			(clientId, unit::UnitSpawn::Duelist, col, row - 3);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Duelist, col, row - 3);
 
-	client->summonUnit			(clientId, unit::UnitSpawn::Duelist, col, row - 4);
-	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::Duelist, col, row - 4);
-
-	client->summonUnit			(clientId, unit::UnitSpawn::DivineStatue, col, row - 5);
-	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::DivineStatue, col, row - 5);
+	client->summonUnit			(clientId, unit::UnitSpawn::DivineStatue, col, row - 4);
+	client->sendSummonUnitPacket(clientId, unit::UnitSpawn::DivineStatue, col, row - 4);
 
 	m_initialUnitsSpawned = true;
 	m_bUnitsSpawned = true;
