@@ -1,6 +1,7 @@
 #include "ActionButtonStore.h"
 #include "kitten/K_GameObjectManager.h"
 #include "kitten/InputManager.h"
+
 unit::ActionButtonStore::ActionButtonStore()
 {
 	m_show = false;

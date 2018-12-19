@@ -26,11 +26,11 @@ namespace userinterface
 
 	void UIObject::onDisabled()
 	{
-		removeFromDynamicRender();
+		removeFromDynamicUIRender();
 	}
 
 	void UIObject::onEnabled()
 	{
-		addToDynamicRender();
+		addToDynamicUIRender();
 	}
 }

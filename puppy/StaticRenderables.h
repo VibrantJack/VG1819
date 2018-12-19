@@ -8,24 +8,20 @@
 #include <unordered_map>
 #include <vector>
 
-
-namespace kitten
-{
-	class Renderable;
-	class UIRenderable;
-}
-
 namespace puppy
 {
 	class P_Instance;
+	class P_UIRenderable;
+	class P_Renderable;
+
 	/*
 		@TODO: add support for vertex's with normals
 	*/
 	class StaticRenderables
 	{
 		friend class P_Instance;
-		friend class kitten::Renderable;
-		friend class kitten::UIRenderable;
+		friend class P_UIRenderable;
+		friend class P_Renderable;
 	private:
 		typedef std::unordered_map<GLuint, std::pair<std::unordered_map<const void*, std::vector<TexturedVertex>>, bool>> render_map;
 

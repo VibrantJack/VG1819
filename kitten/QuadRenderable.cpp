@@ -80,7 +80,7 @@ namespace kitten
 
 			m_staticTex = m_mat.getOwnedTexture();
 
-			Renderable::addToStaticRender(m_staticTex, verts, 6);
+			K_Renderable::addToStaticRender(m_staticTex, verts, 6);
 		}
 	}
 

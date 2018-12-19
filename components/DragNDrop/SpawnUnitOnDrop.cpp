@@ -39,7 +39,7 @@ void SpawnUnitOnDrop::onDrop()
 	BoardManager::getInstance()->getPowerTracker()->summonUnitCost(unit->m_attributes[UNIT_COST]);
 
 	// Generate Unit and set Tile
-	unit::UnitSpawn::getInstanceSafe()->spawnUnitObject(unit)->getComponent<unit::UnitMove>()->setTile(targetTile);
+	unit::UnitSpawn::getInstance()->spawnUnitObject(unit)->getComponent<unit::UnitMove>()->setTile(targetTile);
 
 	// Delete Card
 	kitten::K_GameObjectManager::getInstance()->destroyGameObject(this->m_attachedObject);
