@@ -13,8 +13,9 @@ namespace kitten
 	{
 		if (!m_children.empty())
 		{
-			auto end = m_children.end();
-			for (auto it = m_children.begin(); it != end; ++it)
+			auto list = m_children;
+			auto end = list.end();
+			for (auto it = list.begin(); it != end; ++it)
 			{
 				(*it)->setParent(nullptr);
 			}
@@ -323,11 +324,11 @@ namespace kitten
 
 	void Transform::setParent(Transform* p_parent)
 	{
-		/*
+		
 		if (m_parent != nullptr)
 		{
 			m_parent->removeChild(this);
-		}*/
+		}
 
 		m_parent = p_parent;
 

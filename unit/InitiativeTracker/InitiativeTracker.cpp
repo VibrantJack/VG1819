@@ -169,7 +169,7 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 				m_uturn->setEnd();
 		}
 
-		kitten::K_GameObjectManager::getInstance()->destroyGameObject(p_unit);
+		kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(p_unit);
 		return true;
 	}
 

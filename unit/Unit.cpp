@@ -210,7 +210,7 @@ namespace unit
 			else
 				moveDone = true;
 
-			if (moveDone)
+			if (moveDone && !m_lateDestroy)
 			{
 				m_turn->move = false;
 				m_turn->checkTurn();
