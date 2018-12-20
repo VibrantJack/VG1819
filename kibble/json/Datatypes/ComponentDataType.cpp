@@ -710,10 +710,13 @@ kitten::K_Component* getDecksDisplaySetChangeOnClick(nlohmann::json* p_jsonFile)
 
 #include "components/DecksDisplayFrame.h"
 kitten::K_Component* getDecksDisplayFrame(nlohmann::json* p_jsonFile) {
-	int margin;
-	SETOPTDEF(margin, "margin", 0);
+	int marginX;
+	int marginY;
 
-	return new DecksDisplayFrame(margin);
+	SETOPTDEF(marginY, "marginY", 0);
+	SETOPTDEF(marginX, "marginX", 0);
+
+	return new DecksDisplayFrame(marginX, marginY);
 }
 
 #include "_Project\ClickableBoxRenderable.h"
