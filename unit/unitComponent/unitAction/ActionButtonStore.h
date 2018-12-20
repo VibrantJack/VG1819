@@ -28,10 +28,15 @@ namespace unit
 		int m_lastY;
 		int m_index;
 		Unit* m_unit;
-	
+
+		int m_buttonScaleX;
+		int m_buttonScaleY;
+
 		bool m_show;
 
 		void createNewButton();
 		void setButton(const std::string& p_msg);
+
+		void getButtonScale();
 	};
 }
