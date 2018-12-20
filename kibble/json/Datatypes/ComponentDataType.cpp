@@ -938,6 +938,20 @@ kitten::K_Component* getLerpController(nlohmann::json* p_jsonFile) {
 	return new LerpController();
 }
 
+#include "components/DragNDrop/SpawnUnitOnDrop.h"
+kitten::K_Component* getSpawnUnitOnDrop(nlohmann::json* p_jsonFile) {
+	return new SpawnUnitOnDrop();
+}
+
+#include "UI/DragNDrop.h"
+kitten::K_Component* getDragNDrop(nlohmann::json* p_jsonFile) {
+	bool backToOrigin;
+
+	SETOPTDEF(backToOrigin, "backtoorigin", false);
+
+	return new DragNDrop(backToOrigin);
+}
+
 #include "components/CameraMoveByEvent.h"
 kitten::K_Component* getCameraMoveByEvent(nlohmann::json* p_jsonFile) {
 
@@ -1059,6 +1073,8 @@ void setupComponentMap() {
 	jsonComponentMap["ExitGameButton"] = &getExitGameButton;
 	jsonComponentMap["CommanderContext"] = &getCommanderContext;
 	jsonComponentMap["ActionSelect"] = &getActionSelect;
+	jsonComponentMap["DragNDrop"] = &getDragNDrop;
+	jsonComponentMap["SpawnUnitOnDrop"] = &getSpawnUnitOnDrop;
 	jsonComponentMap["CombatText"] = &getCombatText;
 	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
 

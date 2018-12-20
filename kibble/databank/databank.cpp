@@ -51,6 +51,7 @@ void kibble::setupDatabank() {
 				tagToUnitMap[tag].push_back(unitDataVector.size());
 			}
 
+			target.data->m_kibbleID = unitDataVector.size();
 			// At the end push the unit into vector. 
 			//This is left to the end so that previous calls to size return the actual index of this unit
 			unitDataVector.push_back(target);
@@ -152,8 +153,24 @@ void kibble::addNewDeckData(DeckData* p_data) {
 kitten::K_GameObject* kibble::attachCustomComponentsToGameObject(const int& p_identifier, kitten::K_GameObject* p_targetGameObject) {
 	kibble::UnitFileStruct& targetUnit = unitDataVector[p_identifier];
 	kitten::K_ComponentManager* componentManager = kitten::K_ComponentManager::getInstance();
-	
-	p_targetGameObject->addComponent(getUnitFrom(targetUnit.unitJson));
+
+	unit::Unit* unit = getUnitFrom(targetUnit.unitJson);
+	unit->m_kibbleID = p_identifier;
+	p_targetGameObject->addComponent(unit);
+	for (nlohmann::json component : targetUnit.components) {
+		p_targetGameObject->addComponent(componentManager->createComponent(&component));
+	}
+
+	p_targetGameObject->getTransform().rotateAbsolute(glm::vec3(targetUnit.rotate[0], targetUnit.rotate[1], targetUnit.rotate[2]));
+	p_targetGameObject->getTransform().scaleAbsolute(targetUnit.scale[0], targetUnit.scale[1], targetUnit.scale[2]);
+
+	return p_targetGameObject;
+}
+
+kitten::K_GameObject* kibble::attachCustomComponentsToGameObject(const unit::Unit* p_unit, kitten::K_GameObject* p_targetGameObject) {
+	kibble::UnitFileStruct& targetUnit = unitDataVector[p_unit->m_kibbleID];
+	kitten::K_ComponentManager* componentManager = kitten::K_ComponentManager::getInstance();
+
 	for (nlohmann::json component : targetUnit.components) {
 		p_targetGameObject->addComponent(componentManager->createComponent(&component));
 	}
@@ -170,5 +187,7 @@ bool kibble::checkIfComponentDriven(const int& p_identifier) {
 }
 
 unit::Unit* kibble::getUnitInstanceFromId(const int& p_identifier) {
-	return getUnitFrom(unitDataVector[p_identifier].unitJson);
+	unit::Unit* unit = getUnitFrom(unitDataVector[p_identifier].unitJson);
+	unit->m_kibbleID = p_identifier;
+	return unit;
 }

@@ -718,6 +718,12 @@
     <ClCompile Include="..\unit\unitComponent\unitAction\ActionButtonStore.cpp">
       <Filter>unit\unitComponent\unitAction</Filter>
     </ClCompile>
+    <ClCompile Include="..\UI\DragNDrop.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DragNDrop\SpawnUnitOnDrop.cpp">
+      <Filter>components\dragNdrop</Filter>
+    </ClCompile>
     <ClCompile Include="..\components\CameraMoveByEvent.cpp">
       <Filter>components\camera controls</Filter>
     </ClCompile>
@@ -1584,6 +1590,12 @@
     <ClInclude Include="..\unit\unitComponent\unitAction\ActionButtonStore.h">
       <Filter>unit\unitComponent\unitAction</Filter>
     </ClInclude>
+    <ClInclude Include="..\UI\DragNDrop.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DragNDrop\SpawnUnitOnDrop.h">
+      <Filter>components\dragNdrop</Filter>
+    </ClInclude>
     <ClInclude Include="..\UI\CommanderContext.h">
       <Filter>UI</Filter>
     </ClInclude>
@@ -1774,6 +1786,9 @@
     </Filter>
     <Filter Include="unit\unitComponent\unitAction">
       <UniqueIdentifier>{1b105903-47cd-4152-a940-fd0f64b999dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\dragNdrop">
+      <UniqueIdentifier>{d587fe34-736b-4363-9db4-c1d710563e19}</UniqueIdentifier>
     </Filter>
     <Filter Include="components\standard effects">
       <UniqueIdentifier>{8c3ab6ac-dae3-451f-9e21-7944dc100695}</UniqueIdentifier>

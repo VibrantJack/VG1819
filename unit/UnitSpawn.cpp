@@ -89,19 +89,34 @@ namespace unit
 		return unitObject;
 	}*/
 
-	kitten::K_GameObject* UnitSpawn::spawnUnitObject(const int& p_unitIdentifier) { 
+	kitten::K_GameObject* UnitSpawn::spawnUnitObject(const int& p_unitIdentifier) {
+		return spawnUnitObjectInternally(kibble::getUnitInstanceFromId(p_unitIdentifier));
+	}
+
+	kitten::K_GameObject* UnitSpawn::spawnUnitObject(unit::Unit* p_unit) {
+		// This makes a copy of the unit and attaches it. 
+		unit::Unit* unit = kibble::getUnitInstanceFromId(p_unit->m_kibbleID);
+
+		// Add all differences to take into account are here. ---------------------------
+		unit->m_attributes[UNIT_COST] = (int)p_unit->m_attributes[UNIT_COST];
+
+		return spawnUnitObjectInternally(unit);
+	}
+
+	kitten::K_GameObject* UnitSpawn::spawnUnitObjectInternally(unit::Unit* p_unit) {
 
 		/*
 		if (!kibble::checkIfComponentDriven(p_unitIdentifier))
 			return spawnUnitObject(kibble::getUnitInstanceFromId(p_unitIdentifier));
 			*/
 
-		//get component manager
+			//get component manager
 		kitten::K_ComponentManager* cm = kitten::K_ComponentManager::getInstance();
 
 		//unit object
 		kitten::K_GameObject* unitObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UnitBase.txt");
-		kibble::attachCustomComponentsToGameObject(p_unitIdentifier, unitObject);
+		kibble::attachCustomComponentsToGameObject(p_unit, unitObject);
+		unitObject->addComponent(p_unit);
 
 		unitObject->getComponent<UnitSelect>()->setActionButtonStore(m_storage);
 
