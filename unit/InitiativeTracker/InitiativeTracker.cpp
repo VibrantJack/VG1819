@@ -5,7 +5,7 @@
 #include "unit/InitiativeTracker/InitiativeTrackerUI.h"
 #include "kibble/kibble.hpp"
 #include <algorithm>
-
+#include "kitten/event_system/EventManager.h"
 //Rock
 
 unit::InitiativeTracker* unit::InitiativeTracker::sm_instance = nullptr;
@@ -256,4 +256,7 @@ void unit::InitiativeTracker::gameTurnEnd()
 {
 	//start of new turn
 	gameTurnStart();
+
+	//reset power tracker
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Reset_Power, nullptr);
 }
