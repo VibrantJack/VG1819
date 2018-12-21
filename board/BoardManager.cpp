@@ -207,29 +207,27 @@ void BoardManager::tileClicked(bool p_send)
 				return;
 		}
 
-		kitten::Event* e = new kitten::Event(kitten::Event::Tile_Clicked);
-
-		e->putInt("highlighted", TRUE);
-
-		kitten::Event::TileList list = getArea();
-		e->putInt(TILE_NUMBER, list.size());
-
-		for (int i = 0; i < list.size(); i++)
+		if (m_area->isActive())
 		{
-			int x = list[i].first;
-			int z = list[i].second;
-			kitten::K_GameObject* tileGO = getTile(x, z);
+			kitten::Event* e = new kitten::Event(kitten::Event::Tile_Clicked);
+			e->putInt("highlighted", TRUE);
+			kitten::Event::TileList list = getArea();
+			e->putInt(TILE_NUMBER, list.size());
+			for (int i = 0; i < list.size(); i++)
+			{
+				int x = list[i].first;
+				int z = list[i].second;
+				kitten::K_GameObject* tileGO = getTile(x, z);
 
-			std::stringstream stm;
-			stm << TILE << i;
-			std::string key = stm.str();
+				std::stringstream stm;
+				stm << TILE << i;
+				std::string key = stm.str();
 
-			e->putGameObj(key, tileGO);
+				e->putGameObj(key, tileGO);
+			}
+			m_highlighter->unhighlightAll(TileInfo::Range);
+			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Tile_Clicked, e);
 		}
-
-		m_highlighter->unhighlightAll(TileInfo::Range);
-
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Tile_Clicked, e);
 	}
 	else
 	{
@@ -239,6 +237,10 @@ void BoardManager::tileClicked(bool p_send)
 		m_highlighter->unhighlightAll(TileInfo::Range);
 		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Tile_Clicked, e);
 	}
+
+	m_areaList.clear();
+	m_rangeList.clear();
+	m_selectList.clear();
 }
 
 void BoardManager::createComponents()
