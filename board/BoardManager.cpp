@@ -37,7 +37,8 @@ void BoardManager::setTileList(std::vector<kitten::K_GameObject*> p_list)
 void BoardManager::setDimension(int p_x, int p_z)
 {
 	m_dimension = std::pair<int, int>(p_x, p_z);
-	m_range->setDimension(p_x, p_z);
+	if(m_range != nullptr)
+		m_range->setDimension(p_x, p_z);
 }
 
 std::pair<int, int> BoardManager::getDimension()
@@ -240,15 +241,17 @@ void BoardManager::tileClicked(bool p_send)
 	}
 }
 
-BoardManager::BoardManager()
+void BoardManager::createComponents()
 {
-	//m_boardGO = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 	m_range = new Range();
-	m_highlighter = static_cast<Highlighter*>(kitten::K_ComponentManager::getInstance()->createComponent("Highlighter"));
+	if (m_dimension != std::make_pair(0, 0))
+		m_range->setDimension(m_dimension.first, m_dimension.second);
+
+	m_hlGO = kitten::K_GameObjectManager::getInstance()->createNewGameObject("highlighter.json");
+	m_highlighter = m_hlGO->getComponent<Highlighter>();
+
 	m_pipeline = new TilePipeline();
 	m_area = new Area();
-	//m_pathFind = new PathFind();
-	registerEvent();
 
 	m_select = false;
 	m_selectRepeat = false;
@@ -256,12 +259,30 @@ BoardManager::BoardManager()
 	m_targetNum = 0;
 }
 
-BoardManager::~BoardManager()
+void BoardManager::destroyComponents()
 {
 	delete m_range;
-	delete m_highlighter;
+	//delete m_highlighter;
 	delete m_pipeline;
 	delete m_area;
+}
+
+BoardManager::BoardManager():
+	m_range(nullptr),
+	m_hlGO(nullptr),
+	m_highlighter(nullptr), 
+	m_pipeline(nullptr),
+	m_area(nullptr),
+	m_dimension(std::make_pair(0,0))
+{
+	//m_boardGO = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+	
+	//m_pathFind = new PathFind();
+	registerEvent();
+}
+
+BoardManager::~BoardManager()
+{
 	//delete m_pathFind;
 }
 

@@ -53,12 +53,17 @@ public:
 	void deregisterEvent();
 
 	void tileClicked(bool p_send);
+
+	//create/destroy components
+	void createComponents();
+	void destroyComponents();
 private:
 	static BoardManager* sm_instance;
 
 	std::pair<int, int> m_dimension;
 	kitten::Event::TileList m_spawnPointList;
 
+	kitten::K_GameObject* m_hlGO;
 	Range* m_range;
 	Highlighter* m_highlighter;
 	TilePipeline* m_pipeline;
