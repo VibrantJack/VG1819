@@ -1,0 +1,24 @@
+{
+	"name" : "New Game Button",
+	"components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/button_new_game.tga"
+		},
+		{
+			"name" : "StartGameOnClick",
+			"scene" : "network_menu.json"
+
+		},
+		{
+			"name" : "ClickableButton",
+			"regularTexture" : "textures/ui/buttons/button_new_game.tga",
+			"highlightedTexture" : "textures/ui/buttons/button_new_game_highlighted.tga"
+		},
+		{
+			"name" : "ClickableFrame"
+		}
+	],
+	"translate2d" : [354, 22],
+	"scale2d" : [250, 80]     
+}
