@@ -177,6 +177,16 @@ void Highlighter::unhighlightAll(TileInfo::HighlightType p_type)
 	m_listForType[p_type].clear();
 }
 
+void Highlighter::reset()
+{
+	m_toBeChanged.clear();
+	
+	for (auto it=m_listForType.begin();it!=m_listForType.end();it++)
+	{
+		it->second.clear();
+	}
+}
+
 /*
 void Highlighter::highlightTile(kitten::Event::TileList p_list)
 {

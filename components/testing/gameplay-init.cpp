@@ -12,7 +12,7 @@ GameplayInit::GameplayInit(bool p_testing)
 
 GameplayInit::~GameplayInit()
 {
-	BoardManager::getInstance()->destroyComponents();
+	//BoardManager::getInstance()->destroyComponents();
 	UnitInteractionManager::destroyInstance();
 	unit::InitiativeTracker::destroyInstance();
 	unit::UnitSpawn::destroyInstance();
@@ -20,7 +20,7 @@ GameplayInit::~GameplayInit()
 
 void GameplayInit::start() {
 	// TODO put this in a separate component or something. 
-	BoardManager::getInstance()->createComponents();
+	BoardManager::getInstance()->resetComponents();
 	unit::InitiativeTracker::createInstance();
 	unit::UnitSpawn::createInstance();
 	UnitInteractionManager::createInstance();

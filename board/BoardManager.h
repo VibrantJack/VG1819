@@ -54,9 +54,8 @@ public:
 
 	void tileClicked(bool p_send);
 
-	//create/destroy components
-	void createComponents();
-	void destroyComponents();
+	//at every game, all components should reset
+	void resetComponents();
 private:
 	static BoardManager* sm_instance;
 
