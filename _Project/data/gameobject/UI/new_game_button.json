@@ -6,8 +6,8 @@
 			"texture" : "textures/ui/buttons/button_new_game.tga"
 		},
 		{
-			"name" : "StartGameOnClick",
-			"scene" : "network_menu.json"
+			"name" : "ChangeSceneOnClick",
+			"scene" : "deck_menu.json"
 
 		},
 		{

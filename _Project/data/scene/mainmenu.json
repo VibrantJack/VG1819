@@ -31,16 +31,16 @@
             "filename" : "cursor.json"
         },
 		{
-            "filename" : "exit_game_button.json"
+            "filename" : "UI/exit_game_button.json"
         },
         {
-			"filename" : "new_game_button.json"
+			"filename" : "UI/new_game_button.json"
         },
         {
-			"filename" : "decks_button.json"
+			"filename" : "UI/decks_button.json"
         },
         {
-			"filename" : "testing_button.json"
+			"filename" : "UI/testing_button.json"
         }
     ]
 }

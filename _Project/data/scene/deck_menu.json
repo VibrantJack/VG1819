@@ -1,7 +1,9 @@
 {
     "gameobjects" : [
         {
-            "filename" : "camgameobj.txt"
+            "filename" : "camgameobj_main_menu.txt", 
+            "translate" : [7, 7.0, 2.0],
+            "rotate" : [-70,0,0]
         },
         {
             "name" : "Deck Display Frame",
@@ -11,31 +13,41 @@
                     "margin": 10
                 }
             ],
-			"translate2d" : [200, 10],
-            "scale2d" : [1070,700]
+			"translate2d" : [153, 120],
+            "scale2d" : [1075,400]
         },
-        {
-            "filename" : "return_to_main_menu_button.txt",
-            "translate2d" : [10, 600],
-            "scale2d" : [170, 100]
-            
+		{
+			"name" : "Main Menu Texture",
+			"components" : [
+				{
+					"name" : "UIFrame",
+					"texture" : "textures/ui/main_menu_interface.tga"
+				}
+			],
+			"scale2d" : [1280, 720],
+			"translate" : [0.0, 0.0, -0.9]
         },
+		{
+			"filename" : "quad_repeat.txt"
+		},
         {
-            "name" : "Edit Deck Button",
+            "name" : "ReturnToMainMenu",
             "components" : [
                 {
-                    "name" : "UIFrame",
-                    "texture" : "textures/ui/buttons/button_deck-builder.tga"
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_return.tga"
                 },
-                {
-                    "name" : "ClickableUI"
-                },
+				{
+					"name" : "ReturnToMainMenuButton",
+					"regularTexture" : "textures/ui/buttons/button_return.tga",
+					"highlightedTexture" : "textures/ui/buttons/button_return_highlighted.tga"
+				},
                 {
                     "name" : "ClickableFrame"
                 }
             ],
-            "translate2d" : [10, 480],
-            "scale2d" : [170, 100]
+            "translate2d" : [71, 21],
+            "scale2d" : [125, 80]
         }
     ]
 }
