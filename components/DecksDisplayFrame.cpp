@@ -8,7 +8,7 @@ bool DecksDisplayFrame::sm_survivorFlagged = false;
 DecksDisplayFrame* instance;
 DecksDisplayFrame* DecksDisplayFrame::getActiveInstance() { return instance; }
 
-DecksDisplayFrame::DecksDisplayFrame(const int p_margin) : m_margin(p_margin)
+DecksDisplayFrame::DecksDisplayFrame(int p_marginX, int p_marginY) : m_marginX(p_marginX), m_marginY(p_marginY)
 {
 	instance = this;
 }
@@ -35,26 +35,26 @@ void DecksDisplayFrame::start()
 	const glm::vec3 &displayFrameTrans = m_attachedObject->getTransform().getTranslation();
 
 	int textY = m_slotTexts[0]->getComponent<puppy::TextBox>()->getBoxHeight(),
-		fittableX = (int)(displayFrameScale.x / (deckScale.x + 2 * m_margin)), // Formula: Usable Space/ Needed Space.  X: available width / (deck width + margins) 
-		fittableY = (int)((displayFrameScale.y - (arrowButtons.y + 2 * m_margin)) / (deckScale.y + 4 * m_margin + textY)); // Y: (available height - button height ) / (deck height + text height+ margins) 
+		fittableX = (int)(displayFrameScale.x / (deckScale.x + 2 * m_marginX)), // Formula: Usable Space/ Needed Space.  X: available width / (deck width + margins) 
+		fittableY = (int)((displayFrameScale.y - (arrowButtons.y + 2 * m_marginY)) / (deckScale.y + 4 * m_marginY + textY)); // Y: (available height - button height ) / (deck height + text height+ margins) 
 
 	this->m_slots.resize(std::fmax(fittableX*fittableY, 1));
 	this->m_slotTexts.resize(std::fmax(fittableX*fittableY, 1));
-	m_slots[0]->getTransform().place2D(displayFrameTrans.x + m_margin, displayFrameTrans.y + displayFrameScale.y - m_margin - deckScale.y);
-	m_slotTexts[0]->getTransform().place2D(displayFrameTrans.x + m_margin, displayFrameTrans.y + displayFrameScale.y - 3 * m_margin - deckScale.y);
-	m_arrows[0]->getTransform().place2D(displayFrameTrans.x + m_margin, displayFrameTrans.y + m_margin);
-	m_arrows[1]->getTransform().place2D(displayFrameTrans.x + displayFrameScale.x - m_margin - arrowButtons.x, displayFrameTrans.y + m_margin);
+	m_slots[0]->getTransform().place2D(displayFrameTrans.x + m_marginX, displayFrameTrans.y + displayFrameScale.y - m_marginY - deckScale.y);
+	m_slotTexts[0]->getTransform().place2D(displayFrameTrans.x + m_marginX, displayFrameTrans.y + displayFrameScale.y - 3 * m_marginY - deckScale.y);
+	m_arrows[0]->getTransform().place2D(displayFrameTrans.x + m_marginX, displayFrameTrans.y + m_marginY);
+	m_arrows[1]->getTransform().place2D(displayFrameTrans.x + displayFrameScale.x - m_marginX - arrowButtons.x, displayFrameTrans.y + m_marginY);
 	for (int i = 1; i < m_slots.size(); ++i)
 	{
 		m_slots[i] = kitten::K_GameObjectManager::getInstance()->createNewGameObject("deck_display-deck-frame.json");
 		m_slots[i]->getTransform().place2D(
-			displayFrameTrans.x + (i%fittableX)*(deckScale.x + 2 * m_margin) + m_margin,
-			displayFrameTrans.y + displayFrameScale.y - (i / fittableX)*(deckScale.y + 4 * m_margin + textY) - m_margin - deckScale.y
+			displayFrameTrans.x + (i%fittableX)*(deckScale.x + 2 * m_marginX) + m_marginX,
+			displayFrameTrans.y + displayFrameScale.y - (i / fittableX)*(deckScale.y + 4 * m_marginY + textY) - m_marginY - deckScale.y
 		);
 		m_slotTexts[i] = kitten::K_GameObjectManager::getInstance()->createNewGameObject("deck_display-deck-textbox.json");
 		m_slotTexts[i]->getTransform().place2D(
-			displayFrameTrans.x + (i%fittableX)*(deckScale.x + 2 * m_margin) + m_margin,
-			displayFrameTrans.y + displayFrameScale.y - (i / fittableX)*(deckScale.y + 4 * m_margin + textY) - 3* m_margin - deckScale.y
+			displayFrameTrans.x + (i%fittableX)*(deckScale.x + 2 * m_marginX) + m_marginX,
+			displayFrameTrans.y + displayFrameScale.y - (i / fittableX)*(deckScale.y + 4 * m_marginY + textY) - 3* m_marginY - deckScale.y
 		);
 	}
 

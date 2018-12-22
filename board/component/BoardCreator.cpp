@@ -63,7 +63,6 @@ void BoardCreator::start()
 	{
 		kitten::K_GameObject* tileText = kitten::K_GameObjectManager::getInstance()->createNewGameObject("debug_textbox.txt");
 		m_tileInfoDisplay = static_cast<puppy::TextBox*>(tileText->getComponent<puppy::TextBox>());
-		tileText->getTransform().scale2D(0.8, 0.8);
 		tileText->getTransform().move2D(1030, 620);
 	}
 

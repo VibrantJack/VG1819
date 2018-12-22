@@ -1,0 +1,13 @@
+{
+    "name" : "Debug TextBox",
+    "components" : [
+        {
+            "name" : "TextBox",
+			"font" : "../fonts/roman_18pt.fnt",
+			"color" : [1,1,1],
+            "alignment" : "left",
+            "width" : 500,
+            "height" : 500
+        }
+    ]
+}

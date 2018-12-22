@@ -8,7 +8,8 @@
             "components" : [
                 {
                     "name":"DecksDisplayFrame",
-                    "margin": 10
+                    "marginX": 10,
+					"marginY" : 10
                 }
             ],
 			"translate2d" : [200, 10],

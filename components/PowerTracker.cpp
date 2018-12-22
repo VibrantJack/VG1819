@@ -33,14 +33,14 @@ void PowerTracker::start()
 	textBox->addComponent(m_textBox);
 	textBox->getTransform().place2D(410, 130);
 
-	m_textBox->setFont(puppy::FontTable::getInstance()->getFont("../fonts/nsimsun.fnt"));
+	m_textBox->setFont(puppy::FontTable::getInstance()->getFont("../fonts/nsimsun_34pt.fnt"));
 	m_textBox->setColor(1.0, 1.0, 1.0);
 	m_textBox->setBoxBounds(1000, 400);
 }
 
 void PowerTracker::update()
 {
-	m_textBox->setText(std::to_string(m_iMaxPower) + " / " + std::to_string(getCurrentPower()));
+	m_textBox->setText(std::to_string(getCurrentPower()) + " / " + std::to_string(m_iMaxPower));
 }
 
 void PowerTracker::increaseMaxPower(int p_iAmount)
