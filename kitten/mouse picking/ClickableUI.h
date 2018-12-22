@@ -22,6 +22,8 @@ namespace kitten
 		virtual void onHoverEnd();
 		virtual void release();
 
+		virtual void onPause();
+		virtual void onUnpause();
 		void setEnabledOnPause(bool p_enable) { m_enabledOnPause = p_enable; }
 		bool isEnabledOnPause() { return m_enabledOnPause; }
 	};

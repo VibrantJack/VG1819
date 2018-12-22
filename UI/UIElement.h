@@ -43,6 +43,7 @@ namespace userinterface
 		virtual void setTexBehaviour(const textureBehaviour p_tb);
 		virtual void setPivotType(const pivotType p_piv);
 
+		const std::string& getTexturePath() { return m_texPath; }
 	protected:
 		puppy::Material* m_mat;
 		puppy::Texture* m_tex;
@@ -54,6 +55,7 @@ namespace userinterface
 		static int sm_instances;
 
 		bool m_isEnabled;
+		std::string m_texPath;
 
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;

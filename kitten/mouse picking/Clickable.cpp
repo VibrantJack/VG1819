@@ -42,4 +42,14 @@ namespace kitten
 	{
 		//Empty to not force override
 	}
+
+	void Clickable::onPause()
+	{
+		//Empty to not force override
+	}
+
+	void Clickable::onUnpause()
+	{
+		//Empty to not force override
+	}
 }

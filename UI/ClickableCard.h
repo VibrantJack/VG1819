@@ -22,6 +22,7 @@ namespace userinterface
 
 		void onHoverStart() override;
 		void onHoverEnd() override;
+		void onPause() override;
 
 		kitten::K_GameObject* m_context;
 		void setEnabledOnPause(bool p_enable) { m_enabledOnPause = p_enable; }

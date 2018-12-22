@@ -105,5 +105,17 @@ namespace kitten
 	void ClickableBox::toggleGamePausedListener(kitten::Event::EventType p_type, kitten::Event* p_data)
 	{
 		m_gamePaused = !m_gamePaused;
+
+		auto end = m_listeners.cend();
+		for (auto it = m_listeners.begin(); it != end; it++)
+		{
+			if (m_gamePaused)
+			{
+				(*it)->onPause();
+			} else
+			{
+				(*it)->onUnpause();
+			}
+		}
 	}
 }

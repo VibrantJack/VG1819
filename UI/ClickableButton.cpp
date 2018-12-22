@@ -53,4 +53,12 @@ namespace userinterface
 	{
 		m_uiObject->setTexture(m_regularTexture.c_str());
 	}
+
+	void ClickableButton::onPause()
+	{
+		if (m_uiObject->getTexturePath() == m_highlightedTexture)
+		{
+			onHoverEnd();
+		}
+	}
 }

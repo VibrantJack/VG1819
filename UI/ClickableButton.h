@@ -24,6 +24,7 @@ namespace userinterface
 
 		virtual void onHoverStart() override;
 		virtual void onHoverEnd() override;
+		virtual void onPause() override;
 
 		void setRegularTexture(const std::string& p_tex) { m_regularTexture = p_tex; }
 		void setHighlightedTexture(const std::string& p_tex) { m_highlightedTexture = p_tex; }

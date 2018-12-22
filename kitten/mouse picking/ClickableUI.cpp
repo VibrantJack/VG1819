@@ -26,8 +26,6 @@ namespace kitten
 
 		frame->addCLickable(this);
 		m_attachedFrame = frame;
-		//m_enabledOnPause = false;
-		printf("ClickableUI::start m_enabledOnPause: %d\n", m_enabledOnPause);
 	}
 
 	void ClickableUI::onHoverStart()
@@ -48,5 +46,15 @@ namespace kitten
 	void ClickableUI::release()
 	{
 		//empty to not force override
+	}
+
+	void ClickableUI::onPause()
+	{
+		//Empty to not force override
+	}
+
+	void ClickableUI::onUnpause()
+	{
+		//Empty to not force override
 	}
 }
