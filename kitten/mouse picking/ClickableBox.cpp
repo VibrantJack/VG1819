@@ -71,7 +71,7 @@ namespace kitten
 		auto end = m_listeners.cend();
 		for (auto it = m_listeners.begin(); it != end; ++it)
 		{
-			if ((m_gamePaused && (*it)->isEnabledOnPause()) || !m_gamePaused)
+			if (!m_gamePaused || (*it)->isEnabledOnPause())
 			{
 				(*it)->onHoverStart();
 			}
@@ -83,7 +83,7 @@ namespace kitten
 		auto end = m_listeners.cend();
 		for (auto it = m_listeners.begin(); it != end; ++it)
 		{
-			if ((m_gamePaused && (*it)->isEnabledOnPause()) || !m_gamePaused)
+			if (!m_gamePaused || (*it)->isEnabledOnPause())
 			{
 				(*it)->onClick();
 			}
@@ -95,7 +95,7 @@ namespace kitten
 		auto end = m_listeners.cend();
 		for (auto it = m_listeners.begin(); it != end; ++it)
 		{
-			if ((m_gamePaused && (*it)->isEnabledOnPause()) || !m_gamePaused)
+			if (!m_gamePaused || (*it)->isEnabledOnPause())
 			{
 				(*it)->onHoverEnd();
 			}
