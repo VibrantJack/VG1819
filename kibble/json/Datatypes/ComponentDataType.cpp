@@ -996,6 +996,11 @@ kitten::K_Component* getDisableAfterTime(nlohmann::json* p_jsonFile) {
 	return new DisableAfterTime(time);
 }
 
+#include "UI\MainMenu\MainMenu.h"
+kitten::K_Component* getMainMenu(nlohmann::json* p_jsonFile) {
+	return new MainMenu();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1077,6 +1082,7 @@ void setupComponentMap() {
 	jsonComponentMap["SpawnUnitOnDrop"] = &getSpawnUnitOnDrop;
 	jsonComponentMap["CombatText"] = &getCombatText;
 	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
+	jsonComponentMap["MainMenu"] = &getMainMenu;
 
 }
 
