@@ -7,12 +7,15 @@ DeckData* CustomDeckDataParser::getDeckData(const std::string& p_filename) {
 	std::ifstream input("data/saved/"+p_filename);
 	if (input.is_open()) {
 		DeckData* data = new DeckData();
-		std::getline(input, data->name);
+		std::getline(input, data->name); // Get Deck Name
+		input >> data->commanderID; // Get Deck Commander
+
 		int cardIndex, cardCount;
-		while (input >> cardIndex >> cardCount) {
+		while (input >> cardIndex >> cardCount) { // Get unit index and count
 			data->cards.push_back(std::pair<int,int>(cardIndex, cardCount));
 			data->totalCardCount += cardCount;
 		}
+
 		input.close();
 		return data;
 	}
@@ -37,7 +40,9 @@ void CustomDeckDataParser::saveDeckData(DeckData* p_deck, const std::string& p_f
 
 
 std::ostream &operator<<(std::ostream &outputStream, const DeckData &deck) {
-	outputStream << std::setw(8) << deck.name << std::endl << std::setw(8) << "index" << std::setw(8) << "count" << "  name" << std::endl;
+	outputStream << std::setw(8) << deck.name << std::endl
+		<< "Commander: " << kibble::getUnitFromId(deck.commanderID)->m_name << std::endl
+		<< std::setw(8) << "index" << std::setw(8) << "count" << "  name" << std::endl;
 	auto it = deck.cards.begin();
 
 	while (it != deck.cards.end()) {
@@ -48,7 +53,7 @@ std::ostream &operator<<(std::ostream &outputStream, const DeckData &deck) {
 }
 
 std::ofstream &operator<<(std::ofstream &outputStream, const DeckData &deck) {
-	outputStream << deck.name << std::endl;
+	outputStream << deck.name << std::endl << deck.commanderID << std::endl;
 	auto it = deck.cards.begin();
 
 	while (it != deck.cards.end()) {
