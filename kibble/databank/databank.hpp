@@ -19,6 +19,7 @@ namespace kibble {
 	void addNewDeckData(DeckData*);
 
 	kitten::K_GameObject* attachCustomComponentsToGameObject(const int& p_identifier, kitten::K_GameObject* p_targetGameObject);
+	kitten::K_GameObject* attachCustomComponentsToGameObject(const unit::Unit* p_unit, kitten::K_GameObject* p_targetGameObject);
 	unit::Unit* getUnitInstanceFromId(const int& p_identifier);
 	bool checkIfComponentDriven(const int& p_identifier);
 

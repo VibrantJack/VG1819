@@ -35,6 +35,6 @@ void CameraMoveByEvent::onDisabled()
 
 void CameraMoveByEvent::onCameraEvent(kitten::Event::EventType p_type, kitten::Event* p_event)
 {
-	m_cam->setFOV(p_event->getFloat("FOV"));
-	m_cam->getTransform().place(p_event->getFloat("x"), 0, p_event->getFloat("z"));
+	m_cam->setFOV(p_event->getFloat(CAM_FOV));
+	m_cam->getTransform().place(p_event->getFloat(POSITION_X), 0, p_event->getFloat(POSITION_Z));
 }

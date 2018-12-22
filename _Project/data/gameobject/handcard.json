@@ -9,7 +9,7 @@
             "name" : "ClickableFrame"
         },
         {
-            "name" : "ClickableCard"
+            "name" : "SpawnUnitOnDrop"
         }
     ]
 }

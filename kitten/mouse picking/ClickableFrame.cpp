@@ -30,6 +30,8 @@ namespace kitten
 		}
 
 		kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Pause_Menu_Open, this);
+		getTransform().removeScaleListener(this);
+		getTransform().removePositionListener(this);
 	}
 
 	void ClickableFrame::start()

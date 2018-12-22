@@ -2,6 +2,7 @@
 #include "puppy\P_Common.h"
 #include "mouse picking\Clickable.h"
 #include "mouse picking\ClickableUI.h"
+#include "K_GameObject.h"
 
 #include <string>
 #include <unordered_set>
@@ -59,6 +60,8 @@ namespace input
 		void privateKeyCallback(int key, int action);
 		void privateCharCallback(int key, int action);
 
+		kitten::K_GameObject*  m_lastMouseHitObject = nullptr, *m_lastMouseHitFrame = nullptr;
+
 		void update();
 	public:
 		static InputManager* getInstance();
@@ -86,5 +89,8 @@ namespace input
 		int getWindowHeight();
 
 		int getMouseWheel();
+
+		kitten::K_GameObject* getMouseLastHitObject();
+		kitten::K_GameObject* getMouseLastHitFrame();
 	};
 }
