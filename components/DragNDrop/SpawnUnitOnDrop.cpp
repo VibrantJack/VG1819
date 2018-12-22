@@ -58,3 +58,9 @@ void SpawnUnitOnDrop::onHoverStart() {
 		getTransform().place2D(m_origin.x, m_origin.y + 50);
 	}
 }
+
+void SpawnUnitOnDrop::onPause()
+{
+	DragNDrop::onDrop();
+	m_isDragging = false;
+}

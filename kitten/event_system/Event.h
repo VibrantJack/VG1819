@@ -5,6 +5,8 @@
 #define TILE_POS_Y "pos_y"
 #define TILE_OWNER_KEY "tile_owner_key"
 #define MANIPULATE_TILE_KEY "manip_tile_key"
+#define PLAYER_COMMANDER_DEATH "player_commander_death_key"
+#define PAUSE_MENU_OPEN "pause_menu_open_key"
 #define GAME_END_RESULT "game_end_result_key"
 
 #define PLAYER_ID "playerID"
@@ -54,6 +56,7 @@ namespace kitten
 			Join_Button_Clicked,
 			IP_Address_Entered,
 			Host_Button_Clicked,
+			Pause_Menu_Open,
 			Disconnect_From_Network,
 			Tile_Clicked_Debug,
 			Move_Camera,

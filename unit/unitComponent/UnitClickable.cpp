@@ -19,6 +19,7 @@ unit::UnitClickable::UnitClickable()
 
 unit::UnitClickable::~UnitClickable()
 {
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Pause_Menu_Open, this);
 }
 
 void unit::UnitClickable::onClick()
@@ -133,6 +134,12 @@ void unit::UnitClickable::start()
 	}
 
 	addAbility("Join");
+
+	// Listener to disable clickable
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Pause_Menu_Open,
+		this,
+		std::bind(&unit::UnitClickable::toggleUnitClickableListener, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void unit::UnitClickable::update()
@@ -180,4 +187,11 @@ void unit::UnitClickable::addAbility(const std::string & p_instructionName)
 
 	m_instructionList->push_back(p_instructionName);
 	counter++;
+}
+
+
+void unit::UnitClickable::toggleUnitClickableListener(kitten::Event::EventType p_type, kitten::Event* p_data)
+{
+	bool isEnabled = p_data->getInt(PAUSE_MENU_OPEN);
+	m_attachedBox->setEnabled(isEnabled);
 }

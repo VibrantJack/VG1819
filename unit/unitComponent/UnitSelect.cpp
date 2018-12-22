@@ -6,16 +6,18 @@
 // Networking
 #include "networking\ClientGame.h"
 
-unit::UnitSelect::UnitSelect()
+unit::UnitSelect::UnitSelect() : m_disableInteraction(false)
 {
 }
 
 unit::UnitSelect::~UnitSelect()
 {
+
 }
 
 void unit::UnitSelect::start()
 {
+
 }
 
 void unit::UnitSelect::onClick()
@@ -25,7 +27,11 @@ void unit::UnitSelect::onClick()
 	// If ClientGame is not nullptr, then we're networking
 	// If the player client id doesn't match the unit client id, then they cannot perform actions on the unit
 	networking::ClientGame* client = networking::ClientGame::getInstance();
-	if (client)
+	if (m_disableInteraction)
+	{
+		return;
+	}
+	else if (client)
 	{
 		if (client->getClientId() != u->m_clientId)
 		{

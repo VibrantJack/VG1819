@@ -45,11 +45,22 @@ namespace userinterface
 	void UIFrame::onDisabled()
 	{
 		removeFromDynamicUIRender();
+		setInnerObjectsEnabled(false);
 	}
 
 	void UIFrame::onEnabled()
 	{
 		addToDynamicUIRender();
+		setInnerObjectsEnabled(true);
+	}
+
+	void UIFrame::setInnerObjectsEnabled(bool p_enabled)
+	{
+		auto end = m_innerObjects.end();
+		for (auto it = m_innerObjects.begin(); it != end; ++it)
+		{
+			(*it)->setEnabled(p_enabled);
+		}
 	}
 }
 
