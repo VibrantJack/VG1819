@@ -14,10 +14,12 @@
 
 SendSelfOnClick::SendSelfOnClick()
 {
+
 }
 
 SendSelfOnClick::~SendSelfOnClick()
 {
+
 }
 
 void SendSelfOnClick::onClick()
@@ -76,7 +78,8 @@ void SendSelfOnClick::onHoverStart()
 
 	if (m_tileInfoDisplay != nullptr)
 	{
-		setTileInfoDisplayText();
+		if (m_tileInfoDisplay->isEnabled())
+			setTileInfoDisplayText();
 	}
 }
 

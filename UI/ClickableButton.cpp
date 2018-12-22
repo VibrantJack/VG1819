@@ -16,8 +16,9 @@
 
 namespace userinterface
 {
-	ClickableButton::ClickableButton()
+	ClickableButton::ClickableButton(bool p_enabledOnPause)
 		:
+		ClickableUI(p_enabledOnPause),
 		m_uiObject(nullptr),
 		m_regularTexture(REGULAR_TEXTURE),
 		m_highlightedTexture(HIGHLIGHTED_TEXTURE)
@@ -51,5 +52,13 @@ namespace userinterface
 	void ClickableButton::onHoverEnd()
 	{
 		m_uiObject->setTexture(m_regularTexture.c_str());
+	}
+
+	void ClickableButton::onPause()
+	{
+		if (m_uiObject->getTexturePath() == m_highlightedTexture)
+		{
+			onHoverEnd();
+		}
 	}
 }

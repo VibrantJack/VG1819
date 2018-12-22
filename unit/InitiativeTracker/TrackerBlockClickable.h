@@ -18,6 +18,7 @@ namespace unit
 		virtual void onClick() override;
 		virtual void onHoverStart() override;
 		virtual void onHoverEnd() override;
+		virtual void onPause();
 
 		void setTextBox(kitten::K_GameObject* p_txt);
 	};

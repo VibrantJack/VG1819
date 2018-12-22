@@ -4,11 +4,16 @@
 
 namespace kitten 
 {
-	ClickableBox::ClickableBox(const glm::vec3& p_minPoint, const glm::vec3& p_maxPoint) : m_originalMinPoint(p_minPoint), m_originalMaxPoint(p_maxPoint)
+	ClickableBox::ClickableBox(const glm::vec3& p_minPoint, const glm::vec3& p_maxPoint) : m_originalMinPoint(p_minPoint), m_originalMaxPoint(p_maxPoint), m_gamePaused(false)
 	{
 		
 		m_minPoint = m_originalMinPoint;
 		m_maxPoint = m_originalMaxPoint;
+
+		kitten::EventManager::getInstance()->addListener(
+			kitten::Event::EventType::Pause_Menu_Open,
+			this,
+			std::bind(&ClickableBox::toggleGamePausedListener, this, std::placeholders::_1, std::placeholders::_2));
 	}
 
 	ClickableBox::~ClickableBox()
@@ -21,6 +26,8 @@ namespace kitten
 			kitten::K_ComponentManager::getInstance()->destroyComponentImmediate(*it);
 			it = m_listeners.begin();
 		}
+
+		kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Pause_Menu_Open, this);
 	}
 
 	void ClickableBox::start()
@@ -64,7 +71,10 @@ namespace kitten
 		auto end = m_listeners.cend();
 		for (auto it = m_listeners.begin(); it != end; ++it)
 		{
-			(*it)->onHoverStart();
+			if (!m_gamePaused || (*it)->isEnabledOnPause())
+			{
+				(*it)->onHoverStart();
+			}
 		}
 	}
 
@@ -73,7 +83,10 @@ namespace kitten
 		auto end = m_listeners.cend();
 		for (auto it = m_listeners.begin(); it != end; ++it)
 		{
-			(*it)->onClick();
+			if (!m_gamePaused || (*it)->isEnabledOnPause())
+			{
+				(*it)->onClick();
+			}
 		}
 	}
 
@@ -82,7 +95,27 @@ namespace kitten
 		auto end = m_listeners.cend();
 		for (auto it = m_listeners.begin(); it != end; ++it)
 		{
-			(*it)->onHoverEnd();
+			if (!m_gamePaused || (*it)->isEnabledOnPause())
+			{
+				(*it)->onHoverEnd();
+			}
+		}
+	}
+
+	void ClickableBox::toggleGamePausedListener(kitten::Event::EventType p_type, kitten::Event* p_data)
+	{
+		m_gamePaused = !m_gamePaused;
+
+		auto end = m_listeners.cend();
+		for (auto it = m_listeners.begin(); it != end; it++)
+		{
+			if (m_gamePaused)
+			{
+				(*it)->onPause();
+			} else
+			{
+				(*it)->onUnpause();
+			}
 		}
 	}
 }

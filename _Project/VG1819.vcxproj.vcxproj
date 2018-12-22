@@ -173,6 +173,7 @@
     <ClCompile Include="..\components\scene change\StartGameOnClick.cpp" />
     <ClCompile Include="..\components\ExitGameButton.cpp" />
     <ClCompile Include="..\components\testing\gameplay-init.cpp" />
+    <ClCompile Include="..\components\TileInfoDisplayOnKeyPress.cpp" />
     <ClCompile Include="..\expressions\lexer.cpp" />
     <ClCompile Include="..\expressions\parser.cpp" />
     <ClCompile Include="..\expressions\PostfixEval.cpp" />
@@ -297,7 +298,7 @@
     <ClCompile Include="..\UI\UIElement.cpp" />
     <ClCompile Include="..\UI\UIFrame.cpp" />
     <ClCompile Include="..\UI\UIObject.cpp" />
-    <ClCompile Include="..\UI\CommanderContext.cpp"/>
+    <ClCompile Include="..\UI\CommanderContext.cpp" />
     <ClCompile Include="..\unitInteraction\CounterGetter.cpp" />
     <ClCompile Include="..\unitInteraction\CounterGetterDisplay.cpp" />
     <ClCompile Include="..\unitInteraction\TileGetter.cpp" />
@@ -447,6 +448,7 @@
     <ClInclude Include="..\components\MainMenuBoard.h" />
     <ClInclude Include="..\components\scene change\StartGameOnClick.h" />
     <ClInclude Include="..\components\testing\gameplay-init.h" />
+    <ClInclude Include="..\components\TileInfoDisplayOnKeyPress.h" />
     <ClInclude Include="..\DeckData.hpp" />
     <ClInclude Include="..\board\BoardManager.h" />
     <ClInclude Include="..\board\clickable\ManipulateTileOnClick.h" />
@@ -591,7 +593,7 @@
     <ClInclude Include="..\UI\UIElement.h" />
     <ClInclude Include="..\UI\UIFrame.h" />
     <ClInclude Include="..\UI\UIObject.h" />
-    <ClInclude Include="..\UI\CommanderContext.h"/>
+    <ClInclude Include="..\UI\CommanderContext.h" />
     <ClInclude Include="..\unitInteraction\CounterGetter.h" />
     <ClInclude Include="..\unitInteraction\CounterGetterDisplay.h" />
     <ClInclude Include="..\unitInteraction\TileGetter.h" />

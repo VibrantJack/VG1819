@@ -1,6 +1,7 @@
 #pragma once
 
 #include "kitten\mouse picking\Clickable.h"
+#include "kitten\event_system\EventManager.h"
 #include <string>
 
 //Rock
@@ -38,5 +39,7 @@ namespace unit
 		void setTextBox(kitten::K_GameObject* p_tb);
 
 		void addAbility(const std::string& p_instructionName);
+
+		void toggleUnitClickableListener(kitten::Event::EventType p_type, kitten::Event* p_data);
 	};
 }

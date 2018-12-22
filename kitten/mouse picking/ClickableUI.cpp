@@ -4,9 +4,9 @@
 
 namespace kitten
 {
-	ClickableUI::ClickableUI() : m_attachedFrame(nullptr)
+	ClickableUI::ClickableUI(bool p_enabledOnPause) : m_attachedFrame(nullptr), m_enabledOnPause(p_enabledOnPause)
 	{
-
+		
 	}
 
 	ClickableUI::~ClickableUI()
@@ -46,5 +46,15 @@ namespace kitten
 	void ClickableUI::release()
 	{
 		//empty to not force override
+	}
+
+	void ClickableUI::onPause()
+	{
+		//Empty to not force override
+	}
+
+	void ClickableUI::onUnpause()
+	{
+		//Empty to not force override
 	}
 }

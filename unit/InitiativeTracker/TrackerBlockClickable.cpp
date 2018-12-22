@@ -26,6 +26,11 @@ namespace unit
 		m_txtGO->setEnabled(false);
 	}
 
+	void TrackerBlockClickable::onPause()
+	{
+		m_txtGO->setEnabled(false);
+	}
+
 	void TrackerBlockClickable::setTextBox(kitten::K_GameObject * p_txt)
 	{
 		m_txtGO = p_txt;
