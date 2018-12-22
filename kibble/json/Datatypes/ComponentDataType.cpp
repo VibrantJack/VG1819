@@ -496,10 +496,10 @@ kitten::K_Component* getTextBox(nlohmann::json* p_jsonFile) {
 			align = puppy::TextBox::Alignment::left;
 		}
 		else if (temp == "right") {
-			align = puppy::TextBox::Alignment::left;
+			align = puppy::TextBox::Alignment::right;
 		}
 		else if (temp == "center") {
-			align = puppy::TextBox::Alignment::left;
+			align = puppy::TextBox::Alignment::center;
 		}
 	}
 
