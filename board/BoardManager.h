@@ -53,12 +53,16 @@ public:
 	void deregisterEvent();
 
 	void tileClicked(bool p_send);
+
+	//at every game, all components should reset
+	void resetComponents();
 private:
 	static BoardManager* sm_instance;
 
 	std::pair<int, int> m_dimension;
 	kitten::Event::TileList m_spawnPointList;
 
+	kitten::K_GameObject* m_hlGO;
 	Range* m_range;
 	Highlighter* m_highlighter;
 	TilePipeline* m_pipeline;

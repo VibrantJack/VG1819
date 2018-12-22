@@ -16,6 +16,8 @@ namespace userinterface
 	protected:
 		ContextMenu* m_currentContext;
 		bool m_enabledOnPause;
+
+		virtual void start() override;
 	public:
 		ClickableCard(bool p_enabledOnPause = false);
 		~ClickableCard();

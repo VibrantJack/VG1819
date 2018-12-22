@@ -31,6 +31,7 @@ public:
 	void unhighlightAll(TileInfo::HighlightType p_type);
 	//void unHighlightCurrent();
 
+	void reset();
 private:
 	std::unordered_map<TileInfo::HighlightType, puppy::Texture*> m_texMap;
 	std::vector<kitten::K_GameObject*> m_toBeChanged;

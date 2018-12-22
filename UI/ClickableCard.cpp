@@ -8,19 +8,27 @@
 
 namespace userinterface
 {
-	ClickableCard::ClickableCard(bool p_enabledOnPause) : ClickableUI(p_enabledOnPause)
+	ClickableCard::ClickableCard(bool p_enabledOnPause) : ClickableUI(p_enabledOnPause), m_context(nullptr)
 	{
-		kitten::K_GameObject* contextObj = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-		kitten::K_Component* contextComp = kitten::K_ComponentManager::getInstance()->createComponent("ContextMenu");
-		contextObj->addComponent(contextComp);
-		m_context = contextObj;
-		m_context->setEnabled(false);
+		
 	}
 
 	ClickableCard::~ClickableCard()
 	{
-		kitten::K_GameObjectManager::getInstance()->destroyGameObject(m_context);
+		//kitten::K_GameObjectManager::getInstance()->destroyGameObject(m_context);
 		getTransform().removePositionListener(this);
+	}
+
+	void ClickableCard::start()
+	{
+		ClickableUI::start();
+
+		kitten::K_GameObject* contextObj = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+		kitten::K_Component* contextComp = kitten::K_ComponentManager::getInstance()->createComponent("ContextMenu");
+		contextObj->addComponent(contextComp);
+		m_context = contextObj;
+		m_context->getTransform().setParent(&getTransform());
+		m_context->setEnabled(false);
 	}
 
 	void ClickableCard::onHoverStart()

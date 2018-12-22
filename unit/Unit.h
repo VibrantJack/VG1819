@@ -74,6 +74,7 @@ namespace unit
 		void move(int p_min, int p_max);//move by ability, need range of ability
 		void move(kitten::K_GameObject* p_tile);//move to a specific tile by ability
 		void move(std::vector<kitten::K_GameObject*> p_path);
+		void moveAnime(kitten::K_GameObject* p_tile);
 
 		//ability
 		int useAbility(const std::string& p_abilityName);

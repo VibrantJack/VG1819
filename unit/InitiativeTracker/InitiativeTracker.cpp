@@ -5,7 +5,7 @@
 #include "unit/InitiativeTracker/InitiativeTrackerUI.h"
 #include "kibble/kibble.hpp"
 #include <algorithm>
-
+#include "kitten/event_system/EventManager.h"
 //Rock
 
 unit::InitiativeTracker* unit::InitiativeTracker::sm_instance = nullptr;
@@ -169,7 +169,7 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 				m_uturn->setEnd();
 		}
 
-		kitten::K_GameObjectManager::getInstance()->destroyGameObject(p_unit);
+		kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(p_unit);
 		return true;
 	}
 
@@ -256,4 +256,7 @@ void unit::InitiativeTracker::gameTurnEnd()
 {
 	//start of new turn
 	gameTurnStart();
+
+	//reset power tracker
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Reset_Power, nullptr);
 }

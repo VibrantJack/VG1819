@@ -40,6 +40,7 @@ namespace kitten
 			Highlight_Tile, 
 			Unhighlight_Tile,
 			Manipulate_Tile,
+			Reset_Power,
 			Highlight_Tile_Summon_Unit,
 			Summon_Unit,
 			Draw_Card,

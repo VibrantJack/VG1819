@@ -42,7 +42,7 @@ void SpawnUnitOnDrop::onDrop()
 	unit::UnitSpawn::getInstance()->spawnUnitObject(unit)->getComponent<unit::UnitMove>()->setTile(targetTile);
 
 	// Delete Card
-	kitten::K_GameObjectManager::getInstance()->destroyGameObject(this->m_attachedObject);
+	kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(this->m_attachedObject);
 }
 
 void SpawnUnitOnDrop::onHoverEnd() {

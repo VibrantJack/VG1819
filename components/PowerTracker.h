@@ -19,6 +19,8 @@ public:
 	void increaseMaxPowerEvent(kitten::Event::EventType p_type, kitten::Event* p_data);
 	bool summonUnitCost(int p_iCost);
 	void resetCurrent();
+	void resetEvent(kitten::Event::EventType p_type, kitten::Event* p_data);
+
 
 	int getMaxPower();
 	int getCurrentPower();	
