@@ -749,6 +749,9 @@
     <ClCompile Include="..\UI\MainMenu\MainMenu.cpp">
       <Filter>UI\MainMenu</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\TileInfoDisplayOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1622,6 +1625,9 @@
     </ClInclude>
     <ClInclude Include="..\UI\MainMenu\MainMenu.h">
       <Filter>UI\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\TileInfoDisplayOnKeyPress.h">
+      <Filter>components\debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

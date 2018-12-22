@@ -37,7 +37,8 @@ void BoardManager::setTileList(std::vector<kitten::K_GameObject*> p_list)
 void BoardManager::setDimension(int p_x, int p_z)
 {
 	m_dimension = std::pair<int, int>(p_x, p_z);
-	m_range->setDimension(p_x, p_z);
+	if(m_range != nullptr)
+		m_range->setDimension(p_x, p_z);
 }
 
 std::pair<int, int> BoardManager::getDimension()
@@ -206,29 +207,27 @@ void BoardManager::tileClicked(bool p_send)
 				return;
 		}
 
-		kitten::Event* e = new kitten::Event(kitten::Event::Tile_Clicked);
-
-		e->putInt("highlighted", TRUE);
-
-		kitten::Event::TileList list = getArea();
-		e->putInt(TILE_NUMBER, list.size());
-
-		for (int i = 0; i < list.size(); i++)
+		if (m_area->isActive())
 		{
-			int x = list[i].first;
-			int z = list[i].second;
-			kitten::K_GameObject* tileGO = getTile(x, z);
+			kitten::Event* e = new kitten::Event(kitten::Event::Tile_Clicked);
+			e->putInt("highlighted", TRUE);
+			kitten::Event::TileList list = getArea();
+			e->putInt(TILE_NUMBER, list.size());
+			for (int i = 0; i < list.size(); i++)
+			{
+				int x = list[i].first;
+				int z = list[i].second;
+				kitten::K_GameObject* tileGO = getTile(x, z);
 
-			std::stringstream stm;
-			stm << TILE << i;
-			std::string key = stm.str();
+				std::stringstream stm;
+				stm << TILE << i;
+				std::string key = stm.str();
 
-			e->putGameObj(key, tileGO);
+				e->putGameObj(key, tileGO);
+			}
+			m_highlighter->unhighlightAll(TileInfo::Range);
+			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Tile_Clicked, e);
 		}
-
-		m_highlighter->unhighlightAll(TileInfo::Range);
-
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Tile_Clicked, e);
 	}
 	else
 	{
@@ -238,17 +237,41 @@ void BoardManager::tileClicked(bool p_send)
 		m_highlighter->unhighlightAll(TileInfo::Range);
 		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Tile_Clicked, e);
 	}
+
+	m_areaList.clear();
+	m_rangeList.clear();
+	m_selectList.clear();
 }
 
-BoardManager::BoardManager()
+void BoardManager::resetComponents()
+{
+	m_area->removePattern();
+	m_highlighter->reset();
+}
+
+BoardManager::BoardManager():
+	m_range(nullptr),
+	m_hlGO(nullptr),
+	m_highlighter(nullptr), 
+	m_pipeline(nullptr),
+	m_area(nullptr),
+	m_dimension(std::make_pair(0,0))
 {
 	//m_boardGO = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-	m_range = new Range();
-	m_highlighter = static_cast<Highlighter*>(kitten::K_ComponentManager::getInstance()->createComponent("Highlighter"));
-	m_pipeline = new TilePipeline();
-	m_area = new Area();
+	
 	//m_pathFind = new PathFind();
 	registerEvent();
+
+	m_range = new Range();
+	if (m_dimension != std::make_pair(0, 0))
+		m_range->setDimension(m_dimension.first, m_dimension.second);
+
+	m_hlGO = kitten::K_GameObjectManager::getInstance()->createNewGameObject("highlighter.json");
+	m_highlighter = m_hlGO->getComponent<Highlighter>();
+	kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(m_hlGO);
+
+	m_pipeline = new TilePipeline();
+	m_area = new Area();
 
 	m_select = false;
 	m_selectRepeat = false;
@@ -258,11 +281,11 @@ BoardManager::BoardManager()
 
 BoardManager::~BoardManager()
 {
+	//delete m_pathFind;
 	delete m_range;
-	delete m_highlighter;
+	//delete m_highlighter;
 	delete m_pipeline;
 	delete m_area;
-	//delete m_pathFind;
 }
 
 void BoardManager::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data)

@@ -210,7 +210,7 @@ namespace unit
 			else
 				moveDone = true;
 
-			if (moveDone)
+			if (moveDone && !m_lateDestroy)
 			{
 				m_turn->move = false;
 				m_turn->checkTurn();
@@ -291,6 +291,16 @@ namespace unit
 		move(m_path[0]);
 	}
 
+	void Unit::moveAnime(kitten::K_GameObject * p_tile)
+	{
+		if (!canMove())
+			return;
+
+		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
+		moveComponet->dontSetTileAfterMove();
+		moveComponet->move(p_tile);
+	}
+
 	int Unit::useAbility(const std::string& p_abilityName)
 	{
 		if (!canAct())
@@ -364,7 +374,10 @@ namespace unit
 	void Unit::simpleDestroy()
 	{
 		//remove from tile
-		getTile()->getComponent<TileInfo>()->removeUnit();
+		auto info = getTile()->getComponent<TileInfo>();
+		if(info != nullptr)
+			info->removeUnit();
+
 		//remove from intiative tracker
 		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
 	}

@@ -1,13 +1,17 @@
 {
-    "name" : "Debug TextBox",
+    "name" : "TileInfo Debug TextBox",
     "components" : [
         {
             "name" : "TextBox",
-			"font" : "../fonts/common_bahn.fnt",
+			"font" : "../fonts/nsimsun_18pt.fnt",
 			"color" : [1,1,1],
             "alignment" : "left",
             "width" : 500,
             "height" : 500
-        }
+        },
+		{
+			"name" : "TileInfoDisplayOnKeyPress",
+			"key" : "Z"
+		}
     ]
 }

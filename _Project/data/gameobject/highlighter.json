@@ -1,0 +1,8 @@
+{
+    "name" : "Highlighter",
+    "components" : [
+        {
+            "name" : "Highlighter"
+        }
+    ]
+}

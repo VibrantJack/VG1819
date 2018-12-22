@@ -541,6 +541,18 @@ kitten::K_Component* getToggleStringInputOnKeyPress(nlohmann::json* p_jsonFile) 
 	return new ToggleStringInputOnKeyPress(key);
 }
 
+#include "components\TileInfoDisplayOnKeyPress.h"
+kitten::K_Component* getTileInfoDisplayOnKeyPress(nlohmann::json* p_jsonFile) {
+	char key;
+
+	if (p_jsonFile->find("key") != p_jsonFile->end()) {
+		std::string str = p_jsonFile->operator[]("key");
+		key = str[0];
+	}
+
+	return new TileInfoDisplayOnKeyPress(key);
+}
+
 #include "_Project\StringInputDisplay.h"
 kitten::K_Component* getStringInputDisplay(nlohmann::json* p_jsonFile) {
 	return new StringInputDisplay();
@@ -610,7 +622,9 @@ kitten::K_Component* getClickableFrame(nlohmann::json* p_jsonFile) {
 
 #include "kitten/mouse picking/ClickableUI.h"
 kitten::K_Component* getClickableUI(nlohmann::json* p_jsonFile) {
-	return new kitten::ClickableUI();
+	bool isEnabledOnPause;
+	SETOPTDEF(isEnabledOnPause, "enabledOnPause", false);
+	return new kitten::ClickableUI(isEnabledOnPause);
 }
 
 #include "UI/CommanderContext.h"
@@ -710,10 +724,13 @@ kitten::K_Component* getDecksDisplaySetChangeOnClick(nlohmann::json* p_jsonFile)
 
 #include "components/DecksDisplayFrame.h"
 kitten::K_Component* getDecksDisplayFrame(nlohmann::json* p_jsonFile) {
-	int margin;
-	SETOPTDEF(margin, "margin", 0);
+	int marginX;
+	int marginY;
 
-	return new DecksDisplayFrame(margin);
+	SETOPTDEF(marginY, "marginY", 0);
+	SETOPTDEF(marginX, "marginX", 0);
+
+	return new DecksDisplayFrame(marginX, marginY);
 }
 
 #include "_Project\ClickableBoxRenderable.h"
@@ -793,11 +810,14 @@ kitten::K_Component* getUIObject(nlohmann::json* p_jsonFile) {
 #include "UI\TabMenu\ReturnToMainMenuButton.h"
 kitten::K_Component* getReturnToMainMenuButton(nlohmann::json* p_jsonFile) {
 	std::string regularTexture, highlightedTexture;
+	bool isEnabledOnPause;
 
+	SETOPTDEF(isEnabledOnPause, "enabledOnPause", false);
 	SETOPT(regularTexture, "regularTexture");
 	SETOPT(highlightedTexture, "highlightedTexture");
 
 	userinterface::ReturnToMainMenuButton* button = new userinterface::ReturnToMainMenuButton();
+	button->setEnabledOnPause(isEnabledOnPause);
 	button->setRegularTexture(regularTexture);
 	button->setHighlightedTexture(highlightedTexture);
 
@@ -807,11 +827,13 @@ kitten::K_Component* getReturnToMainMenuButton(nlohmann::json* p_jsonFile) {
 #include "UI\ClickableButton.h"
 kitten::K_Component* getClickableButton(nlohmann::json* p_jsonFile) {
 	std::string regularTexture, highlightedTexture;
-
+	bool isEnabledOnPause;
+	SETOPTDEF(isEnabledOnPause, "enabledOnPause", false);
 	SETOPT(regularTexture, "regularTexture");
 	SETOPT(highlightedTexture, "highlightedTexture");
 
 	userinterface::ClickableButton* button = new userinterface::ClickableButton();
+	button->setEnabledOnPause(isEnabledOnPause);
 	button->setRegularTexture(regularTexture);
 	button->setHighlightedTexture(highlightedTexture);
 
@@ -1001,6 +1023,14 @@ kitten::K_Component* getMainMenu(nlohmann::json* p_jsonFile) {
 	return new MainMenu();
 }
 
+#include "UI\ClickableCard.h"
+kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
+{
+	bool isEnabledOnPause;
+	SETOPTDEF(isEnabledOnPause, "enabledOnPause", false);
+	return new userinterface::ClickableCard(isEnabledOnPause);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1032,6 +1062,7 @@ void setupComponentMap() {
 	jsonComponentMap["UnitGraphic"] = &getUnitGraphic;
 	jsonComponentMap["TextBox"] = &getTextBox;
 	jsonComponentMap["ToggleEnabledOnKeyPress"] = &getToggleEnabledOnKeyPress;
+	jsonComponentMap["TileInfoDisplayOnKeyPress"] = &getTileInfoDisplayOnKeyPress;
 	jsonComponentMap["BoardCreator"] = &getBoardCreator;
 	jsonComponentMap["ToggleStringInputOnKeyPress"] = &getToggleStringInputOnKeyPress;
 	jsonComponentMap["StringInputDisplay"] = &getStringInputDisplay;
@@ -1083,6 +1114,7 @@ void setupComponentMap() {
 	jsonComponentMap["CombatText"] = &getCombatText;
 	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
 	jsonComponentMap["MainMenu"] = &getMainMenu;
+	jsonComponentMap["ClickableCard"] = &getClickableCard;
 
 }
 

@@ -10,6 +10,7 @@
         },
         {
             "name" : "ReturnToMainMenuButton",
+			"enabledOnPause" : true,
 			"regularTexture" : "textures/ui/buttons/return_to_mm.tga",
 			"highlightedTexture" : "textures/ui/buttons/return_to_mm_highlighted.tga"
         }

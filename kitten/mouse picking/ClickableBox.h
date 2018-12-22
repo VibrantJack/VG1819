@@ -3,6 +3,7 @@
 #include "kitten\K_Component.h"
 #include <glm/glm.hpp>
 #include <unordered_set>
+#include "kitten\event_system\EventManager.h"
 
 namespace kitten
 {
@@ -18,6 +19,8 @@ namespace kitten
 
 		void onEnabled() override;
 		void onDisabled() override;
+
+		bool m_gamePaused;
 	public:
 		ClickableBox(const glm::vec3& p_minPoint, const glm::vec3& p_maxPoint);
 		~ClickableBox();
@@ -39,5 +42,7 @@ namespace kitten
 		void onHoverStart();
 		void onClick();
 		void onHoverEnd();
+
+		void toggleGamePausedListener(kitten::Event::EventType p_type, kitten::Event* p_data);
 	};
 }

@@ -27,7 +27,7 @@ unit::TrackerBlock::TrackerBlock()
 	//frame object
 	m_frameObject = goMan->createNewGameObject("tracker_block.json");
 	//text object
-	m_textObject = goMan->createNewGameObject();
+	m_textObject = goMan->createNewGameObject("initiative_tracker_textbox.json");
 	
 	//component
 	kitten::K_ComponentManager* comMan = kitten::K_ComponentManager::getInstance();
@@ -46,11 +46,6 @@ unit::TrackerBlock::TrackerBlock()
 	//add clickable
 	//unit::TrackerBlockClickable* clickable = static_cast<unit::TrackerBlockClickable*>(comMan->createComponent("TrackerBlockClickable"));
 	//m_frameObject->addComponent(clickable);
-
-	//add textbox
-	puppy::TextBox* textbox = static_cast<puppy::TextBox*>(comMan->createComponent("TextBox"));
-	textbox->setColor(1, 1, 1);
-	m_textObject->addComponent(textbox);
 
 	//make text object be child of frame object
 	m_textObject->getTransform().setParent(&m_frameObject->getTransform());

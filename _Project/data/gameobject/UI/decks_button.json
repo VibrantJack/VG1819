@@ -6,11 +6,6 @@
 			"texture" : "textures/ui/buttons/button_decks.tga"
 		},
 		{
-			"name" : "ChangeSceneOnClick",
-			"scene" : "deck_menu.json"
-
-		},
-		{
 			"name" : "ClickableButton",
 			"regularTexture" : "textures/ui/buttons/button_decks.tga",
 			"highlightedTexture" : "textures/ui/buttons/button_decks_highlighted.tga"

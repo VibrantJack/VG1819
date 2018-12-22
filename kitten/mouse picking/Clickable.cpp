@@ -4,7 +4,7 @@
 
 namespace kitten
 {
-	Clickable::Clickable() : m_attachedBox(nullptr)
+	Clickable::Clickable(bool p_enabledOnPause) : m_attachedBox(nullptr), m_enabledOnPause(p_enabledOnPause)
 	{
 
 	}
@@ -39,6 +39,16 @@ namespace kitten
 	}
 
 	void Clickable::onHoverEnd()
+	{
+		//Empty to not force override
+	}
+
+	void Clickable::onPause()
+	{
+		//Empty to not force override
+	}
+
+	void Clickable::onUnpause()
 	{
 		//Empty to not force override
 	}

@@ -12,6 +12,12 @@ PowerTracker::PowerTracker()
 		kitten::Event::EventType::Manipulate_Tile,
 		this,
 		std::bind(&PowerTracker::increaseMaxPowerEvent, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Reset_Power,
+		this,
+		std::bind(&PowerTracker::resetEvent, this, std::placeholders::_1, std::placeholders::_2));
+
 }
 
 PowerTracker::~PowerTracker()
@@ -27,14 +33,14 @@ void PowerTracker::start()
 	textBox->addComponent(m_textBox);
 	textBox->getTransform().place2D(410, 130);
 
-	m_textBox->setFont(puppy::FontTable::getInstance()->getFont("../fonts/nsimsun.fnt"));
+	m_textBox->setFont(puppy::FontTable::getInstance()->getFont("../fonts/nsimsun_34pt.fnt"));
 	m_textBox->setColor(1.0, 1.0, 1.0);
 	m_textBox->setBoxBounds(1000, 400);
 }
 
 void PowerTracker::update()
 {
-	m_textBox->setText(std::to_string(m_iMaxPower) + " / " + std::to_string(getCurrentPower()));
+	m_textBox->setText(std::to_string(getCurrentPower()) + " / " + std::to_string(m_iMaxPower));
 }
 
 void PowerTracker::increaseMaxPower(int p_iAmount)
@@ -64,6 +70,11 @@ bool PowerTracker::summonUnitCost(int p_iCost)
 void PowerTracker::resetCurrent()
 {
 	m_iCurrentPower = m_iMaxPower;
+}
+
+void PowerTracker::resetEvent(kitten::Event::EventType p_type, kitten::Event * p_data)
+{
+	resetCurrent();
 }
 
 int PowerTracker::getMaxPower()

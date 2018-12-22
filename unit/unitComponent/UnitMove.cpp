@@ -125,6 +125,11 @@ void unit::UnitMove::triggerUnhighLightEvent()
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Unhighlight_Tile, e);
 }*/
 
+void unit::UnitMove::dontSetTileAfterMove()
+{
+	m_tileSetUnit = false;
+}
+
 void unit::UnitMove::move(kitten::K_GameObject * p_targetTile)
 {
 	//remove unit from current tile
@@ -160,7 +165,7 @@ void unit::UnitMove::setTile(kitten::K_GameObject * p_tile)
 
 void unit::UnitMove::setTile(int p_x, int p_z)
 {
-	set = true;
+	m_set = true;
 	m_tileX = p_x;
 	m_tileZ = p_z;
 }
@@ -173,7 +178,16 @@ kitten::K_GameObject * unit::UnitMove::getTile()
 void unit::UnitMove::reset()
 {
 	//set current tile
-	m_currentTile->getComponent<TileInfo>()->setUnit(m_attachedObject);
+	if (m_tileSetUnit)
+	{
+		m_currentTile->getComponent<TileInfo>()->setUnit(m_attachedObject);
+	}
+	else
+	{
+		m_currentTile = m_lastTile;
+		m_tileSetUnit = true;
+	}
+
 	//set the unit's position to current tile
 	glm::vec3 t = m_currentTile->getTransform().getTranslation();//get tile's translation
 	m_attachedObject->getTransform().place(t.x, t.y, t.z);//set unit object to that tile
@@ -182,8 +196,8 @@ void unit::UnitMove::reset()
 
 void unit::UnitMove::reach()
 {
-	m_lastTile = m_currentTile;//set current tile as last
 	reset();
+	m_lastTile = m_currentTile;//set current tile as last
 
 	triggerNewTileEvent();
 
@@ -198,7 +212,7 @@ bool unit::UnitMove::hasUpdate() const
 
 void unit::UnitMove::update()
 {
-	if (set)
+	if (m_set)
 	{
 		if (m_tileX >= 0 && m_tileZ >= 0)
 		{
@@ -208,7 +222,7 @@ void unit::UnitMove::update()
 		{
 			setTile(BoardManager::getInstance()->getSpawnPoint());
 		}
-		set = false;
+		m_set = false;
 	}
 
 	if (m_currentTile != m_lastTile)

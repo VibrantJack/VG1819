@@ -17,7 +17,7 @@ int ability::Join::effect(AbilityInfoPackage* p_info)
 
 		//animate source unit move to there
 		kitten::K_GameObject* tile = target->getTile();
-		source->move(tile);
+		source->moveAnime(tile);
 
 		//then destroy it
 		source->destroyedByJoin();

@@ -5,6 +5,8 @@
 unit::ActionButtonStore::ActionButtonStore()
 {
 	m_show = false;
+	m_buttonScaleX = 0;
+	m_buttonScaleY = 0;
 }
 
 unit::ActionButtonStore::~ActionButtonStore()
@@ -17,8 +19,24 @@ void unit::ActionButtonStore::display(Unit * p_u)
 	m_unit = p_u;
 
 	//get start position
-	m_lastX = input::InputManager::getInstance()->getMouseXPos();
-	m_lastY = input::InputManager::getInstance()->getMouseYOpenGLPos();
+	input::InputManager* im = input::InputManager::getInstance();
+	m_lastX = im->getMouseXPos();
+	m_lastY = im->getMouseYOpenGLPos();
+	//get window size
+	int winX = im->getWindowWidth();
+	int winY = im->getWindowHeight();
+	int centerX = winX / 2;
+	int centerY = winY / 2;
+	//get button scale
+	if (m_buttonScaleX <= 0 || m_buttonScaleY <= 0)
+	{
+		getButtonScale();
+	}
+	assert(m_buttonScaleX > 0 && m_buttonScaleY > 0);
+	//change x position
+	if (m_lastX > centerX)
+		m_lastX = m_lastX - m_buttonScaleX;
+
 
 	//start of list
 	m_index = 0;
@@ -62,10 +80,19 @@ void unit::ActionButtonStore::display(Unit * p_u)
 	
 	setButton("Turn End");
 
-	
 	setButton("For test: Destroy");
 
 	m_show = true;
+
+	//change y position
+	if (im->getMouseYOpenGLPos() < centerY)
+	{
+		int delta = m_index * m_buttonScaleY;
+		for (int i = 0; i < m_index; i++)
+		{
+			m_buttonList[i]->getTransform().move2D(0,delta);
+		}
+	}
 }
 
 void unit::ActionButtonStore::hide()
@@ -96,7 +123,8 @@ void unit::ActionButtonStore::setButton(const std::string & p_msg)
 		createNewButton();
 	go = m_buttonList[m_index];
 
-	m_lastY = m_lastY + go->getTransform().getScale2D().y;
+	m_lastY = m_lastY - go->getTransform().getScale2D().y;
+
 	go->getTransform().place2D(m_lastX, m_lastY);
 
 	ActionSelect* a = go->getComponent<ActionSelect>();
@@ -106,4 +134,18 @@ void unit::ActionButtonStore::setButton(const std::string & p_msg)
 	go->setEnabled(true);
 
 	m_index++;
+}
+
+void unit::ActionButtonStore::getButtonScale()
+{
+	if (m_buttonList.size() == 0)//no button exist
+	{
+		createNewButton();
+	}
+
+	kitten::K_GameObject* ab = m_buttonList[0];
+	auto scale = ab->getTransform().getScale2D();
+
+	m_buttonScaleX = scale.x;
+	m_buttonScaleY = scale.y;
 }

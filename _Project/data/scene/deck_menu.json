@@ -10,11 +10,12 @@
             "components" : [
                 {
                     "name":"DecksDisplayFrame",
-                    "margin": 10
+                    "marginX": 10,
+					"marginY" : 10
                 }
             ],
 			"translate2d" : [153, 120],
-            "scale2d" : [1075,400]
+            "scale2d" : [975,400]
         },
 		{
 			"name" : "Main Menu Texture",
@@ -48,6 +49,21 @@
             ],
             "translate2d" : [71, 21],
             "scale2d" : [125, 80]
-        }
+        },
+		{
+			"filename" : "netmenu_host_button.txt",
+			"scale2d" : [250, 80],
+			"translate" : [515, 22, -0.1]
+		},
+		{
+			"filename" : "netmenu_join_button.txt",
+			"scale2d" : [250, 80],
+			"translate" : [959, 22, -0.1]
+		},
+		{
+			"filename" : "netmenu_ui.txt",
+			"translate" : [0.0, 0.0, -0.1],
+			"translate2d" : [999, 76]
+		}
     ]
 }

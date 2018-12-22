@@ -28,6 +28,8 @@ public:
 	void setTarget(std::vector<kitten::K_GameObject*> p_tileList, std::vector<unit::Unit*> p_unitList);
 
 	void cancel();
+
+	bool isBusy() const;
 private:
 	static UnitInteractionManager* sm_instance;
 	UnitInteractionManager();

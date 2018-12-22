@@ -2,6 +2,8 @@
 #include "puppy\Renderer.h"
 #include "puppy\StaticRenderables.h"
 
+#define DEFAULT_TEXTURE "textures/ui/blankFrame.tga"
+
 namespace userinterface
 { 
 	puppy::VertexEnvironment* UIElement::sm_vao = nullptr;
@@ -9,6 +11,7 @@ namespace userinterface
 
 	UIElement::UIElement(const char* p_pathToTex)
 	{
+		m_texPath = p_pathToTex;
 		m_tex = new puppy::Texture(p_pathToTex);
 		m_mat = new puppy::Material(puppy::ShaderType::alphaTest);
 		if (p_pathToTex != nullptr)
@@ -16,7 +19,8 @@ namespace userinterface
 			m_mat->setTexture(p_pathToTex);
 		}
 		else {
-			m_mat->setTexture("textures/ui/blankFrame.tga");
+			m_mat->setTexture(DEFAULT_TEXTURE);
+			m_texPath = DEFAULT_TEXTURE;
 		}
 		m_texBehaviour = tbh_Stretch;
 		m_pivotType = piv_BotLeft;
@@ -27,6 +31,7 @@ namespace userinterface
 
 	UIElement::UIElement(const char* p_pathToTex, pivotType p_pivot, textureBehaviour p_texBehaviour)
 	{
+		m_texPath = p_pathToTex;
 		m_tex = new puppy::Texture(p_pathToTex);
 		m_mat = new puppy::Material(puppy::ShaderType::alphaTest);
 		if (p_pathToTex != nullptr)
@@ -34,7 +39,8 @@ namespace userinterface
 			m_mat->setTexture(p_pathToTex);
 		}
 		else {
-			m_mat->setTexture("textures/ui/blankFrame.tga");
+			m_mat->setTexture(DEFAULT_TEXTURE);
+			m_texPath = DEFAULT_TEXTURE;
 		}
 
 		m_texBehaviour = p_texBehaviour;
@@ -215,6 +221,7 @@ namespace userinterface
 			//m_tex = new puppy::Texture(p_pathToTex);
 
 			m_mat->setTexture(p_pathToTex);
+			m_texPath = p_pathToTex;
 		}
 
 		void UIElement::setPivotType(const pivotType p_piv)

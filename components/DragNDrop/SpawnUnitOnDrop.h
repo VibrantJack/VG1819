@@ -11,4 +11,5 @@ public:
 	void onHoverStart() override;
 	void onHoverEnd() override;
 	void onDrop() override;
+	void onPause() override;
 };

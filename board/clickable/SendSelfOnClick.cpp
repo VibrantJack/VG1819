@@ -4,6 +4,7 @@
 #include "board/BoardManager.h"
 #include "unit/unitComponent/UnitSelect.h"
 #include "unit/UnitSpawn.h"
+#include "unitInteraction/UnitInteractionManager.h"
 #include <iostream>
 #include <sstream>
 
@@ -13,16 +14,18 @@
 
 SendSelfOnClick::SendSelfOnClick()
 {
+
 }
 
 SendSelfOnClick::~SendSelfOnClick()
 {
+
 }
 
 void SendSelfOnClick::onClick()
 {
 	TileInfo* info = m_attachedObject->getComponent<TileInfo>();
-	if (info->hasUnit())
+	if (info->hasUnit() && !UnitInteractionManager::getInstance()->isBusy())
 	{
 		info->getUnit()->getComponent<unit::UnitSelect>()->onClick();
 	}
@@ -75,7 +78,8 @@ void SendSelfOnClick::onHoverStart()
 
 	if (m_tileInfoDisplay != nullptr)
 	{
-		setTileInfoDisplayText();
+		if (m_tileInfoDisplay->isEnabled())
+			setTileInfoDisplayText();
 	}
 }
 

@@ -7,10 +7,15 @@
 
 namespace kitten
 {
-	ClickableFrame::ClickableFrame(PivotType p_piv)
+	ClickableFrame::ClickableFrame(PivotType p_piv) : m_gamePaused(false)
 	{
 		ActiveClickables::getInstance()->addToActiveUI(this);
 		m_piv = p_piv;
+
+		kitten::EventManager::getInstance()->addListener(
+			kitten::Event::EventType::Pause_Menu_Open,
+			this,
+			std::bind(&ClickableFrame::toggleGamePausedListener, this, std::placeholders::_1, std::placeholders::_2));
 	}
 
 	ClickableFrame::~ClickableFrame()
@@ -23,6 +28,8 @@ namespace kitten
 			kitten::K_ComponentManager::getInstance()->destroyComponentImmediate(*it);
 			it = m_listeners.begin();
 		}
+
+		kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Pause_Menu_Open, this);
 		getTransform().removeScaleListener(this);
 		getTransform().removePositionListener(this);
 	}
@@ -54,7 +61,10 @@ namespace kitten
 		auto end = m_listeners.cend();
 		for (auto it = m_listeners.begin(); it != end; ++it)
 		{
-			(*it)->onHoverStart();
+			if (!m_gamePaused || (*it)->isEnabledOnPause())
+			{
+				(*it)->onHoverStart();
+			}
 		}
 		std::cout << "Frame Hovered...";
 	}
@@ -64,7 +74,10 @@ namespace kitten
 		auto end = m_listeners.cend();
 		for (auto it = m_listeners.begin(); it != end; ++it)
 		{
-			(*it)->onClick();
+			if (!m_gamePaused || (*it)->isEnabledOnPause())
+			{
+				(*it)->onClick();
+			}
 		}
 		std::cout << "Frame Clicked!\n";
 	}
@@ -74,7 +87,10 @@ namespace kitten
 		auto end = m_listeners.cend();
 		for (auto it = m_listeners.begin(); it != end; ++it)
 		{
-			(*it)->onHoverEnd();
+			if (!m_gamePaused || (*it)->isEnabledOnPause())
+			{
+				(*it)->onHoverEnd();
+			}
 		}
 		std::cout << "Hover Ended...\n";
 	}
@@ -84,7 +100,10 @@ namespace kitten
 		auto end = m_listeners.cend();
 		for (auto it = m_listeners.begin(); it != end; it++)
 		{
-			(*it)->release();
+			if (!m_gamePaused || (*it)->isEnabledOnPause())
+			{
+				(*it)->release();
+			}
 		}
 		std::cout << "Frame released!\n";
 	}
@@ -173,5 +192,23 @@ namespace kitten
 	void ClickableFrame::onEnabled()
 	{
 		ActiveClickables::getInstance()->addToActiveUI(this);
+	}
+
+	void ClickableFrame::toggleGamePausedListener(kitten::Event::EventType p_type, kitten::Event* p_data)
+	{
+		m_gamePaused = !m_gamePaused;
+
+		auto end = m_listeners.cend();
+		for (auto it = m_listeners.begin(); it != end; it++)
+		{
+			if (m_gamePaused)
+			{
+				(*it)->onPause();
+			}
+			else
+			{
+				(*it)->onUnpause();
+			}
+		}
 	}
 }
