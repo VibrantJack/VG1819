@@ -15,6 +15,8 @@ namespace userinterface
 	{
 	protected:
 		ContextMenu* m_currentContext;
+
+		virtual void start() override;
 	public:
 		ClickableCard();
 		~ClickableCard();
