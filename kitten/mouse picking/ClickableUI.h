@@ -7,11 +7,12 @@
 namespace kitten
 {
 	class ClickableUI : public K_Component
-	{
+	{		
 	protected:
 		ClickableFrame* m_attachedFrame;
+		bool m_enabledOnPause;
 	public:
-		ClickableUI();
+		ClickableUI(bool p_enabledOnPause = false);
 		~ClickableUI();
 
 		virtual void start() override; // You MUST call this method or add yourself as a ClickableBox when overriding this class
@@ -20,5 +21,8 @@ namespace kitten
 		virtual void onHoverStart();
 		virtual void onHoverEnd();
 		virtual void release();
+
+		void setEnabledOnPause(bool p_enable) { m_enabledOnPause = p_enable; }
+		bool isEnabledOnPause() { return m_enabledOnPause; }
 	};
 }

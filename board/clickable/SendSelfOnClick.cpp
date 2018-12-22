@@ -13,15 +13,12 @@
 
 SendSelfOnClick::SendSelfOnClick()
 {
-	kitten::EventManager::getInstance()->addListener(
-		kitten::Event::EventType::Pause_Menu_Open,
-		this,
-		std::bind(&SendSelfOnClick::pausedListener, this, std::placeholders::_1, std::placeholders::_2));
+
 }
 
 SendSelfOnClick::~SendSelfOnClick()
 {
-	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Pause_Menu_Open, this);
+
 }
 
 void SendSelfOnClick::onClick()
@@ -87,12 +84,6 @@ void SendSelfOnClick::onHoverStart()
 
 void SendSelfOnClick::onHoverEnd()
 {
-}
-
-void SendSelfOnClick::pausedListener(kitten::Event::EventType p_type, kitten::Event* p_data)
-{
-	bool opened = p_data->getInt(PAUSE_MENU_OPEN);
-	m_attachedBox->setEnabled(!opened);
 }
 
 void SendSelfOnClick::setTileInfoDisplayText()

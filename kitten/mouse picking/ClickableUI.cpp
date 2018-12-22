@@ -4,9 +4,9 @@
 
 namespace kitten
 {
-	ClickableUI::ClickableUI() : m_attachedFrame(nullptr)
+	ClickableUI::ClickableUI(bool p_enabledOnPause) : m_attachedFrame(nullptr), m_enabledOnPause(p_enabledOnPause)
 	{
-
+		
 	}
 
 	ClickableUI::~ClickableUI()
@@ -26,6 +26,8 @@ namespace kitten
 
 		frame->addCLickable(this);
 		m_attachedFrame = frame;
+		//m_enabledOnPause = false;
+		printf("ClickableUI::start m_enabledOnPause: %d\n", m_enabledOnPause);
 	}
 
 	void ClickableUI::onHoverStart()

@@ -68,15 +68,6 @@ void TabMenu::update()
 		kitten::Event* eventData = new kitten::Event(kitten::Event::Pause_Menu_Open);
 		eventData->putInt(PAUSE_MENU_OPEN, m_bOpened);
 		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Pause_Menu_Open, eventData);
-
-		/*if (m_bOpened)
-		{
-			m_returnToMainButton->setEnabled(true);
-		} 
-		else
-		{
-			m_returnToMainButton->setEnabled(false);
-		}*/
 	}	
 }
 

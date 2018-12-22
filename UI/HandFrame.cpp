@@ -94,9 +94,6 @@ void userinterface::HandFrame::makeAHand() {
 
 		frameCasted->addCardToEnd(cardCasted);
 		cardCasted->assignParentHand(frameCasted);
-
-		kitten::K_Component* clickableCom = kitten::K_ComponentManager::getInstance()->createComponent("ClickableCard");
-		card->addComponent(clickableCom);
 	}
 }
 

@@ -4,7 +4,7 @@
 
 namespace kitten
 {
-	Clickable::Clickable() : m_attachedBox(nullptr)
+	Clickable::Clickable(bool p_enabledOnPause) : m_attachedBox(nullptr), m_enabledOnPause(p_enabledOnPause)
 	{
 
 	}

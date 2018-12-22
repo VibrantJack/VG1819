@@ -8,22 +8,17 @@
 
 namespace userinterface
 {
-	ClickableCard::ClickableCard()
+	ClickableCard::ClickableCard(bool p_enabledOnPause) : ClickableUI(p_enabledOnPause)
 	{
 		kitten::K_GameObject* contextObj = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 		kitten::K_Component* contextComp = kitten::K_ComponentManager::getInstance()->createComponent("ContextMenu");
 		contextObj->addComponent(contextComp);
 		m_context = contextObj;
-
-		kitten::EventManager::getInstance()->addListener(
-			kitten::Event::EventType::Pause_Menu_Open,
-			this,
-			std::bind(&ClickableCard::toggleEnabledListener, this, std::placeholders::_1, std::placeholders::_2));
 	}
 
 	ClickableCard::~ClickableCard()
 	{
-		kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Pause_Menu_Open, this);
+
 	}
 
 	void ClickableCard::onHoverStart()
@@ -49,16 +44,5 @@ namespace userinterface
 		getTransform().place2D(pos.x, pos.y - 50);
 
 		m_context->setEnabled(false);
-	}
-
-	void ClickableCard::toggleEnabledListener(kitten::Event::EventType p_type, kitten::Event* p_data)
-	{
-		bool isEnabled = p_data->getInt(PAUSE_MENU_OPEN);
-		if (!isEnabled)
-		{
-			if (m_context->isEnabled())
-				m_context->setEnabled(false);
-		}
-		m_attachedFrame->setEnabled(!isEnabled);		
 	}
 }

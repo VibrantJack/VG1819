@@ -622,7 +622,9 @@ kitten::K_Component* getClickableFrame(nlohmann::json* p_jsonFile) {
 
 #include "kitten/mouse picking/ClickableUI.h"
 kitten::K_Component* getClickableUI(nlohmann::json* p_jsonFile) {
-	return new kitten::ClickableUI();
+	bool isEnabledOnPause;
+	SETOPTDEF(isEnabledOnPause, "enabledOnPause", false);
+	return new kitten::ClickableUI(isEnabledOnPause);
 }
 
 #include "UI/CommanderContext.h"
@@ -805,11 +807,14 @@ kitten::K_Component* getUIObject(nlohmann::json* p_jsonFile) {
 #include "UI\TabMenu\ReturnToMainMenuButton.h"
 kitten::K_Component* getReturnToMainMenuButton(nlohmann::json* p_jsonFile) {
 	std::string regularTexture, highlightedTexture;
+	bool isEnabledOnPause;
 
+	SETOPTDEF(isEnabledOnPause, "enabledOnPause", false);
 	SETOPT(regularTexture, "regularTexture");
 	SETOPT(highlightedTexture, "highlightedTexture");
 
 	userinterface::ReturnToMainMenuButton* button = new userinterface::ReturnToMainMenuButton();
+	button->setEnabledOnPause(isEnabledOnPause);
 	button->setRegularTexture(regularTexture);
 	button->setHighlightedTexture(highlightedTexture);
 
@@ -819,11 +824,13 @@ kitten::K_Component* getReturnToMainMenuButton(nlohmann::json* p_jsonFile) {
 #include "UI\ClickableButton.h"
 kitten::K_Component* getClickableButton(nlohmann::json* p_jsonFile) {
 	std::string regularTexture, highlightedTexture;
-
+	bool isEnabledOnPause;
+	SETOPTDEF(isEnabledOnPause, "enabledOnPause", false);
 	SETOPT(regularTexture, "regularTexture");
 	SETOPT(highlightedTexture, "highlightedTexture");
 
 	userinterface::ClickableButton* button = new userinterface::ClickableButton();
+	button->setEnabledOnPause(isEnabledOnPause);
 	button->setRegularTexture(regularTexture);
 	button->setHighlightedTexture(highlightedTexture);
 
@@ -994,6 +1001,14 @@ kitten::K_Component* getDisableAfterTime(nlohmann::json* p_jsonFile) {
 	return new DisableAfterTime(time);
 }
 
+#include "UI\ClickableCard.h"
+kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
+{
+	bool isEnabledOnPause;
+	SETOPTDEF(isEnabledOnPause, "enabledOnPause", false);
+	return new userinterface::ClickableCard(isEnabledOnPause);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1074,6 +1089,7 @@ void setupComponentMap() {
 	jsonComponentMap["ActionSelect"] = &getActionSelect;
 	jsonComponentMap["CombatText"] = &getCombatText;
 	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
+	jsonComponentMap["ClickableCard"] = &getClickableCard;
 
 }
 

@@ -4,11 +4,10 @@
 #include "puppy\VertexEnvironment.h"
 #include "UIElement.h"
 #include <list>
+#include "UIObject.h"
 
 namespace userinterface 
 {
-	class UIObject;
-
 	class UIFrame : public userinterface::UIElement
 	{
 	public:
@@ -19,7 +18,8 @@ namespace userinterface
 		
 		void addToFrame(UIObject* p_uioToAdd);
 		void removeFromFrame(UIObject* p_uioToRemove);
-	
+		void setInnerObjectsEnabled(bool p_enabled);
+
 	protected:
 
 		void onDisabled() ;

@@ -15,7 +15,7 @@ namespace userinterface
 		std::string m_highlightedTexture;
 
 	public:
-		ClickableButton();
+		ClickableButton(bool p_enabledOnPause = false);
 		~ClickableButton();
 
 		virtual void start() override;

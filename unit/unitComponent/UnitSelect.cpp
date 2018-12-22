@@ -12,15 +12,12 @@ unit::UnitSelect::UnitSelect() : m_disableInteraction(false)
 
 unit::UnitSelect::~UnitSelect()
 {
-	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Pause_Menu_Open, this);
+
 }
 
 void unit::UnitSelect::start()
 {
-	kitten::EventManager::getInstance()->addListener(
-		kitten::Event::EventType::Pause_Menu_Open,
-		this,
-		std::bind(&unit::UnitSelect::toggleUnitClickableListener, this, std::placeholders::_1, std::placeholders::_2));
+
 }
 
 void unit::UnitSelect::onClick()
@@ -54,12 +51,5 @@ void unit::UnitSelect::onClick()
 	{
 		m_storage->hide();
 	}
-}
-
-void unit::UnitSelect::toggleUnitClickableListener(kitten::Event::EventType p_type, kitten::Event* p_data)
-{
-	m_storage->hide();
-	bool isEnabled = p_data->getInt(PAUSE_MENU_OPEN);
-	m_disableInteraction = isEnabled;
 }
 
