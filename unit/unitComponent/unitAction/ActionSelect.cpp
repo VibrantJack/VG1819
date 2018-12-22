@@ -27,9 +27,6 @@ void unit::ActionSelect::start()
 	m_text->getTransform().setParent(&getTransform());
 	m_text->getTransform().setIgnoreParent(false);
 
-	//set text position
-	const glm::vec3 tran = getTransform().getTranslation();
-
 	//m_text->getTransform().place(0, 0, -0.1);
 	m_text->getTransform().move(m_offsetX,m_offsetY, 0.1);
 

@@ -63,15 +63,11 @@ void TabMenu::update()
 	if (m_input->keyDown(GLFW_KEY_TAB) && !m_input->keyDownLast(GLFW_KEY_TAB) && !m_bGameEnded)
 	{
 		m_bOpened = !m_bOpened;
-		
-		if (m_bOpened)
-		{
-			m_returnToMainButton->setEnabled(true);
-		} 
-		else
-		{
-			m_returnToMainButton->setEnabled(false);
-		}
+		m_returnToMainButton->setEnabled(m_bOpened);
+
+		kitten::Event* eventData = new kitten::Event(kitten::Event::Pause_Menu_Open);
+		eventData->putInt(PAUSE_MENU_OPEN, m_bOpened);
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Pause_Menu_Open, eventData);
 	}	
 }
 

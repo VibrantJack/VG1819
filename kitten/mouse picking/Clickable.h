@@ -9,8 +9,9 @@ namespace kitten
 	class Clickable : public K_Component
 	{
 	protected:
-		Clickable();
+		Clickable(bool p_enabledOnPause = false);
 		ClickableBox* m_attachedBox;
+		bool m_enabledOnPause;
 	public:
 		
 		virtual ~Clickable();
@@ -20,5 +21,10 @@ namespace kitten
 		virtual void onClick();
 		virtual void onHoverStart();
 		virtual void onHoverEnd();
+
+		virtual void onPause();
+		virtual void onUnpause();
+		void setEnabledOnPause(bool p_enable) { m_enabledOnPause = p_enable; }
+		bool isEnabledOnPause() { return m_enabledOnPause; }
 	};
 }

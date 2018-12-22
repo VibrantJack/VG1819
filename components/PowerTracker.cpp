@@ -12,6 +12,12 @@ PowerTracker::PowerTracker()
 		kitten::Event::EventType::Manipulate_Tile,
 		this,
 		std::bind(&PowerTracker::increaseMaxPowerEvent, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Reset_Power,
+		this,
+		std::bind(&PowerTracker::resetEvent, this, std::placeholders::_1, std::placeholders::_2));
+
 }
 
 PowerTracker::~PowerTracker()
@@ -64,6 +70,11 @@ bool PowerTracker::summonUnitCost(int p_iCost)
 void PowerTracker::resetCurrent()
 {
 	m_iCurrentPower = m_iMaxPower;
+}
+
+void PowerTracker::resetEvent(kitten::Event::EventType p_type, kitten::Event * p_data)
+{
+	resetCurrent();
 }
 
 int PowerTracker::getMaxPower()

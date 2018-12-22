@@ -1,5 +1,5 @@
 {
-    "name" : "Debug TextBox",
+    "name" : "TileInfo Debug TextBox",
     "components" : [
         {
             "name" : "TextBox",
@@ -8,6 +8,10 @@
             "alignment" : "left",
             "width" : 500,
             "height" : 500
-        }
+        },
+		{
+			"name" : "TileInfoDisplayOnKeyPress",
+			"key" : "Z"
+		}
     ]
 }

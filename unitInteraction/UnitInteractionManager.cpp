@@ -98,6 +98,11 @@ void UnitInteractionManager::cancel()
 	m_busy = false;
 }
 
+bool UnitInteractionManager::isBusy() const
+{
+	return m_busy;
+}
+
 void UnitInteractionManager::send()
 {
 	if (!m_busy)

@@ -14,6 +14,7 @@ namespace unit
 	{
 	private:
 		ActionButtonStore* m_storage;
+		bool m_disableInteraction;
 	public:
 		UnitSelect();
 		virtual ~UnitSelect();

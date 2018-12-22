@@ -15,8 +15,9 @@ namespace unit
 		const glm::vec3 m_offset;
 
 		bool notRegistered = true;
+		bool m_set = false;
+		bool m_tileSetUnit = true;
 
-		bool set = false;//for test
 		int m_tileX;
 		int m_tileZ;
 
@@ -44,6 +45,7 @@ namespace unit
 		void triggerHighLightEvent(int p_min = 1, int p_max = -1);
 		void triggerUnhighLightEvent();*/
 
+		void dontSetTileAfterMove();
 		void move(kitten::K_GameObject* p_targetTile);
 
 		void setTile(kitten::K_GameObject* p_tile);

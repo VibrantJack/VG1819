@@ -15,14 +15,20 @@ namespace userinterface
 	{
 	protected:
 		ContextMenu* m_currentContext;
+		bool m_enabledOnPause;
+
+		virtual void start() override;
 	public:
-		ClickableCard();
+		ClickableCard(bool p_enabledOnPause = false);
 		~ClickableCard();
 
 		void onHoverStart() override;
 		void onHoverEnd() override;
+		void onPause() override;
 		void onPosChanged(const glm::vec3& p_newPos) override;
 
 		kitten::K_GameObject* m_context;
+		void setEnabledOnPause(bool p_enable) { m_enabledOnPause = p_enable; }
+		bool isEnabledOnPause() { return m_enabledOnPause; }
 	};
 }

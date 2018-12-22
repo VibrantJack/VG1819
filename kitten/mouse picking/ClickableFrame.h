@@ -3,6 +3,7 @@
 #include "kitten\K_Component.h"
 #include <glm/glm.hpp>
 #include <unordered_set>
+#include "kitten\event_system\EventManager.h"
 
 namespace kitten
 {
@@ -45,10 +46,14 @@ namespace kitten
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
 
+		void toggleGamePausedListener(kitten::Event::EventType p_type, kitten::Event* p_data);
+
 	private:
 		std::unordered_set<ClickableUI*> m_listeners;
 		glm::vec2 m_minPoint, m_maxPoint;
 		glm::vec2 m_originalMinPoint, m_originalMaxPoint;
 		PivotType m_piv;
+
+		bool m_gamePaused;
 	};
 }
