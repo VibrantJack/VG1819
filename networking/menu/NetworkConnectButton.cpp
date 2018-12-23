@@ -15,7 +15,7 @@ namespace userinterface
 
 	NetworkConnectButton::~NetworkConnectButton()
 	{
-		m_inputMan->setPollMode(true);
+
 	}
 
 	void NetworkConnectButton::start()
