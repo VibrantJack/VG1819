@@ -42,5 +42,5 @@ void DeckInitializingComponent::start()
 
 void DeckInitializingComponent::toggleMessage(bool p_enable)
 {
-	m_selectMessage->setEnabled(false);
+	m_selectMessage->setEnabled(p_enable);
 }

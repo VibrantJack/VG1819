@@ -6,6 +6,6 @@
             "texture" : "textures/ui/select_deck_message.tga"
         }
     ],
-    "scale2d" : [300.0,60.0],
-	"translate" : [490, 135, -0.1]
+    "scale2d" : [200.0,50.0],
+	"translate" : [540, 135, -0.1]
 }

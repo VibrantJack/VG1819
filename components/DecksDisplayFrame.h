@@ -6,7 +6,7 @@
 class DecksDisplayFrame : public kitten::K_Component
 {
 private:
-	std::vector<kitten::K_GameObject*> m_slots, m_slotTexts;
+	std::vector<kitten::K_GameObject*> m_slots, m_slotTexts, m_slotTextBackgrounds;
 	kitten::K_GameObject* m_arrows[2], *m_highlight;
 	int m_marginX = 10, // the space between elements within this frame
 		m_marginY = 5,
