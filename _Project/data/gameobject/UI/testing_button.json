@@ -6,7 +6,7 @@
 			"texture" : "textures/ui/buttons/button_testing.tga"
 		},				
 		{
-			"name" : "StartGameOnClick",
+			"name" : "ChangeSceneOnClick",
 			"scene" : "testinggrounds.json"
 
 		},

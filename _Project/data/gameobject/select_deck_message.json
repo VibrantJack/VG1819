@@ -1,0 +1,11 @@
+{
+    "name" : "Select Deck Message",
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/select_deck_message.tga"
+        }
+    ],
+    "scale2d" : [300.0,60.0],
+	"translate" : [490, 135, -0.1]
+}

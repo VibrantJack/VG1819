@@ -18,7 +18,7 @@ namespace userinterface
 		ClickableButton(bool p_enabledOnPause = false);
 		~ClickableButton();
 
-		virtual void start() override;
+		virtual void start() override; // Call ClickableButton::start() if you override this!
 
 		virtual void onDisabled() override;
 
