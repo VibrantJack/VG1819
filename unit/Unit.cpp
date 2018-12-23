@@ -308,7 +308,7 @@ namespace unit
 
 		AbilityDescription* ad;
 		bool find = m_ADList.find(p_abilityName) != m_ADList.end();
-		if (m_ADList.find(p_abilityName) != m_ADList.end())
+		if (find)
 		{
 			std::cout << "use ability: " << p_abilityName << std::endl;
 			ad = m_ADList[p_abilityName];
@@ -319,6 +319,7 @@ namespace unit
 			return -2;//doesn't have ability
 		}
 
+		/*lv check and cd check is move to action button store
 		//non commander unit will check unit's lv
 		if (m_attributes[UNIT_LV] < ad->m_intValue[UNIT_LV] && !isCommander())
 		{
@@ -332,7 +333,7 @@ namespace unit
 		{//it's in cool down
 			std::cout << p_abilityName << " is in Cooldown. CD remain:"<<m_cdRecorder->checkCD(ad) << std::endl;
 			return -4;
-		}
+		}*/
 
 		m_cdRecorder->addCD(ad);
 		UnitInteractionManager::getInstance()->request(this, ad);
@@ -356,6 +357,18 @@ namespace unit
 	void Unit::cancelCast()
 	{
 		m_castTimer->cancelCast();
+	}
+
+	int Unit::checkCD(const std::string & p_abilityName)
+	{
+		AbilityDescription* ad;
+		bool find = m_ADList.find(p_abilityName) != m_ADList.end();
+
+		assert(find);//ability not found
+
+		ad = m_ADList[p_abilityName];
+
+		return m_cdRecorder->checkCD(ad);
 	}
 
 	int Unit::destroyedByDamage()

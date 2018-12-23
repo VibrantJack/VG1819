@@ -13,6 +13,7 @@
 
 #define REGULAR_TEXTURE "textures/ui/buttons/blank_button.tga"
 #define HIGHLIGHTED_TEXTURE "textures/ui/buttons/blank_button_highlighted.tga"
+#define INACTIVE_TEXTURE "textures/ui/buttons/disabled_button.tga"
 
 namespace userinterface
 {
@@ -21,7 +22,9 @@ namespace userinterface
 		ClickableUI(p_enabledOnPause),
 		m_uiObject(nullptr),
 		m_regularTexture(REGULAR_TEXTURE),
-		m_highlightedTexture(HIGHLIGHTED_TEXTURE)
+		m_highlightedTexture(HIGHLIGHTED_TEXTURE),
+		m_inactiveTexture(INACTIVE_TEXTURE),
+		m_active(true)
 	{
 
 	}
@@ -40,17 +43,25 @@ namespace userinterface
 
 	void ClickableButton::onDisabled()
 	{
+		m_active = true;
+
 		if (m_uiObject != nullptr)
 			m_uiObject->setTexture(m_regularTexture.c_str());
 	}
 
 	void ClickableButton::onHoverStart()
 	{
+		if (!m_active)
+			return;
+
 		m_uiObject->setTexture(m_highlightedTexture.c_str());
 	}
 
 	void ClickableButton::onHoverEnd()
 	{
+		if (!m_active)
+			return;
+
 		m_uiObject->setTexture(m_regularTexture.c_str());
 	}
 
@@ -59,6 +70,23 @@ namespace userinterface
 		if (m_uiObject->getTexturePath() == m_highlightedTexture)
 		{
 			onHoverEnd();
+		}
+	}
+
+	void ClickableButton::setActive(bool p_a)
+	{
+		if (m_active != p_a)
+		{
+			m_active = p_a;
+
+			if (m_active)
+			{
+				m_uiObject->setTexture(m_regularTexture.c_str());
+			}
+			else
+			{
+				m_uiObject->setTexture(m_inactiveTexture.c_str());
+			}
 		}
 	}
 }

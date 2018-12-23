@@ -14,7 +14,9 @@
             "name" : "ClickableFrame"
         },
         {
-            "name" : "ActionSelect"
+            "name" : "ActionSelect",
+            "action offset" : [20,32],
+            "cd offset" : [232,32]
         }
     ],
 	"translate" : [0,0,-0.3],

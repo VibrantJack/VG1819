@@ -996,12 +996,22 @@ kitten::K_Component* getExitGameButton(nlohmann::json* p_jsonFile) {
 
 #include "unit/unitComponent/unitAction/ActionSelect.h"
 kitten::K_Component* getActionSelect(nlohmann::json* p_jsonFile) {
-	std::string action;
+	std::pair<int, int> offset, offset2;
 
-	unit::ActionSelect* select = new unit::ActionSelect();
+	if (JSONHAS("action offset"))
+	{
+		int x = p_jsonFile->operator[]("action offset")[0];
+		int y = p_jsonFile->operator[]("action offset")[1];
+		offset = std::make_pair(x, y);
+	}
+	if (JSONHAS("cd offset"))
+	{
+		int x = p_jsonFile->operator[]("cd offset")[0];
+		int y = p_jsonFile->operator[]("cd offset")[1];
+		offset2 = std::make_pair(x, y);
+	}
 
-	if (JSONHAS("action"))
-		select->setAction(LOOKUP("action"));
+	unit::ActionSelect* select = new unit::ActionSelect(offset,offset2);
 
 	return select;
 }

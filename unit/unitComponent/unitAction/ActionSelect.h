@@ -16,22 +16,28 @@ namespace unit
 	class ActionSelect : public kitten::ClickableUI
 	{
 	private:
-		const int m_offsetX = 15;
-		const int m_offsetY = 32;
+		const float m_textZ = 0.1;
+		const std::pair<int, int> m_txtOffset;
+		const std::pair<int,int> m_cdOffset;
 
+		int m_cd;
 		std::string m_action;
+
 		Unit* m_unit;
+
 		kitten::K_GameObject* m_text;
+		kitten::K_GameObject* m_cdtext;
+
 		ActionButtonStore* m_storage;
 	public:
-		ActionSelect();
+		ActionSelect(const std::pair<int,int> p_to, const std::pair<int, int> p_co);
 		~ActionSelect();
 
 		void start() override;
 
 		void setStorage(ActionButtonStore* p_s) {m_storage = p_s;};
 		void setUnit(Unit* p_u);
-		void setAction(const std::string& p_a);
+		void setAction(const std::string& p_a, int p_cd = 0);
 		const std::string getAction() { return m_action; };
 
 		void act();
