@@ -71,4 +71,15 @@ public:
 	void positionLerp(const glm::vec3& p_pos, const float& p_time);
 	void scaleLerp(const glm::vec3& p_scale, const float& p_time);
 	void rotationLerp(const glm::quat& p_rot, const float& p_time);
+
+	void addPositionCallback(PositionLerpFinishedCallback* p_listener);
+	void addScaleCallback(ScaleLerpFinishedCallback* p_listener);
+	void addRotationCallback(RotationLerpFinishedCallback* p_listener);
+
+	void removePositionCallback(PositionLerpFinishedCallback* p_listener);
+	void removeScaleCallback(ScaleLerpFinishedCallback* p_listener);
+	void removeRotationCallback(RotationLerpFinishedCallback* p_listener);
+
+	void forceLerpToFinish();
+	void cancelLerp();
 };
