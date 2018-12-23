@@ -10,7 +10,8 @@ unit::ActionSelect::ActionSelect(const std::pair<int, int> p_to, const std::pair
 	m_text(nullptr),
 	m_cdtext(nullptr),
 	m_txtOffset(p_to),
-	m_cdOffset(p_co)
+	m_cdOffset(p_co),
+	m_active(true)
 {
 }
 
@@ -129,7 +130,7 @@ void unit::ActionSelect::act()
 
 void unit::ActionSelect::onClick()
 {
-	if (m_cd > 0)
+	if (m_cd > 0 || !m_active)
 		return;
 
 	act();
@@ -140,4 +141,5 @@ void unit::ActionSelect::onDisabled()
 {
 	m_text->getComponent<puppy::TextBox>()->setText("NONE");
 	m_cdtext->getComponent<puppy::TextBox>()->setText("");
+	m_active = true;
 }

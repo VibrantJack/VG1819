@@ -20,6 +20,7 @@ namespace unit
 		const std::pair<int, int> m_txtOffset;
 		const std::pair<int,int> m_cdOffset;
 
+		bool m_active;
 		int m_cd;
 		std::string m_action;
 
@@ -38,12 +39,12 @@ namespace unit
 		void setStorage(ActionButtonStore* p_s) {m_storage = p_s;};
 		void setUnit(Unit* p_u);
 		void setAction(const std::string& p_a, int p_cd = 0);
+		void setActive(bool p_a) { m_active = p_a; };
 		const std::string getAction() { return m_action; };
 
 		void act();
 
 		void onClick() override;
-
 		void onDisabled() override;
 	};
 }

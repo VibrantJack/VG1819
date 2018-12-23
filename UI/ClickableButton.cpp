@@ -79,6 +79,9 @@ namespace userinterface
 		{
 			m_active = p_a;
 
+			if (m_uiObject == nullptr)
+				return;
+
 			if (m_active)
 			{
 				m_uiObject->setTexture(m_regularTexture.c_str());

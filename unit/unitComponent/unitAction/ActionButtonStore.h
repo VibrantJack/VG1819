@@ -35,7 +35,7 @@ namespace unit
 		bool m_show;
 
 		void createNewButton();
-		void setButton(const std::string& p_msg, int p_cd = 0);
+		void setButton(const std::string& p_msg, bool p_a, int p_cd = 0);
 
 		void getButtonScale();
 
