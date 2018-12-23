@@ -1,14 +1,14 @@
 {
 	"name" : "engineer",
-	"texture" : "textures/sprites/units/humans/engineer_sheet_temp.tga",
+	"texture" : "textures/sprites/units/humans/engineer_sheet.tga",
 	
-	"sheetwidth" : 492,
-	"sheetheight" : 101,
+	"sheetwidth" : 228,
+	"sheetheight" : 57,
 	
-	"characterwidth" : 72,
-	"characterheight" : 91,
+	"characterwidth" : 38,
+	"characterheight" : 57,
 	
-	"padding" : 10,
+	"padding" : 0,
 	
 	"animations" : [
 		{

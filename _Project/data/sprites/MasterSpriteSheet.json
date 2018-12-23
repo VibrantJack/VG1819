@@ -2,6 +2,7 @@
 	"spritesheets" :
 	[
 		"ArcherSheet.json",
+		"PriestSheet.json",
 		"ClericSheet.json",
 		"WizardSheet.json",
 		"StoneSlinger.json",
