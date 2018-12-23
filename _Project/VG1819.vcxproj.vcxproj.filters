@@ -752,6 +752,12 @@
     <ClCompile Include="..\components\TileInfoDisplayOnKeyPress.cpp">
       <Filter>components\debug</Filter>
     </ClCompile>
+    <ClCompile Include="..\networking\menu\NetworkConnectButton.cpp">
+      <Filter>networking\networking_menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\ConnectToHost.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1628,6 +1634,12 @@
     </ClInclude>
     <ClInclude Include="..\components\TileInfoDisplayOnKeyPress.h">
       <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\menu\NetworkConnectButton.h">
+      <Filter>networking\networking_menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\ConnectToHost.h">
+      <Filter>networking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

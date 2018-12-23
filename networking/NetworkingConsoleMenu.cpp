@@ -19,15 +19,7 @@ NetworkingConsoleMenu::NetworkingConsoleMenu()
 	m_bClientUpdate(false),
 	m_bServerUpdate(false)
 {
-	// Uncomment for testing on a single machine, then enable client instance through menu
-	/*networking::ServerGame::createInstance();
-	if (networking::ServerGame::getInstance()->setupNetwork())
-	{
-		_beginthread(serverLoop, 0, (void*)12);
-	} else
-	{
-		networking::ServerGame::destroyInstance();
-	}*/
+
 }
 
 NetworkingConsoleMenu::~NetworkingConsoleMenu()
@@ -158,6 +150,7 @@ void NetworkingConsoleMenu::update()
 		} else
 		{
 			m_textBox->setText("Network Error");
+			m_inputMan->setPollMode(false);
 		}
 	}
 

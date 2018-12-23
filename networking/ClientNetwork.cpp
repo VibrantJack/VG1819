@@ -21,6 +21,7 @@ namespace networking
 
 	bool ClientNetwork::init(const std::string &p_strAddr)
 	{
+		printf("ClientNetwork init\n");
 		// create WSADATA object
 		WSADATA wsaData;
 

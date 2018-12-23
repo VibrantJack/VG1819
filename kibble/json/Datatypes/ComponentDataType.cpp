@@ -647,6 +647,11 @@ kitten::K_Component* getNetworkingConsoleMenu(nlohmann::json* p_jsonFile) {
 	return new NetworkingConsoleMenu();
 }
 
+#include "networking\ConnectToHost.h"
+kitten::K_Component* getConnectToHost(nlohmann::json* p_jsonFile) {
+	return new ConnectToHost();
+}
+
 #include "kitten\sprites\SpriteAnimator.h"
 kitten::K_Component* getSpriteAnimator(nlohmann::json* p_jsonFile) {
 
@@ -784,6 +789,20 @@ kitten::K_Component* getNetworkHostButton(nlohmann::json* p_jsonFile) {
 	SETOPT(highlightedTexture, "highlightedTexture");
 
 	userinterface::NetworkHostButton* button = new userinterface::NetworkHostButton();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+
+	return button;
+}
+
+#include "networking\menu\NetworkConnectButton.h"
+kitten::K_Component* getNetworkConnectButton(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+
+	userinterface::NetworkConnectButton* button = new userinterface::NetworkConnectButton();
 	button->setRegularTexture(regularTexture);
 	button->setHighlightedTexture(highlightedTexture);
 
@@ -1076,6 +1095,7 @@ void setupComponentMap() {
 	jsonComponentMap["TileInfo"] = &getTileInfo;
 	jsonComponentMap["SpawnUnitOnKeyPress"] = &getSpawnUnitOnKeyPress;
 	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
+	jsonComponentMap["ConnectToHost"] = &getConnectToHost;
 	jsonComponentMap["ChangeSceneOnClick"] = &getChangeSceneOnClick;
 	jsonComponentMap["UniversalPfx"] = &getUniversalPfx;
 	jsonComponentMap["K_ParticleSystem"] = &getKParticleSystem;
@@ -1092,6 +1112,7 @@ void setupComponentMap() {
 	jsonComponentMap["GameplayInit"] = &getGameplayInit;
 	jsonComponentMap["NetworkJoinButton"] = &getNetworkJoinButton;
 	jsonComponentMap["NetworkHostButton"] = &getNetworkHostButton;	
+	jsonComponentMap["NetworkConnectButton"] = &getNetworkConnectButton;
 	jsonComponentMap["TabMenu"] = &getTabMenu;
 	jsonComponentMap["UIObject"] = &getUIObject;
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;

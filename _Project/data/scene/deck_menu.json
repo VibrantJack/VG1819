@@ -18,16 +18,8 @@
             "scale2d" : [975,400]
         },
 		{
-			"name" : "Main Menu Texture",
-			"components" : [
-				{
-					"name" : "UIFrame",
-					"texture" : "textures/ui/main_menu_interface.tga"
-				}
-			],
-			"scale2d" : [1280, 720],
-			"translate" : [0.0, 0.0, -0.9]
-        },
+			"filename" : "mainmenu_background.json"
+		},
 		{
 			"filename" : "quad_repeat.txt"
 		},

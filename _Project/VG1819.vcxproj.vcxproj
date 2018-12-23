@@ -240,6 +240,8 @@
     <ClCompile Include="..\kitten\K_UIRenderable.cpp" />
     <ClCompile Include="..\networking\ClientGame.cpp" />
     <ClCompile Include="..\networking\ClientNetwork.cpp" />
+    <ClCompile Include="..\networking\ConnectToHost.cpp" />
+    <ClCompile Include="..\networking\menu\NetworkConnectButton.cpp" />
     <ClCompile Include="..\networking\NetworkingConsoleMenu.cpp" />
     <ClCompile Include="..\networking\NetworkServices.cpp" />
     <ClCompile Include="..\networking\AbilityPacket.cpp" />
@@ -531,6 +533,8 @@
     <ClInclude Include="..\kitten\K_UIRenderable.h" />
     <ClInclude Include="..\networking\ClientGame.h" />
     <ClInclude Include="..\networking\ClientNetwork.h" />
+    <ClInclude Include="..\networking\ConnectToHost.h" />
+    <ClInclude Include="..\networking\menu\NetworkConnectButton.h" />
     <ClInclude Include="..\networking\menu\NetworkHostButton.h" />
     <ClInclude Include="..\networking\menu\NetworkJoinButton.h" />
     <ClInclude Include="..\networking\NetworkData.h" />
