@@ -30,8 +30,19 @@
 			"components" : [
 				{
 					"name" : "DeckComponent"
+				},
+				{
+					"name" : "DrawCardOnClickUI"
+				},
+        {
+            "name" : "ClickableFrame"
+				},
+				{
+						"name" : "UIFrame"
 				}
-			]
+			],
+			"translate2d" : [1100, 50],
+			"scale2d" : [150, 150]
 		},
 		{
 		  "name" : "commander portrait",
