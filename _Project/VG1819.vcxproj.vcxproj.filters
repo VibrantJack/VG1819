@@ -749,6 +749,9 @@
     <ClCompile Include="..\components\TileInfoDisplayOnKeyPress.cpp">
       <Filter>components\debug</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\DrawCardOnClickUI.cpp">
+      <Filter>components\deck</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1622,6 +1625,9 @@
     </ClInclude>
     <ClInclude Include="..\components\TileInfoDisplayOnKeyPress.h">
       <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DrawCardOnClickUI.h">
+      <Filter>components\deck</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

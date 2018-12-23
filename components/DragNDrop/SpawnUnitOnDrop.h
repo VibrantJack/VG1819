@@ -1,15 +1,17 @@
 #include "UI/DragNDrop.h"
 
-class SpawnUnitOnDrop : public DragNDrop
+class SpawnUnitOnDrop : public DragNDrop, public kitten::TransformPositionListener
 {
 private:
-
+	bool m_isHovered=false;
 public:
 	SpawnUnitOnDrop():DragNDrop(true){}
-	~SpawnUnitOnDrop(){}
+	~SpawnUnitOnDrop();
 
+	void start() override;
 	void onHoverStart() override;
 	void onHoverEnd() override;
 	void onDrop() override;
 	void onPause() override;
+	void onPosChanged(const glm::vec3& p_newPos) override;
 };

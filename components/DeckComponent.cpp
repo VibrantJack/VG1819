@@ -91,6 +91,10 @@ void DeckComponent::shuffle() {
 	std::shuffle(m_cardPool.begin(), m_cardPool.end(), RNGzuz);
 }
 void DeckComponent::draw(int p_topNum) {
+	if (m_cardPool.empty()) {
+		informEmptyDeck();
+		return;
+	}
 
 	kitten::Event* eventData = new kitten::Event(kitten::Event::EventType::Card_Drawn);
 	eventData->putInt(PLAYER_ID, m_playerID);
@@ -105,13 +109,13 @@ void DeckComponent::draw(int p_topNum) {
 		kitten::Event::EventType::Card_Drawn,
 		eventData
 	);
-
+}
+void DeckComponent::discard(int p_topNum) {
 	if (m_cardPool.empty()) {
 		informEmptyDeck();
 		return;
 	}
-}
-void DeckComponent::discard(int p_topNum) {
+
 	kitten::Event* eventData = new kitten::Event(kitten::Event::EventType::Card_Discarded);
 	eventData->putInt(PLAYER_ID, m_playerID);
 	int countLookOver = std::min(p_topNum, (int)m_cardPool.size());
@@ -126,11 +130,6 @@ void DeckComponent::discard(int p_topNum) {
 		kitten::Event::EventType::Card_Discarded,
 		eventData
 	);
-
-	if (m_cardPool.empty()) {
-		informEmptyDeck();
-		return;
-	}
 }
 void DeckComponent::addTop(int p_cardIndex) {
 	m_cardPool.push_back(p_cardIndex);

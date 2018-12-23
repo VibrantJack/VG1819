@@ -6,6 +6,8 @@
 #include "unit/unitComponent/UnitMove.h"
 #include "kitten/K_GameObjectManager.h"
 #include "kibble/databank/databank.hpp"
+#include "UI/HandFrame.h"
+#include "UI/CardUIO.h"
 #include "components/PowerTracker.h"
 #include "board/BoardManager.h"
 #include <iostream>
@@ -41,6 +43,10 @@ void SpawnUnitOnDrop::onDrop()
 	// Generate Unit and set Tile
 	unit::UnitSpawn::getInstance()->spawnUnitObject(unit)->getComponent<unit::UnitMove>()->setTile(targetTile);
 
+	// Remove Card from hand
+	userinterface::CardUIO* cardUIObject = this->m_attachedObject->getComponent<userinterface::CardUIO>();
+	userinterface::HandFrame::getActiveInstance()->removeCard((userinterface::UIObject*)cardUIObject);
+
 	// Delete Card
 	kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(this->m_attachedObject);
 }
@@ -49,12 +55,14 @@ void SpawnUnitOnDrop::onHoverEnd() {
 	if (!m_isDragging)
 	{
 		getTransform().place2D(m_origin.x, m_origin.y);
+		m_isHovered = false;
 	}
 }
 
 void SpawnUnitOnDrop::onHoverStart() {
 	if (!m_isDragging)
 	{
+		m_isHovered = true;
 		getTransform().place2D(m_origin.x, m_origin.y + 50);
 	}
 }
@@ -63,4 +71,23 @@ void SpawnUnitOnDrop::onPause()
 {
 	DragNDrop::onDrop();
 	m_isDragging = false;
+}
+
+void SpawnUnitOnDrop::onPosChanged(const glm::vec3& p_newPos)
+{
+	if (!m_isDragging && !m_isHovered)
+	{
+		m_origin = m_attachedObject->getTransform().getTranslation();
+	}
+} 
+
+SpawnUnitOnDrop::~SpawnUnitOnDrop()
+{
+	getTransform().removePositionListener(this);
+}
+
+void SpawnUnitOnDrop::start()
+{
+	DragNDrop::start();
+	getTransform().addPositionListener(this);
 }

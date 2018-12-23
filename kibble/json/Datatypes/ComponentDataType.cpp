@@ -856,6 +856,11 @@ kitten::K_Component* getUnitSelect(nlohmann::json* p_jsonFile) {
 	return new unit::UnitSelect();
 }
 
+#include "components/DrawCardOnClickUI.h"
+kitten::K_Component* getDrawCardOnClickUI(nlohmann::json* p_jsonFile) {
+	return new DrawCardOnClickUI();
+}
+
 #include "kitten/sprites/SpriteGroup.h"
 kitten::K_Component* getSpriteGroup(nlohmann::json* p_jsonFile) {
 	std::string name;
@@ -1119,6 +1124,7 @@ void setupComponentMap() {
 	jsonComponentMap["CombatText"] = &getCombatText;
 	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
+	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
 
 }
 
