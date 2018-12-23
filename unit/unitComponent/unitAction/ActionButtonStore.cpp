@@ -1,6 +1,7 @@
 #include "ActionButtonStore.h"
 #include "kitten/K_GameObjectManager.h"
 #include "kitten/InputManager.h"
+#include "UI/ClickableButton.h"
 
 unit::ActionButtonStore::ActionButtonStore()
 {
@@ -43,20 +44,17 @@ void unit::ActionButtonStore::display(Unit * p_u)
 
 	//move
 	if (m_unit->m_attributes["base_mv"] > 0)
-		setButton("Move");
+		setButton("Move", m_unit->canMove());
 
 	//normal ability
-	for (auto it : p_u->m_ADList)
-	{
-		setButton(it.first);
-	}
+	setAbility();
 
 	//join
 	//commander action
 	if (p_u->isCommander())
 	{
-		setButton("ManipulateTile");
-		setButton("Summon");
+		setButton("ManipulateTile", m_unit->canAct());
+		setButton("Summon", true);
 	}
 	else
 	{
@@ -71,16 +69,16 @@ void unit::ActionButtonStore::display(Unit * p_u)
 		}
 		if (canJoin)
 		{
-			setButton("Join");
+			setButton("Join", m_unit->canAct());
 
 			//for test
-			setButton("For test: Level Up");
+			setButton("For test: Level Up", true);
 		}
 	}
 	
-	setButton("Turn End");
+	setButton("Turn End", true);
 
-	setButton("For test: Destroy");
+	setButton("For test: Destroy", true);
 
 	m_show = true;
 
@@ -112,11 +110,11 @@ void unit::ActionButtonStore::createNewButton()
 {
 	kitten::K_GameObject* ab = kitten::K_GameObjectManager::getInstance()->createNewGameObject("unit_action_button.json");
 	ab->getComponent<ActionSelect>()->setStorage(this);
-	ab->setEnabled(false);
+	//ab->setEnabled(false);
 	m_buttonList.push_back(ab);
 }
 
-void unit::ActionButtonStore::setButton(const std::string & p_msg)
+void unit::ActionButtonStore::setButton(const std::string & p_msg, bool p_a, int p_cd)
 {
 	kitten::K_GameObject* go;
 	if (m_index >= m_buttonList.size())//create new button if not enough
@@ -128,8 +126,15 @@ void unit::ActionButtonStore::setButton(const std::string & p_msg)
 	go->getTransform().place2D(m_lastX, m_lastY);
 
 	ActionSelect* a = go->getComponent<ActionSelect>();
-	a->setAction(p_msg);
+	a->setAction(p_msg, p_cd);
 	a->setUnit(m_unit);
+	a->setActive(p_a);
+
+	if (p_cd > 0 || !p_a)
+	{
+		userinterface::ClickableButton* cb = go->getComponent<userinterface::ClickableButton>();
+		cb->setActive(false);
+	}
 
 	go->setEnabled(true);
 
@@ -148,4 +153,28 @@ void unit::ActionButtonStore::getButtonScale()
 
 	m_buttonScaleX = scale.x;
 	m_buttonScaleY = scale.y;
+}
+
+void unit::ActionButtonStore::setAbility()
+{
+	int lv = m_unit->m_attributes[UNIT_LV];
+	for (auto it : m_unit->m_ADList)
+	{
+		if (it.second->m_intValue[UNIT_LV] <= lv)//check level
+		{
+			if (!m_unit->canAct())//check can act
+			{
+				setButton(it.first, false);
+			}
+			else
+			{
+				int cd = m_unit->checkCD(it.first);//check cd
+				if(cd > 0)
+					setButton(it.first, false, cd);
+				else
+					setButton(it.first, true);
+
+			}
+		}
+	}
 }
