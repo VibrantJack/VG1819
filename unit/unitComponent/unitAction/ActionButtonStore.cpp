@@ -46,9 +46,11 @@ void unit::ActionButtonStore::display(Unit * p_u)
 		setButton("Move");
 
 	//normal ability
+	int lv = p_u->m_attributes[UNIT_LV];
 	for (auto it : p_u->m_ADList)
 	{
-		setButton(it.first);
+		if(it.second->m_intValue[UNIT_LV] <= lv)
+			setButton(it.first);
 	}
 
 	//join
