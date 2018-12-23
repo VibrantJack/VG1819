@@ -100,7 +100,7 @@
     <ClCompile Include="..\ability\ability\Ability.cpp" />
     <ClCompile Include="..\ability\ability\Arm.cpp" />
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp" />
-    <ClCompile Include="..\ability\ability\Dodge.cpp" />
+    <ClCompile Include="..\ability\ability\Defend.cpp" />
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
     <ClCompile Include="..\ability\ability\GoldRush.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />

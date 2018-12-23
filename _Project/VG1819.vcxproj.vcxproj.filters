@@ -182,9 +182,6 @@
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\ability\Dodge.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\ability\Sabotage.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
@@ -760,6 +757,9 @@
     </ClCompile>
     <ClCompile Include="..\components\DrawCardOnClickUI.cpp">
       <Filter>components\deck</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Defend.cpp">
+      <Filter>ability\ability</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

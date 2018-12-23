@@ -1,0 +1,23 @@
+{
+	"name" : "priest",
+	"texture" : "textures/sprites/units/humans/priest_sheet.tga",
+	
+	"sheetwidth" : 259,
+	"sheetheight" : 79,
+	
+	"characterwidth" : 37,
+	"characterheight" : 79,
+	
+	"padding" : 0,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [6,0],
+			"time" : 2.0
+		}	
+	],
+	
+	"defaultanimation" : "idle"
+}

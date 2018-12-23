@@ -42,8 +42,8 @@ namespace ability
 		newAbility = new Slay();
 		m_abilityList[ABILITY_SLAY] = newAbility;
 
-		newAbility = new Dodge();
-		m_abilityList[ABILITY_DODGE] = newAbility;
+		newAbility = new Defend();
+		m_abilityList[ABILITY_DEFEND] = newAbility;
 
 		newAbility = new SummonUnit();
 		m_abilityList[ABILITY_SUMMON_UNIT] = newAbility;
@@ -78,14 +78,14 @@ namespace ability
 		newAbility = new TheLight();
 		m_abilityList[ABILITY_THE_LIGHT] = newAbility;
 
-		newAbility = new Invest();
-		m_abilityList[ABILITY_INVEST] = newAbility;
+		newAbility = new EnergyControl();
+		m_abilityList[ABILITY_ENERGY_CONTROL] = newAbility;
 
-		newAbility = new PowerOfMoney();
-		m_abilityList[ABILITY_POWER_OF_MONEY] = newAbility;
+		newAbility = new PowerSlam();
+		m_abilityList[ABILITY_POWER_SLAM] = newAbility;
 
-		newAbility = new GoldRush();
-		m_abilityList[ABILITY_GOLD_RUSH] = newAbility;
+		newAbility = new PowerSurge();
+		m_abilityList[ABILITY_POWER_SURGE] = newAbility;
 
 		newAbility = new Rally();
 		m_abilityList[ABILITY_RALLY] = newAbility;

@@ -1,7 +1,7 @@
 testDummy.txt
 Priest.txt
 Archer.txt
-Duelist.txt
+Knight.txt
 Engineer.txt
 Wall.txt
 newUnitObject.txt
@@ -10,6 +10,6 @@ StoneSlinger.txt
 ArrowTower.txt
 Armory.txt
 DivineStatue.txt
-Oligarch.txt
+Enchanter.txt
 King.txt
 Queen.txt
