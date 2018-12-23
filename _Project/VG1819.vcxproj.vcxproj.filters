@@ -758,6 +758,9 @@
     <ClCompile Include="..\networking\ConnectToHost.cpp">
       <Filter>networking</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\DrawCardOnClickUI.cpp">
+      <Filter>components\deck</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1640,6 +1643,9 @@
     </ClInclude>
     <ClInclude Include="..\networking\ConnectToHost.h">
       <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DrawCardOnClickUI.h">
+      <Filter>components\deck</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

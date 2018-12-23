@@ -19,12 +19,13 @@ ConnectToHost::ConnectToHost()
 	:
 	m_bEnteringAddress(false)
 {
-	printf("ConnectToHost created\n");
+	
 }
 
 ConnectToHost::~ConnectToHost()
 {
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Join_Button_Clicked, this);
+	m_inputMan->setPollMode(true);
 }
 
 void ConnectToHost::start()

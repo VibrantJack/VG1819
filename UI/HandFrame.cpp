@@ -6,11 +6,15 @@
 #include "ContextMenu.h"
 #include "kibble/databank/databank.hpp"
 #include "unit/Unit.h"
+#include "components/PowerTracker.h"
+#include "board/BoardManager.h"
 
 #include "kitten/K_GameObjectManager.h"
 #include "kitten/K_ComponentManager.h"
 #include "UI/CardUIO.h"
 #include "kitten/InputManager.h"
+
+#define MAX_CARDS_IN_HAND 5
 
 namespace userinterface
 {
@@ -58,9 +62,10 @@ namespace userinterface
 		auto end = m_innerObjects.end();
 		for (auto it = m_innerObjects.begin(); it != end; ++it)
 		{
-			if (*it = p_cardToRemove)
+			if (*it == p_cardToRemove)
 			{
 				m_innerObjects.erase(it);
+				break;
 			}
 		}
 		m_totalCards--;
@@ -86,8 +91,11 @@ namespace userinterface
 	void HandFrame::receiveDrawnCard(kitten::Event::EventType p_type, kitten::Event* p_event)
 	{
 		if(m_playerID != p_event->getInt(PLAYER_ID)) return;
+		// Find the number of cards to add to hand
+		int countToAdd = std::min(p_event->getInt(CARD_COUNT), MAX_CARDS_IN_HAND - (int)m_innerObjects.size());
 
-		for (int i = 0; i < p_event->getInt(CARD_COUNT);i++) {
+		// Generate Cards to add
+		for (int i = 0; i < countToAdd; i++) {
 			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
 			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
 			cardCasted->scaleAsCard();
@@ -105,6 +113,12 @@ namespace userinterface
 			);
 
 			// TODO prompt a newer event linking the Unit component for buffs or debuffs. 
+		}
+
+		// Add the extras as power
+		if (countToAdd < p_event->getInt(CARD_COUNT))
+		{
+			// TODO ask Rock about what to do in this case. 
 		}
 
 		reorderAllCards();
