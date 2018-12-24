@@ -67,6 +67,11 @@ namespace puppy
 				uv = glm::vec2(aiUV.x, aiUV.y);
 			}
 
+			if (p_mesh->HasVertexColors(i))
+			{
+				std::cout << p_mesh->mName.C_Str() << " uses vertex colors, but these are not supported (yet?)" << std::endl;
+			}
+
 			NormalVertex puppyVertex = 
 			{
 				//Position
@@ -93,6 +98,9 @@ namespace puppy
 		}
 
 		// Material(s)
+		bool usesColour = false;
+		aiColor3D color;
+
 		if (p_mesh->mMaterialIndex >= 0)
 		{
 			auto material = p_scene->mMaterials[p_mesh->mMaterialIndex];
@@ -102,7 +110,7 @@ namespace puppy
 			{
 				if (numDiffuse > 1)
 				{
-					std::cout << p_mesh->mName.C_Str() << " has more than one diffuse texture! Using the first.." << std::endl;
+					std::cout << p_mesh->mName.C_Str() << " has more than one diffuse texture! Using the first..." << std::endl;
 				}
 
 				aiString texPath;
@@ -111,7 +119,14 @@ namespace puppy
 			}
 			else
 			{
-				std::cerr << "No diffuse texture found for mesh: " << p_mesh->mName.C_Str() << std::endl;
+				if (material->Get(AI_MATKEY_COLOR_DIFFUSE, color) == AI_SUCCESS)
+				{
+					usesColour = true;
+				}
+				else
+				{
+					std::cerr << "Could not get any diffuse for mesh: " << p_mesh->mName.C_Str() << std::endl;
+				}
 			}
 		}
 		else
@@ -119,7 +134,15 @@ namespace puppy
 			std::cerr << "No material for found for mesh: " << p_mesh->mName.C_Str() << std::endl;
 		}
 
-		m_meshes.push_back(new P_Mesh(vertices, indices, tex));
+		if (!usesColour)
+		{
+			m_meshes.push_back(new P_Mesh(vertices, indices, tex));
+		}
+		else
+		{
+			m_meshes.push_back(new P_Mesh(vertices, indices, glm::vec4(color.r, color.g, color.b, 1)));
+		}
+		
 	}
 
 	void P_Model::render(const glm::mat4& p_worldViewProj)

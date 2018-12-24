@@ -28,7 +28,7 @@
 
 namespace puppy
 {	
-	enum ShaderType { sprite, alphaTest, particles, basic, basic_u_scale,
+	enum ShaderType { sprite, alphaTest, particles, basic, basic_u_scale, solid_colour,
 		texture_blend_zero, texture_blend_one = texture_blend_zero+1, texture_blend_two = texture_blend_one+1, texture_blend_three = texture_blend_two+1, texture_blend_four=texture_blend_three+1, 
 		colorTint_alphaTest, SHADERTYPE_MAX = colorTint_alphaTest };
 
