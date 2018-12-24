@@ -31,6 +31,7 @@ namespace userinterface
 		
 		int m_totalCards, m_playerID = 0;
 		float m_cardX, m_cardY, m_padding, m_contentMargin;
+		bool m_isInit = false; // this is for if the component gets initialized, it doesn't use the lerpcontroller if available. 
 
 		void receiveDrawnCard(kitten::Event::EventType p_type, kitten::Event* p_event);
 	};

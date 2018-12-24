@@ -70,10 +70,10 @@ void LerpController::update()
 		
 		if (lerpProgress >= 1.0f)
 		{
-			transform.place(m_lerpPosition.x, m_lerpPosition.y, m_lerpPosition.z);
-			
 			m_isPositionLerping = false;
 			onFinishedLerp();
+
+			transform.place(m_lerpPosition.x, m_lerpPosition.y, m_lerpPosition.z);
 
 			auto end = m_posCallbacks.cend();
 			for (auto it = m_posCallbacks.cbegin(); it != end; ++it)
@@ -96,10 +96,11 @@ void LerpController::update()
 
 		if (lerpProgress >= 1.0f)
 		{
-			transform.scaleAbsolute(m_lerpScale.x, m_lerpScale.y, m_lerpScale.z);
-
 			m_isScaleLerping = false;
 			onFinishedLerp();
+
+			transform.scaleAbsolute(m_lerpScale.x, m_lerpScale.y, m_lerpScale.z);
+
 
 			auto end = m_scaleCallbacks.cend();
 			for (auto it = m_scaleCallbacks.cbegin(); it != end; ++it)
@@ -122,10 +123,10 @@ void LerpController::update()
 
 		if (lerpProgress >= 1.0f)
 		{
-			transform.rotateAbsQuat(m_lerpQuat);
-
 			m_isRotationLerping = false;
 			onFinishedLerp();
+
+			transform.rotateAbsQuat(m_lerpQuat);
 
 			auto end = m_rotationCallbacks.cend();
 			for (auto it = m_rotationCallbacks.cbegin(); it != end; ++it)

@@ -12,19 +12,19 @@ public:
 	class PositionLerpFinishedCallback
 	{
 	public:
-		virtual void onPositionLerpFinished() =0;
+		virtual void onPositionLerpFinished() = 0;
 	};
 
 	class ScaleLerpFinishedCallback
 	{
 	public:
-		virtual void onScaleLerpFinished() =0;
+		virtual void onScaleLerpFinished() = 0;
 	};
 
 	class RotationLerpFinishedCallback
 	{
 	public:
-		virtual void onRotationLerpFinished() =0;
+		virtual void onRotationLerpFinished() = 0;
 	};
 
 private:
@@ -45,7 +45,7 @@ private:
 	kitten::K_Time* m_time;
 
 	virtual void start();
-	
+
 	virtual bool hasUpdate() const override { return true; }
 	virtual void update() override;
 
@@ -82,4 +82,9 @@ public:
 
 	void forceLerpToFinish();
 	void cancelLerp();
+
+	bool isLerping() { return m_isLerping; }
+	bool isPosLerping() { return m_isPositionLerping; }
+	bool isScaleLerping() { return m_isScaleLerping; }
+	bool isRotationLerping() { return m_isRotationLerping; }
 };
