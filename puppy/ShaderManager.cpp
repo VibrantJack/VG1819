@@ -71,6 +71,10 @@ namespace puppy
 			*p_vertexShaderPath = "Shaders/particles.vsh";
 			*p_pixelShaderPath = "Shaders/particles.fsh";
 			return true;
+		case ShaderType::solid_colour:
+			*p_vertexShaderPath = "Shaders/solid_colour.vsh";
+			*p_pixelShaderPath = "Shaders/solid_colour.fsh";
+			return true;
 		case ShaderType::texture_blend_zero:
 			*p_vertexShaderPath = "Shaders/basic.vsh";
 			*p_pixelShaderPath = "Shaders/basic_zero_blend.fsh";
