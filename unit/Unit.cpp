@@ -157,6 +157,7 @@ namespace unit
 		if (m_castTimer->isCasting())
 		{
 			playerSkipTurn();//if it still cast, it skips turn
+			return;
 		}
 		else if(i == 0)//used casting ability
 		{

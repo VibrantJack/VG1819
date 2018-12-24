@@ -8,6 +8,6 @@
 			"spritename" : "priest"
 		}
 	],
-	"scale" : [1.5,1.5,0],
+	"scale":[6,1.5,0],
 	"rotate" : [45, 0, 0]
 }
