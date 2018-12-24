@@ -81,6 +81,7 @@ namespace unit
 		void cancelAbility(AbilityDescription* p_ad);
 		void setCast(AbilityDescription* p_ad, ability::AbilityInfoPackage* p_pack);
 		void cancelCast();
+		int checkCD(const std::string& p_abilityName);
 
 		//destroy
 		int destroyedByDamage();

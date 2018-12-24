@@ -15,6 +15,7 @@
 #include "kitten/InputManager.h"
 
 #define MAX_CARDS_IN_HAND 5
+#define TEMP_POWER_CHARGE 1
 
 namespace userinterface
 {
@@ -118,7 +119,7 @@ namespace userinterface
 		// Add the extras as power
 		if (countToAdd < p_event->getInt(CARD_COUNT))
 		{
-			// TODO ask Rock about what to do in this case. 
+			BoardManager::getInstance()->getPowerTracker()->changeCurrentPower(TEMP_POWER_CHARGE * (p_event->getInt(CARD_COUNT) - countToAdd));
 		}
 
 		reorderAllCards();
