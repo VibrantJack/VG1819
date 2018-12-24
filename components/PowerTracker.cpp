@@ -86,3 +86,15 @@ int PowerTracker::getCurrentPower()
 {
 	return m_iCurrentPower;
 }
+
+
+bool PowerTracker::changeCurrentPower(int p_iAmount)
+{
+	if ((m_iCurrentPower + p_iAmount) >= 0)
+	{
+		m_iCurrentPower += p_iAmount;
+		return true;
+	}
+
+	return false;
+}
