@@ -20,7 +20,7 @@ public:
 	bool summonUnitCost(int p_iCost);
 	void resetCurrent();
 	void resetEvent(kitten::Event::EventType p_type, kitten::Event* p_data);
-
+	bool changeCurrentPower(int p_iAmount = 0);
 
 	int getMaxPower();
 	int getCurrentPower();	
