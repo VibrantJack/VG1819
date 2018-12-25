@@ -141,3 +141,18 @@ void LerpController::update()
 		}
 	}
 }
+
+void LerpController::addPositionLerpFinishedCallback(PositionLerpFinishedCallback* p_toAdd)
+{
+	m_posCallbacks.push_back(p_toAdd);
+}
+
+void LerpController::addScaleLerpFinishedCallback(ScaleLerpFinishedCallback* p_toAdd)
+{
+	m_scaleCallbacks.push_back(p_toAdd);
+}
+
+void LerpController::addRotationLerpFinishedCallback(RotationLerpFinishedCallback* p_toAdd)
+{
+	m_rotationCallbacks.push_back(p_toAdd);
+}

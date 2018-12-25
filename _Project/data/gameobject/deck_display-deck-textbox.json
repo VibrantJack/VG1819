@@ -4,7 +4,7 @@
         {
             "name" : "TextBox",
 			"font" : "../fonts/nsimsun_24pt.fnt",
-			"color" : [1,1,1],
+			"color" : [0.89,0.82,0.55],
             "alignment" : "center",
             "width" : 175,
             "height" : 24

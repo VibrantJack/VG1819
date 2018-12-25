@@ -241,6 +241,8 @@
     <ClCompile Include="..\kitten\K_UIRenderable.cpp" />
     <ClCompile Include="..\networking\ClientGame.cpp" />
     <ClCompile Include="..\networking\ClientNetwork.cpp" />
+    <ClCompile Include="..\networking\ConnectToHost.cpp" />
+    <ClCompile Include="..\networking\menu\NetworkConnectButton.cpp" />
     <ClCompile Include="..\networking\NetworkingConsoleMenu.cpp" />
     <ClCompile Include="..\networking\NetworkServices.cpp" />
     <ClCompile Include="..\networking\AbilityPacket.cpp" />
@@ -294,6 +296,7 @@
     <ClCompile Include="..\UI\DragNDrop.cpp" />
     <ClCompile Include="..\UI\HandFrame.cpp" />
     <ClCompile Include="..\UI\InterfaceBuilder.cpp" />
+    <ClCompile Include="..\UI\MainMenu\MainMenu.cpp" />
     <ClCompile Include="..\UI\TabMenu\ReturnToMainMenuButton.cpp" />
     <ClCompile Include="..\UI\TabMenu\TabMenu.cpp" />
     <ClCompile Include="..\UI\UIElement.cpp" />
@@ -532,6 +535,8 @@
     <ClInclude Include="..\kitten\K_UIRenderable.h" />
     <ClInclude Include="..\networking\ClientGame.h" />
     <ClInclude Include="..\networking\ClientNetwork.h" />
+    <ClInclude Include="..\networking\ConnectToHost.h" />
+    <ClInclude Include="..\networking\menu\NetworkConnectButton.h" />
     <ClInclude Include="..\networking\menu\NetworkHostButton.h" />
     <ClInclude Include="..\networking\menu\NetworkJoinButton.h" />
     <ClInclude Include="..\networking\NetworkData.h" />
@@ -590,6 +595,7 @@
     <ClInclude Include="..\UI\DragNDrop.h" />
     <ClInclude Include="..\UI\HandFrame.h" />
     <ClInclude Include="..\UI\InterfaceBuilder.h" />
+    <ClInclude Include="..\UI\MainMenu\MainMenu.h" />
     <ClInclude Include="..\UI\TabMenu\ReturnToMainMenuButton.h" />
     <ClInclude Include="..\UI\TabMenu\TabMenu.h" />
     <ClInclude Include="..\UI\UIElement.h" />

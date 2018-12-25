@@ -496,10 +496,10 @@ kitten::K_Component* getTextBox(nlohmann::json* p_jsonFile) {
 			align = puppy::TextBox::Alignment::left;
 		}
 		else if (temp == "right") {
-			align = puppy::TextBox::Alignment::left;
+			align = puppy::TextBox::Alignment::right;
 		}
 		else if (temp == "center") {
-			align = puppy::TextBox::Alignment::left;
+			align = puppy::TextBox::Alignment::center;
 		}
 	}
 
@@ -647,6 +647,11 @@ kitten::K_Component* getNetworkingConsoleMenu(nlohmann::json* p_jsonFile) {
 	return new NetworkingConsoleMenu();
 }
 
+#include "networking\ConnectToHost.h"
+kitten::K_Component* getConnectToHost(nlohmann::json* p_jsonFile) {
+	return new ConnectToHost();
+}
+
 #include "kitten\sprites\SpriteAnimator.h"
 kitten::K_Component* getSpriteAnimator(nlohmann::json* p_jsonFile) {
 
@@ -784,6 +789,20 @@ kitten::K_Component* getNetworkHostButton(nlohmann::json* p_jsonFile) {
 	SETOPT(highlightedTexture, "highlightedTexture");
 
 	userinterface::NetworkHostButton* button = new userinterface::NetworkHostButton();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+
+	return button;
+}
+
+#include "networking\menu\NetworkConnectButton.h"
+kitten::K_Component* getNetworkConnectButton(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+
+	userinterface::NetworkConnectButton* button = new userinterface::NetworkConnectButton();
 	button->setRegularTexture(regularTexture);
 	button->setHighlightedTexture(highlightedTexture);
 
@@ -1033,6 +1052,11 @@ kitten::K_Component* getDisableAfterTime(nlohmann::json* p_jsonFile) {
 	return new DisableAfterTime(time);
 }
 
+#include "UI\MainMenu\MainMenu.h"
+kitten::K_Component* getMainMenu(nlohmann::json* p_jsonFile) {
+	return new MainMenu();
+}
+
 #include "UI\ClickableCard.h"
 kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
 {
@@ -1086,6 +1110,7 @@ void setupComponentMap() {
 	jsonComponentMap["TileInfo"] = &getTileInfo;
 	jsonComponentMap["SpawnUnitOnKeyPress"] = &getSpawnUnitOnKeyPress;
 	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
+	jsonComponentMap["ConnectToHost"] = &getConnectToHost;
 	jsonComponentMap["ChangeSceneOnClick"] = &getChangeSceneOnClick;
 	jsonComponentMap["UniversalPfx"] = &getUniversalPfx;
 	jsonComponentMap["K_ParticleSystem"] = &getKParticleSystem;
@@ -1102,6 +1127,7 @@ void setupComponentMap() {
 	jsonComponentMap["GameplayInit"] = &getGameplayInit;
 	jsonComponentMap["NetworkJoinButton"] = &getNetworkJoinButton;
 	jsonComponentMap["NetworkHostButton"] = &getNetworkHostButton;	
+	jsonComponentMap["NetworkConnectButton"] = &getNetworkConnectButton;
 	jsonComponentMap["TabMenu"] = &getTabMenu;
 	jsonComponentMap["UIObject"] = &getUIObject;
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
@@ -1123,6 +1149,7 @@ void setupComponentMap() {
 	jsonComponentMap["SpawnUnitOnDrop"] = &getSpawnUnitOnDrop;
 	jsonComponentMap["CombatText"] = &getCombatText;
 	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
+	jsonComponentMap["MainMenu"] = &getMainMenu;
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
 

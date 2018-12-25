@@ -5,5 +5,7 @@
 			"name" : "UIFrame",
 			"texture" : "textures/ui/ip_box.tga"
 		}
-    ]
+    ],
+	"scale2d" : [250, 48],
+	"translate" : [989, 37, -0.8]
 }
