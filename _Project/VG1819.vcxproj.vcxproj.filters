@@ -761,6 +761,9 @@
     <ClCompile Include="..\components\DrawCardOnClickUI.cpp">
       <Filter>components\deck</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\QuadEdgeRenderable.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1647,6 +1650,9 @@
     <ClInclude Include="..\components\DrawCardOnClickUI.h">
       <Filter>components\deck</Filter>
     </ClInclude>
+    <ClInclude Include="..\kitten\QuadEdgeRenderable.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1828,6 +1834,9 @@
     </Filter>
     <Filter Include="UI\MainMenu">
       <UniqueIdentifier>{7afc2e7a-c536-4001-9c64-dd24fcb73637}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\tile\tileDecoration">
+      <UniqueIdentifier>{6b1e450b-6623-4e4c-a99d-4d9203b70efd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

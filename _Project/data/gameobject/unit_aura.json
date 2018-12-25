@@ -6,7 +6,8 @@
         },
         {
             "name" : "QuadRenderable",
-            "texture":"textures/ui/circle.tga"
+            "texture":"textures/ui/circle.tga",
+            "static":false
         }
     ],
     "translate":[0,-0.499,0],

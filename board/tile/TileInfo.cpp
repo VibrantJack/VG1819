@@ -41,6 +41,9 @@ void TileInfo::start()
 {
 	m_quadRenderable = m_attachedObject->getComponent<kitten::QuadRenderable>();
 	setLand();
+
+	m_edge = m_attachedObject->getComponent<kitten::QuadEdgeRenderable>();
+	m_edge->setEnabled(false);
 }
 
 void TileInfo::setLand()
@@ -192,6 +195,17 @@ const int TileInfo::getOwnerId()
 void TileInfo::setOwnerId(const int p_sId)
 {
 	m_sOwnerId = p_sId;
+
+	if (m_sOwnerId)
+	{
+		m_edge->setTexture(P1_EDGE_TEXTURE);
+	}
+	else
+	{
+		m_edge->setTexture(P2_EDGE_TEXTURE);
+	}
+
+	m_edge->setEnabled(true);
 }
 
 const std::string& TileInfo::getHighlightedBy()

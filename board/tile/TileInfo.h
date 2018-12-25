@@ -9,6 +9,7 @@
 #include "kitten\QuadRenderable.h"
 #include "board/tile/landInfo/LandInfoManager.h"
 #include "puppy\Texture.h"
+#include "kitten/QuadEdgeRenderable.h"
 
 class TileInfo : public kitten::K_Component
 {
@@ -21,8 +22,8 @@ public:
 		Cursor,
 		Select,
 		Range,
-		Owned,
-		Count = Owned+1
+//		Owned,
+		Count = Range+1
 	};
 
 	TileInfo(int p_iPosX = 0, int p_iPosY = 0);
@@ -78,4 +79,5 @@ private:
 	kitten::K_GameObject* m_unitGO;
 	LandInformation* m_landInfo;
 	kitten::QuadRenderable* m_quadRenderable;
+	kitten::QuadEdgeRenderable* m_edge;
 };

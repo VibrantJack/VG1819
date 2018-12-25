@@ -4,6 +4,9 @@
         {
             "name" : "QuadRenderable",
 			"static" : true
-        }
+        },
+	{
+		"name" : "QuadEdgeRenderable"
+	}
     ]
 }
