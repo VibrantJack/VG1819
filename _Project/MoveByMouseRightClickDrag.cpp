@@ -1,9 +1,12 @@
 #include "MoveByMouseRightClickDrag.h"
 #include "kitten\InputManager.h"
 #include "kitten\Transform.h"
-#include "kitten\K_Time.h"
 
-MoveByMouseRightClickDrag::MoveByMouseRightClickDrag(float p_speed) : m_speed(p_speed)
+#include "util\MathUtil.h"
+#include <iostream>
+
+MoveByMouseRightClickDrag::MoveByMouseRightClickDrag(float p_speed, const glm::vec2& p_minClamp, const glm::vec2& p_maxClamp) : m_speed(p_speed),
+	m_minClamp(p_minClamp), m_maxClamp(p_maxClamp)
 {
 
 }
@@ -27,8 +30,15 @@ void MoveByMouseRightClickDrag::update()
 		float yChange = inputMan->getMouseYChange();
 
 		kitten::Transform& transform = getTransform();
+		
+		glm::vec3 newPos = transform.getTranslation();
 
-		//Don't actually have to use delta time here, mouse change is independent of framerate
-		transform.move(xChange*m_speed, 0, yChange*m_speed);
+		// Don't actually have to use delta time here, mouse change is independent of framerate
+		newPos.x = CLAMP(newPos.x + xChange * m_speed, m_minClamp.x, m_maxClamp.x);
+		newPos.z = CLAMP(newPos.z + yChange * m_speed, m_minClamp.y, m_maxClamp.y);
+
+		transform.place(newPos.x, newPos.y, newPos.z);
+
+		std::cout << "pos: " << newPos.x << ", " << newPos.y << ", " << newPos.z << std::endl;
 	}
 }

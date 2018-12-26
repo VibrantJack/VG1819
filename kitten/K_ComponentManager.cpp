@@ -153,7 +153,7 @@ namespace kitten
 		}
 		else if (p_componentName == "MoveByMouseRightClickDrag")// Datadriven
 		{
-			comp = new MoveByMouseRightClickDrag(0.005f);
+			comp = new MoveByMouseRightClickDrag(0.005f, glm::vec2(), glm::vec2());
 		} else if (p_componentName == "ZoomByMouseWheel")// Datadriven
 		{
 			comp = new ZoomByMouseWheel(2.0f);

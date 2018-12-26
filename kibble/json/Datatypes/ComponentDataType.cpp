@@ -10,10 +10,19 @@
 #include "_Project/MoveByMouseRightClickDrag.h"
 kitten::K_Component* getMoveByMouseRightClickDrag(nlohmann::json* p_jsonFile) {
 	float speed;
+	glm::vec2 minClamp, maxClamp;
 
 	SETOPTDEF(speed, "speed", 0.005f);
+	
+	if (JSONHAS("minClamp")) {
+		minClamp = glm::vec2(LOOKUP("minClamp")[0], LOOKUP("minClamp")[1]);
+	}
 
-	return new MoveByMouseRightClickDrag(speed);
+	if (JSONHAS("maxClamp")) {
+		maxClamp = glm::vec2(LOOKUP("maxClamp")[0], LOOKUP("maxClamp")[1]);
+	}
+
+	return new MoveByMouseRightClickDrag(speed, minClamp, maxClamp);
 }
 
 #include "_Project/ZoomByMouseWheel.h"
@@ -23,7 +32,7 @@ kitten::K_Component* getZoomByMouseWheel(nlohmann::json* p_jsonFile) {
 
 	SETOPTDEF(speed, "speed", 1.0f);
 	SETOPTDEF(minFOV, "minfov", 1);
-	SETOPTDEF(maxFOV, "maxfov", 90);
+	SETOPTDEF(maxFOV, "maxfov", 70);
 
 	return new ZoomByMouseWheel(speed, minFOV, maxFOV); 
 }

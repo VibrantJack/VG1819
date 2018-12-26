@@ -6,10 +6,14 @@
         }, 
         {
             "name" : "MoveByMouseRightClickDrag",
-            "speed" : 0.005
+            "speed" : 0.005,
+			"minClamp" : [-0.5,-5.6],
+			"maxClamp" : [14.5,9.5]
         },
         {
-            "name" : "ZoomByMouseWheel"
+            "name" : "ZoomByMouseWheel",
+			"minfov" : 1,
+			"maxfov" : 50
         },
 		{
 			"name" : "AudioListener"
