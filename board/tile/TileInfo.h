@@ -6,7 +6,7 @@
 #define TILE "tile"
 
 #include "kitten\K_Component.h"
-#include "kitten\QuadRenderable.h"
+#include "kitten\QuadRenderableRepeat.h"
 #include "board/tile/landInfo/LandInfoManager.h"
 #include "puppy\Texture.h"
 #include "kitten/QuadEdgeRenderable.h"
@@ -78,6 +78,6 @@ private:
 
 	kitten::K_GameObject* m_unitGO;
 	LandInformation* m_landInfo;
-	kitten::QuadRenderable* m_quadRenderable;
+	kitten::QuadRenderableRepeat* m_quadRenderable;
 	kitten::QuadEdgeRenderable* m_edge;
 };

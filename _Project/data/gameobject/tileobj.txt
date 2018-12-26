@@ -2,8 +2,11 @@
     "name" : "TileObject", 
     "components" : [
         {
-            "name" : "QuadRenderable",
-			"static" : true
+		"name" : "QuadRenderableRepeat",
+		"static" : true,
+		"texRepeat" : true,
+		"uRepeat" : 4.0,
+		"vRepeat" : 4.0
         },
 	{
 		"name" : "QuadEdgeRenderable"

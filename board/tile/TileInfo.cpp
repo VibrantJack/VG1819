@@ -39,7 +39,7 @@ void TileInfo::setType(LandInformation::TileType p_type)
 
 void TileInfo::start()
 {
-	m_quadRenderable = m_attachedObject->getComponent<kitten::QuadRenderable>();
+	m_quadRenderable = m_attachedObject->getComponent<kitten::QuadRenderableRepeat>();
 	setLand();
 
 	m_edge = m_attachedObject->getComponent<kitten::QuadEdgeRenderable>();
