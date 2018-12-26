@@ -8,6 +8,6 @@
 			"spritename" : "engineer"
 		}
 	],
-	"scale" : [1.5,1.75,0],
+	"scale":[1.5,1.75,1],
 	"rotate" : [45, 0, 0]
 }

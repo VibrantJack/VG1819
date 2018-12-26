@@ -7,17 +7,17 @@
 
 namespace ability
 {
-	int PowerOfMoney::effect(AbilityInfoPackage* p_info)
+	int PowerSlam::effect(AbilityInfoPackage* p_info)
 	{
 		//deal damaga to all units
 
 		//change power
 		int powerFactor = p_info->m_intValue[UNIT_POWER];
-		int counter = p_info->m_intValue[COUNTER_MONEY];
+		int counter = p_info->m_intValue[COUNTER_ENERGY];
 		p_info->m_intValue[UNIT_POWER] = powerFactor * counter;
 
 		//remove counter
-		removeCounter(p_info->m_source, COUNTER_MONEY, counter);
+		removeCounter(p_info->m_source, COUNTER_ENERGY, counter);
 
 		//trigger deal damage event
 		triggerTPEvent(ability::TimePointEvent::Deal_Damage, p_info->m_source, p_info);

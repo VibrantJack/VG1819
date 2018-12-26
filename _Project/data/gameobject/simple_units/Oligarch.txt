@@ -5,9 +5,9 @@
 		},
 		{
 			"name" : "SpriteAnimator",
-			"spritename" : "oligarch"
+			"spritename" : "enchanter"
 		}
 	],
-	"scale" : [10,1.5,0],
+	"scale":[20,1.5,0],
 	"rotate" : [45, 0, 0]
 }

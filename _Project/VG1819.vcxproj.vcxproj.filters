@@ -182,9 +182,6 @@
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\ability\Dodge.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\ability\Sabotage.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
@@ -520,15 +517,6 @@
     <ClCompile Include="..\board\component\tilePipeline\AllyFilter.cpp">
       <Filter>board\component\tilePipeline</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\ability\Invest.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\ability\GoldRush.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\ability\PowerOfMoney.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\status\Status_Temp_Change.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
@@ -763,6 +751,18 @@
     </ClCompile>
     <ClCompile Include="..\kitten\QuadEdgeRenderable.cpp">
       <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Defend.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\PowerSurge.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\EnergyControl.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\PowerSlam.cpp">
+      <Filter>ability\ability</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
