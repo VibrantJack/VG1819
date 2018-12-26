@@ -1,0 +1,32 @@
+{
+	"gameobjects" :
+	[
+		{
+			"name" : "Ground",
+			"components" : [
+				{
+					"name" : "QuadRenderableRepeat",
+					"texture" : "textures/background/forest_ground.jpg",
+					"texRepeat" : true,
+					"static" : true,
+					"uRepeat" : 30,
+					"vRepeat" : 30
+				}
+			],
+			"scale" : [60,1,60],
+			"translate" : [5,-2,-5]
+		},
+		{
+			"name" : "RightTree",
+			"components" : [
+				{
+					"name" : "ModelRenderable",
+					"path" : "models/terrain/trees/sassafras.obj"
+				}
+			],
+			"scale" : [0.25,0.25,0.25],
+			"rotate" : [0,0,0],
+			"translate" : [-5,-1,0]
+		}
+	]
+}
