@@ -1,3 +1,4 @@
+#pragma once
 #include "K_Renderable.h"
 #include "puppy\TextureBlendMaterial.h"
 #include "puppy\VertexEnvironment.h"
