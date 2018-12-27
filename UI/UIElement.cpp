@@ -67,6 +67,7 @@ namespace userinterface
 	void UIElement::start()
 	{
 		//empty to not force override
+		defineVerts();
 	}
 	
 	void UIElement::defineVerts()
