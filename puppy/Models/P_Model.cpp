@@ -7,7 +7,7 @@ namespace puppy
 	P_Model::P_Model(const char* p_pathToModel)
 	{
 		Assimp::Importer importer;
-		auto scene = importer.ReadFile(p_pathToModel, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenUVCoords | aiProcess_TransformUVCoords | aiProcess_OptimizeMeshes | aiProcess_OptimizeGraph);
+		auto scene = importer.ReadFile(p_pathToModel, aiProcess_Triangulate | aiProcess_FlipUVs  | aiProcess_OptimizeMeshes | aiProcess_OptimizeGraph);
 		
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
@@ -61,7 +61,7 @@ namespace puppy
 				normal = glm::vec3(aiNormal.x, aiNormal.y, aiNormal.z);
 			}
 
-			if (p_mesh->HasTextureCoords(i))
+			if (p_mesh->mTextureCoords[0])
 			{
 				const auto& aiUV = p_mesh->mTextureCoords[0][i];
 				uv = glm::vec2(aiUV.x, aiUV.y);

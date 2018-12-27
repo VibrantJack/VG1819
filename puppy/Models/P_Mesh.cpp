@@ -18,7 +18,7 @@ namespace puppy
 
 			if (lastSlash < newTexPath.length())
 			{
-				newTexPath = newTexPath.substr(lastSlash, newTexPath.length());
+				newTexPath = newTexPath.substr(lastSlash+1, newTexPath.length());
 			}
 
 			newTexPath = "models/textures/" + newTexPath;
