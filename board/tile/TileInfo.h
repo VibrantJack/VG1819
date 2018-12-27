@@ -80,4 +80,8 @@ private:
 	LandInformation* m_landInfo;
 	kitten::QuadRenderableRepeat* m_quadRenderable;
 	kitten::QuadEdgeRenderable* m_edge;
+
+	std::vector<kitten::K_GameObject*> m_decorationList;
+	void setDecoration();
+	void deleteList();
 };

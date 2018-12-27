@@ -154,12 +154,14 @@
     <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnownedTileFilter.cpp" />
+    <ClCompile Include="..\board\tile\DecorationGenerator.cpp" />
     <ClCompile Include="..\board\tile\landInfo\ForestLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\GardenLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\HomeLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\LandInfoManager.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SandLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
+    <ClCompile Include="..\board\tile\TileDecoration.cpp" />
     <ClCompile Include="..\components\CameraMoveByEvent.cpp" />
     <ClCompile Include="..\components\CustomCursor.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
@@ -438,8 +440,10 @@
     <ClInclude Include="..\board\component\PathFind.h" />
     <ClInclude Include="..\board\component\tilePipeline\TileFliter.h" />
     <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h" />
+    <ClInclude Include="..\board\tile\DecorationGenerator.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInformation.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInfoManager.h" />
+    <ClInclude Include="..\board\tile\TileDecoration.h" />
     <ClInclude Include="..\components\CameraMoveByEvent.h" />
     <ClInclude Include="..\components\CustomCursor.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />

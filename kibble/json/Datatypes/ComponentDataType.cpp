@@ -1071,6 +1071,54 @@ kitten::K_Component* getQuadEdgeRenderable(nlohmann::json* p_jsonFile)
 	return new kitten::QuadEdgeRenderable();
 }
 
+#include "board/tile/TileDecoration.h"
+kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
+{
+	TileDecoration* d = new TileDecoration();
+
+	if (JSONHAS("texture")) {
+		std::vector<std::string> list;
+		//assert(p_jsonfile["components"].is_array());
+		for (nlohmann::json::iterator it = p_jsonFile->operator[]("texture").begin(); it != p_jsonFile->operator[]("texture").end(); ++it) {
+			list.push_back(*it);
+		}
+		d->setTextureList(list);
+	}
+
+	if (JSONHAS("min_scale") && JSONHAS("max_scale"))
+	{
+		int x1 = p_jsonFile->operator[]("min_scale")[0];
+		int y1 = p_jsonFile->operator[]("min_scale")[1];
+		int z1 = p_jsonFile->operator[]("min_scale")[2];
+		int x2 = p_jsonFile->operator[]("max_scale")[0];
+		int y2 = p_jsonFile->operator[]("max_scale")[1];
+		int z2 = p_jsonFile->operator[]("max_scale")[2];
+		d->setScaleRange(glm::vec3(x1, y1, z1), glm::vec3(x2, y2, z2));
+	}
+	if (JSONHAS("min_rotation") && JSONHAS("max_rotation"))
+	{
+		int x1 = p_jsonFile->operator[]("min_rotation")[0];
+		int y1 = p_jsonFile->operator[]("min_rotation")[1];
+		int z1 = p_jsonFile->operator[]("min_rotation")[2];
+		int x2 = p_jsonFile->operator[]("max_rotation")[0];
+		int y2 = p_jsonFile->operator[]("max_rotation")[1];
+		int z2 = p_jsonFile->operator[]("max_rotation")[2];
+		d->setRotationRange(glm::vec3(x1, y1, z1), glm::vec3(x2, y2, z2));
+	}
+	if (JSONHAS("min_trans") && JSONHAS("max_trans"))
+	{
+		int x1 = p_jsonFile->operator[]("min_trans")[0];
+		int y1 = p_jsonFile->operator[]("min_trans")[1];
+		int z1 = p_jsonFile->operator[]("min_trans")[2];
+		int x2 = p_jsonFile->operator[]("max_trans")[0];
+		int y2 = p_jsonFile->operator[]("max_trans")[1];
+		int z2 = p_jsonFile->operator[]("max_trans")[2];
+		d->setTransRange(glm::vec3(x1, y1, z1), glm::vec3(x2, y2, z2));
+	}
+
+	return d;
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1159,6 +1207,7 @@ void setupComponentMap() {
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
 	jsonComponentMap["QuadEdgeRenderable"] = &getQuadEdgeRenderable;
+	jsonComponentMap["TileDecoration"] = &getTileDecoration;
 
 }
 

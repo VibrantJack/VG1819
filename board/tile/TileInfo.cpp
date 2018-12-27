@@ -7,6 +7,8 @@
 
 #include "TileInfo.h"
 #include "kitten/QuadRenderable.h"
+#include "kitten/K_GameObjectManager.h"
+#include "board/tile/tileDecoration.h"
 
 TileInfo::TileInfo(int p_iPosX, int p_iPosY)
 	:
@@ -43,7 +45,7 @@ void TileInfo::start()
 	setLand();
 
 	m_edge = m_attachedObject->getComponent<kitten::QuadEdgeRenderable>();
-	m_edge->setEnabled(false);
+	//m_edge->setEnabled(false);
 }
 
 void TileInfo::setLand()
@@ -51,6 +53,8 @@ void TileInfo::setLand()
 	m_landInfo = LandInfoManager::getInstance()->getLand(m_tileType);
 
 	m_quadRenderable->setTexture(m_landInfo->getTexturePath().c_str());
+
+	setDecoration();
 }
 
 
@@ -216,4 +220,27 @@ const std::string& TileInfo::getHighlightedBy()
 void TileInfo::setHighlightedBy(const std::string& p_sId)
 {
 	m_sHighlightedBy = p_sId;
+}
+
+void TileInfo::setDecoration()
+{
+	if (m_decorationList.size() > 0)
+		deleteList();
+
+	m_decorationList = tileDecoration::generateDecoration(m_tileType);
+
+	kitten::Transform* tr = &m_attachedObject->getTransform();
+	for (auto it : m_decorationList)
+	{
+		it->getTransform().setIgnoreParent(false);
+		it->getTransform().setParent(tr);
+	}
+}
+
+void TileInfo::deleteList()
+{
+	for (auto it : m_decorationList)
+	{
+		kitten::K_GameObjectManager::getInstance()->destroyGameObject(it);
+	}
 }
