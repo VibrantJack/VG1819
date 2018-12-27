@@ -29,6 +29,7 @@ namespace userinterface
 	{
 		sm_instances++;
 		getTransform().scale2D(m_width, m_height);
+		defineVerts();
 		setEnabled(true);
 	}
 
