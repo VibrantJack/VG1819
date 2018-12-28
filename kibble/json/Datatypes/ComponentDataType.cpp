@@ -496,10 +496,10 @@ kitten::K_Component* getTextBox(nlohmann::json* p_jsonFile) {
 			align = puppy::TextBox::Alignment::left;
 		}
 		else if (temp == "right") {
-			align = puppy::TextBox::Alignment::left;
+			align = puppy::TextBox::Alignment::right;
 		}
 		else if (temp == "center") {
-			align = puppy::TextBox::Alignment::left;
+			align = puppy::TextBox::Alignment::center;
 		}
 	}
 
@@ -647,6 +647,11 @@ kitten::K_Component* getNetworkingConsoleMenu(nlohmann::json* p_jsonFile) {
 	return new NetworkingConsoleMenu();
 }
 
+#include "networking\ConnectToHost.h"
+kitten::K_Component* getConnectToHost(nlohmann::json* p_jsonFile) {
+	return new ConnectToHost();
+}
+
 #include "kitten\sprites\SpriteAnimator.h"
 kitten::K_Component* getSpriteAnimator(nlohmann::json* p_jsonFile) {
 
@@ -784,6 +789,20 @@ kitten::K_Component* getNetworkHostButton(nlohmann::json* p_jsonFile) {
 	SETOPT(highlightedTexture, "highlightedTexture");
 
 	userinterface::NetworkHostButton* button = new userinterface::NetworkHostButton();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+
+	return button;
+}
+
+#include "networking\menu\NetworkConnectButton.h"
+kitten::K_Component* getNetworkConnectButton(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+
+	userinterface::NetworkConnectButton* button = new userinterface::NetworkConnectButton();
 	button->setRegularTexture(regularTexture);
 	button->setHighlightedTexture(highlightedTexture);
 
@@ -1001,12 +1020,22 @@ kitten::K_Component* getExitGameButton(nlohmann::json* p_jsonFile) {
 
 #include "unit/unitComponent/unitAction/ActionSelect.h"
 kitten::K_Component* getActionSelect(nlohmann::json* p_jsonFile) {
-	std::string action;
+	std::pair<int, int> offset, offset2;
 
-	unit::ActionSelect* select = new unit::ActionSelect();
+	if (JSONHAS("action offset"))
+	{
+		int x = p_jsonFile->operator[]("action offset")[0];
+		int y = p_jsonFile->operator[]("action offset")[1];
+		offset = std::make_pair(x, y);
+	}
+	if (JSONHAS("cd offset"))
+	{
+		int x = p_jsonFile->operator[]("cd offset")[0];
+		int y = p_jsonFile->operator[]("cd offset")[1];
+		offset2 = std::make_pair(x, y);
+	}
 
-	if (JSONHAS("action"))
-		select->setAction(LOOKUP("action"));
+	unit::ActionSelect* select = new unit::ActionSelect(offset,offset2);
 
 	return select;
 }
@@ -1021,6 +1050,11 @@ kitten::K_Component* getCombatText(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getDisableAfterTime(nlohmann::json* p_jsonFile) {
 	float time = p_jsonFile->operator[]("time");
 	return new DisableAfterTime(time);
+}
+
+#include "UI\MainMenu\MainMenu.h"
+kitten::K_Component* getMainMenu(nlohmann::json* p_jsonFile) {
+	return new MainMenu();
 }
 
 #include "UI\ClickableCard.h"
@@ -1076,6 +1110,7 @@ void setupComponentMap() {
 	jsonComponentMap["TileInfo"] = &getTileInfo;
 	jsonComponentMap["SpawnUnitOnKeyPress"] = &getSpawnUnitOnKeyPress;
 	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
+	jsonComponentMap["ConnectToHost"] = &getConnectToHost;
 	jsonComponentMap["ChangeSceneOnClick"] = &getChangeSceneOnClick;
 	jsonComponentMap["UniversalPfx"] = &getUniversalPfx;
 	jsonComponentMap["K_ParticleSystem"] = &getKParticleSystem;
@@ -1092,6 +1127,7 @@ void setupComponentMap() {
 	jsonComponentMap["GameplayInit"] = &getGameplayInit;
 	jsonComponentMap["NetworkJoinButton"] = &getNetworkJoinButton;
 	jsonComponentMap["NetworkHostButton"] = &getNetworkHostButton;	
+	jsonComponentMap["NetworkConnectButton"] = &getNetworkConnectButton;
 	jsonComponentMap["TabMenu"] = &getTabMenu;
 	jsonComponentMap["UIObject"] = &getUIObject;
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
@@ -1113,6 +1149,7 @@ void setupComponentMap() {
 	jsonComponentMap["SpawnUnitOnDrop"] = &getSpawnUnitOnDrop;
 	jsonComponentMap["CombatText"] = &getCombatText;
 	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
+	jsonComponentMap["MainMenu"] = &getMainMenu;
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
 

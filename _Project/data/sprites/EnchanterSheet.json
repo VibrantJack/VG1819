@@ -1,0 +1,23 @@
+{
+	"name" : "enchanter",
+	"texture" : "textures/sprites/units/humans/enchanter_sheet.tga",
+	
+	"sheetwidth" : 240,
+	"sheetheight" : 98,
+	
+	"characterwidth" : 48,
+	"characterheight" : 98,
+	
+	"padding" : 0,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [4,0],
+			"time" : 2.0
+		}	
+	],
+	
+	"defaultanimation" : "idle"
+}

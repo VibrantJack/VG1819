@@ -100,17 +100,17 @@
     <ClCompile Include="..\ability\ability\Ability.cpp" />
     <ClCompile Include="..\ability\ability\Arm.cpp" />
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp" />
-    <ClCompile Include="..\ability\ability\Dodge.cpp" />
+    <ClCompile Include="..\ability\ability\Defend.cpp" />
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
-    <ClCompile Include="..\ability\ability\GoldRush.cpp" />
+    <ClCompile Include="..\ability\ability\PowerSurge.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
     <ClCompile Include="..\ability\ability\HereHomeland.cpp" />
-    <ClCompile Include="..\ability\ability\Invest.cpp" />
+    <ClCompile Include="..\ability\ability\EnergyControl.cpp" />
     <ClCompile Include="..\ability\ability\Join.cpp" />
     <ClCompile Include="..\ability\ability\Load.cpp" />
     <ClCompile Include="..\ability\ability\ManipulateTile.cpp" />
     <ClCompile Include="..\ability\ability\Move.cpp" />
-    <ClCompile Include="..\ability\ability\PowerOfMoney.cpp" />
+    <ClCompile Include="..\ability\ability\PowerSlam.cpp" />
     <ClCompile Include="..\ability\ability\Rally.cpp" />
     <ClCompile Include="..\ability\ability\Sabotage.cpp" />
     <ClCompile Include="..\ability\ability\SummonUnit.cpp" />
@@ -241,6 +241,8 @@
     <ClCompile Include="..\kitten\K_UIRenderable.cpp" />
     <ClCompile Include="..\networking\ClientGame.cpp" />
     <ClCompile Include="..\networking\ClientNetwork.cpp" />
+    <ClCompile Include="..\networking\ConnectToHost.cpp" />
+    <ClCompile Include="..\networking\menu\NetworkConnectButton.cpp" />
     <ClCompile Include="..\networking\NetworkingConsoleMenu.cpp" />
     <ClCompile Include="..\networking\NetworkServices.cpp" />
     <ClCompile Include="..\networking\AbilityPacket.cpp" />
@@ -294,6 +296,7 @@
     <ClCompile Include="..\UI\DragNDrop.cpp" />
     <ClCompile Include="..\UI\HandFrame.cpp" />
     <ClCompile Include="..\UI\InterfaceBuilder.cpp" />
+    <ClCompile Include="..\UI\MainMenu\MainMenu.cpp" />
     <ClCompile Include="..\UI\TabMenu\ReturnToMainMenuButton.cpp" />
     <ClCompile Include="..\UI\TabMenu\TabMenu.cpp" />
     <ClCompile Include="..\UI\UIElement.cpp" />
@@ -532,6 +535,8 @@
     <ClInclude Include="..\kitten\K_UIRenderable.h" />
     <ClInclude Include="..\networking\ClientGame.h" />
     <ClInclude Include="..\networking\ClientNetwork.h" />
+    <ClInclude Include="..\networking\ConnectToHost.h" />
+    <ClInclude Include="..\networking\menu\NetworkConnectButton.h" />
     <ClInclude Include="..\networking\menu\NetworkHostButton.h" />
     <ClInclude Include="..\networking\menu\NetworkJoinButton.h" />
     <ClInclude Include="..\networking\NetworkData.h" />
@@ -590,6 +595,7 @@
     <ClInclude Include="..\UI\DragNDrop.h" />
     <ClInclude Include="..\UI\HandFrame.h" />
     <ClInclude Include="..\UI\InterfaceBuilder.h" />
+    <ClInclude Include="..\UI\MainMenu\MainMenu.h" />
     <ClInclude Include="..\UI\TabMenu\ReturnToMainMenuButton.h" />
     <ClInclude Include="..\UI\TabMenu\TabMenu.h" />
     <ClInclude Include="..\UI\UIElement.h" />

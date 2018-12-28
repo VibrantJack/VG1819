@@ -3,6 +3,7 @@
 #include "kibble/databank/databank.hpp"
 #include "puppy/Text/TextBox.h"
 #include <math.h>
+#include "DeckInitializingComponent.h"
 
 bool DecksDisplayFrame::sm_survivorFlagged = false;
 DecksDisplayFrame* instance;
@@ -23,8 +24,10 @@ void DecksDisplayFrame::start()
 {
 	this->m_slots.resize(1);
 	this->m_slotTexts.resize(1);
+	this->m_slotTextBackgrounds.resize(1);
 	m_slots[0] = kitten::K_GameObjectManager::getInstance()->createNewGameObject("deck_display-deck-frame.json");
 	m_slotTexts[0] = kitten::K_GameObjectManager::getInstance()->createNewGameObject("deck_display-deck-textbox.json");
+	m_slotTextBackgrounds[0] = kitten::K_GameObjectManager::getInstance()->createNewGameObject("deck_display_deck_text_bg.json");
 	m_arrows[0] = kitten::K_GameObjectManager::getInstance()->createNewGameObject("deck_display-left_button.json");
 	m_arrows[1] = kitten::K_GameObjectManager::getInstance()->createNewGameObject("deck_display-right_button.json");
 	m_highlight = kitten::K_GameObjectManager::getInstance()->createNewGameObject("deck_display-highlight.json");
@@ -40,10 +43,15 @@ void DecksDisplayFrame::start()
 
 	this->m_slots.resize(std::fmax(fittableX*fittableY, 1));
 	this->m_slotTexts.resize(std::fmax(fittableX*fittableY, 1));
+	this->m_slotTextBackgrounds.resize(std::fmax(fittableX*fittableY, 1));
 	m_slots[0]->getTransform().place2D(displayFrameTrans.x + m_marginX, displayFrameTrans.y + displayFrameScale.y - m_marginY - deckScale.y);
-	m_slotTexts[0]->getTransform().place2D(displayFrameTrans.x + m_marginX, displayFrameTrans.y + displayFrameScale.y - 3 * m_marginY - deckScale.y);
-	m_arrows[0]->getTransform().place2D(displayFrameTrans.x + m_marginX, displayFrameTrans.y + m_marginY);
-	m_arrows[1]->getTransform().place2D(displayFrameTrans.x + displayFrameScale.x - m_marginX - arrowButtons.x, displayFrameTrans.y + m_marginY);
+	m_slotTexts[0]->getTransform().place(displayFrameTrans.x + m_marginX, displayFrameTrans.y + displayFrameScale.y - 3 * m_marginY - deckScale.y, -0.01);
+	m_slotTextBackgrounds[0]->getTransform().place(displayFrameTrans.x + m_marginX, displayFrameTrans.y + displayFrameScale.y - 9 * m_marginY - deckScale.y, -0.1f);
+
+	float slotTextBackroundScaleY = m_slotTextBackgrounds[0]->getTransform().getScale2D().y;
+	m_arrows[0]->getTransform().place2D(displayFrameTrans.x - m_marginX - arrowButtons.x, displayFrameTrans.y + slotTextBackroundScaleY);
+	m_arrows[1]->getTransform().place2D(displayFrameTrans.x + displayFrameScale.x + m_marginX, displayFrameTrans.y + slotTextBackroundScaleY);
+
 	for (int i = 1; i < m_slots.size(); ++i)
 	{
 		m_slots[i] = kitten::K_GameObjectManager::getInstance()->createNewGameObject("deck_display-deck-frame.json");
@@ -52,13 +60,26 @@ void DecksDisplayFrame::start()
 			displayFrameTrans.y + displayFrameScale.y - (i / fittableX)*(deckScale.y + 4 * m_marginY + textY) - m_marginY - deckScale.y
 		);
 		m_slotTexts[i] = kitten::K_GameObjectManager::getInstance()->createNewGameObject("deck_display-deck-textbox.json");
-		m_slotTexts[i]->getTransform().place2D(
+		m_slotTexts[i]->getTransform().place(
 			displayFrameTrans.x + (i%fittableX)*(deckScale.x + 2 * m_marginX) + m_marginX,
-			displayFrameTrans.y + displayFrameScale.y - (i / fittableX)*(deckScale.y + 4 * m_marginY + textY) - 3* m_marginY - deckScale.y
+			displayFrameTrans.y + displayFrameScale.y - (i / fittableX)*(deckScale.y + 4 * m_marginY + textY) - 3* m_marginY - deckScale.y,
+			-0.01f
+		);
+		m_slotTextBackgrounds[i] = kitten::K_GameObjectManager::getInstance()->createNewGameObject("deck_display_deck_text_bg.json");
+		m_slotTextBackgrounds[i]->getTransform().place(
+			displayFrameTrans.x + (i%fittableX)*(deckScale.x + 2 * m_marginX) + m_marginX,
+			displayFrameTrans.y + displayFrameScale.y - (i / fittableX)*(deckScale.y + 4 * m_marginY + textY) - 9 * m_marginY - deckScale.y,
+			-0.1f
 		);
 	}
 
-	updateDeckDisplay();
+	if (DeckInitializingComponent::getActiveInstance() != nullptr)
+	{
+		if (DeckInitializingComponent::getActiveInstance()->getDeckData() != nullptr)
+		{
+			m_currentPick = DeckInitializingComponent::getActiveInstance()->getDeckId();
+		}
+	}
 
 	if (!sm_survivorFlagged)
 	{
@@ -66,6 +87,8 @@ void DecksDisplayFrame::start()
 		kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(survivor);
 		sm_survivorFlagged = true;
 	}
+	
+	updateDeckDisplay();
 }
 
 
@@ -91,12 +114,14 @@ void DecksDisplayFrame::updateDeckDisplay()
 		m_slots[i]->setEnabled(true);
 		m_slotTexts[i]->setEnabled(true);
 		m_slotTexts[i]->getComponent<puppy::TextBox>()->setText(deck->name);
+		m_slotTextBackgrounds[i]->setEnabled(true);
 		// TODO this is where to add deck or commander visual to deck front once set up right
 	}
 	for (int i = m_currentActive; i < m_slots.size();++i)
 	{
 		m_slots[i]->setEnabled(false);
 		m_slotTexts[i]->setEnabled(false);
+		m_slotTextBackgrounds[i]->setEnabled(false);
 	}
 
 	if (m_currentSet == 0) m_arrows[0]->setEnabled(false);
@@ -142,6 +167,10 @@ void DecksDisplayFrame::onDisabled()
 	{
 		textBox->setEnabled(false);
 	}
+	for (auto textBg : m_slotTextBackgrounds)
+	{
+		textBg->setEnabled(false);
+	}
 	for (auto arrow : m_arrows)
 	{
 		arrow->setEnabled(false);
@@ -154,6 +183,7 @@ void DecksDisplayFrame::onEnabled()
 	{
 		m_slots[index]->setEnabled(true);
 		m_slotTexts[index]->setEnabled(true);
+		m_slotTextBackgrounds[index]->setEnabled(true);
 	}
 	if (m_currentSet == 0) m_arrows[0]->setEnabled(false);
 	else m_arrows[0]->setEnabled(true);
@@ -168,7 +198,9 @@ void DecksDisplayFrame::onEnabled()
 const int& DecksDisplayFrame::getCurrentPickedDeckId() const {
 	return m_currentPick;
 }
-void DecksDisplayFrame::pickDisplayedDeck(const kitten::K_GameObject* p_gameObject) {
+
+int DecksDisplayFrame::pickDisplayedDeck(const kitten::K_GameObject* p_gameObject) {
 	m_currentPick =	std::find(m_slots.begin(), m_slots.end(), p_gameObject) - m_slots.begin() + (m_currentSet*m_slots.size());
 	updateHighlight();
+	return m_currentPick;
 }

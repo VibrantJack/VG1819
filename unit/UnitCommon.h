@@ -32,7 +32,7 @@
 #define COUNTER_CHOOSE "choose"
 #define COUNTER_ALL "all"
 //counter type
-#define COUNTER_MONEY "money"
+#define COUNTER_ENERGY "energy"
 
 //tags
 #define STRUCTURE "Structure"

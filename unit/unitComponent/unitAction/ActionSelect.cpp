@@ -4,10 +4,14 @@
 #include "ActionButtonStore.h"
 #include <iostream>
 
-unit::ActionSelect::ActionSelect()
+unit::ActionSelect::ActionSelect(const std::pair<int, int> p_to, const std::pair<int, int> p_co)
 	:m_action("NONE"),
 	m_unit(nullptr),
-	m_text(nullptr)
+	m_text(nullptr),
+	m_cdtext(nullptr),
+	m_txtOffset(p_to),
+	m_cdOffset(p_co),
+	m_active(true)
 {
 }
 
@@ -28,11 +32,33 @@ void unit::ActionSelect::start()
 	m_text->getTransform().setIgnoreParent(false);
 
 	//m_text->getTransform().place(0, 0, -0.1);
-	m_text->getTransform().move(m_offsetX,m_offsetY, 0.1);
+	m_text->getTransform().move(m_txtOffset.first, m_txtOffset.second, m_textZ);
 
 	//set property
 	textbox->setColor(1, 1, 1);
 	textbox->setText(m_action);
+
+	//---------------------------
+
+	//cd text
+	m_cdtext = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+
+	puppy::TextBox* cdtextbox = static_cast<puppy::TextBox*>(comMan->createComponent("TextBox"));
+	m_cdtext->addComponent(cdtextbox);
+
+	//make text object be child of frame object
+	m_cdtext->getTransform().setParent(&getTransform());
+	m_cdtext->getTransform().setIgnoreParent(false);
+
+	//m_text->getTransform().place(0, 0, -0.1);
+	m_cdtext->getTransform().move(m_cdOffset.first, m_cdOffset.second, m_textZ);
+
+	//set property
+	cdtextbox->setColor(1, 1, 1);
+	if (m_cd > 0)
+		cdtextbox->setText("CD:" + std::to_string(m_cd));
+	else
+		cdtextbox->setText("");
 
 	ClickableUI::start();
 }
@@ -42,12 +68,21 @@ void unit::ActionSelect::setUnit(Unit * p_u)
 	m_unit = p_u;
 }
 
-void unit::ActionSelect::setAction(const std::string & p_a)
+void unit::ActionSelect::setAction(const std::string & p_a, int p_cd)
 {
+	m_cd = p_cd;
 	m_action = p_a;
 		
 	if(m_text != nullptr)
 		m_text->getComponent<puppy::TextBox>()->setText(m_action);
+
+	if (m_cdtext != nullptr)
+	{
+		if (m_cd > 0)
+			m_cdtext->getComponent<puppy::TextBox>()->setText("CD:" + std::to_string(m_cd));
+		else
+			m_cdtext->getComponent<puppy::TextBox>()->setText("");
+	}
 }
 
 void unit::ActionSelect::act()
@@ -95,11 +130,16 @@ void unit::ActionSelect::act()
 
 void unit::ActionSelect::onClick()
 {
+	if (m_cd > 0 || !m_active)
+		return;
+
 	act();
 	m_storage->hide();
 }
 
 void unit::ActionSelect::onDisabled()
 {
-	//m_text->getComponent<puppy::TextBox>()->setText("");
+	m_text->getComponent<puppy::TextBox>()->setText("NONE");
+	m_cdtext->getComponent<puppy::TextBox>()->setText("");
+	m_active = true;
 }

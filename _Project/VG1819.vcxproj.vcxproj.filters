@@ -182,9 +182,6 @@
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\ability\Dodge.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\ability\Sabotage.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
@@ -520,15 +517,6 @@
     <ClCompile Include="..\board\component\tilePipeline\AllyFilter.cpp">
       <Filter>board\component\tilePipeline</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\ability\Invest.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\ability\GoldRush.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\ability\PowerOfMoney.cpp">
-      <Filter>ability\ability</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\status\Status_Temp_Change.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
@@ -746,11 +734,32 @@
     <ClCompile Include="..\puppy\P_UIRenderable.cpp">
       <Filter>puppy</Filter>
     </ClCompile>
+    <ClCompile Include="..\UI\MainMenu\MainMenu.cpp">
+      <Filter>UI\MainMenu</Filter>
+    </ClCompile>
     <ClCompile Include="..\components\TileInfoDisplayOnKeyPress.cpp">
       <Filter>components\debug</Filter>
     </ClCompile>
+    <ClCompile Include="..\networking\menu\NetworkConnectButton.cpp">
+      <Filter>networking\networking_menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\ConnectToHost.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
     <ClCompile Include="..\components\DrawCardOnClickUI.cpp">
       <Filter>components\deck</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Defend.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\PowerSurge.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\EnergyControl.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\PowerSlam.cpp">
+      <Filter>ability\ability</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1623,8 +1632,17 @@
     <ClInclude Include="..\kitten\K_UIRenderable.h">
       <Filter>kitten</Filter>
     </ClInclude>
+    <ClInclude Include="..\UI\MainMenu\MainMenu.h">
+      <Filter>UI\MainMenu</Filter>
+    </ClInclude>
     <ClInclude Include="..\components\TileInfoDisplayOnKeyPress.h">
       <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\menu\NetworkConnectButton.h">
+      <Filter>networking\networking_menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\ConnectToHost.h">
+      <Filter>networking</Filter>
     </ClInclude>
     <ClInclude Include="..\components\DrawCardOnClickUI.h">
       <Filter>components\deck</Filter>
@@ -1807,6 +1825,9 @@
     </Filter>
     <Filter Include="components\util">
       <UniqueIdentifier>{db9cabd4-1c56-4fea-8cf8-4d8917f17ad9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\MainMenu">
+      <UniqueIdentifier>{7afc2e7a-c536-4001-9c64-dd24fcb73637}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

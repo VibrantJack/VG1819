@@ -1,6 +1,6 @@
 {
-	"name" : "duelist",
-	"texture" : "textures/sprites/units/humans/duelist_sheet.tga",
+	"name" : "knight",
+	"texture" : "textures/sprites/units/humans/knight_sheet.tga",
 	
 	"sheetwidth" : 840,
 	"sheetheight" : 200,

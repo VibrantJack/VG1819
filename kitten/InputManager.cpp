@@ -89,6 +89,7 @@ namespace input
 		{
 			glfwSetKeyCallback(nullptr);
 			glfwSetCharCallback(nullptr);
+			m_inputString = "";
 		}
 
 		m_inputPollMode = p_enabled;

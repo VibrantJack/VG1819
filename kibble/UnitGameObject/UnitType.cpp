@@ -35,8 +35,8 @@ unit::Unit * getUnitFrom(nlohmann::json & p_jsonfile)
 
 	//commander
 	if (p_jsonfile.find("commander") != p_jsonfile.end()) {
-		//change lv to -1 since it doesn't apply to commander
-		unit->m_attributes[UNIT_LV] = -1;
+		//change lv to 0 since it doesn't apply to commander
+		unit->m_attributes[UNIT_LV] = 0;
 
 		unit->m_ID = "testCommander01";//should be change
 

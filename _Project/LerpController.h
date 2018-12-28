@@ -72,9 +72,6 @@ public:
 	void scaleLerp(const glm::vec3& p_scale, const float& p_time);
 	void rotationLerp(const glm::quat& p_rot, const float& p_time);
 
-	void addPositionCallback(PositionLerpFinishedCallback* p_listener);
-	void addScaleCallback(ScaleLerpFinishedCallback* p_listener);
-	void addRotationCallback(RotationLerpFinishedCallback* p_listener);
 
 	void removePositionCallback(PositionLerpFinishedCallback* p_listener);
 	void removeScaleCallback(ScaleLerpFinishedCallback* p_listener);
@@ -87,4 +84,10 @@ public:
 	bool isPosLerping() const { return m_isPositionLerping; }
 	bool isScaleLerping() const { return m_isScaleLerping; }
 	bool isRotationLerping() const { return m_isRotationLerping; }
+
+
+	void addPositionLerpFinishedCallback(PositionLerpFinishedCallback* p_toAdd);
+	void addScaleLerpFinishedCallback(ScaleLerpFinishedCallback* p_toAdd);
+	void addRotationLerpFinishedCallback(RotationLerpFinishedCallback* p_toAdd);
+	
 };
