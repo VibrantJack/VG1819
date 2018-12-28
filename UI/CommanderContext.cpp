@@ -14,6 +14,7 @@ namespace userinterface
 {
 	CommanderContext::CommanderContext(): ContextMenu()
 	{
+		
 	}
 
 	CommanderContext::~CommanderContext()
@@ -30,9 +31,21 @@ namespace userinterface
 		getTransform().scale2D(200, 100);
 		setPivotType(piv_TopLeft);
 		setTexBehaviour(tbh_Repeat);
-
-		setEnabled(false);
+		m_padding = 10;
 
 		defineVerts();
+
+		kitten::K_GameObjectManager* GOMan = kitten::K_GameObjectManager::getInstance();
+		kitten::K_ComponentManager* CompMan = kitten::K_ComponentManager::getInstance();
+
+		kitten::K_GameObject* GO_name = kibble::getGameObjectDataParserInstance()->getGameObject("context_textbox.txt");
+		puppy::TextBox* nameComp = GO_name->getComponent<puppy::TextBox>();
+		nameComp->setText("Temp");
+		nameComp->setEnabled(true);
+
+		Row* r = addRow(rt_OneElement);
+		r->elements.push_back(GO_name);
+
+		arrange();
 	}
 }

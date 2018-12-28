@@ -752,6 +752,11 @@
     <ClCompile Include="..\components\DrawCardOnClickUI.cpp">
       <Filter>components\deck</Filter>
     </ClCompile>
+    <ClCompile Include="PivotTextBox.cpp" />
+    <ClCompile Include="qPivotTextBox.cpp" />
+    <ClCompile Include="..\puppy\Text\PivotTextBox.cpp">
+      <Filter>puppy\Text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1628,6 +1633,10 @@
     </ClInclude>
     <ClInclude Include="..\components\DrawCardOnClickUI.h">
       <Filter>components\deck</Filter>
+    </ClInclude>
+    <ClInclude Include="PivotTextBox.h" />
+    <ClInclude Include="..\puppy\Text\PivotTextBox.h">
+      <Filter>puppy\Text</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

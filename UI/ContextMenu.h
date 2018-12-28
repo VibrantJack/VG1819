@@ -36,11 +36,11 @@ namespace userinterface
 			int contentMargin, padding, width, height;
 		};
 
-		std::vector<Row> m_rows;
+		std::vector<Row*> m_rows;
 		fillType m_ft;
 
 		void start() override;
-		Row addRow(const rowType p_rt);
+		Row* addRow(const rowType p_rt);
 		void arrange();
 	};
 }

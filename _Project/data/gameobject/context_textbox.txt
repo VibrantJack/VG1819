@@ -1,0 +1,13 @@
+{
+    "name" : "Context Textbox",
+    "components" : [
+        {
+            "name" : "TextBox",
+			"font" : "../fonts/ms_gothic.fnt",
+			"color" : [1,1,1],
+            "alignment" : "left",
+            "width" : 100,
+            "height" : 15
+        }
+    ]
+}

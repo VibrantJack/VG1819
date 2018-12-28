@@ -18,7 +18,7 @@ namespace puppy
 	public:
 		enum Alignment { left, right, center };
 
-	private:
+	protected:
 		std::map<const Texture*, VertexEnvironment*> m_textMap;
 
 		std::string m_text;
@@ -33,7 +33,6 @@ namespace puppy
 
 		void constructLeftAlignVertices();
 		void constructRightOrCenterAlignVertices(bool p_isRight);
-
 		void constructQuad(int p_charId, int p_xPos, int p_yPos, TexturedVertex p_toSet[]);
 		void removeOldText();
 	public:

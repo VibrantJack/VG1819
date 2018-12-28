@@ -571,7 +571,6 @@ kitten::K_Component* getPowerTracker(nlohmann::json* p_jsonFile) {
 #include "board/component/Highlighter.h"
 kitten::K_Component* getHighlighter(nlohmann::json* p_jsonFile) {
 	return new Highlighter();
-
 }
 
 #include "UI/HandFrame.h"
@@ -1027,6 +1026,84 @@ kitten::K_Component* getCombatText(nlohmann::json* p_jsonFile) {
 	return new CombatText(poolSize);
 }
 
+#include "puppy\Text\PivotTextBox.h"
+kitten::K_Component* getPivotTextBox(nlohmann::json* p_jsonFile) {
+	std::string font, message;
+	userinterface::UIElement::pivotType pivot;
+	float width, height;
+	puppy::PivotTextBox* textbox;
+
+	SETOPTDEF(font, "font", "../fonts/common_dejavu.fnt");
+	SETOPTDEF(message, "message", "DEFAULT TEXT");
+	SETOPTDEF(width, "width", 500);
+	SETOPTDEF(height, "height", 500);
+
+	puppy::TextBox::Alignment align = puppy::TextBox::Alignment::left;
+
+	if (JSONHAS("alignment")) {
+		std::string temp = LOOKUP("alignment");
+		if (temp == "left") {
+			align = puppy::TextBox::Alignment::left;
+		}
+		else if (temp == "right") {
+			align = puppy::TextBox::Alignment::left;
+		}
+		else if (temp == "center") {
+			align = puppy::TextBox::Alignment::left;
+		}
+	}
+
+	if (JSONHAS("pivot")) {
+		std::string temp = LOOKUP("pivot");
+		if (temp == "left")
+		{
+			pivot = userinterface::UIElement::piv_Left;
+		}
+		else if (temp == "topleft")
+		{
+			pivot = userinterface::UIElement::piv_TopLeft;
+
+		}
+		else if (temp == "top")
+		{
+			pivot = userinterface::UIElement::piv_Top;
+
+		}
+		else if (temp == "topright")
+		{
+			pivot = userinterface::UIElement::piv_TopRight;
+
+		}
+		else if (temp == "right")
+		{
+			pivot = userinterface::UIElement::piv_Right;
+
+		}
+		else if (temp == "botright")
+		{
+			pivot = userinterface::UIElement::piv_BotRight;
+
+		}
+		else if (temp == "bot")
+		{
+			pivot = userinterface::UIElement::piv_Bot;
+
+		}
+		else
+		{
+			pivot = userinterface::UIElement::piv_BotLeft;
+		}
+
+		textbox = new puppy::PivotTextBox(puppy::FontTable::getInstance()->getFont(font.c_str()), message.c_str(), width, height, pivot, align);
+
+
+	if (JSONHAS("color")) {
+		textbox->setColor(LOOKUP("color")[0], LOOKUP("color")[1], LOOKUP("color")[2]);
+	}
+
+	}
+}
+
 #include "_Project\DisableAfterTime.h"
 kitten::K_Component* getDisableAfterTime(nlohmann::json* p_jsonFile) {
 	float time = p_jsonFile->operator[]("time");
@@ -1125,6 +1202,7 @@ void setupComponentMap() {
 	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
+	jsonComponentMap["PivotTextBox"] = &getPivotTextBox;
 
 }
 

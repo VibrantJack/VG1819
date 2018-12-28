@@ -32,40 +32,42 @@ namespace userinterface
 		setEnabled(true);
 	}
 
-	ContextMenu::Row ContextMenu::addRow( const rowType p_rt )
+	ContextMenu::Row* ContextMenu::addRow( const rowType p_rt )
 	{
-		Row r;
-		r.type = p_rt;
+		Row* r = new Row();
+		r->type = p_rt;
 		m_rows.push_back(r);
-		arrange();
 		return r;
 	}
 
 	void ContextMenu::arrange()
 	{
+		glm::vec3 pos = getTransform().getTranslation();
 		int offset = m_padding;
-		int currentX = offset;
-		int currentY = -offset;
-		getTransform().scale2D(m_padding * 2, m_padding * 2);
+		int currentX = offset + pos.x;
+		int currentY = offset + pos.y;
+		m_width = m_padding * 2;
+		m_height = m_padding * 2;
 	
-		for (Row r : m_rows)
+		for (Row* r : m_rows)
 		{
-			for (kitten::K_GameObject* GO : r.elements)
+			for (kitten::K_GameObject* GO : r->elements)
 			{
-				GO->getComponent<UIElement>()->setPivotType(UIElement::piv_TopLeft);
 				if (GO != nullptr)
 				{
-					GO->getTransform().place2D(currentX, currentY);
-					if (m_ft == ft_Vertical || r.type == rt_OneElement)
+					GO->getTransform().place(currentX, currentY, 0.1f);
+					if (m_ft == ft_Vertical || r->type == rt_OneElement)
 					{
-						currentY -= (r.height - r.contentMargin);
+						currentY -= (r->height + r->contentMargin);
 					}
-					else if (r.type == rt_FillRow)
+					else if (r->type == rt_FillRow)
 					{
-						currentX += (r.width + r.contentMargin);
+						currentX += (r->width + r->contentMargin);
 					}
+					GO->setEnabled(true);
 				}
 			}
 		}
+		getTransform().scale2D(m_width, m_height);
 	}
 }

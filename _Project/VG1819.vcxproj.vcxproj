@@ -284,6 +284,7 @@
     <ClCompile Include="..\puppy\TextureBlendMaterial.cpp" />
     <ClCompile Include="..\puppy\Text\Font.cpp" />
     <ClCompile Include="..\puppy\Text\FontTable.cpp" />
+    <ClCompile Include="..\puppy\Text\PivotTextBox.cpp" />
     <ClCompile Include="..\puppy\Text\TextBox.cpp" />
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
@@ -336,8 +337,10 @@
     <ClCompile Include="LerpController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
+    <ClCompile Include="PivotTextBox.cpp" />
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
     <ClCompile Include="PlaySoundOnStart.cpp" />
+    <ClCompile Include="qPivotTextBox.cpp" />
     <ClCompile Include="StringInputDisplay.cpp" />
     <ClCompile Include="ToggleEnabledOnKeyPress.cpp" />
     <ClCompile Include="ToggleParticleSystemOnKeyPress.cpp" />
@@ -580,6 +583,7 @@
     <ClInclude Include="..\puppy\TextureBlendMaterial.h" />
     <ClInclude Include="..\puppy\Text\Font.h" />
     <ClInclude Include="..\puppy\Text\FontTable.h" />
+    <ClInclude Include="..\puppy\Text\PivotTextBox.h" />
     <ClInclude Include="..\puppy\Text\TextBox.h" />
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
@@ -633,6 +637,7 @@
     <ClInclude Include="FPSCalc.h" />
     <ClInclude Include="LerpController.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
+    <ClInclude Include="PivotTextBox.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />
     <ClInclude Include="PlaySoundOnStart.h" />
     <ClInclude Include="StringInputDisplay.h" />
