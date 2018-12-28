@@ -761,6 +761,12 @@
     <ClCompile Include="..\ability\ability\PowerSlam.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\DisplayFrame.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\CustomDataComponent.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1646,6 +1652,12 @@
     </ClInclude>
     <ClInclude Include="..\components\DrawCardOnClickUI.h">
       <Filter>components\deck</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DisplayFrame.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\CustomDataComponent.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

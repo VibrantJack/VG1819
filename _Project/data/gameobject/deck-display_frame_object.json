@@ -1,0 +1,51 @@
+{
+    "gameobjects": 
+    [
+        {
+            "name" : "Deck Display Frame",
+            "components" : [
+                {
+                    "name" : "UIFrame"
+                },
+                {
+                    "name" : "DecksDisplayPickerOnClick"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "scale2d" : [175.0,250.0]
+        },
+        {
+            "name" : "Deck Display Text Background",
+            "components" : [
+                {
+                    "name" : "UIFrame",
+                    "texture" : "textures/ui/deck_display_text_bg.tga"
+                }
+            ],
+            "scale2d" : [175, 70]
+        },
+        {
+            "name" : "Deck Display TextBox",
+            "components" : [
+                {
+                    "name" : "TextBox",
+                    "font" : "../fonts/nsimsun_24pt.fnt",
+                    "color" : [0.89,0.82,0.55],
+                    "alignment" : "center",
+                    "width" : 175,
+                    "height" : 24
+                }
+            ],
+            "translate2d": [0,34]
+        }
+    ],
+    "components" : [
+        {
+            "name" : "CustomDataComponent",
+            "sizex" : 175,
+            "sizey" : 330
+        }
+    ]
+}

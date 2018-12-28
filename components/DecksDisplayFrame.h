@@ -1,33 +1,20 @@
 #pragma once
-#include "UI/UIFrame.h"
-#include "kitten/K_GameObject.h"
-#include <vector>
-
-class DecksDisplayFrame : public kitten::K_Component
+#include "DisplayFrame.h"
+class DecksDisplayFrame : public DisplayFrame
 {
 private:
-	std::vector<kitten::K_GameObject*> m_slots, m_slotTexts, m_slotTextBackgrounds;
-	kitten::K_GameObject* m_arrows[2], *m_highlight;
-	int m_marginX = 10, // the space between elements within this frame
-		m_marginY = 5,
-		m_currentSet = 0,  // the current set of decks being displayed
-		m_currentActive = 0, // the number of decks currently need to be displayed
-		m_currentPick = -1; // the current picked deck
 	static bool sm_survivorFlagged;
-
-	void updateDeckDisplay();
-	void updateHighlight();
-
-	virtual void onDisabled();
-	virtual void onEnabled();
 public:
 	static DecksDisplayFrame* getActiveInstance();
 
 	void start() override;
 
-	void offsetCurrentSet(const int p_offset);
-	const int& getCurrentPickedDeckId() const; // gives back -1 if no deck has been picked yet
-	int pickDisplayedDeck(const kitten::K_GameObject* p_gameObject);
+	void offsetCurrentSet(const int p_offset) { DisplayFrame::offsetCurrentSet(p_offset); }
+	const int& getCurrentPickedDeckId() const { return getCurrentPickedObject(); } // gives back -1 if no deck has been picked yet
+	int pickDisplayedDeck(const kitten::K_GameObject* p_gameObject) { return pickDisplayedObject(p_gameObject); }
+
+	int getTargetAvailable();
+	void updateIndividualDisplayObject(int p_activeObjectIndex);
 
 	DecksDisplayFrame(int p_marginX, int p_marginY);
 	~DecksDisplayFrame();

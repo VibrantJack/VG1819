@@ -1057,6 +1057,35 @@ kitten::K_Component* getMainMenu(nlohmann::json* p_jsonFile) {
 	return new MainMenu();
 }
 
+#include "components/CustomDataComponent.h"
+kitten::K_Component* getCustomDataComponent(nlohmann::json* p_jsonFile) {
+	CustomDataComponent* comp = new CustomDataComponent();
+	
+	for (nlohmann::json::iterator attribute = p_jsonFile->begin(); attribute != p_jsonFile->end(); ++attribute)
+	{
+		if(attribute.key() == "name")
+		{ }
+		else if (attribute->is_boolean())
+		{
+			comp->m_boolMap[attribute.key()] = *attribute;
+		}
+		else if (attribute->is_number_integer())
+		{
+			comp->m_intMap[attribute.key()] = *attribute;
+		}
+		else if (attribute->is_number_float())
+		{
+			comp->m_floatMap[attribute.key()] = *attribute;
+		}
+		else 
+		{
+			comp->m_stringMap[attribute.key()] = *attribute;
+		}
+	}
+
+	return comp;
+}
+
 #include "UI\ClickableCard.h"
 kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
 {
@@ -1148,6 +1177,7 @@ void setupComponentMap() {
 	jsonComponentMap["DragNDrop"] = &getDragNDrop;
 	jsonComponentMap["SpawnUnitOnDrop"] = &getSpawnUnitOnDrop;
 	jsonComponentMap["CombatText"] = &getCombatText;
+	jsonComponentMap["CustomDataComponent"] = &getCustomDataComponent;
 	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
 	jsonComponentMap["MainMenu"] = &getMainMenu;
 	jsonComponentMap["ClickableCard"] = &getClickableCard;

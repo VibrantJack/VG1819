@@ -33,6 +33,9 @@
         },
         {
 			"filename" : "UI/testing_button.json"
+        },
+        {
+            "filename" : "deck-display_frame_object.json"
         }
     ]
 }
