@@ -176,7 +176,7 @@ namespace networking
 
 						// Display disconnect screen; Server received manual disconnect from client
 						kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
-						eventData->putInt(GAME_END_RESULT, 2);
+						eventData->putInt(GAME_END_RESULT, PLAYER_DISCONNECTED);
 						kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
 
 						break;
@@ -265,6 +265,7 @@ namespace networking
 					}
 					case SKIP_TURN:
 					case GAME_TURN_START:
+					case DESYNCED:
 					{
 						i += BASIC_PACKET_SIZE;
 						printf("Server received BasicPacket PacketType: %d from [Client: %d]\n", defaultPacket.m_packetType, iter->first);

@@ -33,6 +33,9 @@ namespace networking
 
 		void useAbility(AbilityPacket& p_packet);
 		void sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
+		
+		bool checkSync(int p_unitId);
+		void sendDesyncedPacket();
 
 		void summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
 		void sendSummonUnitPacket(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
