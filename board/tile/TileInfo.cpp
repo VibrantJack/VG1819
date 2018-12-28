@@ -9,6 +9,7 @@
 #include "kitten/QuadRenderable.h"
 #include "kitten/K_GameObjectManager.h"
 #include "board/tile/tileDecoration.h"
+#include "board/tile/DecorationGenerator.h"
 
 TileInfo::TileInfo(int p_iPosX, int p_iPosY)
 	:
@@ -227,7 +228,7 @@ void TileInfo::setDecoration()
 	if (m_decorationList.size() > 0)
 		deleteList();
 
-	m_decorationList = tileDecoration::generateDecoration(m_tileType);
+	m_decorationList = DecorationGenerator::generateDecoration(m_tileType);
 
 	kitten::Transform* tr = &m_attachedObject->getTransform();
 	for (auto it : m_decorationList)

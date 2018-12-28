@@ -236,6 +236,7 @@
     <ClCompile Include="..\kitten\QuadRenderable.cpp" />
     <ClCompile Include="..\kitten\QuadRenderableRepeat.cpp" />
     <ClCompile Include="..\kitten\K_Renderable.cpp" />
+    <ClCompile Include="..\kitten\SimpleQuadRenderable.cpp" />
     <ClCompile Include="..\kitten\sprites\SpriteAnimator.cpp" />
     <ClCompile Include="..\kitten\sprites\SpriteGroup.cpp" />
     <ClCompile Include="..\kitten\sprites\SpriteRenderable.cpp" />
@@ -533,6 +534,7 @@
     <ClInclude Include="..\kitten\QuadRenderable.h" />
     <ClInclude Include="..\kitten\QuadRenderableRepeat.h" />
     <ClInclude Include="..\kitten\K_Renderable.h" />
+    <ClInclude Include="..\kitten\SimpleQuadRenderable.h" />
     <ClInclude Include="..\kitten\sprites\SpriteAnimator.h" />
     <ClInclude Include="..\kitten\sprites\SpriteGroup.h" />
     <ClInclude Include="..\kitten\sprites\SpriteRenderable.h" />

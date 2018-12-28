@@ -15,5 +15,5 @@ public:
 	static std::vector<kitten::K_GameObject*> generateDecoration(LandInformation::TileType p_type);
 
 private:
-	static void generateGrassDecoration();
+	static std::vector<kitten::K_GameObject*> generateGrassDecoration();
 };

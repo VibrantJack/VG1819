@@ -5,9 +5,8 @@
             "name" : "UnitAura"
         },
         {
-            "name" : "QuadRenderable",
-            "texture":"textures/ui/circle.tga",
-            "static":false
+            "name" : "SimpleQuadRenderable",
+            "texture":"textures/ui/circle.tga"
         }
     ],
     "translate":[0,-0.499,0],

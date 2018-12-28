@@ -1,14 +1,14 @@
 #include "TileDecoration.h"
-#include "kitten/QuadRenderable.h"
+#include "kitten/SimpleQuadRenderable.h"
 
 TileDecoration::TileDecoration()
 	:
 	m_minScale(glm::vec3(1, 1, 1)),
 	m_maxScale(glm::vec3(1, 1, 1)),
-	m_minRotation(glm::vec3(45, 0, 0)),
-	m_maxRotation(glm::vec3(45, 0, 0)),
-	m_minTranslation(glm::vec3(0, 0, 0)),
-	m_maxTranslation(glm::vec3(0, 0, 0))
+	m_minRotation(glm::vec3(-45, 0, 0)),
+	m_maxRotation(glm::vec3(-45, 0, 0)),
+	m_minTranslation(glm::vec3(0, 0.1, 0)),
+	m_maxTranslation(glm::vec3(0, 0.1, 0))
 {
 }
 
@@ -19,7 +19,7 @@ TileDecoration::~TileDecoration()
 void TileDecoration::start()
 {
 	//get renderable
-	kitten::QuadRenderable* quad = m_attachedObject->getComponent<kitten::QuadRenderable>();
+	kitten::SimpleQuadRenderable* quad = m_attachedObject->getComponent<kitten::SimpleQuadRenderable>();
 	assert(quad != nullptr);
 
 	//set texture
@@ -69,8 +69,10 @@ const std::string & TileDecoration::randomTexture()
 int TileDecoration::randomInt(int p_a, int p_b)
 {
 	int delta = abs(p_a - p_b);
-	int i = rand() % delta + (p_a < p_b ? p_a : p_b);
-	return i;
+	if (delta == 0)
+		return p_a;
+	else
+		return rand() % delta + (p_a < p_b ? p_a : p_b);
 }
 
 float TileDecoration::randomFloat(float p_a, float p_b)

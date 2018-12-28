@@ -1119,6 +1119,17 @@ kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
 	return d;
 }
 
+#include "kitten/SimpleQuadRenderable.h"
+kitten::K_Component* getSimpleQuadRenderable(nlohmann::json* p_jsonFile) {
+	std::string texturefilename;
+	bool isStatic;
+
+	SETOPTDEF(texturefilename, "texture", "");
+	SETOPTDEF(isStatic, "static", false);
+
+	return new kitten::SimpleQuadRenderable(texturefilename.c_str(), isStatic);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1208,6 +1219,7 @@ void setupComponentMap() {
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
 	jsonComponentMap["QuadEdgeRenderable"] = &getQuadEdgeRenderable;
 	jsonComponentMap["TileDecoration"] = &getTileDecoration;
+	jsonComponentMap["SimpleQuadRenderable"] = &getSimpleQuadRenderable;
 
 }
 

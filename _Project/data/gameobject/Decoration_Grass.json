@@ -2,13 +2,14 @@
     "name" : "decoration", 
     "components" : [
     {
-        "name" : "QuadRenderable",
-        "static" : true
+        "name" : "SimpleQuadRenderable",
+        "texture":"texture/tiles/tileDecoration/grass_1.tga",
+        "static" : false
     },
 	{
 		"name" : "TileDecoration",
-        "texture" : ["texture/tiles/tileDecoration/grass_1.png",
-            "texture/tiles/tileDecoration/grass_2.png"]
+        "texture" : ["texture/tiles/tileDecoration/grass_1.tga",
+            "texture/tiles/tileDecoration/tree.tga"]
 	}
     ]
 }

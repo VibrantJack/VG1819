@@ -770,6 +770,9 @@
     <ClCompile Include="..\board\tile\TileDecoration.cpp">
       <Filter>board\tile</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\SimpleQuadRenderable.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1664,6 +1667,9 @@
     </ClInclude>
     <ClInclude Include="..\board\tile\TileDecoration.h">
       <Filter>board\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\SimpleQuadRenderable.h">
+      <Filter>kitten</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
