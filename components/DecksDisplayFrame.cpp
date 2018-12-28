@@ -51,5 +51,5 @@ int DecksDisplayFrame::getTargetAvailable() {
 
 void DecksDisplayFrame::updateIndividualDisplayObject(int p_activeObjectIndex)
 {
-	m_objectsToDisplay[p_activeObjectIndex];
+	//+ m_currentSet * m_objectsToDisplay.size()
 }

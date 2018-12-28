@@ -19,20 +19,22 @@ void DisplayFrame::start()
 	// Set up variables 
 	const glm::vec2 &displayFrameScale = this->m_attachedObject->getTransform().getScale2D(), // The scale of the frame itself to see how big it is
 		&arrowButtons = m_arrows[0]->getTransform().getScale2D(), // get the scales of  the arrows, to check how big those are
-		objectScale = glm::vec2(m_objectsToDisplay[0]->getComponent<CustomDataComponent>()->m_intMap[SIZE_X],
-			m_objectsToDisplay[0]->getComponent<CustomDataComponent>()->m_intMap[SIZE_Y]
-			);// make sure the object has a custom data component with SIZE X and SIZE Y
+		&objectScale = m_objectsToDisplay[0]->getTransform().getScale2D();
 	const glm::vec3 &displayFrameTrans = m_attachedObject->getTransform().getTranslation();
 
-	// Reset object scale
-	//m_objectsToDisplay[0]->getTransform().scale2D(1, 1);
-
 	// Calculate how many objects can fit into our frame
-	int fittableX = (int)((displayFrameScale.x - (arrowButtons.x + 2 * m_marginX) * 2) / (objectScale.x + 2 * m_marginX)), // Formula: Usable Space/ Needed Space.  X: available width - arrow with margins / (object width + margins) 
+	int fittableX = (int)((displayFrameScale.x) / (objectScale.x + 2 * m_marginX)), // Formula: Usable Space/ Needed Space.  X: available width / (object width + margins) 
 		fittableY = (int)((displayFrameScale.y) / (objectScale.y + 2 * m_marginY)); // Y: (available height) / (object height + margins) 
 
 	// resize object vector to hold maximum possible to display
 	this->m_objectsToDisplay.resize(std::fmax(fittableX*fittableY, 1));
+	// Go through children. P.S. this is because frames go invisible for some reason
+	for (kitten::Transform* child : m_objectsToDisplay[0]->getTransform().getChildren())
+	{
+		child->setIgnoreParent(true);
+		child->place2D(child->getTranslation().x + displayFrameTrans.x + m_marginX,
+			child->getTranslation().y + displayFrameTrans.y + displayFrameScale.y - m_marginY - objectScale.y);
+	}
 	m_objectsToDisplay[0]->getTransform().place2D(displayFrameTrans.x + m_marginX, displayFrameTrans.y + displayFrameScale.y - m_marginY - objectScale.y); // remember, based on bottom left pivot
 
 	m_arrows[0]->getTransform().place2D(displayFrameTrans.x - m_marginX - arrowButtons.x, displayFrameTrans.y + displayFrameScale.y / 2);
@@ -41,10 +43,20 @@ void DisplayFrame::start()
 	for (int i = 1; i < m_objectsToDisplay.size(); ++i)
 	{
 		m_objectsToDisplay[i] = kitten::K_GameObjectManager::getInstance()->createNewGameObject(m_displayObject);
+		// Go through children. P.S. this is because frames go invisible for some reason
+		for (kitten::Transform* child : m_objectsToDisplay[i]->getTransform().getChildren())
+		{
+			child->setIgnoreParent(true);
+			child->place2D(child->getTranslation().x + displayFrameTrans.x + (i%fittableX)*(objectScale.x + 2 * m_marginX) + m_marginX,
+				child->getTranslation().y + displayFrameTrans.y + displayFrameScale.y - (i / fittableX)*(objectScale.y + 2 * m_marginY) - m_marginY - objectScale.y
+			);
+		}
+
 		m_objectsToDisplay[i]->getTransform().place2D(
 			displayFrameTrans.x + (i%fittableX)*(objectScale.x + 2 * m_marginX) + m_marginX,
 			displayFrameTrans.y + displayFrameScale.y - (i / fittableX)*(objectScale.y + 2 * m_marginY) - m_marginY - objectScale.y
 		);
+
 	}
 
 	updateDisplay();
@@ -68,7 +80,7 @@ void DisplayFrame::updateDisplay()
 	for (int i = 0; i < m_currentActive; ++i)
 	{
 		m_objectsToDisplay[i]->setEnabled(true);
-		updateIndividualDisplayObject(i + m_currentSet * m_objectsToDisplay.size());
+		updateIndividualDisplayObject(i);
 	}
 	for (int i = m_currentActive; i < m_objectsToDisplay.size();++i)
 	{
@@ -101,8 +113,11 @@ void DisplayFrame::updateHighlight()
 	{
 		m_highlight->setEnabled(true);
 		m_highlight->getTransform().place2D(
-			m_objectsToDisplay[m_currentPick%m_objectsToDisplay.size()]->getTransform().getTranslation()[0] + m_highlightOffset,
-			m_objectsToDisplay[m_currentPick%m_objectsToDisplay.size()]->getTransform().getTranslation()[1] + m_highlightOffset
+			m_objectsToDisplay[m_currentPick%m_objectsToDisplay.size()]->getTransform().getTranslation()[0] - m_highlightOffset,
+			m_objectsToDisplay[m_currentPick%m_objectsToDisplay.size()]->getTransform().getTranslation()[1] +
+			m_objectsToDisplay[m_currentPick%m_objectsToDisplay.size()]->getTransform().getScale2D().y +
+			-m_highlight->getTransform().getScale2D().y +
+			m_highlightOffset
 		);
 		m_highlight->getTransform().place(
 			m_highlight->getTransform().getTranslation().x,
