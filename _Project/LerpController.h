@@ -83,8 +83,8 @@ public:
 	void forceLerpToFinish();
 	void cancelLerp();
 
-	bool isLerping() { return m_isLerping; }
-	bool isPosLerping() { return m_isPositionLerping; }
-	bool isScaleLerping() { return m_isScaleLerping; }
-	bool isRotationLerping() { return m_isRotationLerping; }
+	bool isLerping() const { return m_isLerping; }
+	bool isPosLerping() const { return m_isPositionLerping; }
+	bool isScaleLerping() const { return m_isScaleLerping; }
+	bool isRotationLerping() const { return m_isRotationLerping; }
 };

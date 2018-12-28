@@ -71,9 +71,9 @@ void LerpController::update()
 		if (lerpProgress >= 1.0f)
 		{
 			m_isPositionLerping = false;
-			onFinishedLerp();
-
 			transform.place(m_lerpPosition.x, m_lerpPosition.y, m_lerpPosition.z);
+
+			onFinishedLerp();
 
 			auto end = m_posCallbacks.cend();
 			for (auto it = m_posCallbacks.cbegin(); it != end; ++it)
@@ -97,10 +97,9 @@ void LerpController::update()
 		if (lerpProgress >= 1.0f)
 		{
 			m_isScaleLerping = false;
-			onFinishedLerp();
-
 			transform.scaleAbsolute(m_lerpScale.x, m_lerpScale.y, m_lerpScale.z);
 
+			onFinishedLerp();
 
 			auto end = m_scaleCallbacks.cend();
 			for (auto it = m_scaleCallbacks.cbegin(); it != end; ++it)
@@ -124,9 +123,9 @@ void LerpController::update()
 		if (lerpProgress >= 1.0f)
 		{
 			m_isRotationLerping = false;
-			onFinishedLerp();
-
 			transform.rotateAbsQuat(m_lerpQuat);
+
+			onFinishedLerp();
 
 			auto end = m_rotationCallbacks.cend();
 			for (auto it = m_rotationCallbacks.cbegin(); it != end; ++it)
@@ -173,7 +172,6 @@ void LerpController::removeRotationCallback(RotationLerpFinishedCallback* p_list
 void LerpController::forceLerpToFinish() 
 {
 	if (!m_isLerping) return;
-	this->onFinishedLerp();
 	if (m_isPositionLerping)
 	{
 		m_isPositionLerping = false;
@@ -207,12 +205,11 @@ void LerpController::forceLerpToFinish()
 		}
 		m_rotationCallbacks.clear();
 	}
+	this->onFinishedLerp();
 }
 void LerpController::cancelLerp()
 {
 	if (!m_isLerping) return;
-	this->onFinishedLerp();
-
 	if (m_isPositionLerping)
 	{
 		m_isPositionLerping = false;
@@ -228,4 +225,5 @@ void LerpController::cancelLerp()
 		m_isRotationLerping = false;
 		this->m_attachedObject->getTransform().rotateAbsQuat(m_originalQuat);
 	}
+	this->onFinishedLerp();
 }
