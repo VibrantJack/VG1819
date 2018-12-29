@@ -51,5 +51,12 @@ int DecksDisplayFrame::getTargetAvailable() {
 
 void DecksDisplayFrame::updateIndividualDisplayObject(int p_activeObjectIndex)
 {
-	//+ m_currentSet * m_objectsToDisplay.size()
+	//+ m_currentSet * m_objectsToDisplay.size() To get the deck id 
+	DeckData* deck = kibble::getDeckDataFromId(p_activeObjectIndex + m_currentSet * m_objectsToDisplay.size());
+	
+	// Set deck name. The components are in the order loaded in the file
+	m_objectsToDisplay[p_activeObjectIndex]->getTransform().getChildren()[2]->getAttachedGameObject() // Third is the TextBox
+		.getComponent<puppy::TextBox>()->setText(deck->name);
+
+	// Add picture later
 }
