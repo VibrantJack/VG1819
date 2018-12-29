@@ -3,7 +3,7 @@
 class DecksDisplayFrame : public DisplayFrame
 {
 private:
-	static bool sm_survivorFlagged;
+
 public:
 	static DecksDisplayFrame* getActiveInstance();
 

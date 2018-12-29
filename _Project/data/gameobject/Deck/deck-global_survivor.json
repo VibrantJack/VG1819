@@ -1,5 +1,5 @@
 {
-    "name": "new game init",
+    "name": "Global Deck Related Survivors",
     "components" : [
         {
             "name" : "DeckInitializingComponent"

@@ -12,6 +12,10 @@
 		},
 		{
 			"name" : "ClickableFrame"
+		},
+		{
+			"name" : "ChangeSceneOnClick",
+			"scene" : "deck-builder-deck_selection_screen.json"
 		}
 	],
 	"translate2d" : [676, 22],

@@ -5,6 +5,7 @@
 #include <kitten/K_GameObjectManager.h>
 
 std::vector<kibble::UnitFileStruct> unitDataVector;
+std::vector<int> nonCommanderUnitVector;
 std::map<std::string, unit::AbilityDescription*> abilityDataMap;
 std::map<std::string, std::vector<int>> abilityToUnitMap, tagToUnitMap;
 std::unordered_set<unit::AbilityDescription*> lateLoadAbility;
@@ -14,6 +15,7 @@ std::vector<std::vector<kitten::K_Component*>> unitSpecificComponentVector;
 
 #define DECK_LIST "data/gamedecklist.txt"
 #define UNIT_LIST "data/gameunitlist.txt"
+#define COMMANDER "Commander"
 
 // Basically the deconstructor
 void kibble::destroyDatabank() {
@@ -50,6 +52,9 @@ void kibble::setupDatabank() {
 			for (std::string tag : target.data->m_tags) { // Set up Tags
 				tagToUnitMap[tag].push_back(unitDataVector.size());
 			}
+
+			if (target.data->isCommander())
+				nonCommanderUnitVector.push_back(unitDataVector.size());
 
 			target.data->m_kibbleID = unitDataVector.size();
 			// At the end push the unit into vector. 
@@ -124,15 +129,27 @@ void kibble::flagAbilityForLateLoad(unit::AbilityDescription* p_ability) {
 	lateLoadAbility.insert(p_ability);
 }
 
-std::vector<int> kibble::getUnitIdsThatHaveAbilityOfName(const std::string& p_name) {
+const std::vector<int>&  kibble::getUnitIdsThatHaveAbilityOfName(const std::string& p_name) {
 	return abilityToUnitMap[p_name];
 }
-std::vector<int> kibble::getUnitIdsThatHaveTag(const std::string& p_tag) {
+const std::vector<int>&  kibble::getUnitIdsThatHaveTag(const std::string& p_tag) {
 	return tagToUnitMap[p_tag];
+}
+const std::vector<int>&  kibble::getCommanderIds() {
+	return tagToUnitMap[COMMANDER];
+}
+const std::vector<int>&  kibble::getNonCommanderIds() {
+	return nonCommanderUnitVector;
 }
 
 int kibble::getDeckDataListCount() {
 	return deckDataVector.size();
+}
+int kibble::getCommanderUnitCount() {
+	return tagToUnitMap[COMMANDER].size();
+}
+int kibble::getNonCommanderUnitCount() {
+	return nonCommanderUnitVector.size();
 }
 
 DeckData* kibble::getDeckDataFromId(const int& p_identifier) {

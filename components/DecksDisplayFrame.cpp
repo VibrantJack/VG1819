@@ -6,14 +6,13 @@
 #include "DeckInitializingComponent.h"
 #include <string>
 
-bool DecksDisplayFrame::sm_survivorFlagged = false;
 DecksDisplayFrame* instance;
 DecksDisplayFrame* DecksDisplayFrame::getActiveInstance() { return instance; }
 
 DecksDisplayFrame::DecksDisplayFrame(int p_marginX, int p_marginY) : DisplayFrame(p_marginX, p_marginY,
-	std::string("deck-display_frame_object.json"),
-	std::string("deck_display-left_button.json"), std::string("deck_display-right_button.json"),
-	std::string("deck_display-highlight.json"), std::string("deck_display-highlight.json"))// TODO add an empty object
+	std::string("Deck/deck-display_frame_object.json"),
+	std::string("Deck/deck_display-left_button.json"), std::string("Deck/deck_display-right_button.json"),
+	std::string("Deck/deck_display-highlight.json"), std::string("Deck/deck_display-highlight.json"))// TODO add an empty object
 {
 	instance = this;
 }
@@ -33,12 +32,10 @@ void DecksDisplayFrame::start()
 			m_currentPick = DeckInitializingComponent::getActiveInstance()->getDeckId();
 		}
 	}
-
-	if (!sm_survivorFlagged)
+	else
 	{
-		kitten::K_GameObject * survivor = kitten::K_GameObjectManager::getInstance()->createNewGameObject("newgame_survivor.json");
+		kitten::K_GameObject* survivor = kitten::K_GameObjectManager::getInstance()->createNewGameObject("Deck/deck-global_survivor.json");
 		kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(survivor);
-		sm_survivorFlagged = true;
 	}
 
 	DisplayFrame::start();
@@ -58,5 +55,5 @@ void DecksDisplayFrame::updateIndividualDisplayObject(int p_activeObjectIndex)
 	m_objectsToDisplay[p_activeObjectIndex]->getTransform().getChildren()[2]->getAttachedGameObject() // Third is the TextBox
 		.getComponent<puppy::TextBox>()->setText(deck->name);
 
-	// Add picture later
+	// Add picture later TODO
 }
