@@ -16,7 +16,7 @@ private:
 	virtual void onDisabled() override;
 
 public:
-	ModelRenderable(const char* p_pathToModel);
+	ModelRenderable(const char* p_pathToModel, bool p_flipUVS);
 	~ModelRenderable();
 
 	virtual void render(const glm::mat4& p_viewProj);
