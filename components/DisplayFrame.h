@@ -13,7 +13,8 @@ protected:
 
 	int m_marginX = 10, // the space between elements within this frame
 		m_marginY = 5,
-		m_highlightOffset = 5, // the offset for highlights 
+		m_highlightOffsetX = 5, // the offset for highlights 
+		m_highlightOffsetY = 5, 
 		m_currentSet = 0,  // the current set of decks being displayed
 		m_currentActive = 0, // the number of decks currently need to be displayed
 		m_currentPick = -1; // the current picked deck

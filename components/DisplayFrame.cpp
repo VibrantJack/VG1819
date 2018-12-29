@@ -29,6 +29,8 @@ void DisplayFrame::start()
 	m_arrows[1] = kitten::K_GameObjectManager::getInstance()->createNewGameObject(m_arrowFileRight);
 	m_arrows[1]->getComponent<DisplayFrameSetChangeOnClick>()->setParentDisplayFrame(this);
 	m_highlight = kitten::K_GameObjectManager::getInstance()->createNewGameObject(m_highlightFile); 
+	m_highlightOffsetX = m_highlight->getTransform().getTranslation().x;
+	m_highlightOffsetY = m_highlight->getTransform().getTranslation().y;
 	m_empty = kitten::K_GameObjectManager::getInstance()->createNewGameObject(m_emptyFile); // Make sure whatever image is pivoted in the center for proper placement
 
 	// Set up variables 
@@ -40,6 +42,7 @@ void DisplayFrame::start()
 	// Calculate how many objects can fit into our frame
 	int fittableX = (int)((displayFrameScale.x) / (objectScale.x + 2 * m_marginX)), // Formula: Usable Space/ Needed Space.  X: available width / (object width + margins) 
 		fittableY = (int)((displayFrameScale.y) / (objectScale.y + 2 * m_marginY)); // Y: (available height) / (object height + margins) 
+
 
 	// resize object vector to hold maximum possible to display
 	this->m_objectsToDisplay.resize(std::fmax(fittableX*fittableY, 1));
@@ -130,11 +133,11 @@ void DisplayFrame::updateHighlight()
 	{
 		m_highlight->setEnabled(true);
 		m_highlight->getTransform().place2D(
-			m_objectsToDisplay[m_currentPick%m_objectsToDisplay.size()]->getTransform().getTranslation()[0] - m_highlightOffset,
+			m_objectsToDisplay[m_currentPick%m_objectsToDisplay.size()]->getTransform().getTranslation()[0] + m_highlightOffsetX,
 			m_objectsToDisplay[m_currentPick%m_objectsToDisplay.size()]->getTransform().getTranslation()[1] +
 			m_objectsToDisplay[m_currentPick%m_objectsToDisplay.size()]->getTransform().getScale2D().y +
 			-m_highlight->getTransform().getScale2D().y +
-			m_highlightOffset
+			-m_highlightOffsetY
 		);
 		m_highlight->getTransform().place(
 			m_highlight->getTransform().getTranslation().x,

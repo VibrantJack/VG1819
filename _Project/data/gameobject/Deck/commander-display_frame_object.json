@@ -9,7 +9,7 @@
                 }
             ],
             "scale2d" : [175.0,250.0],
-            "translate2d" : [0,80]
+            "translate2d" : [0,0]
         },
         {
             "name" : "Commander Display Text Background",
@@ -21,7 +21,7 @@
             ],
             "scale2d" : [175, 70],
             "translate": [ 0,0,-0.4],
-            "translate2d" : [0,0]
+            "translate2d" : [0,260]
         },
         {
             "name" : "Commander Display TextBox",
@@ -35,7 +35,7 @@
                     "height" : 24
                 }
             ],
-            "translate2d": [0,58]
+            "translate2d": [0,325]
         }
     ],
     "components" : [

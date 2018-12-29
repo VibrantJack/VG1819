@@ -13,7 +13,7 @@ CommanderDisplayFrame* CommanderDisplayFrame::getActiveInstance() { return insta
 CommanderDisplayFrame::CommanderDisplayFrame(int p_marginX, int p_marginY) : m_commanderVector(kibble::getCommanderIds()), DisplayFrame(p_marginX, p_marginY,
 	std::string("Deck/commander-display_frame_object.json"),
 	std::string("Deck/deck_display-left_button.json"), std::string("Deck/deck_display-right_button.json"),
-	std::string("Deck/deck_display-highlight.json"), std::string("Deck/deck_display-highlight.json"))// TODO add an empty object
+	std::string("Deck/commander-display_highlight.json"), std::string("Deck/deck_display-highlight.json"))// TODO add an empty object
 {
 	instance = this;
 }
