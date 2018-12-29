@@ -1,0 +1,17 @@
+{
+    "name" : "Networking Menu Connect Button",
+    "components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/connect_button.tga"
+		},
+		{
+			"name" : "ClickableFrame"
+		},
+		{
+			"name" : "NetworkConnectButton",
+			"regularTexture" : "textures/ui/buttons/connect_button.tga",
+			"highlightedTexture" : "textures/ui/buttons/connect_button_h.tga"
+		}
+    ]
+}

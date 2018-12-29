@@ -1,0 +1,19 @@
+{
+    "name" : "Exit Game Button",
+	"components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/button_exit_game.tga"
+		},
+		{
+			"name" : "ExitGameButton",
+			"regularTexture" : "textures/ui/buttons/button_exit_game.tga",
+			"highlightedTexture" : "textures/ui/buttons/button_exit_game_highlighted.tga"
+		},
+		{
+			"name" : "ClickableFrame"
+		}
+	],
+	"translate2d" : [35, 22],
+	"scale2d" : [250, 80]
+}

@@ -7,15 +7,15 @@
 
 namespace ability
 {
-	int GoldRush::effect(AbilityInfoPackage * p_info)
+	int PowerSurge::effect(AbilityInfoPackage * p_info)
 	{
-		int counter = p_info->m_intValue[COUNTER_MONEY];
+		int counter = p_info->m_intValue[COUNTER_ENERGY];
 		int inChange = p_info->m_intValue[UNIT_IN];
 		int mvChange = p_info->m_intValue[UNIT_MV];
 		int dur = p_info->m_intValue[UNIT_DURATION];
 
 		//remove counter
-		removeCounter(p_info->m_source, COUNTER_MONEY, counter);
+		removeCounter(p_info->m_source, COUNTER_ENERGY, counter);
 
 		for (unit::Unit* u : p_info->m_targets)
 		{

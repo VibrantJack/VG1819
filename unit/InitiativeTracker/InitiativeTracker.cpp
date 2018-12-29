@@ -152,10 +152,7 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 
 	if (found)
 	{
-		m_UI->change(index);
-
-		//pass turn to next
-		if (m_uturn->isCurrent(p_unit))
+		if (m_uturn->isCurrent(p_unit))//pass turn to next
 		{
 			m_uturn->unitDestroyed();
 			if (m_currentUnitIndex < getUnitNumber()) // there is next unit
@@ -168,6 +165,10 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 			else//no unit left
 				m_uturn->setEnd();
 		}
+		else if (index < m_currentUnitIndex)//change current index
+			m_currentUnitIndex--;
+
+		m_UI->change(index);
 
 		kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(p_unit);
 		return true;
@@ -243,8 +244,8 @@ void unit::InitiativeTracker::unitTurnEnd()
 	if (m_currentUnitIndex < getUnitNumber())
 	{
 		m_uAura->getTransform().setParent(&getCurrentUnit()->getTransform());
-		m_uturn->turnStart(getCurrentUnit());//let next unit start its turn
 		m_UI->next();
+		m_uturn->turnStart(getCurrentUnit());//let next unit start its turn
 	}
 	else// start a new game turn
 	{

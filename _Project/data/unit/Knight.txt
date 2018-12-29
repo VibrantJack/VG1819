@@ -1,11 +1,11 @@
 {
 	"unit":{
-		"name":"Duelist",
+		"name":"Knight",
 		"hp":12,
 		"mv":3,
 		"in":10,
 		"cost":3,
-		"tags":["Elf","Terrans","Soldier"],
+		"tags":["Terrans","Soldier"],
 		"ability_description":[
 			{
 				"name":"Slay",
@@ -18,7 +18,7 @@
 				"description":"Deal 5 damage to enemies."
 			},
 			{
-				"name":"Dodge",
+				"name":"Defend",
 				"lv":2,
 				"cd":4,
 				"duration":1,
@@ -47,12 +47,12 @@
 	"components" : [
 		{
 			"name" : "UnitGraphic",
-			"texture":"textures/unit/Duelist.tga",
+			"texture":"textures/unit/Knight.tga",
 			"unitsize": "point"
 		},
 		{
 			"name" : "SpriteGroup",
-			"spritename":"duelist",
+			"spritename":"knight",
 			"number":3,
 			"rotate":[45,0,0],
 			"scale":[0.7,0.7,0],

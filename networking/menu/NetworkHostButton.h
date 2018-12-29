@@ -4,7 +4,6 @@
 
 namespace userinterface
 {
-
 	class NetworkHostButton : public ClickableButton
 	{
 
@@ -14,5 +13,4 @@ namespace userinterface
 
 		virtual void onClick();
 	};
-
 }

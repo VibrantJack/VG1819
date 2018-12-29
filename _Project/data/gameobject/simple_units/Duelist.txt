@@ -5,7 +5,7 @@
 		},
 		{
 			"name" : "SpriteAnimator",
-			"spritename" : "duelist"
+			"spritename" : "knight"
 		}
 	],
 	"scale" : [1.5,2,0],

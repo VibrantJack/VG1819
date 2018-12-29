@@ -7,7 +7,7 @@
 
 namespace ability
 {
-	int Invest::effect(AbilityInfoPackage* p_info)
+	int EnergyControl::effect(AbilityInfoPackage* p_info)
 	{
 		if (checkTarget(p_info))
 		{
@@ -17,7 +17,7 @@ namespace ability
 			int power = p_info->m_intValue[UNIT_POWER];
 
 			int limit = p_info->m_intValue[COUNTER_MAX];
-			int counter = target->m_attributes[COUNTER_MONEY];
+			int counter = target->m_attributes[COUNTER_ENERGY];
 
 			if (counter + power > limit)
 			{
@@ -27,7 +27,7 @@ namespace ability
 			}
 
 			//change counter
-			node1->effect(target, COUNTER_MONEY, power);
+			node1->effect(target, COUNTER_ENERGY, power);
 		}
 
 		//delete package
