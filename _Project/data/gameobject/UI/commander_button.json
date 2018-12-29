@@ -1,0 +1,23 @@
+{
+	"name" : "Edit Commander Button",
+	"components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/button_decks.tga"
+		},
+		{
+			"name" : "ClickableButton",
+			"regularTexture" : "textures/ui/buttons/button_decks.tga",
+			"highlightedTexture" : "textures/ui/buttons/button_decks_highlighted.tga"
+		},
+		{
+			"name" : "ClickableFrame"
+		},
+		{
+			"name" : "ChangeSceneOnClick",
+			"scene" : "deck-builder-commander_selection_screen.json"
+		}
+	],
+	"translate2d" : [676, 22],
+	"scale2d" : [250, 80]
+}

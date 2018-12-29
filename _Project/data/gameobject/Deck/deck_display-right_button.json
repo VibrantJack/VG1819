@@ -11,7 +11,7 @@
 			"highlightedTexture" : "textures/ui/buttons/button_square-right_arrow_h.tga"
 		},
         {
-            "name" : "DecksDisplaySetChangeOnClick",
+            "name" : "DisplayFrameSetChangeOnClick",
             "offset" : 1
         },
         {

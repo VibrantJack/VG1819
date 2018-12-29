@@ -598,12 +598,6 @@
     <ClCompile Include="ClickableBoxRenderable.cpp">
       <Filter>components\debug</Filter>
     </ClCompile>
-    <ClCompile Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.cpp">
-      <Filter>components\decksdisplay</Filter>
-    </ClCompile>
-    <ClCompile Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.cpp">
-      <Filter>components\decksdisplay</Filter>
-    </ClCompile>
     <ClCompile Include="..\components\scene change\StartGameOnClick.cpp">
       <Filter>components\scene changers</Filter>
     </ClCompile>
@@ -766,6 +760,18 @@
     </ClCompile>
     <ClCompile Include="..\components\CustomDataComponent.cpp">
       <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DisplayFrame\CommanderDisplayFrame.cpp">
+      <Filter>components\deck</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DisplayFrame\UnitDisplayFrame.cpp">
+      <Filter>components\deck</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DecksDisplay\DisplayFrameSetChangeOnClick.cpp">
+      <Filter>components\decksdisplay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DecksDisplay\DisplayFramePickerOnClick.cpp">
+      <Filter>components\decksdisplay</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1302,12 +1308,6 @@
     <ClInclude Include="ClickableBoxRenderable.h">
       <Filter>components\debug</Filter>
     </ClInclude>
-    <ClInclude Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.h">
-      <Filter>components\decksdisplay</Filter>
-    </ClInclude>
-    <ClInclude Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.h">
-      <Filter>components\decksdisplay</Filter>
-    </ClInclude>
     <ClInclude Include="..\components\scene change\StartGameOnClick.h">
       <Filter>components\scene changers</Filter>
     </ClInclude>
@@ -1658,6 +1658,18 @@
     </ClInclude>
     <ClInclude Include="..\components\CustomDataComponent.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DisplayFrame\CommanderDisplayFrame.h">
+      <Filter>components\deck</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DisplayFrame\UnitDisplayFrame.h">
+      <Filter>components\deck</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DecksDisplay\DisplayFrameSetChangeOnClick.h">
+      <Filter>components\decksdisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DecksDisplay\DisplayFramePickerOnClick.h">
+      <Filter>components\decksdisplay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

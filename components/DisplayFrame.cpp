@@ -2,17 +2,32 @@
 #include "kitten/K_GameObjectManager.h"
 #include <math.h>
 #include "CustomDataComponent.h"
+#include "components/DecksDisplay/DisplayFrameSetChangeOnClick.h"
+#include "components/DecksDisplay/DisplayFramePickerOnClick.h"
 
 #define SIZE_X "sizex"
 #define SIZE_Y "sizey"
+
+DisplayFrame::DisplayFrame(int p_marginX, int p_marginY, const std::string& p_displayObject, const std::string& p_arrowLeft, std::string& p_arrowRight, const std::string& p_highlight, const std::string p_empty)
+	: m_marginX(p_marginX), m_marginY(p_marginY), m_displayObject(p_displayObject), m_arrowFileLeft(p_arrowLeft), m_arrowFileRight(p_arrowRight), m_highlightFile(p_highlight), m_emptyFile(p_empty)
+{
+
+}
+DisplayFrame::~DisplayFrame() 
+{
+
+}
 
 void DisplayFrame::start()
 {
 	// Set up all base gameobjects
 	m_objectsToDisplay.resize(1);
 	m_objectsToDisplay[0] = kitten::K_GameObjectManager::getInstance()->createNewGameObject(m_displayObject); // Remember that the scale of the whole object will be reset to 1,1. It's scale will be used to see how huge each object will be like
+	m_objectsToDisplay[0]->getComponent<DisplayFramePickerOnClick>()->setParentDisplayFrame(this);
 	m_arrows[0] = kitten::K_GameObjectManager::getInstance()->createNewGameObject(m_arrowFileLeft);
+	m_arrows[0]->getComponent<DisplayFrameSetChangeOnClick>()->setParentDisplayFrame(this);
 	m_arrows[1] = kitten::K_GameObjectManager::getInstance()->createNewGameObject(m_arrowFileRight);
+	m_arrows[1]->getComponent<DisplayFrameSetChangeOnClick>()->setParentDisplayFrame(this);
 	m_highlight = kitten::K_GameObjectManager::getInstance()->createNewGameObject(m_highlightFile); 
 	m_empty = kitten::K_GameObjectManager::getInstance()->createNewGameObject(m_emptyFile); // Make sure whatever image is pivoted in the center for proper placement
 
@@ -43,6 +58,8 @@ void DisplayFrame::start()
 	for (int i = 1; i < m_objectsToDisplay.size(); ++i)
 	{
 		m_objectsToDisplay[i] = kitten::K_GameObjectManager::getInstance()->createNewGameObject(m_displayObject);
+		m_objectsToDisplay[i]->getComponent<DisplayFramePickerOnClick>()->setParentDisplayFrame(this);
+
 		// Go through children. P.S. this is because frames go invisible for some reason
 		for (kitten::Transform* child : m_objectsToDisplay[i]->getTransform().getChildren())
 		{
@@ -164,8 +181,8 @@ const int& DisplayFrame::getCurrentPickedObject() const {
 	return m_currentPick;
 }
 
-int DisplayFrame::pickDisplayedObject(const kitten::K_GameObject* p_gameObject) {
+void DisplayFrame::pickDisplayedObject(const kitten::K_GameObject* p_gameObject) {
 	m_currentPick = std::find(m_objectsToDisplay.begin(), m_objectsToDisplay.end(), p_gameObject) - m_objectsToDisplay.begin() + (m_currentSet*m_objectsToDisplay.size());
 	updateHighlight();
-	return m_currentPick;
+	onObjectClicked(m_currentPick);
 }

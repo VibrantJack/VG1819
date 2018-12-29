@@ -29,14 +29,15 @@ protected:
 	// The order the objects come in help in determining how they get loaded
 
 public:
+
 	void start() override;
 
 	void offsetCurrentSet(const int p_offset);
 	const int& getCurrentPickedObject() const; // gives back -1 if no object highlight has been picked yet
-	int pickDisplayedObject(const kitten::K_GameObject* p_gameObject);
+	void pickDisplayedObject(const kitten::K_GameObject* p_gameObject);
 
-	DisplayFrame(int p_marginX, int p_marginY, const std::string& p_displayObject, const std::string& p_arrowLeft, std::string& p_arrowRight, const std::string& p_highlight, const std::string p_empty)
-		: m_marginX(p_marginX), m_marginY(p_marginY), m_displayObject(p_displayObject), m_arrowFileLeft(p_arrowLeft), m_arrowFileRight(p_arrowRight), m_highlightFile(p_highlight), m_emptyFile(p_empty)
-	{}
-	~DisplayFrame(){}
+	virtual void onObjectClicked(int p_clickedDataSetIndex){} // override to add what happens when one of the displayed objects are clicked. 
+
+	DisplayFrame(int p_marginX, int p_marginY, const std::string& p_displayObject, const std::string& p_arrowLeft, std::string& p_arrowRight, const std::string& p_highlight, const std::string p_empty);
+	~DisplayFrame();
 };

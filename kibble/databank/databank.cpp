@@ -53,7 +53,7 @@ void kibble::setupDatabank() {
 				tagToUnitMap[tag].push_back(unitDataVector.size());
 			}
 
-			if (target.data->isCommander())
+			if (!target.data->isCommander())
 				nonCommanderUnitVector.push_back(unitDataVector.size());
 
 			target.data->m_kibbleID = unitDataVector.size();

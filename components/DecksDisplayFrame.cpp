@@ -42,6 +42,13 @@ void DecksDisplayFrame::start()
 }
 
 
+void DecksDisplayFrame::onObjectClicked(int p_deckId)
+{
+	DeckInitializingComponent::getActiveInstance()->setDeckData(kibble::getDeckDataFromId(DecksDisplayFrame::getActiveInstance()->getCurrentPickedDeckId()));
+	DeckInitializingComponent::getActiveInstance()->setDeckId(p_deckId);
+	DeckInitializingComponent::getActiveInstance()->setPlayerId(0);
+}
+
 int DecksDisplayFrame::getTargetAvailable() {
 	return kibble::getDeckDataListCount();
 }

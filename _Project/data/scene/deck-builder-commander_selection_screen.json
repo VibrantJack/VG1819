@@ -6,10 +6,10 @@
             "rotate" : [-70,0,0]
         },
         {
-            "name" : "Deck Display Frame",
+            "name" : "Commander Display Frame",
             "components" : [
                 {
-                    "name":"DecksDisplayFrame",
+                    "name":"CommanderDisplayFrame",
                     "marginX": 10,
 					"marginY" : 10
                 }
@@ -24,29 +24,27 @@
 			"filename" : "quad_repeat.txt"
 		},
         {
-            "name" : "ReturnToMainMenu",
+            "name" : "Return to deck selection",
             "components" : [
                 {
                     "name" : "UIObject",
                     "texture" : "textures/ui/buttons/button_return.tga"
                 },
 				{
-					"name" : "ReturnToMainMenuButton",
+					"name" : "ClickableButton",
 					"regularTexture" : "textures/ui/buttons/button_return.tga",
 					"highlightedTexture" : "textures/ui/buttons/button_return_highlighted.tga"
-				},
+                },
+                {
+                    "name" : "ChangeSceneOnClick",
+                    "scene" : "deck-builder-deck_selection_screen.json"
+                },
                 {
                     "name" : "ClickableFrame"
                 }
             ],
             "translate2d" : [71, 21],
             "scale2d" : [125, 80]
-        },
-        {
-			"filename" : "UI/unit_button.json"
-        },
-        {
-			"filename" : "UI/commander_button.json"
         }
     ]
 }

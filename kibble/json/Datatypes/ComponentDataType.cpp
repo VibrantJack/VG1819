@@ -713,18 +713,18 @@ kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 	return new UniversalPfx(effects);
 }
 
-#include "components/DecksDisplay/DecksDisplayPickerOnClick.h"
-kitten::K_Component* getDecksDisplayPickerOnClick(nlohmann::json* p_jsonFile) {
-	return new DecksDisplayPickerOnClick();
+#include "components/DecksDisplay/DisplayFramePickerOnClick.h"
+kitten::K_Component* getDisplayFramePickerOnClick(nlohmann::json* p_jsonFile) {
+	return new DisplayFramePickerOnClick();
 }
 
-#include "components/DecksDisplay/DecksDisplaySetChangeOnClick.h"
-kitten::K_Component* getDecksDisplaySetChangeOnClick(nlohmann::json* p_jsonFile) {
+#include "components/DecksDisplay/DisplayFrameSetChangeOnClick.h"
+kitten::K_Component* getDisplayFrameSetChangeOnClick(nlohmann::json* p_jsonFile) {
 	int offset;
 
 	SETOPTDEF(offset, "offset", 0);
 
-	return new DecksDisplaySetChangeOnClick(offset);
+	return new DisplayFrameSetChangeOnClick(offset);
 }
 
 #include "components/DecksDisplayFrame.h"
@@ -736,6 +736,28 @@ kitten::K_Component* getDecksDisplayFrame(nlohmann::json* p_jsonFile) {
 	SETOPTDEF(marginX, "marginX", 0);
 
 	return new DecksDisplayFrame(marginX, marginY);
+}
+
+#include "components/DisplayFrame/CommanderDisplayFrame.h"
+kitten::K_Component* getCommanderDisplayFrame(nlohmann::json* p_jsonFile) {
+	int marginX;
+	int marginY;
+
+	SETOPTDEF(marginY, "marginY", 0);
+	SETOPTDEF(marginX, "marginX", 0);
+
+	return new CommanderDisplayFrame(marginX, marginY);
+}
+
+#include "components/DisplayFrame/UnitDisplayFrame.h"
+kitten::K_Component* getUnitDisplayFrame(nlohmann::json* p_jsonFile) {
+	int marginX;
+	int marginY;
+
+	SETOPTDEF(marginY, "marginY", 0);
+	SETOPTDEF(marginX, "marginX", 0);
+
+	return new UnitDisplayFrame(marginX, marginY);
 }
 
 #include "_Project\ClickableBoxRenderable.h"
@@ -1146,9 +1168,11 @@ void setupComponentMap() {
 	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
 	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
-	jsonComponentMap["DecksDisplaySetChangeOnClick"] = &getDecksDisplaySetChangeOnClick;
-	jsonComponentMap["DecksDisplayPickerOnClick"] = &getDecksDisplayPickerOnClick;
+	jsonComponentMap["DisplayFrameSetChangeOnClick"] = &getDisplayFrameSetChangeOnClick;
+	jsonComponentMap["DisplayFramePickerOnClick"] = &getDisplayFramePickerOnClick;
 	jsonComponentMap["DecksDisplayFrame"] = &getDecksDisplayFrame;
+	jsonComponentMap["CommanderDisplayFrame"] = &getCommanderDisplayFrame;
+	jsonComponentMap["UnitDisplayFrame"] = &getUnitDisplayFrame;
 	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
 	jsonComponentMap["DeckInitializingComponent"] = &getDeckInitializingComponent;
 	jsonComponentMap["StartGameOnClick"] = &getStartGameOnClick;
