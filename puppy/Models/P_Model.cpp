@@ -4,10 +4,18 @@
 
 namespace puppy
 {
-	P_Model::P_Model(const char* p_pathToModel)
+	P_Model::P_Model(const char* p_pathToModel, bool p_flipUVs)
 	{
 		Assimp::Importer importer;
-		auto scene = importer.ReadFile(p_pathToModel, aiProcess_Triangulate | aiProcess_FlipUVs  | aiProcess_OptimizeMeshes | aiProcess_OptimizeGraph);
+		
+		int proccessing = aiProcess_Triangulate | aiProcess_OptimizeMeshes | aiProcess_OptimizeGraph;
+		
+		if (p_flipUVs)
+		{
+			proccessing = proccessing | aiProcess_FlipUVs;
+		}
+
+		auto scene = importer.ReadFile(p_pathToModel, proccessing);
 		
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{

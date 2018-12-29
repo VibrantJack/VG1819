@@ -970,7 +970,10 @@ kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
 
 	std::string modelPath = p_jsonFile->operator[]("path");
 
-	return new ModelRenderable(modelPath.c_str());
+	bool flipUvs;
+	SETOPTDEF(flipUvs, "flipUVs", false);
+
+	return new ModelRenderable(modelPath.c_str(), flipUvs);
 }
 
 #include "unit\unitComponent\UnitHealthBar.h"

@@ -278,7 +278,19 @@
 			],
 			"scale" : [0.009,0.009,0.009],
 			"rotate" : [90,0,0],
-			"translate" : [-2,0,0]
+			"translate" : [1,0,0]
+		},
+		{
+			"name" : "MidRightBoulder",
+			"components" : [
+				{
+					"name" : "ModelRenderable",
+					"path" : "models/terrain/rocks/Rock 02.obj"
+				}
+			],
+			"scale" : [0.01,0.01,0.01],
+			"rotate" : [0,0,0],
+			"translate" : [1,-1,5]
 		}
 	]
 }
