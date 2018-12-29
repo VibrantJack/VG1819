@@ -5,10 +5,8 @@ TileDecoration::TileDecoration()
 	:
 	m_minScale(glm::vec3(1, 1, 1)),
 	m_maxScale(glm::vec3(1, 1, 1)),
-	m_minRotation(glm::vec3(-45, 0, 0)),
-	m_maxRotation(glm::vec3(-45, 0, 0)),
-	m_minTranslation(glm::vec3(0, 0.1, 0)),
-	m_maxTranslation(glm::vec3(0, 0.1, 0))
+	m_minTranslation(glm::vec3(0, 0.5, 0)),
+	m_maxTranslation(glm::vec3(0, 0.5, 0))
 {
 }
 
@@ -27,10 +25,10 @@ void TileDecoration::start()
 
 	//set vector
 	glm::vec3 scale = randomScale();
-	glm::vec3 rot = randomRotation();
+	//glm::vec3 rot = randomRotation();
 	glm::vec3 trans = randomTranslation();
 	getTransform().scaleAbsolute(scale.x, scale.y, scale.z);
-	getTransform().rotateAbsolute(rot);
+	//getTransform().rotateAbsolute(rot);
 	getTransform().place(trans.x, trans.y, trans.z);
 }
 

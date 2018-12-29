@@ -1087,32 +1087,32 @@ kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
 
 	if (JSONHAS("min_scale") && JSONHAS("max_scale"))
 	{
-		int x1 = p_jsonFile->operator[]("min_scale")[0];
-		int y1 = p_jsonFile->operator[]("min_scale")[1];
-		int z1 = p_jsonFile->operator[]("min_scale")[2];
-		int x2 = p_jsonFile->operator[]("max_scale")[0];
-		int y2 = p_jsonFile->operator[]("max_scale")[1];
-		int z2 = p_jsonFile->operator[]("max_scale")[2];
+		float x1 = p_jsonFile->operator[]("min_scale")[0];
+		float y1 = p_jsonFile->operator[]("min_scale")[1];
+		float z1 = p_jsonFile->operator[]("min_scale")[2];
+		float x2 = p_jsonFile->operator[]("max_scale")[0];
+		float y2 = p_jsonFile->operator[]("max_scale")[1];
+		float z2 = p_jsonFile->operator[]("max_scale")[2];
 		d->setScaleRange(glm::vec3(x1, y1, z1), glm::vec3(x2, y2, z2));
 	}
 	if (JSONHAS("min_rotation") && JSONHAS("max_rotation"))
 	{
-		int x1 = p_jsonFile->operator[]("min_rotation")[0];
-		int y1 = p_jsonFile->operator[]("min_rotation")[1];
-		int z1 = p_jsonFile->operator[]("min_rotation")[2];
-		int x2 = p_jsonFile->operator[]("max_rotation")[0];
-		int y2 = p_jsonFile->operator[]("max_rotation")[1];
-		int z2 = p_jsonFile->operator[]("max_rotation")[2];
+		float x1 = p_jsonFile->operator[]("min_rotation")[0];
+		float y1 = p_jsonFile->operator[]("min_rotation")[1];
+		float z1 = p_jsonFile->operator[]("min_rotation")[2];
+		float x2 = p_jsonFile->operator[]("max_rotation")[0];
+		float y2 = p_jsonFile->operator[]("max_rotation")[1];
+		float z2 = p_jsonFile->operator[]("max_rotation")[2];
 		d->setRotationRange(glm::vec3(x1, y1, z1), glm::vec3(x2, y2, z2));
 	}
 	if (JSONHAS("min_trans") && JSONHAS("max_trans"))
 	{
-		int x1 = p_jsonFile->operator[]("min_trans")[0];
-		int y1 = p_jsonFile->operator[]("min_trans")[1];
-		int z1 = p_jsonFile->operator[]("min_trans")[2];
-		int x2 = p_jsonFile->operator[]("max_trans")[0];
-		int y2 = p_jsonFile->operator[]("max_trans")[1];
-		int z2 = p_jsonFile->operator[]("max_trans")[2];
+		float x1 = p_jsonFile->operator[]("min_trans")[0];
+		float y1 = p_jsonFile->operator[]("min_trans")[1];
+		float z1 = p_jsonFile->operator[]("min_trans")[2];
+		float x2 = p_jsonFile->operator[]("max_trans")[0];
+		float y2 = p_jsonFile->operator[]("max_trans")[1];
+		float z2 = p_jsonFile->operator[]("max_trans")[2];
 		d->setTransRange(glm::vec3(x1, y1, z1), glm::vec3(x2, y2, z2));
 	}
 

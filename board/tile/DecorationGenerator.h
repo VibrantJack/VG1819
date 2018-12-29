@@ -7,7 +7,7 @@ It will contain a list of decoration game object to make this tile interesting
 #pragma once
 #include "board/tile/landInfo/LandInformation.h"
 
-#define MAX_DECO_NUM 3;
+#define MAX_DECO_NUM 3
 
 class DecorationGenerator
 {
@@ -16,4 +16,8 @@ public:
 
 private:
 	static std::vector<kitten::K_GameObject*> generateGrassDecoration();
+	static std::vector<kitten::K_GameObject*> generateForestDecoration();
+	static std::vector<kitten::K_GameObject*> generateGardenDecoration();
+	static std::vector<kitten::K_GameObject*> generateWaterDecoration();
+	static std::vector<kitten::K_GameObject*> generateSwampDecoration();
 };
