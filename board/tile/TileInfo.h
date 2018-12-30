@@ -31,7 +31,7 @@ public:
 
 	//land info
 	void setType(LandInformation::TileType p_type = LandInformation::Grass_land);
-	const int getType() { return m_tileType; }
+	const LandInformation::TileType getType() { return m_tileType; }
 	void start();
 	void setLand();
 

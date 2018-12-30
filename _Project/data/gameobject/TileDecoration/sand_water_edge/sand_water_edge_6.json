@@ -1,0 +1,12 @@
+{
+    "name" : "sand_water_edge_6", 
+    "components" : [
+    {
+        "name" : "QuadRenderable",
+        "texture" : "textures/tiles/tileDecoration/sand_water_edge/sand_water_edge_03.png",
+        "static" : true
+    }
+    ],
+    "scale" : [0.25,1,0.25],
+    "translate" : [0.375,0.001,-0.375]
+}

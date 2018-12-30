@@ -228,7 +228,7 @@ void TileInfo::setDecoration()
 	if (m_decorationList.size() > 0)
 		deleteList();
 
-	m_decorationList = DecorationGenerator::generateDecoration(m_tileType);
+	m_decorationList = DecorationGenerator::generateDecoration(this);
 
 	kitten::Transform* tr = &m_attachedObject->getTransform();
 	for (auto it : m_decorationList)

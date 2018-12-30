@@ -1,0 +1,16 @@
+{
+    "name" : "sand_water_edge_4", 
+    "components" : [
+    {
+        "name" : "QuadRenderableRepeat",
+        "texture" : "textures/tiles/tileDecoration/sand_water_edge/sand_water_edge_04.png",
+        "static" : true,
+        "texRepeat" : true,
+		"uRepeat" : 0.97,
+		"vRepeat" : 2.0
+    }
+    ],
+    "rotate" : [0,90,0],
+    "scale" : [0.5,1,0.25],
+    "translate" : [0.375,0.001,0]
+}
