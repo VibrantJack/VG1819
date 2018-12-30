@@ -2,7 +2,7 @@
 #include "kitten/K_GameObjectManager.h"
 #include "kibble/databank/databank.hpp"
 #include "puppy/Text/TextBox.h"
-#include "components/DeckInitializingComponent.h"
+#include "components/DeckAlterationComponent.h"
 #include <math.h>
 #include <string>
 #include "unit/Unit.h"
@@ -13,7 +13,7 @@ CommanderDisplayFrame* CommanderDisplayFrame::getActiveInstance() { return insta
 CommanderDisplayFrame::CommanderDisplayFrame(int p_marginX, int p_marginY) : m_commanderVector(kibble::getCommanderIds()), DisplayFrame(p_marginX, p_marginY,
 	std::string("Deck/commander-display_frame_object.json"),
 	std::string("Deck/deck_display-left_button.json"), std::string("Deck/deck_display-right_button.json"),
-	std::string("Deck/commander-display_highlight.json"), std::string("Deck/deck_display-highlight.json"))// TODO add an empty object
+	std::string("Deck/commander-display_highlight.json"), std::string("Deck/deck-display_empty.json"))// TODO add an empty object
 {
 	instance = this;
 }
@@ -27,11 +27,11 @@ CommanderDisplayFrame::~CommanderDisplayFrame()
 void CommanderDisplayFrame::start()
 {
 	m_currentPick = -1;
-	if (DeckInitializingComponent::getActiveInstance() == nullptr
-		|| DeckInitializingComponent::getActiveInstance()->getDeckData() == nullptr)
+	if (DeckAlterationComponent::getActiveInstance() == nullptr
+		|| DeckAlterationComponent::getActiveInstance()->getDeckData() == nullptr)
 		assert(false); // What are you doing here if there's no commander to change. 
 	
-	m_currentPick = std::find(m_commanderVector.begin(), m_commanderVector.end(), DeckInitializingComponent::getActiveInstance()->getDeckData()->commanderID)
+	m_currentPick = std::find(m_commanderVector.begin(), m_commanderVector.end(), DeckAlterationComponent::getActiveInstance()->getDeckData()->commanderID)
 		- m_commanderVector.begin(); // show which commander has been selected
 
 	DisplayFrame::start();

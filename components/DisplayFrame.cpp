@@ -93,8 +93,8 @@ void DisplayFrame::start()
 	}
 
 	m_empty->getTransform().place2D(
-		displayFrameTrans.x+displayFrameScale.x/2 + m_empty->getTransform().getTranslation().x ,
-		displayFrameTrans.y+displayFrameScale.y/2 + m_empty->getTransform().getTranslation().y 
+		displayFrameTrans.x+displayFrameScale.x/2 + m_empty->getTransform().getTranslation().x - m_empty->getTransform().getScale().x / 2,
+		displayFrameTrans.y+displayFrameScale.y/2 + m_empty->getTransform().getTranslation().y - m_empty->getTransform().getScale().y / 2
 	);
 
 	updateDisplay();

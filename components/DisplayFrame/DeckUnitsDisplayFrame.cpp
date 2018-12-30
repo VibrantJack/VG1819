@@ -3,7 +3,7 @@
 #include "kibble/databank/databank.hpp"
 #include "puppy/Text/TextBox.h"
 #include <math.h>
-#include "components/DeckInitializingComponent.h"
+#include "components/DeckAlterationComponent.h"
 #include <string>
 #include "unit/Unit.h"
 
@@ -13,7 +13,7 @@ DeckUnitsDisplayFrame* DeckUnitsDisplayFrame::getActiveInstance() { return insta
 DeckUnitsDisplayFrame::DeckUnitsDisplayFrame(int p_marginX, int p_marginY) : DisplayFrame(p_marginX, p_marginY,
 	std::string("Deck/deckunits-display_frame_object.json"),
 	std::string("Deck/deckunits-display_left_button.json"), std::string("Deck/deckunits-display_right_button.json"),
-	std::string("Deck/deckunits-display_highlight.json"), std::string("Deck/deck_display-highlight.json"))// TODO add an empty object
+	std::string("Deck/deckunits-display_highlight.json"), std::string("Deck/deck-display_empty.json"))// TODO add an empty object
 {
 	instance = this;
 	this->m_arrowPlacement = 1;
@@ -27,11 +27,11 @@ DeckUnitsDisplayFrame::~DeckUnitsDisplayFrame()
 void DeckUnitsDisplayFrame::start()
 {
 	m_currentPick = -1;
-	if (DeckInitializingComponent::getActiveInstance() == nullptr ||
-		DeckInitializingComponent::getActiveInstance()->getDeckData() == nullptr
+	if (DeckAlterationComponent::getActiveInstance() == nullptr ||
+		DeckAlterationComponent::getActiveInstance()->getDeckData() == nullptr
 		)
 		assert(false); // how are you viewing this without a deck being up. 
-	m_deckData = kibble::getDeckDataFromId(DeckInitializingComponent::getActiveInstance()->getDeckId()); // using deck ID because we want to alter the deck data. 
+	m_deckData = kibble::getDeckDataFromId(DeckAlterationComponent::getActiveInstance()->getDeckId()); // using deck ID because we want to alter the deck data. 
 	DisplayFrame::start();
 }
 
