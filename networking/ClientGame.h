@@ -46,6 +46,7 @@ namespace networking
 
 		static int getClientId() { return sm_iClientId; }
 		bool isServerCalling() { return m_bServerCalling; }
+		void setServerCalling(bool p_value) { m_bServerCalling = p_value; }
 		bool isGameTurnStarted() { return m_bGameTurnStart; }
 
 	private:
