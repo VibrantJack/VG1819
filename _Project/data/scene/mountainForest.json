@@ -6,11 +6,11 @@
 			"components" : [
 				{
 					"name" : "QuadRenderableRepeat",
-					"texture" : "textures/background/forest_ground.jpg",
+					"texture" : "textures/background/forest_ground_leaves.jpg",
 					"texRepeat" : true,
 					"static" : true,
-					"uRepeat" : 30,
-					"vRepeat" : 30
+					"uRepeat" : 26,
+					"vRepeat" : 26
 				}
 			],
 			"scale" : [60,1,60],
