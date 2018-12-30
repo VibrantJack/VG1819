@@ -18,8 +18,24 @@
                 }
             ],
             "translate": [0,0,-0.5],
-			"translate2d" : [143, 130],
-            "scale2d" : [1015,350]
+			"translate2d" : [70, 170],
+            "scale2d" : [800,350]
+        },
+        {
+            "name" : "Deck Units Display Frame",
+            "components" : [
+                {
+                    "name":"DeckUnitsDisplayFrame",
+                    "marginX": 4,
+					"marginY" : 4
+                },
+                {
+                    "name" : "UIFrame"
+                }
+            ],
+            "translate": [0,0,-0.5],
+			"translate2d" : [1050, 100],
+            "scale2d" : [210,560]
         },
 		{
 			"filename" : "mainmenu_background.json"

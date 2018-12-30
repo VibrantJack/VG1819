@@ -63,8 +63,10 @@ void DisplayFrame::start()
 		break;
 	}
 	case 1: { // Places arrows on the vertical sides to the top and bottom of the display frame
-		m_arrows[0]->getTransform().place2D(displayFrameTrans.x + displayFrameScale.x / 2 , displayFrameTrans.y + displayFrameScale.y + m_marginY);// Top
-		m_arrows[1]->getTransform().place2D(displayFrameTrans.x + displayFrameScale.x / 2, displayFrameTrans.y - m_marginY); // Bottom
+		m_arrows[0]->getTransform().place2D(displayFrameTrans.x + displayFrameScale.x / 2 - arrowButtons.x / 2
+			, displayFrameTrans.y + displayFrameScale.y + m_marginY);// Top
+		m_arrows[1]->getTransform().place2D(displayFrameTrans.x + displayFrameScale.x / 2 - arrowButtons.x / 2
+			, displayFrameTrans.y - arrowButtons.y - m_marginY); // Bottom
 		break;
 	}
 	}

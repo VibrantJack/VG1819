@@ -171,6 +171,7 @@
     <ClCompile Include="..\components\DecksDisplay\DisplayFrameSetChangeOnClick.cpp" />
     <ClCompile Include="..\components\DisplayFrame.cpp" />
     <ClCompile Include="..\components\DisplayFrame\CommanderDisplayFrame.cpp" />
+    <ClCompile Include="..\components\DisplayFrame\DeckUnitsDisplayFrame.cpp" />
     <ClCompile Include="..\components\DisplayFrame\UnitDisplayFrame.cpp" />
     <ClCompile Include="..\components\DragNDrop\SpawnUnitOnDrop.cpp" />
     <ClCompile Include="..\components\DrawCardOnClickUI.cpp" />
@@ -454,6 +455,7 @@
     <ClInclude Include="..\components\DecksDisplay\DisplayFrameSetChangeOnClick.h" />
     <ClInclude Include="..\components\DisplayFrame.h" />
     <ClInclude Include="..\components\DisplayFrame\CommanderDisplayFrame.h" />
+    <ClInclude Include="..\components\DisplayFrame\DeckUnitsDisplayFrame.h" />
     <ClInclude Include="..\components\DisplayFrame\UnitDisplayFrame.h" />
     <ClInclude Include="..\components\DragNDrop\SpawnUnitOnDrop.h" />
     <ClInclude Include="..\components\DrawCardOnClickUI.h" />

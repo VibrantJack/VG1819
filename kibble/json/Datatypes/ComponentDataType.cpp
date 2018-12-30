@@ -738,6 +738,17 @@ kitten::K_Component* getDecksDisplayFrame(nlohmann::json* p_jsonFile) {
 	return new DecksDisplayFrame(marginX, marginY);
 }
 
+#include "components/DisplayFrame/DeckUnitsDisplayFrame.h"
+kitten::K_Component* getDeckUnitsDisplayFrame(nlohmann::json* p_jsonFile) {
+	int marginX;
+	int marginY;
+
+	SETOPTDEF(marginY, "marginY", 0);
+	SETOPTDEF(marginX, "marginX", 0);
+
+	return new DeckUnitsDisplayFrame(marginX, marginY);
+}
+
 #include "components/DisplayFrame/CommanderDisplayFrame.h"
 kitten::K_Component* getCommanderDisplayFrame(nlohmann::json* p_jsonFile) {
 	int marginX;
@@ -1171,6 +1182,7 @@ void setupComponentMap() {
 	jsonComponentMap["DisplayFrameSetChangeOnClick"] = &getDisplayFrameSetChangeOnClick;
 	jsonComponentMap["DisplayFramePickerOnClick"] = &getDisplayFramePickerOnClick;
 	jsonComponentMap["DecksDisplayFrame"] = &getDecksDisplayFrame;
+	jsonComponentMap["DeckUnitsDisplayFrame"] = &getDeckUnitsDisplayFrame;
 	jsonComponentMap["CommanderDisplayFrame"] = &getCommanderDisplayFrame;
 	jsonComponentMap["UnitDisplayFrame"] = &getUnitDisplayFrame;
 	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;

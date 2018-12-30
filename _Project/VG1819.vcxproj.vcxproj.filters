@@ -773,6 +773,9 @@
     <ClCompile Include="..\components\DecksDisplay\DisplayFramePickerOnClick.cpp">
       <Filter>components\decksdisplay</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\DisplayFrame\DeckUnitsDisplayFrame.cpp">
+      <Filter>components\deck</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1670,6 +1673,9 @@
     </ClInclude>
     <ClInclude Include="..\components\DecksDisplay\DisplayFramePickerOnClick.h">
       <Filter>components\decksdisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DisplayFrame\DeckUnitsDisplayFrame.h">
+      <Filter>components\deck</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
