@@ -10,6 +10,10 @@
         },
         {
             "name" : "SpawnUnitOnDrop"
+        },
+        {
+            "name" : "LerpController"
         }
-    ]
+    ],
+    "translate2d" : [1100, 50]
 }

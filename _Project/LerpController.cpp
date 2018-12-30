@@ -70,9 +70,9 @@ void LerpController::update()
 		
 		if (lerpProgress >= 1.0f)
 		{
-			transform.place(m_lerpPosition.x, m_lerpPosition.y, m_lerpPosition.z);
-			
 			m_isPositionLerping = false;
+			transform.place(m_lerpPosition.x, m_lerpPosition.y, m_lerpPosition.z);
+
 			onFinishedLerp();
 
 			auto end = m_posCallbacks.cend();
@@ -96,9 +96,9 @@ void LerpController::update()
 
 		if (lerpProgress >= 1.0f)
 		{
+			m_isScaleLerping = false;
 			transform.scaleAbsolute(m_lerpScale.x, m_lerpScale.y, m_lerpScale.z);
 
-			m_isScaleLerping = false;
 			onFinishedLerp();
 
 			auto end = m_scaleCallbacks.cend();
@@ -122,9 +122,9 @@ void LerpController::update()
 
 		if (lerpProgress >= 1.0f)
 		{
+			m_isRotationLerping = false;
 			transform.rotateAbsQuat(m_lerpQuat);
 
-			m_isRotationLerping = false;
 			onFinishedLerp();
 
 			auto end = m_rotationCallbacks.cend();
@@ -142,6 +142,77 @@ void LerpController::update()
 	}
 }
 
+void LerpController::removePositionCallback(PositionLerpFinishedCallback* p_listener)
+{
+	m_posCallbacks.erase(std::find(m_posCallbacks.begin(),m_posCallbacks.end(), p_listener));
+}
+void LerpController::removeScaleCallback(ScaleLerpFinishedCallback* p_listener)
+{
+	m_scaleCallbacks.erase(std::find(m_scaleCallbacks.begin(), m_scaleCallbacks.end(), p_listener));
+}
+void LerpController::removeRotationCallback(RotationLerpFinishedCallback* p_listener)
+{
+	m_rotationCallbacks.erase(std::find(m_rotationCallbacks.begin(), m_rotationCallbacks.end(), p_listener));
+}
+
+void LerpController::forceLerpToFinish() 
+{
+	if (!m_isLerping) return;
+	if (m_isPositionLerping)
+	{
+		m_isPositionLerping = false;
+		this->m_attachedObject->getTransform().place(m_lerpPosition.x, m_lerpPosition.y, m_lerpPosition.z);
+		auto end = m_posCallbacks.cend();
+		for (auto it = m_posCallbacks.cbegin(); it != end; ++it)
+		{
+			(*it)->onPositionLerpFinished();
+		}
+		m_posCallbacks.clear();
+	}
+	if (m_isScaleLerping)
+	{
+		m_isScaleLerping = false;
+		this->m_attachedObject->getTransform().scaleAbsolute(m_lerpScale.x, m_lerpScale.y, m_lerpScale.z);
+		auto end = m_scaleCallbacks.cend();
+		for (auto it = m_scaleCallbacks.cbegin(); it != end; ++it)
+		{
+			(*it)->onScaleLerpFinished();
+		}
+		m_scaleCallbacks.clear();
+	}
+	if (m_isRotationLerping)
+	{
+		m_isRotationLerping = false;
+		this->m_attachedObject->getTransform().rotateAbsQuat(m_lerpQuat);
+		auto end = m_rotationCallbacks.cend();
+		for (auto it = m_rotationCallbacks.cbegin(); it != end; ++it)
+		{
+			(*it)->onRotationLerpFinished();
+		}
+		m_rotationCallbacks.clear();
+	}
+	this->onFinishedLerp();
+}
+void LerpController::cancelLerp()
+{
+	if (!m_isLerping) return;
+	if (m_isPositionLerping)
+	{
+		m_isPositionLerping = false;
+		this->m_attachedObject->getTransform().place(m_originalPosition.x, m_originalPosition.y, m_originalPosition.z);
+	}
+	if (m_isScaleLerping)
+	{
+		m_isScaleLerping = false;
+		this->m_attachedObject->getTransform().scaleAbsolute(m_originalScale.x, m_originalScale.y, m_originalScale.z);
+	}
+	if (m_isRotationLerping)
+	{
+		m_isRotationLerping = false;
+		this->m_attachedObject->getTransform().rotateAbsQuat(m_originalQuat);
+	}
+	this->onFinishedLerp();
+}
 void LerpController::addPositionLerpFinishedCallback(PositionLerpFinishedCallback* p_toAdd)
 {
 	m_posCallbacks.push_back(p_toAdd);
