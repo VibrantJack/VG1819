@@ -163,6 +163,7 @@
     <ClCompile Include="..\components\CameraMoveByEvent.cpp" />
     <ClCompile Include="..\components\CustomCursor.cpp" />
     <ClCompile Include="..\components\CustomDataComponent.cpp" />
+    <ClCompile Include="..\components\DeckAlterationComponent.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\components\ChangeSceneOnClick.cpp" />
     <ClCompile Include="..\components\DeckInitializingComponent.cpp" />
@@ -447,6 +448,7 @@
     <ClInclude Include="..\components\CameraMoveByEvent.h" />
     <ClInclude Include="..\components\CustomCursor.h" />
     <ClInclude Include="..\components\CustomDataComponent.h" />
+    <ClInclude Include="..\components\DeckAlterationComponent.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />
     <ClInclude Include="..\components\ChangeSceneOnClick.hpp" />
     <ClInclude Include="..\components\DeckInitializingComponent.h" />

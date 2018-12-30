@@ -27,14 +27,12 @@ CommanderDisplayFrame::~CommanderDisplayFrame()
 void CommanderDisplayFrame::start()
 {
 	m_currentPick = -1;
-	if (DeckInitializingComponent::getActiveInstance() != nullptr)
-	{
-		if (DeckInitializingComponent::getActiveInstance()->getDeckData() != nullptr)
-		{
-			m_currentPick = std::find(m_commanderVector.begin(), m_commanderVector.end(), DeckInitializingComponent::getActiveInstance()->getDeckData()->commanderID)
-				- m_commanderVector.begin();
-		}
-	}
+	if (DeckInitializingComponent::getActiveInstance() == nullptr
+		|| DeckInitializingComponent::getActiveInstance()->getDeckData() == nullptr)
+		assert(false); // What are you doing here if there's no commander to change. 
+	
+	m_currentPick = std::find(m_commanderVector.begin(), m_commanderVector.end(), DeckInitializingComponent::getActiveInstance()->getDeckData()->commanderID)
+		- m_commanderVector.begin(); // show which commander has been selected
 
 	DisplayFrame::start();
 }

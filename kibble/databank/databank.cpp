@@ -157,12 +157,21 @@ DeckData* kibble::getDeckDataFromId(const int& p_identifier) {
 }
 
 void kibble::addNewDeckData(DeckData* p_data) {
-	kibble::getDeckDataParserInstance()->saveDeckData(p_data, "DeckNumbah" + std::to_string(deckDataVector.size()) + ".txt");
+	p_data->filename = "DeckNumbah" + std::to_string(deckDataVector.size()) + ".txt";
+
+	kibble::getDeckDataParserInstance()->saveDeckData(p_data, p_data->filename);
 	std::ofstream deckList(DECK_LIST, std::ofstream::app | std::ofstream::out);
 	if (deckList.is_open()) {
-		deckList << std::endl << "DeckNumbah" + std::to_string(deckDataVector.size()) << ".txt" ;
+		deckList << std::endl << p_data->filename ;
 	}
 	deckDataVector.push_back(p_data);
+}
+
+void kibble::replaceDeckData(int p_deckIdSource, DeckData* p_deckTarget)
+{
+	delete deckDataVector[p_deckIdSource];
+	deckDataVector[p_deckIdSource] = p_deckTarget;
+	kibble::getDeckDataParserInstance()->saveDeckData(p_deckTarget, p_deckTarget->filename);
 }
 
 #include "kitten/K_ComponentManager.h"

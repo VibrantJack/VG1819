@@ -670,6 +670,11 @@ kitten::K_Component* getSpriteRenderable(nlohmann::json* p_jsonFile) {
 	return new kitten::SpriteRenderable();
 }
 
+#include "components/DeckAlterationComponent.h"
+kitten::K_Component* getDeckAlterationComponent(nlohmann::json* p_jsonFile) {
+	return new DeckAlterationComponent();
+}
+
 #include "components/ChangeSceneOnClick.hpp"
 kitten::K_Component* getChangeSceneOnClick(nlohmann::json* p_jsonFile) {
 
@@ -1187,6 +1192,7 @@ void setupComponentMap() {
 	jsonComponentMap["UnitDisplayFrame"] = &getUnitDisplayFrame;
 	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
 	jsonComponentMap["DeckInitializingComponent"] = &getDeckInitializingComponent;
+	jsonComponentMap["DeckAlterationComponent"] = &getDeckAlterationComponent;
 	jsonComponentMap["StartGameOnClick"] = &getStartGameOnClick;
 	jsonComponentMap["DeckComponent"] = &getDeckComponent;
 	jsonComponentMap["GameplayInit"] = &getGameplayInit;

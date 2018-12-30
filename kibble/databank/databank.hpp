@@ -22,6 +22,7 @@ namespace kibble {
 	int getNonCommanderUnitCount();
 
 	void addNewDeckData(DeckData*);
+	void replaceDeckData(int p_deckIdSource, DeckData* p_deckTarget);
 
 	kitten::K_GameObject* attachCustomComponentsToGameObject(const int& p_identifier, kitten::K_GameObject* p_targetGameObject);
 	kitten::K_GameObject* attachCustomComponentsToGameObject(const unit::Unit* p_unit, kitten::K_GameObject* p_targetGameObject);
