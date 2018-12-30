@@ -685,6 +685,16 @@ kitten::K_Component* getChangeSceneOnClick(nlohmann::json* p_jsonFile) {
 	return new ChangeSceneOnClick(nextScene);
 }
 
+#include "components/SetupDeckEditOnSceneChange.h"
+kitten::K_Component* getSetupDeckEditOnSceneChange(nlohmann::json* p_jsonFile) {
+
+	std::string nextScene;
+
+	SET(nextScene, "scene");
+
+	return new SetupDeckEditOnSceneChange(nextScene);
+}
+
 #include "kitten\K_ParticleSystem.h"
 kitten::K_Component* getKParticleSystem(nlohmann::json* p_jsonFile) {
 	
@@ -1179,6 +1189,7 @@ void setupComponentMap() {
 	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
 	jsonComponentMap["ConnectToHost"] = &getConnectToHost;
 	jsonComponentMap["ChangeSceneOnClick"] = &getChangeSceneOnClick;
+	jsonComponentMap["SetupDeckEditOnSceneChange"] = &getSetupDeckEditOnSceneChange;
 	jsonComponentMap["UniversalPfx"] = &getUniversalPfx;
 	jsonComponentMap["K_ParticleSystem"] = &getKParticleSystem;
 	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;

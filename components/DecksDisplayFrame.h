@@ -10,7 +10,7 @@ public:
 	void start() override;
 
 	void offsetCurrentSet(const int p_offset) { DisplayFrame::offsetCurrentSet(p_offset); }
-	const int& getCurrentPickedDeckId() const { return getCurrentPickedObject(); } // gives back -1 if no deck has been picked yet
+	const int& getCurrentPickedDeckId() const { return getCurrentPickedItemIndex(); } // gives back -1 if no deck has been picked yet
 	
 	void onObjectClicked(int p_deckId) override;
 	int getTargetAvailable() override;

@@ -14,7 +14,7 @@
 			"name" : "ClickableFrame"
 		},
 		{
-			"name" : "ChangeSceneOnClick",
+			"name" : "SetupDeckEditOnSceneChange",
 			"scene" : "deck-builder-commander_selection_screen.json"
 		}
 	],

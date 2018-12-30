@@ -779,6 +779,9 @@
     <ClCompile Include="..\components\DeckAlterationComponent.cpp">
       <Filter>components\survivors</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\SetupDeckEditOnSceneChange.cpp">
+      <Filter>components\scene changers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1682,6 +1685,9 @@
     </ClInclude>
     <ClInclude Include="..\components\DeckAlterationComponent.h">
       <Filter>components\survivors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\SetupDeckEditOnSceneChange.h">
+      <Filter>components\scene changers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

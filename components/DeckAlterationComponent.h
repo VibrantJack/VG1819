@@ -11,7 +11,7 @@ private:
 public:
 	static DeckAlterationComponent* getActiveInstance();
 
-	void copyDeckData(DeckData* p_source);
+	void copyDeckData(const DeckData* p_source);
 	void setDeckId(int p_id) { m_deckId = p_id; }
 	void saveDeck();
 	void discardChanges();

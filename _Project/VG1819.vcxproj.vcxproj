@@ -179,6 +179,7 @@
     <ClCompile Include="..\components\MainMenuBoard.cpp" />
     <ClCompile Include="..\components\scene change\StartGameOnClick.cpp" />
     <ClCompile Include="..\components\ExitGameButton.cpp" />
+    <ClCompile Include="..\components\SetupDeckEditOnSceneChange.cpp" />
     <ClCompile Include="..\components\testing\gameplay-init.cpp" />
     <ClCompile Include="..\components\TileInfoDisplayOnKeyPress.cpp" />
     <ClCompile Include="..\expressions\lexer.cpp" />
@@ -464,6 +465,7 @@
     <ClInclude Include="..\components\ExitGameButton.h" />
     <ClInclude Include="..\components\MainMenuBoard.h" />
     <ClInclude Include="..\components\scene change\StartGameOnClick.h" />
+    <ClInclude Include="..\components\SetupDeckEditOnSceneChange.h" />
     <ClInclude Include="..\components\testing\gameplay-init.h" />
     <ClInclude Include="..\components\TileInfoDisplayOnKeyPress.h" />
     <ClInclude Include="..\DeckData.hpp" />

@@ -198,7 +198,7 @@ void DisplayFrame::onEnabled()
 }
 
 
-const int& DisplayFrame::getCurrentPickedObject() const {
+const int& DisplayFrame::getCurrentPickedItemIndex() const {
 	return m_currentPick;
 }
 
@@ -206,4 +206,8 @@ void DisplayFrame::pickDisplayedObject(const kitten::K_GameObject* p_gameObject)
 	m_currentPick = std::find(m_objectsToDisplay.begin(), m_objectsToDisplay.end(), p_gameObject) - m_objectsToDisplay.begin() + (m_currentSet*m_objectsToDisplay.size());
 	updateHighlight();
 	onObjectClicked(m_currentPick);
+}
+
+int DisplayFrame::getItemIndexTiedTo(const kitten::K_GameObject* p_gameObject) {
+	return std::find(m_objectsToDisplay.begin(), m_objectsToDisplay.end(), p_gameObject) - m_objectsToDisplay.begin() + (m_currentSet*m_objectsToDisplay.size());
 }

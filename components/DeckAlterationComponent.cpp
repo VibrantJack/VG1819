@@ -22,7 +22,7 @@ DeckAlterationComponent * DeckAlterationComponent::getActiveInstance()
 }
 
 // Copies data, remember that this deletes old one. 
-void DeckAlterationComponent::copyDeckData(DeckData* p_source)
+void DeckAlterationComponent::copyDeckData(const DeckData* p_source)
 {
 	if(m_saved == false) delete m_source;
 	m_source = new DeckData(*p_source);

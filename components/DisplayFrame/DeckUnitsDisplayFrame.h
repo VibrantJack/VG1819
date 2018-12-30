@@ -11,7 +11,7 @@ public:
 	void start() override;
 
 	void offsetCurrentSet(const int p_offset) { DisplayFrame::offsetCurrentSet(p_offset); }
-	const int& getCurrentPickedUnitId() const { return getCurrentPickedObject(); } // gives back -1 if no deck has been picked yet
+	const int& getCurrentPickedUnitId() const { return getCurrentPickedItemIndex(); } // gives back -1 if no deck has been picked yet
 
 
 
