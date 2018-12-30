@@ -55,8 +55,19 @@ void DisplayFrame::start()
 	}
 	m_objectsToDisplay[0]->getTransform().place2D(displayFrameTrans.x + m_marginX, displayFrameTrans.y + displayFrameScale.y - m_marginY - objectScale.y); // remember, based on bottom left pivot
 
-	m_arrows[0]->getTransform().place2D(displayFrameTrans.x - m_marginX - arrowButtons.x, displayFrameTrans.y + displayFrameScale.y / 2);
-	m_arrows[1]->getTransform().place2D(displayFrameTrans.x + displayFrameScale.x + m_marginX, displayFrameTrans.y + displayFrameScale.y / 2);
+	switch (m_arrowPlacement)
+	{// Add here the different cases of placement of the arrows. 
+	case 0: { // Places arrows on horizontal sides to the left and right of the display frame
+		m_arrows[0]->getTransform().place2D(displayFrameTrans.x - m_marginX - arrowButtons.x, displayFrameTrans.y + displayFrameScale.y / 2); // left
+		m_arrows[1]->getTransform().place2D(displayFrameTrans.x + displayFrameScale.x + m_marginX, displayFrameTrans.y + displayFrameScale.y / 2); // right
+		break;
+	}
+	case 1: { // Places arrows on the vertical sides to the top and bottom of the display frame
+		m_arrows[0]->getTransform().place2D(displayFrameTrans.x + displayFrameScale.x / 2 , displayFrameTrans.y + displayFrameScale.y + m_marginY);// Top
+		m_arrows[1]->getTransform().place2D(displayFrameTrans.x + displayFrameScale.x / 2, displayFrameTrans.y - m_marginY); // Bottom
+		break;
+	}
+	}
 
 	for (int i = 1; i < m_objectsToDisplay.size(); ++i)
 	{
@@ -78,6 +89,11 @@ void DisplayFrame::start()
 		);
 
 	}
+
+	m_empty->getTransform().place2D(
+		displayFrameTrans.x+displayFrameScale.x/2 + m_empty->getTransform().getTranslation().x ,
+		displayFrameTrans.y+displayFrameScale.y/2 + m_empty->getTransform().getTranslation().y 
+	);
 
 	updateDisplay();
 }

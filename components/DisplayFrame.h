@@ -10,6 +10,7 @@ protected:
 	std::vector<kitten::K_GameObject*> m_objectsToDisplay;
 	kitten::K_GameObject* m_arrows[2], *m_highlight, *m_empty;
 	const std::string m_displayObject, m_arrowFileLeft, m_arrowFileRight, m_highlightFile, m_emptyFile;
+	int m_arrowPlacement=0;
 
 	int m_marginX = 10, // the space between elements within this frame
 		m_marginY = 5,
