@@ -913,13 +913,13 @@ kitten::K_Component* getUIElement(nlohmann::json* p_jsonFile) {
 		else if (temp == "bottom")
 			type = userinterface::UIElement::piv_Bot;
 		else if (temp == "botleft")
-			type = userinterface::UIElement::piv_BotLeft;
-		else if (temp == "botright")
 			type = userinterface::UIElement::piv_BotRight;
 		else if (temp == "topleft")
 			type = userinterface::UIElement::piv_TopLeft;
 		else if (temp == "topright")
 			type = userinterface::UIElement::piv_TopRight;
+		else
+			type = userinterface::UIElement::piv_BotLeft;
 	}
 
 	userinterface::UIElement::textureBehaviour tb = userinterface::UIElement::tbh_Stretch;
@@ -1101,6 +1101,7 @@ kitten::K_Component* getPivotTextBox(nlohmann::json* p_jsonFile) {
 		textbox->setColor(LOOKUP("color")[0], LOOKUP("color")[1], LOOKUP("color")[2]);
 	}
 
+	return textbox;
 	}
 }
 

@@ -6,18 +6,20 @@
 
 namespace userinterface
 {
-	ContextMenu::ContextMenu(int p_padding, int p_margain, fillType p_ft) : UIElement("texture/ui/blankFrame.tga")
+	ContextMenu::ContextMenu(int p_padding) : UIElement("texture/ui/blankFrame.tga")
 	{
-		m_ft = p_ft;
 		m_padding = p_padding;
+		m_height = m_padding * 2;
+		m_width = m_padding * 2;
 		setPivotType(piv_TopLeft);
 	}
 
 	ContextMenu::ContextMenu() : UIElement("textures/ui/blankFrame.tga")
 	{
-		m_width = 100;
-		m_height = 20;
 		m_padding = 0;
+		m_height = 0;
+		m_width = 0;
+		setPivotType(piv_TopLeft);
 	}
 
 	ContextMenu::~ContextMenu()
@@ -43,29 +45,42 @@ namespace userinterface
 	void ContextMenu::arrange()
 	{
 		glm::vec3 pos = getTransform().getTranslation();
-		int offset = m_padding;
-		int currentX = offset + pos.x;
-		int currentY = offset + pos.y;
-		m_width = m_padding * 2;
-		m_height = m_padding * 2;
+		int offsetX = pos.x + m_padding;
+		int offsetY = pos.y - m_padding;
 	
 		for (Row* r : m_rows)
 		{
-			for (kitten::K_GameObject* GO : r->elements)
-			{
-				if (GO != nullptr)
+			if (r->type == rt_OneElement) {
+
+				offsetY -= r->margin;
+				for (kitten::K_GameObject* GO : r->elements)
 				{
-					GO->getTransform().place(currentX, currentY, 0.1f);
-					if (m_ft == ft_Vertical || r->type == rt_OneElement)
+					if (GO != nullptr)
 					{
-						currentY -= (r->height + r->contentMargin);
+						GO->getTransform().place2D(offsetX, offsetY);
+						offsetY -= (r->margin + r->height);
+						m_height += ((r->margin * 2) + r->height);
 					}
-					else if (r->type == rt_FillRow)
+					if (m_width < (r->width + 2 * m_padding))
 					{
-						currentX += (r->width + r->contentMargin);
+						m_width = (r->width + 2 * m_padding);
 					}
-					GO->setEnabled(true);
+
 				}
+			}
+			else if (r->type == rt_Overflow)
+			{
+				offsetX += r->margin;
+
+				for (kitten::K_GameObject* GO : r->elements)
+				{
+					if (GO != nullptr)
+					{
+						GO->getTransform().place2D(offsetX, offsetY);
+						offsetX += r->margin;
+					}
+				}
+				offsetX = m_padding + pos.x;
 			}
 		}
 		getTransform().scale2D(m_width, m_height);

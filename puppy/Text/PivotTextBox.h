@@ -5,16 +5,16 @@
 namespace puppy
 { 
 	class UIElement;
-	class PivotTextBox :
-		public TextBox
+	class PivotTextBox : public TextBox
 	{
 	public:
-		PivotTextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, userinterface::UIElement::pivotType m_piv, bool p_is3D = false);
+		PivotTextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, userinterface::UIElement::pivotType m_piv, bool p_is3D);
 		~PivotTextBox();
 
-	private:
+	protected:
 		userinterface::UIElement::pivotType m_piv;
 		void constructQuad(int p_charId, int p_xPos, int p_yPos, TexturedVertex p_toSet[]) override;
+
 	};
 
 

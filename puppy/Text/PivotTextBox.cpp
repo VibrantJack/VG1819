@@ -1,15 +1,21 @@
 #include "PivotTextBox.h"
 
 //austin's textbox with pivots
-
 namespace puppy
 {
-	PivotTextBox::PivotTextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, userinterface::UIElement::pivotType p_piv, bool p_is3D = false) :
-		TextBox(p_fontToUse, p_text, p_boxWidth, p_boxHeight)
+	PivotTextBox::PivotTextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, userinterface::UIElement::pivotType p_piv, bool p_is3D = false)
+		: TextBox(p_fontToUse, p_text, p_boxWidth, p_boxHeight, p_is3D)
 	{
 		m_piv = p_piv;
 	}
 
+	//PivotTextBox::PivotTextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, userinterface::UIElement::pivotType p_piv, bool p_is3D = false) :
+	//	TextBox(p_fontToUse, p_text, p_boxWidth, p_boxHeight, p_is3D)
+	//{
+	//	m_piv = p_piv;
+	//}
+
+	//TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, bool p_is3D = false);
 
 	PivotTextBox::~PivotTextBox()
 	{

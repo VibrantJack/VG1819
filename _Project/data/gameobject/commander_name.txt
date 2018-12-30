@@ -3,7 +3,7 @@
     "components" : [
         {
             "name" : "TextBox",
-			"font" : "../fonts/ms_sans_serif_18pt.fnt",
+			"font" : "../fonts/common_consolas.fnt",
 			"color" : [1,1,1],
             "alignment" : "left",
             "width" : 400,

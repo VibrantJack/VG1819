@@ -337,10 +337,8 @@
     <ClCompile Include="LerpController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
-    <ClCompile Include="PivotTextBox.cpp" />
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
     <ClCompile Include="PlaySoundOnStart.cpp" />
-    <ClCompile Include="qPivotTextBox.cpp" />
     <ClCompile Include="StringInputDisplay.cpp" />
     <ClCompile Include="ToggleEnabledOnKeyPress.cpp" />
     <ClCompile Include="ToggleParticleSystemOnKeyPress.cpp" />
@@ -637,7 +635,6 @@
     <ClInclude Include="FPSCalc.h" />
     <ClInclude Include="LerpController.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
-    <ClInclude Include="PivotTextBox.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />
     <ClInclude Include="PlaySoundOnStart.h" />
     <ClInclude Include="StringInputDisplay.h" />
