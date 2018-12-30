@@ -341,6 +341,7 @@
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
     <ClCompile Include="PlaySoundOnStart.cpp" />
+    <ClCompile Include="ShowLoadingOnClick.cpp" />
     <ClCompile Include="StringInputDisplay.cpp" />
     <ClCompile Include="ToggleEnabledOnKeyPress.cpp" />
     <ClCompile Include="ToggleParticleSystemOnKeyPress.cpp" />
@@ -641,6 +642,7 @@
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />
     <ClInclude Include="PlaySoundOnStart.h" />
+    <ClInclude Include="ShowLoadingOnClick.h" />
     <ClInclude Include="StringInputDisplay.h" />
     <ClInclude Include="ToggleEnabledOnKeyPress.h" />
     <ClInclude Include="ToggleParticleSystemOnKeyPress.h" />
