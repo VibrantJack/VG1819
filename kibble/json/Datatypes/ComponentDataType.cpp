@@ -1077,6 +1077,11 @@ kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
 	return new userinterface::ClickableCard(isEnabledOnPause);
 }
 
+#include "_Project\ShowLoadingOnClick.h"
+kitten::K_Component* getShowLoadingOnClick(nlohmann::json* p_jsonFile) {
+	return new ShowLoadingOnClick();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1164,6 +1169,7 @@ void setupComponentMap() {
 	jsonComponentMap["MainMenu"] = &getMainMenu;
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
+	jsonComponentMap["ShowLoadingOnClick"] = &getShowLoadingOnClick;
 
 }
 
