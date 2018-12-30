@@ -38,7 +38,5 @@ void MoveByMouseRightClickDrag::update()
 		newPos.z = CLAMP(newPos.z + yChange * m_speed, m_minClamp.y, m_maxClamp.y);
 
 		transform.place(newPos.x, newPos.y, newPos.z);
-
-		std::cout << "pos: " << newPos.x << ", " << newPos.y << ", " << newPos.z << std::endl;
 	}
 }
