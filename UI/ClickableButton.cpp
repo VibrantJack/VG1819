@@ -39,14 +39,34 @@ namespace userinterface
 		ClickableUI::start();
 		m_uiObject = static_cast<UIObject*>(m_attachedObject->getComponent<UIObject>());
 		assert(m_uiObject != nullptr);
+		if (m_uiObject != nullptr)
+		{
+			if (m_active)
+			{
+				m_uiObject->setTexture(m_regularTexture.c_str());
+			}
+			else
+			{
+				m_uiObject->setTexture(m_inactiveTexture.c_str());
+			}
+		}
 	}
 
 	void ClickableButton::onDisabled()
 	{
-		m_active = true;
+		//m_active = true;
 
 		if (m_uiObject != nullptr)
-			m_uiObject->setTexture(m_regularTexture.c_str());
+		{
+			if (m_active)
+			{
+				m_uiObject->setTexture(m_regularTexture.c_str());
+			}
+			else
+			{
+				m_uiObject->setTexture(m_inactiveTexture.c_str());
+			}
+		}
 	}
 
 	void ClickableButton::onHoverStart()

@@ -7,6 +7,6 @@
         }
     ],
     "translate" : [0,0,-0.01],
-    "translate2d" : [-5,75],
-    "scale2d" : [185.0,260.0]
+    "translate2d" : [-5,85],
+    "scale2d" : [190.0,190.0]
 }

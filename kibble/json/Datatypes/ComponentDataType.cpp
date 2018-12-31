@@ -1066,6 +1066,22 @@ kitten::K_Component* getExitGameButton(nlohmann::json* p_jsonFile) {
 	return button;
 }
 
+#include "components\clickables\SetCommanderOnClick.h"
+kitten::K_Component* getSetCommanderOnClick(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, inactiveTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPT(inactiveTexture, "inactiveTexture");
+
+	SetCommanderOnClick* button = new SetCommanderOnClick();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
+
+	return button;
+}
+
 #include "unit/unitComponent/unitAction/ActionSelect.h"
 kitten::K_Component* getActionSelect(nlohmann::json* p_jsonFile) {
 	std::pair<int, int> offset, offset2;
@@ -1225,6 +1241,7 @@ void setupComponentMap() {
 	jsonComponentMap["CameraMoveByEvent"] = &getCameraMoveByEvent;
 	jsonComponentMap["LerpController"] = &getLerpController;
 	jsonComponentMap["ExitGameButton"] = &getExitGameButton;
+	jsonComponentMap["SetCommanderOnClick"] = &getSetCommanderOnClick;
 	jsonComponentMap["CommanderContext"] = &getCommanderContext;
 	jsonComponentMap["ActionSelect"] = &getActionSelect;
 	jsonComponentMap["DragNDrop"] = &getDragNDrop;

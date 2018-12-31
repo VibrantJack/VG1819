@@ -8,8 +8,8 @@
                     "name" : "UIFrame"
                 }
             ],
-            "scale2d" : [175.0,250.0],
-            "translate2d" : [0,0]
+            "scale2d" : [175.0,175.0],
+            "translate2d" : [0,75]
         },
         {
             "name" : "Commander Display Text Background",
@@ -36,6 +36,27 @@
                 }
             ],
             "translate2d": [0,325]
+        },
+        {
+            "name" : "Button to set Commander",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/defeat.tga"
+                },
+                {
+                    "name" : "SetCommanderOnClick",
+                    "regularTexture" : "textures/ui/buttons/button_decks.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_decks_highlighted.tga",
+                    "inactiveTexture" : "textures/ui/defeat.tga"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "scale2d" : [155,65],
+            "translate" : [0,0,-0.1],
+            "translate2d" : [10,0]
         }
     ],
     "components" : [
@@ -50,5 +71,6 @@
         }
     ],
     "translate" : [0,0,-0.5],
+    "translate2d" : [0,0],
     "scale2d" : [175,340]
 }

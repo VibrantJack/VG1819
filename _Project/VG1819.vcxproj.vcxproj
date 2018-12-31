@@ -161,6 +161,11 @@
     <ClCompile Include="..\board\tile\landInfo\SandLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
     <ClCompile Include="..\components\CameraMoveByEvent.cpp" />
+    <ClCompile Include="..\components\clickables\AddUnitOnClick.cpp" />
+    <ClCompile Include="..\components\clickables\DiscardDeckOnClick.cpp" />
+    <ClCompile Include="..\components\clickables\RemoveUnitOnClick.cpp" />
+    <ClCompile Include="..\components\clickables\SaveDeckOnClick.cpp" />
+    <ClCompile Include="..\components\clickables\SetCommanderOnClick.cpp" />
     <ClCompile Include="..\components\CustomCursor.cpp" />
     <ClCompile Include="..\components\CustomDataComponent.cpp" />
     <ClCompile Include="..\components\DeckAlterationComponent.cpp" />
@@ -447,6 +452,11 @@
     <ClInclude Include="..\board\tile\landInfo\LandInformation.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInfoManager.h" />
     <ClInclude Include="..\components\CameraMoveByEvent.h" />
+    <ClInclude Include="..\components\clickables\AddUnitOnClick.h" />
+    <ClInclude Include="..\components\clickables\DiscardDeckOnClick.h" />
+    <ClInclude Include="..\components\clickables\RemoveUnitOnClick.h" />
+    <ClInclude Include="..\components\clickables\SaveDeckOnClick.h" />
+    <ClInclude Include="..\components\clickables\SetCommanderOnClick.h" />
     <ClInclude Include="..\components\CustomCursor.h" />
     <ClInclude Include="..\components\CustomDataComponent.h" />
     <ClInclude Include="..\components\DeckAlterationComponent.h" />

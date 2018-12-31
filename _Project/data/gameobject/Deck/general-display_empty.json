@@ -3,7 +3,7 @@
     "components" : [
         {
             "name" : "UIFrame",
-            "texture" : "textures/ui/no_decks_message.tga"
+            "texture" : "textures/ui/blank_message_box.tga"
         }
     ],
     "translate" : [0,0,-0.01],

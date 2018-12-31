@@ -782,6 +782,21 @@
     <ClCompile Include="..\components\SetupDeckEditOnSceneChange.cpp">
       <Filter>components\scene changers</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\clickables\AddUnitOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\DiscardDeckOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\RemoveUnitOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\SaveDeckOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\SetCommanderOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1689,6 +1704,21 @@
     <ClInclude Include="..\components\SetupDeckEditOnSceneChange.h">
       <Filter>components\scene changers</Filter>
     </ClInclude>
+    <ClInclude Include="..\components\clickables\AddUnitOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\DiscardDeckOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\RemoveUnitOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\SaveDeckOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\SetCommanderOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1870,6 +1900,9 @@
     </Filter>
     <Filter Include="UI\MainMenu">
       <UniqueIdentifier>{7afc2e7a-c536-4001-9c64-dd24fcb73637}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\clickables">
+      <UniqueIdentifier>{9ad8c8e7-afb6-43c1-ab5d-a40105e5ff22}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
