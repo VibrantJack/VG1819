@@ -3,16 +3,17 @@
 // Displays the stats of the hovered card
 // Uses TextBoxes aligned to the card_context.tga texture to display 
 // the stats
+// 
 //
 // @Ken
 
 #pragma once
-#include "kitten\mouse picking\ClickableUI.h"
+#include "kitten\K_Component.h"
 #include "unit\Unit.h"
 #include "puppy\Text\TextBox.h"
 #include <vector>
 
-class CardContext : public kitten::ClickableUI, public unit::Unit::UnitDataChangedCallback
+class CardContext : public kitten::K_Component, public unit::Unit::UnitDataChangedCallback
 {
 private:
 	puppy::TextBox* m_nameBox;
@@ -38,14 +39,12 @@ public:
 
 	virtual void start() override;
 
+	// For testing only, changes the unit on the hovered card on B key pressed
 	virtual bool hasUpdate() const override { return true; };
 	virtual void update() override;
 
 	void setUnit(unit::Unit* p_unit);
 	void updateUnitData();
-
-	virtual void onHoverStart() override;
-	virtual void onHoverEnd() override;
 
 	virtual void onEnabled() override;
 	virtual void onDisabled() override;

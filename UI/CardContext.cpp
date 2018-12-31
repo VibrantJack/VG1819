@@ -1,6 +1,7 @@
 #include "UI\CardContext.h"
 #include "kitten\K_GameObjectManager.h"
 #include "UI\UIObject.h"
+
 // Only for testing, using a static unit
 #include "kibble\databank\databank.hpp"
 #include "kitten\InputManager.h"
@@ -41,8 +42,6 @@ CardContext::~CardContext()
 
 void CardContext::start()
 {
-	ClickableUI::start();
-
 	kitten::K_GameObjectManager* gom = kitten::K_GameObjectManager::getInstance();
 	m_cardTexture = gom->createNewGameObject("card_context_texture.json");
 
@@ -88,6 +87,7 @@ void CardContext::setUnit(unit::Unit* p_unit)
 	}
 }
 
+// For testing only, changes the unit on the hovered card by pressing the B key
 void CardContext::update()
 {
 	input::InputManager* inputMan = input::InputManager::getInstance();
@@ -136,13 +136,14 @@ void CardContext::updateUnitData()
 	// Trying to use a max of 3 lines for each ability + description,
 	// otherwise we won't be able to fit all the details on the card
 	int row = 0;
+	float padding = 0.0f;
 	glm::vec3 contextPos = m_cardTexture->getTransform().getTranslation();
 	for (auto it : m_unitData->m_ADList)
 	{
 		puppy::TextBox* abilityText = kitten::K_GameObjectManager::getInstance()->createNewGameObject("card_context_textbox.json")->getComponent<puppy::TextBox>();
 		abilityText->setFont(puppy::FontTable::getInstance()->getFont("../fonts/nsimsun_12pt.fnt"));
 		abilityText->setColor(0.89f, 0.82f, 0.55f);
-		abilityText->getTransform().place(ABILITIES_X + contextPos.x, ABILITIES_Y + contextPos.y - (row * LINE_HEIGHT), 0.01f);
+		abilityText->getTransform().place(ABILITIES_X + contextPos.x, ABILITIES_Y + contextPos.y - (row * LINE_HEIGHT) - padding, 0.01f);
 
 		std::string abilityDesc = "";
 		unit::AbilityDescription* ad = it.second;
@@ -165,7 +166,7 @@ void CardContext::updateUnitData()
 		int ct = ad->m_intValue[UNIT_CT];
 		if (ct > 0)
 			abilityDesc += " CT:" + std::to_string(ct);
-				
+
 		abilityText->setText(abilityDesc);
 		m_abilityList.push_back(abilityText);
 		row += std::ceil(abilityDesc.length() / LINE_MAX_CHAR_LENGTH); // Determines how many rows have been used by the text that's been set
@@ -176,13 +177,13 @@ void CardContext::updateUnitData()
 		{
 			abilityText = kitten::K_GameObjectManager::getInstance()->createNewGameObject("card_context_textbox.json")->getComponent<puppy::TextBox>();
 			abilityText->setFont(puppy::FontTable::getInstance()->getFont("../fonts/nsimsun_12pt.fnt"));
-			abilityText->getTransform().place(ABILITIES_X + contextPos.x, ABILITIES_Y + contextPos.y - (row * LINE_HEIGHT), 0.01f);
+			abilityText->getTransform().place(ABILITIES_X + contextPos.x, ABILITIES_Y + contextPos.y - (row * LINE_HEIGHT) - padding, 0.01f);
 			abilityText->setText(description);
 			m_abilityList.push_back(abilityText);
 			row += std::ceil(description.length() / LINE_MAX_CHAR_LENGTH);
 		}
+		padding += 4.0f;
 	}
-
 	// Status Info TextBoxes
 	// Similar idea to ability TextBoxes, clear the list and loop through status
 	// TODO: Get the ability changes on level up into the unit .json files so we can get them here 
@@ -200,7 +201,7 @@ void CardContext::updateUnitData()
 		puppy::TextBox* statusText = kitten::K_GameObjectManager::getInstance()->createNewGameObject("card_context_textbox.json")->getComponent<puppy::TextBox>();
 		statusText->setFont(puppy::FontTable::getInstance()->getFont("../fonts/nsimsun_12pt.fnt"));
 		statusText->setColor(0.0f, 0.0f, 0.0f);
-		statusText->getTransform().place(ABILITIES_X + contextPos.x, ABILITIES_Y + contextPos.y - (row * 12.0f), 0.01f);
+		statusText->getTransform().place(ABILITIES_X + contextPos.x, ABILITIES_Y + contextPos.y - (row * LINE_HEIGHT) - padding, 0.01f);
 
 		std::string statusDesc = "";
 		std::unordered_map<std::string, int> attributes = it->getAttributeChanges();
@@ -225,16 +226,6 @@ void CardContext::updateUnitData()
 		m_statusList.push_back(statusText);
 		row += std::ceil(statusDesc.length() / LINE_MAX_CHAR_LENGTH);
 	}
-}
-
-void CardContext::onHoverStart()
-{
-	setEnabled(true);
-}
-
-void CardContext::onHoverEnd()
-{
-	setEnabled(false);
 }
 
 void CardContext::onEnabled()
