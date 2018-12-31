@@ -1,0 +1,27 @@
+{
+	"name" : "Testing Button",
+	"components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/button_testing.tga"
+		},				
+		{
+			"name" : "ChangeSceneOnClick",
+			"scene" : "testinggrounds.json"
+
+		},
+		{
+			"name" : "ClickableButton",
+			"regularTexture" : "textures/ui/buttons/button_testing.tga",
+			"highlightedTexture" : "textures/ui/buttons/button_testing_highlighted.tga"
+		},
+		{
+			"name" : "ClickableFrame"
+		},
+		{
+			"name" : "ShowLoadingOnClick"
+		}
+	],
+	"translate2d" : [995, 22],
+	"scale2d" : [250, 80]
+}

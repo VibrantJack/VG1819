@@ -1,0 +1,10 @@
+{
+    "name" : "Deck Display Text Background",
+    "components" : [
+		{
+			"name" : "UIFrame",
+			"texture" : "textures/ui/deck_display_text_bg.tga"
+		}
+    ],
+	"scale2d" : [175, 70]
+}

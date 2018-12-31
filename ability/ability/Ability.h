@@ -122,13 +122,13 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Dodge : public Ability
+	class Defend : public Ability
 	{
 	private:
 		void applyStatus(AbilityInfoPackage* p_info);
 		void stackStatus(AbilityInfoPackage* p_info);
 	public:
-		std::string m_name = ABILITY_DODGE;
+		std::string m_name = ABILITY_DEFEND;
 		int effect(AbilityInfoPackage* p_info);
 	};
 
@@ -214,24 +214,24 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
 	};
 
-	class Invest : public Ability
+	class EnergyControl : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_INVEST;
+		std::string m_name = ABILITY_ENERGY_CONTROL;
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class PowerOfMoney : public Ability
+	class PowerSlam : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_POWER_OF_MONEY;
+		std::string m_name = ABILITY_POWER_SLAM;
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class GoldRush : public Ability
+	class PowerSurge : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_GOLD_RUSH;
+		std::string m_name = ABILITY_POWER_SURGE;
 		int effect(AbilityInfoPackage* p_info);
 	};
 

@@ -5,7 +5,7 @@
 #include "UI/UIFrame.h"
 #include "puppy/Text/TextBox.h"
 
-unit::InitiativeTrackerUI::InitiativeTrackerUI()
+unit::InitiativeTrackerUI::InitiativeTrackerUI():m_lastUnitIndex(0)
 {
 	m_initiativeObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 
@@ -21,9 +21,10 @@ unit::InitiativeTrackerUI::InitiativeTrackerUI()
 
 		//initialize block list
 		m_blockInSlot.push_back(0);
-		m_unitIndex.push_back(-1);
+		//m_unitIndex.push_back(-1);
 	}
-	setPosition();
+
+	setXList();
 
 	m_pointerObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 	kitten::K_Component* p = comMan->createComponent("TrackerPointer");
@@ -38,13 +39,13 @@ void unit::InitiativeTrackerUI::turnStart()
 {
 	resetPosition();
 
-	m_lastUnitIndex = unit::InitiativeTracker::getInstance()->getCurrentUnitIndex();
+	int current = unit::InitiativeTracker::getInstance()->getCurrentUnitIndex();
 
 	//set all frames
 	for (int i = 0; i < m_maxUnitToShow; i++)
 	{
 		m_blockInSlot[i] = i;
-		setNewFrame(i);
+		setNewFrame(i, current+i );
 	}
 }
 
@@ -66,46 +67,44 @@ void unit::InitiativeTrackerUI::next()
 	}
 
 	//set new frame to block at last slot
-	setNewFrame(m_blockInSlot[m_maxUnitToShow - 1]);
+	int current = unit::InitiativeTracker::getInstance()->getCurrentUnitIndex();
+	setNewFrame(m_maxUnitToShow-1, m_lastUnitIndex+1);
 }
 
 void unit::InitiativeTrackerUI::change(int p_i)
 {
 	//p_i is the index of unit
 	int blockIndex = isShown(p_i);
-	if (blockIndex >= 0)
+	if (blockIndex > 0)
 	{
-		//find the slot
-		int slotIndex = -1;
+		//reset initiative tracker
+		int current = InitiativeTracker::getInstance()->getCurrentUnitIndex();
 		for (int i = 0; i < m_maxUnitToShow; i++)
 		{
-			if (m_blockInSlot[i] == blockIndex)//block is at slot i
-			{
-				slotIndex = i;
-				break;
-			}
+			setNewFrame(i, current + i);
 		}
 		
-		//set last unit index to new unit
-		m_lastUnitIndex = p_i;
-		//set new frame for this block and block in the right slot
-		for (int i = slotIndex; i < m_maxUnitToShow; i++)
+		/*
+		int slot = p_i - current;
+		//set this slot and all slot after it
+		for (int i = slot; i < m_maxUnitToShow; i++)
 		{
-			setNewFrame(m_blockInSlot[i]);
-		}
-	}
-	else if (blockIndex == -1)//changed unit is at left, it must be removed
-	{
-		m_lastUnitIndex--;//move last index left
-	}
-	else if (blockIndex == -2)//changed unit is at right, it changes nothing
-	{
-		//m_lastUnitIndex--;
+			setNewFrame(m_blockInSlot[i], current + i);
+		}*/
 	}
 }
 
 int unit::InitiativeTrackerUI::isShown(int p_i)
 {
+	int current = InitiativeTracker::getInstance()->getCurrentUnitIndex();
+	if (p_i >= current && p_i < current + m_maxUnitToShow)
+		return 1;//is shown
+	else if (p_i < current)
+		return 0;//before current unit
+	else if (p_i >= current + m_maxUnitToShow)
+		return -1;//after last unit possible
+
+	/*
 	if (p_i < m_unitIndex[m_blockInSlot[0]])//unit is before the first unit shown
 	{
 		return -1;
@@ -125,13 +124,13 @@ int unit::InitiativeTrackerUI::isShown(int p_i)
 	{
 		if (m_unitIndex[i] == p_i)
 			return i;
-	}
+	}*/
 
 	assert(false);
 	return -3;
 }
 
-void unit::InitiativeTrackerUI::setPosition()
+void unit::InitiativeTrackerUI::setXList()
 {
 	//position list will have one more position
 	for (int i = 0; i <= m_maxUnitToShow; i++)
@@ -149,8 +148,32 @@ void unit::InitiativeTrackerUI::resetPosition()
 	}
 }
 
-void unit::InitiativeTrackerUI::setNewFrame(int p_index)
-{
+void unit::InitiativeTrackerUI::setNewFrame(int p_slot, int p_unit)
+{//set slot p_slot to unit p_unit
+
+	if (p_unit < InitiativeTracker::getInstance()->getUnitNumber())
+	{//still has units in list
+		kitten::K_GameObject* unitGO = InitiativeTracker::getInstance()->getUnitByIndex(p_unit);
+		int block = m_blockInSlot[p_slot];
+		m_blockList[block]->set(unitGO);
+
+		m_lastUnitIndex = p_unit;
+		/*
+		m_unitShown++;
+		if (m_unitShown > m_maxUnitToShow)
+			m_unitShown = m_maxUnitToShow;*/
+	}
+	else
+	{
+		//no more units
+		int block = m_blockInSlot[p_slot];
+		m_blockList[block]->clear();
+		/*
+		m_unitShown--;
+		if (m_unitShown < 0)
+			m_unitShown = 0;*/
+	}
+	/*
 	if (m_lastUnitIndex < InitiativeTracker::getInstance()->getUnitNumber())
 	{//still has units in list
 		kitten::K_GameObject* unitGO = InitiativeTracker::getInstance()->getUnitByIndex(m_lastUnitIndex);
@@ -162,6 +185,6 @@ void unit::InitiativeTrackerUI::setNewFrame(int p_index)
 	{//no more units 
 		m_blockList[p_index]->clear();
 		m_unitIndex[p_index] = -1;
-	}
+	}*/
 }
 

@@ -1,0 +1,14 @@
+{
+    "name" : "Victorum Title",
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/Victorum_title.png"
+        },
+		{
+			"name" : "LerpController"
+		}
+    ],
+	"scale2d" : [668, 184],
+    "translate2d" : [306,528]
+}

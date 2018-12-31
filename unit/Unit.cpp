@@ -157,6 +157,7 @@ namespace unit
 		if (m_castTimer->isCasting())
 		{
 			playerSkipTurn();//if it still cast, it skips turn
+			return;
 		}
 		else if(i == 0)//used casting ability
 		{
@@ -243,13 +244,20 @@ namespace unit
 	void Unit::playerSkipTurn()
 	{
 		assert(m_turn != nullptr);
-		if (networking::ClientGame::getInstance())
-		{
-			if (!networking::ClientGame::getInstance()->isServerCalling())
+
+		networking::ClientGame* client = networking::ClientGame::getInstance();
+		if (client != nullptr)
+		{			
+			if (!client->isServerCalling())
 			{
-				networking::ClientGame::getInstance()->sendBasicPacket(PacketTypes::SKIP_TURN);
+				client->sendBasicPacket(PacketTypes::SKIP_TURN);
+			}
+			else
+			{
+				client->setServerCalling(false);
 			}
 		}
+
 		m_turn->turnEnd();
 	}
 

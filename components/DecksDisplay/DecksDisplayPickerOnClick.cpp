@@ -5,7 +5,8 @@
 
 void DecksDisplayPickerOnClick::onClick()
 {
-	DecksDisplayFrame::getActiveInstance()->pickDisplayedDeck(this->m_attachedObject);
+	int deckId = DecksDisplayFrame::getActiveInstance()->pickDisplayedDeck(this->m_attachedObject);
 	DeckInitializingComponent::getActiveInstance()->setDeckData(kibble::getDeckDataFromId(DecksDisplayFrame::getActiveInstance()->getCurrentPickedDeckId()));
-	DeckInitializingComponent::getActiveInstance()->setPlayerId(0);
+	DeckInitializingComponent::getActiveInstance()->setDeckId(deckId);
+	DeckInitializingComponent::getActiveInstance()->setPlayerId(0);	
 }

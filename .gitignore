@@ -42,3 +42,4 @@ _Project/Release/
 *.pdb
 *.ilk
 *.lastbuildstate
+.vscode/c_cpp_properties.json

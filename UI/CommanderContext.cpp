@@ -20,6 +20,10 @@ namespace userinterface
 
 	CommanderContext::~CommanderContext()
 	{
+		for (Row* r : m_rows)
+		{
+			delete r;
+		}
 	}
 
 	void CommanderContext::start()

@@ -1,0 +1,29 @@
+{
+	"name" : "knight",
+	"texture" : "textures/sprites/units/humans/knight_sheet.tga",
+	
+	"sheetwidth" : 840,
+	"sheetheight" : 200,
+	
+	"characterwidth" : 95,
+	"characterheight" : 90,
+	
+	"padding" : 10,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [7,0],
+			"time" : 1.5
+		},
+		{
+			"name" : "death",
+			"startpos" : [0,1],
+			"endpos" : [7,1],
+			"time" : 1.5
+		}
+	],
+	
+	"defaultanimation" : "idle"
+}

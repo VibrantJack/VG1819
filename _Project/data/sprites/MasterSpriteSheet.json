@@ -2,13 +2,14 @@
 	"spritesheets" :
 	[
 		"ArcherSheet.json",
+		"PriestSheet.json",
 		"ClericSheet.json",
 		"WizardSheet.json",
 		"StoneSlinger.json",
-		"OligarchSheet.json",
+		"EnchanterSheet.json",
 		"EngineerSheet.json",
 		"PyromancerSheet.json",
-		"DuelistSheet.json",
+		"KnightSheet.json",
 		"ArrowTowerSheet.json",
 		"FactorySheet.json",
 		"DivineStatueSheet.json",

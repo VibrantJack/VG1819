@@ -12,19 +12,19 @@ public:
 	class PositionLerpFinishedCallback
 	{
 	public:
-		virtual void onPositionLerpFinished() =0;
+		virtual void onPositionLerpFinished() = 0;
 	};
 
 	class ScaleLerpFinishedCallback
 	{
 	public:
-		virtual void onScaleLerpFinished() =0;
+		virtual void onScaleLerpFinished() = 0;
 	};
 
 	class RotationLerpFinishedCallback
 	{
 	public:
-		virtual void onRotationLerpFinished() =0;
+		virtual void onRotationLerpFinished() = 0;
 	};
 
 private:
@@ -45,7 +45,7 @@ private:
 	kitten::K_Time* m_time;
 
 	virtual void start();
-	
+
 	virtual bool hasUpdate() const override { return true; }
 	virtual void update() override;
 
@@ -71,4 +71,23 @@ public:
 	void positionLerp(const glm::vec3& p_pos, const float& p_time);
 	void scaleLerp(const glm::vec3& p_scale, const float& p_time);
 	void rotationLerp(const glm::quat& p_rot, const float& p_time);
+
+
+	void removePositionCallback(PositionLerpFinishedCallback* p_listener);
+	void removeScaleCallback(ScaleLerpFinishedCallback* p_listener);
+	void removeRotationCallback(RotationLerpFinishedCallback* p_listener);
+
+	void forceLerpToFinish();
+	void cancelLerp();
+
+	bool isLerping() const { return m_isLerping; }
+	bool isPosLerping() const { return m_isPositionLerping; }
+	bool isScaleLerping() const { return m_isScaleLerping; }
+	bool isRotationLerping() const { return m_isRotationLerping; }
+
+
+	void addPositionLerpFinishedCallback(PositionLerpFinishedCallback* p_toAdd);
+	void addScaleLerpFinishedCallback(ScaleLerpFinishedCallback* p_toAdd);
+	void addRotationLerpFinishedCallback(RotationLerpFinishedCallback* p_toAdd);
+	
 };

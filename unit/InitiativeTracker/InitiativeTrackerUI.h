@@ -35,16 +35,17 @@ namespace unit
 		const float m_gap = 0.175f;//distance from adjacent frame
 		const float m_leftX = -0.25f;//start x coodinate for frame
 
+		
 		std::vector<float> m_xList;//the list of x position for each frame slots
 		std::vector<int> m_blockInSlot;//which block in blockInSlot[x]
-		std::vector<int> m_unitIndex;//which index of unit the block has
+		//std::vector<int> m_unitIndex;//which index of unit the block has
 		int m_lastUnitIndex;
+		int m_unitShown;
 
 
 
-		void setPosition();
+		void setXList();
 		void resetPosition();
-		void setNewFrame(int p_index);
-
+		void setNewFrame(int p_slot, int p_unit);
 	};
 }

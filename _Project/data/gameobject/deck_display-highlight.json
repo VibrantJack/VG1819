@@ -3,7 +3,7 @@
     "components" : [
         {
             "name" : "UIFrame",
-            "texture" : "textures/crap/pool.tga"
+            "texture" : "textures/ui/deck_highlight.tga"
         }
     ],
     "translate" : [0,0,-0.01],

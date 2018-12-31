@@ -44,6 +44,7 @@ namespace unit
 		int getUnitNumber();
 		kitten::K_GameObject* getCurrentUnit();
 		int getCurrentUnitIndex();
+		//int getIndexByUnit(kitten::K_GameObject* p_u);
 
 		std::vector<kitten::K_GameObject*> getUnitList();
 
