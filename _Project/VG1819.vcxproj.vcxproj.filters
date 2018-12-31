@@ -764,6 +764,15 @@
     <ClCompile Include="ShowLoadingOnClick.cpp">
       <Filter>components\scene changers</Filter>
     </ClCompile>
+    <ClCompile Include="..\puppy\lights\P_DirectionalLight.cpp">
+      <Filter>puppy\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\lights\P_LightList.cpp">
+      <Filter>puppy\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\lights\K_DirectionalLight.cpp">
+      <Filter>kitten\lights</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1653,6 +1662,15 @@
     <ClInclude Include="ShowLoadingOnClick.h">
       <Filter>components\scene changers</Filter>
     </ClInclude>
+    <ClInclude Include="..\puppy\lights\P_DirectionalLight.h">
+      <Filter>puppy\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\lights\P_LightList.h">
+      <Filter>puppy\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\lights\K_DirectionalLight.h">
+      <Filter>kitten\lights</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -1834,6 +1852,12 @@
     </Filter>
     <Filter Include="UI\MainMenu">
       <UniqueIdentifier>{7afc2e7a-c536-4001-9c64-dd24fcb73637}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kitten\lights">
+      <UniqueIdentifier>{ee328a00-dc0f-4ea1-bb1e-282a8955234a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="puppy\lights">
+      <UniqueIdentifier>{8d085ece-c9d3-41d8-847f-f120aa582d39}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

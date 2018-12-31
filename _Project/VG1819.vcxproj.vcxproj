@@ -223,6 +223,7 @@
     <ClCompile Include="..\kitten\K_ParticleSystem.cpp" />
     <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
     <ClCompile Include="..\kitten\K_Time.cpp" />
+    <ClCompile Include="..\kitten\lights\K_DirectionalLight.cpp" />
     <ClCompile Include="..\kitten\ModelRenderable.cpp" />
     <ClCompile Include="..\kitten\mouse picking\ActiveClickables.cpp" />
     <ClCompile Include="..\kitten\mouse picking\Clickable.cpp" />
@@ -254,6 +255,8 @@
     <ClCompile Include="..\kitten\util\AsyncFileOperations.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
     <ClCompile Include="..\puppy\FBO.cpp" />
+    <ClCompile Include="..\puppy\lights\P_DirectionalLight.cpp" />
+    <ClCompile Include="..\puppy\lights\P_LightList.cpp" />
     <ClCompile Include="..\puppy\Material.cpp" />
     <ClCompile Include="..\puppy\MaterialManager.cpp" />
     <ClCompile Include="..\puppy\Models\P_Mesh.cpp" />
@@ -517,6 +520,7 @@
     <ClInclude Include="..\kitten\K_Instance.h" />
     <ClInclude Include="..\kitten\K_Routine.h" />
     <ClInclude Include="..\kitten\K_Time.h" />
+    <ClInclude Include="..\kitten\lights\K_DirectionalLight.h" />
     <ClInclude Include="..\kitten\ModelRenderable.h" />
     <ClInclude Include="..\kitten\mouse picking\ActiveClickables.h" />
     <ClInclude Include="..\kitten\mouse picking\Clickable.h" />
@@ -550,6 +554,8 @@
     <ClInclude Include="..\pugixml\pugiconfig.hpp" />
     <ClInclude Include="..\pugixml\pugixml.hpp" />
     <ClInclude Include="..\puppy\FBO.h" />
+    <ClInclude Include="..\puppy\lights\P_DirectionalLight.h" />
+    <ClInclude Include="..\puppy\lights\P_LightList.h" />
     <ClInclude Include="..\puppy\Material.h" />
     <ClInclude Include="..\puppy\MaterialManager.h" />
     <ClInclude Include="..\puppy\Models\P_Mesh.h" />
