@@ -1,0 +1,11 @@
+{
+	"name" : "Loading Screen",
+	"components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/loading_screen_1.png"
+		}
+	],
+	"scale2d" : [1280,720],
+	"translate" : [0,0,0.1]
+}

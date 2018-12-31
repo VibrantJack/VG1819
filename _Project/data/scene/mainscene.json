@@ -55,6 +55,7 @@
 			]
 		}
 
-    ]
+    ],
+	"scenes" : ["mountainForest.json"]
 	
 }

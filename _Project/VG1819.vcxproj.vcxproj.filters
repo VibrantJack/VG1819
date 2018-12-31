@@ -803,6 +803,9 @@
     <ClCompile Include="..\components\clickables\DeleteDeckOnClick.cpp">
       <Filter>components\clickables</Filter>
     </ClCompile>
+    <ClCompile Include="ShowLoadingOnClick.cpp">
+      <Filter>components\scene changers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1730,6 +1733,9 @@
     </ClInclude>
     <ClInclude Include="..\components\clickables\DeleteDeckOnClick.h">
       <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="ShowLoadingOnClick.h">
+      <Filter>components\scene changers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
