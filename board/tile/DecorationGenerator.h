@@ -23,4 +23,8 @@ private:
 	static std::vector<kitten::K_GameObject*> generateSwampDecoration();
 
 	static LandInformation::TileType getTileType(int p_x, int p_y);
+	static std::vector<bool> isSurroundTileType(int p_x, int p_y, const LandInformation::TileType& p_type);
+	static const std::vector<std::string> getEdgeFile(int p_x, int p_y,
+		const LandInformation::TileType& p_selfType, const LandInformation::TileType& p_targetType);
+	static const std::string typeToString(const LandInformation::TileType& p_type);
 };
