@@ -26,9 +26,6 @@ namespace puppy
 		{
 			m_tex->apply();
 		}
-
-		//apply memorized uniforms
-
 	}
 
 	void Material::setTexture(const char* p_pathToTex)
@@ -62,6 +59,12 @@ namespace puppy
 		glUniform4fv(place, 1, glm::value_ptr(p_vec4));
 	}
 
+	void Material::setUniform(const std::string& p_name, const glm::vec3& p_vec3)
+	{
+		GLint place = m_shader->getUniformPlace(p_name);
+		glUniform3fv(place, 1, glm::value_ptr(p_vec3));
+	}
+
 	void Material::setUniform(const std::string& p_name, const glm::vec2& p_vec2)
 	{
 		GLint place = m_shader->getUniformPlace(p_name);
@@ -78,35 +81,5 @@ namespace puppy
 	{
 		GLint place = m_shader->getUniformPlace(p_name);
 		glUniform1i(place, p_int);
-	}
-
-	void Material::memorizeUniform(const std::string& p_name, const glm::mat4& p_mat4)
-	{
-
-	}
-
-	void Material::memorizeUniform(const std::string& p_name, const glm::mat3& p_mat3)
-	{
-
-	}
-
-	void Material::memorizeUniform(const std::string& p_name, const glm::vec4& p_vec4)
-	{
-
-	}
-	
-	void Material::memorizeUniform(const std::string& p_name, const glm::vec3& p_vec3)
-	{
-
-	}
-
-	void Material::memorizeUniform(const std::string& p_name, const GLfloat& p_float)
-	{
-
-	}
-
-	void Material::memorizeUniform(const std::string& p_name, const GLint& p_int)
-	{
-
 	}
 }

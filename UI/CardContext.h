@@ -13,7 +13,7 @@
 #include "puppy\Text\TextBox.h"
 #include <vector>
 
-class CardContext : public kitten::K_Component, public unit::Unit::UnitDataChangedCallback
+class CardContext : public kitten::K_Component
 {
 private:
 	puppy::TextBox* m_nameBox;

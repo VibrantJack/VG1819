@@ -13,11 +13,13 @@
 #include "kitten/K_ComponentManager.h"
 #include "UI/CardUIO.h"
 #include "kitten/InputManager.h"
+#include "_Project/LerpController.h"
 
 #include "components\DragNDrop\SpawnUnitOnDrop.h"
 #include "UI\CardContext.h"
 
 #define MAX_CARDS_IN_HAND 5
+#define TIME_FOR_CARDS_TO_ORDER 0.1
 #define TEMP_POWER_CHARGE 1
 
 namespace userinterface
@@ -86,7 +88,22 @@ namespace userinterface
 		auto end = m_innerObjects.end();
 		for (auto it = m_innerObjects.begin(); it != end; ++it)
 		{
-			(*it)->getTransform().place2D(trans.x + offset, trans.y + m_padding - (m_cardY/2));
+			if (m_isInit) {
+				LerpController* lerpC = (*it)->getGameObject().getComponent<LerpController>();
+				if (lerpC == nullptr)
+				{
+					(*it)->getTransform().place2D(trans.x + offset, trans.y + m_padding - (m_cardY / 2));
+				}
+				else
+				{
+					lerpC->positionLerp(glm::vec3(trans.x + offset, trans.y + m_padding - (m_cardY / 2), 0), TIME_FOR_CARDS_TO_ORDER);
+				}
+			}
+			else
+			{
+				(*it)->getTransform().place2D(trans.x + offset, trans.y + m_padding - (m_cardY / 2));
+			}
+			
 			offset += m_cardX;
 			offset += m_contentMargin;
 		}
@@ -149,6 +166,7 @@ namespace userinterface
 			frameCasted->addCardToEnd(cardCasted);
 			cardCasted->assignParentHand(frameCasted);
 		}
+		m_isInit = true;
 	}
 
 	void HandFrame::onEnabled()

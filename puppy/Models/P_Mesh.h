@@ -17,8 +17,11 @@ namespace puppy
 		Material m_mat;
 		VertexEnvironment m_vao;
 
+		bool m_usesColour = false;
+		const glm::vec4 m_colour;
 	public:
 		P_Mesh(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices, const char* p_pathToTexture);
+		P_Mesh(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices, glm::vec4& p_colour);
 		~P_Mesh();
 
 		void render(const glm::mat4& p_worldViewProj);

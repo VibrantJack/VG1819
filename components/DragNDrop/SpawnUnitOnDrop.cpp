@@ -12,6 +12,8 @@
 #include "board/BoardManager.h"
 #include <iostream>
 
+#define CARD_HOVER_MOVE_TIME 0.2
+
 void SpawnUnitOnDrop::onDrop()
 {
 	// Check if we hit something
@@ -54,7 +56,8 @@ void SpawnUnitOnDrop::onDrop()
 void SpawnUnitOnDrop::onHoverEnd() {
 	if (!m_isDragging)
 	{
-		getTransform().place2D(m_origin.x, m_origin.y);
+		//getTransform().place2D(m_origin.x, m_origin.y);
+		m_lerpController->positionLerp(m_origin, CARD_HOVER_MOVE_TIME);
 		m_isHovered = false;
 	}
 	m_cardContext->setEnabled(false);
@@ -64,7 +67,8 @@ void SpawnUnitOnDrop::onHoverStart() {
 	if (!m_isDragging)
 	{
 		m_isHovered = true;
-		getTransform().place2D(m_origin.x, m_origin.y + 50);
+		//getTransform().place2D(m_origin.x, m_origin.y + 50);
+		m_lerpController->positionLerp(glm::vec3(m_origin.x,m_origin.y + 50 , m_origin.z), CARD_HOVER_MOVE_TIME);
 	}
 	// TODO: Set the unit from the proper attached Unit
 	m_cardContext->setUnit(kibble::getUnitFromId(1));
@@ -79,7 +83,7 @@ void SpawnUnitOnDrop::onPause()
 
 void SpawnUnitOnDrop::onPosChanged(const glm::vec3& p_newPos)
 {
-	if (!m_isDragging && !m_isHovered)
+	if (!m_isDragging && !m_isHovered && !(m_lerpController != nullptr && m_lerpController->isPosLerping()))
 	{
 		m_origin = m_attachedObject->getTransform().getTranslation();
 	}
