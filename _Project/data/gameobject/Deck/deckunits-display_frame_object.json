@@ -72,7 +72,28 @@
             ],
             "translate" : [ 0,0,0.1],
             "translate2d" : [140, 0],
-            "scale2d" : [55, 20]
+            "scale2d" : [27, 20]
+        },
+        {
+            "name" : "Plus Button",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_decks.tga"
+                },
+                {
+                    "name" : "ChangeUnitOnClick",
+                    "regularTexture" : "textures/ui/buttons/button_decks.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_decks_highlighted.tga",
+                    "increments" : true
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate" : [ 0,0,0.1],
+            "translate2d" : [168, 0],
+            "scale2d" : [27, 20]
         }
     ],
     "components" : [
