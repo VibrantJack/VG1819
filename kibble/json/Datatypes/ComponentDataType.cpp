@@ -10,10 +10,19 @@
 #include "_Project/MoveByMouseRightClickDrag.h"
 kitten::K_Component* getMoveByMouseRightClickDrag(nlohmann::json* p_jsonFile) {
 	float speed;
+	glm::vec2 minClamp, maxClamp;
 
 	SETOPTDEF(speed, "speed", 0.005f);
+	
+	if (JSONHAS("minClamp")) {
+		minClamp = glm::vec2(LOOKUP("minClamp")[0], LOOKUP("minClamp")[1]);
+	}
 
-	return new MoveByMouseRightClickDrag(speed);
+	if (JSONHAS("maxClamp")) {
+		maxClamp = glm::vec2(LOOKUP("maxClamp")[0], LOOKUP("maxClamp")[1]);
+	}
+
+	return new MoveByMouseRightClickDrag(speed, minClamp, maxClamp);
 }
 
 #include "_Project/ZoomByMouseWheel.h"
@@ -23,7 +32,7 @@ kitten::K_Component* getZoomByMouseWheel(nlohmann::json* p_jsonFile) {
 
 	SETOPTDEF(speed, "speed", 1.0f);
 	SETOPTDEF(minFOV, "minfov", 1);
-	SETOPTDEF(maxFOV, "maxfov", 90);
+	SETOPTDEF(maxFOV, "maxfov", 70);
 
 	return new ZoomByMouseWheel(speed, minFOV, maxFOV); 
 }
@@ -961,7 +970,10 @@ kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
 
 	std::string modelPath = p_jsonFile->operator[]("path");
 
-	return new ModelRenderable(modelPath.c_str());
+	bool flipUvs;
+	SETOPTDEF(flipUvs, "flipUVs", false);
+
+	return new ModelRenderable(modelPath.c_str(), flipUvs);
 }
 
 #include "unit\unitComponent\UnitHealthBar.h"
@@ -1065,6 +1077,11 @@ kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
 	return new userinterface::ClickableCard(isEnabledOnPause);
 }
 
+#include "_Project\ShowLoadingOnClick.h"
+kitten::K_Component* getShowLoadingOnClick(nlohmann::json* p_jsonFile) {
+	return new ShowLoadingOnClick();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1152,6 +1169,7 @@ void setupComponentMap() {
 	jsonComponentMap["MainMenu"] = &getMainMenu;
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
+	jsonComponentMap["ShowLoadingOnClick"] = &getShowLoadingOnClick;
 
 }
 

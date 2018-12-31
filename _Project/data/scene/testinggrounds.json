@@ -41,6 +41,7 @@
 						"name" : "UIFrame"
 				}
 			],
+			"translate" : [0,0, -0.3],
 			"translate2d" : [1100, 50],
 			"scale2d" : [150, 150]
 		},
@@ -69,6 +70,9 @@
 				}
 			]
 		}
-    ]
+    ],
 	
+	"scenes" : [
+		"mountainForest.json"
+	]	
 }

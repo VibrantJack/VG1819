@@ -6,9 +6,6 @@
 
 namespace kitten
 {
-	puppy::VertexEnvironment* QuadRenderableRepeat::sm_vao = nullptr;
-	int QuadRenderableRepeat::sm_instances = 0;
-
 	QuadRenderableRepeat::QuadRenderableRepeat(const std::string& p_texPath, bool p_isStatic, bool p_texRepeat, GLfloat p_uRepeat, GLfloat p_vRepeat)
 		:
 		m_isStatic(p_isStatic),
@@ -22,33 +19,23 @@ namespace kitten
 			m_mat.setTexture(p_texPath.c_str());
 		}
 
-		//If we have not initialized the vao yet
-		if (sm_instances < 1)
+		//setup the vao
+		puppy::TexturedVertex verts[] =
 		{
-			//setup the vao
-			puppy::TexturedVertex verts[] =
-			{
-				{ -0.5f, 0.0f, 0.5f,		0.0f,	   0.0f },
-				{ 0.5f, 0.0f, 0.5f,			0.0f,	   m_vRepeat },
-				{ 0.5f, 0.0f,-0.5f,			m_uRepeat, m_vRepeat },
-				{ 0.5f, 0.0f,-0.5f,			m_uRepeat, m_vRepeat },
-				{ -0.5f, 0.0f,-0.5f,		m_uRepeat, 0.0f },
-				{ -0.5f, 0.0f, 0.5f,		0.0f,	   0.0f },
-			};
-			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::colorTint_alphaTest), 6);
-		}
-		++sm_instances;
+			{ -0.5f, 0.0f, 0.5f,		0.0f,	   0.0f },
+			{ 0.5f, 0.0f, 0.5f,			0.0f,	   m_vRepeat },
+			{ 0.5f, 0.0f,-0.5f,			m_uRepeat, m_vRepeat },
+			{ 0.5f, 0.0f,-0.5f,			m_uRepeat, m_vRepeat },
+			{ -0.5f, 0.0f,-0.5f,		m_uRepeat, 0.0f },
+			{ -0.5f, 0.0f, 0.5f,		0.0f,	   0.0f },
+		};
+		m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::colorTint_alphaTest), 6);
 	}
 
 	QuadRenderableRepeat::~QuadRenderableRepeat()
 	{
 		if (!m_isStatic)
 		{
-			if (--sm_instances == 0)
-			{
-				delete sm_vao;
-			}
-
 			if (m_isEnabled)
 			{
 				removeFromDynamicRender();
@@ -202,7 +189,7 @@ namespace kitten
 		m_mat.setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
 
 		//render
-		sm_vao->drawArrays(GL_TRIANGLES);
+		m_vao->drawArrays(GL_TRIANGLES);
 
 	}
 }

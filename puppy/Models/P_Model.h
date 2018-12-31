@@ -21,7 +21,7 @@ namespace puppy
 		void processNode(aiNode* p_node, const aiScene* p_scene);
 		void processMesh(aiMesh* mesh, const aiScene* p_scene);
 	public:
-		P_Model(const char* p_pathToModel);
+		P_Model(const char* p_pathToModel, bool p_flipUVs);
 		~P_Model();
 
 		virtual void render(const glm::mat4& p_worldViewProj);

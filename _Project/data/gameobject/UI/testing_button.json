@@ -17,6 +17,9 @@
 		},
 		{
 			"name" : "ClickableFrame"
+		},
+		{
+			"name" : "ShowLoadingOnClick"
 		}
 	],
 	"translate2d" : [995, 22],

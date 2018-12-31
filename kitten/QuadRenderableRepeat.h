@@ -7,8 +7,7 @@ namespace kitten
 	class QuadRenderableRepeat : public K_Renderable
 	{
 	private:
-		static puppy::VertexEnvironment* sm_vao;
-		static int sm_instances;
+		puppy::VertexEnvironment* m_vao;
 
 		puppy::TextureBlendMaterial m_mat;
 
