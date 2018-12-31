@@ -1,4 +1,5 @@
 #include "databank.hpp"
+#include "databank.hpp"
 #include <map>
 #include <unordered_set>
 #include <kibble/kibble.hpp>
@@ -156,7 +157,7 @@ DeckData* kibble::getDeckDataFromId(const int& p_identifier) {
 	return deckDataVector[p_identifier];
 }
 
-void kibble::addNewDeckData(DeckData* p_data) {
+int kibble::addNewDeckData(DeckData* p_data) {
 	p_data->filename = "DeckNumbah" + std::to_string(deckDataVector.size()) + ".txt";
 
 	kibble::getDeckDataParserInstance()->saveDeckData(p_data, p_data->filename);
@@ -165,6 +166,27 @@ void kibble::addNewDeckData(DeckData* p_data) {
 		deckList << std::endl << p_data->filename ;
 	}
 	deckDataVector.push_back(p_data);
+	return deckDataVector.size() - 1;
+}
+#include <cstdio>
+#include <fstream>
+void kibble::eraseDeckData(int p_deckId) {
+	std::remove(("data/saved/" + deckDataVector[p_deckId]->filename).c_str());
+	std::ifstream deckList(DECK_LIST);
+	std::ofstream temp("temp.txt");
+
+	if (deckList.is_open()) {
+		std::string line;
+		while (std::getline(deckList, line))
+			if (line != deckDataVector[p_deckId]->filename)
+				temp << line << std::endl;
+	}
+		
+	temp.close();
+	deckList.close();
+	std::remove(DECK_LIST);
+	std::rename("temp.txt", DECK_LIST);
+	deckDataVector.erase(deckDataVector.begin()+p_deckId);
 }
 
 void kibble::replaceDeckData(int p_deckIdSource, DeckData* p_deckTarget)

@@ -1130,6 +1130,37 @@ kitten::K_Component* getAddUnitOnClick(nlohmann::json* p_jsonFile) {
 	return button;
 }
 
+#include "components\clickables\DeleteDeckOnClick.h"
+kitten::K_Component* getDeleteDeckOnClick(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, inactiveTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPT(inactiveTexture, "inactiveTexture");
+
+	DeleteDeckOnClick* button = new DeleteDeckOnClick();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+
+	return button;
+}
+
+#include "components\clickables\AddNewDeckOnClick.h"
+kitten::K_Component* getAddNewDeckOnClick(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, inactiveTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPT(inactiveTexture, "inactiveTexture");
+
+	AddNewDeckOnClick* button = new AddNewDeckOnClick();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
+
+	return button;
+}
+
 #include "components\clickables\ChangeUnitOnClick.h"
 kitten::K_Component* getChangeUnitOnClick(nlohmann::json* p_jsonFile) {
 	std::string regularTexture, highlightedTexture, inactiveTexture;
@@ -1312,6 +1343,8 @@ void setupComponentMap() {
 	jsonComponentMap["DiscardDeckOnClick"] = &getDiscardDeckOnClick;
 	jsonComponentMap["AddUnitOnClick"] = &getAddUnitOnClick;
 	jsonComponentMap["ChangeUnitOnClick"] = &getChangeUnitOnClick;
+	jsonComponentMap["DeleteDeckOnClick"] = &getDeleteDeckOnClick;
+	jsonComponentMap["AddNewDeckOnClick"] = &getAddNewDeckOnClick;
 	jsonComponentMap["CommanderContext"] = &getCommanderContext;
 	jsonComponentMap["ActionSelect"] = &getActionSelect;
 	jsonComponentMap["DragNDrop"] = &getDragNDrop;

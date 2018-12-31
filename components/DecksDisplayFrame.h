@@ -1,15 +1,17 @@
 #pragma once
 #include "DisplayFrame.h"
+#include "components/clickables/AddNewDeckOnClick.h"
+#include "components/clickables/DeleteDeckOnClick.h"
 class DecksDisplayFrame : public DisplayFrame
 {
 private:
-
+	friend class DeleteDeckOnClick;
+	friend class AddNewDeckOnClick;
 public:
 	static DecksDisplayFrame* getActiveInstance();
 
 	void start() override;
 
-	void offsetCurrentSet(const int p_offset) { DisplayFrame::offsetCurrentSet(p_offset); }
 	const int& getCurrentPickedDeckId() const { return getCurrentPickedItemIndex(); } // gives back -1 if no deck has been picked yet
 	
 	void onObjectClicked(int p_deckId) override;

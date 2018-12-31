@@ -797,6 +797,12 @@
     <ClCompile Include="..\components\clickables\ChangeUnitOnClick.cpp">
       <Filter>components\clickables</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\clickables\AddNewDeckOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\DeleteDeckOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1717,6 +1723,12 @@
       <Filter>components\clickables</Filter>
     </ClInclude>
     <ClInclude Include="..\components\clickables\ChangeUnitOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\AddNewDeckOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\DeleteDeckOnClick.h">
       <Filter>components\clickables</Filter>
     </ClInclude>
   </ItemGroup>
