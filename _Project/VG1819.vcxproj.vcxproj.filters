@@ -788,13 +788,13 @@
     <ClCompile Include="..\components\clickables\DiscardDeckOnClick.cpp">
       <Filter>components\clickables</Filter>
     </ClCompile>
-    <ClCompile Include="..\components\clickables\RemoveUnitOnClick.cpp">
-      <Filter>components\clickables</Filter>
-    </ClCompile>
     <ClCompile Include="..\components\clickables\SaveDeckOnClick.cpp">
       <Filter>components\clickables</Filter>
     </ClCompile>
     <ClCompile Include="..\components\clickables\SetCommanderOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\ChangeUnitOnClick.cpp">
       <Filter>components\clickables</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1710,13 +1710,13 @@
     <ClInclude Include="..\components\clickables\DiscardDeckOnClick.h">
       <Filter>components\clickables</Filter>
     </ClInclude>
-    <ClInclude Include="..\components\clickables\RemoveUnitOnClick.h">
-      <Filter>components\clickables</Filter>
-    </ClInclude>
     <ClInclude Include="..\components\clickables\SaveDeckOnClick.h">
       <Filter>components\clickables</Filter>
     </ClInclude>
     <ClInclude Include="..\components\clickables\SetCommanderOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\ChangeUnitOnClick.h">
       <Filter>components\clickables</Filter>
     </ClInclude>
   </ItemGroup>

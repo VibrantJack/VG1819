@@ -35,9 +35,9 @@
                     "texture" : "textures/ui/deck_display_text_bg.tga"
                 }
             ],
-            "scale2d" : [55, 45],
+            "scale2d" : [55, 35],
             "translate": [ 0,0,-0.4],
-            "translate2d" : [140,15]
+            "translate2d" : [140,25]
         },
         {
             "name" : "Commander Display Count TextBox",
@@ -52,6 +52,27 @@
                 }
             ],
             "translate2d": [150,55]
+        },
+        {
+            "name" : "Minus Button",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_decks.tga"
+                },
+                {
+                    "name" : "ChangeUnitOnClick",
+                    "regularTexture" : "textures/ui/buttons/button_decks.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_decks_highlighted.tga",
+                    "increments" : false
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate" : [ 0,0,0.1],
+            "translate2d" : [140, 0],
+            "scale2d" : [55, 20]
         }
     ],
     "components" : [
@@ -62,7 +83,7 @@
             "name" : "ClickableFrame"
         }
     ],
-    "translate" :[0,0,-0.5],
+    "translate" :[0,0,-0.4999],
     "translate2d" : [0,0],
     "scale2d" : [200,70]
 }

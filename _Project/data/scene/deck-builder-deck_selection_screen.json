@@ -35,7 +35,7 @@
                     "texture" : "textures/ui/buttons/button_return.tga"
                 },
 				{
-					"name" : "ReturnToMainMenuButton",
+					"name" : "DiscardDeckOnClick",
 					"regularTexture" : "textures/ui/buttons/button_return.tga",
 					"highlightedTexture" : "textures/ui/buttons/button_return_highlighted.tga"
 				},

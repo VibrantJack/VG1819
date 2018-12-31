@@ -1,19 +1,18 @@
 #pragma once
 #include "../DisplayFrame.h"
+#include "components/clickables/ChangeUnitOnClick.h"
+#include "components/clickables/AddUnitOnClick.h"
 #include "DeckData.hpp"
 class DeckUnitsDisplayFrame : public DisplayFrame
 {
 private:
+	friend class ChangeUnitOnClick;
+	friend class AddUnitOnClick;
 	DeckData* m_deckData;
 public:
 	static DeckUnitsDisplayFrame* getActiveInstance();
 
 	void start() override;
-
-	void offsetCurrentSet(const int p_offset) { DisplayFrame::offsetCurrentSet(p_offset); }
-	const int& getCurrentPickedUnitId() const { return getCurrentPickedItemIndex(); } // gives back -1 if no deck has been picked yet
-
-
 
 	int getTargetAvailable();
 	void updateIndividualDisplayObject(int p_activeObjectIndex);

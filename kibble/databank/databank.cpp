@@ -169,8 +169,7 @@ void kibble::addNewDeckData(DeckData* p_data) {
 
 void kibble::replaceDeckData(int p_deckIdSource, DeckData* p_deckTarget)
 {
-	delete deckDataVector[p_deckIdSource];
-	deckDataVector[p_deckIdSource] = p_deckTarget;
+	(*deckDataVector[p_deckIdSource]) = (*p_deckTarget);
 	kibble::getDeckDataParserInstance()->saveDeckData(p_deckTarget, p_deckTarget->filename);
 }
 

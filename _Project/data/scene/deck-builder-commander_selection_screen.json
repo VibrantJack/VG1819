@@ -49,6 +49,25 @@
             ],
             "translate2d" : [71, 21],
             "scale2d" : [125, 80]
+        },
+        {
+            "name" : "Save Button",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_decks.tga"
+                },
+                {
+                    "name" : "SaveDeckOnClick",
+                    "regularTexture" : "textures/ui/buttons/button_decks.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_decks_highlighted.tga"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [995, 22],
+            "scale2d" : [250, 80]
         }
     ]
 }

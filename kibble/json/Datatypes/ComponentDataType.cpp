@@ -1082,6 +1082,72 @@ kitten::K_Component* getSetCommanderOnClick(nlohmann::json* p_jsonFile) {
 	return button;
 }
 
+#include "components\clickables\DiscardDeckOnClick.h"
+kitten::K_Component* getDiscardDeckOnClick(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, inactiveTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPT(inactiveTexture, "inactiveTexture");
+
+	DiscardDeckOnClick* button = new DiscardDeckOnClick();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
+
+	return button;
+}
+
+#include "components\clickables\SaveDeckOnClick.h"
+kitten::K_Component* getSaveDeckOnClick(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, inactiveTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPT(inactiveTexture, "inactiveTexture");
+
+	SaveDeckOnClick* button = new SaveDeckOnClick();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
+
+	return button;
+}
+
+#include "components\clickables\AddUnitOnClick.h"
+kitten::K_Component* getAddUnitOnClick(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, inactiveTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPT(inactiveTexture, "inactiveTexture");
+
+	AddUnitOnClick* button = new AddUnitOnClick();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
+
+	return button;
+}
+
+#include "components\clickables\ChangeUnitOnClick.h"
+kitten::K_Component* getChangeUnitOnClick(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, inactiveTexture;
+	bool increments;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPT(inactiveTexture, "inactiveTexture");
+	SETOPTDEF(increments, "increments", true);
+
+	ChangeUnitOnClick* button = new ChangeUnitOnClick(increments);
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
+
+	return button;
+}
+
 #include "unit/unitComponent/unitAction/ActionSelect.h"
 kitten::K_Component* getActionSelect(nlohmann::json* p_jsonFile) {
 	std::pair<int, int> offset, offset2;
@@ -1242,6 +1308,10 @@ void setupComponentMap() {
 	jsonComponentMap["LerpController"] = &getLerpController;
 	jsonComponentMap["ExitGameButton"] = &getExitGameButton;
 	jsonComponentMap["SetCommanderOnClick"] = &getSetCommanderOnClick;
+	jsonComponentMap["SaveDeckOnClick"] = &getSaveDeckOnClick;
+	jsonComponentMap["DiscardDeckOnClick"] = &getDiscardDeckOnClick;
+	jsonComponentMap["AddUnitOnClick"] = &getAddUnitOnClick;
+	jsonComponentMap["ChangeUnitOnClick"] = &getChangeUnitOnClick;
 	jsonComponentMap["CommanderContext"] = &getCommanderContext;
 	jsonComponentMap["ActionSelect"] = &getActionSelect;
 	jsonComponentMap["DragNDrop"] = &getDragNDrop;

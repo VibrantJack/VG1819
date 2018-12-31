@@ -31,7 +31,7 @@ void DeckUnitsDisplayFrame::start()
 		DeckAlterationComponent::getActiveInstance()->getDeckData() == nullptr
 		)
 		assert(false); // how are you viewing this without a deck being up. 
-	m_deckData = kibble::getDeckDataFromId(DeckAlterationComponent::getActiveInstance()->getDeckId()); // using deck ID because we want to alter the deck data. 
+	m_deckData = DeckAlterationComponent::getActiveInstance()->getDeckData(); // using deck ID because we want to alter the deck data. 
 	DisplayFrame::start();
 }
 

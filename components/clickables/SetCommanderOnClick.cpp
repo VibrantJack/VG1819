@@ -16,5 +16,5 @@ void SetCommanderOnClick::onClick()
 		);
 
 	CommanderDisplayFrame::getActiveInstance()->refreshCommander(); // do this first, 
-	CommanderDisplayFrame::getActiveInstance()->refreshActiveButtons();
+	CommanderDisplayFrame::getActiveInstance()->updateDisplay();
 }

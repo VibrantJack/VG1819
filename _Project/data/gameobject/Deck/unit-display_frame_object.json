@@ -8,7 +8,7 @@
                     "name" : "UIFrame"
                 }
             ],
-            "scale2d" : [175.0,250.0],
+            "scale2d" : [175.0,175.0],
             "translate2d" : [0,80]
         },
         {
@@ -36,6 +36,25 @@
                 }
             ],
             "translate2d": [0,58]
+        },
+        {
+            "name" : "Adding Button",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_decks.tga"
+                },
+                {
+                    "name" : "AddUnitOnClick",
+                    "regularTexture" : "textures/ui/buttons/button_decks.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_decks_highlighted.tga"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [0, 260],
+            "scale2d" : [175, 70]
         }
     ],
     "components" : [
@@ -46,5 +65,7 @@
             "name" : "ClickableFrame"
         }
     ],
+    "translate" : [0,0,-0.1],
+    "translate2d" : [0,0],
     "scale2d" : [175,330]
 }

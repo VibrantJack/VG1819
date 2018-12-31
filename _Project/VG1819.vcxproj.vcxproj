@@ -163,7 +163,7 @@
     <ClCompile Include="..\components\CameraMoveByEvent.cpp" />
     <ClCompile Include="..\components\clickables\AddUnitOnClick.cpp" />
     <ClCompile Include="..\components\clickables\DiscardDeckOnClick.cpp" />
-    <ClCompile Include="..\components\clickables\RemoveUnitOnClick.cpp" />
+    <ClCompile Include="..\components\clickables\ChangeUnitOnClick.cpp" />
     <ClCompile Include="..\components\clickables\SaveDeckOnClick.cpp" />
     <ClCompile Include="..\components\clickables\SetCommanderOnClick.cpp" />
     <ClCompile Include="..\components\CustomCursor.cpp" />
@@ -454,7 +454,7 @@
     <ClInclude Include="..\components\CameraMoveByEvent.h" />
     <ClInclude Include="..\components\clickables\AddUnitOnClick.h" />
     <ClInclude Include="..\components\clickables\DiscardDeckOnClick.h" />
-    <ClInclude Include="..\components\clickables\RemoveUnitOnClick.h" />
+    <ClInclude Include="..\components\clickables\ChangeUnitOnClick.h" />
     <ClInclude Include="..\components\clickables\SaveDeckOnClick.h" />
     <ClInclude Include="..\components\clickables\SetCommanderOnClick.h" />
     <ClInclude Include="..\components\CustomCursor.h" />
