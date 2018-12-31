@@ -1057,6 +1057,11 @@ kitten::K_Component* getMainMenu(nlohmann::json* p_jsonFile) {
 	return new MainMenu();
 }
 
+#include "UI\CardContext.h"
+kitten::K_Component* getCardContext(nlohmann::json* p_jsonFile) {
+	return new CardContext();
+}
+
 #include "UI\ClickableCard.h"
 kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
 {
@@ -1151,6 +1156,7 @@ void setupComponentMap() {
 	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
 	jsonComponentMap["MainMenu"] = &getMainMenu;
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
+	jsonComponentMap["CardContext"] = &getCardContext;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
 
 }
