@@ -70,6 +70,9 @@
 				}
 			]
 		}
-    ]
+    ],
 	
+	"scenes" : [
+		"mountainForest.json"
+	]	
 }

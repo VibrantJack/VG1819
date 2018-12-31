@@ -773,6 +773,9 @@
     <ClCompile Include="..\kitten\SimpleQuadRenderable.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
+    <ClCompile Include="ShowLoadingOnClick.cpp">
+      <Filter>components\scene changers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1670,6 +1673,9 @@
     </ClInclude>
     <ClInclude Include="..\kitten\SimpleQuadRenderable.h">
       <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="ShowLoadingOnClick.h">
+      <Filter>components\scene changers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
