@@ -2,8 +2,8 @@
 
 namespace puppy
 {
-	P_Mesh::P_Mesh(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices, const char* p_pathToTexture) : m_mat(ShaderType::basic),
-		m_vao(p_vertices.data(), p_indices.data(), ShaderManager::getShaderProgram(ShaderType::basic), p_vertices.size(), p_indices.size())
+	P_Mesh::P_Mesh(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices, const char* p_pathToTexture) : m_mat(ShaderType::basic_directional_light),
+		m_vao(p_vertices.data(), p_indices.data(), ShaderManager::getShaderProgram(ShaderType::basic_directional_light), p_vertices.size(), p_indices.size())
 	{
 		if (p_pathToTexture != nullptr)
 		{
@@ -30,8 +30,8 @@ namespace puppy
 		}
 	}
 
-	P_Mesh::P_Mesh(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices, glm::vec4& p_colour) : m_mat(ShaderType::solid_colour),
-		m_vao(p_vertices.data(), p_indices.data(), ShaderManager::getShaderProgram(ShaderType::solid_colour), p_vertices.size(), p_indices.size()), m_usesColour(true),
+	P_Mesh::P_Mesh(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices, glm::vec4& p_colour) : m_mat(ShaderType::solid_color_directional_light),
+		m_vao(p_vertices.data(), p_indices.data(), ShaderManager::getShaderProgram(ShaderType::solid_color_directional_light), p_vertices.size(), p_indices.size()), m_usesColour(true),
 		m_colour(p_colour)
 	{
 
@@ -42,15 +42,18 @@ namespace puppy
 
 	}
 
-	void P_Mesh::render(const glm::mat4& p_worldViewProj)
+	void P_Mesh::render(const glm::mat4& p_worldViewProj, const glm::mat4& p_worldIT)
 	{
 		m_mat.apply();
 		m_mat.setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_worldViewProj);
+		m_mat.setUniform("matAmbient", glm::vec3(0.2, 0.2, 0.2));
+		m_mat.setUniform("worldIT", p_worldIT);
 
 		if (m_usesColour)
 		{
 			m_mat.setUniform("colour", m_colour);
 		}
+
 
 		m_vao.drawArrays(GL_TRIANGLES);
 	}

@@ -1192,6 +1192,7 @@ void setupComponentMap() {
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
 	jsonComponentMap["ShowLoadingOnClick"] = &getShowLoadingOnClick;
+	jsonComponentMap["DirectionalLight"] = &getDirectionalLight;
 
 }
 

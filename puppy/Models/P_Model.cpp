@@ -153,12 +153,12 @@ namespace puppy
 		
 	}
 
-	void P_Model::render(const glm::mat4& p_worldViewProj)
+	void P_Model::render(const glm::mat4& p_worldViewProj, const glm::mat4& p_worldIT)
 	{
 		auto end = m_meshes.cend();
 		for (auto it = m_meshes.cbegin(); it != end; ++it)
 		{
-			(*it)->render(p_worldViewProj);
+			(*it)->render(p_worldViewProj, p_worldIT);
 		}
 	}
 }

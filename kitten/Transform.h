@@ -52,8 +52,10 @@ namespace kitten
 		glm::quat m_quatRotation;
 		glm::quat m_derivedQuatRotation;
 		glm::mat4 m_matRotation;
+		
 		glm::mat4 m_matWorldNoScale;
 		glm::mat4 m_matWorld;
+		glm::mat4 m_matWorldIT;
 
 		bool m_isDirty;
 
@@ -78,6 +80,22 @@ namespace kitten
 
 		void setChildrenDirty(ParentDirtyType p_type);
 		void onParentDirty(ParentDirtyType p_type);
+
+		inline void rebuildWorldMatrix()
+		{
+			m_matWorldNoScale = m_matTranslation * glm::mat4_cast(m_quatRotation);
+			m_matWorld = m_matWorldNoScale * m_matScale;
+
+			if (!m_ignoresParent && m_parent != nullptr)
+			{
+				m_matWorldNoScale = m_parent->getWorldTransformNoScale() * m_matWorldNoScale;
+				m_matWorld = m_matWorldNoScale * glm::scale((m_scale * m_parent->getScale()));
+			}
+
+			m_matWorldIT = glm::transpose(glm::inverse(m_matWorld));
+
+			m_isDirty = false;
+		}
 
 	public:
 		Transform(K_GameObject& p_owner);
@@ -105,6 +123,7 @@ namespace kitten
 
 		const glm::mat4& getWorldTransform();
 		const glm::mat4& getWorldTransformNoScale();
+		const glm::mat4& getWorldIT();
 		const glm::vec3& getForward() const;
 		const glm::vec3& getUpVector() const;
 
