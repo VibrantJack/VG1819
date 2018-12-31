@@ -57,6 +57,7 @@ void SpawnUnitOnDrop::onHoverEnd() {
 		getTransform().place2D(m_origin.x, m_origin.y);
 		m_isHovered = false;
 	}
+	m_cardContext->setEnabled(false);
 }
 
 void SpawnUnitOnDrop::onHoverStart() {
@@ -65,6 +66,9 @@ void SpawnUnitOnDrop::onHoverStart() {
 		m_isHovered = true;
 		getTransform().place2D(m_origin.x, m_origin.y + 50);
 	}
+	// TODO: Set the unit from the proper attached Unit
+	m_cardContext->setUnit(kibble::getUnitFromId(1));
+	m_cardContext->setEnabled(true);
 }
 
 void SpawnUnitOnDrop::onPause()
@@ -80,6 +84,14 @@ void SpawnUnitOnDrop::onPosChanged(const glm::vec3& p_newPos)
 		m_origin = m_attachedObject->getTransform().getTranslation();
 	}
 } 
+
+SpawnUnitOnDrop::SpawnUnitOnDrop()
+	:
+	DragNDrop(true),
+	m_cardContext(nullptr)
+{
+
+}
 
 SpawnUnitOnDrop::~SpawnUnitOnDrop()
 {
