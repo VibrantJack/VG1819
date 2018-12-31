@@ -773,6 +773,9 @@
     <ClCompile Include="..\kitten\lights\K_DirectionalLight.cpp">
       <Filter>kitten\lights</Filter>
     </ClCompile>
+    <ClCompile Include="ShowLoadingOnClick.cpp">
+      <Filter>components\scene changers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
