@@ -115,9 +115,12 @@ namespace userinterface
 		// Find the number of cards to add to hand
 		int countToAdd = std::min(p_event->getInt(CARD_COUNT), MAX_CARDS_IN_HAND - (int)m_innerObjects.size());
 
+		CardContext* cardContext = m_attachedObject->getComponent<CardContext>();
+
 		// Generate Cards to add
 		for (int i = 0; i < countToAdd; i++) {
 			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
+			card->getComponent<SpawnUnitOnDrop>()->setCardContext(cardContext);
 			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
 			cardCasted->scaleAsCard();
 
