@@ -51,6 +51,9 @@ void SpawnUnitOnDrop::onDrop()
 
 	// Delete Card
 	kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(this->m_attachedObject);
+
+	// Disable Card Context
+	m_cardContext->setEnabled(false);
 }
 
 void SpawnUnitOnDrop::onHoverEnd() {
@@ -79,6 +82,7 @@ void SpawnUnitOnDrop::onPause()
 {
 	DragNDrop::onDrop();
 	m_isDragging = false;
+	m_cardContext->setEnabled(false);
 }
 
 void SpawnUnitOnDrop::onPosChanged(const glm::vec3& p_newPos)
