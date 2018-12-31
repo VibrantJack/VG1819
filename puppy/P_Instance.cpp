@@ -1,5 +1,7 @@
 #include "P_Instance.h"
+
 #include "kitten\K_CameraList.h"
+#include "puppy\lights\P_LightList.h"
 
 namespace puppy
 {
@@ -24,17 +26,19 @@ namespace puppy
 		Renderer::createInstance();
 		StaticRenderables::createInstance();
 		FontTable::createInstance();
+		P_LightList::createInstance();
 
 		sm_instance = new P_Instance();
 	}
 
 	void P_Instance::destroyInstance()
 	{
-		puppy::MaterialManager::destroyInstance();
-		puppy::Renderer::destroyInstance();
-		puppy::StaticRenderables::destroyInstance();
-		puppy::FontTable::destroyInstance();
-		puppy::ShaderManager::destroyAllShaders();
+		MaterialManager::destroyInstance();
+		Renderer::destroyInstance();
+		StaticRenderables::destroyInstance();
+		FontTable::destroyInstance();
+		ShaderManager::destroyAllShaders();
+		P_LightList::destroyInstance();
 
 		delete sm_instance;
 	}

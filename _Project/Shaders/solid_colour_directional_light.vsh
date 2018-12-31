@@ -17,5 +17,5 @@ void main()
 	v_uv1 = a_uv1;
 	
 	v_normal = worldIT * a_normal;
-	v_pixelPos = vec3(worldMatrix * a_position);
+	v_pixelPos = vec3(worldIT * a_position.xyz);
 }

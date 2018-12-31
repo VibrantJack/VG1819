@@ -25,8 +25,11 @@ void main()
 	vec3 lightPos = normalize(lightPos - v_pixelPos);
 	
 	float angle = max(dot(normal, lightPos), 0);
-	vec3 directional = angle * lightDirectionalColorColor;
+	vec3 directional = angle * lightDirectionalColor;
 	
 	// Final colour
-	PixelColor = colour * (ambient + directional);
+	vec3 lightColor = ambient + directional;
+	vec4 castedLightColor = vec4(lightColor.x,lightColor.y,lightColor.z,1);
+	
+	PixelColor = colour * castedLightColor;
 }

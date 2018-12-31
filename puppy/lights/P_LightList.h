@@ -11,7 +11,7 @@ namespace puppy
 
 	class P_LightList
 	{
-		friend class K_Instance;
+		friend class P_Instance;
 	private:
 		static P_LightList* sm_instance;
 		P_LightList();
