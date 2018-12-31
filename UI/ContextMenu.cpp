@@ -71,6 +71,8 @@ namespace userinterface
 			else if (r->type == rt_Overflow)
 			{
 				offsetX += r->margin;
+				offsetY -= r->margin + r->height;
+				m_height += ((r->margin * 2) + r->height);
 
 				for (kitten::K_GameObject* GO : r->elements)
 				{

@@ -9,10 +9,20 @@
 #include "puppy\Text\PivotTextBox.h"
 #include "kibble\kibble.hpp"
 #include "kitten\InputManager.h"
+#include "unit\Unit.h"
+#include "kibble\databank\databank.hpp"
+#include "ability\AbilityManager.h"
+#include <string>
+#include <map>
+
 
 
 namespace userinterface
 {
+	//TO DO
+	/*
+		I need to make this support images more elegantly. I suppose just tossing in a blank frame would work
+	*/
 	CommanderContext::CommanderContext(): ContextMenu()
 	{
 		
@@ -26,70 +36,72 @@ namespace userinterface
 		}
 	}
 
+	void CommanderContext::attachCommander(unit::Unit* p_unit)
+	{
+		m_attachedCommander = p_unit;
+	}
+
 	void CommanderContext::start()
 	{
-
+		//commander in context
+		m_attachedCommander = kibble::getUnitFromId(13);
+		//screen position stuff
 		input::InputManager* inMan = input::InputManager::getInstance();
+		//game object positions
 
 		int posX, posY;
 		posY = inMan->getWindowHeight();
-		int posY2 = posY - 50;
+		int posY2 = posY - 50; //posy2 is the true y coord
+		//put it on the screen
 
-		getTransform().place(50, posY2, -0.05);
+		//TO DO, DATADRIVE THIS POSITIONAL DATA.
+		getTransform().place(25, posY2, -0.05);
 		setPivotType(piv_TopLeft);
 		setTexBehaviour(tbh_Repeat);
 
+		//TO DO, DATADRIVE THE PADDING FOR CHANGING OUTSIDE OF CODE
 		m_padding = 10;
-		static int contextWidth = 200;
-		static int rowMargin = 50;
+		static int rowMargin = 5;
 
 		defineVerts();
 
-		kitten::K_GameObjectManager* GOMan = kitten::K_GameObjectManager::getInstance();
-		kitten::K_ComponentManager* CompMan = kitten::K_ComponentManager::getInstance();
-
+		//make a GO based on the json textbox data ->
 		kitten::K_GameObject* GO_name = kibble::getGameObjectDataParserInstance()->getGameObject("commander_name.txt");
 		puppy::TextBox* nameComp = GO_name->getComponent<puppy::TextBox>();
-		nameComp->setText("Commander");
+		nameComp->setText(m_attachedCommander->m_name);
 		nameComp->setEnabled(true);
-		glm::vec2 scale = GO_name->getTransform().getScale2D();
 
+		//new row
 		Row* r = addRow(rt_OneElement);
 		//PLEASE NOTE. YOU MUST DEFINE THESE VARIABLES.
-		r->height = 60;
-		r->width = contextWidth;
-		r->margin = 0;
+		r->height = nameComp->getBoxHeight();
+		r->width = nameComp->getBoxWidth();
+		r->margin = rowMargin;
 		r->elements.push_back(GO_name);
+
+		//get attributes to show
+		//TO DO, MAKE THIS MORE ATTRACTIVE
+		int curAtr = 0;
+		std::string curAtrStr = "";
+		std::string statLine = "| ";
+		for (auto atr : m_attachedCommander->m_attributes)
+		{
+			curAtr = atr.second;
+			curAtrStr = atr.first;
+			statLine += (curAtrStr + "-" + std::to_string(curAtr) + " | ");
+		}
 
 		r = addRow(rt_Overflow);
 		kitten::K_GameObject* GO_stats = kibble::getGameObjectDataParserInstance()->getGameObject("context_textbox.txt");
 		puppy::TextBox* statsComp = GO_stats->getComponent<puppy::TextBox>();
-		statsComp->setText("HP: x ");
+		statsComp->setText(statLine);
 		statsComp->setEnabled(true);
-		glm::vec2 scale = GO_name->getTransform().getScale2D();
 
-		r = addRow(rt_OneElement);
 		//PLEASE NOTE. YOU MUST DEFINE THESE VARIABLES.
-		r->height = 60;
-		r->width = contextWidth;
-		r->margin = 0;
+		r->height = statsComp->getBoxHeight();
+		r->width = statsComp->getBoxWidth();
+		r->margin = rowMargin;
 		r->elements.push_back(GO_stats);
-
-		kitten::K_GameObject* GO_flair = kibble::getGameObjectDataParserInstance()->getGameObject("context_textbox.txt");
-		puppy::TextBox* flairComp = GO_flair->getComponent<puppy::TextBox>();
-		int flairHeight = flairComp->getBoxHeight();
-		int flairWidth = flairComp->getBoxWidth();
-		flairComp->setBoxBounds(flairWidth, flairHeight);
-		flairComp->setText("Ability: asdasdasdasd");
-		flairComp->setEnabled(true);
-		glm::vec2 scale = GO_name->getTransform().getScale2D();
-
-		Row* r = addRow(rt_OneElement);
-		//PLEASE NOTE. YOU MUST DEFINE THESE VARIABLES.
-		r->height = flairHeight;
-		r->width = flairWidth;
-		r->margin = 0;
-		r->elements.push_back(GO_flair);
 
 		arrange();
 	}
