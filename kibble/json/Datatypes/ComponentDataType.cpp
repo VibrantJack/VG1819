@@ -1086,15 +1086,22 @@ kitten::K_Component* getShowLoadingOnClick(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getDirectionalLight(nlohmann::json* p_jsonFile) {
 
 	bool useCallbacks;
-	glm::vec3 color;
+	glm::vec3 ambientColor;
+	glm::vec3 directionalColor;
 
 	SETOPTDEF(useCallbacks, "useCallbacks", false);
-	if (JSONHAS("color"))
+	
+	if (JSONHAS("ambientColor"))
 	{
-		color = glm::vec3(LOOKUP("color")[0], LOOKUP("color")[1], LOOKUP("color")[2]);
+		ambientColor = glm::vec3(LOOKUP("ambientColor")[0], LOOKUP("ambientColor")[1], LOOKUP("ambientColor")[2]);
 	}
 
-	return new kitten::K_DirectionalLight(useCallbacks);
+	if (JSONHAS("directionalColor"))
+	{
+		directionalColor = glm::vec3(LOOKUP("directionalColor")[0], LOOKUP("directionalColor")[1], LOOKUP("directionalColor")[2]);
+	}
+
+	return new kitten::K_DirectionalLight(ambientColor, directionalColor, useCallbacks);
 }
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
