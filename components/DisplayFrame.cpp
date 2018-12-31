@@ -97,6 +97,11 @@ void DisplayFrame::start()
 		displayFrameTrans.y+displayFrameScale.y/2 + m_empty->getTransform().getTranslation().y - m_empty->getTransform().getScale().y / 2
 	);
 
+	if (m_currentPick >= 0)
+	{
+		m_currentSet = m_currentPick / m_objectsToDisplay.size();
+	}
+
 	updateDisplay();
 }
 
@@ -128,8 +133,7 @@ void DisplayFrame::updateDisplay()
 	if (m_currentSet == 0) m_arrows[0]->setEnabled(false);
 	else m_arrows[0]->setEnabled(true);
 
-	if (m_currentActive != m_objectsToDisplay.size() &&
-		m_objectsToDisplay.size() * (m_currentSet + 1) > getTargetAvailable())
+	if (m_objectsToDisplay.size() * (m_currentSet + 1) >= getTargetAvailable())
 		m_arrows[1]->setEnabled(false);
 	else m_arrows[1]->setEnabled(true);
 
