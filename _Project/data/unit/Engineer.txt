@@ -23,7 +23,7 @@
 				"min_range":1,
 				"max_range":1,
 				"target":1,
-				"description":"Build a wall in front of this unit. Wall is a Structure with 12 HP.",
+				"description":"Build a Wall. Wall is a Structure with 12 HP.",
 				"filter":1,
 				"filter0":"unit"
 			},

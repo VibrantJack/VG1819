@@ -28,7 +28,7 @@ void GameplayInit::start() {
 	if (m_testing)
 		unit::UnitTest::getInstanceSafe()->test();
 
-	userinterface::HandFrame::makeAHand();
+	//userinterface::HandFrame::makeAHand();
 
 	//kitten::K_ComponentManager::getInstance()->destroyComponent(this);
 }

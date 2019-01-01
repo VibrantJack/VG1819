@@ -15,6 +15,9 @@
 #include "kitten/InputManager.h"
 #include "_Project/LerpController.h"
 
+#include "components\DragNDrop\SpawnUnitOnDrop.h"
+#include "UI\CardContext.h"
+
 #define MAX_CARDS_IN_HAND 5
 #define TIME_FOR_CARDS_TO_ORDER 0.1
 #define TEMP_POWER_CHARGE 1
@@ -112,9 +115,12 @@ namespace userinterface
 		// Find the number of cards to add to hand
 		int countToAdd = std::min(p_event->getInt(CARD_COUNT), MAX_CARDS_IN_HAND - (int)m_innerObjects.size());
 
+		CardContext* cardContext = m_attachedObject->getComponent<CardContext>();
+
 		// Generate Cards to add
 		for (int i = 0; i < countToAdd; i++) {
 			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
+			card->getComponent<SpawnUnitOnDrop>()->setCardContext(cardContext);
 			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
 			cardCasted->scaleAsCard();
 
@@ -150,6 +156,19 @@ namespace userinterface
 			this,
 			std::bind(&HandFrame::receiveDrawnCard, this, std::placeholders::_1, std::placeholders::_2));
 
+		userinterface::HandFrame* frameCasted = m_attachedObject->getComponent<HandFrame>();
+		CardContext* cardContext = m_attachedObject->getComponent<CardContext>();
+
+		for (int x = 0; x < 5; x++)
+		{
+			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
+			card->getComponent<SpawnUnitOnDrop>()->setCardContext(cardContext);
+			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
+			cardCasted->scaleAsCard();
+
+			frameCasted->addCardToEnd(cardCasted);
+			cardCasted->assignParentHand(frameCasted);
+		}
 		m_isInit = true;
 	}
 
@@ -177,23 +196,7 @@ namespace userinterface
 
 void userinterface::HandFrame::makeAHand() {
 	input::InputManager* inman = input::InputManager::getInstance();
-	kitten::K_GameObject* hand = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-	kitten::K_Component* handFrame = kitten::K_ComponentManager::getInstance()->createComponent("Hand");
-	userinterface::HandFrame* frameCasted = static_cast<userinterface::HandFrame*>(handFrame);
-
-	hand->addComponent(handFrame);
-	hand->getTransform().scale2D(560.0f, 130.0f);
-	hand->getTransform().place2D(400.0, 0.0);
-	hand->setEnabled(true);
-
-	for (int x = 0; x < 5; x++)
-	{
-		kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
-		userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
-		cardCasted->scaleAsCard();
-
-		frameCasted->addCardToEnd(cardCasted);
-		cardCasted->assignParentHand(frameCasted);
-	}
+	kitten::K_GameObject* hand = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handframe.json");
+	
 }
 

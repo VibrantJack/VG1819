@@ -1,0 +1,13 @@
+{
+    "name" : "Hand Frame",
+    "components" : [
+        {
+            "name" : "HandFrame"
+        },
+		{
+			"name" : "CardContext"
+		}
+    ],
+	"scale2d" : [560.0,130.0],
+    "translate2d" : [400.0,0.0]
+}
