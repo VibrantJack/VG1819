@@ -1,0 +1,16 @@
+{
+    "name" : "grass_water_edge_7", 
+    "components" : [
+    {
+        "name" : "QuadRenderableRepeat",
+        "texture" : "textures/tiles/tileDecoration/grass_water_edge/grass_water_edge_07.png",
+        "static" : true,
+        "texRepeat" : true,
+		"uRepeat" : 2.0,
+		"vRepeat" : 0.97
+    }
+    ],
+    "rotate" : [0,-90,0],
+    "scale" : [0.25,1,0.5],
+    "translate" : [0,0.001,-0.375]
+}

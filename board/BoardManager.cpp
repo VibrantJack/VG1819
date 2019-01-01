@@ -320,12 +320,13 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 			list.push_back(m_tileList[i]->getComponent<TileInfo>()->getPos());
 		}
 	}
+	/*
 	else if (p_data->getString("mode") == ABILITY_MANIPULATE_TILE)
 	{
 		const kitten::Event::TileList* l = p_data->getTileList();
 		m_highlighter->highlightTile(TileInfo::Owned, *l);
 		return;
-	}
+	}*/
 
 	//apply filter
 	setFilter(FILTER, p_data);

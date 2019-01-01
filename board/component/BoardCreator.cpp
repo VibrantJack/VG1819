@@ -136,8 +136,8 @@ kitten::K_GameObject * BoardCreator::createTile(int x, int z, LandInformation::T
 	printWhenClick->setMessage("grassy tile: " + std::to_string(x) + ", " + std::to_string(z));
 	tileGO->addComponent(printWhenClick);*/
 
-	ManipulateTileOnClick* manipTileOnClick = static_cast<ManipulateTileOnClick*>(compMan->createComponent("ManipulateTileOnClick"));
-	tileGO->addComponent(manipTileOnClick);
+	//ManipulateTileOnClick* manipTileOnClick = static_cast<ManipulateTileOnClick*>(compMan->createComponent("ManipulateTileOnClick"));
+	//tileGO->addComponent(manipTileOnClick);
 
 	SendSelfOnClick* sendSelfOnClick = static_cast<SendSelfOnClick*>(compMan->createComponent("SendSelfOnClick"));
 	sendSelfOnClick->setTileInfoDisplay(m_tileInfoDisplay);
