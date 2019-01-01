@@ -6,9 +6,9 @@
 			"components" : [
 				{
 					"name" : "QuadRenderableRepeat",
-					"texture" : "textures/background/forest_ground_leaves.jpg",
+					"texture" : "textures/background/forest_ground_leaves_dark.jpg",
 					"texRepeat" : true,
-					"static" : false,
+					"static" : true,
 					"uRepeat" : 26,
 					"vRepeat" : 26
 				}

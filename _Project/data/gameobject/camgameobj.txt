@@ -23,7 +23,7 @@
         },
 		{
 			"name" : "DirectionalLight",
-			"useCallbacks" : true,
+			"useCallbacks" : false,
 			"ambientColor" : [0.7,0.7,0.7],
 			"directionalColor" : [0.6,0.6,0.6]
 	    }
