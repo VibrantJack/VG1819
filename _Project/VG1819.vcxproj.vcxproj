@@ -154,12 +154,14 @@
     <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnownedTileFilter.cpp" />
+    <ClCompile Include="..\board\tile\DecorationGenerator.cpp" />
     <ClCompile Include="..\board\tile\landInfo\ForestLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\GardenLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\HomeLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\LandInfoManager.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SandLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
+    <ClCompile Include="..\board\tile\TileDecoration.cpp" />
     <ClCompile Include="..\components\CameraMoveByEvent.cpp" />
     <ClCompile Include="..\components\CustomCursor.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
@@ -231,9 +233,11 @@
     <ClCompile Include="..\kitten\mouse picking\ClickableFrame.cpp" />
     <ClCompile Include="..\kitten\mouse picking\ClickableUI.cpp" />
     <ClCompile Include="..\kitten\mouse picking\MousePicker.cpp" />
+    <ClCompile Include="..\kitten\QuadEdgeRenderable.cpp" />
     <ClCompile Include="..\kitten\QuadRenderable.cpp" />
     <ClCompile Include="..\kitten\QuadRenderableRepeat.cpp" />
     <ClCompile Include="..\kitten\K_Renderable.cpp" />
+    <ClCompile Include="..\kitten\SimpleQuadRenderable.cpp" />
     <ClCompile Include="..\kitten\sprites\SpriteAnimator.cpp" />
     <ClCompile Include="..\kitten\sprites\SpriteGroup.cpp" />
     <ClCompile Include="..\kitten\sprites\SpriteRenderable.cpp" />
@@ -292,6 +296,7 @@
     <ClCompile Include="..\puppy\Text\TextBox.cpp" />
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
+    <ClCompile Include="..\UI\CardContext.cpp" />
     <ClCompile Include="..\UI\CardUIO.cpp" />
     <ClCompile Include="..\UI\ClickableButton.cpp" />
     <ClCompile Include="..\UI\ClickableCard.cpp" />
@@ -441,8 +446,10 @@
     <ClInclude Include="..\board\component\PathFind.h" />
     <ClInclude Include="..\board\component\tilePipeline\TileFliter.h" />
     <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h" />
+    <ClInclude Include="..\board\tile\DecorationGenerator.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInformation.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInfoManager.h" />
+    <ClInclude Include="..\board\tile\TileDecoration.h" />
     <ClInclude Include="..\components\CameraMoveByEvent.h" />
     <ClInclude Include="..\components\CustomCursor.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />
@@ -529,9 +536,11 @@
     <ClInclude Include="..\kitten\mouse picking\ClickableUI.h" />
     <ClInclude Include="..\kitten\mouse picking\MousePicker.h" />
     <ClInclude Include="..\kitten\mouse picking\Ray.h" />
+    <ClInclude Include="..\kitten\QuadEdgeRenderable.h" />
     <ClInclude Include="..\kitten\QuadRenderable.h" />
     <ClInclude Include="..\kitten\QuadRenderableRepeat.h" />
     <ClInclude Include="..\kitten\K_Renderable.h" />
+    <ClInclude Include="..\kitten\SimpleQuadRenderable.h" />
     <ClInclude Include="..\kitten\sprites\SpriteAnimator.h" />
     <ClInclude Include="..\kitten\sprites\SpriteGroup.h" />
     <ClInclude Include="..\kitten\sprites\SpriteRenderable.h" />
@@ -595,6 +604,7 @@
     <ClInclude Include="..\puppy\Text\TextBox.h" />
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
+    <ClInclude Include="..\UI\CardContext.h" />
     <ClInclude Include="..\UI\CardUIO.h" />
     <ClInclude Include="..\UI\ClickableButton.h" />
     <ClInclude Include="..\UI\ClickableCard.h" />

@@ -1069,12 +1069,82 @@ kitten::K_Component* getMainMenu(nlohmann::json* p_jsonFile) {
 	return new MainMenu();
 }
 
+#include "UI\CardContext.h"
+kitten::K_Component* getCardContext(nlohmann::json* p_jsonFile) {
+	return new CardContext();
+}
+
 #include "UI\ClickableCard.h"
 kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
 {
 	bool isEnabledOnPause;
 	SETOPTDEF(isEnabledOnPause, "enabledOnPause", false);
 	return new userinterface::ClickableCard(isEnabledOnPause);
+}
+
+#include "kitten/QuadEdgeRenderable.h"
+kitten::K_Component* getQuadEdgeRenderable(nlohmann::json* p_jsonFile)
+{
+	return new kitten::QuadEdgeRenderable();
+}
+
+#include "board/tile/TileDecoration.h"
+kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
+{
+	TileDecoration* d = new TileDecoration();
+
+	if (JSONHAS("texture")) {
+		std::vector<std::string> list;
+		//assert(p_jsonfile["components"].is_array());
+		for (nlohmann::json::iterator it = p_jsonFile->operator[]("texture").begin(); it != p_jsonFile->operator[]("texture").end(); ++it) {
+			list.push_back(*it);
+		}
+		d->setTextureList(list);
+	}
+
+	if (JSONHAS("min_scale") && JSONHAS("max_scale"))
+	{
+		float x1 = p_jsonFile->operator[]("min_scale")[0];
+		float y1 = p_jsonFile->operator[]("min_scale")[1];
+		float z1 = p_jsonFile->operator[]("min_scale")[2];
+		float x2 = p_jsonFile->operator[]("max_scale")[0];
+		float y2 = p_jsonFile->operator[]("max_scale")[1];
+		float z2 = p_jsonFile->operator[]("max_scale")[2];
+		d->setScaleRange(glm::vec3(x1, y1, z1), glm::vec3(x2, y2, z2));
+	}
+	if (JSONHAS("min_rotation") && JSONHAS("max_rotation"))
+	{
+		float x1 = p_jsonFile->operator[]("min_rotation")[0];
+		float y1 = p_jsonFile->operator[]("min_rotation")[1];
+		float z1 = p_jsonFile->operator[]("min_rotation")[2];
+		float x2 = p_jsonFile->operator[]("max_rotation")[0];
+		float y2 = p_jsonFile->operator[]("max_rotation")[1];
+		float z2 = p_jsonFile->operator[]("max_rotation")[2];
+		d->setRotationRange(glm::vec3(x1, y1, z1), glm::vec3(x2, y2, z2));
+	}
+	if (JSONHAS("min_trans") && JSONHAS("max_trans"))
+	{
+		float x1 = p_jsonFile->operator[]("min_trans")[0];
+		float y1 = p_jsonFile->operator[]("min_trans")[1];
+		float z1 = p_jsonFile->operator[]("min_trans")[2];
+		float x2 = p_jsonFile->operator[]("max_trans")[0];
+		float y2 = p_jsonFile->operator[]("max_trans")[1];
+		float z2 = p_jsonFile->operator[]("max_trans")[2];
+		d->setTransRange(glm::vec3(x1, y1, z1), glm::vec3(x2, y2, z2));
+	}
+
+	return d;
+}
+
+#include "kitten/SimpleQuadRenderable.h"
+kitten::K_Component* getSimpleQuadRenderable(nlohmann::json* p_jsonFile) {
+	std::string texturefilename;
+	bool isStatic;
+
+	SETOPTDEF(texturefilename, "texture", "");
+	SETOPTDEF(isStatic, "static", false);
+
+	return new kitten::SimpleQuadRenderable(texturefilename.c_str(), isStatic);
 }
 
 #include "_Project\ShowLoadingOnClick.h"
@@ -1190,7 +1260,11 @@ void setupComponentMap() {
 	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
 	jsonComponentMap["MainMenu"] = &getMainMenu;
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
+	jsonComponentMap["CardContext"] = &getCardContext;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
+	jsonComponentMap["QuadEdgeRenderable"] = &getQuadEdgeRenderable;
+	jsonComponentMap["TileDecoration"] = &getTileDecoration;
+	jsonComponentMap["SimpleQuadRenderable"] = &getSimpleQuadRenderable;
 	jsonComponentMap["ShowLoadingOnClick"] = &getShowLoadingOnClick;
 	jsonComponentMap["DirectionalLight"] = &getDirectionalLight;
 

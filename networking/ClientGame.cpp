@@ -190,7 +190,7 @@ namespace networking
 
 				// Display disconnect screen; Server received manual disconnect from server
 				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
-				eventData->putInt(GAME_END_RESULT, 2);
+				eventData->putInt(GAME_END_RESULT, PLAYER_DISCONNECTED);
 				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
 				break;
 			}
@@ -206,7 +206,14 @@ namespace networking
 				packet.deserialize(buffer);
 				i += packet.getBytes();
 
-				useAbility(packet);
+				if (checkSync(packet.m_sourceUnit))
+				{
+					useAbility(packet);
+				} 
+				else
+				{
+					sendDesyncedPacket();
+				}
 				break;
 			}
 			case PacketTypes::SUMMON_UNIT:
@@ -227,11 +234,28 @@ namespace networking
 			case PacketTypes::SKIP_TURN:
 			{
 				printf("[Client: %d] received packet SKIP_TURN from server\n", sm_iClientId);
-				i += BASIC_PACKET_SIZE;
-				m_bServerCalling = true;
-				unit::Unit* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit()->getComponent<unit::Unit>();
-				currentUnit->playerSkipTurn();
-				m_bServerCalling = false;
+
+				Buffer buffer;
+				buffer.m_data = &(m_network_data[i]);
+				buffer.m_size = SKIP_TURN_PACKET_SIZE;
+
+				SkipTurnPacket skipTurnPacket;
+				skipTurnPacket.deserialize(buffer);
+				i += SKIP_TURN_PACKET_SIZE;				
+
+				if (checkSync(skipTurnPacket.m_unitId))
+				{
+					unit::Unit* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit()->getComponent<unit::Unit>();
+					m_bServerCalling = true;
+					currentUnit->playerSkipTurn();
+					m_bServerCalling = false;
+				}
+				else
+				{
+					sendDesyncedPacket();
+				}
+
+				//sendCurrentUnitPacket(unit::InitiativeTracker::getInstance()->getCurrentUnit());
 
 				break;
 			}
@@ -263,6 +287,17 @@ namespace networking
 				summonUnit(commandersPacket.m_client2Id, commandersPacket.m_player2Commander, commandersPacket.m_pos2X, commandersPacket.m_pos2Y);
 				unit::InitiativeTracker::getInstance()->gameTurnStart();
 				m_bGameTurnStart = true;
+				break;
+			}
+			case PacketTypes::DESYNCED:
+			{
+				printf("[Client: %d] received DESYNCED packet from server\n", sm_iClientId);
+				i += BASIC_PACKET_SIZE;
+
+				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+				eventData->putInt(GAME_END_RESULT, CLIENT_DESYNCED);
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+
 				break;
 			}
 			default:
@@ -310,6 +345,53 @@ namespace networking
 
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, packet.getSize());
 		delete[] data;
+	}
+
+	bool ClientGame::checkSync(int p_unitId)
+	{
+		kitten::K_GameObject* sourceUnit = getUnitGameObject(p_unitId);
+		unit::Unit* source = sourceUnit->getComponent<unit::Unit>();
+
+		kitten::K_GameObject* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit();
+		unit::Unit* host = currentUnit->getComponent<unit::Unit>();
+
+		if (sourceUnit == currentUnit)
+			return true;
+		else
+			return false;
+	}
+
+	void ClientGame::sendDesyncedPacket()
+	{
+		char data[BASIC_PACKET_SIZE];
+
+		Buffer buffer;
+		buffer.m_data = data;
+		buffer.m_size = BASIC_PACKET_SIZE;
+
+		Packet packet;
+		packet.m_packetType = DESYNCED;
+		packet.m_clientId = networking::ClientGame::getClientId();
+
+		packet.serialize(buffer);
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
+	}
+
+	void ClientGame::sendSkipTurnPacket(unit::Unit* p_unit)
+	{
+		char data[SKIP_TURN_PACKET_SIZE];
+
+		Buffer buffer;
+		buffer.m_data = data;
+		buffer.m_size = SKIP_TURN_PACKET_SIZE;
+
+		SkipTurnPacket packet;
+		packet.m_packetType = SKIP_TURN;
+		packet.m_clientId = networking::ClientGame::getClientId();
+		packet.m_unitId = getUnitGameObjectIndex(&p_unit->getGameObject());
+
+		packet.serialize(buffer);
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, SKIP_TURN_PACKET_SIZE);
 	}
 
 	// This method should only be called when summoning a unit for debug purposes
@@ -360,7 +442,6 @@ namespace networking
 		packet.serialize(buffer);
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
 	}
-
 
 	int ClientGame::getUnitGameObjectIndex(kitten::K_GameObject* p_unit)
 	{

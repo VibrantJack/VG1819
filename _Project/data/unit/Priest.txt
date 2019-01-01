@@ -27,7 +27,7 @@
 				"need_unit":1,
 				"duration":3,
 				"need_unit":1,
-				"description":"Give target unit [Encourage]. When that unit will deal damage, it will deal 1 more damage."
+				"description":"Give target [Encourage]: When dealing damage, deal 1 more damage."
 			}
 		],
 		"status":[

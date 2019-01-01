@@ -130,7 +130,6 @@ void SpawnUnitOnKeyPress::update()
 			networking::ClientGame* client = networking::ClientGame::getInstance();
 			if (!client->isGameTurnStarted())
 			{
-				unit::InitiativeTracker::getInstance()->gameTurnStart();
 				client->sendBasicPacket(GAME_TURN_START);
 			}
 		}

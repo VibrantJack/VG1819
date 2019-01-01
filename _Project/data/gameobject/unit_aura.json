@@ -5,7 +5,7 @@
             "name" : "UnitAura"
         },
         {
-            "name" : "QuadRenderable",
+            "name" : "SimpleQuadRenderable",
             "texture":"textures/ui/circle.tga"
         }
     ],

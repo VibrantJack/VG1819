@@ -34,16 +34,25 @@
 				{
 					"name" : "DrawCardOnClickUI"
 				},
-        {
-            "name" : "ClickableFrame"
+				{
+					"name" : "UIObject",
+					"texture" : "textures/ui/buttons/button_draw_card.tga"
 				},
 				{
-						"name" : "UIFrame"
+					"name" : "ClickableFrame"
+				},
+				{
+					"name" : "ClickableButton",
+					"regularTexture" : "textures/ui/buttons/button_draw_card.tga",
+					"highlightedTexture" : "textures/ui/buttons/button_draw_card_h.tga"
 				}
 			],
 			"translate" : [0,0, -0.3],
-			"translate2d" : [1100, 50],
-			"scale2d" : [150, 150]
+			"translate2d" : [1027, 10],
+			"scale2d" : [250, 80]
+		},		
+		{
+			"filename" : "handframe.json"
 		},
 		{
 		  "name" : "commander portrait",

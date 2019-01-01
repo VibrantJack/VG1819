@@ -120,12 +120,15 @@ void SendSelfOnClick::setTileInfoDisplayText()
 	case TileInfo::Cursor:
 		highlightType = "Cursor";
 		break;
+	case TileInfo::Select:
+		highlightType = "Select";
+		break;
 	case TileInfo::Range:
 		highlightType = "Range";
 		break;
-	case TileInfo::Owned:
-		highlightType = "Owned";
-		break;
+//	case TileInfo::Owned:
+//		highlightType = "Owned";
+//		break;
 	default:
 		highlightType = "Error";
 		break;
