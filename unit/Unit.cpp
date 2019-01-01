@@ -250,7 +250,7 @@ namespace unit
 		{			
 			if (!client->isServerCalling())
 			{
-				client->sendBasicPacket(PacketTypes::SKIP_TURN);
+				client->sendSkipTurnPacket(this);
 			}
 			else
 			{

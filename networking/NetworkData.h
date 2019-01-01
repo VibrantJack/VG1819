@@ -11,6 +11,7 @@
 #define MAX_CHAR_BUFSIZE 512
 
 #define BASIC_PACKET_SIZE sizeof(Packet)
+#define SKIP_TURN_PACKET_SIZE sizeof(SkipTurnPacket)
 #define SUMMON_UNIT_PACKET_SIZE sizeof(SummonUnitPacket)
 #define STARTING_COMMANDERS_PACKET_SIZE sizeof(StartingCommandersPacket)
 #define TEST_PACKET_SIZE sizeof(TestPacket)
@@ -115,6 +116,25 @@ struct SummonUnitPacket : Packet
 		m_unitId = readInt(p_buffer);
 		m_posX = readInt(p_buffer);
 		m_posY = readInt(p_buffer);
+	}
+};
+
+struct SkipTurnPacket : Packet
+{
+	int m_unitId;
+
+	void serialize(Buffer& p_buffer)
+	{
+		writeInt(p_buffer, m_packetType);
+		writeInt(p_buffer, m_clientId);
+		writeInt(p_buffer, m_unitId);
+	}
+
+	void deserialize(Buffer& p_buffer)
+	{
+		m_packetType = readInt(p_buffer);
+		m_clientId = readInt(p_buffer);
+		m_unitId = readInt(p_buffer);
 	}
 };
 

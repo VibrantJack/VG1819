@@ -264,13 +264,20 @@ namespace networking
 						break;
 					}
 					case SKIP_TURN:
+					{
+						i += SKIP_TURN_PACKET_SIZE;
+						printf("Server received SKIP_TURN packet from [Client: %d]\n", iter->first);
+
+						m_network->sendToOthers(iter->first, defaultBuffer.m_data, SKIP_TURN_PACKET_SIZE);
+						break;
+					}
 					case GAME_TURN_START:
 					case DESYNCED:
 					{
 						i += BASIC_PACKET_SIZE;
 						printf("Server received BasicPacket PacketType: %d from [Client: %d]\n", defaultPacket.m_packetType, iter->first);
 
-						m_network->sendToOthers(iter->first, defaultBuffer.m_data, BASIC_PACKET_SIZE);
+						m_network->sendToAll(defaultBuffer.m_data, BASIC_PACKET_SIZE);
 						break;
 					}
 					default:

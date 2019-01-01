@@ -234,11 +234,26 @@ namespace networking
 			case PacketTypes::SKIP_TURN:
 			{
 				printf("[Client: %d] received packet SKIP_TURN from server\n", sm_iClientId);
-				i += BASIC_PACKET_SIZE;
-				m_bServerCalling = true;
-				unit::Unit* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit()->getComponent<unit::Unit>();
-				currentUnit->playerSkipTurn();
-				m_bServerCalling = false;
+
+				Buffer buffer;
+				buffer.m_data = &(m_network_data[i]);
+				buffer.m_size = SKIP_TURN_PACKET_SIZE;
+
+				SkipTurnPacket skipTurnPacket;
+				skipTurnPacket.deserialize(buffer);
+				i += SKIP_TURN_PACKET_SIZE;				
+
+				if (checkSync(skipTurnPacket.m_unitId))
+				{
+					unit::Unit* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit()->getComponent<unit::Unit>();
+					m_bServerCalling = true;
+					currentUnit->playerSkipTurn();
+					m_bServerCalling = false;
+				}
+				else
+				{
+					sendDesyncedPacket();
+				}
 
 				//sendCurrentUnitPacket(unit::InitiativeTracker::getInstance()->getCurrentUnit());
 
@@ -337,13 +352,10 @@ namespace networking
 		kitten::K_GameObject* sourceUnit = getUnitGameObject(p_unitId);
 		unit::Unit* source = sourceUnit->getComponent<unit::Unit>();
 
-		kitten::K_GameObject* hostCurrentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit();
-		unit::Unit* host = hostCurrentUnit->getComponent<unit::Unit>();
+		kitten::K_GameObject* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit();
+		unit::Unit* host = currentUnit->getComponent<unit::Unit>();
 
-		printf("Source unit: %s\n", source->m_name.c_str());
-		printf("Host unit: %s\n", host->m_name.c_str());
-
-		if (sourceUnit == hostCurrentUnit)
+		if (sourceUnit == currentUnit)
 			return true;
 		else
 			return false;
@@ -363,6 +375,23 @@ namespace networking
 
 		packet.serialize(buffer);
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
+	}
+
+	void ClientGame::sendSkipTurnPacket(unit::Unit* p_unit)
+	{
+		char data[SKIP_TURN_PACKET_SIZE];
+
+		Buffer buffer;
+		buffer.m_data = data;
+		buffer.m_size = SKIP_TURN_PACKET_SIZE;
+
+		SkipTurnPacket packet;
+		packet.m_packetType = SKIP_TURN;
+		packet.m_clientId = networking::ClientGame::getClientId();
+		packet.m_unitId = getUnitGameObjectIndex(&p_unit->getGameObject());
+
+		packet.serialize(buffer);
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, SKIP_TURN_PACKET_SIZE);
 	}
 
 	// This method should only be called when summoning a unit for debug purposes
