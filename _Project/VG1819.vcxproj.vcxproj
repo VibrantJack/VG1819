@@ -86,7 +86,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;assimp-vc140-mt.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\FreeImage\Dist\x32;$(SolutoinDir)..\assimp\debug;$(SolutionDir)..\networking_libraries;$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\FreeImage\Dist\x32;$(SolutoinDir)..\assimp\release;$(SolutionDir)..\networking_libraries;$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>

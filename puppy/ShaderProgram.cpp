@@ -53,7 +53,6 @@ namespace puppy
 				}
 			}
 		}
-
 	}
 
 	int ShaderProgram::getAttrLocation(const char* p_name) const

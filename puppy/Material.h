@@ -25,6 +25,7 @@ namespace puppy
 		~Material();
 
 		virtual void setTexture(const char* p_pathToTex);
+		virtual void setTexture(puppy::Texture* p_tex);
 		puppy::Texture* getTexture() const;
 
 		//One-time set

@@ -4,7 +4,7 @@
 
 namespace puppy
 {
-	P_Model::P_Model(const char* p_pathToModel, bool p_flipUVs)
+	P_Model::P_Model(const char* p_pathToModel, bool p_flipUVs) : m_name(p_pathToModel)
 	{
 		Assimp::Importer importer;
 		

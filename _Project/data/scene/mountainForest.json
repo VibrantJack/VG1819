@@ -8,7 +8,7 @@
 					"name" : "QuadRenderableRepeat",
 					"texture" : "textures/background/forest_ground_leaves.jpg",
 					"texRepeat" : true,
-					"static" : true,
+					"static" : false,
 					"uRepeat" : 26,
 					"vRepeat" : 26
 				}

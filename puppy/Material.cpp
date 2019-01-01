@@ -37,6 +37,15 @@ namespace puppy
 		m_tex = new Texture(p_pathToTex);
 	}
 
+	void Material::setTexture(Texture* p_tex)
+	{
+		if (m_tex != nullptr)
+		{
+			delete m_tex;
+		}
+		m_tex = p_tex;
+	}
+
 	Texture* Material::getTexture() const
 	{
 		return m_tex;
