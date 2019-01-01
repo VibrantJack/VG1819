@@ -10,7 +10,7 @@ namespace kitten
 	private:
 		puppy::VertexEnvironment* m_vao;
 
-		puppy::Material m_mat;
+		puppy::TextureBlendMaterial m_mat;
 
 		bool m_isStatic, m_isRenderingStatic, m_texRepeat;
 		GLfloat m_uRepeat, m_vRepeat;
@@ -26,6 +26,11 @@ namespace kitten
 		virtual ~QuadRenderableRepeat();
 
 		void setTexture(const char* p_pathToTex);
+
+		void addTexture(puppy::Texture* p_tex, const float& p_weight = 1.0f);
+		void removeTexture(puppy::Texture* p_tex);
+
+		void changeWeight(puppy::Texture* p_tex, const float& p_weight);
 
 		void render(const glm::mat4& p_viewProj) override;
 	};
