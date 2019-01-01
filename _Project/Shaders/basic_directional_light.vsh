@@ -2,6 +2,7 @@
 
 uniform mat4 mWVP;
 uniform mat3 worldIT;
+uniform mat4 world;
 
 in vec4 a_position;
 in vec3 a_normal;
@@ -13,9 +14,9 @@ out vec3 v_pixelPos;
 
 void main()
 {
-    gl_Position = mWVP * a_position;
+	gl_Position = mWVP * a_position;
 	v_uv1 = a_uv1;
 	
 	v_normal = worldIT * a_normal;
-	v_pixelPos = vec3(worldIT * a_position.xyz);
+	v_pixelPos = vec3(world * a_position);
 }

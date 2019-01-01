@@ -20,6 +20,8 @@ namespace kitten
 			getTransform().addPositionListener(this);
 			setEnabled(false);
 		}
+
+		m_puppyLight.setPosition(getTransform().getTranslation());
 	}
 
 	void K_DirectionalLight::onPosChanged(const glm::vec3& p_newPos)

@@ -55,7 +55,7 @@ namespace kitten
 		
 		glm::mat4 m_matWorldNoScale;
 		glm::mat4 m_matWorld;
-		glm::mat4 m_matWorldIT;
+		glm::mat3 m_matWorldIT;
 
 		bool m_isDirty;
 
@@ -92,7 +92,8 @@ namespace kitten
 				m_matWorld = m_matWorldNoScale * glm::scale((m_scale * m_parent->getScale()));
 			}
 
-			m_matWorldIT = glm::transpose(glm::inverse(m_matWorld));
+			m_matWorldIT = glm::inverse((glm::mat3)m_matWorld);
+			m_matWorldIT = glm::transpose(m_matWorldIT);
 
 			m_isDirty = false;
 		}
@@ -123,7 +124,7 @@ namespace kitten
 
 		const glm::mat4& getWorldTransform();
 		const glm::mat4& getWorldTransformNoScale();
-		const glm::mat4& getWorldIT();
+		const glm::mat3& getWorldIT();
 		const glm::vec3& getForward() const;
 		const glm::vec3& getUpVector() const;
 

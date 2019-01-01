@@ -42,12 +42,13 @@ namespace puppy
 
 	}
 
-	void P_Mesh::render(const glm::mat4& p_worldViewProj, const glm::mat4& p_worldIT)
+	void P_Mesh::render(const glm::mat4& p_worldViewProj, const glm::mat3& p_worldIT, const glm::mat4& p_world)
 	{
 		m_mat.apply();
 		m_mat.setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_worldViewProj);
-		m_mat.setUniform("matAmbient", glm::vec3(0.2, 0.2, 0.2));
+		m_mat.setUniform("matAmbient", glm::vec3(0.4, 0.4, 0.4));
 		m_mat.setUniform("worldIT", p_worldIT);
+		m_mat.setUniform("world", p_world);
 
 		if (m_usesColour)
 		{

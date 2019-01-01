@@ -10,7 +10,7 @@ namespace puppy
 		//If I were to write my own shader compiling / loading it would be the same as wolf's.
 		m_id = wolf::LoadShaders(p_vertexShaderPath, p_pixelShaderPath);
 
-		if (m_type == basic_directional_light) // Not sure what the better way to do this is
+		if (m_type == basic_directional_light || m_type == solid_color_directional_light) // Not sure what the better way to do this is
 		{
 			m_hasLights = true;
 		}
@@ -23,6 +23,8 @@ namespace puppy
 
 	void ShaderProgram::apply()
 	{
+		glUseProgram(m_id);
+
 		if (m_hasLights) // If this _shader_ supports lights,
 		{
 			// Set the lights
@@ -33,11 +35,16 @@ namespace puppy
 				if (directionalLights.empty())
 				{
 					// No light, all we have to do is set color to black and we are fine
-					glUniform3fv(getUniformPlace("lightDirectionalColor"), 1, glm::value_ptr(glm::vec3(0,0,0)));
+					glUniform3fv(getUniformPlace("lightDirectionalColor"), 1, glm::value_ptr(glm::vec3(0, 0, 0)));
 					glUniform3fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(glm::vec3(0, 0, 0)));
 				}
 				else
 				{
+					if (m_type == basic_directional_light)
+					{
+						int i = 0;
+					}
+
 					auto firstLight = *(directionalLights.begin());
 
 					glUniform3fv(getUniformPlace("lightDirectionalColor"), 1, glm::value_ptr(firstLight->getDirectionalColor()));
@@ -47,7 +54,6 @@ namespace puppy
 			}
 		}
 
-		glUseProgram(m_id);
 	}
 
 	int ShaderProgram::getAttrLocation(const char* p_name) const

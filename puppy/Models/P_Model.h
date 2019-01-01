@@ -24,6 +24,6 @@ namespace puppy
 		P_Model(const char* p_pathToModel, bool p_flipUVs);
 		~P_Model();
 
-		virtual void render(const glm::mat4& p_worldViewProj, const glm::mat4& p_worldIT);
+		virtual void render(const glm::mat4& p_worldViewProj, const glm::mat3& p_worldIT, const glm::mat4& p_world);
 	};
 }

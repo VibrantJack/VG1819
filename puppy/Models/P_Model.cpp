@@ -8,7 +8,7 @@ namespace puppy
 	{
 		Assimp::Importer importer;
 		
-		int proccessing = aiProcess_Triangulate | aiProcess_OptimizeMeshes | aiProcess_OptimizeGraph;
+		int proccessing = aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_OptimizeMeshes | aiProcess_OptimizeGraph;
 		
 		if (p_flipUVs)
 		{
@@ -153,12 +153,12 @@ namespace puppy
 		
 	}
 
-	void P_Model::render(const glm::mat4& p_worldViewProj, const glm::mat4& p_worldIT)
+	void P_Model::render(const glm::mat4& p_worldViewProj, const glm::mat3& p_worldIT, const glm::mat4& p_world)
 	{
 		auto end = m_meshes.cend();
 		for (auto it = m_meshes.cbegin(); it != end; ++it)
 		{
-			(*it)->render(p_worldViewProj, p_worldIT);
+			(*it)->render(p_worldViewProj, p_worldIT, p_world);
 		}
 	}
 }

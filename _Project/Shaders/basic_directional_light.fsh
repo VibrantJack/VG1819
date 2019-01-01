@@ -8,16 +8,16 @@ uniform sampler2D tex;
 
 uniform vec3 lightPos;
 uniform vec3 lightDirectionalColor;
-uniform vec3 lightAmbient;
+uniform vec3 lightAmbientColor;
 
 uniform vec3 matAmbient;
 
 out vec4 PixelColor;
 
 void main()
-{	
-	// Ambient Lighting
-	vec3 ambient = lightAmbient * matAmbient;
+{
+    // Ambient Lighting
+	vec3 ambient = lightAmbientColor * matAmbient;
 	
 	// Directional lighting
 	vec3 normal = normalize(v_normal);
@@ -28,7 +28,7 @@ void main()
 	
 	// Final colour
 	vec3 lightColor = ambient + directional;
-	vec4 castedLightColor = vec4(lightColor.x,lightColor.y,lightColor.z,1);
+	vec4 castedLightColor = vec4(lightColor,1);
 	
-	PixelColor = texture(tex, v_uv1) * castedLightColor;
+	PixelColor = texture(tex,v_uv1) * castedLightColor;
 }

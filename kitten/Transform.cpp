@@ -52,7 +52,7 @@ namespace kitten
 		return m_matWorldNoScale;
 	}
 
-	const glm::mat4& Transform::getWorldIT()
+	const glm::mat3& Transform::getWorldIT()
 	{
 		if (m_isDirty)
 		{
