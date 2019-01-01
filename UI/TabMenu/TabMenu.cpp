@@ -94,4 +94,9 @@ void TabMenu::enableEndGameScreen(kitten::Event::EventType p_type, kitten::Event
 	m_endGameScreenObj->setEnabled(true);	// Show UIObject with appropriate end game message
 	m_returnToMainButton->setEnabled(true); 
 	m_bGameEnded = true; // Permanently show main menu button
+
+	// Disables interacting with other game features
+	kitten::Event* eventData = new kitten::Event(kitten::Event::Pause_Menu_Open);
+	eventData->putInt(PAUSE_MENU_OPEN, m_bOpened);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Pause_Menu_Open, eventData);
 }
