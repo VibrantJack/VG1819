@@ -14,8 +14,8 @@
 					"marginY" : 10
                 }
             ],
-			"translate2d" : [153, 130],
-            "scale2d" : [975,400]
+			"translate2d" : [143, 130],
+            "scale2d" : [1015,400]
         },
 		{
 			"filename" : "mainmenu_background.json"

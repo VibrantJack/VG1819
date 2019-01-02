@@ -598,12 +598,6 @@
     <ClCompile Include="ClickableBoxRenderable.cpp">
       <Filter>components\debug</Filter>
     </ClCompile>
-    <ClCompile Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.cpp">
-      <Filter>components\decksdisplay</Filter>
-    </ClCompile>
-    <ClCompile Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.cpp">
-      <Filter>components\decksdisplay</Filter>
-    </ClCompile>
     <ClCompile Include="..\components\scene change\StartGameOnClick.cpp">
       <Filter>components\scene changers</Filter>
     </ClCompile>
@@ -763,6 +757,54 @@
     </ClCompile>
     <ClCompile Include="..\ability\ability\PowerSlam.cpp">
       <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DisplayFrame.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\CustomDataComponent.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DisplayFrame\CommanderDisplayFrame.cpp">
+      <Filter>components\deck</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DisplayFrame\UnitDisplayFrame.cpp">
+      <Filter>components\deck</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DecksDisplay\DisplayFrameSetChangeOnClick.cpp">
+      <Filter>components\decksdisplay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DecksDisplay\DisplayFramePickerOnClick.cpp">
+      <Filter>components\decksdisplay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DisplayFrame\DeckUnitsDisplayFrame.cpp">
+      <Filter>components\deck</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DeckAlterationComponent.cpp">
+      <Filter>components\survivors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\SetupDeckEditOnSceneChange.cpp">
+      <Filter>components\scene changers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\AddUnitOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\DiscardDeckOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\SaveDeckOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\SetCommanderOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\ChangeUnitOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\AddNewDeckOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\DeleteDeckOnClick.cpp">
+      <Filter>components\clickables</Filter>
     </ClCompile>
     <ClCompile Include="..\board\tile\DecorationGenerator.cpp">
       <Filter>board\tile</Filter>
@@ -1326,12 +1368,6 @@
     <ClInclude Include="ClickableBoxRenderable.h">
       <Filter>components\debug</Filter>
     </ClInclude>
-    <ClInclude Include="..\components\DecksDisplay\DecksDisplayPickerOnClick.h">
-      <Filter>components\decksdisplay</Filter>
-    </ClInclude>
-    <ClInclude Include="..\components\DecksDisplay\DecksDisplaySetChangeOnClick.h">
-      <Filter>components\decksdisplay</Filter>
-    </ClInclude>
     <ClInclude Include="..\components\scene change\StartGameOnClick.h">
       <Filter>components\scene changers</Filter>
     </ClInclude>
@@ -1677,6 +1713,54 @@
     <ClInclude Include="..\components\DrawCardOnClickUI.h">
       <Filter>components\deck</Filter>
     </ClInclude>
+    <ClInclude Include="..\components\DisplayFrame.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\CustomDataComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DisplayFrame\CommanderDisplayFrame.h">
+      <Filter>components\deck</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DisplayFrame\UnitDisplayFrame.h">
+      <Filter>components\deck</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DecksDisplay\DisplayFrameSetChangeOnClick.h">
+      <Filter>components\decksdisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DecksDisplay\DisplayFramePickerOnClick.h">
+      <Filter>components\decksdisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DisplayFrame\DeckUnitsDisplayFrame.h">
+      <Filter>components\deck</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DeckAlterationComponent.h">
+      <Filter>components\survivors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\SetupDeckEditOnSceneChange.h">
+      <Filter>components\scene changers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\AddUnitOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\DiscardDeckOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\SaveDeckOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\SetCommanderOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\ChangeUnitOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\AddNewDeckOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\DeleteDeckOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
     <ClInclude Include="..\kitten\QuadEdgeRenderable.h">
       <Filter>kitten</Filter>
     </ClInclude>
@@ -1885,6 +1969,9 @@
     </Filter>
     <Filter Include="UI\MainMenu">
       <UniqueIdentifier>{7afc2e7a-c536-4001-9c64-dd24fcb73637}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\clickables">
+      <UniqueIdentifier>{9ad8c8e7-afb6-43c1-ab5d-a40105e5ff22}</UniqueIdentifier>
     </Filter>
     <Filter Include="kitten\lights">
       <UniqueIdentifier>{ee328a00-dc0f-4ea1-bb1e-282a8955234a}</UniqueIdentifier>

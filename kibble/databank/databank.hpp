@@ -11,17 +11,26 @@ namespace kibble {
 	//returns null if none is found matching string
 	unit::AbilityDescription* getAbilityFromName(const std::string& p_name);
 
-	std::vector<int> getUnitIdsThatHaveAbilityOfName(const std::string& p_name);
-	std::vector<int> getUnitIdsThatHaveTag(const std::string& p_tag);
+	const std::vector<int>& getUnitIdsThatHaveAbilityOfName(const std::string& p_name);
+	const std::vector<int>& getUnitIdsThatHaveTag(const std::string& p_tag);
+	const std::vector<int>& getCommanderIds();
+	const std::vector<int>& getNonCommanderIds();
 
 	DeckData* getDeckDataFromId(const int& p_identifier);
 	int getDeckDataListCount();
-	void addNewDeckData(DeckData*);
+	int getCommanderUnitCount();
+	int getNonCommanderUnitCount();
+
+	int addNewDeckData(DeckData*);
+	void eraseDeckData(int p_deckId);
+	void replaceDeckData(int p_deckIdSource, DeckData* p_deckTarget);
 
 	kitten::K_GameObject* attachCustomComponentsToGameObject(const int& p_identifier, kitten::K_GameObject* p_targetGameObject);
 	kitten::K_GameObject* attachCustomComponentsToGameObject(const unit::Unit* p_unit, kitten::K_GameObject* p_targetGameObject);
 	unit::Unit* getUnitInstanceFromId(const int& p_identifier);
 	bool checkIfComponentDriven(const int& p_identifier);
+
+
 
 	// ===----- For internal Use Only after this comment ---------------------------------------------------
 

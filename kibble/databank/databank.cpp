@@ -1,10 +1,12 @@
 #include "databank.hpp"
+#include "databank.hpp"
 #include <map>
 #include <unordered_set>
 #include <kibble/kibble.hpp>
 #include <kitten/K_GameObjectManager.h>
 
 std::vector<kibble::UnitFileStruct> unitDataVector;
+std::vector<int> nonCommanderUnitVector;
 std::map<std::string, unit::AbilityDescription*> abilityDataMap;
 std::map<std::string, std::vector<int>> abilityToUnitMap, tagToUnitMap;
 std::unordered_set<unit::AbilityDescription*> lateLoadAbility;
@@ -14,6 +16,7 @@ std::vector<std::vector<kitten::K_Component*>> unitSpecificComponentVector;
 
 #define DECK_LIST "data/gamedecklist.txt"
 #define UNIT_LIST "data/gameunitlist.txt"
+#define COMMANDER "Commander"
 
 // Basically the deconstructor
 void kibble::destroyDatabank() {
@@ -50,6 +53,9 @@ void kibble::setupDatabank() {
 			for (std::string tag : target.data->m_tags) { // Set up Tags
 				tagToUnitMap[tag].push_back(unitDataVector.size());
 			}
+
+			if (!target.data->isCommander())
+				nonCommanderUnitVector.push_back(unitDataVector.size());
 
 			target.data->m_kibbleID = unitDataVector.size();
 			// At the end push the unit into vector. 
@@ -124,28 +130,69 @@ void kibble::flagAbilityForLateLoad(unit::AbilityDescription* p_ability) {
 	lateLoadAbility.insert(p_ability);
 }
 
-std::vector<int> kibble::getUnitIdsThatHaveAbilityOfName(const std::string& p_name) {
+const std::vector<int>&  kibble::getUnitIdsThatHaveAbilityOfName(const std::string& p_name) {
 	return abilityToUnitMap[p_name];
 }
-std::vector<int> kibble::getUnitIdsThatHaveTag(const std::string& p_tag) {
+const std::vector<int>&  kibble::getUnitIdsThatHaveTag(const std::string& p_tag) {
 	return tagToUnitMap[p_tag];
+}
+const std::vector<int>&  kibble::getCommanderIds() {
+	return tagToUnitMap[COMMANDER];
+}
+const std::vector<int>&  kibble::getNonCommanderIds() {
+	return nonCommanderUnitVector;
 }
 
 int kibble::getDeckDataListCount() {
 	return deckDataVector.size();
+}
+int kibble::getCommanderUnitCount() {
+	return tagToUnitMap[COMMANDER].size();
+}
+int kibble::getNonCommanderUnitCount() {
+	return nonCommanderUnitVector.size();
 }
 
 DeckData* kibble::getDeckDataFromId(const int& p_identifier) {
 	return deckDataVector[p_identifier];
 }
 
-void kibble::addNewDeckData(DeckData* p_data) {
-	kibble::getDeckDataParserInstance()->saveDeckData(p_data, "DeckNumbah" + std::to_string(deckDataVector.size()) + ".txt");
+int kibble::addNewDeckData(DeckData* p_data) {
+	p_data->filename = "DeckNumbah" + std::to_string(deckDataVector.size()) + ".txt";
+
+	kibble::getDeckDataParserInstance()->saveDeckData(p_data, p_data->filename);
 	std::ofstream deckList(DECK_LIST, std::ofstream::app | std::ofstream::out);
 	if (deckList.is_open()) {
-		deckList << std::endl << "DeckNumbah" + std::to_string(deckDataVector.size()) << ".txt" ;
+		deckList << std::endl << p_data->filename ;
 	}
 	deckDataVector.push_back(p_data);
+	return deckDataVector.size() - 1;
+}
+#include <cstdio>
+#include <fstream>
+void kibble::eraseDeckData(int p_deckId) {
+	std::remove(("data/saved/" + deckDataVector[p_deckId]->filename).c_str());
+	std::ifstream deckList(DECK_LIST);
+	std::ofstream temp("temp.txt");
+
+	if (deckList.is_open()) {
+		std::string line;
+		while (std::getline(deckList, line))
+			if (line != deckDataVector[p_deckId]->filename)
+				temp << line << std::endl;
+	}
+		
+	temp.close();
+	deckList.close();
+	std::remove(DECK_LIST);
+	std::rename("temp.txt", DECK_LIST);
+	deckDataVector.erase(deckDataVector.begin()+p_deckId);
+}
+
+void kibble::replaceDeckData(int p_deckIdSource, DeckData* p_deckTarget)
+{
+	(*deckDataVector[p_deckIdSource]) = (*p_deckTarget);
+	kibble::getDeckDataParserInstance()->saveDeckData(p_deckTarget, p_deckTarget->filename);
 }
 
 #include "kitten/K_ComponentManager.h"

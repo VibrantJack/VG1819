@@ -1,0 +1,89 @@
+{
+    "gameobjects" : [
+        {
+            "filename" : "camgameobj_main_menu.txt", 
+            "translate" : [7, 7.0, 2.0],
+            "rotate" : [-70,0,0]
+        },
+        {
+            "name" : "Unit Display Frame",
+            "components" : [
+                {
+                    "name":"UnitDisplayFrame",
+                    "marginX": 10,
+					"marginY" : 10
+                },
+                {
+                    "name" : "UIFrame"
+                }
+            ],
+            "translate": [0,0,-0.5],
+			"translate2d" : [70, 170],
+            "scale2d" : [800,350]
+        },
+        {
+            "name" : "Deck Units Display Frame",
+            "components" : [
+                {
+                    "name":"DeckUnitsDisplayFrame",
+                    "marginX": 4,
+					"marginY" : 4
+                },
+                {
+                    "name" : "UIFrame"
+                }
+            ],
+            "translate": [0,0,-0.5],
+			"translate2d" : [1050, 100],
+            "scale2d" : [210,560]
+        },
+		{
+			"filename" : "mainmenu_background.json"
+		},
+		{
+			"filename" : "quad_repeat.txt"
+		},
+        {
+            "name" : "Return to deck selection",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_return.tga"
+                },
+				{
+					"name" : "DiscardDeckOnClick",
+					"regularTexture" : "textures/ui/buttons/button_return.tga",
+					"highlightedTexture" : "textures/ui/buttons/button_return_highlighted.tga"
+                },
+                {
+                    "name" : "ChangeSceneOnClick",
+                    "scene" : "deck-builder-deck_selection_screen.json"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [71, 21],
+            "scale2d" : [125, 80]
+        },
+        {
+            "name" : "Save Button",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_decks.tga"
+                },
+                {
+                    "name" : "SaveDeckOnClick",
+                    "regularTexture" : "textures/ui/buttons/button_save.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_save_h.tga"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [676, 22],
+            "scale2d" : [250, 80]
+        }
+    ]
+}

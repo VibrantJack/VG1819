@@ -120,14 +120,15 @@ namespace MousePicker
 	{
 		const auto& activeUIClickables = kitten::ActiveClickables::getInstance()->getClickableUIList();
 		kitten::ClickableFrame* hitFrame = nullptr;
+		float z = -9999999.9f;
 
 		auto end = activeUIClickables.cend();
 		for (auto it = activeUIClickables.cbegin(); it != end; ++it)
 		{
-			if (uiHit(*it, p_mouseX, p_mouseY))
+			if (uiHit(*it, p_mouseX, p_mouseY) && (*it)->getTransform().getTranslation().z > z)
 			{
 				hitFrame = *it;
-				break;
+				z = (*it)->getTransform().getTranslation().z;
 			}
 		}
 		return hitFrame;

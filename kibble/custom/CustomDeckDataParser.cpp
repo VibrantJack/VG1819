@@ -7,6 +7,7 @@ DeckData* CustomDeckDataParser::getDeckData(const std::string& p_filename) {
 	std::ifstream input("data/saved/"+p_filename);
 	if (input.is_open()) {
 		DeckData* data = new DeckData();
+		data->filename = p_filename;
 		std::getline(input, data->name); // Get Deck Name
 		input >> data->commanderID; // Get Deck Commander
 

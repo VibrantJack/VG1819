@@ -1,0 +1,73 @@
+{
+    "gameobjects" : [
+        {
+            "filename" : "camgameobj_main_menu.txt", 
+            "translate" : [7, 7.0, 2.0],
+            "rotate" : [-70,0,0]
+        },
+        {
+            "name" : "Commander Display Frame",
+            "components" : [
+                {
+                    "name":"CommanderDisplayFrame",
+                    "marginX": 10,
+					"marginY" : 10
+                },
+                {
+                    "name" : "UIFrame"
+                }
+            ],
+            "translate": [0,0,-0.5],
+			"translate2d" : [100, 160],
+            "scale2d" : [1100,360]
+        },
+		{
+			"filename" : "mainmenu_background.json"
+		},
+		{
+			"filename" : "quad_repeat.txt"
+		},
+        {
+            "name" : "Return to deck selection",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_return.tga"
+                },
+				{
+					"name" : "ClickableButton",
+					"regularTexture" : "textures/ui/buttons/button_return.tga",
+					"highlightedTexture" : "textures/ui/buttons/button_return_highlighted.tga"
+                },
+                {
+                    "name" : "ChangeSceneOnClick",
+                    "scene" : "deck-builder-deck_selection_screen.json"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [71, 21],
+            "scale2d" : [125, 80]
+        },
+        {
+            "name" : "Save Button",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_save.tga"
+                },
+                {
+                    "name" : "SaveDeckOnClick",
+                    "regularTexture" : "textures/ui/buttons/button_save.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_save_h.tga"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [995, 22],
+            "scale2d" : [250, 80]
+        }
+    ]
+}

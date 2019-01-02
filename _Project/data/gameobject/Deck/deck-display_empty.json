@@ -1,11 +1,12 @@
 {
-    "name" : "highlight",
+    "name" : "empty frame",
     "components" : [
         {
             "name" : "UIFrame",
-            "texture" : "textures/ui/deck_highlight.tga"
+            "texture" : "textures/ui/no_decks_message.tga"
         }
     ],
     "translate" : [0,0,-0.01],
+    "translate2d" : [0,0],
     "scale2d" : [185.0,260.0]
 }

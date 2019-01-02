@@ -679,6 +679,11 @@ kitten::K_Component* getSpriteRenderable(nlohmann::json* p_jsonFile) {
 	return new kitten::SpriteRenderable();
 }
 
+#include "components/DeckAlterationComponent.h"
+kitten::K_Component* getDeckAlterationComponent(nlohmann::json* p_jsonFile) {
+	return new DeckAlterationComponent();
+}
+
 #include "components/ChangeSceneOnClick.hpp"
 kitten::K_Component* getChangeSceneOnClick(nlohmann::json* p_jsonFile) {
 
@@ -687,6 +692,16 @@ kitten::K_Component* getChangeSceneOnClick(nlohmann::json* p_jsonFile) {
 	SET(nextScene, "scene");
 
 	return new ChangeSceneOnClick(nextScene);
+}
+
+#include "components/SetupDeckEditOnSceneChange.h"
+kitten::K_Component* getSetupDeckEditOnSceneChange(nlohmann::json* p_jsonFile) {
+
+	std::string nextScene;
+
+	SET(nextScene, "scene");
+
+	return new SetupDeckEditOnSceneChange(nextScene);
 }
 
 #include "kitten\K_ParticleSystem.h"
@@ -722,18 +737,18 @@ kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 	return new UniversalPfx(effects);
 }
 
-#include "components/DecksDisplay/DecksDisplayPickerOnClick.h"
-kitten::K_Component* getDecksDisplayPickerOnClick(nlohmann::json* p_jsonFile) {
-	return new DecksDisplayPickerOnClick();
+#include "components/DecksDisplay/DisplayFramePickerOnClick.h"
+kitten::K_Component* getDisplayFramePickerOnClick(nlohmann::json* p_jsonFile) {
+	return new DisplayFramePickerOnClick();
 }
 
-#include "components/DecksDisplay/DecksDisplaySetChangeOnClick.h"
-kitten::K_Component* getDecksDisplaySetChangeOnClick(nlohmann::json* p_jsonFile) {
+#include "components/DecksDisplay/DisplayFrameSetChangeOnClick.h"
+kitten::K_Component* getDisplayFrameSetChangeOnClick(nlohmann::json* p_jsonFile) {
 	int offset;
 
 	SETOPTDEF(offset, "offset", 0);
 
-	return new DecksDisplaySetChangeOnClick(offset);
+	return new DisplayFrameSetChangeOnClick(offset);
 }
 
 #include "components/DecksDisplayFrame.h"
@@ -745,6 +760,39 @@ kitten::K_Component* getDecksDisplayFrame(nlohmann::json* p_jsonFile) {
 	SETOPTDEF(marginX, "marginX", 0);
 
 	return new DecksDisplayFrame(marginX, marginY);
+}
+
+#include "components/DisplayFrame/DeckUnitsDisplayFrame.h"
+kitten::K_Component* getDeckUnitsDisplayFrame(nlohmann::json* p_jsonFile) {
+	int marginX;
+	int marginY;
+
+	SETOPTDEF(marginY, "marginY", 0);
+	SETOPTDEF(marginX, "marginX", 0);
+
+	return new DeckUnitsDisplayFrame(marginX, marginY);
+}
+
+#include "components/DisplayFrame/CommanderDisplayFrame.h"
+kitten::K_Component* getCommanderDisplayFrame(nlohmann::json* p_jsonFile) {
+	int marginX;
+	int marginY;
+
+	SETOPTDEF(marginY, "marginY", 0);
+	SETOPTDEF(marginX, "marginX", 0);
+
+	return new CommanderDisplayFrame(marginX, marginY);
+}
+
+#include "components/DisplayFrame/UnitDisplayFrame.h"
+kitten::K_Component* getUnitDisplayFrame(nlohmann::json* p_jsonFile) {
+	int marginX;
+	int marginY;
+
+	SETOPTDEF(marginY, "marginY", 0);
+	SETOPTDEF(marginX, "marginX", 0);
+
+	return new UnitDisplayFrame(marginX, marginY);
 }
 
 #include "_Project\ClickableBoxRenderable.h"
@@ -1030,6 +1078,119 @@ kitten::K_Component* getExitGameButton(nlohmann::json* p_jsonFile) {
 	return button;
 }
 
+#include "components\clickables\SetCommanderOnClick.h"
+kitten::K_Component* getSetCommanderOnClick(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, inactiveTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPT(inactiveTexture, "inactiveTexture");
+
+	SetCommanderOnClick* button = new SetCommanderOnClick();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
+
+	return button;
+}
+
+#include "components\clickables\DiscardDeckOnClick.h"
+kitten::K_Component* getDiscardDeckOnClick(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, inactiveTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPT(inactiveTexture, "inactiveTexture");
+
+	DiscardDeckOnClick* button = new DiscardDeckOnClick();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
+
+	return button;
+}
+
+#include "components\clickables\SaveDeckOnClick.h"
+kitten::K_Component* getSaveDeckOnClick(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, inactiveTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPT(inactiveTexture, "inactiveTexture");
+
+	SaveDeckOnClick* button = new SaveDeckOnClick();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
+
+	return button;
+}
+
+#include "components\clickables\AddUnitOnClick.h"
+kitten::K_Component* getAddUnitOnClick(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, inactiveTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPT(inactiveTexture, "inactiveTexture");
+
+	AddUnitOnClick* button = new AddUnitOnClick();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
+
+	return button;
+}
+
+#include "components\clickables\DeleteDeckOnClick.h"
+kitten::K_Component* getDeleteDeckOnClick(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, inactiveTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPT(inactiveTexture, "inactiveTexture");
+
+	DeleteDeckOnClick* button = new DeleteDeckOnClick();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+
+	return button;
+}
+
+#include "components\clickables\AddNewDeckOnClick.h"
+kitten::K_Component* getAddNewDeckOnClick(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, inactiveTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPT(inactiveTexture, "inactiveTexture");
+
+	AddNewDeckOnClick* button = new AddNewDeckOnClick();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
+
+	return button;
+}
+
+#include "components\clickables\ChangeUnitOnClick.h"
+kitten::K_Component* getChangeUnitOnClick(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, inactiveTexture;
+	bool increments;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPT(inactiveTexture, "inactiveTexture");
+	SETOPTDEF(increments, "increments", true);
+
+	ChangeUnitOnClick* button = new ChangeUnitOnClick(increments);
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
+
+	return button;
+}
+
 #include "unit/unitComponent/unitAction/ActionSelect.h"
 kitten::K_Component* getActionSelect(nlohmann::json* p_jsonFile) {
 	std::pair<int, int> offset, offset2;
@@ -1069,6 +1230,34 @@ kitten::K_Component* getMainMenu(nlohmann::json* p_jsonFile) {
 	return new MainMenu();
 }
 
+#include "components/CustomDataComponent.h"
+kitten::K_Component* getCustomDataComponent(nlohmann::json* p_jsonFile) {
+	CustomDataComponent* comp = new CustomDataComponent();
+	
+	for (nlohmann::json::iterator attribute = p_jsonFile->begin(); attribute != p_jsonFile->end(); ++attribute)
+	{
+		if(attribute.key() == "name")
+		{ }
+		else if (attribute->is_boolean())
+		{
+			comp->m_boolMap[attribute.key()] = *attribute;
+		}
+		else if (attribute->is_number_integer())
+		{
+			comp->m_intMap[attribute.key()] = *attribute;
+		}
+		else if (attribute->is_number_float())
+		{
+			comp->m_floatMap[attribute.key()] = *attribute;
+		}
+		else 
+		{
+			comp->m_stringMap[attribute.key()] = *attribute;
+		}
+	}
+
+	return comp;
+}
 #include "UI\CardContext.h"
 kitten::K_Component* getCardContext(nlohmann::json* p_jsonFile) {
 	return new CardContext();
@@ -1221,16 +1410,21 @@ void setupComponentMap() {
 	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
 	jsonComponentMap["ConnectToHost"] = &getConnectToHost;
 	jsonComponentMap["ChangeSceneOnClick"] = &getChangeSceneOnClick;
+	jsonComponentMap["SetupDeckEditOnSceneChange"] = &getSetupDeckEditOnSceneChange;
 	jsonComponentMap["UniversalPfx"] = &getUniversalPfx;
 	jsonComponentMap["K_ParticleSystem"] = &getKParticleSystem;
 	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;
 	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
 	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
-	jsonComponentMap["DecksDisplaySetChangeOnClick"] = &getDecksDisplaySetChangeOnClick;
-	jsonComponentMap["DecksDisplayPickerOnClick"] = &getDecksDisplayPickerOnClick;
+	jsonComponentMap["DisplayFrameSetChangeOnClick"] = &getDisplayFrameSetChangeOnClick;
+	jsonComponentMap["DisplayFramePickerOnClick"] = &getDisplayFramePickerOnClick;
 	jsonComponentMap["DecksDisplayFrame"] = &getDecksDisplayFrame;
+	jsonComponentMap["DeckUnitsDisplayFrame"] = &getDeckUnitsDisplayFrame;
+	jsonComponentMap["CommanderDisplayFrame"] = &getCommanderDisplayFrame;
+	jsonComponentMap["UnitDisplayFrame"] = &getUnitDisplayFrame;
 	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
 	jsonComponentMap["DeckInitializingComponent"] = &getDeckInitializingComponent;
+	jsonComponentMap["DeckAlterationComponent"] = &getDeckAlterationComponent;
 	jsonComponentMap["StartGameOnClick"] = &getStartGameOnClick;
 	jsonComponentMap["DeckComponent"] = &getDeckComponent;
 	jsonComponentMap["GameplayInit"] = &getGameplayInit;
@@ -1252,11 +1446,19 @@ void setupComponentMap() {
 	jsonComponentMap["CameraMoveByEvent"] = &getCameraMoveByEvent;
 	jsonComponentMap["LerpController"] = &getLerpController;
 	jsonComponentMap["ExitGameButton"] = &getExitGameButton;
+	jsonComponentMap["SetCommanderOnClick"] = &getSetCommanderOnClick;
+	jsonComponentMap["SaveDeckOnClick"] = &getSaveDeckOnClick;
+	jsonComponentMap["DiscardDeckOnClick"] = &getDiscardDeckOnClick;
+	jsonComponentMap["AddUnitOnClick"] = &getAddUnitOnClick;
+	jsonComponentMap["ChangeUnitOnClick"] = &getChangeUnitOnClick;
+	jsonComponentMap["DeleteDeckOnClick"] = &getDeleteDeckOnClick;
+	jsonComponentMap["AddNewDeckOnClick"] = &getAddNewDeckOnClick;
 	jsonComponentMap["CommanderContext"] = &getCommanderContext;
 	jsonComponentMap["ActionSelect"] = &getActionSelect;
 	jsonComponentMap["DragNDrop"] = &getDragNDrop;
 	jsonComponentMap["SpawnUnitOnDrop"] = &getSpawnUnitOnDrop;
 	jsonComponentMap["CombatText"] = &getCombatText;
+	jsonComponentMap["CustomDataComponent"] = &getCustomDataComponent;
 	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
 	jsonComponentMap["MainMenu"] = &getMainMenu;
 	jsonComponentMap["ClickableCard"] = &getClickableCard;

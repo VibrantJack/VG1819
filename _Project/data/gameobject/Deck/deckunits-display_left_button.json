@@ -1,0 +1,22 @@
+{
+    "name" : "left arrow button", 
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/buttons/button_arrow_up.tga"
+        },
+		{
+			"name" : "ClickableButton",
+			"regularTexture" : "textures/ui/buttons/button_arrow_up.tga",
+			"highlightedTexture" : "textures/ui/buttons/button_arrow_up_h.tga"
+		},
+        {
+            "name" : "DisplayFrameSetChangeOnClick",
+            "offset" : -1
+        },
+        {
+            "name" : "ClickableFrame"
+        }
+    ],
+    "scale2d" : [200,40]
+}

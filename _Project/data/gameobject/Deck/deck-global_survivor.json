@@ -1,0 +1,11 @@
+{
+    "name": "Global Deck Related Survivors",
+    "components" : [
+        {
+            "name" : "DeckInitializingComponent"
+        },
+        {
+            "name" : "DeckAlterationComponent"
+        }
+    ]
+}

@@ -1,0 +1,71 @@
+{
+    "gameobjects": 
+    [
+        {
+            "name" : "Unit Display Frame",
+            "components" : [
+                {
+                    "name" : "UIFrame"
+                }
+            ],
+            "scale2d" : [175.0,175.0],
+            "translate2d" : [0,80]
+        },
+        {
+            "name" : "Unit Display Text Background",
+            "components" : [
+                {
+                    "name" : "UIFrame",
+                    "texture" : "textures/ui/deck_display_text_bg.tga"
+                }
+            ],
+            "scale2d" : [175, 70],
+            "translate": [ 0,0,-0.4],
+            "translate2d" : [0,0]
+        },
+        {
+            "name" : "Unit Display TextBox",
+            "components" : [
+                {
+                    "name" : "TextBox",
+                    "font" : "../fonts/nsimsun_24pt.fnt",
+                    "color" : [0.89,0.82,0.55],
+                    "alignment" : "center",
+                    "width" : 175,
+                    "height" : 24
+                }
+            ],
+            "translate2d": [0,58]
+        },
+        {
+            "name" : "Adding Button",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_add.tga"
+                },
+                {
+                    "name" : "AddUnitOnClick",
+                    "regularTexture" : "textures/ui/buttons/button_add.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_add_h.tga"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [0, 260],
+            "scale2d" : [175, 70]
+        }
+    ],
+    "components" : [
+        {
+            "name" : "DisplayFramePickerOnClick"
+        },
+        {
+            "name" : "ClickableFrame"
+        }
+    ],
+    "translate" : [0,0,-0.1],
+    "translate2d" : [0,0],
+    "scale2d" : [175,330]
+}

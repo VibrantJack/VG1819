@@ -1,33 +1,22 @@
 #pragma once
-#include "UI/UIFrame.h"
-#include "kitten/K_GameObject.h"
-#include <vector>
-
-class DecksDisplayFrame : public kitten::K_Component
+#include "DisplayFrame.h"
+#include "components/clickables/AddNewDeckOnClick.h"
+#include "components/clickables/DeleteDeckOnClick.h"
+class DecksDisplayFrame : public DisplayFrame
 {
 private:
-	std::vector<kitten::K_GameObject*> m_slots, m_slotTexts, m_slotTextBackgrounds;
-	kitten::K_GameObject* m_arrows[2], *m_highlight;
-	int m_marginX = 10, // the space between elements within this frame
-		m_marginY = 5,
-		m_currentSet = 0,  // the current set of decks being displayed
-		m_currentActive = 0, // the number of decks currently need to be displayed
-		m_currentPick = -1; // the current picked deck
-	static bool sm_survivorFlagged;
-
-	void updateDeckDisplay();
-	void updateHighlight();
-
-	virtual void onDisabled();
-	virtual void onEnabled();
+	friend class DeleteDeckOnClick;
+	friend class AddNewDeckOnClick;
 public:
 	static DecksDisplayFrame* getActiveInstance();
 
 	void start() override;
 
-	void offsetCurrentSet(const int p_offset);
-	const int& getCurrentPickedDeckId() const; // gives back -1 if no deck has been picked yet
-	int pickDisplayedDeck(const kitten::K_GameObject* p_gameObject);
+	const int& getCurrentPickedDeckId() const { return getCurrentPickedItemIndex(); } // gives back -1 if no deck has been picked yet
+	
+	void onObjectClicked(int p_deckId) override;
+	int getTargetAvailable() override;
+	void updateIndividualDisplayObject(int p_activeObjectIndex) override;
 
 	DecksDisplayFrame(int p_marginX, int p_marginY);
 	~DecksDisplayFrame();

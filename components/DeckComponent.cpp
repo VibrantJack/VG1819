@@ -40,7 +40,7 @@ void DeckComponent::start() {
 		std::bind(&DeckComponent::peekEventReceiver, this, std::placeholders::_1, std::placeholders::_2));
 
 	// Set up Parameters
-	if (DeckInitializingComponent::getActiveInstance() == nullptr) {
+	if (DeckInitializingComponent::getActiveInstance() == nullptr || DeckInitializingComponent::getActiveInstance()->getDeckId() < 0) {
 		this->m_deckSource = kibble::getDeckDataFromId(0);
 		this->m_playerID = 0;
 	}

@@ -1,0 +1,110 @@
+{
+    "gameobjects": 
+    [
+        {
+            "name" : "Deck Units Display Name Background",
+            "components" : [
+                {
+                    "name" : "UIFrame",
+                    "texture" : "textures/ui/deck_display_text_bg.tga"
+                }
+            ],
+            "scale2d" : [135, 70],
+            "translate": [ 0,0,-0.4],
+            "translate2d" : [0,0]
+        },
+        {
+            "name" : "Commander Display Name TextBox",
+            "components" : [
+                {
+                    "name" : "TextBox",
+                    "font" : "../fonts/nsimsun_24pt.fnt",
+                    "color" : [0.89,0.82,0.55],
+                    "alignment" : "center",
+                    "width" : 135,
+                    "height" : 24
+                }
+            ],
+            "translate2d": [0,55]
+        },
+        {
+            "name" : "Deck Units Display Count Background",
+            "components" : [
+                {
+                    "name" : "UIFrame",
+                    "texture" : "textures/ui/deck_display_text_bg.tga"
+                }
+            ],
+            "scale2d" : [55, 35],
+            "translate": [ 0,0,-0.4],
+            "translate2d" : [140,25]
+        },
+        {
+            "name" : "Commander Display Count TextBox",
+            "components" : [
+                {
+                    "name" : "TextBox",
+                    "font" : "../fonts/nsimsun_24pt.fnt",
+                    "color" : [0.89,0.82,0.55],
+                    "alignment" : "center",
+                    "width" : 35,
+                    "height" : 24
+                }
+            ],
+            "translate2d": [150,55]
+        },
+        {
+            "name" : "Minus Button",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_minus.tga"
+                },
+                {
+                    "name" : "ChangeUnitOnClick",
+                    "regularTexture" : "textures/ui/buttons/button_minus.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_minus_h.tga",
+                    "increments" : false
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate" : [ 0,0,0.1],
+            "translate2d" : [140, 0],
+            "scale2d" : [27, 20]
+        },
+        {
+            "name" : "Plus Button",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_plus.tga"
+                },
+                {
+                    "name" : "ChangeUnitOnClick",
+                    "regularTexture" : "textures/ui/buttons/button_plus.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_plus_h.tga",
+                    "increments" : true
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate" : [ 0,0,0.1],
+            "translate2d" : [168, 0],
+            "scale2d" : [27, 20]
+        }
+    ],
+    "components" : [
+        {
+            "name" : "DisplayFramePickerOnClick"
+        },
+        {
+            "name" : "ClickableFrame"
+        }
+    ],
+    "translate" :[0,0,-0.4999],
+    "translate2d" : [0,0],
+    "scale2d" : [200,70]
+}

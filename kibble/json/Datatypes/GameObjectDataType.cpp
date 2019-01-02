@@ -50,5 +50,14 @@ kitten::K_GameObject* getGameObjectBy(nlohmann::json& p_jsonfile) {
 		}
 	}
 
+	if (p_jsonfile.find("gameobjects") != p_jsonfile.end()) {
+		//assert(p_jsonfile["components"].is_array());
+		for (nlohmann::json::iterator it = p_jsonfile["gameobjects"].begin(); it != p_jsonfile["gameobjects"].end(); ++it) {
+			kitten::K_GameObject* child = getGameObjectBy(*it);
+			child->getTransform().setParent(&gameobject->getTransform());
+			child->getTransform().setIgnoreParent(false);
+		}
+	}
+
 	return gameobject;
 }

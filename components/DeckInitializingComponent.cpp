@@ -12,6 +12,7 @@ DeckInitializingComponent::~DeckInitializingComponent()
 {
 	instance = nullptr;
 }
+
 DeckInitializingComponent * DeckInitializingComponent::getActiveInstance()
 {
 	return instance;

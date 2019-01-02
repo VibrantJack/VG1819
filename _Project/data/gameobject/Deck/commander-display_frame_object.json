@@ -1,0 +1,76 @@
+{
+    "gameobjects": 
+    [
+        {
+            "name" : "Commander Display Frame",
+            "components" : [
+                {
+                    "name" : "UIFrame"
+                }
+            ],
+            "scale2d" : [175.0,175.0],
+            "translate2d" : [0,75]
+        },
+        {
+            "name" : "Commander Display Text Background",
+            "components" : [
+                {
+                    "name" : "UIFrame",
+                    "texture" : "textures/ui/deck_display_text_bg.tga"
+                }
+            ],
+            "scale2d" : [175, 70],
+            "translate": [ 0,0,-0.4],
+            "translate2d" : [0,260]
+        },
+        {
+            "name" : "Commander Display TextBox",
+            "components" : [
+                {
+                    "name" : "TextBox",
+                    "font" : "../fonts/nsimsun_24pt.fnt",
+                    "color" : [0.89,0.82,0.55],
+                    "alignment" : "center",
+                    "width" : 175,
+                    "height" : 24
+                }
+            ],
+            "translate2d": [0,325]
+        },
+        {
+            "name" : "Button to set Commander",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/button_selected.tga"
+                },
+                {
+                    "name" : "SetCommanderOnClick",
+                    "regularTexture" : "textures/ui/buttons/button_add.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_add_h.tga",
+                    "inactiveTexture" : "textures/ui/buttons/button_selected.tga"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "scale2d" : [155,65],
+            "translate" : [0,0,-0.1],
+            "translate2d" : [10,0]
+        }
+    ],
+    "components" : [
+        {
+            "name" : "DisplayFramePickerOnClick"
+        },
+        {
+            "name" : "ClickableFrame"
+        },
+        {
+            "name" :"UIFrame"
+        }
+    ],
+    "translate" : [0,0,-0.5],
+    "translate2d" : [0,0],
+    "scale2d" : [175,340]
+}

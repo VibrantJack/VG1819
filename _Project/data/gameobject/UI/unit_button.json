@@ -1,0 +1,23 @@
+{
+	"name" : "Edit Unit Button",
+	"components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/button_units.tga"
+		},
+		{
+			"name" : "ClickableButton",
+			"regularTexture" : "textures/ui/buttons/button_units.tga",
+			"highlightedTexture" : "textures/ui/buttons/button_units_h.tga"
+		},
+		{
+			"name" : "ClickableFrame"
+		},
+		{
+			"name" : "SetupDeckEditOnSceneChange",
+			"scene" : "deck-builder-unit_selection_screen.json"
+		}
+	],
+	"translate2d" : [995, 22],
+	"scale2d" : [250, 80]
+}

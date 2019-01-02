@@ -1,0 +1,56 @@
+{
+    "gameobjects" : [
+        {
+            "filename" : "camgameobj_main_menu.txt", 
+            "translate" : [7, 7.0, 2.0],
+            "rotate" : [-70,0,0]
+        },
+        {
+            "name" : "Deck Display Frame",
+            "components" : [
+                {
+                    "name":"DecksDisplayFrame",
+                    "marginX": 10,
+					"marginY" : 10
+                },
+                {
+                    "name" : "UIFrame"
+                }
+            ],
+            "translate": [0,0,-0.5],
+			"translate2d" : [150, 160],
+            "scale2d" : [1015,350]
+        },
+		{
+			"filename" : "mainmenu_background.json"
+		},
+		{
+			"filename" : "quad_repeat.txt"
+		},
+        {
+            "name" : "ReturnToMainMenu",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_return.tga"
+                },
+				{
+					"name" : "DiscardDeckOnClick",
+					"regularTexture" : "textures/ui/buttons/button_return.tga",
+					"highlightedTexture" : "textures/ui/buttons/button_return_highlighted.tga"
+				},
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [71, 21],
+            "scale2d" : [125, 80]
+        },
+        {
+			"filename" : "UI/unit_button.json"
+        },
+        {
+			"filename" : "UI/commander_button.json"
+        }
+    ]
+}
