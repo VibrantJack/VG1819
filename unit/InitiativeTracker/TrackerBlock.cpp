@@ -5,6 +5,7 @@
 #include "puppy/Text/TextBox.h"
 #include "UI/UIFrame.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
+#include "UI\CardArt.h"
 
 //static value
 const std::string unit::TrackerBlock::sm_blankTexture = "textures/ui/blankFrame.tga";
@@ -17,6 +18,7 @@ const float unit::TrackerBlock::sm_frameY = 612.0f;//y coodinate for frame
 const float unit::TrackerBlock::sm_halfWinX = 1280 / 2;
 const float unit::TrackerBlock::sm_halfWinY = 720 / 2;
 const float unit::TrackerBlock::sm_textY = 500.0f;
+const int unit::TrackerBlock::sm_offsetY = 15;
 
 const float unit::TrackerBlock::sm_speed = 0.02f;
 
@@ -85,7 +87,7 @@ void unit::TrackerBlock::move(int p_slotIndex)
 		float x = m_trackerUI->m_xList[p_slotIndex];
 		float xx = sm_halfWinX * (1.0f + x);
 
-		m_frameObject->getTransform().place2D(xx, sm_frameY);
+		m_frameObject->getTransform().place2D(xx, sm_frameY - sm_offsetY);
 		//m_textObject->getTransform().place2D(xx, sm_textY);
 	}
 	else if (m_currentSlotIndex != (p_slotIndex + 1) )
@@ -113,7 +115,7 @@ void unit::TrackerBlock::move(int p_slotIndex)
 void unit::TrackerBlock::set(kitten::K_GameObject* p_unitGO)
 {
 	//get texture
-	std::string texPath = p_unitGO->getComponent<UnitGraphic>()->getTexturePath();
+	std::string texPath = p_unitGO->getComponent<userinterface::CardArt>()->getArt();
 	//get name
 	std::string name = p_unitGO->getComponent<Unit>()->m_name;
 

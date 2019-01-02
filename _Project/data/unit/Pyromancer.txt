@@ -67,6 +67,10 @@
 			"rotate":[45,0,0],
 			"scale":[2,1,1],
 			"translate":[0,0,0.15]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/Pyromancer.tga"
 		}
 	]
 }

@@ -1,0 +1,10 @@
+{
+	"name" : "Icon",
+	"components" : [
+		{
+			"name" : "UIElement",
+			"texture" : "textures/ui/blankFrame.tga"
+		},
+	],
+	"scale2d" : [10, 10]
+}

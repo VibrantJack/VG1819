@@ -6,8 +6,8 @@
 
 namespace userinterface
 { 
-	puppy::VertexEnvironment* UIElement::sm_vao = nullptr;
-	int UIElement::sm_instances = 0;
+	std::map<UIElement::pivotType, puppy::VertexEnvironment*> UIElement::sm_vao;
+	std::map<UIElement::pivotType, int> UIElement::sm_instances;
 
 	UIElement::UIElement(const char* p_pathToTex)
 	{
@@ -53,10 +53,10 @@ namespace userinterface
 	UIElement::~UIElement()
 	{
 		delete m_mat;
-		if (--sm_instances == 0)
+		if (--sm_instances[m_pivotType] == 0)
 		{
-			delete sm_vao;
-			sm_vao = nullptr;
+			delete sm_vao[m_pivotType];
+			sm_vao[m_pivotType] = nullptr;
 		}
 		if (m_isEnabled)
 		{
@@ -66,6 +66,13 @@ namespace userinterface
 
 	void UIElement::start()
 	{
+		//empty to not force override
+		defineVerts();
+	}
+	
+	void UIElement::defineVerts()
+	{
+
 		//quad coords (ortho)
 		float xmin, ymin, xmax, ymax, z, u, v;
 		z = 0.0;
@@ -107,93 +114,91 @@ namespace userinterface
 
 		switch (m_pivotType)
 		{
-			case piv_Left: {
-				xmin = 0.0f;
-				ymin = -0.5f;
-				xmax = 1.0f;
-				ymax = 0.5f;
-				break;
-			}
-			case piv_Right: {
-				xmin = -1.0f;
-				ymin = -0.5f;
-				xmax = 0.0f;
-				ymax = 0.5f;
-				break;
-			}
-			case piv_Bot: {
-				xmin = -0.5f;
-				ymin = 0.0f;
-				xmax = 0.5f;
-				ymax = 1.0f;
-				break;
-			}
-			case piv_Top: {
-				xmin = -0.5f;
-				ymin = -1.0f;
-				xmax = 0.5f;
-				ymax = 0.0f;
-				break;
-			}
-			case piv_BotLeft: {
-				xmin = 0.0f;
-				ymin = 0.0f;
-				xmax = 1.0f;
-				ymax = 1.0f;
-				break;
-			}
-			case piv_BotRight: {
-				xmin = -1.0f;
-				ymin = 0.0f;
-				xmax = 0.0f;
-				ymax = 1.0f;
-				break;
-			}
-			case piv_TopLeft: {
-				xmin = 0.0f;
-				ymin = -1.0f;
-				xmax = 1.0f;
-				ymax = 0.0f;
-				break;
-			}
-			case piv_TopRight: {
-				xmin = -1.0f;
-				ymin = -1.0f;
-				xmax = 0.0f;
-				ymax = 0.0f;
-				break;
-			}
-			case piv_Center: {
-				xmin = -0.5;
-				ymin = -0.5;
-				xmax = 0.5;
-				ymax = 0.5;
-				break;
-			}
+		case piv_Left: {
+			xmin = 0.0f;
+			ymin = -0.5f;
+			xmax = 1.0f;
+			ymax = 0.5f;
+			break;
+		}
+		case piv_Right: {
+			xmin = -1.0f;
+			ymin = -0.5f;
+			xmax = 0.0f;
+			ymax = 0.5f;
+			break;
+		}
+		case piv_Bot: {
+			xmin = -0.5f;
+			ymin = 0.0f;
+			xmax = 0.5f;
+			ymax = 1.0f;
+			break;
+		}
+		case piv_Top: {
+			xmin = -0.5f;
+			ymin = -1.0f;
+			xmax = 0.5f;
+			ymax = 0.0f;
+			break;
+		}
+		case piv_BotLeft: {
+			xmin = 0.0f;
+			ymin = 0.0f;
+			xmax = 1.0f;
+			ymax = 1.0f;
+			break;
+		}
+		case piv_BotRight: {
+			xmin = -1.0f;
+			ymin = 0.0f;
+			xmax = 0.0f;
+			ymax = 1.0f;
+			break;
+		}
+		case piv_TopLeft: {
+			xmin = 0.0f;
+			ymin = -1.0f;
+			xmax = 1.0f;
+			ymax = 0.0f;
+			break;
+		}
+		case piv_TopRight: {
+			xmin = -1.0f;
+			ymin = -1.0f;
+			xmax = 0.0f;
+			ymax = 0.0f;
+			break;
+		}
+		case piv_Center: {
+			xmin = -0.5;
+			ymin = -0.5;
+			xmax = 0.5;
+			ymax = 0.5;
+			break;
+		}
 		}
 
 		puppy::TexturedVertex verts[] =
 		{
 			//a nice lil quad that takes the pivot into account
-			{ xmin, ymin, z, 0.0,  0.0	},
-			{ xmax, ymin, z, u,    0.0	},
-			{ xmax, ymax, z, u,    v	},
-			{ xmax, ymax, z, u,    v	},
-			{ xmin,	ymax, z, 0.0f, v	},
+			{ xmin, ymin, z, 0.0,  0.0 },
+			{ xmax, ymin, z, u,    0.0 },
+			{ xmax, ymax, z, u,    v },
+			{ xmax, ymax, z, u,    v },
+			{ xmin,	ymax, z, 0.0f, v },
 			{ xmin, ymin, z, 0.0f, 0.0f },
 		};
 
-		if (sm_vao == nullptr)
+		if (sm_vao[m_pivotType] == nullptr)
 		{
-			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
+			sm_vao[m_pivotType] = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
 		}
 
-		++sm_instances;
+		sm_instances[m_pivotType]++;
 
-		addToDynamicUIRender();
-
+		this->addToDynamicUIRender();
 	}
-	
 
 		void UIElement::onDisabled()
 		{
@@ -212,7 +217,7 @@ namespace userinterface
 			glm::mat4 wvp = p_ortho * getTransform().getWorldTransform();
 			m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
 
-			sm_vao->drawArrays(GL_TRIANGLES);
+			sm_vao[m_pivotType]->drawArrays(GL_TRIANGLES);
 		}
 
 		void UIElement::setTexture(const char* p_pathToTex)

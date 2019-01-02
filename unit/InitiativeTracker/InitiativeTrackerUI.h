@@ -25,7 +25,7 @@ namespace unit
 		int isShown(int p_i);
 
 	private:
-		const int m_maxUnitToShow = 5;//there will be maximum number of units to show
+		const int m_maxUnitToShow = 7;//there will be maximum number of units to show
 
 		std::vector<TrackerBlock*> m_blockList;
 

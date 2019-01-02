@@ -821,6 +821,10 @@
     <ClCompile Include="ShowLoadingOnClick.cpp">
       <Filter>components\scene changers</Filter>
     </ClCompile>
+    <ClCompile Include="..\puppy\Text\PivotTextBox.cpp" />
+    <ClCompile Include="CardArt.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
     <ClCompile Include="..\puppy\lights\P_DirectionalLight.cpp">
       <Filter>puppy\lights</Filter>
     </ClCompile>
@@ -1776,6 +1780,9 @@
     <ClInclude Include="..\UI\CardContext.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\puppy\Text\PivotTextBox.h">
+      <Filter>puppy\Text</Filter>
+    </ClInclude>
     <ClInclude Include="ShowLoadingOnClick.h">
       <Filter>components\scene changers</Filter>
     </ClInclude>
@@ -1787,6 +1794,9 @@
     </ClInclude>
     <ClInclude Include="..\kitten\lights\K_DirectionalLight.h">
       <Filter>kitten\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\CardArt.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

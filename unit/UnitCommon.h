@@ -4,6 +4,7 @@
 #include "ability/AbilityInfoPackage.h"
 #include "kitten/K_Common.h"
 #include "unit/unitComponent/UnitGraphic.h"
+#include "UI/CardArt.h"
 #include "ability/status/Status.h"
 
 //attributes
@@ -91,6 +92,7 @@ namespace unit
 		std::string m_spriteName;
 		std::string m_texPath;
 		std::string m_porPath;
+		std::string m_artPath;
 	};
 }
 

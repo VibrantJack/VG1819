@@ -6,18 +6,20 @@
 
 namespace userinterface
 {
-	ContextMenu::ContextMenu(int p_padding, int p_margain, fillType p_ft) : UIElement("texture/ui/blankFrame.tga")
+	ContextMenu::ContextMenu(int p_padding) : UIElement("texture/ui/blankFrame.tga")
 	{
-		m_ft = p_ft;
 		m_padding = p_padding;
+		m_height = m_padding * 2;
+		m_width = m_padding * 2;
 		setPivotType(piv_TopLeft);
 	}
 
 	ContextMenu::ContextMenu() : UIElement("textures/ui/blankFrame.tga")
 	{
-		m_width = 100;
-		m_height = 20;
 		m_padding = 0;
+		m_height = 0;
+		m_width = 0;
+		setPivotType(piv_TopLeft);
 	}
 
 	ContextMenu::~ContextMenu()
@@ -27,45 +29,67 @@ namespace userinterface
 	 
 	void ContextMenu::start()
 	{
-		sm_instances++;
 		getTransform().scale2D(m_width, m_height);
+		defineVerts();
 		setEnabled(true);
 	}
 
-	ContextMenu::Row ContextMenu::addRow( const rowType p_rt )
+	ContextMenu::Row* ContextMenu::addRow( const rowType p_rt )
 	{
-		Row r;
-		r.type = p_rt;
+		Row* r = new Row();
+		r->type = p_rt;
 		m_rows.push_back(r);
-		arrange();
 		return r;
 	}
 
 	void ContextMenu::arrange()
 	{
-		int offset = m_padding;
-		int currentX = offset;
-		int currentY = -offset;
-		getTransform().scale2D(m_padding * 2, m_padding * 2);
+		glm::vec3 pos = getTransform().getTranslation();
+		int offsetX = pos.x + m_padding;
+		int offsetY = pos.y - m_padding;
 	
-		for (Row r : m_rows)
+		for (Row* r : m_rows)
 		{
-			for (kitten::K_GameObject* GO : r.elements)
-			{
-				GO->getComponent<UIElement>()->setPivotType(UIElement::piv_TopLeft);
-				if (GO != nullptr)
+			if (r->type == rt_OneElement) {
+
+				offsetY -= r->margin;
+				for (kitten::K_GameObject* GO : r->elements)
 				{
-					GO->getTransform().place2D(currentX, currentY);
-					if (m_ft == ft_Vertical || r.type == rt_OneElement)
+					if (GO != nullptr)
 					{
-						currentY -= (r.height - r.contentMargin);
+						GO->getTransform().place2D(offsetX, offsetY);
+						offsetY -= r->height;
+						m_height += ((r->margin * 2) + r->height);
 					}
-					else if (r.type == rt_FillRow)
+					if (m_width < (r->width + 2 * m_padding))
 					{
-						currentX += (r.width + r.contentMargin);
+						m_width = (r->width + 2 * m_padding);
 					}
+
 				}
 			}
+			else if (r->type == rt_Overflow)
+			{
+				offsetX += r->margin;
+				offsetY -= r->margin;
+				m_height += ((r->margin * 2) + r->height);
+
+				for (kitten::K_GameObject* GO : r->elements)
+				{
+					if (GO != nullptr)
+					{
+						GO->getTransform().place2D(offsetX, offsetY);
+						glm::vec3 scale3d = GO->getTransform().getScale();
+						offsetX += r->margin;
+					}
+				}
+				offsetX = m_padding + pos.x;
+			}
+			else if (r->type == rt_Blank)
+			{
+				m_height += (r->height + (2 * r->margin));
+			}
 		}
+		getTransform().scale2D(m_width, m_height + m_padding);
 	}
 }

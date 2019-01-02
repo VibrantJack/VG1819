@@ -1,0 +1,13 @@
+{
+    "name" : "ContextTextbox",
+    "components" : [
+        {
+            "name" : "TextBox",
+			"font" : "../fonts/common_consolas.fnt",
+			"color" : [1,1,1],
+            "alignment" : "left",
+            "width" : 400,
+            "height" : 15
+        }
+    ]
+}

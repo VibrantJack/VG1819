@@ -6,158 +6,110 @@
 #include "puppy\Text\FontTable.h"
 #include "puppy\Text\TextBox.h"
 #include "puppy\Text\TextTable.h"
+#include "puppy\Text\PivotTextBox.h"
 #include "kibble\kibble.hpp"
 #include "kitten\InputManager.h"
+#include "unit\Unit.h"
+#include "kibble\databank\databank.hpp"
+#include "ability\AbilityManager.h"
+#include <string>
+#include <map>
+
 
 
 namespace userinterface
 {
+	//TO DO
+	/*
+		I need to make this support images more elegantly. I suppose just tossing in a blank frame would work
+	*/
 	CommanderContext::CommanderContext(): ContextMenu()
 	{
+		
 	}
 
 	CommanderContext::~CommanderContext()
 	{
+		for (Row* r : m_rows)
+		{
+			delete r;
+		}
+	}
+
+	void CommanderContext::attachCommander(unit::Unit* p_unit)
+	{
+		m_attachedCommander = p_unit;
 	}
 
 	void CommanderContext::start()
 	{
+		//commander in context
+		m_attachedCommander = kibble::getUnitFromId(13);
+		//screen position stuff
 		input::InputManager* inMan = input::InputManager::getInstance();
-		int posX, posY;
-		posY = inMan->getWindowHeight();
-		int posY2 = posY - 50;
-		getTransform().place2D(50, posY2);
-		getTransform().scale2D(200, 100);
-		setPivotType(piv_BotLeft);
+		//game object positions
+
+		//TODO
+		//I want to be able to datadrive values like this
+		int winX, winY;
+		winY = inMan->getWindowHeight();
+		winX = inMan->getWindowWidth();
+		//put it on the screen
+
+		//TO DO, DATADRIVE THIS POSITIONAL DATA.
+		getTransform().place(0.0f, winY, -0.05);
+		setPivotType(piv_TopLeft);
 		setTexBehaviour(tbh_Repeat);
 
-		//DOING THIS TO HIDE IT CAUSE NE
-		setEnabled(false);
+		//TO DO, DATADRIVE THE PADDING FOR CHANGING OUTSIDE OF CODE
+		m_padding = 15;
+		static int rowMargin = 5;
 
-		//quad coords (ortho)
-		float xmin, ymin, xmax, ymax, z, u, v;
-		z = 0.0;
+		defineVerts();
 
-		//change UV coords to meet type expectation
-		switch (m_texBehaviour)
+		//make a GO based on the json textbox data ->
+		kitten::K_GameObject* GO_name = kibble::getGameObjectDataParserInstance()->getGameObject("commander_name.txt");
+		puppy::TextBox* nameComp = GO_name->getComponent<puppy::TextBox>();
+		nameComp->setText(m_attachedCommander->m_name);
+		nameComp->setEnabled(true);
+
+		//new row
+		Row* r = addRow(rt_OneElement);
+		//PLEASE NOTE. YOU MUST DEFINE THESE VARIABLES.
+		r->height = nameComp->getBoxHeight();
+		r->width = winX;
+		r->margin = rowMargin;
+		r->elements.push_back(GO_name);
+
+		//get attributes to show
+		//TO DO, MAKE THIS MORE ATTRACTIVE
+		int curAtr = 0;
+		std::string curAtrStr = "";
+		std::string statLine = "|";
+		for (auto atr : m_attachedCommander->m_attributes)
 		{
-
-			//TO-DO. 
-			/*
-			There must be a good way to set the UV's on creation
-			of this object so that you can have the texture repeat
-			if the object is particularily large to avoid stretching
-			the texture out. Maybe just have a param that tells
-			the frame how many times to tile the texture in both dimensions
-			*/
-
-		case tbh_Stretch: {
-			u = 1.0;
-			v = 1.0;
-			m_tex->setWrapping(GL_CLAMP_TO_EDGE);
-			break;
-		};
-
-		case tbh_Repeat: {
-			u = 1.0;
-			v = 1.0;
-			m_tex->setWrapping(GL_REPEAT);
-			break;
-		};
-
-		case tbh_RepeatMirrored: {
-			u = 1.0f;
-			v = 1.0f;
-			m_tex->setWrapping(GL_MIRRORED_REPEAT);
-			break;
-		};
+			curAtr = atr.second;
+			curAtrStr = atr.first;
+			statLine += (curAtrStr + "-" + std::to_string(curAtr) + " | ");
 		}
 
-		switch (m_pivotType)
-		{
-		case piv_Left: {
-			xmin = 0.0f;
-			ymin = -0.5f;
-			xmax = 1.0f;
-			ymax = 0.5f;
-			break;
-		}
-		case piv_Right: {
-			xmin = -1.0f;
-			ymin = -0.5f;
-			xmax = 0.0f;
-			ymax = 0.5f;
-			break;
-		}
-		case piv_Bot: {
-			xmin = -0.5f;
-			ymin = 0.0f;
-			xmax = 0.5f;
-			ymax = 1.0f;
-			break;
-		}
-		case piv_Top: {
-			xmin = -0.5f;
-			ymin = -1.0f;
-			xmax = 0.5f;
-			ymax = 0.0f;
-			break;
-		}
-		case piv_BotLeft: {
-			xmin = 0.0f;
-			ymin = 0.0f;
-			xmax = 1.0f;
-			ymax = 1.0f;
-			break;
-		}
-		case piv_BotRight: {
-			xmin = -1.0f;
-			ymin = 0.0f;
-			xmax = 0.0f;
-			ymax = 1.0f;
-			break;
-		}
-		case piv_TopLeft: {
-			xmin = 0.0f;
-			ymin = -1.0f;
-			xmax = 1.0f;
-			ymax = 0.0f;
-			break;
-		}
-		case piv_TopRight: {
-			xmin = -1.0f;
-			ymin = -1.0f;
-			xmax = 0.0f;
-			ymax = 0.0f;
-			break;
-		}
-		case piv_Center: {
-			xmin = -0.5;
-			ymin = -0.5;
-			xmax = 0.5;
-			ymax = 0.5;
-			break;
-		}
-		}
+		r = addRow(rt_Overflow);
+		kitten::K_GameObject* GO_stats = kibble::getGameObjectDataParserInstance()->getGameObject("context_textbox.txt");
+		puppy::TextBox* statsComp = GO_stats->getComponent<puppy::TextBox>();
+		statsComp->setText(statLine);
+		statsComp->setEnabled(true);
 
-		puppy::TexturedVertex verts[] =
-		{
-			//a nice lil quad that takes the pivot into account
-			{ xmin, ymin, z, 0.0,  0.0 },
-			{ xmax, ymin, z, u,    0.0 },
-			{ xmax, ymax, z, u,    v },
-			{ xmax, ymax, z, u,    v },
-			{ xmin,	ymax, z, 0.0f, v },
-			{ xmin, ymin, z, 0.0f, 0.0f },
-		};
+		//PLEASE NOTE. YOU MUST DEFINE THESE VARIABLES.
+		r->height = statsComp->getBoxHeight();
+		r->width = winX;
+		r->margin = rowMargin;
+		r->elements.push_back(GO_stats);
 
-		if (sm_vao == nullptr)
-		{
-			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
-		}
+		r = addRow(rt_Blank);
+		r->height = 50;
+		r->width = winX;
+		r->margin = 0;
 
-		++sm_instances;
-
-		this->addToDynamicUIRender();
+		arrange();
 	}
 }
