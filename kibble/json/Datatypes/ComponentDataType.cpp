@@ -941,6 +941,8 @@ kitten::K_Component* getUIElement(nlohmann::json* p_jsonFile) {
 		else if (temp == "bottom")
 			type = userinterface::UIElement::piv_Bot;
 		else if (temp == "botleft")
+			type = userinterface::UIElement::piv_BotLeft;
+		else if (temp == "botright")
 			type = userinterface::UIElement::piv_BotRight;
 		else if (temp == "topleft")
 			type = userinterface::UIElement::piv_TopLeft;
