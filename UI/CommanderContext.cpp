@@ -49,18 +49,20 @@ namespace userinterface
 		input::InputManager* inMan = input::InputManager::getInstance();
 		//game object positions
 
-		int posX, posY;
-		posY = inMan->getWindowHeight();
-		int posY2 = posY - 50; //posy2 is the true y coord
+		//TODO
+		//I want to be able to datadrive values like this
+		int winX, winY;
+		winY = inMan->getWindowHeight();
+		winX = inMan->getWindowWidth();
 		//put it on the screen
 
 		//TO DO, DATADRIVE THIS POSITIONAL DATA.
-		getTransform().place(25, posY2, -0.05);
+		getTransform().place(0.0f, winY, -0.05);
 		setPivotType(piv_TopLeft);
 		setTexBehaviour(tbh_Repeat);
 
 		//TO DO, DATADRIVE THE PADDING FOR CHANGING OUTSIDE OF CODE
-		m_padding = 10;
+		m_padding = 15;
 		static int rowMargin = 5;
 
 		defineVerts();
@@ -75,7 +77,7 @@ namespace userinterface
 		Row* r = addRow(rt_OneElement);
 		//PLEASE NOTE. YOU MUST DEFINE THESE VARIABLES.
 		r->height = nameComp->getBoxHeight();
-		r->width = nameComp->getBoxWidth();
+		r->width = winX;
 		r->margin = rowMargin;
 		r->elements.push_back(GO_name);
 
@@ -83,7 +85,7 @@ namespace userinterface
 		//TO DO, MAKE THIS MORE ATTRACTIVE
 		int curAtr = 0;
 		std::string curAtrStr = "";
-		std::string statLine = "| ";
+		std::string statLine = "|";
 		for (auto atr : m_attachedCommander->m_attributes)
 		{
 			curAtr = atr.second;
@@ -99,9 +101,14 @@ namespace userinterface
 
 		//PLEASE NOTE. YOU MUST DEFINE THESE VARIABLES.
 		r->height = statsComp->getBoxHeight();
-		r->width = statsComp->getBoxWidth();
+		r->width = winX;
 		r->margin = rowMargin;
 		r->elements.push_back(GO_stats);
+
+		r = addRow(rt_Blank);
+		r->height = 50;
+		r->width = winX;
+		r->margin = 0;
 
 		arrange();
 	}

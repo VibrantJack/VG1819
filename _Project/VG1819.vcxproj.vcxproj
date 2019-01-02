@@ -343,6 +343,7 @@
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
     <ClCompile Include="PlaySoundOnStart.cpp" />
     <ClCompile Include="ShowLoadingOnClick.cpp" />
+    <ClCompile Include="CardArt.cpp" />
     <ClCompile Include="StringInputDisplay.cpp" />
     <ClCompile Include="ToggleEnabledOnKeyPress.cpp" />
     <ClCompile Include="ToggleParticleSystemOnKeyPress.cpp" />
@@ -605,6 +606,7 @@
     <ClInclude Include="..\UI\UIFrame.h" />
     <ClInclude Include="..\UI\UIObject.h" />
     <ClInclude Include="..\UI\CommanderContext.h" />
+    <ClInclude Include="..\UI\CardArt.h" />
     <ClInclude Include="..\unitInteraction\CounterGetter.h" />
     <ClInclude Include="..\unitInteraction\CounterGetterDisplay.h" />
     <ClInclude Include="..\unitInteraction\TileGetter.h" />

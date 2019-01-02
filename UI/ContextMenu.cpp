@@ -58,7 +58,7 @@ namespace userinterface
 					if (GO != nullptr)
 					{
 						GO->getTransform().place2D(offsetX, offsetY);
-						offsetY -= (r->margin + r->height);
+						offsetY -= r->height;
 						m_height += ((r->margin * 2) + r->height);
 					}
 					if (m_width < (r->width + 2 * m_padding))
@@ -71,7 +71,7 @@ namespace userinterface
 			else if (r->type == rt_Overflow)
 			{
 				offsetX += r->margin;
-				offsetY -= r->margin + r->height;
+				offsetY -= r->margin;
 				m_height += ((r->margin * 2) + r->height);
 
 				for (kitten::K_GameObject* GO : r->elements)
@@ -79,12 +79,17 @@ namespace userinterface
 					if (GO != nullptr)
 					{
 						GO->getTransform().place2D(offsetX, offsetY);
+						glm::vec3 scale3d = GO->getTransform().getScale();
 						offsetX += r->margin;
 					}
 				}
 				offsetX = m_padding + pos.x;
 			}
+			else if (r->type == rt_Blank)
+			{
+				m_height += (r->height + (2 * r->margin));
+			}
 		}
-		getTransform().scale2D(m_width, m_height);
+		getTransform().scale2D(m_width, m_height + m_padding);
 	}
 }

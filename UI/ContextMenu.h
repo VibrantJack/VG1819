@@ -13,6 +13,7 @@ namespace userinterface
 		enum rowType {
 			rt_OneElement,
 			rt_Overflow,
+			rt_Blank,
 		};
 
 		//rendering stuff

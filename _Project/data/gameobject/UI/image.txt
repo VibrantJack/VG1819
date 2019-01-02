@@ -1,0 +1,12 @@
+{
+	"name" : "Icon",
+	"components" : [
+		{
+			"name" : "UIElement",
+			"texture" : "textures/ui/buttons/blankFrame.tga",
+			"pivot" : "topleft",
+			"behaviour" : "repeat"
+		}
+	],
+	"scale2d" : [10, 10]
+}

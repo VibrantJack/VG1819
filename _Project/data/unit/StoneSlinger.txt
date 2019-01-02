@@ -56,6 +56,10 @@
 			"rotate":[45,0,0],
 			"scale":[0.8,0.8,1],
 			"translate":[0,0,0.15]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/StoneSlinger.tga"
 		}
 	]
 }

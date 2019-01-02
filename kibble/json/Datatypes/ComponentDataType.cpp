@@ -951,6 +951,20 @@ kitten::K_Component* getUIElement(nlohmann::json* p_jsonFile) {
 	}
 
 	userinterface::UIElement::textureBehaviour tb = userinterface::UIElement::tbh_Stretch;
+
+	if (JSONHAS("texture_behaviour"))
+	{
+		std::string temp = LOOKUP("behaviour");
+		if (temp == "repeat")
+		{
+			tb = userinterface::UIElement::tbh_Repeat;
+		}
+		else if (temp == "mirror_repeat")
+		{
+			tb = userinterface::UIElement::tbh_RepeatMirrored;
+		}
+	}
+
 	
 	if (JSONHAS("behavior"))
 	{
@@ -1155,6 +1169,15 @@ kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
 	return new userinterface::ClickableCard(isEnabledOnPause);
 }
 
+#include "UI\CardArt.h"
+kitten::K_Component* getCardArt(nlohmann::json* p_jsonFile)
+{
+	std::string texture;
+	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
+
+	return new userinterface::CardArt(texture);
+}
+
 #include "_Project\ShowLoadingOnClick.h"
 kitten::K_Component* getShowLoadingOnClick(nlohmann::json* p_jsonFile) {
 	return new ShowLoadingOnClick();
@@ -1249,6 +1272,7 @@ void setupComponentMap() {
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
 	jsonComponentMap["ShowLoadingOnClick"] = &getShowLoadingOnClick;
 	jsonComponentMap["PivotTextBox"] = &getPivotTextBox;
+	jsonComponentMap["CardArt"] = &getCardArt;
 
 }
 

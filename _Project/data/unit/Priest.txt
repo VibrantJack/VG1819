@@ -52,6 +52,10 @@
 			"rotate":[45,0,0],
 			"scale":[6,0.6,0],
 			"translate":[0,0,0]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/Priest.tga"
 		}
 	]
 }

@@ -764,6 +764,10 @@
     <ClCompile Include="ShowLoadingOnClick.cpp">
       <Filter>components\scene changers</Filter>
     </ClCompile>
+    <ClCompile Include="..\puppy\Text\PivotTextBox.cpp" />
+    <ClCompile Include="CardArt.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1655,6 +1659,9 @@
     </ClInclude>
     <ClInclude Include="ShowLoadingOnClick.h">
       <Filter>components\scene changers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\CardArt.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -40,6 +40,10 @@
 			"rotate":[45,0,0],
 			"scale":[20,1.5,0],
 			"translate":[0,0,0.15]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/King.tga"
 		}
 	]
 }
