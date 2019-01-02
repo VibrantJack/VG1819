@@ -58,12 +58,12 @@
             "components" : [
                 {
                     "name" : "UIObject",
-                    "texture" : "textures/ui/buttons/button_decks.tga"
+                    "texture" : "textures/ui/buttons/button_minus.tga"
                 },
                 {
                     "name" : "ChangeUnitOnClick",
-                    "regularTexture" : "textures/ui/buttons/button_decks.tga",
-                    "highlightedTexture" : "textures/ui/buttons/button_decks_highlighted.tga",
+                    "regularTexture" : "textures/ui/buttons/button_minus.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_minus_h.tga",
                     "increments" : false
                 },
                 {
@@ -79,12 +79,12 @@
             "components" : [
                 {
                     "name" : "UIObject",
-                    "texture" : "textures/ui/buttons/button_decks.tga"
+                    "texture" : "textures/ui/buttons/button_plus.tga"
                 },
                 {
                     "name" : "ChangeUnitOnClick",
-                    "regularTexture" : "textures/ui/buttons/button_decks.tga",
-                    "highlightedTexture" : "textures/ui/buttons/button_decks_highlighted.tga",
+                    "regularTexture" : "textures/ui/buttons/button_plus.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_plus_h.tga",
                     "increments" : true
                 },
                 {

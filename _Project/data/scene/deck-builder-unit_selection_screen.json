@@ -75,8 +75,8 @@
                 },
                 {
                     "name" : "SaveDeckOnClick",
-                    "regularTexture" : "textures/ui/buttons/button_decks.tga",
-                    "highlightedTexture" : "textures/ui/buttons/button_decks_highlighted.tga"
+                    "regularTexture" : "textures/ui/buttons/button_save.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_save_h.tga"
                 },
                 {
                     "name" : "ClickableFrame"

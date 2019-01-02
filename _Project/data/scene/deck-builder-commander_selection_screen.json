@@ -55,12 +55,12 @@
             "components" : [
                 {
                     "name" : "UIObject",
-                    "texture" : "textures/ui/buttons/button_decks.tga"
+                    "texture" : "textures/ui/buttons/button_save.tga"
                 },
                 {
                     "name" : "SaveDeckOnClick",
-                    "regularTexture" : "textures/ui/buttons/button_decks.tga",
-                    "highlightedTexture" : "textures/ui/buttons/button_decks_highlighted.tga"
+                    "regularTexture" : "textures/ui/buttons/button_save.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_save_h.tga"
                 },
                 {
                     "name" : "ClickableFrame"

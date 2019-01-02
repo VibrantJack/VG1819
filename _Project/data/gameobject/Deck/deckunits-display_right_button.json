@@ -3,12 +3,12 @@
     "components" : [
         {
             "name" : "UIObject",
-            "texture" : "textures/ui/buttons/button_square-right_arrow.tga"
+            "texture" : "textures/ui/buttons/button_arrow_down.tga"
         },
 		{
 			"name" : "ClickableButton",
-			"regularTexture" : "textures/ui/buttons/button_square-right_arrow.tga",
-			"highlightedTexture" : "textures/ui/buttons/button_square-right_arrow_h.tga"
+			"regularTexture" : "textures/ui/buttons/button_arrow_down.tga",
+			"highlightedTexture" : "textures/ui/buttons/button_arrow_down_h.tga"
 		},
         {
             "name" : "DisplayFrameSetChangeOnClick",

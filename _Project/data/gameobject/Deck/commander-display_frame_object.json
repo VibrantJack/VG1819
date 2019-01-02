@@ -42,13 +42,13 @@
             "components" : [
                 {
                     "name" : "UIObject",
-                    "texture" : "textures/ui/defeat.tga"
+                    "texture" : "textures/ui/button_selected.tga"
                 },
                 {
                     "name" : "SetCommanderOnClick",
-                    "regularTexture" : "textures/ui/buttons/button_decks.tga",
-                    "highlightedTexture" : "textures/ui/buttons/button_decks_highlighted.tga",
-                    "inactiveTexture" : "textures/ui/defeat.tga"
+                    "regularTexture" : "textures/ui/buttons/button_add.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_add_h.tga",
+                    "inactiveTexture" : "textures/ui/buttons/button_selected.tga"
                 },
                 {
                     "name" : "ClickableFrame"

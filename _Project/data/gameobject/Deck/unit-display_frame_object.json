@@ -42,12 +42,12 @@
             "components" : [
                 {
                     "name" : "UIObject",
-                    "texture" : "textures/ui/buttons/button_decks.tga"
+                    "texture" : "textures/ui/buttons/button_add.tga"
                 },
                 {
                     "name" : "AddUnitOnClick",
-                    "regularTexture" : "textures/ui/buttons/button_decks.tga",
-                    "highlightedTexture" : "textures/ui/buttons/button_decks_highlighted.tga"
+                    "regularTexture" : "textures/ui/buttons/button_add.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_add_h.tga"
                 },
                 {
                     "name" : "ClickableFrame"
