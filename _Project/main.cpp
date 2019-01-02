@@ -67,22 +67,8 @@ int main( void )
     
 	kitten::initGame();
 
-	float lerpVal = 0.5f;
-	float changeAmount = 0.009f;
-	bool increasing = true;
-
-	glm::vec3 minColour(2.0f / 255.0f, 2.0f / 255.0f, 9.0f / 255.0f);
-	glm::vec3 maxColour(135.0f/255.0f, 206.0f/255.0f, 235.0f/255.0f);
-	glm::vec3 curColor;
-	double deltaTime = 0;
-	double oldTime = 0;
-
     do
 	{
-		double currentTime = glfwGetTime();
-        deltaTime =  currentTime - oldTime;
-		oldTime = currentTime;
-
         glfwGetMousePos( &x, NULL );
         
         // Get window size (may be different than the requested size)
@@ -94,35 +80,13 @@ int main( void )
         glViewport( 0, 0, width, height );
         
         // Clear color buffer
-		curColor = LERP(lerpVal, minColour, maxColour);
-        glClearColor(curColor.x, curColor.y, curColor.z, 0.0f);
+        glClearColor(0.5f,0.5f,0.5f, 0.0f);
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
         
-		
-
 		kitten::gameCycle();
 
         // Swap buffers
         glfwSwapBuffers();
-        
-		if (increasing)
-		{
-			lerpVal += changeAmount * deltaTime;
-			if (lerpVal > 1.0f)
-			{
-				increasing = false;
-				lerpVal = 1.0f;
-			}
-		}
-		else
-		{
-			lerpVal -= changeAmount * deltaTime;
-			if (lerpVal < 0.0f)
-			{
-				increasing = true;
-				lerpVal = 0.0f;
-			}
-		}
     } // Check if the ESC key was pressed or the window was closed
     while( glfwGetKey( GLFW_KEY_ESC ) != GLFW_PRESS &&
           glfwGetWindowParam( GLFW_OPENED ) );

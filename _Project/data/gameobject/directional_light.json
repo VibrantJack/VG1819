@@ -1,0 +1,11 @@
+{
+    "name" : "Sun Directional Light", 
+    "components" : [
+       {
+			"name" : "DirectionalLight",
+			"useCallbacks" : true,
+			"ambientColor" : [0.5,0.5,0.5],
+			"directionalColor" : [0.6,0.6,0.6]
+	   }
+    ]
+}

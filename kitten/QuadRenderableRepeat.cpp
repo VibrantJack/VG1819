@@ -29,7 +29,7 @@ namespace kitten
 			{ -0.5f, 0.0f,-0.5f,		m_uRepeat, 0.0f },
 			{ -0.5f, 0.0f, 0.5f,		0.0f,	   0.0f },
 		};
-		m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::colorTint_alphaTest), 6);
+		m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::texture_blend_zero), 6);
 	}
 
 	QuadRenderableRepeat::~QuadRenderableRepeat()

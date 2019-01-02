@@ -6,7 +6,7 @@
 			"components" : [
 				{
 					"name" : "QuadRenderableRepeat",
-					"texture" : "textures/background/forest_ground_leaves.jpg",
+					"texture" : "textures/background/forest_ground_leaves_dark.jpg",
 					"texRepeat" : true,
 					"static" : true,
 					"uRepeat" : 26,
@@ -314,7 +314,7 @@
 			],
 			"scale" : [0.015,0.015,0.015],
 			"rotate" : [0,177,0],
-			"translate" : [-2,-1,2]
+			"translate" : [-2,-1.5,2]
 		},
 		{
 			"name" : "TopBoulder",
@@ -326,7 +326,7 @@
 			],
 			"scale" : [0.02,0.02,0.02],
 			"rotate" : [0,0,0],
-			"translate" : [3.66,-1,17.7]
+			"translate" : [3.66,-1.5,17.7]
 		},
 		{
 			"name" : "LowerLeftBoulder",
@@ -338,7 +338,7 @@
 			],
 			"scale" : [0.02,0.02,0.02],
 			"rotate" : [0,0,0],
-			"translate" : [17,-1,-2.45]
+			"translate" : [17,-1.75,-2.45]
 		},
 		{
 			"name" : "LowerMushroom",

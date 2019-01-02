@@ -17,13 +17,14 @@ namespace puppy
 	protected:
 		GLuint m_id;
 		ShaderType m_type;
+		bool m_hasLights;
 
 		int getAttrLocation(const char* p_name) const;
 
 		ShaderProgram(const std::string& p_vertexShaderPath, const std::string& p_pixelShaderPath, ShaderType p_type);
 		~ShaderProgram();
 
-		void apply() const;
+		void apply();
 
 	public:
 		int getUniformPlace(const std::string& p_name);

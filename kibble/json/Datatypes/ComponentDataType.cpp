@@ -1341,6 +1341,28 @@ kitten::K_Component* getShowLoadingOnClick(nlohmann::json* p_jsonFile) {
 	return new ShowLoadingOnClick();
 }
 
+#include "kitten\lights\K_DirectionalLight.h"
+kitten::K_Component* getDirectionalLight(nlohmann::json* p_jsonFile) {
+
+	bool useCallbacks;
+	glm::vec3 ambientColor;
+	glm::vec3 directionalColor;
+
+	SETOPTDEF(useCallbacks, "useCallbacks", false);
+	
+	if (JSONHAS("ambientColor"))
+	{
+		ambientColor = glm::vec3(LOOKUP("ambientColor")[0], LOOKUP("ambientColor")[1], LOOKUP("ambientColor")[2]);
+	}
+
+	if (JSONHAS("directionalColor"))
+	{
+		directionalColor = glm::vec3(LOOKUP("directionalColor")[0], LOOKUP("directionalColor")[1], LOOKUP("directionalColor")[2]);
+	}
+
+	return new kitten::K_DirectionalLight(ambientColor, directionalColor, useCallbacks);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1446,6 +1468,7 @@ void setupComponentMap() {
 	jsonComponentMap["TileDecoration"] = &getTileDecoration;
 	jsonComponentMap["SimpleQuadRenderable"] = &getSimpleQuadRenderable;
 	jsonComponentMap["ShowLoadingOnClick"] = &getShowLoadingOnClick;
+	jsonComponentMap["DirectionalLight"] = &getDirectionalLight;
 
 }
 
