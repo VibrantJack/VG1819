@@ -1,0 +1,11 @@
+{
+    "name" : "Loading Message",
+    "components" : [
+		{
+			"name" : "UIElement",
+			"texture" : "textures/ui/loading_message.tga"
+		}
+    ],
+	"translate" : [540, 210, 0.01],
+	"scale2d" : [200, 50]
+}

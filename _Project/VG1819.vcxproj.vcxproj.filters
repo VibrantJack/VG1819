@@ -743,6 +743,9 @@
     <ClCompile Include="..\components\DrawCardOnClickUI.cpp">
       <Filter>components\deck</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\QuadEdgeRenderable.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
     <ClCompile Include="..\ability\ability\Defend.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
@@ -802,6 +805,18 @@
     </ClCompile>
     <ClCompile Include="..\components\clickables\DeleteDeckOnClick.cpp">
       <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\DecorationGenerator.cpp">
+      <Filter>board\tile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\TileDecoration.cpp">
+      <Filter>board\tile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\SimpleQuadRenderable.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\CardContext.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="ShowLoadingOnClick.cpp">
       <Filter>components\scene changers</Filter>
@@ -1733,6 +1748,21 @@
     </ClInclude>
     <ClInclude Include="..\components\clickables\DeleteDeckOnClick.h">
       <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\QuadEdgeRenderable.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\tile\DecorationGenerator.h">
+      <Filter>board\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\tile\TileDecoration.h">
+      <Filter>board\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\SimpleQuadRenderable.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\CardContext.h">
+      <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="ShowLoadingOnClick.h">
       <Filter>components\scene changers</Filter>

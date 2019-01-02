@@ -1,0 +1,16 @@
+{
+    "name" : "grass_sand_edge_5", 
+    "components" : [
+    {
+        "name" : "QuadRenderableRepeat",
+        "texture" : "textures/tiles/tileDecoration/grass_sand_edge/grass_sand_edge_05.png",
+        "static" : true,
+        "texRepeat" : true,
+		"uRepeat" : 0.97,
+		"vRepeat" : 2.0
+    }
+    ],
+    "rotate" : [0,90,0],
+    "scale" : [0.5,1,0.25],
+    "translate" : [-0.375,0.001,0]
+}

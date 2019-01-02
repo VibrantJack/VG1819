@@ -17,6 +17,7 @@
 #define VICTORY_TEXTURE "textures/ui/victory.tga"
 #define DEFEAT_TEXTURE "textures/ui/defeat.tga"
 #define DISCONNECT_TEXTURE "textures/ui/disconnect_message.tga"
+#define DESYNC_TEXTURE "textures/ui/desync_message.tga"
 
 TabMenu::TabMenu(const char* p_pathToTex)
 	:
@@ -76,18 +77,26 @@ void TabMenu::enableEndGameScreen(kitten::Event::EventType p_type, kitten::Event
 	int gameResult = p_data->getInt(GAME_END_RESULT);
 	switch (gameResult)
 	{
-		case 0: // Host Commander died
+		case HOST_COMMANDER_DIED:
 			m_endGameScreenObj->setTexture(DEFEAT_TEXTURE);
 			break;
-		case 1: // Client Commander died
+		case CLIENT_COMMANDER_DIED:
 			// m_endGameScreenObj starting texture is Victory texture
 			break;
-		case 2: // Player disconnected
+		case PLAYER_DISCONNECTED:
 			m_endGameScreenObj->setTexture(DISCONNECT_TEXTURE);
+			break;
+		case CLIENT_DESYNCED:
+			m_endGameScreenObj->setTexture(DESYNC_TEXTURE);
 			break;
 	}		
 
 	m_endGameScreenObj->setEnabled(true);	// Show UIObject with appropriate end game message
 	m_returnToMainButton->setEnabled(true); 
 	m_bGameEnded = true; // Permanently show main menu button
+
+	// Disables interacting with other game features
+	kitten::Event* eventData = new kitten::Event(kitten::Event::Pause_Menu_Open);
+	eventData->putInt(PAUSE_MENU_OPEN, m_bOpened);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Pause_Menu_Open, eventData);
 }

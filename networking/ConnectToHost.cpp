@@ -17,7 +17,9 @@
 
 ConnectToHost::ConnectToHost()
 	:
-	m_bEnteringAddress(false)
+	m_bEnteringAddress(false),
+	m_bConnected(false),
+	m_loadingMessage(nullptr)
 {
 	
 }
@@ -46,16 +48,24 @@ void ConnectToHost::start()
 		this,
 		std::bind(&ConnectToHost::joinButtonClickedListener, this, std::placeholders::_1, std::placeholders::_2));
 
+	m_loadingMessage = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/loading_message.json");
+	m_loadingMessage->setEnabled(false);
+
 	m_inputMan->setPollMode(false);
 }
 
 void ConnectToHost::update()
 {
-
-	if ((m_inputMan->keyDown(GLFW_KEY_ENTER) && !m_inputMan->keyDownLast(GLFW_KEY_ENTER)))
+	if (m_bConnected)
 	{
 		connect();
 	}
+
+	if ((m_inputMan->keyDown(GLFW_KEY_ENTER) && !m_inputMan->keyDownLast(GLFW_KEY_ENTER)))
+	{
+		m_loadingMessage->setEnabled(true);
+		m_bConnected = true;
+	}	
 }
 
 void ConnectToHost::joinButtonClickedListener(kitten::Event::EventType p_type, kitten::Event* p_event)
@@ -91,5 +101,8 @@ void ConnectToHost::connect()
 	{
 		m_textBox->setText("Network Error");
 		m_inputMan->setPollMode(false);
+		m_loadingMessage->setEnabled(false);
 	}
+
+	m_bConnected = false;
 }
