@@ -250,7 +250,7 @@ namespace unit
 		{			
 			if (!client->isServerCalling())
 			{
-				client->sendBasicPacket(PacketTypes::SKIP_TURN);
+				client->sendSkipTurnPacket(this);
 			}
 			else
 			{
@@ -427,11 +427,11 @@ namespace unit
 				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
 				if (m_clientId == client->getClientId())
 				{
-					eventData->putInt(GAME_END_RESULT, 0); // 0: Host Commander died
+					eventData->putInt(GAME_END_RESULT, HOST_COMMANDER_DIED);
 				}
 				else
 				{
-					eventData->putInt(GAME_END_RESULT, 1); // 1: Client Commander died
+					eventData->putInt(GAME_END_RESULT, CLIENT_COMMANDER_DIED);
 				}
 				
 				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);

@@ -7,7 +7,6 @@
 #define MANIPULATE_TILE_KEY "manip_tile_key"
 #define PLAYER_COMMANDER_DEATH "player_commander_death_key"
 #define PAUSE_MENU_OPEN "pause_menu_open_key"
-#define GAME_END_RESULT "game_end_result_key"
 
 #define PLAYER_ID "playerID"
 #define CARD_ID "cardID"
@@ -20,6 +19,13 @@
 
 #define FALSE 0
 #define TRUE 1
+
+// Networking Events
+#define GAME_END_RESULT "game_end_result_key"
+#define HOST_COMMANDER_DIED 0
+#define CLIENT_COMMANDER_DIED 1
+#define PLAYER_DISCONNECTED 2
+#define CLIENT_DESYNCED 3
 
 #include "kitten/K_GameObject.h"
 

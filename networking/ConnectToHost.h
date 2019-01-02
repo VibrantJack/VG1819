@@ -23,7 +23,9 @@ private:
 	puppy::TextBox* m_textBox;
 	StringInputDisplay* m_stringInputDisplay;
 	input::InputManager* m_inputMan;
+	kitten::K_GameObject* m_loadingMessage;
 
 	bool m_bPrintText;
 	bool m_bEnteringAddress;
+	bool m_bConnected;
 };

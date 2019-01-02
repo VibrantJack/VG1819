@@ -51,6 +51,9 @@ void SpawnUnitOnDrop::onDrop()
 
 	// Delete Card
 	kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(this->m_attachedObject);
+
+	// Disable Card Context
+	m_cardContext->setEnabled(false);
 }
 
 void SpawnUnitOnDrop::onHoverEnd() {
@@ -60,6 +63,7 @@ void SpawnUnitOnDrop::onHoverEnd() {
 		m_lerpController->positionLerp(m_origin, CARD_HOVER_MOVE_TIME);
 		m_isHovered = false;
 	}
+	m_cardContext->setEnabled(false);
 }
 
 void SpawnUnitOnDrop::onHoverStart() {
@@ -69,12 +73,16 @@ void SpawnUnitOnDrop::onHoverStart() {
 		//getTransform().place2D(m_origin.x, m_origin.y + 50);
 		m_lerpController->positionLerp(glm::vec3(m_origin.x,m_origin.y + 50 , m_origin.z), CARD_HOVER_MOVE_TIME);
 	}
+	// TODO: Set the unit from the proper attached Unit
+	m_cardContext->setUnit(kibble::getUnitFromId(1));
+	m_cardContext->setEnabled(true);
 }
 
 void SpawnUnitOnDrop::onPause()
 {
 	DragNDrop::onDrop();
 	m_isDragging = false;
+	m_cardContext->setEnabled(false);
 }
 
 void SpawnUnitOnDrop::onPosChanged(const glm::vec3& p_newPos)
@@ -84,6 +92,14 @@ void SpawnUnitOnDrop::onPosChanged(const glm::vec3& p_newPos)
 		m_origin = m_attachedObject->getTransform().getTranslation();
 	}
 } 
+
+SpawnUnitOnDrop::SpawnUnitOnDrop()
+	:
+	DragNDrop(true),
+	m_cardContext(nullptr)
+{
+
+}
 
 SpawnUnitOnDrop::~SpawnUnitOnDrop()
 {

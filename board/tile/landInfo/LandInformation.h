@@ -74,7 +74,7 @@ public:
 	GrassLand()
 	{
 		m_Type = Grass_land;
-		m_TexturePath = "textures/tiles/grassland.tga";
+		m_TexturePath = "textures/tiles/grass.png";
 		m_mvCost = 1;
 		m_description = "Ordinary land. Nothing special.";
 	};
@@ -86,7 +86,7 @@ public:
 	SwampLand()
 	{
 		m_Type = Swamp_land;
-		m_TexturePath = "textures/tiles/missing.tga";
+		m_TexturePath = "textures/tiles/dark_water.png";
 		m_mvCost = 2;
 		m_description = "It's hard to move cross it. When stay on it, unit will lost 1 HP.";
 	};
@@ -100,7 +100,7 @@ public:
 	SandLand()
 	{
 		m_Type = Sand_land;
-		m_TexturePath = "textures/tiles/sand.tga";
+		m_TexturePath = "textures/tiles/sand.png";
 		m_mvCost = 1;
 		m_description = "Unit will temporarily -1 IN";
 	};
@@ -114,7 +114,7 @@ public:
 	ForestLand()
 	{
 		m_Type = Forest_land;
-		m_TexturePath = "textures/tiles/forest.tga";
+		m_TexturePath = "textures/tiles/grass.png";
 		m_mvCost = 2;
 		m_description = "It's hard to move cross it. Unit will temporarily -1 MV.";
 	};
@@ -128,7 +128,7 @@ public:
 	GardenLand()
 	{
 		m_Type = Garden_land;
-		m_TexturePath = "textures/tiles/garden.tga";
+		m_TexturePath = "textures/tiles/grass.png";
 		m_mvCost = 1;
 		m_description = "Nice place to rest. Unit will heal 1 HP and temporarily +1 Max HP.";
 	};
@@ -142,7 +142,7 @@ public:
 	WaterLand()
 	{
 		m_Type = Water_land;
-		m_TexturePath = "textures/tiles/water.tga";
+		m_TexturePath = "textures/tiles/water.png";
 		m_mvCost = 100;
 		m_description = "Can not move across";
 	};

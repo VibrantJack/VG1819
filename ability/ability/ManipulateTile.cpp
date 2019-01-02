@@ -30,6 +30,7 @@ namespace ability
 			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Manipulate_Tile, e);
 		}
 
+		/*highlight is done in setOwnerID
 		//highlight the tile
 		kitten::Event* t = new kitten::Event(kitten::Event::EventType::Highlight_Tile);
 
@@ -40,6 +41,7 @@ namespace ability
 		t->putTileList(&list);
 
 		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Highlight_Tile, t);
+		*/
 
 		/*
 		kitten::Event* p_data = new kitten::Event(kitten::Event::EventType::Highlight_Tile);

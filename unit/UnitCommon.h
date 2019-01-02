@@ -23,6 +23,7 @@
 #define UNIT_CD "cd"
 #define UNIT_DURATION "duration"
 #define UNIT_POWER "power"
+#define UNIT_ABILITY_DESCRIPTION "description"
 
 //counter attribute
 #define COUNTER_NAME "counter_name"

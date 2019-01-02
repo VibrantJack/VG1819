@@ -1,0 +1,12 @@
+{
+    "name" : "grass_sand_edge_8", 
+    "components" : [
+    {
+        "name" : "QuadRenderable",
+        "texture" : "textures/tiles/tileDecoration/sand_grass_edge/sand_grass_edge_02.png",
+        "static" : true
+    }
+    ],
+    "scale" : [0.25,1,0.25],
+    "translate" : [-0.375,0.001,-0.375]
+}

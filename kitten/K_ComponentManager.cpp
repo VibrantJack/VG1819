@@ -335,6 +335,9 @@ namespace kitten
 		//find in update list and remove
 		m_toUpdate.erase(p_toRemove);
 
+		//remove anything queued to add to update list
+		m_toAddToUpdate.remove(p_toRemove);
+
 		return true;
 	}
 

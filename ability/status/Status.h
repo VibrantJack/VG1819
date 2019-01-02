@@ -54,6 +54,11 @@ namespace ability
 
 		void registerTPEvent();
 
+		// Getters for info
+		int getLV() { return m_LV; }
+		const std::unordered_map<std::string, int>& getCounters() { return m_counter; }
+		const std::unordered_map<std::string, int>& getAttributeChanges() { return m_attributeChange; }
+
 		//for test
 		void print();
 
