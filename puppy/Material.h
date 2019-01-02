@@ -25,10 +25,12 @@ namespace puppy
 		~Material();
 
 		virtual void setTexture(const char* p_pathToTex);
+		virtual void setTexture(puppy::Texture* p_tex);
 		puppy::Texture* getTexture() const;
 
 		//One-time set
 		void setUniform(const std::string& p_name, const glm::mat4& p_mat4);
+		void setUniform(const std::string& p_name, const glm::mat3& p_mat3);
 		void setUniform(const std::string& p_name, const glm::vec4& p_vec4);
 		void setUniform(const std::string& p_name, const glm::vec3& p_vec3);
 		void setUniform(const std::string& p_name, const glm::vec2& p_vec2);

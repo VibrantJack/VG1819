@@ -36,15 +36,7 @@ namespace kitten
 	{
 		if (m_isDirty)
 		{
-			m_matWorldNoScale = m_matTranslation * glm::mat4_cast(m_quatRotation);
-			m_matWorld = m_matWorldNoScale * m_matScale;
-			
-			if (!m_ignoresParent && m_parent != nullptr)
-			{
-				m_matWorldNoScale = m_parent->getWorldTransformNoScale() * m_matWorldNoScale;
-				m_matWorld = m_matWorldNoScale * glm::scale((m_scale * m_parent->getScale()));
-			}
-			m_isDirty = false;
+			rebuildWorldMatrix();
 		}
 
 		return m_matWorld;
@@ -54,18 +46,20 @@ namespace kitten
 	{
 		if (m_isDirty)
 		{
-			m_matWorldNoScale = m_matTranslation * glm::mat4_cast(m_quatRotation);
-			m_matWorld = m_matWorldNoScale * m_matScale;
-			
-			if (!m_ignoresParent && m_parent != nullptr)
-			{
-				m_matWorldNoScale = m_parent->getWorldTransformNoScale() * m_matWorldNoScale;
-				m_matWorld = m_matWorldNoScale * glm::scale((m_scale * m_parent->getScale()));
-			}
-			m_isDirty = false;
+			rebuildWorldMatrix();
 		}
 
 		return m_matWorldNoScale;
+	}
+
+	const glm::mat3& Transform::getWorldIT()
+	{
+		if (m_isDirty)
+		{
+			rebuildWorldMatrix();
+		}
+
+		return m_matWorldIT;
 	}
 
 	void Transform::move2D(const float xUnits, const float yUnits)

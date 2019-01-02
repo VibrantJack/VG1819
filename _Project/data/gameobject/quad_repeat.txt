@@ -4,7 +4,7 @@
         {
             "name" : "QuadRenderableRepeat",
 			"texture" : "textures/tiles/grassland.tga",
-			"static" : false,
+			"static" : true,
 			"texRepeat" : true,
 			"uRepeat" : 15.0,
 			"vRepeat" : 15.0

@@ -71,9 +71,17 @@ namespace puppy
 			*p_vertexShaderPath = "Shaders/particles.vsh";
 			*p_pixelShaderPath = "Shaders/particles.fsh";
 			return true;
-		case ShaderType::solid_colour:
+		case ShaderType::solid_color:
 			*p_vertexShaderPath = "Shaders/solid_colour.vsh";
 			*p_pixelShaderPath = "Shaders/solid_colour.fsh";
+			return true;
+		case ShaderType::basic_directional_light:
+			*p_vertexShaderPath = "Shaders/basic_directional_light.vsh";
+			*p_pixelShaderPath = "Shaders/basic_directional_light.fsh";
+			return true;
+		case ShaderType::solid_color_directional_light:
+			*p_vertexShaderPath = "Shaders/solid_colour_directional_light.vsh";
+			*p_pixelShaderPath = "Shaders/solid_colour_directional_light.fsh";
 			return true;
 		case ShaderType::texture_blend_zero:
 			*p_vertexShaderPath = "Shaders/basic.vsh";
