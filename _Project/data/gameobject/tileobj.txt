@@ -5,8 +5,8 @@
 		"name" : "QuadRenderableRepeat",
 		"static" : true,
 		"texRepeat" : true,
-		"uRepeat" : 4.0,
-		"vRepeat" : 4.0
+		"uRepeat" : 2.0,
+		"vRepeat" : 2.0
         },
 	{
 		"name" : "QuadEdgeRenderable",

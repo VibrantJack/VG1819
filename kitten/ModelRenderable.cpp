@@ -41,5 +41,5 @@ void ModelRenderable::onDisabled()
 
 void ModelRenderable::render(const glm::mat4& p_viewProj)
 {
-	m_model->render(p_viewProj * getTransform().getWorldTransform());
+	m_model->render(p_viewProj * getTransform().getWorldTransform(), getTransform().getWorldIT(), getTransform().getWorldTransform());
 }

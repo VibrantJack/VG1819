@@ -8,6 +8,7 @@
 #include <assimp\postprocess.h>
 
 #include <vector>
+#include <string>
 
 // Based on: https://learnopengl.com/Model-Loading/Model
 
@@ -17,6 +18,7 @@ namespace puppy
 	{
 	private:
 		std::vector<P_Mesh*> m_meshes;
+		std::string m_name;
 
 		void processNode(aiNode* p_node, const aiScene* p_scene);
 		void processMesh(aiMesh* mesh, const aiScene* p_scene);
@@ -24,6 +26,6 @@ namespace puppy
 		P_Model(const char* p_pathToModel, bool p_flipUVs);
 		~P_Model();
 
-		virtual void render(const glm::mat4& p_worldViewProj);
+		virtual void render(const glm::mat4& p_worldViewProj, const glm::mat3& p_worldIT, const glm::mat4& p_world);
 	};
 }

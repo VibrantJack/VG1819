@@ -24,6 +24,6 @@ namespace puppy
 		P_Mesh(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices, glm::vec4& p_colour);
 		~P_Mesh();
 
-		void render(const glm::mat4& p_worldViewProj);
+		void render(const glm::mat4& p_worldViewProj, const glm::mat3& p_worldIT, const glm::mat4& p_world);
 	};
 }
