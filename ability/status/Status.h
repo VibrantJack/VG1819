@@ -31,12 +31,12 @@ namespace ability
 	class Status
 	{
 	public:
-		std::string m_name;
 		std::string m_source;
 
 		Status();
 		virtual ~Status();
 
+		void changeName(const std::string & p_msg);
 		void changeLV(int p_lv);
 		void changeDescription(const std::string & p_msg);
 		void setEffectedAD(const std::string & p_msg);
@@ -58,17 +58,25 @@ namespace ability
 		int getLV() { return m_LV; }
 		const std::unordered_map<std::string, int>& getCounters() { return m_counter; }
 		const std::unordered_map<std::string, int>& getAttributeChanges() { return m_attributeChange; }
+		std::string getDescription() { return m_description; };
+		std::string getName() { return m_name; };
+		std::string getID() { return m_Id; };
 
 		//for test
 		void print();
 
 	protected:
+		//the text that will be showed to player
+		std::string m_name;
+		std::string m_description;
+
+		std::string m_Id;//the id identify status
+
 		unit::Unit * m_unit;//the unit this status attached to
 
 		std::unordered_map<std::string, int> m_counter;
 		//Most commonly counter is duration. But it can be more, such as how many times it can be used
 
-		std::string m_description;//the text that will be showed to player
 		int m_LV;
 		std::unordered_map<std::string, int> m_attributeChange;
 		std::string m_effectedAD;

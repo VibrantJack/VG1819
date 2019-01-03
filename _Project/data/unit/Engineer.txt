@@ -42,7 +42,6 @@
 			{
 				"name":"Status_LV",
 				"lv":3,
-				"time_point":2,
 				"mv":1
 			}
 		]

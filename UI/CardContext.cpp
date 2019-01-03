@@ -222,6 +222,10 @@ void CardContext::updateUnitData()
 		if (mv > 0)
 			statusDesc += " MV+" + std::to_string(mv);
 
+		/*
+		std::string description = it->getDescription();
+		statusDesc += "  "+description;*/
+
 		statusText->setText(statusDesc);
 		m_statusList.push_back(statusText);
 		row += std::ceil(statusDesc.length() / LINE_MAX_CHAR_LENGTH);

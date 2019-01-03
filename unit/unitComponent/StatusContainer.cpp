@@ -53,11 +53,11 @@ namespace unit
 		return false;
 	}
 
-	ability::Status * StatusContainer::getStatus(const std::string & p_name, const std::string& p_source)
+	ability::Status * StatusContainer::getStatus(const std::string & p_Id, const std::string& p_source)
 	{
 		for (ability::Status* it : m_statusList)
 		{
-			if (it->m_name == p_name && it->m_source == p_source)
+			if (it->getID == p_Id && it->m_source == p_source)
 			{
 				return it;
 			}

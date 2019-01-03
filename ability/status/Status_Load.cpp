@@ -2,7 +2,7 @@
 #include "ability/AbilityMacro.h"
 ability::Status_Load::Status_Load()
 {
-	m_name = STATUS_LOAD;
+	m_Id = STATUS_LOAD;
 	addTimePoint(TimePointEvent::Deal_Damage);
 }
 
