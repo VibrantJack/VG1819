@@ -15,7 +15,7 @@ namespace puppy
 		clearAllData();
 	}
 	
-	void StaticRenderables::addToAppropriateRender(const void* p_owner, const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements, bool p_isUI)
+	void StaticRenderables::addToAppropriateRender(const void* p_owner, const Material& p_mat, TexturedVertex p_data[], int p_numElements, bool p_isUI)
 	{
 		render_map *texData;
 		if (p_isUI)
@@ -27,7 +27,7 @@ namespace puppy
 			texData = &m_texturedData;
 		}
 
-		auto found = texData->find(*p_texNeeded->getTex());
+		auto found = texData->find(p_mat);
 
 		std::vector<TexturedVertex> toInsert(p_data, p_data + p_numElements);
 
@@ -50,8 +50,10 @@ namespace puppy
 			newMap.insert(std::make_pair(p_owner, toInsert));
 
 			//insert map into data
-			texData->insert(std::make_pair(*p_texNeeded->getTex(), std::make_pair(newMap, true)));
+			texData->insert(std::make_pair(p_mat, std::make_pair(newMap, true)));
 
+			//@TODO: CHECK IF NEEDED
+			/*
 			//Check if we need to create a copy of the texture
 			auto textureFound = m_idToTex.find(*p_texNeeded->getTex());
 			if (textureFound == m_idToTex.end())
@@ -59,18 +61,19 @@ namespace puppy
 				puppy::Texture* tex = new puppy::Texture(p_texNeeded->getPath());
 				m_idToTex.insert(std::make_pair(*tex->getTex(), tex));
 			}	
+			*/
 		}
 	}
 
-	void StaticRenderables::addToRender(const void* p_owner, const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements)
+	void StaticRenderables::addToRender(const void* p_owner, const Material& p_mat, TexturedVertex p_data[], int p_numElements)
 	{
-		addToAppropriateRender(p_owner, p_texNeeded, p_data, p_numElements, false);
+		addToAppropriateRender(p_owner, p_mat, p_data, p_numElements, false);
 	}
 
-	void StaticRenderables::removeFromRender(const void* p_owner, const Texture* p_tex)
+	void StaticRenderables::removeFromRender(const void* p_owner, const Material& p_mat)
 	{
 		//Search for texture
-		auto found = m_texturedData.find(*p_tex->getTex());
+		auto found = m_texturedData.find(p_mat);
 		if (found != m_texturedData.end())
 		{
 			//Search for owner in texture's map
@@ -85,15 +88,15 @@ namespace puppy
 		}
 	}
 
-	void StaticRenderables::addToUIRender(const void* p_owner, const Texture* p_texNeeded, TexturedVertex p_data[], int p_numElements)
+	void StaticRenderables::addToUIRender(const void* p_owner, const Material& p_mat, TexturedVertex p_data[], int p_numElements)
 	{
-		addToAppropriateRender(p_owner, p_texNeeded, p_data, p_numElements, true);
+		addToAppropriateRender(p_owner, p_mat, p_data, p_numElements, true);
 	}
 
-	void StaticRenderables::removeFromUIRender(const void* p_owner, const Texture* p_tex)
+	void StaticRenderables::removeFromUIRender(const void* p_owner, const Material& p_mat)
 	{
 		//Search for texture
-		auto found = m_texturedDataUI.find(*p_tex->getTex());
+		auto found = m_texturedDataUI.find(p_mat);
 		if (found != m_texturedDataUI.end())
 		{
 			//Search for owner in texture's map
@@ -108,7 +111,7 @@ namespace puppy
 		}
 	}
 
-	void StaticRenderables::constructRenderable(GLuint p_where, render_map* p_from, std::unordered_map<Texture*, VertexEnvironment*>* p_toChange)
+	void StaticRenderables::constructRenderable(const Material& p_where, render_map* p_from, std::unordered_map<Material, VertexEnvironment*>* p_toChange)
 	{
 		//get vector to create buffer from
 		auto found = p_from->find(p_where);
@@ -143,7 +146,7 @@ namespace puppy
 			VertexEnvironment* toRender = new VertexEnvironment(createdData.data(),
 				ShaderManager::getShaderProgram(ShaderType::basic), createdData.size());
 
-			auto foundRender = p_toChange->find(m_idToTex[p_where]);
+			auto foundRender = p_toChange->find(p_where);
 			if (foundRender != p_toChange->end())
 			{
 				delete foundRender->second;
@@ -151,16 +154,16 @@ namespace puppy
 			}
 			else
 			{
-				p_toChange->insert(std::make_pair(m_idToTex[p_where], toRender));
+				p_toChange->insert(std::make_pair(p_where, toRender));
 			}
 		}
 		else
 		{
-			auto foundRender = p_toChange->find(m_idToTex[p_where]);
+			auto foundRender = p_toChange->find(p_where);
 			if (foundRender != p_toChange->end())
 			{
 				delete foundRender->second;
-				p_toChange->erase(m_idToTex[p_where]);
+				p_toChange->erase(p_where);
 			}
 		}
 
@@ -193,22 +196,19 @@ namespace puppy
 		renderStatic(m_toRenderUI, p_cam->getOrtho());
 	}
 
-	void StaticRenderables::renderStatic(const std::unordered_map<Texture*, VertexEnvironment*>& p_toRender, const glm::mat4& p_viewProj)
+	void StaticRenderables::renderStatic(const std::unordered_map<Material, VertexEnvironment*>& p_toRender, const glm::mat4& p_viewProj)
 	{
 		auto end = p_toRender.cend();
 		for (auto it = p_toRender.cbegin(); it != end; ++it)
 		{
-			//apply shaderProgram
-			ShaderManager::applyShader(ShaderType::basic);
+			auto& pair = (*it);
+			auto& mat = pair.first;
+			auto& vertices = pair.second;
 
-			//apply tex
-			it->first->apply();
+			mat.apply();
+			mat.setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_viewProj);
 
-			//apply uniform (don't need a world matrix since everything should already be in world space)
-			glUniformMatrix4fv(ShaderManager::getShaderProgram(ShaderType::basic)->getUniformPlace(WORLD_VIEW_PROJ_UNIFORM_NAME), 1, GL_FALSE, glm::value_ptr(p_viewProj));
-
-			//Draw!
-			it->second->drawArrays(GL_TRIANGLES);
+			vertices->drawArrays(GL_TRIANGLES);
 		}
 	}
 
@@ -225,11 +225,13 @@ namespace puppy
 			delete (*it).second;
 		}
 
+		/*
 		//Delete textures
 		for (auto it = m_idToTex.begin(); it != m_idToTex.end(); it = m_idToTex.erase(it))
 		{
 			delete (*it).second;
 		}
+		*/
 
 		//Clear everything else
 		m_texturedData.clear();
@@ -251,6 +253,36 @@ namespace puppy
 			currentVert.x = tempVec.x;
 			currentVert.y = tempVec.y;
 			currentVert.z = tempVec.z;
+		}
+	}
+
+	void StaticRenderables::putInWorldSpace(NormalVertex p_toTransform[], int p_numElements, const glm::mat4& p_worldMat)
+	{
+		glm::vec4 tempVec(0, 0, 0, 1);
+		for (int i = 0; i < p_numElements; ++i)
+		{
+			NormalVertex& currentVert = p_toTransform[i];
+			// Coordinates
+			tempVec.x = currentVert.x;
+			tempVec.y = currentVert.y;
+			tempVec.z = currentVert.z;
+
+			tempVec = p_worldMat * tempVec;
+
+			currentVert.x = tempVec.x;
+			currentVert.y = tempVec.y;
+			currentVert.z = tempVec.z;
+
+			// Normals
+			tempVec.x = currentVert.nx;
+			tempVec.y = currentVert.ny;
+			tempVec.z = currentVert.nz;
+
+			tempVec = p_worldMat * tempVec;
+
+			currentVert.nx = tempVec.x;
+			currentVert.ny = tempVec.y;
+			currentVert.nz = tempVec.z;
 		}
 	}
 }

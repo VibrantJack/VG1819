@@ -52,7 +52,7 @@ namespace kitten
 		{
 			if (m_isEnabled && m_isRenderingStatic)
 			{
-				removeFromStaticRender(m_staticTex);
+				removeFromStaticRender(m_mat);
 			}
 			else if(m_isEnabled)
 			{
@@ -80,7 +80,7 @@ namespace kitten
 
 			m_staticTex = m_mat.getOwnedTexture();
 
-			K_Renderable::addToStaticRender(m_staticTex, verts, 6);
+			K_Renderable::addToStaticRender(m_mat, verts, 6);
 		}
 	}
 
@@ -92,7 +92,7 @@ namespace kitten
 		{
 			if (m_isRenderingStatic && m_mat.getNumberOfTextures() > 1)
 			{
-				removeFromStaticRender(m_staticTex);
+				removeFromStaticRender(m_mat);
 				addToDynamicRender();
 				m_isRenderingStatic = false;
 			}
@@ -112,7 +112,7 @@ namespace kitten
 		{
 			if (m_isRenderingStatic && m_mat.getNumberOfTextures() > 1)
 			{
-				removeFromStaticRender(m_staticTex);
+				removeFromStaticRender(m_mat);
 				addToDynamicRender();
 				m_isRenderingStatic = false;
 			}
@@ -163,7 +163,7 @@ namespace kitten
 		{
 			if (m_mat.getNumberOfTextures() == 1)
 			{
-				removeFromStaticRender(m_staticTex);
+				removeFromStaticRender(m_mat);
 			}
 			else
 			{
