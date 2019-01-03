@@ -7,6 +7,7 @@
 #include "kitten\Camera.h"
 
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace puppy
@@ -24,7 +25,7 @@ namespace puppy
 		friend class P_UIRenderable;
 		friend class P_Renderable;
 	private:
-		typedef std::unordered_map<Material, std::pair<std::unordered_map<const void*, std::vector<TexturedVertex>>, bool>> render_map;
+		typedef std::unordered_map<Material*, std::pair<std::unordered_map<const void*, std::vector<TexturedVertex>>, bool>> render_map;
 
 		//Singleton stuff
 		StaticRenderables();
@@ -33,12 +34,13 @@ namespace puppy
 		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new StaticRenderables(); };
 		static void destroyInstance() { assert(sm_instance != nullptr); delete sm_instance; sm_instance = nullptr; };
 	
-		std::unordered_map<Material, VertexEnvironment*> m_toRender;
+		std::unordered_map<Material*, VertexEnvironment*> m_toRender;
 		render_map m_texturedData;
 		
-		std::unordered_map<Material, VertexEnvironment*> m_toRenderUI;
+		std::unordered_map<Material*, VertexEnvironment*> m_toRenderUI;
 		render_map m_texturedDataUI;
 
+		std::vector<Material*> m_ownedMaterials;
 		//std::unordered_map<GLuint, Texture*> m_idToTex;
 		
 		/*
@@ -46,21 +48,35 @@ namespace puppy
 		vertex data needed.  Assumes the vertex data has already been transformed
 		into world space. This data is then later combined into a single draw call.
 		*/
-		void addToRender(const void* p_owner, const Material& p_mat, TexturedVertex p_data[], int p_numElements);
-		void removeFromRender(const void* p_owner, const Material&);
+		void addToRender(const void* p_owner, const Material* p_mat, TexturedVertex p_data[], int p_numElements);
+		void removeFromRender(const void* p_owner, const Material* p_mat);
 
-		void addToUIRender(const void* p_owner, const Material& p_mat, TexturedVertex p_data[], int p_numElements);
-		void removeFromUIRender(const void* p_owner, const Material& p_mat);
+		void addToUIRender(const void* p_owner, const Material* p_mat, TexturedVertex p_data[], int p_numElements);
+		void removeFromUIRender(const void* p_owner, const Material* p_mat);
 
 		/*
 			Helper methods to construct TexturedVertex's into
 			one draw call
 		*/
-		void constructRenderable(const Material& p_where, render_map* p_from, std::unordered_map<Material, VertexEnvironment*>* p_toChange);
-		void addToAppropriateRender(const void* p_owner, const Material& p_mat, TexturedVertex p_data[], int p_numElements, bool p_isUi);
+		void constructRenderable(Material* p_where, render_map* p_from, std::unordered_map<Material*, VertexEnvironment*>* p_toChange);
+		void addToAppropriateRender(const void* p_owner, Material* p_mat, TexturedVertex p_data[], int p_numElements, bool p_isUi);
 
 		//Helper method to reduce code duplication
-		void renderStatic(const std::unordered_map<Material, VertexEnvironment*>& p_toRender, const glm::mat4& p_viewProj);
+		void renderStatic(const std::unordered_map<Material*, VertexEnvironment*>& p_toRender, const glm::mat4& p_viewProj);
+
+		inline Material* getMatchingOwnedMaterial(const Material* p_mat) const
+		{
+			auto end = m_ownedMaterials.cend();
+			for (auto it = m_ownedMaterials.begin(); it != end; ++it)
+			{
+				if (*p_mat == *(*it))
+				{
+					return (*it);
+				}
+			}
+			return nullptr;
+		}
+
 	public:
 		//Singleton stuff
 		static StaticRenderables* getInstance() { return sm_instance; };

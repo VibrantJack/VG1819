@@ -45,6 +45,7 @@ namespace puppy
 
 		m_shader = p_other.m_shader;
 		m_name = p_other.m_name;
+		return *this;
 	}
 
 	bool Material::operator==(const Material& p_other) const

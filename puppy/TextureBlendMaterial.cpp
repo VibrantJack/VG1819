@@ -9,14 +9,6 @@ namespace puppy
 
 	TextureBlendMaterial::~TextureBlendMaterial()
 	{
-		/*
-		auto end = m_additionalTextures.cend();
-		for (auto it = m_additionalTextures.cbegin(); it != end; ++it)
-		{
-			delete std::get<0>((*it).second);
-		}
-		*/
-
 		//We don't own the textures in m_textures except m_ownedTexture
 
 		if (m_ownedTexture != nullptr)

@@ -15,7 +15,7 @@ namespace puppy
 		clearAllData();
 	}
 	
-	void StaticRenderables::addToAppropriateRender(const void* p_owner, const Material& p_mat, TexturedVertex p_data[], int p_numElements, bool p_isUI)
+	void StaticRenderables::addToAppropriateRender(const void* p_owner, Material* p_mat, TexturedVertex p_data[], int p_numElements, bool p_isUI)
 	{
 		render_map *texData;
 		if (p_isUI)
@@ -51,67 +51,79 @@ namespace puppy
 
 			//insert map into data
 			texData->insert(std::make_pair(p_mat, std::make_pair(newMap, true)));
-
-			//@TODO: CHECK IF NEEDED
-			/*
-			//Check if we need to create a copy of the texture
-			auto textureFound = m_idToTex.find(*p_texNeeded->getTex());
-			if (textureFound == m_idToTex.end())
-			{
-				puppy::Texture* tex = new puppy::Texture(p_texNeeded->getPath());
-				m_idToTex.insert(std::make_pair(*tex->getTex(), tex));
-			}	
-			*/
 		}
 	}
 
-	void StaticRenderables::addToRender(const void* p_owner, const Material& p_mat, TexturedVertex p_data[], int p_numElements)
+	void StaticRenderables::addToRender(const void* p_owner, const Material* p_mat, TexturedVertex p_data[], int p_numElements)
 	{
-		addToAppropriateRender(p_owner, p_mat, p_data, p_numElements, false);
+		Material* usingMat = getMatchingOwnedMaterial(p_mat);
+
+		if (usingMat == nullptr)
+		{
+			usingMat = new Material(*p_mat);
+			m_ownedMaterials.push_back(usingMat);
+		}
+
+		addToAppropriateRender(p_owner, usingMat, p_data, p_numElements, false);
 	}
 
-	void StaticRenderables::removeFromRender(const void* p_owner, const Material& p_mat)
+	void StaticRenderables::removeFromRender(const void* p_owner, const Material* p_mat)
 	{
 		//Search for texture
-		auto found = m_texturedData.find(p_mat);
-		if (found != m_texturedData.end())
+		Material* ownedMat = getMatchingOwnedMaterial(p_mat);
+		if (ownedMat != nullptr)
 		{
-			//Search for owner in texture's map
-			auto& vecMap = (*found).second.first;
-			auto ownerFound = vecMap.find(p_owner);
-			if (ownerFound != vecMap.end())
+			auto found = m_texturedData.find(ownedMat);
+			if (found != m_texturedData.end())
 			{
-				vecMap.erase(ownerFound);
-				//set dirty
-				(*found).second.second = true;
+				//Search for owner in texture's map
+				auto& vecMap = (*found).second.first;
+				auto ownerFound = vecMap.find(p_owner);
+				if (ownerFound != vecMap.end())
+				{
+					vecMap.erase(ownerFound);
+					//set dirty
+					(*found).second.second = true;
+				}
 			}
 		}
 	}
 
-	void StaticRenderables::addToUIRender(const void* p_owner, const Material& p_mat, TexturedVertex p_data[], int p_numElements)
+	void StaticRenderables::addToUIRender(const void* p_owner, const Material* p_mat, TexturedVertex p_data[], int p_numElements)
 	{
-		addToAppropriateRender(p_owner, p_mat, p_data, p_numElements, true);
+		Material* usingMat = getMatchingOwnedMaterial(p_mat);
+
+		if (usingMat == nullptr)
+		{
+			usingMat = new Material(*p_mat);
+			m_ownedMaterials.push_back(usingMat);
+		}
+
+		addToAppropriateRender(p_owner, usingMat, p_data, p_numElements, true);
 	}
 
-	void StaticRenderables::removeFromUIRender(const void* p_owner, const Material& p_mat)
+	void StaticRenderables::removeFromUIRender(const void* p_owner, const Material* p_mat)
 	{
-		//Search for texture
-		auto found = m_texturedDataUI.find(p_mat);
-		if (found != m_texturedDataUI.end())
+		Material* ownedMat = getMatchingOwnedMaterial(p_mat);
+		if (ownedMat != nullptr)
 		{
-			//Search for owner in texture's map
-			auto& vecMap = (*found).second.first;
-			auto ownerFound = vecMap.find(p_owner);
-			if (ownerFound != vecMap.end())
+			auto found = m_texturedDataUI.find(ownedMat);
+			if (found != m_texturedDataUI.end())
 			{
-				vecMap.erase(ownerFound);
-				//set dirty
-				(*found).second.second = true;
+				//Search for owner in texture's map
+				auto& vecMap = (*found).second.first;
+				auto ownerFound = vecMap.find(p_owner);
+				if (ownerFound != vecMap.end())
+				{
+					vecMap.erase(ownerFound);
+					//set dirty
+					(*found).second.second = true;
+				}
 			}
 		}
 	}
 
-	void StaticRenderables::constructRenderable(const Material& p_where, render_map* p_from, std::unordered_map<Material, VertexEnvironment*>* p_toChange)
+	void StaticRenderables::constructRenderable(Material* p_where, render_map* p_from, std::unordered_map<Material*, VertexEnvironment*>* p_toChange)
 	{
 		//get vector to create buffer from
 		auto found = p_from->find(p_where);
@@ -196,7 +208,7 @@ namespace puppy
 		renderStatic(m_toRenderUI, p_cam->getOrtho());
 	}
 
-	void StaticRenderables::renderStatic(const std::unordered_map<Material, VertexEnvironment*>& p_toRender, const glm::mat4& p_viewProj)
+	void StaticRenderables::renderStatic(const std::unordered_map<Material*, VertexEnvironment*>& p_toRender, const glm::mat4& p_viewProj)
 	{
 		auto end = p_toRender.cend();
 		for (auto it = p_toRender.cbegin(); it != end; ++it)
@@ -205,8 +217,8 @@ namespace puppy
 			auto& mat = pair.first;
 			auto& vertices = pair.second;
 
-			mat.apply();
-			mat.setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_viewProj);
+			mat->apply();
+			mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_viewProj);
 
 			vertices->drawArrays(GL_TRIANGLES);
 		}
@@ -224,14 +236,11 @@ namespace puppy
 		{
 			delete (*it).second;
 		}
-
-		/*
-		//Delete textures
-		for (auto it = m_idToTex.begin(); it != m_idToTex.end(); it = m_idToTex.erase(it))
+		
+		for (auto it = m_ownedMaterials.begin(); it != m_ownedMaterials.end(); it = m_ownedMaterials.erase(it))
 		{
-			delete (*it).second;
+			delete (*it);
 		}
-		*/
 
 		//Clear everything else
 		m_texturedData.clear();
