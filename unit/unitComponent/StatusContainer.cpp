@@ -57,7 +57,7 @@ namespace unit
 	{
 		for (ability::Status* it : m_statusList)
 		{
-			if (it->getID == p_Id && it->m_source == p_source)
+			if (it->getID() == p_Id && it->m_source == p_source)
 			{
 				return it;
 			}

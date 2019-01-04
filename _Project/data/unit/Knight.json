@@ -41,7 +41,7 @@
 			{
 				"name":"Status_Duelist_LV3",
 				"description":"Increases Slay damage and decrease Defend CD",
-				"lv":3,
+				"lv":3
 			}
 		]
 	},

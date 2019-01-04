@@ -75,7 +75,7 @@ namespace unit
 		switch (p_tp)
 		{
 		case ability::TimePointEvent::Turn_Start:
-			if (isCommander)
+			if (isCommander())
 				m_commander->resetPower(m_clientId);
 		case ability::TimePointEvent::Turn_End:
 		case ability::TimePointEvent::New_Tile:

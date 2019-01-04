@@ -3,6 +3,7 @@
 #include "ability/node/AbilityNodeManager.h"
 #include "ability/StatusManager.h"
 #include "ability/status/statusEvent/TimePointEvent.h"
+#include "ability/status/Status.h"
 #include "ability/AbilityMacro.h"
 #include <string>
 #include <unordered_map>

@@ -209,6 +209,11 @@ void CardContext::updateUnitData()
 		int lv = it->getLV();
 		if (lv > 0)
 			statusDesc += "LV:" + std::to_string(lv);
+		else
+		{
+			std::string name = it->getName();
+			statusDesc += name + ":";
+		}
 		
 		int hp = attributes[UNIT_HP];
 		if (hp > 0)
@@ -222,9 +227,9 @@ void CardContext::updateUnitData()
 		if (mv > 0)
 			statusDesc += " MV+" + std::to_string(mv);
 
-		/*
+		
 		std::string description = it->getDescription();
-		statusDesc += "  "+description;*/
+		statusDesc += " "+description;
 
 		statusText->setText(statusDesc);
 		m_statusList.push_back(statusText);
