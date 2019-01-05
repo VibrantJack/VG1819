@@ -3,7 +3,7 @@
 
 ability::Status_Temp_Change::Status_Temp_Change()
 {
-	m_name = STATUS_TEMP_CHANGE;
+	m_Id = STATUS_TEMP_CHANGE;
 	addTimePoint(TimePointEvent::Turn_End);
 }
 

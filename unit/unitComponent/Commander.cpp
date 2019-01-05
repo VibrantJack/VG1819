@@ -1,6 +1,10 @@
 #include "Commander.h"
 #include "unitInteraction/UnitInteractionManager.h"
 
+
+// Networking
+#include "networking\ClientGame.h"
+
 namespace unit
 {
 	unit::Commander::Commander()
@@ -46,6 +50,24 @@ namespace unit
 	void Commander::spawnUnit()
 	{
 		UnitInteractionManager::getInstance()->request(m_unit, m_adSpawn);
+	}
+
+	void Commander::resetPower(int p_clientID)
+	{
+		//if this is multiplayer
+		if (networking::ClientGame::isNetworkValid())
+		{
+			networking::ClientGame* client = networking::ClientGame::getInstance();
+
+			if (p_clientID == client->getClientId())//check this is player's commander
+			{//then reset power
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Reset_Power, nullptr);
+			}
+		}
+		else
+		{//direct reset power
+			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Reset_Power, nullptr);
+		}
 	}
 }
 

@@ -33,13 +33,12 @@
 			{
 				"name":"Status_LV",
 				"lv":2,
-				"time_point":2,
 				"hp":4
 			},
 			{
 				"name":"Status_Archer_LV3",
 				"lv":3,
-				"time_point":2,
+				"description":"Quick Shoot can deal damage three times.",
 				"hp":4
 			}
 		]

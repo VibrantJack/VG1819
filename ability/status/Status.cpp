@@ -25,7 +25,8 @@ namespace ability
 
 	void Status::print()
 	{
-		std::cout << "Name: "<<m_name << std::endl;
+		std::cout << "Name: "<< m_name << std::endl;
+		std::cout << "ID: " << m_Id << std::endl;
 		std::cout << "Description: " << m_description << std::endl;
 		std::cout << "Attached Unit: " << m_unit->m_name << std::endl;
 		
@@ -47,6 +48,11 @@ namespace ability
 	Status::~Status()
 	{
 
+	}
+
+	void Status::changeName(const std::string & p_msg)
+	{
+		m_name = p_msg;
 	}
 
 	void Status::changeLV(int p_lv)

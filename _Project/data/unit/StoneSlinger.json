@@ -30,14 +30,15 @@
 				"target":1,
 				"need_unit":1,
 				"area_max":1,
-				"description":"Next Fire will deal more damage in bigger area."
+				"description":"Next Fire will deal more damage in bigger area.",
+				"status_name":"Load",
+				"status_description":"Next Fire will deal more damage in a greater area."
 			}
 		],
 		"status":[
 			{
 				"name":"Status_LV",
 				"lv":3,
-				"time_point":2,
 				"hp":10,
 				"in":7
 			}

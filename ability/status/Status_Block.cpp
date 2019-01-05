@@ -7,7 +7,7 @@ namespace ability
 {
 	Status_Block::Status_Block() : Status::Status()
 	{
-		m_name = STATUS_BLOCK;
+		m_Id = STATUS_BLOCK;
 		addTimePoint(TimePointEvent::Receive_Damage);
 	}
 

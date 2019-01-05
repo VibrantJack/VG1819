@@ -12,8 +12,11 @@ namespace ability
 		ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_DODGE);
 
 		//set properties
+		addStatusInfo(se, p_info);
+
 		int dur = p_info->m_intValue.find(UNIT_DURATION)->second;
 		se->addCounter(UNIT_DURATION, dur);
+
 		se->m_source = ABILITY_DEFEND;
 		//attach to target
 		se->attach(p_info->m_targets[0]);

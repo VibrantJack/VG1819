@@ -141,4 +141,9 @@ void UnitInteractionManager::addPropertyFromADToPack()
 	{
 		m_package->m_intValue[it.first] = it.second;
 	}
+
+	for (auto it : m_ad->m_stringValue)
+	{
+		m_package->m_stringValue[it.first] = it.second;
+	}
 }

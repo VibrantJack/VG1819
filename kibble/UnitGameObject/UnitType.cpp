@@ -131,15 +131,17 @@ ability::Status * getStatusFrom(nlohmann::json & p_jsonfile)
 		s->addTimePoint(static_cast<ability::TimePointEvent::TPEventType>(i));
 	}*/
 
+	/*
 	//effected thing
 	if (p_jsonfile.find("effected") != p_jsonfile.end())
 	{
 		s->setEffectedAD(p_jsonfile["effected"].get<std::string>());
-	}
+	}*/
 
 	//for lv status
 	if (p_jsonfile.find(UNIT_LV) != p_jsonfile.end())
 	{
+		s->changeName(LEVEL_UP);
 		s->changeLV(p_jsonfile[UNIT_LV]);
 		//hp
 		if (p_jsonfile.find(UNIT_HP) != p_jsonfile.end())
