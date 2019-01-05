@@ -17,9 +17,28 @@ namespace puppy
 		}
 	}
 
+	Material* TextureBlendMaterial::clone() const
+	{
+		TextureBlendMaterial* toReturn = new TextureBlendMaterial();
+
+		auto end = m_textures.cend();
+		for (auto it = m_textures.cbegin(); it != end; ++it)
+		{
+			Texture* clonedTex = new Texture((*it).first->getPath());
+			toReturn->m_textures.insert(std::make_pair(clonedTex, (*it).second));
+		}
+
+		if (m_ownedTexture != nullptr)
+		{
+			toReturn->m_ownedTexture = new Texture(m_ownedTexture->getPath());
+		}
+
+		return toReturn;
+	}
+
 	bool TextureBlendMaterial::operator==(const Material& p_other) const
 	{
-		if (typeid(this) != typeid(p_other))
+		if (typeid(*this) != typeid(p_other))
 		{
 			return false;
 		}
@@ -45,7 +64,7 @@ namespace puppy
 				//Search through the other map for the matching texture; can't compare pointers
 				bool foundMatch = false;
 				float foundWeight = 0.0f;
-				for (auto otherIt = otherTexturesMap.cbegin(); otherIt != otherTexturesMap.end(); ++it)
+				for (auto otherIt = otherTexturesMap.cbegin(); otherIt != otherTexturesMap.end(); ++otherIt)
 				{
 					auto otherTex = (*otherIt).first;
 					if (otherTex->getTex() == tex->getTex())

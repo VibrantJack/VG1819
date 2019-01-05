@@ -26,7 +26,7 @@ namespace puppy
 		~Material();
 
 		virtual bool operator==(const Material& p_other) const;
-		virtual Material& operator=(const Material& p_other);
+		virtual Material* clone() const;
 
 		virtual void setTexture(const char* p_pathToTex);
 		virtual void setTexture(puppy::Texture* p_tex);

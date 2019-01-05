@@ -60,7 +60,7 @@ namespace puppy
 
 		if (usingMat == nullptr)
 		{
-			usingMat = new Material(*p_mat);
+			usingMat = p_mat->clone();
 			m_ownedMaterials.push_back(usingMat);
 		}
 

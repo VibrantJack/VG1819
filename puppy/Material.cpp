@@ -31,21 +31,12 @@ namespace puppy
 		}
 	}
 	
-	Material& Material::operator=(const Material& p_other)
+	Material* Material::clone() const
 	{
-		if (m_tex != nullptr)
-		{
-			delete m_tex;
-		}
+		Material* toReturn = new Material(m_shader->getType());
+		toReturn->m_tex = new Texture(m_tex->getPath());
 
-		if (p_other.m_tex != nullptr)
-		{
-			m_tex = new Texture(p_other.m_tex->getPath());
-		}
-
-		m_shader = p_other.m_shader;
-		m_name = p_other.m_name;
-		return *this;
+		return toReturn;
 	}
 
 	bool Material::operator==(const Material& p_other) const
