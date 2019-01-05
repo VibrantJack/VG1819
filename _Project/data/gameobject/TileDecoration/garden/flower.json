@@ -1,0 +1,17 @@
+{
+    "name" : "GardenDecoration",
+    "gameobjects" :[
+        {
+            "name" : "flower1",
+            "components" : [
+                {
+                    "name" : "ModelRenderable",
+                    "path" : "models/tile/Flower.obj"
+                }
+            ],
+            "scale" : [1,1,1],
+            "translate" : [0,0,0]
+        }
+    ]
+    
+}

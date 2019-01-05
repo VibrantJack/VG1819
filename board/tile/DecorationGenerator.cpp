@@ -76,7 +76,19 @@ std::vector<kitten::K_GameObject*> DecorationGenerator::generateForestDecoration
 
 std::vector<kitten::K_GameObject*> DecorationGenerator::generateGardenDecoration()
 {
-	return std::vector<kitten::K_GameObject*>();
+	std::vector<kitten::K_GameObject*> list;
+	kitten::K_GameObject* k;
+	kitten::K_GameObjectManager* gm = kitten::K_GameObjectManager::getInstance();
+
+	//fence
+	k = gm->createNewGameObject("TileDecoration/garden/fence.json");
+	list.push_back(k);
+
+	//flower
+	k = gm->createNewGameObject("TileDecoration/garden/flower.json");
+	list.push_back(k);
+
+	return list;
 }
 
 std::vector<kitten::K_GameObject*> DecorationGenerator::generateWaterDecoration(int p_posX, int p_posY)
