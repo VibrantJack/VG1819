@@ -33,6 +33,8 @@ namespace puppy
 			toReturn->m_ownedTexture = new Texture(m_ownedTexture->getPath());
 		}
 
+		toReturn->m_shader = m_shader;
+
 		return toReturn;
 	}
 
@@ -145,7 +147,7 @@ namespace puppy
 	{
 		bool wasBound = ShaderManager::applyShader(m_shader);
 
-		if (!wasBound)
+		if (wasBound)
 		{
 			//Set texture (sampler) uniforms
 			if (m_shader->getType() > texture_blend_zero)
