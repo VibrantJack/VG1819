@@ -7,7 +7,7 @@ namespace ability
 {
 	Status_LV::Status_LV() : Status::Status()
 	{
-		m_name = STATUS_LV;
+		m_Id = STATUS_LV;
 		addTimePoint(TimePointEvent::Level_Up);
 	}
 

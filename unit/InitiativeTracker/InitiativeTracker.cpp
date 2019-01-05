@@ -258,6 +258,8 @@ void unit::InitiativeTracker::gameTurnEnd()
 	//start of new turn
 	gameTurnStart();
 
+	/*move to commander, so power will reset at their turn
 	//reset power tracker
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Reset_Power, nullptr);
+	*/
 }

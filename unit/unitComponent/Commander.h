@@ -11,14 +11,16 @@ namespace unit
 		unit::AbilityDescription* m_adSpawn;
 		Unit* m_unit;
 	public:
+		std::string m_porPath;
+
 		Commander();
 		~Commander();
 
 		void init(Unit* p_u);
 
-		std::string m_porPath;
-
 		void manipulateTile();
 		void spawnUnit();
+
+		void resetPower(int p_clientID);
 	};
 }

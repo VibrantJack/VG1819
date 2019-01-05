@@ -132,3 +132,19 @@ void ability::Ability::triggerTPEvent(ability::TimePointEvent::TPEventType p_tp,
 	t->putPackage(INFO_PACKAGE_KEY, p_info);
 	sc->triggerTP(p_tp, t);
 }
+
+void ability::Ability::addStatusInfo(Status * p_st, AbilityInfoPackage* p_info)
+{
+	auto it = p_info->m_stringValue.find(STATUS_NAME);
+	if (it != p_info->m_stringValue.end())
+	{
+		std::string name = it->second;
+		p_st->changeName(name);
+	}
+	it = p_info->m_stringValue.find(STATUS_DESCRIPTION);
+	if (it != p_info->m_stringValue.end())
+	{
+		std::string des = it->second;
+		p_st->changeDescription(des);
+	}
+}

@@ -41,3 +41,7 @@
 #define STATUS_LOAD "Status_Load"
 #define STATUS_SHIELD "Status_Shield"
 #define STATUS_BLOCK "Status_Block"
+
+//status property
+#define STATUS_NAME "status_name"
+#define STATUS_DESCRIPTION "status_description"

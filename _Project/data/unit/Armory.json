@@ -18,7 +18,9 @@
 				"area_fix":1,
 				"area_min":0,
 				"area_max":1,
-				"description":"Gain 5 [Shield] to all ally without [Shield]."
+				"description":"Gain 5 [Shield] to all ally without [Shield].",
+				"status_name":"Shield",
+				"status_description":"Block Damage"
 			}
 		]
 	},
