@@ -14,8 +14,8 @@ std::vector<kitten::K_GameObject*> DecorationGenerator::generateDecoration(TileI
 	{
 	//case LandInformation::Grass_land:
 	//	return generateGrassDecoration();
-	//case LandInformation::Forest_land:
-	//	return generateForestDecoration();
+	case LandInformation::Forest_land:
+		return generateForestDecoration();
 	case LandInformation::Garden_land:
 		return generateGardenDecoration();
 	//case LandInformation::Swamp_land:
@@ -58,19 +58,14 @@ std::vector<kitten::K_GameObject*> DecorationGenerator::generateGrassDecoration(
 std::vector<kitten::K_GameObject*> DecorationGenerator::generateForestDecoration()
 {
 	std::vector<kitten::K_GameObject*> list;
-	
-	//always have 1 tree
-	kitten::K_GameObject* k = kitten::K_GameObjectManager::getInstance()->createNewGameObject("Decoration_tree.json");
+	kitten::K_GameObject* k;
+	kitten::K_GameObjectManager* gm = kitten::K_GameObjectManager::getInstance();
+
+	//tree
+	k = gm->createNewGameObject("TileDecoration/forest/tree.json");
 	list.push_back(k);
 
-	//50% chance it will has one more decoration
-	float chance = (float)rand() / RAND_MAX;
-	if (chance < 0.5)
-	{
-		kitten::K_GameObject* k3 = kitten::K_GameObjectManager::getInstance()->createNewGameObject("Decoration_stone.json");
-		list.push_back(k3);
-	}
-	
+
 	return list;
 }
 

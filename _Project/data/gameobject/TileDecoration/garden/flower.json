@@ -9,8 +9,68 @@
                     "path" : "models/tile/Flower.obj"
                 }
             ],
-            "scale" : [1,1,1],
-            "translate" : [0,0,0]
+            "scale" : [0.3,0.3,0.3],
+            "translate" : [0.2,0,-0.2]
+        },
+        {
+            "name" : "flower2",
+            "components" : [
+                {
+                    "name" : "ModelRenderable",
+                    "path" : "models/tile/Flower.obj"
+                }
+            ],
+            "rotate":[0,30,0],
+            "scale" : [0.3,0.3,0.3],
+            "translate" : [0.2,0,0]
+        },
+        {
+            "name" : "flower3",
+            "components" : [
+                {
+                    "name" : "ModelRenderable",
+                    "path" : "models/tile/Flower.obj"
+                }
+            ],
+            "rotate":[0,30,0],
+            "scale" : [0.3,0.3,0.3],
+            "translate" : [0.2,0,0.2]
+        },
+        {
+            "name" : "flower4",
+            "components" : [
+                {
+                    "name" : "ModelRenderable",
+                    "path" : "models/tile/Flower.obj"
+                }
+            ],
+            "rotate":[0,180,0],
+            "scale" : [0.3,0.3,0.3],
+            "translate" : [-0.2,0,-0.2]
+        },
+        {
+            "name" : "flower5",
+            "components" : [
+                {
+                    "name" : "ModelRenderable",
+                    "path" : "models/tile/Flower.obj"
+                }
+            ],
+            "rotate":[0,90,0],
+            "scale" : [0.3,0.3,0.3],
+            "translate" : [-0.2,0,0]
+        },
+        {
+            "name" : "flower6",
+            "components" : [
+                {
+                    "name" : "ModelRenderable",
+                    "path" : "models/tile/Flower.obj"
+                }
+            ],
+            "rotate":[0,120,0],
+            "scale" : [0.3,0.3,0.3],
+            "translate" : [-0.2,0,0.2]
         }
     ]
     
