@@ -95,6 +95,6 @@ namespace puppy
 
 		//Method for things wanting to be in world space
 		static void putInWorldSpace(TexturedVertex p_toTransform[], int p_numElements, const glm::mat4& p_worldMat);
-		static void putInWorldSpace(NormalVertex p_toTransform[], int p_numElements, const glm::mat4& p_worldMat);
+		static void putInWorldSpace(NormalVertex p_toTransform[], int p_numElements, const glm::mat4& p_worldMat, const glm::quat& p_rotation);
 	};
 }

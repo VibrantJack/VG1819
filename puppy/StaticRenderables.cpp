@@ -369,7 +369,7 @@ namespace puppy
 			mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_viewProj);
 
 			mat->setUniform("world", glm::mat4());
-			mat->setUniform("worldIT", glm::mat4());
+			mat->setUniform("worldIT", glm::mat3());
 			mat->setUniform("matAmbient", glm::vec3(0.4, 0.4, 0.4));
 
 			vertices->drawArrays(GL_TRIANGLES);
@@ -417,7 +417,7 @@ namespace puppy
 		}
 	}
 
-	void StaticRenderables::putInWorldSpace(NormalVertex p_toTransform[], int p_numElements, const glm::mat4& p_worldMat)
+	void StaticRenderables::putInWorldSpace(NormalVertex p_toTransform[], int p_numElements, const glm::mat4& p_worldMat, const glm::quat& p_rotation)
 	{
 		glm::vec4 tempVec(0, 0, 0, 1);
 		for (int i = 0; i < p_numElements; ++i)
@@ -439,7 +439,7 @@ namespace puppy
 			tempVec.y = currentVert.ny;
 			tempVec.z = currentVert.nz;
 
-			tempVec = p_worldMat * tempVec;
+			tempVec = p_rotation * tempVec;
 
 			currentVert.nx = tempVec.x;
 			currentVert.ny = tempVec.y;

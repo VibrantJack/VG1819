@@ -39,6 +39,7 @@ namespace puppy
 	{
 		// transfrom vertices + indices to just vertices for static rendering
 		setVertices(p_vertices, p_indices);
+		m_mat.setColour(m_colour);
 	}
 
 	P_Mesh::~P_Mesh()
@@ -72,11 +73,6 @@ namespace puppy
 		m_mat.setUniform("matAmbient", glm::vec3(0.4, 0.4, 0.4));
 		m_mat.setUniform("worldIT", p_worldIT);
 		m_mat.setUniform("world", p_world);
-
-		if (m_usesColour)
-		{
-			m_mat.setUniform("colour", m_colour);
-		}
 
 		m_vao.drawArrays(GL_TRIANGLES);
 	}

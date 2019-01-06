@@ -43,7 +43,7 @@ void ModelRenderable::onEnabled()
 			auto mesh = (*it);
 			auto vertices = mesh->getVertices();
 
-			puppy::StaticRenderables::putInWorldSpace(vertices.data(), vertices.size(), getTransform().getWorldTransform());
+			puppy::StaticRenderables::putInWorldSpace(vertices.data(), vertices.size(), getTransform().getWorldTransform(), getTransform().getRotation());
 
 			addToStaticRender(mesh->getMaterial(), vertices.data(), vertices.size());
 		}

@@ -34,7 +34,14 @@ namespace puppy
 	Material* Material::clone() const
 	{
 		Material* toReturn = new Material(m_shader->getType());
-		toReturn->m_tex = new Texture(m_tex->getPath());
+
+		if (m_tex != nullptr)
+		{
+			toReturn->m_tex = new Texture(m_tex->getPath());
+		}
+
+		toReturn->m_hasColour = m_hasColour;
+		toReturn->m_colour = m_colour;
 
 		return toReturn;
 	}
@@ -116,7 +123,7 @@ namespace puppy
 		m_tex = p_tex;
 	}
 
-	void Material::setColour(const glm::vec3& p_colour)
+	void Material::setColour(const glm::vec4& p_colour)
 	{
 		m_hasColour = true;
 		m_colour = p_colour;
