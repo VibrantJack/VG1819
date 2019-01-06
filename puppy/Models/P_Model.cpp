@@ -8,7 +8,7 @@ namespace puppy
 	{
 		Assimp::Importer importer;
 		
-		int proccessing = aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_OptimizeMeshes | aiProcess_OptimizeGraph;
+		int proccessing = aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_OptimizeMeshes | aiProcess_OptimizeGraph | aiProcess_ImproveCacheLocality;
 		
 		if (p_flipUVs)
 		{
