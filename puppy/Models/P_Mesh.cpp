@@ -28,18 +28,41 @@ namespace puppy
 		{
 			m_mat.setTexture("textures/black.bmp");
 		}
+
+		// transfrom vertices + indices to just vertices for static rendering
+		setVertices(p_vertices, p_indices);
 	}
 
 	P_Mesh::P_Mesh(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices, glm::vec4& p_colour) : m_mat(ShaderType::solid_color_directional_light),
 		m_vao(p_vertices.data(), p_indices.data(), ShaderManager::getShaderProgram(ShaderType::solid_color_directional_light), p_vertices.size(), p_indices.size()), m_usesColour(true),
 		m_colour(p_colour)
 	{
-
+		// transfrom vertices + indices to just vertices for static rendering
+		setVertices(p_vertices, p_indices);
 	}
 
 	P_Mesh::~P_Mesh()
 	{
+		
+	}
 
+	void P_Mesh::setVertices(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices)
+	{
+		auto indicesEnd = p_indices.cend();
+		for (auto indIt = p_indices.cbegin(); indicesEnd != indIt; ++indIt)
+		{
+			m_vertices.push_back(p_vertices[*indIt]);
+		}
+	}
+
+	const std::vector<NormalVertex>& P_Mesh::getVertices() const
+	{
+		return m_vertices;
+	}
+
+	const Material& P_Mesh::getMaterial() const
+	{
+		return m_mat;
 	}
 
 	void P_Mesh::render(const glm::mat4& p_worldViewProj, const glm::mat3& p_worldIT, const glm::mat4& p_world)
@@ -54,7 +77,6 @@ namespace puppy
 		{
 			m_mat.setUniform("colour", m_colour);
 		}
-
 
 		m_vao.drawArrays(GL_TRIANGLES);
 	}

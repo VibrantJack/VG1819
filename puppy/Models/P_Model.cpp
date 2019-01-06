@@ -153,6 +153,11 @@ namespace puppy
 		
 	}
 
+	const std::vector<P_Mesh*> P_Model::getMeshes() const
+	{
+		return m_meshes;
+	}
+
 	void P_Model::render(const glm::mat4& p_worldViewProj, const glm::mat3& p_worldIT, const glm::mat4& p_world)
 	{
 		auto end = m_meshes.cend();

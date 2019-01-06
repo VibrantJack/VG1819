@@ -15,7 +15,7 @@ namespace puppy
 		clearAllData();
 	}
 	
-	void StaticRenderables::addToAppropriateRender(const void* p_owner, Material* p_mat, TexturedVertex p_data[], int p_numElements, bool p_isUI)
+	void StaticRenderables::addToAppropriateRender(const void* p_owner, Material* p_mat, const TexturedVertex p_data[], int p_numElements, bool p_isUI)
 	{
 		render_map *texData;
 		if (p_isUI)
@@ -54,7 +54,36 @@ namespace puppy
 		}
 	}
 
-	void StaticRenderables::addToRender(const void* p_owner, const Material* p_mat, TexturedVertex p_data[], int p_numElements)
+	void StaticRenderables::addToAppropriateRender(const void* p_owner, Material* p_mat, const NormalVertex p_data[], int p_numElements)
+	{
+		auto found = m_normalData.find(p_mat);
+
+		std::vector<NormalVertex> toInsert(p_data, p_data + p_numElements);
+
+		if (found != m_normalData.end())
+		{
+			//add to existing map
+			auto& map = found->second.first;
+
+			toInsert.insert(toInsert.begin(), p_data, p_data + p_numElements);
+
+			map.insert(std::make_pair(p_owner, toInsert));
+
+			//mark dirty
+			found->second.second = true;
+		}
+		else
+		{
+			//make new map
+			std::unordered_map<const void*, std::vector<NormalVertex>> newMap;
+			newMap.insert(std::make_pair(p_owner, toInsert));
+
+			//insert map into data
+			m_normalData.insert(std::make_pair(p_mat, std::make_pair(newMap, true)));
+		}
+	}
+
+	void StaticRenderables::addToRender(const void* p_owner, const Material* p_mat, const TexturedVertex p_data[], int p_numElements)
 	{
 		Material* usingMat = getMatchingOwnedMaterial(p_mat);
 
@@ -67,29 +96,61 @@ namespace puppy
 		addToAppropriateRender(p_owner, usingMat, p_data, p_numElements, false);
 	}
 
-	void StaticRenderables::removeFromRender(const void* p_owner, const Material* p_mat)
+	void StaticRenderables::addToRender(const void* p_owner, const Material* p_mat, const NormalVertex p_data[], int p_numElements)
+	{
+		Material* usingMat = getMatchingOwnedMaterial(p_mat);
+
+		if (usingMat == nullptr)
+		{
+			usingMat = p_mat->clone();
+			m_ownedMaterials.push_back(usingMat);
+		}
+
+		addToAppropriateRender(p_owner, usingMat, p_data, p_numElements);
+	}
+
+	void StaticRenderables::removeFromRender(const void* p_owner, const Material* p_mat, bool p_usedNormals)
 	{
 		//Search for texture
 		Material* ownedMat = getMatchingOwnedMaterial(p_mat);
 		if (ownedMat != nullptr)
 		{
-			auto found = m_texturedData.find(ownedMat);
-			if (found != m_texturedData.end())
+			if (!p_usedNormals) // Unfortunately, these have to be pretty much copy/pasted
 			{
-				//Search for owner in texture's map
-				auto& vecMap = (*found).second.first;
-				auto ownerFound = vecMap.find(p_owner);
-				if (ownerFound != vecMap.end())
+				auto found = m_texturedData.find(ownedMat); // Because of what this line returns
+				if (found != m_texturedData.end())
 				{
-					vecMap.erase(ownerFound);
-					//set dirty
-					(*found).second.second = true;
+					//Search for owner in texture's map
+					auto& vecMap = (*found).second.first;
+					auto ownerFound = vecMap.find(p_owner);
+					if (ownerFound != vecMap.end())
+					{
+						vecMap.erase(ownerFound);
+						//set dirty
+						(*found).second.second = true;
+					}
+				}
+			}
+			else
+			{
+				auto found = m_normalData.find(ownedMat);
+				if (found != m_normalData.end())
+				{
+					//Search for owner in texture's map
+					auto& vecMap = (*found).second.first;
+					auto ownerFound = vecMap.find(p_owner);
+					if (ownerFound != vecMap.end())
+					{
+						vecMap.erase(ownerFound);
+						//set dirty
+						(*found).second.second = true;
+					}
 				}
 			}
 		}
 	}
 
-	void StaticRenderables::addToUIRender(const void* p_owner, const Material* p_mat, TexturedVertex p_data[], int p_numElements)
+	void StaticRenderables::addToUIRender(const void* p_owner, const Material* p_mat, const TexturedVertex p_data[], int p_numElements)
 	{
 		Material* usingMat = getMatchingOwnedMaterial(p_mat);
 
@@ -183,6 +244,66 @@ namespace puppy
 		found->second.second = false;
 	}
 
+	void StaticRenderables::constructNormalRenderable(Material* p_where)
+	{
+		//get vector to create buffer from
+		auto found = m_normalData.find(p_where);
+		auto map = found->second.first;
+
+		//Get size of vector needed
+
+		auto it = map.begin();
+		auto end = map.cend();
+		if (it != end)
+		{
+			std::vector<NormalVertex>::size_type sum = (*it).second.size();
+
+			while (it != end)
+			{
+				sum += (*it).second.size();
+				++it;
+			}
+
+			//allocate in one go
+			std::vector<NormalVertex> createdData;
+			createdData.reserve(sum);
+
+			//insert into vector
+			for (auto it = map.begin(); it != end; ++it)
+			{
+				auto vec = (*it).second;
+				createdData.insert(createdData.end(), vec.begin(), vec.end());
+			}
+
+			//construct single buffer from data
+			VertexEnvironment* toRender = new VertexEnvironment(createdData.data(),
+				ShaderManager::getShaderProgram(ShaderType::basic_directional_light), createdData.size());
+
+			auto foundRender = m_normalToRender.find(p_where);
+			if (foundRender != m_normalToRender.end())
+			{
+				delete foundRender->second;
+				foundRender->second = toRender;
+			}
+			else
+			{
+				m_normalToRender.insert(std::make_pair(p_where, toRender));
+			}
+		}
+		else
+		{
+			auto foundRender = m_normalToRender.find(p_where);
+			if (foundRender != m_normalToRender.end())
+			{
+				delete foundRender->second;
+				m_normalToRender.erase(p_where);
+			}
+		}
+
+		//clean dirty flag
+		found->second.second = false;
+	}
+
 	void StaticRenderables::render(kitten::Camera* p_cam)
 	{
 		//Check for dirty data
@@ -204,8 +325,19 @@ namespace puppy
 			}
 		}
 
+		auto normEnd = m_normalData.cend();
+		for (auto it = m_normalData.cbegin(); it != normEnd; ++it)
+		{
+			if (it->second.second)
+			{
+				constructNormalRenderable(it->first);
+			}
+		}
+
+		// Render
 		renderStatic(m_toRender, p_cam->getViewProj());
 		renderStatic(m_toRenderUI, p_cam->getOrtho());
+		renderNormaled(p_cam->getViewProj());
 	}
 
 	void StaticRenderables::renderStatic(const std::unordered_map<Material*, VertexEnvironment*>& p_toRender, const glm::mat4& p_viewProj)
@@ -219,6 +351,26 @@ namespace puppy
 
 			mat->apply();
 			mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_viewProj);
+
+			vertices->drawArrays(GL_TRIANGLES);
+		}
+	}
+
+	void StaticRenderables::renderNormaled(const glm::mat4& p_viewProj) const
+	{
+		auto end = m_normalToRender.cend();
+		for (auto it = m_normalToRender.cbegin(); it != end; ++it)
+		{
+			auto& pair = (*it);
+			auto& mat = pair.first;
+			auto& vertices = pair.second;
+
+			mat->apply();
+			mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_viewProj);
+
+			mat->setUniform("world", glm::mat4());
+			mat->setUniform("worldIT", glm::mat4());
+			mat->setUniform("matAmbient", glm::vec3(0.4, 0.4, 0.4));
 
 			vertices->drawArrays(GL_TRIANGLES);
 		}

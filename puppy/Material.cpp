@@ -41,7 +41,19 @@ namespace puppy
 
 	bool Material::operator==(const Material& p_other) const
 	{
-		bool toReturn = false;
+		if (m_hasColour != p_other.m_hasColour)
+		{
+			return false;
+		}
+
+		if (m_hasColour)
+		{
+			if (m_colour != p_other.m_colour)
+			{
+				return false;
+			}
+		}
+
 		if (m_tex == nullptr && p_other.m_tex == nullptr)
 		{
 			if (m_shader->getType() == p_other.m_shader->getType())
@@ -54,6 +66,7 @@ namespace puppy
 			if ((m_tex->getTex() == p_other.m_tex->getTex())
 				&& m_shader->getType() == p_other.m_shader->getType())
 			{
+				
 				return true;
 			}
 			else
@@ -78,6 +91,11 @@ namespace puppy
 		{
 			m_tex->apply();
 		}
+
+		if (m_hasColour)
+		{
+			setUniform("colour", m_colour);
+		}
 	}
 
 	void Material::setTexture(const char* p_pathToTex)
@@ -96,6 +114,12 @@ namespace puppy
 			delete m_tex;
 		}
 		m_tex = p_tex;
+	}
+
+	void Material::setColour(const glm::vec3& p_colour)
+	{
+		m_hasColour = true;
+		m_colour = p_colour;
 	}
 
 	Texture* Material::getTexture() const

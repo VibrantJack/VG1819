@@ -19,7 +19,9 @@ namespace puppy
 
 	protected:
 		puppy::ShaderProgram* m_shader;
-		
+		bool m_hasColour;
+		glm::vec3 m_colour; //hacky because adding memorizing uniforms will take a bit and it is not scheduled
+
 	public:
 		Material(ShaderType p_shaderType);
 		Material(const Material& p_other);
@@ -31,6 +33,8 @@ namespace puppy
 		virtual void setTexture(const char* p_pathToTex);
 		virtual void setTexture(puppy::Texture* p_tex);
 		puppy::Texture* getTexture() const;
+
+		virtual void setColour(const glm::vec3& m_colour); //see above comment
 
 		//One-time set
 		void setUniform(const std::string& p_name, const glm::mat4& p_mat4) const;
