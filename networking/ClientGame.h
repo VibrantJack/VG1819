@@ -40,7 +40,7 @@ namespace networking
 		void sendSkipTurnPacket(unit::Unit* p_unit);
 
 		void summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
-		void sendSummonUnitPacket(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
+		void sendSummonUnitPacket(int p_iUnitId, int p_iPosX, int p_iPosY);
 
 		void sendBasicPacket(PacketTypes p_packetType);
 

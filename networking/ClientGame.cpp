@@ -394,8 +394,6 @@ namespace networking
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, SKIP_TURN_PACKET_SIZE);
 	}
 
-	// This method should only be called when summoning a unit for debug purposes
-	// The SummonUnit ability should be going through the AbilityPacket and useAbility()
 	void ClientGame::summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
 	{
 		// Create the unit GO and set its position
@@ -408,7 +406,7 @@ namespace networking
 		//unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
 	}
 
-	void ClientGame::sendSummonUnitPacket(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
+	void ClientGame::sendSummonUnitPacket(int p_iUnitId, int p_iPosX, int p_iPosY)
 	{
 		char data[SUMMON_UNIT_PACKET_SIZE];
 
@@ -418,7 +416,7 @@ namespace networking
 
 		SummonUnitPacket packet;
 		packet.m_packetType = PacketTypes::SUMMON_UNIT;
-		packet.m_clientId = p_iClientId;
+		packet.m_clientId = sm_iClientId;
 		packet.m_unitId = p_iUnitId;
 		packet.m_posX = p_iPosX;
 		packet.m_posY = p_iPosY;
