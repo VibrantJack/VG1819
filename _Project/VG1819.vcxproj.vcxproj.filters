@@ -837,6 +837,9 @@
     <ClCompile Include="ShowLoadingOnClick.cpp">
       <Filter>components\scene changers</Filter>
     </ClCompile>
+    <ClCompile Include="ProjectileManager.cpp">
+      <Filter>ability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1797,6 +1800,9 @@
     </ClInclude>
     <ClInclude Include="..\UI\CardArt.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileManager.h">
+      <Filter>ability</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

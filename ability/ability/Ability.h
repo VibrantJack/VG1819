@@ -21,7 +21,7 @@ namespace ability
 		std::string m_name;
 
 		virtual int effect(AbilityInfoPackage* p_info) = 0;
-
+		virtual void singleTargetProjectileFinished(AbilityInfoPackage* p_package);
 	protected:
 		//simple ability
 		void singleTargetDamage(AbilityInfoPackage* p_info);
