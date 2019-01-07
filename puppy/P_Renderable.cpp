@@ -21,8 +21,7 @@ namespace puppy
 
 	void P_Renderable::removeFromStaticRender(const Material& p_mat, bool p_usedNormals)
 	{
-
-		puppy::StaticRenderables::getInstance()->removeFromRender(this, &p_mat);
+		puppy::StaticRenderables::getInstance()->removeFromRender(this, &p_mat, p_usedNormals);
 	}
 
 	void P_Renderable::removeFromDynamicRender()
