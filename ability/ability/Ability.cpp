@@ -12,7 +12,7 @@ void ability::Ability::singleTargetDamage(AbilityInfoPackage* p_info)
 	//damage target by power
 	if (checkTarget(p_info))
 	{
-		ProjectileManager::fireProjectile(0, p_info->m_source, p_info->m_targets[0], p_info);
+		ProjectileManager::fireProjectile(m_name, p_info->m_source, p_info->m_targets[0], this, p_info);
 	}
 	else
 	{

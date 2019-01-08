@@ -26,6 +26,10 @@
 			"filename" : "UniversalPfx.txt"
 		},
 		{
+			"filename" : "FPSCounter.txt",
+			"translate2d" : [200,200]
+		},
+		{
 			"name" : "Deck",
 			"components" : [
 				{
@@ -76,6 +80,15 @@
 				{
 					"name" : "CombatText",
 					"poolsize" : 9
+				}
+			]
+		},
+		{
+			"name" : "Projectile Manager Instance",
+			"components" : [
+				{
+					"name" : "ProjectileManager",
+					"list" : "data/unit_projectileList.txt"
 				}
 			]
 		}

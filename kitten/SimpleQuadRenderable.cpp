@@ -96,13 +96,13 @@ kitten::SimpleQuadRenderable::SimpleQuadRenderable(const std::string & p_texPath
 
 kitten::SimpleQuadRenderable::~SimpleQuadRenderable()
 {
+	if (--sm_instances == 0)
+	{
+		delete sm_vao;
+	}
+
 	if (!m_isStatic)
 	{
-		if (--sm_instances == 0)
-		{
-			delete sm_vao;
-		}
-
 		if (m_isEnabled)
 		{
 			removeFromDynamicRender();

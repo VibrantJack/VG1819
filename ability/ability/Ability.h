@@ -23,6 +23,9 @@ namespace ability
 		virtual int effect(AbilityInfoPackage* p_info) = 0;
 		virtual void singleTargetProjectileFinished(AbilityInfoPackage* p_package);
 	protected:
+
+		Ability(const std::string p_name) : m_name(p_name) {}
+
 		//simple ability
 		void singleTargetDamage(AbilityInfoPackage* p_info);
 		void multiTargetDamage(AbilityInfoPackage* p_info);
@@ -50,42 +53,42 @@ namespace ability
 	class Move : public Ability
 	{
 	public:
-		std::string m_name = ACTION_MOVE;
+		Move() : Ability(ACTION_MOVE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
 	class Join : public Ability
 	{
 	public:
-		std::string m_name = ACTION_JOIN;
+		Join() : Ability(ACTION_JOIN) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
 	class ManipulateTile : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_MANIPULATE_TILE;
+		ManipulateTile() : Ability(ABILITY_MANIPULATE_TILE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
 	class Heal : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_HEAL;
+		Heal() : Ability(ABILITY_HEAL) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
 	class Fight : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_FIGHT;
+		Fight() : Ability(ABILITY_FIGHT) {};
 		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
 	};
 
 	class Shoot : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_SHOOT;
+		Shoot() : Ability(ABILITY_SHOOT) {};
 		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
 	};
 
@@ -95,21 +98,21 @@ namespace ability
 		void applyStatus(AbilityInfoPackage* p_info);
 		void stackStatus(AbilityInfoPackage* p_info);
 	public:
-		std::string m_name = ABILITY_ENCOURAGE;
+		Encourage() : Ability(ABILITY_ENCOURAGE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
 	class QuickShoot : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_QUICK_SHOOT;
+		QuickShoot() : Ability(ABILITY_QUICK_SHOOT) {};
 		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
 	};
 
 	class Sabotage : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_SABOTAGE;
+		Sabotage() : Ability(ABILITY_SABOTAGE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
@@ -118,7 +121,7 @@ namespace ability
 	private:
 		int m_unitIndex = 5;
 	public:
-		std::string m_name = ABILITY_BUILD_WALL;
+		Build_the_Wall() :Ability(ABILITY_BUILD_WALL) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
@@ -128,28 +131,28 @@ namespace ability
 		void applyStatus(AbilityInfoPackage* p_info);
 		void stackStatus(AbilityInfoPackage* p_info);
 	public:
-		std::string m_name = ABILITY_DEFEND;
+		Defend() : Ability(ABILITY_DEFEND) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
 	class Slay : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_SLAY;
+		Slay() : Ability(ABILITY_SLAY) {};
 		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
 	};
 
 	class SummonUnit : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_SUMMON_UNIT;
+		SummonUnit() : Ability(ABILITY_SUMMON_UNIT) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
 	class Blast : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_BLAST;
+		Blast() : Ability(ABILITY_BLAST) {}
 		int effect(AbilityInfoPackage* p_info) 
 		{
 			getTarget(p_info);
@@ -161,14 +164,14 @@ namespace ability
 	class Burn : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_BURN;
+		Burn() : Ability(ABILITY_BURN) {};
 		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
 	};
 
 	class FireDance : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_FIRE_DANCE;
+		FireDance() : Ability(ABILITY_FIRE_DANCE) {};
 		int effect(AbilityInfoPackage* p_info)
 		{
 			getTarget(p_info);
@@ -180,7 +183,7 @@ namespace ability
 	class Fire : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_FIRE;
+		Fire() : Ability(ABILITY_FIRE) {};
 		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
 	};
 
@@ -189,63 +192,63 @@ namespace ability
 	private:
 		void applyStatus(AbilityInfoPackage* p_info);
 	public:
-		std::string m_name = ABILITY_LOAD;
+		Load() : Ability(ABILITY_LOAD) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
 	class Arm : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_ARM;
+		Arm() : Ability(ABILITY_ARM) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
 	class Volley : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_VOLLEY;
+		Volley() : Ability(ABILITY_VOLLEY) {};
 		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
 	};
 
 	class TheLight : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_THE_LIGHT;
+		TheLight() : Ability(ABILITY_THE_LIGHT) {};
 		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
 	};
 
 	class EnergyControl : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_ENERGY_CONTROL;
+		EnergyControl() : Ability(ABILITY_ENERGY_CONTROL) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
 	class PowerSlam : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_POWER_SLAM;
+		PowerSlam() : Ability(ABILITY_POWER_SLAM) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
 	class PowerSurge : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_POWER_SURGE;
+		PowerSurge() : Ability(ABILITY_POWER_SURGE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
 	class Rally : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_RALLY;
+		Rally() : Ability(ABILITY_RALLY) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
 	class HereHomeland : public Ability
 	{
 	public:
-		std::string m_name = ABILITY_HOMELAND;
+		HereHomeland() : Ability(ABILITY_HOMELAND) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 }

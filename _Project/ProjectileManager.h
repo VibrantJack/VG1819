@@ -13,18 +13,19 @@ class ProjectileManager : public kitten::K_Component, public LerpController::Pos
 {
 private:
 	static ProjectileManager* m_instance;
+	typedef std::string keyType;
 
-	std::unordered_map<int, std::pair<kitten::K_GameObject*, float>> m_projectiles;
+	std::unordered_map<keyType, std::pair<kitten::K_GameObject*, float>> m_projectiles;
 
 	ability::AbilityInfoPackage* m_lastPackage;
 	ability::Ability* m_lastAbility;
 
-	void privateFireProjectile(int p_type, unit::Unit* p_source, unit::Unit* p_target, ability::Ability* p_ability ,ability::AbilityInfoPackage* p_package);
+	void privateFireProjectile(const keyType& p_type, unit::Unit* p_source, unit::Unit* p_target, ability::Ability* p_ability ,ability::AbilityInfoPackage* p_package);
 
 	void onPositionLerpFinished() override;
 public:
 	ProjectileManager(const std::string& p_projectileList);
 	~ProjectileManager();
 
-	static void fireProjectile(int p_type, unit::Unit* p_source, unit::Unit* p_target, ability::Ability* p_ability, ability::AbilityInfoPackage* p_package);
+	static void fireProjectile(const keyType& p_type, unit::Unit* p_source, unit::Unit* p_target, ability::Ability* p_ability, ability::AbilityInfoPackage* p_package);
 };

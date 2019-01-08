@@ -1447,6 +1447,12 @@ kitten::K_Component* getShowLoadingOnClick(nlohmann::json* p_jsonFile) {
 	return new ShowLoadingOnClick();
 }
 
+#include "_Project\ProjectileManager.h"
+kitten::K_Component* getProjectileManager(nlohmann::json* p_jsonFile) {
+	std::string list = p_jsonFile->operator[]("list");
+	return new ProjectileManager(list);
+}
+
 #include "kitten\lights\K_DirectionalLight.h"
 kitten::K_Component* getDirectionalLight(nlohmann::json* p_jsonFile) {
 
@@ -1577,6 +1583,7 @@ void setupComponentMap() {
 	jsonComponentMap["DirectionalLight"] = &getDirectionalLight;
 	jsonComponentMap["PivotTextBox"] = &getPivotTextBox;
 	jsonComponentMap["CardArt"] = &getCardArt;
+	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
 
 }
 
