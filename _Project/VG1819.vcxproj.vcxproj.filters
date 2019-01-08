@@ -1798,6 +1798,9 @@
     <ClInclude Include="..\UI\CardArt.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\unitInteraction\CounterGetterButton.h">
+      <Filter>unitInteraction</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
