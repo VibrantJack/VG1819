@@ -17,6 +17,26 @@
 
 #define CARD_HOVER_MOVE_TIME 0.2
 
+void SpawnUnitOnDrop::onClick()
+{
+	if (networking::ClientGame::isNetworkValid())
+	{
+		if (unit::InitiativeTracker::getInstance()->getCurrentUnitIndex() >= 0)
+		{
+			unit::Unit* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit()->getComponent<unit::Unit>();
+			unit::Unit* clientCommander = networking::ClientGame::getInstance()->getCommander();
+			if (currentUnit == clientCommander)
+			{
+				DragNDrop::onClick();
+			}
+		}
+	}
+	else
+	{
+		DragNDrop::onClick();
+	}
+}
+
 void SpawnUnitOnDrop::onDrop()
 {
 	// Check if we hit something
