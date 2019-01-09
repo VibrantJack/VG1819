@@ -209,19 +209,19 @@ namespace networking
 						printf("Server received SUMMON_UNIT packet from [Client: %d]\n", iter->first);
 						Buffer buffer;
 						buffer.m_data = &(m_network_data[i]);
-						buffer.m_size = SUMMON_UNIT_PACKET_SIZE;
+						buffer.m_size = UNIT_PACKET_SIZE;
 
-						SummonUnitPacket summonUnitPacket;
+						UnitPacket summonUnitPacket;
 						summonUnitPacket.deserialize(buffer);
-						i += SUMMON_UNIT_PACKET_SIZE;
+						i += UNIT_PACKET_SIZE;
 						printf("Server sending Unit index: %d, posX: %d, posY: %d\n", summonUnitPacket.m_unitId, summonUnitPacket.m_posX, summonUnitPacket.m_posY);
 						
-						char data[SUMMON_UNIT_PACKET_SIZE];
+						char data[UNIT_PACKET_SIZE];
 						Buffer newBuffer;
 						newBuffer.m_data = data;
-						newBuffer.m_size = SUMMON_UNIT_PACKET_SIZE;
+						newBuffer.m_size = UNIT_PACKET_SIZE;
 						summonUnitPacket.serialize(newBuffer);
-						m_network->sendToOthers(iter->first, data, SUMMON_UNIT_PACKET_SIZE);
+						m_network->sendToOthers(iter->first, data, UNIT_PACKET_SIZE);
 
 						//sendSummonedUnitPacket(iter->first, summonUnitPacket);
 
@@ -229,38 +229,54 @@ namespace networking
 					}
 					case STARTING_COMMANDER_DATA:
 					{
+						printf("Server received STARTING_COMMANDER_DATA packet from [Client: %d]\n", iter->first);
 						Buffer buffer;
 						buffer.m_data = &(m_network_data[i]);
-						buffer.m_size = SUMMON_UNIT_PACKET_SIZE;
+						buffer.m_size = UNIT_PACKET_SIZE;
 
-						SummonUnitPacket commanderDataPacket;
+						UnitPacket commanderDataPacket;
 						commanderDataPacket.deserialize(buffer);
 
 						m_commanders.push_back(commanderDataPacket);
 						if (m_commanders.size() == 2)
 						{
-							char data[STARTING_COMMANDERS_PACKET_SIZE];
-							Buffer newBuffer;
-							newBuffer.m_data = data;
-							newBuffer.m_size = STARTING_COMMANDERS_PACKET_SIZE;
+							// First Commander
+							UnitPacket commanderDataPacket0 = m_commanders[0];
 
-							StartingCommandersPacket commandersPacket;
-							commandersPacket.m_packetType = STARTING_COMMANDER_DATA;
-							commandersPacket.m_clientId = -1;
+							char data0[UNIT_PACKET_SIZE];
+							Buffer newBuffer0;
+							newBuffer0.m_data = data0;
+							newBuffer0.m_size = UNIT_PACKET_SIZE;
 
-							commandersPacket.m_client1Id = m_commanders[0].m_clientId;
-							commandersPacket.m_player1Commander = m_commanders[0].m_unitId;
-							commandersPacket.m_pos1X = m_commanders[0].m_posX;
-							commandersPacket.m_pos1Y = m_commanders[0].m_posY;
+							UnitPacket commanderPacket0;
+							commanderPacket0.m_packetType = STARTING_COMMANDER_DATA;
+							commanderPacket0.m_clientId = commanderDataPacket0.m_clientId;
+							commanderPacket0.m_unitId = commanderDataPacket0.m_unitId;
+							commanderPacket0.m_posX = commanderDataPacket0.m_posX;
+							commanderPacket0.m_posY = commanderDataPacket0.m_posY;
+							printf("Commander0 Data - ID: %d, X: %d, Y: %d\n", commanderPacket0.m_unitId, commanderPacket0.m_posX, commanderPacket0.m_posY);
+							commanderPacket0.serialize(newBuffer0);
+							m_network->sendToOthers(commanderDataPacket0.m_clientId, data0, UNIT_PACKET_SIZE);
 
-							commandersPacket.m_client2Id = m_commanders[1].m_clientId;
-							commandersPacket.m_player2Commander = m_commanders[1].m_unitId;
-							commandersPacket.m_pos2X = m_commanders[1].m_posX;
-							commandersPacket.m_pos2Y = m_commanders[1].m_posY;
-							commandersPacket.serialize(newBuffer);
-							m_network->sendToAll(data, STARTING_COMMANDERS_PACKET_SIZE);
+							// Second Commander
+							UnitPacket commanderDataPacket1 = m_commanders[1];
+
+							char data1[UNIT_PACKET_SIZE];
+							Buffer newBuffer1;
+							newBuffer1.m_data = data1;
+							newBuffer1.m_size = UNIT_PACKET_SIZE;
+
+							UnitPacket commanderPacket1;
+							commanderPacket1.m_packetType = STARTING_COMMANDER_DATA;
+							commanderPacket1.m_clientId = commanderDataPacket1.m_clientId;
+							commanderPacket1.m_unitId = commanderDataPacket1.m_unitId;
+							commanderPacket1.m_posX = commanderDataPacket1.m_posX;
+							commanderPacket1.m_posY = commanderDataPacket1.m_posY;
+							printf("Commander1 Data - ID: %d, X: %d, Y: %d\n", commanderPacket1.m_unitId, commanderPacket1.m_posX, commanderPacket1.m_posY);
+							commanderPacket1.serialize(newBuffer1);
+							m_network->sendToOthers(commanderDataPacket1.m_clientId, data1, UNIT_PACKET_SIZE);
 						}
-						i += SUMMON_UNIT_PACKET_SIZE;
+						i += UNIT_PACKET_SIZE;
 						break;
 					}
 					case SKIP_TURN:
@@ -289,12 +305,12 @@ namespace networking
 		}
 	}
 
-	void ServerGame::sendSummonedUnitPacket(unsigned int p_iClientId, SummonUnitPacket p_packet)
+	void ServerGame::sendSummonedUnitPacket(unsigned int p_iClientId, UnitPacket p_packet)
 	{
-		char packet_data[SUMMON_UNIT_PACKET_SIZE];
+		char packet_data[UNIT_PACKET_SIZE];
 
 		//p_packet.serialize(packet_data);
 
-		m_network->sendToOthers(p_iClientId, packet_data, SUMMON_UNIT_PACKET_SIZE);
+		m_network->sendToOthers(p_iClientId, packet_data, UNIT_PACKET_SIZE);
 	}
 }

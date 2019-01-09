@@ -23,6 +23,8 @@
 #include "board\BoardManager.h"
 #include "unit\unitComponent\UnitMove.h"
 
+#include "components\DeckInitializingComponent.h"
+
 namespace networking
 {
 	ClientGame* ClientGame::sm_clientGameInstance = nullptr;
@@ -73,6 +75,8 @@ namespace networking
 
 		if (m_network->init(p_strAddr))
 		{ 
+			sm_networkValid = true;
+
 			// Client connects and sends INIT_CONNECTION packet
 			char packet_data[BASIC_PACKET_SIZE];
 
@@ -85,8 +89,6 @@ namespace networking
 			packet.serialize(buffer);
 
 			NetworkServices::sendMessage(m_network->m_connectSocket, packet_data, BASIC_PACKET_SIZE);
-
-			sm_networkValid = true;
 		}
 		else
 		{
@@ -159,25 +161,37 @@ namespace networking
 			{
 				i += BASIC_PACKET_SIZE;
 				sm_iClientId = defaultPacket.m_clientId;
+				
+				// Creating Commander
+				int commanderId = DeckInitializingComponent::getActiveInstance()->getDeckData()->commanderID;
+				unit::Unit* commanderUnit = kibble::getUnitFromId(commanderId);
+
+				// Clients spawn their commander first and since the turn order for units with the same IN is determined by who is 
+				// spawned first, the client ID is subtracted from the IN so that the order is the same across all clients
+				commanderUnit->m_attributes[UNIT_IN] -= sm_iClientId;
+
+				// Get the component again as spawnUnitObject(Unit* p_unit) creates a copy of the passed Unit to attach to the GO
+				m_commander = unit::UnitSpawn::getInstance()->spawnUnitObject(commanderUnit)->getComponent<unit::Unit>();
 
 				// Send starting data
-				char commanderData[SUMMON_UNIT_PACKET_SIZE];
+				char commanderData[UNIT_PACKET_SIZE];
 				Buffer commanderDataBuffer;
 				commanderDataBuffer.m_data = commanderData;
-				commanderDataBuffer.m_size = SUMMON_UNIT_PACKET_SIZE;
+				commanderDataBuffer.m_size = UNIT_PACKET_SIZE;
 
-				SummonUnitPacket commanderDataPacket;
+				UnitPacket commanderDataPacket;
 				commanderDataPacket.m_packetType = STARTING_COMMANDER_DATA;
 				commanderDataPacket.m_clientId = sm_iClientId;
-				// TODO: Assign the Commander unit ID according to the first unit in the player's deck data
-				commanderDataPacket.m_unitId = unit::UnitSpawn::King + sm_iClientId;
-				//kitten::K_GameObject* tile = BoardManager::getInstance()->getSpawnPoint(sm_iClientId);
+				commanderDataPacket.m_unitId = commanderId;
+
+				// Manually setting Commander spawn points closer for easier testing
 				kitten::K_GameObject* tile = BoardManager::getInstance()->getTile(9 - (sm_iClientId * 4), 8);
+				//kitten::K_GameObject* tile = BoardManager::getInstance()->getSpawnPoint(sm_iClientId);
 				commanderDataPacket.m_posX = tile->getComponent<TileInfo>()->getPosX();
 				commanderDataPacket.m_posY = tile->getComponent<TileInfo>()->getPosY();
 
 				commanderDataPacket.serialize(commanderDataBuffer);
-				NetworkServices::sendMessage(m_network->m_connectSocket, commanderData, SUMMON_UNIT_PACKET_SIZE);
+				NetworkServices::sendMessage(m_network->m_connectSocket, commanderData, UNIT_PACKET_SIZE);
 
 				break;
 			}
@@ -222,11 +236,11 @@ namespace networking
 
 				Buffer buffer;
 				buffer.m_data = &(m_network_data[i]);
-				buffer.m_size = SUMMON_UNIT_PACKET_SIZE;
+				buffer.m_size = UNIT_PACKET_SIZE;
 
-				SummonUnitPacket summonUnitPacket;
+				UnitPacket summonUnitPacket;
 				summonUnitPacket.deserialize(buffer);
-				i += SUMMON_UNIT_PACKET_SIZE;
+				i += UNIT_PACKET_SIZE;
 
 				summonUnit(summonUnitPacket.m_clientId, summonUnitPacket.m_unitId, summonUnitPacket.m_posX, summonUnitPacket.m_posY);
 				break;
@@ -255,8 +269,6 @@ namespace networking
 					sendDesyncedPacket();
 				}
 
-				//sendCurrentUnitPacket(unit::InitiativeTracker::getInstance()->getCurrentUnit());
-
 				break;
 			}
 			case PacketTypes::GAME_TURN_START:
@@ -275,18 +287,23 @@ namespace networking
 			{
 				printf("[Client: %d] received STARTING_COMMANDER_DATA packet from server\n", sm_iClientId);
 
+				// Get the other player's Commander data and summon it
 				Buffer buffer;
 				buffer.m_data = &(m_network_data[i]);
-				buffer.m_size = STARTING_COMMANDERS_PACKET_SIZE;
+				buffer.m_size = UNIT_PACKET_SIZE;
 
-				StartingCommandersPacket commandersPacket;
-				commandersPacket.deserialize(buffer);
-				i += STARTING_COMMANDERS_PACKET_SIZE;
-				
-				summonUnit(commandersPacket.m_client1Id, commandersPacket.m_player1Commander, commandersPacket.m_pos1X, commandersPacket.m_pos1Y);
-				summonUnit(commandersPacket.m_client2Id, commandersPacket.m_player2Commander, commandersPacket.m_pos2X, commandersPacket.m_pos2Y);
+				UnitPacket commanderPacket;
+				commanderPacket.deserialize(buffer);				
+				summonUnit(commanderPacket.m_clientId, commanderPacket.m_unitId, commanderPacket.m_posX, commanderPacket.m_posY);
+
+				// Place your Commander
+				kitten::K_GameObject* commanderGO = &m_commander->getGameObject();
+				commanderGO->getComponent<unit::UnitMove>()->setTile(9 - (sm_iClientId * 4), 8);
+
 				unit::InitiativeTracker::getInstance()->gameTurnStart();
 				m_bGameTurnStart = true;
+
+				i += UNIT_PACKET_SIZE;
 				break;
 			}
 			case PacketTypes::DESYNCED:
@@ -408,13 +425,13 @@ namespace networking
 
 	void ClientGame::sendSummonUnitPacket(int p_iUnitId, int p_iPosX, int p_iPosY)
 	{
-		char data[SUMMON_UNIT_PACKET_SIZE];
+		char data[UNIT_PACKET_SIZE];
 
 		Buffer buffer;
 		buffer.m_data = data;
-		buffer.m_size = SUMMON_UNIT_PACKET_SIZE;
+		buffer.m_size = UNIT_PACKET_SIZE;
 
-		SummonUnitPacket packet;
+		UnitPacket packet;
 		packet.m_packetType = PacketTypes::SUMMON_UNIT;
 		packet.m_clientId = sm_iClientId;
 		packet.m_unitId = p_iUnitId;
@@ -422,7 +439,7 @@ namespace networking
 		packet.m_posY = p_iPosY;
 		
 		packet.serialize(buffer);
-		NetworkServices::sendMessage(m_network->m_connectSocket, data, SUMMON_UNIT_PACKET_SIZE);
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, UNIT_PACKET_SIZE);
 	}
 
 	void ClientGame::sendBasicPacket(PacketTypes p_packetType)

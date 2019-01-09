@@ -12,7 +12,7 @@
 
 #define BASIC_PACKET_SIZE sizeof(Packet)
 #define SKIP_TURN_PACKET_SIZE sizeof(SkipTurnPacket)
-#define SUMMON_UNIT_PACKET_SIZE sizeof(SummonUnitPacket)
+#define UNIT_PACKET_SIZE sizeof(UnitPacket)
 #define STARTING_COMMANDERS_PACKET_SIZE sizeof(StartingCommandersPacket)
 #define TEST_PACKET_SIZE sizeof(TestPacket)
 
@@ -95,15 +95,14 @@ struct Packet {
 	}
 };
 
-struct SummonUnitPacket : Packet
+struct UnitPacket : Packet
 {
 	int m_unitId;
 	int m_posX, m_posY;
 
 	void serialize(Buffer& p_buffer) 
 	{
-		writeInt(p_buffer, m_packetType);
-		writeInt(p_buffer, m_clientId);
+		Packet::serialize(p_buffer);
 		writeInt(p_buffer, m_unitId);
 		writeInt(p_buffer, m_posX);
 		writeInt(p_buffer, m_posY);
@@ -111,8 +110,7 @@ struct SummonUnitPacket : Packet
 
 	void deserialize(Buffer& p_buffer)
 	{
-		m_packetType = readInt(p_buffer);
-		m_clientId = readInt(p_buffer);
+		Packet::deserialize(p_buffer);
 		m_unitId = readInt(p_buffer);
 		m_posX = readInt(p_buffer);
 		m_posY = readInt(p_buffer);
