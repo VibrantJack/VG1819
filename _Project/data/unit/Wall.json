@@ -5,7 +5,8 @@
 		"mv":0,
 		"in":0,
 		"cost":1,
-		"tags":["Terrans","Structure"]
+		"tags":["Terrans","Structure"],
+		"portrait_texture" : "textures/cards/500x500/Wall.tga"
 	},
 	"components" : [
 		{

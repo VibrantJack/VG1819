@@ -27,7 +27,8 @@
 				"status_name":"Rally",
 				"status_description":"Block Damage"
 			}
-		]
+		],
+		"portrait_texture" : "textures/cards/500x500/King.tga"
 	},
 	"components" : [
 		{

@@ -39,7 +39,8 @@
 				"description":"At the end of turn, Priest will heal itself.",
 				"hp":5
 			}
-		]
+		],
+		"portrait_texture" : "textures/cards/500x500/Priest.tga"
 	},
 	"components" : [
 		{
