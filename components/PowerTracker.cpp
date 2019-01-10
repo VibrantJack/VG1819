@@ -6,7 +6,8 @@
 PowerTracker::PowerTracker()
 	:
 	m_iMaxPower(4),
-	m_iCurrentPower(4)
+	m_iCurrentPower(4),
+	m_textBox(nullptr)
 {
 	kitten::EventManager::getInstance()->addListener(
 		kitten::Event::EventType::Manipulate_Tile,
@@ -50,7 +51,10 @@ void PowerTracker::start()
 
 void PowerTracker::updateTextBox()
 {
-	m_textBox->setText(std::to_string(getCurrentPower()) + "/" + std::to_string(m_iMaxPower));
+	if (m_textBox != nullptr)
+	{
+		m_textBox->setText(std::to_string(getCurrentPower()) + "/" + std::to_string(m_iMaxPower));
+	}
 }
 
 void PowerTracker::increaseMaxPower(int p_iAmount)
