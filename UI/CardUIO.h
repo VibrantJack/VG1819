@@ -1,6 +1,7 @@
 #pragma once
 
 #include "UIObject.h"
+#include "puppy\Text\TextBox.h"
 
 //austin's UI Object
 
@@ -10,17 +11,19 @@ namespace userinterface
 
 	class CardUIO : public UIObject
 	{
-
+	private:
+		HandFrame* m_parentHand;
+		puppy::TextBox* m_unitNameTextBox;
+		UIObject* m_unitPortrait;
 	public:
 		CardUIO(const char* p_pathToTex);
 		~CardUIO();
 
+		virtual void start() override;
+
 		void returnToHand();
 		void scaleAsCard();
 		void assignParentHand(HandFrame* p_toAssign);
-
-	private:
-		HandFrame* m_parentHand;
 
 	};
 		
