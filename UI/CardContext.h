@@ -36,6 +36,9 @@ private:
 	// Testing
 	int m_unitId = 1;
 
+	void updateUnitData();
+	void updateUnitAttributes();
+
 public:
 	CardContext();
 	~CardContext();
@@ -48,12 +51,9 @@ public:
 
 	void setUnit(unit::Unit* p_unit);
 	void setUnitListener(kitten::Event::EventType p_type, kitten::Event* p_event);
-	void updateUnitData();
+	void updateUnitAttributesListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 
 	virtual void onEnabled() override;
 	virtual void onDisabled() override;
-
 	void setEnabledListener(kitten::Event::EventType p_type, kitten::Event* p_event);
-
-	virtual void onUnitDataChanged() { updateUnitData(); }
 };

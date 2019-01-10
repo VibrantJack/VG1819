@@ -43,6 +43,7 @@ CardContext::~CardContext()
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Update_Card_Context_By_ID, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Update_Card_Context_By_GO, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Card_Context_Set_Enabled, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Update_Card_Context_Attrib, this);
 }
 
 void CardContext::start()
@@ -61,6 +62,11 @@ void CardContext::start()
 		kitten::Event::EventType::Card_Context_Set_Enabled,
 		this,
 		std::bind(&CardContext::setEnabledListener, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Update_Card_Context_Attrib,
+		this,
+		std::bind(&CardContext::updateUnitAttributesListener, this, std::placeholders::_1, std::placeholders::_2));
 
 	kitten::K_GameObjectManager* gom = kitten::K_GameObjectManager::getInstance();
 	m_cardTexture = gom->createNewGameObject("card_context_texture.json");
@@ -131,6 +137,11 @@ void CardContext::setUnitListener(kitten::Event::EventType p_type, kitten::Event
 	}
 }
 
+void CardContext::updateUnitAttributesListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+{
+	updateUnitAttributes();
+}
+
 // For testing only, changes the unit on the hovered card by pressing the B key
 void CardContext::update()
 {
@@ -156,15 +167,7 @@ void CardContext::updateUnitData()
 		tags += *it + ", ";
 	}
 	m_tagsBox->setText(tags.substr(0, tags.length() - 2));
-
-	m_hpBox->setText(std::to_string(m_unitData->m_attributes[UNIT_HP]));
-
-	m_mvBox->setText(std::to_string(m_unitData->m_attributes[UNIT_MV]));
-
-	m_initiativeBox->setText(std::to_string(m_unitData->m_attributes[UNIT_IN]));
-
-	m_costBox->setText(std::to_string(m_unitData->m_attributes[UNIT_COST]));
-
+	updateUnitAttributes();
 
 	// Ability Info TextBoxes
 	// Destroy the previous TextBoxes and clear the list
@@ -279,6 +282,14 @@ void CardContext::updateUnitData()
 		m_statusList.push_back(statusText);
 		row += std::ceil(statusDesc.length() / LINE_MAX_CHAR_LENGTH);
 	}
+}
+
+void CardContext::updateUnitAttributes()
+{
+	m_hpBox->setText(std::to_string(m_unitData->m_attributes[UNIT_HP]));
+	m_mvBox->setText(std::to_string(m_unitData->m_attributes[UNIT_MV]));
+	m_initiativeBox->setText(std::to_string(m_unitData->m_attributes[UNIT_IN]));
+	m_costBox->setText(std::to_string(m_unitData->m_attributes[UNIT_COST]));
 }
 
 void CardContext::onEnabled()

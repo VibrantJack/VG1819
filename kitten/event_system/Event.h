@@ -71,6 +71,7 @@ namespace kitten
 			Move_Camera,
 			Update_Card_Context_By_ID,
 			Update_Card_Context_By_GO,
+			Update_Card_Context_Attrib,
 			Card_Context_Set_Enabled,
 
 			Test_Event, 
