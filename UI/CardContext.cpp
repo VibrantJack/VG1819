@@ -30,6 +30,9 @@
 #define LINE_HEIGHT 12.0f
 #define LINE_MAX_CHAR_LENGTH 36.0f
 
+#define PORTRAIT_X 52.0f
+#define PORTRAIT_Y 180.0f
+
 CardContext::CardContext()
 {
 
@@ -37,11 +40,28 @@ CardContext::CardContext()
 
 CardContext::~CardContext()
 {
-
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Update_Card_Context_By_ID, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Update_Card_Context_By_GO, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Card_Context_Set_Enabled, this);
 }
 
 void CardContext::start()
 {
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Update_Card_Context_By_ID,
+		this,
+		std::bind(&CardContext::setUnitListener, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Update_Card_Context_By_GO,
+		this,
+		std::bind(&CardContext::setUnitListener, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Card_Context_Set_Enabled,
+		this,
+		std::bind(&CardContext::setEnabledListener, this, std::placeholders::_1, std::placeholders::_2));
+
 	kitten::K_GameObjectManager* gom = kitten::K_GameObjectManager::getInstance();
 	m_cardTexture = gom->createNewGameObject("card_context_texture.json");
 
@@ -72,6 +92,14 @@ void CardContext::start()
 	m_initiativeBox->getTransform().place(IN_X + contextPos.x - centerOffset, IN_Y + contextPos.y, 0.01f);
 	m_costBox->getTransform().place(COST_X + contextPos.x - centerOffset, COST_Y + contextPos.y, 0.01f);
 
+	// Creating UIObject
+	kitten::K_GameObject* unitPortrait = kitten::K_GameObjectManager::getInstance()->createNewGameObject("card_context_texture.json");
+	m_unitPortrait = unitPortrait->getComponent<userinterface::UIObject>();
+	unitPortrait->getTransform().scaleAbsolute(153.0f, 153.0f, 0.0f);
+	unitPortrait->getTransform().place(PORTRAIT_X + contextPos.x, PORTRAIT_Y + contextPos.y, 0.01f);
+	//unitPortrait->getTransform().setIgnoreParent(false);
+	//unitPortrait->getTransform().setParent(&m_attachedObject->getTransform());
+
 	// Testing
 	setUnit(kibble::getUnitFromId(13));
 
@@ -83,7 +111,23 @@ void CardContext::setUnit(unit::Unit* p_unit)
 	if (p_unit != m_unitData)
 	{
 		m_unitData = p_unit;
+		m_unitPortrait->setTexture(p_unit->getPortraitTexturePath().c_str());
 		updateUnitData();
+	}
+}
+
+void CardContext::setUnitListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+{
+	if (p_type == kitten::Event::Update_Card_Context_By_GO)
+	{
+		kitten::K_GameObject* unitGO = p_event->getGameObj(UPDATE_CARD_CONTEXT_KEY);
+		unit::Unit* unit = unitGO->getComponent<unit::Unit>();
+		if (unit != nullptr)
+			setUnit(unit);
+	}
+	else if (p_type == kitten::Event::Update_Card_Context_By_ID)
+	{
+		setUnit(kibble::getUnitFromId(p_event->getInt(UPDATE_CARD_CONTEXT_KEY)));
 	}
 }
 
@@ -246,6 +290,7 @@ void CardContext::onEnabled()
 	m_mvBox->setEnabled(true);
 	m_initiativeBox->setEnabled(true);
 	m_costBox->setEnabled(true);
+	m_unitPortrait->setEnabled(true);
 
 	auto abilityEnd = m_abilityList.cend();
 	for (auto it = m_abilityList.cbegin(); it != abilityEnd; ++it)
@@ -269,6 +314,7 @@ void CardContext::onDisabled()
 	m_mvBox->setEnabled(false);
 	m_initiativeBox->setEnabled(false);
 	m_costBox->setEnabled(false);
+	m_unitPortrait->setEnabled(false);
 
 	auto abilityEnd = m_abilityList.cend();
 	for (auto it = m_abilityList.cbegin(); it != abilityEnd; ++it)
@@ -281,4 +327,9 @@ void CardContext::onDisabled()
 	{
 		(*it)->setEnabled(false);
 	}
+}
+
+void CardContext::setEnabledListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+{
+	setEnabled(p_event->getInt(CARD_CONTEXT_SET_ENABLED_KEY));
 }

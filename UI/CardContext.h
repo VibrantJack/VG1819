@@ -11,7 +11,9 @@
 #include "kitten\K_Component.h"
 #include "unit\Unit.h"
 #include "puppy\Text\TextBox.h"
+#include "UI\UIObject.h"
 #include <vector>
+#include "kitten\event_system\EventManager.h"
 
 class CardContext : public kitten::K_Component
 {
@@ -27,6 +29,7 @@ private:
 	std::vector<puppy::TextBox*> m_statusList;
 
 	kitten::K_GameObject* m_cardTexture;
+	userinterface::UIObject* m_unitPortrait;
 
 	unit::Unit* m_unitData;
 
@@ -44,10 +47,13 @@ public:
 	virtual void update() override;
 
 	void setUnit(unit::Unit* p_unit);
+	void setUnitListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 	void updateUnitData();
 
 	virtual void onEnabled() override;
 	virtual void onDisabled() override;
+
+	void setEnabledListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 
 	virtual void onUnitDataChanged() { updateUnitData(); }
 };

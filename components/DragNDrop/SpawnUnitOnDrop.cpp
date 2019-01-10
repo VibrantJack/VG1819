@@ -10,6 +10,7 @@
 #include "UI/CardUIO.h"
 #include "components/PowerTracker.h"
 #include "board/BoardManager.h"
+#include "kitten\event_system\EventManager.h"
 #include <iostream>
 
 #define CARD_HOVER_MOVE_TIME 0.2
@@ -53,7 +54,10 @@ void SpawnUnitOnDrop::onDrop()
 	kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(this->m_attachedObject);
 
 	// Disable Card Context
-	m_cardContext->setEnabled(false);
+	//m_cardContext->setEnabled(false);
+	kitten::Event* e = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
+	e->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, e);
 }
 
 void SpawnUnitOnDrop::onHoverEnd() {
@@ -63,7 +67,11 @@ void SpawnUnitOnDrop::onHoverEnd() {
 		m_lerpController->positionLerp(m_origin, CARD_HOVER_MOVE_TIME);
 		m_isHovered = false;
 	}
-	m_cardContext->setEnabled(false);
+
+	// Disable Card Context
+	kitten::Event* e = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
+	e->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, e);
 }
 
 void SpawnUnitOnDrop::onHoverStart() {
@@ -74,15 +82,25 @@ void SpawnUnitOnDrop::onHoverStart() {
 		m_lerpController->positionLerp(glm::vec3(m_origin.x,m_origin.y + 50 , m_origin.z), CARD_HOVER_MOVE_TIME);
 	}
 	// TODO: Set the unit from the proper attached Unit
-	m_cardContext->setUnit(kibble::getUnitFromId(1));
-	m_cardContext->setEnabled(true);
+	kitten::Event* updateContextEvent = new kitten::Event(kitten::Event::Update_Card_Context_By_ID);
+	updateContextEvent->putInt(UPDATE_CARD_CONTEXT_KEY, 1);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_By_ID, updateContextEvent);
+
+	// Enable Card Context
+	kitten::Event* enableContextEvent = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
+	enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, TRUE);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
 }
 
 void SpawnUnitOnDrop::onPause()
 {
 	DragNDrop::onDrop();
 	m_isDragging = false;
-	m_cardContext->setEnabled(false);
+
+	// Disable Card Context when paused
+	kitten::Event* e = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
+	e->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, e);
 }
 
 void SpawnUnitOnDrop::onPosChanged(const glm::vec3& p_newPos)
@@ -95,8 +113,7 @@ void SpawnUnitOnDrop::onPosChanged(const glm::vec3& p_newPos)
 
 SpawnUnitOnDrop::SpawnUnitOnDrop()
 	:
-	DragNDrop(true),
-	m_cardContext(nullptr)
+	DragNDrop(true)
 {
 
 }

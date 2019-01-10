@@ -33,8 +33,8 @@ namespace userinterface
 	HandFrame::HandFrame(const char* p_pathToTex) : UIFrame(p_pathToTex)
 	{
 		m_totalCards = 0;
-		m_cardX = 100;
-		m_cardY = 170;
+		m_cardX = 108.0f;
+		m_cardY = 170.0f;
 		m_padding = 10;
 		m_contentMargin = 10;
 
@@ -120,7 +120,6 @@ namespace userinterface
 		// Generate Cards to add
 		for (int i = 0; i < countToAdd; i++) {
 			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
-			card->getComponent<SpawnUnitOnDrop>()->setCardContext(cardContext);
 			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
 			cardCasted->scaleAsCard();
 
@@ -162,7 +161,6 @@ namespace userinterface
 		for (int x = 0; x < 5; x++)
 		{
 			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
-			card->getComponent<SpawnUnitOnDrop>()->setCardContext(cardContext);
 			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
 			cardCasted->scaleAsCard();
 
