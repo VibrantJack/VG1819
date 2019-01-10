@@ -2,6 +2,7 @@
 
 #include "kitten\K_Component.h"
 #include "puppy\Text\TextBox.h"
+#include "UI\UIObject.h"
 #include "kitten\event_system\EventManager.h"
 
 class PowerTracker : public kitten::K_Component
@@ -11,9 +12,7 @@ public:
 	~PowerTracker();
 
 	void start() override;
-
-	virtual bool hasUpdate() const override { return true; };
-	virtual void update() override;
+	void updateTextBox();
 
 	void increaseMaxPower(int p_iAmount = 1);
 	void increaseMaxPowerEvent(kitten::Event::EventType p_type, kitten::Event* p_data);
@@ -30,4 +29,5 @@ private:
 	int m_iCurrentPower;
 
 	puppy::TextBox* m_textBox;
+	userinterface::UIObject* m_powerIcon;
 };
