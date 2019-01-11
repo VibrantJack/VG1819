@@ -1425,12 +1425,13 @@ kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
 #include "kitten/SimpleQuadRenderable.h"
 kitten::K_Component* getSimpleQuadRenderable(nlohmann::json* p_jsonFile) {
 	std::string texturefilename;
-	bool isStatic;
+	bool isStatic, upRight;
 
 	SETOPTDEF(texturefilename, "texture", "");
 	SETOPTDEF(isStatic, "static", false);
+	SETOPTDEF(upRight, "upright", false);
 
-	return new kitten::SimpleQuadRenderable(texturefilename.c_str(), isStatic);
+	return new kitten::SimpleQuadRenderable(texturefilename.c_str(), isStatic, upRight);
 }
 
 #include "UI\CardArt.h"

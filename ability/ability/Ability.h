@@ -27,7 +27,7 @@ namespace ability
 		Ability(const std::string p_name) : m_name(p_name) {}
 
 		//simple ability
-		void singleTargetDamage(AbilityInfoPackage* p_info);
+		void singleTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile = false);
 		void multiTargetDamage(AbilityInfoPackage* p_info);
 		int damage(unit::Unit* p_target, int power);
 
@@ -89,7 +89,7 @@ namespace ability
 	{
 	public:
 		Shoot() : Ability(ABILITY_SHOOT) {};
-		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info, true); return 0; };
 	};
 
 	class Encourage : public Ability
@@ -165,7 +165,7 @@ namespace ability
 	{
 	public:
 		Burn() : Ability(ABILITY_BURN) {};
-		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info, true); return 0; };
 	};
 
 	class FireDance : public Ability

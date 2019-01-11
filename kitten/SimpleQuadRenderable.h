@@ -9,11 +9,12 @@ namespace kitten
 	{
 	private:
 		static puppy::VertexEnvironment* sm_vao;
-		static int sm_instances;
+		static puppy::VertexEnvironment* sm_upRightVao;
+		static int sm_instances, sm_upRightInstances;
 
 		puppy::Material* m_mat;
 
-		bool m_isStatic, m_isRenderingStatic;
+		bool m_isStatic, m_isRenderingStatic, m_isUpright;
 		puppy::Texture* m_staticTex;
 
 		void addToStaticRender();
@@ -22,7 +23,7 @@ namespace kitten
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
 	public:
-		SimpleQuadRenderable(const std::string& p_texPath = "", bool p_isStatic = false);
+		SimpleQuadRenderable(const std::string& p_texPath = "", bool p_isStatic = false, bool p_upRight = false);
 		virtual ~SimpleQuadRenderable();
 
 		void setTexture(const char* p_pathToTex);

@@ -4,6 +4,9 @@
 puppy::VertexEnvironment* kitten::SimpleQuadRenderable::sm_vao = nullptr;
 int kitten::SimpleQuadRenderable::sm_instances = 0;
 
+puppy::VertexEnvironment* kitten::SimpleQuadRenderable::sm_upRightVao = nullptr;
+int kitten::SimpleQuadRenderable::sm_upRightInstances = 0;
+
 void kitten::SimpleQuadRenderable::addToStaticRender()
 {
 	/*
@@ -66,8 +69,8 @@ void kitten::SimpleQuadRenderable::onEnabled()
 	}
 }
 
-kitten::SimpleQuadRenderable::SimpleQuadRenderable(const std::string & p_texPath, bool p_isStatic)
-	:m_isStatic(p_isStatic)
+kitten::SimpleQuadRenderable::SimpleQuadRenderable(const std::string & p_texPath, bool p_isStatic, bool p_upRight)
+	: m_isStatic(p_isStatic), m_isUpright(p_upRight)
 {
 	m_mat = new puppy::Material(puppy::ShaderType::alphaTest);
 
@@ -76,31 +79,62 @@ kitten::SimpleQuadRenderable::SimpleQuadRenderable(const std::string & p_texPath
 		m_mat->setTexture(p_texPath.c_str());
 	}
 
-	//If we have not initialized the vao yet
-	if (sm_instances < 1)
+	if (!p_upRight)
 	{
-		//setup the vao
-		puppy::TexturedVertex verts[] =
+		//If we have not initialized the vao yet
+		if (sm_instances < 1)
 		{
-		{ -0.5f, 0.0f, 0.5f,		0.0f, 1.0f },
-		{ 0.5f, 0.0f, 0.5f,			1.0f, 1.0f },
-		{ 0.5f, 0.0f,-0.5f,			1.0f, 0.0f },
-		{ 0.5f, 0.0f,-0.5f,			1.0f, 0.0f },
-		{ -0.5f, 0.0f,-0.5f,		0.0f, 0.0f },
-		{ -0.5f, 0.0f, 0.5f,		0.0f, 1.0f },
-		};
-		sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
+			//setup the vao
+			puppy::TexturedVertex verts[] =
+			{
+			{ -0.5f, 0.0f, 0.5f,		0.0f, 1.0f },
+			{ 0.5f, 0.0f, 0.5f,			1.0f, 1.0f },
+			{ 0.5f, 0.0f,-0.5f,			1.0f, 0.0f },
+			{ 0.5f, 0.0f,-0.5f,			1.0f, 0.0f },
+			{ -0.5f, 0.0f,-0.5f,		0.0f, 0.0f },
+			{ -0.5f, 0.0f, 0.5f,		0.0f, 1.0f },
+			};
+			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
+		}
+		++sm_instances;
 	}
-	++sm_instances;
+	else
+	{
+		if (sm_upRightInstances < 1)
+		{
+			//setup the vao
+			puppy::TexturedVertex verts[] =
+			{
+				{ -0.5f, -0.5f, 0.0f,		0.0f, 0.0f },
+				{ -0.5f,  0.5f, 0.0f,		0.0f, 1.0f },
+				{ 0.5f,  0.5f, 0.0f,		1.0f, 1.0f },
+				{ 0.5f,  0.5f, 0.0f,		1.0f, 1.0f },
+				{ 0.5f, -0.5f, 0.0f,		1.0f, 0.0f },
+				{ -0.5f, -0.5f, 0.0f,		0.0f, 0.0f },
+			};
+			sm_upRightVao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
+		}
+		++sm_upRightInstances;
+	}
 }
 
 kitten::SimpleQuadRenderable::~SimpleQuadRenderable()
 {
-	if (--sm_instances == 0)
+	if (!m_isUpright)
 	{
-		delete sm_vao;
+		if (--sm_instances == 0)
+		{
+			delete sm_vao;
+		}
 	}
-
+	else
+	{
+		if (--sm_upRightInstances == 0)
+		{
+			delete sm_upRightVao;
+		}
+	}
+	
 	if (!m_isStatic)
 	{
 		if (m_isEnabled)
@@ -141,5 +175,12 @@ void kitten::SimpleQuadRenderable::render(const glm::mat4 & p_viewProj)
 	m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
 
 	//render
-	sm_vao->drawArrays(GL_TRIANGLES);
+	if (!m_isUpright)
+	{
+		sm_vao->drawArrays(GL_TRIANGLES);
+	}
+	else
+	{
+		sm_upRightVao->drawArrays(GL_TRIANGLES);
+	}
 }

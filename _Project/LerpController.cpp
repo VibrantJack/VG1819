@@ -146,10 +146,12 @@ void LerpController::removePositionCallback(PositionLerpFinishedCallback* p_list
 {
 	m_posCallbacks.erase(std::find(m_posCallbacks.begin(),m_posCallbacks.end(), p_listener));
 }
+
 void LerpController::removeScaleCallback(ScaleLerpFinishedCallback* p_listener)
 {
 	m_scaleCallbacks.erase(std::find(m_scaleCallbacks.begin(), m_scaleCallbacks.end(), p_listener));
 }
+
 void LerpController::removeRotationCallback(RotationLerpFinishedCallback* p_listener)
 {
 	m_rotationCallbacks.erase(std::find(m_rotationCallbacks.begin(), m_rotationCallbacks.end(), p_listener));
@@ -193,6 +195,7 @@ void LerpController::forceLerpToFinish()
 	}
 	this->onFinishedLerp();
 }
+
 void LerpController::cancelLerp()
 {
 	if (!m_isLerping) return;
@@ -213,6 +216,7 @@ void LerpController::cancelLerp()
 	}
 	this->onFinishedLerp();
 }
+
 void LerpController::addPositionLerpFinishedCallback(PositionLerpFinishedCallback* p_toAdd)
 {
 	m_posCallbacks.push_back(p_toAdd);

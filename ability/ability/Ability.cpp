@@ -7,12 +7,19 @@
 
 #include <iostream>
 
-void ability::Ability::singleTargetDamage(AbilityInfoPackage* p_info)
+void ability::Ability::singleTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile)
 {
 	//damage target by power
 	if (checkTarget(p_info))
 	{
-		ProjectileManager::fireProjectile(m_name, p_info->m_source, p_info->m_targets[0], this, p_info);
+		if (p_fireProjectile)
+		{
+			ProjectileManager::fireProjectile(m_name, p_info->m_source, p_info->m_targets[0], this, p_info);
+		}
+		else
+		{
+			singleTargetProjectileFinished(p_info);
+		}
 	}
 	else
 	{

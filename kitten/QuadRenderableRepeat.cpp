@@ -35,6 +35,7 @@ namespace kitten
 	QuadRenderableRepeat::~QuadRenderableRepeat()
 	{
 		onDisabled();
+		delete m_vao;
 	}
 
 	void QuadRenderableRepeat::addToStaticRender()

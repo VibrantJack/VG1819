@@ -3,15 +3,11 @@
     "components" : [
         {
             "name" : "SimpleQuadRenderable",
-            "texture" : "textures/projectiles/fireball1.gif"
+            "texture" : "textures/projectiles/fireball1.gif",
+			"upright" : true
         },
         {
             "name" : "LerpController"
-        },
-		{
-			"name" : "DisableAfterTime",
-			"time" : 1.5
-		}
-    ],
-	"rotate" : [90,0,0]
+        }
+    ]
 }

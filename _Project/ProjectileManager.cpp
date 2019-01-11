@@ -1,10 +1,12 @@
 #include "ProjectileManager.h"
 
 #include "kitten\K_GameObjectManager.h"
+#include "util\MathUtil.h"
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <math.h>
 
 ProjectileManager* ProjectileManager::m_instance = nullptr;
 
@@ -63,6 +65,7 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 	auto pair = m_projectiles[p_type];
 
 	kitten::K_GameObject* proj = pair.first;
+	m_lastGO = proj;
 	float time = pair.second;
 
 	m_lastPackage = p_package;
@@ -75,6 +78,35 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 	const glm::vec3& startPos = p_source->getTransform().getTranslation();
 	proj->getTransform().place(startPos.x, startPos.y+1, startPos.z);
 
+	// Get the angle between the source and the destination to rotate the projectile
+	float xDist = p_source->getTransform().getTranslation().x - p_target->getTransform().getTranslation().x;
+	float zDist = p_source->getTransform().getTranslation().z - p_target->getTransform().getTranslation().z;
+
+	float radAngle = atan(xDist / zDist);
+	float degAngle = radAngle / DEG_TO_RAD_FACTOR;
+
+	if (zDist > 0)
+	{
+		if (degAngle == 0)
+		{
+			degAngle = -180; //Straight up/down
+		}
+		else
+		{
+			if (degAngle > 0)
+			{
+				degAngle += 180;
+			}
+			else
+			{
+				degAngle -= 180;
+			}
+		}
+	}
+
+	proj->getTransform().rotateAbsolute(glm::vec3(0, 0, -degAngle));
+	proj->getTransform().rotateRelative(glm::vec3(45, 0, 0)); //rotate to the camera
+
 	lerpCon->addPositionLerpFinishedCallback(this);
 	
 	proj->setEnabled(true);
@@ -86,4 +118,6 @@ void ProjectileManager::onPositionLerpFinished()
 	m_lastAbility->singleTargetProjectileFinished(m_lastPackage);
 	m_lastAbility = nullptr;
 	m_lastPackage = nullptr;
+
+	m_lastGO->setEnabled(false);
 }
