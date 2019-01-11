@@ -298,6 +298,9 @@ namespace networking
 				{
 					m_commander = commanderGO1->getComponent<unit::Unit>();
 				}
+				kitten::Event* eventData = new kitten::Event(kitten::Event::Client_Commander_Loaded);
+				eventData->putGameObj(COMMANDER_GO_KEY, &m_commander->getGameObject());
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Client_Commander_Loaded, eventData);
 
 				unit::InitiativeTracker::getInstance()->gameTurnStart();
 				m_bGameTurnStart = true;
