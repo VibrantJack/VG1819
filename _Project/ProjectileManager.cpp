@@ -36,7 +36,7 @@ ProjectileManager::ProjectileManager(const std::string& p_projectileList)
 			// get the time
 			std::string time;
 			std::getline(stream, time, ',');
-			float convertedTime = std::stof(time);
+			float convertedTime = 1.0f/std::stof(time);
 
 			// Make the GameObject
 			auto gameObj = gameObjMan->createNewGameObject(jsonName);
@@ -66,7 +66,7 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 
 	kitten::K_GameObject* proj = pair.first;
 	m_lastGO = proj;
-	float time = pair.second;
+	
 
 	m_lastPackage = p_package;
 	m_lastAbility = p_ability;
@@ -81,6 +81,7 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 	// Get the angle between the source and the destination to rotate the projectile
 	float xDist = p_source->getTransform().getTranslation().x - p_target->getTransform().getTranslation().x;
 	float zDist = p_source->getTransform().getTranslation().z - p_target->getTransform().getTranslation().z;
+	float hypotenuseDistance = sqrt((xDist*xDist + zDist*zDist));
 
 	float radAngle = atan(xDist / zDist);
 	float degAngle = radAngle / DEG_TO_RAD_FACTOR;
@@ -110,6 +111,9 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 	lerpCon->addPositionLerpFinishedCallback(this);
 	
 	proj->setEnabled(true);
+
+	float time = pair.second * hypotenuseDistance;
+
 	lerpCon->positionLerp(p_target->getTransform().getTranslation(), time);	
 }
 
