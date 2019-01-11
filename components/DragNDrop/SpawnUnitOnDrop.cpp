@@ -29,8 +29,7 @@ void SpawnUnitOnDrop::onDrop()
 	}
 	
 	// Unit setup
-	unit::Unit* unit = m_attachedObject->getComponent<unit::Unit>();
-	if (unit == nullptr) unit = kibble::getUnitFromId(1); // basically defaults to a priest. TODO remove this line when hand fully functional.
+	unit::Unit* unit = m_cardUIO->getUnit();
 
 	// Check for unit stuff.
 	if(BoardManager::getInstance()->getPowerTracker()->getCurrentPower() < unit->m_attributes[UNIT_COST] // Check if there is enough power to spawn this.

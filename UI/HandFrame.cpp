@@ -14,11 +14,11 @@
 #include "UI/CardUIO.h"
 #include "kitten/InputManager.h"
 #include "_Project/LerpController.h"
-#include "networking\ClientGame.h"
 
 #include "components\DragNDrop\SpawnUnitOnDrop.h"
 
 #define MAX_CARDS_IN_HAND 5
+#define NUM_STARTING_CARDS 5
 #define TIME_FOR_CARDS_TO_ORDER 0.1
 #define TEMP_POWER_CHARGE 1
 
@@ -113,11 +113,10 @@ namespace userinterface
 	{
 		if(m_playerID != p_event->getInt(PLAYER_ID)) return;
 		// Find the number of cards to add to hand
-		int countToAdd = min(p_event->getInt(CARD_COUNT), MAX_CARDS_IN_HAND - (int)m_innerObjects.size());
+		int countToAdd = std::min(p_event->getInt(CARD_COUNT), MAX_CARDS_IN_HAND - (int)m_innerObjects.size());
 
 		// Generate Cards to add
 		for (int i = 0; i < countToAdd; i++) {
-			printf("Initial Draw Card\n");
 			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
 			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
 			cardCasted->scaleAsCard();
@@ -171,9 +170,9 @@ namespace userinterface
 
 		kitten::Event* eventData = new kitten::Event(kitten::Event::EventType::Card_Drawn);
 		eventData->putInt(PLAYER_ID, m_playerID);
-		eventData->putInt(CARD_COUNT, 5);
+		eventData->putInt(CARD_COUNT, NUM_STARTING_CARDS);
 		kitten::EventManager::getInstance()->queueEvent(kitten::Event::EventType::Draw_Card, eventData);
-
+		
 		m_isInit = true;
 	}
 

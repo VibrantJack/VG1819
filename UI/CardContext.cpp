@@ -286,6 +286,10 @@ void CardContext::updateUnitData()
 
 void CardContext::updateUnitAttributes()
 {
+	if (m_unitData->m_attributes[UNIT_HP] < 0)
+	{
+		setEnabled(false);
+	}
 	m_hpBox->setText(std::to_string(m_unitData->m_attributes[UNIT_HP]));
 	m_mvBox->setText(std::to_string(m_unitData->m_attributes[UNIT_MV]));
 	m_initiativeBox->setText(std::to_string(m_unitData->m_attributes[UNIT_IN]));
