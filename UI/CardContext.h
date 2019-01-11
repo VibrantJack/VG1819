@@ -38,6 +38,7 @@ private:
 
 	void updateUnitData();
 	void updateUnitAttributes();
+	void setAttribTextColor(puppy::TextBox* p_textBox, const std::string& p_currAttrib, const std::string& p_baseAttrib);
 
 public:
 	CardContext();

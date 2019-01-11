@@ -14,9 +14,9 @@
 #include "UI/CardUIO.h"
 #include "kitten/InputManager.h"
 #include "_Project/LerpController.h"
+#include "networking\ClientGame.h"
 
 #include "components\DragNDrop\SpawnUnitOnDrop.h"
-#include "UI\CardContext.h"
 
 #define MAX_CARDS_IN_HAND 5
 #define TIME_FOR_CARDS_TO_ORDER 0.1
@@ -113,15 +113,17 @@ namespace userinterface
 	{
 		if(m_playerID != p_event->getInt(PLAYER_ID)) return;
 		// Find the number of cards to add to hand
-		int countToAdd = std::min(p_event->getInt(CARD_COUNT), MAX_CARDS_IN_HAND - (int)m_innerObjects.size());
-
-		CardContext* cardContext = m_attachedObject->getComponent<CardContext>();
+		int countToAdd = min(p_event->getInt(CARD_COUNT), MAX_CARDS_IN_HAND - (int)m_innerObjects.size());
 
 		// Generate Cards to add
 		for (int i = 0; i < countToAdd; i++) {
+			printf("Initial Draw Card\n");
 			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
 			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
 			cardCasted->scaleAsCard();
+
+			int unitId = p_event->getInt(CARD_ID + std::to_string(i));
+			cardCasted->setUnit(kibble::getUnitFromId(unitId));
 
 			this->addCardToEnd(cardCasted);
 			cardCasted->assignParentHand(this);
@@ -156,9 +158,8 @@ namespace userinterface
 			std::bind(&HandFrame::receiveDrawnCard, this, std::placeholders::_1, std::placeholders::_2));
 
 		userinterface::HandFrame* frameCasted = m_attachedObject->getComponent<HandFrame>();
-		CardContext* cardContext = m_attachedObject->getComponent<CardContext>();
 
-		for (int x = 0; x < 5; x++)
+		/*for (int x = 0; x < 5; x++)
 		{
 			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
 			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
@@ -166,7 +167,13 @@ namespace userinterface
 
 			frameCasted->addCardToEnd(cardCasted);
 			cardCasted->assignParentHand(frameCasted);
-		}
+		}*/
+
+		kitten::Event* eventData = new kitten::Event(kitten::Event::EventType::Card_Drawn);
+		eventData->putInt(PLAYER_ID, m_playerID);
+		eventData->putInt(CARD_COUNT, 5);
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::EventType::Draw_Card, eventData);
+
 		m_isInit = true;
 	}
 

@@ -261,7 +261,7 @@ void CardContext::updateUnitData()
 			std::string name = it->getName();
 			statusDesc += name + ":";
 		}
-		
+
 		int hp = attributes[UNIT_HP];
 		if (hp > 0)
 			statusDesc += " HP+" + std::to_string(hp);
@@ -274,7 +274,7 @@ void CardContext::updateUnitData()
 		if (mv > 0)
 			statusDesc += " MV+" + std::to_string(mv);
 
-		
+
 		std::string description = it->getDescription();
 		statusDesc += " "+description;
 
@@ -290,6 +290,27 @@ void CardContext::updateUnitAttributes()
 	m_mvBox->setText(std::to_string(m_unitData->m_attributes[UNIT_MV]));
 	m_initiativeBox->setText(std::to_string(m_unitData->m_attributes[UNIT_IN]));
 	m_costBox->setText(std::to_string(m_unitData->m_attributes[UNIT_COST]));
+
+	setAttribTextColor(m_hpBox, UNIT_HP, UNIT_MAX_HP);
+	setAttribTextColor(m_mvBox, UNIT_MV, UNIT_BASE_MV);
+	setAttribTextColor(m_initiativeBox, UNIT_IN, UNIT_BASE_IN);
+	setAttribTextColor(m_costBox, UNIT_COST, UNIT_BASE_COST);
+}
+
+void CardContext::setAttribTextColor(puppy::TextBox* p_textBox, const std::string& p_currAttrib, const std::string& p_baseAttrib)
+{
+	if (m_unitData->m_attributes[p_currAttrib] < m_unitData->m_attributes[p_baseAttrib])
+	{
+		p_textBox->setColor(1.0f, 0.0f, 0.0f);
+	} 
+	else if (m_unitData->m_attributes[p_currAttrib] > m_unitData->m_attributes[p_baseAttrib])
+	{
+		p_textBox->setColor(0.0f, 0.5f, 1.0f);
+	} 
+	else
+	{
+		p_textBox->setColor(1.0f, 1.0f, 1.0f);
+	}
 }
 
 void CardContext::onEnabled()

@@ -1,10 +1,12 @@
 #include "UI/DragNDrop.h"
+#include "UI\CardUIO.h"
 #include "_Project/LerpController.h"
 
 class SpawnUnitOnDrop : public DragNDrop, public kitten::TransformPositionListener
 {
 private:
 	bool m_isHovered = false; 
+	userinterface::CardUIO* m_cardUIO;
 public:
 	SpawnUnitOnDrop();
 	~SpawnUnitOnDrop();

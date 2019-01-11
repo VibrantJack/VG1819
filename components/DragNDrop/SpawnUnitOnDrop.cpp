@@ -81,9 +81,10 @@ void SpawnUnitOnDrop::onHoverStart() {
 		//getTransform().place2D(m_origin.x, m_origin.y + 50);
 		m_lerpController->positionLerp(glm::vec3(m_origin.x,m_origin.y + 50 , m_origin.z), CARD_HOVER_MOVE_TIME);
 	}
-	// TODO: Set the unit from the proper attached Unit
+	
+	// Get CardUIO attached unit ID
 	kitten::Event* updateContextEvent = new kitten::Event(kitten::Event::Update_Card_Context_By_ID);
-	updateContextEvent->putInt(UPDATE_CARD_CONTEXT_KEY, 1);
+	updateContextEvent->putInt(UPDATE_CARD_CONTEXT_KEY, m_cardUIO->getUnit()->m_kibbleID);
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_By_ID, updateContextEvent);
 
 	// Enable Card Context
@@ -113,7 +114,8 @@ void SpawnUnitOnDrop::onPosChanged(const glm::vec3& p_newPos)
 
 SpawnUnitOnDrop::SpawnUnitOnDrop()
 	:
-	DragNDrop(true)
+	DragNDrop(true),
+	m_cardUIO(nullptr)
 {
 
 }
@@ -127,4 +129,6 @@ void SpawnUnitOnDrop::start()
 {
 	DragNDrop::start();
 	getTransform().addPositionListener(this);
+
+	m_cardUIO = m_attachedObject->getComponent<userinterface::CardUIO>();
 }
