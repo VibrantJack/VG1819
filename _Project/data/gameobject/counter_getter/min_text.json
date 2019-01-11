@@ -1,11 +1,6 @@
 {
     "name" : "Min Counter", 
-    "components" : [
-        {
-            "name":"TextBox",
-            "message":"min"
-        }
-    ],
+    "filename" : "counter_getter/textbox.json",
     "translate" : [0,0,0.1],
-    "translate2d" : [400,410]
+    "translate2d" : [170,410]
 }

@@ -1,11 +1,6 @@
 {
     "name" : "Max Counter", 
-    "components" : [
-        {
-            "name":"TextBox",
-            "message":"max"
-        }
-    ],
+    "filename" : "counter_getter/textbox.json",
     "translate" : [0,0,0.1],
-    "translate2d" : [830,410]
+    "translate2d" : [600,410]
 }

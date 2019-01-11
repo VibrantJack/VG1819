@@ -1,12 +1,6 @@
 {
     "name" : "Name", 
-    "components" : [
-        {
-            "name":"TextBox",
-            "alignment":"center",
-            "message":"name"
-        }
-    ],
+    "filename" : "counter_getter/textbox.json",
     "translate" : [0,0,0.1],
     "translate2d" : [400,460]
 }

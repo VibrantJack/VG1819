@@ -28,18 +28,27 @@ void CounterGetterController::start()
 	kitten::K_GameObjectManager* gm = kitten::K_GameObjectManager::getInstance();
 	//create text box
 	m_counterGO = gm->createNewGameObject("counter_getter/name_text.json");
+	m_counterGO->getTransform().setParent(&m_attachedObject->getTransform());
 	m_minGO = gm->createNewGameObject("counter_getter/min_text.json");
+	m_minGO->getTransform().setParent(&m_attachedObject->getTransform());
 	m_maxGO = gm->createNewGameObject("counter_getter/max_text.json");
+	m_maxGO->getTransform().setParent(&m_attachedObject->getTransform());
 	m_currentGO = gm->createNewGameObject("counter_getter/current_text.json");
+	m_currentGO->getTransform().setParent(&m_attachedObject->getTransform());
 
 	//create slider button
 	m_sliderButtonGO = gm->createNewGameObject("counter_getter/slider_button.json");
+	m_sliderButtonGO->getTransform().setParent(&m_attachedObject->getTransform());
 
 	//create buttons
 	m_ButtonGO.push_back(gm->createNewGameObject("counter_getter/cancel_button.json"));
 	m_ButtonGO.push_back(gm->createNewGameObject("counter_getter/check_button.json"));
 	m_ButtonGO.push_back(gm->createNewGameObject("counter_getter/plus_button.json"));
 	m_ButtonGO.push_back(gm->createNewGameObject("counter_getter/minus_button.json"));
+	for (int i = 0; i < m_ButtonGO.size(); i++)
+	{
+		m_ButtonGO[i]->getTransform().setParent(&m_attachedObject->getTransform());
+	}
 
 	//set
 	addThisToButton();
@@ -98,6 +107,7 @@ void CounterGetterController::cancel()
 
 void CounterGetterController::onEnabled()
 {
+	/*
 	m_counterGO->setEnabled(true);
 	m_minGO->setEnabled(true);
 	m_maxGO->setEnabled(true);
@@ -106,7 +116,7 @@ void CounterGetterController::onEnabled()
 	for (int i = 0; i < m_ButtonGO.size(); i++)
 	{
 		m_ButtonGO[i]->setEnabled(true);
-	}
+	}*/
 }
 
 void CounterGetterController::onDisabled()
@@ -116,6 +126,7 @@ void CounterGetterController::onDisabled()
 	m_current = -1;
 	m_counter = "Missing";
 
+	/*
 	m_counterGO->setEnabled(false);
 	m_minGO->setEnabled(false);
 	m_maxGO->setEnabled(false);
@@ -124,7 +135,7 @@ void CounterGetterController::onDisabled()
 	for (int i = 0; i < m_ButtonGO.size(); i++)
 	{
 		m_ButtonGO[i]->setEnabled(false);
-	}
+	}*/
 }
 
 void CounterGetterController::addThisToButton()
