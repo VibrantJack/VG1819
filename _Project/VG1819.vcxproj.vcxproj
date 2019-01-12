@@ -663,6 +663,7 @@
     <ClInclude Include="..\unit\InitiativeTracker\TrackerBlock.h" />
     <ClInclude Include="..\unit\InitiativeTracker\TrackerBlockClickable.h" />
     <ClInclude Include="..\unit\InitiativeTracker\TrackerPointer.h" />
+    <ClInclude Include="..\unit\InitiativeTracker\TurnChangeDisplay.h" />
     <ClInclude Include="..\unit\InitiativeTracker\UnitAura.h" />
     <ClInclude Include="..\unit\InitiativeTracker\UnitTurn.h" />
     <ClInclude Include="..\unit\Unit.h" />

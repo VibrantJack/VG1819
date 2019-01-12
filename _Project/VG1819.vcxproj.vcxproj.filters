@@ -1804,6 +1804,9 @@
     <ClInclude Include="..\unitInteraction\CounterGetterController.h">
       <Filter>unitInteraction</Filter>
     </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\TurnChangeDisplay.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
