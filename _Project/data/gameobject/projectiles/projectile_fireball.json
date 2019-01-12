@@ -8,6 +8,10 @@
         },
         {
             "name" : "LerpController"
-        }
+        },
+		{
+			"name" : "ProjectileParticleSystemHelper",
+			"effect" : "BurnExplosion"
+		}
     ]
 }

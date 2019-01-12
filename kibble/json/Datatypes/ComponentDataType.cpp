@@ -1476,6 +1476,12 @@ kitten::K_Component* getDirectionalLight(nlohmann::json* p_jsonFile) {
 	return new kitten::K_DirectionalLight(ambientColor, directionalColor, useCallbacks);
 }
 
+#include "_Project\ProjectileParticleSystemHelper.h"
+kitten::K_Component* getProjectileParticleSystemHelper(nlohmann::json* p_jsonFile) {
+	std::string effectName = p_jsonFile->operator[]("effect");
+	return new ProjectileParticleSystemHelper(effectName);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1585,6 +1591,7 @@ void setupComponentMap() {
 	jsonComponentMap["PivotTextBox"] = &getPivotTextBox;
 	jsonComponentMap["CardArt"] = &getCardArt;
 	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
+	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
 
 }
 

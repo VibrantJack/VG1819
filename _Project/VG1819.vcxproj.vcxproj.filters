@@ -236,7 +236,6 @@
     <ClCompile Include="..\unit\unitComponent\UnitMove.cpp">
       <Filter>unit\unitComponent</Filter>
     </ClCompile>
-    <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
     <ClCompile Include="..\kitten\audio\AudioEngineWrapper.cpp">
       <Filter>kitten\audio</Filter>
     </ClCompile>
@@ -840,6 +839,12 @@
     <ClCompile Include="ProjectileManager.cpp">
       <Filter>ability</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\K_RenderableSprite.cpp">
+      <Filter>kitten\sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectileParticleSystemHelper.cpp">
+      <Filter>components\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1061,8 +1066,6 @@
     <ClInclude Include="..\unit\unitComponent\UnitMove.h">
       <Filter>unit\unitComponent</Filter>
     </ClInclude>
-    <ClInclude Include="..\kitten\K_RenderableSprite.h" />
-    <ClInclude Include="..\puppy\P_Sprite.h" />
     <ClInclude Include="..\kitten\audio\AudioEngineWrapper.h">
       <Filter>kitten\audio</Filter>
     </ClInclude>
@@ -1803,6 +1806,15 @@
     </ClInclude>
     <ClInclude Include="ProjectileManager.h">
       <Filter>ability</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_RenderableSprite.h">
+      <Filter>kitten\sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\P_Sprite.h">
+      <Filter>puppy</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileParticleSystemHelper.h">
+      <Filter>components\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
