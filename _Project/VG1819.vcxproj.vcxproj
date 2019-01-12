@@ -333,10 +333,12 @@
     <ClCompile Include="..\unitInteraction\UnitInteractionManager.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp" />
+    <ClCompile Include="..\unit\InitiativeTracker\NewTurnMessageController.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\PointerUI.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\TrackerBlock.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\TrackerBlockClickable.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\TrackerPointer.cpp" />
+    <ClCompile Include="..\unit\InitiativeTracker\TurnChangeDisplay.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\UnitAura.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\UnitTurn.cpp" />
     <ClCompile Include="..\unit\Unit.cpp" />
@@ -659,6 +661,7 @@
     <ClInclude Include="..\unitInteraction\UnitInteractionManager.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTrackerUI.h" />
+    <ClInclude Include="..\unit\InitiativeTracker\NewTurnMessageController.h" />
     <ClInclude Include="..\unit\InitiativeTracker\PointerUI.h" />
     <ClInclude Include="..\unit\InitiativeTracker\TrackerBlock.h" />
     <ClInclude Include="..\unit\InitiativeTracker\TrackerBlockClickable.h" />

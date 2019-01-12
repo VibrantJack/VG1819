@@ -1492,6 +1492,13 @@ kitten::K_Component* getCounterGetterController(nlohmann::json* p_jsonFile) {
 	return new CounterGetterController();
 }
 
+#include "unit/InitiativeTracker/NewTurnMessageController.h"
+kitten::K_Component* getNewTurnMessageController(nlohmann::json* p_jsonFile) {
+	float time;
+	SETOPTDEF(time, "time", 1.5f);
+	return new unit::NewTurnMessageController(time);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1602,6 +1609,7 @@ void setupComponentMap() {
 	jsonComponentMap["CardArt"] = &getCardArt;
 	jsonComponentMap["CounterGetterController"] = &getCounterGetterController;
 	jsonComponentMap["CounterGetterButton"] = &getCounterGetterButton;
+	jsonComponentMap["NewTurnMessageController"] = &getNewTurnMessageController;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

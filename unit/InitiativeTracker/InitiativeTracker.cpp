@@ -69,6 +69,7 @@ int unit::InitiativeTracker::getUnitObjectIndex(kitten::K_GameObject * p_uGO)
 
 unit::InitiativeTracker::InitiativeTracker()
 {
+	m_display = new TurnChangeDisplay();
 	m_uturn = new unit::UnitTurn();
 	m_UI = new unit::InitiativeTrackerUI();
 	m_uAura =kibble::getGameObjectDataParserInstance()->getGameObject("unit_aura.json");
@@ -80,6 +81,7 @@ unit::InitiativeTracker::~InitiativeTracker()
 {
 	delete m_UI;
 	delete m_uturn;
+	delete m_display;
 }
 
 void unit::InitiativeTracker::addUnit(kitten::K_GameObject * p_unit)
@@ -224,8 +226,12 @@ void unit::InitiativeTracker::gameTurnStart()
 	}
 	*/
 
-	addWaitList();
+	//display new turn message
+	m_display->displayNewGameTurn();
+
+
 	//sort the unit object list
+	addWaitList();
 	sortListByIn();
 
 	m_currentUnitIndex = 0;
@@ -255,6 +261,7 @@ void unit::InitiativeTracker::unitTurnEnd()
 
 void unit::InitiativeTracker::gameTurnEnd()
 {
+
 	//start of new turn
 	gameTurnStart();
 

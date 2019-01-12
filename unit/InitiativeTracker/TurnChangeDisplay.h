@@ -3,9 +3,7 @@ This class will display message to show that turn is changed
 */
 
 #pragma once
-#include "unit/InitiativeTracker/UnitTurn.h"
-#include "kitten/K_GameObject.h"
-#include "unit/InitiativeTracker/UnitAura.h"
+#include "kitten/K_Common.h"
 
 namespace unit
 {
@@ -16,7 +14,10 @@ namespace unit
 		virtual ~TurnChangeDisplay();
 
 		void displayNewGameTurn();
-		void displayNewUnitTurn();
+		void displayNewUnitTurn(kitten::K_GameObject* p_unit);
 	private:
+		kitten::K_GameObject* m_newTurnMsg;
+
+		void createMsgGO();
 	};
 }

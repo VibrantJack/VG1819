@@ -840,6 +840,12 @@
     <ClCompile Include="..\unitInteraction\CounterGetterController.cpp">
       <Filter>unitInteraction</Filter>
     </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\NewTurnMessageController.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\TurnChangeDisplay.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1805,6 +1811,9 @@
       <Filter>unitInteraction</Filter>
     </ClInclude>
     <ClInclude Include="..\unit\InitiativeTracker\TurnChangeDisplay.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\NewTurnMessageController.h">
       <Filter>unit\InitiativeTracker</Filter>
     </ClInclude>
   </ItemGroup>
