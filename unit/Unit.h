@@ -93,6 +93,6 @@ namespace unit
 
 		// Portrait Texture
 		void setPortraitTexturePath(const std::string& p_path) { m_portraitTexturePath = p_path; }
-		const std::string& getPortraitTexturePath() { return m_portraitTexturePath; }
+		const std::string& getPortraitTexturePath() const { return m_portraitTexturePath; }
 	};
 }

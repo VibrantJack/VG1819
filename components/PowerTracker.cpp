@@ -31,24 +31,10 @@ PowerTracker::~PowerTracker()
 
 void PowerTracker::start()
 {
-	kitten::K_GameObject* textBox = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+	kitten::K_GameObject* textBox = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/power_tracker/power_tracker_textbox.json");
+	m_textBox = textBox->getComponent<puppy::TextBox>();
 
-	m_textBox = static_cast<puppy::TextBox*>(kitten::K_ComponentManager::getInstance()->createComponent("TextBox"));
-	textBox->addComponent(m_textBox);
-	textBox->getTransform().place2D(260.0f, 75.0f);
-
-	m_textBox->setFont(puppy::FontTable::getInstance()->getFont("../fonts/nsimsun_38pt.fnt"));
-	m_textBox->setColor(1.0, 1.0, 1.0);
-	m_textBox->setBoxBounds(1000, 400);
-
-	kitten::K_GameObject* powerIcon = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-	powerIcon->getTransform().scale2D(100.0f, 100.0f);
-	powerIcon->getTransform().place(238.0f, 0.0f, -0.1f);
-
-	m_powerIcon = static_cast<userinterface::UIObject*>(kitten::K_ComponentManager::getInstance()->createComponent("UIObject"));
-	m_powerIcon->setTexture("textures/ui/icons/power_icon.tga");
-	powerIcon->addComponent(m_powerIcon);
-
+	kitten::K_GameObject* powerIcon = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/power_tracker/power_tracker_icon.json");
 	updateTextBox();
 }
 

@@ -28,22 +28,14 @@ namespace userinterface
 	{
 		UIElement::start();
 
-		kitten::K_GameObject* unitName = kitten::K_GameObjectManager::getInstance()->createNewGameObject("card_context_textbox.json");
-		unitName->getTransform().place(0.0f, 162.0f, 0.01f);
-		unitName->getTransform().setIgnoreParent(false);
-		unitName->getTransform().setParent(&m_attachedObject->getTransform());
-		m_unitNameTextBox = unitName->getComponent<puppy::TextBox>();
-		m_unitNameTextBox->setFont(puppy::FontTable::getInstance()->getFont("../fonts/nsimsun_14pt.fnt"));
-		m_unitNameTextBox->setBoxBounds(CARD_WIDTH, 14.0f);
-		m_unitNameTextBox->setAlignment(puppy::TextBox::center);
+		m_unitNameTextBox = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/hand_card/hand_card_textbox.json")->getComponent<puppy::TextBox>();
+		m_unitNameTextBox->getTransform().setIgnoreParent(false);
+		m_unitNameTextBox->getTransform().setParent(&m_attachedObject->getTransform());
 
-		kitten::K_GameObject* unitPortrait = kitten::K_GameObjectManager::getInstance()->createNewGameObject("card_context_texture.json");
-		unitPortrait->getTransform().scaleAbsolute(78.0f, 78.0f, 0.0f);
-		unitPortrait->getTransform().place(PORTRAIT_X, PORTRAIT_Y, 0.01f);
-		unitPortrait->getTransform().setIgnoreParent(false);
-		unitPortrait->getTransform().setParent(&m_attachedObject->getTransform());
+		m_unitPortrait = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/hand_card/hand_card_texture.json")->getComponent<UIObject>();
+		m_unitPortrait->getTransform().setIgnoreParent(false);
+		m_unitPortrait->getTransform().setParent(&m_attachedObject->getTransform());
 
-		m_unitPortrait = unitPortrait->getComponent<UIObject>();
 		if (m_unit != nullptr)
 		{
 			m_unitPortrait->setTexture(m_unit->getPortraitTexturePath().c_str());

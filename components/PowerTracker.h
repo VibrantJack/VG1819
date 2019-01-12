@@ -2,7 +2,6 @@
 
 #include "kitten\K_Component.h"
 #include "puppy\Text\TextBox.h"
-#include "UI\UIObject.h"
 #include "kitten\event_system\EventManager.h"
 
 class PowerTracker : public kitten::K_Component
@@ -29,5 +28,4 @@ private:
 	int m_iCurrentPower;
 
 	puppy::TextBox* m_textBox;
-	userinterface::UIObject* m_powerIcon;
 };
