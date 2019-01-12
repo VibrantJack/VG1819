@@ -287,9 +287,15 @@ namespace input
 		kitten::ClickableFrame* lastHoverFrame = kitten::ActiveClickables::getInstance()->m_lastUIHover;
 
 		// Update last hit object
-		if (hitFrame != nullptr) m_lastMouseHitFrame = &hitFrame->getGameObject(); 
-		else m_lastMouseHitFrame = nullptr;
-
+		if (hitFrame != nullptr)
+		{
+			m_lastMouseHitFrame = &hitFrame->getGameObject();
+		}
+		else
+		{
+			m_lastMouseHitFrame = nullptr;
+		}
+			
 		if (hitFrame != nullptr && lastHoverFrame != nullptr)
 		{
 			if (hitFrame != lastHoverFrame)

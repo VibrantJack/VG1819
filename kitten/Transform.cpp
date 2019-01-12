@@ -292,7 +292,7 @@ namespace kitten
 		return m_scale;
 	}
 
-	const glm::vec2& Transform::getScale2D() const
+	const glm::vec2 Transform::getScale2D() const
 	{
 		return m_scaleAsFloat;
 	}

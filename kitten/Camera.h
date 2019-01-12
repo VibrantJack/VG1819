@@ -19,7 +19,7 @@ namespace kitten
 		float m_nearClip, m_farClip;
 		int m_winWidth, m_winHeight;
 
-		glm::mat4 m_proj, m_view, m_ortho;
+		glm::mat4 m_proj, m_view, m_ortho, m_viewProj;
 		glm::mat3 m_viewInverse;
 		glm::mat4 m_viewInverse4;
 
@@ -48,7 +48,8 @@ namespace kitten
 		const glm::mat4& getProj(); //cannot be const because of calculating when dirty
 		const glm::mat4& getOrtho();
 
-		virtual const glm::mat4& getViewProj();
+		virtual const glm::mat4& getViewProj() const;
+		virtual const glm::mat4& getView() const;
 		virtual const glm::mat3& getMat3ViewInverse() const;
 		virtual const glm::mat4& getMat4ViewInverse() const;
 	};
