@@ -52,12 +52,12 @@ namespace unit
 		const static std::string sm_blankText;
 
 		const static int sm_offsetY;
-		const static float sm_scaleX;
-		const static float sm_scaleY;//scale for unit frame
-		const static float sm_frameY;//y coodinate for frame
+		float m_frameY;//y coodinate for frame
 
 		const static float sm_textY;
 
 		const static float sm_speed;
+
+		const static int sm_margin;
 	};
 }

@@ -6,19 +6,17 @@
 #include "UI/UIFrame.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
 #include "UI\CardArt.h"
+#include "kitten\InputManager.h"
 
 //static value
 const std::string unit::TrackerBlock::sm_blankTexture = "textures/ui/blankFrame.tga";
 const std::string unit::TrackerBlock::sm_blankText = "NONE";
 
-const float unit::TrackerBlock::sm_scaleX = 96.0f;
-const float unit::TrackerBlock::sm_scaleY = 108.0f;//scale for unit frame
-const float unit::TrackerBlock::sm_frameY = 612.0f;//y coodinate for frame
-
 const float unit::TrackerBlock::sm_halfWinX = 1280 / 2;
 const float unit::TrackerBlock::sm_halfWinY = 720 / 2;
 const float unit::TrackerBlock::sm_textY = 500.0f;
-const int unit::TrackerBlock::sm_offsetY = 15;
+const int unit::TrackerBlock::sm_offsetY = 0;
+const int unit::TrackerBlock::sm_margin = 15;
 
 const float unit::TrackerBlock::sm_speed = 0.02f;
 
@@ -73,21 +71,21 @@ void unit::TrackerBlock::setTrackerUI(InitiativeTrackerUI * p_UI)
 
 void unit::TrackerBlock::start()
 {
-	//set scale
-	m_frameObject->getTransform().scale2D(sm_scaleX, sm_scaleY);
+	
 }
 
 void unit::TrackerBlock::move(int p_slotIndex)
 {
+	m_frameY = input::InputManager::getInstance()->getWindowHeight() - m_frameObject->getTransform().getScale2D().y - sm_margin;
+	int offset = (m_frameObject->getTransform().getScale2D().x);
 	if (m_currentSlotIndex < 0)
 	{
 		//place block to the slot directly if it doesn't has slot yet
 		m_currentSlotIndex = p_slotIndex;
 
-		float x = m_trackerUI->m_xList[p_slotIndex];
-		float xx = sm_halfWinX * (1.0f + x);
+		float xx = sm_halfWinX + (m_currentSlotIndex * (offset + sm_margin));
 
-		m_frameObject->getTransform().place2D(xx, sm_frameY - sm_offsetY);
+		m_frameObject->getTransform().place2D(xx, m_frameY - sm_margin);
 		//m_textObject->getTransform().place2D(xx, sm_textY);
 	}
 	else if (m_currentSlotIndex != (p_slotIndex + 1) )
@@ -95,10 +93,9 @@ void unit::TrackerBlock::move(int p_slotIndex)
 		//if current slot isn't at the target slot's right slot, place block there
 		m_currentSlotIndex = p_slotIndex + 1;
 
-		float x = m_trackerUI->m_xList[p_slotIndex + 1];
-		float xx = sm_halfWinX * (1.0f + x);
+		float xx = sm_halfWinX + (m_currentSlotIndex * offset);
 
-		m_frameObject->getTransform().place2D(xx, sm_frameY);
+		m_frameObject->getTransform().place2D(xx, m_frameY - sm_margin);
 		//m_textObject->getTransform().place2D(xx, sm_textY);
 	}
 	//then set target slot
