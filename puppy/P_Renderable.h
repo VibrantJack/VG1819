@@ -1,6 +1,7 @@
 #pragma once
 #include "P_Common.h"
 #include "Material.h"
+#include "kitten\Camera.h"
 
 namespace puppy
 {
@@ -14,6 +15,6 @@ namespace puppy
 		void removeFromStaticRender(const Material& p_mat, bool p_usedNormals = false);
 		void removeFromDynamicRender();
 	public:
-		virtual void render(const glm::mat4& p_viewProj) = 0;
+		virtual void render(kitten::Camera* p_cam) = 0;
 	};
 }

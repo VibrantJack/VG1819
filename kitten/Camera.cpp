@@ -102,7 +102,7 @@ namespace kitten
 		return m_ortho;
 	}
 
-	glm::mat4 Camera::getViewProj()
+	const glm::mat4& Camera::getViewProj()
 	{
 		return getProj() * m_view;
 	}

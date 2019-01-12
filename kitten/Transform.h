@@ -47,12 +47,15 @@ namespace kitten
 		glm::vec3 m_upVector;
 
 		glm::mat4 m_matTranslation;
+		glm::mat4 m_derivedMatTranslation;
 		glm::mat4 m_matScale;
 		glm::vec2 m_scaleAsFloat;
 		glm::quat m_quatRotation;
 		glm::quat m_derivedQuatRotation;
 		glm::mat4 m_matRotation;
-		
+		glm::mat4 m_rotScale;
+		glm::mat4 m_derivedRotScale;
+
 		glm::mat4 m_matWorldNoScale;
 		glm::mat4 m_matWorld;
 		glm::mat3 m_matWorldIT;
@@ -90,10 +93,14 @@ namespace kitten
 			{
 				m_matWorldNoScale = m_parent->getWorldTransformNoScale() * m_matWorldNoScale;
 				m_matWorld = m_matWorldNoScale * glm::scale((m_scale * m_parent->getScale()));
+
+				m_derivedRotScale = glm::mat4_cast(m_derivedQuatRotation) * glm::scale(m_scale * m_parent->getScale());
+				m_derivedMatTranslation = glm::translate(m_derivedTranslation);
 			}
 
 			m_matWorldIT = glm::inverse((glm::mat3)m_matWorld);
 			m_matWorldIT = glm::transpose(m_matWorldIT);
+			m_rotScale = glm::mat4_cast(m_quatRotation) * m_matScale;
 
 			m_isDirty = false;
 		}
@@ -122,11 +129,15 @@ namespace kitten
 		const glm::vec2& getScale2D() const;
 		const glm::vec3& getLocalScale() const;
 
+		const glm::mat4& getTranslationMat4();
+		const glm::mat4& getRotScaleMat4();
+
 		const glm::mat4& getWorldTransform();
 		const glm::mat4& getWorldTransformNoScale();
 		const glm::mat3& getWorldIT();
 		const glm::vec3& getForward() const;
 		const glm::vec3& getUpVector() const;
+
 
 		//Parent / children related
 

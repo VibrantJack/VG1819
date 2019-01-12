@@ -18,6 +18,6 @@ namespace kitten
 		virtual ~K_UIRenderable();
 	public:
 		
-		virtual void uiRender(const glm::mat4& p_ortho) override = 0;
+		virtual void uiRender(Camera* p_cam) override = 0;
 	};
 }

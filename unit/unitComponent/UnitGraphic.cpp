@@ -76,12 +76,12 @@ namespace unit
 		removeFromDynamicRender();
 	}
 
-	void UnitGraphic::render(const glm::mat4& p_viewProj)
+	void UnitGraphic::render(kitten::Camera* p_cam)
 	{
 		m_mat->apply();
 		
 		//Set world matrix
-		glm::mat4 wvp = p_viewProj * getTransform().getWorldTransform();
+		glm::mat4 wvp = p_cam->getOrtho() * getTransform().getWorldTransform();
 		m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
 
 		//render

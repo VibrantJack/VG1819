@@ -387,12 +387,55 @@ namespace puppy
 		
 	}
 
-	void TextBox::render(const glm::mat4& p_viewProj)
+	void TextBox::render(kitten::Camera* p_cam)
 	{
-		uiRender(p_viewProj);
+		if (m_isDirty)
+		{
+			if (m_alignment == Alignment::left)
+			{
+				constructLeftAlignVertices();
+			}
+			else
+			{
+				if (m_alignment == Alignment::right)
+				{
+					constructRightOrCenterAlignVertices(true);
+				}
+				else
+				{
+					constructRightOrCenterAlignVertices(false);
+				}
+			}
+			m_isDirty = false;
+		}
+
+		auto& transform = getTransform();
+
+		const glm::mat4& viewProj = p_cam->getViewProj();
+		const glm::mat4& viewInverse = (glm::mat4)p_cam->getMat3ViewInverse(); // intentionally not using getMat4ViewInverse
+
+		const glm::mat4& translation = transform.getTranslationMat4();
+		const glm::mat4& rotScale = transform.getRotScaleMat4();
+
+		glm::mat4 wvp = translation * viewInverse * rotScale;
+
+		//apply shader & uniforms
+		ShaderManager::applyShader(ShaderType::colorTint_alphaTest);
+		glUniformMatrix4fv(ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest)->getUniformPlace(WORLD_VIEW_PROJ_UNIFORM_NAME), 1, GL_FALSE,
+			glm::value_ptr(wvp));
+		glUniform4fv(ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest)->getUniformPlace("colorTint"), 1, m_color);
+
+		//render vertices
+		for (auto it = m_textMap.begin(); it != m_textMap.end(); ++it)
+		{
+			//apply texture
+			it->first->apply();
+			//render
+			it->second->drawArrays(GL_TRIANGLES);
+		}
 	}
 
-	void TextBox::uiRender(const glm::mat4& p_ortho)
+	void TextBox::uiRender(kitten::Camera* p_cam)
 	{
 		if (m_isDirty)
 		{
@@ -418,7 +461,7 @@ namespace puppy
 		//apply shader & uniforms
 		ShaderManager::applyShader(ShaderType::colorTint_alphaTest);
 		glUniformMatrix4fv(ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest)->getUniformPlace(WORLD_VIEW_PROJ_UNIFORM_NAME), 1, GL_FALSE,
-			glm::value_ptr(p_ortho * getTransform().getWorldTransform()));
+			glm::value_ptr(p_cam->getOrtho() * getTransform().getWorldTransform()));
 		glUniform4fv(ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest)->getUniformPlace("colorTint"), 1, m_color);
 
 		//render vertices

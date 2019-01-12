@@ -48,7 +48,7 @@ namespace kitten
 		const glm::mat4& getProj(); //cannot be const because of calculating when dirty
 		const glm::mat4& getOrtho();
 
-		virtual glm::mat4 getViewProj();
+		virtual const glm::mat4& getViewProj();
 		virtual const glm::mat3& getMat3ViewInverse() const;
 		virtual const glm::mat4& getMat4ViewInverse() const;
 	};

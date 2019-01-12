@@ -30,6 +30,6 @@ namespace kitten
 		SpriteRenderable();
 		virtual ~SpriteRenderable();
 
-		virtual void render(const glm::mat4& p_viewProj) override;
+		virtual void render(kitten::Camera* p_cam) override;
 	};
 }

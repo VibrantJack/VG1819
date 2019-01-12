@@ -73,10 +73,20 @@ namespace kitten
 		removeFromDynamicRender();
 	}
 
-	void BarRenderable::render(const glm::mat4& p_viewProj)
+	void BarRenderable::render(kitten::Camera* p_cam)
 	{
+		auto& transform = getTransform();
+
+		const glm::mat4& viewProj = p_cam->getViewProj();
+		const glm::mat4& viewInverse = (glm::mat4)p_cam->getMat3ViewInverse(); // intentionally not using getMat4ViewInverse
+
+		const glm::mat4& translation = transform.getTranslationMat4();
+		const glm::mat4& rotScale = transform.getRotScaleMat4();
+
+		glm::mat4 wvp = translation * viewInverse * rotScale;
+
 		m_mat.apply();
-		m_mat.setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_viewProj * getTransform().getWorldTransform());
+		m_mat.setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
 		m_mat.setUniform("xScale", getTransform().getLocalScale().x);
 		m_mat.setUniform("uScale", m_uScale);
 

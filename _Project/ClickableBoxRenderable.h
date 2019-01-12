@@ -17,5 +17,5 @@ public:
 	ClickableBoxRenderable();
 	~ClickableBoxRenderable();
 
-	virtual void render(const glm::mat4& p_viewProj);
+	virtual void render(kitten::Camera* p_cam) override;
 };

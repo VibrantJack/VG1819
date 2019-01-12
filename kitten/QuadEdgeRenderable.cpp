@@ -57,11 +57,11 @@ kitten::QuadEdgeRenderable::~QuadEdgeRenderable()
 	}
 }
 
-void kitten::QuadEdgeRenderable::render(const glm::mat4 & p_viewProj)
+void kitten::QuadEdgeRenderable::render(kitten::Camera* p_cam)
 {
 	m_mat->apply();
 
-	m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_viewProj * getTransform().getWorldTransform());
+	m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_cam->getViewProj() * getTransform().getWorldTransform());
 
 	sm_vao->drawArrays(GL_LINES);
 }

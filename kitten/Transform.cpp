@@ -297,6 +297,40 @@ namespace kitten
 		return m_scaleAsFloat;
 	}
 
+	const glm::mat4& Transform::getTranslationMat4()
+	{
+		if (m_isDirty)
+		{
+			rebuildWorldMatrix();
+		}
+
+		if (!m_ignoresParent)
+		{
+			return m_derivedMatTranslation;
+		}
+		else
+		{
+			return m_matTranslation;
+		}
+	}
+
+	const glm::mat4& Transform::getRotScaleMat4()
+	{
+		if (m_isDirty)
+		{
+			rebuildWorldMatrix();
+		}
+
+		if (!m_ignoresParent)
+		{
+			return m_derivedRotScale;
+		}
+		else
+		{
+			return m_rotScale;
+		}
+	}
+
 	bool Transform::getIgnoreParent() const
 	{
 		return m_ignoresParent;
