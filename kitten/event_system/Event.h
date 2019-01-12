@@ -5,6 +5,7 @@
 #define TILE_POS_Y "pos_y"
 #define TILE_OWNER_KEY "tile_owner_key"
 #define MANIPULATE_TILE_KEY "manip_tile_key"
+#define COMMANDER_GO_KEY "commander_go_key"
 #define PLAYER_COMMANDER_DEATH "player_commander_death_key"
 #define PAUSE_MENU_OPEN "pause_menu_open_key"
 #define UPDATE_CARD_CONTEXT_KEY "update_card_context_key"
@@ -73,6 +74,7 @@ namespace kitten
 			Update_Card_Context_By_GO,
 			Update_Card_Context_Attrib,
 			Card_Context_Set_Enabled,
+			Client_Commander_Loaded,
 
 			Test_Event, 
 			MAX_VAL = Test_Event

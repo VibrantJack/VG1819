@@ -1469,6 +1469,29 @@ kitten::K_Component* getDirectionalLight(nlohmann::json* p_jsonFile) {
 	return new kitten::K_DirectionalLight(ambientColor, directionalColor, useCallbacks);
 }
 
+#include "unitInteraction/CounterGetterButton.h"
+kitten::K_Component* getCounterGetterButton(nlohmann::json* p_jsonFile) {
+	std::string behavior;
+	CounterGetterButton::ButtonBehavior b;
+	SETOPT(behavior, "behavior");
+	
+	if (behavior == "plus")
+		b = CounterGetterButton::plus;
+	else if (behavior == "minus")
+		b = CounterGetterButton::minus;
+	else if (behavior == "check")
+		b = CounterGetterButton::check;
+	else
+		b = CounterGetterButton::cancel;
+
+	return new CounterGetterButton(b);
+}
+
+#include "unitInteraction/CounterGetterController.h"
+kitten::K_Component* getCounterGetterController(nlohmann::json* p_jsonFile) {
+	return new CounterGetterController();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1577,7 +1600,8 @@ void setupComponentMap() {
 	jsonComponentMap["DirectionalLight"] = &getDirectionalLight;
 	jsonComponentMap["PivotTextBox"] = &getPivotTextBox;
 	jsonComponentMap["CardArt"] = &getCardArt;
-
+	jsonComponentMap["CounterGetterController"] = &getCounterGetterController;
+	jsonComponentMap["CounterGetterButton"] = &getCounterGetterButton;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {
