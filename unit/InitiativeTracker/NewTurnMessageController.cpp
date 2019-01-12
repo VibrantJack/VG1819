@@ -1,5 +1,7 @@
 #include "NewTurnMessageController.h"
 #include "kitten/K_Time.h"
+#include "TurnChangeDisplay.h"
+#include "InitiativeTracker.h"
 
 unit::NewTurnMessageController::NewTurnMessageController(float p_time)
 	:m_display(nullptr),
@@ -46,4 +48,7 @@ void unit::NewTurnMessageController::onDisabled()
 {
 	assert(m_display != nullptr);
 	m_show = false;
+
+	//change camera to focus on current unit
+	m_display->displayNewUnitTurn(InitiativeTracker::getInstance()->getCurrentUnit());
 }

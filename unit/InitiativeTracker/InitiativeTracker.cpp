@@ -70,10 +70,15 @@ int unit::InitiativeTracker::getUnitObjectIndex(kitten::K_GameObject * p_uGO)
 unit::InitiativeTracker::InitiativeTracker()
 {
 	m_display = new TurnChangeDisplay();
+
 	m_uturn = new unit::UnitTurn();
+	m_uturn->setNewTurnDisplay(m_display);
+
 	m_UI = new unit::InitiativeTrackerUI();
+
 	m_uAura =kibble::getGameObjectDataParserInstance()->getGameObject("unit_aura.json");
 	m_uAura->getTransform().setIgnoreParent(false);
+
 	m_currentUnitIndex = -1;//flag, means object list isn't initialize
 }
 

@@ -3,6 +3,8 @@
 #include "kitten/Camera.h"
 #include "kitten/event_system/EventManager.h"
 
+#define DEFAULT_CAMERA_POS_Y 13
+
 class CameraMoveByEvent : public kitten::K_Component
 {
 private:
