@@ -38,13 +38,14 @@ int unit::CastTimer::changeTimer(int p_n)
 		return -1;
 
 	m_timer += p_n;
+	/*
 	if (m_timer <= 0)
 	{
 		m_cast = false;
 		cast();
 		return 0;
-	}
-	return 1;
+	}*/
+	return m_timer;
 }
 
 void unit::CastTimer::cancelCast()
@@ -59,6 +60,7 @@ void unit::CastTimer::cancelCast()
 
 void unit::CastTimer::cast()
 {
+	m_cast = false;
 	ability::AbilityManager::getInstance()->useAbility(m_abilityName, m_pack);
 	m_pack = nullptr;
 }
