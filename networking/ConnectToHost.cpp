@@ -11,8 +11,6 @@
 
 #include "networking\ConnectToHost.h"
 #include "kitten\K_Instance.h"
-
-// Networking stuff
 #include "networking\ClientGame.h"
 
 ConnectToHost::ConnectToHost()
@@ -51,26 +49,11 @@ void ConnectToHost::start()
 	m_loadingMessage = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/loading_message.json");
 	m_loadingMessage->setEnabled(false);
 
+	// Disable polling so the player can immediately start typing an address
 	m_inputMan->setPollMode(false);
-}
 
-void ConnectToHost::update()
-{
-	if (m_bConnected)
-	{
-		connect();
-	}
-
-	if ((m_inputMan->keyDown(GLFW_KEY_ENTER) && !m_inputMan->keyDownLast(GLFW_KEY_ENTER)))
-	{
-		m_loadingMessage->setEnabled(true);
-		m_bConnected = true;
-	}	
-}
-
-void ConnectToHost::joinButtonClickedListener(kitten::Event::EventType p_type, kitten::Event* p_event)
-{
-	connect();
+	// Create instance of ClientGame and try to connect to localhost to see if someone is hosting
+	connectToLocalhost();
 }
 
 void ConnectToHost::connect()
@@ -105,4 +88,52 @@ void ConnectToHost::connect()
 	}
 
 	m_bConnected = false;
+}
+
+void ConnectToHost::connectToLocalhost()
+{
+	networking::ClientGame* client = networking::ClientGame::getInstance();
+
+	// Check if we've already created an instance of ClientGame
+	if (client)
+	{
+		// Check if we're already connected to a host
+		if (!networking::ClientGame::isNetworkValid())
+		{
+			client->setupNetwork("localhost");
+		}
+	} else // If not, get address and create ClientGame instance
+	{
+		networking::ClientGame::createInstance("localhost");
+	}
+
+	if (networking::ClientGame::isNetworkValid())
+	{
+		// Someone is hosting locally, display that to the user
+	}
+	else
+	{
+		// No one is hosting locally, display that to the user
+	}
+}
+
+void ConnectToHost::update()
+{
+	if (m_bConnected)
+	{
+		connect();
+	}
+
+	if ((m_inputMan->keyDown(GLFW_KEY_ENTER) && !m_inputMan->keyDownLast(GLFW_KEY_ENTER)))
+	{
+		m_loadingMessage->setEnabled(true);
+		//m_bConnected = true;
+		networking::ClientGame::getInstance()->sendBasicPacket(JOIN_GAME);
+		kitten::K_Instance::changeScene("mainscene.json");
+	}	
+}
+
+void ConnectToHost::joinButtonClickedListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+{
+	connect();
 }

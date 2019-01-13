@@ -57,8 +57,7 @@ namespace networking
 	{
 		setupNetwork(p_strAddr);
 	}
-
-
+	
 	ClientGame::~ClientGame()
 	{
 		if (m_network != nullptr)
@@ -76,19 +75,6 @@ namespace networking
 		if (m_network->init(p_strAddr))
 		{ 
 			sm_networkValid = true;
-
-			// Client connects and sends INIT_CONNECTION packet
-			char packet_data[BASIC_PACKET_SIZE];
-
-			Buffer buffer;
-			buffer.m_data = packet_data;
-			buffer.m_size = BASIC_PACKET_SIZE;
-
-			Packet packet;
-			packet.m_packetType = INIT_CONNECTION;
-			packet.serialize(buffer);
-
-			NetworkServices::sendMessage(m_network->m_connectSocket, packet_data, BASIC_PACKET_SIZE);
 		}
 		else
 		{
@@ -159,6 +145,7 @@ namespace networking
 
 			case PacketTypes::SEND_CLIENT_ID:
 			{
+				printf("[Client: %d] received SEND_CLIENT_ID (%d) packet from server\n", sm_iClientId, defaultPacket.m_clientId);
 				i += BASIC_PACKET_SIZE;
 				sm_iClientId = defaultPacket.m_clientId;
 
@@ -316,6 +303,13 @@ namespace networking
 				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
 				eventData->putInt(GAME_END_RESULT, CLIENT_DESYNCED);
 				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+
+				break;
+			}
+			case PacketTypes::JOIN_GAME:
+			{
+				printf("[Client: %d] received JOIN_GAME packet from server\n", sm_iClientId);
+				i += BASIC_PACKET_SIZE;
 
 				break;
 			}

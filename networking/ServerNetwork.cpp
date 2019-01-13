@@ -132,8 +132,8 @@ namespace networking
 			char value = 1;
 			setsockopt(m_clientSocket, IPPROTO_TCP, TCP_NODELAY, &value, sizeof(value));
 
-			// insert new client into session id table
-			m_sessions.insert(std::pair<unsigned int, SOCKET>(p_iClientId, m_clientSocket));
+			// Insert new client into polled sessions id map
+			m_polledSessions.insert(std::pair<unsigned int, SOCKET>(p_iClientId, m_clientSocket));
 
 			return true;
 		}
@@ -148,7 +148,6 @@ namespace networking
 
 			SOCKET currentSocket = m_sessions[p_iClientId];
 			closesocket(currentSocket);
-			//currentSocket = INVALID_SOCKET;
 			m_sessions[p_iClientId] = INVALID_SOCKET;
 
 			// Cannot remove the socket from the map as this function is called from ServerGame::update()
@@ -163,7 +162,6 @@ namespace networking
 		}
 	}
 
-	// receive incoming data
 	int ServerNetwork::receiveData(unsigned int client_id, char * recvbuf)
 	{
 		if (m_sessions.find(client_id) != m_sessions.end())
@@ -184,6 +182,24 @@ namespace networking
 					eventData->putInt(GAME_END_RESULT, PLAYER_DISCONNECTED);
 					kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
 				}
+			}
+			return m_iResult;
+		}
+		return 0;
+	}
+
+	int ServerNetwork::receiveDataFromPolled(unsigned int client_id, char * recvbuf)
+	{
+		if (m_polledSessions.find(client_id) != m_polledSessions.end())
+		{
+			SOCKET currentSocket = m_polledSessions[client_id];
+			m_iResult = NetworkServices::receiveMessage(currentSocket, recvbuf, MAX_PACKET_SIZE);
+
+			if (m_iResult == 0)
+			{
+				printf("Server lost connection to [Polled Client: %d]\n", client_id);
+				closesocket(currentSocket);
+				m_sessions[client_id] = INVALID_SOCKET;
 			}
 			return m_iResult;
 		}
@@ -222,7 +238,8 @@ namespace networking
 		int iSendResult;
 
 		iter = m_sessions.find(client_id);
-		if (iter != m_sessions.end()) {
+		if (iter != m_sessions.end()) 
+		{
 			currentSocket = iter->second;
 			if (currentSocket != INVALID_SOCKET)
 			{
@@ -260,6 +277,30 @@ namespace networking
 						closesocket(currentSocket);
 						iter->second = INVALID_SOCKET;
 					}
+				}
+			}
+		}
+	}
+
+	void ServerNetwork::sendToPolledClient(unsigned int client_id, char * packets, int totalSize)
+	{
+		SOCKET currentSocket;
+		std::map<unsigned int, SOCKET>::iterator iter;
+		int iSendResult;
+
+		iter = m_polledSessions.find(client_id);
+		if (iter != m_polledSessions.end())
+		{
+			currentSocket = iter->second;
+			if (currentSocket != INVALID_SOCKET)
+			{
+				iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
+
+				if (iSendResult == SOCKET_ERROR)
+				{
+					printf("send failed with error: %d\n", WSAGetLastError());
+					closesocket(currentSocket);
+					iter->second = INVALID_SOCKET;
 				}
 			}
 		}

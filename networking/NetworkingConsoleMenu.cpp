@@ -198,7 +198,10 @@ void NetworkingConsoleMenu::hostGame()
 
 			// Server setup successful, now setup ClientGame
 			networking::ClientGame::createInstance();
-			checkClientNetwork();
+			if (checkClientNetwork())
+			{
+				networking::ClientGame::getInstance()->sendBasicPacket(JOIN_GAME);
+			}
 		}
 	} else
 	{

@@ -29,8 +29,12 @@ namespace networking
 		void sendToClient(unsigned int client_id, char * packets, int totalSize);
 		void sendToOthers(unsigned int client_id, char * packets, int totalSize);
 
+		// Send functions for polled clients
+		void sendToPolledClient(unsigned int client_id, char * packets, int totalSize);
+
 		// receive incoming data
 		int receiveData(unsigned int client_id, char * recvbuf);
+		int receiveDataFromPolled(unsigned int client_id, char * recvbuf);
 
 		// accept new connections
 		bool acceptNewClient(unsigned int & p_iClientId);
@@ -48,8 +52,10 @@ namespace networking
 		// for error checking return values
 		int m_iResult;
 
-		// table to keep track of each client's socket
+		// m_sessions: client sockets that are playing the game
+		// m_polledSessions: client sockets that have polled for the server and have not commit to joining
 		std::map<unsigned int, SOCKET> m_sessions;
+		std::map<unsigned int, SOCKET> m_polledSessions;
 		
 		std::string m_strError;
 	};

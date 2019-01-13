@@ -18,6 +18,7 @@ public:
 	void joinButtonClickedListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 	
 	void connect();
+	void connectToLocalhost();
 
 private:
 	puppy::TextBox* m_textBox;

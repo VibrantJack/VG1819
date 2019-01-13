@@ -27,7 +27,8 @@ enum PacketTypes {
 	SKIP_TURN,
 	GAME_TURN_START,
 	STARTING_COMMANDER_DATA,
-	DESYNCED
+	DESYNCED,
+	JOIN_GAME
 };
 
 struct UnitInfo
