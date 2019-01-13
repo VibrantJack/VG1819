@@ -2,6 +2,7 @@
 #include "kitten/K_GameObjectManager.h"
 #include "NewTurnMessageController.h"
 #include "kitten/event_system/EventManager.h"
+#include "unit/Unit.h"
 
 unit::TurnChangeDisplay::TurnChangeDisplay()
 	:m_newTurnMsg(nullptr)
@@ -28,15 +29,19 @@ void unit::TurnChangeDisplay::displayNewUnitTurn(kitten::K_GameObject * p_unit)
 	if (m_newTurnMsg->isEnabled())
 		return;
 
-	//get transform of unit
-	float posX = p_unit->getTransform().getTranslation().x;
-	float posZ = p_unit->getTransform().getTranslation().z;
+	//get transform of unit's tile
+	kitten::K_GameObject* tile = p_unit->getComponent<unit::Unit>()->getTile();
+	if (tile != nullptr)
+	{
+		float posX = tile->getTransform().getTranslation().x;
+		float posZ = tile->getTransform().getTranslation().z;
 
-	kitten::Event* e = new kitten::Event(kitten::Event::Move_Camera);
-	e->putFloat(CAM_FOV, DEFAULT_CAMERA_FOV);
-	e->putFloat(POSITION_X, posX);
-	e->putFloat(POSITION_Z, posZ-CAMERA_Z_OFFSET);
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Move_Camera, e);
+		kitten::Event* e = new kitten::Event(kitten::Event::Move_Camera);
+		e->putFloat(CAM_FOV, DEFAULT_CAMERA_FOV);
+		e->putFloat(POSITION_X, posX);
+		e->putFloat(POSITION_Z, posZ - CAMERA_Z_OFFSET);
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Move_Camera, e);
+	}
 }
 
 void unit::TurnChangeDisplay::createMsgGO()
