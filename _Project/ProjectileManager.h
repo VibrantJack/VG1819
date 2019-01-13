@@ -3,7 +3,7 @@
 #include "kitten\K_GameObject.h"
 #include "unit\Unit.h"
 #include "ability\AbilityInfoPackage.h"
-
+#include "unit\unitComponent\UnitSelect.h"
 #include "_Project\LerpController.h"
 
 #include <unordered_map>
@@ -20,6 +20,7 @@ private:
 	ability::AbilityInfoPackage* m_lastPackage;
 	ability::Ability* m_lastAbility;
 	kitten::K_GameObject* m_lastGO;
+	unit::UnitSelect* m_lastUnitSel;
 
 	void privateFireProjectile(const keyType& p_type, unit::Unit* p_source, unit::Unit* p_target, ability::Ability* p_ability ,ability::AbilityInfoPackage* p_package);
 
