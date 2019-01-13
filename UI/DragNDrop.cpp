@@ -27,8 +27,8 @@ void DragNDrop::update()
 	if (m_isDragging)
 	{
 		m_attachedObject->getTransform().place2D(
-			input::InputManager::getInstance()->getMouseXPos(),
-			input::InputManager::getInstance()->getMouseYOpenGLPos() - getTransform().getScale2D().y
+			input::InputManager::getInstance()->getMouseXPos() - 5,
+			input::InputManager::getInstance()->getMouseYOpenGLPos() - getTransform().getScale2D().y + 5
 		);
 	}
 }

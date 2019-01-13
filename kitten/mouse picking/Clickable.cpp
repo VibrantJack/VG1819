@@ -11,12 +11,14 @@ namespace kitten
 
 	void Clickable::onDisabled()
 	{
-		m_attachedBox->removeClickable(this);
+		if(m_attachedBox != nullptr)
+			m_attachedBox->removeClickable(this);
 	}
 
 	void Clickable::onEnabled()
 	{
-		m_attachedBox->addClickable(this);
+		if (m_attachedBox != nullptr)
+			m_attachedBox->addClickable(this);
 	}
 
 	Clickable::~Clickable()

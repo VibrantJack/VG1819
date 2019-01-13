@@ -9,6 +9,7 @@
 #include "UI/HandFrame.h"
 #include "UI/CardUIO.h"
 #include "components/PowerTracker.h"
+#include "components/clickables/HoverOverCardBehavior.h"
 #include "board/BoardManager.h"
 #include <iostream>
 
@@ -25,16 +26,16 @@ void SpawnUnitOnDrop::onClick()
 		{
 			unit::Unit* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit()->getComponent<unit::Unit>();
 			unit::Unit* clientCommander = networking::ClientGame::getInstance()->getCommander();
-			if (currentUnit == clientCommander)
-			{
-				DragNDrop::onClick();
-			}
+			if (currentUnit != clientCommander) return;
 		}
 	}
+
+	DragNDrop::onClick();
+
+	if (m_isDragging == false)
+		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(true);
 	else
-	{
-		DragNDrop::onClick();
-	}
+		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(false);
 }
 
 void SpawnUnitOnDrop::onDrop()
@@ -103,5 +104,5 @@ SpawnUnitOnDrop::~SpawnUnitOnDrop()
 void SpawnUnitOnDrop::start()
 {
 	DragNDrop::start();
-	setEnabled(userinterface::HandFrame::getActiveInstance()->isOnDiscardMode());
+	setEnabled(!userinterface::HandFrame::getActiveInstance()->isOnDiscardMode());
 }
