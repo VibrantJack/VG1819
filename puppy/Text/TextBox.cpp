@@ -177,8 +177,18 @@ namespace puppy
 		//construct buffers based on font sheets
 		for (auto it = data.begin(); it != data.end(); ++it)
 		{
+			ShaderProgram* shaderProgram;
+			if (m_is3D)
+			{
+				shaderProgram = ShaderManager::getShaderProgram(ShaderType::billboarded_colorTint_alphaTest);
+			}
+			else
+			{
+				shaderProgram = ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest);
+			}
+
 			m_textMap.insert(std::make_pair(it->first,
-				new VertexEnvironment(it->second.data(), ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest), it->second.size())));
+				new VertexEnvironment(it->second.data(), shaderProgram, it->second.size())));
 		}
 
 	}
@@ -293,8 +303,18 @@ namespace puppy
 		//construct buffers based on font sheets
 		for (auto it = data.begin(); it != data.end(); ++it)
 		{
+			ShaderProgram* shaderProgram;
+			if (m_is3D)
+			{
+				shaderProgram = ShaderManager::getShaderProgram(ShaderType::billboarded_colorTint_alphaTest);
+			}
+			else
+			{
+				shaderProgram = ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest);
+			}
+
 			m_textMap.insert(std::make_pair(it->first,
-				new VertexEnvironment(it->second.data(), ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest), it->second.size())));
+				new VertexEnvironment(it->second.data(), shaderProgram, it->second.size())));
 		}
 	}
 
@@ -411,19 +431,16 @@ namespace puppy
 
 		auto& transform = getTransform();
 
-		const glm::mat4& viewProj = p_cam->getViewProj();
-		const glm::mat4& viewInverse = (glm::mat4)p_cam->getMat3ViewInverse(); // intentionally not using getMat4ViewInverse
-
-		const glm::mat4& translation = transform.getTranslationMat4();
-		const glm::mat4& rotScale = transform.getRotScaleMat4();
-
-		glm::mat4 wvp = translation * viewInverse * rotScale;
-
 		//apply shader & uniforms
-		ShaderManager::applyShader(ShaderType::colorTint_alphaTest);
-		glUniformMatrix4fv(ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest)->getUniformPlace(WORLD_VIEW_PROJ_UNIFORM_NAME), 1, GL_FALSE,
-			glm::value_ptr(wvp));
-		glUniform4fv(ShaderManager::getShaderProgram(ShaderType::colorTint_alphaTest)->getUniformPlace("colorTint"), 1, m_color);
+		ShaderManager::applyShader(ShaderType::billboarded_colorTint_alphaTest);
+		ShaderProgram* sp = ShaderManager::getShaderProgram(billboarded_colorTint_alphaTest);
+
+		glUniformMatrix4fv(sp->getUniformPlace("mView"), 1, GL_FALSE, glm::value_ptr(p_cam->getView()));
+		glUniformMatrix4fv(sp->getUniformPlace("mViewProj"), 1, GL_FALSE, glm::value_ptr(p_cam->getViewProj()));
+
+		glUniform3fv(sp->getUniformPlace("centerPos"), 1, glm::value_ptr(transform.getTranslation()));
+		glUniform2fv(sp->getUniformPlace("size"), 1, glm::value_ptr((glm::vec2)transform.getScale()));
+		glUniform4fv(sp->getUniformPlace("colorTint"), 1, m_color);
 
 		//render vertices
 		for (auto it = m_textMap.begin(); it != m_textMap.end(); ++it)

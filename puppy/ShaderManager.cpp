@@ -66,6 +66,10 @@ namespace puppy
 			*p_vertexShaderPath = "Shaders/colorTint_alphatest.vsh";
 			*p_pixelShaderPath = "Shaders/colorTint_alphatest.fsh";
 			return true;
+		case ShaderType::billboarded_colorTint_alphaTest:
+			*p_vertexShaderPath = "Shaders/billboarded_colorTint_alphatest.vsh";
+			*p_pixelShaderPath = "Shaders/colorTint_alphatest.fsh";
+			return true;
 		case ShaderType::particles:
 			*p_vertexShaderPath = "Shaders/particles.vsh";
 			*p_pixelShaderPath = "Shaders/particles.fsh";
@@ -102,9 +106,9 @@ namespace puppy
 			*p_vertexShaderPath = "Shaders/basic.vsh";
 			*p_pixelShaderPath = "Shaders/basic_four_blend.fsh";
 			return true;
-		case ShaderType::basic_u_scale:
-			*p_vertexShaderPath = "Shaders/basic_u_scale.vsh";
-			*p_pixelShaderPath = "Shaders/basic_u_scale.fsh";
+		case ShaderType::billboarded_u_scale:
+			*p_vertexShaderPath = "Shaders/billboarded_u_scale.vsh";
+			*p_pixelShaderPath = "Shaders/billboarded_u_scale.fsh";
 			return true;
 		default:
 			return false;

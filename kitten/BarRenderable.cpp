@@ -6,7 +6,7 @@ namespace kitten
 	unsigned int BarRenderable::instances = 0;
 
 
-	BarRenderable::BarRenderable(const char* p_pathToTexture) : m_mat(puppy::ShaderType::basic_u_scale), m_uScale(1.0f)
+	BarRenderable::BarRenderable(const char* p_pathToTexture) : m_mat(puppy::ShaderType::billboarded_u_scale), m_uScale(1.0f)
 	{
 		if (instances == 0)
 		{
@@ -20,7 +20,7 @@ namespace kitten
 				{ 0.0f, -0.5f, 0.0f,		0.0f, 0.0f }
 			};
 
-			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic_u_scale), 6);
+			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::billboarded_u_scale), 6);
 		}
 
 		++instances;
@@ -77,7 +77,7 @@ namespace kitten
 	{
 		auto& transform = getTransform();
 		glm::vec3 centerPos = transform.getTranslation();
-		centerPos.x += 0.5f;
+		centerPos.x += 0.5f * transform.getScale().x;
 
 		m_mat.apply();
 		

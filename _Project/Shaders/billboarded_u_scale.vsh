@@ -5,10 +5,6 @@ uniform mat4 mViewProj;
 uniform vec3 centerPos;
 uniform vec2 size;
 
-
-//uniform mat4 mWVP;
-
-
 uniform float xScale;
 uniform float uScale;
 
