@@ -346,6 +346,7 @@
     <ClCompile Include="..\unit\unitComponent\Commander.cpp" />
     <ClCompile Include="..\unit\unitComponent\CooldownRecorder.cpp" />
     <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp" />
+    <ClCompile Include="..\unit\unitComponent\TimerSymbol.cpp" />
     <ClCompile Include="..\unit\unitComponent\unitAction\ActionButtonStore.cpp" />
     <ClCompile Include="..\unit\unitComponent\unitAction\ActionSelect.cpp" />
     <ClCompile Include="..\unit\unitComponent\UnitGraphic.cpp" />
@@ -675,6 +676,7 @@
     <ClInclude Include="..\unit\unitComponent\Commander.h" />
     <ClInclude Include="..\unit\unitComponent\CooldownRecorder.h" />
     <ClInclude Include="..\unit\unitComponent\StatusContainer.h" />
+    <ClInclude Include="..\unit\unitComponent\TimerSymbol.h" />
     <ClInclude Include="..\unit\unitComponent\unitAction\ActionButtonStore.h" />
     <ClInclude Include="..\unit\unitComponent\unitAction\ActionSelect.h" />
     <ClInclude Include="..\unit\unitComponent\UnitGraphic.h" />

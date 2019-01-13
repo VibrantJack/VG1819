@@ -846,6 +846,9 @@
     <ClCompile Include="..\unit\InitiativeTracker\TurnChangeDisplay.cpp">
       <Filter>unit\InitiativeTracker</Filter>
     </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\TimerSymbol.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1815,6 +1818,9 @@
     </ClInclude>
     <ClInclude Include="..\unit\InitiativeTracker\NewTurnMessageController.h">
       <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\TimerSymbol.h">
+      <Filter>unit\unitComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
