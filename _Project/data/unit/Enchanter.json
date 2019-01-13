@@ -1,6 +1,6 @@
 {
 	"unit":{
-		"name":"Enchanter",
+    "name": "Enchanter",
 		"hp":4,
 		"mv":2,
 		"in":8,

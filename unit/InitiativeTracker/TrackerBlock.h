@@ -1,6 +1,7 @@
 #pragma once
 #include "kitten/K_Common.h"
 #include "unit/InitiativeTracker/InitiativeTrackerUI.h"
+#include "UI/CardContext.h"
 #include <vector>
 
 //Rock
@@ -38,7 +39,9 @@ namespace unit
 		InitiativeTrackerUI* m_trackerUI;
 
 		kitten::K_GameObject* m_frameObject;//the object contains frame and clickable
-		kitten::K_GameObject* m_textObject;//the object contains textbox and background
+		//kitten::K_GameObject* m_textObject; no longer needed. The object contains textbox and background
+		CardContext* m_context;//cotext to show when hovered
+		
 
 		int m_currentSlotIndex;//block is currently in this slot
 		int m_targetSlotIndex;//block is moving to this slot

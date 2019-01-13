@@ -3,6 +3,7 @@
 #include <string>
 #include "kitten/mouse picking/ClickableUI.h"
 #include "kitten/mouse picking/Clickable.h"
+#include "UI/CardContext.h"
 
 namespace unit
 {
@@ -10,6 +11,7 @@ namespace unit
 	{
 	private:
 		kitten::K_GameObject* m_txtGO;
+		CardContext* m_context;
 
 	public:
 		TrackerBlockClickable();
@@ -21,5 +23,6 @@ namespace unit
 		virtual void onPause();
 
 		void setTextBox(kitten::K_GameObject* p_txt);
+		void setContext(CardContext* p_context);
 	};
 }

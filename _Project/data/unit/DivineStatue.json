@@ -1,6 +1,6 @@
 {
 	"unit":{
-		"name":"Divine Statue",
+    "name": "Divine Statue",
 		"hp":10,
 		"mv":0,
 		"in":17,

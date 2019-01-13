@@ -1,6 +1,6 @@
 {
 	"unit":{
-		"name":"King",
+    "name": "King",
 		"hp":30,
 		"mv":3,
 		"in":45,

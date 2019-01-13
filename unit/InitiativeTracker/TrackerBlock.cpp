@@ -26,12 +26,13 @@ unit::TrackerBlock::TrackerBlock()
 	kitten::K_GameObjectManager* goMan = kitten::K_GameObjectManager::getInstance();
 	//frame object
 	m_frameObject = goMan->createNewGameObject("tracker_block.json");
+	//don't this this anymore vvv
 	//text object
-	m_textObject = goMan->createNewGameObject("initiative_tracker_textbox.json");
+	//m_textObject = goMan->createNewGameObject("initiative_tracker_textbox.json");
 	
 	//component
 	kitten::K_ComponentManager* comMan = kitten::K_ComponentManager::getInstance();
-	
+
 	/*
 	//add frame
 	kitten::K_Component* frame = comMan->createComponent("Frame");
@@ -48,11 +49,14 @@ unit::TrackerBlock::TrackerBlock()
 	//m_frameObject->addComponent(clickable);
 
 	//make text object be child of frame object
+	//don't need these this anymore vvv
+	/*
 	m_textObject->getTransform().setParent(&m_frameObject->getTransform());
 	m_textObject->getTransform().setIgnoreParent(false);
+	*/
 
 	//disable text object
-	m_frameObject->getComponent<TrackerBlockClickable>()->setTextBox(m_textObject);
+	//m_frameObject->getComponent<TrackerBlockClickable>()->setTextBox(m_textObject);
 
 	//slot index
 	m_currentSlotIndex = -1;
@@ -71,7 +75,15 @@ void unit::TrackerBlock::setTrackerUI(InitiativeTrackerUI * p_UI)
 
 void unit::TrackerBlock::start()
 {
-	
+	//set context
+	kitten::K_GameObject* contextObj = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+	kitten::K_Component* contextComp = kitten::K_ComponentManager::getInstance()->createComponent("ContextMenu");
+	contextObj->addComponent(contextComp);
+	m_context = static_cast<CardContext*>(contextComp);
+	m_context->setEnabled(false);
+	//on hover context
+	TrackerBlockClickable* clicker = m_frameObject->getComponent<TrackerBlockClickable>();
+	clicker->setContext(m_context);
 }
 
 void unit::TrackerBlock::move(int p_slotIndex)
@@ -115,12 +127,12 @@ void unit::TrackerBlock::set(kitten::K_GameObject* p_unitGO)
 	std::string texPath = p_unitGO->getComponent<userinterface::CardArt>()->getArt();
 	//get name
 	std::string name = p_unitGO->getComponent<Unit>()->m_name;
-
 	//set texture
 	m_frameObject->getComponent<userinterface::UIFrame>()->setTexture(texPath.c_str());
-
+	//context
+	m_context->setUnit(p_unitGO->getComponent<Unit>());
 	//set name (textbox)
-	m_textObject->getComponent<puppy::TextBox>()->setText(name);
+	//m_textObject->getComponent<puppy::TextBox>()->setText(name);
 }
 
 void unit::TrackerBlock::clear()
@@ -129,7 +141,7 @@ void unit::TrackerBlock::clear()
 	m_frameObject->getComponent<userinterface::UIFrame>()->setTexture(sm_blankTexture.c_str());
 
 	//set name (textbox)
-	m_textObject->getComponent<puppy::TextBox>()->setText(sm_blankText.c_str());
+	//m_textObject->getComponent<puppy::TextBox>()->setText(sm_blankText.c_str());
 }
 
 bool unit::TrackerBlock::hasUpdate() const
