@@ -23,7 +23,9 @@
 				"area_max":3,
 				"area_filter":1,
 				"area_filter0":"enemy",
-				"description":"Nearby allies +5 IN for one turn."
+				"description":"Nearby allies +5 IN for one turn.",
+				"status_name":"Rally",
+				"status_description":"Block Damage"
 			}
 		]
 	},

@@ -27,20 +27,21 @@
 				"max_range":0,
 				"area_mode":"point",
 				"area_fix":1,
-				"description":"Until next turn, this unit will ignore first damage received."
+				"description":"Until next turn, this unit will ignore first damage received.",
+				"status_name":"Defend",
+				"status_description":"Won't be hurt."
 			}
 		],
 		"status":[
 			{
 				"name":"Status_LV",
 				"lv":2,
-				"time_point":2,
 				"hp":5
 			},
 			{
 				"name":"Status_Duelist_LV3",
-				"lv":3,
-				"time_point":2
+				"description":"Increases Slay damage and decrease Defend CD",
+				"lv":3
 			}
 		]
 	},

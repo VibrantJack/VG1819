@@ -7,7 +7,7 @@ namespace ability
 {
 	Status_Dodge::Status_Dodge() : Status::Status()
 	{
-		m_name = STATUS_DODGE;
+		m_Id = STATUS_DODGE;
 		addTimePoint(TimePointEvent::Turn_Start);
 		addTimePoint(TimePointEvent::Receive_Damage);
 	}

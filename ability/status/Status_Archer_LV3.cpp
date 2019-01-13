@@ -7,7 +7,7 @@ namespace ability
 {
 	Status_Archer_LV3::Status_Archer_LV3() : Status_LV::Status_LV()
 	{
-		m_name = STATUS_ARCHER_LV3;
+		m_Id = STATUS_ARCHER_LV3;
 		addTimePoint(TimePointEvent::Level_Up);
 	}
 

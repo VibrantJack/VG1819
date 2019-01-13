@@ -12,6 +12,7 @@ int ability::Rally::effect(AbilityInfoPackage * p_info)
 	{
 		//apply Status_Encourage to target
 		ability::Status* status = ability::StatusManager::getInstance()->findStatus(STATUS_TEMP_CHANGE);
+		addStatusInfo(status, p_info);
 
 		status->m_source = m_name;
 		status->addAttributeChange(UNIT_IN, in_change);

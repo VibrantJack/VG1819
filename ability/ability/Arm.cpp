@@ -19,6 +19,7 @@ namespace ability
 				{
 					//apply Status_Encourage to target
 					ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_SHIELD);
+					addStatusInfo(se, p_info);
 
 					//set properties
 					int pow = p_info->m_intValue.find(UNIT_POWER)->second;

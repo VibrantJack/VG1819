@@ -27,14 +27,16 @@
 				"need_unit":1,
 				"duration":3,
 				"need_unit":1,
-				"description":"Give target [Encourage]: When dealing damage, deal 1 more damage."
+				"description":"Give target [Encourage]: When dealing damage, deal 1 more damage.",
+				"status_name":"Encourage",
+				"status_description":"Damage Increased."
 			}
 		],
 		"status":[
 			{
 				"name":"Status_Priest_LV3",
 				"lv":3,
-				"time_point":2,
+				"description":"At the end of turn, Priest will heal itself.",
 				"hp":5
 			}
 		]
