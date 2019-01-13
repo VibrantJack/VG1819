@@ -18,7 +18,12 @@ void DragNDrop::onClick()
 	m_isDragging = !m_isDragging;
 	if (!m_isDragging)
 	{
+		getTransform().move(0,0,-0.1);
 		onDrop();
+	}
+	else
+	{
+		getTransform().move(0, 0, 0.1);
 	}
 }
 

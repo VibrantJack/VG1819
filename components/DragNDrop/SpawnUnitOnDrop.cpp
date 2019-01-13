@@ -42,7 +42,9 @@ void SpawnUnitOnDrop::onDrop()
 {
 	// Check if we hit something
 	kitten::K_GameObject* targetTile = input::InputManager::getInstance()->getMouseLastHitObject();
+	kitten::K_GameObject* targetFrame = input::InputManager::getInstance()->getMouseLastHitFrame();
 	if (targetTile == nullptr  // No Target
+		|| targetFrame != nullptr // Over UI
 		|| targetTile->getComponent<TileInfo>() == nullptr // Target isn't a tile
 		|| targetTile->getComponent<TileInfo>()->hasUnit() // Target tile already has a unit on it
 		)
