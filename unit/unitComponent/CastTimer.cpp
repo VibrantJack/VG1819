@@ -1,6 +1,8 @@
 #include "CastTimer.h"
-
+#include "kitten/K_GameObjectManager.h"
+#include "TimerSymbol.h"
 unit::CastTimer::CastTimer()
+	:m_timerSymbol(nullptr)
 {
 	m_cast = false;
 	m_pack = nullptr;
@@ -26,10 +28,18 @@ std::vector<kitten::K_GameObject*> unit::CastTimer::getTarget()
 
 void unit::CastTimer::set(std::string p_abilityName, ability::AbilityInfoPackage * p_pack, int p_timer)
 {
-	m_abilityName = p_abilityName;
-	m_pack = p_pack;
-	m_timer = p_timer;
-	m_cast = true;
+	if (p_timer > 0 && p_timer <= 10)
+	{
+		m_abilityName = p_abilityName;
+		m_pack = p_pack;
+		m_timer = p_timer;
+		m_cast = true;
+
+		if (m_timerSymbol == nullptr)
+			m_timerSymbol = kitten::K_GameObjectManager::getInstance()->createNewGameObject("cast_timer.json");
+
+		m_timerSymbol->getComponent<TimerSymbol>()->changeTexture(m_timer);
+	}
 }
 
 int unit::CastTimer::changeTimer(int p_n)
@@ -44,6 +54,9 @@ int unit::CastTimer::changeTimer(int p_n)
 		cast();
 		return 0;
 	}
+	else
+		m_timerSymbol->getComponent<TimerSymbol>()->changeTexture(m_timer);
+
 	return 1;
 }
 
@@ -54,6 +67,7 @@ void unit::CastTimer::cancelCast()
 		delete m_pack;
 		m_pack = nullptr;
 		m_cast = false;
+		m_timerSymbol->setEnabled(false);
 	}
 }
 
