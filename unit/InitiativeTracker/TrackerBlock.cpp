@@ -34,6 +34,16 @@ unit::TrackerBlock::TrackerBlock()
 	kitten::K_ComponentManager* comMan = kitten::K_ComponentManager::getInstance();
 
 	/*
+	//set context
+	kitten::K_GameObject* contextObj = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+	kitten::K_Component* contextComp = kitten::K_ComponentManager::getInstance()->createComponent("ContextMenu");
+	contextObj->addComponent(contextComp);
+	m_context = static_cast<CardContext*>(contextComp);
+	m_context->setEnabled(false);
+	//on hover context
+	TrackerBlockClickable* clicker = m_frameObject->getComponent<TrackerBlockClickable>();
+	clicker->setContext(m_context);
+	/*
 	//add frame
 	kitten::K_Component* frame = comMan->createComponent("Frame");
 	m_frameObject->addComponent(frame);
@@ -75,15 +85,7 @@ void unit::TrackerBlock::setTrackerUI(InitiativeTrackerUI * p_UI)
 
 void unit::TrackerBlock::start()
 {
-	//set context
-	kitten::K_GameObject* contextObj = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-	kitten::K_Component* contextComp = kitten::K_ComponentManager::getInstance()->createComponent("ContextMenu");
-	contextObj->addComponent(contextComp);
-	m_context = static_cast<CardContext*>(contextComp);
-	m_context->setEnabled(false);
-	//on hover context
-	TrackerBlockClickable* clicker = m_frameObject->getComponent<TrackerBlockClickable>();
-	clicker->setContext(m_context);
+	
 }
 
 void unit::TrackerBlock::move(int p_slotIndex)
@@ -129,8 +131,9 @@ void unit::TrackerBlock::set(kitten::K_GameObject* p_unitGO)
 	std::string name = p_unitGO->getComponent<Unit>()->m_name;
 	//set texture
 	m_frameObject->getComponent<userinterface::UIFrame>()->setTexture(texPath.c_str());
+
 	//context
-	m_context->setUnit(p_unitGO->getComponent<Unit>());
+	///m_context->setUnit(p_unitGO->getComponent<Unit>());
 	//set name (textbox)
 	//m_textObject->getComponent<puppy::TextBox>()->setText(name);
 }
