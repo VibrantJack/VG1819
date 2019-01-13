@@ -40,6 +40,7 @@ ProjectileManager::ProjectileManager(const std::string& p_projectileList)
 
 			// Make the GameObject
 			auto gameObj = gameObjMan->createNewGameObject(jsonName);
+			gameObj->setEnabled(false);
 
 			// Insert into the map
 			m_projectiles.insert(std::make_pair(name, std::make_pair(gameObj, convertedTime)));

@@ -13,5 +13,11 @@ ProjectileParticleSystemHelper::~ProjectileParticleSystemHelper()
 
 void ProjectileParticleSystemHelper::onDisabled()
 {
+	if (!m_disabledOnce)
+	{
+		m_disabledOnce = true;
+		return;
+	}
+
 	UniversalPfx::getInstance()->playEffect(m_effectName, getTransform().getTranslation());
 }
