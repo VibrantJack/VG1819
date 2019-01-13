@@ -952,6 +952,11 @@ kitten::K_Component* getDrawCardsFromDeckWithDelay(nlohmann::json* p_jsonFile) {
 	return new DrawCardsFromDeckWithDelay();
 }
 
+#include "components/DeckDiscardedCardHandler.h"
+kitten::K_Component* getDeckDiscardedCardHandler(nlohmann::json* p_jsonFile) {
+	return new DeckDiscardedCardHandler();
+}
+
 #include "kitten/sprites/SpriteGroup.h"
 kitten::K_Component* getSpriteGroup(nlohmann::json* p_jsonFile) {
 	std::string name;
@@ -1613,6 +1618,7 @@ void setupComponentMap() {
 	jsonComponentMap["CardContext"] = &getCardContext;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
 	jsonComponentMap["DrawCardsFromDeckWithDelay"] = &getDrawCardsFromDeckWithDelay;
+	jsonComponentMap["DeckDiscardedCardHandler"] = &getDeckDiscardedCardHandler;
 	jsonComponentMap["QuadEdgeRenderable"] = &getQuadEdgeRenderable;
 	jsonComponentMap["TileDecoration"] = &getTileDecoration;
 	jsonComponentMap["SimpleQuadRenderable"] = &getSimpleQuadRenderable;

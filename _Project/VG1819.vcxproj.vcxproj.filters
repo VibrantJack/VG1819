@@ -849,6 +849,9 @@
     <ClCompile Include="..\components\initializers\DrawCardsFromDeckWithDelay.cpp">
       <Filter>components\initializer</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\DeckDiscardedCardHandler.cpp">
+      <Filter>components\deck</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1821,6 +1824,9 @@
     </ClInclude>
     <ClInclude Include="..\components\initializers\DrawCardsFromDeckWithDelay.h">
       <Filter>components\initializer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DeckDiscardedCardHandler.h">
+      <Filter>components\deck</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
