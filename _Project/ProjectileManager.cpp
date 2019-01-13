@@ -40,6 +40,7 @@ ProjectileManager::ProjectileManager(const std::string& p_projectileList)
 
 			// Make the GameObject
 			auto gameObj = gameObjMan->createNewGameObject(jsonName);
+			gameObj->setEnabled(false);
 
 			// Insert into the map
 			m_projectiles.insert(std::make_pair(name, std::make_pair(gameObj, convertedTime)));
@@ -67,7 +68,6 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 	kitten::K_GameObject* proj = pair.first;
 	m_lastGO = proj;
 	
-
 	m_lastPackage = p_package;
 	m_lastAbility = p_ability;
 
@@ -83,24 +83,39 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 	float zDist = p_source->getTransform().getTranslation().z - p_target->getTransform().getTranslation().z;
 	float hypotenuseDistance = sqrt((xDist*xDist + zDist*zDist));
 
-	float radAngle = atan(xDist / zDist);
-	float degAngle = radAngle / DEG_TO_RAD_FACTOR;
-
-	if (zDist > 0)
+	float degAngle;
+	if (zDist == 0.0f)
 	{
-		if (degAngle == 0)
+		if (xDist > 0)
 		{
-			degAngle = -180; //Straight up/down
+			degAngle = -90;
 		}
 		else
 		{
-			if (degAngle > 0)
+			degAngle = 90;
+		}
+	}
+	else
+	{
+		float radAngle = atan(xDist / zDist);
+		degAngle = radAngle / DEG_TO_RAD_FACTOR;
+
+		if (zDist > 0)
+		{
+			if (degAngle == 0)
 			{
-				degAngle += 180;
+				degAngle = -180; //Straight up/down
 			}
 			else
 			{
-				degAngle -= 180;
+				if (degAngle > 0)
+				{
+					degAngle += 180;
+				}
+				else
+				{
+					degAngle -= 180;
+				}
 			}
 		}
 	}
@@ -115,13 +130,19 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 	float time = pair.second * hypotenuseDistance;
 
 	lerpCon->positionLerp(p_target->getTransform().getTranslation(), time);	
+
+	m_lastUnitSel = p_source->getGameObject().getComponent<unit::UnitSelect>();
+	m_lastUnitSel->disableInteraction(true);
 }
 
 void ProjectileManager::onPositionLerpFinished()
 {
 	m_lastAbility->singleTargetProjectileFinished(m_lastPackage);
+	m_lastUnitSel->disableInteraction(false);
+
 	m_lastAbility = nullptr;
 	m_lastPackage = nullptr;
+	m_lastUnitSel = nullptr;
 
 	m_lastGO->setEnabled(false);
 }
