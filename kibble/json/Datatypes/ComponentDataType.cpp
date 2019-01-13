@@ -141,6 +141,11 @@ kitten::K_Component* getDestroyOnClick(nlohmann::json* p_jsonFile){
 	return new DestroyOnClick();
 }
 
+#include "components/clickables/DiscardCardOnClick.h"
+kitten::K_Component* getDiscardCardOnClick(nlohmann::json* p_jsonFile){
+	return new DiscardCardOnClick();
+}
+
 
 #include "board/component/BoardCreator.h"
 kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
@@ -1495,6 +1500,11 @@ kitten::K_Component* getCounterGetterController(nlohmann::json* p_jsonFile) {
 	return new CounterGetterController();
 }
 
+#include "components/clickables/HoverOverCardBehavior.h"
+kitten::K_Component* getHoverOverCardBehavior(nlohmann::json* p_jsonFile) {
+	return new HoverOverCardBehavior();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1507,6 +1517,7 @@ void setupComponentMap() {
 	jsonComponentMap["DebugPrintOnce"] = &getDebugPrintOnce;
 	jsonComponentMap["PrintWhenClicked"] = &getPrintWhenClicked;
 	jsonComponentMap["DestroyOnClick"] = &getDestroyOnClick;
+	jsonComponentMap["DiscardCardOnClick"] = &getDiscardCardOnClick;
 	jsonComponentMap["ClickableBox"] = &getClickableBox;
 	jsonComponentMap["AudioSource"] = &getAudioSource;
 	jsonComponentMap["AudioListener"] = &getAudioListener;
@@ -1604,6 +1615,7 @@ void setupComponentMap() {
 	jsonComponentMap["PivotTextBox"] = &getPivotTextBox;
 	jsonComponentMap["CardArt"] = &getCardArt;
 	jsonComponentMap["CounterGetterController"] = &getCounterGetterController;
+	jsonComponentMap["HoverOverCardBehavior"] = &getHoverOverCardBehavior;
 	jsonComponentMap["CounterGetterButton"] = &getCounterGetterButton;
 }
 

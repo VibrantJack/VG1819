@@ -346,6 +346,7 @@ namespace kitten
 	void K_ComponentManager::removeFromStart(K_Component* p_toRemove)
 	{
 		m_toAddToStart.erase(p_toRemove);
+		m_toRemoveFromUpdate.push_back(p_toRemove);
 	}
 
 	void K_ComponentManager::queueAddToUpdate(K_Component* p_toAdd)

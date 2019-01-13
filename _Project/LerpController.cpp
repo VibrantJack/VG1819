@@ -193,23 +193,26 @@ void LerpController::forceLerpToFinish()
 	}
 	this->onFinishedLerp();
 }
-void LerpController::cancelLerp()
+void LerpController::cancelLerp(bool p_resetPosition)
 {
 	if (!m_isLerping) return;
 	if (m_isPositionLerping)
 	{
 		m_isPositionLerping = false;
-		this->m_attachedObject->getTransform().place(m_originalPosition.x, m_originalPosition.y, m_originalPosition.z);
+		if(p_resetPosition)
+			this->m_attachedObject->getTransform().place(m_originalPosition.x, m_originalPosition.y, m_originalPosition.z);
 	}
 	if (m_isScaleLerping)
 	{
 		m_isScaleLerping = false;
-		this->m_attachedObject->getTransform().scaleAbsolute(m_originalScale.x, m_originalScale.y, m_originalScale.z);
+		if (p_resetPosition)
+			this->m_attachedObject->getTransform().scaleAbsolute(m_originalScale.x, m_originalScale.y, m_originalScale.z);
 	}
 	if (m_isRotationLerping)
 	{
 		m_isRotationLerping = false;
-		this->m_attachedObject->getTransform().rotateAbsQuat(m_originalQuat);
+		if (p_resetPosition)
+			this->m_attachedObject->getTransform().rotateAbsQuat(m_originalQuat);
 	}
 	this->onFinishedLerp();
 }

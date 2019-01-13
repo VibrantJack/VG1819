@@ -11,6 +11,8 @@ namespace kitten
 	protected:
 		ClickableFrame* m_attachedFrame;
 		bool m_enabledOnPause;
+		void onDisabled() override;
+		void onEnabled() override;
 	public:
 		ClickableUI(bool p_enabledOnPause = false);
 		~ClickableUI();

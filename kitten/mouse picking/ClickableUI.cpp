@@ -4,6 +4,15 @@
 
 namespace kitten
 {
+	void ClickableUI::onDisabled()
+	{
+		m_attachedFrame->removeClickable(this);
+
+	}
+	void ClickableUI::onEnabled()
+	{
+		m_attachedFrame->addCLickable(this);
+	}
 	ClickableUI::ClickableUI(bool p_enabledOnPause) : m_attachedFrame(nullptr), m_enabledOnPause(p_enabledOnPause)
 	{
 		
@@ -11,7 +20,7 @@ namespace kitten
 
 	ClickableUI::~ClickableUI()
 	{
-		if (m_attachedFrame == nullptr) return;
+		if (m_attachedFrame == nullptr || !m_isEnabled) return;
 		m_attachedFrame->removeClickable(this);
 	}
 

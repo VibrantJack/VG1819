@@ -16,6 +16,8 @@
 #include "_Project/LerpController.h"
 
 #include "components\DragNDrop\SpawnUnitOnDrop.h"
+#include "components/clickables/DiscardCardOnClick.h"
+#include "components/clickables/HoverOverCardBehavior.h"
 #include "UI\CardContext.h"
 
 #define MAX_CARDS_IN_HAND 5
@@ -86,24 +88,29 @@ namespace userinterface
 		glm::vec3 trans = T.getTranslation();
 		float offset = m_padding;
 		auto end = m_innerObjects.end();
+		glm::vec3 placement;
 		for (auto it = m_innerObjects.begin(); it != end; ++it)
 		{
+			placement = glm::vec3( trans.x + offset, trans.y + m_padding - (m_cardY / 2), 0 );
 			if (m_isInit) {
 				LerpController* lerpC = (*it)->getGameObject().getComponent<LerpController>();
 				if (lerpC == nullptr)
 				{
-					(*it)->getTransform().place2D(trans.x + offset, trans.y + m_padding - (m_cardY / 2));
+					(*it)->getTransform().place2D(placement.x,placement.y);
 				}
 				else
 				{
-					lerpC->positionLerp(glm::vec3(trans.x + offset, trans.y + m_padding - (m_cardY / 2), 0), TIME_FOR_CARDS_TO_ORDER);
+					lerpC->positionLerp(glm::vec3(placement.x, placement.y, 0), TIME_FOR_CARDS_TO_ORDER);
 				}
 			}
 			else
 			{
-				(*it)->getTransform().place2D(trans.x + offset, trans.y + m_padding - (m_cardY / 2));
+				(*it)->getTransform().place2D(placement.x, placement.y);
 			}
 			
+			(*it)->getGameObject().getComponent<SpawnUnitOnDrop>()->getOrigin() = placement;
+			(*it)->getGameObject().getComponent<HoverOverCardBehavior>()->getOrigin() = placement;
+
 			offset += m_cardX;
 			offset += m_contentMargin;
 		}
@@ -115,12 +122,9 @@ namespace userinterface
 		// Find the number of cards to add to hand
 		int countToAdd = std::min(p_event->getInt(CARD_COUNT), MAX_CARDS_IN_HAND - (int)m_innerObjects.size());
 
-		CardContext* cardContext = m_attachedObject->getComponent<CardContext>();
-
 		// Generate Cards to add
 		for (int i = 0; i < countToAdd; i++) {
 			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
-			card->getComponent<SpawnUnitOnDrop>()->setCardContext(cardContext);
 			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
 			cardCasted->scaleAsCard();
 
@@ -157,12 +161,10 @@ namespace userinterface
 			std::bind(&HandFrame::receiveDrawnCard, this, std::placeholders::_1, std::placeholders::_2));
 
 		userinterface::HandFrame* frameCasted = m_attachedObject->getComponent<HandFrame>();
-		CardContext* cardContext = m_attachedObject->getComponent<CardContext>();
 
 		for (int x = 0; x < 5; x++)
 		{
 			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
-			card->getComponent<SpawnUnitOnDrop>()->setCardContext(cardContext);
 			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
 			cardCasted->scaleAsCard();
 
@@ -170,6 +172,7 @@ namespace userinterface
 			cardCasted->assignParentHand(frameCasted);
 		}
 		m_isInit = true;
+
 	}
 
 	void HandFrame::onEnabled()
@@ -191,12 +194,36 @@ namespace userinterface
 	void HandFrame::setPlayerID(int p_playerId) {
 		this->m_playerID = p_playerId;
 	}
-}
+	void HandFrame::setDiscardMode(bool p_flag) {
+		this->m_isDiscardMode = p_flag;
 
+		// Set the notifying object state
+		if (m_discardNotifyingObject != nullptr) m_discardNotifyingObject->setEnabled(p_flag);
+
+		for (auto card : m_innerObjects) {
+			// These should be enabled if we want discarding on, disabled if off
+			card->getGameObject().getComponent<DiscardCardOnClick>()->setEnabled(p_flag);
+
+			// These should be disabled if we want discarding on, enabled if off
+			card->getGameObject().getComponent<SpawnUnitOnDrop>()->setEnabled(!p_flag);
+		}
+	}
+
+	void HandFrame::setPointCountToDiscard(unsigned int p_count)
+	{ // TODO fix this
+		if (p_count == 0) return;
+		m_toDiscard = p_count;
+		this->setDiscardMode(true);
+	}
+	void HandFrame::decreasePointCountBy(int p_value)
+	{
+		m_toDiscard -= p_value;
+		if (m_toDiscard <= 0) this->setDiscardMode(false);
+	}
+}
 
 void userinterface::HandFrame::makeAHand() {
 	input::InputManager* inman = input::InputManager::getInstance();
 	kitten::K_GameObject* hand = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handframe.json");
 	
 }
-

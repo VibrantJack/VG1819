@@ -13,6 +13,12 @@
         },
         {
             "name" : "LerpController"
+        },
+        {
+            "name" : "DiscardCardOnClick"
+        },
+        {
+            "name" : "HoverOverCardBehavior"
         }
     ],
     "translate2d" : [1100, 50]
