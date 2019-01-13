@@ -161,18 +161,7 @@ namespace userinterface
 			std::bind(&HandFrame::receiveDrawnCard, this, std::placeholders::_1, std::placeholders::_2));
 
 		userinterface::HandFrame* frameCasted = m_attachedObject->getComponent<HandFrame>();
-
-		for (int x = 0; x < 5; x++)
-		{
-			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
-			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
-			cardCasted->scaleAsCard();
-
-			frameCasted->addCardToEnd(cardCasted);
-			cardCasted->assignParentHand(frameCasted);
-		}
 		m_isInit = true;
-
 	}
 
 	void HandFrame::onEnabled()

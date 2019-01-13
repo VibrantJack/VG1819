@@ -12,9 +12,6 @@ namespace kitten
 		Clickable(bool p_enabledOnPause = false);
 		ClickableBox* m_attachedBox;
 		bool m_enabledOnPause;
-
-		void onDisabled() override;
-		void onEnabled() override;
 	public:
 		
 		virtual ~Clickable();

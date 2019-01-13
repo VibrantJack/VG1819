@@ -63,7 +63,8 @@ namespace kitten
 		{
 			if (!m_gamePaused || (*it)->isEnabledOnPause())
 			{
-				(*it)->onHoverStart();
+				if ((*it)->isEnabled())
+					(*it)->onHoverStart();
 			}
 		}
 		std::cout << "Frame Hovered...";
@@ -76,7 +77,8 @@ namespace kitten
 		{
 			if (!m_gamePaused || (*it)->isEnabledOnPause())
 			{
-				(*it)->onClick();
+				if((*it)->isEnabled())
+					(*it)->onClick();
 			}
 		}
 		std::cout << "Frame Clicked!\n";
@@ -89,7 +91,8 @@ namespace kitten
 		{
 			if (!m_gamePaused || (*it)->isEnabledOnPause())
 			{
-				(*it)->onHoverEnd();
+				if ((*it)->isEnabled())
+					(*it)->onHoverEnd();
 			}
 		}
 		std::cout << "Hover Ended...\n";
@@ -102,7 +105,8 @@ namespace kitten
 		{
 			if (!m_gamePaused || (*it)->isEnabledOnPause())
 			{
-				(*it)->release();
+				if ((*it)->isEnabled())
+					(*it)->release();
 			}
 		}
 		std::cout << "Frame released!\n";

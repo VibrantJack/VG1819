@@ -22,7 +22,8 @@ PowerTracker::PowerTracker()
 
 PowerTracker::~PowerTracker()
 {
-	kitten::K_ComponentManager::getInstance()->destroyComponentImmediate(m_textBox);
+	if(m_textBox != nullptr)
+		kitten::K_ComponentManager::getInstance()->destroyComponentImmediate(m_textBox);
 }
 
 void PowerTracker::start()

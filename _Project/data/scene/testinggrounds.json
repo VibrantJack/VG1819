@@ -45,6 +45,9 @@
 					"name" : "ClickableButton",
 					"regularTexture" : "textures/ui/buttons/button_draw_card.tga",
 					"highlightedTexture" : "textures/ui/buttons/button_draw_card_h.tga"
+				},
+				{
+					"name": "DrawCardsFromDeckWithDelay"
 				}
 			],
 			"translate" : [0,0, -0.3],
