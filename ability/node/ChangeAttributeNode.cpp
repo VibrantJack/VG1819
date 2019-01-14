@@ -2,6 +2,7 @@
 #include "ability/node/AbilityNode.h"
 #include "Unit/Unit.h"
 #include "unit\unitComponent\UnitHealthBar.h"
+#include "kitten\event_system\EventManager.h"
 
 #include "_Project\CombatText.h"
 
@@ -40,6 +41,8 @@ namespace ability
 			//if counter doesn't exist, add it
 			p_target->m_attributes[p_name] = p_value;
 		}
+
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_Attrib, nullptr);
 
 		if (p_name == UNIT_HP || p_name == UNIT_MAX_HP)
 		{

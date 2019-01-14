@@ -41,7 +41,8 @@
 				"description":"Quick Shoot can deal damage three times.",
 				"hp":4
 			}
-		]
+		],
+		"portrait_texture" : "textures/cards/500x500/Archer.tga"
 	},
 	"components" : [
 		{

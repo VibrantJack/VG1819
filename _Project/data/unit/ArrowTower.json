@@ -20,7 +20,8 @@
 				"area_max":1,
 				"description":"Deal 5 damage to area."
 			}
-		]
+		],
+		"portrait_texture" : "textures/cards/500x500/ArrowTower.tga"
 	},
 	"components" : [
 		{

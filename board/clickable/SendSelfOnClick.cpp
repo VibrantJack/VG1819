@@ -12,7 +12,7 @@
 
 #define TEXBOX_LENGTH 100
 
-SendSelfOnClick::SendSelfOnClick()
+SendSelfOnClick::SendSelfOnClick() : m_contextEnabled(false)
 {
 
 }
@@ -81,10 +81,41 @@ void SendSelfOnClick::onHoverStart()
 		if (m_tileInfoDisplay->isEnabled())
 			setTileInfoDisplayText();
 	}
+
+	if (info->hasUnit())
+	{
+		kitten::Event* updateContextEvent = new kitten::Event(kitten::Event::Update_Card_Context_By_GO);
+		updateContextEvent->putGameObj(UPDATE_CARD_CONTEXT_KEY, info->getUnit());
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_By_GO, updateContextEvent);
+
+		// Enable Card Context
+		kitten::Event* enableContextEvent = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
+		enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, TRUE);
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
+		m_contextEnabled = true;
+	}
 }
 
 void SendSelfOnClick::onHoverEnd()
 {
+	if (m_contextEnabled)
+	{
+		kitten::Event* enableContextEvent = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
+		enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
+		m_contextEnabled = false;
+	}
+}
+
+void SendSelfOnClick::onPause()
+{
+	if (m_contextEnabled)
+	{
+		kitten::Event* enableContextEvent = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
+		enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
+		m_contextEnabled = false;
+	}
 }
 
 void SendSelfOnClick::setTileInfoDisplayText()

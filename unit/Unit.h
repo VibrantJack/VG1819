@@ -26,6 +26,8 @@ namespace unit
 
 		bool m_lateDestroy = false;
 		AbilityDescription m_joinAD;
+
+		std::string m_portraitTexturePath;
 	public:
 		int m_numberID;
 		std::string m_ID;
@@ -89,5 +91,9 @@ namespace unit
 		int destroyedByJoin();
 		void simpleDestroy();
 		void destroy();
+
+		// Portrait Texture
+		void setPortraitTexturePath(const std::string& p_path) { m_portraitTexturePath = p_path; }
+		const std::string& getPortraitTexturePath() const { return m_portraitTexturePath; }
 	};
 }

@@ -17,7 +17,8 @@
 				"area_mode":"all",
 				"description":"Deal 2 damage to both Commanders."
 			}
-		]
+		],
+		"portrait_texture" : "textures/cards/500x500/DivineStatue.tga"
 	},
 	"components" : [
 		{
@@ -35,7 +36,7 @@
 		},
 		{
 			"name" : "CardArt",
-			"texture":"textures/cards/500x500/DivineTower.tga"
+			"texture":"textures/cards/500x500/DivineStatue.tga"
 		}
 	]
 }

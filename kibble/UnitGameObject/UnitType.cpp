@@ -74,6 +74,12 @@ unit::Unit * getUnitFrom(nlohmann::json & p_jsonfile)
 		}
 	}
 
+	// Portrait Texture
+	if (p_jsonfile.find("portrait_texture") != p_jsonfile.end()) {
+		std::string texturePath = p_jsonfile["portrait_texture"].get<std::string>();
+		unit->setPortraitTexturePath(texturePath);
+	}
+
 	//client id for net working
 	//doesn't belong to any client
 	unit->m_clientId = -1;
