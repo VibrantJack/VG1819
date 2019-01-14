@@ -439,7 +439,7 @@ namespace puppy
 		glUniformMatrix4fv(sp->getUniformPlace("mViewProj"), 1, GL_FALSE, glm::value_ptr(p_cam->getViewProj()));
 
 		glUniform3fv(sp->getUniformPlace("centerPos"), 1, glm::value_ptr(transform.getTranslation()));
-		glUniform2fv(sp->getUniformPlace("size"), 1, glm::value_ptr((glm::vec2)transform.getScale()));
+		glUniform2fv(sp->getUniformPlace("size"), 1, glm::value_ptr(transform.getScale2D()));
 		glUniform4fv(sp->getUniformPlace("colorTint"), 1, m_color);
 
 		//render vertices

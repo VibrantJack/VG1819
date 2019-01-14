@@ -11,10 +11,10 @@
 #define COMBAT_TEXT_BASE_TIME 1.5f
 #define COMBAT_TEXT_TIME_CHANGE_SCALAR 3.33f
 
-#define COMBAT_TEXT_BASE_SCALE glm::vec2(-0.03f,0.03f)
+#define COMBAT_TEXT_BASE_SCALE glm::vec2(0.02f,0.02f)
 #define COMBAT_TEXT_SCALE_CHANGE_SCALAR -0.25f
 
-#define COMBAT_TEXT_INITIAL_OFFSET glm::vec3(0,0.5,0)
+#define COMBAT_TEXT_INITIAL_OFFSET glm::vec3(1,0.5,0)
 
 namespace ability
 {
