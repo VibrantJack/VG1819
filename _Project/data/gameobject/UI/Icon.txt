@@ -4,7 +4,7 @@
 		{
 			"name" : "UIElement",
 			"texture" : "textures/ui/blankFrame.tga"
-		},
+		}
 	],
-	"scale2d" : [12, 12]
+	"scale2d" : [24, 24]
 }

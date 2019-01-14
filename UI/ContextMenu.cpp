@@ -79,8 +79,8 @@ namespace userinterface
 					if (GO != nullptr)
 					{
 						GO->getTransform().place2D(offsetX, offsetY);
-						glm::vec3 scale3d = GO->getTransform().getScale();
-						offsetX += r->margin;
+						glm::vec2 scale3d = GO->getTransform().getScale2D();
+						offsetX += r->margin + scale3d.x;
 					}
 				}
 				offsetX = m_padding + pos.x;

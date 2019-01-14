@@ -76,39 +76,39 @@ namespace userinterface
 		//new row
 		Row* r = addRow(rt_OneElement);
 		//PLEASE NOTE. YOU MUST DEFINE THESE VARIABLES.
-		r->height = nameComp->getBoxHeight();
+		r->height = nameComp->getBoxHeight() + 25;
 		r->width = winX;
 		r->margin = rowMargin;
 		r->elements.push_back(GO_name);
 
-		//get attributes to show
-		//TO DO, MAKE THIS MORE ATTRACTIVE
-		int curAtr = 0;
-		std::string curAtrStr = "";
-		std::string statLine = "|";
-		for (auto atr : m_attachedCommander->m_attributes)
-		{
-			curAtr = atr.second;
-			curAtrStr = atr.first;
-			statLine += (curAtrStr + "-" + std::to_string(curAtr) + " | ");
-		}
 
-		r = addRow(rt_Overflow);
-		kitten::K_GameObject* GO_stats = kibble::getGameObjectDataParserInstance()->getGameObject("context_textbox.txt");
-		puppy::TextBox* statsComp = GO_stats->getComponent<puppy::TextBox>();
-		statsComp->setText(statLine);
-		statsComp->setEnabled(true);
+		Row* row2 = addRow(rt_Overflow);
+		kitten::K_GameObject* hpIcon = kibble::getGameObjectDataParserInstance()->getGameObject("UI/Icon.txt");
+		userinterface::UIElement* hpComp = hpIcon->getComponent<userinterface::UIElement>();
+		hpComp->setTexture("textures/ui/icons/stat_icons/stat_icons/hp.png");
 
-		//PLEASE NOTE. YOU MUST DEFINE THESE VARIABLES.
-		r->height = statsComp->getBoxHeight();
-		r->width = winX;
-		r->margin = rowMargin;
-		r->elements.push_back(GO_stats);
+		row2->height = 25;
+		row2->elements.push_back(hpIcon);
 
-		r = addRow(rt_Blank);
-		r->height = 50;
-		r->width = winX;
-		r->margin = 0;
+		kitten::K_GameObject* hpText = kibble::getGameObjectDataParserInstance()->getGameObject("context_textbox.txt");
+		puppy::TextBox* hptxtComp = hpText->getComponent<puppy::TextBox>();
+		hptxtComp->setText(std::to_string(m_attachedCommander->m_attributes["hp"]));
+
+		row2->elements.push_back(hpText);
+
+		kitten::K_GameObject* spIcon = kibble::getGameObjectDataParserInstance()->getGameObject("UI/Icon.txt");
+		userinterface::UIElement* spComp = spIcon->getComponent<userinterface::UIElement>();
+		spComp->setTexture("textures/ui/icons/stat_icons/stat_icons/movement.png");
+
+		row2->elements.push_back(spIcon);
+
+		kitten::K_GameObject* spText = kibble::getGameObjectDataParserInstance()->getGameObject("context_textbox.txt");
+		puppy::TextBox* sptxtComp = spText->getComponent<puppy::TextBox>();
+		sptxtComp->setText(std::to_string(m_attachedCommander->m_attributes["mv"]));
+
+		row2->elements.push_back(spText);
+
+		
 
 		arrange();
 	}
