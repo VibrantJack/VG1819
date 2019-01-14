@@ -1,4 +1,5 @@
 #include "CameraMoveByEvent.h"
+#include "_Project/LerpController.h"
 
 CameraMoveByEvent::CameraMoveByEvent()
 {
@@ -36,5 +37,18 @@ void CameraMoveByEvent::onDisabled()
 void CameraMoveByEvent::onCameraEvent(kitten::Event::EventType p_type, kitten::Event* p_event)
 {
 	m_cam->setFOV(p_event->getFloat(CAM_FOV));
-	m_cam->getTransform().place(p_event->getFloat(POSITION_X), DEFAULT_CAMERA_POS_Y, p_event->getFloat(POSITION_Z));
+
+	float time = p_event->getFloat("time");
+	if(time <= 0)//directly move
+		m_cam->getTransform().place(p_event->getFloat(POSITION_X), m_CameraPosY, p_event->getFloat(POSITION_Z));
+	else
+	{//set lerp
+		glm::vec3 target(p_event->getFloat(POSITION_X), m_CameraPosY, p_event->getFloat(POSITION_Z));
+		LerpController* lc = m_attachedObject->getComponent<LerpController>();
+		if (lc->isLerping())
+		{
+			lc->forceLerpToFinish();
+		}
+		lc->positionLerp(target, time);
+	}
 }

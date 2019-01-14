@@ -23,5 +23,6 @@ namespace unit
 	private:
 		std::vector<std::string> m_timeTex;
 		userinterface::UIObject* m_ui;
+		std::string m_tex;
 	};
 }

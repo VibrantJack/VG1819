@@ -16,10 +16,12 @@ namespace unit
 	{
 		m_commander = nullptr;
 		m_turn = nullptr;
-		m_statusContainer = new StatusContainer();
-		m_statusContainer->m_unit = this;
+
+		m_statusContainer = new StatusContainer(this);
+
 		m_cdRecorder = new CooldownRecorder();
-		m_castTimer = new CastTimer();
+
+		m_castTimer = new CastTimer(this);
 
 		setJoinAD();
 	}

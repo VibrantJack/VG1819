@@ -9,6 +9,8 @@ This class will display message to show that turn is changed
 #define DEFAULT_CAMERA_POS_X 7
 #define DEFAULT_CAMERA_POS_Z 0
 
+#define DEFAULT_CAMERA_LERP_TIME 1.5
+
 //Trigonometry
 //camera angle is 20 degree
 //the y value is 13
