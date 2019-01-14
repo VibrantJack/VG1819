@@ -52,7 +52,8 @@
 				"time_point":2,
 				"hp":6
 			}
-		]
+		],
+		"portrait_texture" : "textures/cards/500x500/Pyromancer.tga"
 	},
 	"components" : [
 		{

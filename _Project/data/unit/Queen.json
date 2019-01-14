@@ -21,7 +21,8 @@
 				"filter0":"unowned_tile",
 				"description":"Select 4 owned tile, change them into Homeland."
 			}
-		]
+		],
+		"portrait_texture" : "textures/cards/500x500/Queen.tga"
 	},
 	"components" : [
 		{
