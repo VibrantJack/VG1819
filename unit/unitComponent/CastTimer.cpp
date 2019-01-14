@@ -67,7 +67,9 @@ void unit::CastTimer::cancelCast()
 		delete m_pack;
 		m_pack = nullptr;
 		m_cast = false;
-		m_timerSymbol->setEnabled(false);
+
+		kitten::K_GameObjectManager::getInstance()->destroyGameObject(m_timerSymbol);
+		m_timerSymbol = nullptr;
 	}
 }
 
@@ -75,4 +77,7 @@ void unit::CastTimer::cast()
 {
 	ability::AbilityManager::getInstance()->useAbility(m_abilityName, m_pack);
 	m_pack = nullptr;
+
+	kitten::K_GameObjectManager::getInstance()->destroyGameObject(m_timerSymbol);
+	m_timerSymbol = nullptr;
 }
