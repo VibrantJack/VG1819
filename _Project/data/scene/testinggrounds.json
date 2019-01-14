@@ -26,10 +26,6 @@
 			"filename" : "UniversalPfx.txt"
 		},
 		{
-			"filename" : "FPSCounter.txt",
-			"translate2d" : [200,200]
-		},
-		{
 			"name" : "Deck",
 			"components" : [
 				{
