@@ -1,0 +1,12 @@
+{
+    "name" : "Commander Portrait", 
+    "components" : [
+        {
+            "name" : "UIElement",
+            "texture" : "textures/ui/blankFrame.tga",
+	    "pivot" : "topleft"
+        }
+    ],
+    "scale2d" : [105.0,105.0],
+    "translate" : [0.0,0.0,0.05]
+}
