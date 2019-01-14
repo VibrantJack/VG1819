@@ -153,29 +153,32 @@ namespace unit
 		assert(m_turn == nullptr);
 		m_turn = p_t;
 
-		m_cdRecorder->reduceCD();//reduce cd at start of turn
-		int i = m_castTimer->changeTimer();//reduce ct at start of turn
-
-		if (m_castTimer->isCasting())
-		{
-			playerSkipTurn();//if it still cast, it skips turn
-			return;
-		}
-		else if(i == 0)//used casting ability
-		{
-			m_turn->act = false;//can not use action this turn
-		}
-		else
-		{
-			m_turn->act = true;
-		}
-
 		//if the unit's movement is greater than 0, then it can move this turn
 		int mv = m_attributes["mv"];
 		if (mv <= 0)
 			m_turn->move = false;
 		else
 			m_turn->move = true;
+
+
+		m_cdRecorder->reduceCD();//reduce cd at start of turn
+
+		int i = m_castTimer->changeTimer();//reduce ct at start of turn
+		if (i == 0)
+		{
+			m_castTimer->cast();//cast ability if timer reaches 0
+			if (m_turn == nullptr)
+				return;
+		}
+		else if (m_castTimer->isCasting())
+		{
+			playerSkipTurn();//if it still cast, it skips turn
+			return;
+		}
+		else
+		{
+			m_turn->act = true;
+		}
 
 		m_turn->checkTurn();
 	}
