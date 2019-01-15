@@ -40,10 +40,7 @@
 				{
 					"name": "DeckDiscardedCardHandler"
 				}
-			],
-			"translate" : [0,0, -0.3],
-			"translate2d" : [1027, 10],
-			"scale2d" : [250, 80]
+			]
 		},		
 		{
 			"filename" : "handframe.json"
