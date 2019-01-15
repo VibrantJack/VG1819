@@ -22,6 +22,8 @@ namespace unit
 		void start() override;
 		void setActionButtonStore(ActionButtonStore* p_s) { m_storage = p_s; };
 
+		void disableInteraction(bool p_disable);
+
 		void onClick();
 	};
 }
