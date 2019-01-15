@@ -155,11 +155,11 @@ namespace networking
 					{
 						printf("[Polled Client: %d] is now [Client: %d]\n", iter->first, m_clientId);
 
-						// Add client socket from polled sessions to main sessions
-						m_network->m_sessions.insert(std::pair<unsigned int, SOCKET>(m_clientId, iter->second));
+						int assignedClientId = m_clientId;
 
-						// Set the mapped socket in polled sessions to invalid
-						m_network->m_polledSessions[iter->first] = INVALID_SOCKET;
+						// Add client socket from polled sessions to main sessions
+						m_network->addPolledClientToSessions(iter->first, m_clientId);
+						m_clientId++;
 
 						// Send a packet to the client to notify them what their ID is
 						char packetData[BASIC_PACKET_SIZE];
@@ -169,17 +169,25 @@ namespace networking
 
 						Packet packet;
 						packet.m_packetType = SEND_CLIENT_ID;
-						packet.m_clientId = m_clientId;
+						packet.m_clientId = assignedClientId;
 
 						packet.serialize(buffer);
-						m_network->sendToClient(m_clientId, packetData, BASIC_PACKET_SIZE);
-
-						// Increment m_clientId for use with the next client to join
-						m_clientId++;
+						m_network->sendToClient(assignedClientId, packetData, BASIC_PACKET_SIZE);
 					}
 					else
 					{
 						// Send alert full game packet
+						char packetData[BASIC_PACKET_SIZE];
+						Buffer buffer;
+						buffer.m_data = packetData;
+						buffer.m_size = BASIC_PACKET_SIZE;
+
+						Packet packet;
+						packet.m_packetType = GAME_FULL;
+						packet.m_clientId = -1;
+
+						packet.serialize(buffer);
+						m_network->sendToPolledClient(iter->first, packetData, BASIC_PACKET_SIZE);
 					}
 					break;
 				}

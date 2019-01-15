@@ -159,7 +159,7 @@ void ConnectToHost::pollForLocalhost()
 	}
 	else
 	{
-		m_localHostTextBox->setText("No Game Found");
+		m_localHostTextBox->setText("Game Found! 2/2 Players");
 	}
 }
 

@@ -141,6 +141,11 @@ kitten::K_Component* getDestroyOnClick(nlohmann::json* p_jsonFile){
 	return new DestroyOnClick();
 }
 
+#include "components/clickables/DiscardCardOnClick.h"
+kitten::K_Component* getDiscardCardOnClick(nlohmann::json* p_jsonFile){
+	return new DiscardCardOnClick();
+}
+
 
 #include "board/component/BoardCreator.h"
 kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
@@ -972,6 +977,16 @@ kitten::K_Component* getDrawCardOnClickUI(nlohmann::json* p_jsonFile) {
 	return new DrawCardOnClickUI();
 }
 
+#include "components/initializers/DrawCardsFromDeckWithDelay.h"
+kitten::K_Component* getDrawCardsFromDeckWithDelay(nlohmann::json* p_jsonFile) {
+	return new DrawCardsFromDeckWithDelay();
+}
+
+#include "components/DeckDiscardedCardHandler.h"
+kitten::K_Component* getDeckDiscardedCardHandler(nlohmann::json* p_jsonFile) {
+	return new DeckDiscardedCardHandler();
+}
+
 #include "kitten/sprites/SpriteGroup.h"
 kitten::K_Component* getSpriteGroup(nlohmann::json* p_jsonFile) {
 	std::string name;
@@ -1395,6 +1410,10 @@ kitten::K_Component* getCustomDataComponent(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getCardContext(nlohmann::json* p_jsonFile) {
 	return new CardContext();
 }
+#include "UI\ContextMenu.h"
+kitten::K_Component* getContextMenu(nlohmann::json* p_jsonFile) {
+	return new userinterface::ContextMenu();
+}
 
 #include "UI\ClickableCard.h"
 kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
@@ -1528,6 +1547,11 @@ kitten::K_Component* getCounterGetterController(nlohmann::json* p_jsonFile) {
 	return new CounterGetterController();
 }
 
+#include "components/clickables/HoverOverCardBehavior.h"
+kitten::K_Component* getHoverOverCardBehavior(nlohmann::json* p_jsonFile) {
+	return new HoverOverCardBehavior();
+}
+
 #include "unit/InitiativeTracker/NewTurnMessageController.h"
 kitten::K_Component* getNewTurnMessageController(nlohmann::json* p_jsonFile) {
 	float time;
@@ -1562,6 +1586,7 @@ void setupComponentMap() {
 	jsonComponentMap["DebugPrintOnce"] = &getDebugPrintOnce;
 	jsonComponentMap["PrintWhenClicked"] = &getPrintWhenClicked;
 	jsonComponentMap["DestroyOnClick"] = &getDestroyOnClick;
+	jsonComponentMap["DiscardCardOnClick"] = &getDiscardCardOnClick;
 	jsonComponentMap["ClickableBox"] = &getClickableBox;
 	jsonComponentMap["AudioSource"] = &getAudioSource;
 	jsonComponentMap["AudioListener"] = &getAudioListener;
@@ -1652,6 +1677,8 @@ void setupComponentMap() {
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
 	jsonComponentMap["CardContext"] = &getCardContext;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
+	jsonComponentMap["DrawCardsFromDeckWithDelay"] = &getDrawCardsFromDeckWithDelay;
+	jsonComponentMap["DeckDiscardedCardHandler"] = &getDeckDiscardedCardHandler;
 	jsonComponentMap["QuadEdgeRenderable"] = &getQuadEdgeRenderable;
 	jsonComponentMap["TileDecoration"] = &getTileDecoration;
 	jsonComponentMap["SimpleQuadRenderable"] = &getSimpleQuadRenderable;
@@ -1660,7 +1687,9 @@ void setupComponentMap() {
 	jsonComponentMap["PivotTextBox"] = &getPivotTextBox;
 	jsonComponentMap["CardArt"] = &getCardArt;
 	jsonComponentMap["CounterGetterController"] = &getCounterGetterController;
+	jsonComponentMap["HoverOverCardBehavior"] = &getHoverOverCardBehavior;
 	jsonComponentMap["CounterGetterButton"] = &getCounterGetterButton;
+	jsonComponentMap["ContextMenu"] = &getContextMenu;
 	jsonComponentMap["NewTurnMessageController"] = &getNewTurnMessageController;
 	jsonComponentMap["TimerSymbol"] = &getTimerSymbol;
 }

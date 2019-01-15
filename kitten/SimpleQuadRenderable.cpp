@@ -82,12 +82,12 @@ kitten::SimpleQuadRenderable::SimpleQuadRenderable(const std::string & p_texPath
 		//setup the vao
 		puppy::TexturedVertex verts[] =
 		{
-		{ -0.5f, 0.0f, 0.5f,		0.0f, 1.0f },
-		{ 0.5f, 0.0f, 0.5f,			1.0f, 1.0f },
-		{ 0.5f, 0.0f,-0.5f,			1.0f, 0.0f },
-		{ 0.5f, 0.0f,-0.5f,			1.0f, 0.0f },
-		{ -0.5f, 0.0f,-0.5f,		0.0f, 0.0f },
-		{ -0.5f, 0.0f, 0.5f,		0.0f, 1.0f },
+		{ -0.5f, 0.0f, 0.5f,		1.0f, 1.0f },
+		{ 0.5f, 0.0f, 0.5f,			0.0f, 1.0f },
+		{ 0.5f, 0.0f,-0.5f,			0.0f, 0.0f },
+		{ 0.5f, 0.0f,-0.5f,			0.0f, 0.0f },
+		{ -0.5f, 0.0f,-0.5f,		1.0f, 0.0f },
+		{ -0.5f, 0.0f, 0.5f,		1.0f, 1.0f },
 		};
 		sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
 	}

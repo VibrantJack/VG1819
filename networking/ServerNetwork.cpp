@@ -140,6 +140,25 @@ namespace networking
 		return false;
 	}
 
+	void ServerNetwork::addPolledClientToSessions(unsigned int p_iPolledClientId, unsigned int& p_iClientId)
+	{
+		// Get the socket of the polled client
+		auto iter = m_polledSessions.find(p_iPolledClientId);
+
+		if (iter != m_polledSessions.end())
+		{
+			// Add client socket from polled sessions to main sessions
+			m_sessions.insert(std::pair<unsigned int, SOCKET>(p_iClientId, iter->second));
+
+			// Set the mapped socket in polled sessions to invalid
+			m_polledSessions[p_iPolledClientId] = INVALID_SOCKET;
+		}
+		else
+		{
+			printf("[Polled Client: %d] not found in polled sessions\n", p_iPolledClientId);
+		}
+	}
+
 	void ServerNetwork::removePolledClient(unsigned int & p_polledClientId)
 	{
 		if (m_polledSessions.find(p_polledClientId) != m_polledSessions.end())

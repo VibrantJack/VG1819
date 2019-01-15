@@ -37,7 +37,8 @@ namespace networking
 		int receiveDataFromPolled(unsigned int client_id, char * recvbuf);
 
 		// accept new connections
-		bool acceptNewClient(unsigned int & p_iClientId);
+		bool acceptNewClient(unsigned int& p_iClientId);
+		void addPolledClientToSessions(unsigned int p_iPolledClientId, unsigned int& p_iClientId);
 		void removePolledClient(unsigned int & p_polledClientId);
 		void removeClient(unsigned int & p_iClientId);
 
