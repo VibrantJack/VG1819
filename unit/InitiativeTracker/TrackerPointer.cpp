@@ -30,14 +30,19 @@ void unit::TrackerPointer::update()
 	{
 		m_scale += velocity;
 		if (m_scale >= m_maxScale)
+		{
+			m_scale = m_maxScale;
 			m_scaleUp = false;
-
+		}
 	}
 	else
 	{
 		m_scale -= velocity;
 		if (m_scale <= m_minScale)
+		{
+			m_scale = m_minScale;
 			m_scaleUp = true;
+		}
 	}
 	scale();
 }

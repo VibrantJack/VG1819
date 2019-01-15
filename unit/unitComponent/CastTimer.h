@@ -20,8 +20,6 @@ namespace unit
 		int changeTimer(int p_n = -1);
 		void cancelCast();
 		void cast();
-
-		void cast();
 	private:
 		ability::AbilityInfoPackage* m_pack;
 		std::string m_abilityName;
