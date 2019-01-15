@@ -187,8 +187,8 @@ namespace puppy
 	void StaticRenderables::constructRenderable(Material* p_where, render_map* p_from, std::unordered_map<Material*, VertexEnvironment*>* p_toChange)
 	{
 		//get vector to create buffer from
-		auto found = p_from->find(p_where);
-		auto map = found->second.first;
+		auto& found = p_from->find(p_where);
+		auto& map = found->second.first;
 
 		//Get size of vector needed
 		
@@ -247,8 +247,8 @@ namespace puppy
 	void StaticRenderables::constructNormalRenderable(Material* p_where)
 	{
 		//get vector to create buffer from
-		auto found = m_normalData.find(p_where);
-		auto map = found->second.first;
+		auto& found = m_normalData.find(p_where);
+		auto& map = found->second.first;
 
 		//Get size of vector needed
 
