@@ -11,7 +11,8 @@ namespace kitten
 
 	Clickable::~Clickable()
 	{
-		m_attachedBox->removeClickable(this);
+		if (m_attachedBox != nullptr)
+			m_attachedBox->removeClickable(this);
 	}
 
 	void Clickable::start()

@@ -2,17 +2,23 @@
     "name" : "hand card",
     "components" : [
         {
-            "name" : "CardUIO",
-            "texture" : "textures/cards/card_context_basic.tga"
+            "name" : "ClickableFrame"
         },
         {
-            "name" : "ClickableFrame"
+            "name" : "CardUIO",
+            "texture" : "textures/cards/card_context_basic.tga"
         },
         {
             "name" : "SpawnUnitOnDrop"
         },
         {
             "name" : "LerpController"
+        },
+        {
+            "name" : "DiscardCardOnClick"
+        },
+        {
+            "name" : "HoverOverCardBehavior"
         }
     ],
     "translate2d" : [1100, 50]

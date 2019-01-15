@@ -166,8 +166,10 @@
     <ClCompile Include="..\components\clickables\AddNewDeckOnClick.cpp" />
     <ClCompile Include="..\components\clickables\AddUnitOnClick.cpp" />
     <ClCompile Include="..\components\clickables\DeleteDeckOnClick.cpp" />
+    <ClCompile Include="..\components\clickables\DiscardCardOnClick.cpp" />
     <ClCompile Include="..\components\clickables\DiscardDeckOnClick.cpp" />
     <ClCompile Include="..\components\clickables\ChangeUnitOnClick.cpp" />
+    <ClCompile Include="..\components\clickables\HoverOverCardBehavior.cpp" />
     <ClCompile Include="..\components\clickables\SaveDeckOnClick.cpp" />
     <ClCompile Include="..\components\clickables\SetCommanderOnClick.cpp" />
     <ClCompile Include="..\components\CustomCursor.cpp" />
@@ -175,6 +177,7 @@
     <ClCompile Include="..\components\DeckAlterationComponent.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\components\ChangeSceneOnClick.cpp" />
+    <ClCompile Include="..\components\DeckDiscardedCardHandler.cpp" />
     <ClCompile Include="..\components\DeckInitializingComponent.cpp" />
     <ClCompile Include="..\components\DecksDisplayFrame.cpp" />
     <ClCompile Include="..\components\DecksDisplay\DisplayFramePickerOnClick.cpp" />
@@ -185,6 +188,7 @@
     <ClCompile Include="..\components\DisplayFrame\UnitDisplayFrame.cpp" />
     <ClCompile Include="..\components\DragNDrop\SpawnUnitOnDrop.cpp" />
     <ClCompile Include="..\components\DrawCardOnClickUI.cpp" />
+    <ClCompile Include="..\components\initializers\DrawCardsFromDeckWithDelay.cpp" />
     <ClCompile Include="..\components\MainMenuBoard.cpp" />
     <ClCompile Include="..\components\scene change\StartGameOnClick.cpp" />
     <ClCompile Include="..\components\ExitGameButton.cpp" />
@@ -474,8 +478,10 @@
     <ClInclude Include="..\components\clickables\AddNewDeckOnClick.h" />
     <ClInclude Include="..\components\clickables\AddUnitOnClick.h" />
     <ClInclude Include="..\components\clickables\DeleteDeckOnClick.h" />
+    <ClInclude Include="..\components\clickables\DiscardCardOnClick.h" />
     <ClInclude Include="..\components\clickables\DiscardDeckOnClick.h" />
     <ClInclude Include="..\components\clickables\ChangeUnitOnClick.h" />
+    <ClInclude Include="..\components\clickables\HoverOverCardBehavior.h" />
     <ClInclude Include="..\components\clickables\SaveDeckOnClick.h" />
     <ClInclude Include="..\components\clickables\SetCommanderOnClick.h" />
     <ClInclude Include="..\components\CustomCursor.h" />
@@ -483,6 +489,7 @@
     <ClInclude Include="..\components\DeckAlterationComponent.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />
     <ClInclude Include="..\components\ChangeSceneOnClick.hpp" />
+    <ClInclude Include="..\components\DeckDiscardedCardHandler.h" />
     <ClInclude Include="..\components\DeckInitializingComponent.h" />
     <ClInclude Include="..\components\DecksDisplayFrame.h" />
     <ClInclude Include="..\components\DecksDisplay\DisplayFramePickerOnClick.h" />
@@ -494,6 +501,7 @@
     <ClInclude Include="..\components\DragNDrop\SpawnUnitOnDrop.h" />
     <ClInclude Include="..\components\DrawCardOnClickUI.h" />
     <ClInclude Include="..\components\ExitGameButton.h" />
+    <ClInclude Include="..\components\initializers\DrawCardsFromDeckWithDelay.h" />
     <ClInclude Include="..\components\MainMenuBoard.h" />
     <ClInclude Include="..\components\scene change\StartGameOnClick.h" />
     <ClInclude Include="..\components\SetupDeckEditOnSceneChange.h" />

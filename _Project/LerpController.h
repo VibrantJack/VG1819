@@ -78,7 +78,7 @@ public:
 	void removeRotationCallback(RotationLerpFinishedCallback* p_listener);
 
 	void forceLerpToFinish();
-	void cancelLerp();
+	void cancelLerp(bool p_resetPosition = true);
 
 	bool isLerping() const { return m_isLerping; }
 	bool isPosLerping() const { return m_isPositionLerping; }
