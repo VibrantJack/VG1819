@@ -38,6 +38,7 @@ namespace networking
 
 		// accept new connections
 		bool acceptNewClient(unsigned int & p_iClientId);
+		void removePolledClient(unsigned int & p_polledClientId);
 		void removeClient(unsigned int & p_iClientId);
 
 		const std::string& getError() const { return m_strError; }

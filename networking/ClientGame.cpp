@@ -70,6 +70,7 @@ namespace networking
 
 	void ClientGame::setupNetwork(const std::string &p_strAddr)
 	{
+		printf("Attempting to join: %s\n", p_strAddr.c_str());
 		m_network = new ClientNetwork();
 
 		if (m_network->init(p_strAddr))
@@ -319,6 +320,9 @@ namespace networking
 				break;
 			}
 		}
+
+		// TODO: Every X seconds, send a basic packet to the polled server to ping it
+		// if value = SOCKET_ERROR, the server is no longer online, so we should clean up the connection
 	}
 
 	void ClientGame::useAbility(AbilityPacket& p_packet)
@@ -439,7 +443,7 @@ namespace networking
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, UNIT_PACKET_SIZE);
 	}
 
-	void ClientGame::sendBasicPacket(PacketTypes p_packetType)
+	int ClientGame::sendBasicPacket(PacketTypes p_packetType)
 	{
 		char data[BASIC_PACKET_SIZE];
 
@@ -452,7 +456,7 @@ namespace networking
 		packet.m_clientId = sm_iClientId;
 
 		packet.serialize(buffer);
-		NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
+		return NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
 	}
 
 	int ClientGame::getUnitGameObjectIndex(kitten::K_GameObject* p_unit)

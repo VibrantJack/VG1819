@@ -183,21 +183,15 @@ namespace networking
 					}
 					break;
 				}
-				//case CLIENT_DISCONNECT:
-				//{
-				//	i += BASIC_PACKET_SIZE;
-				//	unsigned int clientId = iter->first;
-				//	printf("Server received CLIENT_DISCONNECT from [Client: %d]\n", clientId);
-				//	m_network->removeClient(clientId);
-				//	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Disconnect_From_Network, nullptr);
+				case CLIENT_DISCONNECT:
+				{
+					i += BASIC_PACKET_SIZE;
+					unsigned int clientId = iter->first;
+					printf("Server received CLIENT_DISCONNECT from [Polled Client: %d]\n", clientId);
+					m_network->removePolledClient(clientId);
 
-				//	// Display disconnect screen; Server received manual disconnect from client
-				//	kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
-				//	eventData->putInt(GAME_END_RESULT, PLAYER_DISCONNECTED);
-				//	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
-
-				//	break;
-				//}
+					break;
+				}
 				default:
 					printf("error in packet types received from [Polled Client: %d], value: %d\n", iter->first, defaultPacket.m_packetType);
 					i += (unsigned int)data_length;

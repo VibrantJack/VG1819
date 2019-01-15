@@ -28,6 +28,7 @@ namespace userinterface
 			DeckInitializingComponent::getActiveInstance()->toggleMessage(true);
 			return;
 		}
+		kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/loading_screen.json");
 		kitten::K_Instance::changeScene("network_menu.json");
 		//kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Join_Button_Clicked, nullptr);
 	}

@@ -140,6 +140,22 @@ namespace networking
 		return false;
 	}
 
+	void ServerNetwork::removePolledClient(unsigned int & p_polledClientId)
+	{
+		if (m_polledSessions.find(p_polledClientId) != m_polledSessions.end())
+		{
+			printf("Server disconnecting [Polled Client: %d]\n", p_polledClientId);
+
+			SOCKET currentSocket = m_polledSessions[p_polledClientId];
+			closesocket(currentSocket);
+			m_polledSessions[p_polledClientId] = INVALID_SOCKET;
+		} 
+		else
+		{
+			printf("Server cannot remove [Polled Client: %d]: polled client not found\n", p_polledClientId);
+		}
+	}
+
 	void ServerNetwork::removeClient(unsigned int & p_iClientId)
 	{
 		if (m_sessions.find(p_iClientId) != m_sessions.end())
