@@ -1,0 +1,12 @@
+{
+    "name" : "Text", 
+    "components" : [
+        {
+            "name":"TextBox",
+            "font":"../fonts/common_arial.fnt",
+            "color":[1,1,1],
+            "message":"Default",
+            "alignment":"center"
+        }
+    ]
+}

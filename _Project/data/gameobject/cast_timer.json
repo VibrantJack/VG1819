@@ -1,0 +1,24 @@
+{
+    "name" : "Cast Timer", 
+    "components" : [
+        {
+            "name" : "UIObject"
+        },
+        {
+            "name" : "TimerSymbol",
+            "textures" : [
+                "textures/ui/cast_timer/timer_01.png",
+                "textures/ui/cast_timer/timer_02.png",
+                "textures/ui/cast_timer/timer_03.png",
+                "textures/ui/cast_timer/timer_04.png",
+                "textures/ui/cast_timer/timer_05.png",
+                "textures/ui/cast_timer/timer_06.png",
+                "textures/ui/cast_timer/timer_07.png",
+                "textures/ui/cast_timer/timer_08.png",
+                "textures/ui/cast_timer/timer_09.png",
+                "textures/ui/cast_timer/timer_10.png"]
+        }
+    ],
+    "scale2d" : [60,60],
+    "translate2d" : [0,15]
+}

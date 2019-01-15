@@ -4,7 +4,8 @@
 
 namespace unit
 {
-	StatusContainer::StatusContainer()
+	StatusContainer::StatusContainer(Unit* p_unit)
+		:m_unit(p_unit)
 	{
 		m_TPStatusList = new std::unordered_map<ability::TimePointEvent::TPEventType, std::vector<ability::Status*>*>();
 	}
@@ -132,6 +133,10 @@ namespace unit
 
 		//then delete event
 		delete p_event;
+	}
+	Unit * StatusContainer::getUnit()
+	{
+		return m_unit;
 	}
 }
 
