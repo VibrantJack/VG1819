@@ -1522,6 +1522,28 @@ kitten::K_Component* getHoverOverCardBehavior(nlohmann::json* p_jsonFile) {
 	return new HoverOverCardBehavior();
 }
 
+#include "unit/InitiativeTracker/NewTurnMessageController.h"
+kitten::K_Component* getNewTurnMessageController(nlohmann::json* p_jsonFile) {
+	float time;
+	SETOPTDEF(time, "time", 1.5f);
+	return new unit::NewTurnMessageController(time);
+}
+
+#include "unit/unitComponent/TimerSymbol.h"
+kitten::K_Component* getTimerSymbol(nlohmann::json* p_jsonFile) {
+	unit::TimerSymbol* symbol = new unit::TimerSymbol();
+
+	if (JSONHAS("textures"))
+	{
+		for (int i = 0; i < LOOKUP("textures").size(); i++)
+		{
+			symbol->addTexture(i + 1, LOOKUP("textures")[i]);
+		}
+	}
+
+	return symbol;
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1637,6 +1659,8 @@ void setupComponentMap() {
 	jsonComponentMap["HoverOverCardBehavior"] = &getHoverOverCardBehavior;
 	jsonComponentMap["CounterGetterButton"] = &getCounterGetterButton;
 	jsonComponentMap["ContextMenu"] = &getContextMenu;
+	jsonComponentMap["NewTurnMessageController"] = &getNewTurnMessageController;
+	jsonComponentMap["TimerSymbol"] = &getTimerSymbol;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

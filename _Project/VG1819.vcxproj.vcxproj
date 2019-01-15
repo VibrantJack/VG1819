@@ -337,10 +337,12 @@
     <ClCompile Include="..\unitInteraction\UnitInteractionManager.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTracker.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\InitiativeTrackerUI.cpp" />
+    <ClCompile Include="..\unit\InitiativeTracker\NewTurnMessageController.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\PointerUI.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\TrackerBlock.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\TrackerBlockClickable.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\TrackerPointer.cpp" />
+    <ClCompile Include="..\unit\InitiativeTracker\TurnChangeDisplay.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\UnitAura.cpp" />
     <ClCompile Include="..\unit\InitiativeTracker\UnitTurn.cpp" />
     <ClCompile Include="..\unit\Unit.cpp" />
@@ -348,6 +350,7 @@
     <ClCompile Include="..\unit\unitComponent\Commander.cpp" />
     <ClCompile Include="..\unit\unitComponent\CooldownRecorder.cpp" />
     <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp" />
+    <ClCompile Include="..\unit\unitComponent\TimerSymbol.cpp" />
     <ClCompile Include="..\unit\unitComponent\unitAction\ActionButtonStore.cpp" />
     <ClCompile Include="..\unit\unitComponent\unitAction\ActionSelect.cpp" />
     <ClCompile Include="..\unit\unitComponent\UnitGraphic.cpp" />
@@ -667,10 +670,12 @@
     <ClInclude Include="..\unitInteraction\UnitInteractionManager.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTracker.h" />
     <ClInclude Include="..\unit\InitiativeTracker\InitiativeTrackerUI.h" />
+    <ClInclude Include="..\unit\InitiativeTracker\NewTurnMessageController.h" />
     <ClInclude Include="..\unit\InitiativeTracker\PointerUI.h" />
     <ClInclude Include="..\unit\InitiativeTracker\TrackerBlock.h" />
     <ClInclude Include="..\unit\InitiativeTracker\TrackerBlockClickable.h" />
     <ClInclude Include="..\unit\InitiativeTracker\TrackerPointer.h" />
+    <ClInclude Include="..\unit\InitiativeTracker\TurnChangeDisplay.h" />
     <ClInclude Include="..\unit\InitiativeTracker\UnitAura.h" />
     <ClInclude Include="..\unit\InitiativeTracker\UnitTurn.h" />
     <ClInclude Include="..\unit\Unit.h" />
@@ -679,6 +684,7 @@
     <ClInclude Include="..\unit\unitComponent\Commander.h" />
     <ClInclude Include="..\unit\unitComponent\CooldownRecorder.h" />
     <ClInclude Include="..\unit\unitComponent\StatusContainer.h" />
+    <ClInclude Include="..\unit\unitComponent\TimerSymbol.h" />
     <ClInclude Include="..\unit\unitComponent\unitAction\ActionButtonStore.h" />
     <ClInclude Include="..\unit\unitComponent\unitAction\ActionSelect.h" />
     <ClInclude Include="..\unit\unitComponent\UnitGraphic.h" />
