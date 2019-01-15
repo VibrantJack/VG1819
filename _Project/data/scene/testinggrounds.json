@@ -1,76 +1,5 @@
 {
-    "gameobjects" : [
-        {
-            "filename" : "camgameobj.txt", 
-            "translate" : [7, 13.0, 0.0],
-            "rotate" : [-70,0,0]
-        },
-		{
-			"filename" : "boardcreator.txt"
-		},
-		{
-			"filename" : "soundsource.txt",
-			"translate" : [7,10,-8]
-		},
-		{
-			"filename" : "backgroundmusic.txt"
-		},
-		{
-			"filename" : "netmenu_console.txt",
-			"translate2d" : [200, 50]
-		},
-		{
-			"filename" : "TabMenu.txt"
-		},
-		{
-			"filename" : "UniversalPfx.txt"
-		},
-		{
-			"filename" : "card_context.json"
-		},
-		{
-			"name" : "Deck",
-			"components" : [
-				{
-					"name" : "DeckComponent"
-				},
-				{
-					"name" : "DrawCardOnClickUI"
-				},
-				{
-					"name" : "UIObject",
-					"texture" : "textures/ui/buttons/button_draw_card.tga"
-				},
-				{
-					"name" : "ClickableFrame"
-				},
-				{
-					"name" : "ClickableButton",
-					"regularTexture" : "textures/ui/buttons/button_draw_card.tga",
-					"highlightedTexture" : "textures/ui/buttons/button_draw_card_h.tga"
-				},
-				{
-					"name": "DrawCardsFromDeckWithDelay"
-				},
-				{
-					"name": "DeckDiscardedCardHandler"
-				}
-			],
-			"translate" : [0,0, -0.3],
-			"translate2d" : [1027, 10],
-			"scale2d" : [250, 80]
-		},		
-		{
-			"filename" : "handframe.json"
-		},
-		{
-		  "name" : "commander portrait",
-		  "components" : [
-		    {
-		      "name" : "CommanderContext"
-		    }
-		  ]
-		},
+	"gameobjects" : [
 		{
 			"name" : "more scene init stuff",
 			"components" : [
@@ -80,13 +9,30 @@
 			]
 		},
 		{
-			"name" : "CombatTextInstance",
-			"components": [
+			"name": "deck supplement",
+			"components" : [
 				{
-					"name" : "CombatText",
-					"poolsize" : 9
+					"name" : "ClickableFrame"
+				},
+				{
+					"name" : "UIObject",
+					"texture" : "textures/ui/buttons/button_draw_card.tga"
+				},
+				{
+					"name" : "ClickableButton",
+					"regularTexture" : "textures/ui/buttons/button_draw_card.tga",
+					"highlightedTexture" : "textures/ui/buttons/button_draw_card_h.tga"
+				},
+				{
+					"name" : "DrawCardOnClickUI"
 				}
-			]
+			],
+			"translate" : [0,0, -0.3],
+			"translate2d" : [1027, 10],
+			"scale2d" : [250, 80]
 		}
-    ]
+    ],
+	"scenes" : [
+		"Game_Scene.json"
+	]
 }

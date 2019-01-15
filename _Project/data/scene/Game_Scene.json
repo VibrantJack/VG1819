@@ -1,0 +1,64 @@
+{
+    "gameobjects" : [
+        {
+            "filename" : "camgameobj.txt", 
+            "translate" : [7, 13.0, 0.0],
+            "rotate" : [-70,0,0]
+        },
+		{
+			"filename" : "boardcreator.txt"
+		},
+		{
+			"filename" : "soundsource.txt",
+			"translate" : [7,10,-8]
+		},
+		{
+			"filename" : "backgroundmusic.txt"
+		},
+		{
+			"filename" : "netmenu_console.txt",
+			"translate2d" : [950, 100]
+		},
+		{
+			"filename" : "TabMenu.txt"
+		},
+		{
+			"filename" : "UniversalPfx.txt"
+		},
+		{
+			"filename" : "card_context.json"
+		},
+		{
+			"name" : "Deck",
+			"components" : [
+				{
+					"name" : "DeckComponent"
+				},
+				{
+					"name": "DrawCardsFromDeckWithDelay"
+				},
+				{
+					"name": "DeckDiscardedCardHandler"
+				}
+			],
+			"translate" : [0,0, -0.3],
+			"translate2d" : [1027, 10],
+			"scale2d" : [250, 80]
+		},		
+		{
+			"filename" : "handframe.json"
+		},
+		{
+		  "filename" : "CommanderContext.txt"
+		},
+		{
+			"name" : "CombatTextInstance",
+			"components": [
+				{
+					"name" : "CombatText",
+					"poolsize" : 9
+				}
+			]
+		}
+    ]
+}
