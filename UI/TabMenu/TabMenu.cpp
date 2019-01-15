@@ -30,7 +30,7 @@ TabMenu::TabMenu(const char* p_pathToTex)
 
 TabMenu::~TabMenu()
 {
-	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::End_Game_Screen, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Network_End_Game, this);
 }
 
 void TabMenu::start()
@@ -42,7 +42,7 @@ void TabMenu::start()
 
 	// Add Listeners for enabling end game screen on Commander death
 	kitten::EventManager::getInstance()->addListener(
-		kitten::Event::EventType::End_Game_Screen,
+		kitten::Event::EventType::Network_End_Game,
 		this,
 		std::bind(&TabMenu::enableEndGameScreen, this, std::placeholders::_1, std::placeholders::_2));
 

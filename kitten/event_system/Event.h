@@ -61,7 +61,7 @@ namespace kitten
 			Card_Peeked,
 			Card_Discarded,
 			Deck_Empty,
-			End_Game_Screen,
+			Network_End_Game,
 			Return_to_Main_Menu,
 			Join_Direct_Address,
 			IP_Address_Entered,

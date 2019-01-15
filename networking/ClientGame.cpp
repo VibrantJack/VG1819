@@ -6,6 +6,7 @@
 // @Ken
 
 #include "networking\ClientGame.h"
+#include "kitten/K_Time.h"
 #include <assert.h>
 #include <iostream>
 #include <unordered_map>
@@ -24,6 +25,8 @@
 #include "unit\unitComponent\UnitMove.h"
 
 #include "components\DeckInitializingComponent.h"
+
+#define PING_PACKET_DELAY 5.0f
 
 namespace networking
 {
@@ -53,7 +56,7 @@ namespace networking
 		return sm_clientGameInstance;
 	}
 
-	ClientGame::ClientGame(const std::string &p_strAddr) : m_bGameTurnStart(false)
+	ClientGame::ClientGame(const std::string &p_strAddr) : m_bGameTurnStart(false), m_timeElapsed(0.0f)
 	{
 		setupNetwork(p_strAddr);
 	}
@@ -120,6 +123,22 @@ namespace networking
 
 	void ClientGame::update()
 	{
+		// Ping the host to ensure they haven't disconnnected
+		m_timeElapsed += kitten::K_Time::getInstance()->getDeltaTime();		
+		if (m_timeElapsed > PING_PACKET_DELAY)
+		{
+			m_timeElapsed = 0.0f;
+			int result = sendBasicPacket(PING_SOCKET);
+
+			if (result == SOCKET_ERROR)
+			{
+				// Enable end game screen/update join game screen to indicate lost connection
+				kitten::Event* eventData = new kitten::Event(kitten::Event::Network_End_Game);
+				eventData->putInt(GAME_END_RESULT, PLAYER_DISCONNECTED);
+				kitten::EventManager::getInstance()->queueEvent(kitten::Event::Network_End_Game, eventData);
+			}
+		}
+
 		int data_length = m_network->receivePackets(m_network_data);
 
 		if (data_length <= 0)
@@ -180,9 +199,9 @@ namespace networking
 				disconnectFromNetwork(true);
 
 				// Display disconnect screen; Server received manual disconnect from server
-				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+				kitten::Event* eventData = new kitten::Event(kitten::Event::Network_End_Game);
 				eventData->putInt(GAME_END_RESULT, PLAYER_DISCONNECTED);
-				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Network_End_Game, eventData);
 				break;
 			}
 			case PacketTypes::ABILITY_PACKET:
@@ -301,15 +320,15 @@ namespace networking
 				printf("[Client: %d] received DESYNCED packet from server\n", sm_iClientId);
 				i += BASIC_PACKET_SIZE;
 
-				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+				kitten::Event* eventData = new kitten::Event(kitten::Event::Network_End_Game);
 				eventData->putInt(GAME_END_RESULT, CLIENT_DESYNCED);
-				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Network_End_Game, eventData);
 
 				break;
 			}
-			case PacketTypes::JOIN_GAME:
+			case PacketTypes::GAME_FULL:
 			{
-				printf("[Client: %d] received JOIN_GAME packet from server\n", sm_iClientId);
+				printf("[Client: %d] received GAME_FULL packet from server\n", sm_iClientId);
 				i += BASIC_PACKET_SIZE;
 
 				break;

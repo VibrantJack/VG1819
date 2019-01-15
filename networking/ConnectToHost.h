@@ -32,4 +32,5 @@ public:
 	void joinDirectAddressListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 	void pollForLocalhostListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 	void joinLocalhostListener(kitten::Event::EventType p_type, kitten::Event* p_event);
+	void lostConnectionListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 };

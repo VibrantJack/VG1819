@@ -30,7 +30,8 @@ enum PacketTypes
 	STARTING_COMMANDER_DATA,
 	DESYNCED,
 	JOIN_GAME,
-	GAME_FULL
+	GAME_FULL,
+	PING_SOCKET
 };
 
 struct UnitInfo

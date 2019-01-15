@@ -32,6 +32,8 @@ namespace networking
 		static bool sm_networkValid;
 		static ClientGame* sm_clientGameInstance;
 
+		float m_timeElapsed;
+
 		ClientGame(const std::string &p_strAddr);
 		~ClientGame();
 

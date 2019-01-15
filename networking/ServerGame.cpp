@@ -109,7 +109,7 @@ namespace networking
 
 			m_polledClientId++;
 		}
-		
+
 		receiveFromPolledClients();
 		receiveFromClients();
 
@@ -200,6 +200,12 @@ namespace networking
 
 					break;
 				}
+				case PING_SOCKET:
+				{
+					i += BASIC_PACKET_SIZE;
+					// Server pinged to see if it is still active
+					break;
+				}
 				default:
 					printf("error in packet types received from [Polled Client: %d], value: %d\n", iter->first, defaultPacket.m_packetType);
 					i += (unsigned int)data_length;
@@ -287,9 +293,9 @@ namespace networking
 						kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Disconnect_From_Network, nullptr);
 
 						// Display disconnect screen; Server received manual disconnect from client
-						kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+						kitten::Event* eventData = new kitten::Event(kitten::Event::Network_End_Game);
 						eventData->putInt(GAME_END_RESULT, PLAYER_DISCONNECTED);
-						kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+						kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Network_End_Game, eventData);
 
 						break;
 					}
@@ -383,6 +389,12 @@ namespace networking
 						printf("Server received SKIP_TURN packet from [Client: %d]\n", iter->first);
 
 						m_network->sendToOthers(iter->first, defaultBuffer.m_data, SKIP_TURN_PACKET_SIZE);
+						break;
+					}
+					case PING_SOCKET:
+					{
+						i += BASIC_PACKET_SIZE;
+						// Server pinged to see if it is still active
 						break;
 					}
 					case GAME_TURN_START:

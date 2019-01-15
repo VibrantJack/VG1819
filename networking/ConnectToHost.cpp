@@ -13,6 +13,10 @@
 #include "kitten\K_Instance.h"
 #include "networking\ClientGame.h"
 
+#define NO_GAME_DETECTED_MSG "No Game Found"
+#define GAME_DETECTED_MSG "Game Found!"
+#define LOST_CONNECTION_MSG "Lost Connection"
+
 ConnectToHost::ConnectToHost()
 	:
 	m_bConnect(false),
@@ -28,6 +32,7 @@ ConnectToHost::~ConnectToHost()
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Join_Direct_Address, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Poll_For_Localhost, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Join_Localhost, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Network_End_Game, this);
 	m_inputMan->setPollMode(true);
 
 	if (!m_bJoiningGame && networking::ClientGame::isNetworkValid())
@@ -64,6 +69,11 @@ void ConnectToHost::start()
 		this,
 		std::bind(&ConnectToHost::joinLocalhostListener, this, std::placeholders::_1, std::placeholders::_2));
 
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Network_End_Game,
+		this,
+		std::bind(&ConnectToHost::lostConnectionListener, this, std::placeholders::_1, std::placeholders::_2));
+
 	// Create loading message game object to display when directly connecting to a host
 	auto goMan = kitten::K_GameObjectManager::getInstance();
 	m_loadingMessage = goMan->createNewGameObject("UI/loading_message.json");
@@ -93,6 +103,12 @@ void ConnectToHost::update()
 	if (m_bLoadingMsgEnabled)
 	{
 		m_bConnect = true;
+	}
+
+	// Update ClientGame if there is an instance
+	if (networking::ClientGame::getInstance() != nullptr && networking::ClientGame::isNetworkValid())
+	{
+		networking::ClientGame::getInstance()->update();
 	}
 }
 
@@ -155,11 +171,11 @@ void ConnectToHost::pollForLocalhost()
 
 	if (networking::ClientGame::isNetworkValid())
 	{
-		m_localHostTextBox->setText("Game Found!");
+		m_localHostTextBox->setText(GAME_DETECTED_MSG);
 	}
 	else
 	{
-		m_localHostTextBox->setText("Game Found! 2/2 Players");
+		m_localHostTextBox->setText(NO_GAME_DETECTED_MSG);
 	}
 }
 
@@ -187,4 +203,15 @@ void ConnectToHost::pollForLocalhostListener(kitten::Event::EventType p_type, ki
 void ConnectToHost::joinLocalhostListener(kitten::Event::EventType p_type, kitten::Event* p_event)
 {
 	joinLocalhost();
+}
+
+void ConnectToHost::lostConnectionListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+{
+	int gameResult = p_event->getInt(GAME_END_RESULT);
+	if (gameResult == PLAYER_DISCONNECTED)
+	{
+		// Clean up connection
+		networking::ClientGame::getInstance()->disconnectFromNetwork(true);
+		m_localHostTextBox->setText(LOST_CONNECTION_MSG);
+	}
 }
