@@ -54,7 +54,7 @@ namespace puppy
 		}
 	}
 
-	void StaticRenderables::addToAppropriateRender(const void* p_owner, Material* p_mat, const NormalVertex p_data[], int p_numElements)
+	void StaticRenderables::addToAppropriateRender(const void* p_owner, Material* p_mat, const NormalVertex p_data[], const std::vector<unsigned int>* p_indices, unsigned int p_numElements)
 	{
 		auto found = m_normalData.find(p_mat);
 
@@ -67,7 +67,7 @@ namespace puppy
 
 			toInsert.insert(toInsert.begin(), p_data, p_data + p_numElements);
 
-			map.insert(std::make_pair(p_owner, toInsert));
+			map.insert(std::make_pair(p_owner, std::make_pair(p_indices, toInsert)));
 
 			//mark dirty
 			found->second.second = true;
@@ -75,8 +75,8 @@ namespace puppy
 		else
 		{
 			//make new map
-			std::unordered_map<const void*, std::vector<NormalVertex>> newMap;
-			newMap.insert(std::make_pair(p_owner, toInsert));
+			std::unordered_map<const void*, std::pair<const std::vector<unsigned int>*, std::vector<NormalVertex>>> newMap;
+			newMap.insert(std::make_pair(p_owner, std::make_pair(p_indices, toInsert)));
 
 			//insert map into data
 			m_normalData.insert(std::make_pair(p_mat, std::make_pair(newMap, true)));
@@ -96,7 +96,7 @@ namespace puppy
 		addToAppropriateRender(p_owner, usingMat, p_data, p_numElements, false);
 	}
 
-	void StaticRenderables::addToRender(const void* p_owner, const Material* p_mat, const NormalVertex p_data[], int p_numElements)
+	void StaticRenderables::addToRender(const void* p_owner, const Material* p_mat, const NormalVertex p_data[], const std::vector<unsigned int>* p_indices, int p_numElements)
 	{
 		Material* usingMat = getMatchingOwnedMaterial(p_mat);
 
@@ -106,7 +106,7 @@ namespace puppy
 			m_ownedMaterials.push_back(usingMat);
 		}
 
-		addToAppropriateRender(p_owner, usingMat, p_data, p_numElements);
+		addToAppropriateRender(p_owner, usingMat, p_data, p_indices, p_numElements);
 	}
 
 	void StaticRenderables::removeFromRender(const void* p_owner, const Material* p_mat, bool p_usedNormals)
@@ -196,7 +196,7 @@ namespace puppy
 		auto end = map.cend();
 		if (it != end)
 		{
-			std::vector<TexturedVertex>::size_type sum = (*it).second.size();
+			unsigned int sum = 0;
 
 			while (it != end)
 			{
@@ -211,7 +211,7 @@ namespace puppy
 			//insert into vector
 			for (auto it = map.begin(); it != end; ++it)
 			{
-				auto vec = (*it).second;
+				auto& vec = (*it).second;
 				createdData.insert(createdData.end(), vec.begin(), vec.end());
 			}
 
@@ -256,11 +256,11 @@ namespace puppy
 		auto end = map.cend();
 		if (it != end)
 		{
-			std::vector<NormalVertex>::size_type sum = (*it).second.size();
+			unsigned int sum = 0;
 
 			while (it != end)
 			{
-				sum += (*it).second.size();
+				sum += (*it).second.second.size();
 				++it;
 			}
 
@@ -271,8 +271,14 @@ namespace puppy
 			//insert into vector
 			for (auto it = map.begin(); it != end; ++it)
 			{
-				auto vec = (*it).second;
-				createdData.insert(createdData.end(), vec.begin(), vec.end());
+				auto& data = (*it).second.second;
+				auto& indices = (*it).second.first;
+
+				auto indicesEnd = indices->cend();
+				for (auto indIt = indices->cbegin(); indIt != indicesEnd; ++indIt)
+				{
+					createdData.push_back(data[(*indIt)]);
+				}
 			}
 
 			//construct single buffer from data

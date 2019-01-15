@@ -41,11 +41,12 @@ void ModelRenderable::onEnabled()
 		for (auto it = meshes.begin(); it != end; ++it)
 		{
 			auto mesh = (*it);
-			auto vertices = mesh->getVertices();
+			auto vertices = mesh->getVertices(); //copy of vertices
+			auto& indices = mesh->getIndices();
 
 			puppy::StaticRenderables::putInWorldSpace(vertices.data(), vertices.size(), getTransform().getWorldTransform(), getTransform().getRotation());
 
-			addToStaticRender(mesh->getMaterial(), vertices.data(), vertices.size());
+			addToStaticRender(mesh->getMaterial(), vertices.data(), &indices, vertices.size());
 		}
 	}
 	else

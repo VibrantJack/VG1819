@@ -26,7 +26,7 @@ namespace puppy
 		friend class P_Renderable;
 	private:
 		typedef std::unordered_map<Material*, std::pair<std::unordered_map<const void*, std::vector<TexturedVertex>>, bool>> render_map;
-		typedef std::unordered_map<Material*, std::pair<std::unordered_map<const void*, std::vector<NormalVertex>>, bool>> normalRender_map;
+		typedef std::unordered_map<Material*, std::pair<std::unordered_map<const void*, std::pair<const std::vector<unsigned int>*, std::vector<NormalVertex>>>, bool>> normalRender_map;
 
 		//Singleton stuff
 		StaticRenderables();
@@ -52,7 +52,7 @@ namespace puppy
 		into world space. This data is then later combined into a single draw call.
 		*/
 		void addToRender(const void* p_owner, const Material* p_mat, const TexturedVertex p_data[], int p_numElements);
-		void addToRender(const void* p_owner, const Material* p_mat, const NormalVertex p_data[], int p_numElements);
+		void addToRender(const void* p_owner, const Material* p_mat, const NormalVertex p_data[], const std::vector<unsigned int>*, int p_numElements);
 		void removeFromRender(const void* p_owner, const Material* p_mat, bool p_usedNormals = false);
 
 		void addToUIRender(const void* p_owner, const Material* p_mat, const TexturedVertex p_data[], int p_numElements);
@@ -66,7 +66,7 @@ namespace puppy
 		void constructNormalRenderable(Material* p_where);
 
 		void addToAppropriateRender(const void* p_owner, Material* p_mat, const TexturedVertex p_data[], int p_numElements, bool p_isUi);
-		void addToAppropriateRender(const void* p_owner, Material* p_mat, const NormalVertex p_data[], int p_numElements);
+		void addToAppropriateRender(const void* p_owner, Material* p_mat, const NormalVertex p_data[], const std::vector<unsigned int>* p_indices, unsigned int p_numElements);
 
 		//Helper method to reduce code duplication
 		void renderStatic(const std::unordered_map<Material*, VertexEnvironment*>& p_toRender, const glm::mat4& p_viewProj);
