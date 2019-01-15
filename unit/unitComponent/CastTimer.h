@@ -21,6 +21,7 @@ namespace unit
 		void cancelCast();
 		void cast();
 
+		void cast();
 	private:
 		ability::AbilityInfoPackage* m_pack;
 		std::string m_abilityName;
