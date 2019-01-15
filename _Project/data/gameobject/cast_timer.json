@@ -2,7 +2,7 @@
     "name" : "Cast Timer", 
     "components" : [
         {
-            "name" : "UIObject"
+            "name" : "SimpleQuadRenderable"
         },
         {
             "name" : "TimerSymbol",
@@ -19,6 +19,6 @@
                 "textures/ui/cast_timer/timer_10.png"]
         }
     ],
-    "scale2d" : [60,60],
-    "translate2d" : [0,15]
+    "scale" : [1,1,1],
+    "translate" : [0,-0.4,0]
 }

@@ -6,7 +6,7 @@ It controls which texture to display.
 #pragma once
 #include "kitten/K_Common.h"
 #include "UI/UIObject.h"
-
+#include "kitten/SimpleQuadRenderable.h"
 namespace unit
 {
 	class TimerSymbol : public kitten::K_Component
@@ -22,7 +22,7 @@ namespace unit
 		void start() override;
 	private:
 		std::vector<std::string> m_timeTex;
-		userinterface::UIObject* m_ui;
+		kitten::SimpleQuadRenderable* m_quad;
 		std::string m_tex;
 	};
 }
