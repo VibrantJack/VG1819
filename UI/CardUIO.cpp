@@ -5,8 +5,8 @@
 #define CARD_WIDTH 108.0f
 #define CARD_HEIGHT 170.0f
 
-#define PORTRAIT_X 16.0f
-#define PORTRAIT_Y 63.0f
+#define PORTRAIT_X 78.f
+#define PORTRAIT_Y 78.f
 
 namespace userinterface
 {
@@ -35,6 +35,7 @@ namespace userinterface
 		m_unitPortrait = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/hand_card/hand_card_texture.json")->getComponent<UIObject>();
 		m_unitPortrait->getTransform().setIgnoreParent(false);
 		m_unitPortrait->getTransform().setParent(&m_attachedObject->getTransform());
+		m_unitPortrait->getTransform().scale2D(PORTRAIT_X/ CARD_WIDTH, PORTRAIT_Y/ CARD_HEIGHT);
 
 		if (m_unit != nullptr)
 		{
