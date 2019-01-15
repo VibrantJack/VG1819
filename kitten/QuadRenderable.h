@@ -32,6 +32,6 @@ namespace kitten
 
 		void changeWeight(puppy::Texture* p_tex, const float& p_weight);
 
-		void render(const glm::mat4& p_viewProj) override;
+		void render(kitten::Camera* p_cam) override;
 	};
 }

@@ -10,7 +10,7 @@ namespace unit
 {
 	UnitHealthBar::UnitHealthBar(const glm::vec3& p_offset, float p_lerpTimeScalar, float p_rotation)
 		: m_attachedUnit(nullptr), m_oldHealthPercent(1.0f), m_lerpTimeScalar(p_lerpTimeScalar), m_offset(p_offset), m_rotation(p_rotation),
-		m_healthMat(puppy::ShaderType::basic_u_scale)
+		m_healthMat(puppy::ShaderType::billboarded_u_scale)
 	{
 
 	}
@@ -36,7 +36,7 @@ namespace unit
 		background->getTransform().scaleAbsolute(BACKGROUND_BAR_X_SCALE, BACKGROUND_BAR_Y_SCALE, 1.0f);
 		foreground->getTransform().scaleAbsolute(BAR_X_SCALE, BAR_Y_SCALE, 1.0f);
 
-		background->getTransform().move(m_offset.x - (BACKGROUND_BAR_X_DIFFERENCE/2.0f), m_offset.y,  m_offset.z + -0.001f);
+		background->getTransform().move(m_offset.x /*- (BACKGROUND_BAR_X_DIFFERENCE/2.0f)*/, m_offset.y,  m_offset.z + -0.001f);
 		foreground->getTransform().move(m_offset.x, m_offset.y, m_offset.z + -0.002f);
 
 		background->getTransform().rotateAbsolute(glm::vec3(m_rotation,0,0));

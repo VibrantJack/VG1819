@@ -55,7 +55,7 @@ namespace puppy
 		const int& getBoxWidth() const;
 		const int& getBoxHeight() const;
 
-		virtual void uiRender(const glm::mat4& p_ortho) override;
-		virtual void render(const glm::mat4& p_viewProj) override;
+		virtual void uiRender(kitten::Camera* p_cam) override;
+		virtual void render(kitten::Camera* p_cam) override;
 	};
 }
