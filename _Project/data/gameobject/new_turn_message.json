@@ -1,0 +1,15 @@
+{
+    "name":"new turn message",
+    "components":[
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/new_turn_message.png"
+        },
+        {
+            "name":"NewTurnMessageController",
+            "time":1.5
+        }
+    ],
+    "translate2d":[340,160],
+    "scale2d": [600,400]
+}

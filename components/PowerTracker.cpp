@@ -6,7 +6,8 @@
 PowerTracker::PowerTracker()
 	:
 	m_iMaxPower(4),
-	m_iCurrentPower(4)
+	m_iCurrentPower(4),
+	m_textBox(nullptr)
 {
 	kitten::EventManager::getInstance()->addListener(
 		kitten::Event::EventType::Manipulate_Tile,
@@ -22,30 +23,33 @@ PowerTracker::PowerTracker()
 
 PowerTracker::~PowerTracker()
 {
-	kitten::K_ComponentManager::getInstance()->destroyComponentImmediate(m_textBox);
+	//kitten::K_ComponentManager::getInstance()->destroyComponentImmediate(m_textBox);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Manipulate_Tile, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Reset_Power, this);
+	m_textBox = nullptr;
 }
 
 void PowerTracker::start()
 {
-	kitten::K_GameObject* textBox = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+	kitten::K_GameObject* textBox = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/power_tracker/power_tracker_textbox.json");
+	m_textBox = textBox->getComponent<puppy::TextBox>();
 
-	m_textBox = static_cast<puppy::TextBox*>(kitten::K_ComponentManager::getInstance()->createComponent("TextBox"));
-	textBox->addComponent(m_textBox);
-	textBox->getTransform().place2D(410, 130);
-
-	m_textBox->setFont(puppy::FontTable::getInstance()->getFont("../fonts/nsimsun_34pt.fnt"));
-	m_textBox->setColor(1.0, 1.0, 1.0);
-	m_textBox->setBoxBounds(1000, 400);
+	kitten::K_GameObject* powerIcon = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/power_tracker/power_tracker_icon.json");
+	updateTextBox();
 }
 
-void PowerTracker::update()
+void PowerTracker::updateTextBox()
 {
-	m_textBox->setText(std::to_string(getCurrentPower()) + " / " + std::to_string(m_iMaxPower));
+	if (m_textBox != nullptr)
+	{
+		m_textBox->setText(std::to_string(getCurrentPower()) + "/" + std::to_string(m_iMaxPower));
+	}
 }
 
 void PowerTracker::increaseMaxPower(int p_iAmount)
 {
 	m_iMaxPower += p_iAmount;
+	updateTextBox();
 }
 
 void PowerTracker::increaseMaxPowerEvent(kitten::Event::EventType p_type, kitten::Event* p_data)
@@ -53,7 +57,7 @@ void PowerTracker::increaseMaxPowerEvent(kitten::Event::EventType p_type, kitten
 	int power = p_data->getInt(MANIPULATE_TILE_KEY);
 	m_iMaxPower += power;
 	m_iCurrentPower += power;
-	//resetCurrent();
+	updateTextBox();
 }
 
 bool PowerTracker::summonUnitCost(int p_iCost)
@@ -61,6 +65,7 @@ bool PowerTracker::summonUnitCost(int p_iCost)
 	if ((m_iCurrentPower - p_iCost) >= 0)
 	{
 		m_iCurrentPower -= p_iCost;
+		updateTextBox();
 		return true;
 	}
 
@@ -70,6 +75,7 @@ bool PowerTracker::summonUnitCost(int p_iCost)
 void PowerTracker::resetCurrent()
 {
 	m_iCurrentPower = m_iMaxPower;
+	updateTextBox();
 }
 
 void PowerTracker::resetEvent(kitten::Event::EventType p_type, kitten::Event * p_data)
@@ -93,6 +99,7 @@ bool PowerTracker::changeCurrentPower(int p_iAmount)
 	if ((m_iCurrentPower + p_iAmount) >= 0)
 	{
 		m_iCurrentPower += p_iAmount;
+		updateTextBox();
 		return true;
 	}
 

@@ -8,6 +8,8 @@
 #define COMMANDER_GO_KEY "commander_go_key"
 #define PLAYER_COMMANDER_DEATH "player_commander_death_key"
 #define PAUSE_MENU_OPEN "pause_menu_open_key"
+#define UPDATE_CARD_CONTEXT_KEY "update_card_context_key"
+#define CARD_CONTEXT_SET_ENABLED_KEY "card_context_set_enabled_key"
 
 #define PLAYER_ID "playerID"
 #define CARD_ID "cardID"
@@ -68,6 +70,10 @@ namespace kitten
 			Disconnect_From_Network,
 			Tile_Clicked_Debug,
 			Move_Camera,
+			Update_Card_Context_By_ID,
+			Update_Card_Context_By_GO,
+			Update_Card_Context_Attrib,
+			Card_Context_Set_Enabled,
 			Client_Commander_Loaded,
 			Poll_For_Localhost,
 			Join_Localhost,

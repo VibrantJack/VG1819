@@ -156,12 +156,10 @@ void ConnectToHost::pollForLocalhost()
 	if (networking::ClientGame::isNetworkValid())
 	{
 		m_localHostTextBox->setText("Game Found!");
-		m_bServerDetected = true;
 	}
 	else
 	{
 		m_localHostTextBox->setText("No Game Found");
-		m_bServerDetected = false;
 	}
 }
 

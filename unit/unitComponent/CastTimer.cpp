@@ -1,9 +1,15 @@
 #include "CastTimer.h"
+#include "kitten/K_GameObjectManager.h"
+#include "TimerSymbol.h"
+#include "unit/Unit.h"
 
-unit::CastTimer::CastTimer()
+unit::CastTimer::CastTimer(Unit * p_unit)
+	:m_timerSymbol(nullptr),
+	m_cast(false),
+	m_pack(nullptr),
+	m_unit(p_unit)
+	
 {
-	m_cast = false;
-	m_pack = nullptr;
 }
 
 unit::CastTimer::~CastTimer()
@@ -26,10 +32,22 @@ std::vector<kitten::K_GameObject*> unit::CastTimer::getTarget()
 
 void unit::CastTimer::set(std::string p_abilityName, ability::AbilityInfoPackage * p_pack, int p_timer)
 {
-	m_abilityName = p_abilityName;
-	m_pack = p_pack;
-	m_timer = p_timer;
-	m_cast = true;
+	if (p_timer > 0 && p_timer <= 10)
+	{
+		m_abilityName = p_abilityName;
+		m_pack = p_pack;
+		m_timer = p_timer;
+		m_cast = true;
+
+		if (m_timerSymbol == nullptr)
+		{
+			m_timerSymbol = kitten::K_GameObjectManager::getInstance()->createNewGameObject("cast_timer.json");
+			m_timerSymbol->getTransform().setIgnoreParent(false);
+			m_timerSymbol->getTransform().setParent(&m_unit->getTransform());
+		}
+
+		m_timerSymbol->getComponent<TimerSymbol>()->changeTexture(m_timer);
+	}
 }
 
 int unit::CastTimer::changeTimer(int p_n)
@@ -38,13 +56,19 @@ int unit::CastTimer::changeTimer(int p_n)
 		return -1;
 
 	m_timer += p_n;
+	/*
 	if (m_timer <= 0)
 	{
 		m_cast = false;
 		cast();
 		return 0;
 	}
+	else
+		m_timerSymbol->getComponent<TimerSymbol>()->changeTexture(m_timer);
+
 	return 1;
+	}*/
+	return m_timer;
 }
 
 void unit::CastTimer::cancelCast()
@@ -54,11 +78,18 @@ void unit::CastTimer::cancelCast()
 		delete m_pack;
 		m_pack = nullptr;
 		m_cast = false;
+
+		kitten::K_GameObjectManager::getInstance()->destroyGameObject(m_timerSymbol);
+		m_timerSymbol = nullptr;
 	}
 }
 
 void unit::CastTimer::cast()
 {
+	m_cast = false;
 	ability::AbilityManager::getInstance()->useAbility(m_abilityName, m_pack);
 	m_pack = nullptr;
+
+	kitten::K_GameObjectManager::getInstance()->destroyGameObject(m_timerSymbol);
+	m_timerSymbol = nullptr;
 }

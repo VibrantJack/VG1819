@@ -132,7 +132,7 @@ void unit::ActionButtonStore::setButton(const std::string & p_msg, bool p_a, int
 
 	userinterface::ClickableButton* cb = go->getComponent<userinterface::ClickableButton>();
 	if (p_cd > 0 || !p_a)
-	{
+	{		
 		cb->setActive(false);
 	}
 	else

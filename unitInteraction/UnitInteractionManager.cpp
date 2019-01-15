@@ -123,7 +123,7 @@ void UnitInteractionManager::send()
 	}
 
 
-	if (m_ad->m_intValue.find("ct") == m_ad->m_intValue.end())//no cast time
+	if (m_ad->m_intValue.find("ct") == m_ad->m_intValue.end() || m_ad->m_intValue.find("ct")->second < 1)//no cast time
 	{//directly use it
 		ability::AbilityManager::getInstance()->useAbility(m_abilityName, m_package);
 	}

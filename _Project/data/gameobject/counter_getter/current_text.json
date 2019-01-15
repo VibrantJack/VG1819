@@ -1,12 +1,6 @@
 {
     "name" : "Current Counter", 
-    "components" : [
-        {
-            "name":"TextBox",
-            "message":"current",
-            "alignment":"center"
-        }
-    ],
+    "filename" : "counter_getter/textbox.json",
     "translate" : [0,0,0.1],
     "translate2d" : [400,410]
 }
