@@ -174,12 +174,12 @@ namespace kitten
 	}
 
 	//Only called if not static
-	void QuadRenderable::render(const glm::mat4& p_viewProj)
+	void QuadRenderable::render(kitten::Camera* p_cam)
 	{
 		m_mat.apply();
 		
 		//Set world matrix
-		glm::mat4 wvp = p_viewProj * getTransform().getWorldTransform();
+		glm::mat4 wvp = p_cam->getViewProj() * getTransform().getWorldTransform();
 		m_mat.setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
 
 		//render

@@ -1480,12 +1480,13 @@ kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
 #include "kitten/SimpleQuadRenderable.h"
 kitten::K_Component* getSimpleQuadRenderable(nlohmann::json* p_jsonFile) {
 	std::string texturefilename;
-	bool isStatic;
+	bool isStatic, upRight;
 
 	SETOPTDEF(texturefilename, "texture", "");
 	SETOPTDEF(isStatic, "static", false);
+	SETOPTDEF(upRight, "upright", false);
 
-	return new kitten::SimpleQuadRenderable(texturefilename.c_str(), isStatic);
+	return new kitten::SimpleQuadRenderable(texturefilename.c_str(), isStatic, upRight);
 }
 
 #include "UI\CardArt.h"
@@ -1500,6 +1501,12 @@ kitten::K_Component* getCardArt(nlohmann::json* p_jsonFile)
 #include "_Project\ShowLoadingOnClick.h"
 kitten::K_Component* getShowLoadingOnClick(nlohmann::json* p_jsonFile) {
 	return new ShowLoadingOnClick();
+}
+
+#include "_Project\ProjectileManager.h"
+kitten::K_Component* getProjectileManager(nlohmann::json* p_jsonFile) {
+	std::string list = p_jsonFile->operator[]("list");
+	return new ProjectileManager(list);
 }
 
 #include "kitten\lights\K_DirectionalLight.h"
@@ -1572,6 +1579,12 @@ kitten::K_Component* getTimerSymbol(nlohmann::json* p_jsonFile) {
 	}
 
 	return symbol;
+}
+
+#include "_Project\ProjectileParticleSystemHelper.h"
+kitten::K_Component* getProjectileParticleSystemHelper(nlohmann::json* p_jsonFile) {
+	std::string effectName = p_jsonFile->operator[]("effect");
+	return new ProjectileParticleSystemHelper(effectName);
 }
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
@@ -1692,6 +1705,9 @@ void setupComponentMap() {
 	jsonComponentMap["ContextMenu"] = &getContextMenu;
 	jsonComponentMap["NewTurnMessageController"] = &getNewTurnMessageController;
 	jsonComponentMap["TimerSymbol"] = &getTimerSymbol;
+	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
+	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
+
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

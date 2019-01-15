@@ -210,11 +210,11 @@ namespace userinterface
 			addToDynamicUIRender();
 		}
 
-		void UIElement::uiRender(const glm::mat4& p_ortho)
+		void UIElement::uiRender(kitten::Camera* p_cam)
 		{
 			m_mat->apply();
 
-			glm::mat4 wvp = p_ortho * getTransform().getWorldTransform();
+			glm::mat4 wvp = p_cam->getOrtho() * getTransform().getWorldTransform();
 			m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
 
 			sm_vao[m_pivotType]->drawArrays(GL_TRIANGLES);

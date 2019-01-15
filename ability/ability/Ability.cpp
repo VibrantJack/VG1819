@@ -1,28 +1,49 @@
 #include "Ability.h"
 #include "unit/Unit.h"
+
 #include "board/tile/TileInfo.h"
+
+#include "_Project\ProjectileManager.h"
+
 #include <iostream>
 
-void ability::Ability::singleTargetDamage(AbilityInfoPackage * p_info)
+void ability::Ability::singleTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile)
 {
 	//damage target by power
 	if (checkTarget(p_info))
 	{
-		//trigger deal damage event
-		triggerTPEvent(ability::TimePointEvent::Deal_Damage, p_info->m_source, p_info);
-
-		//trigger receive damage event
-		unit::Unit* target = p_info->m_targets[0];
-		triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_info);
-
-		//so power will change to negative
-		int power = -(p_info->m_intValue.find(UNIT_POWER)->second);
-
-		damage(target, power);
+		if (p_fireProjectile)
+		{
+			ProjectileManager::fireProjectile(m_name, p_info->m_source, p_info->m_targets[0], this, p_info);
+		}
+		else
+		{
+			singleTargetProjectileFinished(p_info);
+		}
 	}
+	else
+	{
+		//delete package
+		done(p_info);
+	}
+}
+
+void ability::Ability::singleTargetProjectileFinished(AbilityInfoPackage* p_package)
+{
+	//trigger deal damage event
+	triggerTPEvent(ability::TimePointEvent::Deal_Damage, p_package->m_source, p_package);
+
+	//trigger receive damage event
+	unit::Unit* target = p_package->m_targets[0];
+	triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_package);
+
+	//so power will change to negative
+	int power = -(p_package->m_intValue.find(UNIT_POWER)->second);
+
+	damage(target, power);
 
 	//delete package
-	done(p_info);
+	done(p_package);
 }
 
 void ability::Ability::multiTargetDamage(AbilityInfoPackage * p_info)

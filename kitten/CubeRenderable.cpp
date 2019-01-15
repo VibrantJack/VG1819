@@ -104,12 +104,13 @@ namespace kitten
 		m_mat->setTexture(p_pathToTex);
 	}
 
-	void CubeRenderable::render(const glm::mat4& p_viewProj)
+	void CubeRenderable::render(kitten::Camera* p_cam)
 	{
+		const glm::mat4& viewProj = p_cam->getViewProj();
 		m_mat->apply();
 		
 		//Set world matrix
-		glm::mat4 wvp = p_viewProj * getTransform().getWorldTransform();
+		glm::mat4 wvp = viewProj * getTransform().getWorldTransform();
 		m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
 
 		//render

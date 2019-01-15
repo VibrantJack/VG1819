@@ -62,13 +62,13 @@ namespace kitten
 		m_texOffset = p_offset;
 	}
 
-	void SpriteRenderable::render(const glm::mat4& p_viewProj)
+	void SpriteRenderable::render(kitten::Camera* p_cam)
 	{
 		assert(m_mat != nullptr);
 		m_mat->apply();
 
 		//Set world matrix
-		glm::mat4 wvp = p_viewProj * getTransform().getWorldTransform();
+		glm::mat4 wvp = p_cam->getViewProj() * getTransform().getWorldTransform();
 		m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
 
 		//Set texture offset

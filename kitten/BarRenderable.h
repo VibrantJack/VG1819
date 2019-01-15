@@ -24,6 +24,6 @@ namespace kitten
 		void setTexture(const char* p_pathToTexture);
 		void setUScale(const float& p_scale);
 
-		virtual void render(const glm::mat4& p_viewProj) override;
+		virtual void render(kitten::Camera* p_cam) override;
 	};
 }
