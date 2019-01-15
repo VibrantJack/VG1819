@@ -1,0 +1,11 @@
+{
+    "name" : "Card Context Texture", 
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/card_context.tga"
+        }
+    ],
+    "scale" : [78.0,78.0, 0.0],
+	"translate" : [16.0, 63.0, 0.01]
+}

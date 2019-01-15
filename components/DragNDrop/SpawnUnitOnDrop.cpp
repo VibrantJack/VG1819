@@ -11,6 +11,7 @@
 #include "components/PowerTracker.h"
 #include "components/clickables/HoverOverCardBehavior.h"
 #include "board/BoardManager.h"
+#include "kitten\event_system\EventManager.h"
 #include <iostream>
 
 // Networking
@@ -55,7 +56,6 @@ void SpawnUnitOnDrop::onDrop()
 	
 	// Unit setup
 	unit::Unit* unit = m_attachedObject->getComponent<unit::Unit>();
-	if (unit == nullptr) unit = kibble::getUnitFromId(1); // basically defaults to a priest. TODO remove this line when hand fully functional.
 
 	// Check for unit stuff.
 	if(BoardManager::getInstance()->getPowerTracker()->getCurrentPower() < unit->m_attributes[UNIT_COST] // Check if there is enough power to spawn this.

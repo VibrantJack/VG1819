@@ -6,7 +6,7 @@
         },
         {
             "name" : "CardUIO",
-            "texture" : "textures/ui/cardBack.tga"
+            "texture" : "textures/cards/card_context_basic.tga"
         },
         {
             "name" : "SpawnUnitOnDrop"

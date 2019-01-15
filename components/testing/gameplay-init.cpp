@@ -27,7 +27,7 @@ void GameplayInit::start() {
 	UnitInteractionManager::createInstance();
 
 	DrawCardsFromDeckWithDelay::getActiveInstance()->setCardCountToDispense(5);
-	DrawCardsFromDeckWithDelay::getActiveInstance()->addDelayToStart(8);
+	DrawCardsFromDeckWithDelay::getActiveInstance()->addDelayToStart(7);
 
 	if (m_testing)
 		unit::UnitTest::getInstanceSafe()->test();

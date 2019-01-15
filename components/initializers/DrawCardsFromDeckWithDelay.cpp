@@ -1,6 +1,6 @@
 #include "DrawCardsFromDeckWithDelay.h"
 #include "kitten/event_system/EventManager.h"
-#define TIME_DELAY_BETWEEN_DRAWS 0.7
+#define TIME_DELAY_BETWEEN_DRAWS 0.5
 
 DrawCardsFromDeckWithDelay* instance = nullptr;
 
