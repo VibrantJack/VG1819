@@ -865,6 +865,33 @@ kitten::K_Component* getNetworkConnectButton(nlohmann::json* p_jsonFile) {
 	return button;
 }
 
+#include "UI\TriggerEventButton.h"
+kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, eventType;
+	int eventEnum;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPTDEF(eventType, "event", "NONE");
+
+	if (eventType == "Poll_For_Localhost")
+		eventEnum = kitten::Event::Poll_For_Localhost;
+	else if (eventType == "Join_Direct_Address")
+		eventEnum = kitten::Event::Join_Direct_Address;
+	else if (eventType == "Join_Localhost")
+		eventEnum = kitten::Event::Join_Localhost;
+	else
+		eventEnum = -1;
+
+	userinterface::TriggerEventButton* button = new userinterface::TriggerEventButton(
+		(kitten::Event::EventType) eventEnum
+	);
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+
+	return button;
+}
+
 #include "UI\TabMenu\TabMenu.h"
 kitten::K_Component* getTabMenu(nlohmann::json* p_jsonFile) {
 	std::string texture;
@@ -901,16 +928,19 @@ kitten::K_Component* getReturnToMainMenuButton(nlohmann::json* p_jsonFile) {
 
 #include "UI\ClickableButton.h"
 kitten::K_Component* getClickableButton(nlohmann::json* p_jsonFile) {
-	std::string regularTexture, highlightedTexture;
+	std::string regularTexture, highlightedTexture, inactiveTexture;
 	bool isEnabledOnPause;
 	SETOPTDEF(isEnabledOnPause, "enabledOnPause", false);
 	SETOPT(regularTexture, "regularTexture");
 	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPTDEF(inactiveTexture, "inactiveTexture", "textures/ui/buttons/disabled_button.tga");
+
 
 	userinterface::ClickableButton* button = new userinterface::ClickableButton();
 	button->setEnabledOnPause(isEnabledOnPause);
 	button->setRegularTexture(regularTexture);
 	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
 
 	return button;
 }
@@ -1563,6 +1593,7 @@ void setupComponentMap() {
 	jsonComponentMap["NetworkJoinButton"] = &getNetworkJoinButton;
 	jsonComponentMap["NetworkHostButton"] = &getNetworkHostButton;	
 	jsonComponentMap["NetworkConnectButton"] = &getNetworkConnectButton;
+	jsonComponentMap["TriggerEventButton"] = &getTriggerEventButton;
 	jsonComponentMap["TabMenu"] = &getTabMenu;
 	jsonComponentMap["UIObject"] = &getUIObject;
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;

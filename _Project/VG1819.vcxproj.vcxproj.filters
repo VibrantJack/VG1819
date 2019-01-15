@@ -840,6 +840,9 @@
     <ClCompile Include="..\unitInteraction\CounterGetterController.cpp">
       <Filter>unitInteraction</Filter>
     </ClCompile>
+    <ClCompile Include="..\UI\TriggerEventButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1803,6 +1806,9 @@
     </ClInclude>
     <ClInclude Include="..\unitInteraction\CounterGetterController.h">
       <Filter>unitInteraction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\TriggerEventButton.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
