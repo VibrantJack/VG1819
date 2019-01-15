@@ -61,7 +61,7 @@ namespace kitten
 			Deck_Empty,
 			End_Game_Screen,
 			Return_to_Main_Menu,
-			Join_Button_Clicked,
+			Join_Direct_Address,
 			IP_Address_Entered,
 			Host_Button_Clicked,
 			Pause_Menu_Open,
@@ -69,6 +69,8 @@ namespace kitten
 			Tile_Clicked_Debug,
 			Move_Camera,
 			Client_Commander_Loaded,
+			Poll_For_Localhost,
+			Join_Localhost,
 
 			Test_Event, 
 			MAX_VAL = Test_Event
