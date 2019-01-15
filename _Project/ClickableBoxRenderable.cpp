@@ -105,11 +105,11 @@ void ClickableBoxRenderable::onDisabled()
 	removeFromDynamicRender();
 }
 
-void ClickableBoxRenderable::render(const glm::mat4& p_viewProj)
+void ClickableBoxRenderable::render(kitten::Camera* p_cam)
 {
 	m_mat->apply();
 
-	m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_viewProj * getTransform().getWorldTransform());
+	m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_cam->getViewProj() * getTransform().getWorldTransform());
 
 	m_vao->drawArrays(GL_LINES);
 }

@@ -1,6 +1,7 @@
 #include "MoveByMouseRightClickDrag.h"
 #include "kitten\InputManager.h"
 #include "kitten\Transform.h"
+#include "kitten\K_Time.h"
 
 #include "util\MathUtil.h"
 #include <iostream>

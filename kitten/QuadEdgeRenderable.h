@@ -28,7 +28,7 @@ namespace kitten
 		QuadEdgeRenderable();
 		~QuadEdgeRenderable();
 
-		virtual void render(const glm::mat4& p_viewProj);
+		virtual void render(kitten::Camera* p_cam) override;
 		void setTexture(const std::string& p_tex);
 	};
 }

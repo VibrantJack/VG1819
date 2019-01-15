@@ -56,11 +56,11 @@ void userinterface::PointerUI::onDisabled()
 	removeFromDynamicUIRender();
 }
 
-void userinterface::PointerUI::uiRender(const glm::mat4 & p_ortho)
+void userinterface::PointerUI::uiRender(kitten::Camera* p_cam)
 {
 	m_mat->apply();
 
-	glm::mat4 wvp = p_ortho * getTransform().getWorldTransform();
+	glm::mat4 wvp = p_cam->getOrtho() * getTransform().getWorldTransform();
 	m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
 
 	sm_vao->drawArrays(GL_TRIANGLES);
