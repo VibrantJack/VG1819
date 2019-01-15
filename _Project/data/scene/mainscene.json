@@ -63,8 +63,16 @@
 		{
 			"filename" : "directional_light.json",
 			"translate" : [7, 13.0, 0.0]
+		},
+		{
+			"name" : "Projectile Manager Instance",
+			"components" : [
+				{
+					"name" : "ProjectileManager",
+					"list" : "data/unit_projectileList.txt"
+				}
+			]
 		}
-
     ],
 	"scenes" : ["mountainForest.json"]
 	
