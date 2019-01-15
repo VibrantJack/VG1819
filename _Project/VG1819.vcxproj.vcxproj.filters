@@ -839,6 +839,27 @@
     <ClCompile Include="..\unitInteraction\CounterGetterController.cpp">
       <Filter>unitInteraction</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\clickables\DiscardCardOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\HoverOverCardBehavior.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\initializers\DrawCardsFromDeckWithDelay.cpp">
+      <Filter>components\initializer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DeckDiscardedCardHandler.cpp">
+      <Filter>components\deck</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\NewTurnMessageController.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\InitiativeTracker\TurnChangeDisplay.cpp">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\TimerSymbol.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
     <ClCompile Include="ProjectileManager.cpp">
       <Filter>ability</Filter>
     </ClCompile>
@@ -1810,6 +1831,27 @@
     <ClInclude Include="..\unitInteraction\CounterGetterController.h">
       <Filter>unitInteraction</Filter>
     </ClInclude>
+    <ClInclude Include="..\components\clickables\DiscardCardOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\HoverOverCardBehavior.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\initializers\DrawCardsFromDeckWithDelay.h">
+      <Filter>components\initializer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DeckDiscardedCardHandler.h">
+      <Filter>components\deck</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\TurnChangeDisplay.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\InitiativeTracker\NewTurnMessageController.h">
+      <Filter>unit\InitiativeTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\TimerSymbol.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
     <ClInclude Include="ProjectileManager.h">
       <Filter>ability</Filter>
     </ClInclude>
@@ -2012,6 +2054,9 @@
     </Filter>
     <Filter Include="puppy\lights">
       <UniqueIdentifier>{8d085ece-c9d3-41d8-847f-f120aa582d39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\initializer">
+      <UniqueIdentifier>{23c51a84-04fc-4055-b5ae-4e3f73b2d77b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

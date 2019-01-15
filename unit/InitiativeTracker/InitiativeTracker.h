@@ -2,6 +2,7 @@
 #include "unit/InitiativeTracker/UnitTurn.h"
 #include "kitten/K_GameObject.h"
 #include "unit/InitiativeTracker/UnitAura.h"
+#include "TurnChangeDisplay.h"
 //Rock
 //This class should be singleton
 //it handles all units on the board
@@ -18,6 +19,7 @@ namespace unit
 		UnitTurn* m_uturn;
 		InitiativeTrackerUI* m_UI;
 		kitten::K_GameObject* m_uAura;
+		TurnChangeDisplay* m_display;
 
 		//list for new units
 		std::vector<kitten::K_GameObject*> m_waitUnitObjectList;

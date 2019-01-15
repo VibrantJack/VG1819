@@ -14,6 +14,9 @@ unit::UnitTurn::~UnitTurn()
 
 void unit::UnitTurn::turnStart(kitten::K_GameObject* p_unitObj)
 {
+	//move camera to current unit
+	m_display->displayNewUnitTurn(p_unitObj);
+
 	m_isEnd = false;
 
 	m_currentUnit = p_unitObj->getComponent<unit::Unit>();
@@ -73,4 +76,9 @@ void unit::UnitTurn::setEnd()
 	//no unit left, no unit takes turn
 	m_currentUnit = nullptr;
 	m_isEnd = false;
+}
+
+void unit::UnitTurn::setNewTurnDisplay(TurnChangeDisplay * p_display)
+{
+	m_display = p_display;
 }

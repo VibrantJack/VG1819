@@ -1,0 +1,1 @@
+timer_01.png.png 10 10, timer_02.png.png 139 10, timer_03.png.png 10 139, timer_04.png.png 139 139, timer_05.png.png 10 268, timer_06.png.png 0 0, timer_07.png.png 139 268, timer_08.png.png 10 397, timer_09.png.png 139 397, timer_10.png.png 10 526, timer_11.png.png 139 526.

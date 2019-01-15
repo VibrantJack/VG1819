@@ -8,11 +8,13 @@
 
 namespace unit
 {
+	class TurnChangeDisplay;
 	class UnitTurn
 	{
 	private:
 		unit::Unit* m_currentUnit;
 		bool m_isEnd;
+		TurnChangeDisplay* m_display;
 	public:
 		UnitTurn();
 		~UnitTurn();
@@ -28,5 +30,7 @@ namespace unit
 		bool isCurrent(kitten::K_GameObject* p_unitObj);
 		void unitDestroyed();
 		void setEnd();
+
+		void setNewTurnDisplay(TurnChangeDisplay* p_display);
 	};
 }
