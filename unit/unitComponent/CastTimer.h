@@ -10,13 +10,8 @@ namespace unit
 {
 	class CastTimer
 	{
-	private:
-		ability::AbilityInfoPackage* m_pack;
-		std::string m_abilityName;
-		int m_timer;
-		bool m_cast;
 	public:
-		CastTimer();
+		CastTimer(Unit* p_unit);
 		~CastTimer();
 
 		bool isCasting();
@@ -25,5 +20,14 @@ namespace unit
 		int changeTimer(int p_n = -1);
 		void cancelCast();
 		void cast();
+	private:
+		ability::AbilityInfoPackage* m_pack;
+		std::string m_abilityName;
+		int m_timer;
+		bool m_cast;
+
+		kitten::K_GameObject* m_timerSymbol;
+		Unit* m_unit;
+
 	};
 }

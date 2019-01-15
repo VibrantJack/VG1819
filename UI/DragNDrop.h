@@ -20,5 +20,7 @@ public:
 
 	virtual void onDrop();
 
+	glm::vec3& getOrigin() { return m_origin; }
+
 	bool hasUpdate() const override { return true; }
 };
