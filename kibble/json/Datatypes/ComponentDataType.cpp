@@ -1380,6 +1380,10 @@ kitten::K_Component* getCustomDataComponent(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getCardContext(nlohmann::json* p_jsonFile) {
 	return new CardContext();
 }
+#include "UI\ContextMenu.h"
+kitten::K_Component* getContextMenu(nlohmann::json* p_jsonFile) {
+	return new userinterface::ContextMenu();
+}
 
 #include "UI\ClickableCard.h"
 kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
@@ -1632,6 +1636,7 @@ void setupComponentMap() {
 	jsonComponentMap["CounterGetterController"] = &getCounterGetterController;
 	jsonComponentMap["HoverOverCardBehavior"] = &getHoverOverCardBehavior;
 	jsonComponentMap["CounterGetterButton"] = &getCounterGetterButton;
+	jsonComponentMap["ContextMenu"] = &getContextMenu;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

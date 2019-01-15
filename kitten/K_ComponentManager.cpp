@@ -86,7 +86,7 @@ namespace kitten
 		{
 			comp = new kitten::BarRenderable();
 		}
-		else if (p_componentName == "LerpController")
+		else if (p_componentName == "LerpController") //datadriven 
 		{
 			comp = new LerpController();
 		}
@@ -122,7 +122,7 @@ namespace kitten
 		{
 			comp = new userinterface::HandFrame("textures/ui/blankFrame.tga");
 		}
-		else if (p_componentName == "UIObject")
+		else if (p_componentName == "UIObject") // DataDriven
 		{
 			comp = new userinterface::UIObject("textures/ui/blankFrame.tga");
 		}
@@ -137,15 +137,15 @@ namespace kitten
 		{
 			comp = new ClickableUI();
 		}
-		else if (p_componentName == "ClickableCard")
+		else if (p_componentName == "ClickableCard") // Datadriven
 		{
 			comp = new userinterface::ClickableCard();
 		}
-		else if (p_componentName == "ContextMenu")
+		else if (p_componentName == "ContextMenu") // Datadriven
 		{
 			comp = new userinterface::ContextMenu();
 		}
-		else if (p_componentName == "CommanderContext")
+		else if (p_componentName == "CommanderContext") // Datadriven
 		{
 			comp = new userinterface::CommanderContext();
 		}
@@ -197,7 +197,7 @@ namespace kitten
 		} else if (p_componentName == "FPSCalc") // Datadriven
 		{
 			comp = new FPSCalc();
-		} else if (p_componentName == "TextBoxAbilities")
+		} else if (p_componentName == "TextBoxAbilities") // Variant
 		{
 			comp = new puppy::TextBox(puppy::FontTable::getInstance()->getFont("../fonts/common_consolas.fnt"), "DEFAULT TEXT", 300, 500);
 		} else if (p_componentName == "TrackerBlock") // Datadriven
@@ -239,7 +239,7 @@ namespace kitten
 		{
 			comp = new sprites::SpriteAnimator("");
 		}
-		else if (p_componentName == "NetworkingConsoleMenu")
+		else if (p_componentName == "NetworkingConsoleMenu")// Datadriven
 		{
 			comp = new NetworkingConsoleMenu();
 		}
