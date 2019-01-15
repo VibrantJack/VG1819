@@ -16,9 +16,9 @@
 #include "_Project/LerpController.h"
 
 #include "components\DragNDrop\SpawnUnitOnDrop.h"
-#include "UI\CardContext.h"
 
 #define MAX_CARDS_IN_HAND 5
+#define NUM_STARTING_CARDS 5
 #define TIME_FOR_CARDS_TO_ORDER 0.1
 #define TEMP_POWER_CHARGE 1
 
@@ -33,8 +33,8 @@ namespace userinterface
 	HandFrame::HandFrame(const char* p_pathToTex) : UIFrame(p_pathToTex)
 	{
 		m_totalCards = 0;
-		m_cardX = 100;
-		m_cardY = 170;
+		m_cardX = 108.0f;
+		m_cardY = 170.0f;
 		m_padding = 10;
 		m_contentMargin = 10;
 
@@ -115,14 +115,14 @@ namespace userinterface
 		// Find the number of cards to add to hand
 		int countToAdd = std::min(p_event->getInt(CARD_COUNT), MAX_CARDS_IN_HAND - (int)m_innerObjects.size());
 
-		CardContext* cardContext = m_attachedObject->getComponent<CardContext>();
-
 		// Generate Cards to add
 		for (int i = 0; i < countToAdd; i++) {
 			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
-			card->getComponent<SpawnUnitOnDrop>()->setCardContext(cardContext);
 			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
 			cardCasted->scaleAsCard();
+
+			int unitId = p_event->getInt(CARD_ID + std::to_string(i));
+			cardCasted->setUnit(kibble::getUnitFromId(unitId));
 
 			this->addCardToEnd(cardCasted);
 			cardCasted->assignParentHand(this);
@@ -157,18 +157,22 @@ namespace userinterface
 			std::bind(&HandFrame::receiveDrawnCard, this, std::placeholders::_1, std::placeholders::_2));
 
 		userinterface::HandFrame* frameCasted = m_attachedObject->getComponent<HandFrame>();
-		CardContext* cardContext = m_attachedObject->getComponent<CardContext>();
 
-		for (int x = 0; x < 5; x++)
+		/*for (int x = 0; x < 5; x++)
 		{
 			kitten::K_GameObject* card = kitten::K_GameObjectManager::getInstance()->createNewGameObject("handcard.json");
-			card->getComponent<SpawnUnitOnDrop>()->setCardContext(cardContext);
 			userinterface::CardUIO* cardCasted = card->getComponent<userinterface::CardUIO>();
 			cardCasted->scaleAsCard();
 
 			frameCasted->addCardToEnd(cardCasted);
 			cardCasted->assignParentHand(frameCasted);
-		}
+		}*/
+
+		kitten::Event* eventData = new kitten::Event(kitten::Event::EventType::Card_Drawn);
+		eventData->putInt(PLAYER_ID, m_playerID);
+		eventData->putInt(CARD_COUNT, NUM_STARTING_CARDS);
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::EventType::Draw_Card, eventData);
+		
 		m_isInit = true;
 	}
 

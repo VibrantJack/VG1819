@@ -1,0 +1,10 @@
+{
+    "name" : "Card Context",
+    "components" : [
+		{
+			"name" : "CardContext"
+		}
+    ],
+    "scale2d" : [256,400],
+    "translate" : [1024,108, -0.2]
+}

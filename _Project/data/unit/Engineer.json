@@ -44,7 +44,8 @@
 				"lv":3,
 				"mv":1
 			}
-		]
+		],
+		"portrait_texture" : "textures/cards/500x500/Engineer.tga"
 	},
 	"components" : [
 		{

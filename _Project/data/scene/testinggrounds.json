@@ -26,6 +26,9 @@
 			"filename" : "UniversalPfx.txt"
 		},
 		{
+			"filename" : "card_context.json"
+		},
+		{
 			"name" : "Deck",
 			"components" : [
 				{

@@ -43,7 +43,8 @@
 				"description":"Increases Slay damage and decrease Defend CD",
 				"lv":3
 			}
-		]
+		],
+		"portrait_texture" : "textures/cards/500x500/Knight.tga"
 	},
 	"components" : [
 		{

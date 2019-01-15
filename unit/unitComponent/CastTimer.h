@@ -24,7 +24,6 @@ namespace unit
 		void set(std::string p_abilityName, ability::AbilityInfoPackage* p_pack, int p_timer);
 		int changeTimer(int p_n = -1);
 		void cancelCast();
-	private:
 		void cast();
 	};
 }
