@@ -22,4 +22,6 @@ public:
 	void update() override;
 	bool hasUpdate() const override { return true; }
 	void start() override;
+
+	void setupNetworkGame(kitten::Event::EventType p_type, kitten::Event* p_event);
 };
