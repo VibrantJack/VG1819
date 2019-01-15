@@ -1,0 +1,69 @@
+{
+	"unit":{
+		"name":"Engineer",
+		"hp":9,
+		"mv":3,
+		"in":11,
+		"cost":2,
+		"tags":["Terrans"],
+		"ability_description":[
+			{
+				"name":"Fight",
+				"power":3,
+				"min_range":1,
+				"max_range":1,
+				"target":1,
+				"need_unit":1,
+				"description":"Deal 3 damage to target."
+			},
+			{
+				"name":"Build the Wall",
+				"lv":2,
+				"cd":3,
+				"min_range":1,
+				"max_range":1,
+				"target":1,
+				"description":"Build a Wall. Wall is a Structure with 12 HP.",
+				"filter":1,
+				"filter0":"unit"
+			},
+			{
+				"name":"Sabotage",
+				"lv":3,
+				"power":12,
+				"min_range":1,
+				"max_range":1,
+				"target":1,
+				"need_unit":1,
+				"description":"Deal 12 damage to a Structure."
+			}
+		],
+		"status":[
+			{
+				"name":"Status_LV",
+				"lv":3,
+				"mv":1
+			}
+		],
+		"portrait_texture" : "textures/cards/500x500/Engineer.tga"
+	},
+	"components" : [
+		{
+			"name" : "UnitGraphic",
+			"texture":"textures/unit/Engineer.tga",
+			"unitsize": "point"
+		},
+		{
+			"name" : "SpriteGroup",
+			"spritename":"engineer",
+			"number":4,
+			"rotate":[45,0,0],
+			"scale":[0.7,0.7,1],
+			"translate":[-0.1,0,0.05]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/Engineer.tga"
+		}
+	]
+}

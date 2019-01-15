@@ -18,7 +18,6 @@ namespace userinterface
 		//kitten::K_GameObjectManager::getInstance()->destroyGameObject(m_context);
 		getTransform().removePositionListener(this);
 	}
-
 	void ClickableCard::start()
 	{
 		ClickableUI::start();

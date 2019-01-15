@@ -11,6 +11,8 @@ private:
 
 	void setTileInfoDisplayText();
 	void getPadding(const std::string& p_string, std::string& p_dest);
+
+	bool m_contextEnabled;
 public:
 	SendSelfOnClick();
 	virtual ~SendSelfOnClick();
@@ -18,6 +20,7 @@ public:
 	virtual void onClick() override;
 	virtual void onHoverStart() override;
 	virtual void onHoverEnd() override;
+	virtual void onPause() override;
 
 	void setTileInfoDisplay(puppy::TextBox* p_info) { m_tileInfoDisplay = p_info; }
 };

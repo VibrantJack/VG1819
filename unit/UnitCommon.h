@@ -19,6 +19,7 @@
 #define UNIT_LV "lv"
 
 //ability related
+#define LEVEL_UP "level_up"
 #define UNIT_CT "ct"
 #define UNIT_CD "cd"
 #define UNIT_DURATION "duration"

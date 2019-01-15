@@ -1,0 +1,47 @@
+{
+	"unit":{
+		"name":"Armory",
+		"hp":10,
+		"mv":0,
+		"in":15,
+		"cost":6,
+		"tags":["Structure","Terrans"],
+		"ability_description":[
+			{
+				"name":"Arm",
+				"power":5,
+				"min_range":0,
+				"max_range":0,
+				"target":1,
+				"need_unit":0,
+				"area_mode":"square",
+				"area_fix":1,
+				"area_min":0,
+				"area_max":1,
+				"description":"Gain 5 [Shield] to all ally without [Shield].",
+				"status_name":"Shield",
+				"status_description":"Block Damage"
+			}
+		],
+		"portrait_texture" : "textures/cards/500x500/Armory.tga"
+	},
+	"components" : [
+		{
+			"name" : "UnitGraphic",
+			"texture":"textures/unit/Armory.tga",
+			"unitsize": "point"
+		},
+		{
+			"name" : "SpriteGroup",
+			"spritename":"armory",
+			"number":1,
+			"rotate":[45,0,0],
+			"scale":[0.7,1,0],
+			"translate":[0,0,0.0]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/Armory.tga"
+		}
+	]
+}

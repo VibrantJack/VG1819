@@ -19,6 +19,7 @@ namespace ability
 		unit::Unit * m_source;//the unit who uses the ability
 		std::vector<unit::Unit*> m_targets;//the list of units who will be effected
 		std::unordered_map<std::string, int> m_intValue;
+		std::unordered_map<std::string, std::string> m_stringValue;
 		
 		// For passing which tiles are needed for the ability
 		std::vector<std::pair<int, int>> m_targetTilesPos;

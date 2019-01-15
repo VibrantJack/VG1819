@@ -123,7 +123,7 @@ void UnitInteractionManager::send()
 	}
 
 
-	if (m_ad->m_intValue.find("ct") == m_ad->m_intValue.end())//no cast time
+	if (m_ad->m_intValue.find("ct") == m_ad->m_intValue.end() || m_ad->m_intValue.find("ct")->second < 1)//no cast time
 	{//directly use it
 		ability::AbilityManager::getInstance()->useAbility(m_abilityName, m_package);
 	}
@@ -140,5 +140,10 @@ void UnitInteractionManager::addPropertyFromADToPack()
 	for (auto it : m_ad->m_intValue)
 	{
 		m_package->m_intValue[it.first] = it.second;
+	}
+
+	for (auto it : m_ad->m_stringValue)
+	{
+		m_package->m_stringValue[it.first] = it.second;
 	}
 }

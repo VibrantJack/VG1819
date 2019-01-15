@@ -1,0 +1,11 @@
+{
+    "name" : "Card Context Texture", 
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/blankFrame.tga"
+        }
+    ],
+    "scale2d" : [153.0,153.0],
+    "translate" : [1076.0,288.0,0.01]
+}

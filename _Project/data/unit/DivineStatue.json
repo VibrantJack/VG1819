@@ -1,0 +1,42 @@
+{
+	"unit":{
+		"name":"Divine Statue",
+		"hp":10,
+		"mv":0,
+		"in":17,
+		"cost":8,
+		"tags":["Structure","Terrans"],
+		"ability_description":[
+			{
+				"name":"The Light",
+				"power":2,
+				"target":1,
+				"need_unit":0,
+				"filter":1,
+				"filter0":"no_commander",
+				"area_mode":"all",
+				"description":"Deal 2 damage to both Commanders."
+			}
+		],
+		"portrait_texture" : "textures/cards/500x500/DivineStatue.tga"
+	},
+	"components" : [
+		{
+			"name" : "UnitGraphic",
+			"texture":"textures/unit/DivineStatue.tga",
+			"unitsize": "point"
+		},
+		{
+			"name" : "SpriteGroup",
+			"spritename":"divine_statue",
+			"number":1,
+			"rotate":[45,0,0],
+			"scale":[0.5,1,0],
+			"translate":[0,0,0]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/DivineStatue.tga"
+		}
+	]
+}

@@ -1,0 +1,68 @@
+{
+	"unit":{
+		"name":"Knight",
+		"hp":12,
+		"mv":3,
+		"in":10,
+		"cost":3,
+		"tags":["Terrans","Soldier"],
+		"ability_description":[
+			{
+				"name":"Slay",
+				"power":5,
+				"min_range":1,
+				"max_range":1,
+				"area_mode":"lineH",
+				"area_fix":0,
+				"area_len":3,
+				"description":"Deal 5 damage to enemies."
+			},
+			{
+				"name":"Defend",
+				"lv":2,
+				"cd":4,
+				"duration":1,
+				"need_unit":1,
+				"min_range":0,
+				"max_range":0,
+				"area_mode":"point",
+				"area_fix":1,
+				"description":"Until next turn, this unit will ignore first damage received.",
+				"status_name":"Defend",
+				"status_description":"Won't be hurt."
+			}
+		],
+		"status":[
+			{
+				"name":"Status_LV",
+				"lv":2,
+				"hp":5
+			},
+			{
+				"name":"Status_Duelist_LV3",
+				"description":"Increases Slay damage and decrease Defend CD",
+				"lv":3
+			}
+		],
+		"portrait_texture" : "textures/cards/500x500/Knight.tga"
+	},
+	"components" : [
+		{
+			"name" : "UnitGraphic",
+			"texture":"textures/unit/Knight.tga",
+			"unitsize": "point"
+		},
+		{
+			"name" : "SpriteGroup",
+			"spritename":"knight",
+			"number":3,
+			"rotate":[45,0,0],
+			"scale":[0.7,0.7,0],
+			"translate":[-0.20,0,0.15]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/Knight.tga"
+		}
+	]
+}

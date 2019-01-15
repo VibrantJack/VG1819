@@ -12,6 +12,8 @@ namespace ability
 		ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_LOAD);
 
 		//set properties
+		addStatusInfo(se, p_info);
+
 		se->addCounter(UNIT_DURATION, 1);
 		se->setEffectedAD(ABILITY_FIRE);
 

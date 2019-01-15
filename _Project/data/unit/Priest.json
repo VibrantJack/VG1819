@@ -1,0 +1,64 @@
+{
+	"unit":{
+		"name":"Priest",
+		"hp":5,
+		"mv":3,
+		"in":8,
+		"cost":1,
+		"tags":["Wizard","Terrans"],
+		"ability_description":[
+			{
+				"name":"Heal",
+				"power":3,
+				"min_range":1,
+				"max_range":2,
+				"need_unit":1,
+				"target":1,
+				"need_unit":1,
+				"description":"Heal target unit 3 HP."
+			},
+			{
+				"name":"Encourage",
+				"lv":2,
+				"power":1,
+				"min_range":1,
+				"max_range":2,
+				"target":1,
+				"need_unit":1,
+				"duration":3,
+				"need_unit":1,
+				"description":"Give target [Encourage]: When dealing damage, deal 1 more damage.",
+				"status_name":"Encourage",
+				"status_description":"Damage Increased."
+			}
+		],
+		"status":[
+			{
+				"name":"Status_Priest_LV3",
+				"lv":3,
+				"description":"At the end of turn, Priest will heal itself.",
+				"hp":5
+			}
+		],
+		"portrait_texture" : "textures/cards/500x500/Priest.tga"
+	},
+	"components" : [
+		{
+			"name" : "UnitGraphic",
+			"texture":"textures/unit/Priest.tga",
+			"unitsize": "point"
+		},
+		{
+			"name" : "SpriteGroup",
+			"spritename":"priest",
+			"number":4,
+			"rotate":[45,0,0],
+			"scale":[6,0.6,0],
+			"translate":[0,0,0]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/Priest.tga"
+		}
+	]
+}

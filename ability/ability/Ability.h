@@ -3,6 +3,7 @@
 #include "ability/node/AbilityNodeManager.h"
 #include "ability/StatusManager.h"
 #include "ability/status/statusEvent/TimePointEvent.h"
+#include "ability/status/Status.h"
 #include "ability/AbilityMacro.h"
 #include <string>
 #include <unordered_map>
@@ -48,6 +49,9 @@ namespace ability
 
 		//trigger time point event
 		void triggerTPEvent(ability::TimePointEvent::TPEventType p_tp, unit::Unit* p_target, AbilityInfoPackage* p_info);
+
+		//add status name and description
+		void addStatusInfo(Status* p_st, AbilityInfoPackage* p_info);
 	};
 
 	class Move : public Ability

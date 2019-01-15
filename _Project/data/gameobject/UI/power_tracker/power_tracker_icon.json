@@ -1,0 +1,11 @@
+{
+    "name" : "PowerTracker Icon", 
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/icons/power_icon.tga"
+        }
+    ],
+    "scale2d" : [100,100],
+    "translate" : [238.0,0.0, -0.1]
+}

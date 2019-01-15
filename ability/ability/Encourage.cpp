@@ -12,6 +12,8 @@ namespace ability
 		ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_ENCOURAGE);
 
 		//set properties
+		addStatusInfo(se, p_info);
+
 		int dur = p_info->m_intValue.find(UNIT_DURATION)->second;
 		int pow = p_info->m_intValue.find(UNIT_POWER)->second;
 
