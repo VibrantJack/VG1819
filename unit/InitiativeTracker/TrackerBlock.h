@@ -40,7 +40,6 @@ namespace unit
 
 		kitten::K_GameObject* m_frameObject;//the object contains frame and clickable
 		//kitten::K_GameObject* m_textObject; no longer needed. The object contains textbox and background
-		CardContext* m_context;//cotext to show when hovered
 		
 
 		int m_currentSlotIndex;//block is currently in this slot
@@ -56,6 +55,8 @@ namespace unit
 
 		const static int sm_offsetY;
 		float m_frameY;//y coodinate for frame
+
+		const static int sm_startX;
 
 		const static float sm_textY;
 

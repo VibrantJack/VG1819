@@ -16,7 +16,8 @@ const float unit::TrackerBlock::sm_halfWinX = 1280 / 2;
 const float unit::TrackerBlock::sm_halfWinY = 720 / 2;
 const float unit::TrackerBlock::sm_textY = 500.0f;
 const int unit::TrackerBlock::sm_offsetY = 0;
-const int unit::TrackerBlock::sm_margin = 15;
+const int unit::TrackerBlock::sm_margin = 10;
+const int unit::TrackerBlock::sm_startX = 300;
 
 const float unit::TrackerBlock::sm_speed = 0.02f;
 
@@ -97,7 +98,7 @@ void unit::TrackerBlock::move(int p_slotIndex)
 		//place block to the slot directly if it doesn't has slot yet
 		m_currentSlotIndex = p_slotIndex;
 
-		float xx = sm_halfWinX + (m_currentSlotIndex * (offset + sm_margin));
+		float xx = sm_startX + (m_currentSlotIndex * (offset + sm_margin));
 
 		m_frameObject->getTransform().place2D(xx, m_frameY - sm_margin);
 		//m_textObject->getTransform().place2D(xx, sm_textY);
@@ -107,7 +108,7 @@ void unit::TrackerBlock::move(int p_slotIndex)
 		//if current slot isn't at the target slot's right slot, place block there
 		m_currentSlotIndex = p_slotIndex + 1;
 
-		float xx = sm_halfWinX + (m_currentSlotIndex * offset);
+		float xx = sm_startX + (m_currentSlotIndex * offset);
 
 		m_frameObject->getTransform().place2D(xx, m_frameY - sm_margin);
 		//m_textObject->getTransform().place2D(xx, sm_textY);
@@ -131,17 +132,15 @@ void unit::TrackerBlock::set(kitten::K_GameObject* p_unitGO)
 	std::string name = p_unitGO->getComponent<Unit>()->m_name;
 	//set texture
 	m_frameObject->getComponent<userinterface::UIFrame>()->setTexture(texPath.c_str());
-
-	//context
-	///m_context->setUnit(p_unitGO->getComponent<Unit>());
-	//set name (textbox)
-	//m_textObject->getComponent<puppy::TextBox>()->setText(name);
+	//set context
+	m_frameObject->getComponent<unit::TrackerBlockClickable>()->setUnit(p_unitGO);
+	m_frameObject->setEnabled(true);
 }
 
 void unit::TrackerBlock::clear()
 {
 	//set texture
-	m_frameObject->getComponent<userinterface::UIFrame>()->setTexture(sm_blankTexture.c_str());
+	m_frameObject->setEnabled(false);
 
 	//set name (textbox)
 	//m_textObject->getComponent<puppy::TextBox>()->setText(sm_blankText.c_str());
@@ -168,7 +167,7 @@ void unit::TrackerBlock::update()
 				if (distance > velocity)//not close
 				{
 					//convert to text
-					float xx = sm_halfWinX * velocity;
+					float xx = sm_startX * velocity;
 					m_frameObject->getTransform().move2D(xx, 0);
 					//m_textObject->getTransform().move2D(xx,0);
 					distance -= velocity;
@@ -176,7 +175,7 @@ void unit::TrackerBlock::update()
 				else//vecy close, 
 				{
 					//convert to text
-					float xx = sm_halfWinX * distance;
+					float xx = sm_startX * distance;
 					m_frameObject->getTransform().move2D(xx, 0);
 					//m_textObject->getTransform().move2D(xx, 0);
 					distance = 0;

@@ -11,7 +11,7 @@ namespace unit
 	{
 	private:
 		kitten::K_GameObject* m_txtGO;
-		CardContext* m_context;
+		kitten::K_GameObject* m_unit;
 
 	public:
 		TrackerBlockClickable();
@@ -23,6 +23,6 @@ namespace unit
 		virtual void onPause();
 
 		void setTextBox(kitten::K_GameObject* p_txt);
-		void setContext(CardContext* p_context);
+		void setUnit(kitten::K_GameObject* p_unit);
 	};
 }
