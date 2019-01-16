@@ -1,6 +1,7 @@
 #pragma once
 #include "kitten/K_Component.h"
 #include "kitten/K_Time.h"
+#include "kitten/event_system/Event.h"
 
 class DrawCardsFromDeckWithDelay : public kitten::K_Component
 {

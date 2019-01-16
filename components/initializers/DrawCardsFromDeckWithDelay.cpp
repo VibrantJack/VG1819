@@ -56,7 +56,7 @@ void DrawCardsFromDeckWithDelay::start()
 	kitten::EventManager::getInstance()->addListener(
 		kitten::Event::EventType::Client_Commander_Loaded,
 		this,
-		std::bind(&setupNetworkGame, this, std::placeholders::_1, std::placeholders::_2));
+		std::bind(&DrawCardsFromDeckWithDelay::setupNetworkGame, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void DrawCardsFromDeckWithDelay::setupNetworkGame(kitten::Event::EventType p_type, kitten::Event * p_event)
