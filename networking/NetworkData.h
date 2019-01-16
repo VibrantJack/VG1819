@@ -16,7 +16,8 @@
 #define STARTING_COMMANDERS_PACKET_SIZE sizeof(StartingCommandersPacket)
 #define TEST_PACKET_SIZE sizeof(TestPacket)
 
-enum PacketTypes {
+enum PacketTypes 
+{
 
 	INIT_CONNECTION = 0,
 	SERVER_SHUTDOWN,
@@ -27,7 +28,10 @@ enum PacketTypes {
 	SKIP_TURN,
 	GAME_TURN_START,
 	STARTING_COMMANDER_DATA,
-	DESYNCED
+	DESYNCED,
+	JOIN_GAME,
+	GAME_FULL,
+	PING_SOCKET
 };
 
 struct UnitInfo

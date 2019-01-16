@@ -26,7 +26,7 @@ NetworkingConsoleMenu::~NetworkingConsoleMenu()
 {
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Return_to_Main_Menu, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Disconnect_From_Network, this);
-	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Join_Button_Clicked, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Join_Direct_Address, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Host_Button_Clicked, this);
 }
 
@@ -53,7 +53,7 @@ void NetworkingConsoleMenu::start()
 		std::bind(&NetworkingConsoleMenu::stopHostingListener, this, std::placeholders::_1, std::placeholders::_2));
 		
 	kitten::EventManager::getInstance()->addListener(
-		kitten::Event::EventType::Join_Button_Clicked,
+		kitten::Event::EventType::Join_Direct_Address,
 		this,
 		std::bind(&NetworkingConsoleMenu::joinButtonClickedListener, this, std::placeholders::_1, std::placeholders::_2));
 
@@ -198,7 +198,10 @@ void NetworkingConsoleMenu::hostGame()
 
 			// Server setup successful, now setup ClientGame
 			networking::ClientGame::createInstance();
-			checkClientNetwork();
+			if (checkClientNetwork())
+			{
+				networking::ClientGame::getInstance()->sendBasicPacket(JOIN_GAME);
+			}
 		}
 	} else
 	{

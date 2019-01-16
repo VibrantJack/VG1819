@@ -13,6 +13,7 @@
 			"components" : [
 				{
 					"name" : "TextBox",
+					"font" : "../fonts/common_consolas.fnt",
 					"width" : 300 , 
 					"height" : 100 ,
 					"color" : [1,1,1]
@@ -24,7 +25,7 @@
 					"name" : "StringInputDisplay"
 				}
 			],
-			"translate2d" : [527, 339, -0.1]
+			"translate2d" : [527, 290, -0.1]
 		},
 		{
 			"filename" : "mainmenu_background.json"
@@ -40,6 +41,49 @@
             "translate" : [280, 160, -0.9],
             "scale2d" : [720, 360]
         },
+		{
+			"filename" : "network_menu/refresh_button.json"
+		},
+		{
+			"name" : "Join Local Host Button",
+			"components" : [
+				{
+					"name" : "UIObject",
+					"texture" : "textures/ui/buttons/join_button_small.tga"
+				},
+				{
+					"name" : "TriggerEventButton",
+					"regularTexture" : "textures/ui/buttons/join_button_small.tga",
+					"highlightedTexture" : "textures/ui/buttons/join_button_small_h.tga",
+					"event" : "Join_Localhost"
+				},
+				{
+					"name" : "ClickableFrame"
+				}
+			],
+			"scale2d" : [150, 48],
+			"translate" : [835, 356, -0.8]
+		},
+		{
+			"name" : "Join Direct Address Button",
+			"components" : [
+				{
+					"name" : "UIObject",
+					"texture" : "textures/ui/buttons/join_button_small.tga"
+				},
+				{
+					"name" : "TriggerEventButton",
+					"regularTexture" : "textures/ui/buttons/join_button_small.tga",
+					"highlightedTexture" : "textures/ui/buttons/join_button_small_h.tga",
+					"event" : "Join_Direct_Address"
+				},
+				{
+					"name" : "ClickableFrame"
+				}
+			],
+			"scale2d" : [150, 48],
+			"translate" : [835, 252, -0.8]
+		},
         {
             "name" : "Back Button",
             "components" : [

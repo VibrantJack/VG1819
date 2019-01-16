@@ -136,9 +136,9 @@ namespace networking
 			WSACleanup();
 
 			// Display disconnect screen; Client detected server disconnect
-			kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+			kitten::Event* eventData = new kitten::Event(kitten::Event::Network_End_Game);
 			eventData->putInt(GAME_END_RESULT, PLAYER_DISCONNECTED);
-			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Network_End_Game, eventData);
 		}
 
 		return m_iResult;

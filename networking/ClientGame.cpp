@@ -6,6 +6,7 @@
 // @Ken
 
 #include "networking\ClientGame.h"
+#include "kitten/K_Time.h"
 #include <assert.h>
 #include <iostream>
 #include <unordered_map>
@@ -24,6 +25,8 @@
 #include "unit\unitComponent\UnitMove.h"
 
 #include "components\DeckInitializingComponent.h"
+
+#define PING_PACKET_DELAY 5.0f
 
 namespace networking
 {
@@ -53,12 +56,11 @@ namespace networking
 		return sm_clientGameInstance;
 	}
 
-	ClientGame::ClientGame(const std::string &p_strAddr) : m_bGameTurnStart(false)
+	ClientGame::ClientGame(const std::string &p_strAddr) : m_bGameTurnStart(false), m_timeElapsed(0.0f)
 	{
 		setupNetwork(p_strAddr);
 	}
-
-
+	
 	ClientGame::~ClientGame()
 	{
 		if (m_network != nullptr)
@@ -71,24 +73,12 @@ namespace networking
 
 	void ClientGame::setupNetwork(const std::string &p_strAddr)
 	{
+		printf("Attempting to join: %s\n", p_strAddr.c_str());
 		m_network = new ClientNetwork();
 
 		if (m_network->init(p_strAddr))
 		{ 
 			sm_networkValid = true;
-
-			// Client connects and sends INIT_CONNECTION packet
-			char packet_data[BASIC_PACKET_SIZE];
-
-			Buffer buffer;
-			buffer.m_data = packet_data;
-			buffer.m_size = BASIC_PACKET_SIZE;
-
-			Packet packet;
-			packet.m_packetType = INIT_CONNECTION;
-			packet.serialize(buffer);
-
-			NetworkServices::sendMessage(m_network->m_connectSocket, packet_data, BASIC_PACKET_SIZE);
 		}
 		else
 		{
@@ -133,6 +123,22 @@ namespace networking
 
 	void ClientGame::update()
 	{
+		// Ping the host to ensure they haven't disconnnected
+		m_timeElapsed += kitten::K_Time::getInstance()->getDeltaTime();		
+		if (m_timeElapsed > PING_PACKET_DELAY)
+		{
+			m_timeElapsed = 0.0f;
+			int result = sendBasicPacket(PING_SOCKET);
+
+			if (result == SOCKET_ERROR)
+			{
+				// Enable end game screen/update join game screen to indicate lost connection
+				kitten::Event* eventData = new kitten::Event(kitten::Event::Network_End_Game);
+				eventData->putInt(GAME_END_RESULT, PLAYER_DISCONNECTED);
+				kitten::EventManager::getInstance()->queueEvent(kitten::Event::Network_End_Game, eventData);
+			}
+		}
+
 		int data_length = m_network->receivePackets(m_network_data);
 
 		if (data_length <= 0)
@@ -159,6 +165,7 @@ namespace networking
 
 			case PacketTypes::SEND_CLIENT_ID:
 			{
+				printf("[Client: %d] received SEND_CLIENT_ID (%d) packet from server\n", sm_iClientId, defaultPacket.m_clientId);
 				i += BASIC_PACKET_SIZE;
 				sm_iClientId = defaultPacket.m_clientId;
 
@@ -192,9 +199,9 @@ namespace networking
 				disconnectFromNetwork(true);
 
 				// Display disconnect screen; Server received manual disconnect from server
-				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+				kitten::Event* eventData = new kitten::Event(kitten::Event::Network_End_Game);
 				eventData->putInt(GAME_END_RESULT, PLAYER_DISCONNECTED);
-				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Network_End_Game, eventData);
 				break;
 			}
 			case PacketTypes::ABILITY_PACKET:
@@ -313,9 +320,16 @@ namespace networking
 				printf("[Client: %d] received DESYNCED packet from server\n", sm_iClientId);
 				i += BASIC_PACKET_SIZE;
 
-				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+				kitten::Event* eventData = new kitten::Event(kitten::Event::Network_End_Game);
 				eventData->putInt(GAME_END_RESULT, CLIENT_DESYNCED);
-				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Network_End_Game, eventData);
+
+				break;
+			}
+			case PacketTypes::GAME_FULL:
+			{
+				printf("[Client: %d] received GAME_FULL packet from server\n", sm_iClientId);
+				i += BASIC_PACKET_SIZE;
 
 				break;
 			}
@@ -325,6 +339,9 @@ namespace networking
 				break;
 			}
 		}
+
+		// TODO: Every X seconds, send a basic packet to the polled server to ping it
+		// if value = SOCKET_ERROR, the server is no longer online, so we should clean up the connection
 	}
 
 	void ClientGame::useAbility(AbilityPacket& p_packet)
@@ -445,7 +462,7 @@ namespace networking
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, UNIT_PACKET_SIZE);
 	}
 
-	void ClientGame::sendBasicPacket(PacketTypes p_packetType)
+	int ClientGame::sendBasicPacket(PacketTypes p_packetType)
 	{
 		char data[BASIC_PACKET_SIZE];
 
@@ -458,7 +475,7 @@ namespace networking
 		packet.m_clientId = sm_iClientId;
 
 		packet.serialize(buffer);
-		NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
+		return NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
 	}
 
 	int ClientGame::getUnitGameObjectIndex(kitten::K_GameObject* p_unit)

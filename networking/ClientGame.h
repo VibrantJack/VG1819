@@ -32,6 +32,8 @@ namespace networking
 		static bool sm_networkValid;
 		static ClientGame* sm_clientGameInstance;
 
+		float m_timeElapsed;
+
 		ClientGame(const std::string &p_strAddr);
 		~ClientGame();
 
@@ -57,7 +59,7 @@ namespace networking
 		kitten::K_GameObject* summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
 		void sendSummonUnitPacket(int p_iUnitId, int p_iPosX, int p_iPosY);
 
-		void sendBasicPacket(PacketTypes p_packetType);
+		int sendBasicPacket(PacketTypes p_packetType);
 
 		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);
 		kitten::K_GameObject* getUnitGameObject(int p_iIndex);
