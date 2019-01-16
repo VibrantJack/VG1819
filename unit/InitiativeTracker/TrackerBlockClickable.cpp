@@ -3,7 +3,7 @@
 #include <iostream>
 namespace unit
 {
-	TrackerBlockClickable::TrackerBlockClickable()
+	TrackerBlockClickable::TrackerBlockClickable() : m_unit(nullptr)
 	{
 	}
 
@@ -18,15 +18,17 @@ namespace unit
 
 	void TrackerBlockClickable::onHoverStart()
 	{
+		if (m_unit != nullptr)
+		{
+			kitten::Event* updateContextEvent = new kitten::Event(kitten::Event::Update_Card_Context_By_GO);
+			updateContextEvent->putGameObj(UPDATE_CARD_CONTEXT_KEY, m_unit);
+			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_By_GO, updateContextEvent);
 
-		kitten::Event* updateContextEvent = new kitten::Event(kitten::Event::Update_Card_Context_By_GO);
-		updateContextEvent->putGameObj(UPDATE_CARD_CONTEXT_KEY, m_unit);
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_By_GO, updateContextEvent);
-
-		// Enable Card Context
-		kitten::Event* enableContextEvent = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
-		enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, TRUE);
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
+			// Enable Card Context
+			kitten::Event* enableContextEvent = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
+			enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, TRUE);
+			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
+		}
 	}
 
 	void TrackerBlockClickable::onHoverEnd()
