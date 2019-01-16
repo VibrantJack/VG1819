@@ -6,7 +6,7 @@
 class DrawCardsFromDeckWithDelay : public kitten::K_Component
 {
 protected:
-	unsigned int m_cardsDispensed = 0, m_cardsToDispense;
+	unsigned int m_cardsDispensed = 0, m_cardsToDispense = 0;
 	float m_delayBetweenDraws, m_timeElapsed = 0; // Give this a negative number for a delay at the start. 
 	kitten::K_Time* m_time = nullptr;
 
