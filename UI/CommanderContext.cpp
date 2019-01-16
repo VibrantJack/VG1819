@@ -25,7 +25,7 @@ namespace userinterface
 	*/
 	CommanderContext::CommanderContext(): ContextMenu()
 	{
-		
+		kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Client_Commander_Loaded, this);
 	}
 
 	CommanderContext::~CommanderContext()
@@ -36,15 +36,26 @@ namespace userinterface
 		}
 	}
 
-	void CommanderContext::attachCommander(unit::Unit* p_unit)
-	{
-		m_attachedCommander = p_unit;
-	}
 
 	void CommanderContext::start()
 	{
-		//commander in context
-		m_attachedCommander = kibble::getUnitFromId(13);
+		kitten::EventManager::getInstance()->addListener(
+			kitten::Event::EventType::Client_Commander_Loaded,
+			this,
+			std::bind(&CommanderContext::commanderLoadListener, this, std::placeholders::_1, std::placeholders::_2));
+		//default	
+		attachCommander(kibble::getUnitFromId(13));
+	}
+
+	void CommanderContext::commanderLoadListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+	{
+		attachCommander(p_event->getGameObj(COMMANDER_GO_KEY)->getComponent<unit::Unit>());
+	}
+
+	void CommanderContext::attachCommander(unit::Unit* p_unit)
+	{
+		m_attachedCommander = p_unit;
+
 		//screen position stuff
 		input::InputManager* inMan = input::InputManager::getInstance();
 		//game object positions

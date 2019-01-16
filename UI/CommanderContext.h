@@ -1,5 +1,7 @@
 #pragma once
 #include "ContextMenu.h"
+#include "kitten\event_system\Event.h"
+#include "kitten\event_system\EventManager.h"
 #include "unit\Unit.h"
 
 namespace userinterface
@@ -10,8 +12,10 @@ namespace userinterface
 		CommanderContext();
 		~CommanderContext();
 		void start() override;
-		void attachCommander(unit::Unit* p_commanderToAttach);
 	private:
 		unit::Unit* m_attachedCommander;
+		void attachCommander(unit::Unit* p_commanderToAttach);
+		void commanderLoadListener(kitten::Event::EventType p_type, kitten::Event* p_event);
+		
 	};
 }
