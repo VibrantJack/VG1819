@@ -1,13 +1,14 @@
 #pragma once
 #include "P_Common.h"
 #include "Material.h"
+#include "kitten\Camera.h"
 
 namespace puppy
 {
 	class P_UIRenderable
 	{
 	public:
-		virtual void uiRender(const glm::mat4& p_ortho) = 0;
+		virtual void uiRender(kitten::Camera* p_cam) = 0;
 
 	protected:
 		void addToStaticUIRender(const Material& p_mat, TexturedVertex p_data[], int p_numElements);

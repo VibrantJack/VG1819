@@ -16,10 +16,12 @@ namespace unit
 	{
 		m_commander = nullptr;
 		m_turn = nullptr;
-		m_statusContainer = new StatusContainer();
-		m_statusContainer->m_unit = this;
+
+		m_statusContainer = new StatusContainer(this);
+
 		m_cdRecorder = new CooldownRecorder();
-		m_castTimer = new CastTimer();
+
+		m_castTimer = new CastTimer(this);
 
 		setJoinAD();
 	}
@@ -429,7 +431,7 @@ namespace unit
 				networking::ClientGame* client = networking::ClientGame::getInstance();
 				client->removeUnitGameObject(client->getUnitGameObjectIndex(m_attachedObject));
 
-				kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+				kitten::Event* eventData = new kitten::Event(kitten::Event::Network_End_Game);
 				if (m_clientId == client->getClientId())
 				{
 					eventData->putInt(GAME_END_RESULT, HOST_COMMANDER_DIED);
@@ -439,7 +441,7 @@ namespace unit
 					eventData->putInt(GAME_END_RESULT, CLIENT_COMMANDER_DIED);
 				}
 				
-				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Network_End_Game, eventData);
 			}			
 		}
 	}

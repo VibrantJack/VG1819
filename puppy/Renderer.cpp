@@ -67,7 +67,7 @@ namespace puppy
 		auto end = m_toRender.end();
 		for (auto it = m_toRender.begin(); it != end; ++it)
 		{
-			(*it)->render(viewProj);
+			(*it)->render(p_cam);
 		}
 
 		//Particles
@@ -93,7 +93,7 @@ namespace puppy
 		auto uiEnd = m_uiToRender.end();
 		for (auto it = m_uiToRender.begin(); it != uiEnd; ++it)
 		{
-			(*it)->uiRender(ortho);
+			(*it)->uiRender(p_cam);
 		}
 	}
 

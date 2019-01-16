@@ -31,6 +31,8 @@ namespace kitten
 			m_view = glm::lookAt(pos, pos + lookDirection, upVector);
 			m_viewInverse4 = glm::inverse(m_view);
 			m_viewInverse = (glm::mat3)m_viewInverse4;
+
+			m_viewProj = getProj() * m_view;
 		}
 	}
 
@@ -102,9 +104,14 @@ namespace kitten
 		return m_ortho;
 	}
 
-	glm::mat4 Camera::getViewProj()
+	const glm::mat4& Camera::getViewProj() const
 	{
-		return getProj() * m_view;
+		return m_viewProj;
+	}
+
+	const glm::mat4& Camera::getView() const
+	{
+		return m_view;
 	}
 
 	const glm::mat3& Camera::getMat3ViewInverse() const

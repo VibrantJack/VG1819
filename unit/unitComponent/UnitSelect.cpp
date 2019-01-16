@@ -20,6 +20,11 @@ void unit::UnitSelect::start()
 
 }
 
+void unit::UnitSelect::disableInteraction(bool p_disableInteraction)
+{
+	m_disableInteraction = p_disableInteraction;
+}
+
 void unit::UnitSelect::onClick()
 {
 	Unit* u = m_attachedObject->getComponent<Unit>();

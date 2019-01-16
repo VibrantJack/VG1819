@@ -130,7 +130,7 @@ namespace kitten
 
 	void Transform::scale2D(const float xScale, const float yScale)
 	{
-		m_scaleAsFloat = glm::vec2(xScale, yScale);
+		m_scale = glm::vec3(xScale, yScale, 1.0f);
 		m_matScale = glm::scale(xScale, yScale, 1.0f);
 		m_isDirty = true;
 
@@ -292,9 +292,50 @@ namespace kitten
 		return m_scale;
 	}
 
-	const glm::vec2& Transform::getScale2D() const
+	glm::vec2 Transform::getScale2D() const
 	{
-		return m_scaleAsFloat;
+		if (m_ignoresParent)
+		{
+			return (glm::vec2)m_scale;
+		}
+		else
+		{
+			return (glm::vec2)m_derivedScale;
+		}
+	}
+
+	const glm::mat4& Transform::getTranslationMat4()
+	{
+		if (m_isDirty)
+		{
+			rebuildWorldMatrix();
+		}
+
+		if (!m_ignoresParent)
+		{
+			return m_derivedMatTranslation;
+		}
+		else
+		{
+			return m_matTranslation;
+		}
+	}
+
+	const glm::mat4& Transform::getRotScaleMat4()
+	{
+		if (m_isDirty)
+		{
+			rebuildWorldMatrix();
+		}
+
+		if (!m_ignoresParent)
+		{
+			return m_derivedRotScale;
+		}
+		else
+		{
+			return m_rotScale;
+		}
 	}
 
 	bool Transform::getIgnoreParent() const

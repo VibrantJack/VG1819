@@ -1,0 +1,13 @@
+{
+    "name" : "arrow projectile",
+    "components" : [
+        {
+            "name" : "SimpleQuadRenderable",
+            "texture" : "textures/projectiles/Arrow.gif",
+			"upright" : true
+        },
+        {
+            "name" : "LerpController"
+        }
+    ]
+}

@@ -9,7 +9,7 @@ std::vector<kitten::K_GameObject*> DecorationGenerator::generateDecoration(TileI
 
 	int x = p_info->getPosX();
 	int y = p_info->getPosY();
-
+	
 	switch (type)
 	{
 	case LandInformation::Grass_land:
@@ -25,6 +25,7 @@ std::vector<kitten::K_GameObject*> DecorationGenerator::generateDecoration(TileI
 	case LandInformation::Sand_land:
 		return generateSandDecoration(x, y);
 	}
+
 	return std::vector<kitten::K_GameObject*>();
 }
 

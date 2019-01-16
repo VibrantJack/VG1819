@@ -23,7 +23,6 @@ PowerTracker::PowerTracker()
 
 PowerTracker::~PowerTracker()
 {
-	//kitten::K_ComponentManager::getInstance()->destroyComponentImmediate(m_textBox);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Manipulate_Tile, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Reset_Power, this);
 	m_textBox = nullptr;

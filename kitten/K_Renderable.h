@@ -18,6 +18,6 @@ namespace kitten
 		virtual ~K_Renderable();
 
 	public:		
-		virtual void render(const glm::mat4& p_viewProj) override = 0;
+		virtual void render(Camera* p_cam) override = 0;
 	};
 }

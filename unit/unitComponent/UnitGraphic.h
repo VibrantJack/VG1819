@@ -17,7 +17,7 @@ namespace unit
 		~UnitGraphic();
 
 		void setTexture(const char* p_pathToTex);
-		void render(const glm::mat4& p_viewProj) override;
+		void render(kitten::Camera* p_cam) override;
 		std::string getTexturePath();
 	private:
 		puppy::Material* m_mat;

@@ -15,7 +15,7 @@ namespace userinterface
 		PointerUI();
 		~PointerUI();
 
-		void uiRender(const glm::mat4& p_ortho);
+		void uiRender(kitten::Camera* p_cam) override;
 
 	private:
 		puppy::Material* m_mat;

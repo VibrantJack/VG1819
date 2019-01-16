@@ -8,6 +8,11 @@
 					"name" : "UnitDeath",
 					"path" : "data/particles/universal/effects/deathEffect.xml",
 					"poolednumber" : 6
+				},
+				{
+					"name" : "BurnExplosion",
+					"path" : "data/particles/abilities/effects/burnExplosion.xml",
+					"poolednumber" : 2
 				}
 			]
         }

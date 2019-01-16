@@ -4,6 +4,7 @@
 #include "kitten/K_ComponentManager.h"
 #include "unitInteraction/UnitInteractionManager.h"
 #include "board/BoardManager.h"
+#include "components/initializers/DrawCardsFromDeckWithDelay.h"
 
 GameplayInit::GameplayInit(bool p_testing)
 { 
@@ -25,10 +26,9 @@ void GameplayInit::start() {
 	unit::UnitSpawn::createInstance();
 	UnitInteractionManager::createInstance();
 
-	if (m_testing)
+	if (m_testing) {
 		unit::UnitTest::getInstanceSafe()->test();
-
-	//userinterface::HandFrame::makeAHand();
-
-	//kitten::K_ComponentManager::getInstance()->destroyComponent(this);
+		DrawCardsFromDeckWithDelay::getActiveInstance()->setCardCountToDispense(5);
+		DrawCardsFromDeckWithDelay::getActiveInstance()->addDelayToStart(7);
+	}
 }

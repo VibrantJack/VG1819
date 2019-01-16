@@ -23,15 +23,22 @@ namespace userinterface
 		static void makeAHand();
 		static HandFrame* getActiveInstance();
 
+		void setDiscardMode(bool);
+		bool isOnDiscardMode() { return m_isDiscardMode; }
+		void setPointCountToDiscard(unsigned int);
+		void decreasePointCountBy(int p_value);
+
 		virtual void start() override;
 		virtual void onEnabled() override;
 		virtual void onDisabled() override;
 
 	private:
 		
-		int m_totalCards, m_playerID = 0;
+		int m_totalCards, m_playerID = 0, m_toDiscard = 0;
 		float m_cardX, m_cardY, m_padding, m_contentMargin;
 		bool m_isInit = false; // this is for if the component gets initialized, it doesn't use the lerpcontroller if available. 
+		bool m_isDiscardMode = false;
+		kitten::K_GameObject* m_discardNotifyingObject = nullptr;
 
 		void receiveDrawnCard(kitten::Event::EventType p_type, kitten::Event* p_event);
 	};

@@ -105,7 +105,7 @@ void CardContext::start()
 
 void CardContext::setUnit(unit::Unit* p_unit)
 {
-	if (p_unit != m_unitData)
+	if (p_unit != m_unitData && p_unit != nullptr)
 	{
 		m_unitData = p_unit;
 		m_unitPortrait->setTexture(p_unit->getPortraitTexturePath().c_str());

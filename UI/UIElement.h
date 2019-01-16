@@ -38,7 +38,7 @@ namespace userinterface
 		
 		virtual ~UIElement();
 		virtual void start() override;
-		virtual void uiRender(const glm::mat4& p_ortho);
+		virtual void uiRender(kitten::Camera* p_cam) override;
 		virtual void setTexture(const char* p_pathToTex);
 		virtual void setTexBehaviour(const textureBehaviour p_tb);
 		virtual void setPivotType(const pivotType p_piv);

@@ -38,11 +38,12 @@ namespace networking
 		return sm_serverGameInstance;
 	}
 
-	ServerGame::ServerGame() : m_shutdown(false)
+	ServerGame::ServerGame()
+		:
+		m_shutdown(false),
+		m_clientId(0),
+		m_polledClientId(0)
 	{
-		// id's to assign clients for our table
-		client_id = 0;
-
 		// set up the server network to listen 
 		setupNetwork();
 	}
@@ -102,18 +103,115 @@ namespace networking
 	void ServerGame::update()
 	{
 		// get new clients
-		if (m_network->acceptNewClient(client_id))
+		if (m_network->acceptNewClient(m_polledClientId))
 		{
-			printf("[Client: %d] has been connected to the server\n", client_id);
+			printf("[Polled Client: %d] has polled this server\n", m_polledClientId);
 
-			client_id++;
+			m_polledClientId++;
 		}
 
+		receiveFromPolledClients();
 		receiveFromClients();
 
 		if (m_shutdown)
 		{
 			shutdownNetwork();
+		}
+	}
+
+	void ServerGame::receiveFromPolledClients()
+	{
+		// Go through Polled clients map and receive incoming data
+		std::map<unsigned int, SOCKET>::iterator iter;
+
+		for (iter = m_network->m_polledSessions.begin(); iter != m_network->m_polledSessions.end(); iter++)
+		{
+			int data_length = m_network->receiveDataFromPolled(iter->first, m_network_data);
+
+			if (data_length <= 0)
+			{
+				//no data recieved
+				continue;
+			}
+
+			int i = 0;
+			while (i < (unsigned int)data_length)
+			{
+				// Take all incoming packets as Packet initially to read the packetType
+				Buffer defaultBuffer;
+				defaultBuffer.m_data = &(m_network_data[i]);
+				defaultBuffer.m_size = BASIC_PACKET_SIZE;
+
+				Packet defaultPacket;
+				defaultPacket.deserialize(defaultBuffer);
+
+				switch (defaultPacket.m_packetType) {
+
+				case JOIN_GAME:
+				{
+					i += BASIC_PACKET_SIZE;
+					printf("Server received JOIN_GAME packet from [Polled Client: %d]\n", iter->first);
+					if (m_clientId < MAX_JOINED_CLIENTS)
+					{
+						printf("[Polled Client: %d] is now [Client: %d]\n", iter->first, m_clientId);
+
+						int assignedClientId = m_clientId;
+
+						// Add client socket from polled sessions to main sessions
+						m_network->addPolledClientToSessions(iter->first, m_clientId);
+						m_clientId++;
+
+						// Send a packet to the client to notify them what their ID is
+						char packetData[BASIC_PACKET_SIZE];
+						Buffer buffer;
+						buffer.m_data = packetData;
+						buffer.m_size = BASIC_PACKET_SIZE;
+
+						Packet packet;
+						packet.m_packetType = SEND_CLIENT_ID;
+						packet.m_clientId = assignedClientId;
+
+						packet.serialize(buffer);
+						m_network->sendToClient(assignedClientId, packetData, BASIC_PACKET_SIZE);
+					}
+					else
+					{
+						// Send alert full game packet
+						char packetData[BASIC_PACKET_SIZE];
+						Buffer buffer;
+						buffer.m_data = packetData;
+						buffer.m_size = BASIC_PACKET_SIZE;
+
+						Packet packet;
+						packet.m_packetType = GAME_FULL;
+						packet.m_clientId = -1;
+
+						packet.serialize(buffer);
+						m_network->sendToPolledClient(iter->first, packetData, BASIC_PACKET_SIZE);
+					}
+					break;
+				}
+				case CLIENT_DISCONNECT:
+				{
+					i += BASIC_PACKET_SIZE;
+					unsigned int clientId = iter->first;
+					printf("Server received CLIENT_DISCONNECT from [Polled Client: %d]\n", clientId);
+					m_network->removePolledClient(clientId);
+
+					break;
+				}
+				case PING_SOCKET:
+				{
+					i += BASIC_PACKET_SIZE;
+					// Server pinged to see if it is still active
+					break;
+				}
+				default:
+					printf("error in packet types received from [Polled Client: %d], value: %d\n", iter->first, defaultPacket.m_packetType);
+					i += (unsigned int)data_length;
+					break;
+				}
+			}
 		}
 	}
 
@@ -144,7 +242,27 @@ namespace networking
 				defaultPacket.deserialize(defaultBuffer);
 
 				switch (defaultPacket.m_packetType) {
+					case JOIN_GAME:
+					{
+						i += BASIC_PACKET_SIZE;
+						printf("Server received JOIN_GAME packet from [Client: %d]\n", iter->first);
 
+						// Send a packet to the client to notify them what their ID is
+						int clientId = iter->first;
+						char packetData[BASIC_PACKET_SIZE];
+
+						Buffer buffer;// = NetworkServices::createBuffer(BASIC_PACKET_SIZE);
+						buffer.m_data = packetData;
+						buffer.m_size = BASIC_PACKET_SIZE;
+
+						Packet packet;
+						packet.m_packetType = JOIN_GAME;
+						packet.m_clientId = clientId;
+
+						packet.serialize(buffer);
+						m_network->sendToClient(clientId, packetData, BASIC_PACKET_SIZE);
+						break;
+					}
 					case INIT_CONNECTION:
 					{
 						i += BASIC_PACKET_SIZE;
@@ -175,9 +293,9 @@ namespace networking
 						kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Disconnect_From_Network, nullptr);
 
 						// Display disconnect screen; Server received manual disconnect from client
-						kitten::Event* eventData = new kitten::Event(kitten::Event::End_Game_Screen);
+						kitten::Event* eventData = new kitten::Event(kitten::Event::Network_End_Game);
 						eventData->putInt(GAME_END_RESULT, PLAYER_DISCONNECTED);
-						kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
+						kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Network_End_Game, eventData);
 
 						break;
 					}
@@ -273,6 +391,12 @@ namespace networking
 						m_network->sendToOthers(iter->first, defaultBuffer.m_data, SKIP_TURN_PACKET_SIZE);
 						break;
 					}
+					case PING_SOCKET:
+					{
+						i += BASIC_PACKET_SIZE;
+						// Server pinged to see if it is still active
+						break;
+					}
 					case GAME_TURN_START:
 					case DESYNCED:
 					{
@@ -283,7 +407,7 @@ namespace networking
 						break;
 					}
 					default:
-						printf("error in packet types received from client %d\n", iter->first);
+						printf("error in packet types received from [Client %d], value: %d\n", iter->first, defaultPacket.m_packetType);
 						i += (unsigned int)data_length;						
 						break;
 				}

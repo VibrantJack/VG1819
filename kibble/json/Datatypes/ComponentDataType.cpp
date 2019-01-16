@@ -141,6 +141,11 @@ kitten::K_Component* getDestroyOnClick(nlohmann::json* p_jsonFile){
 	return new DestroyOnClick();
 }
 
+#include "components/clickables/DiscardCardOnClick.h"
+kitten::K_Component* getDiscardCardOnClick(nlohmann::json* p_jsonFile){
+	return new DiscardCardOnClick();
+}
+
 
 #include "board/component/BoardCreator.h"
 kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
@@ -865,6 +870,33 @@ kitten::K_Component* getNetworkConnectButton(nlohmann::json* p_jsonFile) {
 	return button;
 }
 
+#include "UI\TriggerEventButton.h"
+kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture, eventType;
+	int eventEnum;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPTDEF(eventType, "event", "NONE");
+
+	if (eventType == "Poll_For_Localhost")
+		eventEnum = kitten::Event::Poll_For_Localhost;
+	else if (eventType == "Join_Direct_Address")
+		eventEnum = kitten::Event::Join_Direct_Address;
+	else if (eventType == "Join_Localhost")
+		eventEnum = kitten::Event::Join_Localhost;
+	else
+		eventEnum = -1;
+
+	userinterface::TriggerEventButton* button = new userinterface::TriggerEventButton(
+		(kitten::Event::EventType) eventEnum
+	);
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+
+	return button;
+}
+
 #include "UI\TabMenu\TabMenu.h"
 kitten::K_Component* getTabMenu(nlohmann::json* p_jsonFile) {
 	std::string texture;
@@ -901,16 +933,19 @@ kitten::K_Component* getReturnToMainMenuButton(nlohmann::json* p_jsonFile) {
 
 #include "UI\ClickableButton.h"
 kitten::K_Component* getClickableButton(nlohmann::json* p_jsonFile) {
-	std::string regularTexture, highlightedTexture;
+	std::string regularTexture, highlightedTexture, inactiveTexture;
 	bool isEnabledOnPause;
 	SETOPTDEF(isEnabledOnPause, "enabledOnPause", false);
 	SETOPT(regularTexture, "regularTexture");
 	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPTDEF(inactiveTexture, "inactiveTexture", "textures/ui/buttons/disabled_button.tga");
+
 
 	userinterface::ClickableButton* button = new userinterface::ClickableButton();
 	button->setEnabledOnPause(isEnabledOnPause);
 	button->setRegularTexture(regularTexture);
 	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
 
 	return button;
 }
@@ -940,6 +975,16 @@ kitten::K_Component* getUnitSelect(nlohmann::json* p_jsonFile) {
 #include "components/DrawCardOnClickUI.h"
 kitten::K_Component* getDrawCardOnClickUI(nlohmann::json* p_jsonFile) {
 	return new DrawCardOnClickUI();
+}
+
+#include "components/initializers/DrawCardsFromDeckWithDelay.h"
+kitten::K_Component* getDrawCardsFromDeckWithDelay(nlohmann::json* p_jsonFile) {
+	return new DrawCardsFromDeckWithDelay();
+}
+
+#include "components/DeckDiscardedCardHandler.h"
+kitten::K_Component* getDeckDiscardedCardHandler(nlohmann::json* p_jsonFile) {
+	return new DeckDiscardedCardHandler();
 }
 
 #include "kitten/sprites/SpriteGroup.h"
@@ -1365,6 +1410,10 @@ kitten::K_Component* getCustomDataComponent(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getCardContext(nlohmann::json* p_jsonFile) {
 	return new CardContext();
 }
+#include "UI\ContextMenu.h"
+kitten::K_Component* getContextMenu(nlohmann::json* p_jsonFile) {
+	return new userinterface::ContextMenu();
+}
 
 #include "UI\ClickableCard.h"
 kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
@@ -1431,12 +1480,13 @@ kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
 #include "kitten/SimpleQuadRenderable.h"
 kitten::K_Component* getSimpleQuadRenderable(nlohmann::json* p_jsonFile) {
 	std::string texturefilename;
-	bool isStatic;
+	bool isStatic, upRight;
 
 	SETOPTDEF(texturefilename, "texture", "");
 	SETOPTDEF(isStatic, "static", false);
+	SETOPTDEF(upRight, "upright", false);
 
-	return new kitten::SimpleQuadRenderable(texturefilename.c_str(), isStatic);
+	return new kitten::SimpleQuadRenderable(texturefilename.c_str(), isStatic, upRight);
 }
 
 #include "UI\CardArt.h"
@@ -1451,6 +1501,12 @@ kitten::K_Component* getCardArt(nlohmann::json* p_jsonFile)
 #include "_Project\ShowLoadingOnClick.h"
 kitten::K_Component* getShowLoadingOnClick(nlohmann::json* p_jsonFile) {
 	return new ShowLoadingOnClick();
+}
+
+#include "_Project\ProjectileManager.h"
+kitten::K_Component* getProjectileManager(nlohmann::json* p_jsonFile) {
+	std::string list = p_jsonFile->operator[]("list");
+	return new ProjectileManager(list);
 }
 
 #include "kitten\lights\K_DirectionalLight.h"
@@ -1498,6 +1554,39 @@ kitten::K_Component* getCounterGetterController(nlohmann::json* p_jsonFile) {
 	return new CounterGetterController();
 }
 
+#include "components/clickables/HoverOverCardBehavior.h"
+kitten::K_Component* getHoverOverCardBehavior(nlohmann::json* p_jsonFile) {
+	return new HoverOverCardBehavior();
+}
+
+#include "unit/InitiativeTracker/NewTurnMessageController.h"
+kitten::K_Component* getNewTurnMessageController(nlohmann::json* p_jsonFile) {
+	float time;
+	SETOPTDEF(time, "time", 1.5f);
+	return new unit::NewTurnMessageController(time);
+}
+
+#include "unit/unitComponent/TimerSymbol.h"
+kitten::K_Component* getTimerSymbol(nlohmann::json* p_jsonFile) {
+	unit::TimerSymbol* symbol = new unit::TimerSymbol();
+
+	if (JSONHAS("textures"))
+	{
+		for (int i = 0; i < LOOKUP("textures").size(); i++)
+		{
+			symbol->addTexture(i + 1, LOOKUP("textures")[i]);
+		}
+	}
+
+	return symbol;
+}
+
+#include "_Project\ProjectileParticleSystemHelper.h"
+kitten::K_Component* getProjectileParticleSystemHelper(nlohmann::json* p_jsonFile) {
+	std::string effectName = p_jsonFile->operator[]("effect");
+	return new ProjectileParticleSystemHelper(effectName);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1510,6 +1599,7 @@ void setupComponentMap() {
 	jsonComponentMap["DebugPrintOnce"] = &getDebugPrintOnce;
 	jsonComponentMap["PrintWhenClicked"] = &getPrintWhenClicked;
 	jsonComponentMap["DestroyOnClick"] = &getDestroyOnClick;
+	jsonComponentMap["DiscardCardOnClick"] = &getDiscardCardOnClick;
 	jsonComponentMap["ClickableBox"] = &getClickableBox;
 	jsonComponentMap["AudioSource"] = &getAudioSource;
 	jsonComponentMap["AudioListener"] = &getAudioListener;
@@ -1566,6 +1656,7 @@ void setupComponentMap() {
 	jsonComponentMap["NetworkJoinButton"] = &getNetworkJoinButton;
 	jsonComponentMap["NetworkHostButton"] = &getNetworkHostButton;	
 	jsonComponentMap["NetworkConnectButton"] = &getNetworkConnectButton;
+	jsonComponentMap["TriggerEventButton"] = &getTriggerEventButton;
 	jsonComponentMap["TabMenu"] = &getTabMenu;
 	jsonComponentMap["UIObject"] = &getUIObject;
 	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
@@ -1599,6 +1690,8 @@ void setupComponentMap() {
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
 	jsonComponentMap["CardContext"] = &getCardContext;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
+	jsonComponentMap["DrawCardsFromDeckWithDelay"] = &getDrawCardsFromDeckWithDelay;
+	jsonComponentMap["DeckDiscardedCardHandler"] = &getDeckDiscardedCardHandler;
 	jsonComponentMap["QuadEdgeRenderable"] = &getQuadEdgeRenderable;
 	jsonComponentMap["TileDecoration"] = &getTileDecoration;
 	jsonComponentMap["SimpleQuadRenderable"] = &getSimpleQuadRenderable;
@@ -1607,7 +1700,14 @@ void setupComponentMap() {
 	jsonComponentMap["PivotTextBox"] = &getPivotTextBox;
 	jsonComponentMap["CardArt"] = &getCardArt;
 	jsonComponentMap["CounterGetterController"] = &getCounterGetterController;
+	jsonComponentMap["HoverOverCardBehavior"] = &getHoverOverCardBehavior;
 	jsonComponentMap["CounterGetterButton"] = &getCounterGetterButton;
+	jsonComponentMap["ContextMenu"] = &getContextMenu;
+	jsonComponentMap["NewTurnMessageController"] = &getNewTurnMessageController;
+	jsonComponentMap["TimerSymbol"] = &getTimerSymbol;
+	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
+	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
+
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

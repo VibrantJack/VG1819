@@ -3,7 +3,8 @@
 namespace puppy
 {
 	P_Mesh::P_Mesh(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices, const char* p_pathToTexture) : m_mat(ShaderType::basic_directional_light),
-		m_vao(p_vertices.data(), p_indices.data(), ShaderManager::getShaderProgram(ShaderType::basic_directional_light), p_vertices.size(), p_indices.size())
+		m_vao(p_vertices.data(), p_indices.data(), ShaderManager::getShaderProgram(ShaderType::basic_directional_light), p_vertices.size(), p_indices.size()), m_vertices(p_vertices),
+		m_indices(p_indices)
 	{
 		if (p_pathToTexture != nullptr)
 		{
@@ -28,17 +29,12 @@ namespace puppy
 		{
 			m_mat.setTexture("textures/black.bmp");
 		}
-
-		// transfrom vertices + indices to just vertices for static rendering
-		setVertices(p_vertices, p_indices);
 	}
 
 	P_Mesh::P_Mesh(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices, glm::vec4& p_colour) : m_mat(ShaderType::solid_color_directional_light),
 		m_vao(p_vertices.data(), p_indices.data(), ShaderManager::getShaderProgram(ShaderType::solid_color_directional_light), p_vertices.size(), p_indices.size()), m_usesColour(true),
-		m_colour(p_colour)
+		m_colour(p_colour), m_vertices(p_vertices), m_indices(p_indices)
 	{
-		// transfrom vertices + indices to just vertices for static rendering
-		setVertices(p_vertices, p_indices);
 		m_mat.setColour(m_colour);
 	}
 
@@ -47,18 +43,14 @@ namespace puppy
 		
 	}
 
-	void P_Mesh::setVertices(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices)
-	{
-		auto indicesEnd = p_indices.cend();
-		for (auto indIt = p_indices.cbegin(); indicesEnd != indIt; ++indIt)
-		{
-			m_vertices.push_back(p_vertices[*indIt]);
-		}
-	}
-
 	const std::vector<NormalVertex>& P_Mesh::getVertices() const
 	{
 		return m_vertices;
+	}
+
+	const std::vector<unsigned int>& P_Mesh::getIndices() const
+	{
+		return m_indices;
 	}
 
 	const Material& P_Mesh::getMaterial() const

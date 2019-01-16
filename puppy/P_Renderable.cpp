@@ -9,9 +9,9 @@ namespace puppy
 		puppy::StaticRenderables::getInstance()->addToRender(this, &p_mat, p_data, p_numElements);
 	}
 
-	void P_Renderable::addToStaticRender(const Material& p_mat, const NormalVertex p_data[], int p_numElements)
+	void P_Renderable::addToStaticRender(const Material& p_mat, const NormalVertex p_data[], const std::vector<unsigned int>* p_indices, int p_numElements)
 	{
-		puppy::StaticRenderables::getInstance()->addToRender(this, &p_mat, p_data, p_numElements);
+		puppy::StaticRenderables::getInstance()->addToRender(this, &p_mat, p_data, p_indices, p_numElements);
 	}
 
 	void P_Renderable::addToDynamicRender()

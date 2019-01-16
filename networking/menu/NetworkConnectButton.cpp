@@ -32,7 +32,7 @@ namespace userinterface
 
 	void NetworkConnectButton::onClick()
 	{
-		kitten::EventManager::getInstance()->queueEvent(kitten::Event::EventType::Join_Button_Clicked, nullptr);
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::EventType::Join_Direct_Address, nullptr);
 
 		/*networking::ClientGame::createInstance("localhost");
 		if (networking::ClientGame::isNetworkValid())

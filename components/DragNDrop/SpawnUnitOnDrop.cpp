@@ -9,6 +9,7 @@
 #include "UI/HandFrame.h"
 #include "UI/CardUIO.h"
 #include "components/PowerTracker.h"
+#include "components/clickables/HoverOverCardBehavior.h"
 #include "board/BoardManager.h"
 #include "kitten\event_system\EventManager.h"
 #include <iostream>
@@ -26,23 +27,29 @@ void SpawnUnitOnDrop::onClick()
 		{
 			unit::Unit* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit()->getComponent<unit::Unit>();
 			unit::Unit* clientCommander = networking::ClientGame::getInstance()->getCommander();
-			if (currentUnit == clientCommander)
-			{
-				DragNDrop::onClick();
-			}
+			if (currentUnit != clientCommander) return;
+		}
+		else
+		{
+			return;
 		}
 	}
+
+	DragNDrop::onClick();
+
+	if (m_isDragging == false)
+		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(true);
 	else
-	{
-		DragNDrop::onClick();
-	}
+		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(false);
 }
 
 void SpawnUnitOnDrop::onDrop()
 {
 	// Check if we hit something
 	kitten::K_GameObject* targetTile = input::InputManager::getInstance()->getMouseLastHitObject();
+	kitten::K_GameObject* targetFrame = input::InputManager::getInstance()->getMouseLastHitFrame();
 	if (targetTile == nullptr  // No Target
+		|| (targetFrame != nullptr && targetFrame != &m_attachedFrame->getGameObject()) // Over UI or our card
 		|| targetTile->getComponent<TileInfo>() == nullptr // Target isn't a tile
 		|| targetTile->getComponent<TileInfo>()->hasUnit() // Target tile already has a unit on it
 		)
@@ -52,7 +59,7 @@ void SpawnUnitOnDrop::onDrop()
 	}
 	
 	// Unit setup
-	unit::Unit* unit = m_cardUIO->getUnit();
+	unit::Unit* unit = m_attachedObject->getComponent<unit::Unit>();
 
 	// Check for unit stuff.
 	if(BoardManager::getInstance()->getPowerTracker()->getCurrentPower() < unit->m_attributes[UNIT_COST] // Check if there is enough power to spawn this.
@@ -81,83 +88,27 @@ void SpawnUnitOnDrop::onDrop()
 
 	// Delete Card
 	kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(this->m_attachedObject);
-
-	// Disable Card Context
-	//m_cardContext->setEnabled(false);
-	kitten::Event* e = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
-	e->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, e);
-}
-
-void SpawnUnitOnDrop::onHoverEnd() {
-	if (!m_isDragging)
-	{
-		//getTransform().place2D(m_origin.x, m_origin.y);
-		m_lerpController->positionLerp(m_origin, CARD_HOVER_MOVE_TIME);
-		m_isHovered = false;
-	}
-
-	// Disable Card Context
-	kitten::Event* e = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
-	e->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, e);
-}
-
-void SpawnUnitOnDrop::onHoverStart() {
-	if (!m_isDragging)
-	{
-		m_isHovered = true;
-		//getTransform().place2D(m_origin.x, m_origin.y + 50);
-		m_lerpController->positionLerp(glm::vec3(m_origin.x,m_origin.y + 50 , m_origin.z), CARD_HOVER_MOVE_TIME);
-	}
-	
-	// Get CardUIO attached unit ID
-	kitten::Event* updateContextEvent = new kitten::Event(kitten::Event::Update_Card_Context_By_ID);
-	updateContextEvent->putInt(UPDATE_CARD_CONTEXT_KEY, m_cardUIO->getUnit()->m_kibbleID);
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_By_ID, updateContextEvent);
-
-	// Enable Card Context
-	kitten::Event* enableContextEvent = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
-	enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, TRUE);
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
 }
 
 void SpawnUnitOnDrop::onPause()
 {
 	DragNDrop::onDrop();
 	m_isDragging = false;
-
-	// Disable Card Context when paused
-	kitten::Event* e = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
-	e->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, e);
 }
-
-void SpawnUnitOnDrop::onPosChanged(const glm::vec3& p_newPos)
-{
-	if (!m_isDragging && !m_isHovered && !(m_lerpController != nullptr && m_lerpController->isPosLerping()))
-	{
-		m_origin = m_attachedObject->getTransform().getTranslation();
-	}
-} 
 
 SpawnUnitOnDrop::SpawnUnitOnDrop()
 	:
-	DragNDrop(true),
-	m_cardUIO(nullptr)
+	DragNDrop(true)
 {
 
 }
 
 SpawnUnitOnDrop::~SpawnUnitOnDrop()
 {
-	getTransform().removePositionListener(this);
 }
 
 void SpawnUnitOnDrop::start()
 {
 	DragNDrop::start();
-	getTransform().addPositionListener(this);
-
-	m_cardUIO = m_attachedObject->getComponent<userinterface::CardUIO>();
+	setEnabled(!userinterface::HandFrame::getActiveInstance()->isOnDiscardMode());
 }
