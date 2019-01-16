@@ -2,9 +2,10 @@
 #include "unit/unitComponent/UnitMove.h"
 #include "kitten/K_GameObject.h"
 #include "unitInteraction/UnitInteractionManager.h"
-#include <iostream>
 
 #include "_Project\UniversalPfx.h"
+
+#include <iostream>
 
 // Networking
 #include "networking\ClientGame.h"
@@ -12,7 +13,7 @@
 
 namespace unit
 {
-	Unit::Unit()
+	Unit::Unit() : m_healthBarState(none), m_healthBar(nullptr)
 	{
 		m_commander = nullptr;
 		m_turn = nullptr;
@@ -40,6 +41,12 @@ namespace unit
 		{
 			delete m_commander;
 		}
+	}
+
+	void Unit::start()
+	{
+		m_healthBar = m_attachedObject->getComponent<UnitHealthBar>();
+		assert(false);
 	}
 
 	//status
@@ -388,8 +395,15 @@ namespace unit
 
 	int Unit::destroyedByDamage()
 	{
-		//TO DO: send destroyed event
-		destroy();
+		//TO DO: send destroyed even
+		m_healthBarState = destroying;
+		
+		if (m_healthBar == nullptr)
+		{
+			m_healthBar = m_attachedObject->getComponent<UnitHealthBar>();
+		}
+
+		m_healthBar->getForegroundBarLerpController()->addScaleLerpFinishedCallback(this);
 		return 0;
 	}
 
@@ -444,5 +458,17 @@ namespace unit
 				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::End_Game_Screen, eventData);
 			}			
 		}
+	}
+
+	void Unit::onScaleLerpFinished() //Called when healthbar is done animating
+	{
+		switch (m_healthBarState)
+		{
+		case destroying:
+			destroy();
+			break;
+		}
+
+		m_healthBarState = none;
 	}
 }

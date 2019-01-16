@@ -5,9 +5,9 @@
 #include "kitten\K_Component.h"
 #include "_Project\LerpController.h"
 #include "kitten\BarRenderable.h"
+#include "kitten\K_GameObject.h"
 
 #include "unit\UnitCommon.h"
-#include "unit\Unit.h"
 
 #define HEALTH_MAT_P1_TEXTURE_PATH "textures/ui/saphire.png"
 #define HEALTH_MAT_P2_TEXTURE_PATH "textures/ui/topaz.png"
@@ -25,6 +25,7 @@
 
 namespace unit
 {
+	class Unit;
 	class UnitHealthBar : public kitten::K_Component
 	{
 	private:
@@ -46,5 +47,7 @@ namespace unit
 		~UnitHealthBar();
 
 		void updateBar();
+
+		LerpController* getForegroundBarLerpController() const;
 	};
 }

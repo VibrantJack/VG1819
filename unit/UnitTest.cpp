@@ -87,14 +87,14 @@ namespace unit
 		*/
 		
 		//set initial position
-		//kitten::K_GameObject* u0 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
-		//u0->getComponent<unit::UnitMove>()->setTile(3, 3);
+		kitten::K_GameObject* u0 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
+		u0->getComponent<unit::UnitMove>()->setTile(3, 3);
 
 		//kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(1);//priest
 		//u1->getComponent<unit::UnitMove>()->setTile(2, 2);
 
-		//kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
-		//u2->getComponent<unit::UnitMove>()->setTile(3, 2);
+		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
+		u2->getComponent<unit::UnitMove>()->setTile(3, 2);
 
 		//kitten::K_GameObject* u3 = UnitSpawn::getInstance()->spawnUnitObject(3);//duelist
 		//u3->getComponent<unit::UnitMove>()->setTile(4, 2);

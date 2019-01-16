@@ -6,6 +6,10 @@
 #include "unit/unitComponent/Commander.h"
 #include "unit/unitComponent/CastTimer.h"
 
+#include "unitComponent\UnitHealthBar.h"
+
+#include "_Project\LerpController.h"
+
 //@Rock
 //although unit is just a component of game object
 //it acts like central system which pass commands to other components
@@ -13,8 +17,16 @@
 namespace unit
 {
 	class UnitTurn;
-	class Unit : public kitten::K_Component
+	class Unit : public kitten::K_Component, public LerpController::ScaleLerpFinishedCallback
 	{
+	private:
+
+		enum HealthBarState
+		{
+			none,
+			destroying
+		};
+
 	private:
 		UnitTurn* m_turn;
 		StatusContainer * m_statusContainer;
@@ -28,6 +40,16 @@ namespace unit
 		AbilityDescription m_joinAD;
 
 		std::string m_portraitTexturePath;
+
+		// Healthbar related
+		UnitHealthBar* m_healthBar;
+
+		HealthBarState m_healthBarState;
+		
+		virtual void onScaleLerpFinished() override;
+	
+		virtual void start() override;
+
 	public:
 		std::string m_ID;
 		int m_kibbleID;
