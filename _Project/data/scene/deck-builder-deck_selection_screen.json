@@ -47,6 +47,29 @@
             "scale2d" : [125, 80]
         },
         {
+            "name" : " Add New Deck Button ",
+            "components" : [
+				{
+					"name" : "ChangeSceneOnClick",
+					"scene" : "make_new_deck.json"					
+				},
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_add.tga"
+                },
+                {
+                    "name" : "ClickableButton",
+                    "regularTexture" : "textures/ui/buttons/button_add.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_add_h.tga"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [395, 22],
+            "scale2d" : [250, 80]
+        },
+        {
 			"filename" : "UI/unit_button.json"
         },
         {
