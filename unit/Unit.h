@@ -29,6 +29,7 @@ namespace unit
 
 		std::string m_portraitTexturePath;
 	public:
+		int m_numberID;
 		std::string m_ID;
 		int m_kibbleID;
 		std::vector<std::string> m_tags;

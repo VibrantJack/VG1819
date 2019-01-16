@@ -26,9 +26,12 @@ unit::InitiativeTrackerUI::InitiativeTrackerUI():m_lastUnitIndex(0)
 
 	setXList();
 
+	//disabled - we don't need this anymore
+	/*
 	m_pointerObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 	kitten::K_Component* p = comMan->createComponent("TrackerPointer");
 	m_pointerObject->addComponent(p);
+	*/
 }
 
 unit::InitiativeTrackerUI::~InitiativeTrackerUI()

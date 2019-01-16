@@ -118,9 +118,11 @@ void CardContext::setUnitListener(kitten::Event::EventType p_type, kitten::Event
 	if (p_type == kitten::Event::Update_Card_Context_By_GO)
 	{
 		kitten::K_GameObject* unitGO = p_event->getGameObj(UPDATE_CARD_CONTEXT_KEY);
-		unit::Unit* unit = unitGO->getComponent<unit::Unit>();
-		if (unit != nullptr)
+		if (unitGO != nullptr)
+		{
+			unit::Unit* unit = unitGO->getComponent<unit::Unit>();
 			setUnit(unit);
+		}
 	}
 	else if (p_type == kitten::Event::Update_Card_Context_By_ID)
 	{

@@ -1,6 +1,6 @@
 {
 	"unit":{
-		"name":"Arrow Tower",
+    "name": "Arrow Tower",
 		"hp":15,
 		"mv":0,
 		"in":15,

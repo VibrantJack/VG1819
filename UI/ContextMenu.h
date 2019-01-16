@@ -1,6 +1,7 @@
 #pragma once
 #include "UIElement.h"
 #include "kitten\K_GameObject.h"
+#include "puppy\Text\TextBox.h"
 #include <vector>
 
 
@@ -24,9 +25,14 @@ namespace userinterface
 	protected:
 		int m_padding, m_width, m_height;
 
+		struct ctxElement {
+			bool isText = false;
+			kitten::K_GameObject* GO;
+		};
+
 		struct Row {
 			rowType type;
-			std::list<kitten::K_GameObject*> elements;
+			std::list<ctxElement> elements;
 			int margin, width, height;
 		};
 

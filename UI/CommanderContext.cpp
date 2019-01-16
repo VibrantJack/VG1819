@@ -56,8 +56,13 @@ namespace userinterface
 		winX = inMan->getWindowWidth();
 		//put it on the screen
 
+		kitten::K_GameObject* portrait = kibble::getGameObjectDataParserInstance()->getGameObject("ui/commander_portrait.txt");
+		userinterface::UIElement* portraitComp = portrait->getComponent<userinterface::UIElement>();
+		portraitComp->setTexture(m_attachedCommander->getPortraitTexturePath().c_str());
+		portrait->getTransform().place2D(0.0f, winY);
+
 		//TO DO, DATADRIVE THIS POSITIONAL DATA.
-		getTransform().place(0.0f, winY, -0.05);
+		getTransform().place(100.0f, winY, -0.05);
 		setPivotType(piv_TopLeft);
 		setTexBehaviour(tbh_Repeat);
 
@@ -73,42 +78,78 @@ namespace userinterface
 		nameComp->setText(m_attachedCommander->m_name);
 		nameComp->setEnabled(true);
 
+		ctxElement nmEm;
+		nmEm.isText = true;
+		nmEm.GO = GO_name;
+
 		//new row
 		Row* r = addRow(rt_OneElement);
 		//PLEASE NOTE. YOU MUST DEFINE THESE VARIABLES.
-		r->height = nameComp->getBoxHeight();
+		r->height = nameComp->getBoxHeight() + 25;
 		r->width = winX;
 		r->margin = rowMargin;
-		r->elements.push_back(GO_name);
+		r->elements.push_back(nmEm);
 
-		//get attributes to show
-		//TO DO, MAKE THIS MORE ATTRACTIVE
-		int curAtr = 0;
-		std::string curAtrStr = "";
-		std::string statLine = "|";
-		for (auto atr : m_attachedCommander->m_attributes)
-		{
-			curAtr = atr.second;
-			curAtrStr = atr.first;
-			statLine += (curAtrStr + "-" + std::to_string(curAtr) + " | ");
-		}
 
-		r = addRow(rt_Overflow);
-		kitten::K_GameObject* GO_stats = kibble::getGameObjectDataParserInstance()->getGameObject("context_textbox.txt");
-		puppy::TextBox* statsComp = GO_stats->getComponent<puppy::TextBox>();
-		statsComp->setText(statLine);
-		statsComp->setEnabled(true);
+		Row* row2 = addRow(rt_Overflow);
+		kitten::K_GameObject* hpIcon = kibble::getGameObjectDataParserInstance()->getGameObject("UI/Icon.txt");
+		userinterface::UIElement* hpComp = hpIcon->getComponent<userinterface::UIElement>();
+		hpComp->setTexture("textures/ui/icons/stat_icons/stat_icons/hp.png");
 
-		//PLEASE NOTE. YOU MUST DEFINE THESE VARIABLES.
-		r->height = statsComp->getBoxHeight();
-		r->width = winX;
-		r->margin = rowMargin;
-		r->elements.push_back(GO_stats);
+		ctxElement hpEm;
+		hpEm.GO = hpIcon;
 
-		r = addRow(rt_Blank);
-		r->height = 50;
-		r->width = winX;
-		r->margin = 0;
+		row2->height = 15;
+		row2->elements.push_back(hpEm);
+
+		kitten::K_GameObject* hpText = kibble::getGameObjectDataParserInstance()->getGameObject("context_number_3digits.txt");
+		puppy::TextBox* hptxtComp = hpText->getComponent<puppy::TextBox>();
+		hptxtComp->setText(std::to_string(m_attachedCommander->m_attributes["hp"]));
+
+		ctxElement hptxtEm;
+		hptxtEm.GO = hpText;
+		hptxtEm.isText = true;
+
+		row2->elements.push_back(hptxtEm);
+
+		kitten::K_GameObject* spIcon = kibble::getGameObjectDataParserInstance()->getGameObject("UI/Icon.txt");
+		userinterface::UIElement* spComp = spIcon->getComponent<userinterface::UIElement>();
+		spComp->setTexture("textures/ui/icons/stat_icons/stat_icons/movement.png");
+
+		ctxElement spEm;
+		spEm.GO = spIcon;
+
+		row2->elements.push_back(spEm);
+
+		kitten::K_GameObject* spText = kibble::getGameObjectDataParserInstance()->getGameObject("context_number_3digits.txt");
+		puppy::TextBox* sptxtComp = spText->getComponent<puppy::TextBox>();
+		sptxtComp->setText(std::to_string(m_attachedCommander->m_attributes["mv"]));
+
+		ctxElement sptxtEm;
+		sptxtEm.GO = spText;
+		sptxtEm.isText = true;
+
+		row2->elements.push_back(sptxtEm);
+
+		kitten::K_GameObject* inIcon = kibble::getGameObjectDataParserInstance()->getGameObject("UI/Icon.txt");
+		userinterface::UIElement* inComp = inIcon->getComponent<userinterface::UIElement>();
+		inComp->setTexture("textures/ui/icons/stat_icons/stat_icons/initiative.png");
+
+		ctxElement inEm;
+		inEm.GO = inIcon;
+
+		row2->elements.push_back(inEm);
+
+		kitten::K_GameObject* inText = kibble::getGameObjectDataParserInstance()->getGameObject("context_number_3digits.txt");
+		puppy::TextBox* intxtComp = inText->getComponent<puppy::TextBox>();
+		intxtComp->setText(std::to_string(m_attachedCommander->m_attributes["in"]));
+
+		ctxElement intxtEm;
+		intxtEm.GO = inText;
+		intxtEm.isText = true;
+
+		row2->elements.push_back(intxtEm);
+
 
 		arrange();
 	}

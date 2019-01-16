@@ -1,6 +1,6 @@
 {
 	"unit":{
-		"name":"Archer",
+    "name": "Archer",
 		"hp":8,
 		"mv":2,
 		"in":14,
