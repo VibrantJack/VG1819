@@ -25,7 +25,7 @@ namespace userinterface
 	*/
 	CommanderContext::CommanderContext(): ContextMenu()
 	{
-		
+		kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Client_Commander_Loaded, this);
 	}
 
 	CommanderContext::~CommanderContext()
