@@ -23,9 +23,10 @@ namespace ability
 
 		PowerTracker* powerTracker = BoardManager::getInstance()->getPowerTracker();
 
+		int unitId = p_info->m_intValue[UNIT_ID];
+
 		//get Unit data
-		//fixed for now
-		unit::Unit* u = kibble::getUnitFromId(2);
+		unit::Unit* u = kibble::getUnitFromId(unitId);
 		if (u->m_attributes[UNIT_COST] <= powerTracker->getCurrentPower())
 		{
 			kitten::K_GameObject* uGO = unit::UnitSpawn::getInstance()->spawnUnitObject(2);

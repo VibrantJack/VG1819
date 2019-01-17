@@ -19,7 +19,7 @@ namespace unit
 		void init(Unit* p_u);
 
 		void manipulateTile();
-		void spawnUnit();
+		void spawnUnit(int p_id);
 
 		void resetPower(int p_clientID);
 	};

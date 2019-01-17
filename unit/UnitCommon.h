@@ -40,6 +40,9 @@
 //tags
 #define STRUCTURE "Structure"
 
+//id
+#define UNIT_ID "unit_id"
+
 //@Rock
 
 namespace unit

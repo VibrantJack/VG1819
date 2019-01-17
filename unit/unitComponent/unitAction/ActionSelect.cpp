@@ -104,10 +104,10 @@ void unit::ActionSelect::act()
 	{
 		m_unit->manipulateTile();
 	}
-	else if (m_action == "Summon")
-	{
-		m_unit->summonUnit();
-	}
+//	else if (m_action == "Summon")
+//	{
+//		m_unit->summonUnit();
+//	}
 	else if (m_action == "Join")
 	{
 		m_unit->join();
