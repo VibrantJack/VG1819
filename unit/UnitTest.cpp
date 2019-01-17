@@ -118,7 +118,7 @@ namespace unit
 		//u9->getComponent<unit::UnitMove>()->setTile(10, 2);
 		
 		kitten::K_GameObject* u10 = UnitSpawn::getInstance()->spawnUnitObject(12);//enchanter
-//		u10->getComponent<unit::UnitMove>()->setTile(11, 4);
+		u10->getComponent<unit::UnitMove>()->setTile(11, 4);
 //		u10->getComponent<unit::Unit>()->m_attributes[UNIT_LV] = 3;
 //		u10->getComponent<unit::Unit>()->m_attributes[COUNTER_ENERGY] = 4;
 		//kitten::K_GameObject* u11 = UnitSpawn::getInstanceSafe()->spawnUnitObject(5);//wall
