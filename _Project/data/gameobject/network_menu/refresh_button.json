@@ -1,0 +1,20 @@
+{
+	"name" : "Refresh Button",
+	"components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/button_refresh.tga"
+		},
+		{
+			"name" : "TriggerEventButton",
+			"regularTexture" : "textures/ui/buttons/button_refresh.tga",
+			"highlightedTexture" : "textures/ui/buttons/button_refresh_h.tga",
+			"event" : "Poll_For_Localhost"
+		},
+		{
+			"name" : "ClickableFrame"
+		}
+	],
+	"translate" : [777, 356, -0.8],
+	"scale2d" : [48, 48]
+}

@@ -1,6 +1,7 @@
 #pragma once
 #include "kitten/K_Common.h"
 #include "unit/InitiativeTracker/InitiativeTrackerUI.h"
+#include "UI/CardContext.h"
 #include <vector>
 
 //Rock
@@ -38,7 +39,8 @@ namespace unit
 		InitiativeTrackerUI* m_trackerUI;
 
 		kitten::K_GameObject* m_frameObject;//the object contains frame and clickable
-		kitten::K_GameObject* m_textObject;//the object contains textbox and background
+		//kitten::K_GameObject* m_textObject; no longer needed. The object contains textbox and background
+		
 
 		int m_currentSlotIndex;//block is currently in this slot
 		int m_targetSlotIndex;//block is moving to this slot
@@ -52,12 +54,14 @@ namespace unit
 		const static std::string sm_blankText;
 
 		const static int sm_offsetY;
-		const static float sm_scaleX;
-		const static float sm_scaleY;//scale for unit frame
-		const static float sm_frameY;//y coodinate for frame
+		float m_frameY;//y coodinate for frame
+
+		const static int sm_startX;
 
 		const static float sm_textY;
 
 		const static float sm_speed;
+
+		const static int sm_margin;
 	};
 }

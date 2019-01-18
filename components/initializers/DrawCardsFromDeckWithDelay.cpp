@@ -1,6 +1,8 @@
 #include "DrawCardsFromDeckWithDelay.h"
 #include "kitten/event_system/EventManager.h"
 #define TIME_DELAY_BETWEEN_DRAWS 0.5
+#define TIME_DELAY_TILL_DRAW 0
+#define START_GAME_CARD_COUNT 5
 
 DrawCardsFromDeckWithDelay* instance = nullptr;
 
@@ -13,6 +15,7 @@ DrawCardsFromDeckWithDelay::DrawCardsFromDeckWithDelay()
 DrawCardsFromDeckWithDelay::~DrawCardsFromDeckWithDelay()
 {
 	instance = nullptr;
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Client_Commander_Loaded, this);
 }
 
 DrawCardsFromDeckWithDelay * DrawCardsFromDeckWithDelay::getActiveInstance()
@@ -50,5 +53,14 @@ void DrawCardsFromDeckWithDelay::update()
 void DrawCardsFromDeckWithDelay::start()
 {
 	m_time = kitten::K_Time::getInstance();
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Client_Commander_Loaded,
+		this,
+		std::bind(&DrawCardsFromDeckWithDelay::setupNetworkGame, this, std::placeholders::_1, std::placeholders::_2));
 }
 
+void DrawCardsFromDeckWithDelay::setupNetworkGame(kitten::Event::EventType p_type, kitten::Event * p_event)
+{
+	setCardCountToDispense(START_GAME_CARD_COUNT);
+	addDelayToStart(TIME_DELAY_TILL_DRAW);
+}

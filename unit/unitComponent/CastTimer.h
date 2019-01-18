@@ -28,6 +28,5 @@ namespace unit
 
 		kitten::K_GameObject* m_timerSymbol;
 		Unit* m_unit;
-
 	};
 }

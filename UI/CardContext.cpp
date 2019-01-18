@@ -105,7 +105,7 @@ void CardContext::start()
 
 void CardContext::setUnit(unit::Unit* p_unit)
 {
-	if (p_unit != m_unitData)
+	if (p_unit != m_unitData && p_unit != nullptr)
 	{
 		m_unitData = p_unit;
 		m_unitPortrait->setTexture(p_unit->getPortraitTexturePath().c_str());
@@ -118,9 +118,11 @@ void CardContext::setUnitListener(kitten::Event::EventType p_type, kitten::Event
 	if (p_type == kitten::Event::Update_Card_Context_By_GO)
 	{
 		kitten::K_GameObject* unitGO = p_event->getGameObj(UPDATE_CARD_CONTEXT_KEY);
-		unit::Unit* unit = unitGO->getComponent<unit::Unit>();
-		if (unit != nullptr)
+		if (unitGO != nullptr)
+		{
+			unit::Unit* unit = unitGO->getComponent<unit::Unit>();
 			setUnit(unit);
+		}
 	}
 	else if (p_type == kitten::Event::Update_Card_Context_By_ID)
 	{

@@ -29,6 +29,10 @@ void SpawnUnitOnDrop::onClick()
 			unit::Unit* clientCommander = networking::ClientGame::getInstance()->getCommander();
 			if (currentUnit != clientCommander) return;
 		}
+		else
+		{
+			return;
+		}
 	}
 
 	DragNDrop::onClick();

@@ -53,11 +53,11 @@ namespace userinterface
 			if (r->type == rt_OneElement) {
 
 				offsetY -= r->margin;
-				for (kitten::K_GameObject* GO : r->elements)
+				for (ctxElement em : r->elements)
 				{
-					if (GO != nullptr)
+					if (em.GO != nullptr)
 					{
-						GO->getTransform().place2D(offsetX, offsetY);
+						em.GO->getTransform().place2D(offsetX, offsetY);
 						offsetY -= r->height;
 						m_height += ((r->margin * 2) + r->height);
 					}
@@ -74,13 +74,20 @@ namespace userinterface
 				offsetY -= r->margin;
 				m_height += ((r->margin * 2) + r->height);
 
-				for (kitten::K_GameObject* GO : r->elements)
+				for (ctxElement em : r->elements)
 				{
-					if (GO != nullptr)
+					if (em.GO != nullptr)
 					{
-						GO->getTransform().place2D(offsetX, offsetY);
-						glm::vec3 scale3d = GO->getTransform().getScale();
-						offsetX += r->margin;
+						em.GO->getTransform().place2D(offsetX, offsetY);
+						if (!em.isText)
+						{
+							glm::vec2 scale2d = em.GO->getTransform().getScale2D();
+							offsetX += r->margin + scale2d.x;
+						}
+						else {
+							int width = em.GO->getComponent<puppy::TextBox>()->getBoxWidth();
+							offsetX += r->margin + width;
+						}
 					}
 				}
 				offsetX = m_padding + pos.x;

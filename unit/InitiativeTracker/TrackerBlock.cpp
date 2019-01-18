@@ -6,19 +6,18 @@
 #include "UI/UIFrame.h"
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
 #include "UI\CardArt.h"
+#include "kitten\InputManager.h"
 
 //static value
 const std::string unit::TrackerBlock::sm_blankTexture = "textures/ui/blankFrame.tga";
 const std::string unit::TrackerBlock::sm_blankText = "NONE";
 
-const float unit::TrackerBlock::sm_scaleX = 96.0f;
-const float unit::TrackerBlock::sm_scaleY = 108.0f;//scale for unit frame
-const float unit::TrackerBlock::sm_frameY = 612.0f;//y coodinate for frame
-
 const float unit::TrackerBlock::sm_halfWinX = 1280 / 2;
 const float unit::TrackerBlock::sm_halfWinY = 720 / 2;
 const float unit::TrackerBlock::sm_textY = 500.0f;
-const int unit::TrackerBlock::sm_offsetY = 15;
+const int unit::TrackerBlock::sm_offsetY = 0;
+const int unit::TrackerBlock::sm_margin = 10;
+const int unit::TrackerBlock::sm_startX = 300;
 
 const float unit::TrackerBlock::sm_speed = 0.02f;
 
@@ -28,12 +27,23 @@ unit::TrackerBlock::TrackerBlock()
 	kitten::K_GameObjectManager* goMan = kitten::K_GameObjectManager::getInstance();
 	//frame object
 	m_frameObject = goMan->createNewGameObject("tracker_block.json");
+	//don't this this anymore vvv
 	//text object
-	m_textObject = goMan->createNewGameObject("initiative_tracker_textbox.json");
+	//m_textObject = goMan->createNewGameObject("initiative_tracker_textbox.json");
 	
 	//component
 	kitten::K_ComponentManager* comMan = kitten::K_ComponentManager::getInstance();
-	
+
+	/*
+	//set context
+	kitten::K_GameObject* contextObj = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+	kitten::K_Component* contextComp = kitten::K_ComponentManager::getInstance()->createComponent("ContextMenu");
+	contextObj->addComponent(contextComp);
+	m_context = static_cast<CardContext*>(contextComp);
+	m_context->setEnabled(false);
+	//on hover context
+	TrackerBlockClickable* clicker = m_frameObject->getComponent<TrackerBlockClickable>();
+	clicker->setContext(m_context);
 	/*
 	//add frame
 	kitten::K_Component* frame = comMan->createComponent("Frame");
@@ -50,11 +60,14 @@ unit::TrackerBlock::TrackerBlock()
 	//m_frameObject->addComponent(clickable);
 
 	//make text object be child of frame object
+	//don't need these this anymore vvv
+	/*
 	m_textObject->getTransform().setParent(&m_frameObject->getTransform());
 	m_textObject->getTransform().setIgnoreParent(false);
+	*/
 
 	//disable text object
-	m_frameObject->getComponent<TrackerBlockClickable>()->setTextBox(m_textObject);
+	//m_frameObject->getComponent<TrackerBlockClickable>()->setTextBox(m_textObject);
 
 	//slot index
 	m_currentSlotIndex = -1;
@@ -73,21 +86,21 @@ void unit::TrackerBlock::setTrackerUI(InitiativeTrackerUI * p_UI)
 
 void unit::TrackerBlock::start()
 {
-	//set scale
-	m_frameObject->getTransform().scale2D(sm_scaleX, sm_scaleY);
+	
 }
 
 void unit::TrackerBlock::move(int p_slotIndex)
 {
+	m_frameY = input::InputManager::getInstance()->getWindowHeight() - m_frameObject->getTransform().getScale2D().y - sm_margin;
+	int offset = (m_frameObject->getTransform().getScale2D().x);
 	if (m_currentSlotIndex < 0)
 	{
 		//place block to the slot directly if it doesn't has slot yet
 		m_currentSlotIndex = p_slotIndex;
 
-		float x = m_trackerUI->m_xList[p_slotIndex];
-		float xx = sm_halfWinX * (1.0f + x);
+		float xx = sm_startX + (m_currentSlotIndex * (offset + sm_margin));
 
-		m_frameObject->getTransform().place2D(xx, sm_frameY - sm_offsetY);
+		m_frameObject->getTransform().place2D(xx, m_frameY - sm_margin);
 		//m_textObject->getTransform().place2D(xx, sm_textY);
 	}
 	else if (m_currentSlotIndex != (p_slotIndex + 1) )
@@ -95,10 +108,9 @@ void unit::TrackerBlock::move(int p_slotIndex)
 		//if current slot isn't at the target slot's right slot, place block there
 		m_currentSlotIndex = p_slotIndex + 1;
 
-		float x = m_trackerUI->m_xList[p_slotIndex + 1];
-		float xx = sm_halfWinX * (1.0f + x);
+		float xx = sm_startX + (m_currentSlotIndex * offset);
 
-		m_frameObject->getTransform().place2D(xx, sm_frameY);
+		m_frameObject->getTransform().place2D(xx, m_frameY - sm_margin);
 		//m_textObject->getTransform().place2D(xx, sm_textY);
 	}
 	//then set target slot
@@ -118,21 +130,20 @@ void unit::TrackerBlock::set(kitten::K_GameObject* p_unitGO)
 	std::string texPath = p_unitGO->getComponent<userinterface::CardArt>()->getArt();
 	//get name
 	std::string name = p_unitGO->getComponent<Unit>()->m_name;
-
 	//set texture
 	m_frameObject->getComponent<userinterface::UIFrame>()->setTexture(texPath.c_str());
-
-	//set name (textbox)
-	m_textObject->getComponent<puppy::TextBox>()->setText(name);
+	//set context
+	m_frameObject->getComponent<unit::TrackerBlockClickable>()->setUnit(p_unitGO);
+	m_frameObject->setEnabled(true);
 }
 
 void unit::TrackerBlock::clear()
 {
 	//set texture
-	m_frameObject->getComponent<userinterface::UIFrame>()->setTexture(sm_blankTexture.c_str());
+	m_frameObject->setEnabled(false);
 
 	//set name (textbox)
-	m_textObject->getComponent<puppy::TextBox>()->setText(sm_blankText.c_str());
+	//m_textObject->getComponent<puppy::TextBox>()->setText(sm_blankText.c_str());
 }
 
 bool unit::TrackerBlock::hasUpdate() const
@@ -156,7 +167,7 @@ void unit::TrackerBlock::update()
 				if (distance > velocity)//not close
 				{
 					//convert to text
-					float xx = sm_halfWinX * velocity;
+					float xx = sm_startX * velocity;
 					m_frameObject->getTransform().move2D(xx, 0);
 					//m_textObject->getTransform().move2D(xx,0);
 					distance -= velocity;
@@ -164,7 +175,7 @@ void unit::TrackerBlock::update()
 				else//vecy close, 
 				{
 					//convert to text
-					float xx = sm_halfWinX * distance;
+					float xx = sm_startX * distance;
 					m_frameObject->getTransform().move2D(xx, 0);
 					//m_textObject->getTransform().move2D(xx, 0);
 					distance = 0;

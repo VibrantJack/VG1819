@@ -839,6 +839,9 @@
     <ClCompile Include="..\unitInteraction\CounterGetterController.cpp">
       <Filter>unitInteraction</Filter>
     </ClCompile>
+    <ClCompile Include="..\UI\TriggerEventButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
     <ClCompile Include="..\components\clickables\DiscardCardOnClick.cpp">
       <Filter>components\clickables</Filter>
     </ClCompile>
@@ -1830,6 +1833,9 @@
     </ClInclude>
     <ClInclude Include="..\unitInteraction\CounterGetterController.h">
       <Filter>unitInteraction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\TriggerEventButton.h">
+      <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="..\components\clickables\DiscardCardOnClick.h">
       <Filter>components\clickables</Filter>

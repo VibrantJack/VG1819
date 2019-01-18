@@ -6,6 +6,16 @@
 
 class ConnectToHost : public kitten::K_Component
 {
+private:
+	puppy::TextBox* m_ipInputTextBox;
+	puppy::TextBox* m_localHostTextBox;
+	StringInputDisplay* m_stringInputDisplay;
+	input::InputManager* m_inputMan;
+	kitten::K_GameObject* m_loadingMessage;
+
+	bool m_bConnect;
+	bool m_bLoadingMsgEnabled;
+	bool m_bJoiningGame;
 public:
 	ConnectToHost();
 	~ConnectToHost();
@@ -14,18 +24,13 @@ public:
 
 	virtual bool hasUpdate() const override { return true; };
 	virtual void update() override;
-
-	void joinButtonClickedListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 	
-	void connect();
+	void joinDirectAddress();
+	void pollForLocalhost();
+	void joinLocalhost();
 
-private:
-	puppy::TextBox* m_textBox;
-	StringInputDisplay* m_stringInputDisplay;
-	input::InputManager* m_inputMan;
-	kitten::K_GameObject* m_loadingMessage;
-
-	bool m_bPrintText;
-	bool m_bEnteringAddress;
-	bool m_bConnected;
+	void joinDirectAddressListener(kitten::Event::EventType p_type, kitten::Event* p_event);
+	void pollForLocalhostListener(kitten::Event::EventType p_type, kitten::Event* p_event);
+	void joinLocalhostListener(kitten::Event::EventType p_type, kitten::Event* p_event);
+	void lostConnectionListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 };

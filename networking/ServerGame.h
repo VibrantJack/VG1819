@@ -3,6 +3,8 @@
 #include "networking/NetworkData.h"
 #include <vector>
 
+#define MAX_JOINED_CLIENTS 2
+
 namespace networking
 {
 	class ServerGame
@@ -23,6 +25,7 @@ namespace networking
 		void shutdownNetwork();
 
 		void update();
+		void receiveFromPolledClients();
 		void receiveFromClients();
 		
 		void sendSummonedUnitPacket(unsigned int p_iClientId, UnitPacket p_packet);
@@ -32,7 +35,8 @@ namespace networking
 	private:
 
 		// IDs for the clients connecting for table in ServerNetwork 
-		unsigned int client_id;
+		unsigned int m_clientId;
+		unsigned int m_polledClientId;
 
 		// The ServerNetwork object 
 		ServerNetwork* m_network;
