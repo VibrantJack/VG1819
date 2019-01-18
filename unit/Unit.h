@@ -5,6 +5,7 @@
 #include "unit/unitComponent/CooldownRecorder.h"
 #include "unit/unitComponent/Commander.h"
 #include "unit/unitComponent/CastTimer.h"
+#include "unit\unitComponent\UnitSelect.h"
 
 #include "unitComponent\UnitHealthBar.h"
 
@@ -43,6 +44,7 @@ namespace unit
 
 		// Healthbar related
 		UnitHealthBar* m_healthBar;
+		UnitSelect* m_unitSelect;
 
 		HealthBarState m_healthBarState;
 		

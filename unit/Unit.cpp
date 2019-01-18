@@ -13,7 +13,7 @@
 
 namespace unit
 {
-	Unit::Unit() : m_healthBarState(none), m_healthBar(nullptr)
+	Unit::Unit() : m_healthBarState(none), m_healthBar(nullptr), m_unitSelect(nullptr)
 	{
 		m_commander = nullptr;
 		m_turn = nullptr;
@@ -401,9 +401,19 @@ namespace unit
 		if (m_healthBar == nullptr)
 		{
 			m_healthBar = m_attachedObject->getComponent<UnitHealthBar>();
+			assert(m_healthBar != nullptr);
 		}
 
 		m_healthBar->getForegroundBarLerpController()->addScaleLerpFinishedCallback(this);
+
+		if (m_unitSelect == nullptr)
+		{
+			m_unitSelect = m_attachedObject->getComponent<UnitSelect>();
+			assert(m_unitSelect != nullptr);
+		}
+
+		m_unitSelect->disableInteraction(true);
+
 		return 0;
 	}
 

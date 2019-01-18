@@ -4,6 +4,7 @@
 #include <iostream>
 #include "kibble/kibble.hpp"
 #include "kibble/databank/databank.hpp"
+#include "unitComponent\unitAction\ActionButtonStore.h"
 
 // Includes for tile highlighting and manipulating tile
 #include "_Project\UseAbilityWhenClicked.h"
