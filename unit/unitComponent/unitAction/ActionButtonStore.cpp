@@ -54,7 +54,7 @@ void unit::ActionButtonStore::display(Unit * p_u)
 	if (p_u->isCommander())
 	{
 		setButton("ManipulateTile", m_unit->canAct());
-		setButton("Summon", true);
+		//setButton("Summon", true);
 	}
 	else
 	{

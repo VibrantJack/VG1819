@@ -97,10 +97,10 @@ void SelectAbility::select(int p_i)
 	{
 		m_unit->manipulateTile();
 	}
-	else if (instrction == "Summon")
-	{
-		m_unit->summonUnit();
-	}
+//	else if (instrction == "Summon")
+//	{
+//		m_unit->summonUnit();
+//	}
 	else if (instrction == "Join")
 	{
 		m_unit->join();

@@ -46,11 +46,12 @@ namespace unit
 		m_bTested = true;
 		//comment for testing IT
 
-//		kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstance()->spawnUnitObject(13); // 13 king !!!
-	//	uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(-1, -1);
+		kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstance()->spawnUnitObject(13); // 13 king !!!
+		uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(-1, -1);
+		//uNEWDUMMY->getComponent<unit::Unit>()->m_clientId = 1;
 
-	//	kitten::K_GameObject* uNEWDUMMY2 = UnitSpawn::getInstance()->spawnUnitObject(14); // queen !!!
-	//	uNEWDUMMY2->getComponent<unit::UnitMove>()->setTile(-1, -1);
+		kitten::K_GameObject* uNEWDUMMY2 = UnitSpawn::getInstance()->spawnUnitObject(14); // queen !!!
+		uNEWDUMMY2->getComponent<unit::UnitMove>()->setTile(-1, -1);
 		/*
 		// Testing highlighting tiles and manipulating tiles using testDummy.txt
 		{
@@ -119,8 +120,8 @@ namespace unit
 		
 		kitten::K_GameObject* u10 = UnitSpawn::getInstance()->spawnUnitObject(12);//enchanter
 		u10->getComponent<unit::UnitMove>()->setTile(11, 4);
-		u10->getComponent<unit::Unit>()->m_attributes[UNIT_LV] = 3;
-		u10->getComponent<unit::Unit>()->m_attributes[COUNTER_ENERGY] = 4;
+//		u10->getComponent<unit::Unit>()->m_attributes[UNIT_LV] = 3;
+//		u10->getComponent<unit::Unit>()->m_attributes[COUNTER_ENERGY] = 4;
 		//kitten::K_GameObject* u11 = UnitSpawn::getInstanceSafe()->spawnUnitObject(5);//wall
 		//u11->getComponent<unit::UnitMove>()->setTile(12, 2);
 		

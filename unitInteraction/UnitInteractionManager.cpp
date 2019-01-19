@@ -131,6 +131,7 @@ void UnitInteractionManager::send()
 	{//set cast ability
 		m_unit->setCast(m_ad, m_package);
 	}
+
 	m_package = nullptr;
 	m_busy = false;
 }
@@ -146,4 +147,6 @@ void UnitInteractionManager::addPropertyFromADToPack()
 	{
 		m_package->m_stringValue[it.first] = it.second;
 	}
+
+	m_package->m_cardGOForUnitSummon = m_ad->m_cardGOForUnitSummon;
 }

@@ -41,10 +41,38 @@ void SpawnUnitOnDrop::onClick()
 		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(true);
 	else
 		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(false);
+
+
+	if (m_summoned)
+		return;
+
+	//check unit cost
+	unit::Unit* unit = m_attachedObject->getComponent<unit::Unit>();
+	if (BoardManager::getInstance()->getPowerTracker()->getCurrentPower() < unit->m_attributes[UNIT_COST] // Check if there is enough power to spawn this.
+		)
+		return;
+
+	//send summon event
+	kitten::Event* e = new kitten::Event(kitten::Event::Summon_Unit);
+	e->putGameObj(UNIT, m_attachedObject);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Summon_Unit, e);
 }
 
 void SpawnUnitOnDrop::onDrop()
 {
+	DragNDrop::onDrop();
+
+	//send click on tile
+	kitten::K_GameObject* objectBehindCard = input::InputManager::getInstance()->getMouseLastHitObject();
+	if (objectBehindCard != nullptr)
+		objectBehindCard->getComponent<kitten::ClickableBox>()->onClick();
+
+	//change flag
+	m_summoned = true;
+
+	return;
+
+	/*
 	// Check if we hit something
 	kitten::K_GameObject* targetTile = input::InputManager::getInstance()->getMouseLastHitObject();
 	kitten::K_GameObject* targetFrame = input::InputManager::getInstance()->getMouseLastHitFrame();
@@ -74,26 +102,39 @@ void SpawnUnitOnDrop::onDrop()
 
 	// Generate Unit and set Tile
 	unit::UnitSpawn::getInstance()->spawnUnitObject(unit)->getComponent<unit::UnitMove>()->setTile(targetTile);
-
+	*/
+	/*
 	// Send the summoned unit if we're playing multiplayer
 	if (networking::ClientGame::isNetworkValid())
 	{
 		TileInfo* tileInfo = targetTile->getComponent<TileInfo>();
 		networking::ClientGame::getInstance()->sendSummonUnitPacket(unit->m_kibbleID, tileInfo->getPosX(), tileInfo->getPosY());
-	}
-
+	}*/
+	/*
 	// Remove Card from hand
 	userinterface::CardUIO* cardUIObject = this->m_attachedObject->getComponent<userinterface::CardUIO>();
 	userinterface::HandFrame::getActiveInstance()->removeCard((userinterface::UIObject*)cardUIObject);
 
 	// Delete Card
 	kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(this->m_attachedObject);
+	*/
 }
 
 void SpawnUnitOnDrop::onPause()
 {
 	DragNDrop::onDrop();
 	m_isDragging = false;
+}
+
+void SpawnUnitOnDrop::removeCard()
+{
+	// Remove Card from hand
+	userinterface::CardUIO* cardUIObject = this->m_attachedObject->getComponent<userinterface::CardUIO>();
+	userinterface::HandFrame::getActiveInstance()->removeCard((userinterface::UIObject*)cardUIObject);
+
+	// Delete Card
+	kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(this->m_attachedObject);
+
 }
 
 SpawnUnitOnDrop::SpawnUnitOnDrop()

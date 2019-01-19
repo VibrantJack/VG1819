@@ -52,7 +52,7 @@ namespace unit
 		void addCommander(Commander* p_c);
 		bool isCommander();
 		void manipulateTile();
-		void summonUnit();
+//		void summonUnit(int p_id);
 		//status interface
 		/*
 		void addStatus(ability::Status *p_newStatus);

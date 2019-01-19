@@ -5,7 +5,7 @@
 TileGetter::TileGetter()
 {
 	m_reg = false;
-	m_respond;
+	m_respond = false;
 }
 
 TileGetter::~TileGetter()
