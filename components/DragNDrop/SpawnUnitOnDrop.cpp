@@ -42,6 +42,10 @@ void SpawnUnitOnDrop::onClick()
 	else
 		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(false);
 
+
+	if (m_summoned)
+		return;
+
 	//check unit cost
 	unit::Unit* unit = m_attachedObject->getComponent<unit::Unit>();
 	if (BoardManager::getInstance()->getPowerTracker()->getCurrentPower() < unit->m_attributes[UNIT_COST] // Check if there is enough power to spawn this.
@@ -57,6 +61,15 @@ void SpawnUnitOnDrop::onClick()
 void SpawnUnitOnDrop::onDrop()
 {
 	DragNDrop::onDrop();
+
+	//send click on tile
+	kitten::K_GameObject* objectBehindCard = input::InputManager::getInstance()->getMouseLastHitObject();
+	if (objectBehindCard != nullptr)
+		objectBehindCard->getComponent<kitten::ClickableBox>()->onClick();
+
+	//change flag
+	m_summoned = true;
+
 	return;
 
 	/*

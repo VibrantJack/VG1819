@@ -131,6 +131,7 @@ void UnitInteractionManager::send()
 	{//set cast ability
 		m_unit->setCast(m_ad, m_package);
 	}
+
 	m_package = nullptr;
 	m_busy = false;
 }

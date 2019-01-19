@@ -4,6 +4,8 @@
 class SpawnUnitOnDrop : public DragNDrop
 {
 private:
+	bool m_summoned = false;
+
 public:
 	SpawnUnitOnDrop();
 	~SpawnUnitOnDrop();
