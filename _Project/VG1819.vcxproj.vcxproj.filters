@@ -872,6 +872,9 @@
     <ClCompile Include="ProjectileParticleSystemHelper.cpp">
       <Filter>components\util</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\scene change\StartNewDeckSetupWizard.cpp">
+      <Filter>components\scene changers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1869,6 +1872,9 @@
     </ClInclude>
     <ClInclude Include="ProjectileParticleSystemHelper.h">
       <Filter>components\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\scene change\StartNewDeckSetupWizard.h">
+      <Filter>components\scene changers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,87 @@
+{
+    "gameobjects" : [
+        {
+            "filename" : "camgameobj.txt", 
+            "translate" : [7, 7.0, 2.0],
+            "rotate" : [-70,0,0]
+        },
+		{
+			"filename" : "mainmenu_background.json"
+		},
+		{
+			"name" : "Deck name Input components",
+			"components" : [
+                {
+                    "name" : "StartNewDeckSetupWizard"
+                },
+				{
+					"name" : "TextBox",
+					"width" : 300 , 
+					"height" : 100 ,
+					"color" : [1,1,1]
+				},
+				{
+					"name" : "StringInputDisplay"
+                }
+			],
+			"translate2d" : [527, 339, -0.1]
+		},
+		{
+            "name" : "EnterDeckName frame",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/enter_ip_window.tga"
+                }
+            ],
+            "translate" : [280, 160, -0.9],
+            "scale2d" : [720, 360]
+        },
+        {
+            "name" : "Cancel Button",
+            "components" : [
+				{
+					"name" : "ChangeSceneOnClick",
+					"scene" : "deck-builder-deck_selection_screen.json"					
+				},
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_return.tga"
+                },
+				{
+					"name" : "ClickableButton",
+					"regularTexture" : "textures/ui/buttons/button_return.tga",
+					"highlightedTexture" : "textures/ui/buttons/button_return_highlighted.tga"
+				},
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [71, 21],
+            "scale2d" : [125, 80]
+        },
+        {
+            "name" : " Next Button ",
+            "components" : [
+				{
+					"name" : "ChangeSceneOnClick",
+					"scene" : "make_new_deck-CommanderScene.json"					
+				},
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_save.tga"
+                },
+                {
+                    "name" : "ClickableButton",
+                    "regularTexture" : "textures/ui/buttons/button_save.tga",
+                    "highlightedTexture" : "textures/ui/buttons/button_save_h.tga"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "translate2d" : [995, 22],
+            "scale2d" : [250, 80]
+        }
+    ]
+}

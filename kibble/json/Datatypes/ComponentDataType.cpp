@@ -1378,6 +1378,11 @@ kitten::K_Component* getMainMenu(nlohmann::json* p_jsonFile) {
 	return new MainMenu();
 }
 
+#include "components/scene change/StartNewDeckSetupWizard.h"
+kitten::K_Component* getStartNewDeckSetupWizard(nlohmann::json* p_jsonFile) {
+	return new StartNewDeckSetupWizard();
+}
+
 #include "components/CustomDataComponent.h"
 kitten::K_Component* getCustomDataComponent(nlohmann::json* p_jsonFile) {
 	CustomDataComponent* comp = new CustomDataComponent();
@@ -1687,6 +1692,7 @@ void setupComponentMap() {
 	jsonComponentMap["CustomDataComponent"] = &getCustomDataComponent;
 	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
 	jsonComponentMap["MainMenu"] = &getMainMenu;
+	jsonComponentMap["StartNewDeckSetupWizard"] = &getStartNewDeckSetupWizard;
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
 	jsonComponentMap["CardContext"] = &getCardContext;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
