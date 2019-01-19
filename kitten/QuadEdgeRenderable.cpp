@@ -25,17 +25,18 @@ kitten::QuadEdgeRenderable::QuadEdgeRenderable()
 	//If we have not initialized the vao yet
 	if (sm_instances < 1)
 	{
+		float side = 0.49f;
 		//setup the vao
 		puppy::TexturedVertex verts[] =
 		{
-		{ -0.5f, 0.01f, 0.5f,		0.0f, 0.0f },
-		{ 0.5f, 0.01f, 0.5f,			0.0f, 0.0f },
-		{ -0.5f, 0.01f, -0.5f,		0.0f, 0.0f },
-		{ 0.5f, 0.01f, -0.5f,		0.0f, 0.0f },
-		{ 0.5f, 0.01f, -0.5f,		0.0f, 0.0f },
-		{ 0.5f, 0.01f, 0.5f,			0.0f, 0.0f },
-		{ -0.5f, 0.01f, -0.5f,		0.0f, 0.0f },
-		{ -0.5f, 0.01f, 0.5f,		0.0f, 0.0f },
+		{ -side, 0.01f, side,		0.0f, 0.0f },
+		{ side, 0.01f, side,			0.0f, 0.0f },
+		{ -side, 0.01f, -side,		0.0f, 0.0f },
+		{ side, 0.01f, -side,		0.0f, 0.0f },
+		{ side, 0.01f, -side,		0.0f, 0.0f },
+		{ side, 0.01f, side,			0.0f, 0.0f },
+		{ -side, 0.01f, -side,		0.0f, 0.0f },
+		{ -side, 0.01f, side,		0.0f, 0.0f },
 		};
 		sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 8);
 	}
