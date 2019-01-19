@@ -39,6 +39,10 @@
 					"list" : "data/unit_projectileList.txt"
 				}
 			]
+		},
+		{
+			"filename" : "FPSCounter.txt",
+			"translate" : [20,600,0]
 		}
     ],
 	"scenes" : [

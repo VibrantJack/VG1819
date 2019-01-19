@@ -62,15 +62,27 @@ namespace puppy
 
 	int ShaderProgram::getUniformPlace(const std::string& p_name)
 	{
-		/*auto it = m_uniformPlaces.find(p_name.c_str());
+#ifdef DEBUG
+
+		return glGetUniformLocation(m_id, p_name.c_str());
+
+#else
+
+		auto& it = m_uniformPlaces.find(p_name);
 
 		if (it == m_uniformPlaces.end())
 		{
-			m_uniformPlaces.insert(std::make_pair(p_name, glGetUniformLocation(m_id, p_name.c_str())));
+			int place = glGetUniformLocation(m_id, p_name.c_str());
+			m_uniformPlaces.insert(std::make_pair(p_name, place));
+
+			return place;
 		}
-		
-		return m_uniformPlaces[p_name];
-		*/
-		return glGetUniformLocation(m_id, p_name.c_str());
+		else
+		{
+			return (*it).second;
+		}
+
+
+#endif
 	}
 }
