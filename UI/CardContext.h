@@ -25,8 +25,12 @@ private:
 	puppy::TextBox* m_initiativeBox;
 	puppy::TextBox* m_costBox;
 
-	std::vector<puppy::TextBox*> m_abilityList;
-	std::vector<puppy::TextBox*> m_statusList;
+	//std::vector<puppy::TextBox*> m_abilityAttributes;
+	//std::vector<puppy::TextBox*> m_abilityDescriptions;
+	puppy::TextBox* m_abilityAttributes[3];
+	puppy::TextBox* m_abilityDescriptions[3];
+
+	puppy::TextBox* m_statusList;
 
 	kitten::K_GameObject* m_cardTexture;
 	userinterface::UIObject* m_unitPortrait;
@@ -39,6 +43,7 @@ private:
 	void updateUnitData();
 	void updateUnitAttributes();
 	void setAttribTextColor(puppy::TextBox* p_textBox, const std::string& p_currAttrib, const std::string& p_baseAttrib);
+	void arrangeTextBoxes();
 
 public:
 	CardContext();
