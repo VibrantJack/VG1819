@@ -1,5 +1,7 @@
 #pragma once
 #include "unit/UnitCommon.h"
+#include "kitten/event_system/EventManager.h"
+
 //@Rock
 
 namespace unit
@@ -19,7 +21,7 @@ namespace unit
 		void init(Unit* p_u);
 
 		void manipulateTile();
-		void spawnUnit(int p_id);
+		void spawnUnit(kitten::Event::EventType p_type, kitten::Event * p_data);
 
 		void resetPower(int p_clientID);
 	};

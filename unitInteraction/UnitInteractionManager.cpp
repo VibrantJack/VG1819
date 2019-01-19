@@ -146,4 +146,6 @@ void UnitInteractionManager::addPropertyFromADToPack()
 	{
 		m_package->m_stringValue[it.first] = it.second;
 	}
+
+	m_package->m_cardGOForUnitSummon = m_ad->m_cardGOForUnitSummon;
 }

@@ -145,11 +145,11 @@ namespace unit
 			m_commander->manipulateTile();
 	}
 
-	void Unit::summonUnit(int p_id)
+/*	void Unit::summonUnit(int p_id)
 	{
 		if (isCommander())
 			m_commander->spawnUnit(p_id);
-	}
+	}*/
 
 	//turn
 	void Unit::turnStart(UnitTurn * p_t)

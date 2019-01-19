@@ -40,8 +40,9 @@
 //tags
 #define STRUCTURE "Structure"
 
-//id
-#define UNIT_ID "unit_id"
+
+#define UNIT "unit"
+
 
 //@Rock
 
@@ -63,6 +64,8 @@ namespace unit
 		//lv:int
 		std::unordered_map<std::string, std::string> m_stringValue;
 		std::unordered_map<std::string, int> m_intValue;
+
+		kitten::K_GameObject* m_cardGOForUnitSummon = nullptr;
 	};
 
 	struct StatusDescription

@@ -28,6 +28,9 @@ namespace ability
 		// Source ClientID, for networking
 		int m_sourceClientId;
 
+		//special pointer, for summonning
+		kitten::K_GameObject* m_cardGOForUnitSummon = nullptr;
+
 		AbilityInfoPackage() {};
 		~AbilityInfoPackage() {};
 

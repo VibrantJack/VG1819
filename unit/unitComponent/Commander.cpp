@@ -21,6 +21,11 @@ namespace unit
 	{
 		m_unit = p_u;
 
+		kitten::EventManager::getInstance()->addListener(
+			kitten::Event::EventType::Summon_Unit,
+			this,
+			std::bind(&Commander::spawnUnit, this, std::placeholders::_1, std::placeholders::_2));
+
 		//ad for summon unit
 		m_adSpawn = new unit::AbilityDescription();
 		m_adSpawn->m_stringValue["name"] = ABILITY_SUMMON_UNIT;
@@ -51,10 +56,17 @@ namespace unit
 			UnitInteractionManager::getInstance()->request(m_unit, m_adTile);
 	}
 
-	void Commander::spawnUnit(int p_id)
+	void Commander::spawnUnit(kitten::Event::EventType p_type, kitten::Event * p_data)
 	{
-		m_adSpawn->m_intValue[UNIT_ID] = p_id;
-		UnitInteractionManager::getInstance()->request(m_unit, m_adSpawn);
+		//not his turn
+		if (!m_unit->isTurn())
+			return;
+
+		if (p_type == kitten::Event::Summon_Unit)
+		{
+			m_adSpawn->m_cardGOForUnitSummon = p_data->getGameObj(UNIT);
+			UnitInteractionManager::getInstance()->request(m_unit, m_adSpawn);
+		}
 	}
 
 	void Commander::resetPower(int p_clientID)

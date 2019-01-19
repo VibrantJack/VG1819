@@ -12,4 +12,6 @@ public:
 	void onClick() override;
 	void onDrop() override;
 	void onPause() override;
+
+	void removeCard();
 };
