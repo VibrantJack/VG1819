@@ -334,22 +334,24 @@ void CardContext::arrangeTextBoxes()
 
 void CardContext::onEnabled()
 {
-	std::vector<kitten::Transform*> parentChildren = m_attachedObject->getTransform().getChildren();
+	/*std::vector<kitten::Transform*> parentChildren = m_attachedObject->getTransform().getChildren();
 	for (kitten::Transform* t : parentChildren)
 	{
 		t->getAttachedGameObject().setEnabled(true);
-	}
+	}*/
+	m_attachedObject->setEnabled(true);
 	m_cardTexture->setEnabled(true);
 	m_unitPortrait->setEnabled(true);
 }
 
 void CardContext::onDisabled()
 {
-	std::vector<kitten::Transform*> parentChildren = m_attachedObject->getTransform().getChildren();
+	/*std::vector<kitten::Transform*> parentChildren = m_attachedObject->getTransform().getChildren();
 	for (kitten::Transform* t : parentChildren)
 	{
 		t->getAttachedGameObject().setEnabled(true);
-	}
+	}*/
+	m_attachedObject->setEnabled(false);
 	m_cardTexture->setEnabled(false);
 	m_unitPortrait->setEnabled(false);
 }
