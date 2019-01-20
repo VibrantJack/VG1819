@@ -15,6 +15,8 @@ unit::UnitAura::~UnitAura()
 
 void unit::UnitAura::start()
 {
+	m_time = kitten::K_Time::getInstance();
+	assert(m_time != nullptr);
 }
 
 bool unit::UnitAura::hasUpdate() const
@@ -26,15 +28,22 @@ void unit::UnitAura::update()
 {
 	if (m_pos)
 	{
-		m_scale += m_speed;
+		m_scale += m_speed * m_time->getDeltaTime();
 		if (m_scale >= m_max)
+		{
+			m_scale = m_max;
 			m_pos = false;
+		}
 	}
 	else
 	{
-		m_scale -= m_speed;
+		m_scale -= m_speed * m_time->getDeltaTime();
 		if (m_scale <= m_min)
+		{
+			m_scale = m_min;
 			m_pos = true;
+		}
+			
 	}
 
 	m_attachedObject->getTransform().scaleAbsolute(m_scale,1,m_scale);

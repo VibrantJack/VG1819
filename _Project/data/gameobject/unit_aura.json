@@ -3,7 +3,7 @@
     "components" : [
         {
             "name":"UnitAura",
-            "speed":0.01
+            "speed": 0.75
         },
         {
             "name" : "SimpleQuadRenderable",
