@@ -128,6 +128,7 @@ namespace unit
 		kitten::K_GameObject* u12 = UnitSpawn::getInstance()->spawnUnitObject(15);//eternal eye
 		u12->getComponent<unit::UnitMove>()->setTile(11, 4);
 
+		BoardManager::getInstance()->getTile(11, 4)->getComponent<TileInfo>()->setDemonicPresence(true);
 		//test unit 
 		//unit::Unit* u = u1->getComponent<unit::Unit>();
 		//UnitMonitor::getInstanceSafe()->printUnit(u);

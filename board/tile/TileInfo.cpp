@@ -230,7 +230,7 @@ const bool TileInfo::isDemonicPresence()
 		return true;
 	else
 	{//check adjcent tile
-		if (m_adjTileList.size == 0)//no tile in the list
+		if (m_adjTileList.size() == 0)//no tile in the list
 			getAdjTile();
 		
 		for (int i = 0; i < m_adjTileList.size(); i++)

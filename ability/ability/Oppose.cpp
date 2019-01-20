@@ -32,7 +32,7 @@ namespace ability
 				target->move(tile);
 		}
 
-		if (source->m_attributes[DEMONIC_PRESENCE])
+		if (source->getTile()->getComponent<TileInfo>()->isDemonicPresence())
 		{
 			//damage target and delete package
 			singleTargetDamage(p_info);
