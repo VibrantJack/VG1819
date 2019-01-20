@@ -92,6 +92,12 @@ namespace ability
 
 		newAbility = new HereHomeland();
 		m_abilityList[ABILITY_HOMELAND] = newAbility;
+
+		newAbility = new Curse();
+		m_abilityList[ABILITY_CURSE] = newAbility;
+
+		newAbility = new Oppose();
+		m_abilityList[ABILITY_OPPOSE] = newAbility;
 	}
 
 	AbilityManager::AbilityManager()

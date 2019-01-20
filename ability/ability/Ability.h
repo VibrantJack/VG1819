@@ -255,6 +255,24 @@ namespace ability
 		HereHomeland() : Ability(ABILITY_HOMELAND) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
+
+	class Curse : public Ability
+	{
+	public:
+		Curse() : Ability(ABILITY_CURSE) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Oppose : public Ability
+	{
+	public:
+		Oppose() : Ability(ABILITY_OPPOSE) {};
+		int effect(AbilityInfoPackage* p_info);
+	private:
+		kitten::K_GameObject* getTile(kitten::K_GameObject* p_tile, int p_length, int p_direction);
+		int getDirection(const std::pair<int, int>& p_pos1, const std::pair<int, int>& p_pos2);
+		bool checkTile(kitten::K_GameObject* p_tileGO, int p_movePower);
+	};
 }
 
 

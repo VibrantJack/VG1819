@@ -40,8 +40,9 @@
 //tags
 #define STRUCTURE "Structure"
 
-
+//unit 
 #define UNIT "unit"
+#define DEMONIC_PRESENCE "Demonic Presence"
 
 
 //@Rock

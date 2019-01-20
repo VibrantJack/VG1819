@@ -100,8 +100,10 @@
     <ClCompile Include="..\ability\ability\Ability.cpp" />
     <ClCompile Include="..\ability\ability\Arm.cpp" />
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp" />
+    <ClCompile Include="..\ability\ability\Curse.cpp" />
     <ClCompile Include="..\ability\ability\Defend.cpp" />
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
+    <ClCompile Include="..\ability\ability\Oppose.cpp" />
     <ClCompile Include="..\ability\ability\PowerSurge.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
     <ClCompile Include="..\ability\ability\HereHomeland.cpp" />
@@ -125,6 +127,8 @@
     <ClCompile Include="..\ability\status\statusEvent\TimePointEvent.cpp" />
     <ClCompile Include="..\ability\status\Status_AD_Change.cpp" />
     <ClCompile Include="..\ability\status\Status_Archer_LV3.cpp" />
+    <ClCompile Include="..\ability\status\Status_Curse.cpp" />
+    <ClCompile Include="..\ability\status\Status_Demonic_Restriction.cpp" />
     <ClCompile Include="..\ability\status\Status_Dodge.cpp" />
     <ClCompile Include="..\ability\status\Status_Duelist_LV3.cpp" />
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />

@@ -13,3 +13,4 @@ DivineStatue.json
 Enchanter.json
 King.json
 Queen.json
+EternalEye.json

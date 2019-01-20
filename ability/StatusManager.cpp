@@ -43,6 +43,9 @@ namespace ability
 
 		s = new Status_Block();
 		m_statusList[STATUS_BLOCK] = s;
+
+		s = new Status_Curse();
+		m_statusList[STATUS_CURSE] = s;
 	}
 
 	StatusManager::StatusManager()

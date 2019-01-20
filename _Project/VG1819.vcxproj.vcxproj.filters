@@ -875,6 +875,18 @@
     <ClCompile Include="..\components\scene change\StartNewDeckSetupWizard.cpp">
       <Filter>components\scene changers</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Curse.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Demonic_Restriction.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Curse.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Oppose.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

@@ -25,6 +25,19 @@
 #define ABILITY_POWER_SURGE "Power Surge"
 #define ABILITY_RALLY "Rally"
 #define ABILITY_HOMELAND "Here is Homeland"
+
+#define ABILITY_CURSE "Curse"
+#define ABILITY_OPPOSE "Oppose"
+#define ABILITY_THRUST "Thrust"
+#define ABILITY_FEAR_STRIKE "Fear Strike"
+#define ABILITY_RELEASE_GAS "Release Gas"
+#define ABILITY_MUCUS "Mucus"
+#define ABILITY_SUMMON "Summon"
+#define ABILITY_ACTIVATE "Activate"
+
+//ability required info
+#define PUSH_BACK "push back"
+
 //ability-action
 #define ACTION_MOVE "Move"
 #define ACTION_JOIN "Join"
@@ -41,6 +54,11 @@
 #define STATUS_LOAD "Status_Load"
 #define STATUS_SHIELD "Status_Shield"
 #define STATUS_BLOCK "Status_Block"
+
+#define STATUS_DEMONIC_RESTRICTION "Status_Demonic_Restriction"
+#define STATUS_CURSE "Status_Curse"
+#define STATUS_FEAR "Status_Fear"
+#define STATUS_MUCUS "Status_Mucus"
 
 //status property
 #define STATUS_NAME "status_name"
