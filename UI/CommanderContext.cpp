@@ -44,7 +44,6 @@ namespace userinterface
 			this,
 			std::bind(&CommanderContext::commanderLoadListener, this, std::placeholders::_1, std::placeholders::_2));
 		//default	
-		attachCommander(kibble::getUnitFromId(13));
 	}
 
 	void CommanderContext::commanderLoadListener(kitten::Event::EventType p_type, kitten::Event* p_event)
