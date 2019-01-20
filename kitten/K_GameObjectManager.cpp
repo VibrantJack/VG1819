@@ -40,6 +40,14 @@ namespace kitten
 		auto found = m_gameObjects.find(p_toDestroy->m_objectIndex);
 		assert(found != m_gameObjects.end());
 
+		//avoid destroy twice
+		for (auto it = m_toDelete.begin(); it != m_toDelete.end(); ++it)
+		{
+			auto gameObject = (*it);
+			if (gameObject == p_toDestroy)
+				return;
+		}
+
 		m_toDelete.push_back(p_toDestroy);
 	}
 
