@@ -43,16 +43,11 @@
 	},
 	"components" : [
 		{
-			"name" : "UnitGraphic",
-			"texture":"textures/unit/StoneSlinger.tga",
-			"unitsize": "point"
-		},
-		{
 			"name" : "SpriteGroup",
-			"spritename":"stoneslinger",
-			"number":2,
+			"spritename":"eternal_eye",
+			"number":4,
 			"rotate":[45,0,0],
-			"scale":[0.8,0.8,1],
+			"scale":[13,0.8,1],
 			"translate":[0,0,0.15]
 		},
 		{
