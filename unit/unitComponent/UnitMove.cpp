@@ -12,7 +12,7 @@ void unit::UnitMove::triggerNewTileEvent()
 	Unit* u = m_attachedObject->getComponent<Unit>();
 
 	ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::New_Tile);
-	//t->putGameObject("tile", m_currentTile);
+	t->putGameObject("tile", m_currentTile);
 	u->triggerTP(ability::TimePointEvent::New_Tile);
 }
 

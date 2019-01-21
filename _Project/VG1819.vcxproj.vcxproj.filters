@@ -878,14 +878,14 @@
     <ClCompile Include="..\ability\status\Status_Curse.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\Status_Demonic_Restriction.cpp">
-      <Filter>ability\status</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\ability\Curse.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\ability\Oppose.cpp">
       <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\demonic_restriction\Status_Demonic_Restriction.cpp">
+      <Filter>ability\status\demonic_restriction</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1888,6 +1888,9 @@
     <ClInclude Include="..\components\scene change\StartNewDeckSetupWizard.h">
       <Filter>components\scene changers</Filter>
     </ClInclude>
+    <ClInclude Include="..\ability\status\demonic_restriction\Status_Demonic_Restriction.h">
+      <Filter>ability\status\demonic_restriction</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -2081,6 +2084,9 @@
     </Filter>
     <Filter Include="components\initializer">
       <UniqueIdentifier>{23c51a84-04fc-4055-b5ae-4e3f73b2d77b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ability\status\demonic_restriction">
+      <UniqueIdentifier>{ea0232e6-01f0-4b9a-9b52-edd895ea94e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

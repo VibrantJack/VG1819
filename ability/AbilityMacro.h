@@ -55,10 +55,13 @@
 #define STATUS_SHIELD "Status_Shield"
 #define STATUS_BLOCK "Status_Block"
 
-#define STATUS_DEMONIC_RESTRICTION "Status_Demonic_Restriction"
 #define STATUS_CURSE "Status_Curse"
 #define STATUS_FEAR "Status_Fear"
 #define STATUS_MUCUS "Status_Mucus"
+
+//demonic restriction
+#define STATUS_DEMONIC_RESTRICTION "Status_Demonic_Restriction"
+#define STATUS_DR_ETERNAL_EYE "Status_DR_Eternal_Eye"
 
 //status property
 #define STATUS_NAME "status_name"

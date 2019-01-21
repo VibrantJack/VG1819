@@ -196,14 +196,6 @@ namespace ability
 		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
 	};
 
-	class Status_Demonic_Restriction : public Status
-	{
-	public:
-		Status_Demonic_Restriction();
-		Status* clone() const { return new Status_Demonic_Restriction(*this); };
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
-	};
-
 	class Status_Curse : public Status
 	{
 	public:
