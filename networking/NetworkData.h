@@ -34,7 +34,16 @@ enum PacketTypes
 	PING_SOCKET
 };
 
-struct UnitInfo
+struct UnitPrimitiveData
+{
+	int m_kibbleID = -1;
+	int m_HP = -1, m_maxHP = -1;
+	int m_IN = -1, m_baseIN = -1;
+	int m_MV = -1, m_baseMV = -1;
+	int m_cost = -1, m_baseCost = -1;
+};
+
+struct UnitNetworkInfo
 {
 	int clientId;	// Who owns the unit
 	int unitId;		// Kibble unit ID
@@ -149,8 +158,8 @@ struct SkipTurnPacket : Packet
 
 struct StartingCommandersPacket : Packet
 {
-	UnitInfo commander0;
-	UnitInfo commander1;
+	UnitNetworkInfo commander0;
+	UnitNetworkInfo commander1;
 
 	void serialize(Buffer& p_buffer)
 	{
@@ -187,7 +196,7 @@ class AbilityPacket
 	typedef std::unordered_map<std::string, int> IntValues;
 	typedef std::vector<kitten::K_GameObject*>  TargetTiles;
 public:
-	int m_packetType;
+	int m_packetType = ABILITY_PACKET;
 	int m_clientId;
 	int m_sourceUnit;
 
@@ -199,18 +208,25 @@ public:
 	void serialize(Buffer& p_buffer);
 	void deserialize(Buffer& p_buffer);
 
+	void extractFromPackage(ability::AbilityInfoPackage* p_package);
+	void insertIntoPackage(ability::AbilityInfoPackage* p_package);
+
 	void addTargetUnits(TargetUnits p_targets);
 	void addIntValues(IntValues p_values);
 	void addTargetTiles(TargetTiles p_targetTilesGO);
+	void addUnitData(unit::Unit* p_unit);
 
 	const TargetUnits& getTargetUnits();
 	const IntValues& getIntValues();
 	const TargetTiles& getTargetTiles();
+	unit::Unit* getUnit();
 
 	int getSize();
 	int getBytes() { return m_totalBytes; }
 
 private:	
+	UnitPrimitiveData m_unit;
+
 	int m_sumKeysLength = 0;
 	int m_totalBytes = 0;
 

@@ -1,8 +1,10 @@
 #include "networking\NetworkData.h"
 #include "networking\ClientGame.h"
+#include "kitten\K_GameObjectManager.h"
 
 #include "unit\Unit.h"
 #include "board\BoardManager.h"
+#include "kibble\databank\databank.hpp"
 
 void AbilityPacket::print()
 {
@@ -95,8 +97,6 @@ void AbilityPacket::serialize(Buffer& p_buffer)
 	writeInt(p_buffer, this->m_sourceUnit);
 
 	writeInt(p_buffer, this->m_numTargetUnits);
-	networking::ClientGame* client = networking::ClientGame::getInstance();
-	assert(client != nullptr);
 	for (int i = 0; i < m_numTargetUnits; ++i)
 	{
 		int targetIndex = m_targets[i];
@@ -138,6 +138,17 @@ void AbilityPacket::serialize(Buffer& p_buffer)
 	{
 		writeChar(p_buffer, m_abilityName[i]);
 	}
+
+	// Unit Data
+	writeInt(p_buffer, m_unit.m_kibbleID);
+	writeInt(p_buffer, m_unit.m_HP);
+	writeInt(p_buffer, m_unit.m_maxHP);
+	writeInt(p_buffer, m_unit.m_IN);
+	writeInt(p_buffer, m_unit.m_baseIN);
+	writeInt(p_buffer, m_unit.m_MV);
+	writeInt(p_buffer, m_unit.m_baseMV);
+	writeInt(p_buffer, m_unit.m_cost);
+	writeInt(p_buffer, m_unit.m_baseCost);
 }
 
 void AbilityPacket::deserialize(Buffer& p_buffer)
@@ -180,6 +191,17 @@ void AbilityPacket::deserialize(Buffer& p_buffer)
 	{
 		m_abilityName += readChar(p_buffer);
 	}
+
+	// Unit Data
+	m_unit.m_kibbleID = readInt(p_buffer);
+	m_unit.m_HP = readInt(p_buffer);
+	m_unit.m_maxHP = readInt(p_buffer);
+	m_unit.m_IN = readInt(p_buffer);
+	m_unit.m_baseIN = readInt(p_buffer);
+	m_unit.m_MV = readInt(p_buffer);
+	m_unit.m_baseMV = readInt(p_buffer);
+	m_unit.m_cost = readInt(p_buffer);
+	m_unit.m_baseCost = readInt(p_buffer);
 }
 
 int AbilityPacket::getSize()
@@ -192,7 +214,8 @@ int AbilityPacket::getSize()
 		+ sizeof(m_numTargetUnits) 
 		+ sizeof(m_numIntValues) 
 		+ sizeof(m_numTargetTiles)
-		+ sizeof(m_abilityNameLength);
+		+ sizeof(m_abilityNameLength)
+		+ sizeof(m_unit);
 
 	// sizeof all int values in TargetUnits vector
 	int targetUnitsSize = sizeof(int) * m_numTargetUnits;
@@ -209,6 +232,36 @@ int AbilityPacket::getSize()
 	m_totalBytes = intVariablesSize + targetUnitsSize + intValuesSize + targetTilesSize + abilityNameSize + sizeof(int);
 
 	return m_totalBytes;
+}
+
+void AbilityPacket::extractFromPackage(ability::AbilityInfoPackage* p_package)
+{
+	m_sourceUnit = networking::ClientGame::getInstance()->getUnitGameObjectIndex(&p_package->m_source->getGameObject());
+	addTargetUnits(p_package->m_targets);
+	addIntValues(p_package->m_intValue);
+	addTargetTiles(p_package->m_targetTilesGO);
+
+	if (p_package->m_cardGOForUnitSummon != nullptr)
+	{
+		addUnitData(p_package->m_cardGOForUnitSummon->getComponent<unit::Unit>());
+	}
+}
+
+void AbilityPacket::insertIntoPackage(ability::AbilityInfoPackage* p_package)
+{
+	p_package->m_source = networking::ClientGame::getInstance()->getUnitGameObject(m_sourceUnit)->getComponent<unit::Unit>();
+	p_package->m_targets = getTargetUnits();
+	p_package->m_intValue = getIntValues();
+	p_package->m_targetTilesGO = getTargetTiles();
+
+	kitten::K_GameObject* unitGO = nullptr;
+	unit::Unit* unitComp = getUnit();
+	if (unitComp != nullptr)
+	{
+		unitGO = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+		unitGO->addComponent(unitComp);
+	}	
+	p_package->m_cardGOForUnitSummon = unitGO;
 }
 
 void AbilityPacket::addTargetUnits(TargetUnits p_targets)
@@ -256,6 +309,23 @@ void AbilityPacket::addTargetTiles(TargetTiles p_targetTilesGO)
 	m_targetTiles = tiles;
 }
 
+void AbilityPacket::addUnitData(unit::Unit* p_unit)
+{
+	m_unit.m_kibbleID = p_unit->m_kibbleID;
+
+	m_unit.m_HP = p_unit->m_attributes[UNIT_HP];
+	m_unit.m_maxHP = p_unit->m_attributes[UNIT_HP];
+
+	m_unit.m_IN = p_unit->m_attributes[UNIT_IN];
+	m_unit.m_baseIN = p_unit->m_attributes[UNIT_BASE_IN];
+
+	m_unit.m_MV = p_unit->m_attributes[UNIT_MV];
+	m_unit.m_baseMV = p_unit->m_attributes[UNIT_BASE_MV];
+
+	m_unit.m_cost = p_unit->m_attributes[UNIT_COST];
+	m_unit.m_baseCost = p_unit->m_attributes[UNIT_BASE_COST];
+}
+
 const std::vector<unit::Unit*>& AbilityPacket::getTargetUnits()
 {
 	networking::ClientGame* client = networking::ClientGame::getInstance();
@@ -290,4 +360,27 @@ const std::vector<kitten::K_GameObject*>& AbilityPacket::getTargetTiles()
 	}
 
 	return m_targetTilesGO;
+}
+
+unit::Unit* AbilityPacket::getUnit()
+{
+	if (m_unit.m_kibbleID == -1)
+		return nullptr;
+
+	// Create a copy of the unit component grabbed from kibble
+	unit::Unit* unit = kibble::getUnitInstanceFromId(m_unit.m_kibbleID);
+
+	unit->m_attributes[UNIT_HP] = m_unit.m_HP;
+	unit->m_attributes[UNIT_HP] = m_unit.m_maxHP;
+
+	unit->m_attributes[UNIT_IN] = m_unit.m_IN;
+	unit->m_attributes[UNIT_BASE_IN] = m_unit.m_baseIN;
+
+	unit->m_attributes[UNIT_MV] = m_unit.m_MV;
+	unit->m_attributes[UNIT_BASE_MV] = m_unit.m_baseMV;
+
+	unit->m_attributes[UNIT_COST] = m_unit.m_cost;
+	unit->m_attributes[UNIT_BASE_COST] = m_unit.m_baseCost;
+
+	return unit;
 }
