@@ -875,6 +875,15 @@
     <ClCompile Include="..\components\scene change\StartNewDeckSetupWizard.cpp">
       <Filter>components\scene changers</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\PromptPopUp.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\PromptPopUpDeclineOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\PromptPopUpSuccessOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1875,6 +1884,15 @@
     </ClInclude>
     <ClInclude Include="..\components\scene change\StartNewDeckSetupWizard.h">
       <Filter>components\scene changers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\PromptPopUp.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\PromptPopUpDeclineOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\PromptPopUpSuccessOnClick.h">
+      <Filter>components\clickables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1434,6 +1434,24 @@ kitten::K_Component* getQuadEdgeRenderable(nlohmann::json* p_jsonFile)
 	return new kitten::QuadEdgeRenderable();
 }
 
+#include "components/PromptPopUp.h"
+kitten::K_Component* getPromptPopUp(nlohmann::json* p_jsonFile)
+{
+	return new PromptPopUp();
+}
+
+#include "components/clickables/PromptPopUpSuccessOnClick.h"
+kitten::K_Component* getPromptPopUpSuccessOnClick(nlohmann::json* p_jsonFile)
+{
+	return new PromptPopUpSuccessOnClick();
+}
+
+#include "components/clickables/PromptPopUpDeclineOnClick.h"
+kitten::K_Component* getPromptPopUpDeclineOnClick(nlohmann::json* p_jsonFile)
+{
+	return new PromptPopUpDeclineOnClick();
+}
+
 #include "board/tile/TileDecoration.h"
 kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
 {
@@ -1710,6 +1728,9 @@ void setupComponentMap() {
 	jsonComponentMap["CounterGetterButton"] = &getCounterGetterButton;
 	jsonComponentMap["ContextMenu"] = &getContextMenu;
 	jsonComponentMap["NewTurnMessageController"] = &getNewTurnMessageController;
+	jsonComponentMap["PromptPopUp"] = &getPromptPopUp;
+	jsonComponentMap["PromptPopUpSuccessOnClick"] = &getPromptPopUpSuccessOnClick;
+	jsonComponentMap["PromptPopUpDeclineOnClick"] = &getPromptPopUpDeclineOnClick;
 	jsonComponentMap["TimerSymbol"] = &getTimerSymbol;
 	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
 	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;

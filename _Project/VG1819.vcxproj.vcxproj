@@ -185,6 +185,8 @@
     <ClCompile Include="..\components\clickables\DiscardDeckOnClick.cpp" />
     <ClCompile Include="..\components\clickables\ChangeUnitOnClick.cpp" />
     <ClCompile Include="..\components\clickables\HoverOverCardBehavior.cpp" />
+    <ClCompile Include="..\components\clickables\PromptPopUpDeclineOnClick.cpp" />
+    <ClCompile Include="..\components\clickables\PromptPopUpSuccessOnClick.cpp" />
     <ClCompile Include="..\components\clickables\SaveDeckOnClick.cpp" />
     <ClCompile Include="..\components\clickables\SetCommanderOnClick.cpp" />
     <ClCompile Include="..\components\CustomCursor.cpp" />
@@ -205,6 +207,7 @@
     <ClCompile Include="..\components\DrawCardOnClickUI.cpp" />
     <ClCompile Include="..\components\initializers\DrawCardsFromDeckWithDelay.cpp" />
     <ClCompile Include="..\components\MainMenuBoard.cpp" />
+    <ClCompile Include="..\components\PromptPopUp.cpp" />
     <ClCompile Include="..\components\scene change\StartGameOnClick.cpp" />
     <ClCompile Include="..\components\ExitGameButton.cpp" />
     <ClCompile Include="..\components\scene change\StartNewDeckSetupWizard.cpp" />
@@ -501,6 +504,8 @@
     <ClInclude Include="..\components\clickables\DiscardDeckOnClick.h" />
     <ClInclude Include="..\components\clickables\ChangeUnitOnClick.h" />
     <ClInclude Include="..\components\clickables\HoverOverCardBehavior.h" />
+    <ClInclude Include="..\components\clickables\PromptPopUpDeclineOnClick.h" />
+    <ClInclude Include="..\components\clickables\PromptPopUpSuccessOnClick.h" />
     <ClInclude Include="..\components\clickables\SaveDeckOnClick.h" />
     <ClInclude Include="..\components\clickables\SetCommanderOnClick.h" />
     <ClInclude Include="..\components\CustomCursor.h" />
@@ -522,6 +527,7 @@
     <ClInclude Include="..\components\ExitGameButton.h" />
     <ClInclude Include="..\components\initializers\DrawCardsFromDeckWithDelay.h" />
     <ClInclude Include="..\components\MainMenuBoard.h" />
+    <ClInclude Include="..\components\PromptPopUp.h" />
     <ClInclude Include="..\components\scene change\StartGameOnClick.h" />
     <ClInclude Include="..\components\scene change\StartNewDeckSetupWizard.h" />
     <ClInclude Include="..\components\SetupDeckEditOnSceneChange.h" />

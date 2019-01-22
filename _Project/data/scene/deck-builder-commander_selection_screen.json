@@ -17,7 +17,7 @@
                     "name" : "UIFrame"
                 }
             ],
-            "translate": [0,0,-0.5],
+            "translate": [0,0,-0.9],
 			"translate2d" : [100, 160],
             "scale2d" : [1100,360]
         },
@@ -68,6 +68,14 @@
             ],
             "translate2d" : [995, 22],
             "scale2d" : [250, 80]
+        },
+        {
+            "name" : "Prompt Pop Up",
+            "components":[
+                {
+                    "name" : "PromptPopUp"
+                }
+            ]
         }
     ]
 }
