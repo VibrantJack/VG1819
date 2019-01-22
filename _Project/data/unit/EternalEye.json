@@ -34,9 +34,15 @@
 		"status":[
 			{
 				"name":"Status_LV",
-				"lv":3,
-				"hp":10,
-				"in":7
+				"lv":2,
+				"hp":3
+			},
+			{
+				"name":"Status_Eternal_Eye_LV3",
+				"lv":3
+			},
+			{
+				"name":"Status_DR_Eternal_Eye"
 			}
 		],
 		"portrait_texture" : "textures/cards/500x500/StoneSlinger.tga"

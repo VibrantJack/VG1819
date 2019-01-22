@@ -55,6 +55,7 @@
 #define STATUS_SHIELD "Status_Shield"
 #define STATUS_BLOCK "Status_Block"
 
+#define STATUS_ETERNAL_EYE_LV3 "Status_Eternal_Eye_LV3"
 #define STATUS_CURSE "Status_Curse"
 #define STATUS_FEAR "Status_Fear"
 #define STATUS_MUCUS "Status_Mucus"

@@ -16,6 +16,8 @@ Remove tiles that meets some conditions from tile list.
 #define FILTER_ENEMY "enemy"
 #define FILTER_ALLY "ally"
 
+#define FILTER_NOT_DP "not_demonic_presence"
+
 #define FILTER "filter"
 #define AREA_FILTER "area_filter"
 

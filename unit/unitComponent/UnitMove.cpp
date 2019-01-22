@@ -13,7 +13,7 @@ void unit::UnitMove::triggerNewTileEvent()
 
 	ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::New_Tile);
 	t->putGameObject("tile", m_currentTile);
-	u->triggerTP(ability::TimePointEvent::New_Tile);
+	u->triggerTP(ability::TimePointEvent::New_Tile,t);
 }
 
 void unit::UnitMove::triggerLeaveTileEvent()

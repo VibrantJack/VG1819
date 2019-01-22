@@ -37,7 +37,7 @@ namespace ability
 		virtual int effect(unit::Unit* p_target, const std::string& p_abilityName, const std::string& p_valueName, int p_value);
 		virtual int effect(unit::Unit* p_target, const std::string& p_abilityName, const std::string& p_valueName, const std::string& p_value);
 		virtual int effect(ability::AbilityInfoPackage* p_pack, const std::string& p_valueName, int p_value);
-		virtual kitten::K_GameObject* spawn(unit::Unit* p_data);
+		//virtual kitten::K_GameObject* spawn(unit::Unit* p_data);
 		//the method call
 		//TO DO: override method with parameters
 	};
@@ -70,6 +70,12 @@ namespace ability
 
 		int effect(unit::Unit* p_target, const std::string& p_abilityName, const std::string& p_valueName, int p_value);
 		int effect(unit::Unit* p_target, const std::string& p_abilityName, const std::string& p_valueName, const std::string& p_value);
+
+		//ability description filter
+		void addFilter(unit::Unit* p_target, const std::string& p_abilityName, const std::string & p_filter, const std::string& p_filterName);
+		void removeFilter(unit::Unit* p_target, const std::string& p_abilityName, const std::string & p_filter, const std::string& p_filterName);
+	private:
+		int getFilter(unit::Unit* p_target, const std::string& p_abilityName, const std::string & p_filter, const std::string& p_filterName);
 	};
 
 	class ChangeAbilityInfoNode : public ability::AbilityNode
@@ -91,6 +97,7 @@ namespace ability
 		kitten::K_GameObject* spawn(unit::UnitData* p_data);
 	};*/
 
+	/*
 	//TO DO: implement
 	class TileChangeNode : public ability::AbilityNode
 	{
@@ -98,7 +105,7 @@ namespace ability
 		TileChangeNode();
 		
 		int effect();
-	};
+	};*/
 }
 
 

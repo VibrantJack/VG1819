@@ -887,6 +887,12 @@
     <ClCompile Include="..\ability\status\demonic_restriction\Status_Demonic_Restriction.cpp">
       <Filter>ability\status\demonic_restriction</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Eternal_Eye_LV3.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Eternal_Eye.cpp">
+      <Filter>ability\status\demonic_restriction</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

@@ -13,4 +13,13 @@ namespace ability
 		virtual void restrictionOn() = 0;
 		virtual void restrictionOff() = 0;
 	};
+
+	class Status_DR_Eternal_Eye : public Status_Demonic_Restriction
+	{
+	public:
+		Status_DR_Eternal_Eye();
+		Status* clone() const { return new Status_DR_Eternal_Eye(*this); };
+		void restrictionOn();
+		void restrictionOff();
+	};
 }

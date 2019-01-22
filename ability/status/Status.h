@@ -203,6 +203,16 @@ namespace ability
 		Status* clone() const { return new Status_Curse(*this); };
 		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
 	};
+
+	class Status_Eternal_Eye_LV3 : public Status_LV
+	{
+		//this is trigger when Eternal Eye is lv3
+	public:
+		Status_Eternal_Eye_LV3();
+		Status* clone() const { return new Status_Eternal_Eye_LV3(*this); };
+
+		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+	};
 }
 
 

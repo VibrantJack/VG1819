@@ -3,9 +3,8 @@
 #include "ability/AbilityManager.h"
 #include "ability/AbilityInfoPackage.h"
 #include "kitten/K_Common.h"
-#include "unit/unitComponent/UnitGraphic.h"
 #include "UI/CardArt.h"
-#include "ability/status/Status.h"
+#include "ability/StatusManager.h"
 
 //attributes
 #define UNIT_HP "hp"

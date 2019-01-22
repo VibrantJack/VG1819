@@ -46,6 +46,12 @@ namespace ability
 
 		s = new Status_Curse();
 		m_statusList[STATUS_CURSE] = s;
+
+		s = new Status_Eternal_Eye_LV3();
+		m_statusList[STATUS_ETERNAL_EYE_LV3] = s;
+
+		s = new Status_DR_Eternal_Eye();
+		m_statusList[STATUS_DR_ETERNAL_EYE] = s;
 	}
 
 	StatusManager::StatusManager()
