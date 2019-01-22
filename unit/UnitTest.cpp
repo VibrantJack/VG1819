@@ -122,13 +122,13 @@ namespace unit
 		u10->getComponent<unit::UnitMove>()->setTile(10, 4);
 //		u10->getComponent<unit::Unit>()->m_attributes[UNIT_LV] = 3;
 //		u10->getComponent<unit::Unit>()->m_attributes[COUNTER_ENERGY] = 4;
-		kitten::K_GameObject* u11 = UnitSpawn::getInstance()->spawnUnitObject(5);//wall
-		u11->getComponent<unit::UnitMove>()->setTile(12, 2);
+//		kitten::K_GameObject* u11 = UnitSpawn::getInstance()->spawnUnitObject(5);//wall
+//		u11->getComponent<unit::UnitMove>()->setTile(12, 2);
 		
-		kitten::K_GameObject* u12 = UnitSpawn::getInstance()->spawnUnitObject(15);//eternal eye
-		u12->getComponent<unit::UnitMove>()->setTile(11, 4);
+//		kitten::K_GameObject* u12 = UnitSpawn::getInstance()->spawnUnitObject(15);//eternal eye
+//		u12->getComponent<unit::UnitMove>()->setTile(11, 4);
 
-//		BoardManager::getInstance()->getTile(11, 4)->getComponent<TileInfo>()->setDemonicPresence(true);
+		BoardManager::getInstance()->getTile(10, 4)->getComponent<TileInfo>()->setDemonicPresence(true);
 		//test unit 
 		//unit::Unit* u = u1->getComponent<unit::Unit>();
 		//UnitMonitor::getInstanceSafe()->printUnit(u);

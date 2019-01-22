@@ -71,3 +71,17 @@ public:
 	void filter(kitten::Event::TileList* p_list);
 };
 
+class NotDPFilter : public TileFilter
+{//remove tiles that's not demonic presence
+public:
+	NotDPFilter(TilePipeline* p_p) :TileFilter(p_p) {};
+	void filter(kitten::Event::TileList* p_list);
+};
+
+class IsDPFilter : public TileFilter
+{//remove tiles that is demonic presence
+public:
+	IsDPFilter(TilePipeline* p_p) :TileFilter(p_p) {};
+	void filter(kitten::Event::TileList* p_list);
+};
+

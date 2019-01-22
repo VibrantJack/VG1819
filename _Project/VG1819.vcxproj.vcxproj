@@ -103,6 +103,8 @@
     <ClCompile Include="..\ability\ability\Curse.cpp" />
     <ClCompile Include="..\ability\ability\Defend.cpp" />
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
+    <ClCompile Include="..\ability\ability\FearStrike.cpp" />
+    <ClCompile Include="..\ability\ability\Mucus.cpp" />
     <ClCompile Include="..\ability\ability\Oppose.cpp" />
     <ClCompile Include="..\ability\ability\PowerSurge.cpp" />
     <ClCompile Include="..\ability\ability\Heal.cpp" />
@@ -153,7 +155,9 @@
     <ClCompile Include="..\board\component\PathFind.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\AllyFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\EnemyFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\IsDPFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\NoCommanderFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\NotDPFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />

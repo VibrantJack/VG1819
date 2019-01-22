@@ -39,10 +39,12 @@
 			},
 			{
 				"name":"Status_Eternal_Eye_LV3",
-				"lv":3
+				"lv":3,
+				"description":"Curse deal 2 more damage and Oppose knock back 3 blocks away"
 			},
 			{
-				"name":"Status_DR_Eternal_Eye"
+				"name":"Status_DR_Eternal_Eye",
+				"description":"The Surprising Eye cannot Oppose units that are not occupying a tile with [Demonic Presence]"
 			}
 		],
 		"portrait_texture" : "textures/cards/500x500/StoneSlinger.tga"

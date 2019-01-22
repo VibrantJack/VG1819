@@ -893,6 +893,18 @@
     <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Eternal_Eye.cpp">
       <Filter>ability\status\demonic_restriction</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\IsDPFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\NotDPFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\FearStrike.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Mucus.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

@@ -162,10 +162,13 @@ void ability::Ability::addStatusInfo(Status * p_st, AbilityInfoPackage* p_info)
 		std::string name = it->second;
 		p_st->changeName(name);
 	}
+
 	it = p_info->m_stringValue.find(STATUS_DESCRIPTION);
 	if (it != p_info->m_stringValue.end())
 	{
 		std::string des = it->second;
 		p_st->changeDescription(des);
 	}
+
+	p_st->m_source = m_name;
 }

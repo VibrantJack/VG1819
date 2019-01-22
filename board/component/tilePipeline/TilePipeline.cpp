@@ -25,6 +25,12 @@ TilePipeline::TilePipeline()
 
 	filter = new AllyFilter(this);
 	m_filterList[FILTER_ALLY] = filter;
+
+	filter = new IsDPFilter(this);
+	m_filterList[FILTER_IS_DP] = filter;
+
+	filter = new NotDPFilter(this);
+	m_filterList[FILTER_NOT_DP] = filter;
 }
 
 TilePipeline::~TilePipeline()
