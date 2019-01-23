@@ -30,7 +30,10 @@ namespace ability
 		unit::Unit* unit = p_info->m_cardGOForUnitSummon->getComponent<unit::Unit>();
 
 		// Update Power Tracker
-		BoardManager::getInstance()->getPowerTracker()->summonUnitCost(unit->m_attributes[UNIT_COST]);
+		if (p_info->m_sourceClientId == networking::ClientGame::getClientId() || networking::ClientGame::getClientId() == -1)
+		{
+			BoardManager::getInstance()->getPowerTracker()->summonUnitCost(unit->m_attributes[UNIT_COST]);
+		}
 
 		// Generate Unit and set Tile
 		kitten::K_GameObject* summonedUnitGO = unit::UnitSpawn::getInstance()->spawnUnitObject(unit);
