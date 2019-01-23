@@ -1,4 +1,6 @@
 #include "Renderer.h"
+#include "kitten\K_UIRenderable.h"
+
 
 #define DEFAULT_BLEND_SOURCE_FACTOR  GL_SRC_ALPHA
 #define DEFAULT_BLEND_DESTINATION_FACTOR GL_ONE
@@ -38,12 +40,12 @@ namespace puppy
 		m_toRender.erase(p_toRemove);
 	}
 
-	void Renderer::addUIToRender(P_UIRenderable* p_toAdd)
+	void Renderer::addUIToRender(kitten::K_RenderNode* p_toAdd)
 	{
 		m_uiToRender.insert(p_toAdd);
 	}
 
-	void Renderer::removeUIFromRender(P_UIRenderable* p_toRemove)
+	void Renderer::removeUIFromRender(kitten::K_RenderNode* p_toRemove)
 	{
 		m_uiToRender.erase(p_toRemove);
 	}
@@ -93,7 +95,33 @@ namespace puppy
 		auto uiEnd = m_uiToRender.end();
 		for (auto it = m_uiToRender.begin(); it != uiEnd; ++it)
 		{
-			(*it)->uiRender(p_cam);
+			renderUI(p_cam, (*it));
+		}
+	}
+
+	void Renderer::renderUI(kitten::Camera* p_cam, kitten::K_RenderNode* p_toRender) const
+	{
+		if (p_toRender->isEnabled())
+		{
+			const auto& uiRenderables = p_toRender->m_uiRenderables;
+			if (!uiRenderables.empty())
+			{
+				auto end = uiRenderables.cend();
+				for (auto it = uiRenderables.cbegin(); it != end; ++it)
+				{
+					(*it)->uiRender(p_cam);
+				}
+			}
+
+			const auto& childNodes = p_toRender->m_childRenderNodes;
+			if (!childNodes.empty())
+			{
+				auto end = childNodes.cend();
+				for (auto it = childNodes.cbegin(); it != end; ++it)
+				{
+					renderUI(p_cam, (*it));
+				}
+			}
 		}
 	}
 

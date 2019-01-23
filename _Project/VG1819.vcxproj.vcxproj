@@ -258,6 +258,7 @@
     <ClCompile Include="..\kitten\K_JobManager.cpp" />
     <ClCompile Include="..\kitten\K_ParticleSystem.cpp" />
     <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
+    <ClCompile Include="..\kitten\K_RenderNode.cpp" />
     <ClCompile Include="..\kitten\K_Time.cpp" />
     <ClCompile Include="..\kitten\lights\K_DirectionalLight.cpp" />
     <ClCompile Include="..\kitten\ModelRenderable.cpp" />
@@ -587,6 +588,7 @@
     <ClInclude Include="..\kitten\K_ParticleSystem.h" />
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
     <ClInclude Include="..\kitten\K_Instance.h" />
+    <ClInclude Include="..\kitten\K_RenderNode.h" />
     <ClInclude Include="..\kitten\K_Routine.h" />
     <ClInclude Include="..\kitten\K_Time.h" />
     <ClInclude Include="..\kitten\lights\K_DirectionalLight.h" />

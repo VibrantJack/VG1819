@@ -409,6 +409,11 @@ namespace kitten
 		return false;
 	}
 
+	bool Transform::hasChildren() const
+	{
+		return !m_children.empty();
+	}
+
 	const std::vector<Transform*>& Transform::getChildren() const
 	{
 		return m_children;

@@ -875,6 +875,9 @@
     <ClCompile Include="..\components\scene change\StartNewDeckSetupWizard.cpp">
       <Filter>components\scene changers</Filter>
     </ClCompile>
+    <ClCompile Include="..\kitten\K_RenderNode.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1875,6 +1878,9 @@
     </ClInclude>
     <ClInclude Include="..\components\scene change\StartNewDeckSetupWizard.h">
       <Filter>components\scene changers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_RenderNode.h">
+      <Filter>kitten</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
