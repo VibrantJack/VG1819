@@ -1079,6 +1079,8 @@ kitten::K_Component* getUIElement(nlohmann::json* p_jsonFile) {
 	return new userinterface::UIElement(texture.c_str(),type, tb);
 }
 
+#include "UI\Borders\BorderPiece.h"
+
 #include "kitten\ModelRenderable.h"
 kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
 

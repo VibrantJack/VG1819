@@ -875,6 +875,12 @@
     <ClCompile Include="..\components\scene change\StartNewDeckSetupWizard.cpp">
       <Filter>components\scene changers</Filter>
     </ClCompile>
+    <ClCompile Include="SquareBorder.cpp">
+      <Filter>UI\Borders</Filter>
+    </ClCompile>
+    <ClCompile Include="BorderPiece.cpp">
+      <Filter>UI\Borders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1876,6 +1882,12 @@
     <ClInclude Include="..\components\scene change\StartNewDeckSetupWizard.h">
       <Filter>components\scene changers</Filter>
     </ClInclude>
+    <ClInclude Include="SquareBorder.h">
+      <Filter>UI\Borders</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderPiece.h">
+      <Filter>UI\Borders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -2069,6 +2081,9 @@
     </Filter>
     <Filter Include="components\initializer">
       <UniqueIdentifier>{23c51a84-04fc-4055-b5ae-4e3f73b2d77b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Borders">
+      <UniqueIdentifier>{bce99ca2-9883-4d20-b1e6-32a086ce157d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

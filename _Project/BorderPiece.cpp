@@ -1,76 +1,19 @@
-#include "UIElement.h"
-#include "puppy\Renderer.h"
-#include "puppy\StaticRenderables.h"
-
+#include "BorderPiece.h"
 
 namespace userinterface
-{ 
-	std::map<UIElement::pivotType, puppy::VertexEnvironment*> UIElement::sm_vao;
-	std::map<UIElement::pivotType, int> UIElement::sm_instances;
-
-	UIElement::UIElement(const char* p_pathToTex)
+{
+	BorderPiece::BorderPiece(BorderPlacement p_bp) : UIElement(DEFAULT_TEXTURE)
 	{
-		m_texPath = p_pathToTex;
-		m_tex = new puppy::Texture(p_pathToTex);
-		m_mat = new puppy::Material(puppy::ShaderType::alphaTest);
-		if (p_pathToTex != nullptr)
-		{
-			m_mat->setTexture(p_pathToTex);
-		}
-		else {
-			m_mat->setTexture(DEFAULT_TEXTURE);
-			m_texPath = DEFAULT_TEXTURE;
-		}
-		m_texBehaviour = tbh_Stretch;
-		m_pivotType = piv_BotLeft;
-
-		m_isEnabled = true;
-
+		m_borderPlacement = p_bp;
 	}
 
-	UIElement::UIElement(const char* p_pathToTex, pivotType p_pivot, textureBehaviour p_texBehaviour)
+
+	BorderPiece::~BorderPiece()
 	{
-		m_texPath = p_pathToTex;
-		m_tex = new puppy::Texture(p_pathToTex);
-		m_mat = new puppy::Material(puppy::ShaderType::alphaTest);
-		if (p_pathToTex != nullptr)
-		{
-			m_mat->setTexture(p_pathToTex);
-		}
-		else {
-			m_mat->setTexture(DEFAULT_TEXTURE);
-			m_texPath = DEFAULT_TEXTURE;
-		}
-
-		m_texBehaviour = p_texBehaviour;
-		m_pivotType = p_pivot;
-
-		m_isEnabled = true;
-
 	}
 
-	UIElement::~UIElement()
+	void BorderPiece::defineVerts()
 	{
-		delete m_mat;
-		if (--sm_instances[m_pivotType] == 0)
-		{
-			delete sm_vao[m_pivotType];
-			sm_vao[m_pivotType] = nullptr;
-		}
-		if (m_isEnabled)
-		{
-			removeFromDynamicUIRender();
-		}
-	}
-
-	void UIElement::start()
-	{
-		defineVerts();
-	}
-	
-	void UIElement::defineVerts()
-	{
-
 		//quad coords (ortho)
 		float xmin, ymin, xmax, ymax, z, u, v;
 		z = 0.0;
@@ -108,6 +51,56 @@ namespace userinterface
 			m_tex->setWrapping(GL_MIRRORED_REPEAT);
 			break;
 		};
+		}
+
+
+		//pivot type depends on the position of the border 
+		//piece relative to the thing it's surrounding.
+		glm::vec3 parentPos = getGameObject().getTransform().getTranslation();
+		glm::vec2 parentScale = getGameObject().getTransform().getScale2D();
+		switch (m_borderPlacement)
+		{
+		case bp_Left:
+		{
+			m_pivotType = piv_Right;
+			getGameObject().getTransform().place2D(parentPos.x, parentPos.y + parentScale.y / 2);
+			break;
+		}
+		case bp_Top:
+		{
+			m_pivotType = piv_Bot;
+			break;
+		}
+		case bp_Right:
+		{
+			m_pivotType = piv_Left;
+			break;
+		}
+		case bp_Bot:
+		{
+			m_pivotType = piv_Top;
+			break;
+		}
+		case bp_TopLeft:
+		{
+			m_pivotType = piv_BotRight;
+			break;
+		}
+		case bp_TopRight:
+		{
+			m_pivotType = piv_BotLeft;
+			break;
+		}
+		case bp_BotRight:
+		{
+			m_pivotType = piv_TopLeft;
+			break;
+		}
+		case bp_BotLeft:
+		{
+			m_pivotType = piv_TopRight;
+			break;
+		}
 		}
 
 		switch (m_pivotType)
@@ -197,43 +190,4 @@ namespace userinterface
 
 		this->addToDynamicUIRender();
 	}
-
-		void UIElement::onDisabled()
-		{
-			removeFromDynamicUIRender();
-		}
-
-		void UIElement::onEnabled()
-		{
-			addToDynamicUIRender();
-		}
-
-		void UIElement::uiRender(kitten::Camera* p_cam)
-		{
-			m_mat->apply();
-
-			glm::mat4 wvp = p_cam->getOrtho() * getTransform().getWorldTransform();
-			m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
-
-			sm_vao[m_pivotType]->drawArrays(GL_TRIANGLES);
-		}
-
-		void UIElement::setTexture(const char* p_pathToTex)
-		{
-			//delete m_tex;
-			//m_tex = new puppy::Texture(p_pathToTex);
-
-			m_mat->setTexture(p_pathToTex);
-			m_texPath = p_pathToTex;
-		}
-
-		void UIElement::setPivotType(const pivotType p_piv)
-		{
-			m_pivotType = p_piv;
-		}
-
-		void UIElement::setTexBehaviour(const textureBehaviour p_tb)
-		{
-			m_texBehaviour = p_tb;
-		}
-	}
+}
