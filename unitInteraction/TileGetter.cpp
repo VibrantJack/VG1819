@@ -238,7 +238,7 @@ void TileGetter::send()
 void TileGetter::cancel()
 {
 	//deregisterEvent();
-	//triggerUnhighlightEvent();
+	triggerUnhighlightEvent();
 	m_respond = false;
 	UnitInteractionManager::getInstance()->cancel();
 }

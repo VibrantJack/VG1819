@@ -42,14 +42,12 @@ void SpawnUnitOnDrop::onClick()
 	else
 		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(false);
 
-
-	if (m_summoned)
+	if (!m_isDragging)
 		return;
 
 	//check unit cost
 	unit::Unit* unit = m_attachedObject->getComponent<unit::Unit>();
-	if (BoardManager::getInstance()->getPowerTracker()->getCurrentPower() < unit->m_attributes[UNIT_COST] // Check if there is enough power to spawn this.
-		)
+	if (BoardManager::getInstance()->getPowerTracker()->getCurrentPower() < unit->m_attributes[UNIT_COST]) // Check if there is enough power to spawn this.
 		return;
 
 	//send summon event
@@ -60,70 +58,21 @@ void SpawnUnitOnDrop::onClick()
 
 void SpawnUnitOnDrop::onDrop()
 {
-	DragNDrop::onDrop();
-
-	//send click on tile
 	kitten::K_GameObject* objectBehindCard = input::InputManager::getInstance()->getMouseLastHitObject();
 	if (objectBehindCard != nullptr)
+	{
 		objectBehindCard->getComponent<kitten::ClickableBox>()->onClick();
-
-	//change flag
-	m_summoned = true;
-
-	return;
-
-	/*
-	// Check if we hit something
-	kitten::K_GameObject* targetTile = input::InputManager::getInstance()->getMouseLastHitObject();
-	kitten::K_GameObject* targetFrame = input::InputManager::getInstance()->getMouseLastHitFrame();
-	if (targetTile == nullptr  // No Target
-		|| (targetFrame != nullptr && targetFrame != &m_attachedFrame->getGameObject()) // Over UI or our card
-		|| targetTile->getComponent<TileInfo>() == nullptr // Target isn't a tile
-		|| targetTile->getComponent<TileInfo>()->hasUnit() // Target tile already has a unit on it
-		)
-	{
-		DragNDrop::onDrop();
-		return;
 	}
-	
-	// Unit setup
-	unit::Unit* unit = m_attachedObject->getComponent<unit::Unit>();
-
-	// Check for unit stuff.
-	if(BoardManager::getInstance()->getPowerTracker()->getCurrentPower() < unit->m_attributes[UNIT_COST] // Check if there is enough power to spawn this.
-		)
+	else
 	{
-		DragNDrop::onDrop();
-		return;
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Cancel_Summon, nullptr);
+		resetCard();
 	}
-
-	// Update Power Tracker
-	BoardManager::getInstance()->getPowerTracker()->summonUnitCost(unit->m_attributes[UNIT_COST]);
-
-	// Generate Unit and set Tile
-	unit::UnitSpawn::getInstance()->spawnUnitObject(unit)->getComponent<unit::UnitMove>()->setTile(targetTile);
-	*/
-	/*
-	// Send the summoned unit if we're playing multiplayer
-	if (networking::ClientGame::isNetworkValid())
-	{
-		TileInfo* tileInfo = targetTile->getComponent<TileInfo>();
-		networking::ClientGame::getInstance()->sendSummonUnitPacket(unit->m_kibbleID, tileInfo->getPosX(), tileInfo->getPosY());
-	}*/
-	/*
-	// Remove Card from hand
-	userinterface::CardUIO* cardUIObject = this->m_attachedObject->getComponent<userinterface::CardUIO>();
-	userinterface::HandFrame::getActiveInstance()->removeCard((userinterface::UIObject*)cardUIObject);
-
-	// Delete Card
-	kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(this->m_attachedObject);
-	*/
 }
 
 void SpawnUnitOnDrop::onPause()
 {
-	DragNDrop::onDrop();
-	m_isDragging = false;
+	resetCard();
 }
 
 void SpawnUnitOnDrop::removeCard()
@@ -135,6 +84,12 @@ void SpawnUnitOnDrop::removeCard()
 	// Delete Card
 	kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(this->m_attachedObject);
 
+}
+
+void SpawnUnitOnDrop::resetCard()
+{
+	DragNDrop::onDrop();
+	m_isDragging = false;
 }
 
 SpawnUnitOnDrop::SpawnUnitOnDrop()

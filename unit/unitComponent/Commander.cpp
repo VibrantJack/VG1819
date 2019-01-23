@@ -15,6 +15,9 @@ namespace unit
 	{
 		delete m_adSpawn;
 		delete m_adTile;
+
+		kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Summon_Unit, this);
+		kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Cancel_Summon, this);
 	}
 
 	void Commander::init(Unit* p_u)
@@ -23,6 +26,11 @@ namespace unit
 
 		kitten::EventManager::getInstance()->addListener(
 			kitten::Event::EventType::Summon_Unit,
+			this,
+			std::bind(&Commander::spawnUnit, this, std::placeholders::_1, std::placeholders::_2));
+
+		kitten::EventManager::getInstance()->addListener(
+			kitten::Event::EventType::Cancel_Summon,
 			this,
 			std::bind(&Commander::spawnUnit, this, std::placeholders::_1, std::placeholders::_2));
 
@@ -66,6 +74,10 @@ namespace unit
 		{
 			m_adSpawn->m_cardGOForUnitSummon = p_data->getGameObj(UNIT);
 			UnitInteractionManager::getInstance()->request(m_unit, m_adSpawn);
+		}
+		else if (p_type == kitten::Event::Cancel_Summon)
+		{
+			UnitInteractionManager::getInstance()->cancel();
 		}
 	}
 

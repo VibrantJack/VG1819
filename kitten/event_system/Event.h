@@ -52,6 +52,7 @@ namespace kitten
 			Reset_Power,
 			Highlight_Tile_Summon_Unit,
 			Summon_Unit,
+			Cancel_Summon,
 			Draw_Card,
 			Peek_Card,
 			Discard_Card,

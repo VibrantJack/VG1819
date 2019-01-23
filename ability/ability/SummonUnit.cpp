@@ -33,19 +33,15 @@ namespace ability
 		BoardManager::getInstance()->getPowerTracker()->summonUnitCost(unit->m_attributes[UNIT_COST]);
 
 		// Generate Unit and set Tile
-		unit::UnitSpawn::getInstance()->spawnUnitObject(unit)->getComponent<unit::UnitMove>()->setTile(targetTile);
+		kitten::K_GameObject* summonedUnitGO = unit::UnitSpawn::getInstance()->spawnUnitObject(unit);
+		summonedUnitGO->getComponent<unit::UnitMove>()->setTile(targetTile);
+		summonedUnitGO->getComponent<unit::Unit>()->m_clientId = p_info->m_sourceClientId;
 
-		//delete card
-		unit->getGameObject().getComponent<SpawnUnitOnDrop>()->removeCard();
-
-		// Send the summoned unit if we're playing multiplayer
-		if (networking::ClientGame::isNetworkValid())
+		SpawnUnitOnDrop* onDrop = unit->getGameObject().getComponent<SpawnUnitOnDrop>();
+		if (onDrop != nullptr)
 		{
-			TileInfo* tileInfo = targetTile->getComponent<TileInfo>();
-			networking::ClientGame::getInstance()->sendSummonUnitPacket(unit->m_kibbleID, tileInfo->getPosX(), tileInfo->getPosY());
+			onDrop->removeCard();
 		}
-
-
 		/*
 		//get Unit data
 		unit::Unit* u = kibble::getUnitFromId(unitId);
