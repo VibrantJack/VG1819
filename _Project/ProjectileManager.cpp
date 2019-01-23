@@ -137,9 +137,10 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 
 void ProjectileManager::onPositionLerpFinished()
 {
-	m_lastAbility->singleTargetProjectileFinished(m_lastPackage);
 	m_lastUnitSel->disableInteraction(false);
 
+	m_lastAbility->singleTargetProjectileFinished(m_lastPackage);
+	
 	m_lastAbility = nullptr;
 	m_lastPackage = nullptr;
 	m_lastUnitSel = nullptr;

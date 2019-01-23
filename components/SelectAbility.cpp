@@ -112,7 +112,7 @@ void SelectAbility::select(int p_i)
 	}
 	else if (instrction == "For test: Destroy")
 	{
-		m_unit->destroyedByDamage();
+		m_unit->destroy();
 		std::cout << "Unit Destroyed" << std::endl;
 	}
 	else
