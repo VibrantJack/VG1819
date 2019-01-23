@@ -98,6 +98,18 @@ namespace ability
 
 		newAbility = new Oppose();
 		m_abilityList[ABILITY_OPPOSE] = newAbility;
+
+		newAbility = new Thrust();
+		m_abilityList[ABILITY_THRUST] = newAbility;
+
+		newAbility = new FearStrike();
+		m_abilityList[ABILITY_FEAR_STRIKE] = newAbility;
+
+		newAbility = new ReleaseGas();
+		m_abilityList[ABILITY_RELEASE_GAS] = newAbility;
+
+		newAbility = new Mucus();
+		m_abilityList[ABILITY_MUCUS] = newAbility;
 	}
 
 	AbilityManager::AbilityManager()

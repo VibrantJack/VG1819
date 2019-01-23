@@ -1,7 +1,7 @@
 #pragma once
 #include "ability/ability/Ability.h"
 #include "unit/Unit.h"
-
+#include "board/tile/TileInfo.h"
 //Rock
 
 namespace ability
@@ -21,7 +21,7 @@ namespace ability
 		int deltaIN = -(in - 1); //reduced to 1
 
 		se->addAttributeChange(UNIT_IN, deltaIN);
-		se->addCounter(UNIT_DURATION, 1);
+		se->addCounter(UNIT_DURATION, 2);
 
 		//attach to target
 		se->attach(p_unit);
@@ -31,18 +31,23 @@ namespace ability
 	{
 		if (checkTarget(p_info))
 		{
-			//check if unit has this status
-			for (unit::Unit* u : p_info->m_targets)
+			//demonic restriction: can not apply [Fear]
+			if (p_info->m_source->getTile()->getComponent<TileInfo>()->isDemonicPresence())
 			{
-				if (!u->getStatusContainer()->getStatus(STATUS_TEMP_CHANGE, m_name))//doesn't have status
+				//check if unit has this status
+				for (unit::Unit* u : p_info->m_targets)
 				{
-					applyStatus(p_info, u);
+					if (!u->getStatusContainer()->getStatus(STATUS_TEMP_CHANGE, m_name))//doesn't have status
+					{
+						applyStatus(p_info, u);
+					}
 				}
 			}
+
 		}
 
-		//delete package
-		done(p_info);
+		//damage target and delete package
+		singleTargetDamage(p_info);
 
 		return 0;
 	}

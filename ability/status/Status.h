@@ -213,6 +213,21 @@ namespace ability
 
 		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
 	};
+
+	class Status_Lancer_LV2 : public Status_LV
+	{
+		//this is trigger when Lancer is lv2
+	public:
+		Status_Lancer_LV2();
+		Status* clone() const { return new Status_Lancer_LV2(*this); };
+
+		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+
+	private:
+		bool m_active = false;
+
+		void generateArmor();
+	};
 }
 
 

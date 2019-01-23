@@ -35,8 +35,9 @@
 #define ABILITY_SUMMON "Summon"
 #define ABILITY_ACTIVATE "Activate"
 
-//ability required info
+//ability or status required info
 #define PUSH_BACK "push back"
+#define STATUS_ARMOR "armor"
 
 //ability-action
 #define ACTION_MOVE "Move"
@@ -56,9 +57,8 @@
 #define STATUS_BLOCK "Status_Block"
 
 #define STATUS_ETERNAL_EYE_LV3 "Status_Eternal_Eye_LV3"
+#define STATUS_LANCER_LV2 "Status_Lancer_LV2"
 #define STATUS_CURSE "Status_Curse"
-#define STATUS_FEAR "Status_Fear"
-#define STATUS_MUCUS "Status_Mucus"
 
 //demonic restriction
 #define STATUS_DEMONIC_RESTRICTION "Status_Demonic_Restriction"

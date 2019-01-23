@@ -52,6 +52,9 @@ namespace ability
 
 		s = new Status_DR_Eternal_Eye();
 		m_statusList[STATUS_DR_ETERNAL_EYE] = s;
+
+		s = new Status_Lancer_LV2();
+		m_statusList[STATUS_LANCER_LV2] = s;
 	}
 
 	StatusManager::StatusManager()

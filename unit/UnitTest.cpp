@@ -106,8 +106,8 @@ namespace unit
 		//kitten::K_GameObject* u5 = UnitSpawn::getInstance()->spawnUnitObject(7);//pyromancer
 		//u5->getComponent<unit::UnitMove>()->setTile(6, 2);
 
-		//kitten::K_GameObject* u6 = UnitSpawn::getInstance()->spawnUnitObject(8);//stone slinger
-		//u6->getComponent<unit::UnitMove>()->setTile(7, 2);
+		kitten::K_GameObject* u6 = UnitSpawn::getInstance()->spawnUnitObject(8);//stone slinger
+		u6->getComponent<unit::UnitMove>()->setTile(10, 4);
 
 		//kitten::K_GameObject* u7 = UnitSpawn::getInstance()->spawnUnitObject(9);//arrow tower
 		//u7->getComponent<unit::UnitMove>()->setTile(8, 2);
@@ -118,8 +118,8 @@ namespace unit
 		//kitten::K_GameObject* u9 = UnitSpawn::getInstance()->spawnUnitObject(11);//divine status
 		//u9->getComponent<unit::UnitMove>()->setTile(10, 2);
 		
-		kitten::K_GameObject* u10 = UnitSpawn::getInstance()->spawnUnitObject(12);//enchanter
-		u10->getComponent<unit::UnitMove>()->setTile(10, 4);
+//		kitten::K_GameObject* u10 = UnitSpawn::getInstance()->spawnUnitObject(12);//enchanter
+//		u10->getComponent<unit::UnitMove>()->setTile(10, 4);
 //		u10->getComponent<unit::Unit>()->m_attributes[UNIT_LV] = 3;
 //		u10->getComponent<unit::Unit>()->m_attributes[COUNTER_ENERGY] = 4;
 //		kitten::K_GameObject* u11 = UnitSpawn::getInstance()->spawnUnitObject(5);//wall
@@ -128,7 +128,9 @@ namespace unit
 //		kitten::K_GameObject* u12 = UnitSpawn::getInstance()->spawnUnitObject(15);//eternal eye
 //		u12->getComponent<unit::UnitMove>()->setTile(11, 4);
 
-		BoardManager::getInstance()->getTile(10, 4)->getComponent<TileInfo>()->setDemonicPresence(true);
+		kitten::K_GameObject* u12 = UnitSpawn::getInstance()->spawnUnitObject(16);//lancer eye
+		u12->getComponent<unit::UnitMove>()->setTile(11, 4);
+
 		//test unit 
 		//unit::Unit* u = u1->getComponent<unit::Unit>();
 		//UnitMonitor::getInstanceSafe()->printUnit(u);
