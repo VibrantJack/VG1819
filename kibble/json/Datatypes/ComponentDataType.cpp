@@ -1080,6 +1080,45 @@ kitten::K_Component* getUIElement(nlohmann::json* p_jsonFile) {
 }
 
 #include "UI\Borders\BorderPiece.h"
+kitten::K_Component* getBorderPiece(nlohmann::json* p_jsonFile)
+{
+	std::string place = "top";
+
+	userinterface::BorderPiece::BorderPlacement placement = userinterface::BorderPiece::BorderPlacement::bp_BotLeft;
+	if (JSONHAS("placement"))
+	{
+		std::string temp = LOOKUP("placement");
+		if (temp == "left")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_Left;
+		else if (temp == "right")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_Right;
+		else if (temp == "top")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_Top;
+		else if (temp == "bottom")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_Bot;
+		else if (temp == "botleft")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_BotLeft;
+		else if (temp == "botright")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_BotRight;
+		else if (temp == "topleft")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_TopLeft;
+		else if (temp == "topright")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_TopRight;
+		else
+			placement = userinterface::BorderPiece::BorderPlacement::bp_BotLeft;
+
+		//you need to grab the texture for the object
+	}
+
+	std::string texture = "textures/ui/blankFrame.tga";
+	if (JSONHAS("texture"))
+	{
+		texture = LOOKUP("texture").to;
+	}
+	kitten::K_Component* piece = new userinterface::BorderPiece(placement);
+	userinterface::BorderPiece* pieceComponent = static_cast<userinterface::BorderPiece*>(piece);
+	pieceComponent->setTexture(texture.c_str());
+}
 
 #include "kitten\ModelRenderable.h"
 kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
@@ -1715,6 +1754,7 @@ void setupComponentMap() {
 	jsonComponentMap["TimerSymbol"] = &getTimerSymbol;
 	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
 	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
+	jsonComponentMap["BorderPiece"] = &getBorderPiece;
 
 }
 
