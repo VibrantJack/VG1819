@@ -1,4 +1,5 @@
 #include "Transform.h"
+#include "K_GameObjectManager.h"
 
 namespace kitten
 {
@@ -359,17 +360,37 @@ namespace kitten
 
 	void Transform::setParent(Transform* p_parent)
 	{
-		
+		if (p_parent == m_parent)
+		{
+			return;
+		}
+
 		if (m_parent != nullptr)
 		{
 			m_parent->removeChild(this);
+
+			m_parent = p_parent;
+
+			if (p_parent != nullptr)
+			{
+				p_parent->addChild(this);
+			}
+			else
+			{
+				K_GameObjectManager::sm_instance->addGameObjectToList(&m_attachedObject);
+			}
 		}
-
-		m_parent = p_parent;
-
-		if (p_parent != nullptr)
+		else
 		{
-			p_parent->addChild(this);
+			m_parent = p_parent;
+
+			if (p_parent != nullptr)
+			{
+				p_parent->addChild(this);
+			}
+			
+
+			K_GameObjectManager::sm_instance->removeGameObjectFromList(&m_attachedObject);
 		}
 
 		if (!m_ignoresParent)

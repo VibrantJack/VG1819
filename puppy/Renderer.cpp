@@ -45,9 +45,17 @@ namespace puppy
 		m_uiToRender.insert(p_toAdd);
 	}
 
-	void Renderer::removeUIFromRender(kitten::K_RenderNode* p_toRemove)
+	bool Renderer::removeUIFromRender(kitten::K_RenderNode* p_toRemove)
 	{
-		m_uiToRender.erase(p_toRemove);
+		if (m_uiToRender.find(p_toRemove) == m_uiToRender.end())
+		{
+			return false;
+		}
+		else
+		{
+			m_uiToRender.erase(p_toRemove);
+			return true;
+		}
 	}
 
 	void Renderer::addParticleToRender(kitten::K_ParticleSystem* p_toAdd)

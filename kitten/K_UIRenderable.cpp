@@ -15,7 +15,10 @@ namespace kitten
 
 	K_UIRenderable::~K_UIRenderable()
 	{
-		
+		if (m_cachedRenderNode != nullptr)
+		{
+			m_cachedRenderNode->removeUIRenderable(this);
+		}
 	}
 
 	void K_UIRenderable::addToStaticUIRender(const puppy::Material& p_mat, puppy::TexturedVertex p_data[], int p_numElements)
@@ -50,6 +53,5 @@ namespace kitten
 		{
 			m_cachedRenderNode->removeUIRenderable(this);
 		}
-
 	}
 }

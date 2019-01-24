@@ -47,7 +47,7 @@ namespace puppy
 		void removeFromRender(P_Renderable* p_toRemove);
 
 		void addUIToRender(kitten::K_RenderNode* p_toAdd);
-		void removeUIFromRender(kitten::K_RenderNode* p_toRemove);
+		bool removeUIFromRender(kitten::K_RenderNode* p_toRemove);
 
 		void addParticleToRender(kitten::K_ParticleSystem* p_toAdd);
 		void removeParticleFromRender(kitten::K_ParticleSystem* p_toRemove);

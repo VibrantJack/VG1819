@@ -19,6 +19,7 @@ namespace kitten
 		Transform* m_transform;
 
 		bool m_isEnabled;
+		bool m_survivesSceneChange;
 
 		K_GameObject();
 		~K_GameObject();

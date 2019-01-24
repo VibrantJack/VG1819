@@ -24,6 +24,7 @@ namespace kitten
 
 	class K_UIRenderable : public K_Component, public puppy::P_UIRenderable
 	{
+		friend class K_RenderNode;
 	private:
 		K_RenderNode* m_cachedRenderNode;
 

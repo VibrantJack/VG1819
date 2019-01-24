@@ -1,17 +1,42 @@
 #include "K_RenderNode.h"
+
+#include "K_UIRenderable.h"
 #include "puppy\Renderer.h"
 #include "kitten\K_ComponentManager.h"
 
 namespace kitten
 {
-	K_RenderNode::K_RenderNode() : m_parentRenderNode(nullptr)
+	K_RenderNode::K_RenderNode() : m_parentRenderNode(nullptr), m_disabledCalled(false)
 	{
 
 	}
 
 	K_RenderNode::~K_RenderNode()
 	{
+		if (m_isEnabled && m_hasStarted)
+		{
+			onDisabled();
+		}
+		else
+		{
+			if (puppy::Renderer::getInstance()->removeUIFromRender(this))
+			{
+				int i = 0;
+			}
+		}
+		
+		// m_childRenderNodes will likely always be empty, but just in case ...
+		const auto end = m_childRenderNodes.cend();
+		for (auto it = m_childRenderNodes.cbegin(); it != end; ++it)
+		{
+			(*it)->m_parentRenderNode = nullptr;
+		}
 
+		const auto rEnd = m_uiRenderables.cend();
+		for (auto it = m_uiRenderables.cbegin(); it != rEnd; ++it)
+		{
+			(*it)->m_cachedRenderNode = nullptr;
+		}
 	}
 
 	void K_RenderNode::start()
@@ -44,6 +69,7 @@ namespace kitten
 
 	void K_RenderNode::onDisabled()
 	{
+		m_disabledCalled = true;
 		if (m_parentRenderNode != nullptr)
 		{
 			m_parentRenderNode->removeChild(this);
@@ -54,12 +80,12 @@ namespace kitten
 		}
 	}
 
-	void K_RenderNode::addUIRenderable(puppy::P_UIRenderable* p_toAdd)
+	void K_RenderNode::addUIRenderable(K_UIRenderable* p_toAdd)
 	{
 		m_uiRenderables.insert(p_toAdd);
 	}
 
-	void K_RenderNode::removeUIRenderable(puppy::P_UIRenderable* p_toRemove)
+	void K_RenderNode::removeUIRenderable(K_UIRenderable* p_toRemove)
 	{
 		m_uiRenderables.erase(p_toRemove);
 	}
