@@ -908,6 +908,9 @@
     <ClCompile Include="..\ability\status\Status_Lancer_LV2.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Mud_Demon.cpp">
+      <Filter>ability\status\demonic_restriction</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

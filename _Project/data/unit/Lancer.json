@@ -25,7 +25,7 @@
 				"min_range":1,
 				"max_range":1,
 				"need_unit":1,
-				"description":"Deal damage and apply [Fear] if on Demonic Presence",
+				"description":"Deal damage and apply [Fear] if in [Demonic Presence].",
 				"status_name":"Fear",
 				"status_description":"IN is reduced to 1."
 			}
@@ -40,7 +40,7 @@
 				"name":"Status_Lancer_LV2",
 				"lv":2,
 				"armor":1,
-				"description":"If on Demonic Presence, then gain [Armor] at turn start. It can block damage."
+				"description":"If in [Demonic Presence]., then gain [Armor] at turn start. It can block damage."
 			}
 		],
 		"portrait_texture" : "textures/cards/500x500/StoneSlinger.tga"

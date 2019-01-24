@@ -128,7 +128,10 @@ namespace unit
 //		kitten::K_GameObject* u12 = UnitSpawn::getInstance()->spawnUnitObject(15);//eternal eye
 //		u12->getComponent<unit::UnitMove>()->setTile(11, 4);
 
-		kitten::K_GameObject* u12 = UnitSpawn::getInstance()->spawnUnitObject(16);//lancer eye
+	//	kitten::K_GameObject* u12 = UnitSpawn::getInstance()->spawnUnitObject(16);//lancer eye
+	//	u12->getComponent<unit::UnitMove>()->setTile(11, 4);
+
+		kitten::K_GameObject* u12 = UnitSpawn::getInstance()->spawnUnitObject(17);//mud demon
 		u12->getComponent<unit::UnitMove>()->setTile(11, 4);
 
 		//test unit 

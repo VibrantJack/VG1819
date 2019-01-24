@@ -127,6 +127,7 @@
     <ClCompile Include="..\ability\StatusManager.cpp" />
     <ClCompile Include="..\ability\status\demonic_restriction\Status_Demonic_Restriction.cpp" />
     <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Eternal_Eye.cpp" />
+    <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Mud_Demon.cpp" />
     <ClCompile Include="..\ability\status\Status.cpp" />
     <ClCompile Include="..\ability\status\statusEvent\TimePointEvent.cpp" />
     <ClCompile Include="..\ability\status\Status_AD_Change.cpp" />

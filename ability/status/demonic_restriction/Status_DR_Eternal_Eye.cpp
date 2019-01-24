@@ -5,8 +5,6 @@ namespace ability
 {
 	Status_DR_Eternal_Eye::Status_DR_Eternal_Eye() : Status_Demonic_Restriction::Status_Demonic_Restriction()
 	{
-		m_Id = STATUS_DEMONIC_RESTRICTION;
-		addTimePoint(TimePointEvent::New_Tile);
 	}
 
 	void Status_DR_Eternal_Eye::restrictionOn()

@@ -26,7 +26,7 @@
 				"min_range":1,
 				"max_range":1,
 				"need_unit":1,
-				"description":"Push target 2 blocks. Deal 4 damage in [Demonic Presence]."
+				"description":"Push target 2 blocks. Deal 4 damage if in [Demonic Presence]."
 			}
 		],
 		"status":[

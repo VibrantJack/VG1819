@@ -1,7 +1,7 @@
 #pragma once
 #include "ability/ability/Ability.h"
 #include "unit/Unit.h"
-
+#include "board/tile/TileInfo.h"
 //Rock
 
 namespace ability
@@ -41,8 +41,16 @@ namespace ability
 			}
 		}
 
-		//delete package
-		done(p_info);
+
+		if (p_info->m_source->getTile()->getComponent<TileInfo>()->isDemonicPresence())
+		{
+			//damage target and delete package
+			singleTargetDamage(p_info);
+		}
+		else
+		{
+			done(p_info);
+		}
 
 		return 0;
 	}

@@ -55,6 +55,9 @@ namespace ability
 
 		s = new Status_Lancer_LV2();
 		m_statusList[STATUS_LANCER_LV2] = s;
+
+		s = new Status_DR_Mud_Demon();
+		m_statusList[STATUS_DR_MUD_DEMON] = s;
 	}
 
 	StatusManager::StatusManager()

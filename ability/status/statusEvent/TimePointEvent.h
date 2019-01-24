@@ -21,7 +21,8 @@ namespace ability
 	public:
 		enum TPEventType
 		{
-			Turn_Start = 0,
+			None = 0,
+			Turn_Start,
 			Turn_End,
 			Level_Up,
 			New_Tile,
