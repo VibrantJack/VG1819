@@ -1,0 +1,23 @@
+{
+	"name" : "lancer",
+	"texture" : "textures/sprites/units/ancients/lancer_sheet.png",
+	
+	"sheetwidth" : 600,
+	"sheetheight" : 121,
+	
+	"characterwidth" : 72,
+	"characterheight" : 102,
+	
+	"padding" : 10,
+	
+	"defaultanimation" : "idle",
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [6,0],
+			"time" : 2
+		}
+	]
+}
