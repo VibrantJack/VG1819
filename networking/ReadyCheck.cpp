@@ -4,7 +4,7 @@
 // has started, this component and attached GO is destroyed
 // Displays appropriate messages according to the current state of the ReadyCheck
 // 
-// Events: receives Ready_Button_Clicked from a TriggerEventButton to send ready packet to server;
+// Events: receives Ready_Button_Clicked from attached TriggerEventButton to send ready packet to server;
 //		receives Player_Joined from ClientGame to update message and enable the Ready button
 //		receives Players_Ready from ClientGame to start countdown and then start the game
 //
@@ -98,7 +98,6 @@ void ReadyCheck::start()
 	m_messages[1] = JOIN_WAITING_MESSAGE_1;
 	m_messages[2] = JOIN_WAITING_MESSAGE_2;
 
-	m_origin = getTransform().getTranslation();
 	m_lerpController = m_attachedObject->getComponent<LerpController>();
 	m_lerpController->addPositionLerpFinishedCallback(this);
 }

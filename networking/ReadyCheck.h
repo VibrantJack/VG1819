@@ -13,7 +13,6 @@ private:
 	LerpController* m_lerpController = nullptr;
 	const char* m_messages[3];
 
-	glm::vec3 m_origin = glm::vec3(0.0f, 0.0f, 0.0f);
 	float m_timeElapsed = 0.0f;
 	int m_messageIndex = 0;
 	bool m_update = true;

@@ -349,11 +349,11 @@ namespace networking
 					{
 						printf("Server received READY_CHECK packet from [Client: %d]\n", iter->first);
 
-						if (m_clientsReadyChecked < 2)
+						if (m_clientsReadyChecked < MAX_JOINED_CLIENTS)
 						{
 							m_clientsReadyChecked++;
 
-							if (m_clientsReadyChecked == 2)
+							if (m_clientsReadyChecked == MAX_JOINED_CLIENTS)
 							{
 								char data[BASIC_PACKET_SIZE];
 								Buffer newBuffer;
