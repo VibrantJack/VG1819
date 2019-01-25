@@ -43,6 +43,7 @@
                     "name" : "ClickableFrame"
                 }
             ],
+            "translate": [0,0,-0.7],
             "translate2d" : [71, 21],
             "scale2d" : [125, 80]
         },
@@ -66,6 +67,7 @@
                     "name" : "ClickableFrame"
                 }
             ],
+            "translate": [0,0,-0.7],
             "translate2d" : [395, 22],
             "scale2d" : [250, 80]
         },

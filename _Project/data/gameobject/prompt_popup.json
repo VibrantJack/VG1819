@@ -12,7 +12,7 @@
                 }
             ],
             "scale2d" : [500,300],
-            "translate" : [0,0,0],
+            "translate" : [0,0,-0.2],
             "translate2d" : [400,200]
         },
         {
@@ -35,7 +35,7 @@
                 }
             ],
             "scale2d" : [230,75],
-            "translate" : [0,0,0.1],
+            "translate" : [0,0,-0.1],
             "translate2d" : [410,210]
         },
         {
@@ -58,7 +58,7 @@
                 }
             ],
             "scale2d" : [230,75],
-            "translate" : [0,0,0.1],
+            "translate" : [0,0,-0.1],
             "translate2d" : [660,210]
         },
         {
@@ -73,8 +73,15 @@
                     "height" : 200
                 }                
             ],
-            "translate" : [0,0,0.1],
+            "translate" : [0,0,-0.1],
             "translate2d" : [450,500]
         }
-    ]
+    ],
+    "components" : [
+        {
+            "name" : "ClickableFrame"
+        }
+    ],
+    "scale2d" : [2000,2000],
+    "translate" : [0,0,-0.25]
 }

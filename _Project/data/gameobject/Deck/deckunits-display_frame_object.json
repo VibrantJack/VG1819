@@ -10,7 +10,7 @@
                 }
             ],
             "scale2d" : [135, 70],
-            "translate": [ 0,0,-0.8],
+            "translate": [ 0,0,-0.7],
             "translate2d" : [0,0]
         },
         {
@@ -37,7 +37,7 @@
                 }
             ],
             "scale2d" : [55, 35],
-            "translate": [ 0,0,-0.8],
+            "translate": [ 0,0,-0.7],
             "translate2d" : [140,25]
         },
         {
@@ -72,7 +72,7 @@
                     "name" : "ClickableFrame"
                 }
             ],
-            "translate": [ 0,0,-0.6],
+            "translate": [ 0,0,-0.5],
             "translate2d" : [140, 0],
             "scale2d" : [27, 20]
         },
@@ -93,7 +93,7 @@
                     "name" : "ClickableFrame"
                 }
             ],
-            "translate": [ 0,0,-0.6],
+            "translate": [ 0,0,-0.5],
             "translate2d" : [168, 0],
             "scale2d" : [27, 20]
         }
@@ -106,6 +106,7 @@
             "name" : "ClickableFrame"
         }
     ],
+    "translate": [ 0,0,-0.6],
     "translate2d" : [0,0],
     "scale2d" : [200,70]
 }

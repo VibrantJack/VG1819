@@ -18,6 +18,7 @@
 			"scene" : "deck-builder-commander_selection_screen.json"
 		}
 	],
+	"translate": [0,0,-0.7],
 	"translate2d" : [676, 22],
 	"scale2d" : [250, 80]
 }
