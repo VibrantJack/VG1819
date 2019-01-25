@@ -5,7 +5,7 @@
 		"mv":2,
 		"in":8,
 		"cost":1,
-		"tags":["Eldritch"],
+		"tags":["Eldritch","Ancients"],
 		"ability_description":[
 			{
 				"name":"Curse",

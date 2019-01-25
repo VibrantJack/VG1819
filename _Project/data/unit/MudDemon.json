@@ -5,7 +5,7 @@
 		"mv":2,
 		"in":6,
 		"cost":3,
-		"tags":["Demon"],
+		"tags":["Demon","Ancients"],
 		"ability_description":[
 			{
 				"name":"Release Gas",
