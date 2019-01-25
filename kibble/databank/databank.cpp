@@ -6,7 +6,7 @@
 #include <kitten/K_GameObjectManager.h>
 
 std::vector<kibble::UnitFileStruct> unitDataVector;
-std::vector<int> nonCommanderUnitVector;
+std::vector<int> addableToDeckUnitVect;
 std::map<std::string, unit::AbilityDescription*> abilityDataMap;
 std::map<std::string, std::vector<int>> abilityToUnitMap, tagToUnitMap;
 std::unordered_set<unit::AbilityDescription*> lateLoadAbility;
@@ -40,22 +40,26 @@ void kibble::setupDatabank() {
 		while (input >> unitFilename) {
 			UnitFileStruct target = unitDataParser->getUnit(unitFilename);
 
-			for (auto ability : target.data->m_ADList ) { // Set up Abilities
-				std::string name = ability.first;
-				abilityToUnitMap[name].push_back(unitDataVector.size()); // add unit to list of units that use the ability
-				if (abilityDataMap.find(name) == abilityDataMap.end()) { // check to see if a previous ability with the same name doesn't exist
-					// if it finds nothing, it checks if it's being late loaded
-					if(lateLoadAbility.find(ability.second) != lateLoadAbility.end())
-						abilityDataMap[name] = ability.second; // if its not being loaded late set it
+			if (std::find(target.data->m_tags.begin(), target.data->m_tags.end(), "Dummy") == target.data->m_tags.end()) {
+				for (auto ability : target.data->m_ADList) { // Set up Abilities
+					std::string name = ability.first;
+					abilityToUnitMap[name].push_back(unitDataVector.size()); // add unit to list of units that use the ability
+					if (abilityDataMap.find(name) == abilityDataMap.end()) { // check to see if a previous ability with the same name doesn't exist
+						// if it finds nothing, it checks if it's being late loaded
+						if (lateLoadAbility.find(ability.second) != lateLoadAbility.end())
+							abilityDataMap[name] = ability.second; // if its not being loaded late set it
+					}
 				}
-			}
 
-			for (std::string tag : target.data->m_tags) { // Set up Tags
-				tagToUnitMap[tag].push_back(unitDataVector.size());
-			}
+				for (std::string tag : target.data->m_tags) { // Set up Tags
+					tagToUnitMap[tag].push_back(unitDataVector.size());
+				}
 
-			if (!target.data->isCommander())
-				nonCommanderUnitVector.push_back(unitDataVector.size());
+				if (!target.data->isCommander() &&
+					std::find(target.data->m_tags.begin(), target.data->m_tags.end(), "token") == target.data->m_tags.end()
+					)
+					addableToDeckUnitVect.push_back(unitDataVector.size());
+			}
 
 			target.data->m_kibbleID = unitDataVector.size();
 			// At the end push the unit into vector. 
@@ -140,7 +144,7 @@ const std::vector<int>&  kibble::getCommanderIds() {
 	return tagToUnitMap[COMMANDER];
 }
 const std::vector<int>&  kibble::getNonCommanderIds() {
-	return nonCommanderUnitVector;
+	return addableToDeckUnitVect;
 }
 
 int kibble::getDeckDataListCount() {
@@ -150,7 +154,7 @@ int kibble::getCommanderUnitCount() {
 	return tagToUnitMap[COMMANDER].size();
 }
 int kibble::getNonCommanderUnitCount() {
-	return nonCommanderUnitVector.size();
+	return addableToDeckUnitVect.size();
 }
 
 DeckData* kibble::getDeckDataFromId(const int& p_identifier) {
