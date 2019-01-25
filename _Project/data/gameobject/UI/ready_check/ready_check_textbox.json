@@ -1,0 +1,13 @@
+{
+    "name" : "Ready Check TextBox",
+    "components" : [
+        {
+            "name" : "TextBox",
+			"font" : "../fonts/palatino_linotype_32pt.fnt",
+			"color" : [0.89,0.82,0.55],
+            "alignment" : "left",
+            "width" : 400,
+            "height" : 38
+        }
+    ]
+}
