@@ -872,11 +872,12 @@ kitten::K_Component* getNetworkConnectButton(nlohmann::json* p_jsonFile) {
 
 #include "UI\TriggerEventButton.h"
 kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
-	std::string regularTexture, highlightedTexture, eventType;
+	std::string regularTexture, highlightedTexture, inactiveTexture, eventType;
 	int eventEnum;
 
 	SETOPT(regularTexture, "regularTexture");
 	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPT(inactiveTexture, "inactiveTexture");
 	SETOPTDEF(eventType, "event", "NONE");
 
 	if (eventType == "Poll_For_Localhost")
@@ -885,6 +886,8 @@ kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
 		eventEnum = kitten::Event::Join_Direct_Address;
 	else if (eventType == "Join_Localhost")
 		eventEnum = kitten::Event::Join_Localhost;
+	else if (eventType == "Ready_Button_Clicked")
+		eventEnum = kitten::Event::Ready_Button_Clicked;
 	else
 		eventEnum = -1;
 
@@ -893,6 +896,7 @@ kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
 	);
 	button->setRegularTexture(regularTexture);
 	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
 
 	return button;
 }
@@ -1592,6 +1596,64 @@ kitten::K_Component* getProjectileParticleSystemHelper(nlohmann::json* p_jsonFil
 	return new ProjectileParticleSystemHelper(effectName);
 }
 
+#include "networking/ReadyCheck.h"
+kitten::K_Component* getReadyCheck(nlohmann::json* p_jsonFile) {
+	//
+	std::string texture;
+	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
+
+	userinterface::UIElement::pivotType type = userinterface::UIElement::piv_BotLeft;
+	if (JSONHAS("pivot")) {
+		std::string temp = LOOKUP("pivot");
+		if (temp == "left")
+			type = userinterface::UIElement::piv_Left;
+		else if (temp == "right")
+			type = userinterface::UIElement::piv_Right;
+		else if (temp == "center")
+			type = userinterface::UIElement::piv_Center;
+		else if (temp == "top")
+			type = userinterface::UIElement::piv_Top;
+		else if (temp == "bottom")
+			type = userinterface::UIElement::piv_Bot;
+		else if (temp == "botleft")
+			type = userinterface::UIElement::piv_BotLeft;
+		else if (temp == "botright")
+			type = userinterface::UIElement::piv_BotRight;
+		else if (temp == "topleft")
+			type = userinterface::UIElement::piv_TopLeft;
+		else if (temp == "topright")
+			type = userinterface::UIElement::piv_TopRight;
+		else
+			type = userinterface::UIElement::piv_BotLeft;
+	}
+
+	userinterface::UIElement::textureBehaviour tb = userinterface::UIElement::tbh_Stretch;
+
+	if (JSONHAS("texture_behaviour"))
+	{
+		std::string temp = LOOKUP("behaviour");
+		if (temp == "repeat")
+		{
+			tb = userinterface::UIElement::tbh_Repeat;
+		} else if (temp == "mirror_repeat")
+		{
+			tb = userinterface::UIElement::tbh_RepeatMirrored;
+		}
+	}
+
+
+	if (JSONHAS("behavior"))
+	{
+		std::string temp = LOOKUP("behavior");
+		if (temp == "repeat")
+			tb = userinterface::UIElement::tbh_Repeat;
+		else if (temp == "repeat_mirror")
+			tb = userinterface::UIElement::tbh_RepeatMirrored;
+	}
+
+	return new ReadyCheck(texture.c_str(), type, tb);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1713,6 +1775,7 @@ void setupComponentMap() {
 	jsonComponentMap["TimerSymbol"] = &getTimerSymbol;
 	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
 	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
+	jsonComponentMap["ReadyCheck"] = &getReadyCheck;
 
 }
 

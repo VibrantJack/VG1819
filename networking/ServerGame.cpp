@@ -345,6 +345,32 @@ namespace networking
 
 						break;
 					}
+					case READY_CHECK:
+					{
+						printf("Server received READY_CHECK packet from [Client: %d]\n", iter->first);
+
+						if (m_clientsReadyChecked < 2)
+						{
+							m_clientsReadyChecked++;
+
+							if (m_clientsReadyChecked == 2)
+							{
+								char data[BASIC_PACKET_SIZE];
+								Buffer newBuffer;
+								newBuffer.m_data = data;
+								newBuffer.m_size = BASIC_PACKET_SIZE;
+
+								Packet basicPacket;
+								basicPacket.m_packetType = READY_CHECK;
+								basicPacket.m_clientId = -1;
+
+								basicPacket.serialize(newBuffer);
+								m_network->sendToAll(data, BASIC_PACKET_SIZE);
+							}
+						}
+						i += BASIC_PACKET_SIZE;
+						break;
+					}
 					case STARTING_COMMANDER_DATA:
 					{
 						printf("Server received STARTING_COMMANDER_DATA packet from [Client: %d]\n", iter->first);

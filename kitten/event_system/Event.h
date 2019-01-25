@@ -78,6 +78,9 @@ namespace kitten
 			Client_Commander_Loaded,
 			Poll_For_Localhost,
 			Join_Localhost,
+			Ready_Button_Clicked,
+			Players_Ready,
+			Player_Joined,
 
 			Test_Event, 
 			MAX_VAL = Test_Event
