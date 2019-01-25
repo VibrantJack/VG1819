@@ -43,13 +43,13 @@ void CustomCursor::update()
 	if (mouseX > windowX || mouseX < 0)
 	{
 		mouseX = m_lastX;
-		//glfwSetMousePos(mouseX, windowY - mouseY);
+		glfwSetMousePos(mouseX, windowY - mouseY);
 	}
 
 	if (mouseY > windowY || mouseY < 0)
 	{
 		mouseY = m_lastY;
-		//glfwSetMousePos(mouseX, windowY - mouseY);
+		glfwSetMousePos(mouseX, windowY - mouseY);
 	}
 
 	m_attachedObject->getTransform().place2D(mouseX, mouseY);

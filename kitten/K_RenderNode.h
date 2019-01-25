@@ -13,7 +13,7 @@ namespace kitten
 {
 	class K_UIRenderable;
 
-	class K_RenderNode : public kitten::K_Component
+	class K_RenderNode : public K_Component, public TransformParentListener
 	{
 		friend class puppy::Renderer;
 	private:
@@ -36,5 +36,7 @@ namespace kitten
 
 		void addUIRenderable(K_UIRenderable* p_toAdd);
 		void removeUIRenderable(K_UIRenderable* p_toRemove);
+
+		virtual void onParentChanged(Transform* p_newParent) override;
 	};
 }

@@ -389,9 +389,10 @@ namespace kitten
 				p_parent->addChild(this);
 			}
 			
-
 			K_GameObjectManager::sm_instance->removeGameObjectFromList(&m_attachedObject);
 		}
+
+		notifyParentListeners(); // intentionally not in the if statement below
 
 		if (!m_ignoresParent)
 		{
@@ -455,6 +456,11 @@ namespace kitten
 		m_rotationListeners.push_back(p_toAdd);
 	}
 
+	void Transform::addParentListener(TransformParentListener* p_toAdd)
+	{
+		m_parentListeners.push_back(p_toAdd);
+	}
+
 	void Transform::removePositionListener(TransformPositionListener* p_toRemove)
 	{
 		auto end = m_positionListeners.cend();
@@ -494,6 +500,19 @@ namespace kitten
 		}
 	}
 
+	void Transform::removeParentListener(TransformParentListener* p_toRemove)
+	{
+		auto end = m_parentListeners.cend();
+		for (auto it = m_parentListeners.begin(); it != end; ++it)
+		{
+			if (*it == p_toRemove)
+			{
+				m_parentListeners.erase(it);
+				return;
+			}
+		}
+	}
+
 	void Transform::notifyScaleListeners()
 	{
 		const glm::vec3& scale = getScale();
@@ -521,6 +540,15 @@ namespace kitten
 		for (auto it = m_rotationListeners.begin(); it != end; ++it)
 		{
 			(*it)->onRotationChanged(rot);
+		}
+	}
+
+	void Transform::notifyParentListeners()
+	{
+		auto end = m_parentListeners.cend();
+		for (auto it = m_parentListeners.begin(); it != end; ++it)
+		{
+			(*it)->onParentChanged(m_parent);
 		}
 	}
 

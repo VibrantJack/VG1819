@@ -13,29 +13,18 @@ namespace kitten
 
 	K_RenderNode::~K_RenderNode()
 	{
+		getTransform().removeParentListener(this);
+
 		if (m_isEnabled && m_hasStarted)
 		{
 			onDisabled();
 		}
 		else
 		{
-			
-			if (m_isRendering)
-			{
-				int i = 0;
-			}
-
 			if (m_parentRenderNode != nullptr)
 			{
 				m_parentRenderNode->removeChild(this);
-			}
-
-			
-
-			if (puppy::Renderer::getInstance()->removeUIFromRender(this))
-			{
-				int i = 0;
-			}
+			}	
 		}
 		
 		// m_childRenderNodes will likely always be empty, but just in case ...
@@ -54,6 +43,8 @@ namespace kitten
 
 	void K_RenderNode::start()
 	{
+		getTransform().addParentListener(this);
+
 		auto parent = getTransform().getParent();
 		if (parent != nullptr)
 		{
@@ -65,11 +56,6 @@ namespace kitten
 			}
 		}
 
-		onEnabled();
-	}
-
-	void K_RenderNode::onEnabled()
-	{
 		if (m_parentRenderNode != nullptr)
 		{
 			m_parentRenderNode->addChild(this);
@@ -81,17 +67,36 @@ namespace kitten
 		}
 	}
 
+	void K_RenderNode::onEnabled()
+	{
+		if (m_hasStarted)
+		{
+			if (m_parentRenderNode != nullptr)
+			{
+				m_parentRenderNode->addChild(this);
+			}
+			else
+			{
+				puppy::Renderer::getInstance()->addUIToRender(this);
+				m_isRendering = true;
+			}
+		}
+	}
+
 	void K_RenderNode::onDisabled()
 	{
-		m_disabledCalled = true;
-		if (m_parentRenderNode != nullptr)
+		if (m_hasStarted)
 		{
-			m_parentRenderNode->removeChild(this);
-		}
-		else
-		{
-			puppy::Renderer::getInstance()->removeUIFromRender(this);
-			m_isRendering = false;
+			m_disabledCalled = true;
+			if (m_parentRenderNode != nullptr)
+			{
+				m_parentRenderNode->removeChild(this);
+			}
+			else
+			{
+				puppy::Renderer::getInstance()->removeUIFromRender(this);
+				m_isRendering = false;
+			}
 		}
 	}
 
@@ -113,5 +118,38 @@ namespace kitten
 	void K_RenderNode::removeChild(K_RenderNode* p_toRemove)
 	{
 		m_childRenderNodes.erase(p_toRemove);
+	}
+
+	void K_RenderNode::onParentChanged(Transform* p_newParent)
+	{
+		if (m_parentRenderNode != nullptr)
+		{
+			m_parentRenderNode->removeChild(this);
+		}
+
+		if (p_newParent != nullptr)
+		{
+			if (m_isRendering)
+			{
+				puppy::Renderer::getInstance()->removeUIFromRender(this);
+				m_isRendering = false;
+			}
+
+			m_parentRenderNode = p_newParent->getAttachedGameObject().getComponent<K_RenderNode>();
+			if (m_parentRenderNode == nullptr)
+			{
+				m_parentRenderNode = static_cast<K_RenderNode*>(K_ComponentManager::getInstance()->createComponent("K_RenderNode"));
+				p_newParent->getAttachedGameObject().addComponent(m_parentRenderNode);
+			}
+		}
+		else
+		{
+			assert(!m_isRendering);
+			if (m_isEnabled) //our old parent was not null if our new parent is null -- don't have to check if we are already rendering
+			{
+				puppy::Renderer::getInstance()->addUIToRender(this);
+				m_isRendering = true;
+			}
+		}
 	}
 }
