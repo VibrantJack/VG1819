@@ -200,12 +200,11 @@ void kibble::replaceDeckData(int p_deckIdSource, DeckData* p_deckTarget)
 }
 
 #include "kitten/K_ComponentManager.h"
-#include "kibble/UnitGameObject/UnitType.h"
 kitten::K_GameObject* kibble::attachCustomComponentsToGameObject(const int& p_identifier, kitten::K_GameObject* p_targetGameObject) {
 	kibble::UnitFileStruct& targetUnit = unitDataVector[p_identifier];
 	kitten::K_ComponentManager* componentManager = kitten::K_ComponentManager::getInstance();
 
-	unit::Unit* unit = getUnitFrom(targetUnit.unitJson);
+	unit::Unit* unit = componentManager->createUnitComponent(targetUnit.unitJson);
 	unit->m_kibbleID = p_identifier;
 	p_targetGameObject->addComponent(unit);
 	for (nlohmann::json component : targetUnit.components) {
@@ -238,7 +237,7 @@ bool kibble::checkIfComponentDriven(const int& p_identifier) {
 }
 
 unit::Unit* kibble::getUnitInstanceFromId(const int& p_identifier) {
-	unit::Unit* unit = getUnitFrom(unitDataVector[p_identifier].unitJson);
+	unit::Unit* unit = kitten::K_ComponentManager::getInstance()->createUnitComponent(unitDataVector[p_identifier].unitJson);
 	unit->m_kibbleID = p_identifier;
 	return unit;
 }
