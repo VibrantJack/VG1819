@@ -36,7 +36,7 @@ namespace kitten
 			}
 			else 
 			{
-				onEnabled();
+				onDisabled();
 				if (hasUpdate())
 				{
 					K_ComponentManager::getInstance()->queueRemovalFromUpdate(this);
@@ -53,7 +53,7 @@ namespace kitten
 			}
 			else
 			{
-				onDisabled();
+				onEnabled();
 
 				if (hasUpdate())
 				{

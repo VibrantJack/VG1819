@@ -52,6 +52,7 @@ namespace kitten
 		if (m_cachedRenderNode != nullptr)
 		{
 			m_cachedRenderNode->removeUIRenderable(this);
+			m_cachedRenderNode = nullptr;
 		}
 	}
 }

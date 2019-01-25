@@ -6,7 +6,7 @@
 
 namespace kitten
 {
-	K_RenderNode::K_RenderNode() : m_parentRenderNode(nullptr), m_disabledCalled(false)
+	K_RenderNode::K_RenderNode() : m_parentRenderNode(nullptr), m_disabledCalled(false), m_isRendering(false)
 	{
 
 	}
@@ -19,6 +19,19 @@ namespace kitten
 		}
 		else
 		{
+			
+			if (m_isRendering)
+			{
+				int i = 0;
+			}
+
+			if (m_parentRenderNode != nullptr)
+			{
+				m_parentRenderNode->removeChild(this);
+			}
+
+			
+
 			if (puppy::Renderer::getInstance()->removeUIFromRender(this))
 			{
 				int i = 0;
@@ -64,6 +77,7 @@ namespace kitten
 		else
 		{
 			puppy::Renderer::getInstance()->addUIToRender(this);
+			m_isRendering = true;
 		}
 	}
 
@@ -77,6 +91,7 @@ namespace kitten
 		else
 		{
 			puppy::Renderer::getInstance()->removeUIFromRender(this);
+			m_isRendering = false;
 		}
 	}
 

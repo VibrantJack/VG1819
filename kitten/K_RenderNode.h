@@ -18,6 +18,8 @@ namespace kitten
 		friend class puppy::Renderer;
 	private:
 		bool m_disabledCalled;
+		bool m_isRendering;
+
 		K_RenderNode* m_parentRenderNode;
 		std::unordered_set<K_RenderNode*> m_childRenderNodes;
 		std::unordered_set<K_UIRenderable*> m_uiRenderables;
