@@ -54,11 +54,11 @@
 	"components" : [
 		{
 			"name" : "SpriteGroup",
-			"spritename":"eternal_eye",
+			"spritename":"mud_demon",
 			"number":4,
 			"rotate":[45,0,0],
-			"scale":[13,0.8,1],
-			"translate":[0,0,0.15]
+			"scale":[1.5,0.8,1],
+			"translate":[-0.05,0,0.15]
 		},
 		{
 			"name" : "CardArt",
