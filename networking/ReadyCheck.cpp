@@ -1,3 +1,15 @@
+// ReadyCheck
+//
+// Provides a ready check for players and starts the game when all players are ready; after the game 
+// has started, this component and attached GO is destroyed
+// Displays appropriate messages according to the current state of the ReadyCheck
+// 
+// Events: receives Ready_Button_Clicked from a TriggerEventButton to send ready packet to server;
+//		receives Player_Joined from ClientGame to update message and enable the Ready button
+//		receives Players_Ready from ClientGame to start countdown and then start the game
+//
+// @Ken
+
 #include "ReadyCheck.h"
 #include "kitten\K_GameObjectManager.h"
 #include "kitten\K_Time.h"
@@ -111,7 +123,6 @@ void ReadyCheck::update()
 
 		if (m_timeElapsed < 0.0f)
 		{
-			//m_textbox->setText("Starting Game!"); // This won't set while lerping or after lerping
 			glm::vec3 pos = getTransform().getTranslation();
 			m_lerpController->positionLerp(glm::vec3(pos.x, pos.y - getTransform().getScale().y, pos.z), 1.0f);
 			unit::InitiativeTracker::getInstance()->gameTurnStart();
@@ -120,17 +131,14 @@ void ReadyCheck::update()
 		if (m_timeElapsed < 1.0f)
 		{
 			m_textbox->setText("Starting Game!");
-			//m_textbox->setText(STARTING_MESSAGE_2);
 		}
 		else if (m_timeElapsed < 2.0f)
 		{
 			m_textbox->setText(STARTING_MESSAGE_2);
-			//m_textbox->setText(STARTING_MESSAGE_1);
 		}
 		else if (m_timeElapsed < 3.0f)
 		{
 			m_textbox->setText(STARTING_MESSAGE_1);
-			//m_textbox->setText(STARTING_MESSAGE_1);
 		}
 	}
 }
