@@ -45,7 +45,7 @@
 				"description":"The Surprising Eye cannot Oppose units that are not occupying a tile with [Demonic Presence]"
 			}
 		],
-		"portrait_texture" : "textures/cards/500x500/StoneSlinger.tga"
+		"portrait_texture" : "textures/cards/500x500/EternalEye.tga"
 	},
 	"components" : [
 		{
@@ -58,7 +58,7 @@
 		},
 		{
 			"name" : "CardArt",
-			"texture":"textures/cards/500x500/StoneSlinger.tga"
+			"texture":"textures/cards/500x500/EternalEye.tga"
 		}
 	]
 }

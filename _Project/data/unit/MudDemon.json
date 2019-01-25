@@ -49,7 +49,7 @@
 				"description":"Mud Demon’s MV becomes 1 and IN -1."
 			}
 		],
-		"portrait_texture" : "textures/cards/500x500/StoneSlinger.tga"
+		"portrait_texture" : "textures/cards/500x500/MudDemon.tga"
 	},
 	"components" : [
 		{
@@ -62,7 +62,7 @@
 		},
 		{
 			"name" : "CardArt",
-			"texture":"textures/cards/500x500/StoneSlinger.tga"
+			"texture":"textures/cards/500x500/MudDemon.tga"
 		}
 	]
 }

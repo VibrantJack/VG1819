@@ -43,7 +43,7 @@
 				"description":"If in [Demonic Presence]., then gain [Armor] at turn start. It can block damage."
 			}
 		],
-		"portrait_texture" : "textures/cards/500x500/StoneSlinger.tga"
+		"portrait_texture" : "textures/cards/500x500/Lancer.tga"
 	},
 	"components" : [
 		{
@@ -56,7 +56,7 @@
 		},
 		{
 			"name" : "CardArt",
-			"texture":"textures/cards/500x500/StoneSlinger.tga"
+			"texture":"textures/cards/500x500/Lancer.tga"
 		}
 	]
 }
