@@ -157,13 +157,14 @@ void LerpController::removeRotationCallback(RotationLerpFinishedCallback* p_list
 	m_rotationCallbacks.erase(std::find(m_rotationCallbacks.begin(), m_rotationCallbacks.end(), p_listener));
 }
 
-void LerpController::forceLerpToFinish() 
+void LerpController::forceLerpToFinish(bool p_applyTransform)
 {
 	if (!m_isLerping) return;
 	if (m_isPositionLerping)
 	{
 		m_isPositionLerping = false;
-		this->m_attachedObject->getTransform().place(m_lerpPosition.x, m_lerpPosition.y, m_lerpPosition.z);
+		if (p_applyTransform)
+			this->m_attachedObject->getTransform().place(m_lerpPosition.x, m_lerpPosition.y, m_lerpPosition.z);
 		auto end = m_posCallbacks.cend();
 		for (auto it = m_posCallbacks.cbegin(); it != end; ++it)
 		{
@@ -174,7 +175,8 @@ void LerpController::forceLerpToFinish()
 	if (m_isScaleLerping)
 	{
 		m_isScaleLerping = false;
-		this->m_attachedObject->getTransform().scaleAbsolute(m_lerpScale.x, m_lerpScale.y, m_lerpScale.z);
+		if (p_applyTransform)
+			this->m_attachedObject->getTransform().scaleAbsolute(m_lerpScale.x, m_lerpScale.y, m_lerpScale.z);
 		auto end = m_scaleCallbacks.cend();
 		for (auto it = m_scaleCallbacks.cbegin(); it != end; ++it)
 		{
@@ -185,7 +187,8 @@ void LerpController::forceLerpToFinish()
 	if (m_isRotationLerping)
 	{
 		m_isRotationLerping = false;
-		this->m_attachedObject->getTransform().rotateAbsQuat(m_lerpQuat);
+		if (p_applyTransform)
+			this->m_attachedObject->getTransform().rotateAbsQuat(m_lerpQuat);
 		auto end = m_rotationCallbacks.cend();
 		for (auto it = m_rotationCallbacks.cbegin(); it != end; ++it)
 		{
@@ -196,25 +199,25 @@ void LerpController::forceLerpToFinish()
 	this->onFinishedLerp();
 }
 
-void LerpController::cancelLerp(bool p_resetPosition)
+void LerpController::cancelLerp(bool p_resetTransform)
 {
 	if (!m_isLerping) return;
 	if (m_isPositionLerping)
 	{
 		m_isPositionLerping = false;
-		if(p_resetPosition)
+		if(p_resetTransform)
 			this->m_attachedObject->getTransform().place(m_originalPosition.x, m_originalPosition.y, m_originalPosition.z);
 	}
 	if (m_isScaleLerping)
 	{
 		m_isScaleLerping = false;
-		if (p_resetPosition)
+		if (p_resetTransform)
 			this->m_attachedObject->getTransform().scaleAbsolute(m_originalScale.x, m_originalScale.y, m_originalScale.z);
 	}
 	if (m_isRotationLerping)
 	{
 		m_isRotationLerping = false;
-		if (p_resetPosition)
+		if (p_resetTransform)
 			this->m_attachedObject->getTransform().rotateAbsQuat(m_originalQuat);
 	}
 	this->onFinishedLerp();
