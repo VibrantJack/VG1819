@@ -881,6 +881,9 @@
     <ClCompile Include="PlayParticleSystemAtMouseClick.cpp">
       <Filter>components\debug</Filter>
     </ClCompile>
+    <ClCompile Include="ReloadObjectOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1886,6 +1889,9 @@
       <Filter>components\debug</Filter>
     </ClInclude>
     <ClInclude Include="PlayParticleSystemAtMouseClick.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="ReloadObjectOnKeyPress.h">
       <Filter>components\debug</Filter>
     </ClInclude>
   </ItemGroup>

@@ -393,6 +393,7 @@
     <ClCompile Include="ProjectileManager.cpp" />
     <ClCompile Include="ProjectileParticleSystemHelper.cpp" />
     <ClCompile Include="RefreshParticleSystemOnKeyPress.cpp" />
+    <ClCompile Include="ReloadObjectOnKeyPress.cpp" />
     <ClCompile Include="ShowLoadingOnClick.cpp" />
     <ClCompile Include="CardArt.cpp" />
     <ClCompile Include="StringInputDisplay.cpp" />
@@ -733,6 +734,7 @@
     <ClInclude Include="ProjectileManager.h" />
     <ClInclude Include="ProjectileParticleSystemHelper.h" />
     <ClInclude Include="RefreshParticleSystemOnKeyPress.h" />
+    <ClInclude Include="ReloadObjectOnKeyPress.h" />
     <ClInclude Include="ShowLoadingOnClick.h" />
     <ClInclude Include="StringInputDisplay.h" />
     <ClInclude Include="ToggleEnabledOnKeyPress.h" />

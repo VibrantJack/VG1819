@@ -1625,6 +1625,16 @@ kitten::K_Component* getPlayParticleSystemAtMouseClick(nlohmann::json* p_jsonFil
 	return new PlayParticleSystemAtMouseClick(offset);
 }
 
+#include "_Project\ReloadObjectOnKeyPress.h"
+kitten::K_Component* getReloadObjectOnKeyPress(nlohmann::json* p_jsonFile) {
+	char key;
+	std::string keyStr = p_jsonFile->operator[]("key");
+	key = keyStr[0];
+
+	std::string jsonPath = p_jsonFile->operator[]("this_json_path");
+
+	return new ReloadObjectOnKeyPress(key, jsonPath);
+}
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
@@ -1748,7 +1758,8 @@ void setupComponentMap() {
 	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
 	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
 	jsonComponentMap["RefreshParticleSystemOnKeyPress"] = &getRefreshParticleSystemOnKeyPress;
-
+	jsonComponentMap["PlayParticleSystemAtMouseClick"] = &getPlayParticleSystemAtMouseClick;
+	jsonComponentMap["ReloadObjectOnKeyPress"] = &getReloadObjectOnKeyPress;
 
 }
 
