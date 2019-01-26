@@ -5,7 +5,7 @@
     "in":40,
     "cost":4,
 	"spritename" : "wizard",
-    "tags": ["Commander","Dummy"],
+    "tags": ["Commander","Dummy","token"],
     "ability_description":[
 			{
 				"name":"Blast",

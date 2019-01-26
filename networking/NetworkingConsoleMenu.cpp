@@ -17,7 +17,9 @@ NetworkingConsoleMenu::NetworkingConsoleMenu()
 	m_bPrintText(false),
 	m_bEnteringAddress(false),
 	m_bClientUpdate(false),
-	m_bServerUpdate(false)
+	m_bServerUpdate(false),
+	m_textBox(nullptr),
+	m_stringInputDisplay(nullptr)
 {
 
 }
@@ -33,10 +35,7 @@ NetworkingConsoleMenu::~NetworkingConsoleMenu()
 void NetworkingConsoleMenu::start()
 {
 	m_textBox = m_attachedObject->getComponent<puppy::TextBox>();
-	assert(m_textBox != nullptr);
-
 	m_stringInputDisplay = m_attachedObject->getComponent<StringInputDisplay>();
-	assert(m_stringInputDisplay != nullptr);
 
 	m_inputMan = input::InputManager::getInstance();
 	assert(m_inputMan != nullptr);
@@ -65,6 +64,7 @@ void NetworkingConsoleMenu::start()
 
 void NetworkingConsoleMenu::update()
 {
+	/*
 	if (m_inputMan->keyDown(m_cEnterMenuKey) && !m_inputMan->keyDownLast(m_cEnterMenuKey))
 	{
 		m_bMenuOpen = true;
@@ -153,6 +153,7 @@ void NetworkingConsoleMenu::update()
 			m_inputMan->setPollMode(false);
 		}
 	}
+	*/
 
 	// Call updates if ClientGame/ServerGame are initialized
 	if (checkClientNetwork())

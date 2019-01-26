@@ -49,5 +49,7 @@ namespace networking
 
 		// Vector to hold the starting data of all player's Commanders
 		std::vector<UnitPacket> m_commanders;
+
+		int m_clientsReadyChecked = 0;
 	};
 }

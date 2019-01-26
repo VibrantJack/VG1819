@@ -48,6 +48,7 @@ namespace ability
 		{
 			AbilityNodeManager::getInstance()->findNode(CheckHP)->effect(p_target);
 			unit::UnitHealthBar* healthBar = p_target->getGameObject().getComponent<unit::UnitHealthBar>();
+
 			healthBar->updateBar();
 
 			if (p_value > 0)
