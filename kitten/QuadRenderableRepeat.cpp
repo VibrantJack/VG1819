@@ -6,6 +6,8 @@
 
 namespace kitten
 {
+	std::vector<unsigned int> QuadRenderableRepeat::sm_indicies;
+
 	QuadRenderableRepeat::QuadRenderableRepeat(const std::string& p_texPath, bool p_isStatic, bool p_texRepeat, GLfloat p_uRepeat, GLfloat p_vRepeat)
 		:
 		m_isStatic(p_isStatic),
@@ -20,16 +22,25 @@ namespace kitten
 		}
 
 		//setup the vao
-		puppy::TexturedVertex verts[] =
+		puppy::NormalVertex verts[] =
 		{
-			{ -0.5f, 0.0f, 0.5f,		0.0f,	   0.0f },
-			{ 0.5f, 0.0f, 0.5f,			0.0f,	   m_vRepeat },
-			{ 0.5f, 0.0f,-0.5f,			m_uRepeat, m_vRepeat },
-			{ 0.5f, 0.0f,-0.5f,			m_uRepeat, m_vRepeat },
-			{ -0.5f, 0.0f,-0.5f,		m_uRepeat, 0.0f },
-			{ -0.5f, 0.0f, 0.5f,		0.0f,	   0.0f },
+			{ -0.5f, 0.0f, 0.5f,	0.0f, 1.0f, 0.0f,	0.0f,	   0.0f },
+			{ 0.5f, 0.0f, 0.5f,		0.0f, 1.0f, 0.0f,	0.0f,	   m_vRepeat },
+			{ 0.5f, 0.0f,-0.5f,		0.0f, 1.0f, 0.0f,	m_uRepeat, m_vRepeat },
+			{ -0.5f, 0.0f,-0.5f,	0.0f, 1.0f, 0.0f,	m_uRepeat, 0.0f },
 		};
-		m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::texture_blend_zero), 6);
+
+		if (sm_indicies.empty())
+		{
+			sm_indicies.push_back(0);
+			sm_indicies.push_back(1);
+			sm_indicies.push_back(2);
+			sm_indicies.push_back(2);
+			sm_indicies.push_back(3);
+			sm_indicies.push_back(0);
+		}
+
+		m_vao = new puppy::VertexEnvironment(verts, sm_indicies.data(), puppy::ShaderManager::getShaderProgram(puppy::ShaderType::texture_blend_zero_point_light), 4,6);
 	}
 
 	QuadRenderableRepeat::~QuadRenderableRepeat()
@@ -40,20 +51,20 @@ namespace kitten
 
 	void QuadRenderableRepeat::addToStaticRender()
 	{
-		puppy::TexturedVertex verts[] =
+		puppy::NormalVertex verts[] =
 		{
-			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
-			{ 0.5f, 0.0f, 0.5f,			0.0f, m_vRepeat },
-			{ 0.5f, 0.0f,-0.5f,			m_uRepeat, m_vRepeat },
-			{ 0.5f, 0.0f,-0.5f,			m_uRepeat, m_vRepeat },
-			{ -0.5f, 0.0f,-0.5f,		m_uRepeat, 0.0f },
-			{ -0.5f, 0.0f, 0.5f,		0.0f, 0.0f },
+			{ -0.5f, 0.0f, 0.5f,	0.0f, 1.0f, 0.0f,	0.0f,	   0.0f },
+			{ 0.5f, 0.0f, 0.5f,		0.0f, 1.0f, 0.0f,	0.0f,	   m_vRepeat },
+			{ 0.5f, 0.0f,-0.5f,		0.0f, 1.0f, 0.0f,	m_uRepeat, m_vRepeat },
+			{ 0.5f, 0.0f,-0.5f,		0.0f, 1.0f, 0.0f,	m_uRepeat, m_vRepeat },
+			{ -0.5f, 0.0f,-0.5f,	0.0f, 1.0f, 0.0f,	m_uRepeat, 0.0f },
+			{ -0.5f, 0.0f, 0.5f,	0.0f, 1.0f, 0.0f,	0.0f,	   0.0f }
 		};
 
 		//Transform into world space
-		puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform());
+		puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform(), getTransform().getRotation());
 
-		K_Renderable::addToStaticRender(m_mat, verts, 6);
+		K_Renderable::addToStaticRender(m_mat, verts, &sm_indicies, 6);
 	}
 
 	void QuadRenderableRepeat::setTexture(const char* p_pathToTex)

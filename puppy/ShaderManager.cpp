@@ -106,6 +106,26 @@ namespace puppy
 			*p_vertexShaderPath = "Shaders/basic.vsh";
 			*p_pixelShaderPath = "Shaders/basic_four_blend.fsh";
 			return true;
+		case ShaderType::texture_blend_zero_point_light:
+			*p_vertexShaderPath = "Shaders/basic_point_light.vsh";
+			*p_pixelShaderPath = "Shaders/basic_zero_blend_point_light.fsh";
+			return true;
+		case ShaderType::texture_blend_one_point_light:
+			*p_vertexShaderPath = "Shaders/basic_point_light.vsh";
+			*p_pixelShaderPath = "Shaders/basic_one_blend_point_light.fsh";
+			return true;
+		case ShaderType::texture_blend_two_point_light:
+			*p_vertexShaderPath = "Shaders/basic_point_light.vsh";
+			*p_pixelShaderPath = "Shaders/basic_two_blend_point_light.fsh";
+			return true;
+		case ShaderType::texture_blend_three_point_light:
+			*p_vertexShaderPath = "Shaders/basic_point_light.vsh";
+			*p_pixelShaderPath = "Shaders/basic_three_blend_point_light.fsh";
+			return true;
+		case ShaderType::texture_blend_four_point_light:
+			*p_vertexShaderPath = "Shaders/basic_point_light.vsh";
+			*p_pixelShaderPath = "Shaders/basic_four_blend_point_light.fsh";
+			return true;
 		case ShaderType::billboarded_u_scale:
 			*p_vertexShaderPath = "Shaders/billboarded_u_scale.vsh";
 			*p_pixelShaderPath = "Shaders/billboarded_u_scale.fsh";
