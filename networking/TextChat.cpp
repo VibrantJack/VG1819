@@ -154,7 +154,12 @@ void TextChat::addMessage(int p_id, const std::string& p_message)
 	{
 		printf("\t%s\n", m_messageLog[i].second.c_str());
 	}
-	setMessageTextBoxes();
+
+	// Only update the text boxes if the chat is open
+	if (m_attachedObject->isEnabled())
+	{
+		setMessageTextBoxes();
+	}
 }
 
 void TextChat::setMessageTextBoxes()
@@ -222,6 +227,7 @@ void TextChat::onEnabled()
 	m_scrollUpButton->getGameObject().setEnabled(true);
 	m_scrollDownButton->getGameObject().setEnabled(true);
 	m_newMessageIcon->setEnabled(false);
+	setMessageTextBoxes();
 }
 
 void TextChat::onDisabled()
@@ -247,11 +253,6 @@ void TextChat::chatButtonClickedListener(kitten::Event::EventType p_type, kitten
 {
 	m_attachedObject->setEnabled(!m_attachedObject->isEnabled());
 	input::InputManager::getInstance()->setPollMode(!m_attachedObject->isEnabled());
-
-	if (m_attachedObject->isEnabled()) // && new message notification isEnabled()
-	{
-		// Disable new message notification
-	}
 }
 
 void TextChat::chatScrollButtonListener(kitten::Event::EventType p_type, kitten::Event* p_data)
