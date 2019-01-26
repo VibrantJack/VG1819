@@ -291,6 +291,7 @@
     <ClCompile Include="..\networking\menu\NetworkHostButton.cpp" />
     <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp" />
     <ClCompile Include="..\kitten\util\AsyncFileOperations.cpp" />
+    <ClCompile Include="..\networking\TextChat.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
     <ClCompile Include="..\puppy\FBO.cpp" />
     <ClCompile Include="..\puppy\lights\P_DirectionalLight.cpp" />
@@ -622,6 +623,7 @@
     <ClInclude Include="..\networking\ServerNetwork.h" />
     <ClInclude Include="..\networking\SpawnUnitOnKeyPress.h" />
     <ClInclude Include="..\kitten\util\AsyncFileOperations.h" />
+    <ClInclude Include="..\networking\TextChat.h" />
     <ClInclude Include="..\pugixml\pugiconfig.hpp" />
     <ClInclude Include="..\pugixml\pugixml.hpp" />
     <ClInclude Include="..\puppy\FBO.h" />

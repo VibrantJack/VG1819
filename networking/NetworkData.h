@@ -9,8 +9,10 @@
 
 #define MAX_PACKET_SIZE 1000000
 #define MAX_CHAR_BUFSIZE 512
+#define MAX_TEXTCHAT_MSG_SIZE 44
 
 #define BASIC_PACKET_SIZE sizeof(Packet)
+#define TEXTCHAT_MESSAGE_PACKET_SIZE sizeof(TextChatMessagePacket)
 #define SKIP_TURN_PACKET_SIZE sizeof(SkipTurnPacket)
 #define UNIT_PACKET_SIZE sizeof(UnitPacket)
 #define STARTING_COMMANDERS_PACKET_SIZE sizeof(StartingCommandersPacket)
@@ -31,7 +33,8 @@ enum PacketTypes
 	DESYNCED,
 	JOIN_GAME,
 	GAME_FULL,
-	PING_SOCKET
+	PING_SOCKET,
+	TEXTCHAT_MESSAGE
 };
 
 struct UnitPrimitiveData
@@ -112,6 +115,52 @@ struct Packet {
 	void deserialize(Buffer& p_buffer) {
 		m_packetType = readInt(p_buffer);
 		m_clientId = readInt(p_buffer);
+	}
+};
+
+struct TextChatMessagePacket : Packet
+{
+private:
+	int m_messageLength = -1;
+	char m_message[MAX_TEXTCHAT_MSG_SIZE];
+
+public:
+	std::string getMessage()
+	{
+		std::string message = std::string(m_message, m_messageLength);
+
+		return message;
+	}
+
+	void addMessage(const std::string& p_message)
+	{
+		m_messageLength = MIN(p_message.length(), MAX_TEXTCHAT_MSG_SIZE);
+		for (int i = 0; i < m_messageLength; ++i)
+		{
+			m_message[i] = p_message[i];
+		}
+	}
+
+	void serialize(Buffer& p_buffer)
+	{
+		Packet::serialize(p_buffer);
+		writeInt(p_buffer, m_messageLength);
+
+		for (int i = 0; i < m_messageLength; ++i)
+		{
+			writeChar(p_buffer, m_message[i]);
+		}
+	}
+
+	void deserialize(Buffer& p_buffer)
+	{
+		Packet::deserialize(p_buffer);
+		m_messageLength = readInt(p_buffer);
+
+		for (int i = 0; i < m_messageLength; ++i)
+		{
+			m_message[i] = readChar(p_buffer);
+		}
 	}
 };
 

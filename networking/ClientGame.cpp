@@ -315,6 +315,24 @@ namespace networking
 				i += STARTING_COMMANDERS_PACKET_SIZE;
 				break;
 			}
+			case PacketTypes::TEXTCHAT_MESSAGE:
+			{
+				printf("[Client: %d] received TEXTCHAT_MESSAGE packet from server\n", sm_iClientId);
+				Buffer buffer;
+				buffer.m_data = &(m_network_data[i]);
+				buffer.m_size = TEXTCHAT_MESSAGE_PACKET_SIZE;
+
+				TextChatMessagePacket messagePacket;
+				messagePacket.deserialize(buffer);
+
+				kitten::Event* eventData = new kitten::Event(kitten::Event::TextChat_Receive_Message);
+				eventData->putString(TEXTCHAT_MESSAGE_KEY, messagePacket.getMessage());
+				eventData->putInt(PLAYER_ID, messagePacket.m_clientId);
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::TextChat_Receive_Message, eventData);
+
+				i += TEXTCHAT_MESSAGE_PACKET_SIZE;
+				break;
+			}
 			case PacketTypes::DESYNCED:
 			{
 				printf("[Client: %d] received DESYNCED packet from server\n", sm_iClientId);
@@ -451,6 +469,26 @@ namespace networking
 		
 		packet.serialize(buffer);
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, UNIT_PACKET_SIZE);
+	}
+
+	void ClientGame::sendTextChatMessagePacket(const std::string& p_message)
+	{
+		char data[TEXTCHAT_MESSAGE_PACKET_SIZE];
+
+		Buffer buffer;
+		buffer.m_data = data;
+		buffer.m_size = TEXTCHAT_MESSAGE_PACKET_SIZE;
+
+		TextChatMessagePacket packet;
+		packet.m_packetType = TEXTCHAT_MESSAGE;
+		packet.m_clientId = sm_iClientId;
+		packet.addMessage(p_message);
+		packet.serialize(buffer);
+		int result = NetworkServices::sendMessage(m_network->m_connectSocket, data, TEXTCHAT_MESSAGE_PACKET_SIZE);
+
+		std::string message = packet.getMessage();
+
+		printf("Sending Chat Message\n");
 	}
 
 	int ClientGame::sendBasicPacket(PacketTypes p_packetType)
