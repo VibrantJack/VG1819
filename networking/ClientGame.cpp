@@ -291,10 +291,10 @@ namespace networking
 				StartingCommandersPacket commanderPacket;
 				commanderPacket.deserialize(buffer);		
 
-				UnitInfo commander0 = commanderPacket.commander0;
+				UnitNetworkInfo commander0 = commanderPacket.commander0;
 				kitten::K_GameObject* commanderGO0 = summonUnit(commander0.clientId, commander0.unitId, commander0.posX, commander0.posY);
 
-				UnitInfo commander1 = commanderPacket.commander1;
+				UnitNetworkInfo commander1 = commanderPacket.commander1;
 				kitten::K_GameObject* commanderGO1 = summonUnit(commander1.clientId, commander1.unitId, commander1.posX, commander1.posY);
 
 				if (commander0.clientId == sm_iClientId)
@@ -339,9 +339,6 @@ namespace networking
 				break;
 			}
 		}
-
-		// TODO: Every X seconds, send a basic packet to the polled server to ping it
-		// if value = SOCKET_ERROR, the server is no longer online, so we should clean up the connection
 	}
 
 	void ClientGame::useAbility(AbilityPacket& p_packet)
@@ -350,11 +347,8 @@ namespace networking
 		printf("[Client: %d] using ability: %s\n", sm_iClientId, strAbilityName.c_str());
 
 		ability::AbilityInfoPackage* info = new ability::AbilityInfoPackage();
-		info->m_source = getUnitGameObject(p_packet.m_sourceUnit)->getComponent<unit::Unit>();
-		info->m_targets = p_packet.getTargetUnits();
-		info->m_intValue = p_packet.getIntValues();
-		info->m_targetTilesGO = p_packet.getTargetTiles();
 		info->m_sourceClientId = p_packet.m_clientId;
+		p_packet.insertIntoPackage(info);
 
 		ability::AbilityManager::getInstance()->findAbility(strAbilityName)->effect(info);
 	}
@@ -363,13 +357,10 @@ namespace networking
 	{
 		AbilityPacket packet;
 		packet.m_packetType = ABILITY_PACKET;
-		packet.m_clientId = sm_iClientId;
-		packet.m_sourceUnit = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
-		packet.addTargetUnits(p_info->m_targets);
-		packet.addIntValues(p_info->m_intValue);
-		packet.addTargetTiles(p_info->m_targetTilesGO);
+		packet.m_clientId = sm_iClientId;		
 		packet.m_abilityNameLength = p_strAbilityName.size();
 		packet.m_abilityName = p_strAbilityName;
+		packet.extractFromPackage(p_info);
 
 		char* data = new char[packet.getSize()];
 		Buffer buffer;

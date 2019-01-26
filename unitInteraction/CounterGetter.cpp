@@ -111,14 +111,16 @@ void CounterGetter::playerChooseCounter(unit::AbilityDescription * p_ad, unit::U
 
 void CounterGetter::getPlayerChoice(int n)
 {
-	m_displayWindowGO->setEnabled(false);
+	if (m_displayWindowGO != nullptr)
+		m_displayWindowGO->setEnabled(false);
 
 	UnitInteractionManager::getInstance()->setCounter(m_name, n);
 }
 
 void CounterGetter::cancel()
 {
-	m_displayWindowGO->setEnabled(false);
+	if (m_displayWindowGO != nullptr)
+		m_displayWindowGO->setEnabled(false);
 
 	UnitInteractionManager::getInstance()->cancel();
 }

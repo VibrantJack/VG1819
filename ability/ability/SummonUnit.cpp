@@ -30,22 +30,21 @@ namespace ability
 		unit::Unit* unit = p_info->m_cardGOForUnitSummon->getComponent<unit::Unit>();
 
 		// Update Power Tracker
-		BoardManager::getInstance()->getPowerTracker()->summonUnitCost(unit->m_attributes[UNIT_COST]);
-
-		// Generate Unit and set Tile
-		unit::UnitSpawn::getInstance()->spawnUnitObject(unit)->getComponent<unit::UnitMove>()->setTile(targetTile);
-
-		//delete card
-		unit->getGameObject().getComponent<SpawnUnitOnDrop>()->removeCard();
-
-		// Send the summoned unit if we're playing multiplayer
-		if (networking::ClientGame::isNetworkValid())
+		if (p_info->m_sourceClientId == networking::ClientGame::getClientId() || networking::ClientGame::getClientId() == -1)
 		{
-			TileInfo* tileInfo = targetTile->getComponent<TileInfo>();
-			networking::ClientGame::getInstance()->sendSummonUnitPacket(unit->m_kibbleID, tileInfo->getPosX(), tileInfo->getPosY());
+			BoardManager::getInstance()->getPowerTracker()->summonUnitCost(unit->m_attributes[UNIT_COST]);
 		}
 
+		// Generate Unit and set Tile
+		kitten::K_GameObject* summonedUnitGO = unit::UnitSpawn::getInstance()->spawnUnitObject(unit);
+		summonedUnitGO->getComponent<unit::UnitMove>()->setTile(targetTile);
+		summonedUnitGO->getComponent<unit::Unit>()->m_clientId = p_info->m_sourceClientId;
 
+		SpawnUnitOnDrop* onDrop = unit->getGameObject().getComponent<SpawnUnitOnDrop>();
+		if (onDrop != nullptr)
+		{
+			onDrop->removeCard();
+		}
 		/*
 		//get Unit data
 		unit::Unit* u = kibble::getUnitFromId(unitId);
