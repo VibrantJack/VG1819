@@ -5,7 +5,7 @@ namespace kitten
 {
 
 	Transform::Transform(K_GameObject& p_owner) : m_forward(0,0,1), m_matTranslation(glm::translate(0,0,0)), m_matScale(glm::scale(1,1,1)), m_translation(0,0,0), m_scale(1,1,1),
-		m_derivedTranslation(0,0,0), m_derivedScale(1,1,1), m_parent(nullptr), m_ignoresParent(true), m_attachedObject(p_owner)
+		m_derivedTranslation(0,0,0), m_derivedScale(1,1,1), m_rotateDeg(0), m_parent(nullptr), m_ignoresParent(true), m_attachedObject(p_owner)
 	{
 
 	}
