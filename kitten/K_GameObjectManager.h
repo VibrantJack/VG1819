@@ -9,10 +9,12 @@
 namespace kitten
 {
 	class K_Instance;
+	class Transform;
 
 	class K_GameObjectManager
 	{
 		friend class K_Instance;
+		friend class Transform;
 	private:
 		static K_GameObjectManager* sm_instance;
 		K_GameObjectManager();
@@ -28,6 +30,11 @@ namespace kitten
 		int m_createdObjects = 0;
 
 		void deleteQueuedObjects();
+		void deleteGameObject(K_GameObject* p_toDelete);
+
+		void removeGameObjectFromList(K_GameObject* p_toRemove); //called by transform when it has its parent set
+		void addGameObjectToList(K_GameObject* p_toAdd); //called by transform when it has its parent removed
+
 	public:
 		static K_GameObjectManager* getInstance() { return sm_instance; };
 
