@@ -110,6 +110,12 @@ namespace ability
 
 		newAbility = new Mucus();
 		m_abilityList[ABILITY_MUCUS] = newAbility;
+
+		newAbility = new Summon();
+		m_abilityList[ABILITY_SUMMON] = newAbility;
+
+		newAbility = new Activate();
+		m_abilityList[ABILITY_ACTIVATE] = newAbility;
 	}
 
 	AbilityManager::AbilityManager()

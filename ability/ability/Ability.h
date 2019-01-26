@@ -30,6 +30,8 @@ namespace ability
 		//simple ability
 		void singleTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile = false);
 		void multiTargetDamage(AbilityInfoPackage* p_info);
+
+		kitten::K_GameObject* summonToken(AbilityInfoPackage* p_info, int p_unitIndex);
 		int damage(unit::Unit* p_target, int power);
 
 		//delete package and tell unit it acts once
@@ -303,6 +305,30 @@ namespace ability
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
 	public:
 		Mucus() : Ability(ABILITY_MUCUS) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Summon : public Ability
+	{
+	private:
+		int m_unitIndex = 19;
+	public:
+		Summon() :Ability(ABILITY_SUMMON) {};
+		int effect(AbilityInfoPackage* p_info) 
+		{
+			summonToken(p_info, m_unitIndex);
+
+			//delete package
+			done(p_info);
+
+			return 0;
+		};
+	};
+
+	class Activate : public Ability
+	{
+	public:
+		Activate() : Ability(ABILITY_ACTIVATE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 }

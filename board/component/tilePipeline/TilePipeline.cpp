@@ -31,6 +31,9 @@ TilePipeline::TilePipeline()
 
 	filter = new NotDPFilter(this);
 	m_filterList[FILTER_NOT_DP] = filter;
+
+	filter = new SelfFilter(this);
+	m_filterList[FILTER_SELF] = filter;
 }
 
 TilePipeline::~TilePipeline()

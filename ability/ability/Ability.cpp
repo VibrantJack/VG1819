@@ -5,6 +5,10 @@
 
 #include "_Project\ProjectileManager.h"
 
+#include "unit/UnitSpawn.h"
+#include "unit/unitComponent/UnitMove.h"
+#include "networking\ClientGame.h"
+
 #include <iostream>
 
 void ability::Ability::singleTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile)
@@ -71,6 +75,20 @@ void ability::Ability::multiTargetDamage(AbilityInfoPackage * p_info)
 
 	//delete package
 	done(p_info);
+}
+
+kitten::K_GameObject * ability::Ability::summonToken(AbilityInfoPackage* p_info, int p_unitIndex)
+{
+	kitten::K_GameObject* u = unit::UnitSpawn::getInstance()->spawnUnitObject(p_unitIndex);
+	kitten::K_GameObject* tile = p_info->m_targetTilesGO[0];
+	u->getComponent<unit::UnitMove>()->setTile(tile);
+
+	if (networking::ClientGame::getInstance() != nullptr)
+	{
+		u->getComponent<unit::Unit>()->m_clientId = p_info->m_sourceClientId;
+	}
+
+	return u;
 }
 
 int ability::Ability::damage(unit::Unit* p_target, int power)

@@ -98,6 +98,7 @@
   <ItemGroup>
     <ClCompile Include="..\ability\AbilityManager.cpp" />
     <ClCompile Include="..\ability\ability\Ability.cpp" />
+    <ClCompile Include="..\ability\ability\Activate.cpp" />
     <ClCompile Include="..\ability\ability\Arm.cpp" />
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp" />
     <ClCompile Include="..\ability\ability\Curse.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="..\board\component\tilePipeline\NotDPFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\SelfFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />

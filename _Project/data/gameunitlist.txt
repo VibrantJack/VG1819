@@ -16,3 +16,4 @@ Queen.json
 EternalEye.json
 Lancer.json
 MudDemon.json
+SummoningWitch.json

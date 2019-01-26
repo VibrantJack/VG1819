@@ -911,6 +911,12 @@
     <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Mud_Demon.cpp">
       <Filter>ability\status\demonic_restriction</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\ability\Activate.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\SelfFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

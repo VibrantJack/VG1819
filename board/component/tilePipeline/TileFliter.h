@@ -65,7 +65,7 @@ public:
 };
 
 class AllyFilter : public TileFilter
-{//remove tiles that has enemy
+{//remove tiles that has ally
 public:
 	AllyFilter(TilePipeline* p_p) :TileFilter(p_p) {};
 	void filter(kitten::Event::TileList* p_list);
@@ -82,6 +82,13 @@ class IsDPFilter : public TileFilter
 {//remove tiles that is demonic presence
 public:
 	IsDPFilter(TilePipeline* p_p) :TileFilter(p_p) {};
+	void filter(kitten::Event::TileList* p_list);
+};
+
+class SelfFilter : public TileFilter
+{//remove tiles that is source
+public:
+	SelfFilter(TilePipeline* p_p) :TileFilter(p_p) {};
 	void filter(kitten::Event::TileList* p_list);
 };
 
