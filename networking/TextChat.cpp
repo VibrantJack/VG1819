@@ -1,9 +1,19 @@
+// TextChat
+//
+// A component that enables text chat communication between players
+// Displays up to 10 messages in the window and enables scrolling through 
+// a log of the 100 most recent messages
+// Host messages appear yellowish and the connecting player appears as cyan
+// Typing is only possible when the window is open but there is an icon that
+// appears when a new message is received while the window is closed
+//
+// @Ken
+
 #include "TextChat.h"
 
 #include "kitten\K_GameObjectManager.h"
 #include "networking\ClientGame.h"
 
-// TextChat message TextBox width: 324, height: 14
 #define MESSAGE_LOG_LIMIT 100
 #define MESSAGE_DISPLAY_LIMIT 10
 #define FONT_HEIGHT 14
@@ -155,11 +165,11 @@ void TextChat::addMessage(int p_id, const std::string& p_message)
 		m_scrollDownButton->setActive(false);
 	}
 
-	printf("Message Log:\n");
+	/*printf("Message Log:\n");
 	for (int i = 0; i < m_messageLog.size(); ++i)
 	{
 		printf("\t%s\n", m_messageLog[i].second.c_str());
-	}
+	}*/
 
 	// Only update the text boxes if the chat is open
 	if (m_attachedObject->isEnabled())
