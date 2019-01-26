@@ -59,6 +59,7 @@ namespace networking
 		kitten::K_GameObject* summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY);
 		void sendSummonUnitPacket(int p_iUnitId, int p_iPosX, int p_iPosY);
 
+		void sendTextChatMessagePacket(const std::string& p_message);
 		int sendBasicPacket(PacketTypes p_packetType);
 
 		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);

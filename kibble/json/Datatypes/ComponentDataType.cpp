@@ -877,7 +877,7 @@ kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
 
 	SETOPT(regularTexture, "regularTexture");
 	SETOPT(highlightedTexture, "highlightedTexture");
-	SETOPT(inactiveTexture, "inactiveTexture");
+	SETOPTDEF(inactiveTexture, "inactiveTexture", "textures/ui/buttons/disabled_button.tga");
 	SETOPTDEF(eventType, "event", "NONE");
 
 	if (eventType == "Poll_For_Localhost")
@@ -886,6 +886,12 @@ kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
 		eventEnum = kitten::Event::Join_Direct_Address;
 	else if (eventType == "Join_Localhost")
 		eventEnum = kitten::Event::Join_Localhost;
+	else if (eventType == "Chat_Button_Clicked")
+		eventEnum = kitten::Event::Chat_Button_Clicked;
+	else if (eventType == "TextChat_Scroll_Up")
+		eventEnum = kitten::Event::TextChat_Scroll_Up;
+	else if (eventType == "TextChat_Scroll_Down")
+		eventEnum = kitten::Event::TextChat_Scroll_Down;
 	else if (eventType == "Ready_Button_Clicked")
 		eventEnum = kitten::Event::Ready_Button_Clicked;
 	else
@@ -1596,6 +1602,11 @@ kitten::K_Component* getProjectileParticleSystemHelper(nlohmann::json* p_jsonFil
 	return new ProjectileParticleSystemHelper(effectName);
 }
 
+#include "networking/TextChat.h"
+kitten::K_Component* getTextChat(nlohmann::json* p_jsonFile) {
+	return new TextChat();
+}
+
 #include "networking/ReadyCheck.h"
 kitten::K_Component* getReadyCheck(nlohmann::json* p_jsonFile) {
 	//
@@ -1775,6 +1786,7 @@ void setupComponentMap() {
 	jsonComponentMap["TimerSymbol"] = &getTimerSymbol;
 	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
 	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
+	jsonComponentMap["TextChat"] = &getTextChat;
 	jsonComponentMap["ReadyCheck"] = &getReadyCheck;
 
 }

@@ -1,0 +1,10 @@
+{
+    "name" : "Card Context Texture", 
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/icons/new_message.dds"
+        }
+    ],
+	"scale2d" : [48, 36]
+}
