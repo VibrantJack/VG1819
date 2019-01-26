@@ -875,6 +875,9 @@
     <ClCompile Include="..\components\scene change\StartNewDeckSetupWizard.cpp">
       <Filter>components\scene changers</Filter>
     </ClCompile>
+    <ClCompile Include="..\networking\TextChat.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
     <ClCompile Include="..\networking\ReadyCheck.cpp">
       <Filter>networking</Filter>
     </ClCompile>
@@ -1890,6 +1893,9 @@
     </ClInclude>
     <ClInclude Include="..\components\scene change\StartNewDeckSetupWizard.h">
       <Filter>components\scene changers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\TextChat.h">
+      <Filter>networking</Filter>
     </ClInclude>
     <ClInclude Include="..\networking\ReadyCheck.h">
       <Filter>networking</Filter>
