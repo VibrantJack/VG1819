@@ -384,6 +384,7 @@
     <ClCompile Include="DestroyOnClick.cpp" />
     <ClCompile Include="DisableAfterTime.cpp" />
     <ClCompile Include="FPSCalc.cpp" />
+    <ClCompile Include="HaltParticleSystemAfterTime.cpp" />
     <ClCompile Include="LerpController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
@@ -726,6 +727,7 @@
     <ClInclude Include="DestroyOnClick.h" />
     <ClInclude Include="DisableAfterTime.h" />
     <ClInclude Include="FPSCalc.h" />
+    <ClInclude Include="HaltParticleSystemAfterTime.h" />
     <ClInclude Include="LerpController.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="PlayParticleSystemAtMouseClick.h" />

@@ -1636,6 +1636,15 @@ kitten::K_Component* getReloadObjectOnKeyPress(nlohmann::json* p_jsonFile) {
 	return new ReloadObjectOnKeyPress(key, jsonPath);
 }
 
+#include "_Project\HaltParticleSystemAfterTime.h"
+kitten::K_Component* getHaltParticleSystemAfterTime(nlohmann::json* p_jsonFile) {
+	
+	float time = p_jsonFile->operator[]("time");
+	bool isStopping = p_jsonFile->operator[]("stop");
+
+	return new HaltParticleSystemAfterTime(time, isStopping);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1760,6 +1769,7 @@ void setupComponentMap() {
 	jsonComponentMap["RefreshParticleSystemOnKeyPress"] = &getRefreshParticleSystemOnKeyPress;
 	jsonComponentMap["PlayParticleSystemAtMouseClick"] = &getPlayParticleSystemAtMouseClick;
 	jsonComponentMap["ReloadObjectOnKeyPress"] = &getReloadObjectOnKeyPress;
+	jsonComponentMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
 
 }
 

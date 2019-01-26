@@ -884,6 +884,9 @@
     <ClCompile Include="ReloadObjectOnKeyPress.cpp">
       <Filter>components\debug</Filter>
     </ClCompile>
+    <ClCompile Include="HaltParticleSystemAfterTime.cpp">
+      <Filter>components\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1893,6 +1896,9 @@
     </ClInclude>
     <ClInclude Include="ReloadObjectOnKeyPress.h">
       <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="HaltParticleSystemAfterTime.h">
+      <Filter>components\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
