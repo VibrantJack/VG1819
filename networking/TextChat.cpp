@@ -28,6 +28,7 @@ TextChat::~TextChat()
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::TextChat_Receive_Message, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::TextChat_Scroll_Up, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::TextChat_Scroll_Down, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::Pause_Menu_Open, this);
 }
 
 void TextChat::start()
@@ -51,6 +52,11 @@ void TextChat::start()
 		kitten::Event::EventType::TextChat_Scroll_Down,
 		this,
 		std::bind(&TextChat::chatScrollButtonListener, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Pause_Menu_Open,
+		this,
+		std::bind(&TextChat::pauseMenuOpenedListener, this, std::placeholders::_1, std::placeholders::_2));
 
 	glm::vec3 origin = getTransform().getTranslation();
 	glm::vec2 scale2D = getTransform().getScale2D();
@@ -111,7 +117,7 @@ void TextChat::start()
 void TextChat::update()
 {
 	input::InputManager* input = input::InputManager::getInstance();
-	if (input->keyDown(GLFW_KEY_ENTER) && !input->keyDownLast(GLFW_KEY_ENTER))
+	if (input->keyDown(GLFW_KEY_ENTER) && !input->keyDownLast(GLFW_KEY_ENTER) && !m_gamePaused)
 	{
 		const std::string& message = m_stringInputDisplay->getString();
 		addMessage(networking::ClientGame::getClientId(), message);
@@ -304,5 +310,19 @@ void TextChat::chatScrollButtonListener(kitten::Event::EventType p_type, kitten:
 	if (m_messageLogIndex == m_messageLog.size() - MESSAGE_DISPLAY_LIMIT && m_messageLog.size() > MESSAGE_DISPLAY_LIMIT)
 	{
 		m_scrollUpButton->setActive(true);
+	}
+}
+
+void TextChat::pauseMenuOpenedListener(kitten::Event::EventType p_type, kitten::Event* p_data)
+{
+	m_gamePaused = p_data->getInt(PAUSE_MENU_OPEN);
+
+	if (m_gamePaused && m_attachedObject->isEnabled()) // If menu opened and chat is open, disable typing
+	{
+		input::InputManager::getInstance()->setPollMode(true);
+	}
+	else if (!m_gamePaused && m_attachedObject->isEnabled()) // If menu closed and chat is open, enable typing
+	{
+		input::InputManager::getInstance()->setPollMode(false);
 	}
 }

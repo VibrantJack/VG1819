@@ -21,6 +21,7 @@ private:
 	kitten::K_GameObject* m_newMessageIcon = nullptr;
 
 	int m_messageLogIndex = 0;
+	bool m_gamePaused = false;
 
 	void addMessage(int p_id, const std::string& p_message);
 	void setMessageTextBoxes();
@@ -40,4 +41,5 @@ public:
 	void receiveMessageListener(kitten::Event::EventType p_type, kitten::Event* p_data);
 	void chatButtonClickedListener(kitten::Event::EventType p_type, kitten::Event* p_data);
 	void chatScrollButtonListener(kitten::Event::EventType p_type, kitten::Event* p_data);
+	void pauseMenuOpenedListener(kitten::Event::EventType p_type, kitten::Event* p_data);
 };
