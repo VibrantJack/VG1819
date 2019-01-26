@@ -1,0 +1,20 @@
+{
+	"name" : "Scroll Button Down",
+	"components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/scroll_button_up.dds"
+		},
+		{
+			"name" : "TriggerEventButton",
+			"regularTexture" : "textures/ui/buttons/scroll_button_down.dds",
+			"highlightedTexture" : "textures/ui/buttons/scroll_button_down_h.dds",
+			"inactiveTexture" : "textures/ui/buttons/scroll_button_down_i.dds",
+			"event" : "TextChat_Scroll_Down"
+		},
+		{
+			"name" : "ClickableFrame"
+		}
+	],
+	"scale2d" : [20, 20]
+}

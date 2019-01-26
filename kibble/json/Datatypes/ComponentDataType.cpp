@@ -872,11 +872,12 @@ kitten::K_Component* getNetworkConnectButton(nlohmann::json* p_jsonFile) {
 
 #include "UI\TriggerEventButton.h"
 kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
-	std::string regularTexture, highlightedTexture, eventType;
+	std::string regularTexture, highlightedTexture, inactiveTexture, eventType;
 	int eventEnum;
 
 	SETOPT(regularTexture, "regularTexture");
 	SETOPT(highlightedTexture, "highlightedTexture");
+	SETOPTDEF(inactiveTexture, "inactiveTexture", "textures/ui/buttons/disabled_button.tga");
 	SETOPTDEF(eventType, "event", "NONE");
 
 	if (eventType == "Poll_For_Localhost")
@@ -885,6 +886,12 @@ kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
 		eventEnum = kitten::Event::Join_Direct_Address;
 	else if (eventType == "Join_Localhost")
 		eventEnum = kitten::Event::Join_Localhost;
+	else if (eventType == "Chat_Button_Clicked")
+		eventEnum = kitten::Event::Chat_Button_Clicked;
+	else if (eventType == "TextChat_Scroll_Up")
+		eventEnum = kitten::Event::TextChat_Scroll_Up;
+	else if (eventType == "TextChat_Scroll_Down")
+		eventEnum = kitten::Event::TextChat_Scroll_Down;
 	else
 		eventEnum = -1;
 
@@ -893,6 +900,7 @@ kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
 	);
 	button->setRegularTexture(regularTexture);
 	button->setHighlightedTexture(highlightedTexture);
+	button->setInactiveTexture(inactiveTexture);
 
 	return button;
 }
@@ -1592,6 +1600,11 @@ kitten::K_Component* getProjectileParticleSystemHelper(nlohmann::json* p_jsonFil
 	return new ProjectileParticleSystemHelper(effectName);
 }
 
+#include "networking/TextChat.h"
+kitten::K_Component* getTextChat(nlohmann::json* p_jsonFile) {
+	return new TextChat();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1713,6 +1726,7 @@ void setupComponentMap() {
 	jsonComponentMap["TimerSymbol"] = &getTimerSymbol;
 	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
 	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
+	jsonComponentMap["TextChat"] = &getTextChat;
 
 }
 
