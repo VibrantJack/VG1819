@@ -726,6 +726,16 @@ kitten::K_Component* getToggleParticleSystemOnKeyPress(nlohmann::json* p_jsonFil
 #include "_Project\UniversalPfx.h"
 kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 	
+	bool isDebug = p_jsonFile->operator[]("debug");
+	char refreshKey = 'R';
+
+	if (JSONHAS("refresh_key"))
+	{
+		std::string refreshStr = p_jsonFile->operator[]("refresh_key");
+		refreshKey = refreshStr[0];
+	}
+
+
 	std::list<std::tuple<std::string, std::string, int>> effects;
 
 	auto end = p_jsonFile->at("effects").end();
@@ -738,7 +748,7 @@ kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 		effects.push_back(std::make_tuple(effectName, effectPath, numPfxToPool));
 	}
 
-	return new UniversalPfx(effects);
+	return new UniversalPfx(effects, isDebug, refreshKey);
 }
 
 #include "components/DecksDisplay/DisplayFramePickerOnClick.h"
