@@ -345,6 +345,32 @@ namespace networking
 
 						break;
 					}
+					case READY_CHECK:
+					{
+						printf("Server received READY_CHECK packet from [Client: %d]\n", iter->first);
+
+						if (m_clientsReadyChecked < MAX_JOINED_CLIENTS)
+						{
+							m_clientsReadyChecked++;
+
+							if (m_clientsReadyChecked == MAX_JOINED_CLIENTS)
+							{
+								char data[BASIC_PACKET_SIZE];
+								Buffer newBuffer;
+								newBuffer.m_data = data;
+								newBuffer.m_size = BASIC_PACKET_SIZE;
+
+								Packet basicPacket;
+								basicPacket.m_packetType = READY_CHECK;
+								basicPacket.m_clientId = -1;
+
+								basicPacket.serialize(newBuffer);
+								m_network->sendToAll(data, BASIC_PACKET_SIZE);
+							}
+						}
+						i += BASIC_PACKET_SIZE;
+						break;
+					}
 					case STARTING_COMMANDER_DATA:
 					{
 						printf("Server received STARTING_COMMANDER_DATA packet from [Client: %d]\n", iter->first);
@@ -381,6 +407,13 @@ namespace networking
 							m_network->sendToAll(data, STARTING_COMMANDERS_PACKET_SIZE);
 						}
 						i += UNIT_PACKET_SIZE;
+						break;
+					}
+					case TEXTCHAT_MESSAGE:
+					{
+						i += TEXTCHAT_MESSAGE_PACKET_SIZE;
+						printf("Server received TEXTCHAT_MESSAGE packet from [Client: %d]\n", iter->first);
+						m_network->sendToOthers(iter->first, defaultBuffer.m_data, TEXTCHAT_MESSAGE_PACKET_SIZE);
 						break;
 					}
 					case SKIP_TURN:
