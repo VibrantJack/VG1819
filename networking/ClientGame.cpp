@@ -279,6 +279,22 @@ namespace networking
 				}
 				break;
 			}
+			case PacketTypes::READY_CHECK:
+			{
+				printf("[Client: %d] received READY_CHECK packet from server\n", sm_iClientId);
+
+				if (!m_bGameTurnStart)
+				{
+					kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Players_Ready, nullptr);
+
+					kitten::Event* eventData = new kitten::Event(kitten::Event::Client_Commander_Loaded);
+					eventData->putGameObj(COMMANDER_GO_KEY, &m_commander->getGameObject());
+					kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Client_Commander_Loaded, eventData);
+					m_bGameTurnStart = true;
+				}
+				i += BASIC_PACKET_SIZE;
+				break;
+			}
 			case PacketTypes::STARTING_COMMANDER_DATA:
 			{
 				printf("[Client: %d] received STARTING_COMMANDER_DATA packet from server\n", sm_iClientId);
@@ -305,12 +321,10 @@ namespace networking
 				{
 					m_commander = commanderGO1->getComponent<unit::Unit>();
 				}
-				kitten::Event* eventData = new kitten::Event(kitten::Event::Client_Commander_Loaded);
-				eventData->putGameObj(COMMANDER_GO_KEY, &m_commander->getGameObject());
-				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Client_Commander_Loaded, eventData);
 
-				unit::InitiativeTracker::getInstance()->gameTurnStart();
-				m_bGameTurnStart = true;
+				// The other player has joined and we received their Commander data
+				// Queue event to update ReadyCheck component to indicate other player has joined
+				kitten::EventManager::getInstance()->queueEvent(kitten::Event::Player_Joined, nullptr);
 
 				i += STARTING_COMMANDERS_PACKET_SIZE;
 				break;

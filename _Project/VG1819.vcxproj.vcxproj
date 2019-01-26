@@ -285,6 +285,7 @@
     <ClCompile Include="..\networking\NetworkingConsoleMenu.cpp" />
     <ClCompile Include="..\networking\NetworkServices.cpp" />
     <ClCompile Include="..\networking\AbilityPacket.cpp" />
+    <ClCompile Include="..\networking\ReadyCheck.cpp" />
     <ClCompile Include="..\networking\ServerGame.cpp" />
     <ClCompile Include="..\networking\ServerNetwork.cpp" />
     <ClCompile Include="..\networking\SpawnUnitOnKeyPress.cpp" />
@@ -622,6 +623,7 @@
     <ClInclude Include="..\networking\NetworkData.h" />
     <ClInclude Include="..\networking\NetworkingConsoleMenu.h" />
     <ClInclude Include="..\networking\NetworkServices.h" />
+    <ClInclude Include="..\networking\ReadyCheck.h" />
     <ClInclude Include="..\networking\ServerGame.h" />
     <ClInclude Include="..\networking\ServerNetwork.h" />
     <ClInclude Include="..\networking\SpawnUnitOnKeyPress.h" />

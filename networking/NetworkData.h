@@ -18,7 +18,6 @@
 
 enum PacketTypes 
 {
-
 	INIT_CONNECTION = 0,
 	SERVER_SHUTDOWN,
 	CLIENT_DISCONNECT,
@@ -31,7 +30,8 @@ enum PacketTypes
 	DESYNCED,
 	JOIN_GAME,
 	GAME_FULL,
-	PING_SOCKET
+	PING_SOCKET,
+	READY_CHECK
 };
 
 struct UnitPrimitiveData
