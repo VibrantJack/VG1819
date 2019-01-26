@@ -9,8 +9,10 @@ void DeckCountTextureBind::deckEventReceiver(kitten::Event::EventType p_type, ki
 	{
 		if (m_currentTexPair->first > deckCount)
 		{
-			while(m_currentTexPair->first > deckCount)
+			while (m_currentTexPair->first > deckCount)
+			{
 				m_currentTexPair++;
+			}
 			m_attachedObject->getComponent<userinterface::UIFrame>()->setTexture(m_currentTexPair->second.c_str());
 		}
 	}
@@ -33,7 +35,7 @@ void DeckCountTextureBind::start()
 
 }
 
-void DeckCountTextureBind::addTexPair(int p_atCount, std::string p_tex)
+void DeckCountTextureBind::addTexPair(int p_atCount, const std::string& p_tex)
 {
 	m_texPairs[p_atCount] = p_tex;
 }

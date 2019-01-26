@@ -14,7 +14,7 @@ protected:
 public:
 	void start();
 
-	void addTexPair(int p_atCount, std::string p_tex);
+	void addTexPair(int p_atCount, const std::string& p_tex);
 
 	DeckCountTextureBind();
 	~DeckCountTextureBind();
