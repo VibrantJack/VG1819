@@ -142,11 +142,16 @@ void TextChat::update()
 // Newest messages added to the back of the deque, oldest messages at the front
 void TextChat::addMessage(int p_id, const std::string& p_message)
 {
+	std::string message = p_message;
+	if (p_message.length() > MAX_TEXTCHAT_MSG_SIZE)
+	{
+		message = p_message.substr(0, MAX_TEXTCHAT_MSG_SIZE);
+	}
 	// Add message to log
 	// If size > max messages, start tracking the index as size - max messages
 	// The index will be the point at which to start taking messages, so the index would be oldest message
 	// and incrementing by one would be a newer message
-	m_messageLog.push_back(std::make_pair(p_id,p_message.c_str()));
+	m_messageLog.push_back(std::make_pair(p_id, message.c_str()));
 
 	// Check if the log is full, if so, remove the oldest message
 	if (m_messageLog.size() > MESSAGE_LOG_LIMIT)
