@@ -1,0 +1,14 @@
+{
+	"name": "Ready Check",
+	"components" : [
+		{
+			"name" : "ReadyCheck",
+			"texture" : "textures/ui/ready_check_background.dds"
+		},
+		{
+			"name" : "LerpController"
+		}
+	],
+	"scale2d" : [605.0,100.0],
+	"translate" : [338.0,105.0, -0.2]
+}

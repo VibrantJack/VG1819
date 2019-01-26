@@ -279,6 +279,22 @@ namespace networking
 				}
 				break;
 			}
+			case PacketTypes::READY_CHECK:
+			{
+				printf("[Client: %d] received READY_CHECK packet from server\n", sm_iClientId);
+
+				if (!m_bGameTurnStart)
+				{
+					kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Players_Ready, nullptr);
+
+					kitten::Event* eventData = new kitten::Event(kitten::Event::Client_Commander_Loaded);
+					eventData->putGameObj(COMMANDER_GO_KEY, &m_commander->getGameObject());
+					kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Client_Commander_Loaded, eventData);
+					m_bGameTurnStart = true;
+				}
+				i += BASIC_PACKET_SIZE;
+				break;
+			}
 			case PacketTypes::STARTING_COMMANDER_DATA:
 			{
 				printf("[Client: %d] received STARTING_COMMANDER_DATA packet from server\n", sm_iClientId);
@@ -291,10 +307,10 @@ namespace networking
 				StartingCommandersPacket commanderPacket;
 				commanderPacket.deserialize(buffer);		
 
-				UnitInfo commander0 = commanderPacket.commander0;
+				UnitNetworkInfo commander0 = commanderPacket.commander0;
 				kitten::K_GameObject* commanderGO0 = summonUnit(commander0.clientId, commander0.unitId, commander0.posX, commander0.posY);
 
-				UnitInfo commander1 = commanderPacket.commander1;
+				UnitNetworkInfo commander1 = commanderPacket.commander1;
 				kitten::K_GameObject* commanderGO1 = summonUnit(commander1.clientId, commander1.unitId, commander1.posX, commander1.posY);
 
 				if (commander0.clientId == sm_iClientId)
@@ -305,14 +321,30 @@ namespace networking
 				{
 					m_commander = commanderGO1->getComponent<unit::Unit>();
 				}
-				kitten::Event* eventData = new kitten::Event(kitten::Event::Client_Commander_Loaded);
-				eventData->putGameObj(COMMANDER_GO_KEY, &m_commander->getGameObject());
-				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Client_Commander_Loaded, eventData);
 
-				unit::InitiativeTracker::getInstance()->gameTurnStart();
-				m_bGameTurnStart = true;
+				// The other player has joined and we received their Commander data
+				// Queue event to update ReadyCheck component to indicate other player has joined
+				kitten::EventManager::getInstance()->queueEvent(kitten::Event::Player_Joined, nullptr);
 
 				i += STARTING_COMMANDERS_PACKET_SIZE;
+				break;
+			}
+			case PacketTypes::TEXTCHAT_MESSAGE:
+			{
+				printf("[Client: %d] received TEXTCHAT_MESSAGE packet from server\n", sm_iClientId);
+				Buffer buffer;
+				buffer.m_data = &(m_network_data[i]);
+				buffer.m_size = TEXTCHAT_MESSAGE_PACKET_SIZE;
+
+				TextChatMessagePacket messagePacket;
+				messagePacket.deserialize(buffer);
+
+				kitten::Event* eventData = new kitten::Event(kitten::Event::TextChat_Receive_Message);
+				eventData->putString(TEXTCHAT_MESSAGE_KEY, messagePacket.getMessage());
+				eventData->putInt(PLAYER_ID, messagePacket.m_clientId);
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::TextChat_Receive_Message, eventData);
+
+				i += TEXTCHAT_MESSAGE_PACKET_SIZE;
 				break;
 			}
 			case PacketTypes::DESYNCED:
@@ -339,9 +371,6 @@ namespace networking
 				break;
 			}
 		}
-
-		// TODO: Every X seconds, send a basic packet to the polled server to ping it
-		// if value = SOCKET_ERROR, the server is no longer online, so we should clean up the connection
 	}
 
 	void ClientGame::useAbility(AbilityPacket& p_packet)
@@ -350,11 +379,8 @@ namespace networking
 		printf("[Client: %d] using ability: %s\n", sm_iClientId, strAbilityName.c_str());
 
 		ability::AbilityInfoPackage* info = new ability::AbilityInfoPackage();
-		info->m_source = getUnitGameObject(p_packet.m_sourceUnit)->getComponent<unit::Unit>();
-		info->m_targets = p_packet.getTargetUnits();
-		info->m_intValue = p_packet.getIntValues();
-		info->m_targetTilesGO = p_packet.getTargetTiles();
 		info->m_sourceClientId = p_packet.m_clientId;
+		p_packet.insertIntoPackage(info);
 
 		ability::AbilityManager::getInstance()->findAbility(strAbilityName)->effect(info);
 	}
@@ -363,13 +389,10 @@ namespace networking
 	{
 		AbilityPacket packet;
 		packet.m_packetType = ABILITY_PACKET;
-		packet.m_clientId = sm_iClientId;
-		packet.m_sourceUnit = getUnitGameObjectIndex(&p_info->m_source->getGameObject());
-		packet.addTargetUnits(p_info->m_targets);
-		packet.addIntValues(p_info->m_intValue);
-		packet.addTargetTiles(p_info->m_targetTilesGO);
+		packet.m_clientId = sm_iClientId;		
 		packet.m_abilityNameLength = p_strAbilityName.size();
 		packet.m_abilityName = p_strAbilityName;
+		packet.extractFromPackage(p_info);
 
 		char* data = new char[packet.getSize()];
 		Buffer buffer;
@@ -460,6 +483,24 @@ namespace networking
 		
 		packet.serialize(buffer);
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, UNIT_PACKET_SIZE);
+	}
+
+	void ClientGame::sendTextChatMessagePacket(const std::string& p_message)
+	{
+		char data[TEXTCHAT_MESSAGE_PACKET_SIZE];
+
+		Buffer buffer;
+		buffer.m_data = data;
+		buffer.m_size = TEXTCHAT_MESSAGE_PACKET_SIZE;
+
+		TextChatMessagePacket packet;
+		packet.m_packetType = TEXTCHAT_MESSAGE;
+		packet.m_clientId = sm_iClientId;
+		packet.addMessage(p_message);
+		packet.serialize(buffer);
+		int result = NetworkServices::sendMessage(m_network->m_connectSocket, data, TEXTCHAT_MESSAGE_PACKET_SIZE);
+
+		std::string message = packet.getMessage();
 	}
 
 	int ClientGame::sendBasicPacket(PacketTypes p_packetType)

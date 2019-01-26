@@ -878,6 +878,12 @@
     <ClCompile Include="..\components\DeckCountTextureBind.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\networking\TextChat.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\ReadyCheck.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1881,6 +1887,12 @@
     </ClInclude>
     <ClInclude Include="..\components\DeckCountTextureBind.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\TextChat.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\ReadyCheck.h">
+      <Filter>networking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

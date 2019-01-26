@@ -1,7 +1,6 @@
 #pragma once
 
 #include "kitten\K_Common.h"
-#include "unitAction/ActionButtonStore.h"
 #include <string>
 
 //Rock
@@ -10,6 +9,7 @@
 
 namespace unit
 {
+	class ActionButtonStore;
 	class UnitSelect : public kitten::K_Component
 	{
 	private:

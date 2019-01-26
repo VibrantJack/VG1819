@@ -1,5 +1,6 @@
 #include "UnitHealthBar.h"
 
+#include "unit\Unit.h"
 #include "kitten\K_GameObject.h"
 #include "kitten\K_GameObjectManager.h"
 #include "kitten\K_ComponentManager.h"
@@ -84,5 +85,10 @@ namespace unit
 
 			m_oldHealthPercent = percentFull;
 		}
+	}
+
+	LerpController* UnitHealthBar::getForegroundBarLerpController() const
+	{
+		return m_foregroundLerpController;
 	}
 }
