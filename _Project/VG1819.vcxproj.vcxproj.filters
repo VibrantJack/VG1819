@@ -878,6 +878,9 @@
     <ClCompile Include="RefreshParticleSystemOnKeyPress.cpp">
       <Filter>components\debug</Filter>
     </ClCompile>
+    <ClCompile Include="PlayParticleSystemAtMouseClick.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1880,6 +1883,9 @@
       <Filter>components\scene changers</Filter>
     </ClInclude>
     <ClInclude Include="RefreshParticleSystemOnKeyPress.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayParticleSystemAtMouseClick.h">
       <Filter>components\debug</Filter>
     </ClInclude>
   </ItemGroup>

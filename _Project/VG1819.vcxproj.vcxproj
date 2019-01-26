@@ -387,6 +387,7 @@
     <ClCompile Include="LerpController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
+    <ClCompile Include="PlayParticleSystemAtMouseClick.cpp" />
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
     <ClCompile Include="PlaySoundOnStart.cpp" />
     <ClCompile Include="ProjectileManager.cpp" />
@@ -726,6 +727,7 @@
     <ClInclude Include="FPSCalc.h" />
     <ClInclude Include="LerpController.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
+    <ClInclude Include="PlayParticleSystemAtMouseClick.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />
     <ClInclude Include="PlaySoundOnStart.h" />
     <ClInclude Include="ProjectileManager.h" />

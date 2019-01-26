@@ -1612,6 +1612,20 @@ kitten::K_Component* getRefreshParticleSystemOnKeyPress(nlohmann::json* p_jsonFi
 	return new RefreshParticleSystemOnKeyPress(key);
 }
 
+#include "_Project\PlayParticleSystemAtMouseClick.h"
+kitten::K_Component* getPlayParticleSystemAtMouseClick(nlohmann::json* p_jsonFile) {
+	
+	glm::vec3 offset;
+
+	if (JSONHAS("offset"))
+	{
+		offset = glm::vec3(LOOKUP("offset")[0], LOOKUP("offset")[1], LOOKUP("offset")[2]);
+	}
+
+	return new PlayParticleSystemAtMouseClick(offset);
+}
+
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1733,6 +1747,8 @@ void setupComponentMap() {
 	jsonComponentMap["TimerSymbol"] = &getTimerSymbol;
 	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
 	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
+	jsonComponentMap["RefreshParticleSystemOnKeyPress"] = &getRefreshParticleSystemOnKeyPress;
+
 
 }
 
