@@ -1602,6 +1602,16 @@ kitten::K_Component* getProjectileParticleSystemHelper(nlohmann::json* p_jsonFil
 	return new ProjectileParticleSystemHelper(effectName);
 }
 
+#include "_Project\RefreshParticleSystemOnKeyPress.h"
+kitten::K_Component* getRefreshParticleSystemOnKeyPress(nlohmann::json* p_jsonFile) {
+	
+	char key;
+	std::string keyStr = p_jsonFile->operator[]("key");
+	key = keyStr[0];
+
+	return new RefreshParticleSystemOnKeyPress(key);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;

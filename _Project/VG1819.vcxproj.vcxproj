@@ -391,6 +391,7 @@
     <ClCompile Include="PlaySoundOnStart.cpp" />
     <ClCompile Include="ProjectileManager.cpp" />
     <ClCompile Include="ProjectileParticleSystemHelper.cpp" />
+    <ClCompile Include="RefreshParticleSystemOnKeyPress.cpp" />
     <ClCompile Include="ShowLoadingOnClick.cpp" />
     <ClCompile Include="CardArt.cpp" />
     <ClCompile Include="StringInputDisplay.cpp" />
@@ -729,6 +730,7 @@
     <ClInclude Include="PlaySoundOnStart.h" />
     <ClInclude Include="ProjectileManager.h" />
     <ClInclude Include="ProjectileParticleSystemHelper.h" />
+    <ClInclude Include="RefreshParticleSystemOnKeyPress.h" />
     <ClInclude Include="ShowLoadingOnClick.h" />
     <ClInclude Include="StringInputDisplay.h" />
     <ClInclude Include="ToggleEnabledOnKeyPress.h" />
