@@ -83,6 +83,9 @@ namespace kitten
 			TextChat_Receive_Message,
 			TextChat_Scroll_Up,
 			TextChat_Scroll_Down,
+			Ready_Button_Clicked,
+			Players_Ready,
+			Player_Joined,
 
 			Test_Event, 
 			MAX_VAL = Test_Event
