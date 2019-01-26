@@ -501,8 +501,6 @@ namespace networking
 		int result = NetworkServices::sendMessage(m_network->m_connectSocket, data, TEXTCHAT_MESSAGE_PACKET_SIZE);
 
 		std::string message = packet.getMessage();
-
-		printf("Sending Chat Message\n");
 	}
 
 	int ClientGame::sendBasicPacket(PacketTypes p_packetType)
