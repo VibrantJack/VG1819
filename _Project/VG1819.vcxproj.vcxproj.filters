@@ -875,10 +875,7 @@
     <ClCompile Include="..\components\scene change\StartNewDeckSetupWizard.cpp">
       <Filter>components\scene changers</Filter>
     </ClCompile>
-    <ClCompile Include="SquareBorder.cpp">
-      <Filter>UI\Borders</Filter>
-    </ClCompile>
-    <ClCompile Include="BorderPiece.cpp">
+    <ClCompile Include="..\UI\Borders\BorderPiece.cpp">
       <Filter>UI\Borders</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1882,10 +1879,7 @@
     <ClInclude Include="..\components\scene change\StartNewDeckSetupWizard.h">
       <Filter>components\scene changers</Filter>
     </ClInclude>
-    <ClInclude Include="SquareBorder.h">
-      <Filter>UI\Borders</Filter>
-    </ClInclude>
-    <ClInclude Include="BorderPiece.h">
+    <ClInclude Include="..\UI\Borders\BorderPiece.h">
       <Filter>UI\Borders</Filter>
     </ClInclude>
   </ItemGroup>

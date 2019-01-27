@@ -12,6 +12,7 @@
 #include "unit\Unit.h"
 #include "kibble\databank\databank.hpp"
 #include "ability\AbilityManager.h"
+#include "UI\Borders\BorderPiece.h"
 #include <string>
 #include <map>
 
@@ -44,6 +45,10 @@ namespace userinterface
 			this,
 			std::bind(&CommanderContext::commanderLoadListener, this, std::placeholders::_1, std::placeholders::_2));
 		//default	
+
+		//REMOVE WHEN NOT TESTING
+		attachCommander(kibble::getUnitFromId(13));
+		//REMOVE WHEN NOT TESTING
 	}
 
 	void CommanderContext::commanderLoadListener(kitten::Event::EventType p_type, kitten::Event* p_event)
@@ -64,15 +69,34 @@ namespace userinterface
 		int winX, winY;
 		winY = inMan->getWindowHeight();
 		winX = inMan->getWindowWidth();
-		//put it on the screen
-
+		
+		//portrait object
 		kitten::K_GameObject* portrait = kibble::getGameObjectDataParserInstance()->getGameObject("ui/commander_portrait.txt");
+		//put portrait on screen
 		userinterface::UIElement* portraitComp = portrait->getComponent<userinterface::UIElement>();
 		portraitComp->setTexture(m_attachedCommander->getPortraitTexturePath().c_str());
 		portrait->getTransform().place2D(0.0f, winY);
+		glm::vec3 porTrans = portrait->getTransform().getTranslation();
+
+		//build partial borders
+		//bottom
+		kitten::K_GameObject* botBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/commander_border_bottom.txt");
+		BorderPiece* botBorderComp = botBorder->getComponent<BorderPiece>();
+		botBorderComp->setFramedObject(portrait);
+		//bottomright
+		kitten::K_GameObject* botrightBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/commander_border_bottomright.txt");
+		BorderPiece* botrightBorderComp = botrightBorder->getComponent<BorderPiece>();
+		botrightBorderComp->setFramedObject(portrait);
+		//right
+		kitten::K_GameObject* rightBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/commander_border_right.txt");
+		BorderPiece* rightBorderComp = rightBorder->getComponent<BorderPiece>();
+		rightBorderComp->setFramedObject(portrait);
+	
 
 		//TO DO, DATADRIVE THIS POSITIONAL DATA.
-		getTransform().place(100.0f, winY, -0.05);
+		glm::vec3 translate = getTransform().getTranslation();
+		getTransform().place(120.0f, winY, -0.05f);
+		translate = getTransform().getTranslation();
 		setPivotType(piv_TopLeft);
 		setTexBehaviour(tbh_Repeat);
 
@@ -160,7 +184,12 @@ namespace userinterface
 
 		row2->elements.push_back(intxtEm);
 
-
 		arrange();
+
+		//context bottom border
+		//this has to be set up AFTER the arrange() method because that is where the scale of the context is set.
+		kitten::K_GameObject* ctxBotBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/commander_border_bottom.txt");
+		BorderPiece* ctxBotBorderComp = ctxBotBorder->getComponent<BorderPiece>();
+		ctxBotBorderComp->setFramedObject(m_attachedObject);
 	}
 }

@@ -1,10 +1,17 @@
 #include "BorderPiece.h"
+#include "kitten\InputManager.h"
+#define BORDER_WIDTH  1
+#define BORDER_HEIGHT  (1.0f / 5.0f)
+#define CORNER_HEIGHT  (42.0f / 208.0f)
+#define CORNER_WIDTH  (42.0f / 500.0f)
 
 namespace userinterface
 {
 	BorderPiece::BorderPiece(BorderPlacement p_bp) : UIElement(DEFAULT_TEXTURE)
 	{
 		m_borderPlacement = p_bp;
+		m_texBehaviour = tbh_Stretch;
+		m_tex->setWrapping(GL_CLAMP_TO_EDGE);
 	}
 
 
@@ -12,73 +19,55 @@ namespace userinterface
 	{
 	}
 
+	void BorderPiece::start()
+	{
+		//empty to stop defineVerts from getting called on start.
+	}
+
+	void BorderPiece::setFramedObject(kitten::K_GameObject* p_GO)
+	{
+		m_framedObject = p_GO;
+		defineVerts();
+	}
+
 	void BorderPiece::defineVerts()
 	{
+		//get framed object data
+		const glm::vec3 trans = m_framedObject->getTransform().getTranslation();
+		const glm::vec2 scale = m_framedObject->getTransform().getScale2D();
+
 		//quad coords (ortho)
-		float xmin, ymin, xmax, ymax, z, u, v;
+		float xmin, ymin, xmax, ymax, z, uMin, vMin, uMax, vMax;
+		int xIndex, yIndex = 0;
+		int winY = input::InputManager::getInstance()->getWindowHeight();
 		z = 0.0;
-
-		//change UV coords to meet type expectation
-		switch (m_texBehaviour)
-		{
-
-			//TO-DO. 
-			/*
-			There must be a good way to set the UV's on creation
-			of this object so that you can have the texture repeat
-			if the object is particularily large to avoid stretching
-			the texture out. Maybe just have a param that tells
-			the frame how many times to tile the texture in both dimensions
-			*/
-
-		case tbh_Stretch: {
-			u = 1.0;
-			v = 1.0;
-			m_tex->setWrapping(GL_CLAMP_TO_EDGE);
-			break;
-		};
-
-		case tbh_Repeat: {
-			u = 1.0;
-			v = 1.0;
-			m_tex->setWrapping(GL_REPEAT);
-			break;
-		};
-
-		case tbh_RepeatMirrored: {
-			u = 1.0f;
-			v = 1.0f;
-			m_tex->setWrapping(GL_MIRRORED_REPEAT);
-			break;
-		};
-		}
-
 
 		//pivot type depends on the position of the border 
 		//piece relative to the thing it's surrounding.
-		glm::vec3 parentPos = getGameObject().getTransform().getTranslation();
-		glm::vec2 parentScale = getGameObject().getTransform().getScale2D();
 		switch (m_borderPlacement)
 		{
 		case bp_Left:
 		{
 			m_pivotType = piv_Right;
-			getGameObject().getTransform().place2D(parentPos.x, parentPos.y + parentScale.y / 2);
+			yIndex = 4;
 			break;
 		}
 		case bp_Top:
 		{
 			m_pivotType = piv_Bot;
+			yIndex = 3;
 			break;
 		}
 		case bp_Right:
 		{
-			m_pivotType = piv_Left;
+			m_pivotType = piv_Top;
+			yIndex = 2;
 			break;
 		}
 		case bp_Bot:
 		{
 			m_pivotType = piv_Top;
+			yIndex = 1;
 			break;
 		}
 		case bp_TopLeft:
@@ -89,16 +78,19 @@ namespace userinterface
 		case bp_TopRight:
 		{
 			m_pivotType = piv_BotLeft;
+			xIndex = 1;
 			break;
 		}
 		case bp_BotRight:
 		{
 			m_pivotType = piv_TopLeft;
+			xIndex = 2;
 			break;
 		}
 		case bp_BotLeft:
 		{
 			m_pivotType = piv_TopRight;
+			xIndex = 3;
 			break;
 		}
 		}
@@ -170,15 +162,29 @@ namespace userinterface
 		}
 		}
 
+		if (yIndex == 0)
+		{
+			uMin = CORNER_WIDTH * xIndex;
+			uMax = uMin + CORNER_WIDTH;
+			vMin = 0;
+			vMax = CORNER_HEIGHT;
+		}
+		else {
+			uMin = 0;
+			uMax = 1;
+			vMin = BORDER_HEIGHT * yIndex;
+			vMax = vMin + BORDER_HEIGHT;
+		}
+
 		puppy::TexturedVertex verts[] =
 		{
 			//a nice lil quad that takes the pivot into account
-			{ xmin, ymin, z, 0.0,  0.0 },
-			{ xmax, ymin, z, u,    0.0 },
-			{ xmax, ymax, z, u,    v },
-			{ xmax, ymax, z, u,    v },
-			{ xmin,	ymax, z, 0.0f, v },
-			{ xmin, ymin, z, 0.0f, 0.0f },
+			{ xmin, ymin, z, uMin, vMin },
+			{ xmax, ymin, z, uMax, vMin },
+			{ xmax, ymax, z, uMax, vMax },
+			{ xmax, ymax, z, uMax, vMax },
+			{ xmin,	ymax, z, uMin, vMax },
+			{ xmin, ymin, z, uMin, vMin },
 		};
 
 		if (sm_vao[m_pivotType] == nullptr)
@@ -188,6 +194,60 @@ namespace userinterface
 
 		sm_instances[m_pivotType]++;
 
+		switch (m_borderPlacement)
+		{
+		case bp_Left:
+		{
+			
+		}
+		case bp_Top:
+		{
+			
+		}
+		case bp_Right:
+		{
+			getTransform().rotate2D(90);
+			getTransform().place2D(trans.x + scale.x, trans.y - scale.y / 2);
+			getTransform().scale2D(scale.x, 20);
+			break;
+		}
+		case bp_Bot:
+		{
+			getTransform().place2D(trans.x + scale.x / 2, trans.y - scale.y);
+			getTransform().scale2D(scale.x, 20);
+			break;
+		}
+		case bp_TopLeft:
+		{
+			
+		}
+		case bp_TopRight:
+		{
+			
+		}
+		case bp_BotRight:
+		{
+			getGameObject().getTransform().place2D(trans.x + scale.x, winY - scale.y);
+			getGameObject().getTransform().scale2D(20, 20);
+			break;
+		}
+		case bp_BotLeft:
+		{
+			
+		}
+		}
+
 		this->addToDynamicUIRender();
 	}
+
+	void BorderPiece::uiRender(kitten::Camera* p_cam)
+	{
+		m_mat->apply();
+
+		glm::mat4 wvp = p_cam->getOrtho() * getTransform().getWorldTransform();
+		m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
+
+		sm_vao[m_pivotType]->drawArrays(GL_TRIANGLES);
+	}
 }
+

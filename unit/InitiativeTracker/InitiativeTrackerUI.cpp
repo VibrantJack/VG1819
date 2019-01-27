@@ -2,8 +2,11 @@
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "kitten/K_ComponentManager.h"
 #include "kitten/K_GameObjectManager.h"
+#include "kitten\InputManager.h"
 #include "UI/UIFrame.h"
 #include "puppy/Text/TextBox.h"
+#include "kitten\K_GameObject.h"
+#include "kibble\kibble.hpp"
 
 unit::InitiativeTrackerUI::InitiativeTrackerUI():m_lastUnitIndex(0)
 {
@@ -23,6 +26,10 @@ unit::InitiativeTrackerUI::InitiativeTrackerUI():m_lastUnitIndex(0)
 		m_blockInSlot.push_back(0);
 		//m_unitIndex.push_back(-1);
 	}
+
+	kitten::K_GameObject* backGround = kibble::getGameObjectDataParserInstance()->getGameObject("UI/backgrounds/initiative_background.txt");
+	int winY = input::InputManager::getInstance()->getWindowHeight();
+	backGround->getTransform().place2D(285, winY -15);
 
 	setXList();
 

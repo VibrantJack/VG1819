@@ -1,10 +1,15 @@
 #pragma once
 #include "kitten\K_Common.h"
-class SquareBorder : public kitten::K_Component
+#include "ui\UIElement.h"
+
+namespace userinterface
 {
-public:
-	SquareBorder();
-	~SquareBorder();
-	void start() override;
-};
+	class SquareBorder : public UIElement
+	{
+	public:
+		SquareBorder();
+		~SquareBorder();
+		void start() override;
+	};
+}
 

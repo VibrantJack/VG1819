@@ -1,0 +1,8 @@
+{
+    "name" : "squareBorder", 
+    "components" : [
+        {
+            "name" : "SquareBorder"
+        }
+    ]
+}

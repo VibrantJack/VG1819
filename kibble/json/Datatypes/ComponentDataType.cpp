@@ -1082,9 +1082,10 @@ kitten::K_Component* getUIElement(nlohmann::json* p_jsonFile) {
 #include "UI\Borders\BorderPiece.h"
 kitten::K_Component* getBorderPiece(nlohmann::json* p_jsonFile)
 {
-	std::string place = "top";
-
 	userinterface::BorderPiece::BorderPlacement placement = userinterface::BorderPiece::BorderPlacement::bp_BotLeft;
+	std::string texture;
+	SETOPTDEF(texture, "texture", "textures/ui/frames/frameAtlas.tga");
+
 	if (JSONHAS("placement"))
 	{
 		std::string temp = LOOKUP("placement");
@@ -1105,19 +1106,17 @@ kitten::K_Component* getBorderPiece(nlohmann::json* p_jsonFile)
 		else if (temp == "topright")
 			placement = userinterface::BorderPiece::BorderPlacement::bp_TopRight;
 		else
-			placement = userinterface::BorderPiece::BorderPlacement::bp_BotLeft;
-
-		//you need to grab the texture for the object
+			placement = userinterface::BorderPiece::BorderPlacement::bp_BotLeft; 
 	}
-
-	std::string texture = "textures/ui/blankFrame.tga";
 	if (JSONHAS("texture"))
 	{
-		texture = LOOKUP("texture").to;
+		texture = LOOKUP("texture");
 	}
 	kitten::K_Component* piece = new userinterface::BorderPiece(placement);
 	userinterface::BorderPiece* pieceComponent = static_cast<userinterface::BorderPiece*>(piece);
 	pieceComponent->setTexture(texture.c_str());
+
+       	return piece;
 }
 
 #include "kitten\ModelRenderable.h"
@@ -1487,7 +1486,7 @@ kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
 			list.push_back(*it);
 		}
 		d->setTextureList(list);
-	}
+	} 
 
 	if (JSONHAS("min_scale") && JSONHAS("max_scale"))
 	{
@@ -1755,7 +1754,6 @@ void setupComponentMap() {
 	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
 	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
 	jsonComponentMap["BorderPiece"] = &getBorderPiece;
-
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {
