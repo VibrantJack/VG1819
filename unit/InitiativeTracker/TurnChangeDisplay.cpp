@@ -42,7 +42,7 @@ void unit::TurnChangeDisplay::displayNewUnitTurn(kitten::K_GameObject * p_unit)
 		e->putFloat(POSITION_X, posX);
 		e->putFloat(POSITION_Z, posZ - CAMERA_Z_OFFSET);
 		e->putFloat("time", DEFAULT_CAMERA_LERP_TIME);
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Move_Camera, e);
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Move_Camera, e);
 	}
 }
 
@@ -60,5 +60,5 @@ void unit::TurnChangeDisplay::resetCamera()
 	e->putFloat(POSITION_X, DEFAULT_CAMERA_POS_X);
 	e->putFloat(POSITION_Z, DEFAULT_CAMERA_POS_Z);
 	e->putFloat("time", DEFAULT_CAMERA_LERP_TIME);
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Move_Camera, e);
+	kitten::EventManager::getInstance()->queueEvent(kitten::Event::Move_Camera, e);
 }
