@@ -87,14 +87,10 @@ int main( void )
         // Swap buffers
         glfwSwapBuffers();
     } // Check if the ESC key was pressed or the window was closed
-    while( glfwGetKey( GLFW_KEY_ESC ) != GLFW_PRESS &&
+    while( //glfwGetKey( GLFW_KEY_ESC ) != GLFW_PRESS &&
           glfwGetWindowParam( GLFW_OPENED ) );
     
 	kitten::shutdownGame();
-    // Close OpenGL window and terminate GLFW
-	glfwTerminate();
-    
-    exit( EXIT_SUCCESS );
 }
 
 

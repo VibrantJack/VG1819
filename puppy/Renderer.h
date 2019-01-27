@@ -6,12 +6,18 @@
 
 #include "kitten\K_ParticleSystem.h"
 #include "kitten\Camera.h"
+#include "kitten\K_GameObject.h"
+#include "kitten\K_RenderNode.h"
 
 #include "P_Common.h"
 #include "P_Renderable.h"
-#include "P_UIRenderable.h"
 
 #include <unordered_set>
+
+namespace kitten
+{
+	class K_RenderNode;
+}
 
 namespace puppy
 {
@@ -23,7 +29,7 @@ namespace puppy
 	{
 		friend class P_Instance;
 		friend class P_Renderable;
-		friend class P_UIRenderable;
+		friend class kitten::K_RenderNode;
 		friend class kitten::K_ParticleSystem;
 	private:
 		//Singleton related
@@ -34,19 +40,20 @@ namespace puppy
 		static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
 
 		std::unordered_set<P_Renderable*> m_toRender;
-		std::unordered_set<P_UIRenderable*> m_uiToRender;
+		std::unordered_set<kitten::K_RenderNode*> m_uiToRender;
 		std::unordered_set<kitten::K_ParticleSystem*> m_particlesToRender;
 
 		void addToRender(P_Renderable* p_toAdd);
 		void removeFromRender(P_Renderable* p_toRemove);
 
-		void addUIToRender(P_UIRenderable* p_toAdd);
-		void removeUIFromRender(P_UIRenderable* p_toRemove);
+		void addUIToRender(kitten::K_RenderNode* p_toAdd);
+		bool removeUIFromRender(kitten::K_RenderNode* p_toRemove);
 
 		void addParticleToRender(kitten::K_ParticleSystem* p_toAdd);
 		void removeParticleFromRender(kitten::K_ParticleSystem* p_toRemove);
 
 		void renderAll(kitten::Camera* p_cam);
+		void renderUI(kitten::Camera* p_cam, kitten::K_RenderNode* p_toRender) const; //helper method for recursive rendering
 	public:
 		static Renderer* getInstance() { return sm_instance; };
 

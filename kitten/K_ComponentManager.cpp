@@ -17,6 +17,8 @@
 #include "kitten\sprites\SpriteAnimator.h"
 #include "kitten\sprites\SpriteRenderable.h"
 #include "unit/unitComponent/UnitMove.h"
+#include "kitten\K_RenderNode.h"
+
 //ui
 #include "UI\UIObject.h"
 #include "UI\CardUIO.h"
@@ -82,6 +84,10 @@ namespace kitten
 		if (p_componentName == "K_ParticleSystem") //datadriven
 		{
 			comp = new kitten::K_ParticleSystem("");
+		}
+		else if (p_componentName == "K_RenderNode")
+		{
+			comp = new kitten::K_RenderNode();
 		}
 		else if (p_componentName == "BarRenderable") //datadriven
 		{

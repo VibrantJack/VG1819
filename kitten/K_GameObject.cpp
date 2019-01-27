@@ -6,7 +6,7 @@
 
 namespace kitten
 {
-	K_GameObject::K_GameObject()
+	K_GameObject::K_GameObject() : m_survivesSceneChange(false)
 	{
 		m_transform = new Transform(*this);
 	}

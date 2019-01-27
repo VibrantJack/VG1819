@@ -47,7 +47,7 @@ void CameraMoveByEvent::onCameraEvent(kitten::Event::EventType p_type, kitten::E
 		LerpController* lc = m_attachedObject->getComponent<LerpController>();
 		if (lc->isLerping())
 		{
-			lc->forceLerpToFinish();
+			lc->endLerp(LerpController::KeepInPlace,true);
 		}
 		lc->positionLerp(target, time);
 	}

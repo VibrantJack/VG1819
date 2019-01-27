@@ -28,6 +28,7 @@ namespace kitten
 	};
 
 	class K_GameObject;
+	class TransformParentListener;
 
 	class Transform
 	{
@@ -73,10 +74,12 @@ namespace kitten
 		std::vector<TransformScaleListener*> m_scaleListeners;
 		std::vector<TransformPositionListener*> m_positionListeners;
 		std::vector<TransformRotationListener*> m_rotationListeners;
+		std::vector<TransformParentListener*> m_parentListeners;
 
 		void notifyScaleListeners();
 		void notifyPositionListeners();
 		void notifyRotationListeners();
+		void notifyParentListeners();
 
 		void addChild(Transform* p_child);
 
@@ -143,6 +146,7 @@ namespace kitten
 		bool getIgnoreParent() const;
 		void setIgnoreParent(bool p_ignores);
 
+		bool hasChildren() const;
 		const std::vector<Transform*>& getChildren() const;
 
 		void setParent(Transform* p_parent);
@@ -153,11 +157,17 @@ namespace kitten
 		void addPositionListener(TransformPositionListener* p_toAdd);
 		void addScaleListener(TransformScaleListener* p_toAdd);
 		void addRotationListener(TransformRotationListener* p_toAdd);
+		void addParentListener(TransformParentListener* p_toAdd);
 
 		void removePositionListener(TransformPositionListener* p_toRemove);
 		void removeScaleListener(TransformScaleListener* p_toRemove);
 		void removeRotationListener(TransformRotationListener* p_toRemoe);
+		void removeParentListener(TransformParentListener* p_toRemove);
 	};
 
-	
+	class TransformParentListener
+	{
+	public:
+		virtual void onParentChanged(Transform* p_newParent) = 0;
+	};
 }
