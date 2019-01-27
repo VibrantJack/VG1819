@@ -29,7 +29,7 @@ unit::InitiativeTrackerUI::InitiativeTrackerUI():m_lastUnitIndex(0)
 
 	kitten::K_GameObject* backGround = kibble::getGameObjectDataParserInstance()->getGameObject("UI/backgrounds/initiative_background.txt");
 	int winY = input::InputManager::getInstance()->getWindowHeight();
-	backGround->getTransform().place2D(285, winY -15);
+	backGround->getTransform().place(285, winY -10, -0.04);
 
 	setXList();
 
