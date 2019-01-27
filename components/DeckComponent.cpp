@@ -105,6 +105,9 @@ void DeckComponent::draw(int p_topNum) {
 		eventData->putInt(CARD_ID + std::to_string(i), m_cardPool.back());
 		m_cardPool.pop_back();
 	}
+
+	eventData->putInt(DECK_CARD_COUNT_LEFT, m_cardPool.size());
+
 	kitten::EventManager::getInstance()->queueEvent(
 		kitten::Event::EventType::Card_Drawn,
 		eventData
@@ -125,6 +128,8 @@ void DeckComponent::discard(int p_topNum) {
 		eventData->putInt(CARD_ID + std::to_string(i), m_cardPool.back());
 		m_cardPool.pop_back();
 	}
+
+	eventData->putInt(DECK_CARD_COUNT_LEFT, m_cardPool.size());
 
 	kitten::EventManager::getInstance()->queueEvent(
 		kitten::Event::EventType::Card_Discarded,

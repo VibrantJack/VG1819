@@ -171,5 +171,5 @@ void ReadyCheck::readyButtonClicked(kitten::Event::EventType p_type, kitten::Eve
 
 void ReadyCheck::onPositionLerpFinished()
 {
-	kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(m_attachedObject);
+	kitten::K_GameObjectManager::getInstance()->destroyGameObject(m_attachedObject);
 }

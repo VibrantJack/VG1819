@@ -61,7 +61,7 @@ void TabMenu::start()
 
 void TabMenu::update()
 {
-	if (m_input->keyDown(GLFW_KEY_TAB) && !m_input->keyDownLast(GLFW_KEY_TAB) && !m_bGameEnded)
+	if (m_input->keyDown(GLFW_KEY_ESC) && !m_input->keyDownLast(GLFW_KEY_ESC) && !m_bGameEnded)
 	{
 		m_bOpened = !m_bOpened;
 		m_returnToMainButton->setEnabled(m_bOpened);

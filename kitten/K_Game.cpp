@@ -287,5 +287,8 @@ namespace kitten
 	{
 		kitten::K_GameObjectManager::getInstance()->destroyAllGameObjects();
 		destroySingletons();
+
+		glfwTerminate();
+		exit(EXIT_SUCCESS);
 	}
 }
