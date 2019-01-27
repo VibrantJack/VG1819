@@ -42,7 +42,6 @@ namespace kitten
 		K_GameObject * createNewGameObject(const std::string& filename);
 
 		void destroyGameObject(K_GameObject* p_toDestroy);
-		void destroyGameObjectWithChild(K_GameObject* p_toDestroy);
 
 		void destroyAllGameObjects();
 		void destroySceneGameObjects();
