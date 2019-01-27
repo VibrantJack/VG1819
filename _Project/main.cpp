@@ -91,10 +91,6 @@ int main( void )
           glfwGetWindowParam( GLFW_OPENED ) );
     
 	kitten::shutdownGame();
-    // Close OpenGL window and terminate GLFW
-	glfwTerminate();
-    
-    exit( EXIT_SUCCESS );
 }
 
 
