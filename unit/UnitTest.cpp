@@ -47,12 +47,12 @@ namespace unit
 		m_bTested = true;
 		//comment for testing IT
 
-		kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstance()->spawnUnitObject(13); // 13 king !!!
-		uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(-1, -1);
+	//	kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstance()->spawnUnitObject(13); // 13 king !!!
+	//	uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(-1, -1);
 		//uNEWDUMMY->getComponent<unit::Unit>()->m_clientId = 1;
 
-		kitten::K_GameObject* uNEWDUMMY2 = UnitSpawn::getInstance()->spawnUnitObject(14); // queen !!!
-		uNEWDUMMY2->getComponent<unit::UnitMove>()->setTile(-1, -1);
+	//	kitten::K_GameObject* uNEWDUMMY2 = UnitSpawn::getInstance()->spawnUnitObject(14); // queen !!!
+	//	uNEWDUMMY2->getComponent<unit::UnitMove>()->setTile(-1, -1);
 		/*
 		// Testing highlighting tiles and manipulating tiles using testDummy.txt
 		{
@@ -107,8 +107,8 @@ namespace unit
 		//kitten::K_GameObject* u5 = UnitSpawn::getInstance()->spawnUnitObject(7);//pyromancer
 		//u5->getComponent<unit::UnitMove>()->setTile(6, 2);
 
-		//kitten::K_GameObject* u6 = UnitSpawn::getInstance()->spawnUnitObject(8);//stone slinger
-		//u6->getComponent<unit::UnitMove>()->setTile(7, 2);
+		kitten::K_GameObject* u6 = UnitSpawn::getInstance()->spawnUnitObject(8);//stone slinger
+		u6->getComponent<unit::UnitMove>()->setTile(7, 2);
 
 		//kitten::K_GameObject* u7 = UnitSpawn::getInstance()->spawnUnitObject(9);//arrow tower
 		//u7->getComponent<unit::UnitMove>()->setTile(8, 2);

@@ -19,6 +19,12 @@ namespace ability
 		//remove counter
 		removeCounter(p_info->m_source, COUNTER_ENERGY, counter);
 
+		//get target (this is CT ability)
+		getTarget(p_info);
+
+		multiTargetDamage(p_info);
+
+		/*
 		//trigger deal damage event
 		triggerTPEvent(ability::TimePointEvent::Deal_Damage, p_info->m_source, p_info);
 
@@ -39,7 +45,7 @@ namespace ability
 		}
 
 		//delete package
-		done(p_info);
+		done(p_info);*/
 
 		return 0;
 	}
