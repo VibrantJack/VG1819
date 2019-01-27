@@ -8,6 +8,7 @@
 #include "puppy\ShaderManager.h"
 #include "puppy\VertexEnvironment.h"
 #include "event_system\EventManager.h"
+
 #include <iostream>
 
 namespace input

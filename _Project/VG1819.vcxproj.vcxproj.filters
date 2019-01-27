@@ -887,6 +887,18 @@
     <ClCompile Include="..\kitten\K_RenderNode.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
+    <ClCompile Include="RefreshParticleSystemOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayParticleSystemAtMouseClick.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="ReloadObjectOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="HaltParticleSystemAfterTime.cpp">
+      <Filter>components\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1899,6 +1911,18 @@
     </ClInclude>
     <ClInclude Include="..\kitten\K_RenderNode.h">
       <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="RefreshParticleSystemOnKeyPress.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayParticleSystemAtMouseClick.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="ReloadObjectOnKeyPress.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="HaltParticleSystemAfterTime.h">
+      <Filter>components\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
