@@ -241,7 +241,7 @@ void unit::InitiativeTracker::gameTurnStart()
 
 	m_currentUnitIndex = 0;
 	m_UI->turnStart();
-
+	
 	if (getUnitNumber() > 0)
 	{
 		m_uAura->getTransform().setParent(&getCurrentUnit()->getTransform());
