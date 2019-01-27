@@ -1,0 +1,47 @@
+{
+	"unit":{
+		"name":"Servant",
+		"hp":5,
+		"mv":2,
+		"in":6,
+		"cost":1,
+		"tags":["Demon","Ancients","token"],
+		"ability_description":[
+			{
+                "name":"Stab",
+                "power":2,
+				"min_range":1,
+				"max_range":1,
+				"need_unit":0,
+                "description":"Deal 2 damage."
+			}
+		],
+		"status":[
+			{
+				"name":"Status_LV",
+				"lv":2,
+				"in":6
+            },
+            {
+				"name":"Status_LV",
+				"lv":2,
+				"hp":6
+			}
+		],
+		"portrait_texture" : "textures/cards/500x500/MudDemon.tga"
+	},
+	"components" : [
+		{
+			"name" : "SpriteGroup",
+			"spritename":"mud_demon",
+			"number":4,
+			"rotate":[45,0,0],
+			"scale":[1.5,0.8,1],
+			"translate":[-0.05,0,0.15]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/MudDemon.tga"
+		}
+	]
+}

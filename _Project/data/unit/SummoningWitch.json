@@ -36,20 +36,20 @@
 				"hp":5
 			}
 		],
-		"portrait_texture" : "textures/cards/500x500/MudDemon.tga"
+		"portrait_texture" : "textures/cards/500x500/SummoningWitch.tga"
 	},
 	"components" : [
 		{
 			"name" : "SpriteGroup",
-			"spritename":"mud_demon",
-			"number":4,
+			"spritename":"summoning_witch",
+			"number":2,
 			"rotate":[45,0,0],
-			"scale":[1.5,0.8,1],
+			"scale":[3,0.8,1],
 			"translate":[-0.05,0,0.15]
 		},
 		{
 			"name" : "CardArt",
-			"texture":"textures/cards/500x500/MudDemon.tga"
+			"texture":"textures/cards/500x500/SummoningWitch.tga"
 		}
 	]
 }
