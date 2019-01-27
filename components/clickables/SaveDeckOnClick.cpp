@@ -1,23 +1,28 @@
 #include "SaveDeckOnClick.h"
 #include "components/DeckAlterationComponent.h"
-#include "components/DisplayFrame/CommanderDisplayFrame.h"
-#include "kibble/databank/databank.hpp"
+#include "kitten/K_GameObjectManager.h"
+#include "_Project/DisableAfterTime.h"
 
 SaveDeckOnClick::SaveDeckOnClick() { 
-	m_text = "Wanna save changes my dude?";
+
 }
 
 SaveDeckOnClick::~SaveDeckOnClick() {
 
 }
 
-void SaveDeckOnClick::onSuccess()
-{
-	DeckAlterationComponent::getActiveInstance()->saveDeck();
-	PromptPopUp::getActiveInstance()->setEnabledPrompt(false);
-}
-
 void SaveDeckOnClick::onClick()
 {
-	PromptPopUp::getActiveInstance()->setBehavior(this);
+	if (m_message == nullptr)
+	{
+		m_message = kitten::K_GameObjectManager::getInstance()->createNewGameObject("saved_deck_message.json");
+	}
+	else
+	{
+		m_message->setEnabled(true);
+	}
+	m_message->getComponent<DisableAfterTime>()->setTime(3.0);
+
+	DeckAlterationComponent::getActiveInstance()->saveDeck();
+
 }
