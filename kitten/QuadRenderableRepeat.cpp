@@ -56,13 +56,11 @@ namespace kitten
 			{ -0.5f, 0.0f, 0.5f,	0.0f, 1.0f, 0.0f,	0.0f,	   0.0f },
 			{ 0.5f, 0.0f, 0.5f,		0.0f, 1.0f, 0.0f,	0.0f,	   m_vRepeat },
 			{ 0.5f, 0.0f,-0.5f,		0.0f, 1.0f, 0.0f,	m_uRepeat, m_vRepeat },
-			{ 0.5f, 0.0f,-0.5f,		0.0f, 1.0f, 0.0f,	m_uRepeat, m_vRepeat },
 			{ -0.5f, 0.0f,-0.5f,	0.0f, 1.0f, 0.0f,	m_uRepeat, 0.0f },
-			{ -0.5f, 0.0f, 0.5f,	0.0f, 1.0f, 0.0f,	0.0f,	   0.0f }
 		};
 
 		//Transform into world space
-		puppy::StaticRenderables::putInWorldSpace(verts, 6, getTransform().getWorldTransform(), getTransform().getRotation());
+		puppy::StaticRenderables::putInWorldSpace(verts, 4, getTransform().getWorldTransform(), getTransform().getRotation());
 
 		K_Renderable::addToStaticRender(m_mat, verts, &sm_indicies, 6);
 	}
@@ -156,7 +154,7 @@ namespace kitten
 	{
 		if (m_isStatic && m_isRenderingStatic)
 		{
-			removeFromStaticRender(m_mat);
+			removeFromStaticRender(m_mat, true);
 			m_isRenderingStatic = false;
 		}
 		else if (!m_isStatic)
