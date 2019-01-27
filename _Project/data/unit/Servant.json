@@ -28,7 +28,7 @@
 				"hp":6
 			}
 		],
-		"portrait_texture" : "textures/cards/500x500/MudDemon.tga"
+		"portrait_texture" : "textures/cards/500x500/Servant.tga"
 	},
 	"components" : [
 		{
@@ -41,7 +41,7 @@
 		},
 		{
 			"name" : "CardArt",
-			"texture":"textures/cards/500x500/MudDemon.tga"
+			"texture":"textures/cards/500x500/Servant.tga"
 		}
 	]
 }
