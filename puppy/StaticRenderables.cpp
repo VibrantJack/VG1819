@@ -217,7 +217,7 @@ namespace puppy
 
 			//construct single buffer from data
 			VertexEnvironment* toRender = new VertexEnvironment(createdData.data(),
-				ShaderManager::getShaderProgram(ShaderType::basic), createdData.size());
+				p_where->getShader(), createdData.size());
 
 			auto foundRender = p_toChange->find(p_where);
 			if (foundRender != p_toChange->end())
