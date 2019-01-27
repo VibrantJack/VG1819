@@ -1574,6 +1574,21 @@ kitten::K_Component* getHoverOverCardBehavior(nlohmann::json* p_jsonFile) {
 	return new HoverOverCardBehavior();
 }
 
+#include "components/DeckCountTextureBind.h"
+kitten::K_Component* getDeckCountTextureBind(nlohmann::json* p_jsonFile) {
+	DeckCountTextureBind* cop = new DeckCountTextureBind();
+
+	if (JSONHAS("pairs"))
+	{
+		for (nlohmann::json pair : LOOKUP("pairs"))
+		{
+			cop->addTexPair(pair[0], pair[1]);
+		}
+	}
+
+	return cop;
+}
+
 #include "unit/InitiativeTracker/NewTurnMessageController.h"
 kitten::K_Component* getNewTurnMessageController(nlohmann::json* p_jsonFile) {
 	float time;
@@ -1786,6 +1801,7 @@ void setupComponentMap() {
 	jsonComponentMap["TimerSymbol"] = &getTimerSymbol;
 	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
 	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
+	jsonComponentMap["DeckCountTextureBind"] = &getDeckCountTextureBind;
 	jsonComponentMap["TextChat"] = &getTextChat;
 	jsonComponentMap["ReadyCheck"] = &getReadyCheck;
 

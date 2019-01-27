@@ -16,6 +16,7 @@
 #define CARD_ID "cardID"
 #define CARD_COUNT "count"
 #define CARD_PLACEMENT "placement"
+#define DECK_CARD_COUNT_LEFT "cardsleft"
 
 #define CAM_FOV "FOV"
 #define POSITION_X "x"

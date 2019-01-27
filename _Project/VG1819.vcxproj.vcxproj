@@ -192,6 +192,7 @@
     <ClCompile Include="..\components\DeckAlterationComponent.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\components\ChangeSceneOnClick.cpp" />
+    <ClCompile Include="..\components\DeckCountTextureBind.cpp" />
     <ClCompile Include="..\components\DeckDiscardedCardHandler.cpp" />
     <ClCompile Include="..\components\DeckInitializingComponent.cpp" />
     <ClCompile Include="..\components\DecksDisplayFrame.cpp" />
@@ -511,6 +512,7 @@
     <ClInclude Include="..\components\DeckAlterationComponent.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />
     <ClInclude Include="..\components\ChangeSceneOnClick.hpp" />
+    <ClInclude Include="..\components\DeckCountTextureBind.h" />
     <ClInclude Include="..\components\DeckDiscardedCardHandler.h" />
     <ClInclude Include="..\components\DeckInitializingComponent.h" />
     <ClInclude Include="..\components\DecksDisplayFrame.h" />
