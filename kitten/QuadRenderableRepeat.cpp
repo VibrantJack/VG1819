@@ -14,7 +14,8 @@ namespace kitten
 		m_isRenderingStatic(false),
 		m_texRepeat(p_texRepeat),
 		m_uRepeat(p_uRepeat),
-		m_vRepeat(p_vRepeat)
+		m_vRepeat(p_vRepeat),
+		m_mat(true)
 	{
 		if (!p_texPath.empty())
 		{
@@ -40,7 +41,7 @@ namespace kitten
 			sm_indicies.push_back(0);
 		}
 
-		m_vao = new puppy::VertexEnvironment(verts, sm_indicies.data(), puppy::ShaderManager::getShaderProgram(puppy::ShaderType::texture_blend_zero_point_light), 4,6);
+		m_vao = new puppy::VertexEnvironment(verts, sm_indicies.data(), puppy::ShaderManager::getShaderProgram(puppy::ShaderType::texture_blend_zero_point_light), 4, 6);
 	}
 
 	QuadRenderableRepeat::~QuadRenderableRepeat()
@@ -62,7 +63,7 @@ namespace kitten
 		//Transform into world space
 		puppy::StaticRenderables::putInWorldSpace(verts, 4, getTransform().getWorldTransform(), getTransform().getRotation());
 
-		K_Renderable::addToStaticRender(m_mat, verts, &sm_indicies, 6);
+		K_Renderable::addToStaticRender(m_mat, verts, &sm_indicies, 4);
 	}
 
 	void QuadRenderableRepeat::setTexture(const char* p_pathToTex)

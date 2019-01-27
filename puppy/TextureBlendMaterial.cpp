@@ -2,9 +2,10 @@
 
 namespace puppy
 {
-	TextureBlendMaterial::TextureBlendMaterial() : Material(ShaderType::texture_blend_zero), m_ownedTexture(nullptr)
+	TextureBlendMaterial::TextureBlendMaterial(bool p_isLit) : Material(p_isLit ? ShaderType::texture_blend_zero_point_light : ShaderType::texture_blend_zero),
+		m_baseShader(p_isLit ? ShaderType::texture_blend_zero_point_light : ShaderType::texture_blend_zero), m_ownedTexture(nullptr)
 	{
-
+		
 	}
 
 	TextureBlendMaterial::~TextureBlendMaterial()
@@ -34,6 +35,7 @@ namespace puppy
 		}
 
 		toReturn->m_shader = m_shader;
+		toReturn->m_baseShader = m_baseShader;
 
 		return toReturn;
 	}
@@ -119,13 +121,13 @@ namespace puppy
 	void TextureBlendMaterial::addTexture(Texture* p_tex, const float& p_weight)
 	{
 		m_textures.insert(std::make_pair(p_tex, p_weight));
-		m_shader = ShaderManager::getShaderProgram(static_cast<ShaderType>(ShaderType::texture_blend_zero + m_textures.size() - 1));
+		m_shader = ShaderManager::getShaderProgram(static_cast<ShaderType>(m_baseShader + m_textures.size() - 1));
 	}
 
 	void TextureBlendMaterial::removeTexture(Texture* p_tex)
 	{
 		m_textures.erase(p_tex);
-		m_shader = ShaderManager::getShaderProgram(static_cast<ShaderType>(ShaderType::texture_blend_zero + m_textures.size() -1));
+		m_shader = ShaderManager::getShaderProgram(static_cast<ShaderType>(m_baseShader + m_textures.size() -1));
 	}
 
 	void TextureBlendMaterial::changeWeight(Texture* p_tex, const float& p_weight)
@@ -152,7 +154,7 @@ namespace puppy
 			//Set texture (sampler) uniforms
 			if (m_shader->getType() > texture_blend_zero)
 			{
-				int texUniforms = m_shader->getType() - ShaderType::texture_blend_zero;
+				int texUniforms = m_shader->getType() - m_baseShader;
 				for (int i = 1; i <= texUniforms; ++i)
 				{
 					setUniform(SAMPLER2D_NAME + std::to_string(i), i);

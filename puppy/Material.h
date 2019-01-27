@@ -47,6 +47,8 @@ namespace puppy
 
 		int getUniformPlace(const std::string& p_name);
 
+		virtual puppy::ShaderProgram* getShader() const { return m_shader; }
+
 		virtual void apply() const;
 	};
 }

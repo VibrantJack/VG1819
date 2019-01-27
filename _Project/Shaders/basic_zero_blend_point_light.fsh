@@ -1,4 +1,5 @@
 #version 150
+
 in vec2 v_uv1;
 
 uniform sampler2D tex;
@@ -13,5 +14,5 @@ void main()
 	
 	firstTex *= blendWeight0;
 	
-	PixelColor = firstTex;
+	PixelColor = firstTex;//vec4(v_uv1, 0, 1);
 }
