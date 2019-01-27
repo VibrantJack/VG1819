@@ -726,6 +726,16 @@ kitten::K_Component* getToggleParticleSystemOnKeyPress(nlohmann::json* p_jsonFil
 #include "_Project\UniversalPfx.h"
 kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 	
+	bool isDebug = p_jsonFile->operator[]("debug");
+	char refreshKey = 'R';
+
+	if (JSONHAS("refresh_key"))
+	{
+		std::string refreshStr = p_jsonFile->operator[]("refresh_key");
+		refreshKey = refreshStr[0];
+	}
+
+
 	std::list<std::tuple<std::string, std::string, int>> effects;
 
 	auto end = p_jsonFile->at("effects").end();
@@ -738,7 +748,7 @@ kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 		effects.push_back(std::make_tuple(effectName, effectPath, numPfxToPool));
 	}
 
-	return new UniversalPfx(effects);
+	return new UniversalPfx(effects, isDebug, refreshKey);
 }
 
 #include "components/DecksDisplay/DisplayFramePickerOnClick.h"
@@ -1444,6 +1454,24 @@ kitten::K_Component* getQuadEdgeRenderable(nlohmann::json* p_jsonFile)
 	return new kitten::QuadEdgeRenderable();
 }
 
+#include "components/PromptPopUp.h"
+kitten::K_Component* getPromptPopUp(nlohmann::json* p_jsonFile)
+{
+	return new PromptPopUp();
+}
+
+#include "components/clickables/PromptPopUpSuccessOnClick.h"
+kitten::K_Component* getPromptPopUpSuccessOnClick(nlohmann::json* p_jsonFile)
+{
+	return new PromptPopUpSuccessOnClick();
+}
+
+#include "components/clickables/PromptPopUpDeclineOnClick.h"
+kitten::K_Component* getPromptPopUpDeclineOnClick(nlohmann::json* p_jsonFile)
+{
+	return new PromptPopUpDeclineOnClick();
+}
+
 #include "board/tile/TileDecoration.h"
 kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
 {
@@ -1574,6 +1602,21 @@ kitten::K_Component* getHoverOverCardBehavior(nlohmann::json* p_jsonFile) {
 	return new HoverOverCardBehavior();
 }
 
+#include "components/DeckCountTextureBind.h"
+kitten::K_Component* getDeckCountTextureBind(nlohmann::json* p_jsonFile) {
+	DeckCountTextureBind* cop = new DeckCountTextureBind();
+
+	if (JSONHAS("pairs"))
+	{
+		for (nlohmann::json pair : LOOKUP("pairs"))
+		{
+			cop->addTexPair(pair[0], pair[1]);
+		}
+	}
+
+	return cop;
+}
+
 #include "unit/InitiativeTracker/NewTurnMessageController.h"
 kitten::K_Component* getNewTurnMessageController(nlohmann::json* p_jsonFile) {
 	float time;
@@ -1663,6 +1706,49 @@ kitten::K_Component* getReadyCheck(nlohmann::json* p_jsonFile) {
 	}
 
 	return new ReadyCheck(texture.c_str(), type, tb);
+}
+
+#include "_Project\RefreshParticleSystemOnKeyPress.h"
+kitten::K_Component* getRefreshParticleSystemOnKeyPress(nlohmann::json* p_jsonFile) {
+	
+	char key;
+	std::string keyStr = p_jsonFile->operator[]("key");
+	key = keyStr[0];
+
+	return new RefreshParticleSystemOnKeyPress(key);
+}
+
+#include "_Project\PlayParticleSystemAtMouseClick.h"
+kitten::K_Component* getPlayParticleSystemAtMouseClick(nlohmann::json* p_jsonFile) {
+	
+	glm::vec3 offset;
+
+	if (JSONHAS("offset"))
+	{
+		offset = glm::vec3(LOOKUP("offset")[0], LOOKUP("offset")[1], LOOKUP("offset")[2]);
+	}
+
+	return new PlayParticleSystemAtMouseClick(offset);
+}
+
+#include "_Project\ReloadObjectOnKeyPress.h"
+kitten::K_Component* getReloadObjectOnKeyPress(nlohmann::json* p_jsonFile) {
+	char key;
+	std::string keyStr = p_jsonFile->operator[]("key");
+	key = keyStr[0];
+
+	std::string jsonPath = p_jsonFile->operator[]("this_json_path");
+
+	return new ReloadObjectOnKeyPress(key, jsonPath);
+}
+
+#include "_Project\HaltParticleSystemAfterTime.h"
+kitten::K_Component* getHaltParticleSystemAfterTime(nlohmann::json* p_jsonFile) {
+	
+	float time = p_jsonFile->operator[]("time");
+	bool isStopping = p_jsonFile->operator[]("stop");
+
+	return new HaltParticleSystemAfterTime(time, isStopping);
 }
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
@@ -1783,11 +1869,19 @@ void setupComponentMap() {
 	jsonComponentMap["CounterGetterButton"] = &getCounterGetterButton;
 	jsonComponentMap["ContextMenu"] = &getContextMenu;
 	jsonComponentMap["NewTurnMessageController"] = &getNewTurnMessageController;
+	jsonComponentMap["PromptPopUp"] = &getPromptPopUp;
+	jsonComponentMap["PromptPopUpSuccessOnClick"] = &getPromptPopUpSuccessOnClick;
+	jsonComponentMap["PromptPopUpDeclineOnClick"] = &getPromptPopUpDeclineOnClick;
 	jsonComponentMap["TimerSymbol"] = &getTimerSymbol;
 	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
 	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
+	jsonComponentMap["DeckCountTextureBind"] = &getDeckCountTextureBind;
 	jsonComponentMap["TextChat"] = &getTextChat;
 	jsonComponentMap["ReadyCheck"] = &getReadyCheck;
+	jsonComponentMap["RefreshParticleSystemOnKeyPress"] = &getRefreshParticleSystemOnKeyPress;
+	jsonComponentMap["PlayParticleSystemAtMouseClick"] = &getPlayParticleSystemAtMouseClick;
+	jsonComponentMap["ReloadObjectOnKeyPress"] = &getReloadObjectOnKeyPress;
+	jsonComponentMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
 
 }
 

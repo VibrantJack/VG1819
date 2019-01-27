@@ -64,19 +64,6 @@ namespace kitten
 		m_toDelete.push_back(p_toDestroy);
 	}
 
-	void K_GameObjectManager::destroyGameObjectWithChild(K_GameObject * p_toDestroy)
-	{
-		//destroy game object
-		destroyGameObject(p_toDestroy);
-
-		//destroy child object
-		auto list = p_toDestroy->getTransform().getChildren();
-		for (int i = 0; i < list.size(); i++)
-		{
-			destroyGameObjectWithChild(&list[i]->getAttachedGameObject());
-		}
-	}
-
 	void K_GameObjectManager::deleteQueuedObjects()
 	{
 		for (auto it = m_toDelete.begin(); it != m_toDelete.end(); ++it)

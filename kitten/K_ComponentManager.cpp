@@ -59,6 +59,7 @@
 #include "board/clickable/SendSelfOnClick.h"
 //tile
 #include "board/tile/TileInfo.h"
+#include "kibble/UnitGameObject/UnitType.h"
 
 namespace kitten
 {
@@ -297,6 +298,17 @@ namespace kitten
 		return comp;
 	}
 
+	unit::Unit* K_ComponentManager::createUnitComponent(nlohmann::json &p_jsonfile)
+	{
+		unit::Unit* comp = getUnitFrom(p_jsonfile);
+		if (comp == nullptr) return nullptr;
+
+		m_toAddToStart.insert(comp);
+
+		//Successful
+		return comp;
+	}
+
 
 	//bool mostly for debugging
 	bool K_ComponentManager::destroyComponent(K_Component* p_toDestroy)
@@ -451,6 +463,5 @@ namespace kitten
 
 			m_toRemoveFromUpdate.clear();
 		}
-		
 	}
 }

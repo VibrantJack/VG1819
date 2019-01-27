@@ -6,7 +6,7 @@
             "texture" : "textures/ui/deck_highlight.tga"
         }
     ],
-    "translate" : [0,0,-0.01],
+    "translate" : [0,0,-0.6],
     "translate2d" : [-2,-2],
     "scale2d" : [200.0,75.0]
 }

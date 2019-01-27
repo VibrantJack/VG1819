@@ -5,7 +5,8 @@
 
 UniversalPfx* UniversalPfx::sm_instance = nullptr;
 
-UniversalPfx::UniversalPfx(const std::list<std::tuple<std::string, std::string, int>>& p_effects)
+UniversalPfx::UniversalPfx(const std::list<std::tuple<std::string, std::string, int>>& p_effects, bool p_isDebug, char p_refreshKey) :
+	m_isDebug(p_isDebug), m_debugRefreshKey(p_refreshKey), m_inputMan(nullptr)
 {
 	assert(sm_instance == nullptr);
 	sm_instance = this;
@@ -30,6 +31,8 @@ UniversalPfx::UniversalPfx(const std::list<std::tuple<std::string, std::string, 
 
 			//Insert effect into map
 			m_effects[effectName].push(particleSystem);
+
+			m_particleSystems.push_back(particleSystem);
 		}
 	}
 }
@@ -52,6 +55,31 @@ UniversalPfx::~UniversalPfx()
 	}*/
 
 	sm_instance = nullptr;
+}
+
+void UniversalPfx::start()
+{
+	if (m_isDebug)
+	{
+		m_inputMan = input::InputManager::getInstance();
+		assert(m_inputMan != nullptr);
+	}
+	else
+	{
+		setEnabled(false);
+	}
+}
+
+void UniversalPfx::update()
+{
+	if (m_inputMan->keyDown(m_debugRefreshKey) && !m_inputMan->keyDownLast(m_debugRefreshKey))
+	{
+		auto end = m_particleSystems.cend();
+		for (auto it = m_particleSystems.cbegin(); it != end; ++it)
+		{
+			(*it)->refreshXML();
+		}
+	}
 }
 
 void UniversalPfx::playEffect(const std::string& p_effectName, const glm::vec3& p_where)

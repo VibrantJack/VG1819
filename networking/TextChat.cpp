@@ -288,14 +288,6 @@ void TextChat::chatScrollButtonListener(kitten::Event::EventType p_type, kitten:
 		{
 			m_messageLogIndex = 0;
 		}
-		setMessageTextBoxes();
-
-		if (m_messageLogIndex == 0)
-		{
-			m_scrollUpButton->setActive(false);
-		}
-
-		printf("Scrollin up Index: %d\n", m_messageLogIndex);
 	}
 	else if (p_type == kitten::Event::TextChat_Scroll_Down)
 	{
@@ -307,24 +299,26 @@ void TextChat::chatScrollButtonListener(kitten::Event::EventType p_type, kitten:
 		{
 			m_messageLogIndex = m_messageLog.size() - MESSAGE_DISPLAY_LIMIT;
 		}
-		setMessageTextBoxes();
-
-		if (m_messageLogIndex == m_messageLog.size() - MESSAGE_DISPLAY_LIMIT)
-		{
-			m_scrollDownButton->setActive(false);
-		}
-
-		printf("Scrollin down Index: %d\n", m_messageLogIndex);
 	}
+
+	setMessageTextBoxes();
 
 	if (m_messageLogIndex < m_messageLog.size() - MESSAGE_DISPLAY_LIMIT && m_messageLogIndex >= 0)
 	{
 		m_scrollDownButton->setActive(true);
 	}
+	else
+	{
+		m_scrollDownButton->setActive(false);
+	}
 
-	if (m_messageLogIndex == m_messageLog.size() - MESSAGE_DISPLAY_LIMIT && m_messageLog.size() > MESSAGE_DISPLAY_LIMIT)
+	if (m_messageLogIndex <= m_messageLog.size() - MESSAGE_DISPLAY_LIMIT && m_messageLog.size() > MESSAGE_DISPLAY_LIMIT && m_messageLogIndex > 0)
 	{
 		m_scrollUpButton->setActive(true);
+	}
+	else
+	{
+		m_scrollUpButton->setActive(false);
 	}
 }
 

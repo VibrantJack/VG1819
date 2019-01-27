@@ -185,6 +185,8 @@
     <ClCompile Include="..\components\clickables\DiscardDeckOnClick.cpp" />
     <ClCompile Include="..\components\clickables\ChangeUnitOnClick.cpp" />
     <ClCompile Include="..\components\clickables\HoverOverCardBehavior.cpp" />
+    <ClCompile Include="..\components\clickables\PromptPopUpDeclineOnClick.cpp" />
+    <ClCompile Include="..\components\clickables\PromptPopUpSuccessOnClick.cpp" />
     <ClCompile Include="..\components\clickables\SaveDeckOnClick.cpp" />
     <ClCompile Include="..\components\clickables\SetCommanderOnClick.cpp" />
     <ClCompile Include="..\components\CustomCursor.cpp" />
@@ -192,6 +194,7 @@
     <ClCompile Include="..\components\DeckAlterationComponent.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\components\ChangeSceneOnClick.cpp" />
+    <ClCompile Include="..\components\DeckCountTextureBind.cpp" />
     <ClCompile Include="..\components\DeckDiscardedCardHandler.cpp" />
     <ClCompile Include="..\components\DeckInitializingComponent.cpp" />
     <ClCompile Include="..\components\DecksDisplayFrame.cpp" />
@@ -205,6 +208,7 @@
     <ClCompile Include="..\components\DrawCardOnClickUI.cpp" />
     <ClCompile Include="..\components\initializers\DrawCardsFromDeckWithDelay.cpp" />
     <ClCompile Include="..\components\MainMenuBoard.cpp" />
+    <ClCompile Include="..\components\PromptPopUp.cpp" />
     <ClCompile Include="..\components\scene change\StartGameOnClick.cpp" />
     <ClCompile Include="..\components\ExitGameButton.cpp" />
     <ClCompile Include="..\components\scene change\StartNewDeckSetupWizard.cpp" />
@@ -387,13 +391,17 @@
     <ClCompile Include="DestroyOnClick.cpp" />
     <ClCompile Include="DisableAfterTime.cpp" />
     <ClCompile Include="FPSCalc.cpp" />
+    <ClCompile Include="HaltParticleSystemAfterTime.cpp" />
     <ClCompile Include="LerpController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
+    <ClCompile Include="PlayParticleSystemAtMouseClick.cpp" />
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
     <ClCompile Include="PlaySoundOnStart.cpp" />
     <ClCompile Include="ProjectileManager.cpp" />
     <ClCompile Include="ProjectileParticleSystemHelper.cpp" />
+    <ClCompile Include="RefreshParticleSystemOnKeyPress.cpp" />
+    <ClCompile Include="ReloadObjectOnKeyPress.cpp" />
     <ClCompile Include="ShowLoadingOnClick.cpp" />
     <ClCompile Include="CardArt.cpp" />
     <ClCompile Include="StringInputDisplay.cpp" />
@@ -504,6 +512,8 @@
     <ClInclude Include="..\components\clickables\DiscardDeckOnClick.h" />
     <ClInclude Include="..\components\clickables\ChangeUnitOnClick.h" />
     <ClInclude Include="..\components\clickables\HoverOverCardBehavior.h" />
+    <ClInclude Include="..\components\clickables\PromptPopUpDeclineOnClick.h" />
+    <ClInclude Include="..\components\clickables\PromptPopUpSuccessOnClick.h" />
     <ClInclude Include="..\components\clickables\SaveDeckOnClick.h" />
     <ClInclude Include="..\components\clickables\SetCommanderOnClick.h" />
     <ClInclude Include="..\components\CustomCursor.h" />
@@ -511,6 +521,7 @@
     <ClInclude Include="..\components\DeckAlterationComponent.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />
     <ClInclude Include="..\components\ChangeSceneOnClick.hpp" />
+    <ClInclude Include="..\components\DeckCountTextureBind.h" />
     <ClInclude Include="..\components\DeckDiscardedCardHandler.h" />
     <ClInclude Include="..\components\DeckInitializingComponent.h" />
     <ClInclude Include="..\components\DecksDisplayFrame.h" />
@@ -525,6 +536,7 @@
     <ClInclude Include="..\components\ExitGameButton.h" />
     <ClInclude Include="..\components\initializers\DrawCardsFromDeckWithDelay.h" />
     <ClInclude Include="..\components\MainMenuBoard.h" />
+    <ClInclude Include="..\components\PromptPopUp.h" />
     <ClInclude Include="..\components\scene change\StartGameOnClick.h" />
     <ClInclude Include="..\components\scene change\StartNewDeckSetupWizard.h" />
     <ClInclude Include="..\components\SetupDeckEditOnSceneChange.h" />
@@ -729,12 +741,16 @@
     <ClInclude Include="DestroyOnClick.h" />
     <ClInclude Include="DisableAfterTime.h" />
     <ClInclude Include="FPSCalc.h" />
+    <ClInclude Include="HaltParticleSystemAfterTime.h" />
     <ClInclude Include="LerpController.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
+    <ClInclude Include="PlayParticleSystemAtMouseClick.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />
     <ClInclude Include="PlaySoundOnStart.h" />
     <ClInclude Include="ProjectileManager.h" />
     <ClInclude Include="ProjectileParticleSystemHelper.h" />
+    <ClInclude Include="RefreshParticleSystemOnKeyPress.h" />
+    <ClInclude Include="ReloadObjectOnKeyPress.h" />
     <ClInclude Include="ShowLoadingOnClick.h" />
     <ClInclude Include="StringInputDisplay.h" />
     <ClInclude Include="ToggleEnabledOnKeyPress.h" />

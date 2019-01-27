@@ -82,7 +82,7 @@ void SpawnUnitOnDrop::removeCard()
 	userinterface::HandFrame::getActiveInstance()->removeCard((userinterface::UIObject*)cardUIObject);
 
 	// Delete Card
-	kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(this->m_attachedObject);
+	kitten::K_GameObjectManager::getInstance()->destroyGameObject(this->m_attachedObject);
 
 }
 
