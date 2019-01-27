@@ -192,6 +192,7 @@
     <ClCompile Include="..\components\DeckAlterationComponent.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\components\ChangeSceneOnClick.cpp" />
+    <ClCompile Include="..\components\DeckCountTextureBind.cpp" />
     <ClCompile Include="..\components\DeckDiscardedCardHandler.cpp" />
     <ClCompile Include="..\components\DeckInitializingComponent.cpp" />
     <ClCompile Include="..\components\DecksDisplayFrame.cpp" />
@@ -258,6 +259,7 @@
     <ClCompile Include="..\kitten\K_JobManager.cpp" />
     <ClCompile Include="..\kitten\K_ParticleSystem.cpp" />
     <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
+    <ClCompile Include="..\kitten\K_RenderNode.cpp" />
     <ClCompile Include="..\kitten\K_Time.cpp" />
     <ClCompile Include="..\kitten\lights\K_DirectionalLight.cpp" />
     <ClCompile Include="..\kitten\ModelRenderable.cpp" />
@@ -292,6 +294,7 @@
     <ClCompile Include="..\networking\menu\NetworkHostButton.cpp" />
     <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp" />
     <ClCompile Include="..\kitten\util\AsyncFileOperations.cpp" />
+    <ClCompile Include="..\networking\TextChat.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
     <ClCompile Include="..\puppy\FBO.cpp" />
     <ClCompile Include="..\puppy\lights\P_DirectionalLight.cpp" />
@@ -385,13 +388,17 @@
     <ClCompile Include="DestroyOnClick.cpp" />
     <ClCompile Include="DisableAfterTime.cpp" />
     <ClCompile Include="FPSCalc.cpp" />
+    <ClCompile Include="HaltParticleSystemAfterTime.cpp" />
     <ClCompile Include="LerpController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
+    <ClCompile Include="PlayParticleSystemAtMouseClick.cpp" />
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
     <ClCompile Include="PlaySoundOnStart.cpp" />
     <ClCompile Include="ProjectileManager.cpp" />
     <ClCompile Include="ProjectileParticleSystemHelper.cpp" />
+    <ClCompile Include="RefreshParticleSystemOnKeyPress.cpp" />
+    <ClCompile Include="ReloadObjectOnKeyPress.cpp" />
     <ClCompile Include="ShowLoadingOnClick.cpp" />
     <ClCompile Include="CardArt.cpp" />
     <ClCompile Include="StringInputDisplay.cpp" />
@@ -509,6 +516,7 @@
     <ClInclude Include="..\components\DeckAlterationComponent.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />
     <ClInclude Include="..\components\ChangeSceneOnClick.hpp" />
+    <ClInclude Include="..\components\DeckCountTextureBind.h" />
     <ClInclude Include="..\components\DeckDiscardedCardHandler.h" />
     <ClInclude Include="..\components\DeckInitializingComponent.h" />
     <ClInclude Include="..\components\DecksDisplayFrame.h" />
@@ -588,6 +596,7 @@
     <ClInclude Include="..\kitten\K_ParticleSystem.h" />
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
     <ClInclude Include="..\kitten\K_Instance.h" />
+    <ClInclude Include="..\kitten\K_RenderNode.h" />
     <ClInclude Include="..\kitten\K_Routine.h" />
     <ClInclude Include="..\kitten\K_Time.h" />
     <ClInclude Include="..\kitten\lights\K_DirectionalLight.h" />
@@ -624,6 +633,7 @@
     <ClInclude Include="..\networking\ServerNetwork.h" />
     <ClInclude Include="..\networking\SpawnUnitOnKeyPress.h" />
     <ClInclude Include="..\kitten\util\AsyncFileOperations.h" />
+    <ClInclude Include="..\networking\TextChat.h" />
     <ClInclude Include="..\pugixml\pugiconfig.hpp" />
     <ClInclude Include="..\pugixml\pugixml.hpp" />
     <ClInclude Include="..\puppy\FBO.h" />
@@ -725,12 +735,16 @@
     <ClInclude Include="DestroyOnClick.h" />
     <ClInclude Include="DisableAfterTime.h" />
     <ClInclude Include="FPSCalc.h" />
+    <ClInclude Include="HaltParticleSystemAfterTime.h" />
     <ClInclude Include="LerpController.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
+    <ClInclude Include="PlayParticleSystemAtMouseClick.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />
     <ClInclude Include="PlaySoundOnStart.h" />
     <ClInclude Include="ProjectileManager.h" />
     <ClInclude Include="ProjectileParticleSystemHelper.h" />
+    <ClInclude Include="RefreshParticleSystemOnKeyPress.h" />
+    <ClInclude Include="ReloadObjectOnKeyPress.h" />
     <ClInclude Include="ShowLoadingOnClick.h" />
     <ClInclude Include="StringInputDisplay.h" />
     <ClInclude Include="ToggleEnabledOnKeyPress.h" />

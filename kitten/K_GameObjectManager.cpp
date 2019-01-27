@@ -33,27 +33,35 @@ namespace kitten
 		return parser->getGameObject(p_filename);
 	}
 
+	void K_GameObjectManager::removeGameObjectFromList(K_GameObject* p_toRemove)
+	{
+		if (p_toRemove->m_survivesSceneChange)
+		{
+			m_toSurvive.erase(p_toRemove);
+		}
+		else
+		{
+			m_gameObjects.erase(p_toRemove->m_objectIndex);
+		}
+	}
+
+	void K_GameObjectManager::addGameObjectToList(K_GameObject* p_toAdd)
+	{
+		if (p_toAdd->m_survivesSceneChange)
+		{
+			m_toSurvive.insert(p_toAdd);
+		}
+		else
+		{
+			m_gameObjects.insert(std::make_pair(p_toAdd->m_objectIndex, p_toAdd));
+		}
+	}
+
 	void K_GameObjectManager::destroyGameObject(K_GameObject* p_toDestroy)
 	{
 		assert(p_toDestroy != nullptr);
 
-		auto found = m_gameObjects.find(p_toDestroy->m_objectIndex);
-		assert(found != m_gameObjects.end());
-
 		m_toDelete.push_back(p_toDestroy);
-	}
-
-	void K_GameObjectManager::destroyGameObjectWithChild(K_GameObject * p_toDestroy)
-	{
-		//destroy game object
-		destroyGameObject(p_toDestroy);
-
-		//destroy child object
-		auto list = p_toDestroy->getTransform().getChildren();
-		for (int i = 0; i < list.size(); i++)
-		{
-			destroyGameObject(&list[i]->getAttachedGameObject());
-		}
 	}
 
 	void K_GameObjectManager::deleteQueuedObjects()
@@ -61,12 +69,13 @@ namespace kitten
 		for (auto it = m_toDelete.begin(); it != m_toDelete.end(); ++it)
 		{
 			auto gameObject = (*it);
-			auto found = m_gameObjects.find(gameObject->m_objectIndex);
-			assert(found != m_gameObjects.end());
 
-			m_gameObjects.erase(found);
-
-			delete *it;
+			if (!gameObject->getTransform().getParent())
+			{
+				m_gameObjects.erase(gameObject->m_objectIndex);
+			}
+			
+			deleteGameObject(gameObject);
 		}
 
 		m_toDelete.clear();
@@ -79,14 +88,16 @@ namespace kitten
 		auto end = m_gameObjects.end();
 		for (auto it = m_gameObjects.begin(); it != end; ++it)
 		{
-			delete  (*it).second;
+			deleteGameObject((*it).second);
 		}
 		m_gameObjects.clear();
 
-		for (auto gameObject : m_toSurvive)
+		auto survivEnd = m_toSurvive.end();
+		for (auto it = m_toSurvive.cbegin(); it != survivEnd; ++it)
 		{
-			delete gameObject;
+			deleteGameObject(*it);
 		}
+		m_toSurvive.clear();
 	}
 
 	void K_GameObjectManager::destroySceneGameObjects() 
@@ -94,16 +105,28 @@ namespace kitten
 		deleteQueuedObjects();
 
 		auto end = m_gameObjects.end();
-		for (auto it = m_gameObjects.begin(); it != end;++it)
+		for (auto it = m_gameObjects.begin(); it != end; ++it)
 		{
-			delete  (*it).second;
+			deleteGameObject((*it).second);
 		}
-		m_gameObjects.clear();
-		
+		m_gameObjects.clear();	
+	}
+
+	void K_GameObjectManager::deleteGameObject(K_GameObject* p_toDelete)
+	{
+		auto list = p_toDelete->getTransform().getChildren();
+		for (int i = 0; i < list.size(); i++)
+		{
+			deleteGameObject(&list[i]->getAttachedGameObject());
+		}
+
+		delete p_toDelete;
 	}
 
 	void K_GameObjectManager::flagGameObjectToSurvive(K_GameObject* p_toSurvive)
 	{
+		p_toSurvive->m_survivesSceneChange = true;
+
 		m_toSurvive.insert(p_toSurvive);
 		m_gameObjects.erase(m_gameObjects.find(p_toSurvive->m_objectIndex));
 	}

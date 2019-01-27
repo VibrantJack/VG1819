@@ -34,13 +34,15 @@ namespace kitten
 			{
 				K_ComponentManager::getInstance()->removeFromStart(this);
 			}
-			else if (hasUpdate())
+			else 
 			{
-				K_ComponentManager::getInstance()->queueRemovalFromUpdate(this);
+				if (hasUpdate())
+				{
+					K_ComponentManager::getInstance()->queueRemovalFromUpdate(this);
+				}
 			}
 
 			onDisabled();
-			
 		}
 		else if (!m_isEnabled && p_enabled)
 		{
@@ -57,7 +59,6 @@ namespace kitten
 					K_ComponentManager::getInstance()->queueAddToUpdate(this);
 				}
 			}
-
 			onEnabled();
 		}
 	}
