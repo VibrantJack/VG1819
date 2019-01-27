@@ -188,7 +188,11 @@ namespace ability
 	{
 	public:
 		Fire() : Ability(ABILITY_FIRE) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) {
+			getTarget(p_info);
+			multiTargetDamage(p_info);
+			return 0;
+		};
 	};
 
 	class Load : public Ability
