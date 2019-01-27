@@ -2,6 +2,7 @@
 #include "kitten/K_GameObjectManager.h"
 #include "NewTurnMessageController.h"
 #include "kitten/event_system/EventManager.h"
+#include "kitten/K_CameraList.h"
 #include "unit/Unit.h"
 
 unit::TurnChangeDisplay::TurnChangeDisplay()
@@ -37,7 +38,7 @@ void unit::TurnChangeDisplay::displayNewUnitTurn(kitten::K_GameObject * p_unit)
 		float posZ = tile->getTransform().getTranslation().z;
 
 		kitten::Event* e = new kitten::Event(kitten::Event::Move_Camera);
-		e->putFloat(CAM_FOV, DEFAULT_CAMERA_FOV);
+		e->putFloat(CAM_FOV, kitten::K_CameraList::getInstance()->getSceneCamera()->getFOV());
 		e->putFloat(POSITION_X, posX);
 		e->putFloat(POSITION_Z, posZ - CAMERA_Z_OFFSET);
 		e->putFloat("time", DEFAULT_CAMERA_LERP_TIME);
@@ -58,6 +59,6 @@ void unit::TurnChangeDisplay::resetCamera()
 	e->putFloat(CAM_FOV, DEFAULT_CAMERA_FOV);
 	e->putFloat(POSITION_X, DEFAULT_CAMERA_POS_X);
 	e->putFloat(POSITION_Z, DEFAULT_CAMERA_POS_Z);
-	e->putFloat("time", 0);
+	e->putFloat("time", DEFAULT_CAMERA_LERP_TIME);
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Move_Camera, e);
 }

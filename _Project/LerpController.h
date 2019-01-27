@@ -27,6 +27,12 @@ public:
 		virtual void onRotationLerpFinished() = 0;
 	};
 
+	enum TransformBehavior {
+		ResetToOrigin, 
+		KeepInPlace,
+		SetToTarget
+	};
+
 private:
 	bool m_isLerping;
 	bool m_isPositionLerping, m_isScaleLerping, m_isRotationLerping;
@@ -77,8 +83,8 @@ public:
 	void removeScaleCallback(ScaleLerpFinishedCallback* p_listener);
 	void removeRotationCallback(RotationLerpFinishedCallback* p_listener);
 
-	void forceLerpToFinish(bool p_applyTransform = true);
-	void cancelLerp(bool p_resetTransform = true);
+	void endLerp(TransformBehavior p_behavior, bool p_applyCallbacks); // Does not disable, incase you want to replace the lerp
+	void finishLerp(TransformBehavior p_behavior, bool p_applyCallbacks);// Disables
 
 	bool isLerping() const { return m_isLerping; }
 	bool isPosLerping() const { return m_isPositionLerping; }
