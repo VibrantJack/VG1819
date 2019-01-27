@@ -34,6 +34,7 @@
 #define ABILITY_MUCUS "Mucus"
 #define ABILITY_SUMMON "Summon"
 #define ABILITY_ACTIVATE "Activate"
+#define ABILITY_STAB "Stab"
 
 //ability or status required info
 #define PUSH_BACK "push back"

@@ -106,8 +106,8 @@ namespace unit
 		//kitten::K_GameObject* u5 = UnitSpawn::getInstance()->spawnUnitObject(7);//pyromancer
 		//u5->getComponent<unit::UnitMove>()->setTile(6, 2);
 
-		kitten::K_GameObject* u6 = UnitSpawn::getInstance()->spawnUnitObject(8);//stone slinger
-		u6->getComponent<unit::UnitMove>()->setTile(10, 4);
+//		kitten::K_GameObject* u6 = UnitSpawn::getInstance()->spawnUnitObject(8);//stone slinger
+//		u6->getComponent<unit::UnitMove>()->setTile(10, 4);
 
 		//kitten::K_GameObject* u7 = UnitSpawn::getInstance()->spawnUnitObject(9);//arrow tower
 		//u7->getComponent<unit::UnitMove>()->setTile(8, 2);
@@ -115,8 +115,8 @@ namespace unit
 		//kitten::K_GameObject* u8 = UnitSpawn::getInstance()->spawnUnitObject(10);//armory
 		//u8->getComponent<unit::UnitMove>()->setTile(9, 2);
 
-		kitten::K_GameObject* u9 = UnitSpawn::getInstance()->spawnUnitObject(11);//divine status
-		u9->getComponent<unit::UnitMove>()->setTile(10, 2);
+//		kitten::K_GameObject* u9 = UnitSpawn::getInstance()->spawnUnitObject(11);//divine status
+//		u9->getComponent<unit::UnitMove>()->setTile(10, 2);
 		
 //		kitten::K_GameObject* u10 = UnitSpawn::getInstance()->spawnUnitObject(12);//enchanter
 //		u10->getComponent<unit::UnitMove>()->setTile(10, 4);

@@ -331,6 +331,13 @@ namespace ability
 		Activate() : Ability(ABILITY_ACTIVATE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
+
+	class Stab : public Ability
+	{
+	public:
+		Stab() : Ability(ABILITY_STAB) {};
+		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
+	};
 }
 
 

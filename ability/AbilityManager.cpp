@@ -116,6 +116,9 @@ namespace ability
 
 		newAbility = new Activate();
 		m_abilityList[ABILITY_ACTIVATE] = newAbility;
+
+		newAbility = new Stab();
+		m_abilityList[ABILITY_STAB] = newAbility;
 	}
 
 	AbilityManager::AbilityManager()

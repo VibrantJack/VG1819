@@ -1,0 +1,23 @@
+{
+	"name" : "servant",
+	"texture" : "textures/sprites/units/ancients/servant_sheet.png",
+	
+	"sheetwidth" : 750,
+	"sheetheight" : 110,
+	
+	"characterwidth" : 90,
+	"characterheight" : 90,
+	
+	"padding" : 10,
+	
+	"defaultanimation" : "idle",
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [5,0],
+			"time" : 2
+		}
+	]
+}
