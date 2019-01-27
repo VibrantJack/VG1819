@@ -72,7 +72,7 @@ namespace kitten
 		{
 			if (m_isRenderingStatic)
 			{
-				removeFromStaticRender(m_mat);
+				removeFromStaticRender(m_mat, true);
 			}
 
 			m_mat.setTexture(p_pathToTex);
@@ -92,7 +92,7 @@ namespace kitten
 		{
 			if (m_isRenderingStatic)
 			{
-				removeFromStaticRender(m_mat);
+				removeFromStaticRender(m_mat, true);
 			}
 
 			m_mat.addTexture(p_tex, p_weight);
@@ -112,7 +112,7 @@ namespace kitten
 		{
 			if (m_isRenderingStatic)
 			{
-				removeFromStaticRender(m_mat);
+				removeFromStaticRender(m_mat, true);
 			}
 
 			m_mat.removeTexture(p_tex);
@@ -132,7 +132,7 @@ namespace kitten
 		{
 			if (m_isRenderingStatic)
 			{
-				removeFromStaticRender(m_mat);
+				removeFromStaticRender(m_mat, true);
 			}
 
 			m_mat.changeWeight(p_tex, p_weight);
