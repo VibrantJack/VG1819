@@ -46,7 +46,6 @@ namespace unit
 	void Unit::start()
 	{
 		m_healthBar = m_attachedObject->getComponent<UnitHealthBar>();
-		assert(false);
 	}
 
 	//status
