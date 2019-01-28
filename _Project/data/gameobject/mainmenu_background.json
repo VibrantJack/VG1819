@@ -2,10 +2,7 @@
     "name" : "Main Menu Texture",
     "components" : [
 		{
-			"name" : "UIFrame",
-			"texture" : "textures/ui/main_menu_interface.tga"
+			"name" : "MainMenu"
 		}
-    ],
-	"scale2d" : [1280, 720],
-	"translate" : [0.0, 0.0, -0.9]
+    ]
 }
