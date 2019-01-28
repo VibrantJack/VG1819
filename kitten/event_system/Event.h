@@ -11,6 +11,7 @@
 #define UPDATE_CARD_CONTEXT_KEY "update_card_context_key"
 #define CARD_CONTEXT_SET_ENABLED_KEY "card_context_set_enabled_key"
 #define TEXTCHAT_MESSAGE_KEY "textchat_message_key"
+#define NEXT_SCENE_PATH_KEY "next_scene_path_key"
 
 #define PLAYER_ID "playerID"
 #define CARD_ID "cardID"
@@ -87,6 +88,7 @@ namespace kitten
 			Ready_Button_Clicked,
 			Players_Ready,
 			Player_Joined,
+			Scene_Change,
 
 			Test_Event, 
 			MAX_VAL = Test_Event
