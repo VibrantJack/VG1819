@@ -1,0 +1,9 @@
+{
+    "name" : "Card Context Texture", 
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/text_chat_background.dds"
+        }
+    ]
+}

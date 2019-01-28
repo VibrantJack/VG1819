@@ -15,7 +15,11 @@ namespace ability
 		if (p_target->m_attributes[UNIT_HP] > p_target->m_attributes[UNIT_MAX_HP])
 			p_target->m_attributes[UNIT_HP] = p_target->m_attributes[UNIT_MAX_HP];
 		else if (p_target->m_attributes[UNIT_HP] <= 0)
+		{
+			p_target->m_attributes[UNIT_HP] = 0;
 			p_target->destroyedByDamage();
+		}
+			
 
 		int hp = p_target->m_attributes[UNIT_HP];
 		int max = p_target->m_attributes[UNIT_MAX_HP];

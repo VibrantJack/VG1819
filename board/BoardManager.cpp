@@ -300,6 +300,7 @@ void BoardManager::listenEvent(kitten::Event::EventType p_type, kitten::Event * 
 		break;
 	case kitten::Event::Unhighlight_Tile:
 		m_highlighter->unhighlightAll(TileInfo::Range);
+		m_highlighter->unhighlightAll(TileInfo::Area);
 		break;
 	case kitten::Event::Set_Area_Pattern:
 		setArea(p_data);

@@ -188,7 +188,7 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 
 		m_UI->change(index);
 
-		kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(p_unit);
+		kitten::K_GameObjectManager::getInstance()->destroyGameObject(p_unit);
 		return true;
 	}
 
@@ -262,7 +262,7 @@ void unit::InitiativeTracker::gameTurnStart()
 
 	m_currentUnitIndex = 0;
 	m_UI->turnStart();
-
+	
 	if (getUnitNumber() > 0)
 	{
 		m_uAura->getTransform().setParent(&getCurrentUnit()->getTransform());

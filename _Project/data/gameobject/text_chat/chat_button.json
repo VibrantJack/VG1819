@@ -1,0 +1,19 @@
+{
+	"name" : "Chat Button",
+	"components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/chat_button.dds"
+		},
+		{
+			"name" : "TriggerEventButton",
+			"regularTexture" : "textures/ui/buttons/chat_button.dds",
+			"highlightedTexture" : "textures/ui/buttons/chat_button_h.dds",
+			"event" : "Chat_Button_Clicked"
+		},
+		{
+			"name" : "ClickableFrame"
+		}
+	],
+	"scale2d" : [152, 36]
+}

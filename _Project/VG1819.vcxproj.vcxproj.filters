@@ -917,6 +917,39 @@
     <ClCompile Include="..\board\component\tilePipeline\SelfFilter.cpp">
       <Filter>board\component\tilePipeline</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\PromptPopUp.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\PromptPopUpDeclineOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\PromptPopUpSuccessOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DeckCountTextureBind.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\TextChat.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\ReadyCheck.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_RenderNode.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="RefreshParticleSystemOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayParticleSystemAtMouseClick.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="ReloadObjectOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="HaltParticleSystemAfterTime.cpp">
+      <Filter>components\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1920,6 +1953,39 @@
     </ClInclude>
     <ClInclude Include="..\ability\status\demonic_restriction\Status_Demonic_Restriction.h">
       <Filter>ability\status\demonic_restriction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\PromptPopUp.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\PromptPopUpDeclineOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\PromptPopUpSuccessOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DeckCountTextureBind.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\TextChat.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\ReadyCheck.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_RenderNode.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="RefreshParticleSystemOnKeyPress.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayParticleSystemAtMouseClick.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="ReloadObjectOnKeyPress.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="HaltParticleSystemAfterTime.h">
+      <Filter>components\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

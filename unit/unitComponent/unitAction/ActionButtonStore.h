@@ -7,11 +7,11 @@ Position is depend on mouse position.
 */
 
 #pragma once
-#include "unit/Unit.h"
 #include "ActionSelect.h"
 
 namespace unit
 {
+	class Unit;
 	class ActionButtonStore
 	{
 	public:

@@ -11,7 +11,7 @@
 void DiscardCardOnClick::onPositionLerpFinished()
 {
 	// Delete Card
-	kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(this->m_attachedObject);
+	kitten::K_GameObjectManager::getInstance()->destroyGameObject(this->m_attachedObject);
 }
 
 DiscardCardOnClick::DiscardCardOnClick(bool p_backToOrigin)

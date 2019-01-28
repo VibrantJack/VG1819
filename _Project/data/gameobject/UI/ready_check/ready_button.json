@@ -1,0 +1,20 @@
+{
+	"name" : "Ready Button",
+	"components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/ready_button.dds"
+		},
+		{
+			"name" : "TriggerEventButton",
+			"regularTexture" : "textures/ui/buttons/ready_button.dds",
+			"highlightedTexture" : "textures/ui/buttons/ready_button_h.dds",
+			"inactiveTexture" : "textures/ui/buttons/ready_button_i.dds",
+			"event" : "Ready_Button_Clicked"
+		},
+		{
+			"name" : "ClickableFrame"
+		}
+	],
+	"scale2d" : [150, 48]
+}

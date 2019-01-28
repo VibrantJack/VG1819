@@ -21,6 +21,12 @@
 					"list" : "data/unit_projectileList.txt"
 				}
 			]
+		},
+		{
+			"filename" : "text_chat/text_chat.json"
+		},
+		{
+			"filename" : "UI/ready_check/ready_check.json"
 		}
     ],
 	"scenes" : [ "Game_Scene.json","mountainForest.json"]
