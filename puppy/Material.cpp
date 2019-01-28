@@ -103,6 +103,8 @@ namespace puppy
 		{
 			setUniform("colour", m_colour);
 		}
+
+		applyMatLightProperties();
 	}
 
 	void Material::setTexture(const char* p_pathToTex)
@@ -127,6 +129,18 @@ namespace puppy
 	{
 		m_hasColour = true;
 		m_colour = p_colour;
+	}
+
+	void Material::setMatAmbient(const glm::vec4& p_amb)
+	{
+		m_matAmbient = p_amb;
+		m_hasMatLightProperties = true;
+	}
+
+	void Material::setMatDiffuse(const glm::vec4& p_diff)
+	{
+		m_matDiffuse = p_diff;
+		m_hasMatLightProperties = true;
 	}
 
 	Texture* Material::getTexture() const

@@ -4,6 +4,7 @@
 #include <unordered_set>
 
 #include "P_DirectionalLight.h"
+#include "P_PointLight.h"
 
 namespace puppy
 {	
@@ -18,6 +19,7 @@ namespace puppy
 		~P_LightList();
 
 		std::unordered_set<P_DirectionalLight*> m_directionalLights;
+		std::unordered_set<P_PointLight*> m_pointLights;
 
 		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new P_LightList(); };
 		static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
@@ -27,7 +29,13 @@ namespace puppy
 		bool hasDirectionalLight() const;
 		const std::unordered_set<P_DirectionalLight*>& getDirectionalLights() const;
 
+		bool hasPointLight() const;
+		const std::unordered_set<P_PointLight*>& getPointLights() const;
+
 		void addDirectionalLight(P_DirectionalLight* p_light);
 		void removeDirectionalLight(P_DirectionalLight* p_light);
+
+		void addPointLight(P_PointLight* p_light);
+		void removePointLight(P_PointLight* p_light);
 	};
 }

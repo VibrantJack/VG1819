@@ -178,5 +178,7 @@ namespace puppy
 
 			++i;
 		}
+
+		applyMatLightProperties();
 	}
 }

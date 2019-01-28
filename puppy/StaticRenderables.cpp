@@ -376,7 +376,6 @@ namespace puppy
 
 			mat->setUniform("world", glm::mat4());
 			mat->setUniform("worldIT", glm::mat3());
-			mat->setUniform("matAmbient", glm::vec4(0.4, 0.4, 0.4, 1));
 
 			vertices->drawArrays(GL_TRIANGLES);
 		}

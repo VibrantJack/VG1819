@@ -1538,8 +1538,8 @@ kitten::K_Component* getProjectileManager(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getDirectionalLight(nlohmann::json* p_jsonFile) {
 
 	bool useCallbacks;
-	glm::vec3 ambientColor;
-	glm::vec3 directionalColor;
+	glm::vec3 ambientColor(0.3,0.3,0.3);
+	glm::vec3 directionalColor(0.3,0.3,0.3);
 
 	SETOPTDEF(useCallbacks, "useCallbacks", false);
 	
@@ -1554,6 +1554,36 @@ kitten::K_Component* getDirectionalLight(nlohmann::json* p_jsonFile) {
 	}
 
 	return new kitten::K_DirectionalLight(ambientColor, directionalColor, useCallbacks);
+}
+
+#include "kitten\lights\K_PointLight.h"
+kitten::K_Component* getPointLight(nlohmann::json* p_jsonFile) {
+
+	bool useCallbacks;
+	glm::vec3 ambientColor(0.3,0.3,0.3);
+	glm::vec3 pointColor(0.3, 0.3, 0.3);
+	glm::vec3 attenuation(0.3, 0.3, 0.3);
+	float range = 1.0f;
+
+	SETOPTDEF(useCallbacks, "useCallbacks", false);
+	SETOPTDEF(range, "range", 1.0f);
+
+	if (JSONHAS("ambientColor"))
+	{
+		ambientColor = glm::vec3(LOOKUP("ambientColor")[0], LOOKUP("ambientColor")[1], LOOKUP("ambientColor")[2]);
+	}
+
+	if (JSONHAS("pointColor"))
+	{
+		pointColor = glm::vec3(LOOKUP("pointColor")[0], LOOKUP("pointColor")[1], LOOKUP("pointColor")[2]);
+	}
+
+	if (JSONHAS("attenuation"))
+	{
+		attenuation = glm::vec3(LOOKUP("attenuation")[0], LOOKUP("attenuation")[1], LOOKUP("attenuation")[2]);
+	}
+
+	return new kitten::K_PointLight(ambientColor, pointColor, attenuation, range, useCallbacks);
 }
 
 #include "unitInteraction/CounterGetterButton.h"
@@ -1844,6 +1874,7 @@ void setupComponentMap() {
 	jsonComponentMap["SimpleQuadRenderable"] = &getSimpleQuadRenderable;
 	jsonComponentMap["ShowLoadingOnClick"] = &getShowLoadingOnClick;
 	jsonComponentMap["DirectionalLight"] = &getDirectionalLight;
+	jsonComponentMap["PointLight"] = &getPointLight;
 	jsonComponentMap["PivotTextBox"] = &getPivotTextBox;
 	jsonComponentMap["CardArt"] = &getCardArt;
 	jsonComponentMap["CounterGetterController"] = &getCounterGetterController;

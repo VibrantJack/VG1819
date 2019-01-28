@@ -5,14 +5,14 @@
 
 namespace puppy
 {
-	ShaderProgram::ShaderProgram(const std::string& p_vertexShaderPath, const std::string& p_pixelShaderPath, ShaderType p_type) : m_type(p_type), m_hasLights(false)
+	ShaderProgram::ShaderProgram(const std::string& p_vertexShaderPath, const std::string& p_pixelShaderPath, ShaderType p_type) : m_type(p_type), m_hasDirectionalLights(false)
 	{
 		//If I were to write my own shader compiling / loading it would be the same as wolf's.
 		m_id = wolf::LoadShaders(p_vertexShaderPath, p_pixelShaderPath);
 
 		if (m_type == basic_directional_light || m_type == solid_color_directional_light) // Not sure what the better way to do this is
 		{
-			m_hasLights = true;
+			m_hasDirectionalLights = true;
 		}
 	}
 
@@ -25,7 +25,7 @@ namespace puppy
 	{
 		glUseProgram(m_id);
 
-		if (m_hasLights) // If this _shader_ supports lights,
+		if (m_hasDirectionalLights) // If this _shader_ supports directional lights,
 		{
 			// Set the lights
 			auto lightList = P_LightList::getInstance();
@@ -45,6 +45,30 @@ namespace puppy
 					glUniform4fv(getUniformPlace("lightDirectionalColor"), 1, glm::value_ptr(firstLight->getDirectionalColor()));
 					glUniform4fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(firstLight->getAmbientColor()));
 					glUniform3fv(getUniformPlace("lightPos"), 1, glm::value_ptr(firstLight->getPosition()));
+				}
+			}
+		}
+
+		if (m_hasPointLights)
+		{
+			auto lightList = P_LightList::getInstance();
+			if (lightList != nullptr)
+			{
+				auto& pointLights = lightList->getPointLights();
+				if (pointLights.empty())
+				{
+					glUniform1f(getUniformPlace("lightRange"), 0);
+					glUniform4fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(glm::vec4(0, 0, 0, 1)));
+				}
+				else
+				{
+					auto firstLight = *(pointLights.begin());
+
+					glUniform4fv(getUniformPlace("lightDiffuse"), 1, glm::value_ptr(firstLight->getPointColor()));
+					glUniform4fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(firstLight->getAmbientColor()));
+					glUniform3fv(getUniformPlace("lightPos"), 1, glm::value_ptr(firstLight->getPosition()));
+					glUniform3fv(getUniformPlace("lightAttenuation"), 1, glm::value_ptr(firstLight->getAttenuation()));
+					glUniform1f(getUniformPlace("lightRange"), firstLight->getRange());
 				}
 			}
 		}
