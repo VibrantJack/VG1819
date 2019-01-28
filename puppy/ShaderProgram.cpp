@@ -35,20 +35,15 @@ namespace puppy
 				if (directionalLights.empty())
 				{
 					// No light, all we have to do is set color to black and we are fine
-					glUniform3fv(getUniformPlace("lightDirectionalColor"), 1, glm::value_ptr(glm::vec3(0, 0, 0)));
-					glUniform3fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(glm::vec3(0, 0, 0)));
+					glUniform4fv(getUniformPlace("lightDirectionalColor"), 1, glm::value_ptr(glm::vec4(0, 0, 0, 1)));
+					glUniform4fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(glm::vec4(0, 0, 0, 1)));
 				}
 				else
 				{
-					if (m_type == basic_directional_light)
-					{
-						int i = 0;
-					}
-
 					auto firstLight = *(directionalLights.begin());
 
-					glUniform3fv(getUniformPlace("lightDirectionalColor"), 1, glm::value_ptr(firstLight->getDirectionalColor()));
-					glUniform3fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(firstLight->getAmbientColor()));
+					glUniform4fv(getUniformPlace("lightDirectionalColor"), 1, glm::value_ptr(firstLight->getDirectionalColor()));
+					glUniform4fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(firstLight->getAmbientColor()));
 					glUniform3fv(getUniformPlace("lightPos"), 1, glm::value_ptr(firstLight->getPosition()));
 				}
 			}

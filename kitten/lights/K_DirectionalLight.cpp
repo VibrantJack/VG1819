@@ -34,7 +34,7 @@ namespace kitten
 		m_puppyLight.setAmbientColor(p_color);
 	}
 
-	const glm::vec3& K_DirectionalLight::getAmbientColor() const
+	const glm::vec4& K_DirectionalLight::getAmbientColor() const
 	{
 		return m_puppyLight.getAmbientColor();
 	}
@@ -44,7 +44,7 @@ namespace kitten
 		m_puppyLight.setDirectionalColor(p_color);
 	}
 
-	const glm::vec3& K_DirectionalLight::getDirectionalColor() const
+	const glm::vec4& K_DirectionalLight::getDirectionalColor() const
 	{
 		return m_puppyLight.getDirectionalColor();
 	}
