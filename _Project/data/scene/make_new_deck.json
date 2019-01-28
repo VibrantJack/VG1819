@@ -24,14 +24,14 @@
 					"name" : "StringInputDisplay"
                 }
 			],
-			"translate2d" : [527, 339, -0.1]
+			"translate2d" : [525, 357, -0.1]
 		},
 		{
             "name" : "EnterDeckName frame",
             "components" : [
                 {
                     "name" : "UIObject",
-                    "texture" : "textures/ui/enter_ip_window.tga"
+                    "texture" : "textures/ui/enter_deck_name.dds"
                 }
             ],
             "translate" : [280, 160, -0.9],

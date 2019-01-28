@@ -33,9 +33,9 @@
                     "name" : "UIFrame"
                 }
             ],
-            "translate": [0,0,-0.9],
-			"translate2d" : [1050, 100],
-            "scale2d" : [210,560]
+            "translate": [0,0,-0.8],
+			"translate2d" : [1050, 188],
+            "scale2d" : [210,480]
         },
 		{
 			"filename" : "mainmenu_background.json"

@@ -19,7 +19,7 @@
             ],
             "translate": [0,0,-0.9],
 			"translate2d" : [150, 160],
-            "scale2d" : [1015,350]
+            "scale2d" : [1015,280]
         },
 		{
 			"filename" : "mainmenu_background.json"

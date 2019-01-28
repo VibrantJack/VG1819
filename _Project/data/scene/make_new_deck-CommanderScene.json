@@ -5,12 +5,12 @@
             "components" : [
                 {
                     "name" : "UIObject",
-                    "texture" : "textures/ui/buttons/button_units.tga"
+                    "texture" : "textures/ui/buttons/button_units.dds"
                 },
                 {
                     "name" : "ClickableButton",
-                    "regularTexture" : "textures/ui/buttons/button_units.tga",
-                    "highlightedTexture" : "textures/ui/buttons/button_units_h.tga"
+                    "regularTexture" : "textures/ui/buttons/button_units.dds",
+                    "highlightedTexture" : "textures/ui/buttons/button_units_h.dds"
                 },
                 {
                     "name" : "ClickableFrame"

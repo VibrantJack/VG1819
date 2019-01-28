@@ -20,12 +20,12 @@
             "components": [
                 {
                     "name" : "UIObject",
-                    "texture" : "textures/ui/buttons/button_square-left_arrow.tga"
+                    "texture" : "textures/ui/buttons/accept.dds"
                 },
                 {
                     "name" : "ClickableButton",
-                    "regularTexture" : "textures/ui/buttons/button_square-left_arrow.tga",
-                    "highlightedTexture" : "textures/ui/buttons/button_square-left_arrow_h.tga"
+                    "regularTexture" : "textures/ui/buttons/accept.dds",
+                    "highlightedTexture" : "textures/ui/buttons/accept_h.dds"
                 },
                 {
                     "name" : "ClickableFrame"
@@ -43,12 +43,12 @@
             "components": [
                 {
                     "name" : "UIObject",
-                    "texture" : "textures/ui/buttons/button_square-left_arrow.tga"
+                    "texture" : "textures/ui/buttons/decline.dds"
                 },
                 {
                     "name" : "ClickableButton",
-                    "regularTexture" : "textures/ui/buttons/button_square-left_arrow.tga",
-                    "highlightedTexture" : "textures/ui/buttons/button_square-left_arrow_h.tga"
+                    "regularTexture" : "textures/ui/buttons/decline.dds",
+                    "highlightedTexture" : "textures/ui/buttons/decline_h.dds"
                 },
                 {
                     "name" : "ClickableFrame"
