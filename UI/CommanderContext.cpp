@@ -80,15 +80,15 @@ namespace userinterface
 
 		//build partial borders
 		//bottom
-		kitten::K_GameObject* botBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/commander_border_bottom.txt");
+		kitten::K_GameObject* botBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/border_bottom.txt");
 		BorderPiece* botBorderComp = botBorder->getComponent<BorderPiece>();
 		botBorderComp->setFramedObject(portrait);
 		//bottomright
-		kitten::K_GameObject* botrightBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/commander_border_bottomright.txt");
+		kitten::K_GameObject* botrightBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/border_bottomright.txt");
 		BorderPiece* botrightBorderComp = botrightBorder->getComponent<BorderPiece>();
 		botrightBorderComp->setFramedObject(portrait);
 		//right
-		kitten::K_GameObject* rightBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/commander_border_right.txt");
+		kitten::K_GameObject* rightBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/border_right.txt");
 		BorderPiece* rightBorderComp = rightBorder->getComponent<BorderPiece>();
 		rightBorderComp->setFramedObject(portrait);
 	
@@ -188,7 +188,7 @@ namespace userinterface
 
 		//context bottom border
 		//this has to be set up AFTER the arrange() method because that is where the scale of the context is set.
-		kitten::K_GameObject* ctxBotBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/commander_border_bottom.txt");
+		kitten::K_GameObject* ctxBotBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/border_bottom.txt");
 		BorderPiece* ctxBotBorderComp = ctxBotBorder->getComponent<BorderPiece>();
 		ctxBotBorderComp->setFramedObject(m_attachedObject);
 	}

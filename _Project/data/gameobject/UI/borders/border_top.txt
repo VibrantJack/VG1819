@@ -1,0 +1,10 @@
+{
+    "name" : "borderPiece",
+    "components" : [
+ 	{
+		"name" : "BorderPiece",
+		"placement" : "top",
+		"texture" : "textures/ui/frames/frameAtlas.tga"
+ 	}
+   ]
+}

@@ -2,8 +2,8 @@
 #include "kitten\InputManager.h"
 #define BORDER_WIDTH  1
 #define BORDER_HEIGHT  (1.0f / 5.0f)
-#define CORNER_HEIGHT  (42.0f / 208.0f)
-#define CORNER_WIDTH  (42.0f / 500.0f)
+#define CORNER_HEIGHT  (40.0f / 199.0f)
+#define CORNER_WIDTH  (40.0f / 498.0f)
 
 namespace userinterface
 {
@@ -38,7 +38,8 @@ namespace userinterface
 
 		//quad coords (ortho)
 		float xmin, ymin, xmax, ymax, z, uMin, vMin, uMax, vMax;
-		int xIndex, yIndex = 0;
+		int xIndex = 0;
+	    int yIndex = 0;
 		int winY = input::InputManager::getInstance()->getWindowHeight();
 		z = 0.0;
 
@@ -48,7 +49,7 @@ namespace userinterface
 		{
 		case bp_Left:
 		{
-			m_pivotType = piv_Right;
+			m_pivotType = piv_Top;
 			yIndex = 4;
 			break;
 		}
@@ -95,6 +96,7 @@ namespace userinterface
 		}
 		}
 
+		//pivot depends on placement
 		switch (m_pivotType)
 		{
 		case piv_Left: {
@@ -162,6 +164,7 @@ namespace userinterface
 		}
 		}
 
+		//build UVs using atlas indeces
 		if (yIndex == 0)
 		{
 			uMin = CORNER_WIDTH * xIndex;
@@ -194,21 +197,30 @@ namespace userinterface
 
 		sm_instances[m_pivotType]++;
 
+		//move it back a bit
+		getTransform().place(0.0f, 0.0f, -0.01);
+
+		//depending on placement, scale and rotate the border to snap to the edge with the right scale
 		switch (m_borderPlacement)
 		{
 		case bp_Left:
 		{
-			
+			getTransform().rotate2D(-90);
+			getTransform().place2D(trans.x, trans.y - scale.y / 2);
+			getTransform().scale2D(scale.y, 20);
+			break;
 		}
 		case bp_Top:
 		{
-			
+			getTransform().place2D(trans.x + scale.x / 2, trans.y);
+			getTransform().scale2D(scale.x, 20);
+			break;
 		}
 		case bp_Right:
 		{
 			getTransform().rotate2D(90);
 			getTransform().place2D(trans.x + scale.x, trans.y - scale.y / 2);
-			getTransform().scale2D(scale.x, 20);
+			getTransform().scale2D(scale.y, 20);
 			break;
 		}
 		case bp_Bot:
@@ -219,21 +231,27 @@ namespace userinterface
 		}
 		case bp_TopLeft:
 		{
-			
+			getTransform().place2D(trans.x, trans.y);
+			getTransform().scale2D(20, 20);
+			break;
 		}
 		case bp_TopRight:
 		{
-			
+			getTransform().place2D(trans.x + scale.x, trans.y);
+			getTransform().scale2D(20, 20);
+			break;
 		}
 		case bp_BotRight:
 		{
-			getGameObject().getTransform().place2D(trans.x + scale.x, winY - scale.y);
+			getGameObject().getTransform().place2D(trans.x + scale.x, trans.y - scale.y);
 			getGameObject().getTransform().scale2D(20, 20);
 			break;
 		}
 		case bp_BotLeft:
 		{
-			
+			getGameObject().getTransform().place2D(trans.x, trans.y - scale.y);
+			getGameObject().getTransform().scale2D(20, 20);
+			break;
 		}
 		}
 

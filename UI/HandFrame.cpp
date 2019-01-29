@@ -19,6 +19,8 @@
 #include "components/clickables/DiscardCardOnClick.h"
 #include "components/clickables/HoverOverCardBehavior.h"
 #include "UI\CardContext.h"
+#include "UI\Borders\BorderPiece.h"
+#include "kibble\kibble.hpp"
 
 #define MAX_CARDS_IN_HAND 5
 #define NUM_STARTING_CARDS 5
@@ -40,7 +42,7 @@ namespace userinterface
 		m_cardY = 170.0f;
 		m_padding = 10;
 		m_contentMargin = 10;
-
+		m_pivotType = piv_TopLeft;
 		instance = this;
 		m_texBehaviour = tbh_Repeat;
 	}
@@ -92,7 +94,7 @@ namespace userinterface
 		glm::vec3 placement;
 		for (auto it = m_innerObjects.begin(); it != end; ++it)
 		{
-			placement = glm::vec3( trans.x + offset, trans.y + m_padding - (m_cardY / 2), 0 );
+			placement = glm::vec3( trans.x + offset, trans.y - m_padding - (m_cardY), 0 );
 			if (m_isInit) {
 				LerpController* lerpC = (*it)->getGameObject().getComponent<LerpController>();
 				if (lerpC == nullptr)
@@ -158,6 +160,29 @@ namespace userinterface
 
 	void HandFrame::start()
 	{
+		//borders
+		//top
+		kitten::K_GameObject* topBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/border_top.txt");
+		BorderPiece* topBorderComp = topBorder->getComponent<BorderPiece>();
+		topBorderComp->setFramedObject(&getGameObject());
+		//topleft
+		kitten::K_GameObject* topleftBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/border_topright.txt");
+		BorderPiece* topleftBorderComp = topleftBorder->getComponent<BorderPiece>();
+	    topleftBorderComp->setFramedObject(&getGameObject());
+		//topright
+		kitten::K_GameObject* toprightBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/border_topleft.txt");
+		BorderPiece* toprightBorderComp = toprightBorder->getComponent<BorderPiece>();
+		toprightBorderComp->setFramedObject(&getGameObject());
+		//left
+		kitten::K_GameObject* leftBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/border_left.txt");
+		BorderPiece* leftBorderComp = leftBorder->getComponent<BorderPiece>();
+		leftBorderComp->setFramedObject(&getGameObject());
+		//right
+		kitten::K_GameObject* rightBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/border_right.txt");
+		BorderPiece* rightBorderComp = rightBorder->getComponent<BorderPiece>();
+		rightBorderComp->setFramedObject(&getGameObject());
+
+
 		UIFrame::start();
 		kitten::EventManager::getInstance()->addListener(
 			kitten::Event::EventType::Card_Drawn,
