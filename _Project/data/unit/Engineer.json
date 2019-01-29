@@ -49,11 +49,6 @@
 	},
 	"components" : [
 		{
-			"name" : "UnitGraphic",
-			"texture":"textures/unit/Engineer.tga",
-			"unitsize": "point"
-		},
-		{
 			"name" : "SpriteGroup",
 			"spritename":"engineer",
 			"number":4,

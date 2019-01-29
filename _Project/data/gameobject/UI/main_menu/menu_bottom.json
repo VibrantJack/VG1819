@@ -1,0 +1,14 @@
+{
+    "name" : "Main Menu Bottom",
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/main_menu/footer.dds"
+        },
+		{
+			"name" : "LerpController"
+		}
+    ],
+	"scale2d" : [1280, 135],
+	"translate" : [0.0, 0.0, -0.9]
+}

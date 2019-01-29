@@ -16,6 +16,8 @@ namespace kitten
 		GLfloat m_uRepeat, m_vRepeat;
 		puppy::Texture* m_staticTex;
 
+		static std::vector<unsigned int> sm_indicies;
+
 		void addToStaticRender();
 
 		virtual void start() override;

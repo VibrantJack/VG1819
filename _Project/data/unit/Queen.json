@@ -26,11 +26,6 @@
 	},
 	"components" : [
 		{
-			"name" : "UnitGraphic",
-			"texture":"textures/unit/Queen.tga",
-			"unitsize": "point"
-		},
-		{
 			"name" : "SpriteGroup",
 			"spritename":"queen",
 			"number":1,

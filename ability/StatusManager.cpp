@@ -43,6 +43,21 @@ namespace ability
 
 		s = new Status_Block();
 		m_statusList[STATUS_BLOCK] = s;
+
+		s = new Status_Curse();
+		m_statusList[STATUS_CURSE] = s;
+
+		s = new Status_Eternal_Eye_LV3();
+		m_statusList[STATUS_ETERNAL_EYE_LV3] = s;
+
+		s = new Status_DR_Eternal_Eye();
+		m_statusList[STATUS_DR_ETERNAL_EYE] = s;
+
+		s = new Status_Lancer_LV2();
+		m_statusList[STATUS_LANCER_LV2] = s;
+
+		s = new Status_DR_Mud_Demon();
+		m_statusList[STATUS_DR_MUD_DEMON] = s;
 	}
 
 	StatusManager::StatusManager()

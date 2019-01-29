@@ -22,12 +22,12 @@ namespace unit
 		{
 			kitten::Event* updateContextEvent = new kitten::Event(kitten::Event::Update_Card_Context_By_GO);
 			updateContextEvent->putGameObj(UPDATE_CARD_CONTEXT_KEY, m_unit);
-			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_By_GO, updateContextEvent);
+			kitten::EventManager::getInstance()->queueEvent(kitten::Event::Update_Card_Context_By_GO, updateContextEvent);
 
 			// Enable Card Context
 			kitten::Event* enableContextEvent = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
 			enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, TRUE);
-			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
+			kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
 		}
 	}
 
@@ -35,14 +35,14 @@ namespace unit
 	{
 		kitten::Event* enableContextEvent = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
 		enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
 	}
 
 	void TrackerBlockClickable::onPause()
 	{
 		kitten::Event* enableContextEvent = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
 		enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
 
 	}
 

@@ -2,6 +2,7 @@
 #include "kitten/K_GameObjectManager.h"
 #include "kitten/K_ComponentManager.h"
 #include "ActionButtonStore.h"
+#include "board/tile/TileInfo.h"
 #include <iostream>
 
 unit::ActionSelect::ActionSelect(const std::pair<int, int> p_to, const std::pair<int, int> p_co)
@@ -121,6 +122,10 @@ void unit::ActionSelect::act()
 	{
 		m_unit->destroy();
 		std::cout << "Unit Destroyed" << std::endl;
+	}
+	else if (m_action == "For test: Set DP")
+	{
+		m_unit->getTile()->getComponent<TileInfo>()->setDemonicPresence(true);
 	}
 	else
 	{

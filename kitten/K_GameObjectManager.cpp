@@ -72,7 +72,11 @@ namespace kitten
 
 			if (!gameObject->getTransform().getParent())
 			{
-				m_gameObjects.erase(gameObject->m_objectIndex);
+				int erased = m_gameObjects.erase(gameObject->m_objectIndex);
+				if (erased == 0)
+				{
+					m_toSurvive.erase(gameObject);
+				}
 			}
 			
 			deleteGameObject(gameObject);

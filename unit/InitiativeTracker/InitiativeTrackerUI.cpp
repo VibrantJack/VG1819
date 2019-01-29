@@ -9,7 +9,10 @@
 #include "UI\Borders\BorderPiece.h"
 #include "kibble\kibble.hpp"
 
-unit::InitiativeTrackerUI::InitiativeTrackerUI():m_lastUnitIndex(0)
+unit::InitiativeTrackerUI::InitiativeTrackerUI()
+	:m_lastUnitIndex(0),
+	m_leftX(-0.5f),
+	m_gap(0.15f)
 {
 	m_initiativeObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 

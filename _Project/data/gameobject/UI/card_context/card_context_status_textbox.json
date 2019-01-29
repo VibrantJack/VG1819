@@ -1,0 +1,13 @@
+{
+    "name" : "Card Context TextBox",
+    "components" : [
+        {
+            "name" : "TextBox",
+			"font" : "../fonts/nsimsun_12pt.fnt",
+			"color" : [0,0,0],
+            "alignment" : "left",
+            "width" : 220,
+            "height" : 36
+        }
+    ]
+}

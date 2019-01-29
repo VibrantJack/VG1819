@@ -42,11 +42,6 @@
 	},
 	"components" : [
 		{
-			"name" : "UnitGraphic",
-			"texture":"textures/unit/Priest.tga",
-			"unitsize": "point"
-		},
-		{
 			"name" : "SpriteGroup",
 			"spritename":"priest",
 			"number":4,

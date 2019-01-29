@@ -19,7 +19,7 @@ SendSelfOnClick::SendSelfOnClick() : m_contextEnabled(false)
 
 SendSelfOnClick::~SendSelfOnClick()
 {
-
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::Tile_Clicked_Debug, this);
 }
 
 void SendSelfOnClick::onClick()
@@ -86,12 +86,12 @@ void SendSelfOnClick::onHoverStart()
 	{
 		kitten::Event* updateContextEvent = new kitten::Event(kitten::Event::Update_Card_Context_By_GO);
 		updateContextEvent->putGameObj(UPDATE_CARD_CONTEXT_KEY, info->getUnit());
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_By_GO, updateContextEvent);
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Update_Card_Context_By_GO, updateContextEvent);
 
 		// Enable Card Context
 		kitten::Event* enableContextEvent = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
 		enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, TRUE);
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
 		m_contextEnabled = true;
 	}
 }
@@ -113,7 +113,7 @@ void SendSelfOnClick::onPause()
 	{
 		kitten::Event* enableContextEvent = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
 		enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
 		m_contextEnabled = false;
 	}
 }

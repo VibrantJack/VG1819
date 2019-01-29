@@ -2,7 +2,7 @@
 
 namespace puppy
 {
-	Material::Material(ShaderType p_shaderType) : m_tex(nullptr)
+	Material::Material(ShaderType p_shaderType) : m_tex(nullptr), m_matAmbient(0,0,0,1), m_matDiffuse(0,0,0,1), m_hasColour(false), m_hasMatLightProperties(false)
 	{
 		m_shader = ShaderManager::getShaderProgram(p_shaderType);
 	}
@@ -43,6 +43,10 @@ namespace puppy
 		toReturn->m_hasColour = m_hasColour;
 		toReturn->m_colour = m_colour;
 
+		toReturn->m_hasMatLightProperties = m_hasMatLightProperties;
+		toReturn->m_matAmbient = m_matAmbient;
+		toReturn->m_matDiffuse = m_matDiffuse;
+
 		return toReturn;
 	}
 
@@ -56,6 +60,24 @@ namespace puppy
 		if (m_hasColour)
 		{
 			if (m_colour != p_other.m_colour)
+			{
+				return false;
+			}
+		}
+
+		if (m_hasMatLightProperties != p_other.m_hasMatLightProperties)
+		{
+			return false;
+		}
+		
+		if (m_hasMatLightProperties)
+		{
+			if (m_matAmbient != p_other.m_matAmbient)
+			{
+				return false;
+			}
+
+			if (m_matDiffuse != p_other.m_matDiffuse)
 			{
 				return false;
 			}
@@ -103,6 +125,8 @@ namespace puppy
 		{
 			setUniform("colour", m_colour);
 		}
+
+		applyMatLightProperties();
 	}
 
 	void Material::setTexture(const char* p_pathToTex)
@@ -127,6 +151,18 @@ namespace puppy
 	{
 		m_hasColour = true;
 		m_colour = p_colour;
+	}
+
+	void Material::setMatAmbient(const glm::vec4& p_amb)
+	{
+		m_matAmbient = p_amb;
+		m_hasMatLightProperties = true;
+	}
+
+	void Material::setMatDiffuse(const glm::vec4& p_diff)
+	{
+		m_matDiffuse = p_diff;
+		m_hasMatLightProperties = true;
 	}
 
 	Texture* Material::getTexture() const

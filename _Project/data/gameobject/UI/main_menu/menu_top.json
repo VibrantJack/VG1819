@@ -3,12 +3,12 @@
     "components" : [
         {
             "name" : "UIObject",
-            "texture" : "textures/ui/menu_bottom.tga"
+            "texture" : "textures/ui/main_menu/header_title.dds"
         },
 		{
 			"name" : "LerpController"
 		}
     ],
-	"scale2d" : [1280, 360],
-    "translate2d" : [0,-225]
+	"scale2d" : [1280, 200],
+    "translate" : [0,520, -0.9]
 }

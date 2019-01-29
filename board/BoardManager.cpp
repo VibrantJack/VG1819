@@ -48,6 +48,9 @@ std::pair<int, int> BoardManager::getDimension()
 
 kitten::K_GameObject * BoardManager::getTile(int p_x, int p_z)
 {
+	//if out of range, return nullptr
+	if (p_x < 0 || p_z < 0 || p_x >= m_dimension.first || p_z >= m_dimension.second)
+		return nullptr;
 	std::pair<int, int> pos(p_x, p_z);
 	int z_length = m_dimension.second;
 	if (pos == m_tileList[p_x * z_length + p_z]->getComponent<TileInfo>()->getPos())

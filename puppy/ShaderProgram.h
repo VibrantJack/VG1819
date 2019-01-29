@@ -17,7 +17,8 @@ namespace puppy
 	protected:
 		GLuint m_id;
 		ShaderType m_type;
-		bool m_hasLights;
+		
+		bool m_hasDirectionalLights, m_hasPointLights;
 
 		int getAttrLocation(const char* p_name) const;
 

@@ -16,7 +16,7 @@ class UniversalPfx : public kitten::K_Component
 private:
 	static UniversalPfx* sm_instance;
 
-	std::unordered_map<std::string, std::queue<kitten::K_ParticleSystem*>> m_effects;
+	std::unordered_map<std::string, std::queue<kitten::K_GameObject*>> m_effects;
 	std::vector<kitten::K_ParticleSystem*> m_particleSystems;
 
 	bool m_isDebug;
@@ -34,7 +34,7 @@ private:
 	virtual void update() override;
 
 public:
-						//		              name,		pathToEffect
+						//		              name,		pathToEffect, num to pool
 	UniversalPfx(const std::list<std::tuple<std::string, std::string, int>>& p_effects, bool p_isDebug, char p_debugKey = 'R');
 	~UniversalPfx();
 
