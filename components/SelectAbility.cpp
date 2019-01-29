@@ -97,10 +97,10 @@ void SelectAbility::select(int p_i)
 	{
 		m_unit->manipulateTile();
 	}
-	else if (instrction == "Summon")
-	{
-		m_unit->summonUnit();
-	}
+//	else if (instrction == "Summon")
+//	{
+//		m_unit->summonUnit();
+//	}
 	else if (instrction == "Join")
 	{
 		m_unit->join();
@@ -112,7 +112,7 @@ void SelectAbility::select(int p_i)
 	}
 	else if (instrction == "For test: Destroy")
 	{
-		m_unit->destroyedByDamage();
+		m_unit->destroy();
 		std::cout << "Unit Destroyed" << std::endl;
 	}
 	else

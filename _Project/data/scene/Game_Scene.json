@@ -43,8 +43,26 @@
 				},
 				{
 					"name": "DeckDiscardedCardHandler"
+				},
+				{
+					"name" : "UIFrame"
+				},
+				{
+					"name" : "DeckCountTextureBind",
+					"pairs" : [
+						[0,"textures/ui/deck_snaps/0.tga"],
+						[1,"textures/ui/deck_snaps/1.tga"],
+						[2,"textures/ui/deck_snaps/2.tga"],
+						[3,"textures/ui/deck_snaps/3.tga"],
+						[4,"textures/ui/deck_snaps/3+.tga"],
+						[10,"textures/ui/deck_snaps/10+.tga"],
+						[15,"textures/ui/deck_snaps/15+.tga"],
+						[20,"textures/ui/deck_snaps/20+.tga"]
+					]
 				}
-			]
+			],
+			"translate2d" : [1102, 100],
+			"scale2d": [100,100]
 		},		
 		{
 			"filename" : "handframe.json"

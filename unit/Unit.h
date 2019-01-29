@@ -5,6 +5,11 @@
 #include "unit/unitComponent/CooldownRecorder.h"
 #include "unit/unitComponent/Commander.h"
 #include "unit/unitComponent/CastTimer.h"
+#include "unit\unitComponent\UnitSelect.h"
+
+#include "unitComponent\UnitHealthBar.h"
+
+#include "_Project\LerpController.h"
 
 //@Rock
 //although unit is just a component of game object
@@ -13,8 +18,16 @@
 namespace unit
 {
 	class UnitTurn;
-	class Unit : public kitten::K_Component
+	class Unit : public kitten::K_Component, public LerpController::ScaleLerpFinishedCallback
 	{
+	private:
+
+		enum HealthBarState
+		{
+			none,
+			destroying
+		};
+
 	private:
 		UnitTurn* m_turn;
 		StatusContainer * m_statusContainer;
@@ -28,6 +41,17 @@ namespace unit
 		AbilityDescription m_joinAD;
 
 		std::string m_portraitTexturePath;
+
+		// Healthbar related
+		UnitHealthBar* m_healthBar;
+		UnitSelect* m_unitSelect;
+
+		HealthBarState m_healthBarState;
+		
+		virtual void onScaleLerpFinished() override;
+	
+		virtual void start() override;
+
 	public:
 		int m_numberID;
 		std::string m_ID;
@@ -52,7 +76,7 @@ namespace unit
 		void addCommander(Commander* p_c);
 		bool isCommander();
 		void manipulateTile();
-		void summonUnit();
+//		void summonUnit(int p_id);
 		//status interface
 		/*
 		void addStatus(ability::Status *p_newStatus);

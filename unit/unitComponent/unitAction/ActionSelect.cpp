@@ -104,10 +104,10 @@ void unit::ActionSelect::act()
 	{
 		m_unit->manipulateTile();
 	}
-	else if (m_action == "Summon")
-	{
-		m_unit->summonUnit();
-	}
+//	else if (m_action == "Summon")
+//	{
+//		m_unit->summonUnit();
+//	}
 	else if (m_action == "Join")
 	{
 		m_unit->join();
@@ -119,7 +119,7 @@ void unit::ActionSelect::act()
 	}
 	else if (m_action == "For test: Destroy")
 	{
-		m_unit->destroyedByDamage();
+		m_unit->destroy();
 		std::cout << "Unit Destroyed" << std::endl;
 	}
 	else

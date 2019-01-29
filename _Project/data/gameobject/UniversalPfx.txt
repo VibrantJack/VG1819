@@ -14,7 +14,8 @@
 					"path" : "data/particles/abilities/effects/burnExplosion.xml",
 					"poolednumber" : 2
 				}
-			]
+			],
+			"debug" : false
         }
     ]
 }

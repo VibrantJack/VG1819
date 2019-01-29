@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include "networking\ClientGame.h"
+#include "components\DragNDrop\SpawnUnitOnDrop.h"
 
 UnitInteractionManager* UnitInteractionManager::sm_instance = nullptr;
 
@@ -85,14 +86,24 @@ UnitInteractionManager::~UnitInteractionManager()
 
 void UnitInteractionManager::cancel()
 {
-	std::cout << "UnitInteractionManager Cancel Ability" << std::endl;
-
 	//delete package
 	if (m_package != nullptr)
 	{
+		std::cout << "UnitInteractionManager Cancel Ability" << std::endl;
+		if (m_ad->m_cardGOForUnitSummon != nullptr)
+		{
+			SpawnUnitOnDrop* onDrop = m_ad->m_cardGOForUnitSummon->getComponent<SpawnUnitOnDrop>();
+			if (onDrop != nullptr)
+			{
+				onDrop->resetCard();
+			}
+		}
 		m_package->m_source->cancelAbility(m_ad);
 		delete m_package;
 		m_package = nullptr;
+
+		m_counterGetter->cancel();
+		m_tileGetter->cancel();
 	}
 
 	m_busy = false;
@@ -131,6 +142,7 @@ void UnitInteractionManager::send()
 	{//set cast ability
 		m_unit->setCast(m_ad, m_package);
 	}
+
 	m_package = nullptr;
 	m_busy = false;
 }
@@ -146,4 +158,6 @@ void UnitInteractionManager::addPropertyFromADToPack()
 	{
 		m_package->m_stringValue[it.first] = it.second;
 	}
+
+	m_package->m_cardGOForUnitSummon = m_ad->m_cardGOForUnitSummon;
 }

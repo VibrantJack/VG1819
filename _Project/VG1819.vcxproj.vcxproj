@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -19,14 +19,15 @@
     <ProjectName>VG1819</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CLRSupport>false</CLRSupport>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>PGOptimize</WholeProgramOptimization>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CLRSupport>false</CLRSupport>
@@ -36,52 +37,66 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(IncludePath)</IncludePath>
-    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(IncludePath)</IncludePath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_RELEASE;_CRT_SECURE_NO_WARNINGS;RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\networking_libraries\include;$(SolutionDir)..\irrKlang\include;$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\FreeImage\Dist\x32;$(SolutionDir)..\assimp\include;$(SolutionDir)..\networking_libraries\include;$(SolutionDir)..\irrKlang\include;$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <SupportJustMyCode>false</SupportJustMyCode>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <StringPooling>true</StringPooling>
+      <ControlFlowGuard>false</ControlFlowGuard>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <UndefinePreprocessorDefinitions>_DEBUG</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\networking_libraries;$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;assimp-vc140-mt.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\FreeImage\Dist\x32;$(SolutoinDir)..\assimp\release;$(SolutionDir)..\networking_libraries;$(SolutionDir)..\irrKlang\lib\Win32-visualStudio;$(SolutionDir)..\glew\lib;$(SolutionDir)..\glfw\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AdditionalIncludeDirectories>$(SolutionDir)..\FreeImage\Dist\x32;$(SolutionDir)..\assimp\include;$(SolutionDir)..\networking_libraries\include;$(SolutionDir)..\irrKlang\include;$(SolutionDir)..\glfw\include;$(SolutionDir)..\glew\include;$(SolutionDir)..\glew\bin;$(SolutionDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>"stdafx.h"</PrecompiledHeaderFile>
       <AdditionalOptions>/Qpar %(AdditionalOptions)</AdditionalOptions>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -170,6 +185,8 @@
     <ClCompile Include="..\components\clickables\DiscardDeckOnClick.cpp" />
     <ClCompile Include="..\components\clickables\ChangeUnitOnClick.cpp" />
     <ClCompile Include="..\components\clickables\HoverOverCardBehavior.cpp" />
+    <ClCompile Include="..\components\clickables\PromptPopUpDeclineOnClick.cpp" />
+    <ClCompile Include="..\components\clickables\PromptPopUpSuccessOnClick.cpp" />
     <ClCompile Include="..\components\clickables\SaveDeckOnClick.cpp" />
     <ClCompile Include="..\components\clickables\SetCommanderOnClick.cpp" />
     <ClCompile Include="..\components\CustomCursor.cpp" />
@@ -177,6 +194,7 @@
     <ClCompile Include="..\components\DeckAlterationComponent.cpp" />
     <ClCompile Include="..\components\DeckComponent.cpp" />
     <ClCompile Include="..\components\ChangeSceneOnClick.cpp" />
+    <ClCompile Include="..\components\DeckCountTextureBind.cpp" />
     <ClCompile Include="..\components\DeckDiscardedCardHandler.cpp" />
     <ClCompile Include="..\components\DeckInitializingComponent.cpp" />
     <ClCompile Include="..\components\DecksDisplayFrame.cpp" />
@@ -190,8 +208,10 @@
     <ClCompile Include="..\components\DrawCardOnClickUI.cpp" />
     <ClCompile Include="..\components\initializers\DrawCardsFromDeckWithDelay.cpp" />
     <ClCompile Include="..\components\MainMenuBoard.cpp" />
+    <ClCompile Include="..\components\PromptPopUp.cpp" />
     <ClCompile Include="..\components\scene change\StartGameOnClick.cpp" />
     <ClCompile Include="..\components\ExitGameButton.cpp" />
+    <ClCompile Include="..\components\scene change\StartNewDeckSetupWizard.cpp" />
     <ClCompile Include="..\components\SetupDeckEditOnSceneChange.cpp" />
     <ClCompile Include="..\components\testing\gameplay-init.cpp" />
     <ClCompile Include="..\components\TileInfoDisplayOnKeyPress.cpp" />
@@ -242,6 +262,7 @@
     <ClCompile Include="..\kitten\K_JobManager.cpp" />
     <ClCompile Include="..\kitten\K_ParticleSystem.cpp" />
     <ClCompile Include="..\kitten\K_RenderableSprite.cpp" />
+    <ClCompile Include="..\kitten\K_RenderNode.cpp" />
     <ClCompile Include="..\kitten\K_Time.cpp" />
     <ClCompile Include="..\kitten\lights\K_DirectionalLight.cpp" />
     <ClCompile Include="..\kitten\ModelRenderable.cpp" />
@@ -269,12 +290,14 @@
     <ClCompile Include="..\networking\NetworkingConsoleMenu.cpp" />
     <ClCompile Include="..\networking\NetworkServices.cpp" />
     <ClCompile Include="..\networking\AbilityPacket.cpp" />
+    <ClCompile Include="..\networking\ReadyCheck.cpp" />
     <ClCompile Include="..\networking\ServerGame.cpp" />
     <ClCompile Include="..\networking\ServerNetwork.cpp" />
     <ClCompile Include="..\networking\SpawnUnitOnKeyPress.cpp" />
     <ClCompile Include="..\networking\menu\NetworkHostButton.cpp" />
     <ClCompile Include="..\networking\menu\NetworkJoinButton.cpp" />
     <ClCompile Include="..\kitten\util\AsyncFileOperations.cpp" />
+    <ClCompile Include="..\networking\TextChat.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
     <ClCompile Include="..\puppy\FBO.cpp" />
     <ClCompile Include="..\puppy\lights\P_DirectionalLight.cpp" />
@@ -368,13 +391,17 @@
     <ClCompile Include="DestroyOnClick.cpp" />
     <ClCompile Include="DisableAfterTime.cpp" />
     <ClCompile Include="FPSCalc.cpp" />
+    <ClCompile Include="HaltParticleSystemAfterTime.cpp" />
     <ClCompile Include="LerpController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
+    <ClCompile Include="PlayParticleSystemAtMouseClick.cpp" />
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
     <ClCompile Include="PlaySoundOnStart.cpp" />
     <ClCompile Include="ProjectileManager.cpp" />
     <ClCompile Include="ProjectileParticleSystemHelper.cpp" />
+    <ClCompile Include="RefreshParticleSystemOnKeyPress.cpp" />
+    <ClCompile Include="ReloadObjectOnKeyPress.cpp" />
     <ClCompile Include="ShowLoadingOnClick.cpp" />
     <ClCompile Include="CardArt.cpp" />
     <ClCompile Include="StringInputDisplay.cpp" />
@@ -485,6 +512,8 @@
     <ClInclude Include="..\components\clickables\DiscardDeckOnClick.h" />
     <ClInclude Include="..\components\clickables\ChangeUnitOnClick.h" />
     <ClInclude Include="..\components\clickables\HoverOverCardBehavior.h" />
+    <ClInclude Include="..\components\clickables\PromptPopUpDeclineOnClick.h" />
+    <ClInclude Include="..\components\clickables\PromptPopUpSuccessOnClick.h" />
     <ClInclude Include="..\components\clickables\SaveDeckOnClick.h" />
     <ClInclude Include="..\components\clickables\SetCommanderOnClick.h" />
     <ClInclude Include="..\components\CustomCursor.h" />
@@ -492,6 +521,7 @@
     <ClInclude Include="..\components\DeckAlterationComponent.h" />
     <ClInclude Include="..\components\DeckComponent.hpp" />
     <ClInclude Include="..\components\ChangeSceneOnClick.hpp" />
+    <ClInclude Include="..\components\DeckCountTextureBind.h" />
     <ClInclude Include="..\components\DeckDiscardedCardHandler.h" />
     <ClInclude Include="..\components\DeckInitializingComponent.h" />
     <ClInclude Include="..\components\DecksDisplayFrame.h" />
@@ -506,7 +536,9 @@
     <ClInclude Include="..\components\ExitGameButton.h" />
     <ClInclude Include="..\components\initializers\DrawCardsFromDeckWithDelay.h" />
     <ClInclude Include="..\components\MainMenuBoard.h" />
+    <ClInclude Include="..\components\PromptPopUp.h" />
     <ClInclude Include="..\components\scene change\StartGameOnClick.h" />
+    <ClInclude Include="..\components\scene change\StartNewDeckSetupWizard.h" />
     <ClInclude Include="..\components\SetupDeckEditOnSceneChange.h" />
     <ClInclude Include="..\components\testing\gameplay-init.h" />
     <ClInclude Include="..\components\TileInfoDisplayOnKeyPress.h" />
@@ -570,6 +602,7 @@
     <ClInclude Include="..\kitten\K_ParticleSystem.h" />
     <ClInclude Include="..\kitten\K_RenderableSprite.h" />
     <ClInclude Include="..\kitten\K_Instance.h" />
+    <ClInclude Include="..\kitten\K_RenderNode.h" />
     <ClInclude Include="..\kitten\K_Routine.h" />
     <ClInclude Include="..\kitten\K_Time.h" />
     <ClInclude Include="..\kitten\lights\K_DirectionalLight.h" />
@@ -601,10 +634,12 @@
     <ClInclude Include="..\networking\NetworkData.h" />
     <ClInclude Include="..\networking\NetworkingConsoleMenu.h" />
     <ClInclude Include="..\networking\NetworkServices.h" />
+    <ClInclude Include="..\networking\ReadyCheck.h" />
     <ClInclude Include="..\networking\ServerGame.h" />
     <ClInclude Include="..\networking\ServerNetwork.h" />
     <ClInclude Include="..\networking\SpawnUnitOnKeyPress.h" />
     <ClInclude Include="..\kitten\util\AsyncFileOperations.h" />
+    <ClInclude Include="..\networking\TextChat.h" />
     <ClInclude Include="..\pugixml\pugiconfig.hpp" />
     <ClInclude Include="..\pugixml\pugixml.hpp" />
     <ClInclude Include="..\puppy\FBO.h" />
@@ -706,12 +741,16 @@
     <ClInclude Include="DestroyOnClick.h" />
     <ClInclude Include="DisableAfterTime.h" />
     <ClInclude Include="FPSCalc.h" />
+    <ClInclude Include="HaltParticleSystemAfterTime.h" />
     <ClInclude Include="LerpController.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
+    <ClInclude Include="PlayParticleSystemAtMouseClick.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />
     <ClInclude Include="PlaySoundOnStart.h" />
     <ClInclude Include="ProjectileManager.h" />
     <ClInclude Include="ProjectileParticleSystemHelper.h" />
+    <ClInclude Include="RefreshParticleSystemOnKeyPress.h" />
+    <ClInclude Include="ReloadObjectOnKeyPress.h" />
     <ClInclude Include="ShowLoadingOnClick.h" />
     <ClInclude Include="StringInputDisplay.h" />
     <ClInclude Include="ToggleEnabledOnKeyPress.h" />

@@ -15,6 +15,7 @@
 #include "kibble/databank/databank.hpp"
 #include "networking\ClientGame.h"
 #include "board\tile\TileInfo.h"
+#include "components/DragNDrop/SpawnUnitOnDrop.h"
 
 namespace ability
 {
@@ -23,9 +24,30 @@ namespace ability
 
 		PowerTracker* powerTracker = BoardManager::getInstance()->getPowerTracker();
 
+		kitten::K_GameObject* targetTile = p_info->m_targetTilesGO[0];
+
+		// Unit setup
+		unit::Unit* unit = p_info->m_cardGOForUnitSummon->getComponent<unit::Unit>();
+
+		// Update Power Tracker
+		if (p_info->m_sourceClientId == networking::ClientGame::getClientId() || networking::ClientGame::getClientId() == -1)
+		{
+			BoardManager::getInstance()->getPowerTracker()->summonUnitCost(unit->m_attributes[UNIT_COST]);
+		}
+
+		// Generate Unit and set Tile
+		kitten::K_GameObject* summonedUnitGO = unit::UnitSpawn::getInstance()->spawnUnitObject(unit);
+		summonedUnitGO->getComponent<unit::UnitMove>()->setTile(targetTile);
+		summonedUnitGO->getComponent<unit::Unit>()->m_clientId = p_info->m_sourceClientId;
+
+		SpawnUnitOnDrop* onDrop = unit->getGameObject().getComponent<SpawnUnitOnDrop>();
+		if (onDrop != nullptr)
+		{
+			onDrop->removeCard();
+		}
+		/*
 		//get Unit data
-		//fixed for now
-		unit::Unit* u = kibble::getUnitFromId(2);
+		unit::Unit* u = kibble::getUnitFromId(unitId);
 		if (u->m_attributes[UNIT_COST] <= powerTracker->getCurrentPower())
 		{
 			kitten::K_GameObject* uGO = unit::UnitSpawn::getInstance()->spawnUnitObject(2);
@@ -39,8 +61,9 @@ namespace ability
 			{
 				uGO->getComponent<unit::Unit>()->m_clientId = p_info->m_sourceClientId;
 			}
-		}
 
+		}
+		*/
 		/*
 		kitten::Event* p_data = new kitten::Event(kitten::Event::EventType::Highlight_Tile);
 		//p_data->putTileList(&p_info->m_targetTiles);

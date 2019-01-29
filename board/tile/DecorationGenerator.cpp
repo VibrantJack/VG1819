@@ -12,10 +12,10 @@ std::vector<kitten::K_GameObject*> DecorationGenerator::generateDecoration(TileI
 	
 	switch (type)
 	{
-	case LandInformation::Grass_land:
-		return generateGrassDecoration();
-	case LandInformation::Forest_land:
-		return generateForestDecoration();
+//	case LandInformation::Grass_land:
+//		return generateGrassDecoration();
+//	case LandInformation::Forest_land:
+//		return generateForestDecoration();
 	case LandInformation::Garden_land:
 		return generateGardenDecoration();
 	case LandInformation::Swamp_land:

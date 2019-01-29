@@ -25,7 +25,7 @@ namespace userinterface
 	*/
 	CommanderContext::CommanderContext(): ContextMenu()
 	{
-		kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Client_Commander_Loaded, this);
+		
 	}
 
 	CommanderContext::~CommanderContext()
@@ -34,6 +34,7 @@ namespace userinterface
 		{
 			delete r;
 		}
+		kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Client_Commander_Loaded, this);
 	}
 
 
@@ -44,7 +45,7 @@ namespace userinterface
 			this,
 			std::bind(&CommanderContext::commanderLoadListener, this, std::placeholders::_1, std::placeholders::_2));
 		//default	
-		//attachCommander(kibble::getUnitFromId(13));
+		attachCommander(kibble::getUnitInstanceFromId(13));
 	}
 
 	void CommanderContext::commanderLoadListener(kitten::Event::EventType p_type, kitten::Event* p_event)

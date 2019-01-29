@@ -26,7 +26,10 @@ namespace ability
 		std::vector<kitten::K_GameObject*> m_targetTilesGO;
 
 		// Source ClientID, for networking
-		int m_sourceClientId;
+		int m_sourceClientId = -1;
+
+		//special pointer, for summonning
+		kitten::K_GameObject* m_cardGOForUnitSummon = nullptr;
 
 		AbilityInfoPackage() {};
 		~AbilityInfoPackage() {};

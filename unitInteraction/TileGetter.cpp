@@ -5,7 +5,7 @@
 TileGetter::TileGetter()
 {
 	m_reg = false;
-	m_respond;
+	m_respond = false;
 }
 
 TileGetter::~TileGetter()
@@ -238,7 +238,7 @@ void TileGetter::send()
 void TileGetter::cancel()
 {
 	//deregisterEvent();
-	//triggerUnhighlightEvent();
+	triggerUnhighlightEvent();
 	m_respond = false;
 	UnitInteractionManager::getInstance()->cancel();
 }

@@ -19,6 +19,7 @@ namespace kitten
 		Transform* m_transform;
 
 		bool m_isEnabled;
+		bool m_survivesSceneChange;
 
 		K_GameObject();
 		~K_GameObject();
@@ -27,7 +28,7 @@ namespace kitten
 		bool addComponent(K_Component* p_toAdd);
 		void removeComponent(K_Component* p_toRemove);
 
-		template <class T> //@TODO: Fix LNK 2019 when putting this in K_GameObject.cpp
+		template <class T>
 		T* getComponent();
 
 		Transform& getTransform() { return *m_transform; };
@@ -36,7 +37,6 @@ namespace kitten
 		void setEnabled(bool p_enabled);
 	};
 	
-	//This works, see K_GameObject.cpp for non-working
 	template<class T>
 	inline T * K_GameObject::getComponent()
 	{
@@ -49,5 +49,4 @@ namespace kitten
 			return nullptr;
 		}
 	}
-
 }
