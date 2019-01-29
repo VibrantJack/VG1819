@@ -75,7 +75,7 @@ namespace kitten
 				int erased = m_gameObjects.erase(gameObject->m_objectIndex);
 				if (erased == 0)
 				{
-					m_toSurvive.erase(m_toSurvive.find(gameObject));
+					m_toSurvive.erase(gameObject);
 				}
 			}
 			
