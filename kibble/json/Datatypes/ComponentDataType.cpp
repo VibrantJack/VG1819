@@ -1132,11 +1132,11 @@ kitten::K_Component* getBorderPiece(nlohmann::json* p_jsonFile)
 	{
 		texture = LOOKUP("texture");
 	}
-	kitten::K_Component* piece = new userinterface::BorderPiece(placement);
-	userinterface::BorderPiece* pieceComponent = static_cast<userinterface::BorderPiece*>(piece);
-	pieceComponent->setTexture(texture.c_str());
 
-       	return piece;
+	userinterface::BorderPiece* piece = new userinterface::BorderPiece(placement);
+	piece->setTexture(texture.c_str());
+		
+	return piece;
 }
 
 #include "kitten\ModelRenderable.h"

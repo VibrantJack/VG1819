@@ -72,7 +72,7 @@ namespace userinterface
 		winX = inMan->getWindowWidth();
 		
 		//portrait object
-		kitten::K_GameObject* portrait = kibble::getGameObjectDataParserInstance()->getGameObject("ui/commander_portrait.txt");
+		kitten::K_GameObject* portrait = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/commander_portrait.txt");
 		//put portrait on screen
 		userinterface::UIElement* portraitComp = portrait->getComponent<userinterface::UIElement>();
 		portraitComp->setTexture(m_attachedCommander->getPortraitTexturePath().c_str());
@@ -81,15 +81,15 @@ namespace userinterface
 
 		//build partial borders
 		//bottom
-		kitten::K_GameObject* botBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/border_bottom.txt");
+		kitten::K_GameObject* botBorder = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/borders/border_bottom.txt");
 		BorderPiece* botBorderComp = botBorder->getComponent<BorderPiece>();
 		botBorderComp->setFramedObject(portrait);
 		//bottomright
-		kitten::K_GameObject* botrightBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/border_bottomright.txt");
+		kitten::K_GameObject* botrightBorder = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/borders/border_bottomright.txt");
 		BorderPiece* botrightBorderComp = botrightBorder->getComponent<BorderPiece>();
 		botrightBorderComp->setFramedObject(portrait);
 		//right
-		kitten::K_GameObject* rightBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/border_right.txt");
+		kitten::K_GameObject* rightBorder = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/borders/border_right.txt");
 		BorderPiece* rightBorderComp = rightBorder->getComponent<BorderPiece>();
 		rightBorderComp->setFramedObject(portrait);
 	
@@ -97,7 +97,6 @@ namespace userinterface
 		//TO DO, DATADRIVE THIS POSITIONAL DATA.
 		glm::vec3 translate = getTransform().getTranslation();
 		getTransform().place(120.0f, winY, -0.05f);
-		translate = getTransform().getTranslation();
 		setPivotType(piv_TopLeft);
 		setTexBehaviour(tbh_Repeat);
 
@@ -108,7 +107,7 @@ namespace userinterface
 		defineVerts();
 
 		//make a GO based on the json textbox data ->
-		kitten::K_GameObject* GO_name = kibble::getGameObjectDataParserInstance()->getGameObject("commander_name.txt");
+		kitten::K_GameObject* GO_name = kitten::K_GameObjectManager::getInstance()->createNewGameObject("commander_name.txt");
 		puppy::TextBox* nameComp = GO_name->getComponent<puppy::TextBox>();
 		nameComp->setText(m_attachedCommander->m_name);
 		nameComp->setEnabled(true);
@@ -127,7 +126,7 @@ namespace userinterface
 
 
 		Row* row2 = addRow(rt_Overflow);
-		kitten::K_GameObject* hpIcon = kibble::getGameObjectDataParserInstance()->getGameObject("UI/Icon.txt");
+		kitten::K_GameObject* hpIcon = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/Icon.txt");
 		userinterface::UIElement* hpComp = hpIcon->getComponent<userinterface::UIElement>();
 		hpComp->setTexture("textures/ui/icons/stat_icons/stat_icons/hp.png");
 
@@ -137,7 +136,7 @@ namespace userinterface
 		row2->height = 15;
 		row2->elements.push_back(hpEm);
 
-		kitten::K_GameObject* hpText = kibble::getGameObjectDataParserInstance()->getGameObject("context_number_3digits.txt");
+		kitten::K_GameObject* hpText = kitten::K_GameObjectManager::getInstance()->createNewGameObject("context_number_3digits.txt");
 		puppy::TextBox* hptxtComp = hpText->getComponent<puppy::TextBox>();
 		hptxtComp->setText(std::to_string(m_attachedCommander->m_attributes["hp"]));
 
@@ -147,7 +146,7 @@ namespace userinterface
 
 		row2->elements.push_back(hptxtEm);
 
-		kitten::K_GameObject* spIcon = kibble::getGameObjectDataParserInstance()->getGameObject("UI/Icon.txt");
+		kitten::K_GameObject* spIcon = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/Icon.txt");
 		userinterface::UIElement* spComp = spIcon->getComponent<userinterface::UIElement>();
 		spComp->setTexture("textures/ui/icons/stat_icons/stat_icons/movement.png");
 
@@ -156,7 +155,7 @@ namespace userinterface
 
 		row2->elements.push_back(spEm);
 
-		kitten::K_GameObject* spText = kibble::getGameObjectDataParserInstance()->getGameObject("context_number_3digits.txt");
+		kitten::K_GameObject* spText = kitten::K_GameObjectManager::getInstance()->createNewGameObject("context_number_3digits.txt");
 		puppy::TextBox* sptxtComp = spText->getComponent<puppy::TextBox>();
 		sptxtComp->setText(std::to_string(m_attachedCommander->m_attributes["mv"]));
 
@@ -166,7 +165,7 @@ namespace userinterface
 
 		row2->elements.push_back(sptxtEm);
 
-		kitten::K_GameObject* inIcon = kibble::getGameObjectDataParserInstance()->getGameObject("UI/Icon.txt");
+		kitten::K_GameObject* inIcon = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/Icon.txt");
 		userinterface::UIElement* inComp = inIcon->getComponent<userinterface::UIElement>();
 		inComp->setTexture("textures/ui/icons/stat_icons/stat_icons/initiative.png");
 
@@ -175,7 +174,7 @@ namespace userinterface
 
 		row2->elements.push_back(inEm);
 
-		kitten::K_GameObject* inText = kibble::getGameObjectDataParserInstance()->getGameObject("context_number_3digits.txt");
+		kitten::K_GameObject* inText = kitten::K_GameObjectManager::getInstance()->createNewGameObject("context_number_3digits.txt");
 		puppy::TextBox* intxtComp = inText->getComponent<puppy::TextBox>();
 		intxtComp->setText(std::to_string(m_attachedCommander->m_attributes["in"]));
 
@@ -189,7 +188,7 @@ namespace userinterface
 
 		//context bottom border
 		//this has to be set up AFTER the arrange() method because that is where the scale of the context is set.
-		kitten::K_GameObject* ctxBotBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/border_bottom.txt");
+		kitten::K_GameObject* ctxBotBorder = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/borders/border_bottom.txt");
 		BorderPiece* ctxBotBorderComp = ctxBotBorder->getComponent<BorderPiece>();
 		ctxBotBorderComp->setFramedObject(m_attachedObject);
 	}

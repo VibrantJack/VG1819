@@ -8,6 +8,7 @@ namespace userinterface
 		
 		~BorderPiece();
 
+		//types
 		enum BorderPlacement
 		{
 			bp_Top,
@@ -19,17 +20,24 @@ namespace userinterface
 			bp_BotRight,
 			bp_BotLeft
 		};
+
+		//methods
 		void setFramedObject(kitten::K_GameObject* p_GO);
 		BorderPiece(BorderPlacement p_bp);
 
 	protected:
-		void defineVerts() override;
-		BorderPlacement m_borderPlacement;
-		void start() override;
+		//members
 		kitten::K_GameObject* m_framedObject;
-		std::map<pivotType, puppy::VertexEnvironment*> sm_vao;
-		std::map<pivotType, int> sm_instances;
+		std::map<pivotType, puppy::VertexEnvironment*> m_vao;
+		std::map<pivotType, int> m_instances;
+		BorderPlacement m_borderPlacement;
+		
+		//methods
+		void start() override;
+		void defineVerts() override;
+
 		virtual void uiRender(kitten::Camera* p_cam) override;
+		
 	};
 }
 

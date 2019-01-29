@@ -192,10 +192,10 @@ namespace userinterface
 
 		if (sm_vao[m_pivotType] == nullptr)
 		{
-			sm_vao[m_pivotType] = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
+			BorderPiece::sm_vao[m_pivotType] = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
 		}
 
-		sm_instances[m_pivotType]++;
+		BorderPiece::sm_instances[m_pivotType]++;
 
 		//move it back a bit
 		getTransform().place(0.0f, 0.0f, -0.01);
