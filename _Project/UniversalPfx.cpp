@@ -23,6 +23,7 @@ UniversalPfx::UniversalPfx(const std::list<std::tuple<std::string, std::string, 
 		{
 			//Make the pfx
 			kitten::K_GameObject* gameObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject(effectPath);
+			gameObject->setEnabled(false);
 
 			//Insert effect into map
 			m_effects[effectName].push(gameObject);
