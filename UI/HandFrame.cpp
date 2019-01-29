@@ -137,9 +137,6 @@ namespace userinterface
 			this->addCardToEnd(cardCasted);
 			cardCasted->assignParentHand(this);
 
-			kitten::K_Component* clickableCom = kitten::K_ComponentManager::getInstance()->createComponent("ClickableCard");
-			card->addComponent(clickableCom);
-
 			card->addComponent(
 				kibble::getUnitInstanceFromId(
 					p_event->getInt(CARD_ID + std::to_string(i))

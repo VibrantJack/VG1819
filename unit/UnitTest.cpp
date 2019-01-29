@@ -4,6 +4,7 @@
 #include <iostream>
 #include "kibble/kibble.hpp"
 #include "kibble/databank/databank.hpp"
+#include "unitComponent\unitAction\ActionButtonStore.h"
 
 // Includes for tile highlighting and manipulating tile
 #include "_Project\UseAbilityWhenClicked.h"
@@ -46,12 +47,12 @@ namespace unit
 		m_bTested = true;
 		//comment for testing IT
 
-		kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstance()->spawnUnitObject(13); // 13 king !!!
-		uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(-1, -1);
+	//	kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstance()->spawnUnitObject(13); // 13 king !!!
+	//	uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(-1, -1);
 		//uNEWDUMMY->getComponent<unit::Unit>()->m_clientId = 1;
 
-		kitten::K_GameObject* uNEWDUMMY2 = UnitSpawn::getInstance()->spawnUnitObject(14); // queen !!!
-		uNEWDUMMY2->getComponent<unit::UnitMove>()->setTile(-1, -1);
+	//	kitten::K_GameObject* uNEWDUMMY2 = UnitSpawn::getInstance()->spawnUnitObject(14); // queen !!!
+	//	uNEWDUMMY2->getComponent<unit::UnitMove>()->setTile(-1, -1);
 		/*
 		// Testing highlighting tiles and manipulating tiles using testDummy.txt
 		{
@@ -88,14 +89,14 @@ namespace unit
 		*/
 		
 		//set initial position
-		//kitten::K_GameObject* u0 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
-		//u0->getComponent<unit::UnitMove>()->setTile(3, 3);
+		kitten::K_GameObject* u0 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
+		u0->getComponent<unit::UnitMove>()->setTile(3, 3);
 
 		//kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(1);//priest
 		//u1->getComponent<unit::UnitMove>()->setTile(2, 2);
 
-		//kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
-		//u2->getComponent<unit::UnitMove>()->setTile(3, 2);
+		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
+		u2->getComponent<unit::UnitMove>()->setTile(3, 2);
 
 		//kitten::K_GameObject* u3 = UnitSpawn::getInstance()->spawnUnitObject(3);//duelist
 		//u3->getComponent<unit::UnitMove>()->setTile(4, 2);
@@ -106,8 +107,8 @@ namespace unit
 		//kitten::K_GameObject* u5 = UnitSpawn::getInstance()->spawnUnitObject(7);//pyromancer
 		//u5->getComponent<unit::UnitMove>()->setTile(6, 2);
 
-		//kitten::K_GameObject* u6 = UnitSpawn::getInstance()->spawnUnitObject(8);//stone slinger
-		//u6->getComponent<unit::UnitMove>()->setTile(7, 2);
+		kitten::K_GameObject* u6 = UnitSpawn::getInstance()->spawnUnitObject(8);//stone slinger
+		u6->getComponent<unit::UnitMove>()->setTile(7, 2);
 
 		//kitten::K_GameObject* u7 = UnitSpawn::getInstance()->spawnUnitObject(9);//arrow tower
 		//u7->getComponent<unit::UnitMove>()->setTile(8, 2);

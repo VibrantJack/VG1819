@@ -119,7 +119,7 @@ void unit::ActionSelect::act()
 	}
 	else if (m_action == "For test: Destroy")
 	{
-		m_unit->destroyedByDamage();
+		m_unit->destroy();
 		std::cout << "Unit Destroyed" << std::endl;
 	}
 	else

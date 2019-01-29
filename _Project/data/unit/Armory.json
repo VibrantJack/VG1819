@@ -1,6 +1,6 @@
 {
 	"unit":{
-    "name": "Armory",
+    	"name": "Armory",
 		"hp":10,
 		"mv":0,
 		"in":15,

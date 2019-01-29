@@ -1,0 +1,20 @@
+{
+	"name" : "Scroll Button Up",
+	"components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/scroll_button_up.dds"
+		},
+		{
+			"name" : "TriggerEventButton",
+			"regularTexture" : "textures/ui/buttons/scroll_button_up.dds",
+			"highlightedTexture" : "textures/ui/buttons/scroll_button_up_h.dds",
+			"inactiveTexture" : "textures/ui/buttons/scroll_button_up_i.dds",
+			"event" : "TextChat_Scroll_Up"
+		},
+		{
+			"name" : "ClickableFrame"
+		}
+	],
+	"scale2d" : [20, 20]
+}

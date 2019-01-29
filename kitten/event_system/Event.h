@@ -10,11 +10,13 @@
 #define PAUSE_MENU_OPEN "pause_menu_open_key"
 #define UPDATE_CARD_CONTEXT_KEY "update_card_context_key"
 #define CARD_CONTEXT_SET_ENABLED_KEY "card_context_set_enabled_key"
+#define TEXTCHAT_MESSAGE_KEY "textchat_message_key"
 
 #define PLAYER_ID "playerID"
 #define CARD_ID "cardID"
 #define CARD_COUNT "count"
 #define CARD_PLACEMENT "placement"
+#define DECK_CARD_COUNT_LEFT "cardsleft"
 
 #define CAM_FOV "FOV"
 #define POSITION_X "x"
@@ -52,6 +54,7 @@ namespace kitten
 			Reset_Power,
 			Highlight_Tile_Summon_Unit,
 			Summon_Unit,
+			Cancel_Summon,
 			Draw_Card,
 			Peek_Card,
 			Discard_Card,
@@ -77,6 +80,13 @@ namespace kitten
 			Client_Commander_Loaded,
 			Poll_For_Localhost,
 			Join_Localhost,
+			Chat_Button_Clicked,
+			TextChat_Receive_Message,
+			TextChat_Scroll_Up,
+			TextChat_Scroll_Down,
+			Ready_Button_Clicked,
+			Players_Ready,
+			Player_Joined,
 
 			Test_Event, 
 			MAX_VAL = Test_Event

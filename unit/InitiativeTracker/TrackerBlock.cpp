@@ -27,6 +27,7 @@ unit::TrackerBlock::TrackerBlock()
 	kitten::K_GameObjectManager* goMan = kitten::K_GameObjectManager::getInstance();
 	//frame object
 	m_frameObject = goMan->createNewGameObject("tracker_block.json");
+	m_frameObject->setEnabled(false);
 	//don't this this anymore vvv
 	//text object
 	//m_textObject = goMan->createNewGameObject("initiative_tracker_textbox.json");

@@ -1,10 +1,10 @@
 <Emitter>
 	<SpawnProperties>
-		<velocity random="false" velocity="3" />
+		<velocity random="false" velocity="2" />
 		<offset x="0" y="0" z="0" type="disc" radius="0.1"/>
 		<direction mode="useOffset"/>
-		<maxParticles numParticles="20" />
-		<lifetime random="false" length="0.75"/>
+		<maxParticles numParticles="40" />
+		<lifetime random="false" length="0.5"/>
 		<burst isBurst="true" repeat="false" />
 	</SpawnProperties>
 	

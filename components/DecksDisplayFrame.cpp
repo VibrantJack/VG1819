@@ -2,6 +2,8 @@
 #include "kitten/K_GameObjectManager.h"
 #include "kibble/databank/databank.hpp"
 #include "puppy/Text/TextBox.h"
+#include "UI/UIFrame.h"
+#include "unit/Unit.h"
 #include <math.h>
 #include "DeckInitializingComponent.h"
 #include <string>
@@ -62,5 +64,9 @@ void DecksDisplayFrame::updateIndividualDisplayObject(int p_activeObjectIndex)
 	m_objectsToDisplay[p_activeObjectIndex]->getTransform().getChildren()[2]->getAttachedGameObject() // Third is the TextBox
 		.getComponent<puppy::TextBox>()->setText(deck->name);
 
-	// Add picture later TODO
+	unit::Unit* commanderData = kibble::getUnitFromId(deck->commanderID);
+
+	// Add picture 
+	m_objectsToDisplay[p_activeObjectIndex]->getTransform().getChildren()[0]->getAttachedGameObject() // first is the ui frame
+		.getComponent<userinterface::UIFrame>()->setTexture(commanderData->getPortraitTexturePath().c_str());
 }
