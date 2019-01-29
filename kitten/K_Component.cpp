@@ -50,15 +50,15 @@ namespace kitten
 
 			if (!m_hasStarted)
 			{
-				K_ComponentManager::getInstance()->addToStart(this);
+				m_hasStarted = true;
+				start();
 			}
-			else
+
+			if (hasUpdate())
 			{
-				if (hasUpdate())
-				{
-					K_ComponentManager::getInstance()->queueAddToUpdate(this);
-				}
+				K_ComponentManager::getInstance()->queueAddToUpdate(this);
 			}
+
 			onEnabled();
 		}
 	}

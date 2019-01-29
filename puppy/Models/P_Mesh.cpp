@@ -29,6 +29,8 @@ namespace puppy
 		{
 			m_mat.setTexture("textures/black.bmp");
 		}
+
+		m_mat.setMatAmbient(glm::vec4(0.4, 0.4, 0.4, 1));
 	}
 
 	P_Mesh::P_Mesh(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices, glm::vec4& p_colour) : m_mat(ShaderType::solid_color_directional_light),

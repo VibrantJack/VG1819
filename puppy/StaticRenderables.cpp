@@ -217,7 +217,7 @@ namespace puppy
 
 			//construct single buffer from data
 			VertexEnvironment* toRender = new VertexEnvironment(createdData.data(),
-				ShaderManager::getShaderProgram(ShaderType::basic), createdData.size());
+				p_where->getShader(), createdData.size());
 
 			auto foundRender = p_toChange->find(p_where);
 			if (foundRender != p_toChange->end())
@@ -283,7 +283,7 @@ namespace puppy
 
 			//construct single buffer from data
 			VertexEnvironment* toRender = new VertexEnvironment(createdData.data(),
-				ShaderManager::getShaderProgram(ShaderType::basic_directional_light), createdData.size());
+				p_where->getShader(), createdData.size());
 
 			auto foundRender = m_normalToRender.find(p_where);
 			if (foundRender != m_normalToRender.end())
@@ -376,7 +376,6 @@ namespace puppy
 
 			mat->setUniform("world", glm::mat4());
 			mat->setUniform("worldIT", glm::mat3());
-			mat->setUniform("matAmbient", glm::vec3(0.4, 0.4, 0.4));
 
 			vertices->drawArrays(GL_TRIANGLES);
 		}

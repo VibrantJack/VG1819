@@ -14,7 +14,7 @@ out vec2 v_uv1;
 
 void main()
 {
-	gl_Position = mWVP * a_position;
+    gl_Position = mWVP * a_position;
 	v_uv1 = a_uv1;
 	
 	v_normal = worldIT * a_normal;
