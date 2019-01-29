@@ -46,7 +46,7 @@
 				"duration":1,
 				"counter_name":"energy",
 				"counter_select":"all",
-				"description":"Remove all(X) [Energy Counter], allies with Cost less than X gain +10 IN and +1 MV."
+				"description":"Remove all(X) [Energy Counter], allies with Cost < X: +10 IN, +1 MV."
 			}
 		],
 		"portrait_texture" : "textures/cards/500x500/Enchanter.tga"

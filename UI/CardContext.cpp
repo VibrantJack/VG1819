@@ -97,6 +97,25 @@ void CardContext::start()
 	m_costBox->getGameObject().getTransform().setIgnoreParent(false);
 	m_costBox->getGameObject().getTransform().setParent(&m_attachedObject->getTransform());
 
+	for (int i = 0; i < 3; ++i)
+	{
+		// Creating Ability Attribute TextBoxes
+		puppy::TextBox* abilityText = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/card_context/card_context_ability_attribute_textbox.json")->getComponent<puppy::TextBox>();
+		abilityText->getTransform().setIgnoreParent(false);
+		abilityText->getTransform().setParent(&m_attachedObject->getTransform());
+		m_abilityAttributes[i] = abilityText;
+
+		// Creating Ability Description TextBoxes
+		abilityText = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/card_context/card_context_ability_description_textbox.json")->getComponent<puppy::TextBox>();
+		abilityText->getTransform().setIgnoreParent(false);
+		abilityText->getTransform().setParent(&m_attachedObject->getTransform());
+		m_abilityDescriptions[i] = abilityText;
+	}
+
+	m_statusList = gom->createNewGameObject("UI/card_context/card_context_status_textbox.json")->getComponent<puppy::TextBox>();
+	m_statusList->getGameObject().getTransform().setIgnoreParent(false);
+	m_statusList->getGameObject().getTransform().setParent(&m_attachedObject->getTransform());
+
 	// Testing
 	setUnit(kibble::getUnitFromId(13));
 
@@ -108,7 +127,6 @@ void CardContext::setUnit(unit::Unit* p_unit)
 	if (p_unit != m_unitData && p_unit != nullptr)
 	{
 		m_unitData = p_unit;
-		m_unitPortrait->setTexture(p_unit->getPortraitTexturePath().c_str());
 		updateUnitData();
 	}
 }
@@ -151,6 +169,8 @@ void CardContext::update()
 
 void CardContext::updateUnitData()
 {
+	m_unitPortrait->setTexture(m_unitData->getPortraitTexturePath().c_str());
+
 	m_nameBox->setText(m_unitData->m_name);
 
 	std::string tags = "";
@@ -161,93 +181,80 @@ void CardContext::updateUnitData()
 	}
 	m_tagsBox->setText(tags.substr(0, tags.length() - 2));
 	updateUnitAttributes();
-
-	// Ability Info TextBoxes
-	// Destroy the previous TextBoxes and clear the list
-	auto abilityEnd = m_abilityList.cend();
-	for (auto it = m_abilityList.cbegin(); it != abilityEnd; ++it)
-	{
-		kitten::K_GameObjectManager::getInstance()->destroyGameObject(&(*it)->getGameObject());
-	}
-	m_abilityList.clear();
-
+	//return;
 	// Loop through the ability list
-	// Create a TextBox for the ability name + stats and a TextBox for the ability description
 	// Trying to use a max of 3 lines for each ability + description,
 	// otherwise we won't be able to fit all the details on the card
-	int row = 0;
-	float padding = 0.0f;
-	glm::vec3 contextPos = getTransform().getTranslation();
+
+	m_textBoxesIndex = 0;
 	for (auto it : m_unitData->m_ADList)
 	{
-		puppy::TextBox* abilityText = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/card_context/card_context_textbox.json")->getComponent<puppy::TextBox>();
-		abilityText->setFont(puppy::FontTable::getInstance()->getFont("../fonts/nsimsun_12pt.fnt"));
-		abilityText->setColor(0.89f, 0.82f, 0.55f);
-		abilityText->getTransform().place(ABILITIES_X, ABILITIES_Y - (row * LINE_HEIGHT) - padding, 0.01f);
-		abilityText->getTransform().setIgnoreParent(false);
-		abilityText->getTransform().setParent(&m_attachedObject->getTransform());
-
-		std::string abilityDesc = "";
-		unit::AbilityDescription* ad = it.second;
-
-		int lv = ad->m_intValue[UNIT_LV];
-		if (lv > 0)
-			abilityDesc += "LV:" + std::to_string(lv) + " ";
-
-		std::string abilityName = it.first;
-		abilityDesc += abilityName + ":";
-
-		int power = ad->m_intValue[UNIT_POWER];
-		if (power > 0)
-			abilityDesc += " Power:" + std::to_string(power);
-
-		int cd = ad->m_intValue[UNIT_CD];
-		if (cd > 0)
-			abilityDesc += " CD:" + std::to_string(cd);
-
-		int ct = ad->m_intValue[UNIT_CT];
-		if (ct > 0)
-			abilityDesc += " CT:" + std::to_string(ct);
-
-		abilityText->setText(abilityDesc);
-		m_abilityList.push_back(abilityText);
-		row += std::ceil(abilityDesc.length() / LINE_MAX_CHAR_LENGTH); // Determines how many rows have been used by the text that's been set
-
-		// Creating a new TextBox for the description
-		std::string description = ad->m_stringValue[UNIT_ABILITY_DESCRIPTION];
-		if (description.length() > 0)
+		if (m_textBoxesIndex < 3) // Hard Limit of displaying only 3 abilities
 		{
-			abilityText = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/card_context/card_context_textbox.json")->getComponent<puppy::TextBox>();
-			abilityText->setFont(puppy::FontTable::getInstance()->getFont("../fonts/nsimsun_12pt.fnt"));
-			abilityText->getTransform().place(ABILITIES_X, ABILITIES_Y - (row * LINE_HEIGHT) - padding, 0.01f);
-			abilityText->getTransform().setIgnoreParent(false);
-			abilityText->getTransform().setParent(&m_attachedObject->getTransform());
-			abilityText->setText(description);
-			m_abilityList.push_back(abilityText);
-			row += std::ceil(description.length() / LINE_MAX_CHAR_LENGTH);
-		}
-		padding += 4.0f;
-	}
-	// Status Info TextBoxes
-	// Similar idea to ability TextBoxes, clear the list and loop through status
-	auto statusEnd = m_statusList.cend();
-	for (auto it = m_statusList.cbegin(); it != statusEnd; ++it)
-	{
-		kitten::K_GameObjectManager::getInstance()->destroyGameObject(&(*it)->getGameObject());
-	}
-	m_statusList.clear();
+			std::string abilityDesc = "";
+			unit::AbilityDescription* ad = it.second;
 
+			int lv = ad->m_intValue[UNIT_LV];
+			if (lv > 0)
+				abilityDesc += "LV:" + std::to_string(lv) + " ";
+
+			std::string abilityName = it.first;
+			abilityDesc += abilityName + ":";
+
+			int power = ad->m_intValue[UNIT_POWER];
+			if (power > 0)
+				abilityDesc += " POW:" + std::to_string(power);
+
+			int cd = ad->m_intValue[UNIT_CD];
+			if (cd > 0)
+				abilityDesc += " CD:" + std::to_string(cd);
+
+			int ct = ad->m_intValue[UNIT_CT];
+			if (ct > 0)
+				abilityDesc += " CT:" + std::to_string(ct);
+
+			if (ad->m_intValue.find(MIN_RANGE) != ad->m_intValue.end())
+			{
+				int minRange = ad->m_intValue[MIN_RANGE];
+				int maxRange = ad->m_intValue[MAX_RANGE];
+				if (minRange == maxRange && minRange != 0)
+					abilityDesc += " RNG:" + std::to_string(minRange);
+				else if (minRange < maxRange)
+					abilityDesc += " RNG:" + std::to_string(minRange) + "-" + std::to_string(maxRange);
+			}
+
+			m_abilityAttributes[m_textBoxesIndex]->setText(abilityDesc);
+
+			// Creating a new TextBox for the description
+			std::string description = ad->m_stringValue[UNIT_ABILITY_DESCRIPTION];
+			if (description.length() > 0)
+			{
+				m_abilityDescriptions[m_textBoxesIndex]->setText(description);
+			}
+			++m_textBoxesIndex;
+		}
+	}
+
+	// Clear any unused textboxes
+	for (int leftovers = m_textBoxesIndex; leftovers < 3; ++leftovers)
+	{
+		m_abilityAttributes[leftovers]->setText("");
+		m_abilityDescriptions[leftovers]->setText("");
+	}
+
+	// Status Info TextBoxes
+	// Clear the previous text then set the new statuses
+	m_statusList->setText("");
 	unit::StatusContainer* statusContainer = m_unitData->getStatusContainer();
+	std::string statusDesc = "";
+
 	for (auto it : statusContainer->m_statusList)
 	{
-		puppy::TextBox* statusText = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/card_context/card_context_textbox.json")->getComponent<puppy::TextBox>();
-		statusText->setFont(puppy::FontTable::getInstance()->getFont("../fonts/nsimsun_12pt.fnt"));
-		statusText->setColor(0.0f, 0.0f, 0.0f);
-		statusText->getTransform().place(ABILITIES_X, ABILITIES_Y - (row * LINE_HEIGHT) - padding, 0.01f);
-		statusText->getTransform().setIgnoreParent(false);
-		statusText->getTransform().setParent(&m_attachedObject->getTransform());
+		if (it != statusContainer->m_statusList.at(0))
+		{
+			statusDesc += ", ";
+		}
 
-		std::string statusDesc = "";
 		std::unordered_map<std::string, int> attributes = it->getAttributeChanges();
 
 		int lv = it->getLV();
@@ -273,12 +280,15 @@ void CardContext::updateUnitData()
 
 
 		std::string description = it->getDescription();
-		statusDesc += " "+description;
+		if (description.length() > 0)
+		{
+			statusDesc += " " + description;
+		}
 
-		statusText->setText(statusDesc);
-		m_statusList.push_back(statusText);
-		row += std::ceil(statusDesc.length() / LINE_MAX_CHAR_LENGTH);
+		m_statusList->setText(statusDesc);
 	}
+
+	arrangeTextBoxes();
 }
 
 void CardContext::updateUnitAttributes()
@@ -314,24 +324,49 @@ void CardContext::setAttribTextColor(puppy::TextBox* p_textBox, const std::strin
 	}
 }
 
+void CardContext::arrangeTextBoxes()
+{
+	int row = 0, lastRow = row;
+	float padding = 0.0f;
+	glm::vec3 contextPos = getTransform().getTranslation();
+
+	// Abilities
+	for (int i = 0; i < m_textBoxesIndex; ++i)
+	{
+		m_abilityAttributes[i]->getTransform().place(ABILITIES_X, ABILITIES_Y - (row * LINE_HEIGHT) - padding, 0.01f);
+		row += std::ceil(m_abilityAttributes[i]->getText().length() / LINE_MAX_CHAR_LENGTH); // Determines how many rows have been used by the text that's been set
+
+		m_abilityDescriptions[i]->getTransform().place(ABILITIES_X, ABILITIES_Y - (row * LINE_HEIGHT) - padding, 0.01f);
+		row += std::ceil(m_abilityDescriptions[i]->getText().length() / LINE_MAX_CHAR_LENGTH);
+
+		padding += (row - lastRow> 0 ? 4.0f : 0.0f);
+		lastRow = row;
+	}
+
+	// Status
+	m_statusList->getTransform().place(ABILITIES_X, ABILITIES_Y - (row * LINE_HEIGHT) - padding, 0.01f);
+}
+
 void CardContext::onEnabled()
 {
-	std::vector<kitten::Transform*> parentChildren = m_attachedObject->getTransform().getChildren();
+	/*std::vector<kitten::Transform*> parentChildren = m_attachedObject->getTransform().getChildren();
 	for (kitten::Transform* t : parentChildren)
 	{
 		t->getAttachedGameObject().setEnabled(true);
-	}
+	}*/
+	m_attachedObject->setEnabled(true);
 	m_cardTexture->setEnabled(true);
 	m_unitPortrait->setEnabled(true);
 }
 
 void CardContext::onDisabled()
 {
-	std::vector<kitten::Transform*> parentChildren = m_attachedObject->getTransform().getChildren();
+	/*std::vector<kitten::Transform*> parentChildren = m_attachedObject->getTransform().getChildren();
 	for (kitten::Transform* t : parentChildren)
 	{
 		t->getAttachedGameObject().setEnabled(true);
-	}
+	}*/
+	m_attachedObject->setEnabled(false);
 	m_cardTexture->setEnabled(false);
 	m_unitPortrait->setEnabled(false);
 }

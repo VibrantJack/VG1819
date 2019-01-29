@@ -13,7 +13,7 @@ HoverOverCardBehavior::~HoverOverCardBehavior()
 	if (m_isHovered) {
 		kitten::Event* e = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
 		e->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, e);
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, e);
 	}
 }
 
@@ -36,12 +36,12 @@ void HoverOverCardBehavior::onHoverStart()
 		updateContextEvent->putInt(UPDATE_CARD_CONTEXT_KEY, 2);
 	else
 		updateContextEvent->putInt(UPDATE_CARD_CONTEXT_KEY, m_unit->m_kibbleID);
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_By_ID, updateContextEvent);
+	kitten::EventManager::getInstance()->queueEvent(kitten::Event::Update_Card_Context_By_ID, updateContextEvent);
 
 	// Enable Card Context
 	kitten::Event* enableContextEvent = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
 	enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, TRUE);
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
+	kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
 }
 
 void HoverOverCardBehavior::onHoverEnd()
@@ -50,5 +50,5 @@ void HoverOverCardBehavior::onHoverEnd()
 	m_isHovered = false;
 	kitten::Event* e = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
 	e->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
-	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, e);
+	kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, e);
 }
