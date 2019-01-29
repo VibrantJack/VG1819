@@ -22,7 +22,7 @@ namespace kitten
 			m_mat.setTexture(p_texPath.c_str());
 		}
 
-		m_mat.setMatAmbient(glm::vec4(0.4, 0.4, 0.4, 1.0));
+		m_mat.setMatAmbient(glm::vec4(1.0, 1.0, 1.0, 1.0));
 		m_mat.setMatDiffuse(glm::vec4(0.4, 0.4, 0.4, 1.0));
 
 		//setup the vao

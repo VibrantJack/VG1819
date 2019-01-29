@@ -3,6 +3,12 @@
     "components" : [
         {
             "name" : "Camera"
-        }
+        },
+		{
+			"name" : "DirectionalLight",
+			"useCallbacks" : true,
+			"ambientColor" : [1.0,1.0,1.0],
+			"directionalColor" : [0.6,0.6,0.6]
+	    }
     ]
 }

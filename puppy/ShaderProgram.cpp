@@ -3,6 +3,8 @@
 
 #include "lights\P_LightList.h"
 
+#define NO_AMBIENT_LIGHT_VAL glm::vec4(0.5, 0.5, 0.5, 1)
+
 namespace puppy
 {
 	ShaderProgram::ShaderProgram(const std::string& p_vertexShaderPath, const std::string& p_pixelShaderPath, ShaderType p_type) : m_type(p_type), m_hasDirectionalLights(false), m_hasPointLights(false)
@@ -45,9 +47,9 @@ namespace puppy
 				auto& directionalLights = lightList->getDirectionalLights();
 				if (directionalLights.empty())
 				{
-					// No light, all we have to do is set color to black and we are fine
+					// No light, use default ambient so its not black
 					glUniform4fv(getUniformPlace("lightDirectionalColor"), 1, glm::value_ptr(glm::vec4(0, 0, 0, 1)));
-					glUniform4fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(glm::vec4(0, 0, 0, 1)));
+					glUniform4fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(NO_AMBIENT_LIGHT_VAL));
 				}
 				else
 				{
@@ -81,7 +83,7 @@ namespace puppy
 				}
 				else
 				{
-					glUniform4fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(glm::vec4(0, 0, 0, 1)));
+					glUniform4fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(NO_AMBIENT_LIGHT_VAL));
 				}
 
 				if (pointLights.empty())
