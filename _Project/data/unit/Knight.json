@@ -48,11 +48,6 @@
 	},
 	"components" : [
 		{
-			"name" : "UnitGraphic",
-			"texture":"textures/unit/Knight.tga",
-			"unitsize": "point"
-		},
-		{
 			"name" : "SpriteGroup",
 			"spritename":"knight",
 			"number":3,

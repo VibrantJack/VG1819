@@ -1,0 +1,62 @@
+{
+	"unit":{
+		"name":"Lancer",
+		"hp":4,
+		"mv":2,
+		"in":11,
+		"cost":2,
+		"tags":["Eldritch","Ghost","Ancients"],
+		"ability_description":[
+			{
+				"name":"Thrust",
+				"power":3,
+				"min_range":1,
+				"max_range":1,
+				"need_unit":1,
+				"area_mode":"lineV",
+				"area_fix":0,
+				"area_len":2,
+				"description":"Deal damage to enemies in a row."
+			},
+			{
+				"name":"Fear Strike",
+				"lv":3,
+                "power":5,
+				"min_range":1,
+				"max_range":1,
+				"need_unit":1,
+				"description":"Deal damage and apply [Fear] if in [Demonic Presence].",
+				"status_name":"Fear",
+				"status_description":"IN is reduced to 1."
+			}
+		],
+		"status":[
+			{
+				"name":"Status_LV",
+				"lv":3,
+				"hp":5
+			},
+			{
+				"name":"Status_Lancer_LV2",
+				"lv":2,
+				"armor":1,
+				"description":"If in [Demonic Presence]., then gain [Armor] at turn start. It can block damage."
+			}
+		],
+		"portrait_texture" : "textures/cards/500x500/Lancer.tga"
+	},
+	"components" : [
+		{
+			"name" : "SpriteGroup",
+			"spritename":"lancer",
+			"number":4,
+			"rotate":[45,0,0],
+			"scale":[2,0.8,1],
+			"translate":[-0.2,0,0.15]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/Lancer.tga"
+		}
+	]
+}

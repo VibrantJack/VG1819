@@ -12,8 +12,8 @@ void unit::UnitMove::triggerNewTileEvent()
 	Unit* u = m_attachedObject->getComponent<Unit>();
 
 	ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::New_Tile);
-	//t->putGameObject("tile", m_currentTile);
-	u->triggerTP(ability::TimePointEvent::New_Tile);
+	t->putGameObject("tile", m_currentTile);
+	u->triggerTP(ability::TimePointEvent::New_Tile,t);
 }
 
 void unit::UnitMove::triggerLeaveTileEvent()
@@ -161,6 +161,8 @@ void unit::UnitMove::setTile(kitten::K_GameObject * p_tile)
 	m_currentTile = p_tile;
 	m_lastTile = p_tile;
 	reset();
+
+	triggerNewTileEvent();
 }
 
 void unit::UnitMove::setTile(int p_x, int p_z)

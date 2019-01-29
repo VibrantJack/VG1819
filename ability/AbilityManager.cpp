@@ -92,6 +92,33 @@ namespace ability
 
 		newAbility = new HereHomeland();
 		m_abilityList[ABILITY_HOMELAND] = newAbility;
+
+		newAbility = new Curse();
+		m_abilityList[ABILITY_CURSE] = newAbility;
+
+		newAbility = new Oppose();
+		m_abilityList[ABILITY_OPPOSE] = newAbility;
+
+		newAbility = new Thrust();
+		m_abilityList[ABILITY_THRUST] = newAbility;
+
+		newAbility = new FearStrike();
+		m_abilityList[ABILITY_FEAR_STRIKE] = newAbility;
+
+		newAbility = new ReleaseGas();
+		m_abilityList[ABILITY_RELEASE_GAS] = newAbility;
+
+		newAbility = new Mucus();
+		m_abilityList[ABILITY_MUCUS] = newAbility;
+
+		newAbility = new Summon();
+		m_abilityList[ABILITY_SUMMON] = newAbility;
+
+		newAbility = new Activate();
+		m_abilityList[ABILITY_ACTIVATE] = newAbility;
+
+		newAbility = new Stab();
+		m_abilityList[ABILITY_STAB] = newAbility;
 	}
 
 	AbilityManager::AbilityManager()

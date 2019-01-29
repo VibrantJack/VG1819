@@ -875,6 +875,48 @@
     <ClCompile Include="..\components\scene change\StartNewDeckSetupWizard.cpp">
       <Filter>components\scene changers</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Curse.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Curse.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Oppose.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\demonic_restriction\Status_Demonic_Restriction.cpp">
+      <Filter>ability\status\demonic_restriction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Eternal_Eye_LV3.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Eternal_Eye.cpp">
+      <Filter>ability\status\demonic_restriction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\IsDPFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\NotDPFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\FearStrike.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Mucus.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Lancer_LV2.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Mud_Demon.cpp">
+      <Filter>ability\status\demonic_restriction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Activate.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\SelfFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
     <ClCompile Include="..\components\PromptPopUp.cpp">
       <Filter>components</Filter>
     </ClCompile>
@@ -1918,6 +1960,9 @@
     <ClInclude Include="..\components\scene change\StartNewDeckSetupWizard.h">
       <Filter>components\scene changers</Filter>
     </ClInclude>
+    <ClInclude Include="..\ability\status\demonic_restriction\Status_Demonic_Restriction.h">
+      <Filter>ability\status\demonic_restriction</Filter>
+    </ClInclude>
     <ClInclude Include="..\components\PromptPopUp.h">
       <Filter>components</Filter>
     </ClInclude>
@@ -2153,6 +2198,9 @@
     </Filter>
     <Filter Include="components\initializer">
       <UniqueIdentifier>{23c51a84-04fc-4055-b5ae-4e3f73b2d77b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ability\status\demonic_restriction">
+      <UniqueIdentifier>{ea0232e6-01f0-4b9a-9b52-edd895ea94e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

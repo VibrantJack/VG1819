@@ -80,6 +80,8 @@ void unit::ActionButtonStore::display(Unit * p_u)
 
 	setButton("For test: Destroy", true);
 
+	setButton("For test: Set DP", true);
+
 	m_show = true;
 
 	//change y position

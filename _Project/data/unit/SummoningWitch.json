@@ -1,0 +1,55 @@
+{
+	"unit":{
+		"name":"Summoning Witch",
+		"hp":25,
+		"mv":2,
+		"in":4,
+		"cost":6,
+		"tags":["Demon","Ancients"],
+		"ability_description":[
+			{
+				"name":"Summon",
+				"min_range":1,
+				"max_range":1,
+				"need_unit":0,
+				"filter":1,
+				"filter0":"unit",
+                "description":"Summon a servant."
+			},
+			{
+				"name":"Activate",
+				"lv":3,
+				"cd":3,
+				"min_range":1,
+				"max_range":3,
+				"filter":2,
+				"filter0":"enemy",
+				"filter1":"not_demonic_presence",
+				"need_unit":1,
+				"description":"Target ally that's in [Demonic Presence], make it act immediately"
+			}
+		],
+		"status":[
+			{
+				"name":"Status_LV",
+				"lv":2,
+				"hp":5
+			}
+		],
+		"portrait_texture" : "textures/cards/500x500/SummoningWitch.tga"
+	},
+	"components" : [
+		{
+			"name" : "SpriteGroup",
+			"spritename":"summoning_witch",
+			"number":2,
+			"rotate":[45,0,0],
+			"scale":[4,0.8,1],
+			"translate":[-0.05,0,0.15]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/SummoningWitch.tga"
+		}
+	]
+}

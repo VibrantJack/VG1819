@@ -30,6 +30,8 @@ namespace ability
 		//simple ability
 		void singleTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile = false);
 		void multiTargetDamage(AbilityInfoPackage* p_info);
+
+		kitten::K_GameObject* summonToken(AbilityInfoPackage* p_info, int p_unitIndex);
 		int damage(unit::Unit* p_target, int power);
 
 		//delete package and tell unit it acts once
@@ -258,6 +260,87 @@ namespace ability
 	public:
 		HereHomeland() : Ability(ABILITY_HOMELAND) {};
 		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Curse : public Ability
+	{
+	public:
+		Curse() : Ability(ABILITY_CURSE) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Oppose : public Ability
+	{
+	public:
+		Oppose() : Ability(ABILITY_OPPOSE) {};
+		int effect(AbilityInfoPackage* p_info);
+	private:
+		kitten::K_GameObject* getTile(kitten::K_GameObject* p_tile, int p_length, int p_direction);
+		int getDirection(const std::pair<int, int>& p_pos1, const std::pair<int, int>& p_pos2);
+		bool checkTile(kitten::K_GameObject* p_tileGO, int p_movePower);
+	};
+
+	class Thrust : public Ability
+	{
+	public:
+		Thrust() : Ability(ABILITY_THRUST) {};
+		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+	};
+
+	class ReleaseGas : public Ability
+	{
+	public:
+		ReleaseGas() : Ability(ABILITY_RELEASE_GAS) {};
+		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+	};
+
+	class FearStrike : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
+	public:
+		FearStrike() : Ability(ABILITY_FEAR_STRIKE) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Mucus : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
+	public:
+		Mucus() : Ability(ABILITY_MUCUS) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Summon : public Ability
+	{
+	private:
+		int m_unitIndex = 19;
+	public:
+		Summon() :Ability(ABILITY_SUMMON) {};
+		int effect(AbilityInfoPackage* p_info) 
+		{
+			summonToken(p_info, m_unitIndex);
+
+			//delete package
+			done(p_info);
+
+			return 0;
+		};
+	};
+
+	class Activate : public Ability
+	{
+	public:
+		Activate() : Ability(ABILITY_ACTIVATE) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Stab : public Ability
+	{
+	public:
+		Stab() : Ability(ABILITY_STAB) {};
+		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
 	};
 }
 

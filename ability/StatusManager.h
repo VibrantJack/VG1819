@@ -2,6 +2,7 @@
 #include "AbilityInfoPackage.h"
 #include "ability/Ability.h"
 #include "status/Status.h"
+#include "status/demonic_restriction/Status_Demonic_Restriction.h"
 #include "unit/UnitCommon.h"
 #include "AbilityMacro.h"
 

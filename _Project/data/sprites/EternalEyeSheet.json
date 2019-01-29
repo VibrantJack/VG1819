@@ -1,0 +1,23 @@
+{
+	"name" : "eternal_eye",
+	"texture" : "textures/sprites/units/ancients/eternal_eye_sheet.png",
+	
+	"sheetwidth" : 490,
+	"sheetheight" : 110,
+	
+	"characterwidth" : 49,
+	"characterheight" : 100,
+	
+	"padding" : 10,
+	
+	"defaultanimation" : "idle",
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [6,0],
+			"time" : 3
+		}
+	]
+}

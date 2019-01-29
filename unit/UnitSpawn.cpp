@@ -133,10 +133,11 @@ namespace unit
 			unitObject->getComponent<UnitGraphic>()->setEnabled(false);
 		}*/
 
+		/*unit graphic is removed
 		if (unitObject->getComponent<sprites::SpriteGroup>() != nullptr) {
 			// disable unit Graphic
-			unitObject->getComponent<UnitGraphic>()->setEnabled(false);
-		}
+			//unitObject->getComponent<UnitGraphic>()->setEnabled(false);
+		}*/
 
 		// Set client Id to unit
 		if (networking::ClientGame::getInstance())
