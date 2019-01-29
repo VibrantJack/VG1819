@@ -102,7 +102,7 @@ void SendSelfOnClick::onHoverEnd()
 	{
 		kitten::Event* enableContextEvent = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
 		enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
-		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
 		m_contextEnabled = false;
 	}
 }

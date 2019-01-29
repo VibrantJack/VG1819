@@ -37,6 +37,7 @@ private:
 
 	unit::Unit* m_unitData;
 
+	int m_textBoxesIndex = 0;
 	// Testing
 	int m_unitId = 1;
 

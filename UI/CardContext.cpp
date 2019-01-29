@@ -186,14 +186,11 @@ void CardContext::updateUnitData()
 	// Trying to use a max of 3 lines for each ability + description,
 	// otherwise we won't be able to fit all the details on the card
 
-	int abilityIndex = 0;
+	m_textBoxesIndex = 0;
 	for (auto it : m_unitData->m_ADList)
 	{
-		if (abilityIndex < 3) // Hard Limit of displaying only 3 abilities
+		if (m_textBoxesIndex < 3) // Hard Limit of displaying only 3 abilities
 		{
-			m_abilityAttributes[abilityIndex]->setText("");
-			m_abilityDescriptions[abilityIndex]->setText("");
-
 			std::string abilityDesc = "";
 			unit::AbilityDescription* ad = it.second;
 
@@ -206,7 +203,7 @@ void CardContext::updateUnitData()
 
 			int power = ad->m_intValue[UNIT_POWER];
 			if (power > 0)
-				abilityDesc += " Power:" + std::to_string(power);
+				abilityDesc += " POW:" + std::to_string(power);
 
 			int cd = ad->m_intValue[UNIT_CD];
 			if (cd > 0)
@@ -216,16 +213,33 @@ void CardContext::updateUnitData()
 			if (ct > 0)
 				abilityDesc += " CT:" + std::to_string(ct);
 
-			m_abilityAttributes[abilityIndex]->setText(abilityDesc);
+			if (ad->m_intValue.find(MIN_RANGE) != ad->m_intValue.end())
+			{
+				int minRange = ad->m_intValue[MIN_RANGE];
+				int maxRange = ad->m_intValue[MAX_RANGE];
+				if (minRange == maxRange && minRange != 0)
+					abilityDesc += " RNG:" + std::to_string(minRange);
+				else if (minRange < maxRange)
+					abilityDesc += " RNG:" + std::to_string(minRange) + "-" + std::to_string(maxRange);
+			}
+
+			m_abilityAttributes[m_textBoxesIndex]->setText(abilityDesc);
 
 			// Creating a new TextBox for the description
 			std::string description = ad->m_stringValue[UNIT_ABILITY_DESCRIPTION];
 			if (description.length() > 0)
 			{
-				m_abilityDescriptions[abilityIndex]->setText(description);
+				m_abilityDescriptions[m_textBoxesIndex]->setText(description);
 			}
-			++abilityIndex;
+			++m_textBoxesIndex;
 		}
+	}
+
+	// Clear any unused textboxes
+	for (int leftovers = m_textBoxesIndex; leftovers < 3; ++leftovers)
+	{
+		m_abilityAttributes[leftovers]->setText("");
+		m_abilityDescriptions[leftovers]->setText("");
 	}
 
 	// Status Info TextBoxes
@@ -312,12 +326,12 @@ void CardContext::setAttribTextColor(puppy::TextBox* p_textBox, const std::strin
 
 void CardContext::arrangeTextBoxes()
 {
-	int row = 0;
+	int row = 0, lastRow = row;
 	float padding = 0.0f;
 	glm::vec3 contextPos = getTransform().getTranslation();
 
 	// Abilities
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < m_textBoxesIndex; ++i)
 	{
 		m_abilityAttributes[i]->getTransform().place(ABILITIES_X, ABILITIES_Y - (row * LINE_HEIGHT) - padding, 0.01f);
 		row += std::ceil(m_abilityAttributes[i]->getText().length() / LINE_MAX_CHAR_LENGTH); // Determines how many rows have been used by the text that's been set
@@ -325,7 +339,8 @@ void CardContext::arrangeTextBoxes()
 		m_abilityDescriptions[i]->getTransform().place(ABILITIES_X, ABILITIES_Y - (row * LINE_HEIGHT) - padding, 0.01f);
 		row += std::ceil(m_abilityDescriptions[i]->getText().length() / LINE_MAX_CHAR_LENGTH);
 
-		padding += 4.0f;
+		padding += (row - lastRow> 0 ? 4.0f : 0.0f);
+		lastRow = row;
 	}
 
 	// Status

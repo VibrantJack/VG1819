@@ -8,8 +8,6 @@ class FPSCalc : public kitten::K_Component
 private:
 	kitten::K_Time* m_timeRef;
 	int m_fps = 0;
-	int m_minFps = 1000;
-	int m_maxFps = 0;
 
 	puppy::TextBox* m_textBox;
 public:

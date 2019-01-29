@@ -25,6 +25,8 @@
 #define UNIT_DURATION "duration"
 #define UNIT_POWER "power"
 #define UNIT_ABILITY_DESCRIPTION "description"
+#define MIN_RANGE "min_range"
+#define MAX_RANGE "max_range"
 
 //counter attribute
 #define COUNTER_NAME "counter_name"

@@ -23,10 +23,6 @@
 			"filename" : "TabMenu.txt"
 		},
 		{
-			"filename" : "FPSCounter.txt",
-			"translate2d" : [300, 300]
-		},
-		{
 			"filename" : "UniversalPfx.txt"
 		},
 		{
