@@ -1,0 +1,12 @@
+{
+    "name" : "empty frame",
+    "components" : [
+        {
+            "name" : "UIFrame",
+            "texture" : "textures/ui/no_units_message.dds"
+        }
+    ],
+    "translate": [ 0,0,-0.6],
+    "translate2d" : [0,0],
+    "scale2d" : [185.0,185.0]
+}

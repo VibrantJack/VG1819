@@ -1,53 +1,69 @@
-// Testing Main Menu animations
-
 #include "UI\MainMenu\MainMenu.h"
 #include "kitten\K_GameObjectManager.h"
 
+#define MAINSCENE_PATH "mainscene.json"
+#define TESTINGSCENE_PATH "testinggrounds.json"
+#define MAINMENU_PATH "mainmenu.json"
+#define DECKBUILDER_PATH "deck-builder-deck_selection_screen.json"
+
+kitten::K_GameObject* MainMenu::sm_menuBottom = nullptr;
+kitten::K_GameObject* MainMenu::sm_menuTop = nullptr;
+
 MainMenu::MainMenu()
 {
-
+	
 }
 
 MainMenu::~MainMenu()
 {
-
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Scene_Change, this);
 }
 
 void MainMenu::start()
 {
-	m_input = input::InputManager::getInstance();
-	assert(m_input != nullptr);
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Scene_Change,
+		this,
+		std::bind(&MainMenu::sceneChangeListener, this, std::placeholders::_1, std::placeholders::_2));
 
-	m_menuTop = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/menu_top.json");
-	m_menuTop->getTransform().move(0.0f, 0.0f, -0.9f);
-	m_menuTopController = m_menuTop->getComponent<LerpController>();
-	m_menuTopController->addPositionLerpFinishedCallback(this);
-
-	m_menuBottom = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/menu_bottom.json");
-	m_menuBottom->getTransform().move(0.0f, 0.0f, -0.9f);
-	m_menuBottomController = m_menuBottom->getComponent<LerpController>();
-
-	m_title = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/victorum_title.json");
-	m_title->getTransform().move(0.0f, 0.0f, -0.1f);
-	m_titleController = m_title->getComponent<LerpController>();
-	
-}
-
-void MainMenu::update()
-{
-	if (m_input->keyDown(GLFW_KEY_TAB) && !m_input->keyDownLast(GLFW_KEY_TAB))
+	if (sm_menuBottom == nullptr)
 	{
-		m_titleController->positionLerp(glm::vec3(306.0f, 720.0f, -0.1f), MENU_LERP_TIME);
-		m_menuTopController->positionLerp(MENU_TOP_LERP_VEC3_POS, MENU_LERP_TIME);
-		m_menuBottomController->positionLerp(MENU_BOTTOM_LERP_VEC3_POS, MENU_LERP_TIME);
-
-		m_menuTopController->addPositionLerpFinishedCallback(this);
+		sm_menuBottom = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/main_menu/menu_bottom.json");
+		kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(sm_menuBottom);
 	}
+	if (sm_menuTop == nullptr)
+	{
+		sm_menuTop = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/main_menu/menu_top.json");
+		kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(sm_menuTop);
+	}
+	m_menuTopController = sm_menuTop->getComponent<LerpController>();
 }
 
-void MainMenu::onPositionLerpFinished()
+void MainMenu::sceneChangeListener(kitten::Event::EventType p_type, kitten::Event* p_data)
 {
-	m_titleController->positionLerp(TITLE_ORIGINAL_VEC3_POS, MENU_LERP_TIME);
-	m_menuTopController->positionLerp(MENU_TOP_ORIGINAL_VEC3_POS, MENU_LERP_TIME);
-	m_menuBottomController->positionLerp(MENU_BOTTOM_ORIGINAL_VEC3_POS, MENU_LERP_TIME);
+	std::string scenePath = p_data->getString(NEXT_SCENE_PATH_KEY);
+
+	if (scenePath == MAINSCENE_PATH || scenePath == TESTINGSCENE_PATH)
+	{
+		kitten::K_GameObjectManager::getInstance()->destroyGameObject(sm_menuBottom);
+		kitten::K_GameObjectManager::getInstance()->destroyGameObject(sm_menuTop);
+		sm_menuBottom = nullptr;
+		sm_menuTop = nullptr;
+	}
+	else if (scenePath == MAINMENU_PATH)
+	{
+		int width, height;
+		glfwGetWindowSize(&width, &height);
+		glm::vec2 scale2d = sm_menuTop->getTransform().getScale2D();
+		glm::vec3 translation = sm_menuTop->getTransform().getTranslation();
+		m_menuTopController->positionLerp(glm::vec3(0.0f, height - scale2d.y, translation.z), MENU_LERP_TIME);
+	}
+	else if (scenePath == DECKBUILDER_PATH)
+	{
+		int width, height;
+		glfwGetWindowSize(&width, &height);
+		glm::vec2 scale2d = sm_menuTop->getTransform().getScale2D();
+		glm::vec3 translation = sm_menuTop->getTransform().getTranslation();
+		m_menuTopController->positionLerp(glm::vec3(0.0f, height + scale2d.y, translation.z), MENU_LERP_TIME);
+	}
 }
