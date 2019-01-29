@@ -27,8 +27,8 @@
 			"ambientColor" : [0.7,0.7,0.7],
 			"directionalColor" : [0.6,0.6,0.6]
 	    },
-	{
-		"name":"LerpController"
-	}
+		{
+			"name":"LerpController"
+		}
     ]
 }

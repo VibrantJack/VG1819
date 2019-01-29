@@ -12,6 +12,14 @@
 		{
 			"name" : "ProjectileParticleSystemHelper",
 			"effect" : "BurnExplosion"
+		},
+				{
+			"name" : "PointLight",
+			"useCallbacks" : false,
+			"range" : 100.0,
+			"ambientColor" : [0.7,0.7,0.7],
+			"pointColor" : [0.6,0.6,0.6],
+			"attenuation" : [0,1,0]
 		}
     ]
 }

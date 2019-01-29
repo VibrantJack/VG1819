@@ -37,6 +37,13 @@ namespace puppy
 		toReturn->m_shader = m_shader;
 		toReturn->m_baseShader = m_baseShader;
 
+		toReturn->m_hasColour = m_hasColour;
+		toReturn->m_colour = m_colour;
+		
+		toReturn->m_hasMatLightProperties = m_hasMatLightProperties;
+		toReturn->m_matAmbient = m_matAmbient;
+		toReturn->m_matDiffuse = m_matDiffuse;
+
 		return toReturn;
 	}
 
@@ -46,6 +53,38 @@ namespace puppy
 		{
 			return false;
 		}
+
+		if (m_hasColour != p_other.hasColour())
+		{
+			return false;
+		}
+
+		if (m_hasColour)
+		{
+			if (m_colour != p_other.getColour())
+			{
+				return false;
+			}
+		}
+
+		if (m_hasMatLightProperties != p_other.hasMatLightProperties())
+		{
+			return false;
+		}
+
+		if (m_hasMatLightProperties)
+		{
+			if (m_matAmbient != p_other.getMatAmbient())
+			{
+				return false;
+			}
+
+			if (m_matDiffuse != p_other.getMatDiffuse())
+			{
+				return false;
+			}
+		}
+
 		//else, equal if textures and weights are the same
 		const TextureBlendMaterial& castedOther = static_cast<const TextureBlendMaterial&>(p_other);
 

@@ -51,6 +51,31 @@ namespace puppy
 		virtual void setMatAmbient(const glm::vec4& m_ambient);
 		virtual void setMatDiffuse(const glm::vec4& m_diffuse);
 
+		virtual bool hasColour() const
+		{
+			return m_hasColour;
+		}
+
+		virtual bool hasMatLightProperties() const
+		{
+			return m_hasMatLightProperties;
+		}
+
+		virtual const glm::vec4& getColour() const
+		{
+			return m_colour;
+		}
+
+		virtual const glm::vec4& getMatAmbient() const
+		{
+			return m_matAmbient;
+		}
+
+		virtual const glm::vec4& getMatDiffuse() const
+		{
+			return m_matDiffuse;
+		}
+
 		//One-time set
 		void setUniform(const std::string& p_name, const glm::mat4& p_mat4) const;
 		void setUniform(const std::string& p_name, const glm::mat3& p_mat3) const;

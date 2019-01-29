@@ -44,7 +44,10 @@ void main()
 		
 		//attenuation
 		float atten = 1.0 / dot(lightAttenuation, vec3(1.0, lightDist, lightDist*lightDist));
+		
 		lightOut *= atten;
+		
+		lightOut += ambient;
 		
 		//set alpha to 1.0
 		lightOut.w = 1.0;

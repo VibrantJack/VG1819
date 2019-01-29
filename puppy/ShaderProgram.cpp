@@ -5,7 +5,7 @@
 
 namespace puppy
 {
-	ShaderProgram::ShaderProgram(const std::string& p_vertexShaderPath, const std::string& p_pixelShaderPath, ShaderType p_type) : m_type(p_type), m_hasDirectionalLights(false)
+	ShaderProgram::ShaderProgram(const std::string& p_vertexShaderPath, const std::string& p_pixelShaderPath, ShaderType p_type) : m_type(p_type), m_hasDirectionalLights(false), m_hasPointLights(false)
 	{
 		//If I were to write my own shader compiling / loading it would be the same as wolf's.
 		m_id = wolf::LoadShaders(p_vertexShaderPath, p_pixelShaderPath);
@@ -13,6 +13,12 @@ namespace puppy
 		if (m_type == basic_directional_light || m_type == solid_color_directional_light) // Not sure what the better way to do this is
 		{
 			m_hasDirectionalLights = true;
+		}
+
+		if (m_type == texture_blend_zero_point_light || m_type == texture_blend_one_point_light || m_type ==  texture_blend_two_point_light ||
+			m_type == texture_blend_three_point_light || m_type == texture_blend_four_point_light)
+		{
+			m_hasPointLights = true;
 		}
 	}
 

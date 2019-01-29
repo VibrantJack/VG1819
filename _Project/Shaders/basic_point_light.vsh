@@ -1,8 +1,8 @@
 #version 150
 
 uniform mat4 mWVP;
-uniform mat4 world;
 uniform mat3 worldIT;
+uniform mat4 world;
 
 in vec4 a_position;
 in vec3 a_normal;
