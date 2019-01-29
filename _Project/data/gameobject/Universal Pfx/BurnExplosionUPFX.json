@@ -1,0 +1,16 @@
+{
+	"name" : "PooledBurnExplosionUPFX",
+	"components" : [
+		{
+			"name" : "K_ParticleSystem",
+			"effectpath" : "data/particles/abilities/effects/burnExplosion.xml"
+		},
+		{
+			"name" : "PlayParticleSystemOnEnable"
+		},
+		{
+			"name" : "DisableAfterTime",
+			"time" : 5.0
+		}
+	]
+}

@@ -1754,6 +1754,11 @@ kitten::K_Component* getReloadObjectOnKeyPress(nlohmann::json* p_jsonFile) {
 	return new ReloadObjectOnKeyPress(key, jsonPath);
 }
 
+#include "_Project\PlayParticleSystemOnEnable.h"
+kitten::K_Component* getPlayParticleSystemOnEnable(nlohmann::json* p_jsonFile) {
+	return new PlayParticleSystemOnEnable();
+}
+
 #include "_Project\HaltParticleSystemAfterTime.h"
 kitten::K_Component* getHaltParticleSystemAfterTime(nlohmann::json* p_jsonFile) {
 	
@@ -1822,6 +1827,7 @@ void setupComponentMap() {
 	jsonComponentMap["DecksDisplayFrame"] = &getDecksDisplayFrame;
 	jsonComponentMap["DeckUnitsDisplayFrame"] = &getDeckUnitsDisplayFrame;
 	jsonComponentMap["CommanderDisplayFrame"] = &getCommanderDisplayFrame;
+	jsonComponentMap["PlayParticleSystemOnEnable"] = &getPlayParticleSystemOnEnable;
 	jsonComponentMap["UnitDisplayFrame"] = &getUnitDisplayFrame;
 	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
 	jsonComponentMap["DeckInitializingComponent"] = &getDeckInitializingComponent;

@@ -905,6 +905,9 @@
     <ClCompile Include="..\kitten\lights\K_PointLight.cpp">
       <Filter>kitten\lights</Filter>
     </ClCompile>
+    <ClCompile Include="PlayParticleSystemOnEnable.cpp">
+      <Filter>components\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1935,6 +1938,9 @@
     </ClInclude>
     <ClInclude Include="..\kitten\lights\K_PointLight.h">
       <Filter>kitten\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayParticleSystemOnEnable.h">
+      <Filter>components\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
