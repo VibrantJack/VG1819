@@ -32,8 +32,8 @@ namespace unit
 		kitten::K_GameObject* m_initiativeObject;
 		kitten::K_GameObject* m_pointerObject;
 
-		const float m_gap = 0.175f;//distance from adjacent frame
-		const float m_leftX = -0.25f;//start x coodinate for frame
+		const float m_gap = 0.15f;//distance from adjacent frame
+		const float m_leftX = -0.4f;//start x coodinate for frame
 
 		
 		std::vector<float> m_xList;//the list of x position for each frame slots
