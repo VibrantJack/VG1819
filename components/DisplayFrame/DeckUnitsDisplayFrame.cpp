@@ -13,7 +13,7 @@ DeckUnitsDisplayFrame* DeckUnitsDisplayFrame::getActiveInstance() { return insta
 DeckUnitsDisplayFrame::DeckUnitsDisplayFrame(int p_marginX, int p_marginY) : DisplayFrame(p_marginX, p_marginY,
 	std::string("Deck/deckunits-display_frame_object.json"),
 	std::string("Deck/deckunits-display_left_button.json"), std::string("Deck/deckunits-display_right_button.json"),
-	std::string("Deck/deckunits-display_highlight.json"), std::string("Deck/deck-display_empty.json"))// TODO add an empty object
+	std::string("Deck/deckunits-display_highlight.json"), std::string("Deck/deck-display_no_units.json"))// TODO add an empty object
 {
 	instance = this;
 	this->m_arrowPlacement = 1;

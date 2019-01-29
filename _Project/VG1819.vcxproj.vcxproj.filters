@@ -950,6 +950,15 @@
     <ClCompile Include="HaltParticleSystemAfterTime.cpp">
       <Filter>components\util</Filter>
     </ClCompile>
+    <ClCompile Include="..\puppy\lights\P_PointLight.cpp">
+      <Filter>puppy\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\lights\K_PointLight.cpp">
+      <Filter>kitten\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayParticleSystemOnEnable.cpp">
+      <Filter>components\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1985,6 +1994,15 @@
       <Filter>components\debug</Filter>
     </ClInclude>
     <ClInclude Include="HaltParticleSystemAfterTime.h">
+      <Filter>components\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\lights\P_PointLight.h">
+      <Filter>puppy\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\lights\K_PointLight.h">
+      <Filter>kitten\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayParticleSystemOnEnable.h">
       <Filter>components\util</Filter>
     </ClInclude>
   </ItemGroup>

@@ -56,7 +56,7 @@ namespace unit
 		const static int sm_offsetY;
 		float m_frameY;//y coodinate for frame
 
-		const static int sm_startX;
+		//const static int sm_startX;
 
 		const static float sm_textY;
 

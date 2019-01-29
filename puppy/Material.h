@@ -19,8 +19,21 @@ namespace puppy
 
 	protected:
 		puppy::ShaderProgram* m_shader;
+		
 		bool m_hasColour;
 		glm::vec4 m_colour; //hacky because adding memorizing uniforms will take a bit and it is not scheduled
+
+		bool m_hasMatLightProperties;
+		glm::vec4 m_matAmbient, m_matDiffuse;
+
+		inline void applyMatLightProperties() const
+		{
+			if (m_hasMatLightProperties)
+			{
+				setUniform("matAmbient", m_matAmbient);
+				setUniform("matDiffuse", m_matDiffuse);
+			}
+		}
 
 	public:
 		Material(ShaderType p_shaderType);
@@ -35,6 +48,33 @@ namespace puppy
 		puppy::Texture* getTexture() const;
 
 		virtual void setColour(const glm::vec4& m_colour); //see above comment
+		virtual void setMatAmbient(const glm::vec4& m_ambient);
+		virtual void setMatDiffuse(const glm::vec4& m_diffuse);
+
+		virtual bool hasColour() const
+		{
+			return m_hasColour;
+		}
+
+		virtual bool hasMatLightProperties() const
+		{
+			return m_hasMatLightProperties;
+		}
+
+		virtual const glm::vec4& getColour() const
+		{
+			return m_colour;
+		}
+
+		virtual const glm::vec4& getMatAmbient() const
+		{
+			return m_matAmbient;
+		}
+
+		virtual const glm::vec4& getMatDiffuse() const
+		{
+			return m_matDiffuse;
+		}
 
 		//One-time set
 		void setUniform(const std::string& p_name, const glm::mat4& p_mat4) const;
@@ -46,6 +86,8 @@ namespace puppy
 		void setUniform(const std::string& p_name, const int p_int) const;
 
 		int getUniformPlace(const std::string& p_name);
+
+		virtual puppy::ShaderProgram* getShader() const { return m_shader; }
 
 		virtual void apply() const;
 	};

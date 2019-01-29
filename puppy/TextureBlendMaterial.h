@@ -12,9 +12,9 @@ namespace puppy
 		std::unordered_map<Texture*, float> m_textures;
 
 		Texture* m_ownedTexture;
-
+		ShaderType m_baseShader;
 	public:
-		TextureBlendMaterial();
+		TextureBlendMaterial(bool p_isLit = false);
 		~TextureBlendMaterial();
 
 		virtual bool operator==(const Material& p_other) const;

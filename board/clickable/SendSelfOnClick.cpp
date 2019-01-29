@@ -19,7 +19,7 @@ SendSelfOnClick::SendSelfOnClick() : m_contextEnabled(false)
 
 SendSelfOnClick::~SendSelfOnClick()
 {
-
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::Tile_Clicked_Debug, this);
 }
 
 void SendSelfOnClick::onClick()

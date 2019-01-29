@@ -6,12 +6,12 @@
 			"effects" : [
 				{
 					"name" : "UnitDeath",
-					"path" : "data/particles/universal/effects/deathEffect.xml",
+					"path" : "Universal Pfx/UnitDeathUPFX.json",
 					"poolednumber" : 6
 				},
 				{
 					"name" : "BurnExplosion",
-					"path" : "data/particles/abilities/effects/burnExplosion.xml",
+					"path" : "Universal Pfx/BurnExplosionUPFX.json",
 					"poolednumber" : 2
 				}
 			],
