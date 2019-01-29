@@ -29,7 +29,6 @@ namespace userinterface
 		//members
 		kitten::K_GameObject* m_framedObject;
 		std::map<pivotType, puppy::VertexEnvironment*> m_vao;
-		std::map<pivotType, int> m_instances;
 		BorderPlacement m_borderPlacement;
 		
 		//methods

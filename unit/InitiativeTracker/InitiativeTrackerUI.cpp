@@ -34,7 +34,7 @@ unit::InitiativeTrackerUI::InitiativeTrackerUI()
 	//background frame for initiative tracker
 	kitten::K_GameObject* backGround = kibble::getGameObjectDataParserInstance()->getGameObject("UI/backgrounds/initiative_background.txt");
 	int winY = input::InputManager::getInstance()->getWindowHeight();
-	backGround->getTransform().place(300, winY -10, -0.04);
+	backGround->getTransform().place(300, winY -8, -0.04);
 
 	//build partial borders
     //top

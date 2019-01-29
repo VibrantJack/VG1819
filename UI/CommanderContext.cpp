@@ -41,12 +41,12 @@ namespace userinterface
 
 	void CommanderContext::start()
 	{
+		//network
 		kitten::EventManager::getInstance()->addListener(
 			kitten::Event::EventType::Client_Commander_Loaded,
 			this,
 			std::bind(&CommanderContext::commanderLoadListener, this, std::placeholders::_1, std::placeholders::_2));
-		//default	
-
+		
 		//REMOVE WHEN NOT TESTING
 		attachCommander(kibble::getUnitFromId(13));
 		//REMOVE WHEN NOT TESTING

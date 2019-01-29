@@ -17,7 +17,7 @@ const float unit::TrackerBlock::sm_halfWinY = 720 / 2;
 const float unit::TrackerBlock::sm_textY = 500.0f;
 const int unit::TrackerBlock::sm_offsetY = 0;
 const int unit::TrackerBlock::sm_margin = 10;
-const int unit::TrackerBlock::sm_startX = 315;
+//const int unit::TrackerBlock::sm_startX = 315;
 
 const float unit::TrackerBlock::sm_speed = 0.02f;
 
