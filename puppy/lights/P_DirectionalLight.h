@@ -20,5 +20,8 @@ namespace puppy
 		const glm::vec3& getPosition() const;
 		const glm::vec4& getDirectionalColor() const;
 		const glm::vec4& getAmbientColor() const;
+
+		void addToLightList() const;
+		void removeFromLightList() const;
 	};
 }

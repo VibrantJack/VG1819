@@ -24,6 +24,17 @@ namespace kitten
 		}
 
 		m_puppyLight.setPosition(getTransform().getTranslation());
+		m_puppyLight.addToLightList();
+	}
+
+	void K_PointLight::onEnabled()
+	{
+		m_puppyLight.addToLightList();
+	}
+
+	void K_PointLight::onDisabled()
+	{
+		m_puppyLight.removeFromLightList();
 	}
 
 	void K_PointLight::onPosChanged(const glm::vec3& p_newPos)

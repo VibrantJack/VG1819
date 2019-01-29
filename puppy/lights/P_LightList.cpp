@@ -19,7 +19,7 @@ namespace puppy
 		return !m_directionalLights.empty();
 	}
 
-	const std::unordered_set<P_DirectionalLight*>& P_LightList::getDirectionalLights() const
+	const std::unordered_set<const P_DirectionalLight*>& P_LightList::getDirectionalLights() const
 	{
 		return m_directionalLights;
 	}
@@ -29,27 +29,27 @@ namespace puppy
 		return !m_pointLights.empty();
 	}
 
-	const std::unordered_set<P_PointLight*>& P_LightList::getPointLights() const
+	const std::unordered_set<const P_PointLight*>& P_LightList::getPointLights() const
 	{
 		return m_pointLights;
 	}
 
-	void P_LightList::addDirectionalLight(P_DirectionalLight* p_light)
+	void P_LightList::addDirectionalLight(const P_DirectionalLight* p_light)
 	{
 		m_directionalLights.insert(p_light);
 	}
 
-	void P_LightList::removeDirectionalLight(P_DirectionalLight* p_light)
+	void P_LightList::removeDirectionalLight(const P_DirectionalLight* p_light)
 	{
 		m_directionalLights.erase(p_light);
 	}
 
-	void P_LightList::addPointLight(P_PointLight* p_light)
+	void P_LightList::addPointLight(const P_PointLight* p_light)
 	{
 		m_pointLights.insert(p_light);
 	}
 
-	void P_LightList::removePointLight(P_PointLight* p_light)
+	void P_LightList::removePointLight(const P_PointLight* p_light)
 	{
 		m_pointLights.erase(p_light);
 	}

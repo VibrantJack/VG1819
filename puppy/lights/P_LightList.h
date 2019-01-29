@@ -18,8 +18,8 @@ namespace puppy
 		P_LightList();
 		~P_LightList();
 
-		std::unordered_set<P_DirectionalLight*> m_directionalLights;
-		std::unordered_set<P_PointLight*> m_pointLights;
+		std::unordered_set<const P_DirectionalLight*> m_directionalLights;
+		std::unordered_set<const P_PointLight*> m_pointLights;
 
 		static void createInstance() { assert(sm_instance == nullptr); sm_instance = new P_LightList(); };
 		static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
@@ -27,15 +27,15 @@ namespace puppy
 		static P_LightList* getInstance() { return sm_instance; };
 
 		bool hasDirectionalLight() const;
-		const std::unordered_set<P_DirectionalLight*>& getDirectionalLights() const;
+		const std::unordered_set<const P_DirectionalLight*>& getDirectionalLights() const;
 
 		bool hasPointLight() const;
-		const std::unordered_set<P_PointLight*>& getPointLights() const;
+		const std::unordered_set<const P_PointLight*>& getPointLights() const;
 
-		void addDirectionalLight(P_DirectionalLight* p_light);
-		void removeDirectionalLight(P_DirectionalLight* p_light);
+		void addDirectionalLight(const P_DirectionalLight* p_light);
+		void removeDirectionalLight(const P_DirectionalLight* p_light);
 
-		void addPointLight(P_PointLight* p_light);
-		void removePointLight(P_PointLight* p_light);
+		void addPointLight(const P_PointLight* p_light);
+		void removePointLight(const P_PointLight* p_light);
 	};
 }

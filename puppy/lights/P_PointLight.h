@@ -9,7 +9,6 @@ namespace puppy
 		glm::vec3 m_position, m_attenuation;
 		glm::vec4 m_PointColor, m_ambientColor;
 		float m_range;
-
 	public:
 		P_PointLight();
 		~P_PointLight();
@@ -25,5 +24,8 @@ namespace puppy
 		const glm::vec4& getAmbientColor() const;
 		const glm::vec3& getAttenuation() const;
 		const float& getRange() const;
+
+		void addToLightList() const;
+		void removeFromLightList() const;
 	};
 }

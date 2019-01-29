@@ -11,6 +11,10 @@ namespace kitten
 		bool m_usingCallbacks;
 
 		virtual void start() override;
+		virtual void onEnabled() override;
+		virtual void onDisabled() override;
+
+
 		virtual bool hasUpdate() const override { return true; }
 		virtual void update() override;
 

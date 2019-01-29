@@ -5,7 +5,7 @@ namespace puppy
 {
 	P_DirectionalLight::P_DirectionalLight()
 	{
-		P_LightList::getInstance()->addDirectionalLight(this);
+		
 	}
 
 	P_DirectionalLight::~P_DirectionalLight()
@@ -41,5 +41,15 @@ namespace puppy
 	const glm::vec3& P_DirectionalLight::getPosition() const
 	{
 		return m_position;
+	}
+
+	void P_DirectionalLight::addToLightList() const
+	{
+		P_LightList::getInstance()->addDirectionalLight(this);
+	}
+
+	void P_DirectionalLight::removeFromLightList() const
+	{
+		P_LightList::getInstance()->removeDirectionalLight(this);
 	}
 }

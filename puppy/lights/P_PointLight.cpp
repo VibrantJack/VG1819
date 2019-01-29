@@ -5,7 +5,7 @@ namespace puppy
 {
 	P_PointLight::P_PointLight()
 	{
-		P_LightList::getInstance()->addPointLight(this);
+		
 	}
 
 	P_PointLight::~P_PointLight()
@@ -61,5 +61,15 @@ namespace puppy
 	const float& P_PointLight::getRange() const
 	{
 		return m_range;
+	}
+
+	void P_PointLight::addToLightList() const
+	{
+		P_LightList::getInstance()->addPointLight(this);
+	}
+
+	void P_PointLight::removeFromLightList() const
+	{
+		P_LightList::getInstance()->removePointLight(this);
 	}
 }
