@@ -21,11 +21,8 @@ namespace kitten
 
 		virtual void onPosChanged(const glm::vec3& p_newPos) override;
 	public:
-		K_PointLight(const glm::vec3& p_ambientColor, const glm::vec3& p_pointColor, const glm::vec3& p_attenuation, const float& p_range, bool p_useTransformCallbacks = false);
+		K_PointLight(const glm::vec3& p_pointColor, const glm::vec3& p_attenuation, const float& p_range, bool p_useTransformCallbacks = false);
 		~K_PointLight();
-
-		void setAmbientColor(const glm::vec3& p_color);
-		const glm::vec4& getAmbientColor() const;
 
 		void setPointColor(const glm::vec3& p_color);
 		const glm::vec4& getPointColor() const;

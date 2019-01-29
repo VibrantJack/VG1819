@@ -13,7 +13,7 @@
 			"name" : "ProjectileParticleSystemHelper",
 			"effect" : "BurnExplosion"
 		},
-				{
+		{
 			"name" : "PointLight",
 			"useCallbacks" : false,
 			"range" : 100.0,

@@ -16,6 +16,8 @@ namespace kitten
 		bool m_isStatic, m_isRenderingStatic;
 		puppy::Texture* m_staticTex;
 
+		static std::vector<unsigned int> sm_indicies;
+
 		void addToStaticRender();
 
 		virtual void start() override;

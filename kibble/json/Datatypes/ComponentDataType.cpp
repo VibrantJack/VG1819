@@ -1583,7 +1583,7 @@ kitten::K_Component* getPointLight(nlohmann::json* p_jsonFile) {
 		attenuation = glm::vec3(LOOKUP("attenuation")[0], LOOKUP("attenuation")[1], LOOKUP("attenuation")[2]);
 	}
 
-	return new kitten::K_PointLight(ambientColor, pointColor, attenuation, range, useCallbacks);
+	return new kitten::K_PointLight(pointColor, attenuation, range, useCallbacks);
 }
 
 #include "unitInteraction/CounterGetterButton.h"

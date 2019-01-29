@@ -130,6 +130,10 @@ namespace puppy
 			*p_vertexShaderPath = "Shaders/billboarded_u_scale.vsh";
 			*p_pixelShaderPath = "Shaders/billboarded_u_scale.fsh";
 			return true;
+		case ShaderType::point_light_alphaTest:
+			*p_vertexShaderPath = "Shaders/basic_point_light.vsh";
+			*p_pixelShaderPath = "Shaders/point_light_alphaTest.fsh";
+			return true;
 		default:
 			return false;
 		}

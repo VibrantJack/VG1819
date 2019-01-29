@@ -18,11 +18,6 @@ namespace puppy
 		m_position = p_pos;
 	}
 
-	void P_PointLight::setAmbientColor(const glm::vec3& p_color)
-	{
-		m_ambientColor = glm::vec4(p_color, 1);
-	}
-
 	void P_PointLight::setPointColor(const glm::vec3& p_color)
 	{
 		m_PointColor = glm::vec4(p_color, 1);
@@ -36,11 +31,6 @@ namespace puppy
 	void P_PointLight::setRange(const float& p_range)
 	{
 		m_range = p_range;
-	}
-
-	const glm::vec4& P_PointLight::getAmbientColor() const
-	{
-		return m_ambientColor;
 	}
 
 	const glm::vec4& P_PointLight::getPointColor() const

@@ -41,7 +41,7 @@ namespace puppy
 		texture_blend_four_point_light = texture_blend_three_point_light + 1,
 
 		//alpha test
-		alphaTest, billboarded_colorTint_alphaTest, colorTint_alphaTest, SHADERTYPE_MAX = colorTint_alphaTest };
+		alphaTest, point_light_alphaTest, billboarded_colorTint_alphaTest, colorTint_alphaTest, SHADERTYPE_MAX = colorTint_alphaTest };
 
 	enum VertexType { textured, normal};
 

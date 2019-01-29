@@ -15,8 +15,8 @@ namespace puppy
 			m_hasDirectionalLights = true;
 		}
 
-		if (m_type == texture_blend_zero_point_light || m_type == texture_blend_one_point_light || m_type ==  texture_blend_two_point_light ||
-			m_type == texture_blend_three_point_light || m_type == texture_blend_four_point_light)
+		if (m_type == point_light_alphaTest || m_type == texture_blend_zero_point_light || m_type == texture_blend_one_point_light || 
+			m_type ==  texture_blend_two_point_light || m_type == texture_blend_three_point_light || m_type == texture_blend_four_point_light)
 		{
 			m_hasPointLights = true;
 		}
@@ -30,6 +30,11 @@ namespace puppy
 	void ShaderProgram::apply()
 	{
 		glUseProgram(m_id);
+
+		if (m_type == point_light_alphaTest)
+		{
+			int i = 0;
+		}
 
 		if (m_hasDirectionalLights) // If this _shader_ supports directional lights,
 		{
@@ -61,17 +66,33 @@ namespace puppy
 			if (lightList != nullptr)
 			{
 				auto& pointLights = lightList->getPointLights();
+				auto& directionalLights = lightList->getDirectionalLights();
+
+				const P_DirectionalLight* firstDirLight = nullptr;
+				if (!directionalLights.empty())
+				{
+					firstDirLight = *directionalLights.begin();
+				}
+
+				// Use the directional light as ambient if it exists
+				if (firstDirLight != nullptr)
+				{
+					glUniform4fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(firstDirLight->getAmbientColor()));
+				}
+				else
+				{
+					glUniform4fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(glm::vec4(0, 0, 0, 1)));
+				}
+
 				if (pointLights.empty())
 				{
-					glUniform1f(getUniformPlace("lightRange"), 0);
-					glUniform4fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(glm::vec4(0, 0, 0, 1)));
+					glUniform1f(getUniformPlace("lightRange"), 0);	
 				}
 				else
 				{
 					auto firstLight = *(pointLights.begin());
 
 					glUniform4fv(getUniformPlace("lightDiffuse"), 1, glm::value_ptr(firstLight->getPointColor()));
-					glUniform4fv(getUniformPlace("lightAmbientColor"), 1, glm::value_ptr(firstLight->getAmbientColor()));
 					glUniform3fv(getUniformPlace("lightPos"), 1, glm::value_ptr(firstLight->getPosition()));
 					glUniform3fv(getUniformPlace("lightAttenuation"), 1, glm::value_ptr(firstLight->getAttenuation()));
 					glUniform1f(getUniformPlace("lightRange"), firstLight->getRange());

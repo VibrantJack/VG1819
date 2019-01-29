@@ -89,8 +89,8 @@ namespace unit
 		*/
 		
 		//set initial position
-		kitten::K_GameObject* u0 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
-		u0->getComponent<unit::UnitMove>()->setTile(3, 3);
+		//kitten::K_GameObject* u0 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
+		//u0->getComponent<unit::UnitMove>()->setTile(3, 3);
 
 		//kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(1);//priest
 		//u1->getComponent<unit::UnitMove>()->setTile(2, 2);
@@ -104,8 +104,8 @@ namespace unit
 		//kitten::K_GameObject* u4 = UnitSpawn::getInstance()->spawnUnitObject(4);//engineer
 		//u4->getComponent<unit::UnitMove>()->setTile(5, 2);
 		
-		//kitten::K_GameObject* u5 = UnitSpawn::getInstance()->spawnUnitObject(7);//pyromancer
-		//u5->getComponent<unit::UnitMove>()->setTile(6, 2);
+		kitten::K_GameObject* u5 = UnitSpawn::getInstance()->spawnUnitObject(7);//pyromancer
+		u5->getComponent<unit::UnitMove>()->setTile(6, 2);
 
 		//kitten::K_GameObject* u6 = UnitSpawn::getInstance()->spawnUnitObject(8);//stone slinger
 		//u6->getComponent<unit::UnitMove>()->setTile(7, 2);
