@@ -1,0 +1,23 @@
+{
+	"name" : "water",
+	"texture" : "textures/sprites/terrain/water.png",
+	
+	"sheetwidth" : 352,
+	"sheetheight" : 32,
+	
+	"characterwidth" : 32,
+	"characterheight" : 32,
+	
+	"padding" : 0,
+	
+	"defaultanimation" : "idle",
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [11,0],
+			"time" : 3
+		}
+	]
+}
