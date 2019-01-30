@@ -13,11 +13,13 @@
 #include "board/BoardManager.h"
 #include "kitten\event_system\EventManager.h"
 #include <iostream>
+#include "_Project/LerpController.h"
 
 // Networking
 #include "networking\ClientGame.h"
 
 #define CARD_HOVER_MOVE_TIME 0.2
+#define CARD_SHADOW_MOVE_TIME 0.2
 
 void SpawnUnitOnDrop::onClick()
 {
@@ -37,14 +39,32 @@ void SpawnUnitOnDrop::onClick()
 
 	DragNDrop::onClick();
 
+	kitten::K_GameObject& shadow = getTransform().getChildren()[0]->getAttachedGameObject();
+	auto& shadowTranslation = shadow.getTransform().getTranslation();
+	auto shadowLerp = shadow.getComponent<LerpController>();
+	if (shadowLerp->isLerping())
+	{
+		shadowLerp->endLerp(LerpController::TransformBehavior::SetToTarget, false);
+	}
+
 	if (m_isDragging == false) {
 		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(true);
-		getTransform().getChildren()[0]->scale2D(1, 1); // Shadow
-		getTransform().getChildren()[0]->place2D(0, 0); // Shadow
+		shadowLerp->positionLerp(
+			glm::vec3(
+				0,
+				0,
+				shadowTranslation.z
+			), CARD_SHADOW_MOVE_TIME, LerpController::TransformSource::Local
+		);
 	} else {
 		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(false);
-		getTransform().getChildren()[0]->place2D(+4, +4); // Shadow
-		getTransform().getChildren()[0]->scale2D(1.05, 1.1); // Shadow
+		shadowLerp->positionLerp(
+			glm::vec3(
+				- 10 ,
+				- 10 ,
+				shadowTranslation.z
+			), CARD_SHADOW_MOVE_TIME, LerpController::TransformSource::Local
+		);
 	}
 
 	if (!m_isDragging)
@@ -111,4 +131,5 @@ void SpawnUnitOnDrop::start()
 {
 	DragNDrop::start();
 	setEnabled(!userinterface::HandFrame::getActiveInstance()->isOnDiscardMode());
+	getTransform().getChildren()[0]->getAttachedGameObject().setEnabled(false);
 }

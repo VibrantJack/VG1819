@@ -26,13 +26,16 @@
             "name" : "shadow",
             "components" : [
                 {
+                    "name" : "LerpController"
+                },
+                {
                     "name" : "UIFrame"
                 }
             ],
             "translate": [0,0,-0.1],
-            "translate2d": [0,0],
             "scale2d" : [1,1]
         }
     ],
+    "translate" : [0, 0,-0.2],
     "translate2d" : [1100, 50]
 }
