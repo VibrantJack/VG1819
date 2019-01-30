@@ -190,9 +190,9 @@ namespace userinterface
 			{ xmin, ymin, z, uMin, vMin },
 		};
 
-		if (BorderPiece::m_vao[m_pivotType] == nullptr)
+		if (m_vao == nullptr)
 		{
-			BorderPiece::m_vao[m_pivotType] = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
+			m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
 		}
 
 		//move it back a bit
@@ -263,7 +263,7 @@ namespace userinterface
 		glm::mat4 wvp = p_cam->getOrtho() * getTransform().getWorldTransform();
 		m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
 
-		m_vao[m_pivotType]->drawArrays(GL_TRIANGLES);
+		m_vao->drawArrays(GL_TRIANGLES);
 	}
 }
 

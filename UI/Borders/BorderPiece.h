@@ -28,7 +28,7 @@ namespace userinterface
 	protected:
 		//members
 		kitten::K_GameObject* m_framedObject;
-		std::map<pivotType, puppy::VertexEnvironment*> m_vao;
+		puppy::VertexEnvironment* m_vao;
 		BorderPlacement m_borderPlacement;
 		
 		//methods
