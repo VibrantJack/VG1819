@@ -2,7 +2,6 @@
 #include "puppy\Renderer.h"
 #include "puppy\StaticRenderables.h"
 
-#define DEFAULT_TEXTURE "textures/ui/blankFrame.tga"
 
 namespace userinterface
 { 
@@ -66,7 +65,6 @@ namespace userinterface
 
 	void UIElement::start()
 	{
-		//empty to not force override
 		defineVerts();
 	}
 	

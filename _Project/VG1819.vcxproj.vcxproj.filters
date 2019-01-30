@@ -950,6 +950,9 @@
     <ClCompile Include="HaltParticleSystemAfterTime.cpp">
       <Filter>components\util</Filter>
     </ClCompile>
+    <ClCompile Include="..\UI\Borders\BorderPiece.cpp">
+      <Filter>UI\Borders</Filter>
+    </ClCompile>
     <ClCompile Include="..\puppy\lights\P_PointLight.cpp">
       <Filter>puppy\lights</Filter>
     </ClCompile>
@@ -2005,6 +2008,9 @@
     <ClInclude Include="PlayParticleSystemOnEnable.h">
       <Filter>components\util</Filter>
     </ClInclude>
+    <ClInclude Include="..\UI\Borders\BorderPiece.h">
+      <Filter>UI\Borders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -2201,6 +2207,9 @@
     </Filter>
     <Filter Include="ability\status\demonic_restriction">
       <UniqueIdentifier>{ea0232e6-01f0-4b9a-9b52-edd895ea94e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Borders">
+      <UniqueIdentifier>{bce99ca2-9883-4d20-b1e6-32a086ce157d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@
 #include <map>
 #include <iterator>  
 //austin's UI element :)
-
+#define DEFAULT_TEXTURE "textures/ui/blankFrame.tga"
 namespace userinterface
 {
 	class UIElement : public kitten::K_UIRenderable
@@ -58,9 +58,10 @@ namespace userinterface
 		bool m_isEnabled;
 		std::string m_texPath;
 
-		void defineVerts();
-
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
+
+	protected:
+		virtual void defineVerts();
 	};
 }

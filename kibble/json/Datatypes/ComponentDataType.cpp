@@ -1099,6 +1099,46 @@ kitten::K_Component* getUIElement(nlohmann::json* p_jsonFile) {
 	return new userinterface::UIElement(texture.c_str(),type, tb);
 }
 
+#include "UI\Borders\BorderPiece.h"
+kitten::K_Component* getBorderPiece(nlohmann::json* p_jsonFile)
+{
+	userinterface::BorderPiece::BorderPlacement placement = userinterface::BorderPiece::BorderPlacement::bp_BotLeft;
+	std::string texture;
+	SETOPTDEF(texture, "texture", "textures/ui/frames/frameAtlas.tga");
+
+	if (JSONHAS("placement"))
+	{
+		std::string temp = LOOKUP("placement");
+		if (temp == "left")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_Left;
+		else if (temp == "right")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_Right;
+		else if (temp == "top")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_Top;
+		else if (temp == "bottom")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_Bot;
+		else if (temp == "botleft")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_BotLeft;
+		else if (temp == "botright")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_BotRight;
+		else if (temp == "topleft")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_TopLeft;
+		else if (temp == "topright")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_TopRight;
+		else
+			placement = userinterface::BorderPiece::BorderPlacement::bp_BotLeft; 
+	}
+	if (JSONHAS("texture"))
+	{
+		texture = LOOKUP("texture");
+	}
+
+	userinterface::BorderPiece* piece = new userinterface::BorderPiece(placement);
+	piece->setTexture(texture.c_str());
+		
+	return piece;
+}
+
 #include "kitten\ModelRenderable.h"
 kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
 
@@ -1484,7 +1524,7 @@ kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
 			list.push_back(*it);
 		}
 		d->setTextureList(list);
-	}
+	} 
 
 	if (JSONHAS("min_scale") && JSONHAS("max_scale"))
 	{
@@ -1920,6 +1960,7 @@ void setupComponentMap() {
 	jsonComponentMap["ReloadObjectOnKeyPress"] = &getReloadObjectOnKeyPress;
 	jsonComponentMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
 
+	jsonComponentMap["BorderPiece"] = &getBorderPiece;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

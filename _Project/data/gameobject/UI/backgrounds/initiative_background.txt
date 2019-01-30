@@ -1,0 +1,11 @@
+{
+	"name" : "Initiative Background",
+	"components" : [
+		{
+			"name" : "UIElement",
+			"texture" : "textures/ui/backgrounds/redBackground.tga",
+			"pivot" : "topleft"
+		}
+	],
+	"scale2d" : [800, 100]
+}
