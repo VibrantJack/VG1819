@@ -37,10 +37,15 @@ void SpawnUnitOnDrop::onClick()
 
 	DragNDrop::onClick();
 
-	if (m_isDragging == false)
+	if (m_isDragging == false) {
 		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(true);
-	else
+		getTransform().getChildren()[0]->scale2D(1, 1); // Shadow
+		getTransform().getChildren()[0]->place2D(0, 0); // Shadow
+	} else {
 		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(false);
+		getTransform().getChildren()[0]->place2D(+4, +4); // Shadow
+		getTransform().getChildren()[0]->scale2D(1.05, 1.1); // Shadow
+	}
 
 	if (!m_isDragging)
 		return;
@@ -83,7 +88,6 @@ void SpawnUnitOnDrop::removeCard()
 
 	// Delete Card
 	kitten::K_GameObjectManager::getInstance()->destroyGameObject(this->m_attachedObject);
-
 }
 
 void SpawnUnitOnDrop::resetCard()
