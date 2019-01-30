@@ -9,6 +9,7 @@ namespace userinterface
 {
 	BorderPiece::BorderPiece(BorderPlacement p_bp) : UIElement(DEFAULT_TEXTURE)
 	{
+		m_vao = nullptr;
 		m_borderPlacement = p_bp;
 		m_texBehaviour = tbh_Stretch;
 		m_tex->setWrapping(GL_CLAMP_TO_EDGE);
