@@ -189,6 +189,10 @@ namespace unit
 			playerSkipTurn();//if it still cast, it skips turn
 			return;
 		}
+		else if (m_ADList.size() == 0)//doesn't have unit
+		{
+			m_turn->act = false;
+		}
 		else
 		{
 			m_turn->act = true;
