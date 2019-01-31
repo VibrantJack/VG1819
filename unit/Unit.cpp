@@ -107,14 +107,8 @@ namespace unit
 
 	void Unit::join()
 	{
-		if (isCommander())//commander can't join to another unit
+		if (isCommander() || isStructure())//commander and structure can't join to another unit
 			return;
-
-		for (std::string it : m_tags)//strucutre can't join to another unit
-		{
-			if (it == STRUCTURE)
-				return;
-		}
 
 		UnitInteractionManager::getInstance()->request(this, &m_joinAD);
 	}
@@ -149,6 +143,16 @@ namespace unit
 	{
 		if(isCommander())
 			m_commander->manipulateTile();
+	}
+
+	bool Unit::isStructure()
+	{
+		for (std::string it : m_tags)//strucutre can't join to another unit
+		{
+			if (it == STRUCTURE)
+				return true;
+		}
+		return false;
 	}
 
 /*	void Unit::summonUnit(int p_id)

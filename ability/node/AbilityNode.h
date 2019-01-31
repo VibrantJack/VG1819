@@ -49,6 +49,9 @@ namespace ability
 		ChangeAttributeNode();
 
 		int effect(unit::Unit* p_target, const std::string &p_name, int p_value);
+
+	private:
+		void checkStructureMV(unit::Unit* p_target);
 	};
 
 	class CheckHPNode : public ability::AbilityNode

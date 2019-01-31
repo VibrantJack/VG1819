@@ -124,8 +124,8 @@ namespace unit
 //		u10->getComponent<unit::UnitMove>()->setTile(10, 3);
 //		u10->getComponent<unit::Unit>()->m_attributes[UNIT_LV] = 3;
 //		u10->getComponent<unit::Unit>()->m_attributes[COUNTER_ENERGY] = 4;
-//		kitten::K_GameObject* u11 = UnitSpawn::getInstance()->spawnUnitObject(5);//wall
-//		u11->getComponent<unit::UnitMove>()->setTile(12, 2);
+		kitten::K_GameObject* u11 = UnitSpawn::getInstance()->spawnUnitObject(5);//wall
+		u11->getComponent<unit::UnitMove>()->setTile(10, 8);
 		
 		kitten::K_GameObject* u12 = UnitSpawn::getInstance()->spawnUnitObject(15);//eternal eye
 		u12->getComponent<unit::UnitMove>()->setTile(11, 4);

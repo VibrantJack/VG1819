@@ -76,6 +76,10 @@ namespace unit
 		void addCommander(Commander* p_c);
 		bool isCommander();
 		void manipulateTile();
+
+		//check tag
+		bool isStructure();
+
 //		void summonUnit(int p_id);
 		//status interface
 		/*
