@@ -11,7 +11,7 @@ namespace ability
 		addTimePoint(TimePointEvent::Level_Up);
 	}
 
-	int Status_Duelist_LV3::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)
+	int Status_Duelist_LV3::effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent * p_event)
 	{
 		if (Status_LV::effect(p_type, p_event) == 0)
 		{

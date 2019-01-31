@@ -8,7 +8,7 @@ namespace ability
 	{
 		return -1;
 	}
-	int Status::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)
+	int Status::effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent * p_event)
 	{
 		return -1;
 	}
@@ -95,9 +95,16 @@ namespace ability
 		}
 	}
 
-	void Status::addTimePoint(ability::TimePointEvent::TPEventType p_value)
+	void Status::addTimePoint(const TimePointEvent::TPEventType& p_value)
 	{
 		m_TPList.push_back(p_value);
+	}
+
+	void Status::endEffectAt(const TimePointEvent::TPEventType& p_value)
+	{
+		m_endEffectEvent = p_value;
+
+		addTimePoint(m_endEffectEvent);
 	}
 
 	std::vector<ability::TimePointEvent::TPEventType> Status::getTPlist()
@@ -125,18 +132,20 @@ namespace ability
 		if (m_counter.find(p_cName) != m_counter.end())
 		{
 			m_counter.at(p_cName) += p_value;
-			if (p_cName == UNIT_DURATION)
-				checkDuration();
 			return 0;
 		}
 		//not find target counter
 		return 1;
 	}
 
-	void Status::checkDuration()
+	void Status::checkDuration(const TimePointEvent::TPEventType& p_type)
 	{
+
 		if (m_counter.find(UNIT_DURATION) != m_counter.end())
 		{
+			if (m_endEffectEvent == p_type)
+				changeCounter();
+
 			if (m_counter.at(UNIT_DURATION) <= 0)
 			{
 				effectEnd();

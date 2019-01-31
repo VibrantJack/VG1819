@@ -36,31 +36,34 @@ namespace ability
 		Status();
 		virtual ~Status();
 
+		//set property
 		void changeName(const std::string & p_msg);
 		void changeLV(int p_lv);
 		void changeDescription(const std::string & p_msg);
 		void setEffectedAD(const std::string & p_msg);
 		void addCounter(const std::string & p_key, int p_value);
 		void addAttributeChange(const std::string & p_key, int p_value);
-		void addTimePoint(ability::TimePointEvent::TPEventType p_value);
-		std::vector<ability::TimePointEvent::TPEventType> getTPlist();
+		void addTimePoint(const TimePointEvent::TPEventType& p_value);
+		//change when to reduce duration counter, turn end is default
+		void endEffectAt(const TimePointEvent::TPEventType& p_value = TimePointEvent::Turn_End);
 
-		void attach(unit::Unit* p_u);
-
-		virtual Status* clone() const = 0;
-
-		virtual int effect();//activate when attached to unit
-		virtual int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
-
-		void registerTPEvent();
 
 		// Getters for info
+		std::vector<ability::TimePointEvent::TPEventType> getTPlist();
 		int getLV() { return m_LV; }
 		const std::unordered_map<std::string, int>& getCounters() { return m_counter; }
 		const std::unordered_map<std::string, int>& getAttributeChanges() { return m_attributeChange; }
 		std::string getDescription() { return m_description; };
 		std::string getName() { return m_name; };
 		std::string getID() { return m_Id; };
+
+		//common status method
+		void attach(unit::Unit* p_u);
+		virtual Status* clone() const = 0;
+		virtual int effect();//activate when attached to unit
+		virtual int effect(const TimePointEvent::TPEventType& p_type, TimePointEvent* p_event);
+		void registerTPEvent();
+
 
 		//for test
 		void print();
@@ -83,9 +86,19 @@ namespace ability
 
 		std::vector<ability::TimePointEvent::TPEventType> m_TPList;//the list of event that will be registered
 
-		void removeThis();
+		TimePointEvent::TPEventType m_endEffectEvent = TimePointEvent::None;
+
+		//common help method for status
+
+		void removeThis();//remove this status from status container
+
+		//change counter, it change duration by default
 		int changeCounter(const std::string& p_cName = "duration", int p_value = -1);
-		void checkDuration();
+		
+		//check if the event of duration deduction happens, if it is reduce duration
+		void checkDuration(const TimePointEvent::TPEventType& p_type);
+
+		//end effect
 		virtual void effectEnd();
 	};
 
@@ -95,7 +108,7 @@ namespace ability
 	public:
 		Status_LV();
 		virtual Status* clone() const { return new Status_LV(*this); };
-		virtual int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		virtual int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 
 	class Status_Encourage : public Status
@@ -106,7 +119,7 @@ namespace ability
 	public:
 		Status_Encourage();
 		Status* clone() const { return new Status_Encourage(*this); };
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 
 	class Status_Dodge : public Status
@@ -116,7 +129,7 @@ namespace ability
 	public:
 		Status_Dodge();
 		Status* clone() const { return new Status_Dodge(*this); };
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 
 	class Status_Priest_LV3 : public Status_LV
@@ -127,7 +140,7 @@ namespace ability
 	public:
 		Status_Priest_LV3();
 		Status* clone() const { return new Status_Priest_LV3(*this); };
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	}; 
 
 	class Status_Archer_LV3 : public Status_LV
@@ -137,7 +150,7 @@ namespace ability
 		Status_Archer_LV3();
 		Status* clone() const { return new Status_Archer_LV3(*this); };
 
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 
 	class Status_Duelist_LV3 : public Status_LV
@@ -147,7 +160,7 @@ namespace ability
 		Status_Duelist_LV3();
 		Status* clone() const { return new Status_Duelist_LV3(*this); };
 
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 
 	class Status_Temp_Change : public Status
@@ -156,8 +169,9 @@ namespace ability
 		Status_Temp_Change();
 		Status* clone() const { return new Status_Temp_Change(*this); };
 		int effect();
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 		void effectEnd();
+
 	};
 
 	class Status_AD_Change : public Status
@@ -166,7 +180,7 @@ namespace ability
 		Status_AD_Change();
 		Status* clone() const { return new Status_AD_Change(*this); };
 		int effect();
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 		void effectEnd();
 	};
 
@@ -176,7 +190,7 @@ namespace ability
 		Status_Load();
 		Status* clone() const { return new Status_Load(*this); };
 		int effect();
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 		void effectEnd();
 	};
 
@@ -185,7 +199,7 @@ namespace ability
 	public:
 		Status_Shield();
 		Status* clone() const { return new Status_Shield(*this); };
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 
 	class Status_Block : public Status
@@ -193,7 +207,7 @@ namespace ability
 	public:
 		Status_Block();
 		Status* clone() const { return new Status_Block(*this); };
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 
 	class Status_Curse : public Status
@@ -201,7 +215,7 @@ namespace ability
 	public:
 		Status_Curse();
 		Status* clone() const { return new Status_Curse(*this); };
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 
 	class Status_Eternal_Eye_LV3 : public Status_LV
@@ -211,7 +225,7 @@ namespace ability
 		Status_Eternal_Eye_LV3();
 		Status* clone() const { return new Status_Eternal_Eye_LV3(*this); };
 
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 
 	class Status_Lancer_LV2 : public Status_LV
@@ -221,7 +235,7 @@ namespace ability
 		Status_Lancer_LV2();
 		Status* clone() const { return new Status_Lancer_LV2(*this); };
 
-		int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 
 	private:
 		bool m_active = false;
