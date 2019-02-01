@@ -54,7 +54,10 @@ void TileInfo::setLand()
 {
 	m_landInfo = LandInfoManager::getInstance()->getLand(m_tileType);
 
-	m_quadRenderable->setTexture(m_landInfo->getTexturePath().c_str());
+	if (m_tileType != LandInformation::TileType::Water_land)
+	{
+		m_quadRenderable->setTexture(m_landInfo->getTexturePath().c_str());
+	}
 
 	setDecoration();
 }
@@ -99,18 +102,21 @@ void TileInfo::changeHighlightTexture(puppy::Texture* p_tex)
 {
 	if (m_lastHighlightTexture != p_tex)
 	{
-		if (p_tex != nullptr)
+		if (m_tileType != LandInformation::TileType::Water_land)
 		{
-			//Add new blending
-			m_quadRenderable->addTexture(p_tex, 1.0f);
-		}
+			if (p_tex != nullptr)
+			{
+				//Add new blending
+				m_quadRenderable->addTexture(p_tex, 1.0f);
+			}
 
-		if (m_lastHighlightTexture != nullptr)
-		{
-			//Remove blending
-			m_quadRenderable->removeTexture(m_lastHighlightTexture);
+			if (m_lastHighlightTexture != nullptr)
+			{
+				//Remove blending
+				m_quadRenderable->removeTexture(m_lastHighlightTexture);
+			}
 		}
-
+		
 		m_lastHighlightTexture = p_tex;
 	}
 }

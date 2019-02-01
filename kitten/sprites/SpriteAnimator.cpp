@@ -4,7 +4,7 @@
 
 namespace sprites
 {
-	SpriteAnimator::SpriteAnimator(const std::string& p_spriteName) : m_renderable(nullptr), m_currentAnimationFrameTime(0)
+	SpriteAnimator::SpriteAnimator(const std::string& p_spriteName, bool p_randomStart) : m_renderable(nullptr), m_currentAnimationFrameTime(0), p_randomStart(p_randomStart)
 	{
 		m_spriteSheet = kibble::SpriteLoader::sm_instance->getSpriteSheet(p_spriteName);
 	}
@@ -37,7 +37,10 @@ namespace sprites
 		m_time = kitten::K_Time::getInstance();
 		assert(m_time != nullptr);
 
-		setRandomStartFrame();
+		if (p_randomStart)
+		{
+			setRandomStartFrame();
+		}
 
 		setRenderableTexture();
 	}

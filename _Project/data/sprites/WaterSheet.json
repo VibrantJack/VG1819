@@ -1,12 +1,12 @@
 {
 	"name" : "water",
-	"texture" : "textures/sprites/terrain/water.png",
+	"texture" : "textures/sprites/terrain/waterRepeated.png",
 	
-	"sheetwidth" : 352,
-	"sheetheight" : 32,
+	"sheetwidth" : 704,
+	"sheetheight" : 64,
 	
-	"characterwidth" : 32,
-	"characterheight" : 32,
+	"characterwidth" : 64,
+	"characterheight" : 64,
 	
 	"padding" : 0,
 	
@@ -16,7 +16,7 @@
 		{
 			"name" : "idle",
 			"startpos" : [0,0],
-			"endpos" : [11,0],
+			"endpos" : [10,0],
 			"time" : 3
 		}
 	]
