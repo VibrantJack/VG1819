@@ -14,7 +14,7 @@ namespace sprites
 		const SpriteSheet* m_spriteSheet;
 		const SpriteSheet::AnimationFrame* m_currentFrame;
 		const kitten::K_Time* m_time;
-		const bool p_randomStart;
+		const bool m_randomStart;
 
 		float m_currentAnimationFrameTime;
 
