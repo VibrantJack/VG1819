@@ -1778,6 +1778,23 @@ kitten::K_Component* getReadyCheck(nlohmann::json* p_jsonFile) {
 	return new ReadyCheck(texture.c_str(), type, tb);
 }
 
+#include "_Project\UniversalSounds.h"
+kitten::K_Component* getUniversalSounds(nlohmann::json* p_jsonFile) {
+
+	std::list<std::pair<std::string, std::string>> sounds;
+
+	auto end = p_jsonFile->operator[]("sounds").cend();
+	for (auto it = p_jsonFile->operator[]("sounds").cbegin(); it != end; ++it)
+	{
+		std::string soundName = (*it)["sound"][0];
+		std::string soundPath = (*it)["sound"][1];
+
+		sounds.push_back(std::make_pair(soundName, soundPath));
+	}
+
+	return new UniversalSounds(sounds);
+}
+
 #include "_Project\RefreshParticleSystemOnKeyPress.h"
 kitten::K_Component* getRefreshParticleSystemOnKeyPress(nlohmann::json* p_jsonFile) {
 	
@@ -1893,6 +1910,7 @@ void setupComponentMap() {
 	jsonComponentMap["StartGameOnClick"] = &getStartGameOnClick;
 	jsonComponentMap["DeckComponent"] = &getDeckComponent;
 	jsonComponentMap["GameplayInit"] = &getGameplayInit;
+	jsonComponentMap["UniversalSounds"] = &getUniversalSounds;
 	jsonComponentMap["NetworkJoinButton"] = &getNetworkJoinButton;
 	jsonComponentMap["NetworkHostButton"] = &getNetworkHostButton;	
 	jsonComponentMap["NetworkConnectButton"] = &getNetworkConnectButton;

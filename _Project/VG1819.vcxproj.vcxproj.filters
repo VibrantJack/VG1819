@@ -962,6 +962,9 @@
     <ClCompile Include="PlayParticleSystemOnEnable.cpp">
       <Filter>components\util</Filter>
     </ClCompile>
+    <ClCompile Include="UniversalSounds.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2010,6 +2013,9 @@
     </ClInclude>
     <ClInclude Include="..\UI\Borders\BorderPiece.h">
       <Filter>UI\Borders</Filter>
+    </ClInclude>
+    <ClInclude Include="UniversalSounds.h">
+      <Filter>components\sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

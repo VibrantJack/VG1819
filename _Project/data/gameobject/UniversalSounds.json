@@ -1,0 +1,19 @@
+{
+	"name" : "UniversalSounds",
+	"components" : [
+		{
+			"name" : "UniversalSounds",
+			"sounds" : [
+				{
+					"sound" : ["ding", "sounds/ding.json"]
+				},
+				{
+					"sound" : ["click", "sounds/click.json"]
+				},
+				{
+					"sound" : ["click_2", "sounds/click_2.json"]
+				}
+			]
+		}
+	]
+}
