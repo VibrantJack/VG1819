@@ -244,7 +244,7 @@ namespace kitten
 		}
 		else if (p_componentName == "SpriteAnimator") // Datadriven
 		{
-			comp = new sprites::SpriteAnimator("");
+			comp = new sprites::SpriteAnimator("", true);
 		}
 		else if (p_componentName == "NetworkingConsoleMenu")// Datadriven
 		{

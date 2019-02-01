@@ -14,6 +14,7 @@ namespace sprites
 		const SpriteSheet* m_spriteSheet;
 		const SpriteSheet::AnimationFrame* m_currentFrame;
 		const kitten::K_Time* m_time;
+		const bool m_randomStart;
 
 		float m_currentAnimationFrameTime;
 
@@ -26,7 +27,7 @@ namespace sprites
 
 		void setRandomStartFrame();
 	public:
-		SpriteAnimator(const std::string& p_spriteName);
+		SpriteAnimator(const std::string& p_spriteName, bool p_randomStart);
 		~SpriteAnimator();
 
 		//This is only exists because units do not construct their gameobjects like everything else..

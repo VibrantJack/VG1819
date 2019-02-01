@@ -675,7 +675,10 @@ kitten::K_Component* getSpriteAnimator(nlohmann::json* p_jsonFile) {
 		characterName = name; // I do not know why this is needed but it is.
 	}
 
-	return new sprites::SpriteAnimator(characterName);
+	bool randomStart;
+	SETOPTDEF(randomStart, "randomstart", true);
+
+	return new sprites::SpriteAnimator(characterName, randomStart);
 }
 
 #include "kitten\sprites\SpriteRenderable.h"
