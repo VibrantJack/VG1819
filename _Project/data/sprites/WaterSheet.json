@@ -1,0 +1,23 @@
+{
+	"name" : "water",
+	"texture" : "textures/sprites/terrain/waterRepeated.png",
+	
+	"sheetwidth" : 704,
+	"sheetheight" : 64,
+	
+	"characterwidth" : 64,
+	"characterheight" : 64,
+	
+	"padding" : 0,
+	
+	"defaultanimation" : "idle",
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [10,0],
+			"time" : 3
+		}
+	]
+}
