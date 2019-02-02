@@ -50,6 +50,7 @@ namespace kitten
 			Object_Clicked,
 			Set_Area_Pattern,
 			Highlight_Tile, 
+			Highlight_Tile_With_List,
 			Unhighlight_Tile,
 			Manipulate_Tile,
 			Reset_Power,
