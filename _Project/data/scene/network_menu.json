@@ -71,9 +71,6 @@
 			"name" : "Join Direct Address Button",
 			"components" : [
 				{
-					"name" : "ShowLoadingOnClick"
-				},
-				{
 					"name" : "UIObject",
 					"texture" : "textures/ui/buttons/join_button_small.tga"
 				},
