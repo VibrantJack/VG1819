@@ -25,9 +25,7 @@ StartNewDeckSetupWizard::~StartNewDeckSetupWizard()
 
 	DeckData* deckData = new DeckData();
 	deckData->name = deckName;
-	int deckid = kibble::addNewDeckData(deckData);
 
 	DeckAlterationComponent::getActiveInstance()->copyDeckData(deckData);
-	DeckAlterationComponent::getActiveInstance()->setDeckId(deckid);
 	input::InputManager::getInstance()->setPollMode(true);
 }

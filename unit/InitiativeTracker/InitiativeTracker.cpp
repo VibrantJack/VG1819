@@ -8,6 +8,8 @@
 #include "kitten/event_system/EventManager.h"
 //Rock
 
+#define LISTSIZE(listA, listB) listA.size() + listB.size()
+
 unit::InitiativeTracker* unit::InitiativeTracker::sm_instance = nullptr;
 
 void unit::InitiativeTracker::sortListByIn(int p_list)
@@ -159,6 +161,15 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 
 	if (found)
 	{
+		//check if it is in extra turn list
+		for (auto it = m_extraTurnUnitList.begin(); it != m_extraTurnUnitList.end(); it++)
+		{
+			if (*it == p_unit)//remove it from extra turn list
+			{
+				m_extraTurnUnitList.erase(it);
+			}
+		}
+
 		if (m_uturn->isCurrent(p_unit))//pass turn to next
 		{
 			m_uturn->unitDestroyed();
@@ -177,7 +188,7 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 
 		m_UI->change(index);
 
-		kitten::K_GameObjectManager::getInstance()->destroyGameObjectWithChild(p_unit);
+		kitten::K_GameObjectManager::getInstance()->destroyGameObject(p_unit);
 		return true;
 	}
 
@@ -191,16 +202,26 @@ kitten::K_GameObject * unit::InitiativeTracker::getUnitByIndex(int p_index)
 	{
 		return m_unitObjectList[p_index];
 	}
-	else
+	else if (p_index >= m_unitObjectList.size() && p_index < LISTSIZE(m_unitObjectList, m_extraTurnUnitList))
 	{
 		int index = p_index - m_unitObjectList.size();
+		return m_extraTurnUnitList[index];
+	}
+	else if(p_index >= LISTSIZE(m_unitObjectList, m_extraTurnUnitList))
+	{
+		int index = p_index - LISTSIZE(m_unitObjectList, m_extraTurnUnitList);
 		return m_waitUnitObjectList[index];
 	}
 }
 
 int unit::InitiativeTracker::getUnitNumber()
 {
-	return m_unitObjectList.size()+m_waitUnitObjectList.size();
+	return m_unitObjectList.size() + m_waitUnitObjectList.size() + m_extraTurnUnitList.size();
+}
+
+int unit::InitiativeTracker::getUnitNumberOnBoard()
+{
+	return m_unitObjectList.size() + m_waitUnitObjectList.size();
 }
 
 kitten::K_GameObject * unit::InitiativeTracker::getCurrentUnit()
@@ -241,7 +262,7 @@ void unit::InitiativeTracker::gameTurnStart()
 
 	m_currentUnitIndex = 0;
 	m_UI->turnStart();
-
+	
 	if (getUnitNumber() > 0)
 	{
 		m_uAura->getTransform().setParent(&getCurrentUnit()->getTransform());
@@ -251,6 +272,15 @@ void unit::InitiativeTracker::gameTurnStart()
 
 void unit::InitiativeTracker::unitTurnEnd()
 {
+	/*
+	if (m_extraTurnUnitList.size() > 0)//has unit in extra turn list
+	{
+		kitten::K_GameObject* unit = *m_extraTurnUnitList.begin();//get first unit in list
+		
+		//set turn
+		m_uAura->getTransform().setParent(&unit->getTransform());
+	}*/
+
 	m_currentUnitIndex++;//iterator point next unit
 	if (m_currentUnitIndex < getUnitNumber())
 	{
@@ -266,6 +296,8 @@ void unit::InitiativeTracker::unitTurnEnd()
 
 void unit::InitiativeTracker::gameTurnEnd()
 {
+	//clear extra turn list
+	m_extraTurnUnitList.clear();
 
 	//start of new turn
 	gameTurnStart();
@@ -274,4 +306,10 @@ void unit::InitiativeTracker::gameTurnEnd()
 	//reset power tracker
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Reset_Power, nullptr);
 	*/
+}
+
+void unit::InitiativeTracker::addExtraTurn(kitten::K_GameObject * p_unit)
+{
+	m_extraTurnUnitList.push_back(p_unit);
+	m_UI->change(m_currentUnitIndex);
 }

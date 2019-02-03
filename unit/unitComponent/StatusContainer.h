@@ -1,5 +1,6 @@
 #pragma once
 #include "ability/status/Status.h"
+#include "ability/status/demonic_restriction/Status_Demonic_Restriction.h"
 #include <string>
 #include <vector>
 

@@ -8,7 +8,8 @@
                     "name" : "UIFrame"
                 }
             ],
-            "scale2d" : [175.0,250.0],
+            "translate": [ 0,0,-0.6],
+            "scale2d" : [175.0,175.0],
             "translate2d" : [0,80]
         },
         {
@@ -20,7 +21,7 @@
                 }
             ],
             "scale2d" : [175, 70],
-            "translate": [ 0,0,-0.4],
+            "translate": [ 0,0,-0.7],
             "translate2d" : [0,0]
         },
         {
@@ -35,6 +36,7 @@
                     "height" : 24
                 }
             ],
+            "translate": [ 0,0,-0.6],
             "translate2d": [0,58]
         }
     ],
@@ -46,5 +48,6 @@
             "name" : "ClickableFrame"
         }
     ],
-    "scale2d" : [175,330]
+    "translate": [ 0,0,-0.6],
+    "scale2d" : [175,250]
 }

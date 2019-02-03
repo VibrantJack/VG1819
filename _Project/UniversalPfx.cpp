@@ -5,7 +5,8 @@
 
 UniversalPfx* UniversalPfx::sm_instance = nullptr;
 
-UniversalPfx::UniversalPfx(const std::list<std::tuple<std::string, std::string, int>>& p_effects)
+UniversalPfx::UniversalPfx(const std::list<std::tuple<std::string, std::string, int>>& p_effects, bool p_isDebug, char p_refreshKey) :
+	m_isDebug(p_isDebug), m_debugRefreshKey(p_refreshKey), m_inputMan(nullptr)
 {
 	assert(sm_instance == nullptr);
 	sm_instance = this;
@@ -20,16 +21,14 @@ UniversalPfx::UniversalPfx(const std::list<std::tuple<std::string, std::string, 
 
 		for (int i = 0; i < pfxToPool; ++i)
 		{
-			//Make a gamobject with a particle system component for the effect
-			kitten::K_GameObject* gameObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-			kitten::K_ParticleSystem* particleSystem = static_cast<kitten::K_ParticleSystem*>(kitten::K_ComponentManager::getInstance()->createComponent("K_ParticleSystem"));
-			gameObject->addComponent(particleSystem);
-
-			//particleSystem->setEnabled(false);
-			particleSystem->setEffectXML(effectPath.c_str());
+			//Make the pfx
+			kitten::K_GameObject* gameObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject(effectPath);
+			gameObject->setEnabled(false);
 
 			//Insert effect into map
-			m_effects[effectName].push(particleSystem);
+			m_effects[effectName].push(gameObject);
+
+			m_particleSystems.push_back(gameObject->getComponent<kitten::K_ParticleSystem>());
 		}
 	}
 }
@@ -54,6 +53,31 @@ UniversalPfx::~UniversalPfx()
 	sm_instance = nullptr;
 }
 
+void UniversalPfx::start()
+{
+	if (m_isDebug)
+	{
+		m_inputMan = input::InputManager::getInstance();
+		assert(m_inputMan != nullptr);
+	}
+	else
+	{
+		setEnabled(false);
+	}
+}
+
+void UniversalPfx::update()
+{
+	if (m_inputMan->keyDown(m_debugRefreshKey) && !m_inputMan->keyDownLast(m_debugRefreshKey))
+	{
+		auto end = m_particleSystems.cend();
+		for (auto it = m_particleSystems.cbegin(); it != end; ++it)
+		{
+			(*it)->refreshXML();
+		}
+	}
+}
+
 void UniversalPfx::playEffect(const std::string& p_effectName, const glm::vec3& p_where)
 {
 	auto found = m_effects.find(p_effectName);
@@ -63,10 +87,8 @@ void UniversalPfx::playEffect(const std::string& p_effectName, const glm::vec3& 
 	(*found).second.pop();
 
 	particleSystem->getTransform().place(p_where.x, p_where.y, p_where.z);
-	//particleSystem->setEnabled(true);
-	particleSystem->play();
 
 	(*found).second.push(particleSystem);
 
-	// @TODO: Disable particle system after it is done playing / bursting : add component ?
+	particleSystem->setEnabled(true);
 }

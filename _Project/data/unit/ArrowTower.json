@@ -25,11 +25,6 @@
 	},
 	"components" : [
 		{
-			"name" : "UnitGraphic",
-			"texture":"textures/unit/ArrowTower.tga",
-			"unitsize": "point"
-		},
-		{
 			"name" : "SpriteGroup",
 			"spritename":"arrow_tower",
 			"number":1,

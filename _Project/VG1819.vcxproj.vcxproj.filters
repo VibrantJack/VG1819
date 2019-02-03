@@ -875,6 +875,93 @@
     <ClCompile Include="..\components\scene change\StartNewDeckSetupWizard.cpp">
       <Filter>components\scene changers</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Curse.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Curse.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Oppose.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\demonic_restriction\Status_Demonic_Restriction.cpp">
+      <Filter>ability\status\demonic_restriction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Eternal_Eye_LV3.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Eternal_Eye.cpp">
+      <Filter>ability\status\demonic_restriction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\IsDPFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\NotDPFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\FearStrike.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Mucus.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Lancer_LV2.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Mud_Demon.cpp">
+      <Filter>ability\status\demonic_restriction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Activate.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\SelfFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\PromptPopUp.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\PromptPopUpDeclineOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\clickables\PromptPopUpSuccessOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\DeckCountTextureBind.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\TextChat.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\ReadyCheck.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\K_RenderNode.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="RefreshParticleSystemOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayParticleSystemAtMouseClick.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="ReloadObjectOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="HaltParticleSystemAfterTime.cpp">
+      <Filter>components\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\Borders\BorderPiece.cpp">
+      <Filter>UI\Borders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\puppy\lights\P_PointLight.cpp">
+      <Filter>puppy\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\lights\K_PointLight.cpp">
+      <Filter>kitten\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayParticleSystemOnEnable.cpp">
+      <Filter>components\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1876,6 +1963,54 @@
     <ClInclude Include="..\components\scene change\StartNewDeckSetupWizard.h">
       <Filter>components\scene changers</Filter>
     </ClInclude>
+    <ClInclude Include="..\ability\status\demonic_restriction\Status_Demonic_Restriction.h">
+      <Filter>ability\status\demonic_restriction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\PromptPopUp.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\PromptPopUpDeclineOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\clickables\PromptPopUpSuccessOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\DeckCountTextureBind.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\TextChat.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\ReadyCheck.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\K_RenderNode.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="RefreshParticleSystemOnKeyPress.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayParticleSystemAtMouseClick.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="ReloadObjectOnKeyPress.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="HaltParticleSystemAfterTime.h">
+      <Filter>components\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\puppy\lights\P_PointLight.h">
+      <Filter>puppy\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\lights\K_PointLight.h">
+      <Filter>kitten\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayParticleSystemOnEnable.h">
+      <Filter>components\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\Borders\BorderPiece.h">
+      <Filter>UI\Borders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -2069,6 +2204,12 @@
     </Filter>
     <Filter Include="components\initializer">
       <UniqueIdentifier>{23c51a84-04fc-4055-b5ae-4e3f73b2d77b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ability\status\demonic_restriction">
+      <UniqueIdentifier>{ea0232e6-01f0-4b9a-9b52-edd895ea94e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Borders">
+      <UniqueIdentifier>{bce99ca2-9883-4d20-b1e6-32a086ce157d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

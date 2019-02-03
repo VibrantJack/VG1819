@@ -144,33 +144,39 @@ ability::Status * getStatusFrom(nlohmann::json & p_jsonfile)
 		s->setEffectedAD(p_jsonfile["effected"].get<std::string>());
 	}*/
 
-	//for lv status
-	if (p_jsonfile.find(UNIT_LV) != p_jsonfile.end())
+	for (nlohmann::json::iterator it = p_jsonfile.begin(); it != p_jsonfile.end(); ++it) 
 	{
-		s->changeName(LEVEL_UP);
-		s->changeLV(p_jsonfile[UNIT_LV]);
-		//hp
-		if (p_jsonfile.find(UNIT_HP) != p_jsonfile.end())
+		if (it->is_number_integer())
 		{
-			int hp = p_jsonfile[UNIT_HP];
-			s->addAttributeChange(UNIT_MAX_HP, hp);
-			s->addAttributeChange(UNIT_HP, hp);
-		}
-		//in
-		if (p_jsonfile.find(UNIT_IN) != p_jsonfile.end())
-		{
-			int in = p_jsonfile[UNIT_IN];
-			s->addAttributeChange(UNIT_IN, in);
-			s->addAttributeChange(UNIT_BASE_IN, in);
-		}
-		//mv
-		if (p_jsonfile.find(UNIT_MV) != p_jsonfile.end())
-		{
-			int mv = p_jsonfile[UNIT_MV];
-			s->addAttributeChange(UNIT_MV, mv);
-			s->addAttributeChange(UNIT_BASE_MV, mv);
+			//for lv status
+			if (it.key() == UNIT_LV)
+			{
+				s->changeName(LEVEL_UP);
+				s->changeLV(p_jsonfile[UNIT_LV]);
+			}
+			else if (it.key() == UNIT_HP)//hp
+			{
+				int hp = it.value();
+				s->addAttributeChange(UNIT_MAX_HP, hp);
+				s->addAttributeChange(UNIT_HP, hp);
+			}
+			else if (it.key() == UNIT_IN)//in
+			{
+				int in = it.value();
+				s->addAttributeChange(UNIT_IN, in);
+				s->addAttributeChange(UNIT_BASE_IN, in);
+			}
+			else if (it.key() == UNIT_MV)//mv
+			{
+				int mv = it.value();
+				s->addAttributeChange(UNIT_MV, mv);
+				s->addAttributeChange(UNIT_BASE_MV, mv);
+			}
+			else//other int value, put in counter
+			{
+				s->addCounter(it.key(), it.value());
+			}
 		}
 	}
-
 	return s;
 }

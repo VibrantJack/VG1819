@@ -1,10 +1,11 @@
 #include "Transform.h"
+#include "K_GameObjectManager.h"
 
 namespace kitten
 {
 
 	Transform::Transform(K_GameObject& p_owner) : m_forward(0,0,1), m_matTranslation(glm::translate(0,0,0)), m_matScale(glm::scale(1,1,1)), m_translation(0,0,0), m_scale(1,1,1),
-		m_derivedTranslation(0,0,0), m_derivedScale(1,1,1), m_parent(nullptr), m_ignoresParent(true), m_attachedObject(p_owner)
+		m_derivedTranslation(0,0,0), m_derivedScale(1,1,1), m_rotateDeg(0), m_parent(nullptr), m_ignoresParent(true), m_attachedObject(p_owner)
 	{
 
 	}
@@ -359,18 +360,39 @@ namespace kitten
 
 	void Transform::setParent(Transform* p_parent)
 	{
-		
+		if (p_parent == m_parent)
+		{
+			return;
+		}
+
 		if (m_parent != nullptr)
 		{
 			m_parent->removeChild(this);
+
+			m_parent = p_parent;
+
+			if (p_parent != nullptr)
+			{
+				p_parent->addChild(this);
+			}
+			else
+			{
+				K_GameObjectManager::sm_instance->addGameObjectToList(&m_attachedObject);
+			}
 		}
-
-		m_parent = p_parent;
-
-		if (p_parent != nullptr)
+		else
 		{
-			p_parent->addChild(this);
+			m_parent = p_parent;
+
+			if (p_parent != nullptr)
+			{
+				p_parent->addChild(this);
+			}
+			
+			K_GameObjectManager::sm_instance->removeGameObjectFromList(&m_attachedObject);
 		}
+
+		notifyParentListeners(); // intentionally not in the if statement below
 
 		if (!m_ignoresParent)
 		{
@@ -409,6 +431,11 @@ namespace kitten
 		return false;
 	}
 
+	bool Transform::hasChildren() const
+	{
+		return !m_children.empty();
+	}
+
 	const std::vector<Transform*>& Transform::getChildren() const
 	{
 		return m_children;
@@ -427,6 +454,11 @@ namespace kitten
 	void Transform::addRotationListener(TransformRotationListener* p_toAdd)
 	{
 		m_rotationListeners.push_back(p_toAdd);
+	}
+
+	void Transform::addParentListener(TransformParentListener* p_toAdd)
+	{
+		m_parentListeners.push_back(p_toAdd);
 	}
 
 	void Transform::removePositionListener(TransformPositionListener* p_toRemove)
@@ -468,6 +500,19 @@ namespace kitten
 		}
 	}
 
+	void Transform::removeParentListener(TransformParentListener* p_toRemove)
+	{
+		auto end = m_parentListeners.cend();
+		for (auto it = m_parentListeners.begin(); it != end; ++it)
+		{
+			if (*it == p_toRemove)
+			{
+				m_parentListeners.erase(it);
+				return;
+			}
+		}
+	}
+
 	void Transform::notifyScaleListeners()
 	{
 		const glm::vec3& scale = getScale();
@@ -495,6 +540,15 @@ namespace kitten
 		for (auto it = m_rotationListeners.begin(); it != end; ++it)
 		{
 			(*it)->onRotationChanged(rot);
+		}
+	}
+
+	void Transform::notifyParentListeners()
+	{
+		auto end = m_parentListeners.cend();
+		for (auto it = m_parentListeners.begin(); it != end; ++it)
+		{
+			(*it)->onParentChanged(m_parent);
 		}
 	}
 

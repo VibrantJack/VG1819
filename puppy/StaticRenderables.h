@@ -10,6 +10,11 @@
 #include <unordered_set>
 #include <vector>
 
+namespace kitten
+{
+	class K_UIRenderable;
+}
+
 namespace puppy
 {
 	class P_Instance;
@@ -22,7 +27,7 @@ namespace puppy
 	class StaticRenderables
 	{
 		friend class P_Instance;
-		friend class P_UIRenderable;
+		friend class kitten::K_UIRenderable;
 		friend class P_Renderable;
 	private:
 		typedef std::unordered_map<Material*, std::pair<std::unordered_map<const void*, std::vector<TexturedVertex>>, bool>> render_map;

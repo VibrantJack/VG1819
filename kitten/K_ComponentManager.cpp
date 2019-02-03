@@ -17,6 +17,8 @@
 #include "kitten\sprites\SpriteAnimator.h"
 #include "kitten\sprites\SpriteRenderable.h"
 #include "unit/unitComponent/UnitMove.h"
+#include "kitten\K_RenderNode.h"
+
 //ui
 #include "UI\UIObject.h"
 #include "UI\CardUIO.h"
@@ -57,6 +59,7 @@
 #include "board/clickable/SendSelfOnClick.h"
 //tile
 #include "board/tile/TileInfo.h"
+#include "kibble/UnitGameObject/UnitType.h"
 
 namespace kitten
 {
@@ -81,6 +84,10 @@ namespace kitten
 		if (p_componentName == "K_ParticleSystem") //datadriven
 		{
 			comp = new kitten::K_ParticleSystem("");
+		}
+		else if (p_componentName == "K_RenderNode")
+		{
+			comp = new kitten::K_RenderNode();
 		}
 		else if (p_componentName == "BarRenderable") //datadriven
 		{
@@ -237,7 +244,7 @@ namespace kitten
 		}
 		else if (p_componentName == "SpriteAnimator") // Datadriven
 		{
-			comp = new sprites::SpriteAnimator("");
+			comp = new sprites::SpriteAnimator("", true);
 		}
 		else if (p_componentName == "NetworkingConsoleMenu")// Datadriven
 		{
@@ -283,6 +290,17 @@ namespace kitten
 	K_Component* K_ComponentManager::createComponent(nlohmann::json* p_jsonfile)
 	{
 		K_Component* comp = getRelatedComponentBy(p_jsonfile);
+		if (comp == nullptr) return nullptr;
+
+		m_toAddToStart.insert(comp);
+
+		//Successful
+		return comp;
+	}
+
+	unit::Unit* K_ComponentManager::createUnitComponent(nlohmann::json &p_jsonfile)
+	{
+		unit::Unit* comp = getUnitFrom(p_jsonfile);
 		if (comp == nullptr) return nullptr;
 
 		m_toAddToStart.insert(comp);
@@ -445,6 +463,5 @@ namespace kitten
 
 			m_toRemoveFromUpdate.clear();
 		}
-		
 	}
 }

@@ -1,0 +1,87 @@
+{
+    "name" : "Prompt Pop Up",
+    "gameobjects" : [
+        {
+            "name" : "Background Frame",
+            "components": [
+                {
+                    "name" : "UIFrame"
+                },
+                {
+                    "name" : "ClickableFrame"
+                }
+            ],
+            "scale2d" : [500,300],
+            "translate" : [0,0,-0.2],
+            "translate2d" : [400,200]
+        },
+        {
+            "name" : "Success Frame",
+            "components": [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/accept.dds"
+                },
+                {
+                    "name" : "ClickableButton",
+                    "regularTexture" : "textures/ui/buttons/accept.dds",
+                    "highlightedTexture" : "textures/ui/buttons/accept_h.dds"
+                },
+                {
+                    "name" : "ClickableFrame"
+                },
+                {
+                    "name" : "PromptPopUpSuccessOnClick"
+                }
+            ],
+            "scale2d" : [230,75],
+            "translate" : [0,0,-0.1],
+            "translate2d" : [410,210]
+        },
+        {
+            "name" : "Decline Frame",
+            "components": [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/decline.dds"
+                },
+                {
+                    "name" : "ClickableButton",
+                    "regularTexture" : "textures/ui/buttons/decline.dds",
+                    "highlightedTexture" : "textures/ui/buttons/decline_h.dds"
+                },
+                {
+                    "name" : "ClickableFrame"
+                },
+                {
+                    "name" : "PromptPopUpDeclineOnClick"
+                }
+            ],
+            "scale2d" : [230,75],
+            "translate" : [0,0,-0.1],
+            "translate2d" : [660,210]
+        },
+        {
+            "name" : "Textbox",
+            "components": [
+                {
+                    "name" : "TextBox",
+                    "font" : "../fonts/common_terminal_hex.fnt",
+                    "color" : [1,1,1],
+                    "alignment" : "center",
+                    "width" : 400,
+                    "height" : 200
+                }                
+            ],
+            "translate" : [0,0,-0.1],
+            "translate2d" : [450,500]
+        }
+    ],
+    "components" : [
+        {
+            "name" : "ClickableFrame"
+        }
+    ],
+    "scale2d" : [2000,2000],
+    "translate" : [0,0,-0.25]
+}

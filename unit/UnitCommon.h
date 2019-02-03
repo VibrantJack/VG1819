@@ -3,9 +3,8 @@
 #include "ability/AbilityManager.h"
 #include "ability/AbilityInfoPackage.h"
 #include "kitten/K_Common.h"
-#include "unit/unitComponent/UnitGraphic.h"
 #include "UI/CardArt.h"
-#include "ability/status/Status.h"
+#include "ability/StatusManager.h"
 
 //attributes
 #define UNIT_HP "hp"
@@ -25,6 +24,8 @@
 #define UNIT_DURATION "duration"
 #define UNIT_POWER "power"
 #define UNIT_ABILITY_DESCRIPTION "description"
+#define MIN_RANGE "min_range"
+#define MAX_RANGE "max_range"
 
 //counter attribute
 #define COUNTER_NAME "counter_name"
@@ -40,8 +41,9 @@
 //tags
 #define STRUCTURE "Structure"
 
-
+//unit 
 #define UNIT "unit"
+#define DEMONIC_PRESENCE "Demonic Presence"
 
 
 //@Rock

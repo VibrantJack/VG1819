@@ -131,7 +131,17 @@ kitten::K_GameObject * BoardCreator::createTile(int x, int z, LandInformation::T
 	kitten::K_GameObjectManager* gameObjMan = kitten::K_GameObjectManager::getInstance();
 	kitten::K_ComponentManager* compMan = kitten::K_ComponentManager::getInstance();
 
-	kitten::K_GameObject* tileGO = gameObjMan->createNewGameObject("tileobj.txt");
+
+	kitten::K_GameObject* tileGO;
+
+	if (p_type != LandInformation::TileType::Water_land)
+	{
+		tileGO = gameObjMan->createNewGameObject("tileobj.txt");
+	}
+	else
+	{
+		tileGO = gameObjMan->createNewGameObject("waterTileObj.txt");
+	}
 
 	/*this is test of clickable, not useful anymore
 	PrintWhenClicked* printWhenClick = static_cast<PrintWhenClicked*>(compMan->createComponent("PrintWhenClicked"));

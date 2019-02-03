@@ -1,6 +1,6 @@
 {
 	"unit":{
-    "name": "Armory",
+    	"name": "Armory",
 		"hp":10,
 		"mv":0,
 		"in":15,
@@ -26,11 +26,6 @@
 		"portrait_texture" : "textures/cards/500x500/Armory.tga"
 	},
 	"components" : [
-		{
-			"name" : "UnitGraphic",
-			"texture":"textures/unit/Armory.tga",
-			"unitsize": "point"
-		},
 		{
 			"name" : "SpriteGroup",
 			"spritename":"armory",

@@ -1,0 +1,14 @@
+{
+    "name" : "Main Menu Top",
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/main_menu/header_title.dds"
+        },
+		{
+			"name" : "LerpController"
+		}
+    ],
+	"scale2d" : [1280, 200],
+    "translate" : [0,520, -0.9]
+}

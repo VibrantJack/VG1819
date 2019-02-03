@@ -5,6 +5,11 @@
 #include "unit/unitComponent/CooldownRecorder.h"
 #include "unit/unitComponent/Commander.h"
 #include "unit/unitComponent/CastTimer.h"
+#include "unit\unitComponent\UnitSelect.h"
+
+#include "unitComponent\UnitHealthBar.h"
+
+#include "_Project\LerpController.h"
 
 //@Rock
 //although unit is just a component of game object
@@ -13,8 +18,16 @@
 namespace unit
 {
 	class UnitTurn;
-	class Unit : public kitten::K_Component
+	class Unit : public kitten::K_Component, public LerpController::ScaleLerpFinishedCallback
 	{
+	private:
+
+		enum HealthBarState
+		{
+			none,
+			destroying
+		};
+
 	private:
 		UnitTurn* m_turn;
 		StatusContainer * m_statusContainer;
@@ -28,6 +41,17 @@ namespace unit
 		AbilityDescription m_joinAD;
 
 		std::string m_portraitTexturePath;
+
+		// Healthbar related
+		UnitHealthBar* m_healthBar;
+		UnitSelect* m_unitSelect;
+
+		HealthBarState m_healthBarState;
+		
+		virtual void onScaleLerpFinished() override;
+	
+		virtual void start() override;
+
 	public:
 		int m_numberID;
 		std::string m_ID;
@@ -59,8 +83,10 @@ namespace unit
 		bool removeStatus(ability::Status *p_oldStatus);
 		ability::Status* getStatus(const std::string& p_name);*/
 		StatusContainer* getStatusContainer();
+
 		//trigger event
 		void triggerTP(ability::TimePointEvent::TPEventType p_tp, ability::TimePointEvent* p_event = nullptr);
+
 		//turn interface
 		void turnStart(UnitTurn* p_t);
 		bool canMove();
@@ -70,8 +96,10 @@ namespace unit
 		bool isTurn();
 		void turnEnd();
 		void playerSkipTurn();
+
 		//position function
 		kitten::K_GameObject* getTile();
+
 		//move
 		void move();//move action, no restriction, no info needs
 		void move(int p_min, int p_max);//move by ability, need range of ability

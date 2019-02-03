@@ -6,6 +6,7 @@
 #include "unit/unitComponent/UnitClickable.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "unit/unitComponent/UnitSelect.h"
+#include "unitComponent\unitAction\ActionButtonStore.h"
 //board clickable
 #include "board/clickable/PrintWhenClicked.h"
 
@@ -132,10 +133,11 @@ namespace unit
 			unitObject->getComponent<UnitGraphic>()->setEnabled(false);
 		}*/
 
+		/*unit graphic is removed
 		if (unitObject->getComponent<sprites::SpriteGroup>() != nullptr) {
 			// disable unit Graphic
-			unitObject->getComponent<UnitGraphic>()->setEnabled(false);
-		}
+			//unitObject->getComponent<UnitGraphic>()->setEnabled(false);
+		}*/
 
 		// Set client Id to unit
 		if (networking::ClientGame::getInstance())

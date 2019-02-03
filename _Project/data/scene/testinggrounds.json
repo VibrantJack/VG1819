@@ -28,8 +28,8 @@
 				}
 			],
 			"translate" : [0,0, -0.3],
-			"translate2d" : [1027, 10],
-			"scale2d" : [250, 80]
+			"translate2d" : [1077, 10],
+			"scale2d" : [200, 64]
 		},
 		{
 			"name" : "Projectile Manager Instance",
@@ -39,6 +39,10 @@
 					"list" : "data/unit_projectileList.txt"
 				}
 			]
+		},
+		{
+			"filename" : "FPSCounter.txt",
+			"translate" : [20,600,0]
 		}
     ],
 	"scenes" : [

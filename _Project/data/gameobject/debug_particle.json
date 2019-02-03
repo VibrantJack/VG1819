@@ -1,0 +1,27 @@
+{
+    "name" : "debug_particle", 
+    "components" : [
+        {
+			"name" : "ReloadObjectOnKeyPress",
+			"key" : "E",
+			"this_json_path" : "debug_particle.json"
+        },
+		{
+			"name" : "PlayParticleSystemAtMouseClick",
+			"offset" : [0,1,0]
+		},
+		{
+			"name" : "K_ParticleSystem",
+			"effectpath" : "data/particles/abilities/effects/burnExplosion.xml"
+		},
+		{
+			"name" : "HaltParticleSystemAfterTime",
+			"time" : 3.0,
+			"stop" : false
+		},
+		{
+			"name" : "DisableAfterTime",
+			"time" : 5.0
+		}
+    ]
+}

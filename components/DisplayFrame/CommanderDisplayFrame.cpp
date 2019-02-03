@@ -3,6 +3,7 @@
 #include "kibble/databank/databank.hpp"
 #include "puppy/Text/TextBox.h"
 #include "components/DeckAlterationComponent.h"
+#include "UI/UIFrame.h"
 #include <math.h>
 #include <string>
 #include "unit/Unit.h"
@@ -47,7 +48,7 @@ int CommanderDisplayFrame::getTargetAvailable() {
 void CommanderDisplayFrame::updateIndividualDisplayObject(int p_activeObjectIndex)
 {
 	//+ m_currentSet * m_objectsToDisplay.size() To get the deck id 
-	unit::Unit* commanderData = kibble::getUnitFromId(m_commanderVector[p_activeObjectIndex + m_currentSet * m_objectsToDisplay.size()]);
+	const unit::Unit* commanderData = kibble::getUnitFromId(m_commanderVector[p_activeObjectIndex + m_currentSet * m_objectsToDisplay.size()]);
 
 	// Set commander name. The components are in the order loaded in the file
 	m_objectsToDisplay[p_activeObjectIndex]->getTransform().getChildren()[2]->getAttachedGameObject() // Third is the TextBox
@@ -57,9 +58,11 @@ void CommanderDisplayFrame::updateIndividualDisplayObject(int p_activeObjectInde
 	m_objectsToDisplay[p_activeObjectIndex]->getTransform().getChildren()[3]->getAttachedGameObject() // 4th is the Clickable
 		.getComponent<SetCommanderOnClick>()->setActive( // Not equal because we need to set it inactive if it is already chosen
 			p_activeObjectIndex + m_currentSet * m_objectsToDisplay.size() != m_commanderIndex
-		); 
+		);
 
-	// Add picture later TODO
+	// Add picture 
+	m_objectsToDisplay[p_activeObjectIndex]->getTransform().getChildren()[0]->getAttachedGameObject() // first is the ui frame
+		.getComponent<userinterface::UIFrame>()->setTexture(commanderData->getPortraitTexturePath().c_str());
 }
 
 void CommanderDisplayFrame::refreshCommander()

@@ -1,0 +1,23 @@
+{
+	"name" : "summoning_witch",
+	"texture" : "textures/sprites/units/ancients/summoning_witch_sheet.png",
+	
+	"sheetwidth" : 250,
+	"sheetheight" : 100,
+	
+	"characterwidth" : 43,
+	"characterheight" : 93,
+	
+	"padding" : 7,
+	
+	"defaultanimation" : "idle",
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [3,0],
+			"time" : 2
+		}
+	]
+}

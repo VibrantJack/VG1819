@@ -1,0 +1,10 @@
+{
+    "name" : "TextChat",
+    "components" : [
+		{
+			"name" : "TextChat"
+		}
+    ],
+    "scale2d" : [338,219],
+    "translate" : [0,36, -0.9]
+}

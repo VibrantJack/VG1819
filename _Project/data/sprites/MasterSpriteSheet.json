@@ -16,6 +16,12 @@
 		"ArmorySheet.json",
 		"KingSheet.json",
 		"QueenSheet.json",
-		"WallSheet.json"
+		"WallSheet.json",
+		"EternalEyeSheet.json",
+		"LancerSheet.json",
+		"MudDemonSheet.json",
+		"SummoningWitchSheet.json",
+		"ServantSheet.json",
+		"WaterSheet.json"
 	]
 }

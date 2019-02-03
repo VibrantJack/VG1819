@@ -13,3 +13,8 @@ DivineStatue.json
 Enchanter.json
 King.json
 Queen.json
+EternalEye.json
+Lancer.json
+MudDemon.json
+SummoningWitch.json
+Servant.json

@@ -67,21 +67,39 @@ public:
 	const std::string& getHighlightedBy();
 	void setHighlightedBy(const std::string& p_sId);
 
+	//demonic presence
+	const bool isDemonicPresence();//check if this tile is demonic presence or adjcent to a tile that is demonic presence
+	void setDemonicPresence(bool p_dp);//set demonic presence value
+	bool getDemonicPresence() const;//get demonic presence value directly
+
 private:
-	std::unordered_map<HighlightType,bool> m_highlightType;
+	//attribute
 	int m_iPosX, m_iPosY;
 	int m_sOwnerId;
+	bool m_DemonicPresence = false;
+
+	//highlight
+	std::unordered_map<HighlightType, bool> m_highlightType;
 	std::string m_sHighlightedBy;
 	puppy::Texture* m_lastHighlightTexture;
 
-	LandInformation::TileType m_tileType;
 
+	//component
 	kitten::K_GameObject* m_unitGO;
+	LandInformation::TileType m_tileType;
 	LandInformation* m_landInfo;
 	kitten::QuadRenderableRepeat* m_quadRenderable;
 	kitten::QuadEdgeRenderable* m_edge;
 
+	//adjcent tiles
+	std::vector<kitten::K_GameObject*> m_adjTileList;
+
+	//decoration
 	std::vector<kitten::K_GameObject*> m_decorationList;
+
+	//method
 	void setDecoration();
 	void deleteList();
+
+	void getAdjTile();
 };

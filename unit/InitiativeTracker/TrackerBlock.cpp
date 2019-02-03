@@ -17,7 +17,7 @@ const float unit::TrackerBlock::sm_halfWinY = 720 / 2;
 const float unit::TrackerBlock::sm_textY = 500.0f;
 const int unit::TrackerBlock::sm_offsetY = 0;
 const int unit::TrackerBlock::sm_margin = 10;
-const int unit::TrackerBlock::sm_startX = 300;
+//const int unit::TrackerBlock::sm_startX = 315;
 
 const float unit::TrackerBlock::sm_speed = 0.02f;
 
@@ -27,6 +27,7 @@ unit::TrackerBlock::TrackerBlock()
 	kitten::K_GameObjectManager* goMan = kitten::K_GameObjectManager::getInstance();
 	//frame object
 	m_frameObject = goMan->createNewGameObject("tracker_block.json");
+	m_frameObject->setEnabled(false);
 	//don't this this anymore vvv
 	//text object
 	//m_textObject = goMan->createNewGameObject("initiative_tracker_textbox.json");
@@ -98,7 +99,10 @@ void unit::TrackerBlock::move(int p_slotIndex)
 		//place block to the slot directly if it doesn't has slot yet
 		m_currentSlotIndex = p_slotIndex;
 
-		float xx = sm_startX + (m_currentSlotIndex * (offset + sm_margin));
+		//float xx = sm_startX + (m_currentSlotIndex * (offset + sm_margin));
+
+		float x = m_trackerUI->m_xList[m_currentSlotIndex];
+		float xx = sm_halfWinX * (1 + x);
 
 		m_frameObject->getTransform().place2D(xx, m_frameY - sm_margin);
 		//m_textObject->getTransform().place2D(xx, sm_textY);
@@ -108,7 +112,10 @@ void unit::TrackerBlock::move(int p_slotIndex)
 		//if current slot isn't at the target slot's right slot, place block there
 		m_currentSlotIndex = p_slotIndex + 1;
 
-		float xx = sm_startX + (m_currentSlotIndex * offset);
+		//float xx = sm_startX + (m_currentSlotIndex * offset);
+
+		float x = m_trackerUI->m_xList[m_currentSlotIndex];
+		float xx = sm_halfWinX * (1 + x);
 
 		m_frameObject->getTransform().place2D(xx, m_frameY - sm_margin);
 		//m_textObject->getTransform().place2D(xx, sm_textY);
@@ -167,7 +174,7 @@ void unit::TrackerBlock::update()
 				if (distance > velocity)//not close
 				{
 					//convert to text
-					float xx = sm_startX * velocity;
+					float xx = sm_halfWinX * velocity;
 					m_frameObject->getTransform().move2D(xx, 0);
 					//m_textObject->getTransform().move2D(xx,0);
 					distance -= velocity;
@@ -175,7 +182,7 @@ void unit::TrackerBlock::update()
 				else//vecy close, 
 				{
 					//convert to text
-					float xx = sm_startX * distance;
+					float xx = sm_halfWinX * distance;
 					m_frameObject->getTransform().move2D(xx, 0);
 					//m_textObject->getTransform().move2D(xx, 0);
 					distance = 0;

@@ -22,6 +22,17 @@ namespace kitten
 		}
 
 		m_puppyLight.setPosition(getTransform().getTranslation());
+		m_puppyLight.addToLightList();
+	}
+
+	void K_DirectionalLight::onEnabled()
+	{
+		m_puppyLight.addToLightList();
+	}
+
+	void K_DirectionalLight::onDisabled()
+	{
+		m_puppyLight.removeFromLightList();
 	}
 
 	void K_DirectionalLight::onPosChanged(const glm::vec3& p_newPos)
@@ -34,7 +45,7 @@ namespace kitten
 		m_puppyLight.setAmbientColor(p_color);
 	}
 
-	const glm::vec3& K_DirectionalLight::getAmbientColor() const
+	const glm::vec4& K_DirectionalLight::getAmbientColor() const
 	{
 		return m_puppyLight.getAmbientColor();
 	}
@@ -44,7 +55,7 @@ namespace kitten
 		m_puppyLight.setDirectionalColor(p_color);
 	}
 
-	const glm::vec3& K_DirectionalLight::getDirectionalColor() const
+	const glm::vec4& K_DirectionalLight::getDirectionalColor() const
 	{
 		return m_puppyLight.getDirectionalColor();
 	}

@@ -9,6 +9,7 @@
                 }
             ],
             "scale2d" : [175.0,175.0],
+            "translate": [ 0,0,-0.6],
             "translate2d" : [0,75]
         },
         {
@@ -20,7 +21,7 @@
                 }
             ],
             "scale2d" : [175, 70],
-            "translate": [ 0,0,-0.4],
+            "translate": [ 0,0,-0.7],
             "translate2d" : [0,260]
         },
         {
@@ -35,6 +36,7 @@
                     "height" : 24
                 }
             ],
+            "translate": [ 0,0,-0.6],
             "translate2d": [0,325]
         },
         {
@@ -55,7 +57,7 @@
                 }
             ],
             "scale2d" : [155,65],
-            "translate" : [0,0,-0.1],
+            "translate" : [0,0,-0.5],
             "translate2d" : [10,0]
         }
     ],
@@ -65,12 +67,9 @@
         },
         {
             "name" : "ClickableFrame"
-        },
-        {
-            "name" :"UIFrame"
         }
     ],
-    "translate" : [0,0,-0.5],
+    "translate" : [0,0,-0.7],
     "translate2d" : [0,0],
     "scale2d" : [175,340]
 }

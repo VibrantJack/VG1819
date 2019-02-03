@@ -8,14 +8,7 @@ namespace ability
 {
 	int Build_the_Wall::effect(AbilityInfoPackage* p_info)
 	{
-		kitten::K_GameObject* u = unit::UnitSpawn::getInstance()->spawnUnitObject(m_unitIndex);
-		kitten::K_GameObject* tile = p_info->m_targetTilesGO[0];
-		u->getComponent<unit::UnitMove>()->setTile(tile);
-
-		if (networking::ClientGame::getInstance() != nullptr)
-		{
-			u->getComponent<unit::Unit>()->m_clientId = p_info->m_sourceClientId;
-		}
+		summonToken(p_info, m_unitIndex);
 
 		//delete package
 		done(p_info);

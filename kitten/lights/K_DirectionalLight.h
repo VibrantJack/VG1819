@@ -11,6 +11,10 @@ namespace kitten
 		bool m_usingCallbacks;
 
 		virtual void start() override;
+		virtual void onEnabled() override;
+		virtual void onDisabled() override;
+
+
 		virtual bool hasUpdate() const override { return true; }
 		virtual void update() override;
 
@@ -20,9 +24,9 @@ namespace kitten
 		~K_DirectionalLight();
 
 		void setAmbientColor(const glm::vec3& p_color);
-		const glm::vec3& getAmbientColor() const;
+		const glm::vec4& getAmbientColor() const;
 
 		void setDirectionalColor(const glm::vec3& p_color);
-		const glm::vec3& getDirectionalColor() const;
+		const glm::vec4& getDirectionalColor() const;
 	};
 }

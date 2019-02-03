@@ -17,6 +17,7 @@ public:
 	~TileGetter();
 
 	void requireTile(unit::AbilityDescription* p_ad, unit::Unit* p_source, bool p_needUnit);
+	void cancel();
 private:
 	unit::Unit* m_source;
 	unit::AbilityDescription* m_ad;
@@ -43,6 +44,5 @@ private:
 	void triggerUnhighlightEvent();
 
 	void send();
-	void cancel();
 
 };

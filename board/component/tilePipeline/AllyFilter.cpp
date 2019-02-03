@@ -7,10 +7,10 @@ void AllyFilter::filter(kitten::Event::TileList * p_list)
 
 	unit::Unit* source = m_pipe->m_source;
 
-	//remove tiles that doesn't have unit
 	auto it = p_list->begin();
 	while (it != p_list->end())
 	{
+		//remove tiles that doesn't have unit
 		kitten::K_GameObject* tileGO = BoardManager::getInstance()->getTile(it->first, it->second);
 		if (!tileGO->getComponent<TileInfo>()->hasUnit())
 		{

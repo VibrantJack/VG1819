@@ -10,6 +10,7 @@
 #include "kitten/K_GameObjectManager.h"
 #include "board/tile/tileDecoration.h"
 #include "board/tile/DecorationGenerator.h"
+#include "board/BoardManager.h"
 
 TileInfo::TileInfo(int p_iPosX, int p_iPosY)
 	:
@@ -53,7 +54,10 @@ void TileInfo::setLand()
 {
 	m_landInfo = LandInfoManager::getInstance()->getLand(m_tileType);
 
-	m_quadRenderable->setTexture(m_landInfo->getTexturePath().c_str());
+	if (m_tileType != LandInformation::TileType::Water_land)
+	{
+		m_quadRenderable->setTexture(m_landInfo->getTexturePath().c_str());
+	}
 
 	setDecoration();
 }
@@ -98,18 +102,21 @@ void TileInfo::changeHighlightTexture(puppy::Texture* p_tex)
 {
 	if (m_lastHighlightTexture != p_tex)
 	{
-		if (p_tex != nullptr)
+		if (m_tileType != LandInformation::TileType::Water_land)
 		{
-			//Add new blending
-			m_quadRenderable->addTexture(p_tex, 1.0f);
-		}
+			if (p_tex != nullptr)
+			{
+				//Add new blending
+				m_quadRenderable->addTexture(p_tex, 1.0f);
+			}
 
-		if (m_lastHighlightTexture != nullptr)
-		{
-			//Remove blending
-			m_quadRenderable->removeTexture(m_lastHighlightTexture);
+			if (m_lastHighlightTexture != nullptr)
+			{
+				//Remove blending
+				m_quadRenderable->removeTexture(m_lastHighlightTexture);
+			}
 		}
-
+		
 		m_lastHighlightTexture = p_tex;
 	}
 }
@@ -223,6 +230,35 @@ void TileInfo::setHighlightedBy(const std::string& p_sId)
 	m_sHighlightedBy = p_sId;
 }
 
+const bool TileInfo::isDemonicPresence()
+{
+	if (m_DemonicPresence)
+		return true;
+	else
+	{//check adjcent tile
+		if (m_adjTileList.size() == 0)//no tile in the list
+			getAdjTile();
+		
+		for (int i = 0; i < m_adjTileList.size(); i++)
+		{
+			TileInfo* info = m_adjTileList[i]->getComponent<TileInfo>();
+			if (info->getDemonicPresence())
+				return true;
+		}
+	}
+	return false;
+}
+
+void TileInfo::setDemonicPresence(bool p_dp)
+{
+	m_DemonicPresence = p_dp;
+}
+
+bool TileInfo::getDemonicPresence() const
+{
+	return m_DemonicPresence;
+}
+
 void TileInfo::setDecoration()
 {
 	if (m_decorationList.size() > 0)
@@ -244,4 +280,25 @@ void TileInfo::deleteList()
 	{
 		kitten::K_GameObjectManager::getInstance()->destroyGameObject(it);
 	}
+}
+
+void TileInfo::getAdjTile()
+{
+	BoardManager* bm = BoardManager::getInstance();
+
+	kitten::K_GameObject* tile = bm->getTile(m_iPosX + 1, m_iPosY);
+	if (tile != nullptr)
+		m_adjTileList.push_back(tile);
+
+	tile = bm->getTile(m_iPosX - 1, m_iPosY);
+	if (tile != nullptr)
+		m_adjTileList.push_back(tile);
+
+	tile = bm->getTile(m_iPosX, m_iPosY + 1);
+	if (tile != nullptr)
+		m_adjTileList.push_back(tile);
+
+	tile = bm->getTile(m_iPosX, m_iPosY - 1);
+	if (tile != nullptr)
+		m_adjTileList.push_back(tile);
 }

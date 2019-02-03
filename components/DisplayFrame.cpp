@@ -161,11 +161,6 @@ void DisplayFrame::updateHighlight()
 			-m_highlight->getTransform().getScale2D().y +
 			-m_highlightOffsetY
 		);
-		m_highlight->getTransform().place(
-			m_highlight->getTransform().getTranslation().x,
-			m_highlight->getTransform().getTranslation().y,
-			-0.1
-		);
 	}
 	else
 	{

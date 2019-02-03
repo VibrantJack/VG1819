@@ -1,0 +1,16 @@
+{
+	"name" : "PooledUnitDeathUPFX",
+	"components" : [
+		{
+			"name" : "K_ParticleSystem",
+			"effectpath" : "data/particles/universal/effects/deathEffect.xml"
+		},
+		{
+			"name" : "PlayParticleSystemOnEnable"
+		},
+		{
+			"name" : "DisableAfterTime",
+			"time" : 5.0
+		}
+	]
+}

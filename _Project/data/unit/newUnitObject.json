@@ -5,7 +5,7 @@
 		"mv":8,
 		"in":40,
 		"cost":4,
-		"tags": ["Commander","Dummy"],
+		"tags": ["Commander","Dummy","token"],
 		"commander":{
 			"portrait_path" : "place_holder"
 		},

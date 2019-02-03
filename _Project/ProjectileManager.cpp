@@ -124,8 +124,6 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 	proj->getTransform().rotateRelative(glm::vec3(45, 0, 0)); //rotate to the camera
 
 	lerpCon->addPositionLerpFinishedCallback(this);
-	
-	proj->setEnabled(true);
 
 	float time = pair.second * hypotenuseDistance;
 
@@ -133,13 +131,16 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 
 	m_lastUnitSel = p_source->getGameObject().getComponent<unit::UnitSelect>();
 	m_lastUnitSel->disableInteraction(true);
+
+	proj->setEnabled(true);
 }
 
 void ProjectileManager::onPositionLerpFinished()
 {
-	m_lastAbility->singleTargetProjectileFinished(m_lastPackage);
 	m_lastUnitSel->disableInteraction(false);
 
+	m_lastAbility->singleTargetProjectileFinished(m_lastPackage);
+	
 	m_lastAbility = nullptr;
 	m_lastPackage = nullptr;
 	m_lastUnitSel = nullptr;

@@ -1,8 +1,6 @@
 #include "components\MainMenuBoard.h"
 
 #include "kitten\K_GameObjectManager.h"
-#include "unit\UnitSpawn.h"
-#include "unit\unitComponent\UnitMove.h"
 #include <time.h>
 #include <algorithm>
 
@@ -16,7 +14,6 @@
 #define SIMPLE_OLIGARCH "simple_units/Oligarch.txt"
 #define SIMPLE_KING "simple_units/King.txt"
 #define SIMPLE_QUEEN "simple_units/Queen.txt"
-
 MainMenuBoard::MainMenuBoard()
 {
 	srand(time(NULL));
@@ -52,6 +49,4 @@ void MainMenuBoard::start()
 
 	kitten::K_GameObject* u3 = kitten::K_GameObjectManager::getInstance()->createNewGameObject(simpleUnits[3]);
 	u3->getTransform().move(9.0f, 0.0f, 4.5f);
-
-	//printf("Spawned units: %d, %d, %d, %d\n", simpleUnits[0], simpleUnits[1], simpleUnits[2], simpleUnits[3]);
 }

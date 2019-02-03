@@ -1,0 +1,23 @@
+{
+	"name" : "mud_demon",
+	"texture" : "textures/sprites/units/ancients/mud_demon_sheet.png",
+	
+	"sheetwidth" : 760,
+	"sheetheight" : 120,
+	
+	"characterwidth" : 85,
+	"characterheight" : 110,
+	
+	"padding" : 10,
+	
+	"defaultanimation" : "idle",
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [7,0],
+			"time" : 2
+		}
+	]
+}

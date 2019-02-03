@@ -26,11 +26,15 @@ namespace unit
 		//list for old units
 		std::vector<kitten::K_GameObject*> m_unitObjectList;
 
+		//list for units take extra turn
+		std::vector<kitten::K_GameObject*> m_extraTurnUnitList;
+
 		int m_currentUnitIndex;
 
 		void sortListByIn(int p_list=0);
 		void addWaitList();
 		int getUnitObjectIndex(kitten::K_GameObject* p_uGO);
+
 	public:
 		InitiativeTracker();
 		~InitiativeTracker();
@@ -43,7 +47,8 @@ namespace unit
 		bool removeUnit(kitten::K_GameObject* p_unit);
 
 		kitten::K_GameObject* getUnitByIndex(int p_index);
-		int getUnitNumber();
+		int getUnitNumber();//get unit number in tracker list, may have repeat
+		int getUnitNumberOnBoard();//get unit number on board
 		kitten::K_GameObject* getCurrentUnit();
 		int getCurrentUnitIndex();
 		//int getIndexByUnit(kitten::K_GameObject* p_u);
@@ -55,5 +60,7 @@ namespace unit
 		void gameTurnStart();
 		void unitTurnEnd();
 		void gameTurnEnd();
+
+		void addExtraTurn(kitten::K_GameObject* p_unit);
 	};
 }
