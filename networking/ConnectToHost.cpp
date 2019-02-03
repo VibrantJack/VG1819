@@ -147,6 +147,7 @@ void ConnectToHost::joinDirectAddress()
 		m_inputMan->setPollMode(false);
 		m_loadingMessage->setEnabled(false);
 		m_bLoadingMsgEnabled = false;
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Remove_Loading_Screen, nullptr);
 	}
 
 	m_bConnect = false;
@@ -186,8 +187,12 @@ void ConnectToHost::joinLocalhost()
 	{
 		m_bJoiningGame = true;
 		networking::ClientGame::getInstance()->sendBasicPacket(JOIN_GAME);
-		kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/loading_screen.json");
+		//kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/loading_screen.json");
 		kitten::K_Instance::changeScene("mainscene.json");
+	}
+	else
+	{
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Remove_Loading_Screen, nullptr);
 	}
 }
 

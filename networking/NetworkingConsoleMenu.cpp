@@ -333,7 +333,7 @@ void NetworkingConsoleMenu::hostButtonClickedListener(kitten::Event::EventType p
 	}
 	else
 	{
-		m_textBox->setText("Network Error");
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Remove_Loading_Screen, nullptr);
 	}
 }
 

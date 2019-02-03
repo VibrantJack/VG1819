@@ -89,6 +89,7 @@ namespace kitten
 			Players_Ready,
 			Player_Joined,
 			Scene_Change,
+			Remove_Loading_Screen,
 
 			Test_Event, 
 			MAX_VAL = Test_Event
