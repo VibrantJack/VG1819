@@ -46,6 +46,17 @@ namespace unit
 	void Unit::start()
 	{
 		m_healthBar = m_attachedObject->getComponent<UnitHealthBar>();
+
+		bool flag = false;
+		for (std::string it : m_tags)//strucutre can't join to another unit
+		{
+			if (it == STRUCTURE)
+			{
+				flag = true;
+				break;
+			}
+		}
+		m_isStructure = flag;
 	}
 
 	//status
@@ -107,14 +118,8 @@ namespace unit
 
 	void Unit::join()
 	{
-		if (isCommander())//commander can't join to another unit
+		if (isCommander() || isStructure())//commander and structure can't join to another unit
 			return;
-
-		for (std::string it : m_tags)//strucutre can't join to another unit
-		{
-			if (it == STRUCTURE)
-				return;
-		}
 
 		UnitInteractionManager::getInstance()->request(this, &m_joinAD);
 	}
@@ -151,6 +156,11 @@ namespace unit
 			m_commander->manipulateTile();
 	}
 
+	bool Unit::isStructure()
+	{
+		return m_isStructure;
+	}
+
 /*	void Unit::summonUnit(int p_id)
 	{
 		if (isCommander())
@@ -184,6 +194,10 @@ namespace unit
 		{
 			playerSkipTurn();//if it still cast, it skips turn
 			return;
+		}
+		else if (m_ADList.size() == 0)//doesn't have unit
+		{
+			m_turn->act = false;
 		}
 		else
 		{

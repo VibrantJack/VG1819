@@ -42,6 +42,11 @@ namespace ability
 			p_target->m_attributes[p_name] = p_value;
 		}
 
+		if (p_name == UNIT_MV || p_name == UNIT_BASE_MV)
+		{
+			checkStructureMV(p_target);
+		}
+
 		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_Attrib, nullptr);
 
 		if (p_name == UNIT_HP || p_name == UNIT_MAX_HP)
@@ -82,6 +87,16 @@ namespace ability
 		//	p_target->m_attributes[p_name] = 0;//no negative value
 
 		return 0;
+	}
+
+	void ChangeAttributeNode::checkStructureMV(unit::Unit * p_target)
+	{
+		//structure can not move
+		if (p_target->isStructure())
+		{
+			p_target->m_attributes[UNIT_BASE_MV] = 0;
+			p_target->m_attributes[UNIT_MV] = 0;
+		}
 	}
 
 }

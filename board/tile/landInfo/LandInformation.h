@@ -116,7 +116,7 @@ public:
 		m_Type = Forest_land;
 		m_TexturePath ="textures/background/forest_ground_leaves_dark.jpg";
 		//m_TexturePath = "textures/tiles/grass.png";
-		m_mvCost = 2;
+		m_mvCost = 1;
 		m_description = "It's hard to move cross it. Unit will temporarily -1 MV.";
 	};
 
@@ -155,7 +155,7 @@ public:
 	HomeLand()
 	{
 		m_Type = Home_land;
-		m_TexturePath = "textures/tiles/homeland.tga";
+		m_TexturePath = "textures/tiles/stoneground.jpg";
 		m_mvCost = 1;
 		m_description = "A place to protect you.";
 	};

@@ -2,6 +2,7 @@
 #include "kitten/K_GameObjectManager.h"
 #include "kitten/InputManager.h"
 #include "UI/ClickableButton.h"
+#include "networking/ClientGame.h"
 
 unit::ActionButtonStore::ActionButtonStore()
 {
@@ -56,31 +57,24 @@ void unit::ActionButtonStore::display(Unit * p_u)
 		setButton("ManipulateTile", m_unit->canAct());
 		//setButton("Summon", true);
 	}
-	else
-	{
-		bool canJoin = true;
-		for (std::string it : m_unit->m_tags)//strucutre can't join to another unit
-		{
-			if (it == STRUCTURE)
-			{
-				canJoin = false;
-				break;
-			}
-		}
-		if (canJoin)
-		{
-			setButton("Join", m_unit->canAct());
 
-			//for test
-			setButton("For test: Level Up", true);
-		}
-	}
-	
+	bool canJoin = !p_u->isCommander() && !p_u->isStructure();//not structure or commander
+	if(canJoin)
+		setButton("Join", m_unit->canAct());
+
 	setButton("Turn End", true);
 
-	setButton("For test: Destroy", true);
 
-	setButton("For test: Set DP", true);
+	//for test
+	if (!networking::ClientGame::isNetworkValid())
+	{
+		if(canJoin)
+			setButton("For test: Level Up", true);
+
+		setButton("For test: Destroy", true);
+
+		setButton("For test: Set DP", true);
+	}
 
 	m_show = true;
 

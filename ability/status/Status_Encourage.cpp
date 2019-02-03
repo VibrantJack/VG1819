@@ -8,25 +8,22 @@ namespace ability
 	Status_Encourage::Status_Encourage() : Status::Status()
 	{
 		m_Id = STATUS_ENCOURAGE;
-		addTimePoint(TimePointEvent::Turn_End);
+		endEffectAt();
 		addTimePoint(TimePointEvent::Deal_Damage);
 	}
 
-	int Status_Encourage::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)
+	int Status_Encourage::effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent * p_event)
 	{
-		if (p_type == ability::TimePointEvent::Turn_End)
-		{
-			//reduce duration
-			changeCounter();
-			return 0;
-		}
-		else if (p_type == ability::TimePointEvent::Deal_Damage)
+		if (p_type == ability::TimePointEvent::Deal_Damage)
 		{
 			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAbilityInfo);
 			AbilityInfoPackage* pack = p_event->getPackage(INFO_PACKAGE_KEY);
 			node->effect(pack, UNIT_POWER, m_counter.at(UNIT_POWER));
 			return 0;
 		}
+		else
+			checkDuration(p_type);
+
 		return 1;
 	}
 }

@@ -3,7 +3,8 @@
 ability::Status_Load::Status_Load()
 {
 	m_Id = STATUS_LOAD;
-	addTimePoint(TimePointEvent::Deal_Damage);
+	//addTimePoint(TimePointEvent::Deal_Damage);
+	endEffectAt(TimePointEvent::Deal_Damage);
 }
 
 int ability::Status_Load::effect()
@@ -16,14 +17,10 @@ int ability::Status_Load::effect()
 	return 0;
 }
 
-int ability::Status_Load::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event)
+int ability::Status_Load::effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event)
 {
-	if (p_type == ability::TimePointEvent::Deal_Damage)
-	{
-		//reduce duration
-		changeCounter();
-		return 0;
-	}
+	checkDuration(p_type);
+
 	return 1;
 }
 

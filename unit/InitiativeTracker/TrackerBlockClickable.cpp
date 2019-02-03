@@ -1,5 +1,6 @@
 #include "TrackerBlockClickable.h"
 #include "kitten/K_Common.h"
+#include "board/tile/TileInfo.h"
 #include <iostream>
 namespace unit
 {
@@ -29,6 +30,15 @@ namespace unit
 			enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, TRUE);
 			kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
 		}
+
+		//highlight unit
+		kitten::K_GameObject* tile = m_unit->getComponent<unit::Unit>()->getTile();
+		kitten::Event::TileList* list = new kitten::Event::TileList();
+		list->push_back(tile->getComponent<TileInfo>()->getPos());
+
+		kitten::Event* highlightUnitEvent = new kitten::Event(kitten::Event::Highlight_Tile_With_List);
+		highlightUnitEvent->putTileList(list);
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Highlight_Tile_With_List, highlightUnitEvent);
 	}
 
 	void TrackerBlockClickable::onHoverEnd()
@@ -36,6 +46,9 @@ namespace unit
 		kitten::Event* enableContextEvent = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
 		enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
 		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
+
+		//unhighlight
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Unhighlight_Tile, nullptr);
 	}
 
 	void TrackerBlockClickable::onPause()
@@ -44,6 +57,8 @@ namespace unit
 		enableContextEvent->putInt(CARD_CONTEXT_SET_ENABLED_KEY, FALSE);
 		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
 
+		//unhighlight
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Unhighlight_Tile, nullptr);
 	}
 
 	//DEPRECATED METHOD
