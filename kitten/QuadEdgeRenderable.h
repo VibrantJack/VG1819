@@ -25,7 +25,7 @@ namespace kitten
 		virtual void onDisabled() override;
 
 	public:
-		QuadEdgeRenderable();
+		QuadEdgeRenderable(float p_side = 0.05);
 		~QuadEdgeRenderable();
 
 		virtual void render(kitten::Camera* p_cam) override;

@@ -17,7 +17,7 @@ void kitten::QuadEdgeRenderable::onDisabled()
 	removeFromDynamicRender();
 }
 
-kitten::QuadEdgeRenderable::QuadEdgeRenderable()
+kitten::QuadEdgeRenderable::QuadEdgeRenderable(float p_side)
 	: m_mat(new puppy::Material(puppy::ShaderType::basic))
 {
 	m_mat->setTexture(DEFAULT_EDGE_TEXTURE);
@@ -25,20 +25,42 @@ kitten::QuadEdgeRenderable::QuadEdgeRenderable()
 	//If we have not initialized the vao yet
 	if (sm_instances < 1)
 	{
-		float side = 0.49f;
 		//setup the vao
 		puppy::TexturedVertex verts[] =
 		{
-		{ -side, 0.01f, side,		0.0f, 0.0f },
-		{ side, 0.01f, side,			0.0f, 0.0f },
-		{ -side, 0.01f, -side,		0.0f, 0.0f },
-		{ side, 0.01f, -side,		0.0f, 0.0f },
-		{ side, 0.01f, -side,		0.0f, 0.0f },
-		{ side, 0.01f, side,			0.0f, 0.0f },
-		{ -side, 0.01f, -side,		0.0f, 0.0f },
-		{ -side, 0.01f, side,		0.0f, 0.0f },
+			//left edge
+		{ -0.5f,			0.01f, -0.5f,					0.0f, 0.0f },
+		{ -0.5f + p_side,	0.01f, -0.5f,					0.0f, 0.0f },
+		{ -0.5f,			0.01f, 0.5f,					0.0f, 0.0f },
+		{ -0.5f,			0.01f, 0.5f,					0.0f, 0.0f },
+		{ -0.5f + p_side,	0.01f, -0.5f,					0.0f, 0.0f },
+		{ -0.5f + p_side,	0.01f, 0.5f,					0.0f, 0.0f },
+
+			//right edge
+		{ 0.5f,				0.01f, -0.5f,					0.0f, 0.0f },
+		{ 0.5f - p_side,	0.01f, -0.5f,					0.0f, 0.0f },
+		{ 0.5f,				0.01f, 0.5f,					0.0f, 0.0f },
+		{ 0.5f,				0.01f, 0.5f,					0.0f, 0.0f },
+		{ 0.5f - p_side,	0.01f, -0.5f,					0.0f, 0.0f },
+		{ 0.5f - p_side,	0.01f, 0.5f,					0.0f, 0.0f },
+
+			//top edge
+		{-0.5f + p_side,	0.01f,	0.5f,					0.0f, 0.0f },
+		{-0.5f + p_side,	0.01f,	0.5f - p_side,			0.0f, 0.0f },
+		{0.5f - p_side,		0.01f,	0.5f - p_side,			0.0f, 0.0f },
+		{-0.5f + p_side,	0.01f,	0.5f,					0.0f, 0.0f },
+		{0.5f - p_side,		0.01f,	0.5f,					0.0f, 0.0f },
+		{0.5f - p_side,		0.01f,	0.5f - p_side,			0.0f, 0.0f },
+
+			//bot edge
+		{-0.5f + p_side,	0.01f,	-0.5f,					0.0f, 0.0f },
+		{-0.5f + p_side,	0.01f,	-0.5f + p_side,			0.0f, 0.0f },
+		{0.5f - p_side,		0.01f,	-0.5f + p_side,			0.0f, 0.0f },
+		{-0.5f + p_side,	0.01f,	-0.5f,					0.0f, 0.0f },
+		{0.5f - p_side,		0.01f,	-0.5f,					0.0f, 0.0f },
+		{0.5f - p_side,		0.01f,	-0.5f + p_side,			0.0f, 0.0f },
 		};
-		sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 8);
+		sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::basic), 24);
 	}
 	++sm_instances;
 
@@ -64,7 +86,7 @@ void kitten::QuadEdgeRenderable::render(kitten::Camera* p_cam)
 
 	m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, p_cam->getViewProj() * getTransform().getWorldTransform());
 
-	sm_vao->drawArrays(GL_LINES);
+	sm_vao->drawArrays(GL_TRIANGLES);
 }
 
 void kitten::QuadEdgeRenderable::setTexture(const std::string & p_tex)
