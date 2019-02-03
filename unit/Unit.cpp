@@ -46,6 +46,17 @@ namespace unit
 	void Unit::start()
 	{
 		m_healthBar = m_attachedObject->getComponent<UnitHealthBar>();
+
+		bool flag = false;
+		for (std::string it : m_tags)//strucutre can't join to another unit
+		{
+			if (it == STRUCTURE)
+			{
+				flag = true;
+				break;
+			}
+		}
+		m_isStructure = flag;
 	}
 
 	//status
@@ -147,12 +158,7 @@ namespace unit
 
 	bool Unit::isStructure()
 	{
-		for (std::string it : m_tags)//strucutre can't join to another unit
-		{
-			if (it == STRUCTURE)
-				return true;
-		}
-		return false;
+		return m_isStructure;
 	}
 
 /*	void Unit::summonUnit(int p_id)

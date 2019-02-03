@@ -35,6 +35,8 @@ namespace unit
 		CastTimer * m_castTimer;
 		Commander * m_commander;
 
+		bool m_isStructure;
+
 		std::vector<kitten::K_GameObject*> m_path;
 
 		bool m_lateDestroy = false;
