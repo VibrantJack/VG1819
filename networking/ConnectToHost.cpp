@@ -146,7 +146,6 @@ void ConnectToHost::joinDirectAddress()
 		m_bJoiningGame = true;
 		m_ipInputTextBox->setText("Joined host");
 		networking::ClientGame::getInstance()->sendBasicPacket(JOIN_GAME);
-		kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/loading_screen.json");
 		kitten::K_Instance::changeScene("mainscene.json");
 	} 
 	else
