@@ -6,7 +6,7 @@
 #include "kibble\databank\databank.hpp"
 #include "kitten\InputManager.h"
 
-#define ABILITIES_X 20.0f
+#define ABILITIES_X 14.0f
 #define ABILITIES_Y 138.0f
 
 #define LINE_HEIGHT 12.0f
