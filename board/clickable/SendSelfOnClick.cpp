@@ -217,6 +217,12 @@ void SendSelfOnClick::setTileInfoDisplayText()
 	debugText << currentLine.str() << padding;
 	currentLine.str(std::string());
 
+	bool demonicPresence = info->isDemonicPresence();
+	currentLine << "Demonic Presence: " << demonicPresence << " (Tile:" << info->getDemonicPresence() << ")";
+	getPadding(currentLine.str(), padding);
+	debugText << currentLine.str() << padding;
+	currentLine.str(std::string());
+
 	m_tileInfoDisplay->setText(debugText.str());
 }
 
