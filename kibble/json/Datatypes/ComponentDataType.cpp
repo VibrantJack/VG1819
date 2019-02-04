@@ -1494,7 +1494,9 @@ kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
 #include "kitten/QuadEdgeRenderable.h"
 kitten::K_Component* getQuadEdgeRenderable(nlohmann::json* p_jsonFile)
 {
-	return new kitten::QuadEdgeRenderable();
+	float side;
+	SETOPTDEF(side, "side_width", 0.025f);
+	return new kitten::QuadEdgeRenderable(side);
 }
 
 #include "components/PromptPopUp.h"
