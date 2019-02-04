@@ -25,7 +25,6 @@ namespace userinterface
 			DeckInitializingComponent::getActiveInstance()->toggleMessage(true);
 			return;
 		}
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Host_Button_Clicked, nullptr);
-		kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/loading_screen.json");
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::EventType::Host_Button_Clicked, nullptr);
 	}
 }
