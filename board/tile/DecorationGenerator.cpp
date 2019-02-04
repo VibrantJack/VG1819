@@ -12,8 +12,10 @@ std::vector<kitten::K_GameObject*> DecorationGenerator::generateDecoration(TileI
 	
 	switch (type)
 	{
+		//no decoration
 //	case LandInformation::Grass_land:
 //		return generateGrassDecoration();
+		//too large
 //	case LandInformation::Forest_land:
 //		return generateForestDecoration();
 	case LandInformation::Garden_land:
@@ -24,6 +26,8 @@ std::vector<kitten::K_GameObject*> DecorationGenerator::generateDecoration(TileI
 		return generateWaterDecoration(x, y);
 	case LandInformation::Sand_land:
 		return generateSandDecoration(x, y);
+	case LandInformation::Home_land:
+		return generateTownDecoration();
 	}
 
 	return std::vector<kitten::K_GameObject*>();
@@ -149,6 +153,18 @@ std::vector<kitten::K_GameObject*> DecorationGenerator::generateSwampDecoration(
 	//list.push_back(k);
 
 	k = gm->createNewGameObject("TileDecoration/swamp/skull.json");
+	list.push_back(k);
+
+	return list;
+}
+
+std::vector<kitten::K_GameObject*> DecorationGenerator::generateTownDecoration()
+{
+	std::vector<kitten::K_GameObject*> list;
+	kitten::K_GameObject* k;
+	kitten::K_GameObjectManager* gm = kitten::K_GameObjectManager::getInstance();
+
+	k = gm->createNewGameObject("TileDecoration/town/town.json");
 	list.push_back(k);
 
 	return list;

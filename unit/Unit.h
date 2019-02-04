@@ -35,6 +35,8 @@ namespace unit
 		CastTimer * m_castTimer;
 		Commander * m_commander;
 
+		bool m_isStructure;
+
 		std::vector<kitten::K_GameObject*> m_path;
 
 		bool m_lateDestroy = false;
@@ -76,6 +78,10 @@ namespace unit
 		void addCommander(Commander* p_c);
 		bool isCommander();
 		void manipulateTile();
+
+		//check tag
+		bool isStructure();
+
 //		void summonUnit(int p_id);
 		//status interface
 		/*

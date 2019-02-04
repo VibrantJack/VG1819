@@ -7,9 +7,10 @@ void SandLand::effectOnStay(unit::Unit* p_unit, TileInfo* p_tInfo)
 
 	ability::Status* status = ability::StatusManager::getInstance()->findStatus(STATUS_TEMP_CHANGE);
 	status->changeName("Environment Effect");
-	//status->changeDescription("IN -1");
+	status->changeDescription("IN -1");
 	status->addAttributeChange(UNIT_IN, -1);
 	status->addCounter(UNIT_DURATION, 1);
+	status->endEffectAt(ability::TimePointEvent::Turn_Start);
 
 	status->attach(p_unit);
 }

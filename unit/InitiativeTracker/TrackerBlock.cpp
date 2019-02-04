@@ -7,6 +7,7 @@
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
 #include "UI\CardArt.h"
 #include "kitten\InputManager.h"
+#include "kitten/QuadEdgeRenderable.h"
 
 //static value
 const std::string unit::TrackerBlock::sm_blankTexture = "textures/ui/blankFrame.tga";
@@ -27,7 +28,12 @@ unit::TrackerBlock::TrackerBlock()
 	kitten::K_GameObjectManager* goMan = kitten::K_GameObjectManager::getInstance();
 	//frame object
 	m_frameObject = goMan->createNewGameObject("tracker_block.json");
+
+	const std::vector<kitten::Transform*> list = m_frameObject->getTransform().getChildren();
+	m_borderObject = &list.at(0)->getAttachedGameObject();
+
 	m_frameObject->setEnabled(false);
+
 	//don't this this anymore vvv
 	//text object
 	//m_textObject = goMan->createNewGameObject("initiative_tracker_textbox.json");
@@ -133,6 +139,21 @@ void unit::TrackerBlock::move(int p_slotIndex)
 
 void unit::TrackerBlock::set(kitten::K_GameObject* p_unitGO)
 {
+	//get client id
+	int id = p_unitGO->getComponent<unit::Unit>()->m_clientId;
+	userinterface::UIFrame* f = m_borderObject->getComponent<userinterface::UIFrame>();
+	//set border texture, from "kitten/QuadEdgeRenderable.h"
+	switch (id)
+	{
+	case 1:
+		f->setTexture(P1_EDGE_TEXTURE); break;
+	case 0:
+		f->setTexture(P2_EDGE_TEXTURE); break;
+	default:
+		f->setTexture(DEFAULT_EDGE_TEXTURE); break;
+	}
+
+
 	//get texture
 	std::string texPath = p_unitGO->getComponent<userinterface::CardArt>()->getArt();
 	//get name

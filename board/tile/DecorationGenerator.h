@@ -21,6 +21,7 @@ private:
 	static std::vector<kitten::K_GameObject*> generateWaterDecoration(int p_posX, int p_posY);
 	static std::vector<kitten::K_GameObject*> generateSandDecoration(int p_posX, int p_posY);
 	static std::vector<kitten::K_GameObject*> generateSwampDecoration();
+	static std::vector<kitten::K_GameObject*> generateTownDecoration();
 
 	static LandInformation::TileType getTileType(int p_x, int p_y);
 	static std::vector<bool> isSurroundTileType(int p_x, int p_y, const LandInformation::TileType& p_type);
