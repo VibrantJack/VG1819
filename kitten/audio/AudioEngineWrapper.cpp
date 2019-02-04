@@ -58,13 +58,16 @@ namespace kitten
 		irrklang::ISoundSource* source = m_audioEngine->addSoundSourceFromFile(p_pathToClip.c_str());
 		m_createdSoundSources.insert(std::make_pair(p_pathToClip, source));
 
+		auto name = source->getName();
+
 		if (p_is3D)
 		{
 			return m_audioEngine->play3D(source, irrklang::vec3df(0, 0, 0), false, true, false, p_enableEffects);
 		}
 		else
 		{
-			return m_audioEngine->play2D(source, false, true, false, p_enableEffects);
+			auto res =  m_audioEngine->play2D(source, false, true, false, p_enableEffects);
+			return res;
 		}
 	}
 

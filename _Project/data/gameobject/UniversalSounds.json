@@ -5,9 +5,6 @@
 			"name" : "UniversalSounds",
 			"sounds" : [
 				{
-					"sound" : ["ding", "sounds/ding.json"]
-				},
-				{
 					"sound" : ["click", "sounds/click.json"]
 				},
 				{

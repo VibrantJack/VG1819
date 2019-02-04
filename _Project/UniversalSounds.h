@@ -14,6 +14,7 @@ private:
 	static UniversalSounds* sm_instance;
 
 	std::unordered_map<std::string, kitten::AudioSource*> m_sounds;
+	std::list<std::pair<std::string, std::string>> m_soundsToCreate;
 
 	virtual void start() override;
 

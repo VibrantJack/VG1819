@@ -3,22 +3,10 @@
 
 UniversalSounds* UniversalSounds::sm_instance = nullptr;
 
-UniversalSounds::UniversalSounds(const std::list<std::pair<std::string, std::string>>& p_sounds)
+UniversalSounds::UniversalSounds(const std::list<std::pair<std::string, std::string>>& p_sounds) : m_soundsToCreate(p_sounds)
 {
 	assert(sm_instance == nullptr);
 	sm_instance = this;
-
-	auto end = p_sounds.cend();
-	for (auto it = p_sounds.cbegin(); it != end; ++it)
-	{
-		auto soundName = (*it).first;
-		auto soundPath = (*it).second;
-
-		auto createdSound = kitten::K_GameObjectManager::getInstance()->createNewGameObject(soundPath);
-		kitten::AudioSource* createdAudioSource = createdSound->getComponent<kitten::AudioSource>();
-
-		m_sounds.insert(std::make_pair(soundName, createdAudioSource));
-	}
 }
 
 UniversalSounds::~UniversalSounds()
@@ -31,15 +19,21 @@ void UniversalSounds::start()
 {
 	kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(m_attachedObject);
 
-	//parent our created sounds now that we have a transform
-	auto end = m_sounds.cend();
-	for (auto it = m_sounds.cbegin(); it != end; ++it)
+	auto end = m_soundsToCreate.cend();
+	for (auto it = m_soundsToCreate.cbegin(); it != end; ++it)
 	{
-		auto source = (*it).second;
-		auto transform = source->getTransform();
+		auto soundName = (*it).first;
+		auto soundPath = (*it).second;
 
-		transform.setParent(&(getTransform()));
+		auto createdSound = kitten::K_GameObjectManager::getInstance()->createNewGameObject(soundPath);
+		kitten::AudioSource* createdAudioSource = createdSound->getComponent<kitten::AudioSource>();
+
+		m_sounds.insert(std::make_pair(soundName, createdAudioSource));
+
+		createdSound->getTransform().setParent(&(getTransform()));
 	}
+
+	m_soundsToCreate.clear();
 }
 
 void UniversalSounds::playSound(const std::string& p_sound)

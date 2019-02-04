@@ -412,6 +412,13 @@ kitten::K_Component* getVolumeAdjustOnKeysPressed(nlohmann::json* p_jsonFile) {
 	return new VolumeAdjustOnKeysPressed(increaseKey,decreaseKey,changeAmount);
 }
 
+#include "_Project\LoadSceneOnStart.h"
+kitten::K_Component* getLoadSceneOnStart(nlohmann::json* p_jsonFile) {
+	std::string name = p_jsonFile->operator[]("scene_name");
+
+	return new LoadSceneOnStart(name);
+}
+
 #include "ui/UIFrame.h"
 kitten::K_Component* getUIFrame(nlohmann::json* p_jsonFile) {
 	std::string texture;
@@ -1795,6 +1802,18 @@ kitten::K_Component* getUniversalSounds(nlohmann::json* p_jsonFile) {
 	return new UniversalSounds(sounds);
 }
 
+#include "_Project\PlaySoundOnUIClick.h"
+kitten::K_Component* getPlaySoundOnUIClick(nlohmann::json* p_jsonFile) {
+	return new PlaySoundOnUIClick();
+}
+
+#include "_Project\PlayUniversalSoundOnUIClick.h"
+kitten::K_Component* getPlayUniversalSoundOnUIClick(nlohmann::json* p_jsonFile) {
+	std::string soundName = p_jsonFile->operator[]("sound_name");
+
+	return new PlayUniversalSoundOnUIClick(soundName);
+}
+
 #include "_Project\RefreshParticleSystemOnKeyPress.h"
 kitten::K_Component* getRefreshParticleSystemOnKeyPress(nlohmann::json* p_jsonFile) {
 	
@@ -1929,6 +1948,8 @@ void setupComponentMap() {
 	jsonComponentMap["UnitHealthBar"] = &getUnitHealthBar;
 	jsonComponentMap["CameraMoveByEvent"] = &getCameraMoveByEvent;
 	jsonComponentMap["LerpController"] = &getLerpController;
+	jsonComponentMap["PlaySoundOnUIClick"] = &getPlaySoundOnUIClick;
+	jsonComponentMap["PlayUniversalSoundOnUIClick"] = &getPlayUniversalSoundOnUIClick;
 	jsonComponentMap["ExitGameButton"] = &getExitGameButton;
 	jsonComponentMap["SetCommanderOnClick"] = &getSetCommanderOnClick;
 	jsonComponentMap["SaveDeckOnClick"] = &getSaveDeckOnClick;
@@ -1976,8 +1997,8 @@ void setupComponentMap() {
 	jsonComponentMap["RefreshParticleSystemOnKeyPress"] = &getRefreshParticleSystemOnKeyPress;
 	jsonComponentMap["PlayParticleSystemAtMouseClick"] = &getPlayParticleSystemAtMouseClick;
 	jsonComponentMap["ReloadObjectOnKeyPress"] = &getReloadObjectOnKeyPress;
+	jsonComponentMap["LoadSceneOnStart"] = &getLoadSceneOnStart;
 	jsonComponentMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
-
 	jsonComponentMap["BorderPiece"] = &getBorderPiece;
 }
 
