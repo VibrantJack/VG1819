@@ -148,7 +148,10 @@ void CardContext::setUnitListener(kitten::Event::EventType p_type, kitten::Event
 
 void CardContext::updateUnitAttributesListener(kitten::Event::EventType p_type, kitten::Event* p_event)
 {
-	updateUnitAttributes();
+	if (p_event->getGameObj(UNIT_GO_KEY)->getComponent<unit::Unit>() == m_unitData)
+	{
+		updateUnitData();
+	}
 }
 
 // For testing only, changes the unit on the hovered card by pressing the B key
@@ -177,11 +180,13 @@ void CardContext::updateUnitData()
 	if (name.length() > DEFAULT_MAX_NAME_LENGTH && m_currentNameFont != m_smallNameFont)
 	{
 		m_nameBox->setFont(m_smallNameFont);
+		m_nameBox->getTransform().move2D(0.0f, -2.0f);
 		m_currentNameFont = m_smallNameFont;
 	}
 	else if (m_currentNameFont != m_defaultNameFont)
 	{
 		m_nameBox->setFont(m_defaultNameFont);
+		m_nameBox->getTransform().move2D(0.0f, 2.0f);
 		m_currentNameFont = m_defaultNameFont;
 	}
 	m_nameBox->setText(name);

@@ -47,7 +47,9 @@ namespace ability
 			checkStructureMV(p_target);
 		}
 
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_Attrib, nullptr);
+		kitten::Event* eventData = new kitten::Event(kitten::Event::Update_Card_Context_Attrib);
+		eventData->putGameObj(UNIT_GO_KEY, &p_target->getGameObject());
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_Attrib, eventData);
 
 		if (p_name == UNIT_HP || p_name == UNIT_MAX_HP)
 		{

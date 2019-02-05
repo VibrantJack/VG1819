@@ -136,6 +136,10 @@ namespace unit
 			ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Level_Up);
 			t->putInt(UNIT_LV, m_attributes[UNIT_LV]);
 			triggerTP(ability::TimePointEvent::Level_Up, t);
+
+			kitten::Event* eventData = new kitten::Event(kitten::Event::Update_Card_Context_Attrib);
+			eventData->putGameObj(UNIT_GO_KEY, m_attachedObject);
+			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_Attrib, eventData);
 		}
 	}
 
