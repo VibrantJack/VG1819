@@ -29,6 +29,9 @@
 			"filename" : "card_context.json"
 		},
 		{
+			"filename" : "land_context.json"
+		},
+		{
 			"name" : "Deck",
 			"components" : [
 				{

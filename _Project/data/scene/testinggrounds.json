@@ -32,9 +32,6 @@
 			"scale2d" : [200, 64]
 		},
 		{
-			"filename" : "land_context.json"
-		},
-		{
 			"name" : "Projectile Manager Instance",
 			"components" : [
 				{

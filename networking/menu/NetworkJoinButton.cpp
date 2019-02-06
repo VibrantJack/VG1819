@@ -26,10 +26,10 @@ namespace userinterface
 		if (DeckInitializingComponent::getActiveInstance()->getDeckData() == nullptr)
 		{
 			DeckInitializingComponent::getActiveInstance()->toggleMessage(true);
+			kitten::EventManager::getInstance()->queueEvent(kitten::Event::Remove_Loading_Screen, nullptr);
 			return;
 		}
 		kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/loading_screen.json");
 		kitten::K_Instance::changeScene("network_menu.json");
-		//kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Join_Button_Clicked, nullptr);
 	}
 }

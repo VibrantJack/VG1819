@@ -64,12 +64,21 @@ void LandContext::start()
 	m_enabledPos = glm::vec3(pos.x, pos.y, pos.z);
 	m_disabledPos = glm::vec3(-getTransform().getScale2D().x, pos.y, pos.z);
 
-	m_attachedObject->setEnabled(true);
+	m_attachedObject->getTransform().place(m_disabledPos.x, m_disabledPos.y, m_disabledPos.z);
+	m_attachedObject->setEnabled(false);
 }
 
 void LandContext::setTileInfo(TileInfo* p_tileInfo)
 {
-	if (p_tileInfo != m_tileInfo)
+	if (m_tileInfo == nullptr)
+	{
+		m_tileInfo = p_tileInfo;
+		if (isEnabled())
+		{
+			updateContext();
+		}
+	}
+	else if (p_tileInfo->getType() != m_tileInfo->getType())
 	{
 		m_tileInfo = p_tileInfo;
 		if (isEnabled())
