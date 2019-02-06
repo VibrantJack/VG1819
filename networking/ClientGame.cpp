@@ -181,8 +181,8 @@ namespace networking
 				commanderDataPacket.m_unitId = DeckInitializingComponent::getActiveInstance()->getDeckData()->commanderID;
 
 				// Manually setting Commander spawn points closer for easier testing
-				kitten::K_GameObject* tile = BoardManager::getInstance()->getTile(9 - (sm_iClientId * 4), 8);
-				//kitten::K_GameObject* tile = BoardManager::getInstance()->getSpawnPoint(sm_iClientId);
+				//kitten::K_GameObject* tile = BoardManager::getInstance()->getTile(9 - (sm_iClientId * 4), 8);
+				kitten::K_GameObject* tile = BoardManager::getInstance()->getSpawnPoint(sm_iClientId);
 				commanderDataPacket.m_posX = tile->getComponent<TileInfo>()->getPosX();
 				commanderDataPacket.m_posY = tile->getComponent<TileInfo>()->getPosY();
 

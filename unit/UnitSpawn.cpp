@@ -100,6 +100,7 @@ namespace unit
 
 		// Add all differences to take into account are here. ---------------------------
 		unit->m_attributes = p_unit->m_attributes;
+		unit->m_clientId = p_unit->m_clientId;
 
 		return spawnUnitObjectInternally(unit);
 	}
@@ -139,11 +140,8 @@ namespace unit
 			//unitObject->getComponent<UnitGraphic>()->setEnabled(false);
 		}*/
 
-		// Set client Id to unit
 		if (networking::ClientGame::getInstance())
 		{
-			unit::Unit* unit = unitObject->getComponent<unit::Unit>();
-			unit->m_clientId = networking::ClientGame::getInstance()->getClientId();
 			networking::ClientGame::getInstance()->addUnitGameObject(unitObject);
 		}
 
