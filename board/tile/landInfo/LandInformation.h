@@ -8,6 +8,8 @@ It will be part of tile info
 #include "kitten/K_Common.h"
 #include "unit/Unit.h"
 
+#define LAND_STATUS_NAME "Land Effect"
+
 class TileInfo;
 class LandInformation
 {
@@ -88,7 +90,7 @@ public:
 		m_Type = Swamp_land;
 		m_TexturePath = "textures/tiles/dark_water.png";
 		m_mvCost = 2;
-		m_description = "It's hard to move cross it. When stay on it, unit will lost 1 HP.";
+		m_description = "It's hard to move cross it. Take 1 damage if you stay here.";
 	};
 
 	void effectOnStay(unit::Unit* p_unit, TileInfo* p_tInfo) override;
@@ -102,7 +104,7 @@ public:
 		m_Type = Sand_land;
 		m_TexturePath = "textures/tiles/sand.png";
 		m_mvCost = 1;
-		m_description = "Unit will temporarily -1 IN";
+		m_description = "IN-1 for one turn.";
 	};
 
 	void effectOnStay(unit::Unit* p_unit, TileInfo* p_tInfo) override;
@@ -117,7 +119,7 @@ public:
 		m_TexturePath ="textures/background/forest_ground_leaves_dark.jpg";
 		//m_TexturePath = "textures/tiles/grass.png";
 		m_mvCost = 1;
-		m_description = "It's hard to move cross it. Unit will temporarily -1 MV.";
+		m_description = "It's hard to move cross it. MV-1 for one turn.";
 	};
 
 	void effectOnStart(unit::Unit* p_unit, TileInfo* p_tInfo) override;
@@ -131,7 +133,7 @@ public:
 		m_Type = Garden_land;
 		m_TexturePath = "textures/tiles/grass.png";
 		m_mvCost = 1;
-		m_description = "Nice place to rest. Unit will heal 1 HP and temporarily +1 Max HP.";
+		m_description = "Nice place to rest. Heal 1 HP and Max HP+1 for one turn.";
 	};
 
 	void effectOnStart(unit::Unit* p_unit, TileInfo* p_tInfo) override;
@@ -157,7 +159,7 @@ public:
 		m_Type = Home_land;
 		m_TexturePath = "textures/tiles/stoneground.jpg";
 		m_mvCost = 1;
-		m_description = "A place to protect you.";
+		m_description = "A place to protect you. MV+1 for one turn and reduce incoming damage by 1 while on this land.";
 	};
 
 	void effectOnStay(unit::Unit* p_unit, TileInfo* p_tInfo) override;

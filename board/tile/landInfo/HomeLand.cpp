@@ -11,7 +11,7 @@ void HomeLand::effectOnStay(unit::Unit * p_unit, TileInfo* p_tInfo)
 	//Unit will temporarily +1 mv
 
 	ability::Status* status = ability::StatusManager::getInstance()->findStatus(STATUS_TEMP_CHANGE);
-	status->changeName("Environment Effect");
+	status->changeName(LAND_STATUS_NAME);
 	status->changeDescription("MV +1");
 
 	status->m_source = "HomeLand";
@@ -22,7 +22,7 @@ void HomeLand::effectOnStay(unit::Unit * p_unit, TileInfo* p_tInfo)
 
 	//Unit will reduce income damage by 1
 	status = ability::StatusManager::getInstance()->findStatus(STATUS_BLOCK);
-	status->changeName("Environment Effect");
+	status->changeName(LAND_STATUS_NAME);
 	status->changeDescription("Damage reduced");
 	status->m_source = "HomeLand";
 	status->addCounter(UNIT_POWER, 1);
