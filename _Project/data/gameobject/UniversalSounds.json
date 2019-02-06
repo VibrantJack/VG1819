@@ -9,6 +9,12 @@
 				},
 				{
 					"sound" : ["click_2", "sounds/click_2.json"]
+				},
+				{
+					"sound" : ["ding", "sounds/ding.json"]
+				},
+				{
+					"sound" : ["blorp", "sounds/blorp.json"]
 				}
 			]
 		}

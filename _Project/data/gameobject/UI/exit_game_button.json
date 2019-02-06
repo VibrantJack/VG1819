@@ -6,6 +6,10 @@
 			"texture" : "textures/ui/buttons/button_exit_game.tga"
 		},
 		{
+			"name" : "PlayUniversalSoundOnUIClick",
+			"sound_name" : "click"
+		},
+		{
 			"name" : "ExitGameButton",
 			"regularTexture" : "textures/ui/buttons/button_exit_game.tga",
 			"highlightedTexture" : "textures/ui/buttons/button_exit_game_highlighted.tga"

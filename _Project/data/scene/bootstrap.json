@@ -13,7 +13,11 @@
 			"filename" : "UniversalSounds.json"
 		},
 		{
+            "filename" : "cursor.json"
+        },
+		{
 			"filename" : "camgameobj_main_menu.txt"
-		}
+		}        
+		
 	]
 }

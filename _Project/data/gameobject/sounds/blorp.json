@@ -3,7 +3,7 @@
 	"components" : [
 		{
 			"name" : "AudioSource",
-			"clippath" : "Sounds/sfx/ui/click.wav",
+			"clippath" : "Sounds/sfx/ui/blorp.wav",
 			"is3d" : false,
 			"enableeffects" : false,
 			"loop" : false,

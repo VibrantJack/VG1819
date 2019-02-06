@@ -15,6 +15,10 @@
                 {
                     "name" : "ClickableFrame"
                 },
+				{
+					"name" : "PlayUniversalSoundOnUIClick",
+					"sound_name" : "click"
+				},
                 {
                     "name" : "ChangeSceneOnClick",
                     "scene" : "deck-builder-unit_selection_screen.json"

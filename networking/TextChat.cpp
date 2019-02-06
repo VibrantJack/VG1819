@@ -14,6 +14,8 @@
 #include "kitten\K_GameObjectManager.h"
 #include "networking\ClientGame.h"
 
+#include "_Project\UniversalSounds.h"
+
 #define MESSAGE_LOG_LIMIT 100
 #define MESSAGE_DISPLAY_LIMIT 10
 #define FONT_HEIGHT 14
@@ -267,6 +269,7 @@ void TextChat::receiveMessageListener(kitten::Event::EventType p_type, kitten::E
 	if (!m_attachedObject->isEnabled())
 	{
 		m_newMessageIcon->setEnabled(true);
+		UniversalSounds::playSound("ding");
 	}
 }
 

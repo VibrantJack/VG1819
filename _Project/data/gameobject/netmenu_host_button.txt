@@ -12,6 +12,10 @@
 			"name" : "NetworkHostButton",
 			"regularTexture" : "textures/ui/buttons/host_button.tga",
 			"highlightedTexture" : "textures/ui/buttons/host_button_highlighted.tga"
+		},
+		{
+			"name" : "PlayUniversalSoundOnUIClick",
+			"sound_name" : "click"
 		}
     ]
 }

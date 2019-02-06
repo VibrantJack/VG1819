@@ -12,6 +12,10 @@
 			"name" : "NetworkJoinButton",
 			"regularTexture" : "textures/ui/buttons/join_button.tga",
 			"highlightedTexture" : "textures/ui/buttons/join_button_highlighted.tga"
+		},
+		{
+			"name" : "PlayUniversalSoundOnUIClick",
+			"sound_name" : "click"
 		}
     ]
 }

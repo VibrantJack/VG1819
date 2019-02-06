@@ -20,6 +20,10 @@
 		},
 		{
 			"name" : "ShowLoadingOnClick"
+		},
+		{
+			"name" : "PlayUniversalSoundOnUIClick",
+			"sound_name" : "click"
 		}
 	],
 	"translate2d" : [995, 22],
