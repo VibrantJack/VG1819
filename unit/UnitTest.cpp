@@ -139,6 +139,8 @@ namespace unit
 		kitten::K_GameObject* u15 = UnitSpawn::getInstance()->spawnUnitObject(18);//summoning witch
 		u15->getComponent<unit::UnitMove>()->setTile(8, 4);
 
+		kitten::K_GameObject* u152 = UnitSpawn::getInstance()->spawnUnitObject(18);//summoning witch
+		u152->getComponent<unit::UnitMove>()->setTile(7, 4);
 		//test unit 
 		//unit::Unit* u = u1->getComponent<unit::Unit>();
 		//UnitMonitor::getInstanceSafe()->printUnit(u);

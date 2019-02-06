@@ -334,8 +334,8 @@ namespace unit
 
 	void Unit::moveAnime(kitten::K_GameObject * p_tile)
 	{
-		if (!canMove())
-			return;
+		//if (!canMove())
+		//	return;
 
 		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
 		moveComponet->dontSetTileAfterMove();
