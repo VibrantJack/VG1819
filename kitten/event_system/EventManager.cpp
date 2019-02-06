@@ -27,7 +27,16 @@ namespace kitten
 
 	void EventManager::queueEvent(Event::EventType p_type, Event* p_data)
 	{
-		m_queuedEvents.insert(std::pair<Event::EventType, Event*>(p_type, p_data));
+		auto found = m_queuedEvents.find(p_type);
+		if (found != m_queuedEvents.cend())
+		{
+			delete (*found).second;
+			(*found).second = p_data;
+		}
+		else
+		{
+			m_queuedEvents.insert(std::pair<Event::EventType, Event*>(p_type, p_data));
+		}
 	}
 
 	void EventManager::triggerEvent(Event::EventType p_type, Event* p_data)
