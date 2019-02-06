@@ -7,7 +7,7 @@
 			"is3d" : false,
 			"enableeffects" : false,
 			"loop" : false,
-			"volume" : 0.02,
+			"volume" : 0.1,
 			"getsducked" : false
 		}
 	]

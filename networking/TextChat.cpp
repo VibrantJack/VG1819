@@ -268,8 +268,11 @@ void TextChat::receiveMessageListener(kitten::Event::EventType p_type, kitten::E
 
 	if (!m_attachedObject->isEnabled())
 	{
-		m_newMessageIcon->setEnabled(true);
-		UniversalSounds::playSound("ding");
+		if (!m_newMessageIcon->isEnabled())
+		{
+			m_newMessageIcon->setEnabled(true);
+			UniversalSounds::playSound("ding");
+		}		
 	}
 }
 
