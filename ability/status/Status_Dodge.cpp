@@ -8,19 +8,13 @@ namespace ability
 	Status_Dodge::Status_Dodge() : Status::Status()
 	{
 		m_Id = STATUS_DODGE;
-		addTimePoint(TimePointEvent::Turn_Start);
 		addTimePoint(TimePointEvent::Receive_Damage);
+		endEffectAt(TimePointEvent::Turn_Start);
 	}
 
-	int Status_Dodge::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)
+	int Status_Dodge::effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent * p_event)
 	{
-		if (p_type == ability::TimePointEvent::Turn_Start)
-		{
-			//reduce duration
-			changeCounter();
-			return 0;
-		}
-		else if (p_type == ability::TimePointEvent::Receive_Damage)
+		if (p_type == ability::TimePointEvent::Receive_Damage)
 		{
 			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAbilityInfo);
 			AbilityInfoPackage* pack = p_event->getPackage(INFO_PACKAGE_KEY);
@@ -31,6 +25,9 @@ namespace ability
 			removeThis();//only effect onece
 			return 0;
 		}
+		else
+			checkDuration(p_type);
+
 		return 1;
 	}
 }

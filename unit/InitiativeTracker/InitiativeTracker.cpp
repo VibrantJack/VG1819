@@ -80,6 +80,7 @@ unit::InitiativeTracker::InitiativeTracker()
 
 	m_uAura =kibble::getGameObjectDataParserInstance()->getGameObject("unit_aura.json");
 	m_uAura->getTransform().setIgnoreParent(false);
+	m_uAura->setEnabled(false);
 
 	m_currentUnitIndex = -1;//flag, means object list isn't initialize
 }
@@ -251,6 +252,9 @@ void unit::InitiativeTracker::gameTurnStart()
 		m_uturn->turnReset();
 	}
 	*/
+
+	//active aura
+	m_uAura->setEnabled(true);
 
 	//display new turn message
 	m_display->displayNewGameTurn();

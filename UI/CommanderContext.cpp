@@ -15,6 +15,7 @@
 #include "UI\Borders\BorderPiece.h"
 #include <string>
 #include <map>
+#include "networking/ClientGame.h"
 
 
 
@@ -47,9 +48,12 @@ namespace userinterface
 			this,
 			std::bind(&CommanderContext::commanderLoadListener, this, std::placeholders::_1, std::placeholders::_2));
 		
-		//REMOVE WHEN NOT TESTING
-		attachCommander(kibble::getUnitFromId(13));
-		//REMOVE WHEN NOT TESTING
+		if (!networking::ClientGame::getInstance()->isNetworkValid())
+		{
+			//REMOVE WHEN NOT TESTING
+			attachCommander(kibble::getUnitFromId(13));
+			//REMOVE WHEN NOT TESTING
+		}
 	}
 
 	void CommanderContext::commanderLoadListener(kitten::Event::EventType p_type, kitten::Event* p_event)

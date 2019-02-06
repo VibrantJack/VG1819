@@ -178,6 +178,11 @@ kitten::Event::TileList BoardManager::getRange()
 void BoardManager::registerEvent()
 {
 	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Highlight_Tile_With_List,
+		this,
+		std::bind(&BoardManager::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
 		kitten::Event::EventType::Highlight_Tile,
 		this,
 		std::bind(&BoardManager::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
@@ -295,6 +300,9 @@ void BoardManager::listenEvent(kitten::Event::EventType p_type, kitten::Event * 
 {
 	switch (p_type)
 	{
+	case kitten::Event::Highlight_Tile_With_List:
+		highlightTileWithList(p_data);
+		break;
 	case kitten::Event::Highlight_Tile:
 		highlightTile(p_data);
 		break;
@@ -363,6 +371,12 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 	m_rangeList = list;
 
 	m_highlighter->highlightTile(TileInfo::Range, list);
+}
+
+void BoardManager::highlightTileWithList(kitten::Event * p_data)
+{
+	const kitten::Event::TileList* list = p_data->getTileList();
+	m_highlighter->highlightTile(TileInfo::Range, *list);
 }
 
 /*

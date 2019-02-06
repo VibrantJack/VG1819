@@ -14,6 +14,9 @@
 			"highlightedTexture" : "textures/ui/buttons/join_button_highlighted.tga"
 		},
 		{
+			"name" : "ShowLoadingOnClick"
+		},
+		{
 			"name" : "PlayUniversalSoundOnUIClick",
 			"sound_name" : "click"
 		}

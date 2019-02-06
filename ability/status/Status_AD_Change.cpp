@@ -4,7 +4,8 @@
 ability::Status_AD_Change::Status_AD_Change()
 {
 	m_Id = STATUS_AD_CHANGE;
-	addTimePoint(TimePointEvent::Turn_End);
+	//addTimePoint(TimePointEvent::Turn_End);
+	endEffectAt();
 }
 
 int ability::Status_AD_Change::effect()
@@ -17,14 +18,9 @@ int ability::Status_AD_Change::effect()
 	return 0;
 }
 
-int ability::Status_AD_Change::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event)
+int ability::Status_AD_Change::effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event)
 {
-	if (p_type == ability::TimePointEvent::Turn_End)
-	{
-		//reduce duration
-		changeCounter();
-		return 0;
-	}
+	checkDuration(p_type);
 	return 1;
 }
 

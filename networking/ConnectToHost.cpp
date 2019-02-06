@@ -76,7 +76,7 @@ void ConnectToHost::start()
 
 	// Create loading message game object to display when directly connecting to a host
 	auto goMan = kitten::K_GameObjectManager::getInstance();
-	m_loadingMessage = goMan->createNewGameObject("UI/loading_message.json");
+	m_loadingMessage = goMan->createNewGameObject("UI/loading_screen.json");
 	m_loadingMessage->setEnabled(false);
 
 	// Textbox to display info when polling for a host locally
@@ -97,12 +97,20 @@ void ConnectToHost::update()
 	// If coroutines get working again, this shouldn't be needed
 	if (m_bConnect)
 	{
+		m_bConnect = false;
 		joinDirectAddress();
 	}
 
 	if (m_bLoadingMsgEnabled)
 	{
+		m_bLoadingMsgEnabled = false;
 		m_bConnect = true;
+	}
+
+	if (m_inputMan->keyDown(GLFW_KEY_ENTER) && !m_inputMan->keyDownLast(GLFW_KEY_ENTER))
+	{
+		m_bLoadingMsgEnabled = true;
+		m_loadingMessage->setEnabled(true);
 	}
 
 	// Update ClientGame if there is an instance
@@ -186,6 +194,10 @@ void ConnectToHost::joinLocalhost()
 		m_bJoiningGame = true;
 		networking::ClientGame::getInstance()->sendBasicPacket(JOIN_GAME);
 		kitten::K_Instance::changeScene("mainscene.json");
+	}
+	else
+	{
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Remove_Loading_Screen, nullptr);
 	}
 }
 

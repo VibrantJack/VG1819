@@ -41,6 +41,7 @@ namespace unit
 		kitten::K_GameObject* m_frameObject;//the object contains frame and clickable
 		//kitten::K_GameObject* m_textObject; no longer needed. The object contains textbox and background
 		
+		kitten::K_GameObject* m_borderObject;//border of block, it is the child object of frame object
 
 		int m_currentSlotIndex;//block is currently in this slot
 		int m_targetSlotIndex;//block is moving to this slot

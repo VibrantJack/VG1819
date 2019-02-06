@@ -12,7 +12,7 @@ namespace ability
 		addTimePoint(TimePointEvent::Level_Up);
 	}
 
-	int Status_Lancer_LV2::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)
+	int Status_Lancer_LV2::effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent * p_event)
 	{
 		if (p_type == ability::TimePointEvent::Turn_Start && m_active)
 		{

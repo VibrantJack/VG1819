@@ -1,0 +1,26 @@
+{
+    "name" : "WaterTileObject", 
+    "components" : [
+		{
+			"name" : "QuadEdgeRenderable",
+			"enabled" : true
+		}
+    ],
+	"gameobjects" : [
+		{
+			"name" : "WaterRenderable",
+			"components" : [
+				{
+					"name" : "SpriteRenderable"
+				},
+				{
+					"name" : "SpriteAnimator",
+					"spritename" : "water",
+					"randomstart" : false
+				}
+			],
+			"rotate" : [-90,0,0]
+		}
+	]
+
+}
