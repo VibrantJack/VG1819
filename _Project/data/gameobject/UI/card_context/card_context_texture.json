@@ -3,9 +3,9 @@
     "components" : [
         {
             "name" : "UIObject",
-            "texture" : "textures/ui/card_context.tga"
+            "texture" : "textures/ui/card_context.dds"
         }
     ],
-    "scale2d" : [256,400],
-    "translate" : [1024,215, -0.2]
+    "scale2d" : [256,424],
+    "translate" : [1024,171, -0.2]
 }

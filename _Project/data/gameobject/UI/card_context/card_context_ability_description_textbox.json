@@ -3,10 +3,10 @@
     "components" : [
         {
             "name" : "TextBox",
-			"font" : "../fonts/nsimsun_12pt.fnt",
+			"font" : "../fonts/open_sans_16pt.fnt",
 			"color" : [1,1,1],
             "alignment" : "left",
-            "width" : 220,
+            "width" : 232,
             "height" : 36
         }
     ]

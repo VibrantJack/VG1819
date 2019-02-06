@@ -6,25 +6,7 @@
 #include "kibble\databank\databank.hpp"
 #include "kitten\InputManager.h"
 
-#define NAME_X 38.0f
-#define NAME_Y 377.0f
-
-#define TAGS_X 38.0f
-#define TAGS_Y 350.0f
-
-#define COST_X 220.0f
-#define COST_Y 385.0f
-
-#define HP_X 80.0f
-#define HP_Y 170.0f
-
-#define MV_X 136.0f
-#define MV_Y 170.0f
-
-#define IN_X 200.0f
-#define IN_Y 170.0f
-
-#define ABILITIES_X 20.0f
+#define ABILITIES_X 14.0f
 #define ABILITIES_Y 138.0f
 
 #define LINE_HEIGHT 12.0f
@@ -32,6 +14,17 @@
 
 #define PORTRAIT_X 52.0f
 #define PORTRAIT_Y 180.0f
+
+#define DEFAULT_MAX_NAME_LENGTH 16
+#define NAME_FONT_DEFAULT "../fonts/nsimsun_18pt.fnt"
+#define NAME_FONT_SMALL "../fonts/nsimsun_14pt.fnt"
+
+#define P0_COLOR_R 255.0f / 255.0f
+#define P0_COLOR_G 216.0f / 255.0f
+#define P0_COLOR_B 0.0f / 255.0f
+#define P1_COLOR_R 0.0f / 255.0f
+#define P1_COLOR_G 230.0f / 255.0f
+#define P1_COLOR_B 255.0f / 255.0f
 
 CardContext::CardContext()
 {
@@ -116,6 +109,11 @@ void CardContext::start()
 	m_statusList->getGameObject().getTransform().setIgnoreParent(false);
 	m_statusList->getGameObject().getTransform().setParent(&m_attachedObject->getTransform());
 
+	// Saving the fonts used for the Name TextBox as they may change
+	m_defaultNameFont = puppy::FontTable::getInstance()->getFont(NAME_FONT_DEFAULT);
+	m_smallNameFont = puppy::FontTable::getInstance()->getFont(NAME_FONT_SMALL);
+	m_currentNameFont = m_defaultNameFont;
+
 	// Testing
 	setUnit(kibble::getUnitFromId(13));
 
@@ -150,7 +148,10 @@ void CardContext::setUnitListener(kitten::Event::EventType p_type, kitten::Event
 
 void CardContext::updateUnitAttributesListener(kitten::Event::EventType p_type, kitten::Event* p_event)
 {
-	updateUnitAttributes();
+	if (p_event->getGameObj(UNIT_GO_KEY)->getComponent<unit::Unit>() == m_unitData)
+	{
+		updateUnitData();
+	}
 }
 
 // For testing only, changes the unit on the hovered card by pressing the B key
@@ -171,7 +172,36 @@ void CardContext::updateUnitData()
 {
 	m_unitPortrait->setTexture(m_unitData->getPortraitTexturePath().c_str());
 
-	m_nameBox->setText(m_unitData->m_name);
+	std::string name = m_unitData->m_name;
+	if (m_unitData->m_attributes[UNIT_LV] > 0)
+	{
+		name += "(" + std::to_string(m_unitData->m_attributes[UNIT_LV]) + ")";
+	}
+	if (name.length() > DEFAULT_MAX_NAME_LENGTH && m_currentNameFont != m_smallNameFont)
+	{
+		m_nameBox->setFont(m_smallNameFont);
+		m_nameBox->getTransform().move2D(0.0f, -2.0f);
+		m_currentNameFont = m_smallNameFont;
+	}
+	else if (m_currentNameFont != m_defaultNameFont)
+	{
+		m_nameBox->setFont(m_defaultNameFont);
+		m_nameBox->getTransform().move2D(0.0f, 2.0f);
+		m_currentNameFont = m_defaultNameFont;
+	}
+	m_nameBox->setText(name);
+	switch (m_unitData->m_clientId)
+	{
+		case 0:
+			m_nameBox->setColor(P0_COLOR_R, P0_COLOR_G, P0_COLOR_B);
+			break;
+		case 1:
+			m_nameBox->setColor(P1_COLOR_R, P1_COLOR_G, P1_COLOR_B);
+			break;
+		default:
+			m_nameBox->setColor(1.0f, 1.0f, 1.0f);
+			break;
+	}
 
 	std::string tags = "";
 	auto it = m_unitData->m_tags.begin();
