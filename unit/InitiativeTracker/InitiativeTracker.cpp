@@ -210,7 +210,8 @@ kitten::K_GameObject * unit::InitiativeTracker::getUnitByIndex(int p_index)
 	}
 	else if(p_index >= LISTSIZE(m_unitObjectList, m_extraTurnUnitList))
 	{
-		int index = p_index - LISTSIZE(m_unitObjectList, m_extraTurnUnitList);
+		int size = LISTSIZE(m_unitObjectList, m_extraTurnUnitList);
+		int index = p_index - size;
 		return m_waitUnitObjectList[index];
 	}
 }
