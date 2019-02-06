@@ -1,0 +1,14 @@
+{
+    "name" : "Land Context Name TextBox",
+    "components" : [
+        {
+            "name" : "TextBox",
+			"font" : "../fonts/nsimsun_18pt.fnt",
+			"color" : [1,1,1],
+            "alignment" : "center",
+            "width" : 240,
+            "height" : 36
+        }
+    ],
+	"translate" : [0, 190, -0.1]
+}

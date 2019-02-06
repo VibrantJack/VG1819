@@ -1,0 +1,10 @@
+{
+    "name" : "Land Context Texture", 
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/land_context_bg.dds"
+        }
+    ],
+	"translate" : [0,0, -0.2]
+}

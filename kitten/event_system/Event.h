@@ -9,6 +9,7 @@
 #define PLAYER_COMMANDER_DEATH "player_commander_death_key"
 #define PAUSE_MENU_OPEN "pause_menu_open_key"
 #define UPDATE_CARD_CONTEXT_KEY "update_card_context_key"
+#define UPDATE_LAND_CONTEXT_KEY "update_land_context_key"
 #define CARD_CONTEXT_SET_ENABLED_KEY "card_context_set_enabled_key"
 #define TEXTCHAT_MESSAGE_KEY "textchat_message_key"
 #define NEXT_SCENE_PATH_KEY "next_scene_path_key"
@@ -79,6 +80,9 @@ namespace kitten
 			Update_Card_Context_By_GO,
 			Update_Card_Context_Attrib,
 			Card_Context_Set_Enabled,
+			Land_Context_Set_Enabled,
+			Update_Land_Context,
+			Add_LandContext_Lerp_Callback,
 			Client_Commander_Loaded,
 			Poll_For_Localhost,
 			Join_Localhost,

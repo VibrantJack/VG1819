@@ -32,6 +32,9 @@
 			"scale2d" : [200, 64]
 		},
 		{
+			"filename" : "land_context.json"
+		},
+		{
 			"name" : "Projectile Manager Instance",
 			"components" : [
 				{
@@ -42,7 +45,7 @@
 		},
 		{
 			"filename" : "FPSCounter.txt",
-			"translate" : [20,600,0]
+			"translate" : [20,350,0]
 		}
     ],
 	"scenes" : [
