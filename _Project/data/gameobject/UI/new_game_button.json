@@ -17,6 +17,10 @@
 		},
 		{
 			"name" : "ClickableFrame"
+		},
+		{
+			"name" : "PlayUniversalSoundOnUIClick",
+			"sound_name" : "click"
 		}
 	],
 	"translate2d" : [354, 22],

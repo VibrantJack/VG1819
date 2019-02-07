@@ -6,6 +6,10 @@
 			"texture" : "textures/ui/buttons/button_refresh.tga"
 		},
 		{
+			"name" : "PlayUniversalSoundOnUIClick",
+			"sound_name" : "click"
+		},
+		{
 			"name" : "TriggerEventButton",
 			"regularTexture" : "textures/ui/buttons/button_refresh.tga",
 			"highlightedTexture" : "textures/ui/buttons/button_refresh_h.tga",

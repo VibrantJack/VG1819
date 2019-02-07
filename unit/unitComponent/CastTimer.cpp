@@ -56,6 +56,8 @@ int unit::CastTimer::changeTimer(int p_n)
 		return -1;
 
 	m_timer += p_n;
+
+	m_timerSymbol->getComponent<TimerSymbol>()->changeTexture(m_timer);
 	/*
 	if (m_timer <= 0)
 	{

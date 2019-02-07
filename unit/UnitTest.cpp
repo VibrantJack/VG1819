@@ -105,11 +105,11 @@ namespace unit
 		//kitten::K_GameObject* u4 = UnitSpawn::getInstance()->spawnUnitObject(4);//engineer
 		//u4->getComponent<unit::UnitMove>()->setTile(5, 2);
 		
-//		kitten::K_GameObject* u5 = UnitSpawn::getInstance()->spawnUnitObject(7);//pyromancer
-//		u5->getComponent<unit::UnitMove>()->setTile(6, 2);
+		kitten::K_GameObject* u5 = UnitSpawn::getInstance()->spawnUnitObject(7);//pyromancer
+		u5->getComponent<unit::UnitMove>()->setTile(6, 2);
 
-//		kitten::K_GameObject* u6 = UnitSpawn::getInstance()->spawnUnitObject(8);//stone slinger
-//		u6->getComponent<unit::UnitMove>()->setTile(10, 4);
+		kitten::K_GameObject* u6 = UnitSpawn::getInstance()->spawnUnitObject(8);//stone slinger
+		u6->getComponent<unit::UnitMove>()->setTile(10, 4);
 
 		//kitten::K_GameObject* u7 = UnitSpawn::getInstance()->spawnUnitObject(9);//arrow tower
 		//u7->getComponent<unit::UnitMove>()->setTile(8, 2);
@@ -139,8 +139,8 @@ namespace unit
 		kitten::K_GameObject* u15 = UnitSpawn::getInstance()->spawnUnitObject(18);//summoning witch
 		u15->getComponent<unit::UnitMove>()->setTile(8, 4);
 
-		kitten::K_GameObject* u152 = UnitSpawn::getInstance()->spawnUnitObject(18);//summoning witch
-		u152->getComponent<unit::UnitMove>()->setTile(7, 4);
+//		kitten::K_GameObject* u152 = UnitSpawn::getInstance()->spawnUnitObject(18);//summoning witch
+//		u152->getComponent<unit::UnitMove>()->setTile(7, 4);
 		//test unit 
 		//unit::Unit* u = u1->getComponent<unit::Unit>();
 		//UnitMonitor::getInstanceSafe()->printUnit(u);
