@@ -19,9 +19,6 @@
 		{
 			"filename" : "mainmenu_background.json"
 		},
-        {
-            "filename" : "cursor.json"
-        },
 		{
             "filename" : "UI/exit_game_button.json"
         },

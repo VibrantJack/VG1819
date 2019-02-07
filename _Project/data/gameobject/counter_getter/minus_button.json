@@ -16,7 +16,11 @@
         {
             "name" : "CounterGetterButton",
             "behavior":"minus"
-        }
+        },
+		{
+			"name" : "PlayUniversalSoundOnUIClick",
+			"sound_name" : "click"
+		}
     ],
     "translate" : [0,0,0.05],
     "translate2d":[400,280],

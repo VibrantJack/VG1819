@@ -10,6 +10,10 @@
 			"regularTexture" : "textures/ui/buttons/button_square-right_arrow.tga",
 			"highlightedTexture" : "textures/ui/buttons/button_square-right_arrow_h.tga"
 		},
+		{
+			"name" : "PlayUniversalSoundOnUIClick",
+			"sound_name" : "click"
+		},
         {
             "name" : "DisplayFrameSetChangeOnClick",
             "offset" : 1

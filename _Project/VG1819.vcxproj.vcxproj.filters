@@ -962,6 +962,18 @@
     <ClCompile Include="PlayParticleSystemOnEnable.cpp">
       <Filter>components\util</Filter>
     </ClCompile>
+    <ClCompile Include="UniversalSounds.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaySoundOnUIClick.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayUniversalSoundOnUIClick.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadSceneOnStart.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2010,6 +2022,18 @@
     </ClInclude>
     <ClInclude Include="..\UI\Borders\BorderPiece.h">
       <Filter>UI\Borders</Filter>
+    </ClInclude>
+    <ClInclude Include="UniversalSounds.h">
+      <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaySoundOnUIClick.h">
+      <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayUniversalSoundOnUIClick.h">
+      <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadSceneOnStart.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

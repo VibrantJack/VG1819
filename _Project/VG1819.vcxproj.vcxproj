@@ -410,12 +410,15 @@
     <ClCompile Include="FPSCalc.cpp" />
     <ClCompile Include="HaltParticleSystemAfterTime.cpp" />
     <ClCompile Include="LerpController.cpp" />
+    <ClCompile Include="LoadSceneOnStart.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
     <ClCompile Include="PlayParticleSystemAtMouseClick.cpp" />
     <ClCompile Include="PlayParticleSystemOnEnable.cpp" />
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
     <ClCompile Include="PlaySoundOnStart.cpp" />
+    <ClCompile Include="PlaySoundOnUIClick.cpp" />
+    <ClCompile Include="PlayUniversalSoundOnUIClick.cpp" />
     <ClCompile Include="ProjectileManager.cpp" />
     <ClCompile Include="ProjectileParticleSystemHelper.cpp" />
     <ClCompile Include="RefreshParticleSystemOnKeyPress.cpp" />
@@ -428,6 +431,7 @@
     <ClCompile Include="ToggleSoundOnKeyPress.cpp" />
     <ClCompile Include="ToggleStringInputOnKeyPress.cpp" />
     <ClCompile Include="UniversalPfx.cpp" />
+    <ClCompile Include="UniversalSounds.cpp" />
     <ClCompile Include="UseAbilityWhenClicked.cpp" />
     <ClCompile Include="VolumeAdjustOnKeysPressed.cpp" />
     <ClCompile Include="ZoomByMouseWheel.cpp" />
@@ -765,11 +769,14 @@
     <ClInclude Include="FPSCalc.h" />
     <ClInclude Include="HaltParticleSystemAfterTime.h" />
     <ClInclude Include="LerpController.h" />
+    <ClInclude Include="LoadSceneOnStart.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="PlayParticleSystemAtMouseClick.h" />
     <ClInclude Include="PlayParticleSystemOnEnable.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />
     <ClInclude Include="PlaySoundOnStart.h" />
+    <ClInclude Include="PlaySoundOnUIClick.h" />
+    <ClInclude Include="PlayUniversalSoundOnUIClick.h" />
     <ClInclude Include="ProjectileManager.h" />
     <ClInclude Include="ProjectileParticleSystemHelper.h" />
     <ClInclude Include="RefreshParticleSystemOnKeyPress.h" />
@@ -781,6 +788,7 @@
     <ClInclude Include="ToggleSoundOnKeyPress.h" />
     <ClInclude Include="ToggleStringInputOnKeyPress.h" />
     <ClInclude Include="UniversalPfx.h" />
+    <ClInclude Include="UniversalSounds.h" />
     <ClInclude Include="UseAbilityWhenClicked.h" />
     <ClInclude Include="VolumeAdjustOnKeysPressed.h" />
     <ClInclude Include="ZoomByMouseWheel.h" />
