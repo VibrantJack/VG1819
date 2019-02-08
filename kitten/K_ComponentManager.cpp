@@ -456,5 +456,16 @@ namespace kitten
 		{
 			(*it)->update();
 		}
+
+		//Remove queued components from update
+		if (!m_toRemoveFromUpdate.empty())
+		{
+			for (auto it = m_toRemoveFromUpdate.begin(); it != m_toRemoveFromUpdate.end(); ++it)
+			{
+				removeFromUpdate(*it);
+			}
+
+			m_toRemoveFromUpdate.clear();
+		}
 	}
 }
