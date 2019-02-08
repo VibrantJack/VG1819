@@ -94,6 +94,10 @@ void SendSelfOnClick::onHoverStart()
 		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
 		m_contextEnabled = true;
 	}
+
+	kitten::Event* updateLandContextEvent = new kitten::Event(kitten::Event::Update_Land_Context);
+	updateLandContextEvent->putGameObj(UPDATE_LAND_CONTEXT_KEY, m_attachedObject);
+	kitten::EventManager::getInstance()->queueEvent(kitten::Event::Update_Land_Context, updateLandContextEvent);
 }
 
 void SendSelfOnClick::onHoverEnd()

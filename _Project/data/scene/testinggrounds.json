@@ -42,7 +42,7 @@
 		},
 		{
 			"filename" : "FPSCounter.txt",
-			"translate" : [20,600,0]
+			"translate" : [20,350,0]
 		}
     ],
 	"scenes" : [

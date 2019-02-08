@@ -7,7 +7,7 @@ void ForestLand::effectOnStart(unit::Unit* p_unit, TileInfo* p_tInfo)
 
 	ability::Status* status = ability::StatusManager::getInstance()->findStatus(STATUS_TEMP_CHANGE);
 
-	status->changeName("Environment Effect");
+	status->changeName(LAND_STATUS_NAME);
 	status->changeDescription("MV -1");
 	status->addAttributeChange(UNIT_MV, -1);
 	status->addCounter(UNIT_DURATION, 1);

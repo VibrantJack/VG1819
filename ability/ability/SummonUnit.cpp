@@ -28,6 +28,7 @@ namespace ability
 
 		// Unit setup
 		unit::Unit* unit = p_info->m_cardGOForUnitSummon->getComponent<unit::Unit>();
+		unit->m_clientId = p_info->m_sourceClientId;
 
 		// Update Power Tracker
 		if (p_info->m_sourceClientId == networking::ClientGame::getClientId() || networking::ClientGame::getClientId() == -1)
@@ -38,7 +39,6 @@ namespace ability
 		// Generate Unit and set Tile
 		kitten::K_GameObject* summonedUnitGO = unit::UnitSpawn::getInstance()->spawnUnitObject(unit);
 		summonedUnitGO->getComponent<unit::UnitMove>()->setTile(targetTile);
-		summonedUnitGO->getComponent<unit::Unit>()->m_clientId = p_info->m_sourceClientId;
 
 		SpawnUnitOnDrop* onDrop = unit->getGameObject().getComponent<SpawnUnitOnDrop>();
 		if (onDrop != nullptr)

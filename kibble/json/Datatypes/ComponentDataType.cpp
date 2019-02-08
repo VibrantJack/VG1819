@@ -914,6 +914,8 @@ kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
 		eventEnum = kitten::Event::TextChat_Scroll_Down;
 	else if (eventType == "Ready_Button_Clicked")
 		eventEnum = kitten::Event::Ready_Button_Clicked;
+	else if (eventType == "Land_Context_Set_Enabled")
+		eventEnum = kitten::Event::Land_Context_Set_Enabled;
 	else
 		eventEnum = -1;
 
@@ -1485,6 +1487,12 @@ kitten::K_Component* getCustomDataComponent(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getCardContext(nlohmann::json* p_jsonFile) {
 	return new CardContext();
 }
+
+#include "UI\LandContext.h"
+kitten::K_Component* getLandContext(nlohmann::json* p_jsonFile) {
+	return new LandContext();
+}
+
 #include "UI\ContextMenu.h"
 kitten::K_Component* getContextMenu(nlohmann::json* p_jsonFile) {
 	return new userinterface::ContextMenu();
@@ -1974,6 +1982,7 @@ void setupComponentMap() {
 	jsonComponentMap["StartNewDeckSetupWizard"] = &getStartNewDeckSetupWizard;
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
 	jsonComponentMap["CardContext"] = &getCardContext;
+	jsonComponentMap["LandContext"] = &getLandContext;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
 	jsonComponentMap["DrawCardsFromDeckWithDelay"] = &getDrawCardsFromDeckWithDelay;
 	jsonComponentMap["DeckDiscardedCardHandler"] = &getDeckDiscardedCardHandler;

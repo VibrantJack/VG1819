@@ -64,7 +64,7 @@ namespace unit
 		UnitSize m_size;
 
 		std::unordered_map<std::string, unit::AbilityDescription*> m_ADList;
-		int m_clientId;
+		int m_clientId = -1;
 
 		Unit();
 		~Unit();

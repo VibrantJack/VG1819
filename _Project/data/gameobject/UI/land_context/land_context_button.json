@@ -1,0 +1,20 @@
+{
+	"name" : "Toggle LandContext Button",
+	"components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/land_context_button.dds"
+		},
+		{
+			"name" : "TriggerEventButton",
+			"regularTexture" : "textures/ui/buttons/land_context_button.dds",
+			"highlightedTexture" : "textures/ui/buttons/land_context_button_h.dds",
+			"event" : "Land_Context_Set_Enabled"
+		},
+		{
+			"name" : "ClickableFrame"
+		}
+	],
+	"scale2d" : [36, 36],
+	"translate" : [282, 0, 0]
+}

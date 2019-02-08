@@ -962,6 +962,9 @@
     <ClCompile Include="PlayParticleSystemOnEnable.cpp">
       <Filter>components\util</Filter>
     </ClCompile>
+    <ClCompile Include="..\UI\LandContext.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
     <ClCompile Include="UniversalSounds.cpp">
       <Filter>components\sound</Filter>
     </ClCompile>
@@ -2023,6 +2026,9 @@
     <ClInclude Include="..\UI\Borders\BorderPiece.h">
       <Filter>UI\Borders</Filter>
     </ClInclude>
+    <ClInclude Include="..\UI\LandContext.h">
+      <Filter>UI</Filter>
+     </ClInclude>
     <ClInclude Include="UniversalSounds.h">
       <Filter>components\sound</Filter>
     </ClInclude>
