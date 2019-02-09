@@ -977,6 +977,9 @@
     <ClCompile Include="LoadSceneOnStart.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\networking\NetworkLog.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2028,7 +2031,7 @@
     </ClInclude>
     <ClInclude Include="..\UI\LandContext.h">
       <Filter>UI</Filter>
-     </ClInclude>
+    </ClInclude>
     <ClInclude Include="UniversalSounds.h">
       <Filter>components\sound</Filter>
     </ClInclude>
@@ -2040,6 +2043,9 @@
     </ClInclude>
     <ClInclude Include="LoadSceneOnStart.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\NetworkLog.h">
+      <Filter>networking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

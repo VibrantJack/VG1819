@@ -303,6 +303,7 @@
     <ClCompile Include="..\networking\ConnectToHost.cpp" />
     <ClCompile Include="..\networking\menu\NetworkConnectButton.cpp" />
     <ClCompile Include="..\networking\NetworkingConsoleMenu.cpp" />
+    <ClCompile Include="..\networking\NetworkLog.cpp" />
     <ClCompile Include="..\networking\NetworkServices.cpp" />
     <ClCompile Include="..\networking\AbilityPacket.cpp" />
     <ClCompile Include="..\networking\ReadyCheck.cpp" />
@@ -658,6 +659,7 @@
     <ClInclude Include="..\networking\menu\NetworkJoinButton.h" />
     <ClInclude Include="..\networking\NetworkData.h" />
     <ClInclude Include="..\networking\NetworkingConsoleMenu.h" />
+    <ClInclude Include="..\networking\NetworkLog.h" />
     <ClInclude Include="..\networking\NetworkServices.h" />
     <ClInclude Include="..\networking\ReadyCheck.h" />
     <ClInclude Include="..\networking\ServerGame.h" />

@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include "networking\ClientNetwork.h"
 #include "networking\NetworkData.h"
+#include "networking\NetworkLog.h"
 
 #include "kitten\K_GameObject.h"
 #include <map>
@@ -33,6 +34,8 @@ namespace networking
 		static ClientGame* sm_clientGameInstance;
 
 		float m_timeElapsed;
+
+		NetworkLog* m_log = nullptr;
 
 		ClientGame(const std::string &p_strAddr);
 		~ClientGame();
