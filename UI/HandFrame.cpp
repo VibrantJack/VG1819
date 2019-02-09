@@ -23,7 +23,7 @@
 #include "kibble\kibble.hpp"
 
 #define MAX_CARDS_IN_HAND 5
-#define NUM_STARTING_CARDS 5
+#define NUM_STARTING_CARDS 3
 #define TIME_FOR_CARDS_TO_ORDER 0.1
 #define TEMP_POWER_CHARGE 1
 

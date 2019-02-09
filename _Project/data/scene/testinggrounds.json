@@ -47,5 +47,6 @@
     ],
 	"scenes" : [
 		"Game_Scene.json"
+		,"mountainForest.json"
 	]
 }
