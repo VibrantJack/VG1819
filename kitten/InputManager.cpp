@@ -364,7 +364,7 @@ namespace input
 		else m_lastMouseHitObject = nullptr;
 
 
-		if (hitFrame == nullptr)
+		if (hitFrame == nullptr )
 		{
 			if (hit != nullptr && lastHover != nullptr)
 			{

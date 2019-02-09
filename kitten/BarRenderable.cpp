@@ -52,6 +52,16 @@ namespace kitten
 		}
 	}
 
+	void BarRenderable::setIsHealthBar(bool p_isHealthBar)
+	{
+		m_isHealthBar = p_isHealthBar;
+
+		if (p_isHealthBar)
+		{
+			m_mat = puppy::Material(puppy::ShaderType::healthbar);
+		}
+	}
+
 	void BarRenderable::setTexture(const char* p_pathToTexture)
 	{
 		m_mat.setTexture(p_pathToTexture);

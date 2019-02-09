@@ -23,7 +23,7 @@ namespace kitten
 		~BarRenderable();
 
 		void setTexture(const char* p_pathToTexture);
-		void setIsHealthBar(bool p_isHealthbar) { m_isHealthBar = p_isHealthbar; }
+		void setIsHealthBar(bool p_isHealthbar);
 
 		virtual void render(kitten::Camera* p_cam) override;
 	};
