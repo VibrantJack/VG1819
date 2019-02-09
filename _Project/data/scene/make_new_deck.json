@@ -69,7 +69,7 @@
             "components" : [
 				{
 					"name" : "ChangeSceneOnClick",
-					"scene" : "make_new_deck-CommanderScene.json"					
+					"scene" : "deck-builder-commander_selection_screen.json"					
 				},
                 {
                     "name" : "UIObject",

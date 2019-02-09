@@ -18,8 +18,8 @@
                 }
             ],
             "translate": [0,0,-0.9],
-			"translate2d" : [70, 170],
-            "scale2d" : [800,350]
+			"translate2d" : [280, 137.5],
+            "scale2d" : [800,580]
         },
         {
             "name" : "Deck Units Display Frame",
@@ -34,8 +34,8 @@
                 }
             ],
             "translate": [0,0,-0.8],
-			"translate2d" : [1050, 188],
-            "scale2d" : [210,480]
+			"translate2d" : [0, 182],
+            "scale2d" : [210,490]
         },
 		{
 			"filename" : "mainmenu_background.json"
