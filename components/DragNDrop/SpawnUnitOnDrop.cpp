@@ -48,7 +48,7 @@ void SpawnUnitOnDrop::onClick()
 	}
 
 	if (m_isDragging == false) {
-		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(true);
+		m_lerpController->addPositionLerpFinishedCallback(this);
 		shadowLerp->positionLerp(
 			glm::vec3(
 				0,
@@ -56,6 +56,7 @@ void SpawnUnitOnDrop::onClick()
 				shadowTranslation.z
 			), CARD_SHADOW_MOVE_TIME, LerpController::TransformSource::Local
 		);
+		m_attachedFrame->setBlocksRaycast(true);
 	} else {
 		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(false);
 		shadowLerp->positionLerp(
@@ -65,6 +66,7 @@ void SpawnUnitOnDrop::onClick()
 				shadowTranslation.z
 			), CARD_SHADOW_MOVE_TIME, LerpController::TransformSource::Local
 		);
+		m_attachedFrame->setBlocksRaycast(false);
 	}
 
 	if (!m_isDragging)
@@ -91,13 +93,18 @@ void SpawnUnitOnDrop::onDrop()
 	else
 	{
 		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Cancel_Summon, nullptr);
-		resetCard();
 	}
+		resetCard();
 }
 
 void SpawnUnitOnDrop::onPause()
 {
 	resetCard();
+}
+
+void SpawnUnitOnDrop::onPositionLerpFinished()
+{
+	m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(true);
 }
 
 void SpawnUnitOnDrop::removeCard()
