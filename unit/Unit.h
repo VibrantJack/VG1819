@@ -63,7 +63,7 @@ namespace unit
 		std::unordered_map<std::string, int> m_attributes;//attributes includes all numerical attribute and counter
 		UnitSize m_size;
 
-		std::unordered_map<std::string, unit::AbilityDescription*> m_ADList;
+		std::map<std::string, unit::AbilityDescription*> m_ADList;
 		int m_clientId = -1;
 
 		Unit();
