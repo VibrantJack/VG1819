@@ -30,7 +30,7 @@ namespace puppy
 {	
 	enum ShaderType { 
 		//misc
-		sprite, particles, basic, billboarded_u_scale, basic_directional_light, solid_color, solid_color_directional_light,
+		sprite, particles, basic, billboarded_u_scale, basic_directional_light, solid_color, solid_color_directional_light, healthbar,
 
 		//Texture blended
 		texture_blend_zero, texture_blend_one = texture_blend_zero+1, texture_blend_two = texture_blend_one+1, texture_blend_three = texture_blend_two+1, texture_blend_four=texture_blend_three+1, 
