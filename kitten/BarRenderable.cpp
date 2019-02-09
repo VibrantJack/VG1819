@@ -6,7 +6,7 @@ namespace kitten
 	unsigned int BarRenderable::instances = 0;
 
 
-	BarRenderable::BarRenderable(const char* p_pathToTexture) : m_mat(puppy::ShaderType::billboarded_u_scale), m_uScale(1.0f)
+	BarRenderable::BarRenderable(const char* p_pathToTexture, bool p_isHealthBar) : m_isHealthBar(p_isHealthBar), m_mat(puppy::ShaderType::billboarded_u_scale)
 	{
 		if (instances == 0)
 		{
@@ -20,7 +20,7 @@ namespace kitten
 				{ 0.0f, -0.5f, 0.0f,		0.0f, 0.0f }
 			};
 
-			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::billboarded_u_scale), 6);
+			sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::healthbar), 6);
 		}
 
 		++instances;
@@ -30,6 +30,10 @@ namespace kitten
 			m_mat.setTexture(p_pathToTexture);
 		}
 		
+		if (p_isHealthBar)
+		{
+			m_mat = puppy::Material(puppy::ShaderType::healthbar);
+		}
 	}
 
 	BarRenderable::~BarRenderable()
@@ -53,14 +57,10 @@ namespace kitten
 		m_mat.setTexture(p_pathToTexture);
 	}
 
-	void BarRenderable::setUScale(const float& p_uScale)
-	{
-		m_uScale = 1/p_uScale;
-	}
-
 	void BarRenderable::start()
 	{
 		onEnabled();
+		m_startXScale = getTransform().getLocalScale().x;
 	}
 
 	void BarRenderable::onEnabled()
@@ -76,18 +76,38 @@ namespace kitten
 	void BarRenderable::render(kitten::Camera* p_cam)
 	{
 		auto& transform = getTransform();
+		
 		glm::vec3 centerPos = transform.getTranslation();
-		centerPos.x += 0.5f * transform.getScale().x;
+		if (m_isHealthBar)
+		{
+			centerPos.x += 0.5f * m_startXScale;
+		}
+		else
+		{
+			centerPos.x += 0.5f * transform.getLocalScale().x;
+		}
 
 		m_mat.apply();
 		
 		m_mat.setUniform("mView", p_cam->getView());
 		m_mat.setUniform("centerPos", centerPos);
-		m_mat.setUniform("size", (glm::vec2)transform.getScale());
 		m_mat.setUniform("mViewProj", p_cam->getViewProj());
 
-		m_mat.setUniform("xScale", getTransform().getLocalScale().x);
-		m_mat.setUniform("uScale", m_uScale);
+		if (m_isHealthBar)
+		{
+			glm::vec2 size(m_startXScale, transform.getLocalScale().y);
+			m_mat.setUniform("size", size);
+		}
+		else
+		{
+			m_mat.setUniform("size", (glm::vec2)transform.getLocalScale());
+		}
+		
+
+		if (m_isHealthBar)
+		{
+			m_mat.setUniform("healthPercent", getTransform().getLocalScale().x / m_startXScale);
+		}
 
 		sm_vao->drawArrays(GL_TRIANGLES);
 	}
