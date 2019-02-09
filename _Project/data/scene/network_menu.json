@@ -48,8 +48,15 @@
 			"name" : "Join Local Host Button",
 			"components" : [
 				{
+					"name" : "ShowLoadingOnClick"
+				},
+				{
 					"name" : "UIObject",
 					"texture" : "textures/ui/buttons/join_button_small.tga"
+				},
+				{
+					"name" : "PlayUniversalSoundOnUIClick",
+					"sound_name" : "click"
 				},
 				{
 					"name" : "TriggerEventButton",
@@ -70,6 +77,10 @@
 				{
 					"name" : "UIObject",
 					"texture" : "textures/ui/buttons/join_button_small.tga"
+				},
+				{
+					"name" : "PlayUniversalSoundOnUIClick",
+					"sound_name" : "click"
 				},
 				{
 					"name" : "TriggerEventButton",
@@ -102,7 +113,11 @@
 				},
                 {
                     "name" : "ClickableFrame"
-                }
+                },
+				{
+					"name" : "PlayUniversalSoundOnUIClick",
+					"sound_name" : "click"
+				}
             ],
             "translate2d" : [71, 21],
             "scale2d" : [125, 80]

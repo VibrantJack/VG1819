@@ -29,8 +29,8 @@ namespace kitten
 		std::unordered_set<K_Component*> m_toDelete;
 
 		std::unordered_set<K_Component*> m_toAddToStart;
-		std::list<K_Component*> m_toAddToUpdate;
-		std::list<K_Component*> m_toRemoveFromUpdate;
+		std::unordered_set<K_Component*> m_toAddToUpdate;
+		std::unordered_set<K_Component*> m_toRemoveFromUpdate;
 
 		void addToStart(K_Component* p_toStart);
 		void removeFromStart(K_Component* p_toRemove);

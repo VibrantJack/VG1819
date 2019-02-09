@@ -16,6 +16,10 @@
 		{
 			"name" : "ChangeSceneOnClick",
 			"scene" : "deck-builder-deck_selection_screen.json"
+		},
+		{
+			"name" : "PlayUniversalSoundOnUIClick",
+			"sound_name" : "click"
 		}
 	],
 	"translate2d" : [676, 22],

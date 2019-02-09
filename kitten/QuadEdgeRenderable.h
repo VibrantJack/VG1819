@@ -6,7 +6,7 @@
 
 #define P1_EDGE_TEXTURE "textures/ui/saphire.png"
 #define P2_EDGE_TEXTURE "textures/ui/topaz.png"
-#define DEFAULT_EDGE_TEXTURE "textures/crap/smoke.tga"
+#define DEFAULT_EDGE_TEXTURE "textures/ui/gray.png"
 
 namespace kitten
 {
@@ -25,7 +25,7 @@ namespace kitten
 		virtual void onDisabled() override;
 
 	public:
-		QuadEdgeRenderable();
+		QuadEdgeRenderable(float p_side = 0.05);
 		~QuadEdgeRenderable();
 
 		virtual void render(kitten::Camera* p_cam) override;

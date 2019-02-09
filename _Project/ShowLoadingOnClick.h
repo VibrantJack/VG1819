@@ -1,6 +1,7 @@
 #pragma once
 #include "kitten\K_GameObject.h"
 #include "kitten\mouse picking\ClickableUI.h"
+#include "kitten\event_system\EventManager.h"
 
 #define LOADING_SCREEN_JSON "UI/loading_screen.json"
 
@@ -14,4 +15,6 @@ private:
 public:
 	ShowLoadingOnClick();
 	~ShowLoadingOnClick();
+
+	void disableLoadingScreen(kitten::Event::EventType p_type, kitten::Event* p_data);
 };

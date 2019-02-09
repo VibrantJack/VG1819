@@ -69,7 +69,7 @@ namespace kitten
 
 		BoardManager::createInstance();
 
-		//UnitInteractionManager::createInstance();
+		UnitInteractionManager::createInstance();
 
 		LandInfoManager::createInstance();
 		
@@ -211,7 +211,7 @@ namespace kitten
 
 		//Creating a gameobject
 		//K_GameObject* camGameObj = K_GameObjectManager::getInstance()->createNewGameObject(std::string("camgameobj.txt"));
-		kibble::setSceneFrom(std::string("mainmenu.json"));
+		kibble::setSceneFrom("bootstrap.json");
 
 		// Networking
 		//networking::ServerGame::createInstance();
@@ -250,7 +250,7 @@ namespace kitten
 		// move to gameplay-init component
 		//unit::InitiativeTracker::destroyInstance();
 		BoardManager::destroyInstance();
-		//UnitInteractionManager::destroyInstance();
+		UnitInteractionManager::destroyInstance();
 
 		LandInfoManager::destroyInstance();
 

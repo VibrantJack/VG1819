@@ -7,7 +7,7 @@
 #include <map>
 #include <iterator>  
 //austin's UI element :)
-
+#define DEFAULT_TEXTURE "textures/ui/blankFrame.tga"
 namespace userinterface
 {
 	class UIElement : public kitten::K_UIRenderable
@@ -43,24 +43,25 @@ namespace userinterface
 		virtual void setTexBehaviour(const textureBehaviour p_tb);
 		virtual void setPivotType(const pivotType p_piv);
 
-	    const std::string& getTexturePath() { return m_texPath; }
+	    const std::string& getTexturePath() const { return m_texPath; }
 
 	protected:
+		static std::map<pivotType, puppy::VertexEnvironment*> sm_vao;
+		static std::map<pivotType, int> sm_instances;
+
 		puppy::Material* m_mat;
 		puppy::Texture* m_tex;
 
 		textureBehaviour m_texBehaviour;
 		pivotType m_pivotType;
 
-		static std::map<pivotType, puppy::VertexEnvironment*> sm_vao;
-		static std::map<pivotType, int> sm_instances;
+		puppy::VertexEnvironment* m_vao;
 
-		bool m_isEnabled;
 		std::string m_texPath;
-
-		void defineVerts();
+		bool m_hasSetVerts = false;
 
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
+		virtual void defineVerts();
 	};
 }

@@ -23,9 +23,9 @@ namespace userinterface
 		if (DeckInitializingComponent::getActiveInstance()->getDeckData() == nullptr)
 		{
 			DeckInitializingComponent::getActiveInstance()->toggleMessage(true);
+			kitten::EventManager::getInstance()->queueEvent(kitten::Event::Remove_Loading_Screen, nullptr);
 			return;
 		}
-		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Host_Button_Clicked, nullptr);
-		kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/loading_screen.json");
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::EventType::Host_Button_Clicked, nullptr);
 	}
 }

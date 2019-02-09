@@ -16,6 +16,10 @@
 		{
 			"name" : "SetupDeckEditOnSceneChange",
 			"scene" : "deck-builder-unit_selection_screen.json"
+		},
+		{
+			"name" : "PlayUniversalSoundOnUIClick",
+			"sound_name" : "click"
 		}
 	],
 	"translate": [0,0,-0.7],

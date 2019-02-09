@@ -18,24 +18,24 @@
 class CardContext : public kitten::K_Component
 {
 private:
-	puppy::TextBox* m_nameBox;
-	puppy::TextBox* m_tagsBox;
-	puppy::TextBox* m_hpBox;
-	puppy::TextBox* m_mvBox;
-	puppy::TextBox* m_initiativeBox;
-	puppy::TextBox* m_costBox;
+	puppy::TextBox* m_nameBox = nullptr;
+	puppy::TextBox* m_tagsBox = nullptr;
+	puppy::TextBox* m_hpBox = nullptr;
+	puppy::TextBox* m_mvBox = nullptr;
+	puppy::TextBox* m_initiativeBox = nullptr;
+	puppy::TextBox* m_costBox = nullptr;
 
-	//std::vector<puppy::TextBox*> m_abilityAttributes;
-	//std::vector<puppy::TextBox*> m_abilityDescriptions;
 	puppy::TextBox* m_abilityAttributes[3];
 	puppy::TextBox* m_abilityDescriptions[3];
+	puppy::TextBox* m_statusList = nullptr;
 
-	puppy::TextBox* m_statusList;
+	kitten::K_GameObject* m_cardTexture = nullptr;
+	userinterface::UIObject* m_unitPortrait = nullptr;
 
-	kitten::K_GameObject* m_cardTexture;
-	userinterface::UIObject* m_unitPortrait;
-
-	unit::Unit* m_unitData;
+	unit::Unit* m_unitData = nullptr;
+	puppy::Font* m_currentNameFont = nullptr;
+	puppy::Font* m_defaultNameFont = nullptr;
+	puppy::Font* m_smallNameFont = nullptr;
 
 	int m_textBoxesIndex = 0;
 	// Testing

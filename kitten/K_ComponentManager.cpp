@@ -60,6 +60,7 @@
 //tile
 #include "board/tile/TileInfo.h"
 #include "kibble/UnitGameObject/UnitType.h"
+#include "networking\ReadyCheck.h"
 
 namespace kitten
 {
@@ -244,7 +245,7 @@ namespace kitten
 		}
 		else if (p_componentName == "SpriteAnimator") // Datadriven
 		{
-			comp = new sprites::SpriteAnimator("");
+			comp = new sprites::SpriteAnimator("", true);
 		}
 		else if (p_componentName == "NetworkingConsoleMenu")// Datadriven
 		{
@@ -321,7 +322,7 @@ namespace kitten
 
 	void K_ComponentManager::destroyComponentImmediate(K_Component* p_toDestroy)
 	{
-		if (p_toDestroy->hasUpdate()) //&& isActive
+		if (p_toDestroy->hasUpdate())
 		{
 			removeFromUpdate(p_toDestroy);
 		}
@@ -330,6 +331,8 @@ namespace kitten
 		{
 			removeFromStart(p_toDestroy);
 		}
+
+		m_toRemoveFromUpdate.erase(p_toDestroy);
 
 		p_toDestroy->m_attachedObject->removeComponent(p_toDestroy);
 
@@ -341,13 +344,14 @@ namespace kitten
 		m_toUpdate.insert(p_toAdd);
 	}
 
+
 	bool K_ComponentManager::removeFromUpdate(K_Component* p_toRemove)
-	{
+	{	
 		//find in update list and remove
 		m_toUpdate.erase(p_toRemove);
 
 		//remove anything queued to add to update list
-		m_toAddToUpdate.remove(p_toRemove);
+		m_toAddToUpdate.erase(p_toRemove);
 
 		return true;
 	}
@@ -363,17 +367,17 @@ namespace kitten
 	void K_ComponentManager::removeFromStart(K_Component* p_toRemove)
 	{
 		m_toAddToStart.erase(p_toRemove);
-		m_toRemoveFromUpdate.push_back(p_toRemove);
+		m_toRemoveFromUpdate.insert(p_toRemove);
 	}
 
 	void K_ComponentManager::queueAddToUpdate(K_Component* p_toAdd)
 	{
-		m_toAddToUpdate.push_back(p_toAdd);
+		m_toAddToUpdate.insert(p_toAdd);
 	}
 
 	void K_ComponentManager::queueRemovalFromUpdate(K_Component* p_toRemove)
 	{
-		m_toRemoveFromUpdate.push_back(p_toRemove);
+		m_toRemoveFromUpdate.insert(p_toRemove);
 	}
 
 	void K_ComponentManager::updateComponents()
@@ -386,7 +390,7 @@ namespace kitten
 			}
 			m_toAddToStart.clear();
 		}
-		
+
 		//Start components
 		if (!m_toStart.empty())
 		{
@@ -401,26 +405,26 @@ namespace kitten
 			}
 			m_toStart.clear();
 		}
-		
+
 		//Delete queued deletions
 		if (!m_toDelete.empty())
 		{
 			auto it = m_toDelete.begin();
-			while(!m_toDelete.empty())
+			while (!m_toDelete.empty())
 			{
-				if ((*it)->hasUpdate()) //&& isActive
+				if ((*it)->hasUpdate() && (*it)->m_isEnabled)
 				{
 					removeFromUpdate(*it);
 				}
 
 				if (!(*it)->m_hasStarted)
 				{
-					removeFromStart(*it);
+					m_toAddToStart.erase(*it);
 				}
 
 				(*it)->m_attachedObject->removeComponent(*it);
 
-				
+
 				delete (*it);
 
 				m_toDelete.erase(it);
@@ -428,7 +432,7 @@ namespace kitten
 			}
 
 		}
-		
+
 		//Add queued components to update
 		if (!m_toAddToUpdate.empty())
 		{
@@ -438,7 +442,7 @@ namespace kitten
 			}
 			m_toAddToUpdate.clear();
 		}
-		
+
 		//No if, likely to always have to update
 		//Remove queued components from update
 		for (auto it = m_toRemoveFromUpdate.begin(); it != m_toRemoveFromUpdate.end(); it = m_toRemoveFromUpdate.erase(it))

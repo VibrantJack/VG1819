@@ -2,8 +2,12 @@
 #include "unit/InitiativeTracker/TrackerBlock.h"
 #include "kitten/K_ComponentManager.h"
 #include "kitten/K_GameObjectManager.h"
+#include "kitten\InputManager.h"
 #include "UI/UIFrame.h"
 #include "puppy/Text/TextBox.h"
+#include "kitten\K_GameObject.h"
+#include "UI\Borders\BorderPiece.h"
+#include "kibble\kibble.hpp"
 
 unit::InitiativeTrackerUI::InitiativeTrackerUI()
 	:m_lastUnitIndex(0),
@@ -27,6 +31,34 @@ unit::InitiativeTrackerUI::InitiativeTrackerUI()
 		//m_unitIndex.push_back(-1);
 	}
 
+	//background frame for initiative tracker
+	kitten::K_GameObject* backGround = kibble::getGameObjectDataParserInstance()->getGameObject("UI/backgrounds/initiative_background.txt");
+	int winY = input::InputManager::getInstance()->getWindowHeight();
+	backGround->getTransform().place(300, winY -8, -0.04);
+
+	//build partial borders
+    //top
+	kitten::K_GameObject* topBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/gold_border_top.txt");
+	userinterface::BorderPiece* topBorderComp = topBorder->getComponent<userinterface::BorderPiece>();
+	topBorderComp->setFramedObject(backGround);
+	//topeleft
+	kitten::K_GameObject* topleftBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/gold_border_topleft.txt");
+	userinterface::BorderPiece* topleftBorderComp = topleftBorder->getComponent<userinterface::BorderPiece>();
+	topleftBorderComp->setFramedObject(backGround);
+	//topright
+	kitten::K_GameObject* toprightBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/gold_border_topright.txt");
+	userinterface::BorderPiece* toprightBorderComp = toprightBorder->getComponent<userinterface::BorderPiece>();
+	toprightBorderComp->setFramedObject(backGround);
+	//left
+	kitten::K_GameObject* leftBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/gold_border_left.txt");
+	userinterface::BorderPiece* leftBorderComp = leftBorder->getComponent<userinterface::BorderPiece>();
+	leftBorderComp->setFramedObject(backGround);
+	//right
+	kitten::K_GameObject* rightBorder = kibble::getGameObjectDataParserInstance()->getGameObject("ui/borders/gold_border_right.txt");
+	userinterface::BorderPiece* rightBorderComp = rightBorder->getComponent<userinterface::BorderPiece>();
+	rightBorderComp->setFramedObject(backGround);
+
+	//trackerframe
 	setXList();
 
 	//disabled - we don't need this anymore

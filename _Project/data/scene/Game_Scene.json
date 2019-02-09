@@ -29,6 +29,9 @@
 			"filename" : "card_context.json"
 		},
 		{
+			"filename" : "land_context.json"
+		},
+		{
 			"name" : "Deck",
 			"components" : [
 				{
@@ -57,7 +60,7 @@
 					]
 				}
 			],
-			"translate2d" : [1102, 100],
+			"translate2d" : [1070, 5],
 			"scale2d": [100,100]
 		},		
 		{

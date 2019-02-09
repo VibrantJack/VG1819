@@ -8,6 +8,10 @@
         {
             "name" : "ClickableFrame"
         },
+		{
+			"name" : "PlayUniversalSoundOnUIClick",
+			"sound_name" : "click"
+		},
         {
             "name" : "ReturnToMainMenuButton",
 			"enabledOnPause" : true,

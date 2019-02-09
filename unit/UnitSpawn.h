@@ -28,9 +28,14 @@ namespace unit
 			Oligarch,
 			King,
 			Queen,
+			EternalEye,
+			Lancer,
+			MudDemon,
+			SummoningWitch,
+			Servant,
 
 			FIRST_UNIT_INDEX = Priest,
-			MAX_UNIT_INDEX = Queen
+			MAX_UNIT_INDEX = Servant
 		};
 
 		UnitSpawn();

@@ -94,6 +94,10 @@ void SendSelfOnClick::onHoverStart()
 		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, enableContextEvent);
 		m_contextEnabled = true;
 	}
+
+	kitten::Event* updateLandContextEvent = new kitten::Event(kitten::Event::Update_Land_Context);
+	updateLandContextEvent->putGameObj(UPDATE_LAND_CONTEXT_KEY, m_attachedObject);
+	kitten::EventManager::getInstance()->queueEvent(kitten::Event::Update_Land_Context, updateLandContextEvent);
 }
 
 void SendSelfOnClick::onHoverEnd()
@@ -213,6 +217,12 @@ void SendSelfOnClick::setTileInfoDisplayText()
 
 	int ownerId = info->getOwnerId();
 	currentLine << "Tile Owner ID: " << ownerId;
+	getPadding(currentLine.str(), padding);
+	debugText << currentLine.str() << padding;
+	currentLine.str(std::string());
+
+	bool demonicPresence = info->isDemonicPresence();
+	currentLine << "Demonic Presence: " << demonicPresence << " (Tile:" << info->getDemonicPresence() << ")";
 	getPadding(currentLine.str(), padding);
 	debugText << currentLine.str() << padding;
 	currentLine.str(std::string());

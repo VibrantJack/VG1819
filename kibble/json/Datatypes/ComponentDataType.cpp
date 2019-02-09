@@ -412,6 +412,13 @@ kitten::K_Component* getVolumeAdjustOnKeysPressed(nlohmann::json* p_jsonFile) {
 	return new VolumeAdjustOnKeysPressed(increaseKey,decreaseKey,changeAmount);
 }
 
+#include "_Project\LoadSceneOnStart.h"
+kitten::K_Component* getLoadSceneOnStart(nlohmann::json* p_jsonFile) {
+	std::string name = p_jsonFile->operator[]("scene_name");
+
+	return new LoadSceneOnStart(name);
+}
+
 #include "ui/UIFrame.h"
 kitten::K_Component* getUIFrame(nlohmann::json* p_jsonFile) {
 	std::string texture;
@@ -675,7 +682,10 @@ kitten::K_Component* getSpriteAnimator(nlohmann::json* p_jsonFile) {
 		characterName = name; // I do not know why this is needed but it is.
 	}
 
-	return new sprites::SpriteAnimator(characterName);
+	bool randomStart;
+	SETOPTDEF(randomStart, "randomstart", true);
+
+	return new sprites::SpriteAnimator(characterName, randomStart);
 }
 
 #include "kitten\sprites\SpriteRenderable.h"
@@ -904,6 +914,8 @@ kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
 		eventEnum = kitten::Event::TextChat_Scroll_Down;
 	else if (eventType == "Ready_Button_Clicked")
 		eventEnum = kitten::Event::Ready_Button_Clicked;
+	else if (eventType == "Land_Context_Set_Enabled")
+		eventEnum = kitten::Event::Land_Context_Set_Enabled;
 	else
 		eventEnum = -1;
 
@@ -1097,6 +1109,46 @@ kitten::K_Component* getUIElement(nlohmann::json* p_jsonFile) {
 	}
 	
 	return new userinterface::UIElement(texture.c_str(),type, tb);
+}
+
+#include "UI\Borders\BorderPiece.h"
+kitten::K_Component* getBorderPiece(nlohmann::json* p_jsonFile)
+{
+	userinterface::BorderPiece::BorderPlacement placement = userinterface::BorderPiece::BorderPlacement::bp_BotLeft;
+	std::string texture;
+	SETOPTDEF(texture, "texture", "textures/ui/frames/frameAtlas.tga");
+
+	if (JSONHAS("placement"))
+	{
+		std::string temp = LOOKUP("placement");
+		if (temp == "left")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_Left;
+		else if (temp == "right")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_Right;
+		else if (temp == "top")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_Top;
+		else if (temp == "bottom")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_Bot;
+		else if (temp == "botleft")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_BotLeft;
+		else if (temp == "botright")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_BotRight;
+		else if (temp == "topleft")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_TopLeft;
+		else if (temp == "topright")
+			placement = userinterface::BorderPiece::BorderPlacement::bp_TopRight;
+		else
+			placement = userinterface::BorderPiece::BorderPlacement::bp_BotLeft; 
+	}
+	if (JSONHAS("texture"))
+	{
+		texture = LOOKUP("texture");
+	}
+
+	userinterface::BorderPiece* piece = new userinterface::BorderPiece(placement);
+	piece->setTexture(texture.c_str());
+		
+	return piece;
 }
 
 #include "kitten\ModelRenderable.h"
@@ -1435,6 +1487,12 @@ kitten::K_Component* getCustomDataComponent(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getCardContext(nlohmann::json* p_jsonFile) {
 	return new CardContext();
 }
+
+#include "UI\LandContext.h"
+kitten::K_Component* getLandContext(nlohmann::json* p_jsonFile) {
+	return new LandContext();
+}
+
 #include "UI\ContextMenu.h"
 kitten::K_Component* getContextMenu(nlohmann::json* p_jsonFile) {
 	return new userinterface::ContextMenu();
@@ -1451,7 +1509,9 @@ kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
 #include "kitten/QuadEdgeRenderable.h"
 kitten::K_Component* getQuadEdgeRenderable(nlohmann::json* p_jsonFile)
 {
-	return new kitten::QuadEdgeRenderable();
+	float side;
+	SETOPTDEF(side, "side_width", 0.025f);
+	return new kitten::QuadEdgeRenderable(side);
 }
 
 #include "components/PromptPopUp.h"
@@ -1484,7 +1544,7 @@ kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
 			list.push_back(*it);
 		}
 		d->setTextureList(list);
-	}
+	} 
 
 	if (JSONHAS("min_scale") && JSONHAS("max_scale"))
 	{
@@ -1738,6 +1798,35 @@ kitten::K_Component* getReadyCheck(nlohmann::json* p_jsonFile) {
 	return new ReadyCheck(texture.c_str(), type, tb);
 }
 
+#include "_Project\UniversalSounds.h"
+kitten::K_Component* getUniversalSounds(nlohmann::json* p_jsonFile) {
+
+	std::list<std::pair<std::string, std::string>> sounds;
+
+	auto end = p_jsonFile->operator[]("sounds").cend();
+	for (auto it = p_jsonFile->operator[]("sounds").cbegin(); it != end; ++it)
+	{
+		std::string soundName = (*it)["sound"][0];
+		std::string soundPath = (*it)["sound"][1];
+
+		sounds.push_back(std::make_pair(soundName, soundPath));
+	}
+
+	return new UniversalSounds(sounds);
+}
+
+#include "_Project\PlaySoundOnUIClick.h"
+kitten::K_Component* getPlaySoundOnUIClick(nlohmann::json* p_jsonFile) {
+	return new PlaySoundOnUIClick();
+}
+
+#include "_Project\PlayUniversalSoundOnUIClick.h"
+kitten::K_Component* getPlayUniversalSoundOnUIClick(nlohmann::json* p_jsonFile) {
+	std::string soundName = p_jsonFile->operator[]("sound_name");
+
+	return new PlayUniversalSoundOnUIClick(soundName);
+}
+
 #include "_Project\RefreshParticleSystemOnKeyPress.h"
 kitten::K_Component* getRefreshParticleSystemOnKeyPress(nlohmann::json* p_jsonFile) {
 	
@@ -1853,6 +1942,7 @@ void setupComponentMap() {
 	jsonComponentMap["StartGameOnClick"] = &getStartGameOnClick;
 	jsonComponentMap["DeckComponent"] = &getDeckComponent;
 	jsonComponentMap["GameplayInit"] = &getGameplayInit;
+	jsonComponentMap["UniversalSounds"] = &getUniversalSounds;
 	jsonComponentMap["NetworkJoinButton"] = &getNetworkJoinButton;
 	jsonComponentMap["NetworkHostButton"] = &getNetworkHostButton;	
 	jsonComponentMap["NetworkConnectButton"] = &getNetworkConnectButton;
@@ -1871,6 +1961,8 @@ void setupComponentMap() {
 	jsonComponentMap["UnitHealthBar"] = &getUnitHealthBar;
 	jsonComponentMap["CameraMoveByEvent"] = &getCameraMoveByEvent;
 	jsonComponentMap["LerpController"] = &getLerpController;
+	jsonComponentMap["PlaySoundOnUIClick"] = &getPlaySoundOnUIClick;
+	jsonComponentMap["PlayUniversalSoundOnUIClick"] = &getPlayUniversalSoundOnUIClick;
 	jsonComponentMap["ExitGameButton"] = &getExitGameButton;
 	jsonComponentMap["SetCommanderOnClick"] = &getSetCommanderOnClick;
 	jsonComponentMap["SaveDeckOnClick"] = &getSaveDeckOnClick;
@@ -1890,6 +1982,7 @@ void setupComponentMap() {
 	jsonComponentMap["StartNewDeckSetupWizard"] = &getStartNewDeckSetupWizard;
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
 	jsonComponentMap["CardContext"] = &getCardContext;
+	jsonComponentMap["LandContext"] = &getLandContext;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
 	jsonComponentMap["DrawCardsFromDeckWithDelay"] = &getDrawCardsFromDeckWithDelay;
 	jsonComponentMap["DeckDiscardedCardHandler"] = &getDeckDiscardedCardHandler;
@@ -1918,8 +2011,9 @@ void setupComponentMap() {
 	jsonComponentMap["RefreshParticleSystemOnKeyPress"] = &getRefreshParticleSystemOnKeyPress;
 	jsonComponentMap["PlayParticleSystemAtMouseClick"] = &getPlayParticleSystemAtMouseClick;
 	jsonComponentMap["ReloadObjectOnKeyPress"] = &getReloadObjectOnKeyPress;
+	jsonComponentMap["LoadSceneOnStart"] = &getLoadSceneOnStart;
 	jsonComponentMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
-
+	jsonComponentMap["BorderPiece"] = &getBorderPiece;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

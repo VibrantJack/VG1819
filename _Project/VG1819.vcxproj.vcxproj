@@ -354,6 +354,7 @@
     <ClCompile Include="..\puppy\Text\TextBox.cpp" />
     <ClCompile Include="..\puppy\Text\TextTable.cpp" />
     <ClCompile Include="..\puppy\VertexEnvironment.cpp" />
+    <ClCompile Include="..\UI\Borders\BorderPiece.cpp" />
     <ClCompile Include="..\UI\CardContext.cpp" />
     <ClCompile Include="..\UI\CardUIO.cpp" />
     <ClCompile Include="..\UI\ClickableButton.cpp" />
@@ -362,6 +363,7 @@
     <ClCompile Include="..\UI\DragNDrop.cpp" />
     <ClCompile Include="..\UI\HandFrame.cpp" />
     <ClCompile Include="..\UI\InterfaceBuilder.cpp" />
+    <ClCompile Include="..\UI\LandContext.cpp" />
     <ClCompile Include="..\UI\MainMenu\MainMenu.cpp" />
     <ClCompile Include="..\UI\TabMenu\ReturnToMainMenuButton.cpp" />
     <ClCompile Include="..\UI\TabMenu\TabMenu.cpp" />
@@ -409,12 +411,15 @@
     <ClCompile Include="FPSCalc.cpp" />
     <ClCompile Include="HaltParticleSystemAfterTime.cpp" />
     <ClCompile Include="LerpController.cpp" />
+    <ClCompile Include="LoadSceneOnStart.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
     <ClCompile Include="PlayParticleSystemAtMouseClick.cpp" />
     <ClCompile Include="PlayParticleSystemOnEnable.cpp" />
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
     <ClCompile Include="PlaySoundOnStart.cpp" />
+    <ClCompile Include="PlaySoundOnUIClick.cpp" />
+    <ClCompile Include="PlayUniversalSoundOnUIClick.cpp" />
     <ClCompile Include="ProjectileManager.cpp" />
     <ClCompile Include="ProjectileParticleSystemHelper.cpp" />
     <ClCompile Include="RefreshParticleSystemOnKeyPress.cpp" />
@@ -427,6 +432,7 @@
     <ClCompile Include="ToggleSoundOnKeyPress.cpp" />
     <ClCompile Include="ToggleStringInputOnKeyPress.cpp" />
     <ClCompile Include="UniversalPfx.cpp" />
+    <ClCompile Include="UniversalSounds.cpp" />
     <ClCompile Include="UseAbilityWhenClicked.cpp" />
     <ClCompile Include="VolumeAdjustOnKeysPressed.cpp" />
     <ClCompile Include="ZoomByMouseWheel.cpp" />
@@ -705,6 +711,7 @@
     <ClInclude Include="..\puppy\Text\TextBox.h" />
     <ClInclude Include="..\puppy\Text\TextTable.h" />
     <ClInclude Include="..\puppy\VertexEnvironment.h" />
+    <ClInclude Include="..\UI\Borders\BorderPiece.h" />
     <ClInclude Include="..\UI\CardContext.h" />
     <ClInclude Include="..\UI\CardUIO.h" />
     <ClInclude Include="..\UI\ClickableButton.h" />
@@ -713,6 +720,7 @@
     <ClInclude Include="..\UI\DragNDrop.h" />
     <ClInclude Include="..\UI\HandFrame.h" />
     <ClInclude Include="..\UI\InterfaceBuilder.h" />
+    <ClInclude Include="..\UI\LandContext.h" />
     <ClInclude Include="..\UI\MainMenu\MainMenu.h" />
     <ClInclude Include="..\UI\TabMenu\ReturnToMainMenuButton.h" />
     <ClInclude Include="..\UI\TabMenu\TabMenu.h" />
@@ -763,11 +771,14 @@
     <ClInclude Include="FPSCalc.h" />
     <ClInclude Include="HaltParticleSystemAfterTime.h" />
     <ClInclude Include="LerpController.h" />
+    <ClInclude Include="LoadSceneOnStart.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="PlayParticleSystemAtMouseClick.h" />
     <ClInclude Include="PlayParticleSystemOnEnable.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />
     <ClInclude Include="PlaySoundOnStart.h" />
+    <ClInclude Include="PlaySoundOnUIClick.h" />
+    <ClInclude Include="PlayUniversalSoundOnUIClick.h" />
     <ClInclude Include="ProjectileManager.h" />
     <ClInclude Include="ProjectileParticleSystemHelper.h" />
     <ClInclude Include="RefreshParticleSystemOnKeyPress.h" />
@@ -779,6 +790,7 @@
     <ClInclude Include="ToggleSoundOnKeyPress.h" />
     <ClInclude Include="ToggleStringInputOnKeyPress.h" />
     <ClInclude Include="UniversalPfx.h" />
+    <ClInclude Include="UniversalSounds.h" />
     <ClInclude Include="UseAbilityWhenClicked.h" />
     <ClInclude Include="VolumeAdjustOnKeysPressed.h" />
     <ClInclude Include="ZoomByMouseWheel.h" />

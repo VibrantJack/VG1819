@@ -11,7 +11,7 @@ namespace ability
 		addTimePoint(TimePointEvent::Receive_Damage);
 	}
 
-	int Status_Curse::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)
+	int Status_Curse::effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent * p_event)
 	{
 		if (p_type == ability::TimePointEvent::Receive_Damage)
 		{

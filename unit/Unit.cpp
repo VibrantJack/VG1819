@@ -46,6 +46,17 @@ namespace unit
 	void Unit::start()
 	{
 		m_healthBar = m_attachedObject->getComponent<UnitHealthBar>();
+
+		bool flag = false;
+		for (std::string it : m_tags)//strucutre can't join to another unit
+		{
+			if (it == STRUCTURE)
+			{
+				flag = true;
+				break;
+			}
+		}
+		m_isStructure = flag;
 	}
 
 	//status
@@ -107,14 +118,8 @@ namespace unit
 
 	void Unit::join()
 	{
-		if (isCommander())//commander can't join to another unit
+		if (isCommander() || isStructure())//commander and structure can't join to another unit
 			return;
-
-		for (std::string it : m_tags)//strucutre can't join to another unit
-		{
-			if (it == STRUCTURE)
-				return;
-		}
 
 		UnitInteractionManager::getInstance()->request(this, &m_joinAD);
 	}
@@ -131,6 +136,10 @@ namespace unit
 			ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Level_Up);
 			t->putInt(UNIT_LV, m_attributes[UNIT_LV]);
 			triggerTP(ability::TimePointEvent::Level_Up, t);
+
+			kitten::Event* eventData = new kitten::Event(kitten::Event::Update_Card_Context_Attrib);
+			eventData->putGameObj(UNIT_GO_KEY, m_attachedObject);
+			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_Attrib, eventData);
 		}
 	}
 
@@ -149,6 +158,11 @@ namespace unit
 	{
 		if(isCommander())
 			m_commander->manipulateTile();
+	}
+
+	bool Unit::isStructure()
+	{
+		return m_isStructure;
 	}
 
 /*	void Unit::summonUnit(int p_id)
@@ -184,6 +198,10 @@ namespace unit
 		{
 			playerSkipTurn();//if it still cast, it skips turn
 			return;
+		}
+		else if (m_ADList.size() == 0)//doesn't have unit
+		{
+			m_turn->act = false;
 		}
 		else
 		{
@@ -316,8 +334,8 @@ namespace unit
 
 	void Unit::moveAnime(kitten::K_GameObject * p_tile)
 	{
-		if (!canMove())
-			return;
+		//if (!canMove())
+		//	return;
 
 		unit::UnitMove* moveComponet = m_attachedObject->getComponent<unit::UnitMove>();
 		moveComponet->dontSetTileAfterMove();

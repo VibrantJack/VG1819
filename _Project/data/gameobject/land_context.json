@@ -1,0 +1,13 @@
+{
+    "name" : "Land Context",
+    "components" : [
+		{
+			"name" : "LandContext"
+		},
+		{
+            "name" : "LerpController"
+        }
+    ],
+    "scale2d" : [240,200],
+    "translate" : [0,395, 0]
+}

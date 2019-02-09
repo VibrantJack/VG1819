@@ -1,0 +1,11 @@
+{
+    "name" : "Land Context Texture", 
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/tiles/grass.png"
+        }
+    ],
+	"translate" : [88, 106, -0.1],
+    "scale2d" : [64,64]
+}

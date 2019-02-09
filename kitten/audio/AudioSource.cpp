@@ -93,7 +93,6 @@ namespace kitten
 			m_audioClip->setMinDistance(m_minDist);
 			m_audioClip->setMaxDistance(m_maxDist);
 			m_audioClip->setIsLooped(m_isLooped);
-			m_audioClip->setIsPaused(false);
 			m_sfxController->setController(m_audioClip->getSoundEffectControl());
 			m_sfxController->applyEffects();
 
@@ -110,10 +109,13 @@ namespace kitten
 			{
 				m_audioClip->setVolume(m_volume);
 			}
+
 			if (m_causesDuck)
 			{
 				//m_audioClip->setSoundStopEventReceiver(this);
 			}
+
+			m_audioClip->setIsPaused(false);
 		}
 		else
 		{

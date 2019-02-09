@@ -1,0 +1,23 @@
+{
+	"gameobjects" : [
+		{
+			"name" : "NextScene",
+			"components" : [
+				{
+					"name" : "LoadSceneOnStart",
+					"scene_name" : "mainmenu.json"
+				}
+			]
+		},
+		{
+			"filename" : "UniversalSounds.json"
+		},
+		{
+            "filename" : "cursor.json"
+        },
+		{
+			"filename" : "camgameobj_main_menu.txt"
+		}        
+		
+	]
+}

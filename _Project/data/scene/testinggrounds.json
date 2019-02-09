@@ -16,20 +16,20 @@
 				},
 				{
 					"name" : "UIObject",
-					"texture" : "textures/ui/buttons/button_draw_card.tga"
+					"texture" : "textures/ui/buttons/blank_button.tga"
 				},
 				{
 					"name" : "ClickableButton",
-					"regularTexture" : "textures/ui/buttons/button_draw_card.tga",
-					"highlightedTexture" : "textures/ui/buttons/button_draw_card_h.tga"
+					"regularTexture" : "textures/ui/buttons/blank_button.tga",
+					"highlightedTexture" : "textures/ui/buttons/blank_button_highlighted.tga"
 				},
 				{
 					"name" : "DrawCardOnClickUI"
 				}
 			],
 			"translate" : [0,0, -0.3],
-			"translate2d" : [1077, 10],
-			"scale2d" : [200, 64]
+			"translate2d" : [1180, 10],
+			"scale2d" : [64, 64]
 		},
 		{
 			"name" : "Projectile Manager Instance",
@@ -42,7 +42,7 @@
 		},
 		{
 			"filename" : "FPSCounter.txt",
-			"translate" : [20,600,0]
+			"translate" : [20,350,0]
 		}
     ],
 	"scenes" : [
