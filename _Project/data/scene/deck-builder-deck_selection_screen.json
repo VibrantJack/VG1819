@@ -87,7 +87,7 @@
                     "texture" : "textures/ui/buttons/delete_deck.dds"
                 },
                 {
-                    "name" : "ClickableButton",
+                    "name" : "DeleteDeckOnClick",
                     "regularTexture" : "textures/ui/buttons/delete_deck.dds",
                     "highlightedTexture" : "textures/ui/buttons/delete_deck_h.dds"
                 },
@@ -108,6 +108,14 @@
         },
         {
 			"filename" : "UI/commander_button.json"
+        },
+        {
+            "name" : "Prompt Pop Up",
+            "components":[
+                {
+                    "name" : "PromptPopUp"
+                }
+            ]
         }
     ]
 }
