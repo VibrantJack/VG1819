@@ -15,7 +15,7 @@ UnitDisplayFrame* UnitDisplayFrame::getActiveInstance() { return instance; }
 UnitDisplayFrame::UnitDisplayFrame(int p_marginX, int p_marginY) : m_unitVector(kibble::getNonCommanderIds()), DisplayFrame(p_marginX, p_marginY,
 	std::string("Deck/unit-display_frame_object.json"),
 	std::string("Deck/deck_display-left_button.json"), std::string("Deck/deck_display-right_button.json"),
-	std::string("Deck/deck_display-unit_highlight.json"), std::string("Deck/general-display_empty.json"))// TODO add an empty object
+	std::string("Deck/unit_display-highlight.json"), std::string("Deck/general-display_empty.json"))// TODO add an empty object
 {
 	instance = this;
 }
