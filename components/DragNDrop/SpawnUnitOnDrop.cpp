@@ -94,7 +94,7 @@ void SpawnUnitOnDrop::onDrop()
 	{
 		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Cancel_Summon, nullptr);
 	}
-		resetCard();
+	resetCard();
 }
 
 void SpawnUnitOnDrop::onPause()

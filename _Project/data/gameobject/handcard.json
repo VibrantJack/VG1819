@@ -33,7 +33,7 @@
                     "texture" : "textures/card/shadow.jpg"
                 }
             ],
-            "translate": [0,0,-0.1],
+            "translate": [0,0,-0.001],
             "scale2d" : [1,1]
         }
     ],
