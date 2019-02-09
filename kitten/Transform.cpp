@@ -137,12 +137,9 @@ namespace kitten
 		}
 		else
 		{
-			if (m_parent != nullptr)
-			{
-				auto parentPos = m_parent->getTranslation();
-				place(x - parentPos.x, y - parentPos.y, z - parentPos.z);
-				//set this position so parentPos + thisPos = p_pos
-			}
+			auto parentPos = m_parent->getTranslation();
+			place(x - parentPos.x, y - parentPos.y, z - parentPos.z);
+			//set this position so parentPos + thisPos = p_pos
 		}
 	}
 
