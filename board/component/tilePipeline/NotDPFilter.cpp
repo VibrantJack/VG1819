@@ -1,5 +1,6 @@
 #include "TileFliter.h"
 
+/*
 void NotDPFilter::filter(kitten::Event::TileList * p_list)
 {
 	if (!m_enabled)
@@ -19,4 +20,9 @@ void NotDPFilter::filter(kitten::Event::TileList * p_list)
 		else
 			it++;
 	}
+}*/
+
+bool NotDPFilter::shouldRemove(kitten::K_GameObject * p_tileGO)
+{
+	return !p_tileGO->getComponent<TileInfo>()->isDemonicPresence();
 }

@@ -12,8 +12,9 @@
 				"power":2,
 				"target":1,
 				"need_unit":0,
-				"filter":1,
-				"filter0":"no_commander",
+				"filter":2,
+				"filter0":"no_unit",
+				"filter1":"non_commander",
 				"area_mode":"all",
 				"description":"Deal 2 damage to both Commanders."
 			}

@@ -175,10 +175,12 @@
     <ClCompile Include="..\board\component\tilePipeline\EnemyFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\IsDPFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\NoCommanderFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\NonStructureFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\NotDPFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\SelfFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\StructureFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />

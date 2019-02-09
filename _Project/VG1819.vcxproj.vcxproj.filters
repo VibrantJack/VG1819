@@ -977,6 +977,12 @@
     <ClCompile Include="LoadSceneOnStart.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\StructureFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\NonStructureFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2028,7 +2034,7 @@
     </ClInclude>
     <ClInclude Include="..\UI\LandContext.h">
       <Filter>UI</Filter>
-     </ClInclude>
+    </ClInclude>
     <ClInclude Include="UniversalSounds.h">
       <Filter>components\sound</Filter>
     </ClInclude>

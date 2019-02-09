@@ -12,10 +12,12 @@ Remove tiles that meets some conditions from tile list.
 #define FILTER_UNIT "unit"
 #define FILTER_OWNED_TILE "owned_tile"
 #define FILTER_UNOWNED_TILE "unowned_tile"
-#define FILTER_NO_COMMANDER "no_commander"
+#define FILTER_NO_COMMANDER "non_commander"
 #define FILTER_ENEMY "enemy"
 #define FILTER_ALLY "ally"
 #define FILTER_SELF "self"
+#define FILTER_STRUCTURE "structure"
+#define FILTER_NON_STRUCTURE "non_structure"
 
 #define FILTER_NOT_DP "not_demonic_presence"
 #define FILTER_IS_DP "is_demonic_presence"

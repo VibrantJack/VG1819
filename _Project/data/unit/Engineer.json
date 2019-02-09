@@ -35,6 +35,8 @@
 				"max_range":1,
 				"target":1,
 				"need_unit":1,
+				"filter":1,
+				"filter0":"non_structure",
 				"description":"Deal 12 damage to a Structure."
 			}
 		],
