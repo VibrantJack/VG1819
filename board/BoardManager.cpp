@@ -201,6 +201,10 @@ void BoardManager::registerEvent()
 
 void BoardManager::deregisterEvent()
 {
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::Highlight_Tile_With_List, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::Highlight_Tile, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::Unhighlight_Tile, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::Set_Area_Pattern, this);
 }
 
 void BoardManager::tileClicked(bool p_send)
@@ -289,6 +293,8 @@ BoardManager::BoardManager():
 
 BoardManager::~BoardManager()
 {
+	//deregisterEvent();
+
 	//delete m_pathFind;
 	delete m_range;
 	//delete m_highlighter;
