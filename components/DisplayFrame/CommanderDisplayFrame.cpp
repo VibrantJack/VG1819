@@ -37,6 +37,13 @@ void CommanderDisplayFrame::start()
 	m_currentPick = m_commanderIndex; // show which commander has been selected
 
 	DisplayFrame::start();
+
+	kitten::Event* e = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
+	e->putInt(CARD_CONTEXT_SET_ENABLED_KEY, TRUE);
+	kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, e);
+	kitten::Event* updateContextEvent = new kitten::Event(kitten::Event::Update_Card_Context_By_ID);
+	updateContextEvent->putInt(UPDATE_CARD_CONTEXT_KEY, DeckAlterationComponent::getActiveInstance()->getDeckData()->commanderID);
+	kitten::EventManager::getInstance()->queueEvent(kitten::Event::Update_Card_Context_By_ID, updateContextEvent);
 }
 
 
@@ -79,4 +86,11 @@ void CommanderDisplayFrame::refreshActiveButtons()
 				i + m_currentSet * m_objectsToDisplay.size() != m_commanderIndex
 			);
 	}
+}
+
+void CommanderDisplayFrame::onObjectClicked(int p_clickedDataSetIndex)
+{
+	kitten::Event* updateContextEvent = new kitten::Event(kitten::Event::Update_Card_Context_By_ID);
+	updateContextEvent->putInt(UPDATE_CARD_CONTEXT_KEY, m_commanderVector[p_clickedDataSetIndex]);
+	kitten::EventManager::getInstance()->queueEvent(kitten::Event::Update_Card_Context_By_ID, updateContextEvent);
 }
