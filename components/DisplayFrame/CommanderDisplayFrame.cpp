@@ -33,9 +33,8 @@ void CommanderDisplayFrame::start()
 	m_commanderIndex = std::find(m_commanderVector.begin(), m_commanderVector.end(), 
 		DeckAlterationComponent::getActiveInstance()->getDeckData()->commanderID) 
 		- m_commanderVector.begin();
-	m_currentPick = std::find(m_commanderVector.begin(), m_commanderVector.end(), 
-		DeckAlterationComponent::getActiveInstance()->getDeckData()->commanderID)
-		- m_commanderVector.begin(); // show which commander has been selected
+	if (m_commanderIndex >= m_commanderVector.size()) m_commanderIndex = -1;
+	m_currentPick = m_commanderIndex; // show which commander has been selected
 
 	DisplayFrame::start();
 }
@@ -68,6 +67,7 @@ void CommanderDisplayFrame::updateIndividualDisplayObject(int p_activeObjectInde
 void CommanderDisplayFrame::refreshCommander()
 {
 	m_commanderIndex = std::find(m_commanderVector.begin(),m_commanderVector.end(), DeckAlterationComponent::getActiveInstance()->getDeckData()->commanderID) - m_commanderVector.begin();
+	if (m_commanderIndex >= m_commanderVector.size()) m_commanderIndex = -1;
 }
 
 void CommanderDisplayFrame::refreshActiveButtons()
