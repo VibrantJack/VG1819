@@ -48,12 +48,15 @@ namespace kitten
 
 		void toggleGamePausedListener(kitten::Event::EventType p_type, kitten::Event* p_data);
 
+		bool blocksRaycast() { return m_blocksRaycast; }
+		void setBlocksRaycast(bool p_blocksRaycast) { m_blocksRaycast = p_blocksRaycast; }
+
 	private:
 		std::unordered_set<ClickableUI*> m_listeners;
 		glm::vec2 m_minPoint, m_maxPoint;
 		glm::vec2 m_originalMinPoint, m_originalMaxPoint;
 		PivotType m_piv;
 
-		bool m_gamePaused;
+		bool m_gamePaused,m_blocksRaycast = true;
 	};
 }

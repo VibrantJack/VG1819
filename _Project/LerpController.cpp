@@ -22,7 +22,7 @@ void LerpController::start()
 	assert(m_time != nullptr);
 }
 
-void LerpController::positionLerp(const glm::vec3& p_pos, const float& p_time)
+void LerpController::positionLerp(const glm::vec3& p_pos, const float& p_time, TransformSource p_behavior)
 {
 	m_isPositionLerping = true;
 	onStartLerp();
@@ -30,10 +30,17 @@ void LerpController::positionLerp(const glm::vec3& p_pos, const float& p_time)
 	m_lerpPosition = p_pos;
 	m_posLerpTime = p_time;
 	m_posTimeElapsed = 0.0f;
-	m_originalPosition = getTransform().getTranslation();
+	switch (p_behavior) {
+	case TransformSource::Local:
+		m_originalPosition = getTransform().getRelativeTranslation();
+		break;
+	case TransformSource::World:
+		m_originalPosition = getTransform().getTranslation();
+		break;
+	}
 }
 
-void LerpController::rotationLerp(const glm::quat& p_rot, const float& p_time)
+void LerpController::rotationLerp(const glm::quat& p_rot, const float& p_time, TransformSource p_behavior)
 {
 	m_isRotationLerping = true;
 	onStartLerp();
@@ -44,7 +51,7 @@ void LerpController::rotationLerp(const glm::quat& p_rot, const float& p_time)
 	m_originalQuat = getTransform().getRotation();
 }
 
-void LerpController::scaleLerp(const glm::vec3& p_scale, const float& p_time)
+void LerpController::scaleLerp(const glm::vec3& p_scale, const float& p_time, TransformSource p_behavior)
 {
 	m_isScaleLerping = true;
 	onStartLerp();
