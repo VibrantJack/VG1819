@@ -10,6 +10,7 @@
 #include <assert.h>
 #include <iostream>
 #include <unordered_map>
+#include <sstream>
 
 // Kibble
 #include "kibble\databank\databank.hpp"
@@ -67,6 +68,13 @@ namespace networking
 		{
 			delete m_network;
 		}
+
+		if (m_log != nullptr)
+		{
+			delete m_log;
+			m_log = nullptr;
+		}
+
 		sm_networkValid = false;
 		sm_iClientId = -1;
 	}
@@ -79,6 +87,7 @@ namespace networking
 		if (m_network->init(p_strAddr))
 		{ 
 			sm_networkValid = true;
+			m_log = new NetworkLog(CLIENT_LOG);
 		}
 		else
 		{
@@ -116,6 +125,9 @@ namespace networking
 		{
 			delete m_network;
 			m_network = nullptr;
+			
+			delete m_log;
+			m_log = nullptr;
 		}
 
 		sm_networkValid = false;
@@ -146,13 +158,12 @@ namespace networking
 			//no data recieved
 			return;
 		}
-		//printf("Bytes received: %d\n", data_length);
+
 		int i = 0;
 		PacketTypes packetType;
 
 		while (i < (unsigned int)data_length)
 		{
-			//printf("Start of Loop Count i: %d\n", i);
 			Buffer defaultBuffer;
 			defaultBuffer.m_data = &(m_network_data[i]);
 			defaultBuffer.m_size = BASIC_PACKET_SIZE;
@@ -165,6 +176,10 @@ namespace networking
 
 			case PacketTypes::SEND_CLIENT_ID:
 			{
+				std::stringstream message;
+				message << "Client:" << sm_iClientId << " received SEND_CLIENT_ID (" << defaultPacket.m_clientId << ")";
+				m_log->logMessage(message.str());
+
 				printf("[Client: %d] received SEND_CLIENT_ID (%d) packet from server\n", sm_iClientId, defaultPacket.m_clientId);
 				i += BASIC_PACKET_SIZE;
 				sm_iClientId = defaultPacket.m_clientId;
@@ -189,10 +204,19 @@ namespace networking
 				commanderDataPacket.serialize(commanderDataBuffer);
 				NetworkServices::sendMessage(m_network->m_connectSocket, commanderData, UNIT_PACKET_SIZE);
 
+				message.str("");
+				message << "Client:" << sm_iClientId << " sending STARTING_COMMANDER_DATA\n";
+				message << "\tUnit ID:" << commanderDataPacket.m_unitId	<< ", X:" << commanderDataPacket.m_posX << ", Y:" << commanderDataPacket.m_posY;
+				m_log->logMessage(message.str());
+
 				break;
 			}
 			case PacketTypes::SERVER_SHUTDOWN:
 			{
+				std::stringstream message;
+				message << "Client:" << sm_iClientId << " received SERVER_SHUTDOWN";
+				m_log->logMessage(message.str());
+
 				printf("[Client: %d] received SERVER_SHUTDOWN packet from server\n", sm_iClientId);
 
 				i += BASIC_PACKET_SIZE;
@@ -239,6 +263,11 @@ namespace networking
 				i += UNIT_PACKET_SIZE;
 
 				summonUnit(summonUnitPacket.m_clientId, summonUnitPacket.m_unitId, summonUnitPacket.m_posX, summonUnitPacket.m_posY);
+
+				std::stringstream message;
+				message << "Client:" << sm_iClientId << " received SUMMON_UNIT, Unit ID:" << summonUnitPacket.m_unitId << ", X:" 
+					<< summonUnitPacket.m_posX << ", Y:" << summonUnitPacket.m_posY;
+				m_log->logMessage(message.str());
 				break;
 			}
 			case PacketTypes::SKIP_TURN:
@@ -252,6 +281,11 @@ namespace networking
 				SkipTurnPacket skipTurnPacket;
 				skipTurnPacket.deserialize(buffer);
 				i += SKIP_TURN_PACKET_SIZE;				
+
+				std::stringstream message;
+				message << "Client:" << sm_iClientId << " received SKIP_TURN\n";
+				message << "\tUnit ID : " << skipTurnPacket.m_unitId;
+				m_log->logMessage(message.str());
 
 				if (checkSync(skipTurnPacket.m_unitId))
 				{
@@ -269,6 +303,10 @@ namespace networking
 			}
 			case PacketTypes::GAME_TURN_START:
 			{
+				std::stringstream message;
+				message << "Client:" << sm_iClientId << " received GAME_TURN_START";
+				m_log->logMessage(message.str());
+
 				printf("[Client: %d] received packet GAME_TURN_START from server\n", sm_iClientId);
 				i += BASIC_PACKET_SIZE;
 
@@ -281,6 +319,9 @@ namespace networking
 			}
 			case PacketTypes::READY_CHECK:
 			{
+				std::stringstream message;
+				message << "Client:" << sm_iClientId << " received READY_CHECK";
+				m_log->logMessage(message.str());
 				printf("[Client: %d] received READY_CHECK packet from server\n", sm_iClientId);
 
 				if (!m_bGameTurnStart)
@@ -322,6 +363,12 @@ namespace networking
 					m_commander = commanderGO1->getComponent<unit::Unit>();
 				}
 
+				std::stringstream message;
+				message << "Client:" << sm_iClientId << " received STARTING_COMMANDER_DATA\n";
+				message << "\tCommander 0 - Unit ID:" << commander0.clientId << ", X:" << commander0.posX << ", Y:" << commander0.posY << "\n";
+				message << "\tCommander 1 - Unit ID:" << commander1.clientId << ", X:" << commander1.posX << ", Y:" << commander1.posY;
+				m_log->logMessage(message.str());
+
 				// The other player has joined and we received their Commander data
 				// Queue event to update ReadyCheck component to indicate other player has joined
 				kitten::EventManager::getInstance()->queueEvent(kitten::Event::Player_Joined, nullptr);
@@ -344,11 +391,20 @@ namespace networking
 				eventData->putInt(PLAYER_ID, messagePacket.m_clientId);
 				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::TextChat_Receive_Message, eventData);
 
+				std::stringstream message;
+				message << "Client:" << sm_iClientId << " received TEXTCHAT_MESSAGE from Client: " << messagePacket.m_clientId;
+				message << "\tMessage: " << messagePacket.getMessage();
+				m_log->logMessage(message.str());
+
 				i += TEXTCHAT_MESSAGE_PACKET_SIZE;
 				break;
 			}
 			case PacketTypes::DESYNCED:
 			{
+				std::stringstream message;
+				message << "Client:" << sm_iClientId << " received DESYNCED";
+				m_log->logMessage(message.str());
+
 				printf("[Client: %d] received DESYNCED packet from server\n", sm_iClientId);
 				i += BASIC_PACKET_SIZE;
 
@@ -366,6 +422,10 @@ namespace networking
 				break;
 			}
 			default:
+				std::stringstream message;
+				message << "Client:" << sm_iClientId << " received error in packet types, received: " << packetType;
+				m_log->logMessage(message.str());
+
 				printf("[Client: %d] received %d; error in packet types\n", sm_iClientId, packetType);
 				i += (unsigned int)data_length;
 				break;
@@ -383,6 +443,13 @@ namespace networking
 		p_packet.insertIntoPackage(info);
 
 		ability::AbilityManager::getInstance()->findAbility(strAbilityName)->effect(info);
+
+		std::stringstream message;
+		message << "Client:" << sm_iClientId << " received ability:";
+		m_log->logMessage(message.str());
+
+		std::string abilityInfo = p_packet.getFormattedAbilityInfo();
+		m_log->logMessage(abilityInfo);
 	}
 
 	void ClientGame::sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info)
@@ -404,6 +471,13 @@ namespace networking
 
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, packet.getSize());
 		delete[] data;
+
+		std::stringstream message;
+		message << "Client:" << sm_iClientId << " sending an ability:";
+		m_log->logMessage(message.str());
+
+		std::string abilityInfo = packet.getFormattedAbilityInfo();
+		m_log->logMessage(abilityInfo);
 	}
 
 	bool ClientGame::checkSync(int p_unitId)
@@ -434,6 +508,10 @@ namespace networking
 
 		packet.serialize(buffer);
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
+
+		std::stringstream message;
+		message << "Client:" << sm_iClientId << " sending DESYNCED";
+		m_log->logMessage(message.str());
 	}
 
 	void ClientGame::sendSkipTurnPacket(unit::Unit* p_unit)
@@ -451,6 +529,11 @@ namespace networking
 
 		packet.serialize(buffer);
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, SKIP_TURN_PACKET_SIZE);
+
+		std::stringstream message;
+		message << "Client:" << sm_iClientId << " sending SKIP_TURN\n";
+		message << "\tUnit ID:" << packet.m_unitId;
+		m_log->logMessage(message.str());
 	}
 
 	kitten::K_GameObject* ClientGame::summonUnit(int p_iClientId, int p_iUnitId, int p_iPosX, int p_iPosY)
@@ -462,7 +545,10 @@ namespace networking
 		unitGO->getComponent<unit::UnitMove>()->setTile(p_iPosX, p_iPosY);
 		unitGO->getComponent<unit::Unit>()->m_clientId = p_iClientId;
 
-		//unit::UnitMonitor::getInstanceSafe()->printUnit(testDummy);
+		std::stringstream message;
+		message << "Client:" << sm_iClientId << " summoning unit (ClientGame::summonUnit, not through Summon ability)\n";
+		message << "\tUnit ID:" << p_iUnitId << ", X:" << p_iPosX << ", Y:" << p_iPosY;
+		m_log->logMessage(message.str());
 		return unitGO;
 	}
 
@@ -483,6 +569,11 @@ namespace networking
 		
 		packet.serialize(buffer);
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, UNIT_PACKET_SIZE);
+
+		std::stringstream message;
+		message << "Client:" << sm_iClientId << " sending SUMMON_UNIT\n";
+		message << "\tUnit ID:" << p_iUnitId << ", X:" << p_iPosX << ", Y:" << p_iPosY;
+		m_log->logMessage(message.str());
 	}
 
 	void ClientGame::sendTextChatMessagePacket(const std::string& p_message)
@@ -500,7 +591,10 @@ namespace networking
 		packet.serialize(buffer);
 		int result = NetworkServices::sendMessage(m_network->m_connectSocket, data, TEXTCHAT_MESSAGE_PACKET_SIZE);
 
-		std::string message = packet.getMessage();
+		std::stringstream message;
+		message << "Client:" << sm_iClientId << " sending TEXTCHAT_MESSAGE\n";
+		message << "\tMessage: " << p_message;
+		m_log->logMessage(message.str());
 	}
 
 	int ClientGame::sendBasicPacket(PacketTypes p_packetType)
@@ -516,6 +610,14 @@ namespace networking
 		packet.m_clientId = sm_iClientId;
 
 		packet.serialize(buffer);
+
+		if (p_packetType != PacketTypes::PING_SOCKET)
+		{
+			std::stringstream message;
+			message << "Client:" << sm_iClientId << " sending basic packetType: " << p_packetType;
+			m_log->logMessage(message.str());
+		}
+
 		return NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
 	}
 

@@ -980,6 +980,9 @@
     <ClCompile Include="..\components\RenameDeckComponent.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\networking\NetworkLog.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2046,6 +2049,9 @@
     </ClInclude>
     <ClInclude Include="..\components\RenameDeckComponent.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\NetworkLog.h">
+      <Filter>networking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
