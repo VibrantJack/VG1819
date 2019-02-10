@@ -579,6 +579,11 @@ kitten::K_Component* getStringInputDisplay(nlohmann::json* p_jsonFile) {
 	return new StringInputDisplay();
 }
 
+#include "components\RenameDeckComponent.h"
+kitten::K_Component* getRenameDeckComponent(nlohmann::json* p_jsonFile) {
+	return new RenameDeckComponent();
+}
+
 #include "components\SelectAbility.h"
 kitten::K_Component* getSelectAbility(nlohmann::json* p_jsonFile) {
 	return new SelectAbility();
@@ -1911,6 +1916,7 @@ void setupComponentMap() {
 	jsonComponentMap["BoardCreator"] = &getBoardCreator;
 	jsonComponentMap["ToggleStringInputOnKeyPress"] = &getToggleStringInputOnKeyPress;
 	jsonComponentMap["StringInputDisplay"] = &getStringInputDisplay;
+	jsonComponentMap["RenameDeckComponent"] = &getRenameDeckComponent;
 	jsonComponentMap["SelectAbility"] = &getSelectAbility;
 	jsonComponentMap["PowerTracker"] = &getPowerTracker;
 	jsonComponentMap["Highlighter"] = &getHighlighter;
