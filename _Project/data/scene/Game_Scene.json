@@ -35,6 +35,9 @@
 			"name" : "Deck",
 			"components" : [
 				{
+					"name" : "UIFrame"
+				},
+				{
 					"name" : "DeckComponent"
 				},
 				{
@@ -42,9 +45,6 @@
 				},
 				{
 					"name": "DeckDiscardedCardHandler"
-				},
-				{
-					"name" : "UIFrame"
 				},
 				{
 					"name" : "DeckCountTextureBind",
