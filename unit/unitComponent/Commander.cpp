@@ -93,12 +93,11 @@ namespace unit
 				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Reset_Power, nullptr);
 
 				// Draw a card
-				if (userinterface::HandFrame::getActiveInstance()->getTotalCardsInHand() < 5) {
-					kitten::Event *e = new kitten::Event(kitten::Event::EventType::Draw_Card);// make a draw event
-					e->putInt(PLAYER_ID, 0); // give it a player id, 0 being default TODO change this if ever needed. 0 signifies this side's instance player's id. any other should be any number other than 0 
-					e->putInt(CARD_COUNT, 2); //tell it to draw 1 card
-					kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Draw_Card, e); // Call the event
-				}
+				int cardsDrawable = 5 - userinterface::HandFrame::getActiveInstance()->getTotalCardsInHand();
+				kitten::Event *e = new kitten::Event(kitten::Event::EventType::Draw_Card);// make a draw event
+				e->putInt(PLAYER_ID, 0); // give it a player id, 0 being default TODO change this if ever needed. 0 signifies this side's instance player's id. any other should be any number other than 0 
+				e->putInt(CARD_COUNT,min(2,cardsDrawable)); //tell to draw at max 2 cards
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Draw_Card, e); // Call the event
 			}
 		}
 		else
