@@ -18,8 +18,8 @@
                 }
             ],
             "translate": [0,0,-0.9],
-			"translate2d" : [10, 250],
-            "scale2d" : [900,360]
+			"translate2d" : [70, 250],
+            "scale2d" : [850,360]
         },
 		{
 			"filename" : "mainmenu_background.json"

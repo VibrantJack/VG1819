@@ -3,7 +3,7 @@
     "components" : [
         {
             "name" : "UIObject",
-            "texture" : "textures/ui/saved_alert_message.dds"
+            "texture" : "textures/ui/deck_deleted_alert_message.dds"
         },
         {
             "name" : "DisableAfterTime",

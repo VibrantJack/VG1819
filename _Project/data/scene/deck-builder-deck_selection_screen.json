@@ -18,8 +18,8 @@
                 }
             ],
             "translate": [0,0,-0.9],
-			"translate2d" : [150, 160],
-            "scale2d" : [1015,280]
+			"translate2d" : [140, 160],
+            "scale2d" : [980,540]
         },
 		{
 			"filename" : "mainmenu_background.json"
@@ -116,8 +116,8 @@
                 },
                 {
                     "name" : "ClickableButton",
-                    "regularTexture" : "textures/ui/buttons/delete_deck.dds",
-                    "highlightedTexture" : "textures/ui/buttons/delete_deck_h.dds"
+                    "regularTexture" : "textures/ui/buttons/rename_deck.dds",
+                    "highlightedTexture" : "textures/ui/buttons/rename_deck_h.dds"
                 },
                 {
                     "name" : "ClickableFrame"
