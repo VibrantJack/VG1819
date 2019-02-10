@@ -6,6 +6,6 @@
             "texture" : "textures/ui/blankFrame.tga"
         }
     ],
-    "scale2d" : [153.0,153.0],
-    "translate" : [1076.0,375.0,0.01]
+    "scale2d" : [0.59765625,0.3825],
+    "translate" : [53,179,0.1]
 }

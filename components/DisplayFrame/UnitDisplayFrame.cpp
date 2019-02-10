@@ -30,6 +30,13 @@ void UnitDisplayFrame::start()
 {
 	m_currentPick = -1;
 	DisplayFrame::start();
+
+	kitten::Event* e = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
+	e->putInt(CARD_CONTEXT_SET_ENABLED_KEY, TRUE);
+	kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, e);
+	kitten::Event* updateContextEvent = new kitten::Event(kitten::Event::Update_Card_Context_By_ID);
+	updateContextEvent->putInt(UPDATE_CARD_CONTEXT_KEY, DeckAlterationComponent::getActiveInstance()->getDeckData()->commanderID);
+	kitten::EventManager::getInstance()->queueEvent(kitten::Event::Update_Card_Context_By_ID, updateContextEvent);
 }
 
 int UnitDisplayFrame::getTargetAvailable() {
@@ -48,4 +55,11 @@ void UnitDisplayFrame::updateIndividualDisplayObject(int p_activeObjectIndex)
 	// Add picture 
 	m_objectsToDisplay[p_activeObjectIndex]->getTransform().getChildren()[0]->getAttachedGameObject() // first is the ui frame
 		.getComponent<userinterface::UIFrame>()->setTexture(unitData->getPortraitTexturePath().c_str());
+}
+
+void UnitDisplayFrame::onObjectClicked(int p_clickedDataSetIndex)
+{
+	kitten::Event* updateContextEvent = new kitten::Event(kitten::Event::Update_Card_Context_By_ID);
+	updateContextEvent->putInt(UPDATE_CARD_CONTEXT_KEY, m_unitVector[p_clickedDataSetIndex]);
+	kitten::EventManager::getInstance()->queueEvent(kitten::Event::Update_Card_Context_By_ID, updateContextEvent);
 }
