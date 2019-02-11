@@ -19,10 +19,6 @@ void unit::NewTurnMessageController::setDisplay(TurnChangeDisplay * p_display)
 	m_display = p_display;
 }
 
-void unit::NewTurnMessageController::start()
-{
-}
-
 bool unit::NewTurnMessageController::hasUpdate() const
 {
 	return true;

@@ -983,6 +983,9 @@
     <ClCompile Include="..\board\component\tilePipeline\NonStructureFilter.cpp">
       <Filter>board\component\tilePipeline</Filter>
     </ClCompile>
+    <ClCompile Include="..\UI\TurnCounterController.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2046,6 +2049,9 @@
     </ClInclude>
     <ClInclude Include="LoadSceneOnStart.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\TurnCounterController.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

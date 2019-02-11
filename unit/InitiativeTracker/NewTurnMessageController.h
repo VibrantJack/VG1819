@@ -6,7 +6,7 @@ And camera focus.
 
 #pragma once
 #include "kitten/K_Common.h"
-
+#include "puppy/Text/TextBox.h"
 namespace unit
 {
 	class TurnChangeDisplay;
@@ -18,7 +18,7 @@ namespace unit
 
 		void setDisplay(TurnChangeDisplay* p_display);
 
-		void start() override;
+		//void start() override;
 		bool hasUpdate() const override;
 		void update() override;
 		void onEnabled() override;

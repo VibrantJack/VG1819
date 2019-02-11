@@ -1875,6 +1875,11 @@ kitten::K_Component* getHaltParticleSystemAfterTime(nlohmann::json* p_jsonFile) 
 	return new HaltParticleSystemAfterTime(time, isStopping);
 }
 
+#include "UI/TurnCounterController.h"
+kitten::K_Component* getTurnCounterController(nlohmann::json* p_jsonFile) {
+	return new TurnCounterController();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -2014,6 +2019,7 @@ void setupComponentMap() {
 	jsonComponentMap["LoadSceneOnStart"] = &getLoadSceneOnStart;
 	jsonComponentMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
 	jsonComponentMap["BorderPiece"] = &getBorderPiece;
+	jsonComponentMap["TurnCounterController"] = &getTurnCounterController;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {
