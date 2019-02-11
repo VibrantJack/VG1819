@@ -32,7 +32,7 @@ void DeckCountTextureBind::start()
 		std::bind(&DeckCountTextureBind::deckEventReceiver, this, std::placeholders::_1, std::placeholders::_2));
 
 	m_currentTexPair = m_texPairs.rbegin();
-
+	m_attachedObject->getComponent<userinterface::UIFrame>()->setTexture(m_currentTexPair->second.c_str());
 }
 
 void DeckCountTextureBind::addTexPair(int p_atCount, const std::string& p_tex)

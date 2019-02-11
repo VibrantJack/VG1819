@@ -9,6 +9,7 @@
 class LerpController : public kitten::K_Component
 {
 public:
+
 	class PositionLerpFinishedCallback
 	{
 	public:
@@ -31,6 +32,11 @@ public:
 		ResetToOrigin, 
 		KeepInPlace,
 		SetToTarget
+	};
+
+	enum TransformSource {
+		Local,
+		World
 	};
 
 private:
@@ -74,9 +80,9 @@ public:
 	LerpController();
 	~LerpController();
 
-	void positionLerp(const glm::vec3& p_pos, const float& p_time);
-	void scaleLerp(const glm::vec3& p_scale, const float& p_time);
-	void rotationLerp(const glm::quat& p_rot, const float& p_time);
+	void positionLerp(const glm::vec3& p_pos, const float& p_time, TransformSource p_behavior = TransformSource::World);
+	void scaleLerp(const glm::vec3& p_scale, const float& p_time, TransformSource p_behavior = TransformSource::World);
+	void rotationLerp(const glm::quat& p_rot, const float& p_time, TransformSource p_behavior = TransformSource::World);
 
 
 	void removePositionCallback(PositionLerpFinishedCallback* p_listener);

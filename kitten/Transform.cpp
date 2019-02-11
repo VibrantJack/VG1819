@@ -129,6 +129,20 @@ namespace kitten
 		notifyPositionListeners();
 	}
 
+	void Transform::placeInWorld(const float x, const float y, const float z)
+	{
+		if (m_ignoresParent || m_parent == nullptr)
+		{
+			place(x,y,z);
+		}
+		else
+		{
+			auto parentPos = m_parent->getTranslation();
+			place(x - parentPos.x, y - parentPos.y, z - parentPos.z);
+			//set this position so parentPos + thisPos = p_pos
+		}
+	}
+
 	void Transform::scale2D(const float xScale, const float yScale)
 	{
 		m_scale = glm::vec3(xScale, yScale, 1.0f);
@@ -252,6 +266,11 @@ namespace kitten
 		{
 			return m_derivedTranslation;
 		}
+	}
+
+	const glm::vec3 & Transform::getRelativeTranslation() const
+	{
+		return m_translation;
 	}
 
 	const glm::quat& Transform::getRotation() const
