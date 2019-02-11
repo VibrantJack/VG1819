@@ -134,6 +134,10 @@ namespace puppy
 			*p_vertexShaderPath = "Shaders/basic_point_light.vsh";
 			*p_pixelShaderPath = "Shaders/point_light_alphaTest.fsh";
 			return true;
+		case ShaderType::healthbar:
+			*p_vertexShaderPath = "Shaders/healthbar.vsh";
+			*p_pixelShaderPath = "Shaders/healthbar.fsh";
+			return true;
 		default:
 			return false;
 		}

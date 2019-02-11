@@ -5,8 +5,8 @@
 
 PowerTracker::PowerTracker()
 	:
-	m_iMaxPower(4),
-	m_iCurrentPower(4),
+	m_iMaxPower(0),
+	m_iCurrentPower(0),
 	m_textBox(nullptr)
 {
 	kitten::EventManager::getInstance()->addListener(

@@ -254,6 +254,8 @@ public:
 
 	void print();
 
+	std::string getFormattedAbilityInfo();
+
 	void serialize(Buffer& p_buffer);
 	void deserialize(Buffer& p_buffer);
 

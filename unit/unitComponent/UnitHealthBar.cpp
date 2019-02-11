@@ -38,7 +38,7 @@ namespace unit
 		foreground->getTransform().scaleAbsolute(BAR_X_SCALE, BAR_Y_SCALE, 1.0f);
 
 		background->getTransform().move(m_offset.x /*- (BACKGROUND_BAR_X_DIFFERENCE/2.0f)*/, m_offset.y,  m_offset.z + -0.001f);
-		foreground->getTransform().move(m_offset.x, m_offset.y, m_offset.z + -0.002f);
+		foreground->getTransform().move(m_offset.x, m_offset.y, m_offset.z + -0.004f);
 
 		background->getTransform().rotateAbsolute(glm::vec3(m_rotation,0,0));
 		foreground->getTransform().rotateAbsolute(glm::vec3(m_rotation,0,0));
@@ -50,6 +50,7 @@ namespace unit
 		background->addComponent(backgroundBar);
 
 		m_foregroundBar = static_cast<kitten::BarRenderable*>(compMan->createComponent("BarRenderable"));
+		m_foregroundBar->setIsHealthBar(true);
 
 		if (m_attachedUnit->m_clientId)
 		{
@@ -61,13 +62,10 @@ namespace unit
 		}
 		
 		
-		m_foregroundBar->setUScale(BAR_X_SCALE);
 		foreground->addComponent(m_foregroundBar);
 
 		m_foregroundLerpController = static_cast<LerpController*>(compMan->createComponent("LerpController"));
 		foreground->addComponent(m_foregroundLerpController);
-
-		backgroundBar->setUScale(BACKGROUND_BAR_X_SCALE);
 	}
 
 	void UnitHealthBar::updateBar()

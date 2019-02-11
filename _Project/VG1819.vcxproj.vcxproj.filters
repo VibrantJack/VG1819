@@ -986,6 +986,9 @@
     <ClCompile Include="..\UI\TurnCounterController.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\networking\NetworkLog.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2052,6 +2055,9 @@
     </ClInclude>
     <ClInclude Include="..\UI\TurnCounterController.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\NetworkLog.h">
+      <Filter>networking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

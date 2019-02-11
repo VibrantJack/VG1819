@@ -364,7 +364,7 @@ namespace input
 		else m_lastMouseHitObject = nullptr;
 
 
-		if (hitFrame == nullptr)
+		if (hitFrame == nullptr || !hitFrame->blocksRaycast())
 		{
 			if (hit != nullptr && lastHover != nullptr)
 			{

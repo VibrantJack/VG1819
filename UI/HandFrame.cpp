@@ -23,7 +23,7 @@
 #include "kibble\kibble.hpp"
 
 #define MAX_CARDS_IN_HAND 5
-#define NUM_STARTING_CARDS 5
+#define NUM_STARTING_CARDS 3
 #define TIME_FOR_CARDS_TO_ORDER 0.1
 #define TEMP_POWER_CHARGE 1
 
@@ -86,7 +86,7 @@ namespace userinterface
 	void HandFrame::reorderAllCards()
 	{
 		glm::vec3 currentPos = getTransform().getTranslation();
-		getTransform().place(currentPos.x, currentPos.y, -0.03f);
+		getTransform().place(currentPos.x, currentPos.y, currentPos.z);
 		kitten::Transform T = getTransform();
 		glm::vec3 trans = T.getTranslation();
 		float offset = m_padding;
@@ -94,16 +94,17 @@ namespace userinterface
 		glm::vec3 placement;
 		for (auto it = m_innerObjects.begin(); it != end; ++it)
 		{
-			placement = glm::vec3( trans.x + offset, trans.y - m_padding - (m_cardY), 0 );
+			placement = glm::vec3( trans.x + offset, trans.y - m_padding - (m_cardY), (*it)->getTransform().getTranslation().z );
 			if (m_isInit) {
 				LerpController* lerpC = (*it)->getGameObject().getComponent<LerpController>();
 				if (lerpC == nullptr)
 				{
+					(*it)->getTransform().place(placement.x,placement.y,placement.z);
 					(*it)->getTransform().place2D(placement.x,placement.y);
 				}
 				else
 				{
-					lerpC->positionLerp(glm::vec3(placement.x, placement.y, 0), TIME_FOR_CARDS_TO_ORDER);
+					lerpC->positionLerp(glm::vec3(placement.x, placement.y, placement.z), TIME_FOR_CARDS_TO_ORDER);
 				}
 			}
 			else

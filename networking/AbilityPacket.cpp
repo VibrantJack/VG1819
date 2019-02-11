@@ -5,6 +5,7 @@
 #include "unit\Unit.h"
 #include "board\BoardManager.h"
 #include "kibble\databank\databank.hpp"
+#include <sstream>
 
 void AbilityPacket::print()
 {
@@ -44,6 +45,47 @@ void AbilityPacket::print()
 		printf("%c", m_abilityName[i]);
 	}
 	printf("\n\n*** End Packet Info ***\n");
+}
+
+std::string AbilityPacket::getFormattedAbilityInfo()
+{
+	std::stringstream message;
+	message << "\tAbility Name: ";
+	for (int i = 0; i < m_abilityNameLength; ++i)
+	{
+		message << m_abilityName[i];
+	}
+	message << "\n\tClient ID: " << m_clientId << "\n";
+	message << "\tSource Unit ID: " << m_sourceUnit << "\n";
+	message << "\tNumber of Target Units: " << m_numTargetUnits << "\n";
+	message << "\tTarget Unit Indexes:\n\t\t";
+	for (int i = 0; i < m_numTargetUnits; ++i)
+	{
+		message << m_targets[i] << ", ";
+	}
+	message << "\n\tNumber of Int Values: " << m_numIntValues << "\n";
+	message << "\tInt Values:\n";
+	for (auto it = m_intValue.begin(); it != m_intValue.end(); ++it)
+	{
+		message << "\t\t(Key: ";
+		for (int i = 0; i < it->first.size(); ++i)
+		{
+			message << it->first.at(i);
+		}
+		message << ", Value: " << it->second << ")\n";
+	}
+
+	message << "\tNumber of Target Tiles: " << m_numTargetTiles << "\n";
+	message << "\tTiles:\n";
+	for (int i = 0; i < m_numTargetTiles; ++i)
+	{
+		std::pair<int, int> tilePos = m_targetTiles[i];
+		int posX = tilePos.first;
+		int posY = tilePos.second;
+		message << "\t\t(" << posX << ", " << posY << ")\n";
+	}
+
+	return message.str();
 }
 
 // If an assert is failed, make sure you are using a fresh Buffer for serializing

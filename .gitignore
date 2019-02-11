@@ -32,6 +32,7 @@
 #folders
 x64/
 Debug/
+networking/logs/
 .vs/
 _Project/Debug/
 _Project/.vs/
