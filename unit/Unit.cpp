@@ -196,7 +196,7 @@ namespace unit
 		}
 		else if (m_castTimer->isCasting())
 		{
-			playerSkipTurn();//if it still cast, it skips turn
+			playerSkipTurn(false);//if it still cast, it skips turn
 			return;
 		}
 		else if (m_ADList.size() == 0)//doesn't have unit
@@ -274,12 +274,12 @@ namespace unit
 		m_turn = nullptr;
 	}
 
-	void Unit::playerSkipTurn()
+	void Unit::playerSkipTurn(bool p_sendPacket)
 	{
 		assert(m_turn != nullptr);
 
 		networking::ClientGame* client = networking::ClientGame::getInstance();
-		if (client != nullptr)
+		if (client != nullptr && p_sendPacket)
 		{			
 			if (!client->isServerCalling())
 			{
@@ -392,7 +392,7 @@ namespace unit
 		std::string name = p_ad->m_stringValue["name"];
 		int time = p_ad->m_intValue[UNIT_CT];
 		m_castTimer->set(name,p_pack,time);
-		playerSkipTurn();
+		playerSkipTurn(false);
 	}
 
 	void Unit::cancelCast()
