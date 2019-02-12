@@ -102,8 +102,17 @@ namespace userinterface
 			};
 
 			case tbh_Repeat: {
-				u = 1.0;
-				v = 1.0;
+				glm::vec2 scale = getTransform().getScale2D();
+				u = scale.x / 100.0f;
+				if (u < 1)
+				{
+					u = 1.0f;
+				}
+				v = scale.y / 100.0f;
+				if (v < 1)
+				{
+					v = 1.0f;
+				}
 				m_tex->setWrapping(GL_REPEAT);
 				break;
 			};
@@ -183,45 +192,40 @@ namespace userinterface
 			}
 		}
 
-		auto found = sm_vao.find(m_pivotType);
-		if (found != sm_vao.end())
+		puppy::TexturedVertex verts[] =
 		{
-			if ((*found).second == nullptr)
-			{
-				puppy::TexturedVertex verts[] =
-				{
-					//a nice lil quad that takes the pivot into account
-					{ xmin, ymin, z, 0.0,  0.0 },
-					{ xmax, ymin, z, u,    0.0 },
-					{ xmax, ymax, z, u,    v },
-					{ xmax, ymax, z, u,    v },
-					{ xmin,	ymax, z, 0.0f, v },
-					{ xmin, ymin, z, 0.0f, 0.0f },
-				};
+			//a nice lil quad that takes the pivot into account
+			{ xmin, ymin, z, 0.0,  0.0 },
+			{ xmax, ymin, z, u,    0.0 },
+			{ xmax, ymax, z, u,    v },
+			{ xmax, ymax, z, u,    v },
+			{ xmin,	ymax, z, 0.0f, v },
+			{ xmin, ymin, z, 0.0f, 0.0f },
+		};
 
-				m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
-				sm_vao.insert(std::make_pair(m_pivotType, m_vao));
+		auto found = sm_vao.find(m_pivotType);
+		if (m_texBehaviour == tbh_Repeat || m_texBehaviour == tbh_RepeatMirrored)
+		{
+			m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
+		}
+		else {
+			if (found != sm_vao.end())
+			{
+				if ((*found).second == nullptr)
+				{
+					m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
+					sm_vao.insert(std::make_pair(m_pivotType, m_vao));
+				}
+				else
+				{
+					m_vao = (*found).second;
+				}
 			}
 			else
 			{
-				m_vao = (*found).second;
+				m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
+				sm_vao.insert(std::make_pair(m_pivotType, m_vao));
 			}
-		}
-		else
-		{
-			puppy::TexturedVertex verts[] =
-			{
-				//a nice lil quad that takes the pivot into account
-				{ xmin, ymin, z, 0.0,  0.0 },
-				{ xmax, ymin, z, u,    0.0 },
-				{ xmax, ymax, z, u,    v },
-				{ xmax, ymax, z, u,    v },
-				{ xmin,	ymax, z, 0.0f, v },
-				{ xmin, ymin, z, 0.0f, 0.0f },
-			};
-
-			m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
-			sm_vao.insert(std::make_pair(m_pivotType, m_vao));
 		}
 
 		sm_instances[m_pivotType]++;

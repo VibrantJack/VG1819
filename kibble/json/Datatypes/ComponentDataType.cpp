@@ -1085,7 +1085,7 @@ kitten::K_Component* getUIElement(nlohmann::json* p_jsonFile) {
 
 	userinterface::UIElement::textureBehaviour tb = userinterface::UIElement::tbh_Stretch;
 
-	if (JSONHAS("texture_behaviour"))
+	if (JSONHAS("behaviour"))
 	{
 		std::string temp = LOOKUP("behaviour");
 		if (temp == "repeat")
@@ -1096,16 +1096,10 @@ kitten::K_Component* getUIElement(nlohmann::json* p_jsonFile) {
 		{
 			tb = userinterface::UIElement::tbh_RepeatMirrored;
 		}
-	}
-
-	
-	if (JSONHAS("behavior"))
-	{
-		std::string temp = LOOKUP("behavior");
-		if (temp == "repeat")
-			tb = userinterface::UIElement::tbh_Repeat;
-		else if (temp == "repeat_mirror")
-			tb = userinterface::UIElement::tbh_RepeatMirrored;
+		else if (temp == "stretch")
+		{
+			tb = userinterface::UIElement::tbh_Stretch;
+		}
 	}
 	
 	return new userinterface::UIElement(texture.c_str(),type, tb);

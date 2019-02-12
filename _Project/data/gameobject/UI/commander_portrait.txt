@@ -4,7 +4,8 @@
         {
             "name" : "UIElement",
             "texture" : "textures/ui/blankFrame.tga",
-	    "pivot" : "topleft"
+	    "pivot" : "topleft",
+	    "behaviour" : "stretch"
         }
     ],
     "scale2d" : [105.0,105.0],
