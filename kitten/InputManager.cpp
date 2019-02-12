@@ -287,16 +287,20 @@ namespace input
 		kitten::ClickableFrame* hitFrame = MousePicker::getClosestHitFrame((float) m_lastMouseX, m_mouseYOpenGL);
 		kitten::ClickableFrame* lastHoverFrame = kitten::ActiveClickables::getInstance()->m_lastUIHover;
 
+		bool blocking3DRayCast;
+
 		// Update last hit object
 		if (hitFrame != nullptr)
 		{
 			m_lastMouseHitFrame = &hitFrame->getGameObject();
+			blocking3DRayCast = hitFrame->blocksRaycast();
 		}
 		else
 		{
 			m_lastMouseHitFrame = nullptr;
+			blocking3DRayCast = false;
 		}
-			
+		
 		if (hitFrame != nullptr && lastHoverFrame != nullptr)
 		{
 			if (hitFrame != lastHoverFrame)
@@ -364,7 +368,7 @@ namespace input
 		else m_lastMouseHitObject = nullptr;
 
 
-		if (hitFrame == nullptr || !hitFrame->blocksRaycast())
+		if (!blocking3DRayCast)
 		{
 			if (hit != nullptr && lastHover != nullptr)
 			{
