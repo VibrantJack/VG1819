@@ -10,7 +10,8 @@ private:
 	kitten::K_Time* m_time;
 
 	float m_timeToFade, m_timeElapsed;
-	glm::vec4 m_startingLightColour;
+	glm::vec3 m_startingAttenuation;
+	glm::vec3 m_endingAttenuation;
 
 	virtual void start() override;
 	virtual void onEnabled() override;
@@ -20,7 +21,7 @@ private:
 	virtual void update() override;
 
 public:
-	FadePointLightOverTime(float p_timeToFade);
+	FadePointLightOverTime(float p_timeToFade, const glm::vec3& p_endingAttenuation);
 	~FadePointLightOverTime();
 
 	void setTimeToFade(float p_timeToFade);

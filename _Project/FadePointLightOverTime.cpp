@@ -1,7 +1,8 @@
 #include "FadePointLightOverTime.h"
 #include "util\MathUtil.h"
 
-FadePointLightOverTime::FadePointLightOverTime(float p_timeToFade) : m_pointLight(nullptr), m_time(nullptr), m_timeElapsed(0), m_timeToFade(p_timeToFade)
+FadePointLightOverTime::FadePointLightOverTime(float p_timeToFade, const glm::vec3& p_endingAttenuation) : m_pointLight(nullptr), 
+m_time(nullptr), m_timeElapsed(0), m_timeToFade(p_timeToFade), m_endingAttenuation(p_endingAttenuation)
 {
 
 }
@@ -24,12 +25,12 @@ void FadePointLightOverTime::start()
 	m_pointLight = m_attachedObject->getComponent<kitten::K_PointLight>();
 	assert(m_pointLight != nullptr);
 
-	m_startingLightColour = m_pointLight->getPointColor();
+	m_startingAttenuation = m_pointLight->getAttenuation();
 }
 
 void FadePointLightOverTime::onEnabled()
 {
-	m_pointLight->setPointColor((glm::vec3)m_startingLightColour);
+	m_pointLight->setAttenuation(m_startingAttenuation);
 }
 
 void FadePointLightOverTime::onDisabled()
@@ -43,12 +44,14 @@ void FadePointLightOverTime::update()
 
 	if (m_timeElapsed >= m_timeToFade)
 	{
-		setEnabled(false);
-		m_pointLight->setEnabled(false);
+		m_attachedObject->setEnabled(false);
 	}
 	else
 	{
-		glm::vec4 newLightColour = LERP((m_timeElapsed / m_timeToFade), m_startingLightColour, glm::vec4(0, 0, 0, 1));
-		m_pointLight->setPointColor((glm::vec3)newLightColour);
+		//glm::vec4 newLightColour = LERP((m_timeElapsed / m_timeToFade), m_startingLightColour, glm::vec4(0, 0, 0, 1));
+		//m_pointLight->setPointColor((glm::vec3)newLightColour);
+
+		glm::vec3 newAttenuation = LERP((m_timeElapsed / m_timeToFade), m_startingAttenuation, m_endingAttenuation);
+		m_pointLight->setAttenuation(newAttenuation);
 	}
 }

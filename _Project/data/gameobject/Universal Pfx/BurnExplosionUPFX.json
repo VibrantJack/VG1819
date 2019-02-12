@@ -10,12 +10,13 @@
 		},
 		{
 			"name" : "FadePointLightOverTime",
-			"time" : 5.0
+			"time" : 0.5,
+			"end_attenuation" : [15,0,0]
 		},
 		{
 			"name" : "PointLight",
 			"useCallbacks" : false,
-			"range" : 100.0,
+			"range" : 10.0,
 			"ambientColor" : [0.7,0.7,0.7],
 			"pointColor" : [0.6,0.6,0.6],
 			"attenuation" : [0,1,0]

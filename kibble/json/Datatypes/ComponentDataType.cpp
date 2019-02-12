@@ -1827,8 +1827,14 @@ kitten::K_Component* getPlaySoundOnUIClick(nlohmann::json* p_jsonFile) {
 
 #include "_Project\FadePointLightOverTime.h"
 kitten::K_Component* getFadePointLightOverTime(nlohmann::json* p_jsonFile) {
+	
 	float timeToFade = p_jsonFile->operator[]("time");
-	return new FadePointLightOverTime(timeToFade);
+
+	glm::vec3 endingAttenuation;
+
+	endingAttenuation = glm::vec3(LOOKUP("end_attenuation")[0], LOOKUP("end_attenuation")[1], LOOKUP("end_attenuation")[2]);
+
+	return new FadePointLightOverTime(timeToFade, endingAttenuation);
 }
 
 #include "_Project\PlayUniversalSoundOnUIClick.h"
