@@ -40,6 +40,15 @@ void LerpController::positionLerp(const glm::vec3& p_pos, const float& p_time, T
 	}
 }
 
+void LerpController::arcLerp(const glm::vec3& p_endPos, const float& p_time, const float& p_yHeight)
+{
+	positionLerp(p_endPos, p_time, TransformSource::World);
+
+	m_isArcLerping = true;
+
+	m_yHeight = p_yHeight + p_endPos.y;
+}
+
 void LerpController::rotationLerp(const glm::quat& p_rot, const float& p_time, TransformSource p_behavior)
 {
 	m_isRotationLerping = true;
@@ -78,6 +87,8 @@ void LerpController::update()
 		if (lerpProgress >= 1.0f)
 		{
 			m_isPositionLerping = false;
+			m_isArcLerping = false;
+
 			transform.place(m_lerpPosition.x, m_lerpPosition.y, m_lerpPosition.z);
 
 			onFinishedLerp();
@@ -92,7 +103,20 @@ void LerpController::update()
 		else
 		{
 			glm::vec3 newPos = LERP(lerpProgress, m_originalPosition, m_lerpPosition);
-			transform.place(newPos.x, newPos.y, newPos.z);
+			
+			if (m_isArcLerping)
+			{
+						   // y = -5x*(x-1)
+				float curvedVal = -5 * (lerpProgress) * (lerpProgress - 1);
+
+				float yOffset = LERP(curvedVal, m_originalPosition.y, m_yHeight);
+
+				transform.place(newPos.x, newPos.y + yOffset, newPos.z);
+			}
+			else
+			{
+				transform.place(newPos.x, newPos.y, newPos.z);
+			}
 		}
 	}
 

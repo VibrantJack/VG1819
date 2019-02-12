@@ -16,7 +16,14 @@ private:
 	static ProjectileManager* m_instance;
 	typedef std::string keyType;
 
-	std::unordered_map<keyType, std::pair<kitten::K_GameObject*, float>> m_projectiles;
+	struct ProjectileMapEntry
+	{
+		kitten::K_GameObject* gameObject;
+		float speed;
+		float arcHeight;
+	};
+
+	std::unordered_map<keyType, ProjectileMapEntry> m_projectiles;
 
 	ability::AbilityInfoPackage* m_lastPackage;
 	ability::Ability* m_lastAbility;

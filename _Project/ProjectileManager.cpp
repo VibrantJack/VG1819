@@ -37,13 +37,22 @@ ProjectileManager::ProjectileManager(const std::string& p_projectileList)
 			std::string time;
 			std::getline(stream, time, ',');
 			float convertedTime = 1.0f/std::stof(time);
+			//get the arc height
+			std::string height;
+			std::getline(stream, height, ',');
+			float convertedHeight = std::stof(height);
 
 			// Make the GameObject
 			auto gameObj = gameObjMan->createNewGameObject(jsonName);
 			gameObj->setEnabled(false);
 
 			// Insert into the map
-			m_projectiles.insert(std::make_pair(name, std::make_pair(gameObj, convertedTime)));
+			ProjectileMapEntry entry;
+			entry.gameObject = gameObj;
+			entry.speed = convertedTime;
+			entry.arcHeight = convertedHeight;
+
+			m_projectiles.insert(std::make_pair(name, entry));
 		}
 	}
 
@@ -63,11 +72,12 @@ void ProjectileManager::fireProjectile(const keyType& p_type, unit::Unit* p_sour
 
 void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit* p_source, unit::Unit* p_target, ability::Ability* p_ability, ability::AbilityInfoPackage* p_package)
 {
-	auto pair = m_projectiles[p_type];
+	auto entry = m_projectiles[p_type];
 
-	kitten::K_GameObject* proj = pair.first;
+	kitten::K_GameObject* proj = entry.gameObject;
 	m_lastGO = proj;
 	
+
 	m_lastPackage = p_package;
 	m_lastAbility = p_ability;
 
@@ -125,10 +135,18 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 
 	lerpCon->addPositionLerpFinishedCallback(this);
 
-	float time = pair.second * hypotenuseDistance;
+	float time = entry.speed * hypotenuseDistance;
+	float projArcHeight = entry.arcHeight;
 
-	lerpCon->positionLerp(p_target->getTransform().getTranslation(), time);	
-
+	if (projArcHeight != 0.0f)
+	{
+		lerpCon->arcLerp(p_target->getTransform().getTranslation(), time, projArcHeight);
+	}
+	else
+	{
+		lerpCon->positionLerp(p_target->getTransform().getTranslation(), time);
+	}
+	
 	m_lastUnitSel = p_source->getGameObject().getComponent<unit::UnitSelect>();
 	m_lastUnitSel->disableInteraction(true);
 

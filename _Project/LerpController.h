@@ -42,8 +42,12 @@ public:
 private:
 	bool m_isLerping;
 	bool m_isPositionLerping, m_isScaleLerping, m_isRotationLerping;
+	bool m_isArcLerping;
 
 	glm::vec3 m_lerpPosition, m_originalPosition;
+	float m_yHeight, m_halfPosLerpTime;
+	bool m_arcingUp;
+
 	glm::vec3 m_lerpScale, m_originalScale;
 	glm::quat m_lerpQuat, m_originalQuat;
 
@@ -84,6 +88,7 @@ public:
 	void scaleLerp(const glm::vec3& p_scale, const float& p_time, TransformSource p_behavior = TransformSource::World);
 	void rotationLerp(const glm::quat& p_rot, const float& p_time, TransformSource p_behavior = TransformSource::World);
 
+	void arcLerp(const glm::vec3& p_endPos, const float& p_time, const float& p_yHeight);
 
 	void removePositionCallback(PositionLerpFinishedCallback* p_listener);
 	void removeScaleCallback(ScaleLerpFinishedCallback* p_listener);

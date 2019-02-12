@@ -1,3 +1,3 @@
-// Name in ability macro, json file, speed
-Shoot,projectiles/projectile_arrow.json, 6
-Burn,projectiles/projectile_fireball.json, 5
+// Name in ability macro, json file, speed, archeight (0=none)
+Shoot,projectiles/projectile_arrow.json, 6, 2.5
+Burn,projectiles/projectile_fireball.json, 5, 0
