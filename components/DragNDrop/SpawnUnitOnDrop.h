@@ -3,15 +3,16 @@
 
 class SpawnUnitOnDrop : public DragNDrop, LerpController::PositionLerpFinishedCallback
 {
-public:
-	SpawnUnitOnDrop();
-	~SpawnUnitOnDrop();
-
+private:
 	void start() override;
 	void onClick() override;
 	void onDrop() override;
 	void onPause() override;
 	void onPositionLerpFinished() override;
+
+public:
+	SpawnUnitOnDrop();
+	~SpawnUnitOnDrop();
 
 	void removeCard();
 	void resetCard();
