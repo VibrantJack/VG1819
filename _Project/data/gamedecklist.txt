@@ -5,8 +5,7 @@ DeckNumbah3.txt
 DeckNumbah4.txt
 DeckNumbah5.txt
 DeckNumbah6.txt
-DeckNumbah7.txt
-DeckNumbah8.txt
 
 DeckNumbah9.txt
-DeckNumbah10.txt
+
+DeckNumbah9.txt

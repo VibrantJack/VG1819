@@ -1,0 +1,12 @@
+{
+    "name" : "highlight",
+    "components" : [
+        {
+            "name" : "UIFrame",
+            "texture" : "textures/ui/deck_highlight_square.dds"
+        }
+    ],
+    "scale2d" : [151.5,151.5],
+    "translate": [ 0,0,-0.6],
+    "translate2d" : [-3.5,62]
+}

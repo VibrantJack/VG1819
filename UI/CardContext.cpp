@@ -64,7 +64,11 @@ void CardContext::start()
 	kitten::K_GameObjectManager* gom = kitten::K_GameObjectManager::getInstance();
 	// Cannot set these as children as they won't display
 	m_cardTexture = gom->createNewGameObject("UI/card_context/card_context_texture.json");
+	m_cardTexture->getTransform().setIgnoreParent(false);
+	m_cardTexture->getTransform().setParent(&m_attachedObject->getTransform());
 	m_unitPortrait = gom->createNewGameObject("UI/card_context/card_context_portrait.json")->getComponent<userinterface::UIObject>();
+	m_unitPortrait->getTransform().setIgnoreParent(false);
+	m_unitPortrait->getTransform().setParent(&m_attachedObject->getTransform());
 
 	m_nameBox = gom->createNewGameObject("UI/card_context/card_context_name_textbox.json")->getComponent<puppy::TextBox>();
 	m_nameBox->getGameObject().getTransform().setIgnoreParent(false);

@@ -16,6 +16,7 @@ public:
 
 	int getTargetAvailable() override;
 	void updateIndividualDisplayObject(int p_activeObjectIndex) override;
+	void onObjectClicked(int p_clickedDataSetIndex);
 
 	UnitDisplayFrame(int p_marginX, int p_marginY);
 	~UnitDisplayFrame();

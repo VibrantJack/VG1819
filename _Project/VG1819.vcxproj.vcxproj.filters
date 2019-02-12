@@ -977,6 +977,9 @@
     <ClCompile Include="LoadSceneOnStart.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\components\RenameDeckComponent.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
     <ClCompile Include="..\networking\NetworkLog.cpp">
       <Filter>networking</Filter>
     </ClCompile>
@@ -2042,6 +2045,9 @@
       <Filter>components\sound</Filter>
     </ClInclude>
     <ClInclude Include="LoadSceneOnStart.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\RenameDeckComponent.h">
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="..\networking\NetworkLog.h">

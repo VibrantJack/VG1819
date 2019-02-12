@@ -18,8 +18,8 @@
                 }
             ],
             "translate": [0,0,-0.9],
-			"translate2d" : [100, 160],
-            "scale2d" : [1100,360]
+			"translate2d" : [70, 250],
+            "scale2d" : [850,360]
         },
 		{
 			"filename" : "mainmenu_background.json"
@@ -56,6 +56,34 @@
             "scale2d" : [125, 80]
         },
         {
+            "name" : "Edit Unit Button",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_units.dds"
+                },
+                {
+                    "name" : "ClickableButton",
+                    "regularTexture" : "textures/ui/buttons/button_units.dds",
+                    "highlightedTexture" : "textures/ui/buttons/button_units_h.dds"
+                },
+                {
+                    "name" : "ClickableFrame"
+                },
+                {
+                    "name" : "ChangeSceneOnClick",
+                    "scene" : "deck-builder-unit_selection_screen.json"
+                },
+                {
+                    "name" : "PlayUniversalSoundOnUIClick",
+                    "sound_name" : "click"
+                }
+            ],
+            "translate": [0,0,-0.7],
+            "translate2d" : [576, 29],
+            "scale2d" : [200, 64]
+        },
+        {
             "name" : "Save Button",
             "components" : [
                 {
@@ -79,13 +107,9 @@
             "translate2d" : [995, 22],
             "scale2d" : [250, 80]
         },
-        {
-            "name" : "Prompt Pop Up",
-            "components":[
-                {
-                    "name" : "PromptPopUp"
-                }
-            ]
-        }
+		{
+			"filename" : "card_context.json",
+            "translate" : [1009,230, -0.2]
+		}
     ]
 }

@@ -26,7 +26,7 @@
                 }
             ],
             "translate": [ 0,0,-0.6],
-            "translate2d": [0,55]
+            "translate2d": [0,60]
         },
         {
             "name" : "Deck Units Display Count Background",
@@ -38,7 +38,7 @@
             ],
             "scale2d" : [55, 35],
             "translate": [ 0,0,-0.7],
-            "translate2d" : [140,25]
+            "translate2d" : [140,30]
         },
         {
             "name" : "Commander Display Count TextBox",
@@ -53,7 +53,7 @@
                 }
             ],
             "translate": [ 0,0,-0.6],
-            "translate2d": [150,55]
+            "translate2d": [150,60]
         },
         {
             "name" : "Minus Button",
@@ -77,7 +77,7 @@
 				}
             ],
             "translate": [ 0,0,-0.5],
-            "translate2d" : [140, 0],
+            "translate2d" : [140, 5],
             "scale2d" : [27, 20]
         },
         {
@@ -102,7 +102,7 @@
 				}
             ],
             "translate": [ 0,0,-0.5],
-            "translate2d" : [168, 0],
+            "translate2d" : [168, 5],
             "scale2d" : [27, 20]
         }
     ],

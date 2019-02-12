@@ -4,6 +4,7 @@
 #include "CustomDataComponent.h"
 #include "components/DecksDisplay/DisplayFrameSetChangeOnClick.h"
 #include "components/DecksDisplay/DisplayFramePickerOnClick.h"
+#include "UI/ClickableButton.h"
 
 #define SIZE_X "sizex"
 #define SIZE_Y "sizey"
@@ -42,7 +43,6 @@ void DisplayFrame::start()
 	// Calculate how many objects can fit into our frame
 	int fittableX = (int)((displayFrameScale.x) / (objectScale.x + 2 * m_marginX)), // Formula: Usable Space/ Needed Space.  X: available width / (object width + margins) 
 		fittableY = (int)((displayFrameScale.y) / (objectScale.y + 2 * m_marginY)); // Y: (available height) / (object height + margins) 
-
 
 	// resize object vector to hold maximum possible to display
 	this->m_objectsToDisplay.resize(std::fmax(fittableX*fittableY, 1));
@@ -130,12 +130,12 @@ void DisplayFrame::updateDisplay()
 		m_objectsToDisplay[i]->setEnabled(false);
 	}
 
-	if (m_currentSet == 0) m_arrows[0]->setEnabled(false);
-	else m_arrows[0]->setEnabled(true);
+	if (m_currentSet == 0) m_arrows[0]->getComponent<userinterface::ClickableButton>()->setActive(false);
+	else m_arrows[0]->getComponent<userinterface::ClickableButton>()->setActive(true);
 
 	if (m_objectsToDisplay.size() * (m_currentSet + 1) >= getTargetAvailable())
-		m_arrows[1]->setEnabled(false);
-	else m_arrows[1]->setEnabled(true);
+		m_arrows[1]->getComponent<userinterface::ClickableButton>()->setActive(false);
+	else m_arrows[1]->getComponent<userinterface::ClickableButton>()->setActive(true);
 
 	if (getTargetAvailable() == 0)
 	{
@@ -168,7 +168,6 @@ void DisplayFrame::updateHighlight()
 	}
 }
 
-
 void DisplayFrame::onDisabled()
 {
 	for (auto slot : m_objectsToDisplay)
@@ -187,15 +186,19 @@ void DisplayFrame::onEnabled()
 	{
 		m_objectsToDisplay[index]->setEnabled(true);
 	}
-	if (m_currentSet == 0) m_arrows[0]->setEnabled(false);
-	else m_arrows[0]->setEnabled(true);
+	for (auto arrow : m_arrows)
+	{
+		arrow->setEnabled(true);
+	}
+
+	if (m_currentSet == 0) m_arrows[0]->getComponent<userinterface::ClickableButton>()->setActive(false);
+	else m_arrows[0]->getComponent<userinterface::ClickableButton>()->setActive(true);
 
 	if (m_currentActive != m_objectsToDisplay.size() &&
 		m_objectsToDisplay.size() * (m_currentSet + 1) > getTargetAvailable())
-		m_arrows[1]->setEnabled(false);
-	else m_arrows[1]->setEnabled(true);
+		m_arrows[1]->getComponent<userinterface::ClickableButton>()->setActive(false);
+	else m_arrows[1]->getComponent<userinterface::ClickableButton>()->setActive(true);
 }
-
 
 const int& DisplayFrame::getCurrentPickedItemIndex() const {
 	return m_currentPick;
