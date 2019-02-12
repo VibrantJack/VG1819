@@ -10,7 +10,7 @@ TileGetter::TileGetter()
 
 TileGetter::~TileGetter()
 {
-	//deregisterEvent();
+	deregisterEvent();
 }
 
 void TileGetter::requireTile(unit::AbilityDescription * p_ad, unit::Unit* p_source, bool p_needUnit)

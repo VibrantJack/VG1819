@@ -12,7 +12,7 @@ CounterGetter::CounterGetter():m_displayWindowGO(nullptr)
 
 CounterGetter::~CounterGetter()
 {
-	//deregisterEvent();
+	deregisterEvent();
 }
 
 void CounterGetter::requireCounter(unit::AbilityDescription * p_ad, unit::Unit * p_source)

@@ -9,6 +9,7 @@ TurnCounterController::TurnCounterController()
 
 TurnCounterController::~TurnCounterController()
 {
+	deregisterEvent();
 }
 
 void TurnCounterController::start()

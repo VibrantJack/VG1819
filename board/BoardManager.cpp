@@ -293,7 +293,7 @@ BoardManager::BoardManager():
 
 BoardManager::~BoardManager()
 {
-	//deregisterEvent();
+	deregisterEvent();
 
 	//delete m_pathFind;
 	delete m_range;
