@@ -322,6 +322,29 @@ namespace networking
 
 						break;
 					}
+					case CAST_TIME_ABILITY_PACKET:
+					{
+						printf("Server received CAST_TIME_ABILITY_PACKET from [Client: %d]\n", iter->first);
+						Buffer buffer;
+						buffer.m_data = &(m_network_data[i]);
+						buffer.m_size = MAX_PACKET_SIZE;
+
+						AbilityPacket packet;
+						packet.deserialize(buffer);
+						int packetTotalBytes = packet.getBytes();
+						i += packetTotalBytes;
+						//packet.print();
+
+						char* data = new char[packetTotalBytes];
+						Buffer newBuffer;
+						newBuffer.m_data = data;
+						newBuffer.m_size = packetTotalBytes;
+						packet.serialize(newBuffer);
+						m_network->sendToOthers(iter->first, data, packetTotalBytes);
+						delete[] data;
+
+						break;
+					}
 					case SUMMON_UNIT:
 					{
 						printf("Server received SUMMON_UNIT packet from [Client: %d]\n", iter->first);
