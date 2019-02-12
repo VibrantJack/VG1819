@@ -13,11 +13,13 @@
 #include "board/BoardManager.h"
 #include "kitten\event_system\EventManager.h"
 #include <iostream>
+#include "_Project/LerpController.h"
 
 // Networking
 #include "networking\ClientGame.h"
 
 #define CARD_HOVER_MOVE_TIME 0.2
+#define CARD_SHADOW_MOVE_TIME 0.2
 
 void SpawnUnitOnDrop::onClick()
 {
@@ -37,10 +39,35 @@ void SpawnUnitOnDrop::onClick()
 
 	DragNDrop::onClick();
 
-	if (m_isDragging == false)
-		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(true);
-	else
+	kitten::K_GameObject& shadow = getTransform().getChildren()[0]->getAttachedGameObject();
+	auto& shadowTranslation = shadow.getTransform().getTranslation();
+	auto shadowLerp = shadow.getComponent<LerpController>();
+	if (shadowLerp->isLerping())
+	{
+		shadowLerp->endLerp(LerpController::TransformBehavior::SetToTarget, false);
+	}
+
+	if (m_isDragging == false) {
+		m_lerpController->addPositionLerpFinishedCallback(this);
+		shadowLerp->positionLerp(
+			glm::vec3(
+				0,
+				0,
+				shadowTranslation.z
+			), CARD_SHADOW_MOVE_TIME, LerpController::TransformSource::Local
+		);
+		m_attachedFrame->setBlocksRaycast(true);
+	} else {
 		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(false);
+		shadowLerp->positionLerp(
+			glm::vec3(
+				- 10 ,
+				- 10 ,
+				shadowTranslation.z
+			), CARD_SHADOW_MOVE_TIME, LerpController::TransformSource::Local
+		);
+		m_attachedFrame->setBlocksRaycast(false);
+	}
 
 	if (!m_isDragging)
 		return;
@@ -66,13 +93,18 @@ void SpawnUnitOnDrop::onDrop()
 	else
 	{
 		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Cancel_Summon, nullptr);
-		resetCard();
 	}
+	resetCard();
 }
 
 void SpawnUnitOnDrop::onPause()
 {
 	resetCard();
+}
+
+void SpawnUnitOnDrop::onPositionLerpFinished()
+{
+	m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(true);
 }
 
 void SpawnUnitOnDrop::removeCard()
@@ -83,7 +115,6 @@ void SpawnUnitOnDrop::removeCard()
 
 	// Delete Card
 	kitten::K_GameObjectManager::getInstance()->destroyGameObject(this->m_attachedObject);
-
 }
 
 void SpawnUnitOnDrop::resetCard()
@@ -107,4 +138,5 @@ void SpawnUnitOnDrop::start()
 {
 	DragNDrop::start();
 	setEnabled(!userinterface::HandFrame::getActiveInstance()->isOnDiscardMode());
+	getTransform().getChildren()[0]->getAttachedGameObject().setEnabled(false);
 }

@@ -42,7 +42,7 @@ namespace userinterface
 		int xIndex = 0;
 	    int yIndex = 0;
 		int winY = input::InputManager::getInstance()->getWindowHeight();
-		z = 0.0;
+		z = trans.z + 0.001;
 
 		//pivot type depends on the position of the border 
 		//piece relative to the thing it's surrounding.

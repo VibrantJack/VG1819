@@ -117,6 +117,7 @@ namespace kitten
 		void move(const float xUnits, const float yUnits, const float zUnits);
 		void place2D(const float x, const float y);
 		void place(const float x, const float y, const float z);
+		void placeInWorld(const float x, const float y, const float z);
 		void scale2D(const float xScale, const float yScale);
 		void scaleAbsolute(const float xScale, const float yScale, const float zScale);
 		void scaleRelative(const float xScale, const float yScale, const float zScale);
@@ -126,6 +127,7 @@ namespace kitten
 		void rotateAbsQuat(const glm::quat& rot);
 
 		const glm::vec3& getTranslation() const;
+		const glm::vec3& getRelativeTranslation() const;
 		const glm::quat& getRotation() const;
 		const glm::vec3& getScale() const;
 		glm::vec2 getScale2D() const;

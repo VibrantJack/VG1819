@@ -18,8 +18,8 @@
                 }
             ],
             "translate": [0,0,-0.9],
-			"translate2d" : [150, 160],
-            "scale2d" : [1015,280]
+			"translate2d" : [140, 160],
+            "scale2d" : [980,540]
         },
 		{
 			"filename" : "mainmenu_background.json"
@@ -76,7 +76,7 @@
 				}
             ],
             "translate": [0,0,-0.7],
-            "translate2d" : [1081, 29],
+            "translate2d" : [1082, 29],
             "scale2d" : [128, 64]
         },
 		{
@@ -87,7 +87,7 @@
                     "texture" : "textures/ui/buttons/delete_deck.dds"
                 },
                 {
-                    "name" : "ClickableButton",
+                    "name" : "DeleteDeckOnClick",
                     "regularTexture" : "textures/ui/buttons/delete_deck.dds",
                     "highlightedTexture" : "textures/ui/buttons/delete_deck_h.dds"
                 },
@@ -103,11 +103,47 @@
             "translate2d" : [806, 29],
             "scale2d" : [128, 64]
         },
+		{
+            "name" : " Rename Deck Button ",
+            "components" : [
+                {
+                    "name" : "SetupDeckEditOnSceneChange",
+					"scene" : "deck-builder-rename_deck_screen.json"
+                },
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/delete_deck.dds"
+                },
+                {
+                    "name" : "ClickableButton",
+                    "regularTexture" : "textures/ui/buttons/rename_deck.dds",
+                    "highlightedTexture" : "textures/ui/buttons/rename_deck_h.dds"
+                },
+                {
+                    "name" : "ClickableFrame"
+                },
+				{
+					"name" : "PlayUniversalSoundOnUIClick",
+					"sound_name" : "click"
+				}
+            ],
+            "translate": [0,0,-0.7],
+            "translate2d" : [944, 29],
+            "scale2d" : [128, 64]
+        },
         {
 			"filename" : "UI/unit_button.json"
         },
         {
 			"filename" : "UI/commander_button.json"
+        },
+        {
+            "name" : "Prompt Pop Up",
+            "components":[
+                {
+                    "name" : "PromptPopUp"
+                }
+            ]
         }
     ]
 }

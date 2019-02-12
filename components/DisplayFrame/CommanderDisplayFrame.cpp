@@ -33,11 +33,17 @@ void CommanderDisplayFrame::start()
 	m_commanderIndex = std::find(m_commanderVector.begin(), m_commanderVector.end(), 
 		DeckAlterationComponent::getActiveInstance()->getDeckData()->commanderID) 
 		- m_commanderVector.begin();
-	m_currentPick = std::find(m_commanderVector.begin(), m_commanderVector.end(), 
-		DeckAlterationComponent::getActiveInstance()->getDeckData()->commanderID)
-		- m_commanderVector.begin(); // show which commander has been selected
+	if (m_commanderIndex >= m_commanderVector.size()) m_commanderIndex = -1;
+	m_currentPick = m_commanderIndex; // show which commander has been selected
 
 	DisplayFrame::start();
+
+	kitten::Event* e = new kitten::Event(kitten::Event::Card_Context_Set_Enabled);
+	e->putInt(CARD_CONTEXT_SET_ENABLED_KEY, TRUE);
+	kitten::EventManager::getInstance()->queueEvent(kitten::Event::Card_Context_Set_Enabled, e);
+	kitten::Event* updateContextEvent = new kitten::Event(kitten::Event::Update_Card_Context_By_ID);
+	updateContextEvent->putInt(UPDATE_CARD_CONTEXT_KEY, DeckAlterationComponent::getActiveInstance()->getDeckData()->commanderID);
+	kitten::EventManager::getInstance()->queueEvent(kitten::Event::Update_Card_Context_By_ID, updateContextEvent);
 }
 
 
@@ -68,6 +74,7 @@ void CommanderDisplayFrame::updateIndividualDisplayObject(int p_activeObjectInde
 void CommanderDisplayFrame::refreshCommander()
 {
 	m_commanderIndex = std::find(m_commanderVector.begin(),m_commanderVector.end(), DeckAlterationComponent::getActiveInstance()->getDeckData()->commanderID) - m_commanderVector.begin();
+	if (m_commanderIndex >= m_commanderVector.size()) m_commanderIndex = -1;
 }
 
 void CommanderDisplayFrame::refreshActiveButtons()
@@ -79,4 +86,11 @@ void CommanderDisplayFrame::refreshActiveButtons()
 				i + m_currentSet * m_objectsToDisplay.size() != m_commanderIndex
 			);
 	}
+}
+
+void CommanderDisplayFrame::onObjectClicked(int p_clickedDataSetIndex)
+{
+	kitten::Event* updateContextEvent = new kitten::Event(kitten::Event::Update_Card_Context_By_ID);
+	updateContextEvent->putInt(UPDATE_CARD_CONTEXT_KEY, m_commanderVector[p_clickedDataSetIndex]);
+	kitten::EventManager::getInstance()->queueEvent(kitten::Event::Update_Card_Context_By_ID, updateContextEvent);
 }

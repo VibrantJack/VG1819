@@ -21,5 +21,22 @@
             "name" : "HoverOverCardBehavior"
         }
     ],
+    "gameobjects" : [
+        {
+            "name" : "shadow",
+            "components" : [
+                {
+                    "name" : "LerpController"
+                },
+                {
+                    "name" : "UIFrame",
+                    "texture" : "textures/card/shadow.jpg"
+                }
+            ],
+            "translate": [0,0,-0.001],
+            "scale2d" : [1,1]
+        }
+    ],
+    "translate" : [0, 0,-0.2],
     "translate2d" : [1100, 50]
 }

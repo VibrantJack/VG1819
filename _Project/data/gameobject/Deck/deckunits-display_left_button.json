@@ -8,7 +8,8 @@
 		{
 			"name" : "ClickableButton",
 			"regularTexture" : "textures/ui/buttons/button_arrow_up.tga",
-			"highlightedTexture" : "textures/ui/buttons/button_arrow_up_h.tga"
+			"highlightedTexture" : "textures/ui/buttons/button_arrow_up_h.tga",
+            "inactiveTexture" : "textures/ui/buttons/button_arrow_up_i.tga"
 		},
 		{
 			"name" : "PlayUniversalSoundOnUIClick",
