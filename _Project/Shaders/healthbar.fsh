@@ -8,7 +8,10 @@ out vec4 PixelColor;
 
 void main()
 {
-	if(v_uv1.x > healthPercent)
+	float missingPercent = 1 - healthPercent;
+	float halfMissingPercent = missingPercent / 2.0;
+	
+	if(v_uv1.x < halfMissingPercent || v_uv1.x > (healthPercent+halfMissingPercent))
 	{
 		PixelColor = vec4(1,0,0,1);
 	}
