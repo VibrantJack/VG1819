@@ -104,8 +104,8 @@ namespace unit
 		//kitten::K_GameObject* u4 = UnitSpawn::getInstance()->spawnUnitObject(4);//engineer
 		//u4->getComponent<unit::UnitMove>()->setTile(5, 2);
 		
-//		kitten::K_GameObject* u5 = UnitSpawn::getInstance()->spawnUnitObject(7);//pyromancer
-//		u5->getComponent<unit::UnitMove>()->setTile(6, 2);
+		kitten::K_GameObject* u5 = UnitSpawn::getInstance()->spawnUnitObject(7);//pyromancer
+		u5->getComponent<unit::UnitMove>()->setTile(6, 2);
 
 //		kitten::K_GameObject* u6 = UnitSpawn::getInstance()->spawnUnitObject(8);//stone slinger
 //		u6->getComponent<unit::UnitMove>()->setTile(10, 4);

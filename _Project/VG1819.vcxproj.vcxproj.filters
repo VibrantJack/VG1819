@@ -983,6 +983,9 @@
     <ClCompile Include="..\networking\NetworkLog.cpp">
       <Filter>networking</Filter>
     </ClCompile>
+    <ClCompile Include="FadePointLightOverTime.cpp">
+      <Filter>components\visualFX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2053,6 +2056,9 @@
     <ClInclude Include="..\networking\NetworkLog.h">
       <Filter>networking</Filter>
     </ClInclude>
+    <ClInclude Include="FadePointLightOverTime.h">
+      <Filter>components\visualFX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -2252,6 +2258,9 @@
     </Filter>
     <Filter Include="UI\Borders">
       <UniqueIdentifier>{bce99ca2-9883-4d20-b1e6-32a086ce157d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\visualFX">
+      <UniqueIdentifier>{ea152e66-7a7d-4168-8001-6e40af1437f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
