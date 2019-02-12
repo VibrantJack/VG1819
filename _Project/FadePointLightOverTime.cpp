@@ -48,9 +48,6 @@ void FadePointLightOverTime::update()
 	}
 	else
 	{
-		//glm::vec4 newLightColour = LERP((m_timeElapsed / m_timeToFade), m_startingLightColour, glm::vec4(0, 0, 0, 1));
-		//m_pointLight->setPointColor((glm::vec3)newLightColour);
-
 		glm::vec3 newAttenuation = LERP((m_timeElapsed / m_timeToFade), m_startingAttenuation, m_endingAttenuation);
 		m_pointLight->setAttenuation(newAttenuation);
 	}
