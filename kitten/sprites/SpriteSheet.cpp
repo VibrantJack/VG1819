@@ -11,8 +11,6 @@ namespace sprites
 		m_material->setTexture(p_pathToTex.c_str());
 
 		m_material->getTexture()->setWrapping(GL_CLAMP_TO_EDGE);
-		m_material->getTexture()->setMagFiltering(GL_NEAREST);
-		m_material->getTexture()->setMinFiltering(GL_NEAREST);
 	}
 
 	SpriteSheet::~SpriteSheet()
