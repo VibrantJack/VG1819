@@ -6,6 +6,6 @@
             "texture" : "textures/ui/card_context.dds"
         }
     ],
-    "scale2d" : [256,424],
-    "translate" : [1024,171, -0.2]
+    "scale2d" : [1,1.06],
+    "translate" : [0,-25,-0.1]
 }

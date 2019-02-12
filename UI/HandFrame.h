@@ -27,6 +27,7 @@ namespace userinterface
 		bool isOnDiscardMode() { return m_isDiscardMode; }
 		void setPointCountToDiscard(unsigned int);
 		void decreasePointCountBy(int p_value);
+		int getTotalCardsInHand() { return m_totalCards; }
 
 		virtual void start() override;
 		virtual void onEnabled() override;

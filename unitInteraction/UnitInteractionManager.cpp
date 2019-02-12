@@ -162,6 +162,10 @@ void UnitInteractionManager::send()
 	}
 	else//has cast time
 	{//set cast ability
+		if (networking::ClientGame::isNetworkValid())
+		{
+			networking::ClientGame::getInstance()->sendCastTimeAbilityPacket(m_ad, m_package);
+		}
 		m_unit->setCast(m_ad, m_package);
 	}
 

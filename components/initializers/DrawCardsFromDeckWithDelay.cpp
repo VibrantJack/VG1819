@@ -1,5 +1,6 @@
 #include "DrawCardsFromDeckWithDelay.h"
 #include "kitten/event_system/EventManager.h"
+#include "UI/HandFrame.h"
 #define TIME_DELAY_BETWEEN_DRAWS 0.5
 #define TIME_DELAY_TILL_DRAW 0
 #define START_GAME_CARD_COUNT 5
@@ -36,7 +37,7 @@ void DrawCardsFromDeckWithDelay::update()
 	if (m_timeElapsed > m_delayBetweenDraws) // if past delay
 	{
 		m_timeElapsed -= m_delayBetweenDraws;
-		if (m_cardsDispensed >= m_cardsToDispense)
+		if (m_cardsDispensed >= m_cardsToDispense || userinterface::HandFrame::getActiveInstance()->getTotalCardsInHand() >= 5)
 		{
 			this->setEnabled(false);
 			return;

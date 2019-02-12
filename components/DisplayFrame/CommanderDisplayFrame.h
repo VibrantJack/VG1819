@@ -20,6 +20,7 @@ public:
 
 	void refreshCommander();
 	void refreshActiveButtons();
+	void onObjectClicked(int p_clickedDataSetIndex);
 
 	CommanderDisplayFrame(int p_marginX, int p_marginY);
 	~CommanderDisplayFrame();

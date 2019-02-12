@@ -22,6 +22,9 @@
 				},
 				{
 					"name" : "StringInputDisplay"
+                },
+				{
+					"name" : "RenameDeckComponent"
                 }
 			],
 			"translate2d" : [525, 357, -0.1]
@@ -65,18 +68,14 @@
             "scale2d" : [125, 80]
         },
         {
-            "name" : " Next Button ",
+            "name" : "Save Button",
             "components" : [
-				{
-					"name" : "ChangeSceneOnClick",
-					"scene" : "deck-builder-commander_selection_screen.json"					
-				},
                 {
                     "name" : "UIObject",
                     "texture" : "textures/ui/buttons/button_save.tga"
                 },
                 {
-                    "name" : "ClickableButton",
+                    "name" : "SaveDeckOnClick",
                     "regularTexture" : "textures/ui/buttons/button_save.tga",
                     "highlightedTexture" : "textures/ui/buttons/button_save_h.tga"
                 },
@@ -88,6 +87,7 @@
 					"sound_name" : "click"
 				}
             ],
+            "translate": [0,0,-0.7],
             "translate2d" : [995, 22],
             "scale2d" : [250, 80]
         }

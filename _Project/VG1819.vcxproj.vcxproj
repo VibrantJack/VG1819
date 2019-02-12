@@ -225,6 +225,7 @@
     <ClCompile Include="..\components\initializers\DrawCardsFromDeckWithDelay.cpp" />
     <ClCompile Include="..\components\MainMenuBoard.cpp" />
     <ClCompile Include="..\components\PromptPopUp.cpp" />
+    <ClCompile Include="..\components\RenameDeckComponent.cpp" />
     <ClCompile Include="..\components\scene change\StartGameOnClick.cpp" />
     <ClCompile Include="..\components\ExitGameButton.cpp" />
     <ClCompile Include="..\components\scene change\StartNewDeckSetupWizard.cpp" />
@@ -565,6 +566,7 @@
     <ClInclude Include="..\components\initializers\DrawCardsFromDeckWithDelay.h" />
     <ClInclude Include="..\components\MainMenuBoard.h" />
     <ClInclude Include="..\components\PromptPopUp.h" />
+    <ClInclude Include="..\components\RenameDeckComponent.h" />
     <ClInclude Include="..\components\scene change\StartGameOnClick.h" />
     <ClInclude Include="..\components\scene change\StartNewDeckSetupWizard.h" />
     <ClInclude Include="..\components\SetupDeckEditOnSceneChange.h" />

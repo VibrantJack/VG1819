@@ -6,6 +6,7 @@
 #include "unit/Unit.h"
 #include <math.h>
 #include "DeckInitializingComponent.h"
+#include "kitten/event_system/Event.h"
 #include <string>
 
 DecksDisplayFrame* instance;
