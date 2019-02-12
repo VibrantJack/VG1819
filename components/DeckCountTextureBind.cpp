@@ -1,5 +1,6 @@
 #include "DeckCountTextureBind.h"
 #include "kitten/event_system/EventManager.h"
+#include "kitten/K_GameObjectManager.h"
 #include "UI/UIFrame.h"
 
 void DeckCountTextureBind::deckEventReceiver(kitten::Event::EventType p_type, kitten::Event * p_data)
@@ -18,6 +19,8 @@ void DeckCountTextureBind::deckEventReceiver(kitten::Event::EventType p_type, ki
 	}
 
 	m_deckCount = deckCount;
+	m_countText->setText(std::to_string(m_deckCount));
+
 }
 
 void DeckCountTextureBind::start()
@@ -33,6 +36,14 @@ void DeckCountTextureBind::start()
 
 	m_currentTexPair = m_texPairs.rbegin();
 	m_attachedObject->getComponent<userinterface::UIFrame>()->setTexture(m_currentTexPair->second.c_str());
+
+	kitten::K_GameObject* counter = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/deck/deck_counter_textbox.json");
+	puppy::TextBox* txtBoxComp = counter->getComponent<puppy::TextBox>();
+	txtBoxComp->setText("Loading Cards");
+	const glm::vec2 deckScale = getTransform().getScale2D();
+	const glm::vec3 deckTrans = getTransform().getTranslation();
+	counter->getTransform().place2D(deckTrans.x + 10, deckTrans.y + deckScale.y);
+
 }
 
 void DeckCountTextureBind::addTexPair(int p_atCount, const std::string& p_tex)
