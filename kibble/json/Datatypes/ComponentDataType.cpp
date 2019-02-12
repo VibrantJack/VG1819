@@ -1825,6 +1825,12 @@ kitten::K_Component* getPlaySoundOnUIClick(nlohmann::json* p_jsonFile) {
 	return new PlaySoundOnUIClick();
 }
 
+#include "_Project\FadePointLightOverTime.h"
+kitten::K_Component* getFadePointLightOverTime(nlohmann::json* p_jsonFile) {
+	float timeToFade = p_jsonFile->operator[]("time");
+	return new FadePointLightOverTime(timeToFade);
+}
+
 #include "_Project\PlayUniversalSoundOnUIClick.h"
 kitten::K_Component* getPlayUniversalSoundOnUIClick(nlohmann::json* p_jsonFile) {
 	std::string soundName = p_jsonFile->operator[]("sound_name");
@@ -2011,6 +2017,7 @@ void setupComponentMap() {
 	jsonComponentMap["TimerSymbol"] = &getTimerSymbol;
 	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
 	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
+	jsonComponentMap["FadePointLightOverTime"] = &getFadePointLightOverTime;
 	jsonComponentMap["DeckCountTextureBind"] = &getDeckCountTextureBind;
 	jsonComponentMap["TextChat"] = &getTextChat;
 	jsonComponentMap["ReadyCheck"] = &getReadyCheck;

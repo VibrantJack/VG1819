@@ -9,8 +9,8 @@
 			"name" : "PlayParticleSystemOnEnable"
 		},
 		{
-			"name" : "DisableAfterTime",
-			"time" : 0.5
+			"name" : "FadePointLightOverTime",
+			"time" : 5.0
 		},
 		{
 			"name" : "PointLight",

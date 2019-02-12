@@ -410,6 +410,7 @@
     <ClCompile Include="DebugPrintOnce.cpp" />
     <ClCompile Include="DestroyOnClick.cpp" />
     <ClCompile Include="DisableAfterTime.cpp" />
+    <ClCompile Include="FadePointLightOverTime.cpp" />
     <ClCompile Include="FPSCalc.cpp" />
     <ClCompile Include="HaltParticleSystemAfterTime.cpp" />
     <ClCompile Include="LerpController.cpp" />
@@ -772,6 +773,7 @@
     <ClInclude Include="DebugPrintOnce.h" />
     <ClInclude Include="DestroyOnClick.h" />
     <ClInclude Include="DisableAfterTime.h" />
+    <ClInclude Include="FadePointLightOverTime.h" />
     <ClInclude Include="FPSCalc.h" />
     <ClInclude Include="HaltParticleSystemAfterTime.h" />
     <ClInclude Include="LerpController.h" />
