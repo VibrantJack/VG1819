@@ -33,6 +33,7 @@
 			},
 			{
 				"name":"Blast",
+				"lv":3,
 				"power":16,
 				"min_range":2,
 				"max_range":4,

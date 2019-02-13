@@ -18,13 +18,18 @@ public:
 
 	void getPlayerChoice(int p_n);
 	void cancel();
+
+	void registerEvent();
+	void deregisterEvent();
+	void listenEvent(kitten::Event::EventType p_type, kitten::Event* p_data);
+
+	void reset();
+
 private:
 	std::string m_name;
 	kitten::K_GameObject* m_displayWindowGO;
+	bool m_busy;
 
 	void getAllCounter(unit::Unit * p_source);
 	void playerChooseCounter(unit::AbilityDescription * p_ad, unit::Unit * p_source);
-
-	
-
 };

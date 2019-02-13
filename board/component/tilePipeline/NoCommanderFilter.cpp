@@ -1,5 +1,6 @@
 #include "TileFliter.h"
 
+/*
 void NoCommanderFilter::filter(kitten::Event::TileList * p_list)
 {
 	if (!m_enabled)
@@ -27,4 +28,17 @@ void NoCommanderFilter::filter(kitten::Event::TileList * p_list)
 			it++;
 		}
 	}
+}*/
+
+
+bool NoCommanderFilter::shouldRemove(kitten::K_GameObject * p_tileGO)
+{
+	if (p_tileGO->getComponent<TileInfo>()->hasUnit())
+	{
+		kitten::K_GameObject* u = p_tileGO->getComponent<TileInfo>()->getUnit();
+
+		if (!u->getComponent<unit::Unit>()->isCommander())
+			return true;
+	}
+	return false;
 }
