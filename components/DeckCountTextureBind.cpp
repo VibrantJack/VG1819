@@ -19,7 +19,8 @@ void DeckCountTextureBind::deckEventReceiver(kitten::Event::EventType p_type, ki
 	}
 
 	m_deckCount = deckCount;
-	m_countText->setText(std::to_string(m_deckCount));
+
+	m_countText->setText(std::to_string(deckCount));
 
 }
 
@@ -42,7 +43,8 @@ void DeckCountTextureBind::start()
 	txtBoxComp->setText("Loading Cards");
 	const glm::vec2 deckScale = getTransform().getScale2D();
 	const glm::vec3 deckTrans = getTransform().getTranslation();
-	counter->getTransform().place2D(deckTrans.x + 10, deckTrans.y + deckScale.y);
+	counter->getTransform().place2D(deckTrans.x + 20, deckTrans.y + deckScale.y + 10);
+	m_countText = txtBoxComp;
 
 }
 
