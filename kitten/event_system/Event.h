@@ -49,6 +49,7 @@ namespace kitten
 		enum EventType 
 		{ 
 			Tile_Clicked,
+			Right_Clicked,
 			Object_Clicked,
 			Set_Area_Pattern,
 			Highlight_Tile, 
@@ -96,6 +97,7 @@ namespace kitten
 			Player_Joined,
 			Scene_Change,
 			Remove_Loading_Screen,
+			New_Game_Turn,
 
 			Test_Event, 
 			MAX_VAL = Test_Event

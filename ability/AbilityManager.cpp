@@ -162,7 +162,20 @@ namespace ability
 
 	int AbilityManager::useAbility(const std::string & p_name, AbilityInfoPackage * p_info)
 	{
-		if (networking::ClientGame::isNetworkValid())
+		bool hasCT = false;
+		unit::Unit* sourceUnit = p_info->m_source;
+		if (sourceUnit->m_ADList.find(p_name) != sourceUnit->m_ADList.end())
+		{
+			unit::AbilityDescription* ad = sourceUnit->m_ADList[p_name];
+
+			// Check if the AD has a value for CT, if so, make sure that it is greater than 0
+			// Otherwise, there's no cast time for the ability
+			hasCT = (ad->m_intValue.find(UNIT_CT) != ad->m_intValue.end() ? ad->m_intValue[UNIT_CT] > 0 : false);
+		}
+
+		// If playing multiplayer and the ability does not have a cast time, send the packet directly
+		// Abilities with cast times are networked in UnitInteractionManager::send, when Unit::setCast is called
+		if (networking::ClientGame::isNetworkValid() && !hasCT)
 		{
 			networking::ClientGame::getInstance()->sendAbilityPacket(p_name, p_info);
 		}

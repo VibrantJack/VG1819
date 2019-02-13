@@ -6,10 +6,13 @@
 #include "CounterGetterController.h"
 CounterGetter::CounterGetter():m_displayWindowGO(nullptr)
 {
+	m_busy = false;
+	registerEvent();
 }
 
 CounterGetter::~CounterGetter()
 {
+	deregisterEvent();
 }
 
 void CounterGetter::requireCounter(unit::AbilityDescription * p_ad, unit::Unit * p_source)
@@ -106,6 +109,8 @@ void CounterGetter::playerChooseCounter(unit::AbilityDescription * p_ad, unit::U
 		CounterGetterDisplay* display = m_displayWindowGO->getComponent<CounterGetterDisplay>();
 		display->setGetter(this);
 		display->set(min, max, m_name);*/
+
+		m_busy = true;
 	}
 }
 
@@ -114,6 +119,7 @@ void CounterGetter::getPlayerChoice(int n)
 	if (m_displayWindowGO != nullptr)
 		m_displayWindowGO->setEnabled(false);
 
+	m_busy = false;
 	UnitInteractionManager::getInstance()->setCounter(m_name, n);
 }
 
@@ -122,5 +128,34 @@ void CounterGetter::cancel()
 	if (m_displayWindowGO != nullptr)
 		m_displayWindowGO->setEnabled(false);
 
+	m_busy = false;
 	UnitInteractionManager::getInstance()->cancel();
+}
+
+void CounterGetter::registerEvent()
+{
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Right_Clicked,
+		this,
+		std::bind(&CounterGetter::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
+
+}
+
+void CounterGetter::deregisterEvent()
+{
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::Right_Clicked, this);
+}
+
+void CounterGetter::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data)
+{
+	if (m_busy && p_type == kitten::Event::Right_Clicked)
+	{
+		cancel();
+	}
+}
+
+void CounterGetter::reset()
+{
+	m_busy = false;
+	m_displayWindowGO = nullptr;
 }

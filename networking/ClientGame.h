@@ -9,7 +9,7 @@
 #include <map>
 
 // Ability 
-#include "ability\AbilityInfoPackage.h"
+#include "unit\UnitCommon.h"
 
 namespace networking
 {
@@ -53,6 +53,8 @@ namespace networking
 
 		void useAbility(AbilityPacket& p_packet);
 		void sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
+		void setCastTime(AbilityPacket& p_packet);
+		void sendCastTimeAbilityPacket(unit::AbilityDescription * p_ad, ability::AbilityInfoPackage * p_info);
 		
 		bool checkSync(int p_unitId);
 		void sendDesyncedPacket();

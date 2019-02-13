@@ -977,11 +977,23 @@
     <ClCompile Include="LoadSceneOnStart.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\StructureFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\NonStructureFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\TurnCounterController.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
     <ClCompile Include="..\components\RenameDeckComponent.cpp">
       <Filter>components</Filter>
     </ClCompile>
     <ClCompile Include="..\networking\NetworkLog.cpp">
       <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="FadePointLightOverTime.cpp">
+      <Filter>components\visualFX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2047,11 +2059,17 @@
     <ClInclude Include="LoadSceneOnStart.h">
       <Filter>components</Filter>
     </ClInclude>
+    <ClInclude Include="..\UI\TurnCounterController.h">
+      <Filter>UI</Filter>
+    </ClInclude>
     <ClInclude Include="..\components\RenameDeckComponent.h">
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="..\networking\NetworkLog.h">
       <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="FadePointLightOverTime.h">
+      <Filter>components\visualFX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2252,6 +2270,9 @@
     </Filter>
     <Filter Include="UI\Borders">
       <UniqueIdentifier>{bce99ca2-9883-4d20-b1e6-32a086ce157d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\visualFX">
+      <UniqueIdentifier>{ea152e66-7a7d-4168-8001-6e40af1437f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

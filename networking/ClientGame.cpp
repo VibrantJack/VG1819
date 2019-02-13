@@ -250,6 +250,27 @@ namespace networking
 				}
 				break;
 			}
+			case PacketTypes::CAST_TIME_ABILITY_PACKET:
+			{
+				printf("[Client: %d] received CAST_TIME_ABILITY_PACKET packet from server\n", sm_iClientId);
+
+				Buffer buffer;
+				buffer.m_data = &(m_network_data[i]);
+				buffer.m_size = MAX_PACKET_SIZE;
+
+				AbilityPacket packet;
+				packet.deserialize(buffer);
+				i += packet.getBytes();
+
+				if (checkSync(packet.m_sourceUnit))
+				{
+					setCastTime(packet);
+				} else
+				{
+					sendDesyncedPacket();
+				}
+				break;
+			}
 			case PacketTypes::SUMMON_UNIT:
 			{
 				printf("[Client: %d] received CLIENT_SUMMON_UNIT packet from server\n", sm_iClientId);
@@ -474,6 +495,53 @@ namespace networking
 
 		std::stringstream message;
 		message << "Client:" << sm_iClientId << " sending an ability:";
+		m_log->logMessage(message.str());
+
+		std::string abilityInfo = packet.getFormattedAbilityInfo();
+		m_log->logMessage(abilityInfo);
+	}
+
+	void ClientGame::setCastTime(AbilityPacket& p_packet)
+	{
+		std::string strAbilityName = p_packet.m_abilityName;
+		printf("[Client: %d] setting cast for: %s\n", sm_iClientId, strAbilityName.c_str());
+
+		ability::AbilityInfoPackage* info = new ability::AbilityInfoPackage();
+		info->m_sourceClientId = p_packet.m_clientId;
+		p_packet.insertIntoPackage(info);
+
+		unit::AbilityDescription* ad = info->m_source->m_ADList[p_packet.m_abilityName];
+		info->m_source->setCast(ad, info);
+
+		std::stringstream message;
+		message << "Client:" << sm_iClientId << " received CastTime ability, setting cast for:";
+		m_log->logMessage(message.str());
+
+		std::string abilityInfo = p_packet.getFormattedAbilityInfo();
+		m_log->logMessage(abilityInfo);
+	}
+
+	void ClientGame::sendCastTimeAbilityPacket(unit::AbilityDescription * p_ad, ability::AbilityInfoPackage * p_info)
+	{
+		AbilityPacket packet;
+		packet.m_packetType = CAST_TIME_ABILITY_PACKET;
+		packet.m_clientId = sm_iClientId;
+		packet.m_abilityNameLength = p_ad->m_stringValue[ABILITY_NAME].size();
+		packet.m_abilityName = p_ad->m_stringValue[ABILITY_NAME];
+		packet.extractFromPackage(p_info);
+
+		char* data = new char[packet.getSize()];
+		Buffer buffer;
+		buffer.m_data = data;
+		buffer.m_size = packet.getSize();
+		packet.serialize(buffer);
+		printf("[Client: %d] sending CAST_TIME_ABILITY_PACKET\n", sm_iClientId);
+
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, packet.getSize());
+		delete[] data;
+
+		std::stringstream message;
+		message << "Client:" << sm_iClientId << " sending a CastTime ability:";
 		m_log->logMessage(message.str());
 
 		std::string abilityInfo = packet.getFormattedAbilityInfo();

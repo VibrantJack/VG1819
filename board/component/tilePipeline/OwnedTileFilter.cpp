@@ -1,5 +1,5 @@
 #include "TileFliter.h"
-
+/*
 void OwnedTileFilter::filter(kitten::Event::TileList * p_list)
 {
 	if (!m_enabled)
@@ -20,4 +20,10 @@ void OwnedTileFilter::filter(kitten::Event::TileList * p_list)
 			it++;
 		}
 	}
+}*/
+
+bool OwnedTileFilter::shouldRemove(kitten::K_GameObject * p_tileGO)
+{
+	int owner = p_tileGO->getComponent<TileInfo>()->getOwnerId();
+	return owner != -1;
 }
