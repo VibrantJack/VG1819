@@ -100,6 +100,5 @@ namespace userinterface
 		getTransform().scale2D(m_width, m_height + m_padding);
 
 		defineVerts();
-		setEnabled(true);
 	}
 }

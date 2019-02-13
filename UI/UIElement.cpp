@@ -102,7 +102,7 @@ namespace userinterface
 			};
 
 			case tbh_Repeat: {
-				glm::vec2 scale = getTransform().getScale2D();
+				const glm::vec2 scale = getTransform().getScale2D();
 				u = scale.x / 100.0f;
 				if (u < 1)
 				{
@@ -203,12 +203,14 @@ namespace userinterface
 			{ xmin, ymin, z, 0.0f, 0.0f },
 		};
 
-		auto found = sm_vao.find(m_pivotType);
+		
 		if (m_texBehaviour == tbh_Repeat || m_texBehaviour == tbh_RepeatMirrored)
 		{
 			m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
 		}
-		else {
+		else 
+		{
+			auto found = sm_vao.find(m_pivotType);
 			if (found != sm_vao.end())
 			{
 				if ((*found).second == nullptr)
