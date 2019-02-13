@@ -1,7 +1,7 @@
 #include "LerpController.h"
 
 LerpController::LerpController() : m_time(nullptr), m_posLerpTime(0.0f), m_scaleLerpTime(0.0f), m_rotLerpTime(0.0f), 
-	m_isLerping(false), m_isPositionLerping(false), m_isScaleLerping(false), m_isRotationLerping(false)
+	m_isLerping(false), m_isPositionLerping(false), m_isScaleLerping(false), m_isRotationLerping(false), m_yHeight(0), m_isArcLerping(false)
 {
 
 }

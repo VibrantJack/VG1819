@@ -77,7 +77,6 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 	kitten::K_GameObject* proj = entry.gameObject;
 	m_lastGO = proj;
 	
-
 	m_lastPackage = p_package;
 	m_lastAbility = p_ability;
 
@@ -86,7 +85,7 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 	assert(lerpCon != nullptr);
 
 	const glm::vec3& startPos = p_source->getTransform().getTranslation();
-	proj->getTransform().place(startPos.x, startPos.y+1, startPos.z);
+	proj->getTransform().place(startPos.x, startPos.y+2, startPos.z);
 
 	// Get the angle between the source and the destination to rotate the projectile
 	float xDist = p_source->getTransform().getTranslation().x - p_target->getTransform().getTranslation().x;
@@ -132,6 +131,7 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 
 	proj->getTransform().rotateAbsolute(glm::vec3(0, 0, -degAngle));
 	proj->getTransform().rotateRelative(glm::vec3(45, 0, 0)); //rotate to the camera
+	
 
 	lerpCon->addPositionLerpFinishedCallback(this);
 
