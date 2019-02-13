@@ -13,14 +13,21 @@ unit::ActionButtonStore::ActionButtonStore()
 	m_index = 0;
 	m_actionStartIndex = 0;
 	m_actionEndIndex = 0;
+
+	registerEvent();
 }
 
 unit::ActionButtonStore::~ActionButtonStore()
 {
+	deregisterEvent();
 }
 
 void unit::ActionButtonStore::display(Unit * p_u)
 {
+	//will not refresh when click unit after buttons are displayed
+	if (m_show)
+		return;
+
 	//set unit
 	m_unit = p_u;
 
@@ -175,7 +182,6 @@ void unit::ActionButtonStore::hide()
 		m_show = false;
 		m_actionShow = false;
 	}
-	
 }
 
 void unit::ActionButtonStore::hideAction()
@@ -186,6 +192,15 @@ void unit::ActionButtonStore::hideAction()
 		{
 			m_buttonList[i]->setEnabled(false);
 		}
+	}
+}
+
+void unit::ActionButtonStore::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_event)
+{
+	//right click can cancel button display
+	if (p_type == kitten::Event::Right_Clicked)
+	{
+		hide();
 	}
 }
 
@@ -264,4 +279,18 @@ void unit::ActionButtonStore::setAbility()
 			}
 		}
 	}
+}
+
+void unit::ActionButtonStore::registerEvent()
+{
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Right_Clicked,
+		this,
+		std::bind(&ActionButtonStore::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
+
+}
+
+void unit::ActionButtonStore::deregisterEvent()
+{
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::Right_Clicked, this);
 }

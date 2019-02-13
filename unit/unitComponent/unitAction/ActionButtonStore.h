@@ -23,6 +23,7 @@ namespace unit
 		void hide();
 		void hideAction();
 
+		void listenEvent(kitten::Event::EventType p_type, kitten::Event* p_event);
 	private:
 		std::vector<kitten::K_GameObject*> m_buttonList;
 
@@ -63,5 +64,8 @@ namespace unit
 		void getButtonScale();
 
 		void setAbility();
+
+		void registerEvent();
+		void deregisterEvent();
 	};
 }
