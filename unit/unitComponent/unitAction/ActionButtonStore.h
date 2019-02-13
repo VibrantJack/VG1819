@@ -19,22 +19,45 @@ namespace unit
 		~ActionButtonStore();
 
 		void display(Unit* p_u);
+		void displayAction(kitten::K_GameObject* p_buttonGO);
 		void hide();
+		void hideAction();
 
 	private:
 		std::vector<kitten::K_GameObject*> m_buttonList;
 
-		int m_lastX;
-		int m_lastY;
-		int m_index;
 		Unit* m_unit;
 
+		//window size
+		int m_winX;
+		int m_winY;
+		int m_centerX;
+		int m_centerY;
+
+		//pos for last button
+		int m_lastX;
+		int m_lastY;
+
+		//button scale
 		int m_buttonScaleX;
 		int m_buttonScaleY;
 
+		//index of button in vector
+		int m_index;
+		int m_actionStartIndex;
+		int m_actionEndIndex;
+
+		//flag of displaying buttons
 		bool m_show;
+		bool m_actionShow;
+
+		//flag of moveing buttons
+		bool m_xChange;
+
+
 
 		void createNewButton();
+
 		void setButton(const std::string& p_msg, bool p_a, int p_cd = 0);
 
 		void getButtonScale();

@@ -7,8 +7,12 @@
 unit::ActionButtonStore::ActionButtonStore()
 {
 	m_show = false;
+	m_actionShow = false;
 	m_buttonScaleX = 0;
 	m_buttonScaleY = 0;
+	m_index = 0;
+	m_actionStartIndex = 0;
+	m_actionEndIndex = 0;
 }
 
 unit::ActionButtonStore::~ActionButtonStore()
@@ -24,20 +28,27 @@ void unit::ActionButtonStore::display(Unit * p_u)
 	input::InputManager* im = input::InputManager::getInstance();
 	m_lastX = im->getMouseXPos();
 	m_lastY = im->getMouseYOpenGLPos();
+
 	//get window size
-	int winX = im->getWindowWidth();
-	int winY = im->getWindowHeight();
-	int centerX = winX / 2;
-	int centerY = winY / 2;
+	m_winX = im->getWindowWidth();
+	m_winY = im->getWindowHeight();
+	m_centerX = m_winX / 2;
+	m_centerY = m_winY / 2;
+
 	//get button scale
 	if (m_buttonScaleX <= 0 || m_buttonScaleY <= 0)
 	{
 		getButtonScale();
 	}
 	assert(m_buttonScaleX > 0 && m_buttonScaleY > 0);
+
 	//change x position
-	if (m_lastX > centerX)
+	m_xChange = false;
+	if (m_lastX > m_centerX)
+	{
 		m_lastX = m_lastX - m_buttonScaleX;
+		m_xChange = true;
+	}
 
 
 	//start of list
@@ -47,6 +58,10 @@ void unit::ActionButtonStore::display(Unit * p_u)
 	if (m_unit->m_attributes["base_mv"] > 0)
 		setButton("Move", m_unit->canMove());
 
+	//action
+	setButton("Action", m_unit->canAct());
+
+	/*
 	//normal ability
 	setAbility();
 
@@ -57,17 +72,20 @@ void unit::ActionButtonStore::display(Unit * p_u)
 		setButton("ManipulateTile", m_unit->canAct());
 		//setButton("Summon", true);
 	}
+	
 
 	bool canJoin = !p_u->isCommander() && !p_u->isStructure();//not structure or commander
 	if(canJoin && p_u->m_attributes[UNIT_LV] < 3)//not level 3
 		setButton("Join", m_unit->canAct());
+	*/
 
 	setButton("Turn End", true);
-
 
 	//for test
 	if (!networking::ClientGame::isNetworkValid())
 	{
+		bool canJoin = !m_unit->isCommander() && !m_unit->isStructure();//not structure or commander
+		canJoin = canJoin && m_unit->m_attributes[UNIT_LV] < 3;//not level 3
 		if(canJoin)
 			setButton("For test: Level Up", true);
 
@@ -79,7 +97,7 @@ void unit::ActionButtonStore::display(Unit * p_u)
 	m_show = true;
 
 	//change y position
-	if (im->getMouseYOpenGLPos() < centerY)
+	if (im->getMouseYOpenGLPos() < m_centerY)
 	{
 		int delta = m_index * m_buttonScaleY;
 		for (int i = 0; i < m_index; i++)
@@ -87,6 +105,63 @@ void unit::ActionButtonStore::display(Unit * p_u)
 			m_buttonList[i]->getTransform().move2D(0,delta);
 		}
 	}
+}
+
+void unit::ActionButtonStore::displayAction(kitten::K_GameObject * p_buttonGO)
+{
+	//already displayed
+	if (m_actionShow)
+	{
+		for (int i = m_actionStartIndex; i < m_actionEndIndex; i++)
+		{
+			m_buttonList[i]->setEnabled(true);
+		}
+		return;
+	}
+
+	m_actionShow = true;
+
+	//get button scale
+	assert(m_buttonScaleX > 0 && m_buttonScaleY > 0);
+
+	//get start position
+	auto pos = p_buttonGO->getTransform().getTranslation();
+	m_lastX = pos.x + m_buttonScaleX;
+	m_lastY = pos.y + m_buttonScaleY;
+	//change x position
+	if (m_xChange)//if the button will out of window
+		m_lastX = m_lastX - m_buttonScaleX * 2;//move it to left
+
+	//get action list start index
+	m_actionStartIndex = m_index;
+
+	//set actions
+	//normal ability
+	setAbility();
+	//commander action
+	if (m_unit->isCommander())
+	{
+		setButton("ManipulateTile", m_unit->canAct());
+	}
+	//join
+	bool canJoin = !m_unit->isCommander() && !m_unit->isStructure();//not structure or commander
+	canJoin = canJoin && m_unit->m_attributes[UNIT_LV] < 3;//not level 3
+	if (canJoin)//not level 3
+		setButton("Join", m_unit->canAct());
+
+	//get end index
+	m_actionEndIndex = m_index;
+
+	/*
+	//change y position
+	if (m_yChange)
+	{
+		int delta = (m_actionEndIndex - m_actionStartIndex) * m_buttonScaleY;
+		for (int i = m_actionStartIndex; i < m_index; i++)
+		{
+			m_buttonList[i]->getTransform().move2D(0, delta);
+		}
+	}*/
 }
 
 void unit::ActionButtonStore::hide()
@@ -98,8 +173,20 @@ void unit::ActionButtonStore::hide()
 			m_buttonList[i]->setEnabled(false);
 		}
 		m_show = false;
+		m_actionShow = false;
 	}
 	
+}
+
+void unit::ActionButtonStore::hideAction()
+{
+	if (m_actionShow)
+	{
+		for (int i = m_actionStartIndex; i < m_actionEndIndex; i++)
+		{
+			m_buttonList[i]->setEnabled(false);
+		}
+	}
 }
 
 void unit::ActionButtonStore::createNewButton()
