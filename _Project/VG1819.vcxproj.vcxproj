@@ -175,10 +175,12 @@
     <ClCompile Include="..\board\component\tilePipeline\EnemyFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\IsDPFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\NoCommanderFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\NonStructureFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\NotDPFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\NoUnitFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\OwnedTileFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\SelfFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\StructureFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TileFliter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
@@ -370,6 +372,7 @@
     <ClCompile Include="..\UI\TabMenu\ReturnToMainMenuButton.cpp" />
     <ClCompile Include="..\UI\TabMenu\TabMenu.cpp" />
     <ClCompile Include="..\UI\TriggerEventButton.cpp" />
+    <ClCompile Include="..\UI\TurnCounterController.cpp" />
     <ClCompile Include="..\UI\UIElement.cpp" />
     <ClCompile Include="..\UI\UIFrame.cpp" />
     <ClCompile Include="..\UI\UIObject.cpp" />
@@ -410,6 +413,7 @@
     <ClCompile Include="DebugPrintOnce.cpp" />
     <ClCompile Include="DestroyOnClick.cpp" />
     <ClCompile Include="DisableAfterTime.cpp" />
+    <ClCompile Include="FadePointLightOverTime.cpp" />
     <ClCompile Include="FPSCalc.cpp" />
     <ClCompile Include="HaltParticleSystemAfterTime.cpp" />
     <ClCompile Include="LerpController.cpp" />
@@ -729,6 +733,7 @@
     <ClInclude Include="..\UI\TabMenu\ReturnToMainMenuButton.h" />
     <ClInclude Include="..\UI\TabMenu\TabMenu.h" />
     <ClInclude Include="..\UI\TriggerEventButton.h" />
+    <ClInclude Include="..\UI\TurnCounterController.h" />
     <ClInclude Include="..\UI\UIElement.h" />
     <ClInclude Include="..\UI\UIFrame.h" />
     <ClInclude Include="..\UI\UIObject.h" />
@@ -772,6 +777,7 @@
     <ClInclude Include="DebugPrintOnce.h" />
     <ClInclude Include="DestroyOnClick.h" />
     <ClInclude Include="DisableAfterTime.h" />
+    <ClInclude Include="FadePointLightOverTime.h" />
     <ClInclude Include="FPSCalc.h" />
     <ClInclude Include="HaltParticleSystemAfterTime.h" />
     <ClInclude Include="LerpController.h" />

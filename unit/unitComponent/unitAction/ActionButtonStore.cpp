@@ -59,7 +59,7 @@ void unit::ActionButtonStore::display(Unit * p_u)
 	}
 
 	bool canJoin = !p_u->isCommander() && !p_u->isStructure();//not structure or commander
-	if(canJoin)
+	if(canJoin && p_u->m_attributes[UNIT_LV] < 3)//not level 3
 		setButton("Join", m_unit->canAct());
 
 	setButton("Turn End", true);

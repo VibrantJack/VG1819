@@ -34,6 +34,12 @@ TilePipeline::TilePipeline()
 
 	filter = new SelfFilter(this);
 	m_filterList[FILTER_SELF] = filter;
+
+	filter = new StructureFilter(this);
+	m_filterList[FILTER_STRUCTURE] = filter;
+
+	filter = new NonStructureFilter(this);
+	m_filterList[FILTER_NON_STRUCTURE] = filter;
 }
 
 TilePipeline::~TilePipeline()

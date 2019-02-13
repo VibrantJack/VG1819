@@ -2,13 +2,13 @@
 	"name" : "engineer",
 	"texture" : "textures/sprites/units/humans/engineer_sheet.tga",
 	
-	"sheetwidth" : 228,
-	"sheetheight" : 57,
+	"sheetwidth" : 360,
+	"sheetheight" : 80,
 	
-	"characterwidth" : 38,
-	"characterheight" : 57,
+	"characterwidth" : 50,
+	"characterheight" : 70,
 	
-	"padding" : 0,
+	"padding" : 10,
 	
 	"animations" : [
 		{

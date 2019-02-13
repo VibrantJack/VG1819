@@ -1825,6 +1825,18 @@ kitten::K_Component* getPlaySoundOnUIClick(nlohmann::json* p_jsonFile) {
 	return new PlaySoundOnUIClick();
 }
 
+#include "_Project\FadePointLightOverTime.h"
+kitten::K_Component* getFadePointLightOverTime(nlohmann::json* p_jsonFile) {
+	
+	float timeToFade = p_jsonFile->operator[]("time");
+
+	glm::vec3 endingAttenuation;
+
+	endingAttenuation = glm::vec3(LOOKUP("end_attenuation")[0], LOOKUP("end_attenuation")[1], LOOKUP("end_attenuation")[2]);
+
+	return new FadePointLightOverTime(timeToFade, endingAttenuation);
+}
+
 #include "_Project\PlayUniversalSoundOnUIClick.h"
 kitten::K_Component* getPlayUniversalSoundOnUIClick(nlohmann::json* p_jsonFile) {
 	std::string soundName = p_jsonFile->operator[]("sound_name");
@@ -1878,6 +1890,11 @@ kitten::K_Component* getHaltParticleSystemAfterTime(nlohmann::json* p_jsonFile) 
 	bool isStopping = p_jsonFile->operator[]("stop");
 
 	return new HaltParticleSystemAfterTime(time, isStopping);
+}
+
+#include "UI/TurnCounterController.h"
+kitten::K_Component* getTurnCounterController(nlohmann::json* p_jsonFile) {
+	return new TurnCounterController();
 }
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
@@ -2011,6 +2028,7 @@ void setupComponentMap() {
 	jsonComponentMap["TimerSymbol"] = &getTimerSymbol;
 	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
 	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
+	jsonComponentMap["FadePointLightOverTime"] = &getFadePointLightOverTime;
 	jsonComponentMap["DeckCountTextureBind"] = &getDeckCountTextureBind;
 	jsonComponentMap["TextChat"] = &getTextChat;
 	jsonComponentMap["ReadyCheck"] = &getReadyCheck;
@@ -2020,6 +2038,7 @@ void setupComponentMap() {
 	jsonComponentMap["LoadSceneOnStart"] = &getLoadSceneOnStart;
 	jsonComponentMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
 	jsonComponentMap["BorderPiece"] = &getBorderPiece;
+	jsonComponentMap["TurnCounterController"] = &getTurnCounterController;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

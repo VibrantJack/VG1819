@@ -239,7 +239,6 @@ namespace kitten
 	{
 		kibble::destroyKibbleRelatedComponents();
 
-		K_Instance::destroyInstance();
 
 		puppy::P_Instance::destroyInstance();
 
@@ -253,6 +252,9 @@ namespace kitten
 		UnitInteractionManager::destroyInstance();
 
 		LandInfoManager::destroyInstance();
+
+
+		K_Instance::destroyInstance();
 
 		if (networking::ClientGame::getInstance())
 		{
