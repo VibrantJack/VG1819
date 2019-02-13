@@ -10,7 +10,19 @@ TileFilter::~TileFilter()
 
 void TileFilter::filter(kitten::Event::TileList * p_list)
 {
-	assert(false);
+	//not enable, then not apply
+	if (!m_enabled)
+		return;
+
+	auto it = p_list->begin();
+	while (it != p_list->end())
+	{
+		kitten::K_GameObject* tileGO = BoardManager::getInstance()->getTile(it->first, it->second);
+		if (this->shouldRemove(tileGO))
+			it = p_list->erase(it);
+		else
+			it++;
+	}
 }
 
 void TileFilter::enable()

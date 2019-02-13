@@ -2,13 +2,13 @@
 	"name" : "priest",
 	"texture" : "textures/sprites/units/humans/priest_sheet.tga",
 	
-	"sheetwidth" : 259,
-	"sheetheight" : 79,
+	"sheetwidth" : 350,
+	"sheetheight" : 90,
 	
-	"characterwidth" : 37,
-	"characterheight" : 79,
+	"characterwidth" : 40,
+	"characterheight" : 85,
 	
-	"padding" : 0,
+	"padding" : 5,
 	
 	"animations" : [
 		{

@@ -1,5 +1,6 @@
 #include "TileFliter.h"
 
+/*
 void UnitFilter::filter(kitten::Event::TileList * p_list)
 {
 	if (!m_enabled)
@@ -19,4 +20,9 @@ void UnitFilter::filter(kitten::Event::TileList * p_list)
 			it++;
 		}
 	}
+}*/
+
+bool UnitFilter::shouldRemove(kitten::K_GameObject * p_tileGO)
+{
+	return p_tileGO->getComponent<TileInfo>()->hasUnit();
 }

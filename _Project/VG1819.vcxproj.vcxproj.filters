@@ -977,6 +977,15 @@
     <ClCompile Include="LoadSceneOnStart.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\StructureFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\NonStructureFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\TurnCounterController.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
     <ClCompile Include="..\components\RenameDeckComponent.cpp">
       <Filter>components</Filter>
     </ClCompile>
@@ -2049,6 +2058,9 @@
     </ClInclude>
     <ClInclude Include="LoadSceneOnStart.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\TurnCounterController.h">
+      <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="..\components\RenameDeckComponent.h">
       <Filter>components</Filter>

@@ -10,6 +10,7 @@ TileGetter::TileGetter()
 
 TileGetter::~TileGetter()
 {
+	deregisterEvent();
 }
 
 void TileGetter::requireTile(unit::AbilityDescription * p_ad, unit::Unit* p_source, bool p_needUnit)
@@ -42,11 +43,17 @@ void TileGetter::registerEvent()
 		kitten::Event::EventType::Tile_Clicked,
 		this,
 		std::bind(&TileGetter::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Right_Clicked,
+		this,
+		std::bind(&TileGetter::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void TileGetter::deregisterEvent()
 {
-	kitten::EventManager::getInstance()->queueRemoveListener(kitten::Event::Tile_Clicked, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::Tile_Clicked, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::Right_Clicked, this);
 }
 
 void TileGetter::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data)
@@ -65,6 +72,10 @@ void TileGetter::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_
 		{
 			cancel();
 		}
+	}
+	else if (p_type == kitten::Event::Right_Clicked)
+	{
+		cancel();
 	}
 	
 }

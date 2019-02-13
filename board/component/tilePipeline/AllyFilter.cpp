@@ -1,5 +1,6 @@
 #include "TileFliter.h"
 
+/*
 void AllyFilter::filter(kitten::Event::TileList * p_list)
 {
 	if (!m_enabled)
@@ -29,4 +30,17 @@ void AllyFilter::filter(kitten::Event::TileList * p_list)
 			it++;
 		}
 	}
+}
+*/
+
+bool AllyFilter::shouldRemove(kitten::K_GameObject * p_tileGO)
+{
+	if (p_tileGO->getComponent<TileInfo>()->hasUnit())
+	{
+		kitten::K_GameObject* u = p_tileGO->getComponent<TileInfo>()->getUnit();
+		int id = u->getComponent<unit::Unit>()->m_clientId;
+		if (id == m_pipe->m_source->m_clientId)
+			return true;
+	}
+	return false;
 }

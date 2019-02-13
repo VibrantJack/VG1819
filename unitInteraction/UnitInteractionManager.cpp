@@ -131,8 +131,7 @@ void UnitInteractionManager::reset()
 	//tile getter will refresh whenever needed so don't need to reset
 
 	//reset counter getter
-	delete m_counterGetter;
-	m_counterGetter = new CounterGetter();
+	m_counterGetter->reset();
 
 	m_busy = false;
 }

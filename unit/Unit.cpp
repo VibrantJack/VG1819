@@ -118,7 +118,7 @@ namespace unit
 
 	void Unit::join()
 	{
-		if (isCommander() || isStructure())//commander and structure can't join to another unit
+		if (isCommander() || isStructure() || m_attributes[UNIT_LV] >= 3)//commander and structure can't join to another unit
 			return;
 
 		UnitInteractionManager::getInstance()->request(this, &m_joinAD);
