@@ -141,6 +141,13 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 	if (projArcHeight != 0.0f)
 	{
 		lerpCon->arcLerp(p_target->getTransform().getTranslation(), time, projArcHeight);
+
+		// Calculate starting Z angle
+		// opposite / adjacent
+		float oa = projArcHeight / (hypotenuseDistance / 2);
+		float zAngle = atan(oa);
+
+
 	}
 	else
 	{
