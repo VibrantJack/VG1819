@@ -1,0 +1,23 @@
+{
+	"name" : "poison_pool",
+	"texture" : "textures/sprites/units/humans/poison_pool_sheet.png",
+	
+	"sheetwidth" : 584,
+	"sheetheight" : 277,
+	
+	"characterwidth" : 64,
+	"characterheight" : 68,
+	
+	"padding" : 1,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [1,7],
+			"time" : 10
+		}
+	],
+	
+	"defaultanimation" : "idle"
+}
