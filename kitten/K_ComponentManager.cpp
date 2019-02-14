@@ -373,11 +373,13 @@ namespace kitten
 	void K_ComponentManager::queueAddToUpdate(K_Component* p_toAdd)
 	{
 		m_toAddToUpdate.insert(p_toAdd);
+		m_toRemoveFromUpdate.erase(p_toAdd);
 	}
 
 	void K_ComponentManager::queueRemovalFromUpdate(K_Component* p_toRemove)
 	{
 		m_toRemoveFromUpdate.insert(p_toRemove);
+		m_toAddToUpdate.erase(p_toRemove);
 	}
 
 	void K_ComponentManager::updateComponents()

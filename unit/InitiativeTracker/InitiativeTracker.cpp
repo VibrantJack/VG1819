@@ -260,6 +260,9 @@ void unit::InitiativeTracker::gameTurnStart()
 	//display new turn message
 	m_display->displayNewGameTurn();
 
+	//change turn counter / trigger new game turn event
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::New_Game_Turn, nullptr);
+
 
 	//sort the unit object list
 	addWaitList();

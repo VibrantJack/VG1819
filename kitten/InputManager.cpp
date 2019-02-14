@@ -407,6 +407,14 @@ namespace input
 				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Object_Clicked, p_data);
 			}
 		}
+
+		//Rock
+		//trigger right click event
+		if (m_mouseDown[GLFW_MOUSE_BUTTON_RIGHT] && !m_mouseDownLast[GLFW_MOUSE_BUTTON_RIGHT])
+		{
+			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Right_Clicked, nullptr);
+		}
+
 	}
 
 	kitten::K_GameObject* InputManager::getMouseLastHitObject()

@@ -1,0 +1,16 @@
+{
+    "name":"turn counter",
+    "components":[     
+        {
+            "name" : "TextBox",
+            "font" : "../fonts/nsimsun_40pt.fnt",
+            "color":[0,23,73]
+        },
+        {
+            "name" : "TurnCounterController"
+        }
+    ],
+    "translate":[0,0,-0.01],
+    "translate2d":[1125,700],
+    "scale2d":[100,100]
+}
