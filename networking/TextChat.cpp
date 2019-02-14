@@ -73,16 +73,16 @@ void TextChat::start()
 	glm::vec3 origin = getTransform().getTranslation();
 	glm::vec2 scale2D = getTransform().getScale2D();
 
-	kitten::K_GameObject* messageInput = kitten::K_GameObjectManager::getInstance()->createNewGameObject("text_chat/text_chat_input.json");
-	messageInput->getTransform().setIgnoreParent(false);
-	messageInput->getTransform().setParent(&getTransform());
-	messageInput->getTransform().place(MESSAGES_MARGIN_X, MESSAGES_PADDING_Y + FONT_HEIGHT, 0.1f);
-	m_typingTextBox = messageInput->getComponent<puppy::TextBox>();
-	m_stringInputDisplay = messageInput->getComponent<StringInputDisplay>();
-
 	m_background = kitten::K_GameObjectManager::getInstance()->createNewGameObject("text_chat/text_chat_background.json")->getComponent<userinterface::UIObject>();
 	m_background->getTransform().setIgnoreParent(false);
 	m_background->getTransform().setParent(&getTransform());
+
+	kitten::K_GameObject* messageInput = kitten::K_GameObjectManager::getInstance()->createNewGameObject("text_chat/text_chat_input.json");
+	messageInput->getTransform().setIgnoreParent(false);
+	messageInput->getTransform().setParent(&getTransform());
+	messageInput->getTransform().place(MESSAGES_MARGIN_X, MESSAGES_PADDING_Y + FONT_HEIGHT, 0.01f);
+	m_typingTextBox = messageInput->getComponent<puppy::TextBox>();
+	m_stringInputDisplay = messageInput->getComponent<StringInputDisplay>();
 
 	kitten::K_GameObject* chatButton = kitten::K_GameObjectManager::getInstance()->createNewGameObject("text_chat/chat_button.json");
 	glm::vec2 buttonScale2D = chatButton->getTransform().getScale2D();
@@ -99,12 +99,6 @@ void TextChat::start()
 	m_scrollUpButton->getTransform().place(origin.x + scale2D.x - scrollButtonScale.x, origin.y + scale2D.y - scrollButtonScale.y, origin.z + 0.1f);
 	m_scrollUpButton->getGameObject().setEnabled(false);
 	m_scrollUpButton->setActive(false);
-
-	// TODO: Set as child when the ClickableFrame as child issue is fixed
-	/*scrollUpButton->getTransform().scale2D(scrollButtonScale.x / scale2D.x, scrollButtonScale.y / scale2D.y);
-	scrollUpButton->getTransform().place(scale2D.x - scrollButtonScale.x, scale2D.y - scrollButtonScale.y, 1.0f);
-	scrollUpButton->getTransform().setIgnoreParent(false);
-	scrollUpButton->getTransform().setParent(&getTransform());*/
 
 	m_scrollDownButton = kitten::K_GameObjectManager::getInstance()->createNewGameObject("text_chat/text_chat_scroll_button_down.json")->getComponent<userinterface::TriggerEventButton>();
 	m_scrollDownButton->getTransform().scale2D(scrollButtonScale.x, scrollButtonScale.y);
