@@ -49,11 +49,17 @@ namespace ability
 		//for cast time ability which units may move in and out the range
 		void getTarget(AbilityInfoPackage* p_info);
 
+		//get cards in hand
+		std::vector<kitten::K_GameObject*> getCardsInHand();
+
 		//trigger time point event
 		void triggerTPEvent(ability::TimePointEvent::TPEventType p_tp, unit::Unit* p_target, AbilityInfoPackage* p_info);
 
 		//add status name and description
 		void addStatusInfo(Status* p_st, AbilityInfoPackage* p_info);
+
+		//draw card
+		void drawCard(int p_id, int p_num);
 	};
 
 	class Move : public Ability
@@ -341,6 +347,13 @@ namespace ability
 	public:
 		Stab() : Ability(ABILITY_STAB) {};
 		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
+	};
+
+	class Sacrifice : public Ability
+	{
+	public:
+		Sacrifice() : Ability(ABILITY_SACRIFICE) {};
+		int effect(AbilityInfoPackage* p_info);
 	};
 }
 

@@ -9,6 +9,8 @@
 #include "unit/unitComponent/UnitMove.h"
 #include "networking\ClientGame.h"
 
+#include "UI/HandFrame.h"
+
 #include <iostream>
 
 void ability::Ability::singleTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile)
@@ -164,6 +166,19 @@ void ability::Ability::getTarget(AbilityInfoPackage * p_info)
 	p_info->m_targets = unitlist;
 }
 
+std::vector<kitten::K_GameObject*> ability::Ability::getCardsInHand()
+{
+	std::list<userinterface::UIObject*> list = userinterface::HandFrame::getActiveInstance()->getInnerObjects();
+	
+	std::vector<kitten::K_GameObject*> objectList;
+
+	for (auto it : list)
+	{
+		objectList.push_back( &(it->getGameObject()) );
+	}
+	return objectList;
+}
+
 void ability::Ability::triggerTPEvent(ability::TimePointEvent::TPEventType p_tp, unit::Unit * p_target, AbilityInfoPackage * p_info)
 {
 	unit::StatusContainer* sc = p_target->getStatusContainer();
@@ -189,4 +204,12 @@ void ability::Ability::addStatusInfo(Status * p_st, AbilityInfoPackage* p_info)
 	}
 
 	p_st->m_source = m_name;
+}
+
+void ability::Ability::drawCard(int p_id, int p_num)
+{
+	kitten::Event *e = new kitten::Event(kitten::Event::EventType::Draw_Card);
+	e->putInt(PLAYER_ID, p_id);
+	e->putInt(CARD_COUNT, p_num);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Draw_Card, e);
 }

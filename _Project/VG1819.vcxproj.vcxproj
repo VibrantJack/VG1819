@@ -133,6 +133,7 @@
     <ClCompile Include="..\ability\ability\PowerSlam.cpp" />
     <ClCompile Include="..\ability\ability\Rally.cpp" />
     <ClCompile Include="..\ability\ability\Sabotage.cpp" />
+    <ClCompile Include="..\ability\ability\Sacrifice.cpp" />
     <ClCompile Include="..\ability\ability\SummonUnit.cpp" />
     <ClCompile Include="..\ability\node\AbilityNode.cpp" />
     <ClCompile Include="..\ability\node\AbilityNodeManager.cpp" />

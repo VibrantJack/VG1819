@@ -35,9 +35,15 @@
 #define ABILITY_SUMMON "Summon"
 #define ABILITY_ACTIVATE "Activate"
 #define ABILITY_STAB "Stab"
+#define ABILITY_SACRIFICE "Sacrifice"
+#define ABILITY_EROSION "Erosion"
+#define ABILITY_
+#define ABILITY_EXECUTE "Execute"
+#define ABILITY_ATTACH "Attach"
 
 //ability or status required info
 #define PUSH_BACK "push back"
+#define CARD_DRAWN "card drawn"
 #define STATUS_ARMOR "armor"
 
 //ability-action
