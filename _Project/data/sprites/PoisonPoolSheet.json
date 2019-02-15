@@ -14,7 +14,7 @@
 		{
 			"name" : "idle",
 			"startpos" : [0,0],
-			"endpos" : [1,7],
+			"endpos" : [7,1],
 			"time" : 10
 		}
 	],
