@@ -6,6 +6,9 @@
 
 //Rock
 
+
+#define ADD_ABILITY(newAbility, list, name,className) newAbility = new className(); list[name] = newAbility;
+
 namespace ability
 {
 	AbilityManager* AbilityManager::sm_instance = nullptr;
@@ -119,6 +122,8 @@ namespace ability
 
 		newAbility = new Stab();
 		m_abilityList[ABILITY_STAB] = newAbility;
+
+		ADD_ABILITY(newAbility, m_abilityList, ABILITY_SACRIFICE, Sacrifice);
 	}
 
 	AbilityManager::AbilityManager()

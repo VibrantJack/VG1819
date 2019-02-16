@@ -1,6 +1,6 @@
 {
 	"name" : "evil_fiend",
-	"texture" : "textures/sprites/units/humans/evil_fiend_sheet.png",
+	"texture" : "textures/sprites/units/ancients/evil_fiend_sheet.png",
 	
 	"sheetwidth" : 400,
 	"sheetheight" : 150,

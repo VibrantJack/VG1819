@@ -1,0 +1,25 @@
+{
+	"unit":{
+		"name":"EvilFiend",
+		"hp":15,
+		"mv":3,
+		"in":13,
+		"cost":4,
+		"tags":["Ancients","Demon"],
+		"portrait_texture" : "textures/cards/500x500/EvilFiend.tga"
+	},
+	"components" : [
+		{
+			"name" : "SpriteGroup",
+			"spritename":"evil_fiend",
+			"number":3,
+			"rotate":[45,0,0],
+			"scale":[2,1.3,0],
+			"translate":[0,0,0.05]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/EvilFiend.tga"
+		}
+	]
+}

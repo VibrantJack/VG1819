@@ -37,6 +37,9 @@ namespace ability
 			drawCard(id, num);
 		}
 
+		//destroy itself
+		p_info->m_source->destroy();
+
 		done(p_info);
 
 		return 0;

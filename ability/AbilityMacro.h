@@ -42,8 +42,8 @@
 #define ABILITY_ATTACH "Attach"
 
 //ability or status required info
-#define PUSH_BACK "push back"
-#define CARD_DRAWN "card drawn"
+#define PUSH_BACK "push_back"
+#define CARD_DRAWN "card_drawn"
 #define STATUS_ARMOR "armor"
 
 //ability-action

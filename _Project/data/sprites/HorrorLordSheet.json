@@ -1,6 +1,6 @@
 {
 	"name" : "horror_lord",
-	"texture" : "textures/sprites/units/humans/horror_lord_sheet.png",
+	"texture" : "textures/sprites/units/ancients/horror_lord_sheet.png",
 	
 	"sheetwidth" : 500,
 	"sheetheight" : 150,

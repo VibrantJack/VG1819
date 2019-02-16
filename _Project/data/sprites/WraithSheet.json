@@ -1,6 +1,6 @@
 {
 	"name" : "wraith",
-	"texture" : "textures/sprites/units/humans/wraith_sheet.png",
+	"texture" : "textures/sprites/units/ancients/wraith_sheet.png",
 	
 	"sheetwidth" : 550,
 	"sheetheight" : 150,
@@ -15,7 +15,7 @@
 			"name" : "idle",
 			"startpos" : [0,0],
 			"endpos" : [3,0],
-			"time" : 1.5
+			"time" : 2
 		}
 	],
 	

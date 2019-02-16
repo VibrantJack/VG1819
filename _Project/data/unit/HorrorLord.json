@@ -1,0 +1,25 @@
+{
+	"unit":{
+		"name":"HorrorLord",
+		"hp":30,
+		"mv":3,
+		"in":14,
+		"cost":8,
+		"tags":["Ancients","Demon"],
+		"portrait_texture" : "textures/cards/500x500/HorrorLord.tga"
+	},
+	"components" : [
+		{
+			"name" : "SpriteGroup",
+			"spritename":"horror_lord",
+			"number":2,
+			"rotate":[45,0,0],
+			"scale":[2,1,0],
+			"translate":[0,0,0.05]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/HorrorLord.tga"
+		}
+	]
+}

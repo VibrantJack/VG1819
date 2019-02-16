@@ -1,0 +1,25 @@
+{
+	"unit":{
+		"name":"Wraith",
+		"hp":4,
+		"mv":3,
+		"in":13,
+		"cost":1,
+		"tags":["Ancients","Wraith"],
+		"portrait_texture" : "textures/cards/500x500/Wraith.tga"
+	},
+	"components" : [
+		{
+			"name" : "SpriteGroup",
+			"spritename":"wraith",
+			"number":4,
+			"rotate":[45,0,0],
+			"scale":[0.6,0.6,0],
+			"translate":[0,0,0.05]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/Wraith.tga"
+		}
+	]
+}

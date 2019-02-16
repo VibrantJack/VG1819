@@ -22,9 +22,10 @@
 				"cd":3,
 				"min_range":1,
 				"max_range":3,
-				"filter":2,
+				"filter":3,
 				"filter0":"enemy",
 				"filter1":"not_demonic_presence",
+				"filter2":"self",
 				"need_unit":1,
 				"description":"Target ally that's in [Demonic Presence], make it act immediately"
 			}

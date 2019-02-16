@@ -1,6 +1,6 @@
 {
 	"name" : "poison_pool",
-	"texture" : "textures/sprites/units/humans/poison_pool_sheet.png",
+	"texture" : "textures/sprites/units/ancients/poison_pool_sheet.png",
 	
 	"sheetwidth" : 584,
 	"sheetheight" : 277,
@@ -15,7 +15,7 @@
 			"name" : "idle",
 			"startpos" : [0,0],
 			"endpos" : [7,1],
-			"time" : 10
+			"time" : 5
 		}
 	],
 	
