@@ -20,6 +20,8 @@ namespace unit
 		const std::pair<int, int> m_txtOffset;
 		const std::pair<int,int> m_cdOffset;
 
+		bool m_actionShow;//flag for display action list
+
 		bool m_active;
 		int m_cd;
 		std::string m_action;

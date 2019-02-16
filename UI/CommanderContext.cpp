@@ -195,5 +195,34 @@ namespace userinterface
 		kitten::K_GameObject* ctxBotBorder = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/borders/border_bottom.txt");
 		BorderPiece* ctxBotBorderComp = ctxBotBorder->getComponent<BorderPiece>();
 		ctxBotBorderComp->setFramedObject(m_attachedObject);
+
+		//background frame for initiative tracker
+		kitten::K_GameObject* backGround = kibble::getGameObjectDataParserInstance()->getGameObject("UI/backgrounds/initiative_background.txt");
+		backGround->getTransform().place(300, winY - 8, -0.04);
+
+
+		//build partial borders
+		//top
+		//		kitten::K_GameObject* portrait = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/commander_portrait.txt");
+
+		kitten::K_GameObject* topBorder = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/borders/gold_border_top.txt");
+		userinterface::BorderPiece* topBorderComp = topBorder->getComponent<userinterface::BorderPiece>();
+		topBorderComp->setFramedObject(backGround);
+		//topeleft
+		kitten::K_GameObject* topleftBorder = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/borders/gold_border_topleft.txt");
+		userinterface::BorderPiece* topleftBorderComp = topleftBorder->getComponent<userinterface::BorderPiece>();
+		topleftBorderComp->setFramedObject(backGround);
+		//topright
+		kitten::K_GameObject* toprightBorder = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/borders/gold_border_topright.txt");
+		userinterface::BorderPiece* toprightBorderComp = toprightBorder->getComponent<userinterface::BorderPiece>();
+		toprightBorderComp->setFramedObject(backGround);
+		//left
+		kitten::K_GameObject* leftBorder = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/borders/gold_border_left.txt");
+		userinterface::BorderPiece* leftBorderComp = leftBorder->getComponent<userinterface::BorderPiece>();
+		leftBorderComp->setFramedObject(backGround);
+		//right
+		kitten::K_GameObject* initRightBorder = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/borders/gold_border_right.txt");
+		userinterface::BorderPiece* initRightBorderComp = initRightBorder->getComponent<userinterface::BorderPiece>();
+		initRightBorderComp->setFramedObject(backGround);
 	}
 }
