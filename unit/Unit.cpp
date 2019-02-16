@@ -350,11 +350,11 @@ namespace unit
 			return -1;
 
 		AbilityDescription* ad;
-		bool find = m_ADMap.find(p_abilityName) != m_ADMap.end();
-		if (find)
+		auto found = m_ADMap.find(p_abilityName);
+		if (found != m_ADMap.end())
 		{
 			std::cout << "use ability: " << p_abilityName << std::endl;
-			ad = m_ADMap[p_abilityName];
+			ad = found->second;
 		}
 		else
 		{
@@ -405,11 +405,11 @@ namespace unit
 	int Unit::checkCD(const std::string & p_abilityName)
 	{
 		AbilityDescription* ad;
-		bool find = m_ADMap.find(p_abilityName) != m_ADMap.end();
+		auto found = m_ADMap.find(p_abilityName);
 
-		assert(find);//ability not found
+		assert(found != m_ADMap.end());//ability not found
 
-		ad = m_ADMap[p_abilityName];
+		ad = found->second;
 
 		return m_cdRecorder->checkCD(ad);
 	}
