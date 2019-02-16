@@ -23,13 +23,14 @@ namespace ability
 
 		virtual int effect(AbilityInfoPackage* p_info) = 0;
 		virtual void singleTargetProjectileFinished(AbilityInfoPackage* p_package);
+		virtual void multiTargetProjectileFinished(AbilityInfoPackage* p_package);
 	protected:
 
 		Ability(const std::string p_name) : m_name(p_name) {}
 
 		//simple ability
 		void singleTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile = false);
-		void multiTargetDamage(AbilityInfoPackage* p_info);
+		void multiTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile = false);
 
 		kitten::K_GameObject* summonToken(AbilityInfoPackage* p_info, int p_unitIndex);
 		int damage(unit::Unit* p_target, int power);
@@ -162,7 +163,7 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info) 
 		{
 			getTarget(p_info);
-			multiTargetDamage(p_info); 
+			multiTargetDamage(p_info, true); 
 			return 0; 
 		};
 	};

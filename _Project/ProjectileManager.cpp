@@ -72,34 +72,51 @@ ProjectileManager::~ProjectileManager()
 
 void ProjectileManager::fireProjectile(const keyType& p_type, unit::Unit* p_source, unit::Unit* p_target, ability::Ability* p_ability, ability::AbilityInfoPackage* p_package)
 {
-	m_instance->privateFireProjectile(p_type, p_source, p_target, p_ability, p_package);
+	m_instance->m_lastPackage = p_package;
+	m_instance->m_lastAbility = p_ability;
+	m_instance->m_lastUnitSel = p_source->getGameObject().getComponent<unit::UnitSelect>();
+	m_instance->m_lastUnitSel->disableInteraction(true);
+	
+	m_instance->m_firedForMultiDamage = false;
+
+	m_instance->privateFireProjectile(p_type, p_source->getTransform(), p_target->getTransform());
 }
 
-void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit* p_source, unit::Unit* p_target, ability::Ability* p_ability, ability::AbilityInfoPackage* p_package)
+
+void ProjectileManager::multiDamageFireProjectile(const keyType& p_type, unit::Unit* p_source, ability::Ability* p_ability, ability::AbilityInfoPackage* p_package)
+{
+	m_instance->m_lastPackage = p_package;
+	m_instance->m_lastAbility = p_ability;
+	m_instance->m_lastUnitSel = p_source->getGameObject().getComponent<unit::UnitSelect>();
+	m_instance->m_lastUnitSel->disableInteraction(true);
+
+	m_instance->m_firedForMultiDamage = true;
+
+	m_instance->privateFireProjectile(p_type, p_source->getTransform(), p_package->m_clickedObject->getTransform());
+}
+
+void ProjectileManager::privateFireProjectile(const keyType& p_type, const kitten::Transform& p_source, const kitten::Transform& p_target)
 {
 	auto entry = m_projectiles[p_type];
 
 	kitten::K_GameObject* proj = entry.gameObject;
 	m_lastGO = proj;
-	
-	m_lastPackage = p_package;
-	m_lastAbility = p_ability;
 
 	// Move the projectile 
 	LerpController* lerpCon = proj->getComponent<LerpController>();
 	assert(lerpCon != nullptr);
 
-	const glm::vec3& startPos = p_source->getTransform().getTranslation();
+	const glm::vec3& startPos = p_source.getTranslation();
 	proj->getTransform().place(startPos.x, startPos.y+1, startPos.z);
 
-	const glm::vec3& endPos = p_target->getTransform().getTranslation();
+	const glm::vec3& endPos = p_target.getTranslation();
 
 	glm::vec3 direction = startPos - endPos;
 	direction = glm::normalize(direction);
 
 	// Get the angle between the source and the destination to rotate the projectile
-	float xDist = p_source->getTransform().getTranslation().x - p_target->getTransform().getTranslation().x;
-	float zDist = p_source->getTransform().getTranslation().z - p_target->getTransform().getTranslation().z;
+	float xDist = p_source.getTranslation().x - p_target.getTranslation().x;
+	float zDist = p_source.getTranslation().z - p_target.getTranslation().z;
 	float hypotenuseDistance = sqrt((xDist*xDist + zDist*zDist));
 
 	float degAngle;
@@ -187,14 +204,15 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, unit::Unit*
 
 			lerpCon->arcRotate(maxRot, endRot, time);
 		}
+		else
+		{
+			proj->getTransform().rotateRelative(glm::vec3(45, 0, 0));
+		}
 	}
 	else
 	{
 		lerpCon->positionLerp(endPos, time);
 	}
-	
-	m_lastUnitSel = p_source->getGameObject().getComponent<unit::UnitSelect>();
-	m_lastUnitSel->disableInteraction(true);
 
 	proj->setEnabled(true);
 }
@@ -203,7 +221,14 @@ void ProjectileManager::onPositionLerpFinished()
 {
 	m_lastUnitSel->disableInteraction(false);
 
-	m_lastAbility->singleTargetProjectileFinished(m_lastPackage);
+	if (m_firedForMultiDamage)
+	{
+		m_lastAbility->multiTargetProjectileFinished(m_lastPackage);
+	}
+	else
+	{
+		m_lastAbility->singleTargetProjectileFinished(m_lastPackage);
+	}
 	
 	m_lastAbility = nullptr;
 	m_lastPackage = nullptr;

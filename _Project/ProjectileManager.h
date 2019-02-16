@@ -36,7 +36,9 @@ private:
 	kitten::K_GameObject* m_lastGO;
 	unit::UnitSelect* m_lastUnitSel;
 
-	void privateFireProjectile(const keyType& p_type, unit::Unit* p_source, unit::Unit* p_target, ability::Ability* p_ability ,ability::AbilityInfoPackage* p_package);
+	bool m_firedForMultiDamage = false;
+
+	void privateFireProjectile(const keyType& p_type, const kitten::Transform& p_source, const kitten::Transform& p_target);
 
 	void onPositionLerpFinished() override;
 public:
@@ -44,4 +46,5 @@ public:
 	~ProjectileManager();
 
 	static void fireProjectile(const keyType& p_type, unit::Unit* p_source, unit::Unit* p_target, ability::Ability* p_ability, ability::AbilityInfoPackage* p_package);
+	static void multiDamageFireProjectile(const keyType& p_type, unit::Unit* p_source, ability::Ability* p_ability, ability::AbilityInfoPackage* p_package);
 };
