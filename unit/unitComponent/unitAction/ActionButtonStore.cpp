@@ -262,19 +262,19 @@ void unit::ActionButtonStore::setAbility()
 	int lv = m_unit->m_attributes[UNIT_LV];
 	for (auto it : m_unit->m_ADList)
 	{
-		if (it.second->m_intValue[UNIT_LV] <= lv)//check level
+		if (it->m_intValue[UNIT_LV] <= lv)//check level
 		{
 			if (!m_unit->canAct())//check can act
 			{
-				setButton(it.first, false);
+				setButton(it->m_stringValue[ABILITY_NAME], false);
 			}
 			else
 			{
-				int cd = m_unit->checkCD(it.first);//check cd
+				int cd = m_unit->checkCD(it->m_stringValue[ABILITY_NAME]);//check cd
 				if(cd > 0)
-					setButton(it.first, false, cd);
+					setButton(it->m_stringValue[ABILITY_NAME], false, cd);
 				else
-					setButton(it.first, true);
+					setButton(it->m_stringValue[ABILITY_NAME], true);
 
 			}
 		}

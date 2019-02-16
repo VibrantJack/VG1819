@@ -17,7 +17,7 @@ namespace ability
 		{
 			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
 
-			int power = m_unit->m_ADList[ABILITY_HEAL]->m_intValue[UNIT_POWER];
+			int power = m_unit->m_ADMap[ABILITY_HEAL]->m_intValue[UNIT_POWER];
 			
 			node->effect(m_unit, UNIT_HP, power);
 			return 0;
