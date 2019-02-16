@@ -226,13 +226,13 @@ void CardContext::updateUnitData()
 		if (m_textBoxesIndex < 3) // Hard Limit of displaying only 3 abilities
 		{
 			std::string abilityDesc = "";
-			unit::AbilityDescription* ad = it.second;
+			unit::AbilityDescription* ad = it;
 
 			int lv = ad->m_intValue[UNIT_LV];
 			if (lv > 0)
 				abilityDesc += "LV:" + std::to_string(lv) + " ";
 
-			std::string abilityName = it.first;
+			std::string abilityName = ad->m_stringValue[ABILITY_NAME];
 			abilityDesc += abilityName + ":";
 
 			int power = ad->m_intValue[UNIT_POWER];

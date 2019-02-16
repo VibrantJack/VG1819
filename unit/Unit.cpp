@@ -33,10 +33,12 @@ namespace unit
 		delete m_statusContainer;
 		delete m_cdRecorder;
 		delete m_castTimer;
-		for (auto it = m_ADList.begin(); it != m_ADList.end(); it++)
+
+		for (auto it : m_ADList)//delete ability description
 		{
-			delete it->second;
+			delete it;
 		}
+
 		if (isCommander())
 		{
 			delete m_commander;
@@ -348,11 +350,11 @@ namespace unit
 			return -1;
 
 		AbilityDescription* ad;
-		bool find = m_ADList.find(p_abilityName) != m_ADList.end();
+		bool find = m_ADMap.find(p_abilityName) != m_ADMap.end();
 		if (find)
 		{
 			std::cout << "use ability: " << p_abilityName << std::endl;
-			ad = m_ADList[p_abilityName];
+			ad = m_ADMap[p_abilityName];
 		}
 		else
 		{
@@ -403,11 +405,11 @@ namespace unit
 	int Unit::checkCD(const std::string & p_abilityName)
 	{
 		AbilityDescription* ad;
-		bool find = m_ADList.find(p_abilityName) != m_ADList.end();
+		bool find = m_ADMap.find(p_abilityName) != m_ADMap.end();
 
 		assert(find);//ability not found
 
-		ad = m_ADList[p_abilityName];
+		ad = m_ADMap[p_abilityName];
 
 		return m_cdRecorder->checkCD(ad);
 	}
