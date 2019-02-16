@@ -7,23 +7,8 @@ namespace ability
 {
 	int Sacrifice::effect(AbilityInfoPackage* p_info)
 	{
-		//get all cards in hand
-		std::vector<kitten::K_GameObject*> cards = getCardsInHand();
-
-		//get a random card(unit)
-		int index = rand() % cards.size();
-		unit::Unit* target = cards[index]->getComponent<unit::Unit>();
-
-		//get power
-		int pow = -(p_info->m_intValue[UNIT_POWER]);
-
-		//reduce that unit's cost
-		AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
-		node->effect(target, UNIT_COST, pow);
-
 		//get lv
 		int lv = p_info->m_source->m_attributes[UNIT_LV];
-
 		//if it's lv3, draw a card as addition
 		if (lv >= 3)
 		{
@@ -35,6 +20,24 @@ namespace ability
 
 			//trigger card draw event
 			drawCard(id, num);
+		}
+
+		//get all cards in hand
+		std::vector<kitten::K_GameObject*> cards = getCardsInHand();
+
+		//there must be cards in hand, so it can reduce cost
+		if (cards.size() > 0)
+		{
+			//get a random card(unit)
+			int index = rand() % cards.size();
+			unit::Unit* target = cards[index]->getComponent<unit::Unit>();
+
+			//get power
+			int pow = -(p_info->m_intValue[UNIT_POWER]);
+
+			//reduce that unit's cost
+			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
+			node->effect(target, UNIT_COST, pow);
 		}
 
 		//destroy itself
