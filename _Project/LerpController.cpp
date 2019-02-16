@@ -1,4 +1,5 @@
 #include "LerpController.h"
+#include <iostream>
 
 LerpController::LerpController() : m_time(nullptr), m_posLerpTime(0.0f), m_scaleLerpTime(0.0f), m_rotLerpTime(0.0f), 
 	m_isLerping(false), m_isPositionLerping(false), m_isScaleLerping(false), m_isRotationLerping(false), m_yHeight(0), m_isArcLerping(false),
@@ -63,13 +64,14 @@ void LerpController::rotationLerp(const glm::quat& p_rot, const float& p_time, T
 	m_originalQuat = getTransform().getRotation();
 }
 
-void LerpController::arcRotate(const glm::quat& p_maxRot, const float& p_time)
+void LerpController::arcRotate(const glm::quat& p_maxRot, const glm::quat& p_endQuat, const float& p_time)
 {
 	rotationLerp(p_maxRot, p_time, TransformSource::World);
 
 	m_isArcRotating = true;
 	m_arcingUp = true;
-	m_halfArcRotLerpTime = p_time / 2.0f;
+
+	m_endArcQuat = p_endQuat;
 }
 
 void LerpController::scaleLerp(const glm::vec3& p_scale, const float& p_time, TransformSource p_behavior)
@@ -118,8 +120,8 @@ void LerpController::update()
 			
 			if (m_isArcLerping)
 			{
-						   // y = -5x*(x-1)
-				float curvedVal = -5 * (lerpProgress) * (lerpProgress - 1);
+						   // y = -4x*(x-1)
+				float curvedVal = -4 * (lerpProgress) * (lerpProgress - 1);
 
 				float yOffset = LERP(curvedVal, m_originalPosition.y, m_yHeight);
 
@@ -190,23 +192,16 @@ void LerpController::update()
 				}
 
 				// y = -5x*(x-1)
-				float curvedVal = -5 * (lerpProgress) * (lerpProgress - 1);
-
+				
 				if (m_arcingUp)
 				{
-					//Going up
-					// y = -x*(x-2)
-					//float curvedVal = -(lerpProgress) * (lerpProgress - 2);
-					// [Projectiles]: lerp between originalQuat (angled) and lerpQuat (horizontal) 
+					float curvedVal = -4 * (lerpProgress) * (lerpProgress - 1);
 					newQuat = LERP(curvedVal, m_originalQuat, m_lerpQuat);
 				}
 				else
 				{
-					//Going down
-					// y = -x(x-1)
-					//float curvedVal = - lerpProgress * (lerpProgress - 1);
-					// [Projectiles]: lerp between lerpQuat (horizontal) and -1 * original (?)
-					newQuat = LERP(curvedVal, m_lerpQuat, -m_originalQuat);
+					float curvedVal = -4 * (lerpProgress-0.5f) * (lerpProgress - 0.5f - 1.0f);
+					newQuat = LERP((curvedVal), m_lerpQuat, m_endArcQuat);
 				}
 			}
 			else

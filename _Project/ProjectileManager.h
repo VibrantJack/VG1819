@@ -16,11 +16,17 @@ private:
 	static ProjectileManager* m_instance;
 	typedef std::string keyType;
 
+	enum Direction
+	{
+		up, left, right, down, other
+	};
+
 	struct ProjectileMapEntry
 	{
 		kitten::K_GameObject* gameObject;
 		float speed;
 		float arcHeight;
+		bool shouldRotate;
 	};
 
 	std::unordered_map<keyType, ProjectileMapEntry> m_projectiles;

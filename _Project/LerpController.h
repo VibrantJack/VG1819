@@ -49,7 +49,7 @@ private:
 	bool m_arcingUp;
 
 	glm::vec3 m_lerpScale, m_originalScale;
-	glm::quat m_lerpQuat, m_originalQuat;
+	glm::quat m_lerpQuat, m_originalQuat, m_endArcQuat;
 
 	float m_posLerpTime, m_scaleLerpTime, m_rotLerpTime;
 	float m_posTimeElapsed, m_scaleTimeElapsed, m_rotTimeElapsed;
@@ -89,7 +89,7 @@ public:
 	void rotationLerp(const glm::quat& p_rot, const float& p_time, TransformSource p_behavior = TransformSource::World);
 
 	void arcLerp(const glm::vec3& p_endPos, const float& p_time, const float& p_yHeight);
-	void arcRotate(const glm::quat& p_maxRot, const float& p_time);
+	void arcRotate(const glm::quat& p_maxRot, const glm::quat& p_endQuat, const float& p_time);
 
 	void removePositionCallback(PositionLerpFinishedCallback* p_listener);
 	void removeScaleCallback(ScaleLerpFinishedCallback* p_listener);
