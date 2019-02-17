@@ -54,6 +54,21 @@
 				},
 				{
 					"sound" : ["sword_4", "sounds/sword_4.json"]
+				},
+				{
+					"sound" : ["stab", "sounds/stab.json"]
+				},
+				{
+					"sound" : ["hoof_1", "sounds/hoof_1.json"]
+				},
+				{
+					"sound" : ["hoof_2", "sounds/hoof_2.json"]
+				},
+				{
+					"sound" : ["hoof_3", "sounds/hoof_3.json"]
+				},
+				{
+					"sound" : ["hoof_4", "sounds/hoof_4.json"]
 				}
 			]
 		}

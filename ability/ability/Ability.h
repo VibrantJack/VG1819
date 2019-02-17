@@ -359,7 +359,12 @@ namespace ability
 	{
 	public:
 		Stab() : Ability(ABILITY_STAB) {};
-		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			singleTargetDamage(p_info); 
+			UniversalSounds::playSound("stab");
+			return 0; 
+		};
 	};
 }
 
