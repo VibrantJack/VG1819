@@ -55,8 +55,18 @@ std::string AbilityPacket::getFormattedAbilityInfo()
 	{
 		message << m_abilityName[i];
 	}
-	message << "\n\tClient ID: " << m_clientId << "\n";
-	message << "\tSource Unit ID: " << m_sourceUnit << "\n";
+
+	if (m_unit.m_kibbleID != -1)
+	{
+		message << "\n\tSummoned Unit Kibble ID: " << m_unit.m_kibbleID << "\n";
+	}
+
+	message << "\tClient ID: " << m_clientId << "\n";
+	message << "\tSource Unit Network ID: " << m_sourceUnit << "\n";
+
+	unit::Unit* sourceUnitComp = networking::ClientGame::getInstance()->getUnitGameObject(m_sourceUnit)->getComponent<unit::Unit>();
+	message << "\tSource Unit Kibble ID: " << sourceUnitComp->m_kibbleID << "\n";
+
 	message << "\tNumber of Target Units: " << m_numTargetUnits << "\n";
 	message << "\tTarget Unit Indexes:\n\t\t";
 	for (int i = 0; i < m_numTargetUnits; ++i)

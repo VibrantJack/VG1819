@@ -12,6 +12,7 @@ namespace userinterface
 		m_height = m_padding * 2;
 		m_width = m_padding * 2;
 		setPivotType(piv_TopLeft);
+		setTexBehaviour(tbh_Repeat);
 	}
 
 	ContextMenu::ContextMenu() : UIElement("textures/ui/blankFrame.tga")
@@ -20,6 +21,7 @@ namespace userinterface
 		m_height = 0;
 		m_width = 0;
 		setPivotType(piv_TopLeft);
+		setTexBehaviour(tbh_Repeat);
 	}
 
 	ContextMenu::~ContextMenu()
@@ -30,8 +32,6 @@ namespace userinterface
 	void ContextMenu::start()
 	{
 		getTransform().scale2D(m_width, m_height);
-		defineVerts();
-		setEnabled(true);
 	}
 
 	ContextMenu::Row* ContextMenu::addRow( const rowType p_rt )
@@ -98,5 +98,7 @@ namespace userinterface
 			}
 		}
 		getTransform().scale2D(m_width, m_height + m_padding);
+
+		defineVerts();
 	}
 }

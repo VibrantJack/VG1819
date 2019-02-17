@@ -6,6 +6,15 @@
 
 class PowerTracker : public kitten::K_Component
 {
+private:
+	int m_iMaxPower;
+	int m_iCurrentPower;
+
+	puppy::TextBox* m_textBox;
+	puppy::Font* m_regularFont = nullptr;
+	puppy::Font* m_smallFont = nullptr;
+	puppy::Font* m_currentFont = nullptr;
+
 public:
 	PowerTracker();
 	~PowerTracker();
@@ -23,9 +32,4 @@ public:
 	int getMaxPower();
 	int getCurrentPower();	
 
-private:
-	int m_iMaxPower;
-	int m_iCurrentPower;
-
-	puppy::TextBox* m_textBox;
 };
