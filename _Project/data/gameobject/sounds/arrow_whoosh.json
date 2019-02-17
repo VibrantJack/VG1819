@@ -3,7 +3,7 @@
 	"components" : [
 		{
 			"name" : "AudioSource",
-			"clippath" : "Sounds/sfx/units/arrow_whoosh_double.wav",
+			"clippath" : "Sounds/sfx/units/arrow_whoosh.wav",
 			"is3d" : false,
 			"enableeffects" : false,
 			"loop" : false,

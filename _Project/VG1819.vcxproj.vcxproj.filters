@@ -995,6 +995,9 @@
     <ClCompile Include="FadePointLightOverTime.cpp">
       <Filter>components\visualFX</Filter>
     </ClCompile>
+    <ClCompile Include="PlayUniversalSoundOnEnable.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2070,6 +2073,9 @@
     </ClInclude>
     <ClInclude Include="FadePointLightOverTime.h">
       <Filter>components\visualFX</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayUniversalSoundOnEnable.h">
+      <Filter>components\sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
