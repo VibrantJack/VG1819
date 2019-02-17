@@ -9,7 +9,7 @@
 
 #define MAX_PACKET_SIZE 1000000
 #define MAX_CHAR_BUFSIZE 512
-#define MAX_TEXTCHAT_MSG_SIZE 44
+#define MAX_TEXTCHAT_MSG_SIZE 41
 
 #define BASIC_PACKET_SIZE sizeof(Packet)
 #define TEXTCHAT_MESSAGE_PACKET_SIZE sizeof(TextChatMessagePacket)

@@ -8,6 +8,7 @@
 namespace unit
 {
 	class Unit;
+	struct AbilityDescription;
 	struct UnitData;
 }
 
@@ -78,7 +79,7 @@ namespace ability
 		void addFilter(unit::Unit* p_target, const std::string& p_abilityName, const std::string & p_filter, const std::string& p_filterName);
 		void removeFilter(unit::Unit* p_target, const std::string& p_abilityName, const std::string & p_filter, const std::string& p_filterName);
 	private:
-		int getFilter(unit::Unit* p_target, const std::string& p_abilityName, const std::string & p_filter, const std::string& p_filterName);
+		int getFilter(unit::AbilityDescription* p_ad, int p_num, const std::string & p_filter, const std::string& p_filterName);
 	};
 
 	class ChangeAbilityInfoNode : public ability::AbilityNode

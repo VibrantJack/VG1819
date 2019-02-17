@@ -41,7 +41,7 @@ void kibble::setupDatabank() {
 			UnitFileStruct target = unitDataParser->getUnit(unitFilename);
 
 			if (std::find(target.data->m_tags.begin(), target.data->m_tags.end(), "Dummy") == target.data->m_tags.end()) {
-				for (auto ability : target.data->m_ADList) { // Set up Abilities
+				for (auto ability : target.data->m_ADMap) { // Set up Abilities
 					std::string name = ability.first;
 					abilityToUnitMap[name].push_back(unitDataVector.size()); // add unit to list of units that use the ability
 					if (abilityDataMap.find(name) == abilityDataMap.end()) { // check to see if a previous ability with the same name doesn't exist

@@ -85,14 +85,14 @@ void ReadyCheck::start()
 	glm::vec3 scale = getTransform().getScale();
 	float textBoxWidth = m_textbox->getBoxWidth();
 	float textboxHeight = m_textbox->getBoxHeight();
-	m_textbox->getTransform().place(20.0f, (scale.y / 2) + (textboxHeight / 2), 0.1f);
+	m_textbox->getTransform().place(20.0f, (scale.y / 2) + (textboxHeight / 2), 0.01f);
 
 	m_readyButton = gom->createNewGameObject("UI/ready_check/ready_button.json")->getComponent<userinterface::TriggerEventButton>();
 	m_readyButton->getTransform().setIgnoreParent(false);
 	m_readyButton->getTransform().setParent(&getTransform());
 	m_readyButton->setActive(false);
 	m_readyButton->getTransform().scale2D(READY_BUTTON_SCALE_X / scale.x, READY_BUTTON_SCALE_Y / scale.y);
-	m_readyButton->getTransform().place((scale.x - READY_BUTTON_SCALE_X) - 20.0f, (scale.y / 2) - (READY_BUTTON_SCALE_Y / 2), 0.1f);
+	m_readyButton->getTransform().place((scale.x - READY_BUTTON_SCALE_X) - 20.0f, (scale.y / 2) - (READY_BUTTON_SCALE_Y / 2), 0.01f);
 
 	m_messages[0] = JOIN_WAITING_MESSAGE_0;
 	m_messages[1] = JOIN_WAITING_MESSAGE_1;

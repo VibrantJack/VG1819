@@ -59,7 +59,7 @@ namespace unit
 		std::cout << "Size: " << p_u->m_size << std::endl;
 
 		std::cout << "Ability: " << std::endl;
-		for (auto it : p_u->m_ADList)
+		for (auto it : p_u->m_ADMap)
 		{
 			std::cout << it.first << std::endl;
 			for (auto it2 : it.second->m_stringValue)
