@@ -355,6 +355,13 @@ namespace ability
 		Sacrifice() : Ability(ABILITY_SACRIFICE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
+
+	class Erosion : public Ability
+	{
+	public:
+		Erosion() : Ability(ABILITY_EROSION) {};
+		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+	};
 }
 
 

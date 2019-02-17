@@ -124,6 +124,7 @@ namespace ability
 		m_abilityList[ABILITY_STAB] = newAbility;
 
 		ADD_ABILITY(newAbility, m_abilityList, ABILITY_SACRIFICE, Sacrifice);
+		ADD_ABILITY(newAbility, m_abilityList, ABILITY_EROSION, Erosion);
 	}
 
 	AbilityManager::AbilityManager()

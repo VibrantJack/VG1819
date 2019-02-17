@@ -6,7 +6,20 @@
 		"in":6,
 		"cost":4,
 		"tags":["Ancients","Structure"],
-		"portrait_texture" : "textures/cards/500x500/PoisonPool.tga"
+		"portrait_texture" : "textures/cards/500x500/PoisonPool.tga",
+		"ability_description":[
+			{
+                "name":"Erosion",
+                "power":2,
+				"need_unit":0,
+				"filter":3,
+				"filter0":"no_unit",
+				"filter1":"ally",
+				"filter2":"not_demonic_presence",
+				"area_mode":"all",
+				"description":"Deal 2 damage to all enemy that's on [Demonic Presence]."
+			}
+		]
 	},
 	"components" : [
 		{

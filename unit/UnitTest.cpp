@@ -49,6 +49,7 @@ namespace unit
 
 	   	kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstance()->spawnUnitObject(13); // 13 king !!!
 		uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(6, 6);
+		uNEWDUMMY->getComponent<Unit>()->m_clientId = 1;
 
 //		kitten::K_GameObject* uNEWDUMMY2 = UnitSpawn::getInstance()->spawnUnitObject(14); // queen !!!
 //		uNEWDUMMY2->getComponent<unit::UnitMove>()->setTile(-1, -1);
@@ -139,14 +140,14 @@ namespace unit
 		kitten::K_GameObject* u15 = UnitSpawn::getInstance()->spawnUnitObject(18);//summoning witch
 		u15->getComponent<unit::UnitMove>()->setTile(8, 4);
 
-//		kitten::K_GameObject* u16 = UnitSpawn::getInstance()->spawnUnitObject(20);//poison pool
-//		u16->getComponent<unit::UnitMove>()->setTile(7, 4);
+		kitten::K_GameObject* u16 = UnitSpawn::getInstance()->spawnUnitObject(20);//poison pool
+		u16->getComponent<unit::UnitMove>()->setTile(7, 4);
 
-//		kitten::K_GameObject* u17 = UnitSpawn::getInstance()->spawnUnitObject(21);//evil fiend
-//		u17->getComponent<unit::UnitMove>()->setTile(6, 4);
+		kitten::K_GameObject* u17 = UnitSpawn::getInstance()->spawnUnitObject(21);//evil fiend
+		u17->getComponent<unit::UnitMove>()->setTile(6, 4);
 
-//		kitten::K_GameObject* u18 = UnitSpawn::getInstance()->spawnUnitObject(22);//horror lord
-//		u18->getComponent<unit::UnitMove>()->setTile(5, 4);
+		kitten::K_GameObject* u18 = UnitSpawn::getInstance()->spawnUnitObject(22);//horror lord
+		u18->getComponent<unit::UnitMove>()->setTile(5, 4);
 
 		kitten::K_GameObject* u19 = UnitSpawn::getInstance()->spawnUnitObject(23);//wraith
 		u19->getComponent<unit::UnitMove>()->setTile(4, 4);
