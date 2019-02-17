@@ -5,6 +5,9 @@
 #include "ability/status/statusEvent/TimePointEvent.h"
 #include "ability/status/Status.h"
 #include "ability/AbilityMacro.h"
+
+#include "_Project\UniversalSounds.h"
+
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -96,7 +99,12 @@ namespace ability
 	{
 	public:
 		Shoot() : Ability(ABILITY_SHOOT) {};
-		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info, true); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			singleTargetDamage(p_info, true); 
+			UniversalSounds::playSound("arrow_whoosh");
+			return 0; 
+		};
 	};
 
 	class Encourage : public Ability
@@ -113,7 +121,12 @@ namespace ability
 	{
 	public:
 		QuickShoot() : Ability(ABILITY_QUICK_SHOOT) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			multiTargetDamage(p_info); 
+			UniversalSounds::playSound("arrow_whoosh_double");
+			return 0; 
+		};
 	};
 
 	class Sabotage : public Ability
@@ -146,7 +159,12 @@ namespace ability
 	{
 	public:
 		Slay() : Ability(ABILITY_SLAY) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info)
+		{ 
+			multiTargetDamage(p_info); 
+			UniversalSounds::playSound("sword_4");
+			return 0; 
+		};
 	};
 
 	class SummonUnit : public Ability

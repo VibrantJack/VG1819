@@ -1,6 +1,6 @@
 #pragma once
 #include "ability/ability/Ability.h"
-
+#include "_Project\UniversalSounds.h"
 #include "unit/Unit.h"
 
 //Rock
@@ -23,6 +23,8 @@ namespace ability
 
 			//positive power = heal
 			damage(target, power);
+
+			UniversalSounds::playSound("choir_short");
 		}
 
 		//delete package

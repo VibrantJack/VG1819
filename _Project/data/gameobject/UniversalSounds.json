@@ -15,6 +15,45 @@
 				},
 				{
 					"sound" : ["blorp", "sounds/blorp.json"]
+				},
+				{
+					"sound" : ["arrow_hit", "sounds/arrow_hit.json"]
+				},
+				{
+					"sound" : ["arrow_whoosh", "sounds/arrow_whoosh.json"]
+				},
+				{
+					"sound" : ["arrow_whoosh_double", "sounds/arrow_whoosh_double.json"]
+				},
+				{
+					"sound" : ["choir_short", "sounds/choir_short.json"]
+				},
+				{
+					"sound" : ["explode_punchy", "sounds/explode_punchy.json"]
+				},
+				{
+					"sound" : ["hammering", "sounds/hammering.json"]
+				},
+				{
+					"sound" : ["hammering_metal", "sounds/hammering_metal.json"]
+				},
+				{
+					"sound" : ["poof_deep", "sounds/poof_deep.json"]
+				},
+				{
+					"sound" : ["swooshing_repeated", "sounds/swooshing_repeated.json"]
+				},
+				{
+					"sound" : ["sword_1", "sounds/sword_1.json"]
+				},
+				{
+					"sound" : ["sword_2", "sounds/sword_2.json"]
+				},
+				{
+					"sound" : ["sword_3", "sounds/sword_3.json"]
+				},
+				{
+					"sound" : ["sword_4", "sounds/sword_4.json"]
 				}
 			]
 		}
