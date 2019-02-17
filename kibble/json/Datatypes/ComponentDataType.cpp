@@ -1886,6 +1886,12 @@ kitten::K_Component* getHaltParticleSystemAfterTime(nlohmann::json* p_jsonFile) 
 	return new HaltParticleSystemAfterTime(time, isStopping);
 }
 
+#include "_Project\PlayUniversalSoundOnEnable.h"
+kitten::K_Component* getPlayUniversalSoundOnEnable(nlohmann::json* p_jsonFile) {
+	std::string name = p_jsonFile->operator[]("sound_name");
+	return new PlayUniversalSoundOnEnable(name);
+}
+
 #include "UI/TurnCounterController.h"
 kitten::K_Component* getTurnCounterController(nlohmann::json* p_jsonFile) {
 	return new TurnCounterController();
@@ -2031,6 +2037,7 @@ void setupComponentMap() {
 	jsonComponentMap["ReloadObjectOnKeyPress"] = &getReloadObjectOnKeyPress;
 	jsonComponentMap["LoadSceneOnStart"] = &getLoadSceneOnStart;
 	jsonComponentMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
+	jsonComponentMap["PlayUniversalSoundOnEnable"] = &getPlayUniversalSoundOnEnable;
 	jsonComponentMap["BorderPiece"] = &getBorderPiece;
 	jsonComponentMap["TurnCounterController"] = &getTurnCounterController;
 }
