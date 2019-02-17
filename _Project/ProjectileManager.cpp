@@ -211,6 +211,7 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, const kitte
 	}
 	else
 	{
+		proj->getTransform().rotateRelative(glm::vec3(45, 0, 0));
 		lerpCon->positionLerp(endPos, time);
 	}
 
