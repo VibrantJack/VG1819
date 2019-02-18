@@ -119,6 +119,7 @@
     <ClCompile Include="..\ability\ability\Curse.cpp" />
     <ClCompile Include="..\ability\ability\Defend.cpp" />
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
+    <ClCompile Include="..\ability\ability\Execute.cpp" />
     <ClCompile Include="..\ability\ability\FearStrike.cpp" />
     <ClCompile Include="..\ability\ability\Mucus.cpp" />
     <ClCompile Include="..\ability\ability\Oppose.cpp" />

@@ -44,6 +44,9 @@
 //ability or status required info
 #define PUSH_BACK "push_back"
 #define CARD_DRAWN "card_drawn"
+#define COUNTER_POWER "counter_power"
+#define COUNTER_CHANGE "counter_change"
+
 #define STATUS_ARMOR "armor"
 
 //ability-action

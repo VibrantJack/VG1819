@@ -38,6 +38,7 @@
 #define COUNTER_ALL "all"
 //counter type
 #define COUNTER_ENERGY "energy"
+#define COUNTER_KILL "kill"
 
 //tags
 #define STRUCTURE "Structure"

@@ -110,12 +110,12 @@ void ability::Ability::done(const AbilityInfoPackage* p_info)
 	delete p_info;
 }
 
-void ability::Ability::removeCounter(unit::Unit * p_target, const std::string & p_name, int p_n)
+void ability::Ability::changeCounter(unit::Unit * p_target, const std::string & p_name, int p_n)
 {
 	AbilityNode* node1 = AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
 
-	//change hp
-	node1->effect(p_target, p_name, -p_n);
+	//change counter
+	node1->effect(p_target, p_name, p_n);
 }
 
 bool ability::Ability::checkTarget(const AbilityInfoPackage * p_info)

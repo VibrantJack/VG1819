@@ -998,6 +998,9 @@
     <ClCompile Include="..\ability\ability\Sacrifice.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\ability\Execute.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

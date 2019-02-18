@@ -6,7 +6,22 @@
 		"in":14,
 		"cost":8,
 		"tags":["Ancients","Demon"],
-		"portrait_texture" : "textures/cards/500x500/HorrorLord.tga"
+		"portrait_texture" : "textures/cards/500x500/HorrorLord.tga",
+		"ability_description":[
+			{
+				"name":"Execute",
+				"power":7,
+				"target":1,
+				"need_unit":0,
+				"min_range":1,
+				"max_range":1,
+				"counter_name":"kill",
+				"counter_select":"all",
+				"counter_change":2,
+				"counter_power":2,
+				"description":"Deal 7 damage, if destroy target then gain 2 [Kill Counter]. If lv3, deal 2*X more damage, X is number of [Kill Counter]."
+			}
+		]
 	},
 	"components" : [
 		{

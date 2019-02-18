@@ -125,6 +125,7 @@ namespace ability
 
 		ADD_ABILITY(newAbility, m_abilityList, ABILITY_SACRIFICE, Sacrifice);
 		ADD_ABILITY(newAbility, m_abilityList, ABILITY_EROSION, Erosion);
+		ADD_ABILITY(newAbility, m_abilityList, ABILITY_EXECUTE, Execute);
 	}
 
 	AbilityManager::AbilityManager()
