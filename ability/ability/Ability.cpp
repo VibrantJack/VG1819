@@ -50,17 +50,26 @@ void ability::Ability::singleTargetProjectileFinished(AbilityInfoPackage* p_pack
 	done(p_package);
 }
 
-void ability::Ability::multiTargetDamage(AbilityInfoPackage * p_info)
+void ability::Ability::multiTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile)
 {
-	//deal damaga to all units
+	if (p_fireProjectile)
+	{
+		ProjectileManager::multiDamageFireProjectile(m_name, p_info->m_source, this, p_info);
+	}
+	else
+	{
+		multiTargetProjectileFinished(p_info);
+	}
+}
 
-	//trigger deal damage event
-	triggerTPEvent(ability::TimePointEvent::Deal_Damage, p_info->m_source, p_info);
+void ability::Ability::multiTargetProjectileFinished(AbilityInfoPackage* p_package)
+{
+	triggerTPEvent(ability::TimePointEvent::Deal_Damage, p_package->m_source, p_package);
 
-	for (unit::Unit* u : p_info->m_targets)
+	for (unit::Unit* u : p_package->m_targets)
 	{
 		//get copy of package
-		AbilityInfoPackage* clonePackage = new AbilityInfoPackage(*p_info);
+		AbilityInfoPackage* clonePackage = new AbilityInfoPackage(*p_package);
 
 		//trigger receive damage
 		triggerTPEvent(ability::TimePointEvent::Receive_Damage, u, clonePackage);
@@ -74,7 +83,7 @@ void ability::Ability::multiTargetDamage(AbilityInfoPackage * p_info)
 	}
 
 	//delete package
-	done(p_info);
+	done(p_package);
 }
 
 kitten::K_GameObject * ability::Ability::summonToken(AbilityInfoPackage* p_info, int p_unitIndex)
