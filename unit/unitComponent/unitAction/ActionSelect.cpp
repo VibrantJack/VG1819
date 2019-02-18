@@ -12,7 +12,9 @@ unit::ActionSelect::ActionSelect(const std::pair<int, int> p_to, const std::pair
 	m_cdtext(nullptr),
 	m_txtOffset(p_to),
 	m_cdOffset(p_co),
-	m_active(true)
+	m_active(true),
+	m_actionShow(false),
+	m_cd(0)
 {
 }
 
@@ -71,18 +73,25 @@ void unit::ActionSelect::setUnit(Unit * p_u)
 
 void unit::ActionSelect::setAction(const std::string & p_a, int p_cd)
 {
-	m_cd = p_cd;
-	m_action = p_a;
-		
-	if(m_text != nullptr)
-		m_text->getComponent<puppy::TextBox>()->setText(m_action);
-
-	if (m_cdtext != nullptr)
+	if (m_action != p_a)
 	{
-		if (m_cd > 0)
-			m_cdtext->getComponent<puppy::TextBox>()->setText("CD:" + std::to_string(m_cd));
-		else
-			m_cdtext->getComponent<puppy::TextBox>()->setText("");
+		m_action = p_a;
+
+		if (m_text != nullptr)
+			m_text->getComponent<puppy::TextBox>()->setText(m_action);
+	}
+
+	if (m_cd != p_cd)
+	{
+		m_cd = p_cd;
+
+		if (m_cdtext != nullptr)
+		{
+			if (m_cd > 0)
+				m_cdtext->getComponent<puppy::TextBox>()->setText("CD:" + std::to_string(m_cd));
+			else
+				m_cdtext->getComponent<puppy::TextBox>()->setText("");
+		}
 	}
 }
 
@@ -127,10 +136,25 @@ void unit::ActionSelect::act()
 	{
 		m_unit->getTile()->getComponent<TileInfo>()->setDemonicPresence(true);
 	}
+	else if (m_action == "Action")
+	{
+		if (m_actionShow)
+		{
+			m_storage->hideAction();
+			m_actionShow = false;
+		}
+		else
+		{
+			m_storage->displayAction(m_attachedObject);
+			m_actionShow = true;
+		}
+		return;//don't hide all buttons
+	}
 	else
 	{
 		m_unit->useAbility(m_action);
 	}
+	m_storage->hide();
 }
 
 void unit::ActionSelect::onClick()
@@ -139,12 +163,15 @@ void unit::ActionSelect::onClick()
 		return;
 
 	act();
-	m_storage->hide();
+	//m_storage->hide();
 }
 
 void unit::ActionSelect::onDisabled()
 {
-	m_text->getComponent<puppy::TextBox>()->setText("NONE");
-	m_cdtext->getComponent<puppy::TextBox>()->setText("");
-	m_active = true;
+	//m_text->getComponent<puppy::TextBox>()->setText("NONE");
+	//m_cdtext->getComponent<puppy::TextBox>()->setText("");
+	//m_active = true;
+
+	m_actionShow = false;
 }
+

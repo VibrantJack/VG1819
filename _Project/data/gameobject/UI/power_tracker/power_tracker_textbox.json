@@ -5,10 +5,9 @@
             "name" : "TextBox",
 			"font" : "../fonts/nsimsun_38pt.fnt",
 			"color" : [1,1,1],
-            "alignment" : "left",
-            "width" : 1000,
-            "height" : 400
+            "alignment" : "center",
+            "width" : 100,
+            "height" : 38
         }
-    ],
-	"translate2d" : [985.0, 75.0]
+    ]
 }

@@ -9,7 +9,7 @@
 
 #define MAX_PACKET_SIZE 1000000
 #define MAX_CHAR_BUFSIZE 512
-#define MAX_TEXTCHAT_MSG_SIZE 44
+#define MAX_TEXTCHAT_MSG_SIZE 41
 
 #define BASIC_PACKET_SIZE sizeof(Packet)
 #define TEXTCHAT_MESSAGE_PACKET_SIZE sizeof(TextChatMessagePacket)
@@ -292,6 +292,8 @@ private:
 	int m_numTargetTiles;
 	std::vector<std::pair<int, int>> m_targetTiles;
 	TargetTiles m_targetTilesGO;
+
+	std::pair<int, int> m_clickedObjectPos = { -1, -1 };
 
 	void writeInt(Buffer &p_buffer, int p_value);
 	void writeChar(Buffer &p_buffer, char p_value);

@@ -19,6 +19,6 @@
 			"highlightedTexture" : "textures/ui/buttons/return_to_mm_highlighted.tga"
         }
     ],
-    "scale2d" : [170.0,100.0],
-	"translate2d" : [1110.0,620.0]
+    "scale2d" : [160.0,105.0],
+	"translate2d" : [1120.0,615.0]
 }

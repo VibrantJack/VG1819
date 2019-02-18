@@ -1,7 +1,9 @@
 #include "LerpController.h"
+#include <iostream>
 
 LerpController::LerpController() : m_time(nullptr), m_posLerpTime(0.0f), m_scaleLerpTime(0.0f), m_rotLerpTime(0.0f), 
-	m_isLerping(false), m_isPositionLerping(false), m_isScaleLerping(false), m_isRotationLerping(false)
+	m_isLerping(false), m_isPositionLerping(false), m_isScaleLerping(false), m_isRotationLerping(false), m_yHeight(0), m_isArcLerping(false),
+	m_isArcRotating(false)
 {
 
 }
@@ -25,6 +27,7 @@ void LerpController::start()
 void LerpController::positionLerp(const glm::vec3& p_pos, const float& p_time, TransformSource p_behavior)
 {
 	m_isPositionLerping = true;
+	m_isArcLerping = false;
 	onStartLerp();
 
 	m_lerpPosition = p_pos;
@@ -40,15 +43,35 @@ void LerpController::positionLerp(const glm::vec3& p_pos, const float& p_time, T
 	}
 }
 
+void LerpController::arcLerp(const glm::vec3& p_endPos, const float& p_time, const float& p_yHeight)
+{
+	positionLerp(p_endPos, p_time, TransformSource::World);
+
+	m_isArcLerping = true;
+
+	m_yHeight = p_yHeight + p_endPos.y;
+}
+
 void LerpController::rotationLerp(const glm::quat& p_rot, const float& p_time, TransformSource p_behavior)
 {
 	m_isRotationLerping = true;
+	m_isArcRotating = false;
 	onStartLerp();
 
 	m_lerpQuat = p_rot;
 	m_rotLerpTime = p_time;
 	m_rotTimeElapsed = 0.0f;
 	m_originalQuat = getTransform().getRotation();
+}
+
+void LerpController::arcRotate(const glm::quat& p_maxRot, const glm::quat& p_endQuat, const float& p_time)
+{
+	rotationLerp(p_maxRot, p_time, TransformSource::World);
+
+	m_isArcRotating = true;
+	m_arcingUp = true;
+
+	m_endArcQuat = p_endQuat;
 }
 
 void LerpController::scaleLerp(const glm::vec3& p_scale, const float& p_time, TransformSource p_behavior)
@@ -78,6 +101,8 @@ void LerpController::update()
 		if (lerpProgress >= 1.0f)
 		{
 			m_isPositionLerping = false;
+			m_isArcLerping = false;
+
 			transform.place(m_lerpPosition.x, m_lerpPosition.y, m_lerpPosition.z);
 
 			onFinishedLerp();
@@ -92,7 +117,20 @@ void LerpController::update()
 		else
 		{
 			glm::vec3 newPos = LERP(lerpProgress, m_originalPosition, m_lerpPosition);
-			transform.place(newPos.x, newPos.y, newPos.z);
+			
+			if (m_isArcLerping)
+			{
+						   // y = -4x*(x-1)
+				float curvedVal = -4 * (lerpProgress) * (lerpProgress - 1);
+
+				float yOffset = LERP(curvedVal, m_originalPosition.y, m_yHeight);
+
+				transform.place(newPos.x, newPos.y + yOffset, newPos.z);
+			}
+			else
+			{
+				transform.place(newPos.x, newPos.y, newPos.z);
+			}
 		}
 	}
 
@@ -130,6 +168,7 @@ void LerpController::update()
 		if (lerpProgress >= 1.0f)
 		{
 			m_isRotationLerping = false;
+			m_isArcRotating = false;
 			transform.rotateAbsQuat(m_lerpQuat);
 
 			onFinishedLerp();
@@ -143,7 +182,33 @@ void LerpController::update()
 		}
 		else
 		{
-			glm::quat newQuat = LERP(lerpProgress, m_originalQuat, m_lerpQuat);
+			glm::quat newQuat;
+
+			if (m_isArcRotating)
+			{
+				if (lerpProgress >= 0.5f)
+				{
+					m_arcingUp = false;
+				}
+
+				// y = -5x*(x-1)
+				
+				if (m_arcingUp)
+				{
+					float curvedVal = -4 * (lerpProgress) * (lerpProgress - 1);
+					newQuat = LERP(curvedVal, m_originalQuat, m_lerpQuat);
+				}
+				else
+				{
+					float curvedVal = -4 * (lerpProgress-0.5f) * (lerpProgress - 0.5f - 1.0f);
+					newQuat = LERP((curvedVal), m_lerpQuat, m_endArcQuat);
+				}
+			}
+			else
+			{
+				newQuat = LERP(lerpProgress, m_originalQuat, m_lerpQuat);
+			}
+
 			transform.rotateAbsQuat(newQuat);
 		}
 	}

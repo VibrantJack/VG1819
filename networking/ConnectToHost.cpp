@@ -114,7 +114,7 @@ void ConnectToHost::update()
 	}
 
 	// Update ClientGame if there is an instance
-	if (networking::ClientGame::getInstance() != nullptr && networking::ClientGame::isNetworkValid())
+	if (networking::ClientGame::getInstance() != nullptr && networking::ClientGame::isNetworkValid() && !m_bJoiningGame)
 	{
 		networking::ClientGame::getInstance()->update();
 	}

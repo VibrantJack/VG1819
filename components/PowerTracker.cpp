@@ -3,6 +3,9 @@
 #include "kitten\K_GameObjectManager.h"
 #include "puppy\Text\FontTable.h"
 
+#define REGULAR_FONT "../fonts/nsimsun_38pt.fnt"
+#define SMALL_FONT "../fonts/nsimsun_34pt.fnt"
+
 PowerTracker::PowerTracker()
 	:
 	m_iMaxPower(0),
@@ -30,10 +33,19 @@ PowerTracker::~PowerTracker()
 
 void PowerTracker::start()
 {
+	kitten::K_GameObject* powerIcon = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/power_tracker/power_tracker_icon.json");
 	kitten::K_GameObject* textBox = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/power_tracker/power_tracker_textbox.json");
+	textBox->getTransform().setIgnoreParent(false);
+	textBox->getTransform().setParent(&powerIcon->getTransform());	
 	m_textBox = textBox->getComponent<puppy::TextBox>();
 
-	kitten::K_GameObject* powerIcon = kitten::K_GameObjectManager::getInstance()->createNewGameObject("UI/power_tracker/power_tracker_icon.json");
+	auto scale = powerIcon->getTransform().getScale();
+	textBox->getTransform().place(0.0f, (scale.y / 2.0f) + 30.0f, 0.01);
+
+	m_regularFont = puppy::FontTable::getInstance()->getFont(REGULAR_FONT);
+	m_smallFont = puppy::FontTable::getInstance()->getFont(SMALL_FONT);
+	m_currentFont = m_regularFont;
+
 	updateTextBox();
 }
 
@@ -41,6 +53,11 @@ void PowerTracker::updateTextBox()
 {
 	if (m_textBox != nullptr)
 	{
+		if (m_iMaxPower > 9 && m_currentFont != m_smallFont)
+		{
+			m_textBox->setFont(m_smallFont);
+			m_currentFont = m_smallFont;
+		}
 		m_textBox->setText(std::to_string(getCurrentPower()) + "/" + std::to_string(m_iMaxPower));
 	}
 }
