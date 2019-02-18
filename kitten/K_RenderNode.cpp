@@ -39,6 +39,12 @@ namespace kitten
 		{
 			(*it)->m_cachedRenderNode = nullptr;
 		}
+
+		const auto rTEnd = m_trasparentUIRenderables.cend();
+		for (auto it = m_trasparentUIRenderables.cbegin(); it != rTEnd; ++it)
+		{
+			(*it)->m_cachedRenderNode = nullptr;
+		}
 	}
 
 	void K_RenderNode::start()
@@ -108,6 +114,16 @@ namespace kitten
 	void K_RenderNode::removeUIRenderable(K_UIRenderable* p_toRemove)
 	{
 		m_uiRenderables.erase(p_toRemove);
+	}
+
+	void K_RenderNode::addTransparentUIRenderable(K_UIRenderable * p_toAdd)
+	{
+		m_trasparentUIRenderables.insert(p_toAdd);
+	}
+
+	void K_RenderNode::removeTransparentUIRenderable(K_UIRenderable * p_toRemove)
+	{
+		m_trasparentUIRenderables.erase(p_toRemove);
 	}
 
 	void K_RenderNode::addChild(K_RenderNode* p_toAdd)

@@ -13,6 +13,7 @@
 #include "board/BoardManager.h"
 #include "kitten\event_system\EventManager.h"
 #include <iostream>
+#include "UI/UIFrame.h"
 #include "_Project/LerpController.h"
 
 // Networking
@@ -51,6 +52,8 @@ void SpawnUnitOnDrop::onClick()
 	if (m_isDragging == false) 
 	{
 		m_lerpController->addPositionLerpFinishedCallback(this);
+		m_attachedObject->getComponent<userinterface::CardUIO>()->setGAlpha(1);
+		m_attachedObject->getComponent<userinterface::CardUIO>()->setTransparency(false);
 		
 		shadowLerp->positionLerp(
 			glm::vec3(
@@ -65,6 +68,9 @@ void SpawnUnitOnDrop::onClick()
 	else 
 	{
 		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(false);
+		m_attachedObject->getComponent<userinterface::CardUIO>()->setGAlpha(0.5);
+		m_attachedObject->getComponent<userinterface::CardUIO>()->setTransparency(true);
+		shadow.setEnabled(true);
 
 		shadowLerp->positionLerp(
 			glm::vec3(
@@ -113,6 +119,7 @@ void SpawnUnitOnDrop::onPause()
 void SpawnUnitOnDrop::onPositionLerpFinished()
 {
 	m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(true);
+	getTransform().getChildren()[0]->getAttachedGameObject().setEnabled(false);
 }
 
 void SpawnUnitOnDrop::removeCard()
@@ -146,5 +153,10 @@ void SpawnUnitOnDrop::start()
 {
 	DragNDrop::start();
 	setEnabled(!userinterface::HandFrame::getActiveInstance()->isOnDiscardMode());
-	getTransform().getChildren()[0]->getAttachedGameObject().setEnabled(false);
+
+	kitten::K_GameObject& shadow = getTransform().getChildren()[0]->getAttachedGameObject();
+	shadow.getComponent<userinterface::UIFrame>()->setTransparency(true);
+	shadow.getComponent<userinterface::UIFrame>()->setGAlpha(0.5);
+
+	shadow.setEnabled(false);
 }

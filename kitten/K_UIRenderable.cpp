@@ -42,6 +42,22 @@ namespace kitten
 		m_cachedRenderNode->addUIRenderable(this);
 	}
 
+	void K_UIRenderable::addToDynamicTransparentUIRender()
+	{
+		if (m_cachedRenderNode == nullptr)
+		{
+			m_cachedRenderNode = m_attachedObject->getComponent<K_RenderNode>();
+
+			if (m_cachedRenderNode == nullptr)
+			{
+				m_cachedRenderNode = static_cast<K_RenderNode*>(K_ComponentManager::getInstance()->createComponent("K_RenderNode"));
+				m_attachedObject->addComponent(m_cachedRenderNode);
+			}
+		}
+
+		m_cachedRenderNode->addTransparentUIRenderable(this);
+	}
+
 	void K_UIRenderable::removeFromStaticUIRender(const puppy::Material& p_mat)
 	{
 		puppy::StaticRenderables::getInstance()->removeFromUIRender(this, &p_mat);
@@ -52,6 +68,14 @@ namespace kitten
 		if (m_cachedRenderNode != nullptr)
 		{
 			m_cachedRenderNode->removeUIRenderable(this);
+			m_cachedRenderNode = nullptr;
+		}
+	}
+	void K_UIRenderable::removeFromDynamicTransparentUIRender()
+	{
+		if (m_cachedRenderNode != nullptr)
+		{
+			m_cachedRenderNode->removeTransparentUIRenderable(this);
 			m_cachedRenderNode = nullptr;
 		}
 	}
