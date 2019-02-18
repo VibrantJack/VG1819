@@ -62,5 +62,8 @@ namespace unit
 		void gameTurnEnd();
 
 		void addExtraTurn(kitten::K_GameObject* p_unit);
+		
+		//button listener
+		void newTurnListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 	};
 }

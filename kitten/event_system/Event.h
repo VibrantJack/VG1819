@@ -98,6 +98,7 @@ namespace kitten
 			Scene_Change,
 			Remove_Loading_Screen,
 			New_Game_Turn,
+			New_Unit_Turn,
 
 			Test_Event, 
 			MAX_VAL = Test_Event
