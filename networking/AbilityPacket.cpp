@@ -95,6 +95,11 @@ std::string AbilityPacket::getFormattedAbilityInfo()
 		message << "\t\t(" << posX << ", " << posY << ")\n";
 	}
 
+	if (m_clickedObjectPos.first > -1)
+	{
+		message << "\tm_clickedObjectPos: " << m_clickedObjectPos.first << ", " << m_clickedObjectPos.second;
+	}
+
 	return message.str();
 }
 
@@ -201,6 +206,10 @@ void AbilityPacket::serialize(Buffer& p_buffer)
 	writeInt(p_buffer, m_unit.m_baseMV);
 	writeInt(p_buffer, m_unit.m_cost);
 	writeInt(p_buffer, m_unit.m_baseCost);
+
+	// AbilityInfoPacket::m_clickedObject
+	writeInt(p_buffer, m_clickedObjectPos.first);
+	writeInt(p_buffer, m_clickedObjectPos.second);
 }
 
 void AbilityPacket::deserialize(Buffer& p_buffer)
@@ -254,6 +263,10 @@ void AbilityPacket::deserialize(Buffer& p_buffer)
 	m_unit.m_baseMV = readInt(p_buffer);
 	m_unit.m_cost = readInt(p_buffer);
 	m_unit.m_baseCost = readInt(p_buffer);
+
+	// AbilityInfoPacket::m_clickedObject
+	m_clickedObjectPos.first = readInt(p_buffer);
+	m_clickedObjectPos.second = readInt(p_buffer);
 }
 
 int AbilityPacket::getSize()
@@ -267,7 +280,8 @@ int AbilityPacket::getSize()
 		+ sizeof(m_numIntValues) 
 		+ sizeof(m_numTargetTiles)
 		+ sizeof(m_abilityNameLength)
-		+ sizeof(m_unit);
+		+ sizeof(m_unit)
+		+ sizeof(m_clickedObjectPos);
 
 	// sizeof all int values in TargetUnits vector
 	int targetUnitsSize = sizeof(int) * m_numTargetUnits;
@@ -297,6 +311,15 @@ void AbilityPacket::extractFromPackage(ability::AbilityInfoPackage* p_package)
 	{
 		addUnitData(p_package->m_cardGOForUnitSummon->getComponent<unit::Unit>());
 	}
+
+	if (p_package->m_clickedObject != nullptr)
+	{
+		TileInfo* tile = p_package->m_clickedObject->getComponent<TileInfo>();
+		if (tile != nullptr)
+		{
+			m_clickedObjectPos = { tile->getPosX(), tile->getPosY() };
+		}
+	}
 }
 
 void AbilityPacket::insertIntoPackage(ability::AbilityInfoPackage* p_package)
@@ -314,6 +337,11 @@ void AbilityPacket::insertIntoPackage(ability::AbilityInfoPackage* p_package)
 		unitGO->addComponent(unitComp);
 	}	
 	p_package->m_cardGOForUnitSummon = unitGO;
+
+	if (m_clickedObjectPos.first > -1)
+	{
+		p_package->m_clickedObject = BoardManager::getInstance()->getTile(m_clickedObjectPos.first, m_clickedObjectPos.second);
+	}
 }
 
 void AbilityPacket::addTargetUnits(TargetUnits p_targets)
