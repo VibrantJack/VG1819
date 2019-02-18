@@ -18,6 +18,7 @@
 #define UNIT_LV "lv"
 
 //ability related
+#define ABILITY_DISABLE "disable"
 #define ABILITY_NAME "name"
 #define LEVEL_UP "level_up"
 #define UNIT_CT "ct"

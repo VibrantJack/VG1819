@@ -140,17 +140,21 @@ namespace ability
 
 	void Status::checkDuration(const TimePointEvent::TPEventType& p_type)
 	{
-
 		if (m_counter.find(UNIT_DURATION) != m_counter.end())
 		{
 			if (m_endEffectEvent == p_type)
-				changeCounter();
+				checkDuration();
+		}
+	}
 
-			if (m_counter.at(UNIT_DURATION) <= 0)
-			{
-				effectEnd();
-				removeThis();
-			}
+	void Status::checkDuration()
+	{
+		changeCounter();
+
+		if (m_counter.at(UNIT_DURATION) <= 0)
+		{
+			effectEnd();
+			removeThis();
 		}
 	}
 

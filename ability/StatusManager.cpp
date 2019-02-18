@@ -58,6 +58,8 @@ namespace ability
 
 		s = new Status_DR_Mud_Demon();
 		m_statusList[STATUS_DR_MUD_DEMON] = s;
+
+		ADD_ELEMENT(s, m_statusList, STATUS_IN_CHANGE, Status_IN_Change);
 	}
 
 	StatusManager::StatusManager()

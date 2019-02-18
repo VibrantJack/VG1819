@@ -20,6 +20,7 @@
 #pragma once
 #include "ability/node/AbilityNodeManager.h"
 #include "ability/status/statusEvent/TimePointEvent.h"
+#include "kitten/event_system/EventManager.h"
 
 #include <string>
 #include <vector>
@@ -97,6 +98,7 @@ namespace ability
 		
 		//check if the event of duration deduction happens, if it is reduce duration
 		void checkDuration(const TimePointEvent::TPEventType& p_type);
+		void checkDuration();
 
 		//end effect
 		virtual void effectEnd();
@@ -241,6 +243,18 @@ namespace ability
 		bool m_active = false;
 
 		void generateArmor();
+	};
+
+	class Status_IN_Change : public Status
+	{
+	public:
+		Status_IN_Change();
+		Status* clone() const { return new Status_IN_Change(*this); };
+		int effect();
+		void effectEnd();
+
+		void registerEvent();
+		void listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data);
 	};
 }
 

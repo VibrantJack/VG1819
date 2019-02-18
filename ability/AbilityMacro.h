@@ -1,5 +1,7 @@
 #pragma once
 
+#define ADD_ELEMENT(n, list, name,className) n = new className(); list[name] = n;
+
 //ability
 #define ABILITY_MANIPULATE_TILE "ManipulateTile"
 #define ABILITY_HEAL "Heal"
@@ -39,6 +41,7 @@
 #define ABILITY_EROSION "Erosion"
 #define ABILITY_
 #define ABILITY_EXECUTE "Execute"
+#define ABILITY_HORROR "Horror"
 #define ABILITY_ATTACH "Attach"
 
 //ability or status required info
@@ -54,21 +57,25 @@
 #define ACTION_JOIN "Join"
 
 //status
+#define STATUS_TEMP_CHANGE "Status_Temp_Change"
+#define STATUS_AD_CHANGE "Status_AD_Change"
+#define STATUS_IN_CHANGE "Status_IN_Change"
+
+// buff/debuff
 #define STATUS_ENCOURAGE "Status_Encourage"
+#define STATUS_DODGE "Status_Dodge"
+#define STATUS_LOAD "Status_Load"
+#define STATUS_SHIELD "Status_Shield"
+#define STATUS_BLOCK "Status_Block"
+#define STATUS_CURSE "Status_Curse"
+
+//lv
 #define STATUS_LV "Status_LV"
 #define STATUS_PRIEST_LV3 "Status_Priest_LV3"
 #define STATUS_ARCHER_LV3 "Status_Archer_LV3"
 #define STATUS_DUELIST_LV3 "Status_Duelist_LV3"
-#define STATUS_DODGE "Status_Dodge"
-#define STATUS_TEMP_CHANGE "Status_Temp_Change"
-#define STATUS_AD_CHANGE "Status_AD_Change"
-#define STATUS_LOAD "Status_Load"
-#define STATUS_SHIELD "Status_Shield"
-#define STATUS_BLOCK "Status_Block"
-
 #define STATUS_ETERNAL_EYE_LV3 "Status_Eternal_Eye_LV3"
 #define STATUS_LANCER_LV2 "Status_Lancer_LV2"
-#define STATUS_CURSE "Status_Curse"
 
 //demonic restriction
 #define STATUS_DEMONIC_RESTRICTION "Status_Demonic_Restriction"
