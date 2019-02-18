@@ -69,6 +69,33 @@
 				},
 				{
 					"sound" : ["hoof_4", "sounds/hoof_4.json"]
+				},
+				{
+					"sound" : ["snap", "sounds/snap.json"]
+				},
+				{
+					"sound" : ["drums", "sounds/drums.json"]
+				},
+				{
+					"sound" : ["cancel", "sounds/cancel.json"]
+				},
+				{
+					"sound" : ["spooky", "sounds/spooky.json"]
+				},
+				{
+					"sound" : ["homeland", "sounds/homeland.json"]
+				},
+				{
+					"sound" : ["summon", "sounds/summon.json"]
+				},
+				{
+					"sound" : ["gas", "sounds/gas.json"]
+				},
+				{
+					"sound" : ["load", "sounds/load.json"]
+				},
+				{
+					"sound" : ["join", "sounds/join.json"]
 				}
 			]
 		}

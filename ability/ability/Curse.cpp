@@ -29,6 +29,8 @@ namespace ability
 			}
 		}
 
+		UniversalSounds::playSound("spooky");
+
 		//delete package
 		done(p_info);
 

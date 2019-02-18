@@ -310,7 +310,12 @@ namespace ability
 	{
 	public:
 		ReleaseGas() : Ability(ABILITY_RELEASE_GAS) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			multiTargetDamage(p_info); 
+			UniversalSounds::playSound("gas");
+			return 0; 
+		};
 	};
 
 	class FearStrike : public Ability
@@ -340,7 +345,7 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info) 
 		{
 			summonToken(p_info, m_unitIndex);
-
+			UniversalSounds::playSound("summon");
 			//delete package
 			done(p_info);
 

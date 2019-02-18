@@ -21,6 +21,8 @@ int ability::Rally::effect(AbilityInfoPackage * p_info)
 		status->attach(u);
 	}
 
+	UniversalSounds::playSound("drums");
+
 	//delete package
 	done(p_info);
 
