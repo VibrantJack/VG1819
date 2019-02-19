@@ -110,7 +110,7 @@ void LerpController::update()
 			auto end = m_posCallbacks.cend();
 			for (auto it = m_posCallbacks.cbegin(); it != end; ++it)
 			{
-				(*it)->onPositionLerpFinished();
+				(*it)->onPositionLerpFinished(m_attachedObject);
 			}
 			m_posCallbacks.clear();
 		}
@@ -149,7 +149,7 @@ void LerpController::update()
 			auto end = m_scaleCallbacks.cend();
 			for (auto it = m_scaleCallbacks.cbegin(); it != end; ++it)
 			{
-				(*it)->onScaleLerpFinished();
+				(*it)->onScaleLerpFinished(m_attachedObject);
 			}
 			m_scaleCallbacks.clear();
 		}
@@ -176,7 +176,7 @@ void LerpController::update()
 			auto end = m_rotationCallbacks.cend();
 			for (auto it = m_rotationCallbacks.cbegin(); it != end; ++it)
 			{
-				(*it)->onRotationLerpFinished();
+				(*it)->onRotationLerpFinished(m_attachedObject);
 			}
 			m_rotationCallbacks.clear();
 		}
@@ -250,7 +250,7 @@ void LerpController::endLerp(TransformBehavior p_behavior, bool p_applyCallbacks
 			auto end = m_posCallbacks.cend();
 			for (auto it = m_posCallbacks.cbegin(); it != end; ++it)
 			{
-				(*it)->onPositionLerpFinished();
+				(*it)->onPositionLerpFinished(m_attachedObject);
 			}
 			m_posCallbacks.clear();
 		}
@@ -274,7 +274,7 @@ void LerpController::endLerp(TransformBehavior p_behavior, bool p_applyCallbacks
 			auto end = m_scaleCallbacks.cend();
 			for (auto it = m_scaleCallbacks.cbegin(); it != end; ++it)
 			{
-				(*it)->onScaleLerpFinished();
+				(*it)->onScaleLerpFinished(m_attachedObject);
 			}
 			m_scaleCallbacks.clear();
 		}
@@ -298,7 +298,7 @@ void LerpController::endLerp(TransformBehavior p_behavior, bool p_applyCallbacks
 			auto end = m_rotationCallbacks.cend();
 			for (auto it = m_rotationCallbacks.cbegin(); it != end; ++it)
 			{
-				(*it)->onRotationLerpFinished();
+				(*it)->onRotationLerpFinished(m_attachedObject);
 			}
 			m_rotationCallbacks.clear();
 		}

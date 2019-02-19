@@ -68,7 +68,7 @@ void DeckDiscardedCardHandler::start()
 		std::bind(&DeckDiscardedCardHandler::receiveDiscardedCard, this, std::placeholders::_1, std::placeholders::_2));
 }
 
-void DeckDiscardedCardHandler::onPositionLerpFinished()
+void DeckDiscardedCardHandler::onPositionLerpFinished(kitten::K_GameObject* p_obj)
 {
 	// Delete Card
 	kitten::K_GameObjectManager::getInstance()->destroyGameObject(this->m_attachedObject);

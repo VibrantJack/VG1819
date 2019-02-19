@@ -491,7 +491,7 @@ namespace unit
 		}
 	}
 
-	void Unit::onScaleLerpFinished() //Called when healthbar is done animating
+	void Unit::onScaleLerpFinished(kitten::K_GameObject* p_obj) //Called when healthbar is done animating
 	{
 		switch (m_healthBarState)
 		{

@@ -169,7 +169,7 @@ void ReadyCheck::readyButtonClicked(kitten::Event::EventType p_type, kitten::Eve
 	m_messages[2] = READY_WAITING_OTHER_MESSAGE_2;
 }
 
-void ReadyCheck::onPositionLerpFinished()
+void ReadyCheck::onPositionLerpFinished(kitten::K_GameObject* p_obj)
 {
 	kitten::K_GameObjectManager::getInstance()->destroyGameObject(m_attachedObject);
 }

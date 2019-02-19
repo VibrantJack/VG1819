@@ -151,7 +151,7 @@ void LandContext::setEnabledListener(kitten::Event::EventType p_type, kitten::Ev
 	
 }
 
-void LandContext::onPositionLerpFinished()
+void LandContext::onPositionLerpFinished(kitten::K_GameObject* p_obj)
 {
 	if (!m_enabling)
 	{

@@ -10,7 +10,7 @@
 
 ProjectileManager* ProjectileManager::m_instance = nullptr;
 
-ProjectileManager::ProjectileManager(const std::string& p_projectileList)
+ProjectileManager::ProjectileManager(const std::string& p_projectileList) : m_time(nullptr), m_lastSource(nullptr), m_lastFiredObj(nullptr)
 {
 	assert(m_instance == nullptr);
 	m_instance = this;
@@ -45,19 +45,49 @@ ProjectileManager::ProjectileManager(const std::string& p_projectileList)
 		    std::string rotate;
 			std::getline(stream, rotate, ',');
 			bool shouldRotate = (rotate == " true" || rotate == "true");
+			// How many projectiles to fire : only applies to multi-target non-AOE abilities
+			std::string projs;
+			std::getline(stream, projs, ',');
+			float numProjs = std::stof(projs);
+
 
 			// Make the GameObject
-			auto gameObj = gameObjMan->createNewGameObject(jsonName);
-			gameObj->setEnabled(false);
+			if (numProjs < 2)
+			{
+				auto gameObj = gameObjMan->createNewGameObject(jsonName);
+				gameObj->setEnabled(false);
 
-			// Insert into the map
-			ProjectileMapEntry entry;
-			entry.gameObject = gameObj;
-			entry.speed = convertedTime;
-			entry.arcHeight = convertedHeight;
-			entry.shouldRotate = shouldRotate;
+				// Insert into the map
+				ProjectileMapEntry entry;
+				entry.gameObject = gameObj;
+				entry.speed = convertedTime;
+				entry.arcHeight = convertedHeight;
+				entry.shouldRotate = shouldRotate;
 
-			m_projectiles.insert(std::make_pair(name, entry));
+				m_projectiles.insert(std::make_pair(name, entry));
+			}
+			else
+			{
+				std::string delay;
+				std::getline(stream, delay, ',');
+				float delayBetweenProjectiles = std::stof(delay);
+
+				for (int i = 0; i < numProjs; ++i)
+				{
+					auto gameObj = gameObjMan->createNewGameObject(jsonName);
+					gameObj->setEnabled(false);
+
+					ProjectileMapEntry entry;
+					entry.gameObject = gameObj;
+					entry.speed = convertedTime;
+					entry.arcHeight = convertedHeight;
+					entry.shouldRotate = shouldRotate;
+					entry.delayBetweenAttacks = delayBetweenProjectiles;
+
+
+					m_projectiles.insert(std::make_pair(name + std::to_string(i), entry));
+				}
+			}
 		}
 	}
 
@@ -76,7 +106,7 @@ void ProjectileManager::fireProjectile(const keyType& p_type, unit::Unit* p_sour
 	m_instance->m_lastAbility = p_ability;
 	m_instance->m_lastUnitSel = p_source->getGameObject().getComponent<unit::UnitSelect>();
 	m_instance->m_lastUnitSel->disableInteraction(true);
-	
+	m_instance->m_firingMultipleProjectiles = false;
 	m_instance->m_firedForMultiDamage = false;
 
 	m_instance->privateFireProjectile(p_type, p_source->getTransform(), p_target->getTransform());
@@ -92,7 +122,26 @@ void ProjectileManager::multiDamageFireProjectile(const keyType& p_type, unit::U
 
 	m_instance->m_firedForMultiDamage = true;
 
-	m_instance->privateFireProjectile(p_type, p_source->getTransform(), p_package->m_clickedObject->getTransform());
+	kitten::K_GameObject* clickedObj = p_package->m_clickedObject;
+	
+	if (clickedObj != nullptr)
+	{
+		m_instance->m_firingMultipleProjectiles = false;
+		m_instance->privateFireProjectile(p_type, p_source->getTransform(), p_package->m_clickedObject->getTransform());
+	}
+	else
+	{
+		// We are firing multiple projectiles over some time
+
+		m_instance->m_firingMultipleProjectiles = true;
+		m_instance->m_lastSource = &(p_source->getTransform());
+		m_instance->m_delayBetweenFires = m_instance->m_projectiles[p_type + std::to_string(0)].delayBetweenAttacks;
+		m_instance->m_lastFiredObj = nullptr;
+		m_instance->m_lastProjName = p_type;
+		m_instance->m_targetIndex = 0;
+
+		m_instance->setEnabled(true);
+	}
 }
 
 void ProjectileManager::privateFireProjectile(const keyType& p_type, const kitten::Transform& p_source, const kitten::Transform& p_target)
@@ -218,22 +267,55 @@ void ProjectileManager::privateFireProjectile(const keyType& p_type, const kitte
 	proj->setEnabled(true);
 }
 
-void ProjectileManager::onPositionLerpFinished()
+void ProjectileManager::onPositionLerpFinished(kitten::K_GameObject* p_obj)
 {
-	m_lastUnitSel->disableInteraction(false);
-
-	if (m_firedForMultiDamage)
+	if (!m_firingMultipleProjectiles || m_lastFiredObj == p_obj)
 	{
-		m_lastAbility->multiTargetProjectileFinished(m_lastPackage);
-	}
-	else
-	{
-		m_lastAbility->singleTargetProjectileFinished(m_lastPackage);
-	}
-	
-	m_lastAbility = nullptr;
-	m_lastPackage = nullptr;
-	m_lastUnitSel = nullptr;
+		m_lastUnitSel->disableInteraction(false);
 
-	m_lastGO->setEnabled(false);
+		if (m_firedForMultiDamage)
+		{
+			m_lastAbility->multiTargetProjectileFinished(m_lastPackage);
+		}
+		else
+		{
+			m_lastAbility->singleTargetProjectileFinished(m_lastPackage);
+		}
+
+		m_lastAbility = nullptr;
+		m_lastPackage = nullptr;
+		m_lastUnitSel = nullptr;
+	}
+
+	p_obj->setEnabled(false);
+}
+
+void ProjectileManager::start()
+{
+	m_time = kitten::K_Time::getInstance();
+	assert(m_time != nullptr);
+
+	setEnabled(false);
+}
+
+void ProjectileManager::update()
+{
+	assert(m_firingMultipleProjectiles, "Enabling / disabling broke again");
+
+	m_timeElapsed += m_time->getDeltaTime();
+
+	if (m_timeElapsed >= m_delayBetweenFires)
+	{
+		auto target = m_lastPackage->m_targets[m_targetIndex];
+		m_instance->privateFireProjectile(m_lastProjName + std::to_string(m_targetIndex), *m_lastSource, target->getTransform());
+
+		++m_targetIndex;
+		if (m_targetIndex == m_lastPackage->m_targets.size())
+		{
+			m_lastFiredObj = m_projectiles[m_lastProjName + std::to_string(m_targetIndex-1)].gameObject;
+			setEnabled(false);
+		}
+
+		m_timeElapsed = 0.0f;
+	}
 }
