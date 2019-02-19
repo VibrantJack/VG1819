@@ -31,6 +31,9 @@ namespace ability
 		//special pointer, for summonning
 		kitten::K_GameObject* m_cardGOForUnitSummon = nullptr;
 
+		// Tile (or other clickable) the player clicked on to use ability: used to make projectiles (visually)
+		kitten::K_GameObject* m_clickedObject = nullptr;
+
 		AbilityInfoPackage() {};
 		~AbilityInfoPackage() {};
 

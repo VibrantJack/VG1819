@@ -293,6 +293,8 @@ private:
 	std::vector<std::pair<int, int>> m_targetTiles;
 	TargetTiles m_targetTilesGO;
 
+	std::pair<int, int> m_clickedObjectPos = { -1, -1 };
+
 	void writeInt(Buffer &p_buffer, int p_value);
 	void writeChar(Buffer &p_buffer, char p_value);
 	int readInt(Buffer &p_buffer);

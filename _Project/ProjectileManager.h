@@ -16,14 +16,29 @@ private:
 	static ProjectileManager* m_instance;
 	typedef std::string keyType;
 
-	std::unordered_map<keyType, std::pair<kitten::K_GameObject*, float>> m_projectiles;
+	enum Direction
+	{
+		up, left, right, down, other
+	};
+
+	struct ProjectileMapEntry
+	{
+		kitten::K_GameObject* gameObject;
+		float speed;
+		float arcHeight;
+		bool shouldRotate;
+	};
+
+	std::unordered_map<keyType, ProjectileMapEntry> m_projectiles;
 
 	ability::AbilityInfoPackage* m_lastPackage;
 	ability::Ability* m_lastAbility;
 	kitten::K_GameObject* m_lastGO;
 	unit::UnitSelect* m_lastUnitSel;
 
-	void privateFireProjectile(const keyType& p_type, unit::Unit* p_source, unit::Unit* p_target, ability::Ability* p_ability ,ability::AbilityInfoPackage* p_package);
+	bool m_firedForMultiDamage = false;
+
+	void privateFireProjectile(const keyType& p_type, const kitten::Transform& p_source, const kitten::Transform& p_target);
 
 	void onPositionLerpFinished() override;
 public:
@@ -31,4 +46,5 @@ public:
 	~ProjectileManager();
 
 	static void fireProjectile(const keyType& p_type, unit::Unit* p_source, unit::Unit* p_target, ability::Ability* p_ability, ability::AbilityInfoPackage* p_package);
+	static void multiDamageFireProjectile(const keyType& p_type, unit::Unit* p_source, ability::Ability* p_ability, ability::AbilityInfoPackage* p_package);
 };
