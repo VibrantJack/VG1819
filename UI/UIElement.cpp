@@ -18,7 +18,8 @@ namespace userinterface
 		{
 			m_mat->setTexture(p_pathToTex);
 		}
-		else {
+		else 
+		{
 			m_mat->setTexture(DEFAULT_TEXTURE);
 			m_texPath = DEFAULT_TEXTURE;
 		}
@@ -38,7 +39,8 @@ namespace userinterface
 		{
 			m_mat->setTexture(p_pathToTex);
 		}
-		else {
+		else 
+		{
 			m_mat->setTexture(DEFAULT_TEXTURE);
 			m_texPath = DEFAULT_TEXTURE;
 		}
@@ -84,7 +86,8 @@ namespace userinterface
 			if (m_hasTransparency) {
 				this->addToDynamicTransparentUIRender();
 			}
-			else {
+			else 
+			{
 				this->addToDynamicUIRender();
 			}
 		}
@@ -259,7 +262,8 @@ namespace userinterface
 				removeFromDynamicUIRender();
 				addToDynamicTransparentUIRender();
 			}
-			else {
+			else 
+			{
 				removeFromDynamicTransparentUIRender();
 				addToDynamicUIRender();
 			}

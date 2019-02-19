@@ -95,11 +95,13 @@ namespace puppy
 		GLenum m_modeRGB= GL_FUNC_ADD, m_modeAlpha= GL_FUNC_ADD;
 		GLenum m_srcRGB= GL_SRC_ALPHA, m_dstRGB = GL_ONE_MINUS_SRC_ALPHA, m_srcAlpha = GL_ONE, m_dstAlpha = GL_ZERO;
 
-		void applyBlendEquations() {
+		void applyBlendEquations() 
+		{
 			glBlendEquationSeparate(m_modeRGB, m_modeAlpha);
 		}
 		
-		void applyBlendFunc() {
+		void applyBlendFunc() 
+		{
 			glBlendFuncSeparate(m_srcRGB,m_dstRGB, m_srcAlpha,m_dstAlpha); 
 		}
 	};

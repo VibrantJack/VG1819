@@ -44,7 +44,8 @@ namespace puppy
 		//alpha test
 		alphaTest, point_light_alphaTest, billboarded_colorTint_alphaTest, colorTint_alphaTest, gAlpha_alphaTest,
 
-		SHADERTYPE_MAX = colorTint_alphaTest};
+		SHADERTYPE_MAX = gAlpha_alphaTest
+	};
 
 	enum VertexType { textured, normal};
 
