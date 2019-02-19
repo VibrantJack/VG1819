@@ -51,6 +51,10 @@
 				"name":"Status_LV",
 				"lv":3,
 				"hp":8
+			},
+			{
+				"name":"Status_DR_Horror_Lord",
+				"description":"Disable [Horror] and [Execute] get 1 less counter."
 			}
 		]
 	},

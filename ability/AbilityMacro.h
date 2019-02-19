@@ -81,6 +81,7 @@
 #define STATUS_DEMONIC_RESTRICTION "Status_Demonic_Restriction"
 #define STATUS_DR_ETERNAL_EYE "Status_DR_Eternal_Eye"
 #define STATUS_DR_MUD_DEMON "Status_DR_Mud_Demon"
+#define STATUS_DR_HORROR_LORD "Status_DR_Horror_Lord"
 
 //status property
 #define STATUS_NAME "status_name"

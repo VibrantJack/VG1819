@@ -11,7 +11,7 @@ namespace ability
 		addTimePoint(TimePointEvent::New_Tile);
 	}
 
-	int Status_Demonic_Restriction::effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent * p_event)
+	int Status_Demonic_Restriction::effect(const TimePointEvent::TPEventType& p_type, TimePointEvent* p_event)
 	{
 		if (p_type == TimePointEvent::New_Tile)
 		{

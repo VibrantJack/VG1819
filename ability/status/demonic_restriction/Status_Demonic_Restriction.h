@@ -9,7 +9,7 @@ namespace ability
 	public:
 		Status_Demonic_Restriction();
 		virtual Status* clone() const = 0;
-		virtual int effect(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
+		virtual int effect(const TimePointEvent::TPEventType& p_type, TimePointEvent* p_event) override;
 		virtual void restrictionOn() = 0;
 		virtual void restrictionOff() = 0;
 	protected:
@@ -26,8 +26,8 @@ namespace ability
 	public:
 		Status_DR_Eternal_Eye();
 		Status* clone() const { return new Status_DR_Eternal_Eye(*this); };
-		void restrictionOn();
-		void restrictionOff();
+		void restrictionOn() override;
+		void restrictionOff() override;
 	};
 
 	class Status_DR_Mud_Demon : public Status_Demonic_Restriction
@@ -35,9 +35,18 @@ namespace ability
 	public:
 		Status_DR_Mud_Demon();
 		Status* clone() const { return new Status_DR_Mud_Demon(*this); };
-		void restrictionOn();
-		void restrictionOff();
+		void restrictionOn() override;
+		void restrictionOff() override;
 	private:
 		int m_deltaMV;
+	};
+
+	class Status_DR_Horror_Lord : public Status_Demonic_Restriction
+	{
+	public:
+		Status_DR_Horror_Lord();
+		Status* clone() const { return new Status_DR_Horror_Lord(*this); };
+		void restrictionOn() override;
+		void restrictionOff() override;
 	};
 }

@@ -274,8 +274,14 @@ void unit::ActionButtonStore::setAbility()
 				if(cd > 0)
 					setButton(it.first, false, cd);
 				else
-					setButton(it.first, true);
-
+				{
+					//check disable
+					int disable = it.second->m_intValue[ABILITY_DISABLE];
+					if (disable)
+						setButton(it.first, false);
+					else
+						setButton(it.first, true);
+				}
 			}
 		}
 	}

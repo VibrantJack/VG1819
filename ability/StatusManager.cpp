@@ -60,6 +60,7 @@ namespace ability
 		m_statusList[STATUS_DR_MUD_DEMON] = s;
 
 		ADD_ELEMENT(s, m_statusList, STATUS_IN_CHANGE, Status_IN_Change);
+		ADD_ELEMENT(s, m_statusList, STATUS_DR_HORROR_LORD, Status_DR_Horror_Lord);
 	}
 
 	StatusManager::StatusManager()
