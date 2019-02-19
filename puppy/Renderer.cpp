@@ -93,6 +93,7 @@ namespace puppy
 		{
 			(*it)->render(viewInverse, viewProj);
 		}
+		glEnable(GL_DEPTH_TEST);
 
 		glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 
@@ -104,7 +105,6 @@ namespace puppy
 
 		//blend off
 		glDisable(GL_BLEND);
-		glEnable(GL_DEPTH_TEST);
 
 		//UI
 		const glm::mat4& ortho = p_cam->getOrtho();

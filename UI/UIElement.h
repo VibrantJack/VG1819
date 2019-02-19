@@ -66,9 +66,9 @@ namespace userinterface
 		virtual void defineVerts();
 	public:
 		float getGAlpha() const { return m_gAlpha; }
-		void setGAlpha(float p_gAlpha) { m_gAlpha = p_gAlpha; }
+		virtual void setGAlpha(float p_gAlpha) { m_gAlpha = p_gAlpha; }
 		const puppy::Material* getMaterial() const { return m_mat; }
-		void setTransparency(bool p_hasTransparency);
+		virtual void setTransparency(bool p_hasTransparency);
 	};
 
 	

@@ -41,7 +41,7 @@ void SpawnUnitOnDrop::onClick()
 	DragNDrop::onClick();
 
 	kitten::K_GameObject& shadow = getTransform().getChildren()[0]->getAttachedGameObject();
-	auto& shadowTranslation = shadow.getTransform().getTranslation();
+	auto& shadowTranslation = shadow.getTransform().getRelativeTranslation();
 	auto shadowLerp = shadow.getComponent<LerpController>();
 
 	if (shadowLerp->isLerping())
@@ -70,12 +70,11 @@ void SpawnUnitOnDrop::onClick()
 		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(false);
 		m_attachedObject->getComponent<userinterface::CardUIO>()->setGAlpha(0.5);
 		m_attachedObject->getComponent<userinterface::CardUIO>()->setTransparency(true);
-		shadow.setEnabled(true);
 
 		shadowLerp->positionLerp(
 			glm::vec3(
 				- 10 ,
-				- 10 ,
+				+ 10 ,
 				shadowTranslation.z
 			), CARD_SHADOW_MOVE_TIME, LerpController::TransformSource::Local
 		);
@@ -119,7 +118,7 @@ void SpawnUnitOnDrop::onPause()
 void SpawnUnitOnDrop::onPositionLerpFinished()
 {
 	m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(true);
-	getTransform().getChildren()[0]->getAttachedGameObject().setEnabled(false);
+
 }
 
 void SpawnUnitOnDrop::removeCard()
@@ -156,7 +155,5 @@ void SpawnUnitOnDrop::start()
 
 	kitten::K_GameObject& shadow = getTransform().getChildren()[0]->getAttachedGameObject();
 	shadow.getComponent<userinterface::UIFrame>()->setTransparency(true);
-	shadow.getComponent<userinterface::UIFrame>()->setGAlpha(0.5);
-
-	shadow.setEnabled(false);
+	shadow.getComponent<userinterface::UIFrame>()->setGAlpha(0.2);
 }

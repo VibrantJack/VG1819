@@ -26,6 +26,8 @@ namespace userinterface
 		void returnToHand();
 		void scaleAsCard();
 		void assignParentHand(HandFrame* p_toAssign);
+		void setGAlpha(float p_gAlpha) override;
+		void setTransparency(bool p_isTransparent) override;
 
 		void setUnit(unit::Unit* p_unit);
 		unit::Unit* getUnit() { return m_unit; }

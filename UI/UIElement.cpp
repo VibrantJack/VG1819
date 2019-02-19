@@ -1,6 +1,7 @@
 #include "UIElement.h"
 #include "puppy\Renderer.h"
 #include "puppy\StaticRenderables.h"
+#include "UI/UIFrame.h"
 
 
 namespace userinterface

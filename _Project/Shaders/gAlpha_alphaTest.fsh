@@ -10,6 +10,6 @@ void main()
 {
     PixelColor = texture(tex, v_uv1);
 	PixelColor.a = PixelColor.a * gAlpha;
-	if( PixelColor.a < 0.1 )
+	if( PixelColor.a < 0.01 )
 		discard;
 }
