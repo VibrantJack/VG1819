@@ -2047,7 +2047,7 @@ void setupComponentMap() {
 	jsonComponentMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
 	jsonComponentMap["BorderPiece"] = &getBorderPiece;
 	jsonComponentMap["TurnCounterController"] = &getTurnCounterController;
-	jsonComponentMap["NewTurnButton"] = &getTurnCounterController;
+	jsonComponentMap["NextTurnButton"] = &getNextTurnButton;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

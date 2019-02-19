@@ -3,7 +3,7 @@
   "components": [
     {
       "name": "UIObject",
-      "texture": "textures/ui/buttons/next_turn_button.tga"
+      "texture": "textures/ui/buttons/next_button.tga"
     },
     {
       "name": "PlayUniversalSoundOnUIClick",
@@ -11,11 +11,11 @@
     },
     {
       "name": "NextTurnButton",
-      "regularTexture": "textures/ui/buttons/next_turn_button.tga",
-      "highlightedTexture": "textures/ui/buttons/next_turn_button_highlighted.tga"
+      "regularTexture": "textures/ui/buttons/next_button.tga",
+      "highlightedTexture": "textures/ui/buttons/next_button_highlighted.tga"
     },
     {
       "name": "ClickableFrame"
     }
-  ],
+  ]
 }

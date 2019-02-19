@@ -330,5 +330,6 @@ void unit::InitiativeTracker::addExtraTurn(kitten::K_GameObject * p_unit)
 
 void unit::InitiativeTracker::newTurnListener(kitten::Event::EventType p_type, kitten::Event* p_event)
 {
+	getCurrentUnit()->getComponent<unit::Unit>()->turnEnd();
 	unitTurnEnd();
 }

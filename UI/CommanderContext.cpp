@@ -228,6 +228,7 @@ namespace userinterface
 		int borderOffset = initRightBorder->getTransform().getScale2D().x;
 		const glm::vec3 bgPos = backGround->getTransform().getTranslation();
 		const glm::vec2 bgScale = backGround->getTransform().getScale2D();
-		nextTurnButton->getTransform().place2D(bgPos.x + borderOffset, winY - bgScale.y);
+		nextTurnButton->getTransform().place(winX - 160, winY - bgScale.y - 10, -0.01f);
+		nextTurnButton->getTransform().scale2D(160, 110);
 	}
 }
