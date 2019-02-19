@@ -26,6 +26,7 @@ StartNewDeckSetupWizard::~StartNewDeckSetupWizard()
 	DeckData* deckData = new DeckData();
 	deckData->name = deckName;
 
+	DeckAlterationComponent::getActiveInstance()->discardChanges();
 	DeckAlterationComponent::getActiveInstance()->copyDeckData(deckData);
 	input::InputManager::getInstance()->setPollMode(true);
 }

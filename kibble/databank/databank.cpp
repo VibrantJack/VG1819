@@ -1,9 +1,10 @@
 #include "databank.hpp"
-#include "databank.hpp"
+#include "unit/UnitSpawn.h"
 #include <map>
 #include <unordered_set>
 #include <kibble/kibble.hpp>
 #include <kitten/K_GameObjectManager.h>
+#include <ctime>
 
 std::vector<kibble::UnitFileStruct> unitDataVector;
 std::vector<int> addableToDeckUnitVect;
@@ -97,6 +98,7 @@ void kibble::setupDatabank() {
 
 
 unit::Unit* kibble::getUnitFromId(const int& p_identifier) {
+	if (p_identifier < 0) return unitDataVector[unit::UnitSpawn::King].data;
 	return unitDataVector[p_identifier].data;
 }
 
@@ -162,8 +164,9 @@ DeckData* kibble::getDeckDataFromId(const int& p_identifier) {
 }
 
 int kibble::addNewDeckData(DeckData* p_data) {
-	p_data->filename = "DeckNumbah" + std::to_string(deckDataVector.size()) + ".txt";
+	p_data->filename = "Deck" + std::to_string(time(NULL));
 
+	if (p_data->name == "") p_data->name = "Unnamed Deck " + std::to_string(time(NULL));
 	kibble::getDeckDataParserInstance()->saveDeckData(p_data, p_data->filename);
 	std::ofstream deckList(DECK_LIST, std::ofstream::app | std::ofstream::out);
 	if (deckList.is_open()) {
