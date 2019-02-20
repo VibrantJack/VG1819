@@ -995,6 +995,12 @@
     <ClCompile Include="FadePointLightOverTime.cpp">
       <Filter>components\visualFX</Filter>
     </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\UnitStatusIcons.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\QuadRenderableBB.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2070,6 +2076,12 @@
     </ClInclude>
     <ClInclude Include="FadePointLightOverTime.h">
       <Filter>components\visualFX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\UnitStatusIcons.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\QuadRenderableBB.h">
+      <Filter>kitten</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

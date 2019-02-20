@@ -7,6 +7,7 @@ namespace ability
 	Status_Shield::Status_Shield() : Status::Status()
 	{
 		m_Id = STATUS_SHIELD;
+		m_statusType = StatusType::Shield;
 		addTimePoint(TimePointEvent::Receive_Damage);
 	}
 

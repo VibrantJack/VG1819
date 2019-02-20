@@ -1,5 +1,6 @@
 #include "Status.h"
 #include "unit/Unit.h"
+#include "unit\unitComponent\UnitStatusIcons.h"
 #include <iostream>
 
 namespace ability
@@ -85,6 +86,15 @@ namespace ability
 
 	void Status::addAttributeChange(const std::string & p_key, int p_value)
 	{
+		if (p_value > 0)
+		{
+			m_statusType = StatusType::Stat_Buff;
+		}
+		else
+		{
+			m_statusType = StatusType::Stat_Debuff;
+		}
+
 		if (m_attributeChange.find(p_key) == m_attributeChange.end())
 		{
 			m_attributeChange.insert(std::make_pair(p_key, p_value));
@@ -120,11 +130,28 @@ namespace ability
 		registerTPEvent();
 
 		effect();
+
+		if (m_unit->hasStarted())
+		{
+			auto statusIconsComp = m_unit->getGameObject().getComponent<unit::UnitStatusIcons>();
+			if (statusIconsComp != nullptr)
+			{
+				statusIconsComp->addStatus(this);
+			}
+		}
 	}
 
 	void Status::removeThis()
 	{
-		m_unit->getStatusContainer()->queueRemove(this);
+		if (m_unit->hasStarted())
+		{
+			m_unit->getStatusContainer()->queueRemove(this);
+			auto statusIconsComp = m_unit->getGameObject().getComponent<unit::UnitStatusIcons>();
+			if (statusIconsComp != nullptr)
+			{
+				statusIconsComp->removeStatus(this);
+			}
+		}
 	}
 
 	int Status::changeCounter(const std::string & p_cName, int p_value)

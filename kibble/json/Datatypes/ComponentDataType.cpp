@@ -1178,6 +1178,17 @@ kitten::K_Component* getUnitHealthBar(nlohmann::json* p_jsonFile) {
 	return new unit::UnitHealthBar(offset,lerpTime,rotation);
 }
 
+#include "unit\unitComponent\UnitStatusIcons.h"
+kitten::K_Component* getUnitStatusIcons(nlohmann::json* p_jsonFile) {
+
+	glm::vec3 offset = glm::vec3(LOOKUP("offset")[0], LOOKUP("offset")[1], LOOKUP("offset")[2]);
+
+	float rotation;
+	SETOPTDEF(rotation, "rotation", 45);
+
+	return new unit::UnitStatusIcons(offset, rotation);
+}
+
 #include "_Project\LerpController.h"
 kitten::K_Component* getLerpController(nlohmann::json* p_jsonFile) {
 
@@ -1976,6 +1987,7 @@ void setupComponentMap() {
 	jsonComponentMap["UIElement"] = &getUIElement;
 	jsonComponentMap["ModelRenderable"] = &getModelRenderable;
 	jsonComponentMap["UnitHealthBar"] = &getUnitHealthBar;
+	jsonComponentMap["UnitStatusIcons"] = &getUnitStatusIcons;
 	jsonComponentMap["CameraMoveByEvent"] = &getCameraMoveByEvent;
 	jsonComponentMap["LerpController"] = &getLerpController;
 	jsonComponentMap["PlaySoundOnUIClick"] = &getPlaySoundOnUIClick;
