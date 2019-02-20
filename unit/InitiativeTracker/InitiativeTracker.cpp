@@ -6,6 +6,7 @@
 #include "kibble/kibble.hpp"
 #include <algorithm>
 #include "kitten/event_system/EventManager.h"
+#include "networking\ClientGame.h"
 //Rock
 
 #define LISTSIZE(listA, listB) listA.size() + listB.size()
@@ -93,6 +94,11 @@ unit::InitiativeTracker::InitiativeTracker()
 
 unit::InitiativeTracker::~InitiativeTracker()
 {
+	kitten::EventManager::getInstance()->removeListener(
+		kitten::Event::EventType::New_Unit_Turn,
+		this
+	);
+
 	delete m_UI;
 	delete m_uturn;
 	delete m_display;
@@ -330,6 +336,10 @@ void unit::InitiativeTracker::addExtraTurn(kitten::K_GameObject * p_unit)
 
 void unit::InitiativeTracker::newTurnListener(kitten::Event::EventType p_type, kitten::Event* p_event)
 {
-	getCurrentUnit()->getComponent<unit::Unit>()->turnEnd();
-	unitTurnEnd();
+	unit::Unit* currentUnit = getCurrentUnit()->getComponent<unit::Unit>();
+	if (networking::ClientGame::getInstance()->getClientId() == currentUnit->m_clientId)
+	{
+		getCurrentUnit()->getComponent<unit::Unit>()->playerSkipTurn();
+		unitTurnEnd();
+	}
 }
