@@ -1010,6 +1010,15 @@
     <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Horror_Lord.cpp">
       <Filter>ability\status\demonic_restriction</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\ability\Attach.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Attach.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Wraith_LV2.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

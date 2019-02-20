@@ -101,7 +101,7 @@ namespace ability
 		void checkDuration();
 
 		//end effect
-		virtual void effectEnd();
+		virtual void effectEnd() {};
 	};
 
 	class Status_LV : public Status
@@ -255,6 +255,25 @@ namespace ability
 
 		void registerEvent();
 		void listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data);
+	};
+
+	class Status_Attach : public Status
+	{
+	public:
+		Status_Attach();
+		Status* clone() const { return new Status_Attach(*this); };
+		int effect();
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+
+	};
+
+	class Status_Wraith_LV2 : public Status_LV
+	{
+	public:
+		Status_Wraith_LV2();
+		Status* clone() const { return new Status_Wraith_LV2(*this); };
+
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 }
 

@@ -47,7 +47,7 @@ namespace ability
 	}
 	Status::~Status()
 	{
-
+		//effectEnd();
 	}
 
 	void Status::changeName(const std::string & p_msg)
@@ -156,9 +156,5 @@ namespace ability
 			effectEnd();
 			removeThis();
 		}
-	}
-
-	void Status::effectEnd()
-	{
 	}
 }

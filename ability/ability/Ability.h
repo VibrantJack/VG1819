@@ -378,6 +378,15 @@ namespace ability
 		Horror() : Ability(ABILITY_HORROR) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
+
+	class Attach : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
+	public:
+		Attach() : Ability(ABILITY_ATTACH) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
 }
 
 

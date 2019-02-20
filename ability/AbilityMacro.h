@@ -68,6 +68,7 @@
 #define STATUS_SHIELD "Status_Shield"
 #define STATUS_BLOCK "Status_Block"
 #define STATUS_CURSE "Status_Curse"
+#define STATUS_ATTACH "Status_Attach"
 
 //lv
 #define STATUS_LV "Status_LV"
@@ -76,6 +77,7 @@
 #define STATUS_DUELIST_LV3 "Status_Duelist_LV3"
 #define STATUS_ETERNAL_EYE_LV3 "Status_Eternal_Eye_LV3"
 #define STATUS_LANCER_LV2 "Status_Lancer_LV2"
+#define STATUS_WRAITH_LV2 "Status_Wraith_LV2"
 
 //demonic restriction
 #define STATUS_DEMONIC_RESTRICTION "Status_Demonic_Restriction"

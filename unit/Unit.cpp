@@ -449,6 +449,9 @@ namespace unit
 		if(info != nullptr)
 			info->removeUnit();
 
+		//trigger unit destroy event
+		triggerTP(ability::TimePointEvent::Unit_Destroy);
+
 		//remove from intiative tracker
 		InitiativeTracker::getInstance()->removeUnit(m_attachedObject);
 	}
