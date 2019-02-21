@@ -14,6 +14,7 @@
 #include "UI\UIObject.h"
 #include <vector>
 #include "kitten\event_system\EventManager.h"
+#include "UI\StatusContext.h"
 
 class CardContext : public kitten::K_Component
 {
@@ -29,6 +30,7 @@ private:
 	puppy::TextBox* m_abilityDescriptions[3];
 	puppy::TextBox* m_statusList = nullptr;
 
+	StatusContext* m_statusContext = nullptr;
 	kitten::K_GameObject* m_cardTexture = nullptr;
 	userinterface::UIObject* m_unitPortrait = nullptr;
 
@@ -38,6 +40,8 @@ private:
 	puppy::Font* m_smallNameFont = nullptr;
 
 	int m_textBoxesIndex = 0;
+	int m_nonLevelStatus = 0;
+	bool m_updatedByGO = false;
 	// Testing
 	int m_unitId = 1;
 

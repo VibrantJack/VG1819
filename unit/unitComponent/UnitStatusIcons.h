@@ -23,8 +23,6 @@ namespace unit
 		int m_numDebuffs = 0;
 		int m_numShields = 0;
 
-		// Only want to keep track of non-level up statuses
-		std::unordered_set<ability::Status*> m_statusList;
 		std::list<std::string> m_iconTexturePaths;
 		int m_textureIndex = -1;
 		
@@ -39,6 +37,9 @@ namespace unit
 		void checkActiveStatuses();
 
 	public:
+		// Only want to keep track of non-level up statuses
+		std::unordered_set<ability::Status*> m_statusList;
+
 		UnitStatusIcons(const glm::vec3& p_offset, float p_rotation = 45);
 		~UnitStatusIcons();
 

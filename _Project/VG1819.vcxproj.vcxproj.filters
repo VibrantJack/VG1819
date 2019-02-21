@@ -1001,6 +1001,9 @@
     <ClCompile Include="..\kitten\QuadRenderableBB.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
+    <ClCompile Include="..\UI\StatusContext.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2082,6 +2085,9 @@
     </ClInclude>
     <ClInclude Include="..\kitten\QuadRenderableBB.h">
       <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\StatusContext.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1503,6 +1503,11 @@ kitten::K_Component* getLandContext(nlohmann::json* p_jsonFile) {
 	return new LandContext();
 }
 
+#include "UI\StatusContext.h"
+kitten::K_Component* getStatusContext(nlohmann::json* p_jsonFile) {
+	return new StatusContext();
+}
+
 #include "UI\ContextMenu.h"
 kitten::K_Component* getContextMenu(nlohmann::json* p_jsonFile) {
 	return new userinterface::ContextMenu();
@@ -2012,6 +2017,7 @@ void setupComponentMap() {
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
 	jsonComponentMap["CardContext"] = &getCardContext;
 	jsonComponentMap["LandContext"] = &getLandContext;
+	jsonComponentMap["StatusContext"] = &getStatusContext;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
 	jsonComponentMap["DrawCardsFromDeckWithDelay"] = &getDrawCardsFromDeckWithDelay;
 	jsonComponentMap["DeckDiscardedCardHandler"] = &getDeckDiscardedCardHandler;

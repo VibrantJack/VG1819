@@ -1,6 +1,7 @@
 #include "UI\CardContext.h"
 #include "kitten\K_GameObjectManager.h"
 #include "UI\UIObject.h"
+#include "unit\unitComponent\UnitStatusIcons.h"
 
 // Only for testing, using a static unit
 #include "kibble\databank\databank.hpp"
@@ -118,6 +119,8 @@ void CardContext::start()
 	m_smallNameFont = puppy::FontTable::getInstance()->getFont(NAME_FONT_SMALL);
 	m_currentNameFont = m_defaultNameFont;
 
+	m_statusContext = gom->createNewGameObject("UI/status_context/status_context.json")->getComponent<StatusContext>();
+
 	// Testing
 	setUnit(kibble::getUnitFromId(13));
 
@@ -142,11 +145,13 @@ void CardContext::setUnitListener(kitten::Event::EventType p_type, kitten::Event
 		{
 			unit::Unit* unit = unitGO->getComponent<unit::Unit>();
 			setUnit(unit);
+			m_updatedByGO = true;
 		}
 	}
 	else if (p_type == kitten::Event::Update_Card_Context_By_ID)
 	{
 		setUnit(kibble::getUnitFromId(p_event->getInt(UPDATE_CARD_CONTEXT_KEY)));
+		m_updatedByGO = false;
 	}
 }
 
@@ -169,6 +174,11 @@ void CardContext::update()
 		m_unitId = (m_unitId + 1) % 15;
 		if (m_unitId == 0 || m_unitId == 6)
 			m_unitId++;
+	}
+
+	if (inputMan->keyDown('E') && !inputMan->keyDownLast('E') && m_nonLevelStatus > 0)
+	{
+		m_statusContext->lerpContext();
 	}
 }
 
@@ -282,6 +292,7 @@ void CardContext::updateUnitData()
 	unit::StatusContainer* statusContainer = m_unitData->getStatusContainer();
 	std::string statusDesc = "";
 
+	m_nonLevelStatus = 0;
 	for (auto it : statusContainer->m_statusList)
 	{
 		if (it != statusContainer->m_statusList.at(0))
@@ -296,8 +307,8 @@ void CardContext::updateUnitData()
 			statusDesc += "LV:" + std::to_string(lv);
 		else
 		{
-			std::string name = it->getName();
-			statusDesc += name + ":";
+			++m_nonLevelStatus;
+			continue;
 		}
 
 		int hp = attributes[UNIT_HP];
@@ -321,6 +332,16 @@ void CardContext::updateUnitData()
 
 		m_statusList->setText(statusDesc);
 	}
+
+	if (m_updatedByGO && m_nonLevelStatus > 0)
+	{
+		unit::UnitStatusIcons* unitStatusIcons = m_unitData->getGameObject().getComponent<unit::UnitStatusIcons>();
+		if (unitStatusIcons != nullptr)
+		{
+			m_statusContext->updateContext(unitStatusIcons->m_statusList);			
+		}
+	}
+	
 
 	arrangeTextBoxes();
 }
@@ -383,26 +404,26 @@ void CardContext::arrangeTextBoxes()
 
 void CardContext::onEnabled()
 {
-	/*std::vector<kitten::Transform*> parentChildren = m_attachedObject->getTransform().getChildren();
-	for (kitten::Transform* t : parentChildren)
-	{
-		t->getAttachedGameObject().setEnabled(true);
-	}*/
 	m_attachedObject->setEnabled(true);
 	m_cardTexture->setEnabled(true);
 	m_unitPortrait->setEnabled(true);
+	if (m_nonLevelStatus > 0)
+	{
+		//m_statusContext->toggleContextVisible();
+		m_statusContext->getGameObject().setEnabled(true);
+	}
 }
 
 void CardContext::onDisabled()
 {
-	/*std::vector<kitten::Transform*> parentChildren = m_attachedObject->getTransform().getChildren();
-	for (kitten::Transform* t : parentChildren)
-	{
-		t->getAttachedGameObject().setEnabled(true);
-	}*/
 	m_attachedObject->setEnabled(false);
 	m_cardTexture->setEnabled(false);
 	m_unitPortrait->setEnabled(false);
+	if (m_nonLevelStatus > 0)
+	{
+		//m_statusContext->toggleContextVisible();
+		m_statusContext->getGameObject().setEnabled(false);
+	}
 }
 
 void CardContext::setEnabledListener(kitten::Event::EventType p_type, kitten::Event* p_event)

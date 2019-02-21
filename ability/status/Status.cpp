@@ -129,8 +129,6 @@ namespace ability
 
 		registerTPEvent();
 
-		effect();
-
 		if (m_unit->hasStarted())
 		{
 			auto statusIconsComp = m_unit->getGameObject().getComponent<unit::UnitStatusIcons>();
@@ -139,13 +137,15 @@ namespace ability
 				statusIconsComp->addStatus(this);
 			}
 		}
+
+		effect();
 	}
 
 	void Status::removeThis()
 	{
+		m_unit->getStatusContainer()->queueRemove(this);
 		if (m_unit->hasStarted())
 		{
-			m_unit->getStatusContainer()->queueRemove(this);
 			auto statusIconsComp = m_unit->getGameObject().getComponent<unit::UnitStatusIcons>();
 			if (statusIconsComp != nullptr)
 			{

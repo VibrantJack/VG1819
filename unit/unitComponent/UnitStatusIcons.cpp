@@ -144,7 +144,7 @@ namespace unit
 			m_iconTexturePaths.remove(SHIELD_ICON_TEXTURE);
 		}
 
-		//
+		// Add to update if there is more than one icon to cycle through
 		if (m_iconTexturePaths.size() > 1)
 		{
 			setEnabled(true);
