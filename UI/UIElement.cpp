@@ -34,7 +34,7 @@ namespace userinterface
 	{
 		m_texPath = LOOKUPSTRDEF("texture", DEFAULT_TEXTURE);
 		m_tex = new puppy::Texture(m_texPath);
-		m_mat = new puppy::Material(puppy::ShaderType::alphaTest);
+		m_mat = new puppy::Material(puppy::ShaderType::gAlpha_alphaTest);
 		m_mat->setTexture(m_tex);
 		m_texBehaviour = tbh_Stretch;
 
