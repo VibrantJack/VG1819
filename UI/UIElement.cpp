@@ -303,6 +303,7 @@ namespace userinterface
 		m_mat->setUniform(GENERAL_ALPHA_UNIFORM_NAME, m_gAlpha);
 
 		m_vao->drawArrays(GL_TRIANGLES);
+
 	}
 
 	void UIElement::setTexture(const char* p_pathToTex)
