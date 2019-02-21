@@ -31,5 +31,5 @@ public:
 	void playerJoinedListener(kitten::Event::EventType p_type, kitten::Event* p_data);
 	void readyButtonClicked(kitten::Event::EventType p_type, kitten::Event* p_data);
 
-	virtual void onPositionLerpFinished() override;
+	virtual void onPositionLerpFinished(kitten::K_GameObject* p_obj) override;
 };

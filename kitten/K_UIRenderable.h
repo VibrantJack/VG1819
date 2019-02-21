@@ -34,9 +34,11 @@ namespace kitten
 
 		void addToStaticUIRender(const puppy::Material& p_mat, puppy::TexturedVertex p_data[], int p_numElements);
 		void addToDynamicUIRender();
+		void addToDynamicTransparentUIRender();
 
 		void removeFromStaticUIRender(const puppy::Material& p_mat);
 		void removeFromDynamicUIRender();
+		void removeFromDynamicTransparentUIRender();
 	public:
 		
 		virtual void uiRender(Camera* p_cam) = 0;

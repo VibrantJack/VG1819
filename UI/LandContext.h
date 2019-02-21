@@ -42,5 +42,5 @@ public:
 
 	void addLerpCallback(kitten::Event::EventType p_type, kitten::Event* p_event);
 	void setEnabledListener(kitten::Event::EventType p_type, kitten::Event* p_event);
-	virtual void onPositionLerpFinished() override;
+	virtual void onPositionLerpFinished(kitten::K_GameObject* p_obj) override;
 };

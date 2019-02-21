@@ -80,27 +80,35 @@ namespace puppy
 			(*it)->render(p_cam);
 		}
 
-		//Particles
-		
+		//Particles and Transparent UI
+
 		glEnable(GL_BLEND);
 		glDisable(GL_DEPTH_TEST);
-
 		glm::mat4 viewInverse = (glm::mat4)p_cam->getMat3ViewInverse();
+
+		glBlendFunc(DEFAULT_BLEND_SOURCE_FACTOR, DEFAULT_BLEND_DESTINATION_FACTOR);
 
 		auto particlesEnd = m_particlesToRender.cend();
 		for (auto it = m_particlesToRender.cbegin(); it != particlesEnd; ++it)
 		{
 			(*it)->render(viewInverse, viewProj);
 		}
+		glEnable(GL_DEPTH_TEST);
+
+		glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
+
+		auto uiEnd = m_uiToRender.end();
+		for (auto it = m_uiToRender.begin(); it != uiEnd; ++it)
+		{
+			renderTransparentUI(p_cam, (*it));
+		}
 
 		//blend off
 		glDisable(GL_BLEND);
-		glEnable(GL_DEPTH_TEST);
 
 		//UI
 		const glm::mat4& ortho = p_cam->getOrtho();
 
-		auto uiEnd = m_uiToRender.end();
 		for (auto it = m_uiToRender.begin(); it != uiEnd; ++it)
 		{
 			renderUI(p_cam, (*it));
@@ -128,6 +136,32 @@ namespace puppy
 				for (auto it = childNodes.cbegin(); it != end; ++it)
 				{
 					renderUI(p_cam, (*it));
+				}
+			}
+		}
+	}
+
+	void Renderer::renderTransparentUI(kitten::Camera * p_cam, kitten::K_RenderNode * p_toRender) const
+	{
+		if (p_toRender->isEnabled())
+		{
+			const auto& uiRenderables = p_toRender->m_trasparentUIRenderables;
+			if (!uiRenderables.empty())
+			{
+				auto end = uiRenderables.cend();
+				for (auto it = uiRenderables.cbegin(); it != end; ++it)
+				{
+					(*it)->uiRender(p_cam);
+				}
+			}
+
+			const auto& childNodes = p_toRender->m_childRenderNodes;
+			if (!childNodes.empty())
+			{
+				auto end = childNodes.cend();
+				for (auto it = childNodes.cbegin(); it != end; ++it)
+				{
+					renderTransparentUI(p_cam, (*it));
 				}
 			}
 		}

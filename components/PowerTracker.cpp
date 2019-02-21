@@ -40,7 +40,7 @@ void PowerTracker::start()
 	m_textBox = textBox->getComponent<puppy::TextBox>();
 
 	auto scale = powerIcon->getTransform().getScale();
-	textBox->getTransform().place(0.0f, (scale.y / 2.0f) + 30.0f, 0.01);
+	textBox->getTransform().place(0.0f, (scale.y / 2.0f) + 30.0f, 0.001);
 
 	m_regularFont = puppy::FontTable::getInstance()->getFont(REGULAR_FONT);
 	m_smallFont = puppy::FontTable::getInstance()->getFont(SMALL_FONT);
