@@ -1336,7 +1336,6 @@ void setupComponentMap() {
 
 	using namespace unit;
 	ADDTOMAP(UnitMove);
-	ADDTOMAP(UIFrame);
 	ADDTOMAP(TrackerBlock);
 	ADDTOMAP(TrackerBlockClickable);
 	ADDTOMAP(UnitGraphic);
