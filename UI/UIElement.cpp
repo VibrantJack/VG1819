@@ -254,6 +254,7 @@ namespace userinterface
 		m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
 
 		m_vao->drawArrays(GL_TRIANGLES);
+
 	}
 
 	void UIElement::setTexture(const char* p_pathToTex)
