@@ -28,6 +28,9 @@ namespace ability
 		//add lv
 		se->addCounter(UNIT_LV, p_info->m_source->m_attributes[UNIT_LV]);
 
+		//add id
+		se->addCounter(UNIT_ID, sourceID);
+
 
 		//attach to target
 		se->attach(p_unit);
@@ -38,20 +41,22 @@ namespace ability
 	{
 		if (checkTarget(p_info))
 		{
+			unit::Unit* source = p_info->m_source;
+
 			//check if unit has this status
-			for (unit::Unit* u : p_info->m_targets)
+			unit::Unit* u = p_info->m_targets[0];
+			if (!u->getStatusContainer()->getStatus(STATUS_ATTACH, m_name))
 			{
-				if (!u->getStatusContainer()->getStatus(STATUS_ATTACH, m_name))
-				{
-					applyStatus(p_info, u);
-					p_info->m_source->simpleDestroy();
-				}
+				applyStatus(p_info, u);
+				source->simpleDestroy();
 			}
+			else//can't act twice, even this doesn't destroy
+				source->actDone();
 		}
 
-		done(p_info);
+		//delete package
+		delete p_info;
 
 		return 0;
 	}
-
 }

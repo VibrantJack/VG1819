@@ -259,6 +259,8 @@ namespace ability
 
 	class Status_Attach : public Status
 	{
+	private:
+		int m_unitID = 23;
 	public:
 		Status_Attach();
 		Status* clone() const { return new Status_Attach(*this); };

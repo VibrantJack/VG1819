@@ -1,6 +1,9 @@
 #include "ability/status/Status.h"
 #include "ability/AbilityMacro.h"
 #include "unit/UnitCommon.h"
+#include "unit/UnitSpawn.h"
+#include "unit/unitComponent/UnitMove.h"
+#include "networking/ClientGame.h"
 
 ability::Status_Attach::Status_Attach()
 {
@@ -38,7 +41,23 @@ int ability::Status_Attach::effect(const TimePointEvent::TPEventType& p_type, ab
 
 		if (lv >= 3)
 		{
-			//TO DO: summon a new wraith
+			//summon a new lv2 wraith
+
+			//spawn unit
+			kitten::K_GameObject* u = unit::UnitSpawn::getInstance()->spawnUnitObject(m_unitID);
+			
+			//set tile
+			kitten::K_GameObject* tile = m_unit->getTile();
+			u->getComponent<unit::UnitMove>()->setTile(tile);
+
+			//set lv
+			//u->getComponent<unit::Unit>()->m_attributes[UNIT_LV] = 2;
+
+			//set client id
+			if (networking::ClientGame::getInstance() != nullptr)
+			{
+				u->getComponent<unit::Unit>()->m_clientId = m_counter[UNIT_ID];
+			}
 		}
 	}
 	return 0;
