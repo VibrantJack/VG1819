@@ -54,6 +54,7 @@ namespace puppy
 
 		void renderAll(kitten::Camera* p_cam);
 		void renderUI(kitten::Camera* p_cam, kitten::K_RenderNode* p_toRender) const; //helper method for recursive rendering
+		void renderTransparentUI(kitten::Camera* p_cam, kitten::K_RenderNode* p_toRender) const; //helper method for recursive rendering
 	public:
 		static Renderer* getInstance() { return sm_instance; };
 

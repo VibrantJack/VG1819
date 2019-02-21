@@ -59,10 +59,18 @@ namespace userinterface
 		puppy::VertexEnvironment* m_vao;
 
 		std::string m_texPath;
-		bool m_hasSetVerts = false;
+		bool m_hasSetVerts = false, m_hasTransparency = false;
+		float m_gAlpha = 1.0;
 
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
 		virtual void defineVerts();
+	public:
+		float getGAlpha() const { return m_gAlpha; }
+		virtual void setGAlpha(float p_gAlpha) { m_gAlpha = p_gAlpha; }
+		const puppy::Material* getMaterial() const { return m_mat; }
+		virtual void setTransparency(bool p_hasTransparency);
 	};
+
+	
 }
