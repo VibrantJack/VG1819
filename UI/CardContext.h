@@ -45,8 +45,12 @@ private:
 	// Testing
 	int m_unitId = 1;
 
+	void registerListeners();
+	void removeListeners();
+
 	void updateUnitData();
 	void updateUnitAttributes();
+	void updateUnitStatus();
 	void setAttribTextColor(puppy::TextBox* p_textBox, const std::string& p_currAttrib, const std::string& p_baseAttrib);
 	void arrangeTextBoxes();
 
@@ -63,6 +67,7 @@ public:
 	void setUnit(unit::Unit* p_unit);
 	void setUnitListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 	void updateUnitAttributesListener(kitten::Event::EventType p_type, kitten::Event* p_event);
+	void updateUnitStatusListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 
 	virtual void onEnabled() override;
 	virtual void onDisabled() override;

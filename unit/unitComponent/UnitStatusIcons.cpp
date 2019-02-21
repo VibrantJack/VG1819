@@ -100,9 +100,13 @@ namespace unit
 		}
 
 		// If Status LV < 1, then it should be a non-level up status that we want to display
+		// in the Status Context
 		if (p_status->getLV() < 1)
 		{
 			m_statusList.insert(p_status);
+			kitten::Event* eventData = new kitten::Event(kitten::Event::Update_Card_Context_Status);
+			eventData->putGameObj(UNIT_GO_KEY, &m_unit->getGameObject());
+			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_Status, eventData);
 		}
 		checkActiveStatuses();
 	}
@@ -124,6 +128,9 @@ namespace unit
 		}
 
 		m_statusList.erase(p_status);
+		kitten::Event* eventData = new kitten::Event(kitten::Event::Update_Card_Context_Status);
+		eventData->putGameObj(UNIT_GO_KEY, &m_unit->getGameObject());
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Card_Context_Status, eventData);
 		checkActiveStatuses();
 	}
 

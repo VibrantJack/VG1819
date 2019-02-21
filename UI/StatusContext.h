@@ -29,7 +29,7 @@ private:
 	glm::vec3 m_enabledPos;
 	glm::vec3 m_disabledPos;
 	bool m_displayed = false;
-	bool m_visible = false;
+	bool m_textboxesSet = false;
 
 public:
 	StatusContext();
@@ -41,6 +41,7 @@ public:
 	virtual void onDisabled() override;
 
 	void updateContext(const std::unordered_set<ability::Status*>& p_statusList);
+	void setText();
 
 	void lerpContext();
 };

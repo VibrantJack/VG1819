@@ -38,8 +38,7 @@ void StatusContext::start()
 	m_shieldsTextbox->getTransform().setIgnoreParent(false);
 	m_shieldsTextbox->getTransform().setParent(&m_attachedObject->getTransform());
 	m_shieldsTextbox->getTransform().move2D(0.0f, -((float)textboxHeight + 28) * 2.0f);
-	m_shieldsTextbox->setText("");
-	
+	m_shieldsTextbox->setText("");	
 
 	m_buffsIcon = gom->createNewGameObject("UI/status_context/status_context_buff_icon.json")->getComponent<userinterface::UIObject>();
 	glm::vec2 portraitScale = m_buffsIcon->getTransform().getScale2D();
@@ -70,11 +69,8 @@ void StatusContext::start()
 
 void StatusContext::onEnabled()
 {
+	setText();
 	m_lerpController->setEnabled(false);
-	
-	m_buffsTextbox->setText(m_buffs);
-	m_debuffsTextbox->setText(m_debuffs);
-	m_shieldsTextbox->setText(m_shields);
 }
 
 void StatusContext::onDisabled()
@@ -102,6 +98,23 @@ void StatusContext::updateContext(const std::unordered_set<ability::Status*>& p_
 		{
 			m_shields += status->getName() + ": " + status->getDescription();
 		}
+	}
+	m_textboxesSet = false;
+
+	if (isEnabled())
+	{
+		setText();
+	}
+}
+
+void StatusContext::setText()
+{
+	if (!m_textboxesSet)
+	{
+		m_buffsTextbox->setText(m_buffs);
+		m_debuffsTextbox->setText(m_debuffs);
+		m_shieldsTextbox->setText(m_shields);
+		m_textboxesSet = true;
 	}
 }
 

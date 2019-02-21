@@ -34,33 +34,12 @@ CardContext::CardContext()
 
 CardContext::~CardContext()
 {
-	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Update_Card_Context_By_ID, this);
-	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Update_Card_Context_By_GO, this);
-	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Card_Context_Set_Enabled, this);
-	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Update_Card_Context_Attrib, this);
+	removeListeners();
 }
 
 void CardContext::start()
 {
-	kitten::EventManager::getInstance()->addListener(
-		kitten::Event::EventType::Update_Card_Context_By_ID,
-		this,
-		std::bind(&CardContext::setUnitListener, this, std::placeholders::_1, std::placeholders::_2));
-
-	kitten::EventManager::getInstance()->addListener(
-		kitten::Event::EventType::Update_Card_Context_By_GO,
-		this,
-		std::bind(&CardContext::setUnitListener, this, std::placeholders::_1, std::placeholders::_2));
-
-	kitten::EventManager::getInstance()->addListener(
-		kitten::Event::EventType::Card_Context_Set_Enabled,
-		this,
-		std::bind(&CardContext::setEnabledListener, this, std::placeholders::_1, std::placeholders::_2));
-
-	kitten::EventManager::getInstance()->addListener(
-		kitten::Event::EventType::Update_Card_Context_Attrib,
-		this,
-		std::bind(&CardContext::updateUnitAttributesListener, this, std::placeholders::_1, std::placeholders::_2));
+	registerListeners();
 
 	kitten::K_GameObjectManager* gom = kitten::K_GameObjectManager::getInstance();
 	// Cannot set these as children as they won't display
@@ -127,39 +106,25 @@ void CardContext::start()
 	m_attachedObject->setEnabled(false);
 }
 
-void CardContext::setUnit(unit::Unit* p_unit)
+void CardContext::onEnabled()
 {
-	if (p_unit != m_unitData && p_unit != nullptr)
+	m_attachedObject->setEnabled(true);
+	m_cardTexture->setEnabled(true);
+	m_unitPortrait->setEnabled(true);
+	if (m_nonLevelStatus > 0)
 	{
-		m_unitData = p_unit;
-		updateUnitData();
+		m_statusContext->getGameObject().setEnabled(true);
 	}
 }
 
-void CardContext::setUnitListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+void CardContext::onDisabled()
 {
-	if (p_type == kitten::Event::Update_Card_Context_By_GO)
+	m_attachedObject->setEnabled(false);
+	m_cardTexture->setEnabled(false);
+	m_unitPortrait->setEnabled(false);
+	if (m_nonLevelStatus > 0)
 	{
-		kitten::K_GameObject* unitGO = p_event->getGameObj(UPDATE_CARD_CONTEXT_KEY);
-		if (unitGO != nullptr)
-		{
-			unit::Unit* unit = unitGO->getComponent<unit::Unit>();
-			setUnit(unit);
-			m_updatedByGO = true;
-		}
-	}
-	else if (p_type == kitten::Event::Update_Card_Context_By_ID)
-	{
-		setUnit(kibble::getUnitFromId(p_event->getInt(UPDATE_CARD_CONTEXT_KEY)));
-		m_updatedByGO = false;
-	}
-}
-
-void CardContext::updateUnitAttributesListener(kitten::Event::EventType p_type, kitten::Event* p_event)
-{
-	if (p_event->getGameObj(UNIT_GO_KEY)->getComponent<unit::Unit>() == m_unitData)
-	{
-		updateUnitData();
+		m_statusContext->getGameObject().setEnabled(false);
 	}
 }
 
@@ -167,6 +132,7 @@ void CardContext::updateUnitAttributesListener(kitten::Event::EventType p_type, 
 void CardContext::update()
 {
 	input::InputManager* inputMan = input::InputManager::getInstance();
+	// Test feature to cycle through units
 	if (inputMan->keyDown('B') && !inputMan->keyDownLast('B'))
 	{
 		setUnit(kibble::getUnitFromId(m_unitId));
@@ -179,6 +145,15 @@ void CardContext::update()
 	if (inputMan->keyDown('E') && !inputMan->keyDownLast('E') && m_nonLevelStatus > 0)
 	{
 		m_statusContext->lerpContext();
+	}
+}
+
+void CardContext::setUnit(unit::Unit* p_unit)
+{
+	if (p_unit != m_unitData && p_unit != nullptr)
+	{
+		m_unitData = p_unit;
+		updateUnitData();
 	}
 }
 
@@ -286,6 +261,31 @@ void CardContext::updateUnitData()
 		m_abilityDescriptions[leftovers]->setText("");
 	}
 
+	updateUnitStatus();
+	
+
+	arrangeTextBoxes();
+}
+
+void CardContext::updateUnitAttributes()
+{
+	if (m_unitData->m_attributes[UNIT_HP] < 0)
+	{
+		setEnabled(false);
+	}
+	m_hpBox->setText(std::to_string(m_unitData->m_attributes[UNIT_HP]));
+	m_mvBox->setText(std::to_string(m_unitData->m_attributes[UNIT_MV]));
+	m_initiativeBox->setText(std::to_string(m_unitData->m_attributes[UNIT_IN]));
+	m_costBox->setText(std::to_string(m_unitData->m_attributes[UNIT_COST]));
+
+	setAttribTextColor(m_hpBox, UNIT_HP, UNIT_MAX_HP);
+	setAttribTextColor(m_mvBox, UNIT_MV, UNIT_BASE_MV);
+	setAttribTextColor(m_initiativeBox, UNIT_IN, UNIT_BASE_IN);
+	setAttribTextColor(m_costBox, UNIT_COST, UNIT_BASE_COST);
+}
+
+void CardContext::updateUnitStatus()
+{
 	// Status Info TextBoxes
 	// Clear the previous text then set the new statuses
 	m_statusList->setText("");
@@ -338,29 +338,9 @@ void CardContext::updateUnitData()
 		unit::UnitStatusIcons* unitStatusIcons = m_unitData->getGameObject().getComponent<unit::UnitStatusIcons>();
 		if (unitStatusIcons != nullptr)
 		{
-			m_statusContext->updateContext(unitStatusIcons->m_statusList);			
+			m_statusContext->updateContext(unitStatusIcons->m_statusList);
 		}
 	}
-	
-
-	arrangeTextBoxes();
-}
-
-void CardContext::updateUnitAttributes()
-{
-	if (m_unitData->m_attributes[UNIT_HP] < 0)
-	{
-		setEnabled(false);
-	}
-	m_hpBox->setText(std::to_string(m_unitData->m_attributes[UNIT_HP]));
-	m_mvBox->setText(std::to_string(m_unitData->m_attributes[UNIT_MV]));
-	m_initiativeBox->setText(std::to_string(m_unitData->m_attributes[UNIT_IN]));
-	m_costBox->setText(std::to_string(m_unitData->m_attributes[UNIT_COST]));
-
-	setAttribTextColor(m_hpBox, UNIT_HP, UNIT_MAX_HP);
-	setAttribTextColor(m_mvBox, UNIT_MV, UNIT_BASE_MV);
-	setAttribTextColor(m_initiativeBox, UNIT_IN, UNIT_BASE_IN);
-	setAttribTextColor(m_costBox, UNIT_COST, UNIT_BASE_COST);
 }
 
 void CardContext::setAttribTextColor(puppy::TextBox* p_textBox, const std::string& p_currAttrib, const std::string& p_baseAttrib)
@@ -402,31 +382,78 @@ void CardContext::arrangeTextBoxes()
 	m_statusList->getTransform().place(ABILITIES_X, ABILITIES_Y - (row * LINE_HEIGHT) - padding, 0.01f);
 }
 
-void CardContext::onEnabled()
-{
-	m_attachedObject->setEnabled(true);
-	m_cardTexture->setEnabled(true);
-	m_unitPortrait->setEnabled(true);
-	if (m_nonLevelStatus > 0)
-	{
-		//m_statusContext->toggleContextVisible();
-		m_statusContext->getGameObject().setEnabled(true);
-	}
-}
-
-void CardContext::onDisabled()
-{
-	m_attachedObject->setEnabled(false);
-	m_cardTexture->setEnabled(false);
-	m_unitPortrait->setEnabled(false);
-	if (m_nonLevelStatus > 0)
-	{
-		//m_statusContext->toggleContextVisible();
-		m_statusContext->getGameObject().setEnabled(false);
-	}
-}
-
 void CardContext::setEnabledListener(kitten::Event::EventType p_type, kitten::Event* p_event)
 {
 	m_attachedObject->setEnabled(p_event->getInt(CARD_CONTEXT_SET_ENABLED_KEY));
+}
+
+void CardContext::setUnitListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+{
+	if (p_type == kitten::Event::Update_Card_Context_By_GO)
+	{
+		kitten::K_GameObject* unitGO = p_event->getGameObj(UPDATE_CARD_CONTEXT_KEY);
+		if (unitGO != nullptr)
+		{
+			unit::Unit* unit = unitGO->getComponent<unit::Unit>();
+			setUnit(unit);
+			m_updatedByGO = true;
+		}
+	} else if (p_type == kitten::Event::Update_Card_Context_By_ID)
+	{
+		setUnit(kibble::getUnitFromId(p_event->getInt(UPDATE_CARD_CONTEXT_KEY)));
+		m_updatedByGO = false;
+	}
+}
+
+void CardContext::updateUnitAttributesListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+{
+	if (p_event->getGameObj(UNIT_GO_KEY)->getComponent<unit::Unit>() == m_unitData)
+	{
+		updateUnitData();
+	}
+}
+
+void CardContext::updateUnitStatusListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+{
+	if (p_event->getGameObj(UNIT_GO_KEY)->getComponent<unit::Unit>() == m_unitData)
+	{
+		updateUnitStatus();
+	}
+}
+
+void CardContext::registerListeners()
+{
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Update_Card_Context_By_ID,
+		this,
+		std::bind(&CardContext::setUnitListener, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Update_Card_Context_By_GO,
+		this,
+		std::bind(&CardContext::setUnitListener, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Card_Context_Set_Enabled,
+		this,
+		std::bind(&CardContext::setEnabledListener, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Update_Card_Context_Attrib,
+		this,
+		std::bind(&CardContext::updateUnitAttributesListener, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Update_Card_Context_Status,
+		this,
+		std::bind(&CardContext::updateUnitStatusListener, this, std::placeholders::_1, std::placeholders::_2));
+}
+
+void CardContext::removeListeners()
+{
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Update_Card_Context_By_ID, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Update_Card_Context_By_GO, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Card_Context_Set_Enabled, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Update_Card_Context_Attrib, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Update_Card_Context_Status, this);
 }

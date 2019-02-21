@@ -37,7 +37,7 @@ namespace unit
 		void checkActiveStatuses();
 
 	public:
-		// Only want to keep track of non-level up statuses
+		// Non-level statuses that will be used by the StatusContext
 		std::unordered_set<ability::Status*> m_statusList;
 
 		UnitStatusIcons(const glm::vec3& p_offset, float p_rotation = 45);
