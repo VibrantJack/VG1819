@@ -867,6 +867,20 @@ kitten::K_Component* getNetworkJoinButton(nlohmann::json* p_jsonFile) {
 	return button;
 }
 
+#include "UI\GameplayButtons\NextTurnButton.h"
+kitten::K_Component* getNextTurnButton(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+
+	userinterface::NextTurnButton* button = new userinterface::NextTurnButton();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+
+	return button;
+}
+
 #include "networking\menu\NetworkHostButton.h"
 kitten::K_Component* getNetworkHostButton(nlohmann::json* p_jsonFile) {
 	std::string regularTexture, highlightedTexture;
@@ -2033,6 +2047,7 @@ void setupComponentMap() {
 	jsonComponentMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
 	jsonComponentMap["BorderPiece"] = &getBorderPiece;
 	jsonComponentMap["TurnCounterController"] = &getTurnCounterController;
+	jsonComponentMap["NextTurnButton"] = &getNextTurnButton;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {
