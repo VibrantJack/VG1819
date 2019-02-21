@@ -8,7 +8,7 @@ private:
 	void onClick() override;
 	void onDrop() override;
 	void onPause() override;
-	void onPositionLerpFinished() override;
+	void onPositionLerpFinished(kitten::K_GameObject* p_obj) override;
 
 public:
 	SpawnUnitOnDrop();

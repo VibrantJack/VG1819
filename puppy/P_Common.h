@@ -4,6 +4,7 @@
 #define GLFW_NO_GLU
 #define WORLD_VIEW_PROJ_UNIFORM_NAME "mWVP"
 #define COLOR_TINT_UNIFORM_NAME "colorTint"
+#define GENERAL_ALPHA_UNIFORM_NAME "gAlpha"
 #define TEXTURE_OFFSET_UNIFORM_NAME "texOffset"
 #define TEXTURE_BLEND_WEIGHT_UNIFORM_NAME "blendWeight"
 
@@ -41,7 +42,10 @@ namespace puppy
 		texture_blend_four_point_light = texture_blend_three_point_light + 1,
 
 		//alpha test
-		alphaTest, point_light_alphaTest, billboarded_colorTint_alphaTest, billboarded_alphaTest, colorTint_alphaTest, SHADERTYPE_MAX = colorTint_alphaTest };
+		alphaTest, point_light_alphaTest, billboarded_colorTint_alphaTest, billboarded_alphaTest, colorTint_alphaTest, gAlpha_alphaTest,
+
+		SHADERTYPE_MAX = gAlpha_alphaTest
+	};
 
 	enum VertexType { textured, normal};
 

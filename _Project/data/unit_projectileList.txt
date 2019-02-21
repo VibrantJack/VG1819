@@ -1,4 +1,6 @@
-// Name in ability macro, json file, speed, arc height (0=none), should rotate as it arcs?
-Shoot,projectiles/projectile_arrow.json, 7.25, 2.5, true
-Burn,projectiles/projectile_fireball.json, 5, 0, false
-Blast,projectiles/projectile_fireball.json, 3, 3.25, false
+// Name in ability macro, json file, speed, arc height (0=none), should rotate as it arcs?, num of projectiles
+Shoot,projectiles/projectile_arrow.json, 7.25, 2.5, true, 1
+//                                                              delay between attacks because this shoots multiple projs
+Quick Shoot,projectiles/projectile_arrow.json, 7.25, 2.5, true, 3, 0.15
+Burn,projectiles/projectile_fireball.json, 5, 0, false, 1
+Blast,projectiles/projectile_fireball.json, 3, 3.25, false, 1

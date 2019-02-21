@@ -44,13 +44,13 @@ namespace userinterface
 
 	void UIFrame::onDisabled()
 	{
-		removeFromDynamicUIRender();
+		UIElement::onDisabled();
 		setInnerObjectsEnabled(false);
 	}
 
 	void UIFrame::onEnabled()
 	{
-		addToDynamicUIRender();
+		UIElement::onDisabled();
 		setInnerObjectsEnabled(true);
 	}
 
