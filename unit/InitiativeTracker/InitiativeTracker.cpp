@@ -340,6 +340,5 @@ void unit::InitiativeTracker::newTurnListener(kitten::Event::EventType p_type, k
 	if (networking::ClientGame::getInstance()->getClientId() == currentUnit->m_clientId)
 	{
 		getCurrentUnit()->getComponent<unit::Unit>()->playerSkipTurn();
-		unitTurnEnd();
 	}
 }
