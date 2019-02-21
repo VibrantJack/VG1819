@@ -19,5 +19,5 @@ public:
 
 	void start() override;
 
-	void onPositionLerpFinished() override;
+	void onPositionLerpFinished(kitten::K_GameObject* p_obj) override;
 };

@@ -115,7 +115,7 @@ void SpawnUnitOnDrop::onPause()
 	resetCard();
 }
 
-void SpawnUnitOnDrop::onPositionLerpFinished()
+void SpawnUnitOnDrop::onPositionLerpFinished(kitten::K_GameObject* p_obj)
 {
 	m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(true);
 

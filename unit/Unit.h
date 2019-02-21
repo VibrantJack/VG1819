@@ -50,7 +50,7 @@ namespace unit
 
 		HealthBarState m_healthBarState;
 		
-		virtual void onScaleLerpFinished() override;
+		virtual void onScaleLerpFinished(kitten::K_GameObject* p_obj) override;
 	
 		virtual void start() override;
 
