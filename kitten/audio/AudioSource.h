@@ -39,6 +39,7 @@ namespace kitten
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
 	public:
+		AudioSource(nlohmann::json& p_json);
 		AudioSource(const std::string& p_pathToClip, bool p_is3D, bool p_enableEffects, bool p_causesDuck = false, bool p_getsDucked = false);
 		virtual ~AudioSource();
 

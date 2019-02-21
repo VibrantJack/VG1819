@@ -14,6 +14,7 @@ namespace userinterface
 
 		UIFrame(const char* p_pathToTex);
 		UIFrame(const char* p_pathToTex, pivotType p_pivot, textureBehaviour p_texBehaviour);
+		UIFrame(nlohmann::json& p_json);
 		virtual ~UIFrame();
 		
 		void addToFrame(UIObject* p_uioToAdd);

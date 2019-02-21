@@ -15,6 +15,7 @@ private:
 	bool m_contextEnabled;
 public:
 	SendSelfOnClick();
+	SendSelfOnClick(nlohmann::json& p_json);
 	virtual ~SendSelfOnClick();
 
 	virtual void onClick() override;

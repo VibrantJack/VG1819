@@ -12,6 +12,7 @@ private:
 
 public:
 	ToggleSoundOnKeyPress(char p_key);
+	ToggleSoundOnKeyPress(nlohmann::json& p_json);
 	~ToggleSoundOnKeyPress();
 
 	void start() override;

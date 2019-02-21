@@ -9,6 +9,7 @@ namespace kitten
 	class Clickable : public K_Component
 	{
 	protected:
+		Clickable(nlohmann::json& p_json);
 		Clickable(bool p_enabledOnPause = false);
 		ClickableBox* m_attachedBox;
 		bool m_enabledOnPause;

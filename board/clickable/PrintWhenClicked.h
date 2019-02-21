@@ -8,6 +8,7 @@ class PrintWhenClicked : public kitten::Clickable
 private:
 	std::string m_message;
 public:
+	PrintWhenClicked(nlohmann::json& p_json);
 	PrintWhenClicked(const std::string& p_message);
 	virtual ~PrintWhenClicked();
 

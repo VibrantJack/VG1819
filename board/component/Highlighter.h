@@ -19,6 +19,7 @@ class Highlighter : public kitten::K_Component
 {
 public:
 	Highlighter();
+	Highlighter(nlohmann::json & p_json);
 	~Highlighter();
 
 	virtual bool hasUpdate() const;

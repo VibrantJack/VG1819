@@ -10,6 +10,7 @@ private:
 	std::string m_strEnteredString;
 public:
 	StringInputDisplay();
+	StringInputDisplay(nlohmann::json & p_json);
 	~StringInputDisplay();
 
 	virtual void start() override;

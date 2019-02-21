@@ -7,6 +7,14 @@ ToggleSoundOnKeyPress::ToggleSoundOnKeyPress(char p_key) : m_key(p_key)
 	
 }
 
+ToggleSoundOnKeyPress::ToggleSoundOnKeyPress(nlohmann::json & p_json) : kitten::K_Component(p_json)
+{
+	if (JSONHAS("key"))
+	{
+		m_key = LOOKUPCHAR("key");
+	}
+}
+
 ToggleSoundOnKeyPress::~ToggleSoundOnKeyPress()
 {
 

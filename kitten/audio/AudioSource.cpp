@@ -5,6 +5,206 @@
 
 namespace kitten
 {
+	AudioSource::AudioSource(nlohmann::json & p_json): K_Component(p_json),
+		m_clipPath(LOOKUPSTR("clippath")),
+		m_is3D(LOOKUPDEF("is3d",false)), 
+		m_effectsEnabled(LOOKUPDEF("enableeffects", false)),
+		m_causesDuck(LOOKUPDEF("causesduck", false)),
+		m_beingDucked(false), 
+		m_getsDucked(LOOKUPDEF("getsducked", false))
+	{
+		m_audioClip = AudioEngineWrapper::sm_instance->getSound(m_clipPath, m_is3D, m_effectsEnabled);
+		assert(m_audioClip != nullptr);
+
+		m_sfxController = new SoundEffectsApplier(m_audioClip->getSoundEffectControl());
+
+		setupMemberVars();
+
+		if (m_getsDucked)
+		{
+			//AudioEngineWrapper::sm_instance->addToDuck(this);
+		}
+
+		if (m_is3D) {
+			if (JSONHAS("mindistance")) {
+				setMinDistance(LOOKUP("mindistance"));
+			}
+
+			if (JSONHAS("maxdistance")) {
+				setMaxDistance(LOOKUP("maxdistance"));
+			}
+		}
+
+		if (JSONHAS("loop")) {
+			setLooped(LOOKUP("loop"));
+		}
+
+		if (JSONHAS("volume")) {
+			setVolume(LOOKUP("volume"));
+		}
+
+		if (JSONHAS("playprogress")) {
+			setPlayProgress(LOOKUP("playprogress"));
+		}
+
+		if (m_effectsEnabled) {
+			//Effects parsing here
+
+#define innerJsonHas(str) innerJson.find(str) != innerJson.end()
+#define setInnerVar(varName,jsonName) if(innerJsonHas(jsonName)) varName = innerJson[jsonName]
+
+			auto sfx = getSFXControl();
+
+			if (JSONHAS("choruseffect")) {
+				irrklang::ik_f32 wetDryMix = 50, depth = 10, feedback = 25, frequency = 1.1;
+				bool sinusWaveForm = true;
+				irrklang::ik_f32 delay = 16, phase = 90;
+
+				auto innerJson = p_json["choruseffect"];
+
+				setInnerVar(wetDryMix, "wetdrymix");
+				setInnerVar(depth, "depth");
+				setInnerVar(feedback, "feedback");
+				setInnerVar(frequency, "frequency");
+				setInnerVar(sinusWaveForm, "sinuswaveform");
+				setInnerVar(delay, "delay");
+				setInnerVar(phase, "phase");
+
+				sfx->setChorusEffect(wetDryMix, depth, feedback, frequency, sinusWaveForm, delay, phase);
+			}
+
+			if (JSONHAS("compressoreffect")) {
+				irrklang::ik_f32 gain = 0, attack = 10, release = 200, threshold = -20,
+					ratio = 3, preDelay = 4;
+
+				auto innerJson = LOOKUP("compressoreffect");
+
+				setInnerVar(gain, "gain");
+				setInnerVar(attack, "attack");
+				setInnerVar(release, "release");
+				setInnerVar(threshold, "threshold");
+				setInnerVar(ratio, "ratio");
+				setInnerVar(preDelay, "predelay");
+
+				sfx->setCompressorEffect(gain, attack, release, threshold, ratio, preDelay);
+			}
+
+			if (JSONHAS("distortioneffect")) {
+				irrklang::ik_f32 gain = -18, edge = 15, postEQCenterFrequency = 2400,
+					postEQBandwidth = 2400, preLowpassCutoff = 8000;
+
+				auto innerJson = LOOKUP("distortioneffect");
+
+				setInnerVar(gain, "gain");
+				setInnerVar(edge, "edge");
+				setInnerVar(postEQCenterFrequency, "posteqcenterfrequency");
+				setInnerVar(postEQBandwidth, "posteqbandwidth");
+				setInnerVar(preLowpassCutoff, "prelowpasscutoff");
+
+				sfx->setDistortionEffect(gain, edge, postEQCenterFrequency, postEQBandwidth, preLowpassCutoff);
+			}
+
+			if (JSONHAS("echoeffect")) {
+				irrklang::ik_f32 wetDryMix = 50, feedback = 50,
+					leftDelay = 500, rightDelay = 500, panDelay = 0;
+
+				auto innerJson = LOOKUP("echoeffect");
+
+				setInnerVar(wetDryMix, "wetdrymix");
+				setInnerVar(feedback, "feedback");
+				setInnerVar(leftDelay, "leftdelay");
+				setInnerVar(rightDelay, "rightdelay");
+				setInnerVar(panDelay, "pandelay");
+
+				sfx->setEchoEffect(wetDryMix, feedback, leftDelay, rightDelay, panDelay);
+			}
+
+			if (JSONHAS("flangereffect")) {
+				irrklang::ik_f32 wetDryMix = 50, depth = 100,
+					feedback = -50, frequency = 0.25f, delay = 2;
+				irrklang::ik_s32 phase = 0;
+				bool triangleWaveForm = true;
+
+				auto innerJson = LOOKUP("flangereffect");
+
+				setInnerVar(wetDryMix, "wetdrymix");
+				setInnerVar(depth, "depth");
+				setInnerVar(feedback, "feedback");
+				setInnerVar(frequency, "frequency");
+				setInnerVar(delay, "delay");
+				setInnerVar(phase, "phase");
+				setInnerVar(triangleWaveForm, "trianglewaveform");
+
+				sfx->setFlangerEffect(wetDryMix, depth, feedback, frequency, triangleWaveForm, delay, phase);
+			}
+
+			if (JSONHAS("gargleeffect")) {
+				irrklang::ik_s32 rateHz = 20;
+				bool sinusWaveForm = true;
+
+				auto innerJson = LOOKUP("gargleffect");
+
+				setInnerVar(rateHz, "ratehz");
+				setInnerVar(sinusWaveForm, "sinuswaveform");
+
+				sfx->setGargleEffect(rateHz, sinusWaveForm);
+			}
+
+			if (JSONHAS("3dreverbeffect")) {
+				irrklang::ik_s32 room = -1000, roomHF = -100,
+					reflections = -2602, reverb = 200;
+				irrklang::ik_f32 roomRolloffFactor = 0, decayTime = 1.49f, decayHFRatio = 0.83f,
+					reflectionsDelay = 0.007f, reverbDelay = 0.011f, diffusion = 100,
+					density = 100, hfReference = 5000;
+
+				auto innerJson = LOOKUP("3dreverbeffect");
+
+				setInnerVar(room, "room");
+				setInnerVar(roomHF, "roomHF");
+				setInnerVar(reflections, "reflections");
+				setInnerVar(reverb, "reverb");
+				setInnerVar(roomRolloffFactor, "roomrollofffactor");
+				setInnerVar(decayTime, "decaytime");
+				setInnerVar(decayHFRatio, "decayhfratio");
+				setInnerVar(reflectionsDelay, "reflectionsdelay");
+				setInnerVar(reverbDelay, "reverbdelay");
+				setInnerVar(diffusion, "diffusion");
+				setInnerVar(density, "density");
+				setInnerVar(hfReference, "hfReference");
+
+				sfx->set3DReverbEffect(room, roomHF, roomRolloffFactor, decayTime, decayHFRatio, reflections, reflectionsDelay, reverb, reverbDelay, diffusion, density, hfReference);
+			}
+
+			if (JSONHAS("parameqeffect")) {
+				irrklang::ik_f32 center = 8000, bandwidth = 12,
+					gain = 0;
+
+				auto innerJson = LOOKUP("parameqeffect");
+
+				setInnerVar(center, "center");
+				setInnerVar(bandwidth, "bandwidth");
+				setInnerVar(gain, "gain");
+
+				sfx->setParamEqEffect(center, bandwidth, gain);
+			}
+
+			if (JSONHAS("wavesreverbeffect")) {
+				irrklang::ik_f32 gain = 0, reverbMix = 0,
+					reverbTime = 1000, highFreqRTRatio = 0.001f;
+
+				auto innerJson = LOOKUP("wavesreverbeffect");
+
+				setInnerVar(gain, "gain");
+				setInnerVar(reverbMix, "reverbmix");
+				setInnerVar(reverbTime, "reverbtime");
+				setInnerVar(highFreqRTRatio, "highfreqrtratio");
+
+				sfx->setWavesReverbEffect(gain, reverbMix, reverbTime, highFreqRTRatio);
+			}
+		}
+	}
+
+
 	AudioSource::AudioSource(const std::string& p_pathToClip, bool p_is3D, bool p_enableEffects, bool p_causesDuck, bool p_getsDucked) : m_clipPath(p_pathToClip),
 		m_is3D(p_is3D),  m_effectsEnabled(p_enableEffects), m_causesDuck(p_causesDuck), m_beingDucked(false), m_getsDucked(p_getsDucked)
 	{

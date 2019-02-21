@@ -16,6 +16,7 @@ private:
 	kitten::Event::TileList m_spawnPointList;
 public:
 	BoardCreator();
+	BoardCreator(nlohmann::json& p_json);
 	~BoardCreator();
 
 	virtual void start() override;

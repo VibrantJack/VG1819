@@ -12,6 +12,7 @@ private:
 
 public:
 	TileInfoDisplayOnKeyPress(char p_key);
+	TileInfoDisplayOnKeyPress(nlohmann::json & p_json);
 	~TileInfoDisplayOnKeyPress();
 
 	bool hasUpdate() const override { return true; };

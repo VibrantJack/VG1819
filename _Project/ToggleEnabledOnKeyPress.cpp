@@ -6,6 +6,11 @@ ToggleEnabledOnKeyPress::ToggleEnabledOnKeyPress(char p_key) : m_key(p_key)
 	
 }
 
+ToggleEnabledOnKeyPress::ToggleEnabledOnKeyPress(nlohmann::json & p_json) : kitten::K_Component(p_json)
+{
+	if(JSONHAS("key")) m_key = LOOKUPCHAR("key");
+}
+
 ToggleEnabledOnKeyPress::~ToggleEnabledOnKeyPress()
 {
 

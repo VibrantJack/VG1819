@@ -23,7 +23,10 @@ namespace kitten
 		virtual void start() override;
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
+
+		void init(const std::string& p_texPath);
 	public:
+		QuadRenderable(nlohmann::json& p_json);
 		QuadRenderable(const std::string& p_texPath ="", bool p_isStatic = false);
 		virtual ~QuadRenderable();
 

@@ -12,6 +12,7 @@ namespace kitten
 		ClickableFrame* m_attachedFrame;
 		bool m_enabledOnPause;
 	public:
+		ClickableUI(nlohmann::json& p_json);
 		ClickableUI(bool p_enabledOnPause = false);
 		~ClickableUI();
 

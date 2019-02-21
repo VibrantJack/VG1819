@@ -14,6 +14,7 @@ private:
 
 public:
 	VolumeAdjustOnKeysPressed(char p_increaseKey, char p_decreaseKey, float p_changeAmount);
+	VolumeAdjustOnKeysPressed(nlohmann::json& p_json);
 	~VolumeAdjustOnKeysPressed();
 
 	void start() override;

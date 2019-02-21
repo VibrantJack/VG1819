@@ -2,6 +2,13 @@
 #include "kitten\K_GameObject.h"
 #include "kitten\InputManager.h"
 
+ZoomByMouseWheel::ZoomByMouseWheel(nlohmann::json & p_json) : kitten::K_Component(p_json), m_cam(nullptr)
+{
+	SETOPTDEF(m_speed, "speed", 1.0f);
+	SETOPTDEF(m_minFOV, "minfov", 1);
+	SETOPTDEF(m_maxFOV, "maxfov", 70);
+}
+
 ZoomByMouseWheel::ZoomByMouseWheel(float p_speed, int p_minFOV, int p_maxFOV) : m_cam(nullptr), m_speed(p_speed), m_minFOV(p_minFOV), m_maxFOV(p_maxFOV)
 {
 

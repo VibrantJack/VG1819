@@ -10,6 +10,7 @@ private:
 
 	virtual void start() override;
 public:
+	LoadSceneOnStart(nlohmann::json& p_json);
 	LoadSceneOnStart(const std::string& p_sceneName);
 	~LoadSceneOnStart();
 };

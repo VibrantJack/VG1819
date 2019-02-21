@@ -8,6 +8,7 @@ class DebugPrintOnce : public kitten::K_Component
 private:
 	std::string m_message;
 public:
+	DebugPrintOnce(nlohmann::json& p_json);
 	DebugPrintOnce(const std::string p_message);
 	virtual ~DebugPrintOnce();
 

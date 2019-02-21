@@ -11,6 +11,7 @@ namespace kitten
 		Transform* m_cachedTransform;
 	public:
 		AudioListener();
+		AudioListener(nlohmann::json& p_json);
 		~AudioListener();
 
 		void start() override;

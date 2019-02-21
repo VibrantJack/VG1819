@@ -12,6 +12,7 @@ private:
 	input::InputManager* m_inputMan;
 public:
 	PlaySoundOnKeyPress(char p_key);
+	PlaySoundOnKeyPress(nlohmann::json& p_json);
 	~PlaySoundOnKeyPress();
 
 	void start() override;

@@ -7,7 +7,18 @@ namespace kitten
 	puppy::VertexEnvironment* CubeRenderable::sm_vao = nullptr;
 	int CubeRenderable::sm_instances = 0;
 
+	CubeRenderable::CubeRenderable(nlohmann::json & p_json) : K_Renderable(p_json)
+	{
+		std::string texturefilename = LOOKUPDEF("texture", "textures/tiles/MISSING.tga");
+		CubeRenderable::init(texturefilename.c_str());
+	}
+
 	CubeRenderable::CubeRenderable(const char* p_pathToTexture)
+	{
+		CubeRenderable::init(p_pathToTexture);
+	}
+
+	void CubeRenderable::init(const char* p_pathToTexture)
 	{
 		m_mat = new puppy::Material(puppy::ShaderType::basic);
 		if (p_pathToTexture != nullptr)

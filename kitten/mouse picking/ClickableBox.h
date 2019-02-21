@@ -22,6 +22,7 @@ namespace kitten
 
 		bool m_gamePaused;
 	public:
+		ClickableBox(nlohmann::json& p_json);
 		ClickableBox(const glm::vec3& p_minPoint, const glm::vec3& p_maxPoint);
 		~ClickableBox();
 

@@ -9,6 +9,11 @@ PlaySoundOnStart::PlaySoundOnStart()
 
 }
 
+PlaySoundOnStart::PlaySoundOnStart(nlohmann::json & p_json) : kitten::K_Component(p_json)
+{
+	
+}
+
 PlaySoundOnStart::~PlaySoundOnStart()
 {
 

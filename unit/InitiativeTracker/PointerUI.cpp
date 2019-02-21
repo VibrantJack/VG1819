@@ -27,6 +27,29 @@ userinterface::PointerUI::PointerUI()
 	}
 }
 
+userinterface::PointerUI::PointerUI(nlohmann::json & p_json) : kitten::K_UIRenderable(p_json)
+{
+	m_mat = new puppy::Material(puppy::ShaderType::alphaTest);
+	m_mat->setTexture(LOOKUPSTRDEF("texture","textures/ui/ArrowPointer.tga").c_str());
+
+	if (sm_instances < 1)
+	{
+		puppy::TexturedVertex verts[] =
+		{
+		{ 0.0, 0.0, 0, 0.0, 0.0 },
+		{ 0.0, 1.0, 0, 0.0, 1.0 },
+		{ 1.0, 1.0, 0, 1.0, 1.0 },
+
+		{ 1.0, 1.0, 0, 1.0, 1.0 },
+		{ 1.0, 0.0, 0, 1.0, 0.0 },
+		{ 0.0, 0.0, 0, 0.0, 0.0 },
+		};
+		sm_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
+
+		++sm_instances;
+	}
+}
+
 userinterface::PointerUI::~PointerUI()
 {
 	delete m_mat;

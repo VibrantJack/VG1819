@@ -8,6 +8,12 @@
 
 namespace kitten
 {
+	K_UIRenderable::K_UIRenderable(nlohmann::json & p_json) : K_Component(p_json), 
+		m_cachedRenderNode(nullptr)
+	{
+
+	}
+
 	K_UIRenderable::K_UIRenderable() : m_cachedRenderNode(nullptr)
 	{
 		

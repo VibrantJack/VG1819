@@ -1,598 +1,45 @@
 #include "ComponentDataType.hpp"
 #include <string>
 
-#define JSONHAS(str) p_jsonFile->find(str) != p_jsonFile->end()
-#define LOOKUP(str) p_jsonFile->operator[](str)
-#define SET(varName,jsonName) varName = p_jsonFile->operator[](jsonName)
-#define SETOPT(varName,jsonName) if(JSONHAS(jsonName)) SET(varName,jsonName)
-#define SETOPTDEF(varName,jsonName,defaultVal) if(JSONHAS(jsonName)) SET(varName,jsonName); else varName = defaultVal
-
 #include "_Project/MoveByMouseRightClickDrag.h"
-kitten::K_Component* getMoveByMouseRightClickDrag(nlohmann::json* p_jsonFile) {
-	float speed;
-	glm::vec2 minClamp, maxClamp;
-
-	SETOPTDEF(speed, "speed", 0.005f);
-	
-	if (JSONHAS("minClamp")) {
-		minClamp = glm::vec2(LOOKUP("minClamp")[0], LOOKUP("minClamp")[1]);
-	}
-
-	if (JSONHAS("maxClamp")) {
-		maxClamp = glm::vec2(LOOKUP("maxClamp")[0], LOOKUP("maxClamp")[1]);
-	}
-
-	return new MoveByMouseRightClickDrag(speed, minClamp, maxClamp);
-}
-
 #include "_Project/ZoomByMouseWheel.h"
-kitten::K_Component* getZoomByMouseWheel(nlohmann::json* p_jsonFile) {
-	float speed;
-	int minFOV, maxFOV;
-
-	SETOPTDEF(speed, "speed", 1.0f);
-	SETOPTDEF(minFOV, "minfov", 1);
-	SETOPTDEF(maxFOV, "maxfov", 70);
-
-	return new ZoomByMouseWheel(speed, minFOV, maxFOV); 
-}
-
 #include "kitten/Camera.h"
-kitten::K_Component* getCamera(nlohmann::json* p_jsonFile) {
-	kitten::Camera* component = new kitten::Camera();
-	if (p_jsonFile->find("fov") != p_jsonFile->end()) {
-		component->setFOV(p_jsonFile->operator[]("fov"));
-	}
-
-	if (p_jsonFile->find("near") != p_jsonFile->end()) {
-		component->setNearClip(p_jsonFile->operator[]("near"));
-	}
-
-	if (p_jsonFile->find("far") != p_jsonFile->end()) {
-		component->setFarClip(p_jsonFile->operator[]("far"));
-	}
-
-	if (p_jsonFile->find("width") != p_jsonFile->end()) {
-		component->setWinWidth(p_jsonFile->operator[]("width"));
-	}
-
-	if (p_jsonFile->find("height") != p_jsonFile->end()) {
-		component->setWinHeight(p_jsonFile->operator[]("height"));
-	}
-
-	return component;
-}
-
 #include "kitten/CubeRenderable.h"
-kitten::K_Component* getCubeRenderable(nlohmann::json* p_jsonFile) {
-	std::string texturefilename;
-
-	SETOPTDEF(texturefilename, "texture", "textures/tiles/MISSING.tga");
-
-	return new kitten::CubeRenderable(texturefilename.c_str());
-}
-
 #include "kitten/QuadRenderable.h"
-kitten::K_Component* getQuadRenderable(nlohmann::json* p_jsonFile) {
-	std::string texturefilename;
-	bool isStatic;
-
-	SETOPTDEF(texturefilename, "texture", "");
-	SETOPTDEF(isStatic, "static", false);
-
-	return new kitten::QuadRenderable(texturefilename.c_str(), isStatic);
-}
-
 #include "kitten/QuadRenderableRepeat.h"
-kitten::K_Component* getQuadRenderableRepeat(nlohmann::json* p_jsonFile) {
-	std::string texturefilename;
-	bool isStatic, texRepeat;
-	float uRepeat, vRepeat;
-
-	SETOPTDEF(texturefilename, "texture", "");
-	SETOPTDEF(isStatic, "static", false);
-	SETOPTDEF(texRepeat, "texRepeat", false);
-	SETOPTDEF(uRepeat, "uRepeat", 1.0f);
-	SETOPTDEF(vRepeat, "vRepeat", 1.0f);
-
-	return new kitten::QuadRenderableRepeat(texturefilename.c_str(), isStatic, texRepeat, uRepeat, vRepeat);
-}
-
 #include "gameworld/GrassLandInfoComponent.h"
-kitten::K_Component* getGrassLandInfo(nlohmann::json* p_jsonFile) {
-	return new gameworld::GrasslandInfoComponent();
-}
-
 #include "_Project/DebugPrintOnce.h"
-kitten::K_Component* getDebugPrintOnce(nlohmann::json* p_jsonFile){
-	std::string message;
-
-	SETOPTDEF(message, "message", "Default Message");
-
-	return new DebugPrintOnce(message);
-}
-
 #include "board/clickable/PrintWhenClicked.h"
-kitten::K_Component* getPrintWhenClicked(nlohmann::json* p_jsonFile) {
-	std::string message;
-
-	SETOPTDEF(message, "message", "Default Message");
-
-	return new PrintWhenClicked(message);
-}
-
 #include "kitten\mouse picking\ClickableBox.h"
-kitten::K_Component* getClickableBox(nlohmann::json* p_jsonFile) {
-	glm::vec3 minPoint, maxPoint;
-
-	if (JSONHAS("minpoint")) {
-		minPoint = glm::vec3(LOOKUP("minpoint")[0], LOOKUP("minpoint")[1], LOOKUP("minpoint")[2]);
-	}
-
-	if (JSONHAS("maxpoint")) {
-		maxPoint = glm::vec3(LOOKUP("maxpoint")[0], LOOKUP("maxpoint")[1], LOOKUP("maxpoint")[2]);
-	}
-
-	return new kitten::ClickableBox(minPoint, maxPoint);
-}
-
 #include "_Project\DestroyOnClick.h"
-kitten::K_Component* getDestroyOnClick(nlohmann::json* p_jsonFile){
-	return new DestroyOnClick();
-}
-
 #include "components/clickables/DiscardCardOnClick.h"
-kitten::K_Component* getDiscardCardOnClick(nlohmann::json* p_jsonFile){
-	return new DiscardCardOnClick();
-}
-
-
 #include "board/component/BoardCreator.h"
-kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
-	BoardCreator* component = new BoardCreator();
-
-	int x,z;
-	SETOPTDEF(x, "rows", 15);
-	SETOPTDEF(z, "columns", 15);
-	component->setDimension(x, z);
-	
-	bool enableTileInfoDisplay;
-	SETOPTDEF(enableTileInfoDisplay, "enableTileInfoDisplay", false);
-	component->setTileInfoDisplay(enableTileInfoDisplay);
-
-	return component;
-}
-
 #include "kitten\audio\AudioSource.h"
-kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
-
-	std::string pathToClip;
-	bool is3D, enableEffects, causesDuck, getsDucked;
-
-	SET(pathToClip, "clippath");
-	SETOPT(is3D, "is3d");
-	SETOPT(enableEffects, "enableeffects");
-	SETOPTDEF(causesDuck, "causesduck", false);
-	SETOPTDEF(getsDucked, "getsducked", false);
-
-	kitten::AudioSource* toReturn = new kitten::AudioSource(pathToClip, is3D, enableEffects, causesDuck, getsDucked);
-
-	if (is3D) {
-		if (JSONHAS("mindistance")) {
-			toReturn->setMinDistance(LOOKUP("mindistance"));
-		}
-
-		if (JSONHAS("maxdistance")) {
-			toReturn->setMaxDistance(LOOKUP("maxdistance"));
-		}
-	}
-
-	if (JSONHAS("loop")) {
-		toReturn->setLooped(LOOKUP("loop"));
-	}
-
-	if (JSONHAS("volume")) {
-		toReturn->setVolume(LOOKUP("volume"));
-	}
-
-	if (JSONHAS("playprogress")) {
-		toReturn->setPlayProgress(LOOKUP("playprogress"));
-	}
-
-	if (enableEffects) {
-		//Effects parsing here
-
-#define innerJsonHas(str) innerJson.find(str) != innerJson.end()
-#define setInnerVar(varName,jsonName) if(innerJsonHas(jsonName)) varName = innerJson.operator[](jsonName)
-
-		auto sfx = toReturn->getSFXControl();
-
-		if (p_jsonFile->find("choruseffect") != p_jsonFile->end()) {
-			irrklang::ik_f32 wetDryMix = 50, depth = 10, feedback = 25, frequency = 1.1;
-			bool sinusWaveForm = true;
-			irrklang::ik_f32 delay = 16, phase = 90;
-			
-			auto innerJson = p_jsonFile->operator[]("choruseffect");
-
-			setInnerVar(wetDryMix, "wetdrymix");
-			setInnerVar(depth, "depth");
-			setInnerVar(feedback, "feedback");
-			setInnerVar(frequency, "frequency");
-			setInnerVar(sinusWaveForm, "sinuswaveform");
-			setInnerVar(delay, "delay");
-			setInnerVar(phase, "phase");
-
-			sfx->setChorusEffect(wetDryMix, depth, feedback, frequency, sinusWaveForm, delay, phase);
-		}
-
-		if (p_jsonFile->find("compressoreffect") != p_jsonFile->end()) {
-			irrklang::ik_f32 gain = 0, attack = 10, release = 200, threshold = -20,
-				ratio = 3, preDelay = 4;
-
-			auto innerJson = p_jsonFile->operator[]("compressoreffect");
-
-			setInnerVar(gain, "gain");
-			setInnerVar(attack, "attack");
-			setInnerVar(release, "release");
-			setInnerVar(threshold, "threshold");
-			setInnerVar(ratio, "ratio");
-			setInnerVar(preDelay, "predelay");
-
-			sfx->setCompressorEffect(gain, attack, release, threshold, ratio, preDelay);
-		}
-
-		if (p_jsonFile->find("distortioneffect") != p_jsonFile->end()) {
-			irrklang::ik_f32 gain = -18, edge = 15, postEQCenterFrequency = 2400,
-				postEQBandwidth = 2400, preLowpassCutoff = 8000;
-
-			auto innerJson = p_jsonFile->operator[]("distortioneffect");
-
-			setInnerVar(gain, "gain");
-			setInnerVar(edge, "edge");
-			setInnerVar(postEQCenterFrequency, "posteqcenterfrequency");
-			setInnerVar(postEQBandwidth, "posteqbandwidth");
-			setInnerVar(preLowpassCutoff, "prelowpasscutoff");
-
-			sfx->setDistortionEffect(gain, edge, postEQCenterFrequency, postEQBandwidth, preLowpassCutoff);
-		}
-
-		if (p_jsonFile->find("echoeffect") != p_jsonFile->end()) {
-			irrklang::ik_f32 wetDryMix = 50, feedback = 50,
-				leftDelay = 500, rightDelay = 500, panDelay = 0;
-
-			auto innerJson = p_jsonFile->operator[]("echoeffect");
-
-			setInnerVar(wetDryMix, "wetdrymix");
-			setInnerVar(feedback, "feedback");
-			setInnerVar(leftDelay, "leftdelay");
-			setInnerVar(rightDelay, "rightdelay");
-			setInnerVar(panDelay, "pandelay");
-
-			sfx->setEchoEffect(wetDryMix, feedback, leftDelay, rightDelay, panDelay);
-		}
-
-		if (p_jsonFile->find("flangereffect") != p_jsonFile->end()) {
-			irrklang::ik_f32 wetDryMix = 50, depth = 100,
-				feedback = -50, frequency = 0.25f, delay = 2;
-			irrklang::ik_s32 phase = 0;
-			bool triangleWaveForm = true;
-
-			auto innerJson = p_jsonFile->operator[]("flangereffect");
-
-			setInnerVar(wetDryMix, "wetdrymix");
-			setInnerVar(depth, "depth");
-			setInnerVar(feedback, "feedback");
-			setInnerVar(frequency, "frequency");
-			setInnerVar(delay, "delay");
-			setInnerVar(phase, "phase");
-			setInnerVar(triangleWaveForm, "trianglewaveform");
-
-			sfx->setFlangerEffect(wetDryMix, depth, feedback, frequency, triangleWaveForm, delay, phase);
-		}
-
-		if (p_jsonFile->find("gargleeffect") != p_jsonFile->end()) {
-			irrklang::ik_s32 rateHz = 20;
-			bool sinusWaveForm = true;
-
-			auto innerJson = p_jsonFile->operator[]("gargleffect");
-
-			setInnerVar(rateHz, "ratehz");
-			setInnerVar(sinusWaveForm, "sinuswaveform");
-
-			sfx->setGargleEffect(rateHz, sinusWaveForm);
-		}
-
-		if (p_jsonFile->find("3dreverbeffect") != p_jsonFile->end()) {
-			irrklang::ik_s32 room = -1000, roomHF = -100,
-				reflections = -2602, reverb = 200;
-			irrklang::ik_f32 roomRolloffFactor = 0, decayTime = 1.49f, decayHFRatio = 0.83f,
-				reflectionsDelay = 0.007f, reverbDelay = 0.011f, diffusion = 100,
-				density = 100, hfReference = 5000;
-
-			auto innerJson = p_jsonFile->operator[]("3dreverbeffect");
-
-			setInnerVar(room, "room");
-			setInnerVar(roomHF, "roomHF");
-			setInnerVar(reflections, "reflections");
-			setInnerVar(reverb, "reverb");
-			setInnerVar(roomRolloffFactor, "roomrollofffactor");
-			setInnerVar(decayTime, "decaytime");
-			setInnerVar(decayHFRatio, "decayhfratio");
-			setInnerVar(reflectionsDelay, "reflectionsdelay");
-			setInnerVar(reverbDelay, "reverbdelay");
-			setInnerVar(diffusion, "diffusion");
-			setInnerVar(density, "density");
-			setInnerVar(hfReference, "hfReference");
-
-			sfx->set3DReverbEffect(room, roomHF, roomRolloffFactor, decayTime, decayHFRatio, reflections, reflectionsDelay, reverb, reverbDelay, diffusion, density, hfReference);
-		}
-
-		if (p_jsonFile->find("parameqeffect") != p_jsonFile->end()) {
-			irrklang::ik_f32 center = 8000, bandwidth = 12,
-				gain = 0;
-
-			auto innerJson = p_jsonFile->operator[]("parameqeffect");
-
-			setInnerVar(center, "center");
-			setInnerVar(bandwidth, "bandwidth");
-			setInnerVar(gain, "gain");
-
-			sfx->setParamEqEffect(center, bandwidth, gain);
-		}
-
-		if (p_jsonFile->find("wavesreverbeffect") != p_jsonFile->end()) {
-			irrklang::ik_f32 gain = 0, reverbMix = 0,
-				reverbTime = 1000, highFreqRTRatio = 0.001f;
-
-			auto innerJson = p_jsonFile->operator[]("wavesreverbeffect");
-
-			setInnerVar(gain, "gain");
-			setInnerVar(reverbMix, "reverbmix");
-			setInnerVar(reverbTime, "reverbtime");
-			setInnerVar(highFreqRTRatio, "highfreqrtratio");
-
-			sfx->setWavesReverbEffect(gain, reverbMix, reverbTime, highFreqRTRatio);
-		}
-	}
-
-	return toReturn;
-}
-
 #include "kitten\audio\AudioListener.h"
-kitten::K_Component* getAudioListener(nlohmann::json* p_jsonFile) {
-	return new kitten::AudioListener();
-}
-
 #include "_Project\PlaySoundOnKeyPress.h"
-kitten::K_Component* getPlaySoundOnKeyPress(nlohmann::json* p_jsonFile) {
-	char key;
-
-	if (JSONHAS("key")) {
-		std::string strKey = LOOKUP("key");
-		key = strKey[0];
-	}
-
-	return new PlaySoundOnKeyPress(key);
-}
-
 #include "_Project\PlaySoundOnStart.h"
-kitten::K_Component* getPlaySoundOnStart(nlohmann::json* p_jsonFile) {
-	return new PlaySoundOnStart();
-}
-
 #include "_Project\ToggleSoundOnKeyPress.h"
-kitten::K_Component* getToggleSoundOnStart(nlohmann::json* p_jsonFile) {
-	char key;
-
-	if (JSONHAS("key")) {
-		std::string strKey = LOOKUP("key");
-		key = strKey[0];
-	}
-
-	return new ToggleSoundOnKeyPress(key);
-}
-
 #include "_Project\VolumeAdjustOnKeysPressed.h"
-kitten::K_Component* getVolumeAdjustOnKeysPressed(nlohmann::json* p_jsonFile) {
-	char increaseKey, decreaseKey;
-	float changeAmount;
-
-	if (JSONHAS("increasekey")) {
-		std::string strKey = LOOKUP("increasekey");
-		increaseKey = strKey[0];
-	}
-
-	if (JSONHAS("decreasekey")) {
-		std::string strKey = LOOKUP("decreasekey");
-		decreaseKey = strKey[0];
-	}
-
-	SETOPT(changeAmount, "changeamount");
-
-	return new VolumeAdjustOnKeysPressed(increaseKey,decreaseKey,changeAmount);
-}
-
 #include "_Project\LoadSceneOnStart.h"
-kitten::K_Component* getLoadSceneOnStart(nlohmann::json* p_jsonFile) {
-	std::string name = p_jsonFile->operator[]("scene_name");
-
-	return new LoadSceneOnStart(name);
-}
-
 #include "ui/UIFrame.h"
-kitten::K_Component* getUIFrame(nlohmann::json* p_jsonFile) {
-	std::string texture;
-
-	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
-
-	return new userinterface::UIFrame(texture.c_str());
-}
-
 #include "unit/unitComponent/UnitMove.h"
-kitten::K_Component* getUnitMove(nlohmann::json* p_jsonFile) {
-	glm::vec3 offset;
-
-	if (JSONHAS("offset")) {
-		offset = glm::vec3(LOOKUP("offset")[0], LOOKUP("offset")[1], LOOKUP("offset")[2]);
-		return new unit::UnitMove(offset);
-	}
-
-	return new unit::UnitMove();
-}
-
 #include "board/clickable/ManipulateTileOnClick.h"
-kitten::K_Component* getManipulateTileOnClick(nlohmann::json* p_jsonFile) {
-	return new ManipulateTileOnClick();
-}
-
 #include "_Project/UseAbilityWhenClicked.h"
-kitten::K_Component* getUseAbilityWhenClicked(nlohmann::json* p_jsonFile) {
-	return new UseAbilityWhenClicked();
-}
-
 #include "board/clickable/SendSelfOnClick.h"
-kitten::K_Component* getSendSelfOnClick(nlohmann::json* p_jsonFile) {
-	return new SendSelfOnClick();
-}
-
 #include "_Project/FPSCalc.h"
-kitten::K_Component* getFPSCalc(nlohmann::json* p_jsonFile) {
-	return new FPSCalc();
-}
-
 #include "unit/InitiativeTracker/TrackerBlock.h"
-kitten::K_Component* getTrackerBlock(nlohmann::json* p_jsonFile) {
-	return new unit::TrackerBlock();
-}
-
 #include "unit/InitiativeTracker/TrackerBlockClickable.h"
-kitten::K_Component* getTrackerBlockClickable(nlohmann::json* p_jsonFile) {
-	return new unit::TrackerBlockClickable();
-}
-
 #include "unit/InitiativeTracker/TrackerPointer.h"
-kitten::K_Component* getTrackerPointer(nlohmann::json* p_jsonFile) {
-	return new unit::TrackerPointer();
-}
-
 #include "unit/InitiativeTracker/PointerUI.h"
-kitten::K_Component* getPointerUI(nlohmann::json* p_jsonFile) {
-	return new userinterface::PointerUI();
-}
-
 #include "unit/unitComponent/UnitGraphic.h"
-kitten::K_Component* getUnitGraphic(nlohmann::json* p_jsonFile) {
-	std::string texture;
-	unit::UnitSize size = unit::point;
-
-	SETOPTDEF(texture, "texture", "textures/unit/Default.tga");
-
-	if (p_jsonFile->find("unitsize") != p_jsonFile->end()) {
-		std::string temp = p_jsonFile->operator[]("unitsize");
-		if (temp == "point")
-			size = unit::point;
-		else if (temp == "cube")
-			size = unit::UnitSize::cube;
-	}
-
-	return new unit::UnitGraphic(size, texture.c_str());
-}
-
 #include "puppy/Text/TextBox.h"
-kitten::K_Component* getTextBox(nlohmann::json* p_jsonFile) {
-	std::string font , message;
-	float width, height;
-	puppy::TextBox* textbox;
-
-	SETOPTDEF(font, "font", "../fonts/common_dejavu.fnt");
-	SETOPTDEF(message, "message", "DEFAULT TEXT");
-	SETOPTDEF(width, "width", 500);
-	SETOPTDEF(height, "height", 500);
-
-	puppy::TextBox::Alignment align = puppy::TextBox::Alignment::left;
-
-	if (JSONHAS("alignment")) {
-		std::string temp = LOOKUP("alignment");
-		if (temp == "left") {
-			align = puppy::TextBox::Alignment::left;
-		}
-		else if (temp == "right") {
-			align = puppy::TextBox::Alignment::right;
-		}
-		else if (temp == "center") {
-			align = puppy::TextBox::Alignment::center;
-		}
-	}
-
-	bool is3D;
-	SETOPTDEF(is3D, "3D", false);
-
-	textbox = new puppy::TextBox(puppy::FontTable::getInstance()->getFont(font.c_str()), message.c_str(), width, height, align, is3D);
-
-	if (JSONHAS("color")) {
-		textbox->setColor(LOOKUP("color")[0], LOOKUP("color")[1], LOOKUP("color")[2]);
-	}
-
-	
-
-	return textbox;
-}
-
 #include "_Project\ToggleEnabledOnKeyPress.h"
-kitten::K_Component* getToggleEnabledOnKeyPress(nlohmann::json* p_jsonFile) {
-	char key;
-	
-	if (p_jsonFile->find("key") != p_jsonFile->end()) {
-		std::string str = p_jsonFile->operator[]("key");
-		key = str[0];
-	}
-
-	return new ToggleEnabledOnKeyPress(key);
-}
-
 #include "_Project\ToggleStringInputOnKeyPress.h"
-kitten::K_Component* getToggleStringInputOnKeyPress(nlohmann::json* p_jsonFile) {
-	char key;
-	
-	if (p_jsonFile->find("key") != p_jsonFile->end()) {
-		std::string str = p_jsonFile->operator[]("key");
-		key = str[0];
-	}
-
-	return new ToggleStringInputOnKeyPress(key);
-}
-
 #include "components\TileInfoDisplayOnKeyPress.h"
-kitten::K_Component* getTileInfoDisplayOnKeyPress(nlohmann::json* p_jsonFile) {
-	char key;
-
-	if (p_jsonFile->find("key") != p_jsonFile->end()) {
-		std::string str = p_jsonFile->operator[]("key");
-		key = str[0];
-	}
-
-	return new TileInfoDisplayOnKeyPress(key);
-}
-
 #include "_Project\StringInputDisplay.h"
-kitten::K_Component* getStringInputDisplay(nlohmann::json* p_jsonFile) {
-	return new StringInputDisplay();
-}
-
 #include "components\RenameDeckComponent.h"
-kitten::K_Component* getRenameDeckComponent(nlohmann::json* p_jsonFile) {
-	return new RenameDeckComponent();
-}
-
 #include "components\SelectAbility.h"
-kitten::K_Component* getSelectAbility(nlohmann::json* p_jsonFile) {
-	return new SelectAbility();
-}
-
 #include "components\PowerTracker.h"
-kitten::K_Component* getPowerTracker(nlohmann::json* p_jsonFile) {
-	return new PowerTracker();
-}
 
 #include "board/component/Highlighter.h"
 kitten::K_Component* getHighlighter(nlohmann::json* p_jsonFile) {
@@ -600,26 +47,26 @@ kitten::K_Component* getHighlighter(nlohmann::json* p_jsonFile) {
 }
 
 #include "UI/HandFrame.h"
-kitten::K_Component* getHandFrame(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getHandFrame(nlohmann::json& p_json) {
 	std::string texture;
 
-	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
+	SETSTROPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
 
 	return new userinterface::HandFrame(texture.c_str());
 }
 
 #include "UI/CardUIO.h"
-kitten::K_Component* getCardUIO(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getCardUIO(nlohmann::json& p_json) {
 	std::string texture;
 
-	SETOPTDEF(texture, "texture", "textures/ui/cardBack.tga");
+	SETSTROPTDEF(texture, "texture", "textures/ui/cardBack.tga");
 
 	userinterface::CardUIO* object = new userinterface::CardUIO(texture.c_str());
 	return object;
 }
 
 #include "kitten/mouse picking/ClickableFrame.h"
-kitten::K_Component* getClickableFrame(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getClickableFrame(nlohmann::json& p_json) {
 	kitten::ClickableFrame::PivotType type = kitten::ClickableFrame::piv_BotLeft;
 	if (JSONHAS("pivot")) {
 		std::string temp = LOOKUP("pivot");
@@ -646,44 +93,44 @@ kitten::K_Component* getClickableFrame(nlohmann::json* p_jsonFile) {
 }
 
 #include "kitten/mouse picking/ClickableUI.h"
-kitten::K_Component* getClickableUI(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getClickableUI(nlohmann::json& p_json) {
 	bool isEnabledOnPause;
 	SETOPTDEF(isEnabledOnPause, "enabledOnPause", false);
 	return new kitten::ClickableUI(isEnabledOnPause);
 }
 
 #include "UI/CommanderContext.h"
-kitten::K_Component* getCommanderContext(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getCommanderContext(nlohmann::json& p_json) {
 	return new userinterface::CommanderContext();
 }
 
 #include "board/tile/TileInfo.h"
-kitten::K_Component* getTileInfo(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getTileInfo(nlohmann::json& p_json) {
 	return new TileInfo();
 }
 
 #include "networking\SpawnUnitOnKeyPress.h"
-kitten::K_Component* getSpawnUnitOnKeyPress(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getSpawnUnitOnKeyPress(nlohmann::json& p_json) {
 	return new SpawnUnitOnKeyPress();
 }
 
 #include "networking\NetworkingConsoleMenu.h"
-kitten::K_Component* getNetworkingConsoleMenu(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getNetworkingConsoleMenu(nlohmann::json& p_json) {
 	return new NetworkingConsoleMenu();
 }
 
 #include "networking\ConnectToHost.h"
-kitten::K_Component* getConnectToHost(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getConnectToHost(nlohmann::json& p_json) {
 	return new ConnectToHost();
 }
 
 #include "kitten\sprites\SpriteAnimator.h"
-kitten::K_Component* getSpriteAnimator(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getSpriteAnimator(nlohmann::json& p_json) {
 
 	std::string characterName;
 
-	if (p_jsonFile->find("spritename") != p_jsonFile->end()) {
-		std::string name = p_jsonFile->operator[]("spritename");
+	if (p_json.find("spritename") != p_json.end()) {
+		std::string name = p_json.operator[]("spritename");
 		characterName = name; // I do not know why this is needed but it is.
 	}
 
@@ -694,67 +141,67 @@ kitten::K_Component* getSpriteAnimator(nlohmann::json* p_jsonFile) {
 }
 
 #include "kitten\sprites\SpriteRenderable.h"
-kitten::K_Component* getSpriteRenderable(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getSpriteRenderable(nlohmann::json& p_json) {
 	return new kitten::SpriteRenderable();
 }
 
 #include "components/DeckAlterationComponent.h"
-kitten::K_Component* getDeckAlterationComponent(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getDeckAlterationComponent(nlohmann::json& p_json) {
 	return new DeckAlterationComponent();
 }
 
 #include "components/ChangeSceneOnClick.hpp"
-kitten::K_Component* getChangeSceneOnClick(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getChangeSceneOnClick(nlohmann::json& p_json) {
 
 	std::string nextScene;
 
-	SET(nextScene, "scene");
+	SETSTR(nextScene, "scene");
 
 	return new ChangeSceneOnClick(nextScene);
 }
 
 #include "components/SetupDeckEditOnSceneChange.h"
-kitten::K_Component* getSetupDeckEditOnSceneChange(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getSetupDeckEditOnSceneChange(nlohmann::json& p_json) {
 
 	std::string nextScene;
 
-	SET(nextScene, "scene");
+	SETSTR(nextScene, "scene");
 
 	return new SetupDeckEditOnSceneChange(nextScene);
 }
 
 #include "kitten\K_ParticleSystem.h"
-kitten::K_Component* getKParticleSystem(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getKParticleSystem(nlohmann::json& p_json) {
 	
-	std::string pathToXML = p_jsonFile->operator[]("effectpath");
+	std::string pathToXML = p_json.operator[]("effectpath");
 	
 	return new kitten::K_ParticleSystem(pathToXML.c_str());
 }
 
 #include "_Project\ToggleParticleSystemOnKeyPress.h"
-kitten::K_Component* getToggleParticleSystemOnKeyPress(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getToggleParticleSystemOnKeyPress(nlohmann::json& p_json) {
 
-	std::string keyStr = p_jsonFile->operator[]("key");
+	std::string keyStr = p_json.operator[]("key");
 	return new ToggleParticleSystemOnKeyPress(keyStr[0]);
 }
 
 #include "_Project\UniversalPfx.h"
-kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getUniversalPfx(nlohmann::json& p_json) {
 	
-	bool isDebug = p_jsonFile->operator[]("debug");
+	bool isDebug = p_json.operator[]("debug");
 	char refreshKey = 'R';
 
 	if (JSONHAS("refresh_key"))
 	{
-		std::string refreshStr = p_jsonFile->operator[]("refresh_key");
+		std::string refreshStr = p_json.operator[]("refresh_key");
 		refreshKey = refreshStr[0];
 	}
 
 
 	std::list<std::tuple<std::string, std::string, int>> effects;
 
-	auto end = p_jsonFile->at("effects").end();
-	for (auto it = p_jsonFile->at("effects").begin(); it != end; ++it)
+	auto end = p_json.at("effects").end();
+	for (auto it = p_json.at("effects").begin(); it != end; ++it)
 	{
 		std::string effectName = (*it)["name"];
 		std::string effectPath = (*it)["path"];
@@ -767,12 +214,12 @@ kitten::K_Component* getUniversalPfx(nlohmann::json* p_jsonFile) {
 }
 
 #include "components/DecksDisplay/DisplayFramePickerOnClick.h"
-kitten::K_Component* getDisplayFramePickerOnClick(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getDisplayFramePickerOnClick(nlohmann::json& p_json) {
 	return new DisplayFramePickerOnClick();
 }
 
 #include "components/DecksDisplay/DisplayFrameSetChangeOnClick.h"
-kitten::K_Component* getDisplayFrameSetChangeOnClick(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getDisplayFrameSetChangeOnClick(nlohmann::json& p_json) {
 	int offset;
 
 	SETOPTDEF(offset, "offset", 0);
@@ -781,7 +228,7 @@ kitten::K_Component* getDisplayFrameSetChangeOnClick(nlohmann::json* p_jsonFile)
 }
 
 #include "components/DecksDisplayFrame.h"
-kitten::K_Component* getDecksDisplayFrame(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getDecksDisplayFrame(nlohmann::json& p_json) {
 	int marginX;
 	int marginY;
 
@@ -792,7 +239,7 @@ kitten::K_Component* getDecksDisplayFrame(nlohmann::json* p_jsonFile) {
 }
 
 #include "components/DisplayFrame/DeckUnitsDisplayFrame.h"
-kitten::K_Component* getDeckUnitsDisplayFrame(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getDeckUnitsDisplayFrame(nlohmann::json& p_json) {
 	int marginX;
 	int marginY;
 
@@ -803,7 +250,7 @@ kitten::K_Component* getDeckUnitsDisplayFrame(nlohmann::json* p_jsonFile) {
 }
 
 #include "components/DisplayFrame/CommanderDisplayFrame.h"
-kitten::K_Component* getCommanderDisplayFrame(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getCommanderDisplayFrame(nlohmann::json& p_json) {
 	int marginX;
 	int marginY;
 
@@ -814,7 +261,7 @@ kitten::K_Component* getCommanderDisplayFrame(nlohmann::json* p_jsonFile) {
 }
 
 #include "components/DisplayFrame/UnitDisplayFrame.h"
-kitten::K_Component* getUnitDisplayFrame(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getUnitDisplayFrame(nlohmann::json& p_json) {
 	int marginX;
 	int marginY;
 
@@ -825,40 +272,40 @@ kitten::K_Component* getUnitDisplayFrame(nlohmann::json* p_jsonFile) {
 }
 
 #include "_Project\ClickableBoxRenderable.h"
-kitten::K_Component* getClickableBoxRenderable(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getClickableBoxRenderable(nlohmann::json& p_json) {
 	return new ClickableBoxRenderable();
 }
 
 #include "components/DeckInitializingComponent.h"
-kitten::K_Component* getDeckInitializingComponent(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getDeckInitializingComponent(nlohmann::json& p_json) {
 	return new DeckInitializingComponent();
 }
 
 #include "components/scene change/StartGameOnClick.h"
-kitten::K_Component* getStartGameOnClick(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getStartGameOnClick(nlohmann::json& p_json) {
 	std::string targetScene;
-	SET(targetScene, "scene");
+	SETSTR(targetScene, "scene");
 	return new StartGameOnClick(targetScene);
 }
 
 #include "components/DeckComponent.hpp"
-kitten::K_Component* getDeckComponent(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getDeckComponent(nlohmann::json& p_json) {
 	return new DeckComponent();
 }
 
 #include "components/testing/gameplay-init.h"
-kitten::K_Component* getGameplayInit(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getGameplayInit(nlohmann::json& p_json) {
 	bool testing;
 	SETOPTDEF(testing, "testing", true);
 	return new GameplayInit(testing);
 }
 
 #include "networking\menu\NetworkJoinButton.h"
-kitten::K_Component* getNetworkJoinButton(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getNetworkJoinButton(nlohmann::json& p_json) {
 	std::string regularTexture, highlightedTexture;
 
-	SETOPT(regularTexture, "regularTexture");
-	SETOPT(highlightedTexture, "highlightedTexture");
+	SETSTROPT(regularTexture, "regularTexture");
+	SETSTROPT(highlightedTexture, "highlightedTexture");
 
 	userinterface::NetworkJoinButton* button = new userinterface::NetworkJoinButton();
 	button->setRegularTexture(regularTexture);
@@ -868,11 +315,11 @@ kitten::K_Component* getNetworkJoinButton(nlohmann::json* p_jsonFile) {
 }
 
 #include "networking\menu\NetworkHostButton.h"
-kitten::K_Component* getNetworkHostButton(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getNetworkHostButton(nlohmann::json& p_json) {
 	std::string regularTexture, highlightedTexture;
 
-	SETOPT(regularTexture, "regularTexture");
-	SETOPT(highlightedTexture, "highlightedTexture");
+	SETSTROPT(regularTexture, "regularTexture");
+	SETSTROPT(highlightedTexture, "highlightedTexture");
 
 	userinterface::NetworkHostButton* button = new userinterface::NetworkHostButton();
 	button->setRegularTexture(regularTexture);
@@ -882,11 +329,11 @@ kitten::K_Component* getNetworkHostButton(nlohmann::json* p_jsonFile) {
 }
 
 #include "networking\menu\NetworkConnectButton.h"
-kitten::K_Component* getNetworkConnectButton(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getNetworkConnectButton(nlohmann::json& p_json) {
 	std::string regularTexture, highlightedTexture;
 
-	SETOPT(regularTexture, "regularTexture");
-	SETOPT(highlightedTexture, "highlightedTexture");
+	SETSTROPT(regularTexture, "regularTexture");
+	SETSTROPT(highlightedTexture, "highlightedTexture");
 
 	userinterface::NetworkConnectButton* button = new userinterface::NetworkConnectButton();
 	button->setRegularTexture(regularTexture);
@@ -896,14 +343,14 @@ kitten::K_Component* getNetworkConnectButton(nlohmann::json* p_jsonFile) {
 }
 
 #include "UI\TriggerEventButton.h"
-kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getTriggerEventButton(nlohmann::json& p_json) {
 	std::string regularTexture, highlightedTexture, inactiveTexture, eventType;
 	int eventEnum;
 
-	SETOPT(regularTexture, "regularTexture");
-	SETOPT(highlightedTexture, "highlightedTexture");
-	SETOPTDEF(inactiveTexture, "inactiveTexture", "textures/ui/buttons/disabled_button.tga");
-	SETOPTDEF(eventType, "event", "NONE");
+	SETSTROPT(regularTexture, "regularTexture");
+	SETSTROPT(highlightedTexture, "highlightedTexture");
+	SETSTROPTDEF(inactiveTexture, "inactiveTexture", "textures/ui/buttons/disabled_button.tga");
+	SETSTROPTDEF(eventType, "event", "NONE");
 
 	if (eventType == "Poll_For_Localhost")
 		eventEnum = kitten::Event::Poll_For_Localhost;
@@ -935,30 +382,30 @@ kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
 }
 
 #include "UI\TabMenu\TabMenu.h"
-kitten::K_Component* getTabMenu(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getTabMenu(nlohmann::json& p_json) {
 	std::string texture;
 
-	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
+	SETSTROPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
 	return new TabMenu(texture.c_str());
 }
 
 #include "ui/UIObject.h"
-kitten::K_Component* getUIObject(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getUIObject(nlohmann::json& p_json) {
 	std::string texture;
 
-	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
+	SETSTROPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
 
 	return new userinterface::UIObject(texture.c_str());
 }
 
 #include "UI\TabMenu\ReturnToMainMenuButton.h"
-kitten::K_Component* getReturnToMainMenuButton(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getReturnToMainMenuButton(nlohmann::json& p_json) {
 	std::string regularTexture, highlightedTexture;
 	bool isEnabledOnPause;
 
 	SETOPTDEF(isEnabledOnPause, "enabledOnPause", false);
-	SETOPT(regularTexture, "regularTexture");
-	SETOPT(highlightedTexture, "highlightedTexture");
+	SETSTROPT(regularTexture, "regularTexture");
+	SETSTROPT(highlightedTexture, "highlightedTexture");
 
 	userinterface::ReturnToMainMenuButton* button = new userinterface::ReturnToMainMenuButton();
 	button->setEnabledOnPause(isEnabledOnPause);
@@ -969,13 +416,13 @@ kitten::K_Component* getReturnToMainMenuButton(nlohmann::json* p_jsonFile) {
 }
 
 #include "UI\ClickableButton.h"
-kitten::K_Component* getClickableButton(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getClickableButton(nlohmann::json& p_json) {
 	std::string regularTexture, highlightedTexture, inactiveTexture;
 	bool isEnabledOnPause;
 	SETOPTDEF(isEnabledOnPause, "enabledOnPause", false);
-	SETOPT(regularTexture, "regularTexture");
-	SETOPT(highlightedTexture, "highlightedTexture");
-	SETOPTDEF(inactiveTexture, "inactiveTexture", "textures/ui/buttons/disabled_button.tga");
+	SETSTROPT(regularTexture, "regularTexture");
+	SETSTROPT(highlightedTexture, "highlightedTexture");
+	SETSTROPTDEF(inactiveTexture, "inactiveTexture", "textures/ui/buttons/disabled_button.tga");
 
 
 	userinterface::ClickableButton* button = new userinterface::ClickableButton();
@@ -988,13 +435,13 @@ kitten::K_Component* getClickableButton(nlohmann::json* p_jsonFile) {
 }
 
 #include "components\MainMenuBoard.h"
-kitten::K_Component* getMainMenuBoard(nlohmann::json* p_jsonFile)
+kitten::K_Component* getMainMenuBoard(nlohmann::json& p_json)
 {
 	return new MainMenuBoard();
 }
 
 #include "unit/InitiativeTracker/UnitAura.h"
-kitten::K_Component* getUnitAura(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getUnitAura(nlohmann::json& p_json) {
 	float p_speed, p_max, p_min;
 
 	SETOPTDEF(p_speed, "speed",1.0f);
@@ -1005,117 +452,66 @@ kitten::K_Component* getUnitAura(nlohmann::json* p_jsonFile) {
 }
 
 #include "unit/unitComponent/UnitSelect.h"
-kitten::K_Component* getUnitSelect(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getUnitSelect(nlohmann::json& p_json) {
 	return new unit::UnitSelect();
 }
 
 #include "components/DrawCardOnClickUI.h"
-kitten::K_Component* getDrawCardOnClickUI(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getDrawCardOnClickUI(nlohmann::json& p_json) {
 	return new DrawCardOnClickUI();
 }
 
 #include "components/initializers/DrawCardsFromDeckWithDelay.h"
-kitten::K_Component* getDrawCardsFromDeckWithDelay(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getDrawCardsFromDeckWithDelay(nlohmann::json& p_json) {
 	return new DrawCardsFromDeckWithDelay();
 }
 
 #include "components/DeckDiscardedCardHandler.h"
-kitten::K_Component* getDeckDiscardedCardHandler(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getDeckDiscardedCardHandler(nlohmann::json& p_json) {
 	return new DeckDiscardedCardHandler();
 }
 
 #include "kitten/sprites/SpriteGroup.h"
-kitten::K_Component* getSpriteGroup(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getSpriteGroup(nlohmann::json& p_json) {
 	std::string name;
 	int n;
-	SETOPT(name, "spritename");
+	SETSTROPT(name, "spritename");
 	SETOPTDEF(n, "number", 1);
 
 	sprites::SpriteGroup* sg = new sprites::SpriteGroup(name, n);
 
-	if (p_jsonFile->find("rotate") != p_jsonFile->end()) {
-		sg->setRotation(glm::vec3(p_jsonFile->operator[]("rotate")[0], p_jsonFile->operator[]("rotate")[1], p_jsonFile->operator[]("rotate")[2]));
+	if (p_json.find("rotate") != p_json.end()) {
+		sg->setRotation(glm::vec3(p_json.operator[]("rotate")[0], p_json.operator[]("rotate")[1], p_json.operator[]("rotate")[2]));
 	}
 
-	if (p_jsonFile->find("scale") != p_jsonFile->end()) {
-		sg->setScale(glm::vec3(p_jsonFile->operator[]("scale")[0], p_jsonFile->operator[]("scale")[1], p_jsonFile->operator[]("scale")[2]));
+	if (p_json.find("scale") != p_json.end()) {
+		sg->setScale(glm::vec3(p_json.operator[]("scale")[0], p_json.operator[]("scale")[1], p_json.operator[]("scale")[2]));
 	}
 
-	if (p_jsonFile->find("translate") != p_jsonFile->end()) {
-		sg->setTranslation(glm::vec3(p_jsonFile->operator[]("translate")[0], p_jsonFile->operator[]("translate")[1], p_jsonFile->operator[]("translate")[2]));
+	if (p_json.find("translate") != p_json.end()) {
+		sg->setTranslation(glm::vec3(p_json.operator[]("translate")[0], p_json.operator[]("translate")[1], p_json.operator[]("translate")[2]));
 	}
 
 	return sg;
 }
 
 #include "components/CustomCursor.h"
-kitten::K_Component* getCustomCursor(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getCustomCursor(nlohmann::json& p_json) {
 	if (JSONHAS("offset"))
 	{
-		return new CustomCursor(p_jsonFile->operator[]("offset")[0], p_jsonFile->operator[]("offset")[1]);
+		return new CustomCursor(p_json.operator[]("offset")[0], p_json.operator[]("offset")[1]);
 	}
 	return new CustomCursor();
 }
 
 #include "UI/UIElement.h"
-kitten::K_Component* getUIElement(nlohmann::json* p_jsonFile) {
-	//
-	std::string texture;
-	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
-
-	userinterface::UIElement::pivotType type = userinterface::UIElement::piv_BotLeft;
-	if (JSONHAS("pivot")) {
-		std::string temp = LOOKUP("pivot");
-		if (temp == "left")
-			type = userinterface::UIElement::piv_Left;
-		else if (temp == "right")
-			type = userinterface::UIElement::piv_Right;
-		else if (temp == "center")
-			type = userinterface::UIElement::piv_Center;
-		else if (temp == "top")
-			type = userinterface::UIElement::piv_Top;
-		else if (temp == "bottom")
-			type = userinterface::UIElement::piv_Bot;
-		else if (temp == "botleft")
-			type = userinterface::UIElement::piv_BotLeft;
-		else if (temp == "botright")
-			type = userinterface::UIElement::piv_BotRight;
-		else if (temp == "topleft")
-			type = userinterface::UIElement::piv_TopLeft;
-		else if (temp == "topright")
-			type = userinterface::UIElement::piv_TopRight;
-		else
-			type = userinterface::UIElement::piv_BotLeft;
-	}
-
-	userinterface::UIElement::textureBehaviour tb = userinterface::UIElement::tbh_Stretch;
-
-	if (JSONHAS("behaviour"))
-	{
-		std::string temp = LOOKUP("behaviour");
-		if (temp == "repeat")
-		{
-			tb = userinterface::UIElement::tbh_Repeat;
-		}
-		else if (temp == "mirror_repeat")
-		{
-			tb = userinterface::UIElement::tbh_RepeatMirrored;
-		}
-		else if (temp == "stretch")
-		{
-			tb = userinterface::UIElement::tbh_Stretch;
-		}
-	}
-	
-	return new userinterface::UIElement(texture.c_str(),type, tb);
-}
 
 #include "UI\Borders\BorderPiece.h"
-kitten::K_Component* getBorderPiece(nlohmann::json* p_jsonFile)
+kitten::K_Component* getBorderPiece(nlohmann::json& p_json)
 {
 	userinterface::BorderPiece::BorderPlacement placement = userinterface::BorderPiece::BorderPlacement::bp_BotLeft;
 	std::string texture;
-	SETOPTDEF(texture, "texture", "textures/ui/frames/frameAtlas.tga");
+	SETSTROPTDEF(texture, "texture", "textures/ui/frames/frameAtlas.tga");
 
 	if (JSONHAS("placement"))
 	{
@@ -1141,7 +537,7 @@ kitten::K_Component* getBorderPiece(nlohmann::json* p_jsonFile)
 	}
 	if (JSONHAS("texture"))
 	{
-		texture = LOOKUP("texture");
+		texture = LOOKUPSTR("texture");
 	}
 
 	userinterface::BorderPiece* piece = new userinterface::BorderPiece(placement);
@@ -1151,9 +547,9 @@ kitten::K_Component* getBorderPiece(nlohmann::json* p_jsonFile)
 }
 
 #include "kitten\ModelRenderable.h"
-kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getModelRenderable(nlohmann::json& p_json) {
 
-	std::string modelPath = p_jsonFile->operator[]("path");
+	std::string modelPath = p_json.operator[]("path");
 
 	bool flipUvs;
 	SETOPTDEF(flipUvs, "flipUVs", false);
@@ -1165,7 +561,7 @@ kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
 }
 
 #include "unit\unitComponent\UnitHealthBar.h"
-kitten::K_Component* getUnitHealthBar(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getUnitHealthBar(nlohmann::json& p_json) {
 
 	glm::vec3 offset = glm::vec3(LOOKUP("offset")[0], LOOKUP("offset")[1], LOOKUP("offset")[2]);
 
@@ -1179,18 +575,18 @@ kitten::K_Component* getUnitHealthBar(nlohmann::json* p_jsonFile) {
 }
 
 #include "_Project\LerpController.h"
-kitten::K_Component* getLerpController(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getLerpController(nlohmann::json& p_json) {
 
 	return new LerpController();
 }
 
 #include "components/DragNDrop/SpawnUnitOnDrop.h"
-kitten::K_Component* getSpawnUnitOnDrop(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getSpawnUnitOnDrop(nlohmann::json& p_json) {
 	return new SpawnUnitOnDrop();
 }
 
 #include "UI/DragNDrop.h"
-kitten::K_Component* getDragNDrop(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getDragNDrop(nlohmann::json& p_json) {
 	bool backToOrigin;
 
 	SETOPTDEF(backToOrigin, "backtoorigin", false);
@@ -1199,17 +595,17 @@ kitten::K_Component* getDragNDrop(nlohmann::json* p_jsonFile) {
 }
 
 #include "components/CameraMoveByEvent.h"
-kitten::K_Component* getCameraMoveByEvent(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getCameraMoveByEvent(nlohmann::json& p_json) {
 
 	return new CameraMoveByEvent();
 }
 
 #include "components\ExitGameButton.h"
-kitten::K_Component* getExitGameButton(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getExitGameButton(nlohmann::json& p_json) {
 	std::string regularTexture, highlightedTexture;
 
-	SETOPT(regularTexture, "regularTexture");
-	SETOPT(highlightedTexture, "highlightedTexture");
+	SETSTROPT(regularTexture, "regularTexture");
+	SETSTROPT(highlightedTexture, "highlightedTexture");
 
 	ExitGameButton* button = new ExitGameButton();
 	button->setRegularTexture(regularTexture);
@@ -1219,12 +615,12 @@ kitten::K_Component* getExitGameButton(nlohmann::json* p_jsonFile) {
 }
 
 #include "components\clickables\SetCommanderOnClick.h"
-kitten::K_Component* getSetCommanderOnClick(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getSetCommanderOnClick(nlohmann::json& p_json) {
 	std::string regularTexture, highlightedTexture, inactiveTexture;
 
-	SETOPT(regularTexture, "regularTexture");
-	SETOPT(highlightedTexture, "highlightedTexture");
-	SETOPT(inactiveTexture, "inactiveTexture");
+	SETSTROPT(regularTexture, "regularTexture");
+	SETSTROPT(highlightedTexture, "highlightedTexture");
+	SETSTROPT(inactiveTexture, "inactiveTexture");
 
 	SetCommanderOnClick* button = new SetCommanderOnClick();
 	button->setRegularTexture(regularTexture);
@@ -1235,12 +631,12 @@ kitten::K_Component* getSetCommanderOnClick(nlohmann::json* p_jsonFile) {
 }
 
 #include "components\clickables\DiscardDeckOnClick.h"
-kitten::K_Component* getDiscardDeckOnClick(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getDiscardDeckOnClick(nlohmann::json& p_json) {
 	std::string regularTexture, highlightedTexture, inactiveTexture;
 
-	SETOPT(regularTexture, "regularTexture");
-	SETOPT(highlightedTexture, "highlightedTexture");
-	SETOPT(inactiveTexture, "inactiveTexture");
+	SETSTROPT(regularTexture, "regularTexture");
+	SETSTROPT(highlightedTexture, "highlightedTexture");
+	SETSTROPT(inactiveTexture, "inactiveTexture");
 
 	DiscardDeckOnClick* button = new DiscardDeckOnClick();
 	button->setRegularTexture(regularTexture);
@@ -1251,12 +647,12 @@ kitten::K_Component* getDiscardDeckOnClick(nlohmann::json* p_jsonFile) {
 }
 
 #include "components\clickables\SaveDeckOnClick.h"
-kitten::K_Component* getSaveDeckOnClick(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getSaveDeckOnClick(nlohmann::json& p_json) {
 	std::string regularTexture, highlightedTexture, inactiveTexture;
 
-	SETOPT(regularTexture, "regularTexture");
-	SETOPT(highlightedTexture, "highlightedTexture");
-	SETOPT(inactiveTexture, "inactiveTexture");
+	SETSTROPT(regularTexture, "regularTexture");
+	SETSTROPT(highlightedTexture, "highlightedTexture");
+	SETSTROPT(inactiveTexture, "inactiveTexture");
 
 	SaveDeckOnClick* button = new SaveDeckOnClick();
 	button->setRegularTexture(regularTexture);
@@ -1267,12 +663,12 @@ kitten::K_Component* getSaveDeckOnClick(nlohmann::json* p_jsonFile) {
 }
 
 #include "components\clickables\AddUnitOnClick.h"
-kitten::K_Component* getAddUnitOnClick(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getAddUnitOnClick(nlohmann::json& p_json) {
 	std::string regularTexture, highlightedTexture, inactiveTexture;
 
-	SETOPT(regularTexture, "regularTexture");
-	SETOPT(highlightedTexture, "highlightedTexture");
-	SETOPT(inactiveTexture, "inactiveTexture");
+	SETSTROPT(regularTexture, "regularTexture");
+	SETSTROPT(highlightedTexture, "highlightedTexture");
+	SETSTROPT(inactiveTexture, "inactiveTexture");
 
 	AddUnitOnClick* button = new AddUnitOnClick();
 	button->setRegularTexture(regularTexture);
@@ -1283,12 +679,12 @@ kitten::K_Component* getAddUnitOnClick(nlohmann::json* p_jsonFile) {
 }
 
 #include "components\clickables\DeleteDeckOnClick.h"
-kitten::K_Component* getDeleteDeckOnClick(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getDeleteDeckOnClick(nlohmann::json& p_json) {
 	std::string regularTexture, highlightedTexture, inactiveTexture;
 
-	SETOPT(regularTexture, "regularTexture");
-	SETOPT(highlightedTexture, "highlightedTexture");
-	SETOPT(inactiveTexture, "inactiveTexture");
+	SETSTROPT(regularTexture, "regularTexture");
+	SETSTROPT(highlightedTexture, "highlightedTexture");
+	SETSTROPT(inactiveTexture, "inactiveTexture");
 
 	DeleteDeckOnClick* button = new DeleteDeckOnClick();
 	button->setRegularTexture(regularTexture);
@@ -1298,12 +694,12 @@ kitten::K_Component* getDeleteDeckOnClick(nlohmann::json* p_jsonFile) {
 }
 
 #include "components\clickables\AddNewDeckOnClick.h"
-kitten::K_Component* getAddNewDeckOnClick(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getAddNewDeckOnClick(nlohmann::json& p_json) {
 	std::string regularTexture, highlightedTexture, inactiveTexture;
 
-	SETOPT(regularTexture, "regularTexture");
-	SETOPT(highlightedTexture, "highlightedTexture");
-	SETOPT(inactiveTexture, "inactiveTexture");
+	SETSTROPT(regularTexture, "regularTexture");
+	SETSTROPT(highlightedTexture, "highlightedTexture");
+	SETSTROPT(inactiveTexture, "inactiveTexture");
 
 	AddNewDeckOnClick* button = new AddNewDeckOnClick();
 	button->setRegularTexture(regularTexture);
@@ -1314,13 +710,13 @@ kitten::K_Component* getAddNewDeckOnClick(nlohmann::json* p_jsonFile) {
 }
 
 #include "components\clickables\ChangeUnitOnClick.h"
-kitten::K_Component* getChangeUnitOnClick(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getChangeUnitOnClick(nlohmann::json& p_json) {
 	std::string regularTexture, highlightedTexture, inactiveTexture;
 	bool increments;
 
-	SETOPT(regularTexture, "regularTexture");
-	SETOPT(highlightedTexture, "highlightedTexture");
-	SETOPT(inactiveTexture, "inactiveTexture");
+	SETSTROPT(regularTexture, "regularTexture");
+	SETSTROPT(highlightedTexture, "highlightedTexture");
+	SETSTROPT(inactiveTexture, "inactiveTexture");
 	SETOPTDEF(increments, "increments", true);
 
 	ChangeUnitOnClick* button = new ChangeUnitOnClick(increments);
@@ -1332,19 +728,19 @@ kitten::K_Component* getChangeUnitOnClick(nlohmann::json* p_jsonFile) {
 }
 
 #include "unit/unitComponent/unitAction/ActionSelect.h"
-kitten::K_Component* getActionSelect(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getActionSelect(nlohmann::json& p_json) {
 	std::pair<int, int> offset, offset2;
 
 	if (JSONHAS("action offset"))
 	{
-		int x = p_jsonFile->operator[]("action offset")[0];
-		int y = p_jsonFile->operator[]("action offset")[1];
+		int x = p_json.operator[]("action offset")[0];
+		int y = p_json.operator[]("action offset")[1];
 		offset = std::make_pair(x, y);
 	}
 	if (JSONHAS("cd offset"))
 	{
-		int x = p_jsonFile->operator[]("cd offset")[0];
-		int y = p_jsonFile->operator[]("cd offset")[1];
+		int x = p_json.operator[]("cd offset")[0];
+		int y = p_json.operator[]("cd offset")[1];
 		offset2 = std::make_pair(x, y);
 	}
 
@@ -1354,20 +750,20 @@ kitten::K_Component* getActionSelect(nlohmann::json* p_jsonFile) {
 }
 
 #include "_Project\CombatText.h"
-kitten::K_Component* getCombatText(nlohmann::json* p_jsonFile) {
-	int poolSize = p_jsonFile->operator[]("poolsize");
+kitten::K_Component* getCombatText(nlohmann::json& p_json) {
+	int poolSize = p_json.operator[]("poolsize");
 	return new CombatText(poolSize);
 }
 
 #include "puppy\Text\PivotTextBox.h"
-kitten::K_Component* getPivotTextBox(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getPivotTextBox(nlohmann::json& p_json) {
 	std::string font, message;
 	userinterface::UIElement::pivotType pivot;
 	float width, height;
 	puppy::PivotTextBox* textbox;
 
-	SETOPTDEF(font, "font", "../fonts/common_dejavu.fnt");
-	SETOPTDEF(message, "message", "DEFAULT TEXT");
+	SETSTROPTDEF(font, "font", "../fonts/common_dejavu.fnt");
+	SETSTROPTDEF(message, "message", "DEFAULT TEXT");
 	SETOPTDEF(width, "width", 500);
 	SETOPTDEF(height, "height", 500);
 
@@ -1439,26 +835,26 @@ kitten::K_Component* getPivotTextBox(nlohmann::json* p_jsonFile) {
 }
 
 #include "_Project\DisableAfterTime.h"
-kitten::K_Component* getDisableAfterTime(nlohmann::json* p_jsonFile) {
-	float time = p_jsonFile->operator[]("time");
+kitten::K_Component* getDisableAfterTime(nlohmann::json& p_json) {
+	float time = p_json.operator[]("time");
 	return new DisableAfterTime(time);
 }
 
 #include "UI\MainMenu\MainMenu.h"
-kitten::K_Component* getMainMenu(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getMainMenu(nlohmann::json& p_json) {
 	return new MainMenu();
 }
 
 #include "components/scene change/StartNewDeckSetupWizard.h"
-kitten::K_Component* getStartNewDeckSetupWizard(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getStartNewDeckSetupWizard(nlohmann::json& p_json) {
 	return new StartNewDeckSetupWizard();
 }
 
 #include "components/CustomDataComponent.h"
-kitten::K_Component* getCustomDataComponent(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getCustomDataComponent(nlohmann::json& p_json) {
 	CustomDataComponent* comp = new CustomDataComponent();
 	
-	for (nlohmann::json::iterator attribute = p_jsonFile->begin(); attribute != p_jsonFile->end(); ++attribute)
+	for (nlohmann::json::iterator attribute = p_json.begin(); attribute != p_json.end(); ++attribute)
 	{
 		if(attribute.key() == "name")
 		{ }
@@ -1476,29 +872,29 @@ kitten::K_Component* getCustomDataComponent(nlohmann::json* p_jsonFile) {
 		}
 		else 
 		{
-			comp->m_stringMap[attribute.key()] = *attribute;
+			comp->m_stringMap[attribute.key()] = (*attribute).get<std::string>();
 		}
 	}
 
 	return comp;
 }
 #include "UI\CardContext.h"
-kitten::K_Component* getCardContext(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getCardContext(nlohmann::json& p_json) {
 	return new CardContext();
 }
 
 #include "UI\LandContext.h"
-kitten::K_Component* getLandContext(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getLandContext(nlohmann::json& p_json) {
 	return new LandContext();
 }
 
 #include "UI\ContextMenu.h"
-kitten::K_Component* getContextMenu(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getContextMenu(nlohmann::json& p_json) {
 	return new userinterface::ContextMenu();
 }
 
 #include "UI\ClickableCard.h"
-kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
+kitten::K_Component* getClickableCard(nlohmann::json& p_json)
 {
 	bool isEnabledOnPause;
 	SETOPTDEF(isEnabledOnPause, "enabledOnPause", false);
@@ -1506,7 +902,7 @@ kitten::K_Component* getClickableCard(nlohmann::json* p_jsonFile)
 }
 
 #include "kitten/QuadEdgeRenderable.h"
-kitten::K_Component* getQuadEdgeRenderable(nlohmann::json* p_jsonFile)
+kitten::K_Component* getQuadEdgeRenderable(nlohmann::json& p_json)
 {
 	float side;
 	SETOPTDEF(side, "side_width", 0.025f);
@@ -1514,32 +910,32 @@ kitten::K_Component* getQuadEdgeRenderable(nlohmann::json* p_jsonFile)
 }
 
 #include "components/PromptPopUp.h"
-kitten::K_Component* getPromptPopUp(nlohmann::json* p_jsonFile)
+kitten::K_Component* getPromptPopUp(nlohmann::json& p_json)
 {
 	return new PromptPopUp();
 }
 
 #include "components/clickables/PromptPopUpSuccessOnClick.h"
-kitten::K_Component* getPromptPopUpSuccessOnClick(nlohmann::json* p_jsonFile)
+kitten::K_Component* getPromptPopUpSuccessOnClick(nlohmann::json& p_json)
 {
 	return new PromptPopUpSuccessOnClick();
 }
 
 #include "components/clickables/PromptPopUpDeclineOnClick.h"
-kitten::K_Component* getPromptPopUpDeclineOnClick(nlohmann::json* p_jsonFile)
+kitten::K_Component* getPromptPopUpDeclineOnClick(nlohmann::json& p_json)
 {
 	return new PromptPopUpDeclineOnClick();
 }
 
 #include "board/tile/TileDecoration.h"
-kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
+kitten::K_Component* getTileDecoration(nlohmann::json& p_json)
 {
 	TileDecoration* d = new TileDecoration();
 
 	if (JSONHAS("texture")) {
 		std::vector<std::string> list;
 		//assert(p_jsonfile["components"].is_array());
-		for (nlohmann::json::iterator it = p_jsonFile->operator[]("texture").begin(); it != p_jsonFile->operator[]("texture").end(); ++it) {
+		for (nlohmann::json::iterator it = p_json.operator[]("texture").begin(); it != p_json.operator[]("texture").end(); ++it) {
 			list.push_back(*it);
 		}
 		d->setTextureList(list);
@@ -1547,32 +943,32 @@ kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
 
 	if (JSONHAS("min_scale") && JSONHAS("max_scale"))
 	{
-		float x1 = p_jsonFile->operator[]("min_scale")[0];
-		float y1 = p_jsonFile->operator[]("min_scale")[1];
-		float z1 = p_jsonFile->operator[]("min_scale")[2];
-		float x2 = p_jsonFile->operator[]("max_scale")[0];
-		float y2 = p_jsonFile->operator[]("max_scale")[1];
-		float z2 = p_jsonFile->operator[]("max_scale")[2];
+		float x1 = p_json.operator[]("min_scale")[0];
+		float y1 = p_json.operator[]("min_scale")[1];
+		float z1 = p_json.operator[]("min_scale")[2];
+		float x2 = p_json.operator[]("max_scale")[0];
+		float y2 = p_json.operator[]("max_scale")[1];
+		float z2 = p_json.operator[]("max_scale")[2];
 		d->setScaleRange(glm::vec3(x1, y1, z1), glm::vec3(x2, y2, z2));
 	}
 	if (JSONHAS("min_rotation") && JSONHAS("max_rotation"))
 	{
-		float x1 = p_jsonFile->operator[]("min_rotation")[0];
-		float y1 = p_jsonFile->operator[]("min_rotation")[1];
-		float z1 = p_jsonFile->operator[]("min_rotation")[2];
-		float x2 = p_jsonFile->operator[]("max_rotation")[0];
-		float y2 = p_jsonFile->operator[]("max_rotation")[1];
-		float z2 = p_jsonFile->operator[]("max_rotation")[2];
+		float x1 = p_json.operator[]("min_rotation")[0];
+		float y1 = p_json.operator[]("min_rotation")[1];
+		float z1 = p_json.operator[]("min_rotation")[2];
+		float x2 = p_json.operator[]("max_rotation")[0];
+		float y2 = p_json.operator[]("max_rotation")[1];
+		float z2 = p_json.operator[]("max_rotation")[2];
 		d->setRotationRange(glm::vec3(x1, y1, z1), glm::vec3(x2, y2, z2));
 	}
 	if (JSONHAS("min_trans") && JSONHAS("max_trans"))
 	{
-		float x1 = p_jsonFile->operator[]("min_trans")[0];
-		float y1 = p_jsonFile->operator[]("min_trans")[1];
-		float z1 = p_jsonFile->operator[]("min_trans")[2];
-		float x2 = p_jsonFile->operator[]("max_trans")[0];
-		float y2 = p_jsonFile->operator[]("max_trans")[1];
-		float z2 = p_jsonFile->operator[]("max_trans")[2];
+		float x1 = p_json.operator[]("min_trans")[0];
+		float y1 = p_json.operator[]("min_trans")[1];
+		float z1 = p_json.operator[]("min_trans")[2];
+		float x2 = p_json.operator[]("max_trans")[0];
+		float y2 = p_json.operator[]("max_trans")[1];
+		float z2 = p_json.operator[]("max_trans")[2];
 		d->setTransRange(glm::vec3(x1, y1, z1), glm::vec3(x2, y2, z2));
 	}
 
@@ -1580,11 +976,11 @@ kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
 }
 
 #include "kitten/SimpleQuadRenderable.h"
-kitten::K_Component* getSimpleQuadRenderable(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getSimpleQuadRenderable(nlohmann::json& p_json) {
 	std::string texturefilename;
 	bool isStatic, upRight;
 
-	SETOPTDEF(texturefilename, "texture", "");
+	SETSTROPTDEF(texturefilename, "texture", "");
 	SETOPTDEF(isStatic, "static", false);
 	SETOPTDEF(upRight, "upright", false);
 
@@ -1592,27 +988,27 @@ kitten::K_Component* getSimpleQuadRenderable(nlohmann::json* p_jsonFile) {
 }
 
 #include "UI\CardArt.h"
-kitten::K_Component* getCardArt(nlohmann::json* p_jsonFile)
+kitten::K_Component* getCardArt(nlohmann::json& p_json)
 {
 	std::string texture;
-	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
+	SETSTROPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
 
 	return new userinterface::CardArt(texture);
 }
 
 #include "_Project\ShowLoadingOnClick.h"
-kitten::K_Component* getShowLoadingOnClick(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getShowLoadingOnClick(nlohmann::json& p_json) {
 	return new ShowLoadingOnClick();
 }
 
 #include "_Project\ProjectileManager.h"
-kitten::K_Component* getProjectileManager(nlohmann::json* p_jsonFile) {
-	std::string list = p_jsonFile->operator[]("list");
+kitten::K_Component* getProjectileManager(nlohmann::json& p_json) {
+	std::string list = p_json.operator[]("list");
 	return new ProjectileManager(list);
 }
 
 #include "kitten\lights\K_DirectionalLight.h"
-kitten::K_Component* getDirectionalLight(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getDirectionalLight(nlohmann::json& p_json) {
 
 	bool useCallbacks;
 	glm::vec3 ambientColor(0.3,0.3,0.3);
@@ -1634,7 +1030,7 @@ kitten::K_Component* getDirectionalLight(nlohmann::json* p_jsonFile) {
 }
 
 #include "kitten\lights\K_PointLight.h"
-kitten::K_Component* getPointLight(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getPointLight(nlohmann::json& p_json) {
 
 	bool useCallbacks;
 	glm::vec3 ambientColor(0.3,0.3,0.3);
@@ -1664,10 +1060,10 @@ kitten::K_Component* getPointLight(nlohmann::json* p_jsonFile) {
 }
 
 #include "unitInteraction/CounterGetterButton.h"
-kitten::K_Component* getCounterGetterButton(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getCounterGetterButton(nlohmann::json& p_json) {
 	std::string behavior;
 	CounterGetterButton::ButtonBehavior b;
-	SETOPT(behavior, "behavior");
+	SETSTROPT(behavior, "behavior");
 	
 	if (behavior == "plus")
 		b = CounterGetterButton::plus;
@@ -1682,17 +1078,17 @@ kitten::K_Component* getCounterGetterButton(nlohmann::json* p_jsonFile) {
 }
 
 #include "unitInteraction/CounterGetterController.h"
-kitten::K_Component* getCounterGetterController(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getCounterGetterController(nlohmann::json& p_json) {
 	return new CounterGetterController();
 }
 
 #include "components/clickables/HoverOverCardBehavior.h"
-kitten::K_Component* getHoverOverCardBehavior(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getHoverOverCardBehavior(nlohmann::json& p_json) {
 	return new HoverOverCardBehavior();
 }
 
 #include "components/DeckCountTextureBind.h"
-kitten::K_Component* getDeckCountTextureBind(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getDeckCountTextureBind(nlohmann::json& p_json) {
 	DeckCountTextureBind* cop = new DeckCountTextureBind();
 
 	if (JSONHAS("pairs"))
@@ -1707,14 +1103,14 @@ kitten::K_Component* getDeckCountTextureBind(nlohmann::json* p_jsonFile) {
 }
 
 #include "unit/InitiativeTracker/NewTurnMessageController.h"
-kitten::K_Component* getNewTurnMessageController(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getNewTurnMessageController(nlohmann::json& p_json) {
 	float time;
 	SETOPTDEF(time, "time", 1.5f);
 	return new unit::NewTurnMessageController(time);
 }
 
 #include "unit/unitComponent/TimerSymbol.h"
-kitten::K_Component* getTimerSymbol(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getTimerSymbol(nlohmann::json& p_json) {
 	unit::TimerSymbol* symbol = new unit::TimerSymbol();
 
 	if (JSONHAS("textures"))
@@ -1729,21 +1125,21 @@ kitten::K_Component* getTimerSymbol(nlohmann::json* p_jsonFile) {
 }
 
 #include "_Project\ProjectileParticleSystemHelper.h"
-kitten::K_Component* getProjectileParticleSystemHelper(nlohmann::json* p_jsonFile) {
-	std::string effectName = p_jsonFile->operator[]("effect");
+kitten::K_Component* getProjectileParticleSystemHelper(nlohmann::json& p_json) {
+	std::string effectName = p_json.operator[]("effect");
 	return new ProjectileParticleSystemHelper(effectName);
 }
 
 #include "networking/TextChat.h"
-kitten::K_Component* getTextChat(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getTextChat(nlohmann::json& p_json) {
 	return new TextChat();
 }
 
 #include "networking/ReadyCheck.h"
-kitten::K_Component* getReadyCheck(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getReadyCheck(nlohmann::json& p_json) {
 	//
 	std::string texture;
-	SETOPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
+	SETSTROPTDEF(texture, "texture", "textures/ui/blankFrame.tga");
 
 	userinterface::UIElement::pivotType type = userinterface::UIElement::piv_BotLeft;
 	if (JSONHAS("pivot")) {
@@ -1798,12 +1194,12 @@ kitten::K_Component* getReadyCheck(nlohmann::json* p_jsonFile) {
 }
 
 #include "_Project\UniversalSounds.h"
-kitten::K_Component* getUniversalSounds(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getUniversalSounds(nlohmann::json& p_json) {
 
 	std::list<std::pair<std::string, std::string>> sounds;
 
-	auto end = p_jsonFile->operator[]("sounds").cend();
-	for (auto it = p_jsonFile->operator[]("sounds").cbegin(); it != end; ++it)
+	auto end = p_json.operator[]("sounds").cend();
+	for (auto it = p_json.operator[]("sounds").cbegin(); it != end; ++it)
 	{
 		std::string soundName = (*it)["sound"][0];
 		std::string soundPath = (*it)["sound"][1];
@@ -1815,14 +1211,14 @@ kitten::K_Component* getUniversalSounds(nlohmann::json* p_jsonFile) {
 }
 
 #include "_Project\PlaySoundOnUIClick.h"
-kitten::K_Component* getPlaySoundOnUIClick(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getPlaySoundOnUIClick(nlohmann::json& p_json) {
 	return new PlaySoundOnUIClick();
 }
 
 #include "_Project\FadePointLightOverTime.h"
-kitten::K_Component* getFadePointLightOverTime(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getFadePointLightOverTime(nlohmann::json& p_json) {
 	
-	float timeToFade = p_jsonFile->operator[]("time");
+	float timeToFade = p_json.operator[]("time");
 
 	glm::vec3 endingAttenuation;
 
@@ -1832,24 +1228,24 @@ kitten::K_Component* getFadePointLightOverTime(nlohmann::json* p_jsonFile) {
 }
 
 #include "_Project\PlayUniversalSoundOnUIClick.h"
-kitten::K_Component* getPlayUniversalSoundOnUIClick(nlohmann::json* p_jsonFile) {
-	std::string soundName = p_jsonFile->operator[]("sound_name");
+kitten::K_Component* getPlayUniversalSoundOnUIClick(nlohmann::json& p_json) {
+	std::string soundName = p_json.operator[]("sound_name");
 
 	return new PlayUniversalSoundOnUIClick(soundName);
 }
 
 #include "_Project\RefreshParticleSystemOnKeyPress.h"
-kitten::K_Component* getRefreshParticleSystemOnKeyPress(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getRefreshParticleSystemOnKeyPress(nlohmann::json& p_json) {
 	
 	char key;
-	std::string keyStr = p_jsonFile->operator[]("key");
+	std::string keyStr = p_json.operator[]("key");
 	key = keyStr[0];
 
 	return new RefreshParticleSystemOnKeyPress(key);
 }
 
 #include "_Project\PlayParticleSystemAtMouseClick.h"
-kitten::K_Component* getPlayParticleSystemAtMouseClick(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getPlayParticleSystemAtMouseClick(nlohmann::json& p_json) {
 	
 	glm::vec3 offset;
 
@@ -1862,187 +1258,201 @@ kitten::K_Component* getPlayParticleSystemAtMouseClick(nlohmann::json* p_jsonFil
 }
 
 #include "_Project\ReloadObjectOnKeyPress.h"
-kitten::K_Component* getReloadObjectOnKeyPress(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getReloadObjectOnKeyPress(nlohmann::json& p_json) {
 	char key;
-	std::string keyStr = p_jsonFile->operator[]("key");
+	std::string keyStr = p_json.operator[]("key");
 	key = keyStr[0];
 
-	std::string jsonPath = p_jsonFile->operator[]("this_json_path");
+	std::string jsonPath = p_json.operator[]("this_json_path");
 
 	return new ReloadObjectOnKeyPress(key, jsonPath);
 }
 
 #include "_Project\PlayParticleSystemOnEnable.h"
-kitten::K_Component* getPlayParticleSystemOnEnable(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getPlayParticleSystemOnEnable(nlohmann::json& p_json) {
 	return new PlayParticleSystemOnEnable();
 }
 
 #include "_Project\HaltParticleSystemAfterTime.h"
-kitten::K_Component* getHaltParticleSystemAfterTime(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getHaltParticleSystemAfterTime(nlohmann::json& p_json) {
 	
-	float time = p_jsonFile->operator[]("time");
-	bool isStopping = p_jsonFile->operator[]("stop");
+	float time = p_json.operator[]("time");
+	bool isStopping = p_json.operator[]("stop");
 
 	return new HaltParticleSystemAfterTime(time, isStopping);
 }
 
 #include "UI/TurnCounterController.h"
-kitten::K_Component* getTurnCounterController(nlohmann::json* p_jsonFile) {
+kitten::K_Component* getTurnCounterController(nlohmann::json& p_json) {
 	return new TurnCounterController();
 }
 
-std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
-void setupComponentMap() {
-	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
-	jsonComponentMap["ZoomByMouseWheel"] = &getZoomByMouseWheel;
-	jsonComponentMap["Camera"] = &getCamera;
-	jsonComponentMap["QuadRenderable"] = &getQuadRenderable;
-	jsonComponentMap["QuadRenderableRepeat"] = &getQuadRenderableRepeat;
-	jsonComponentMap["CubeRenderable"] = &getCubeRenderable;
-	jsonComponentMap["GrassLandInfo"] = &getGrassLandInfo;
-	jsonComponentMap["DebugPrintOnce"] = &getDebugPrintOnce;
-	jsonComponentMap["PrintWhenClicked"] = &getPrintWhenClicked;
-	jsonComponentMap["DestroyOnClick"] = &getDestroyOnClick;
-	jsonComponentMap["DiscardCardOnClick"] = &getDiscardCardOnClick;
-	jsonComponentMap["ClickableBox"] = &getClickableBox;
-	jsonComponentMap["AudioSource"] = &getAudioSource;
-	jsonComponentMap["AudioListener"] = &getAudioListener;
-	jsonComponentMap["PlaySoundOnKeyPress"] = &getPlaySoundOnKeyPress;
-	jsonComponentMap["PlaySoundOnStart"] = &getPlaySoundOnStart;
-	jsonComponentMap["ToggleSoundOnKeyPress"] = &getToggleSoundOnStart;
-	jsonComponentMap["VolumeAdjustOnKeysPressed"] = &getVolumeAdjustOnKeysPressed;
-	jsonComponentMap["UIFrame"] = &getUIFrame;
-	jsonComponentMap["UnitMove"] = &getUnitMove;
-	jsonComponentMap["ManipulateTileOnClick"] = &getManipulateTileOnClick;
-	jsonComponentMap["UseAbilityWhenClicked"] = &getUseAbilityWhenClicked;
-	jsonComponentMap["SendSelfOnClick"] = &getSendSelfOnClick;
-	jsonComponentMap["FPSCalc"] = &getFPSCalc;
-	jsonComponentMap["TrackerBlock"] = &getTrackerBlock;
-	jsonComponentMap["TrackerBlockClickable"] = &getTrackerBlockClickable;
-	jsonComponentMap["PointerUI"] = &getPointerUI;
-	jsonComponentMap["UnitGraphic"] = &getUnitGraphic;
-	jsonComponentMap["TextBox"] = &getTextBox;
-	jsonComponentMap["ToggleEnabledOnKeyPress"] = &getToggleEnabledOnKeyPress;
-	jsonComponentMap["TileInfoDisplayOnKeyPress"] = &getTileInfoDisplayOnKeyPress;
-	jsonComponentMap["BoardCreator"] = &getBoardCreator;
-	jsonComponentMap["ToggleStringInputOnKeyPress"] = &getToggleStringInputOnKeyPress;
-	jsonComponentMap["StringInputDisplay"] = &getStringInputDisplay;
-	jsonComponentMap["RenameDeckComponent"] = &getRenameDeckComponent;
-	jsonComponentMap["SelectAbility"] = &getSelectAbility;
-	jsonComponentMap["PowerTracker"] = &getPowerTracker;
-	jsonComponentMap["Highlighter"] = &getHighlighter;
-	jsonComponentMap["HandFrame"] = &getHandFrame;
-	jsonComponentMap["CardUIO"] = &getCardUIO;
-	jsonComponentMap["ClickableFrame"] = &getClickableFrame;
-	jsonComponentMap["ClickableUI"] = &getClickableUI;
-	jsonComponentMap["TileInfo"] = &getTileInfo;
-	jsonComponentMap["SpawnUnitOnKeyPress"] = &getSpawnUnitOnKeyPress;
-	jsonComponentMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
-	jsonComponentMap["ConnectToHost"] = &getConnectToHost;
-	jsonComponentMap["ChangeSceneOnClick"] = &getChangeSceneOnClick;
-	jsonComponentMap["SetupDeckEditOnSceneChange"] = &getSetupDeckEditOnSceneChange;
-	jsonComponentMap["UniversalPfx"] = &getUniversalPfx;
-	jsonComponentMap["K_ParticleSystem"] = &getKParticleSystem;
-	jsonComponentMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;
-	jsonComponentMap["SpriteAnimator"] = &getSpriteAnimator;
-	jsonComponentMap["SpriteRenderable"] = &getSpriteRenderable;
-	jsonComponentMap["DisplayFrameSetChangeOnClick"] = &getDisplayFrameSetChangeOnClick;
-	jsonComponentMap["DisplayFramePickerOnClick"] = &getDisplayFramePickerOnClick;
-	jsonComponentMap["DecksDisplayFrame"] = &getDecksDisplayFrame;
-	jsonComponentMap["DeckUnitsDisplayFrame"] = &getDeckUnitsDisplayFrame;
-	jsonComponentMap["CommanderDisplayFrame"] = &getCommanderDisplayFrame;
-	jsonComponentMap["PlayParticleSystemOnEnable"] = &getPlayParticleSystemOnEnable;
-	jsonComponentMap["UnitDisplayFrame"] = &getUnitDisplayFrame;
-	jsonComponentMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
-	jsonComponentMap["DeckInitializingComponent"] = &getDeckInitializingComponent;
-	jsonComponentMap["DeckAlterationComponent"] = &getDeckAlterationComponent;
-	jsonComponentMap["StartGameOnClick"] = &getStartGameOnClick;
-	jsonComponentMap["DeckComponent"] = &getDeckComponent;
-	jsonComponentMap["GameplayInit"] = &getGameplayInit;
-	jsonComponentMap["UniversalSounds"] = &getUniversalSounds;
-	jsonComponentMap["NetworkJoinButton"] = &getNetworkJoinButton;
-	jsonComponentMap["NetworkHostButton"] = &getNetworkHostButton;	
-	jsonComponentMap["NetworkConnectButton"] = &getNetworkConnectButton;
-	jsonComponentMap["TriggerEventButton"] = &getTriggerEventButton;
-	jsonComponentMap["TabMenu"] = &getTabMenu;
-	jsonComponentMap["UIObject"] = &getUIObject;
-	jsonComponentMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
-	jsonComponentMap["UnitAura"] = &getUnitAura;
-	jsonComponentMap["UnitSelect"] = &getUnitSelect;
-	jsonComponentMap["SpriteGroup"] = &getSpriteGroup;
-	jsonComponentMap["ClickableButton"] = &getClickableButton;
-	jsonComponentMap["MainMenuBoard"] = &getMainMenuBoard;
-	jsonComponentMap["CustomCursor"] = &getCustomCursor;
-	jsonComponentMap["UIElement"] = &getUIElement;
-	jsonComponentMap["ModelRenderable"] = &getModelRenderable;
-	jsonComponentMap["UnitHealthBar"] = &getUnitHealthBar;
-	jsonComponentMap["CameraMoveByEvent"] = &getCameraMoveByEvent;
-	jsonComponentMap["LerpController"] = &getLerpController;
-	jsonComponentMap["PlaySoundOnUIClick"] = &getPlaySoundOnUIClick;
-	jsonComponentMap["PlayUniversalSoundOnUIClick"] = &getPlayUniversalSoundOnUIClick;
-	jsonComponentMap["ExitGameButton"] = &getExitGameButton;
-	jsonComponentMap["SetCommanderOnClick"] = &getSetCommanderOnClick;
-	jsonComponentMap["SaveDeckOnClick"] = &getSaveDeckOnClick;
-	jsonComponentMap["DiscardDeckOnClick"] = &getDiscardDeckOnClick;
-	jsonComponentMap["AddUnitOnClick"] = &getAddUnitOnClick;
-	jsonComponentMap["ChangeUnitOnClick"] = &getChangeUnitOnClick;
-	jsonComponentMap["DeleteDeckOnClick"] = &getDeleteDeckOnClick;
-	jsonComponentMap["AddNewDeckOnClick"] = &getAddNewDeckOnClick;
-	jsonComponentMap["CommanderContext"] = &getCommanderContext;
-	jsonComponentMap["ActionSelect"] = &getActionSelect;
-	jsonComponentMap["DragNDrop"] = &getDragNDrop;
-	jsonComponentMap["SpawnUnitOnDrop"] = &getSpawnUnitOnDrop;
-	jsonComponentMap["CombatText"] = &getCombatText;
-	jsonComponentMap["CustomDataComponent"] = &getCustomDataComponent;
-	jsonComponentMap["DisableAfterTime"] = &getDisableAfterTime;
-	jsonComponentMap["MainMenu"] = &getMainMenu;
-	jsonComponentMap["StartNewDeckSetupWizard"] = &getStartNewDeckSetupWizard;
-	jsonComponentMap["ClickableCard"] = &getClickableCard;
-	jsonComponentMap["CardContext"] = &getCardContext;
-	jsonComponentMap["LandContext"] = &getLandContext;
-	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
-	jsonComponentMap["DrawCardsFromDeckWithDelay"] = &getDrawCardsFromDeckWithDelay;
-	jsonComponentMap["DeckDiscardedCardHandler"] = &getDeckDiscardedCardHandler;
-	jsonComponentMap["QuadEdgeRenderable"] = &getQuadEdgeRenderable;
-	jsonComponentMap["TileDecoration"] = &getTileDecoration;
-	jsonComponentMap["SimpleQuadRenderable"] = &getSimpleQuadRenderable;
-	jsonComponentMap["ShowLoadingOnClick"] = &getShowLoadingOnClick;
-	jsonComponentMap["DirectionalLight"] = &getDirectionalLight;
-	jsonComponentMap["PointLight"] = &getPointLight;
-	jsonComponentMap["PivotTextBox"] = &getPivotTextBox;
-	jsonComponentMap["CardArt"] = &getCardArt;
-	jsonComponentMap["CounterGetterController"] = &getCounterGetterController;
-	jsonComponentMap["HoverOverCardBehavior"] = &getHoverOverCardBehavior;
-	jsonComponentMap["CounterGetterButton"] = &getCounterGetterButton;
-	jsonComponentMap["ContextMenu"] = &getContextMenu;
-	jsonComponentMap["NewTurnMessageController"] = &getNewTurnMessageController;
-	jsonComponentMap["PromptPopUp"] = &getPromptPopUp;
-	jsonComponentMap["PromptPopUpSuccessOnClick"] = &getPromptPopUpSuccessOnClick;
-	jsonComponentMap["PromptPopUpDeclineOnClick"] = &getPromptPopUpDeclineOnClick;
-	jsonComponentMap["TimerSymbol"] = &getTimerSymbol;
-	jsonComponentMap["ProjectileManager"] = &getProjectileManager;
-	jsonComponentMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
-	jsonComponentMap["FadePointLightOverTime"] = &getFadePointLightOverTime;
-	jsonComponentMap["DeckCountTextureBind"] = &getDeckCountTextureBind;
-	jsonComponentMap["TextChat"] = &getTextChat;
-	jsonComponentMap["ReadyCheck"] = &getReadyCheck;
-	jsonComponentMap["RefreshParticleSystemOnKeyPress"] = &getRefreshParticleSystemOnKeyPress;
-	jsonComponentMap["PlayParticleSystemAtMouseClick"] = &getPlayParticleSystemAtMouseClick;
-	jsonComponentMap["ReloadObjectOnKeyPress"] = &getReloadObjectOnKeyPress;
-	jsonComponentMap["LoadSceneOnStart"] = &getLoadSceneOnStart;
-	jsonComponentMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
-	jsonComponentMap["BorderPiece"] = &getBorderPiece;
-	jsonComponentMap["TurnCounterController"] = &getTurnCounterController;
+std::map<std::string, kitten::K_Component* (*)(nlohmann::json& p_jsonFile)> jsonMap;
+template<typename T> kitten::K_Component* getComponent(nlohmann::json& p_jsonFile) {
+	return new T(p_jsonFile);
 }
 
-kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {
-	std::string key = p_jsonFile->operator[]("name");
-	if (jsonComponentMap.find(key) != jsonComponentMap.end()) {
-		kitten::K_Component* component = jsonComponentMap[key](p_jsonFile);
-		if (JSONHAS("enabled")) {
-			component->setEnabled((int)LOOKUP("enabled"));
-		}
-		return component;
+#define ADDTOMAP(componentClass) jsonMap[#componentClass] = &getComponent<componentClass>
+#define ADDTOMAPCUSTOM(str,componentClass) jsonMap[str] = &getComponent<componentClass>
+void setupComponentMap() {
+	ADDTOMAP(MoveByMouseRightClickDrag);
+	ADDTOMAP(ZoomByMouseWheel);
+	ADDTOMAP(DebugPrintOnce);
+	ADDTOMAP(PrintWhenClicked);
+	ADDTOMAP(DestroyOnClick);
+	ADDTOMAP(DiscardCardOnClick);
+	ADDTOMAP(PlaySoundOnKeyPress);
+	ADDTOMAP(PlaySoundOnStart);
+	ADDTOMAP(ToggleSoundOnKeyPress);
+	ADDTOMAP(BoardCreator);
+	ADDTOMAP(VolumeAdjustOnKeysPressed);
+	ADDTOMAP(LoadSceneOnStart);
+	ADDTOMAP(ManipulateTileOnClick);
+	ADDTOMAP(UseAbilityWhenClicked);
+	ADDTOMAP(SendSelfOnClick);
+	ADDTOMAP(FPSCalc);
+	ADDTOMAP(ToggleEnabledOnKeyPress);
+	ADDTOMAP(TileInfoDisplayOnKeyPress);
+	ADDTOMAP(ToggleStringInputOnKeyPress);
+	ADDTOMAP(StringInputDisplay);
+	ADDTOMAP(RenameDeckComponent);
+	ADDTOMAP(SelectAbility);
+	ADDTOMAP(PowerTracker);
+	ADDTOMAP(Highlighter);
+
+	using namespace kitten;
+	ADDTOMAP(Camera);
+	ADDTOMAP(CubeRenderable);
+	ADDTOMAP(QuadRenderable);
+	ADDTOMAP(QuadRenderableRepeat);
+	ADDTOMAP(ClickableBox);
+	ADDTOMAP(AudioSource);
+	ADDTOMAP(AudioListener);
+
+	using namespace userinterface;
+	ADDTOMAP(UIElement);
+	ADDTOMAP(UIFrame);
+	ADDTOMAP(PointerUI);
+
+	using namespace unit;
+	ADDTOMAP(UnitMove);
+	ADDTOMAP(UIFrame);
+	ADDTOMAP(TrackerBlock);
+	ADDTOMAP(TrackerBlockClickable);
+	ADDTOMAP(UnitGraphic);
+
+	using namespace puppy;
+	ADDTOMAP(TextBox);
+
+	using namespace gameworld;
+	ADDTOMAPCUSTOM("GrassLandInfo", GrasslandInfoComponent);
+
+	jsonMap["HandFrame"] = &getHandFrame;
+	jsonMap["CardUIO"] = &getCardUIO;
+	jsonMap["ClickableFrame"] = &getClickableFrame;
+	jsonMap["ClickableUI"] = &getClickableUI;
+	jsonMap["TileInfo"] = &getTileInfo;
+	jsonMap["SpawnUnitOnKeyPress"] = &getSpawnUnitOnKeyPress;
+	jsonMap["NetworkingConsoleMenu"] = &getNetworkingConsoleMenu;
+	jsonMap["ConnectToHost"] = &getConnectToHost;
+	jsonMap["ChangeSceneOnClick"] = &getChangeSceneOnClick;
+	jsonMap["SetupDeckEditOnSceneChange"] = &getSetupDeckEditOnSceneChange;
+	jsonMap["UniversalPfx"] = &getUniversalPfx;
+	jsonMap["K_ParticleSystem"] = &getKParticleSystem;
+	jsonMap["ToggleParticleSystemOnKeyPress"] = &getToggleParticleSystemOnKeyPress;
+	jsonMap["SpriteAnimator"] = &getSpriteAnimator;
+	jsonMap["SpriteRenderable"] = &getSpriteRenderable;
+	jsonMap["DisplayFrameSetChangeOnClick"] = &getDisplayFrameSetChangeOnClick;
+	jsonMap["DisplayFramePickerOnClick"] = &getDisplayFramePickerOnClick;
+	jsonMap["DecksDisplayFrame"] = &getDecksDisplayFrame;
+	jsonMap["DeckUnitsDisplayFrame"] = &getDeckUnitsDisplayFrame;
+	jsonMap["CommanderDisplayFrame"] = &getCommanderDisplayFrame;
+	jsonMap["PlayParticleSystemOnEnable"] = &getPlayParticleSystemOnEnable;
+	jsonMap["UnitDisplayFrame"] = &getUnitDisplayFrame;
+	jsonMap["ClickableBoxRenderable"] = &getClickableBoxRenderable;
+	jsonMap["DeckInitializingComponent"] = &getDeckInitializingComponent;
+	jsonMap["DeckAlterationComponent"] = &getDeckAlterationComponent;
+	jsonMap["StartGameOnClick"] = &getStartGameOnClick;
+	jsonMap["DeckComponent"] = &getDeckComponent;
+	jsonMap["GameplayInit"] = &getGameplayInit;
+	jsonMap["UniversalSounds"] = &getUniversalSounds;
+	jsonMap["NetworkJoinButton"] = &getNetworkJoinButton;
+	jsonMap["NetworkHostButton"] = &getNetworkHostButton;	
+	jsonMap["NetworkConnectButton"] = &getNetworkConnectButton;
+	jsonMap["TriggerEventButton"] = &getTriggerEventButton;
+	jsonMap["TabMenu"] = &getTabMenu;
+	jsonMap["UIObject"] = &getUIObject;
+	jsonMap["ReturnToMainMenuButton"] = &getReturnToMainMenuButton;
+	jsonMap["UnitAura"] = &getUnitAura;
+	jsonMap["UnitSelect"] = &getUnitSelect;
+	jsonMap["SpriteGroup"] = &getSpriteGroup;
+	jsonMap["ClickableButton"] = &getClickableButton;
+	jsonMap["MainMenuBoard"] = &getMainMenuBoard;
+	jsonMap["CustomCursor"] = &getCustomCursor;
+	jsonMap["ModelRenderable"] = &getModelRenderable;
+	jsonMap["UnitHealthBar"] = &getUnitHealthBar;
+	jsonMap["CameraMoveByEvent"] = &getCameraMoveByEvent;
+	jsonMap["LerpController"] = &getLerpController;
+	jsonMap["PlaySoundOnUIClick"] = &getPlaySoundOnUIClick;
+	jsonMap["PlayUniversalSoundOnUIClick"] = &getPlayUniversalSoundOnUIClick;
+	jsonMap["ExitGameButton"] = &getExitGameButton;
+	jsonMap["SetCommanderOnClick"] = &getSetCommanderOnClick;
+	jsonMap["SaveDeckOnClick"] = &getSaveDeckOnClick;
+	jsonMap["DiscardDeckOnClick"] = &getDiscardDeckOnClick;
+	jsonMap["AddUnitOnClick"] = &getAddUnitOnClick;
+	jsonMap["ChangeUnitOnClick"] = &getChangeUnitOnClick;
+	jsonMap["DeleteDeckOnClick"] = &getDeleteDeckOnClick;
+	jsonMap["AddNewDeckOnClick"] = &getAddNewDeckOnClick;
+	jsonMap["CommanderContext"] = &getCommanderContext;
+	jsonMap["ActionSelect"] = &getActionSelect;
+	jsonMap["DragNDrop"] = &getDragNDrop;
+	jsonMap["SpawnUnitOnDrop"] = &getSpawnUnitOnDrop;
+	jsonMap["CombatText"] = &getCombatText;
+	jsonMap["CustomDataComponent"] = &getCustomDataComponent;
+	jsonMap["DisableAfterTime"] = &getDisableAfterTime;
+	jsonMap["MainMenu"] = &getMainMenu;
+	jsonMap["StartNewDeckSetupWizard"] = &getStartNewDeckSetupWizard;
+	jsonMap["ClickableCard"] = &getClickableCard;
+	jsonMap["CardContext"] = &getCardContext;
+	jsonMap["LandContext"] = &getLandContext;
+	jsonMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
+	jsonMap["DrawCardsFromDeckWithDelay"] = &getDrawCardsFromDeckWithDelay;
+	jsonMap["DeckDiscardedCardHandler"] = &getDeckDiscardedCardHandler;
+	jsonMap["QuadEdgeRenderable"] = &getQuadEdgeRenderable;
+	jsonMap["TileDecoration"] = &getTileDecoration;
+	jsonMap["SimpleQuadRenderable"] = &getSimpleQuadRenderable;
+	jsonMap["ShowLoadingOnClick"] = &getShowLoadingOnClick;
+	jsonMap["DirectionalLight"] = &getDirectionalLight;
+	jsonMap["PointLight"] = &getPointLight;
+	jsonMap["PivotTextBox"] = &getPivotTextBox;
+	jsonMap["CardArt"] = &getCardArt;
+	jsonMap["CounterGetterController"] = &getCounterGetterController;
+	jsonMap["HoverOverCardBehavior"] = &getHoverOverCardBehavior;
+	jsonMap["CounterGetterButton"] = &getCounterGetterButton;
+	jsonMap["ContextMenu"] = &getContextMenu;
+	jsonMap["NewTurnMessageController"] = &getNewTurnMessageController;
+	jsonMap["PromptPopUp"] = &getPromptPopUp;
+	jsonMap["PromptPopUpSuccessOnClick"] = &getPromptPopUpSuccessOnClick;
+	jsonMap["PromptPopUpDeclineOnClick"] = &getPromptPopUpDeclineOnClick;
+	jsonMap["TimerSymbol"] = &getTimerSymbol;
+	jsonMap["ProjectileManager"] = &getProjectileManager;
+	jsonMap["ProjectileParticleSystemHelper"] = &getProjectileParticleSystemHelper;
+	jsonMap["FadePointLightOverTime"] = &getFadePointLightOverTime;
+	jsonMap["DeckCountTextureBind"] = &getDeckCountTextureBind;
+	jsonMap["TextChat"] = &getTextChat;
+	jsonMap["ReadyCheck"] = &getReadyCheck;
+	jsonMap["RefreshParticleSystemOnKeyPress"] = &getRefreshParticleSystemOnKeyPress;
+	jsonMap["PlayParticleSystemAtMouseClick"] = &getPlayParticleSystemAtMouseClick;
+	jsonMap["ReloadObjectOnKeyPress"] = &getReloadObjectOnKeyPress;
+	jsonMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
+	jsonMap["BorderPiece"] = &getBorderPiece;
+	jsonMap["TurnCounterController"] = &getTurnCounterController;
+}
+
+kitten::K_Component* getRelatedComponentBy(nlohmann::json& p_json) {
+	std::string key = LOOKUPSTR("name");
+	if (jsonMap.find(key) != jsonMap.end()) {
+		return jsonMap[key](p_json);
 	}
 	return nullptr;
 }

@@ -6,6 +6,18 @@
 #include "util\MathUtil.h"
 #include <iostream>
 
+MoveByMouseRightClickDrag::MoveByMouseRightClickDrag(nlohmann::json & p_json) : kitten::K_Component(p_json)
+{
+	SETOPTDEF(m_speed, "speed", 0.005f);
+	if (JSONHAS("minClamp")) {
+		m_minClamp = glm::vec2(LOOKUP("minClamp")[0], LOOKUP("minClamp")[1]);
+	}
+
+	if (JSONHAS("maxClamp")) {
+		m_maxClamp = glm::vec2(LOOKUP("maxClamp")[0], LOOKUP("maxClamp")[1]);
+	}
+}
+
 MoveByMouseRightClickDrag::MoveByMouseRightClickDrag(float p_speed, const glm::vec2& p_minClamp, const glm::vec2& p_maxClamp) : m_speed(p_speed),
 	m_minClamp(p_minClamp), m_maxClamp(p_maxClamp)
 {

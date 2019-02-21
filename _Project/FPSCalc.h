@@ -12,6 +12,7 @@ private:
 	puppy::TextBox* m_textBox;
 public:
 	FPSCalc();
+	FPSCalc(nlohmann::json& p_json);
 	~FPSCalc();
 
 	void start() override;

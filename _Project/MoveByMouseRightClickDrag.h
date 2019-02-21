@@ -7,7 +7,7 @@ private:
 	float m_speed;
 	glm::vec2 m_minClamp, m_maxClamp;
 public:
-	
+	MoveByMouseRightClickDrag(nlohmann::json& p_json);
 	MoveByMouseRightClickDrag(float p_speed, const glm::vec2& p_minClamp, const glm::vec2& p_maxClamp);
 	virtual ~MoveByMouseRightClickDrag();
 

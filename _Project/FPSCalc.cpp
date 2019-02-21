@@ -8,6 +8,10 @@ FPSCalc::FPSCalc()
 
 }
 
+FPSCalc::FPSCalc(nlohmann::json & p_json) : kitten::K_Component(p_json)
+{
+}
+
 FPSCalc::~FPSCalc()
 {
 

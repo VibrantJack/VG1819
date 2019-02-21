@@ -32,6 +32,13 @@ BoardCreator::BoardCreator() :m_x(15), m_z(15)
 
 }
 
+BoardCreator::BoardCreator(nlohmann::json & p_json) : kitten::K_Component(p_json), 
+	m_x(LOOKUPDEF("rows",15)), 
+	m_z(LOOKUPDEF("columns", 15))
+{
+	setTileInfoDisplay(LOOKUPDEF("enableTileInfoDisplay", false));
+}
+
 BoardCreator::~BoardCreator()
 {
 

@@ -8,6 +8,11 @@ namespace unit
 	{
 	}
 
+	TrackerBlockClickable::TrackerBlockClickable(nlohmann::json & p_json) : kitten::ClickableUI(p_json),
+		m_unit(nullptr)
+	{
+	}
+
 	TrackerBlockClickable::~TrackerBlockClickable()
 	{
 	}

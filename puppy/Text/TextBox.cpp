@@ -27,6 +27,45 @@ namespace puppy
 		}
 	}
 
+	TextBox::TextBox(nlohmann::json & p_json) : kitten::K_UIRenderable(p_json)
+	{
+		m_font = puppy::FontTable::getInstance()->getFont(LOOKUPSTRDEF("font", "../fonts/common_dejavu.fnt").c_str());
+		assert(m_font != nullptr);
+		m_text = LOOKUPSTRDEF("message", "DEFAULT TEXT");
+		m_boxWidth = LOOKUPDEF("width", 500);
+		m_boxHeight = LOOKUPDEF("height", 500);
+		m_is3D = LOOKUPDEF( "3D", false);
+
+		m_alignment = puppy::TextBox::Alignment::left;
+		if (JSONHAS("alignment")) {
+			std::string temp = LOOKUP("alignment");
+			if (temp == "left") {
+				m_alignment = puppy::TextBox::Alignment::left;
+			}
+			else if (temp == "right") {
+				m_alignment = puppy::TextBox::Alignment::right;
+			}
+			else if (temp == "center") {
+				m_alignment = puppy::TextBox::Alignment::center;
+			}
+		}
+
+		switch (m_alignment)
+		{
+		case left:
+			constructLeftAlignVertices();
+		case right:
+			constructRightOrCenterAlignVertices(true);
+		case center:
+			constructRightOrCenterAlignVertices(false);
+		}
+		m_color[3] = 0; //alpha addition
+
+		if (JSONHAS("color")) {
+			setColor(LOOKUP("color")[0], LOOKUP("color")[1], LOOKUP("color")[2]);
+		}
+	}
+
 	TextBox::TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, bool p_is3D) :
 		m_alignment(left), m_text(p_text), m_font(p_fontToUse), m_boxHeight(p_boxHeight), m_boxWidth(p_boxWidth), m_is3D(p_is3D)
 	{

@@ -29,6 +29,7 @@ namespace kitten
 		K_RenderNode* m_cachedRenderNode;
 
 	protected:
+		K_UIRenderable(nlohmann::json& p_json);
 		K_UIRenderable();
 		virtual ~K_UIRenderable();
 

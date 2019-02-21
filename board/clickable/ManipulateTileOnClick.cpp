@@ -26,6 +26,10 @@ ManipulateTileOnClick::ManipulateTileOnClick()
 
 }
 
+ManipulateTileOnClick::ManipulateTileOnClick(nlohmann::json & p_json) : kitten::Clickable(p_json)
+{
+}
+
 ManipulateTileOnClick::~ManipulateTileOnClick()
 {
 

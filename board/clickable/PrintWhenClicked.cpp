@@ -3,6 +3,12 @@
 #include "board/tile/TileInfo.h"
 #include "kitten/K_GameObject.h"
 
+PrintWhenClicked::PrintWhenClicked(nlohmann::json & p_json) : kitten::Clickable(p_json)
+{
+	std::string message = LOOKUPDEF("message", "Default Message");
+	m_message = message;
+}
+
 PrintWhenClicked::PrintWhenClicked(const std::string& p_message) :  m_message(p_message)
 {
 

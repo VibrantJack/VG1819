@@ -34,6 +34,32 @@ namespace unit
 		++sm_instances[p_size];
 	}
 
+	UnitGraphic::UnitGraphic(nlohmann::json & p_json): kitten::K_Renderable(p_json)
+	{
+		m_pathToTex = LOOKUPSTRDEF("texture", "textures/unit/Default.tga");
+
+		if (JSONHAS("unitsize")) {
+			std::string temp = LOOKUPSTR("unitsize");
+			if (temp == "point")
+				m_size = unit::point;
+			else if (temp == "cube")
+				m_size = unit::UnitSize::cube;
+		}
+
+		m_mat = new puppy::Material(puppy::ShaderType::basic);
+		m_mat->setTexture(m_pathToTex.c_str());
+
+		//m_mat_shadow = new puppy::Material(puppy::ShaderType::basic);
+
+		//If we have not initialized the vao yet
+		if (sm_instances[m_size] < 1)
+		{
+			setVaoUnit(m_size);
+			//setVaoShadow(p_size);
+		}
+		++sm_instances[m_size];
+	}
+
 	UnitGraphic::~UnitGraphic()
 	{
 		delete m_mat;

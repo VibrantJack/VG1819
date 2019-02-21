@@ -4,6 +4,26 @@
 
 namespace kitten 
 {
+	ClickableBox::ClickableBox(nlohmann::json & p_json) : K_Component(p_json),
+		m_gamePaused(false)
+	{
+		if (JSONHAS("minpoint")) {
+			m_originalMinPoint = glm::vec3(LOOKUP("minpoint")[0], LOOKUP("minpoint")[1], LOOKUP("minpoint")[2]);
+		}
+
+		if (JSONHAS("maxpoint")) {
+			m_originalMaxPoint = glm::vec3(LOOKUP("maxpoint")[0], LOOKUP("maxpoint")[1], LOOKUP("maxpoint")[2]);
+		}
+
+		m_minPoint = m_originalMinPoint;
+		m_maxPoint = m_originalMaxPoint;
+
+		kitten::EventManager::getInstance()->addListener(
+			kitten::Event::EventType::Pause_Menu_Open,
+			this,
+			std::bind(&ClickableBox::toggleGamePausedListener, this, std::placeholders::_1, std::placeholders::_2));
+	}
+
 	ClickableBox::ClickableBox(const glm::vec3& p_minPoint, const glm::vec3& p_maxPoint) : m_originalMinPoint(p_minPoint), m_originalMaxPoint(p_maxPoint), m_gamePaused(false)
 	{
 		

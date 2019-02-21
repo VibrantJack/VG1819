@@ -12,6 +12,7 @@ namespace unit
 	{
 	public:
 		TrackerPointer();
+		TrackerPointer(nlohmann::json& p_json);
 		~TrackerPointer();
 
 		void start() override;

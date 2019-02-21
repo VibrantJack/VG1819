@@ -4,6 +4,7 @@
 class DestroyOnClick : public kitten::Clickable
 {
 public:
+	DestroyOnClick(nlohmann::json& p_json);
 	DestroyOnClick();
 	~DestroyOnClick();
 

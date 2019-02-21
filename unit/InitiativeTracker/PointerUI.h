@@ -13,6 +13,7 @@ namespace userinterface
 	{
 	public:
 		PointerUI();
+		PointerUI(nlohmann::json& p_json);
 		~PointerUI();
 
 		void uiRender(kitten::Camera* p_cam) override;

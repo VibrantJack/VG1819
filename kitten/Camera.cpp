@@ -3,6 +3,19 @@
 
 namespace kitten
 {
+	Camera::Camera(nlohmann::json & p_json) : kitten::K_Component(p_json)
+	{
+		if (K_CameraList::getInstance()->getSceneCamera() == nullptr)
+		{
+			K_CameraList::getInstance()->setSceneCamera(this);
+		}
+		SETOPTDEF(m_fov, "fov", 45.0f);
+		SETOPTDEF(m_nearClip, "near", 0.1f);
+		SETOPTDEF(m_farClip, "far", 1000.0f);
+		SETOPTDEF(m_winWidth, "width", 1280.0f);
+		SETOPTDEF(m_winHeight, "height", 720.0f);
+	}
+
 	Camera::Camera() : m_fov(45.0f), m_nearClip(0.1f), m_farClip(1000.0f), m_winWidth(1280.0f), m_winHeight(720.0f)
 	{
 		if(K_CameraList::getInstance()->getSceneCamera() == nullptr)

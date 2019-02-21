@@ -4,6 +4,12 @@
 
 namespace kitten
 {
+	ClickableUI::ClickableUI(nlohmann::json & p_json): K_Component(p_json), 
+		m_attachedFrame(nullptr),
+		m_enabledOnPause(LOOKUPDEF("enabledOnPause", false))
+	{
+
+	}
 	ClickableUI::ClickableUI(bool p_enabledOnPause) : m_attachedFrame(nullptr), m_enabledOnPause(p_enabledOnPause)
 	{
 		

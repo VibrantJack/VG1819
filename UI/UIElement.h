@@ -34,6 +34,7 @@ namespace userinterface
 			tbh_RepeatMirrored
 		};
 
+		UIElement(nlohmann::json& p_json);
 		UIElement(const char* p_pathToTex, pivotType p_pivot, textureBehaviour p_texBehaviour);
 		
 		virtual ~UIElement();

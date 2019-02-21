@@ -15,7 +15,10 @@ namespace kitten
 		virtual void start() override;
 		virtual void onDisabled() override;
 		virtual void onEnabled() override;
+
+		void init(const char* p_pathToTexture);
 	public:
+		CubeRenderable(nlohmann::json& p_json);
 		CubeRenderable(const char* p_pathToTex = nullptr);
 		virtual ~CubeRenderable();
 

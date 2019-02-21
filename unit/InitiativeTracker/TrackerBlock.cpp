@@ -81,6 +81,26 @@ unit::TrackerBlock::TrackerBlock()
 	m_targetSlotIndex = -1;
 }
 
+unit::TrackerBlock::TrackerBlock(nlohmann::json & p_json) : kitten::K_Component(p_json)
+{
+	//initialize
+	kitten::K_GameObjectManager* goMan = kitten::K_GameObjectManager::getInstance();
+	//frame object
+	m_frameObject = goMan->createNewGameObject("tracker_block.json");
+
+	const std::vector<kitten::Transform*> list = m_frameObject->getTransform().getChildren();
+	m_borderObject = &list.at(0)->getAttachedGameObject();
+
+	m_frameObject->setEnabled(false);
+
+	//component
+	kitten::K_ComponentManager* comMan = kitten::K_ComponentManager::getInstance();
+
+	//slot index
+	m_currentSlotIndex = -1;
+	m_targetSlotIndex = -1;
+}
+
 unit::TrackerBlock::~TrackerBlock()
 {
 	//TO DO

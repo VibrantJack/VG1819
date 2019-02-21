@@ -14,6 +14,10 @@ void DiscardCardOnClick::onPositionLerpFinished()
 	kitten::K_GameObjectManager::getInstance()->destroyGameObject(this->m_attachedObject);
 }
 
+DiscardCardOnClick::DiscardCardOnClick(nlohmann::json & p_json) : ClickableUI(p_json)
+{
+}
+
 DiscardCardOnClick::DiscardCardOnClick(bool p_backToOrigin)
 {
 }

@@ -13,6 +13,7 @@ private:
 	int m_minFOV, m_maxFOV;
 
 public:
+	ZoomByMouseWheel(nlohmann::json& p_json);
 	ZoomByMouseWheel(float p_speed = 1.0f, int p_minFOV = 1, int p_m_maxFOV = 70);
 	virtual ~ZoomByMouseWheel();
 

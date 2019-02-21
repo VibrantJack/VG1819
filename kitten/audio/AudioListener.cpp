@@ -8,6 +8,10 @@ namespace kitten
 
 	}
 
+	AudioListener::AudioListener(nlohmann::json & p_json) : K_Component(p_json)
+	{
+	}
+
 	AudioListener::~AudioListener()
 	{
 		m_cachedTransform->removePositionListener(this);

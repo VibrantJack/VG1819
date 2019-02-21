@@ -10,6 +10,7 @@ private:
 
 public:
 	ToggleEnabledOnKeyPress(char p_key);
+	ToggleEnabledOnKeyPress(nlohmann::json& p_json);
 	~ToggleEnabledOnKeyPress();
 
 	bool hasUpdate() const override { return true; };

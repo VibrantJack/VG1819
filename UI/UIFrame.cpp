@@ -19,6 +19,10 @@ namespace userinterface
 
 	}
 
+	UIFrame::UIFrame(nlohmann::json & p_json) : userinterface::UIElement(p_json)
+	{
+	}
+
 	UIFrame::~UIFrame()
 	{
 		

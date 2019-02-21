@@ -19,6 +19,7 @@ public:
 	};
 
 	SelectAbility();
+	SelectAbility(nlohmann::json & p_json);
 	~SelectAbility();
 
 	//void useAbility(AbilityType p_ability);

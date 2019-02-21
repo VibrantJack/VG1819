@@ -8,6 +8,20 @@ VolumeAdjustOnKeysPressed::VolumeAdjustOnKeysPressed(char p_increaseKey, char p_
 
 }
 
+VolumeAdjustOnKeysPressed::VolumeAdjustOnKeysPressed(nlohmann::json & p_json) : kitten::K_Component(p_json)
+{
+
+	if (JSONHAS("increasekey")) {
+		m_increaseKey = LOOKUPCHAR("increasekey");
+	}
+
+	if (JSONHAS("decreasekey")) {
+		m_decreaseKey = LOOKUPCHAR("decreasekey");;
+	}
+
+	SETOPT(m_changeAmount, "changeamount");
+}
+
 VolumeAdjustOnKeysPressed::~VolumeAdjustOnKeysPressed()
 {
 

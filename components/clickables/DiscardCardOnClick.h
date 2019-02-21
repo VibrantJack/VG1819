@@ -10,6 +10,7 @@ protected:
 
 	void onPositionLerpFinished() override;
 public:
+	DiscardCardOnClick(nlohmann::json& p_json);
 	DiscardCardOnClick(bool p_backToOrigin = false);
 	~DiscardCardOnClick();
 

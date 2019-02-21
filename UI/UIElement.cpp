@@ -28,6 +28,46 @@ namespace userinterface
 
 	}
 
+	UIElement::UIElement(nlohmann::json & p_json) : kitten::K_UIRenderable(p_json), m_hasSetVerts(false), m_vao(nullptr)
+	{
+		m_texPath = LOOKUPSTRDEF("texture", DEFAULT_TEXTURE);
+		m_tex = new puppy::Texture(m_texPath);
+		m_mat = new puppy::Material(puppy::ShaderType::alphaTest);
+		m_mat->setTexture(m_tex);
+		m_texBehaviour = tbh_Stretch;
+
+		std::string temp = LOOKUPSTRDEF("pivot","");
+		if (temp == "left")
+			m_pivotType = userinterface::UIElement::piv_Left;
+		else if (temp == "right")
+			m_pivotType = userinterface::UIElement::piv_Right;
+		else if (temp == "center")
+			m_pivotType = userinterface::UIElement::piv_Center;
+		else if (temp == "top")
+			m_pivotType = userinterface::UIElement::piv_Top;
+		else if (temp == "bottom")
+			m_pivotType = userinterface::UIElement::piv_Bot;
+		else if (temp == "botleft")
+			m_pivotType = userinterface::UIElement::piv_BotLeft;
+		else if (temp == "botright")
+			m_pivotType = userinterface::UIElement::piv_BotRight;
+		else if (temp == "topleft")
+			m_pivotType = userinterface::UIElement::piv_TopLeft;
+		else if (temp == "topright")
+			m_pivotType = userinterface::UIElement::piv_TopRight;
+		else
+			m_pivotType = userinterface::UIElement::piv_BotLeft;
+
+		temp = LOOKUPSTRDEF("behaviour", "");
+		if (temp == "repeat")
+			m_texBehaviour = userinterface::UIElement::tbh_Repeat;
+		else if (temp == "mirror_repeat")
+			m_texBehaviour = userinterface::UIElement::tbh_RepeatMirrored;
+		else 
+			m_texBehaviour = userinterface::UIElement::tbh_Stretch;
+
+	}
+
 	UIElement::UIElement(const char* p_pathToTex, pivotType p_pivot, textureBehaviour p_texBehaviour) : m_hasSetVerts(false), m_vao(nullptr)
 	{
 		m_texPath = p_pathToTex;

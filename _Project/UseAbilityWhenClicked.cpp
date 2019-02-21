@@ -24,6 +24,10 @@ UseAbilityWhenClicked::UseAbilityWhenClicked()
 
 }
 
+UseAbilityWhenClicked::UseAbilityWhenClicked(nlohmann::json & p_json) : kitten::Clickable(p_json)
+{
+}
+
 UseAbilityWhenClicked::~UseAbilityWhenClicked()
 {
 	//kitten::K_ComponentManager::getInstance()->destroyComponent(m_textBox);

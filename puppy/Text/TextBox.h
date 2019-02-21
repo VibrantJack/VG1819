@@ -39,6 +39,7 @@ namespace puppy
 	public:
 		TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, bool p_is3D = false);
 		TextBox(Font* p_fontToUse, const std::string& p_text, float p_boxWidth, float p_boxHeight, Alignment p_alignment, bool p_is3D = false);
+		TextBox(nlohmann::json& p_json);
 		~TextBox();
 
 		virtual void start() override;

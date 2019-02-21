@@ -30,6 +30,7 @@ namespace kitten
 		scene::Frustum computeViewFrustum(const glm::vec3& p_cameraPos, const glm::vec3& p_look, const glm::vec3& p_up) const;
 
 	public:
+		Camera(nlohmann::json& p_json);
 		Camera();
 		~Camera();
 

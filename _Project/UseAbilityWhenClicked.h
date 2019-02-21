@@ -8,6 +8,7 @@ class UseAbilityWhenClicked : public kitten::Clickable
 {
 public:
 	UseAbilityWhenClicked();
+	UseAbilityWhenClicked(nlohmann::json& p_json);
 	virtual ~UseAbilityWhenClicked();
 	/*
 	void start() override;

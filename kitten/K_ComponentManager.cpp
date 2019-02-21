@@ -288,9 +288,9 @@ namespace kitten
 		return comp;
 	}
 
-	K_Component* K_ComponentManager::createComponent(nlohmann::json* p_jsonfile)
+	K_Component* K_ComponentManager::createComponent(nlohmann::json& p_json)
 	{
-		K_Component* comp = getRelatedComponentBy(p_jsonfile);
+		K_Component* comp = getRelatedComponentBy(p_json);
 		if (comp == nullptr) return nullptr;
 
 		m_toAddToStart.insert(comp);
@@ -299,9 +299,9 @@ namespace kitten
 		return comp;
 	}
 
-	unit::Unit* K_ComponentManager::createUnitComponent(nlohmann::json &p_jsonfile)
+	unit::Unit* K_ComponentManager::createUnitComponent(nlohmann::json& p_json)
 	{
-		unit::Unit* comp = getUnitFrom(p_jsonfile);
+		unit::Unit* comp = getUnitFrom(p_json);
 		if (comp == nullptr) return nullptr;
 
 		m_toAddToStart.insert(comp);

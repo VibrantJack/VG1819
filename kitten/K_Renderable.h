@@ -15,6 +15,7 @@ namespace kitten
 	{
 	protected:
 		K_Renderable();
+		K_Renderable(nlohmann::json& p_json);
 		virtual ~K_Renderable();
 
 	public:		

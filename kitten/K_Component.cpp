@@ -9,6 +9,11 @@ namespace kitten
 
 	}
 
+	K_Component::K_Component(nlohmann::json& p_json)
+	{
+		setEnabled(LOOKUPDEF("enabled", true));
+	}
+
 	K_Component::~K_Component()
 	{
 		

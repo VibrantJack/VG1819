@@ -31,6 +31,7 @@ namespace unit
 		void triggerNewTileEvent();
 		void triggerLeaveTileEvent();
 	public:
+		UnitMove(nlohmann::json& p_json);
 		UnitMove(glm::vec3 p_offset = glm::vec3(0.0f, 0.5f, 0.0f), float p_speed = 0.25f);
 		~UnitMove();
 

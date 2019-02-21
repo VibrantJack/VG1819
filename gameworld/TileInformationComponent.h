@@ -10,6 +10,7 @@ namespace gameworld
 	class TileInformationComponent : public kitten::K_Component
 	{
 	public:
+		TileInformationComponent(nlohmann::json& p_json) : kitten::K_Component(p_json) {}
 		TileInformationComponent() 
 		{
 			//blank for later

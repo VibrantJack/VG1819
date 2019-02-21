@@ -17,6 +17,11 @@ SendSelfOnClick::SendSelfOnClick() : m_contextEnabled(false)
 
 }
 
+SendSelfOnClick::SendSelfOnClick(nlohmann::json & p_json) : kitten::Clickable(p_json),
+	m_contextEnabled(false)
+{
+}
+
 SendSelfOnClick::~SendSelfOnClick()
 {
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::Tile_Clicked_Debug, this);

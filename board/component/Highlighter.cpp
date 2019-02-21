@@ -17,6 +17,20 @@ Highlighter::Highlighter()
 	//m_texMap[TileInfo::Owned] = new puppy::Texture("textures/tiles/red.tga");
 }
 
+Highlighter::Highlighter(nlohmann::json & p_json) : kitten::K_Component(p_json)
+{
+	for (int i = TileInfo::First; i < TileInfo::Count; ++i)
+	{
+		m_listForType[static_cast<TileInfo::HighlightType>(i)] = std::vector<kitten::K_GameObject*>();
+	}
+
+	//m_texMap[TileInfo::Cursor] = new puppy::Texture("textures/tiles/highlight.tga");
+	m_texMap[TileInfo::Select] = new puppy::Texture("textures/tiles/highlight.tga");
+	m_texMap[TileInfo::Area] = new puppy::Texture("textures/tiles/grasslandArea.tga");
+	m_texMap[TileInfo::Range] = new puppy::Texture("textures/tiles/highlightedGrassland.tga");
+	//m_texMap[TileInfo::Owned] = new puppy::Texture("textures/tiles/red.tga");
+}
+
 Highlighter::~Highlighter()
 {
 }

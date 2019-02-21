@@ -8,6 +8,18 @@ namespace kitten
 {
 	std::vector<unsigned int> QuadRenderableRepeat::sm_indicies;
 
+	QuadRenderableRepeat::QuadRenderableRepeat(nlohmann::json & p_json) : K_Renderable(p_json),
+		m_isStatic(LOOKUPDEF("static",false)),
+		m_isRenderingStatic(false),
+		m_texRepeat(LOOKUPDEF("texRepeat",false)),
+		m_uRepeat(LOOKUPDEF("uRepeat", 1.0f)),
+		m_vRepeat(LOOKUPDEF("vRepeat", 1.0f)),
+		m_mat(true)
+	{
+		std::string texturefilename = LOOKUPDEF("texture", "");
+		QuadRenderableRepeat::init(texturefilename.c_str());
+	}
+
 	QuadRenderableRepeat::QuadRenderableRepeat(const std::string& p_texPath, bool p_isStatic, bool p_texRepeat, GLfloat p_uRepeat, GLfloat p_vRepeat)
 		:
 		m_isStatic(p_isStatic),
@@ -16,6 +28,11 @@ namespace kitten
 		m_uRepeat(p_uRepeat),
 		m_vRepeat(p_vRepeat),
 		m_mat(true)
+	{
+		QuadRenderableRepeat::init(p_texPath);
+	}
+
+	void QuadRenderableRepeat::init(const std::string& p_texPath)
 	{
 		if (!p_texPath.empty())
 		{

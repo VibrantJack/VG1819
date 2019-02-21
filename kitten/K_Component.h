@@ -1,6 +1,7 @@
 #pragma once
 #include "Transform.h"
 #include "K_GameObject.h"
+#include "kibble/json/jsonextra.hpp"
 
 namespace kitten
 {
@@ -13,6 +14,7 @@ namespace kitten
 		friend class K_GameObject;
 	protected:
 		K_Component();
+		K_Component(nlohmann::json&);
 		virtual ~K_Component();
 
 		K_GameObject* m_attachedObject;

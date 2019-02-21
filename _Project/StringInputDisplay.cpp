@@ -6,6 +6,11 @@ StringInputDisplay::StringInputDisplay() : m_textBox(nullptr), m_strEnteredStrin
 
 }
 
+StringInputDisplay::StringInputDisplay(nlohmann::json & p_json) : kitten::K_Component(p_json),
+	m_textBox(nullptr), m_strEnteredString("")
+{
+}
+
 StringInputDisplay::~StringInputDisplay()
 {
 	input::InputManager::getInstance()->removeStringListener(this);

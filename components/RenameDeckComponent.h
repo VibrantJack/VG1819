@@ -7,6 +7,7 @@ class RenameDeckComponent : public input::StringListener, public kitten::K_Compo
 private:
 public:
 	RenameDeckComponent();
+	RenameDeckComponent(nlohmann::json & p_json);
 	~RenameDeckComponent();
 
 	virtual void start() override;

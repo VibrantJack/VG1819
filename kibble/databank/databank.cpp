@@ -207,8 +207,8 @@ kitten::K_GameObject* kibble::attachCustomComponentsToGameObject(const int& p_id
 	unit::Unit* unit = componentManager->createUnitComponent(targetUnit.unitJson);
 	unit->m_kibbleID = p_identifier;
 	p_targetGameObject->addComponent(unit);
-	for (nlohmann::json component : targetUnit.components) {
-		p_targetGameObject->addComponent(componentManager->createComponent(&component));
+	for (nlohmann::json& component : targetUnit.components) {
+		p_targetGameObject->addComponent(componentManager->createComponent(component));
 	}
 
 	p_targetGameObject->getTransform().rotateAbsolute(glm::vec3(targetUnit.rotate[0], targetUnit.rotate[1], targetUnit.rotate[2]));
@@ -221,8 +221,8 @@ kitten::K_GameObject* kibble::attachCustomComponentsToGameObject(const unit::Uni
 	kibble::UnitFileStruct& targetUnit = unitDataVector[p_unit->m_kibbleID];
 	kitten::K_ComponentManager* componentManager = kitten::K_ComponentManager::getInstance();
 
-	for (nlohmann::json component : targetUnit.components) {
-		p_targetGameObject->addComponent(componentManager->createComponent(&component));
+	for (nlohmann::json& component : targetUnit.components) {
+		p_targetGameObject->addComponent(componentManager->createComponent(component));
 	}
 
 	p_targetGameObject->getTransform().rotateAbsolute(glm::vec3(targetUnit.rotate[0], targetUnit.rotate[1], targetUnit.rotate[2]));

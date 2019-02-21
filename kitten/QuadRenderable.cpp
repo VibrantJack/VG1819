@@ -10,7 +10,20 @@ namespace kitten
 	int QuadRenderable::sm_instances = 0;
 	std::vector<unsigned int> QuadRenderable::sm_indicies;
 
+	QuadRenderable::QuadRenderable(nlohmann::json & p_json) : K_Renderable(p_json), m_isRenderingStatic(false), m_mat(true)
+	{
+		SETOPTDEF(m_isStatic, "static", false);
+
+		std::string texturefilename = LOOKUPDEF("texture", "");
+		QuadRenderable::init(texturefilename.c_str());
+	}
+
 	QuadRenderable::QuadRenderable(const std::string& p_texPath, bool p_isStatic) : m_isStatic(p_isStatic), m_isRenderingStatic(false), m_mat(true)
+	{
+		QuadRenderable::init(p_texPath);
+	}
+
+	void QuadRenderable::init(const std::string& p_texPath)
 	{
 		if (!p_texPath.empty())
 		{

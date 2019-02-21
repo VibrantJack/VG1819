@@ -11,6 +11,7 @@ private:
 
 public:
 	ToggleStringInputOnKeyPress(char p_key);
+	ToggleStringInputOnKeyPress(nlohmann::json& p_json);
 	~ToggleStringInputOnKeyPress();
 
 	virtual bool hasUpdate() const override { return true; }

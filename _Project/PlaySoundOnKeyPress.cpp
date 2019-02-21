@@ -7,6 +7,15 @@ PlaySoundOnKeyPress::PlaySoundOnKeyPress(char p_key) : m_audioSource(nullptr), m
 
 }
 
+PlaySoundOnKeyPress::PlaySoundOnKeyPress(nlohmann::json & p_json) : kitten::K_Component(p_json),
+	m_audioSource(nullptr)
+{
+	if (JSONHAS("key"))
+	{
+		m_key = LOOKUPCHAR("key");
+	}
+}
+
 PlaySoundOnKeyPress::~PlaySoundOnKeyPress()
 {
 

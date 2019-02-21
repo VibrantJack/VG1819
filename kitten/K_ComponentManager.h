@@ -45,7 +45,7 @@ namespace kitten
 
 		K_Component* createComponent(const std::string& p_componentName);
 
-		K_Component* createComponent(nlohmann::json*);
+		K_Component* createComponent(nlohmann::json&);
 		unit::Unit* createUnitComponent(nlohmann::json &);
 	
 

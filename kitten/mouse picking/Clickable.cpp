@@ -4,6 +4,11 @@
 
 namespace kitten
 {
+	Clickable::Clickable(nlohmann::json & p_json) : K_Component(p_json),
+		m_attachedBox(nullptr),
+		m_enabledOnPause(LOOKUPDEF("enabledOnPause",false))
+	{
+	}
 	Clickable::Clickable(bool p_enabledOnPause) : m_attachedBox(nullptr), m_enabledOnPause(p_enabledOnPause)
 	{
 

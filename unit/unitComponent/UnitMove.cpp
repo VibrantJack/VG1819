@@ -26,6 +26,14 @@ void unit::UnitMove::triggerLeaveTileEvent()
 	u->triggerTP(ability::TimePointEvent::Leave_Tile);
 }
 
+unit::UnitMove::UnitMove(nlohmann::json & p_json) : kitten::K_Component(p_json),
+	m_speed(LOOKUPDEF("speed",0.25f)),
+	m_offset(LOOKUPVEC3DEF("offset", glm::vec3(0.0f, 0.5f, 0.0f)))
+{
+	m_currentTile = nullptr;
+	m_ad = nullptr;
+}
+
 unit::UnitMove::UnitMove(glm::vec3 p_offset, float p_speed) : m_speed(p_speed),m_offset(p_offset)
 {
 	m_currentTile = nullptr;

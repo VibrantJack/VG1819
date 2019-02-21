@@ -8,6 +8,10 @@ SelectAbility::SelectAbility()
 
 }
 
+SelectAbility::SelectAbility(nlohmann::json & p_json) : kitten::K_Component(p_json)
+{
+}
+
 SelectAbility::~SelectAbility()
 {
 

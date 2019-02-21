@@ -17,6 +17,7 @@ private:
 
 public:
 	PowerTracker();
+	PowerTracker(nlohmann::json & p_json);
 	~PowerTracker();
 
 	void start() override;

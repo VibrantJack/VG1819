@@ -15,6 +15,7 @@ namespace unit
 
 	public:
 		TrackerBlockClickable();
+		TrackerBlockClickable(nlohmann::json& p_json);
 		virtual ~TrackerBlockClickable();
 
 		virtual void onClick() override;

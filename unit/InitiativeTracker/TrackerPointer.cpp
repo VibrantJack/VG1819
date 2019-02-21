@@ -7,6 +7,10 @@ unit::TrackerPointer::TrackerPointer()
 	
 }
 
+unit::TrackerPointer::TrackerPointer(nlohmann::json & p_json) : kitten::K_Component(p_json)
+{
+}
+
 unit::TrackerPointer::~TrackerPointer()
 {
 }

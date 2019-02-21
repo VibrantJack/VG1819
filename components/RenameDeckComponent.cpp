@@ -5,6 +5,10 @@ RenameDeckComponent::RenameDeckComponent()
 {
 }
 
+RenameDeckComponent::RenameDeckComponent(nlohmann::json & p_json) : kitten::K_Component(p_json)
+{
+}
+
 RenameDeckComponent::~RenameDeckComponent()
 {
 	input::InputManager::getInstance()->removeStringListener(this);

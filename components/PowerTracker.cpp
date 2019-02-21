@@ -24,6 +24,22 @@ PowerTracker::PowerTracker()
 
 }
 
+PowerTracker::PowerTracker(nlohmann::json & p_json) : kitten::K_Component(p_json),
+	m_iMaxPower(0),
+	m_iCurrentPower(0),
+	m_textBox(nullptr)
+{
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Manipulate_Tile,
+		this,
+		std::bind(&PowerTracker::increaseMaxPowerEvent, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Reset_Power,
+		this,
+		std::bind(&PowerTracker::resetEvent, this, std::placeholders::_1, std::placeholders::_2));
+}
+
 PowerTracker::~PowerTracker()
 {
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Manipulate_Tile, this);

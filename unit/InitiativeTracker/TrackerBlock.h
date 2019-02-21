@@ -20,6 +20,7 @@ namespace unit
 		const static float sm_halfWinY;
 
 		TrackerBlock();
+		TrackerBlock(nlohmann::json& p_json);
 		~TrackerBlock();
 		
 		void setTrackerUI(InitiativeTrackerUI* p_UI);

@@ -14,6 +14,7 @@ namespace unit
 	{
 	public:
 		UnitGraphic(const UnitSize p_size, const char* p_pathToTexture = nullptr);
+		UnitGraphic(nlohmann::json& p_json);
 		~UnitGraphic();
 
 		void setTexture(const char* p_pathToTex);
