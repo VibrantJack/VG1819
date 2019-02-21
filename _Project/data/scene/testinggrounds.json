@@ -27,7 +27,7 @@
 					"name" : "DrawCardOnClickUI"
 				}
 			],
-			"translate" : [0,0, -0.3],
+			"translate" : [0,0, -0.01],
 			"translate2d" : [1180, 10],
 			"scale2d" : [64, 64]
 		},
