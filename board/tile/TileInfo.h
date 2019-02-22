@@ -72,11 +72,16 @@ public:
 	void setDemonicPresence(bool p_dp);//set demonic presence value
 	bool getDemonicPresence() const;//get demonic presence value directly
 
+	void checkSecondaryDP();//called by adjcent tiles, check if adjecent tiles have DP
+
+	//trigger new tile event when tile attribute is changed
+	void triggerNewTileEvent();
 private:
 	//attribute
 	int m_iPosX, m_iPosY;
 	int m_sOwnerId;
 	bool m_DemonicPresence = false;
+	bool m_SecondaryDP = false;//this tile isn't DP but it's adjcent to DP tile
 
 	//highlight
 	std::unordered_map<HighlightType, bool> m_highlightType;

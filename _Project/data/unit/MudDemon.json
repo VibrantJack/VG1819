@@ -46,7 +46,8 @@
 			},
 			{
 				"name":"Status_DR_Mud_Demon",
-				"description":"MV reduced to 1 and IN -1."
+				"description":"MV reduced to 1 and IN -1.",
+				"in":-1
 			}
 		],
 		"portrait_texture" : "textures/cards/500x500/MudDemon.tga"

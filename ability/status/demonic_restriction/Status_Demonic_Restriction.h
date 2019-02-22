@@ -49,4 +49,22 @@ namespace ability
 		void restrictionOn() override;
 		void restrictionOff() override;
 	};
+
+	class Status_DR_Wraith : public Status_Demonic_Restriction
+	{
+	public:
+		Status_DR_Wraith();
+		Status* clone() const { return new Status_DR_Wraith(*this); };
+		void restrictionOn() override;
+		void restrictionOff() override;
+	};
+
+	class Status_DR_Evil_Fiend : public Status_Demonic_Restriction
+	{
+	public:
+		Status_DR_Evil_Fiend();
+		Status* clone() const { return new Status_DR_Evil_Fiend(*this); };
+		void restrictionOn() override;
+		void restrictionOff() override;
+	};
 }

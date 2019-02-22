@@ -26,6 +26,11 @@
 				"lv":2,
 				"description":"Attach effect is doubled.",
 				"power":3
+			},
+			{
+				"name":"Status_DR_Wraith",
+				"description":"IN -8.",
+				"in":-8
 			}
 		]
 	},

@@ -84,6 +84,8 @@
 #define STATUS_DR_ETERNAL_EYE "Status_DR_Eternal_Eye"
 #define STATUS_DR_MUD_DEMON "Status_DR_Mud_Demon"
 #define STATUS_DR_HORROR_LORD "Status_DR_Horror_Lord"
+#define STATUS_DR_WRAITH "Status_DR_Wraith"
+#define STATUS_DR_EVIL_FIEND "Status_DR_Evil_Fiend"
 
 //status property
 #define STATUS_NAME "status_name"
