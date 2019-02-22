@@ -77,6 +77,8 @@ namespace userinterface
 				removeFromDynamicUIRender();
 			}
 		}
+
+		delete m_tex;
 	}
 
 	void UIElement::start()
