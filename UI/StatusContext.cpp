@@ -88,15 +88,15 @@ void StatusContext::updateContext(const std::unordered_set<ability::Status*>& p_
 		ability::Status::StatusType type = status->getStatusType();
 		if (type == ability::Status::StatusType::Stat_Buff)
 		{
-			m_buffs += status->getName() + ": " + status->getDescription();
+			m_buffs += status->getName() + ": " + status->getDescription() + " ";
 		}
 		else if (type == ability::Status::StatusType::Stat_Debuff)
 		{
-			m_debuffs += status->getName() + ": " + status->getDescription();
+			m_debuffs += status->getName() + ": " + status->getDescription() + " ";
 		}
 		else if (type == ability::Status::StatusType::Shield)
 		{
-			m_shields += status->getName() + ": " + status->getDescription();
+			m_shields += status->getName() + ": " + status->getDescription() + " ";
 		}
 	}
 	m_textboxesSet = false;
