@@ -12,7 +12,7 @@
 		},
 		{
 			"name" : "K_ParticleSystem",
-			"effectpath" : "data/particles/abilities/effects/burnExplosion.xml"
+			"effectpath" : "data/particles/abilities/effects/encourageOrb.xml"
 		},
 		{
 			"name" : "HaltParticleSystemAfterTime",
