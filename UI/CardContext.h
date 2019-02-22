@@ -39,6 +39,7 @@ private:
 	puppy::Font* m_defaultNameFont = nullptr;
 	puppy::Font* m_smallNameFont = nullptr;
 
+	char m_statusContextKey;
 	int m_textBoxesIndex = 0;
 	int m_nonLevelStatus = 0;
 	bool m_updatedByGO = false;
@@ -55,12 +56,11 @@ private:
 	void arrangeTextBoxes();
 
 public:
-	CardContext();
+	CardContext(char p_statusContextKey = 'S');
 	~CardContext();
 
 	virtual void start() override;
 
-	// For testing only, changes the unit on the hovered card on B key pressed
 	virtual bool hasUpdate() const override { return true; };
 	virtual void update() override;
 

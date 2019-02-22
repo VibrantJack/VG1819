@@ -1509,7 +1509,12 @@ kitten::K_Component* getCustomDataComponent(nlohmann::json* p_jsonFile) {
 }
 #include "UI\CardContext.h"
 kitten::K_Component* getCardContext(nlohmann::json* p_jsonFile) {
-	return new CardContext();
+	char statusKey = 'S';
+	if (JSONHAS("status_key")) {
+		std::string strKey = LOOKUP("status_key");
+		statusKey = strKey[0];
+	}
+	return new CardContext(statusKey);
 }
 
 #include "UI\LandContext.h"

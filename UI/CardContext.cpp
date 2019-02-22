@@ -27,7 +27,7 @@
 #define P1_COLOR_G 230.0f / 255.0f
 #define P1_COLOR_B 255.0f / 255.0f
 
-CardContext::CardContext()
+CardContext::CardContext(char p_statusContextKey) : m_statusContextKey(p_statusContextKey)
 {
 
 }
@@ -142,7 +142,7 @@ void CardContext::update()
 			m_unitId++;
 	}
 
-	if (inputMan->keyDown('E') && !inputMan->keyDownLast('E') && m_nonLevelStatus > 0)
+	if (inputMan->keyDown(m_statusContextKey) && !inputMan->keyDownLast(m_statusContextKey) && m_nonLevelStatus > 0)
 	{
 		m_statusContext->lerpContext();
 	}
