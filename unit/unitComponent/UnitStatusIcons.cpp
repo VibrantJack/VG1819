@@ -74,6 +74,10 @@ namespace unit
 
 	void UnitStatusIcons::addStatus(ability::Status* p_status)
 	{
+		if (!m_hasStarted)
+		{
+			return;
+		}
 		if (p_status->getStatusType() == ability::Status::StatusType::Stat_Buff)
 		{
 			if (m_numBuffs == 0)
@@ -113,6 +117,10 @@ namespace unit
 
 	void UnitStatusIcons::removeStatus(ability::Status* p_status)
 	{
+		if (!m_hasStarted)
+		{
+			return;
+		}
 		ability::Status::StatusType type = p_status->getStatusType();
 		if (type == ability::Status::StatusType::Stat_Buff && m_numBuffs > 0)
 		{

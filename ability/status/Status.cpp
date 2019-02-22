@@ -122,14 +122,16 @@ namespace ability
 		return m_TPList;
 	}
 
-	void Status::attach(unit::Unit * p_u)
+	void Status::attach(unit::Unit * p_u, bool p_nonLevelUpStatus)
 	{
 		m_unit = p_u; 
 		p_u->getStatusContainer()->addStatus(this);
 
 		registerTPEvent();
 
-		if (m_unit->hasStarted())
+		// Avoids the scenario during databank setup where level up statuses are attached to a
+		// Unit component without an attached GO
+		if (p_nonLevelUpStatus)
 		{
 			auto statusIconsComp = m_unit->getGameObject().getComponent<unit::UnitStatusIcons>();
 			if (statusIconsComp != nullptr)
@@ -144,13 +146,10 @@ namespace ability
 	void Status::removeThis()
 	{
 		m_unit->getStatusContainer()->queueRemove(this);
-		if (m_unit->hasStarted())
+		auto statusIconsComp = m_unit->getGameObject().getComponent<unit::UnitStatusIcons>();
+		if (statusIconsComp != nullptr)
 		{
-			auto statusIconsComp = m_unit->getGameObject().getComponent<unit::UnitStatusIcons>();
-			if (statusIconsComp != nullptr)
-			{
-				statusIconsComp->removeStatus(this);
-			}
+			statusIconsComp->removeStatus(this);
 		}
 	}
 

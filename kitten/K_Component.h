@@ -23,7 +23,6 @@ namespace kitten
 		virtual void onDisabled();
 		virtual void onEnabled();
 	public:
-		virtual bool hasStarted() const { return m_hasStarted; }
 		virtual bool hasUpdate() const;
 
 		virtual void start();

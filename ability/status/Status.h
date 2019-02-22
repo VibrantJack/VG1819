@@ -68,7 +68,7 @@ namespace ability
 		std::string getID() { return m_Id; };
 
 		//common status method
-		void attach(unit::Unit* p_u);
+		void attach(unit::Unit* p_u, bool p_nonLevelUpStatus = true);
 		virtual Status* clone() const = 0;
 		virtual int effect();//activate when attached to unit
 		virtual int effect(const TimePointEvent::TPEventType& p_type, TimePointEvent* p_event);
