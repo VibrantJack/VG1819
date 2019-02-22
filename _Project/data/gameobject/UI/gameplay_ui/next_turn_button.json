@@ -1,0 +1,21 @@
+{
+  "name": "Next Turn Button",
+  "components": [
+    {
+      "name": "UIObject",
+      "texture": "textures/ui/buttons/next_button.tga"
+    },
+    {
+      "name": "PlayUniversalSoundOnUIClick",
+      "sound_name": "click"
+    },
+    {
+      "name": "NextTurnButton",
+      "regularTexture": "textures/ui/buttons/next_button.tga",
+      "highlightedTexture": "textures/ui/buttons/next_button_highlighted.tga"
+    },
+    {
+      "name": "ClickableFrame"
+    }
+  ]
+}

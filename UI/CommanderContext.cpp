@@ -203,8 +203,6 @@ namespace userinterface
 
 		//build partial borders
 		//top
-		//		kitten::K_GameObject* portrait = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/commander_portrait.txt");
-
 		kitten::K_GameObject* topBorder = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/borders/gold_border_top.txt");
 		userinterface::BorderPiece* topBorderComp = topBorder->getComponent<userinterface::BorderPiece>();
 		topBorderComp->setFramedObject(backGround);
@@ -224,5 +222,13 @@ namespace userinterface
 		kitten::K_GameObject* initRightBorder = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/borders/gold_border_right.txt");
 		userinterface::BorderPiece* initRightBorderComp = initRightBorder->getComponent<userinterface::BorderPiece>();
 		initRightBorderComp->setFramedObject(backGround);
+
+		kitten::K_GameObject* nextTurnButton = kitten::K_GameObjectManager::getInstance()->createNewGameObject("ui/gameplay_ui/next_turn_button.json");
+		
+		int borderOffset = initRightBorder->getTransform().getScale2D().x;
+		const glm::vec3 bgPos = backGround->getTransform().getTranslation();
+		const glm::vec2 bgScale = backGround->getTransform().getScale2D();
+		nextTurnButton->getTransform().place(winX - 160, winY - bgScale.y - 10, -0.01f);
+		nextTurnButton->getTransform().scale2D(160, 110);
 	}
 }

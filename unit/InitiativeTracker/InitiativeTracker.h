@@ -3,6 +3,8 @@
 #include "kitten/K_GameObject.h"
 #include "unit/InitiativeTracker/UnitAura.h"
 #include "TurnChangeDisplay.h"
+#include "kitten\event_system\Event.h"
+#include "kitten\event_system\EventExample.h"
 //Rock
 //This class should be singleton
 //it handles all units on the board
@@ -62,5 +64,8 @@ namespace unit
 		void gameTurnEnd();
 
 		void addExtraTurn(kitten::K_GameObject* p_unit);
+		
+		//button listener
+		void newTurnListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 	};
 }
