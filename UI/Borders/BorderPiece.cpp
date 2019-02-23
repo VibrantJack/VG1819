@@ -18,6 +18,7 @@ namespace userinterface
 
 	BorderPiece::~BorderPiece()
 	{
+		delete m_vao;
 	}
 
 	void BorderPiece::start()
