@@ -995,6 +995,15 @@
     <ClCompile Include="FadePointLightOverTime.cpp">
       <Filter>components\visualFX</Filter>
     </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\UnitStatusIcons.cpp">
+      <Filter>unit\unitComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kitten\QuadRenderableBB.cpp">
+      <Filter>kitten</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\StatusContext.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
     <ClCompile Include="..\UI\GameplayButtons\NextTurnButton.cpp">
       <Filter>UI\GameplayButtons</Filter>
     </ClCompile>
@@ -2073,6 +2082,15 @@
     </ClInclude>
     <ClInclude Include="FadePointLightOverTime.h">
       <Filter>components\visualFX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\UnitStatusIcons.h">
+      <Filter>unit\unitComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kitten\QuadRenderableBB.h">
+      <Filter>kitten</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\StatusContext.h">
+      <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="..\UI\GameplayButtons\NextTurnButton.h">
       <Filter>UI\GameplayButtons</Filter>

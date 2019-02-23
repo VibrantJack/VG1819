@@ -81,6 +81,7 @@ namespace kitten
 			Update_Card_Context_By_ID,
 			Update_Card_Context_By_GO,
 			Update_Card_Context_Attrib,
+			Update_Card_Context_Status,
 			Card_Context_Set_Enabled,
 			Land_Context_Set_Enabled,
 			Update_Land_Context,

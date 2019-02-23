@@ -88,7 +88,12 @@ void LerpController::scaleLerp(const glm::vec3& p_scale, const float& p_time, Tr
 void LerpController::update()
 {
 	// Always lerping if we are in update
-	assert(m_isLerping);
+	// If the attached GO has been enabled, but we are not lerping, then disable ourselves
+	if (!m_isLerping)
+	{
+		setEnabled(false);
+		return;
+	}
 
 	float deltaTime = m_time->getDeltaTime();
 	auto& transform = getTransform();
