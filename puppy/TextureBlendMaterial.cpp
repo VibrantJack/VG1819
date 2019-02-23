@@ -22,17 +22,25 @@ namespace puppy
 	{
 		TextureBlendMaterial* toReturn = new TextureBlendMaterial();
 
-		auto end = m_textures.cend();
-		for (auto it = m_textures.cbegin(); it != end; ++it)
-		{
-			Texture* clonedTex = new Texture((*it).first->getPath());
-			toReturn->m_textures.insert(std::make_pair(clonedTex, (*it).second));
-		}
-
 		if (m_ownedTexture != nullptr)
 		{
 			toReturn->m_ownedTexture = new Texture(m_ownedTexture->getPath());
 		}
+
+		auto end = m_textures.cend();
+		for (auto it = m_textures.cbegin(); it != end; ++it)
+		{
+			if(it->first == m_ownedTexture) 
+			{
+				toReturn->m_textures.insert((std::make_pair(toReturn->m_ownedTexture, it->second)));
+			}
+			else
+			{
+				Texture* clonedTex = new Texture((*it).first->getPath());
+				toReturn->m_textures.insert(std::make_pair(it->first, it->second));
+			}
+		}
+
 
 		toReturn->m_shader = m_shader;
 		toReturn->m_baseShader = m_baseShader;

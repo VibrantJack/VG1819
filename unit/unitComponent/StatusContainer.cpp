@@ -19,6 +19,11 @@ namespace unit
 
 		m_statusList.clear();
 
+		for (auto it : *m_TPStatusList ) 
+		{
+			delete it.second;
+		}
+
 		delete m_TPStatusList;
 	}
 

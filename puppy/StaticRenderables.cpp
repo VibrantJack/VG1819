@@ -401,7 +401,7 @@ namespace puppy
 		
 		for (auto it = m_ownedMaterials.begin(); it != m_ownedMaterials.end(); it = m_ownedMaterials.erase(it))
 		{
-			delete (*it);
+			delete *it;
 		}
 
 		//Clear everything else

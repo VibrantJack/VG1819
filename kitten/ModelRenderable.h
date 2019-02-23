@@ -21,4 +21,6 @@ public:
 	~ModelRenderable();
 
 	virtual void render(kitten::Camera* p_cam) override;
+
+	static void clearModels();
 };

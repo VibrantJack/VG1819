@@ -78,6 +78,8 @@ kitten::QuadEdgeRenderable::~QuadEdgeRenderable()
 	{
 		delete sm_vao;
 	}
+
+	delete m_mat;
 }
 
 void kitten::QuadEdgeRenderable::render(kitten::Camera* p_cam)
