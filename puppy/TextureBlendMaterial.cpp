@@ -36,7 +36,6 @@ namespace puppy
 			}
 			else
 			{
-				Texture* clonedTex = new Texture((*it).first->getPath());
 				toReturn->m_textures.insert(std::make_pair(it->first, it->second));
 			}
 		}
