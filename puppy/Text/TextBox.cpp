@@ -37,8 +37,6 @@ namespace puppy
 
 	puppy::TextBox::~TextBox()
 	{
-		removeOldText();
-
 		if (m_isEnabled)
 		{
 			if (!m_is3D)
@@ -50,6 +48,7 @@ namespace puppy
 				removeFromDynamicRender();
 			}
 		}
+		removeOldText();
 	}
 
 	void TextBox::removeOldText()
