@@ -50,7 +50,7 @@ namespace userinterface
 
 	void UIFrame::onEnabled()
 	{
-		UIElement::onDisabled();
+		UIElement::onEnabled();
 		setInnerObjectsEnabled(true);
 	}
 
