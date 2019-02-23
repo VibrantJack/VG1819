@@ -20,10 +20,13 @@ namespace puppy
 		{
 		case left:
 			constructLeftAlignVertices();
+			break;
 		case right:
 			constructRightOrCenterAlignVertices(true);
+			break;
 		case center:
 			constructRightOrCenterAlignVertices(false);
+			break;
 		}
 	}
 
@@ -48,7 +51,6 @@ namespace puppy
 				removeFromDynamicRender();
 			}
 		}
-		removeOldText();
 	}
 
 	void TextBox::removeOldText()
