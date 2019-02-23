@@ -269,6 +269,8 @@ namespace kitten
 		}
 
 		ModelRenderable::clearModels();
+		delete unit::UnitTest::getInstance();
+		delete unit::UnitMonitor::getInstance();
 	}
 
 	void updateGame()

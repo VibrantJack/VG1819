@@ -135,9 +135,6 @@ namespace unit
 			removeStatus(m_removeQueue[i]);
 		}
 		m_removeQueue.clear();
-
-		//then delete event
-		delete p_event;
 	}
 	Unit * StatusContainer::getUnit()
 	{

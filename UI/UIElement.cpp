@@ -64,7 +64,11 @@ namespace userinterface
 				sm_vao[m_pivotType] = nullptr;
 			}
 		}
-		//m_vao is part of the map above, don't need to delete
+		//m_vao is part of the map above, don't need to delete except the following
+		if (m_texBehaviour == tbh_Repeat || m_texBehaviour == tbh_RepeatMirrored)
+		{
+			delete m_vao;
+		}
 
 		if (m_isEnabled)
 		{
@@ -97,6 +101,19 @@ namespace userinterface
 	
 	void UIElement::defineVerts()
 	{
+		if (m_hasSetVerts)
+		{
+			if (--sm_instances[m_pivotType] == 0)
+			{
+				delete sm_vao[m_pivotType];
+				sm_vao[m_pivotType] = nullptr;
+			}
+
+			if (m_texBehaviour == tbh_Repeat || m_texBehaviour == tbh_RepeatMirrored)
+			{
+				delete m_vao;
+			}
+		}
 
 		//quad coords (ortho)
 		float xmin, ymin, xmax, ymax, z, u, v;

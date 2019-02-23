@@ -10,8 +10,7 @@ PathFind::PathFind()
 
 PathFind::~PathFind()
 {
-	if(!m_isClear)
-		clear();
+	clear();
 }
 
 kitten::Event::TileList PathFind::getPath(std::pair<int, int> p_start, std::pair<int, int> p_end, int p_mv)
