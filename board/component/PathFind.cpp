@@ -108,6 +108,8 @@ bool PathFind::checkTile(std::pair<int, int> p_tile, int p_cost)
 
 void PathFind::addNodeToOpen(std::pair<int, int> p_tile, int p_cost, node* p_parent)
 {
+	m_isClear = false;
+
 	node* n = new node();
 	n->tile = p_tile;
 
