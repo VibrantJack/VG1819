@@ -510,7 +510,7 @@ namespace networking
 		info->m_sourceClientId = p_packet.m_clientId;
 		p_packet.insertIntoPackage(info);
 
-		unit::AbilityDescription* ad = info->m_source->m_ADList[p_packet.m_abilityName];
+		unit::AbilityDescription* ad = info->m_source->m_ADMap[p_packet.m_abilityName];
 		info->m_source->setCast(ad, info);
 
 		std::stringstream message;

@@ -1,5 +1,6 @@
 #include "Status.h"
 #include "unit/Unit.h"
+#include "unit\unitComponent\UnitStatusIcons.h"
 #include <iostream>
 
 namespace ability
@@ -85,6 +86,15 @@ namespace ability
 
 	void Status::addAttributeChange(const std::string & p_key, int p_value)
 	{
+		if (p_value > 0)
+		{
+			m_statusType = StatusType::Stat_Buff;
+		}
+		else
+		{
+			m_statusType = StatusType::Stat_Debuff;
+		}
+
 		if (m_attributeChange.find(p_key) == m_attributeChange.end())
 		{
 			m_attributeChange.insert(std::make_pair(p_key, p_value));
@@ -112,12 +122,23 @@ namespace ability
 		return m_TPList;
 	}
 
-	void Status::attach(unit::Unit * p_u)
+	void Status::attach(unit::Unit * p_u, bool p_nonLevelUpStatus)
 	{
 		m_unit = p_u; 
 		p_u->getStatusContainer()->addStatus(this);
 
 		registerTPEvent();
+
+		// Avoids the scenario during databank setup where level up statuses are attached to a
+		// Unit component without an attached GO
+		if (p_nonLevelUpStatus)
+		{
+			auto statusIconsComp = m_unit->getGameObject().getComponent<unit::UnitStatusIcons>();
+			if (statusIconsComp != nullptr)
+			{
+				statusIconsComp->addStatus(this);
+			}
+		}
 
 		effect();
 	}
@@ -125,6 +146,11 @@ namespace ability
 	void Status::removeThis()
 	{
 		m_unit->getStatusContainer()->queueRemove(this);
+		auto statusIconsComp = m_unit->getGameObject().getComponent<unit::UnitStatusIcons>();
+		if (statusIconsComp != nullptr)
+		{
+			statusIconsComp->removeStatus(this);
+		}
 	}
 
 	int Status::changeCounter(const std::string & p_cName, int p_value)

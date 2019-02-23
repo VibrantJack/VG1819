@@ -2,6 +2,7 @@
 #include "ContextMenu.h"
 #include "kitten\event_system\Event.h"
 #include "kitten\event_system\EventManager.h"
+#include "puppy\Text\TextBox.h"
 #include "unit\Unit.h"
 
 namespace userinterface

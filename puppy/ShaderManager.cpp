@@ -70,6 +70,14 @@ namespace puppy
 			*p_vertexShaderPath = "Shaders/billboarded_colorTint_alphatest.vsh";
 			*p_pixelShaderPath = "Shaders/colorTint_alphatest.fsh";
 			return true;
+		case ShaderType::billboarded_alphaTest:
+			*p_vertexShaderPath = "Shaders/billboarded_colorTint_alphatest.vsh";
+			*p_pixelShaderPath = "Shaders/basic_alphatest.fsh";
+			return true;
+		case ShaderType::gAlpha_alphaTest:
+			*p_vertexShaderPath = "Shaders/basic_alphatest.vsh";
+			*p_pixelShaderPath = "Shaders/gAlpha_alphatest.fsh";
+			return true;
 		case ShaderType::particles:
 			*p_vertexShaderPath = "Shaders/particles.vsh";
 			*p_pixelShaderPath = "Shaders/particles.fsh";

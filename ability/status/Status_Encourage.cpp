@@ -8,6 +8,7 @@ namespace ability
 	Status_Encourage::Status_Encourage() : Status::Status()
 	{
 		m_Id = STATUS_ENCOURAGE;
+		m_statusType = StatusType::Stat_Buff;
 		endEffectAt();
 		addTimePoint(TimePointEvent::Deal_Damage);
 	}

@@ -1,5 +1,6 @@
 #include "CastTimer.h"
 #include "kitten/K_GameObjectManager.h"
+#include "kitten\InputManager.h"
 #include "TimerSymbol.h"
 #include "unit/Unit.h"
 
@@ -47,6 +48,12 @@ void unit::CastTimer::set(std::string p_abilityName, ability::AbilityInfoPackage
 		}
 
 		m_timerSymbol->getComponent<TimerSymbol>()->changeTexture(m_timer);
+
+		// If != nullptr, then m_clickedObject was already set by ClientGame/AbilityPacket
+		if (m_pack->m_clickedObject == nullptr)
+		{
+			m_pack->m_clickedObject = input::InputManager::getInstance()->getMouseLastHitObject();
+		}
 	}
 }
 

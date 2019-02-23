@@ -50,7 +50,7 @@ namespace unit
 
 		HealthBarState m_healthBarState;
 		
-		virtual void onScaleLerpFinished() override;
+		virtual void onScaleLerpFinished(kitten::K_GameObject* p_obj) override;
 	
 		virtual void start() override;
 
@@ -63,7 +63,14 @@ namespace unit
 		std::unordered_map<std::string, int> m_attributes;//attributes includes all numerical attribute and counter
 		UnitSize m_size;
 
-		std::map<std::string, unit::AbilityDescription*> m_ADList;
+		//two list for ad, 
+
+		//one is used for iterating it in order, 
+		std::vector<unit::AbilityDescription*> m_ADList;
+
+		//one is used for get exact ad by name
+		std::unordered_map<std::string, unit::AbilityDescription*> m_ADMap;
+
 		int m_clientId = -1;
 
 		Unit();

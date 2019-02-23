@@ -1,0 +1,13 @@
+{
+    "name" : "Status Context",
+    "components" : [
+		{
+			"name" : "StatusContext"
+		},
+		{
+            "name" : "LerpController"
+        }
+    ],
+    "scale2d" : [240,204],
+    "translate" : [978,390, -0.3]
+}

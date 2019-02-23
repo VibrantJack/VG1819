@@ -1,6 +1,7 @@
 #include "UIElement.h"
 #include "puppy\Renderer.h"
 #include "puppy\StaticRenderables.h"
+#include "UI/UIFrame.h"
 
 
 namespace userinterface
@@ -12,12 +13,13 @@ namespace userinterface
 	{
 		m_texPath = p_pathToTex;
 		m_tex = new puppy::Texture(p_pathToTex);
-		m_mat = new puppy::Material(puppy::ShaderType::alphaTest);
+		m_mat = new puppy::Material(puppy::ShaderType::gAlpha_alphaTest);
 		if (p_pathToTex != nullptr)
 		{
 			m_mat->setTexture(p_pathToTex);
 		}
-		else {
+		else 
+		{
 			m_mat->setTexture(DEFAULT_TEXTURE);
 			m_texPath = DEFAULT_TEXTURE;
 		}
@@ -32,12 +34,13 @@ namespace userinterface
 	{
 		m_texPath = p_pathToTex;
 		m_tex = new puppy::Texture(p_pathToTex);
-		m_mat = new puppy::Material(puppy::ShaderType::alphaTest);
+		m_mat = new puppy::Material(puppy::ShaderType::gAlpha_alphaTest);
 		if (p_pathToTex != nullptr)
 		{
 			m_mat->setTexture(p_pathToTex);
 		}
-		else {
+		else 
+		{
 			m_mat->setTexture(DEFAULT_TEXTURE);
 			m_texPath = DEFAULT_TEXTURE;
 		}
@@ -65,13 +68,29 @@ namespace userinterface
 
 		if (m_isEnabled)
 		{
-			removeFromDynamicUIRender();
+			if (m_hasTransparency)
+			{
+				removeFromDynamicTransparentUIRender();
+			}
+			else
+			{
+				removeFromDynamicUIRender();
+			}
 		}
 	}
 
 	void UIElement::start()
 	{
 		defineVerts();
+		if (m_isEnabled) {
+			if (m_hasTransparency) {
+				this->addToDynamicTransparentUIRender();
+			}
+			else 
+			{
+				this->addToDynamicUIRender();
+			}
+		}
 	}
 	
 	void UIElement::defineVerts()
@@ -232,18 +251,47 @@ namespace userinterface
 
 		sm_instances[m_pivotType]++;
 		m_hasSetVerts = true;
+	}
 
-		this->addToDynamicUIRender();
+	void UIElement::setTransparency(bool p_hasTransparency)
+	{
+		m_hasTransparency = p_hasTransparency;
+		if (m_hasStarted && m_isEnabled) {
+			if (m_hasTransparency)
+			{
+				removeFromDynamicUIRender();
+				addToDynamicTransparentUIRender();
+			}
+			else 
+			{
+				removeFromDynamicTransparentUIRender();
+				addToDynamicUIRender();
+			}
+		}
 	}
 
 	void UIElement::onDisabled()
 	{
-		removeFromDynamicUIRender();
+		if (m_hasTransparency)
+		{
+			removeFromDynamicTransparentUIRender();
+		}
+		else
+		{
+			removeFromDynamicUIRender();
+		}
 	}
 
 	void UIElement::onEnabled()
 	{
-		addToDynamicUIRender();
+		if (m_hasTransparency)
+		{
+			addToDynamicTransparentUIRender();
+		} 
+		else
+		{
+			addToDynamicUIRender();
+		}
 	}
 
 	void UIElement::uiRender(kitten::Camera* p_cam)
@@ -252,8 +300,10 @@ namespace userinterface
 
 		glm::mat4 wvp = p_cam->getOrtho() * getTransform().getWorldTransform();
 		m_mat->setUniform(WORLD_VIEW_PROJ_UNIFORM_NAME, wvp);
+		m_mat->setUniform(GENERAL_ALPHA_UNIFORM_NAME, m_gAlpha);
 
 		m_vao->drawArrays(GL_TRIANGLES);
+
 	}
 
 	void UIElement::setTexture(const char* p_pathToTex)

@@ -867,6 +867,20 @@ kitten::K_Component* getNetworkJoinButton(nlohmann::json* p_jsonFile) {
 	return button;
 }
 
+#include "UI\GameplayButtons\NextTurnButton.h"
+kitten::K_Component* getNextTurnButton(nlohmann::json* p_jsonFile) {
+	std::string regularTexture, highlightedTexture;
+
+	SETOPT(regularTexture, "regularTexture");
+	SETOPT(highlightedTexture, "highlightedTexture");
+
+	userinterface::NextTurnButton* button = new userinterface::NextTurnButton();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+
+	return button;
+}
+
 #include "networking\menu\NetworkHostButton.h"
 kitten::K_Component* getNetworkHostButton(nlohmann::json* p_jsonFile) {
 	std::string regularTexture, highlightedTexture;
@@ -1178,6 +1192,17 @@ kitten::K_Component* getUnitHealthBar(nlohmann::json* p_jsonFile) {
 	return new unit::UnitHealthBar(offset,lerpTime,rotation);
 }
 
+#include "unit\unitComponent\UnitStatusIcons.h"
+kitten::K_Component* getUnitStatusIcons(nlohmann::json* p_jsonFile) {
+
+	glm::vec3 offset = glm::vec3(LOOKUP("offset")[0], LOOKUP("offset")[1], LOOKUP("offset")[2]);
+
+	float rotation;
+	SETOPTDEF(rotation, "rotation", 45);
+
+	return new unit::UnitStatusIcons(offset, rotation);
+}
+
 #include "_Project\LerpController.h"
 kitten::K_Component* getLerpController(nlohmann::json* p_jsonFile) {
 
@@ -1484,12 +1509,22 @@ kitten::K_Component* getCustomDataComponent(nlohmann::json* p_jsonFile) {
 }
 #include "UI\CardContext.h"
 kitten::K_Component* getCardContext(nlohmann::json* p_jsonFile) {
-	return new CardContext();
+	char statusKey = 'S';
+	if (JSONHAS("status_key")) {
+		std::string strKey = LOOKUP("status_key");
+		statusKey = strKey[0];
+	}
+	return new CardContext(statusKey);
 }
 
 #include "UI\LandContext.h"
 kitten::K_Component* getLandContext(nlohmann::json* p_jsonFile) {
 	return new LandContext();
+}
+
+#include "UI\StatusContext.h"
+kitten::K_Component* getStatusContext(nlohmann::json* p_jsonFile) {
+	return new StatusContext();
 }
 
 #include "UI\ContextMenu.h"
@@ -1976,6 +2011,7 @@ void setupComponentMap() {
 	jsonComponentMap["UIElement"] = &getUIElement;
 	jsonComponentMap["ModelRenderable"] = &getModelRenderable;
 	jsonComponentMap["UnitHealthBar"] = &getUnitHealthBar;
+	jsonComponentMap["UnitStatusIcons"] = &getUnitStatusIcons;
 	jsonComponentMap["CameraMoveByEvent"] = &getCameraMoveByEvent;
 	jsonComponentMap["LerpController"] = &getLerpController;
 	jsonComponentMap["PlaySoundOnUIClick"] = &getPlaySoundOnUIClick;
@@ -2000,6 +2036,7 @@ void setupComponentMap() {
 	jsonComponentMap["ClickableCard"] = &getClickableCard;
 	jsonComponentMap["CardContext"] = &getCardContext;
 	jsonComponentMap["LandContext"] = &getLandContext;
+	jsonComponentMap["StatusContext"] = &getStatusContext;
 	jsonComponentMap["DrawCardOnClickUI"] = &getDrawCardOnClickUI;
 	jsonComponentMap["DrawCardsFromDeckWithDelay"] = &getDrawCardsFromDeckWithDelay;
 	jsonComponentMap["DeckDiscardedCardHandler"] = &getDeckDiscardedCardHandler;
@@ -2033,6 +2070,7 @@ void setupComponentMap() {
 	jsonComponentMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
 	jsonComponentMap["BorderPiece"] = &getBorderPiece;
 	jsonComponentMap["TurnCounterController"] = &getTurnCounterController;
+	jsonComponentMap["NextTurnButton"] = &getNextTurnButton;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

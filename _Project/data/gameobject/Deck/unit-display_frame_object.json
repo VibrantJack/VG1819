@@ -33,11 +33,11 @@
                     "color" : [0.89,0.82,0.55],
                     "alignment" : "center",
                     "width" : 143,
-                    "height" : 19
+                    "height" : 24
                 }
             ],
             "translate": [ 0,0,-0.6],
-            "translate2d": [0,50]
+            "translate2d": [0,55]
         },
         {
             "name" : "Adding Button",

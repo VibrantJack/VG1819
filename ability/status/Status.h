@@ -32,6 +32,16 @@ namespace ability
 	class Status
 	{
 	public:
+		enum StatusType
+		{
+			None,
+			Stat_Debuff,
+			Stat_Buff,
+			MV_Debuff,
+			MV_Buff,
+			Shield
+		};
+		
 		std::string m_source;
 
 		Status();
@@ -59,12 +69,13 @@ namespace ability
 		std::string getID() { return m_Id; };
 
 		//common status method
-		void attach(unit::Unit* p_u);
+		void attach(unit::Unit* p_u, bool p_nonLevelUpStatus = true);
 		virtual Status* clone() const = 0;
 		virtual int effect();//activate when attached to unit
 		virtual int effect(const TimePointEvent::TPEventType& p_type, TimePointEvent* p_event);
 		void registerTPEvent();
 
+		StatusType getStatusType() { return m_statusType; }
 
 		//for test
 		void print();
@@ -81,13 +92,15 @@ namespace ability
 		std::unordered_map<std::string, int> m_counter;
 		//Most commonly counter is duration. But it can be more, such as how many times it can be used
 
-		int m_LV;
+		int m_LV = 0;
 		std::unordered_map<std::string, int> m_attributeChange;
 		std::string m_effectedAD;
 
 		std::vector<ability::TimePointEvent::TPEventType> m_TPList;//the list of event that will be registered
 
 		TimePointEvent::TPEventType m_endEffectEvent = TimePointEvent::None;
+
+		StatusType m_statusType = StatusType::None;
 
 		//common help method for status
 

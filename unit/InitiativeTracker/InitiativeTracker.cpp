@@ -6,6 +6,7 @@
 #include "kibble/kibble.hpp"
 #include <algorithm>
 #include "kitten/event_system/EventManager.h"
+#include "networking\ClientGame.h"
 //Rock
 
 #define LISTSIZE(listA, listB) listA.size() + listB.size()
@@ -83,10 +84,21 @@ unit::InitiativeTracker::InitiativeTracker()
 	m_uAura->setEnabled(false);
 
 	m_currentUnitIndex = -1;//flag, means object list isn't initialize
+
+	//add button listener
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::New_Unit_Turn,
+		this,
+		std::bind(&InitiativeTracker::newTurnListener, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 unit::InitiativeTracker::~InitiativeTracker()
 {
+	kitten::EventManager::getInstance()->removeListener(
+		kitten::Event::EventType::New_Unit_Turn,
+		this
+	);
+
 	delete m_UI;
 	delete m_uturn;
 	delete m_display;
@@ -321,4 +333,13 @@ void unit::InitiativeTracker::addExtraTurn(kitten::K_GameObject * p_unit)
 {
 	m_extraTurnUnitList.push_back(p_unit);
 	m_UI->change(m_currentUnitIndex);
+}
+
+void unit::InitiativeTracker::newTurnListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+{
+	unit::Unit* currentUnit = getCurrentUnit()->getComponent<unit::Unit>();
+	if (networking::ClientGame::getInstance()->getClientId() == currentUnit->m_clientId)
+	{
+		getCurrentUnit()->getComponent<unit::Unit>()->playerSkipTurn();
+	}
 }

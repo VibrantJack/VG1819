@@ -62,7 +62,8 @@ unit::Unit * getUnitFrom(nlohmann::json & p_jsonfile)
 	if (p_jsonfile.find("ability_description") != p_jsonfile.end()) {
 		for (nlohmann::json::iterator it = p_jsonfile["ability_description"].begin(); it != p_jsonfile["ability_description"].end(); ++it) {
 			unit::AbilityDescription * ad = getADFrom(*it);
-			unit->m_ADList[ad->m_stringValue["name"]] = ad;
+			unit->m_ADList.push_back(ad);
+			unit->m_ADMap[ad->m_stringValue[ABILITY_NAME]] = ad;
 		}
 	}
 
@@ -70,7 +71,7 @@ unit::Unit * getUnitFrom(nlohmann::json & p_jsonfile)
 	if (p_jsonfile.find("status") != p_jsonfile.end()) {
 		for (nlohmann::json::iterator it = p_jsonfile["status"].begin(); it != p_jsonfile["status"].end(); ++it) {
 			ability::Status * ad = getStatusFrom(*it);
-			ad->attach(unit);
+			ad->attach(unit, false);
 		}
 	}
 

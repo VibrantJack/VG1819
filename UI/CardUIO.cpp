@@ -60,6 +60,18 @@ namespace userinterface
 		m_parentHand = p_toAssign;
 	}
 
+	void CardUIO::setGAlpha(float p_gAlpha)
+	{
+		UIElement::setGAlpha(p_gAlpha);
+		this->m_unitPortrait->setGAlpha(p_gAlpha);
+	}
+
+	void CardUIO::setTransparency(bool p_isTransparent)
+	{
+		UIElement::setTransparency(p_isTransparent);
+		this->m_unitPortrait->setTransparency(true);
+	}
+
 	void CardUIO::returnToHand()
 	{
 		

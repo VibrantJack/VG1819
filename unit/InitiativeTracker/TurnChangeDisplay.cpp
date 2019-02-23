@@ -16,7 +16,7 @@ unit::TurnChangeDisplay::~TurnChangeDisplay()
 
 void unit::TurnChangeDisplay::displayNewGameTurn()
 {
-	resetCamera();
+	//resetCamera(); <- frustrating - Callum
 
 	if (m_newTurnMsg == nullptr)
 		createMsgGO();
