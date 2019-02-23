@@ -228,7 +228,6 @@ namespace userinterface
 		if (m_texBehaviour == tbh_Repeat || m_texBehaviour == tbh_RepeatMirrored)
 		{
 			m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
-			sm_vao.insert(std::make_pair(m_pivotType, m_vao));
 		}
 		else 
 		{
