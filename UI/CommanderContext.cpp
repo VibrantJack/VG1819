@@ -42,6 +42,7 @@ namespace userinterface
 
 	void CommanderContext::start()
 	{
+		ContextMenu::start();
 		//network
 		kitten::EventManager::getInstance()->addListener(
 			kitten::Event::EventType::Client_Commander_Loaded,

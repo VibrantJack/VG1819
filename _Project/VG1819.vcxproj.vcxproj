@@ -292,6 +292,7 @@
     <ClCompile Include="..\kitten\mouse picking\MousePicker.cpp" />
     <ClCompile Include="..\kitten\QuadEdgeRenderable.cpp" />
     <ClCompile Include="..\kitten\QuadRenderable.cpp" />
+    <ClCompile Include="..\kitten\QuadRenderableBB.cpp" />
     <ClCompile Include="..\kitten\QuadRenderableRepeat.cpp" />
     <ClCompile Include="..\kitten\K_Renderable.cpp" />
     <ClCompile Include="..\kitten\SimpleQuadRenderable.cpp" />
@@ -370,6 +371,7 @@
     <ClCompile Include="..\UI\InterfaceBuilder.cpp" />
     <ClCompile Include="..\UI\LandContext.cpp" />
     <ClCompile Include="..\UI\MainMenu\MainMenu.cpp" />
+    <ClCompile Include="..\UI\StatusContext.cpp" />
     <ClCompile Include="..\UI\TabMenu\ReturnToMainMenuButton.cpp" />
     <ClCompile Include="..\UI\TabMenu\TabMenu.cpp" />
     <ClCompile Include="..\UI\TriggerEventButton.cpp" />
@@ -405,6 +407,7 @@
     <ClCompile Include="..\unit\unitComponent\UnitHealthBar.cpp" />
     <ClCompile Include="..\unit\unitComponent\UnitMove.cpp" />
     <ClCompile Include="..\unit\unitComponent\UnitSelect.cpp" />
+    <ClCompile Include="..\unit\unitComponent\UnitStatusIcons.cpp" />
     <ClCompile Include="..\unit\UnitMonitor.cpp" />
     <ClCompile Include="..\unit\UnitSpawn.cpp" />
     <ClCompile Include="..\unit\UnitTest.cpp" />
@@ -649,6 +652,7 @@
     <ClInclude Include="..\kitten\mouse picking\Ray.h" />
     <ClInclude Include="..\kitten\QuadEdgeRenderable.h" />
     <ClInclude Include="..\kitten\QuadRenderable.h" />
+    <ClInclude Include="..\kitten\QuadRenderableBB.h" />
     <ClInclude Include="..\kitten\QuadRenderableRepeat.h" />
     <ClInclude Include="..\kitten\K_Renderable.h" />
     <ClInclude Include="..\kitten\SimpleQuadRenderable.h" />
@@ -732,6 +736,7 @@
     <ClInclude Include="..\UI\InterfaceBuilder.h" />
     <ClInclude Include="..\UI\LandContext.h" />
     <ClInclude Include="..\UI\MainMenu\MainMenu.h" />
+    <ClInclude Include="..\UI\StatusContext.h" />
     <ClInclude Include="..\UI\TabMenu\ReturnToMainMenuButton.h" />
     <ClInclude Include="..\UI\TabMenu\TabMenu.h" />
     <ClInclude Include="..\UI\TriggerEventButton.h" />
@@ -769,6 +774,7 @@
     <ClInclude Include="..\unit\unitComponent\UnitHealthBar.h" />
     <ClInclude Include="..\unit\unitComponent\UnitMove.h" />
     <ClInclude Include="..\unit\unitComponent\UnitSelect.h" />
+    <ClInclude Include="..\unit\unitComponent\UnitStatusIcons.h" />
     <ClInclude Include="..\unit\UnitMonitor.h" />
     <ClInclude Include="..\unit\UnitSpawn.h" />
     <ClInclude Include="..\unit\UnitTest.h" />

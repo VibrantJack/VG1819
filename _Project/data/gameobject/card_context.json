@@ -2,7 +2,8 @@
     "name" : "Card Context",
     "components" : [
 		{
-			"name" : "CardContext"
+			"name" : "CardContext",
+			"status_key" : "S" 
 		}
     ],
     "scale2d" : [256,400],

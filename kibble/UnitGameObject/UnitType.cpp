@@ -71,7 +71,7 @@ unit::Unit * getUnitFrom(nlohmann::json & p_jsonfile)
 	if (p_jsonfile.find("status") != p_jsonfile.end()) {
 		for (nlohmann::json::iterator it = p_jsonfile["status"].begin(); it != p_jsonfile["status"].end(); ++it) {
 			ability::Status * ad = getStatusFrom(*it);
-			ad->attach(unit);
+			ad->attach(unit, false);
 		}
 	}
 
