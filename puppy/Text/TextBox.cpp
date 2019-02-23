@@ -40,6 +40,7 @@ namespace puppy
 
 	puppy::TextBox::~TextBox()
 	{
+		removeOldText();
 		if (m_isEnabled)
 		{
 			if (!m_is3D)
