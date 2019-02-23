@@ -1,0 +1,14 @@
+{
+    "name" : "Status Context TextBox",
+    "components" : [
+        {
+            "name" : "TextBox",
+			"font" : "../fonts/nsimsun_12pt.fnt",
+			"color" : [1,1,1],
+            "alignment" : "left",
+            "width" : 187,
+            "height" : 40
+        }
+    ],
+	"translate" : [47, 193, -0.01]
+}

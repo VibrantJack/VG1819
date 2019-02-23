@@ -123,8 +123,8 @@ namespace ability
 		QuickShoot() : Ability(ABILITY_QUICK_SHOOT) {};
 		int effect(AbilityInfoPackage* p_info) 
 		{ 
-			multiTargetDamage(p_info); 
-			UniversalSounds::playSound("arrow_whoosh_double");
+			multiTargetDamage(p_info, true); 
+			UniversalSounds::playSound("arrow_whoosh" + std::to_string(p_info->m_targets.size()));
 			return 0; 
 		};
 	};
@@ -201,6 +201,7 @@ namespace ability
 		{
 			getTarget(p_info);
 			multiTargetDamage(p_info);
+			UniversalSounds::playSound("ignition");
 			return 0;
 		};
 	};
@@ -212,6 +213,7 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info) {
 			getTarget(p_info);
 			multiTargetDamage(p_info);
+			UniversalSounds::playSound("launch_boulder");
 			return 0;
 		};
 	};
@@ -236,14 +238,24 @@ namespace ability
 	{
 	public:
 		Volley() : Ability(ABILITY_VOLLEY) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			multiTargetDamage(p_info); 
+			UniversalSounds::playSound("volley");
+			return 0; 
+		};
 	};
 
 	class TheLight : public Ability
 	{
 	public:
 		TheLight() : Ability(ABILITY_THE_LIGHT) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			multiTargetDamage(p_info);
+			UniversalSounds::playSound("gong");
+			return 0; 
+		};
 	};
 
 	class EnergyControl : public Ability

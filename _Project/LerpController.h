@@ -13,19 +13,19 @@ public:
 	class PositionLerpFinishedCallback
 	{
 	public:
-		virtual void onPositionLerpFinished() = 0;
+		virtual void onPositionLerpFinished(kitten::K_GameObject* p_obj) = 0;
 	};
 
 	class ScaleLerpFinishedCallback
 	{
 	public:
-		virtual void onScaleLerpFinished() = 0;
+		virtual void onScaleLerpFinished(kitten::K_GameObject* p_obj) = 0;
 	};
 
 	class RotationLerpFinishedCallback
 	{
 	public:
-		virtual void onRotationLerpFinished() = 0;
+		virtual void onRotationLerpFinished(kitten::K_GameObject* p_obj) = 0;
 	};
 
 	enum TransformBehavior {

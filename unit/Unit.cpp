@@ -33,10 +33,12 @@ namespace unit
 		delete m_statusContainer;
 		delete m_cdRecorder;
 		delete m_castTimer;
-		for (auto it = m_ADList.begin(); it != m_ADList.end(); it++)
+
+		for (auto it : m_ADList)//delete ability description
 		{
-			delete it->second;
+			delete it;
 		}
+
 		if (isCommander())
 		{
 			delete m_commander;
@@ -348,11 +350,11 @@ namespace unit
 			return -1;
 
 		AbilityDescription* ad;
-		bool find = m_ADList.find(p_abilityName) != m_ADList.end();
-		if (find)
+		auto found = m_ADMap.find(p_abilityName);
+		if (found != m_ADMap.end())
 		{
 			std::cout << "use ability: " << p_abilityName << std::endl;
-			ad = m_ADList[p_abilityName];
+			ad = found->second;
 		}
 		else
 		{
@@ -403,11 +405,11 @@ namespace unit
 	int Unit::checkCD(const std::string & p_abilityName)
 	{
 		AbilityDescription* ad;
-		bool find = m_ADList.find(p_abilityName) != m_ADList.end();
+		auto found = m_ADMap.find(p_abilityName);
 
-		assert(find);//ability not found
+		assert(found != m_ADMap.end());//ability not found
 
-		ad = m_ADList[p_abilityName];
+		ad = found->second;
 
 		return m_cdRecorder->checkCD(ad);
 	}
@@ -489,7 +491,7 @@ namespace unit
 		}
 	}
 
-	void Unit::onScaleLerpFinished() //Called when healthbar is done animating
+	void Unit::onScaleLerpFinished(kitten::K_GameObject* p_obj) //Called when healthbar is done animating
 	{
 		switch (m_healthBarState)
 		{

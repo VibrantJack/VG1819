@@ -8,6 +8,7 @@ namespace ability
 	Status_Block::Status_Block() : Status::Status()
 	{
 		m_Id = STATUS_BLOCK;
+		m_statusType = StatusType::Shield;
 		addTimePoint(TimePointEvent::Receive_Damage);
 	}
 

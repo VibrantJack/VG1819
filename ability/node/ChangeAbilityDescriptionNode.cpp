@@ -14,10 +14,11 @@ namespace ability
 	int ChangeAbilityDescriptionNode::effect(unit::Unit* p_target, const std::string& p_abilityName, const std::string& p_valueName, int p_value)
 	{
 		//find ability
-		if (p_target->m_ADList.find(p_abilityName) != p_target->m_ADList.end())
+		auto found = p_target->m_ADMap.find(p_abilityName);
+		if (found != p_target->m_ADMap.end())
 		{
 			std::cout << p_abilityName << " : " << p_valueName << " is changed by " << p_value << std::endl;
-			p_target->m_ADList[p_abilityName]->m_intValue[p_valueName] += p_value;
+			found->second->m_intValue[p_valueName] += p_value;
 			return 0;
 		}
 		//not found ability
@@ -27,10 +28,11 @@ namespace ability
 	int ChangeAbilityDescriptionNode::effect(unit::Unit* p_target, const std::string& p_abilityName, const std::string& p_valueName, const std::string& p_value)
 	{
 		//find ability
-		if (p_target->m_ADList.find(p_abilityName) != p_target->m_ADList.end())
+		auto found = p_target->m_ADMap.find(p_abilityName);
+		if ( found != p_target->m_ADMap.end())
 		{
 			std::cout << p_abilityName << " : " << p_valueName << " is changed to " << p_value << std::endl;
-			p_target->m_ADList[p_abilityName]->m_stringValue[p_valueName] = p_value;
+			found->second->m_stringValue[p_valueName] = p_value;
 			return 0;
 		}
 		//not found ability
@@ -39,12 +41,15 @@ namespace ability
 
 	void ChangeAbilityDescriptionNode::addFilter(unit::Unit * p_target, const std::string & p_abilityName, const std::string & p_filter, const std::string & p_filterName)
 	{
-		int index = getFilter(p_target, p_abilityName, p_filter, p_filterName);
-
-		if (index >= 0)//ability is found
+		auto found = p_target->m_ADMap.find(p_abilityName);
+		if (found != p_target->m_ADMap.end())
 		{
-			unit::AbilityDescription* ad = p_target->m_ADList[p_abilityName];
+			//get number of filter
+			unit::AbilityDescription* ad = found->second;
+
 			int num = ad->m_intValue[p_filter];
+
+			int index = getFilter(ad, num, p_filter, p_filterName);
 
 			if (index == num)//filter doesn't exist
 			{
@@ -56,19 +61,21 @@ namespace ability
 
 				ad->m_stringValue[tkey] = p_filterName;//add filter
 			}
-			else//filter exist
-				return;
+			//filter exist
 		}
 	}
 
 	void ChangeAbilityDescriptionNode::removeFilter(unit::Unit * p_target, const std::string & p_abilityName, const std::string & p_filter, const std::string & p_filterName)
 	{
-		int index = getFilter(p_target, p_abilityName, p_filter, p_filterName);
-
-		if (index >= 0)//ability is found
+		auto found = p_target->m_ADMap.find(p_abilityName);
+		if (found != p_target->m_ADMap.end())
 		{
-			unit::AbilityDescription* ad = p_target->m_ADList[p_abilityName];
+			//get number of filter
+			unit::AbilityDescription* ad = found->second;
+
 			int num = ad->m_intValue[p_filter];
+
+			int index = getFilter(ad, num, p_filter, p_filterName);
 
 			if (index < num)//filter exist
 			{
@@ -93,35 +100,23 @@ namespace ability
 				}
 
 			}
-			else//filter doesn't exist
-				return;
+			//filter doesn't exist
 		}
 	}
 
-	int ChangeAbilityDescriptionNode::getFilter(unit::Unit * p_target, const std::string & p_abilityName, const std::string & p_filter, const std::string & p_filterName)
+	int ChangeAbilityDescriptionNode::getFilter(unit::AbilityDescription * p_ad, int p_num, const std::string & p_filter, const std::string & p_filterName)
 	{
-		// find ability
-		if (p_target->m_ADList.find(p_abilityName) != p_target->m_ADList.end())
+		//check if the filter exist
+		for (int i = 0; i < p_num; i++)
 		{
-			//get number of filter
-			unit::AbilityDescription* ad = p_target->m_ADList[p_abilityName];
-			int num = ad->m_intValue[p_filter];
+			std::stringstream stm;
+			stm << p_filter << i;
+			std::string tkey = stm.str();
 
-			//check if the filter exist
-			for (int i = 0; i < num; i++)
-			{
-				std::stringstream stm;
-				stm << p_filter << i;
-				std::string tkey = stm.str();
-
-				if (ad->m_stringValue[tkey] == p_filterName)
-					return i;//exist, then return the index
-			}
-
-			return num;//doesn't exist, then return next index
+			if (p_ad->m_stringValue[tkey] == p_filterName)
+				return i;//exist, then return the index
 		}
 
-		return -1; //ability doesn't found
+		return p_num;//doesn't exist, then return next index
 	}
-
 }

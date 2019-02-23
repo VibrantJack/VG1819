@@ -49,7 +49,11 @@ void unit::CastTimer::set(std::string p_abilityName, ability::AbilityInfoPackage
 
 		m_timerSymbol->getComponent<TimerSymbol>()->changeTexture(m_timer);
 
-		m_pack->m_clickedObject = input::InputManager::getInstance()->getMouseLastHitObject();
+		// If != nullptr, then m_clickedObject was already set by ClientGame/AbilityPacket
+		if (m_pack->m_clickedObject == nullptr)
+		{
+			m_pack->m_clickedObject = input::InputManager::getInstance()->getMouseLastHitObject();
+		}
 	}
 }
 

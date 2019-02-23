@@ -28,10 +28,14 @@ namespace ability
 
 			//change counter
 			node1->effect(target, COUNTER_ENERGY, power);
+
+			UniversalSounds::playSound("magic_power_up");
 		}
 
 		//delete package
 		done(p_info);
+
+		
 
 		return 0;
 	}

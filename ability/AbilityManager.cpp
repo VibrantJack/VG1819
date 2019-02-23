@@ -164,9 +164,10 @@ namespace ability
 	{
 		bool hasCT = false;
 		unit::Unit* sourceUnit = p_info->m_source;
-		if (sourceUnit->m_ADList.find(p_name) != sourceUnit->m_ADList.end())
+		auto found = sourceUnit->m_ADMap.find(p_name);
+		if (found != sourceUnit->m_ADMap.end())
 		{
-			unit::AbilityDescription* ad = sourceUnit->m_ADList[p_name];
+			unit::AbilityDescription* ad = found->second;
 
 			// Check if the AD has a value for CT, if so, make sure that it is greater than 0
 			// Otherwise, there's no cast time for the ability

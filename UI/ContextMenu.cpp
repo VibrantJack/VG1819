@@ -31,6 +31,7 @@ namespace userinterface
 	 
 	void ContextMenu::start()
 	{
+		UIElement::start();
 		getTransform().scale2D(m_width, m_height);
 	}
 

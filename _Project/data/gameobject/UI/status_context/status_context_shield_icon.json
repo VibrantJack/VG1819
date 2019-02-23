@@ -1,0 +1,11 @@
+{
+    "name" : "Status Context Shield Icon", 
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/icons/shield_icon.png"
+        }
+    ],
+	"translate" : [10, 22, -0.01],
+    "scale2d" : [32,32]
+}
