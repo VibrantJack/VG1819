@@ -281,10 +281,10 @@ void TileInfo::checkSecondaryDP()
 	{
 		m_SecondaryDP = dp;
 
-		//this isn't DP, so secondary dp change matters
-		//trigger new tile event
 		if (!m_DemonicPresence)
 		{
+			//this isn't DP, so secondary dp change matters
+			//trigger new tile event
 			triggerNewTileEvent();
 		}
 	}

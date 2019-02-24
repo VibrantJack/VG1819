@@ -1037,6 +1037,12 @@
     <ClCompile Include="..\UI\GameplayButtons\NextTurnButton.cpp">
       <Filter>UI\GameplayButtons</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\ability\Drain.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Evil_Fiend_LV.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

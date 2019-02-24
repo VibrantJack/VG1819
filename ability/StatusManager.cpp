@@ -65,6 +65,7 @@ namespace ability
 		ADD_ELEMENT(s, m_statusList, STATUS_WRAITH_LV2, Status_Wraith_LV2);
 		ADD_ELEMENT(s, m_statusList, STATUS_DR_WRAITH, Status_DR_Wraith);
 		ADD_ELEMENT(s, m_statusList, STATUS_DR_EVIL_FIEND, Status_DR_Evil_Fiend);
+		ADD_ELEMENT(s, m_statusList, STATUS_EVIL_FIEND_LV, Status_Evil_Fiend_LV);
 	}
 
 	StatusManager::StatusManager()

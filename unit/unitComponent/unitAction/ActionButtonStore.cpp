@@ -136,7 +136,7 @@ void unit::ActionButtonStore::displayAction(kitten::K_GameObject * p_buttonGO)
 	m_lastX = pos.x + m_buttonScaleX;
 	m_lastY = pos.y + m_buttonScaleY;
 	//change x position
-	if (m_xChange)//if the button will out of window
+	if (!m_xChange)//if the button will out of window
 		m_lastX = m_lastX - m_buttonScaleX * 2;//move it to left
 
 	//get action list start index
@@ -276,7 +276,7 @@ void unit::ActionButtonStore::setAbility()
 				else
 				{
 					//check disable
-					int disable = it.second->m_intValue[ABILITY_DISABLE];
+					int disable = it->m_intValue[ABILITY_DISABLE];
 					if (disable)
 						setButton(it->m_stringValue[ABILITY_NAME], false);
 					else

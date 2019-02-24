@@ -39,7 +39,7 @@
 #define ABILITY_STAB "Stab"
 #define ABILITY_SACRIFICE "Sacrifice"
 #define ABILITY_EROSION "Erosion"
-#define ABILITY_
+#define ABILITY_DRAIN "Drain"
 #define ABILITY_EXECUTE "Execute"
 #define ABILITY_HORROR "Horror"
 #define ABILITY_ATTACH "Attach"
@@ -78,6 +78,7 @@
 #define STATUS_ETERNAL_EYE_LV3 "Status_Eternal_Eye_LV3"
 #define STATUS_LANCER_LV2 "Status_Lancer_LV2"
 #define STATUS_WRAITH_LV2 "Status_Wraith_LV2"
+#define STATUS_EVIL_FIEND_LV "Status_Evil_Fiend_LV"
 
 //demonic restriction
 #define STATUS_DEMONIC_RESTRICTION "Status_Demonic_Restriction"

@@ -388,6 +388,13 @@ namespace ability
 		Attach() : Ability(ABILITY_ATTACH) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
+
+	class Drain : public Ability
+	{
+	public:
+		Drain() : Ability(ABILITY_DRAIN) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
 }
 
 

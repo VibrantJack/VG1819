@@ -6,7 +6,34 @@
 		"in":13,
 		"cost":4,
 		"tags":["Ancients","Demon"],
-		"portrait_texture" : "textures/cards/500x500/EvilFiend.tga"
+		"portrait_texture" : "textures/cards/500x500/EvilFiend.tga",
+		"ability_description":[
+			{
+				"name":"Drain",
+				"power":4,
+				"target":1,
+				"need_unit":1,
+				"min_range":1,
+				"max_range":1,
+				"counter_change":1,
+				"counter_max":5,
+				"description":"Deal 4 damage and gain a [Vigor Counter]. If has 5 [Vigor Counter], level up."
+			}
+		],
+		"status":[
+			{
+				"name":"Status_Evil_Fiend_LV",
+				"lv":2,
+				"hp":5,
+				"description":"If in [Demonic Presence], full heal."
+			},
+			{
+				"name":"Status_Evil_Fiend_LV",
+				"lv":3,
+				"hp":5,
+				"description":"If in [Demonic Presence], full heal."
+			}
+		]
 	},
 	"components" : [
 		{

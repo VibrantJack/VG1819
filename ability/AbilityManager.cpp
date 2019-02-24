@@ -125,6 +125,7 @@ namespace ability
 		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_EXECUTE, Execute);
 		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_HORROR, Horror);
 		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_ATTACH, Attach);
+		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_DRAIN, Drain);
 	}
 
 	AbilityManager::AbilityManager()

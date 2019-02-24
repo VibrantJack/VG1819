@@ -290,6 +290,15 @@ namespace ability
 
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
+
+	class Status_Evil_Fiend_LV : public Status_LV
+	{
+	public:
+		Status_Evil_Fiend_LV();
+		Status* clone() const { return new Status_Evil_Fiend_LV(*this); };
+
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};
 }
 
 
