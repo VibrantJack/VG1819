@@ -10,7 +10,7 @@ PathFind::PathFind()
 
 PathFind::~PathFind()
 {
-	clear();
+	if(!m_isClear) clear();
 }
 
 kitten::Event::TileList PathFind::getPath(std::pair<int, int> p_start, std::pair<int, int> p_end, int p_mv)
@@ -126,7 +126,10 @@ void PathFind::addNodeToOpen(std::pair<int, int> p_tile, int p_cost, node* p_par
 		{
 			//check weight
 			if (m_openList[i]->weight < n->weight)
+			{
+				delete n;
 				return;
+			}
 		}
 	}
 
@@ -136,7 +139,10 @@ void PathFind::addNodeToOpen(std::pair<int, int> p_tile, int p_cost, node* p_par
 		{
 			//check weight
 			if (m_closedList[i]->weight < n->weight)
+			{
+				delete n;
 				return;
+			}
 		}
 	}
 
@@ -154,6 +160,7 @@ kitten::Event::TileList PathFind::getList(node* p_n)
 		n = n->parent;
 	}
 	std::reverse(list.begin(), list.end());
+	delete p_n;
 	return list;
 }
 

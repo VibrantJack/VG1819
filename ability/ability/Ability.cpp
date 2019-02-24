@@ -179,6 +179,7 @@ void ability::Ability::triggerTPEvent(ability::TimePointEvent::TPEventType p_tp,
 	ability::TimePointEvent* t = new ability::TimePointEvent(p_tp);
 	t->putPackage(INFO_PACKAGE_KEY, p_info);
 	sc->triggerTP(p_tp, t);
+	delete t;
 }
 
 void ability::Ability::addStatusInfo(Status * p_st, AbilityInfoPackage* p_info)
