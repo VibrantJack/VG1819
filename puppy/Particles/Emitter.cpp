@@ -255,6 +255,10 @@ namespace puppy
 				{
 					mode = DirectionSpawnAff::mode::up;
 				}
+				else if (modeStr == "down")
+				{
+					mode = DirectionSpawnAff::mode::down;
+				}
 
 				m_spawnProperties.push_back(new DirectionSpawnAff(mode));
 			}
@@ -541,6 +545,7 @@ namespace puppy
 		free(dataStart);
 		data = nullptr;
 
+		//Set texture
 		//Set texture
 		if (m_tex != nullptr)
 		{

@@ -12,7 +12,8 @@ namespace puppy
 		{
 			offset,
 			up,
-			random
+			random,
+			down
 		};
 	private:
 		bool m_mode;
