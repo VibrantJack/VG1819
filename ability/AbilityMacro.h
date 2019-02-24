@@ -43,6 +43,8 @@
 #define ABILITY_EXECUTE "Execute"
 #define ABILITY_HORROR "Horror"
 #define ABILITY_ATTACH "Attach"
+#define ABILITY_HEALTH_LINK "Health Link"
+#define ABILITY_CRASH "Crash"
 
 //ability or status required info
 #define PUSH_BACK "push_back"
@@ -69,6 +71,7 @@
 #define STATUS_BLOCK "Status_Block"
 #define STATUS_CURSE "Status_Curse"
 #define STATUS_ATTACH "Status_Attach"
+#define STATUS_VAMPIRIC_CURSE "Status_Vampiric_Curse"
 
 //lv
 #define STATUS_LV "Status_LV"

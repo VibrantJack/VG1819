@@ -13,7 +13,7 @@ namespace ability
 			//check if unit has this status
 			if (!p_info->m_targets[0]->getStatusContainer()->getStatus(STATUS_CURSE, ABILITY_CURSE))
 			{
-				//apply Status_Encourage to target
+				//apply Status_Curse to target
 				ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_CURSE);
 
 				//set properties

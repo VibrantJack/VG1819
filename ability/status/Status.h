@@ -279,7 +279,6 @@ namespace ability
 		Status* clone() const { return new Status_Attach(*this); };
 		int effect();
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
-
 	};
 
 	class Status_Wraith_LV2 : public Status_LV
@@ -298,6 +297,18 @@ namespace ability
 		Status* clone() const { return new Status_Evil_Fiend_LV(*this); };
 
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};
+
+	class Status_Vampiric_Curse : public Status
+	{
+	private:
+		//the unit who cast the ability,it's who get the hp
+		unit::Unit* m_caster; 
+	public:
+		Status_Vampiric_Curse();
+		Status* clone() const { return new Status_Vampiric_Curse(*this); };
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+		void setCaster(unit::Unit* p_u);
 	};
 }
 

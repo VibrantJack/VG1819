@@ -395,6 +395,15 @@ namespace ability
 		Drain() : Ability(ABILITY_DRAIN) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
+
+	class HealthLink : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
+	public:
+		HealthLink() : Ability(ABILITY_HEALTH_LINK) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
 }
 
 
