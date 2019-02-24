@@ -3,11 +3,11 @@
     "components" : [
         {
             "name" : "AudioSource",
-			"clippath" : "Sounds/Mr.Frustration.mp3",
+			"clippath" : "Sounds/music/Truth in the Stones.mp3",
 			"is3d" : false,
 			"enableeffects" : false,
 			"loop" : true,
-			"volume" : 0.3,
+			"volume" : 0.15,
 			"getsducked" : true
         },
 		{
@@ -19,6 +19,9 @@
 			"increasekey" : "I",
 			"decreasekey" : "O",
 			"changeamount" : 0.05
+		},
+		{
+			"name" : "PlaySoundOnStart"
 		}
     ]
 }

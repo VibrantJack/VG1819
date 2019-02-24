@@ -92,7 +92,15 @@ namespace ability
 	{
 	public:
 		Fight() : Ability(ABILITY_FIGHT) {};
-		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			singleTargetDamage(p_info); 
+			
+			int randNum = rand() % 4 + 1;
+			UniversalSounds::playSound("swordonwood" + std::to_string(randNum));
+
+			return 0; 
+		};
 	};
 
 	class Shoot : public Ability

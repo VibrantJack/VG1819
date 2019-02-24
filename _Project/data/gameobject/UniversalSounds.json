@@ -120,6 +120,27 @@
 				},
 				{
 					"sound" : ["magic_power_up", "sounds/magic_power_up.json"]
+				},
+				{
+					"sound" : ["coins", "sounds/coins.json"]
+				},
+				{
+					"sound" : ["swordonwood1", "sounds/swordonwood1.json"]
+				},
+				{
+					"sound" : ["swordonwood2", "sounds/swordonwood2.json"]
+				},
+				{
+					"sound" : ["swordonwood3", "sounds/swordonwood3.json"]
+				},
+				{
+					"sound" : ["swordonwood4", "sounds/swordonwood4.json"]
+				},
+				{
+					"sound" : ["marimba", "sounds/marimba.json"]
+				},
+				{
+					"sound" : ["deconstruction", "sounds/deconstruction.json"]
 				}
 			]
 		}
