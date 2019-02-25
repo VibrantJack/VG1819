@@ -39,7 +39,8 @@ void DeckAlterationComponent::saveDeck()
 	if (m_source == nullptr) assert(false); // there is no deck chosen to alter
 	if(m_deckId >= 0) 
 		kibble::replaceDeckData(m_deckId,m_source);
-	else {
+	else 
+	{
 		m_deckId = kibble::addNewDeckData(m_source);
 		m_saved = true;
 	}

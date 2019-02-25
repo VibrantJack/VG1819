@@ -31,7 +31,11 @@ void DeleteDeckOnClick::onSuccess()
 
 void DeleteDeckOnClick::onClick()
 {
-	if (DecksDisplayFrame::getActiveInstance()->getCurrentPickedDeckId() < 0) return;
+	if (DecksDisplayFrame::getActiveInstance()->getCurrentPickedDeckId() < 0)
+	{
+		return;
+	}
+
 	m_text = "Are you sure you want to delete this deck there, buddy?";
 	PromptPopUp::getActiveInstance()->setEnabledPrompt(true);
 	PromptPopUp::getActiveInstance()->setBehavior(this);

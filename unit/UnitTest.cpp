@@ -42,6 +42,12 @@ namespace unit
 		return m_instance;
 	}
 
+	void UnitTest::destroyInstance()
+	{
+		if(m_instance != nullptr)
+			delete m_instance;
+	}
+
 	void UnitTest::test()
 	{
 		m_bTested = true;

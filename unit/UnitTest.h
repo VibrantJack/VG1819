@@ -18,6 +18,7 @@ namespace unit
 
 		static UnitTest* getInstance();
 		static UnitTest* getInstanceSafe();
+		static void destroyInstance();
 
 		void test();
 

@@ -268,9 +268,9 @@ namespace kitten
 			networking::ServerGame::destroyInstance();
 		}
 
-		ModelRenderable::clearModels();
-		delete unit::UnitTest::getInstance();
-		delete unit::UnitMonitor::getInstance();
+		ModelRenderable::deleteModels();
+		unit::UnitTest::destroyInstance();
+		unit::UnitMonitor::destroyInstance();
 	}
 
 	void updateGame()

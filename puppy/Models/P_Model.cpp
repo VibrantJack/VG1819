@@ -29,9 +29,9 @@ namespace puppy
 
 	P_Model::~P_Model()
 	{
-		for (auto it : m_meshes)
+		for (auto mesh : m_meshes)
 		{
-			delete it;
+			delete mesh;
 		}
 	}
 
