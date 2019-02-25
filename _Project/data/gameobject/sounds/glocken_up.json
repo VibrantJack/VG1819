@@ -1,9 +1,9 @@
 {
-	"name" : "SabotageSound",
+	"name" : "Glocken_UpSound",
 	"components" : [
 		{
 			"name" : "AudioSource",
-			"clippath" : "Sounds/sfx/units/sabotage.wav",
+			"clippath" : "Sounds/sfx/units/glocken_up.wav",
 			"is3d" : false,
 			"enableeffects" : false,
 			"loop" : false,

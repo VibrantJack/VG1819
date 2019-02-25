@@ -1,13 +1,13 @@
 {
-	"name" : "SabotageSound",
+	"name" : "FanfareSound",
 	"components" : [
 		{
 			"name" : "AudioSource",
-			"clippath" : "Sounds/sfx/units/sabotage.wav",
+			"clippath" : "Sounds/sfx/ui/fanfare.wav",
 			"is3d" : false,
 			"enableeffects" : false,
 			"loop" : false,
-			"volume" : 0.2,
+			"volume" : 0.15,
 			"getsducked" : false
 		}
 	]

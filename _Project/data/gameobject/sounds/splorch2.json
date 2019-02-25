@@ -1,9 +1,9 @@
 {
-	"name" : "SabotageSound",
+	"name" : "SplorchSound",
 	"components" : [
 		{
 			"name" : "AudioSource",
-			"clippath" : "Sounds/sfx/units/sabotage.wav",
+			"clippath" : "Sounds/sfx/units/splorch2.wav",
 			"is3d" : false,
 			"enableeffects" : false,
 			"loop" : false,

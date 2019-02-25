@@ -1,9 +1,9 @@
 {
-	"name" : "SabotageSound",
+	"name" : "TambourineSound",
 	"components" : [
 		{
 			"name" : "AudioSource",
-			"clippath" : "Sounds/sfx/units/sabotage.wav",
+			"clippath" : "Sounds/sfx/units/tambourine.wav",
 			"is3d" : false,
 			"enableeffects" : false,
 			"loop" : false,

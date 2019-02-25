@@ -1,5 +1,5 @@
 {
-	"name" : "DingSound",
+	"name" : "Choir_ShortSound",
 	"components" : [
 		{
 			"name" : "AudioSource",

@@ -141,6 +141,33 @@
 				},
 				{
 					"sound" : ["deconstruction", "sounds/deconstruction.json"]
+				},
+				{
+					"sound" : ["splorch1", "sounds/splorch1.json"]
+				},
+				{
+					"sound" : ["splorch2", "sounds/splorch2.json"]
+				},
+				{
+					"sound" : ["splorch3", "sounds/splorch3.json"]
+				},
+				{
+					"sound" : ["sharp_clank", "sounds/sharp_clank.json"]
+				},
+				{
+					"sound" : ["tambourine", "sounds/tambourine.json"]
+				},
+				{
+					"sound" : ["deep_clang", "sounds/deep_clang.json"]
+				},
+				{
+					"sound" : ["flap", "sounds/flap.json"]
+				},
+				{
+					"sound" : ["glocken_up", "sounds/glocken_up.json"]
+				},
+				{
+					"sound" : ["fanfare", "sounds/fanfare.json"]
 				}
 			]
 		}

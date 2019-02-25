@@ -1,9 +1,9 @@
 {
-	"name" : "SabotageSound",
+	"name" : "SharpClankSound",
 	"components" : [
 		{
 			"name" : "AudioSource",
-			"clippath" : "Sounds/sfx/units/sabotage.wav",
+			"clippath" : "Sounds/sfx/units/sharp_clank.wav",
 			"is3d" : false,
 			"enableeffects" : false,
 			"loop" : false,

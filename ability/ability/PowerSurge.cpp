@@ -32,6 +32,8 @@ namespace ability
 			}
 		}
 
+		UniversalSounds::playSound("glocken_up");
+
 		//delete package
 		done(p_info);
 

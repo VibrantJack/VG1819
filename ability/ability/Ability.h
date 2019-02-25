@@ -96,7 +96,7 @@ namespace ability
 		{ 
 			singleTargetDamage(p_info); 
 			
-			int randNum = rand() % 4 + 1;
+			int randNum = (rand() % 4) + 1;
 			UniversalSounds::playSound("swordonwood" + std::to_string(randNum));
 
 			return 0; 
@@ -323,7 +323,12 @@ namespace ability
 	{
 	public:
 		Thrust() : Ability(ABILITY_THRUST) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			multiTargetDamage(p_info);
+			UniversalSounds::playSound("sharp_clank");
+			return 0; 
+		};
 	};
 
 	class ReleaseGas : public Ability
@@ -386,7 +391,7 @@ namespace ability
 		Stab() : Ability(ABILITY_STAB) {};
 		int effect(AbilityInfoPackage* p_info) 
 		{ 
-			singleTargetDamage(p_info); 
+			singleTargetDamage(p_info);
 			UniversalSounds::playSound("stab");
 			return 0; 
 		};

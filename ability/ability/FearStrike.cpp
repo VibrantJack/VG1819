@@ -44,6 +44,7 @@ namespace ability
 				}
 			}
 
+			UniversalSounds::playSound("deep_clang");
 		}
 
 		//damage target and delete package
