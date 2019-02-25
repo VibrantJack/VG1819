@@ -113,7 +113,7 @@ namespace ability
 	{
 	public:
 		QuickShoot() : Ability(ABILITY_QUICK_SHOOT) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info, true); return 0; };
 	};
 
 	class Sabotage : public Ability

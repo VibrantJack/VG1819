@@ -8,7 +8,7 @@ class DiscardCardOnClick : public kitten::ClickableUI, LerpController::PositionL
 protected:
 	LerpController* m_lerpController = nullptr;
 
-	void onPositionLerpFinished() override;
+	void onPositionLerpFinished(kitten::K_GameObject* p_obj) override;
 public:
 	DiscardCardOnClick(nlohmann::json& p_json);
 	DiscardCardOnClick(bool p_backToOrigin = false);

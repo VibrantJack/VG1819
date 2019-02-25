@@ -49,6 +49,7 @@
 #include "kitten\K_ParticleSystem.h"
 #include "kitten\BarRenderable.h"
 #include "_Project\LerpController.h"
+#include "kitten\QuadRenderableBB.h"
 
 //board
 #include "board/component/Highlighter.h"
@@ -274,6 +275,10 @@ namespace kitten
 		else if (p_componentName == "NetworkJoinButton") 
 		{
 			comp = new userinterface::NetworkJoinButton();
+		}
+		else if (p_componentName == "QuadRenderableBB")
+		{
+			comp = new kitten::QuadRenderableBB();
 		}
 		else
 		{

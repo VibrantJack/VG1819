@@ -8,7 +8,7 @@
 #define CARD_DISCARD_ANIM_TIME 2
 #define CARD_DISCARD_MOVE_TIME 2
 
-void DiscardCardOnClick::onPositionLerpFinished()
+void DiscardCardOnClick::onPositionLerpFinished(kitten::K_GameObject* p_obj)
 {
 	// Delete Card
 	kitten::K_GameObjectManager::getInstance()->destroyGameObject(this->m_attachedObject);

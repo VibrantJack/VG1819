@@ -8,6 +8,7 @@ namespace ability
 	Status_Dodge::Status_Dodge() : Status::Status()
 	{
 		m_Id = STATUS_DODGE;
+		m_statusType = StatusType::Shield;
 		addTimePoint(TimePointEvent::Receive_Damage);
 		endEffectAt(TimePointEvent::Turn_Start);
 	}

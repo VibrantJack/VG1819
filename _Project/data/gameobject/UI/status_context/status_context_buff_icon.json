@@ -1,0 +1,11 @@
+{
+    "name" : "Status Context Buff Icon", 
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/icons/buff.png"
+        }
+    ],
+	"translate" : [10, 150, -0.01],
+    "scale2d" : [32,32]
+}

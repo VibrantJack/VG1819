@@ -1,0 +1,11 @@
+{
+    "name" : "Status Context Debuff Icon", 
+    "components" : [
+        {
+            "name" : "UIObject",
+            "texture" : "textures/ui/icons/debuff.png"
+        }
+    ],
+	"translate" : [10, 86, -0.01],
+    "scale2d" : [32,32]
+}

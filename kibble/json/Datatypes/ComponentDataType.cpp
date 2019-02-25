@@ -314,6 +314,20 @@ kitten::K_Component* getNetworkJoinButton(nlohmann::json& p_json) {
 	return button;
 }
 
+#include "UI\GameplayButtons\NextTurnButton.h"
+kitten::K_Component* getNextTurnButton(nlohmann::json& p_json) {
+	std::string regularTexture, highlightedTexture;
+
+	SETSTROPT(regularTexture, "regularTexture");
+	SETSTROPT(highlightedTexture, "highlightedTexture");
+
+	userinterface::NextTurnButton* button = new userinterface::NextTurnButton();
+	button->setRegularTexture(regularTexture);
+	button->setHighlightedTexture(highlightedTexture);
+
+	return button;
+}
+
 #include "networking\menu\NetworkHostButton.h"
 kitten::K_Component* getNetworkHostButton(nlohmann::json& p_json) {
 	std::string regularTexture, highlightedTexture;
@@ -572,6 +586,16 @@ kitten::K_Component* getUnitHealthBar(nlohmann::json& p_json) {
 	SETOPTDEF(rotation, "rotation", -45);
 
 	return new unit::UnitHealthBar(offset,lerpTime,rotation);
+}
+
+#include "unit\unitComponent\UnitStatusIcons.h"
+kitten::K_Component* getUnitStatusIcons(nlohmann::json& p_json) {
+
+	glm::vec3 offset = LOOKUPVEC3("offset");
+
+	float rotation = LOOKUPDEF("rotation", 45);
+
+	return new unit::UnitStatusIcons(offset, rotation);
 }
 
 #include "_Project\LerpController.h"
@@ -880,12 +904,22 @@ kitten::K_Component* getCustomDataComponent(nlohmann::json& p_json) {
 }
 #include "UI\CardContext.h"
 kitten::K_Component* getCardContext(nlohmann::json& p_json) {
-	return new CardContext();
+	char statusKey = 'S';
+	if (JSONHAS("status_key")) {
+		std::string strKey = LOOKUP("status_key");
+		statusKey = strKey[0];
+	}
+	return new CardContext(statusKey);
 }
 
 #include "UI\LandContext.h"
 kitten::K_Component* getLandContext(nlohmann::json& p_json) {
 	return new LandContext();
+}
+
+#include "UI\StatusContext.h"
+kitten::K_Component* getStatusContext(nlohmann::json* p_jsonFile) {
+	return new StatusContext();
 }
 
 #include "UI\ContextMenu.h"
@@ -1446,6 +1480,7 @@ void setupComponentMap() {
 	jsonMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
 	jsonMap["BorderPiece"] = &getBorderPiece;
 	jsonMap["TurnCounterController"] = &getTurnCounterController;
+	jsonMap["NextTurnButton"] = &getNextTurnButton;
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json& p_json) {
