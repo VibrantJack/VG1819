@@ -1043,6 +1043,12 @@
     <ClCompile Include="..\ability\status\Status_Evil_Fiend_LV.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Vampiric_Curse.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\HealthLink.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
