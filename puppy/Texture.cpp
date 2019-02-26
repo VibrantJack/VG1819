@@ -72,11 +72,6 @@ namespace puppy
 	Texture::~Texture()
 	{
 		sm_loadedTextures[m_name].second--; //subtract from reference count
-		if (sm_loadedTextures[m_name].second == 0)
-		{
-			glDeleteTextures(1, &m_tex);
-			sm_loadedTextures.erase(m_name);
-		}
 	}
 
 	void Texture::apply() const
