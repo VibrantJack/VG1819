@@ -10,9 +10,9 @@
         },
 		{
 			"name" : "ModelRenderable",
-			"path" : "models/terrain/misc/Low_Poly_Tree_006.obj"
+			"path" : "models/terrain/flowers/yellowwhiteflower.obj"
 		}
     ],
 	"rotate" : [0,0,0],
-	"scale" : [0.25,0.25,0.25]
+	"scale" : [8,8,8]
 }

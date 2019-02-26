@@ -1,0 +1,18 @@
+{
+    "name" : "TestModel", 
+    "components" : 
+	[
+        {
+            "name" : "ReloadObjectOnKeyPress",
+			"key" : "G",
+			"this_json_path" : "TileDecoration/grass/low_poly_grass1.json",
+			"replace_transform" : true
+        },
+		{
+			"name" : "ModelRenderable",
+			"path" : "models/terrain/misc/Low_Poly_Grass_001.obj"
+		}
+    ],
+	"rotate" : [0,0,0],
+	"scale" : [0.1,0.1,0.1]
+}
