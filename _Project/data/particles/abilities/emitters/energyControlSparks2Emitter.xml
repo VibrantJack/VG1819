@@ -1,0 +1,18 @@
+<Emitter>
+	<SpawnProperties>
+		<color random="false" r="-0.2" g="-0.2" b="-0.1" />
+		<offset x="0" y="-1" z="0" type="disc" radius="0.25"/>
+		<direction mode="useOffset"/>
+		<maxParticles numParticles="10" />
+		<lifetime random="false" length=".25"/>
+		<burst isBurst="false" repeat="false" />
+	</SpawnProperties>
+	
+	<Affectors>
+		<path isPreset="true" type="direction" scalar="1"/>
+		<fadeChange mode="over_life" start="-0.3" end="-0.99" />
+    <rotationChange mode="random" min="0.0" max="360"/>
+	</Affectors>
+	
+	<Misc path="textures/particles/spark_03.png" spawnRate="0.1"/>
+</Emitter>

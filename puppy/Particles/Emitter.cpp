@@ -259,6 +259,10 @@ namespace puppy
 				{
 					mode = DirectionSpawnAff::mode::down;
 				}
+				else if (modeStr == "left")
+				{
+					mode = DirectionSpawnAff::mode::left;
+				}
 
 				m_spawnProperties.push_back(new DirectionSpawnAff(mode));
 			}

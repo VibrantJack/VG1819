@@ -1,0 +1,19 @@
+<Emitter>
+  <SpawnProperties>
+    <color random="false" r="-0.10" g="-0.21" b="0.0005"/>
+    <velocity random="false" velocity="1" />
+    <offset x="0" y="0" z="1" type="disc" radius=".25"/>
+    <direction mode="useOffset"/>
+    <maxParticles numParticles="30" />
+    <lifetime random="false" length=".25"/>
+    <burst isBurst="true" repeat="false" />
+  </SpawnProperties>
+
+  <Affectors>
+    <path isPreset="true" type="direction" scalar="1"/>
+    <fadeChange mode="over_life" start="0.0" end="-1.0" />
+    <sizeChange mode="over_life" startY="0.7" endY="4.0" startX="0.8" endX="1.0"/>"
+  </Affectors>
+
+  <Misc path="textures/particles/trace_03.png" spawnRate=".1"/>
+</Emitter>

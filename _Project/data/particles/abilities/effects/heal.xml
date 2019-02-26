@@ -1,0 +1,5 @@
+<Effect>
+  <Emitter z="0" y="5" x="0" path="data/particles/abilities/emitters/healOrbEmitter.xml"/>
+  <Emitter z="0" y=".5" x="0" path="data/particles/abilities/emitters/healGlowEmitter.xml"/>
+  <Emitter z="0" y=".5" x="0" path="data/particles/abilities/emitters/healBeamEmitter.xml"/>
+</Effect>

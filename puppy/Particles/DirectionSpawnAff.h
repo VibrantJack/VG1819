@@ -13,7 +13,8 @@ namespace puppy
 			offset,
 			up,
 			random,
-			down
+			down,
+			left
 		};
 	private:
 		bool m_mode;
