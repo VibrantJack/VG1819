@@ -240,7 +240,7 @@ namespace networking
 				packet.deserialize(buffer);
 				i += packet.getBytes();
 
-				if (checkSync(packet.m_sourceUnit))
+				if (checkSync(packet.m_sourceUnit.posX, packet.m_sourceUnit.posY))
 				{
 					useAbility(packet);
 				} 
@@ -262,7 +262,7 @@ namespace networking
 				packet.deserialize(buffer);
 				i += packet.getBytes();
 
-				if (checkSync(packet.m_sourceUnit))
+				if (checkSync(packet.m_sourceUnit.posX, packet.m_sourceUnit.posY))
 				{
 					setCastTime(packet);
 				} else
@@ -305,10 +305,12 @@ namespace networking
 
 				std::stringstream message;
 				message << "Client:" << sm_iClientId << " received SKIP_TURN\n";
-				message << "\tUnit ID : " << skipTurnPacket.m_unitId;
+				unit::Unit* unit = getUnitFromPos(skipTurnPacket.m_unit.posX, skipTurnPacket.m_unit.posY);
+				message << "\tUnit Kibble ID: " << unit->m_kibbleID << "\n";
+				message << "\tUnit Pos : (" << skipTurnPacket.m_unit.posX << ", " << skipTurnPacket.m_unit.posY << ")";				
 				m_log->logMessage(message.str());
 
-				if (checkSync(skipTurnPacket.m_unitId))
+				if (checkSync(skipTurnPacket.m_unit.posX, skipTurnPacket.m_unit.posY))
 				{
 					unit::Unit* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit()->getComponent<unit::Unit>();
 					m_bServerCalling = true;
@@ -456,6 +458,13 @@ namespace networking
 
 	void ClientGame::useAbility(AbilityPacket& p_packet)
 	{
+		std::stringstream message;
+		message << "Client:" << sm_iClientId << " received ability:";
+		m_log->logMessage(message.str());
+
+		std::string abilityInfo = p_packet.getFormattedAbilityInfo();
+		m_log->logMessage(abilityInfo);
+
 		std::string strAbilityName = p_packet.m_abilityName;
 		printf("[Client: %d] using ability: %s\n", sm_iClientId, strAbilityName.c_str());
 
@@ -464,13 +473,6 @@ namespace networking
 		p_packet.insertIntoPackage(info);
 
 		ability::AbilityManager::getInstance()->findAbility(strAbilityName)->effect(info);
-
-		std::stringstream message;
-		message << "Client:" << sm_iClientId << " received ability:";
-		m_log->logMessage(message.str());
-
-		std::string abilityInfo = p_packet.getFormattedAbilityInfo();
-		m_log->logMessage(abilityInfo);
 	}
 
 	void ClientGame::sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info)
@@ -548,13 +550,12 @@ namespace networking
 		m_log->logMessage(abilityInfo);
 	}
 
-	bool ClientGame::checkSync(int p_unitId)
+	bool ClientGame::checkSync(int p_x, int p_y)
 	{
-		kitten::K_GameObject* sourceUnit = getUnitGameObject(p_unitId);
-		unit::Unit* source = sourceUnit->getComponent<unit::Unit>();
+		TileInfo* sourceTile = BoardManager::getInstance()->getTile(p_x, p_y)->getComponent<TileInfo>();
+		kitten::K_GameObject* sourceUnit = sourceTile->getUnit();
 
 		kitten::K_GameObject* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit();
-		unit::Unit* host = currentUnit->getComponent<unit::Unit>();
 
 		if (sourceUnit == currentUnit)
 			return true;
@@ -593,14 +594,14 @@ namespace networking
 		SkipTurnPacket packet;
 		packet.m_packetType = SKIP_TURN;
 		packet.m_clientId = networking::ClientGame::getClientId();
-		packet.m_unitId = getUnitGameObjectIndex(&p_unit->getGameObject());
+		packet.m_unit = getPosFromUnit(p_unit);
 
 		packet.serialize(buffer);
 		NetworkServices::sendMessage(m_network->m_connectSocket, data, SKIP_TURN_PACKET_SIZE);
 
 		std::stringstream message;
 		message << "Client:" << sm_iClientId << " sending SKIP_TURN\n";
-		message << "\tUnit ID:" << packet.m_unitId;
+		message << "\tUnit Pos: (" << packet.m_unit.posX << ", " << packet.m_unit.posY << ")";
 		m_log->logMessage(message.str());
 	}
 
@@ -687,42 +688,5 @@ namespace networking
 		}
 
 		return NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
-	}
-
-	int ClientGame::getUnitGameObjectIndex(kitten::K_GameObject* p_unit)
-	{
-		for (auto it = m_unitGOList.begin(); it != m_unitGOList.end(); ++it)
-		{
-			if (it->second == p_unit)
-			{
-				return it->first;
-			}
-		}
-		return -1; // Not found
-	}
-
-	kitten::K_GameObject* ClientGame::getUnitGameObject(int p_iIndex)
-	{
-		auto it = m_unitGOList.find(p_iIndex);
-		if (it != m_unitGOList.end())
-		{
-			return it->second;
-		}
-		return nullptr;
-	}
-
-	void ClientGame::addUnitGameObject(kitten::K_GameObject* p_unit)
-	{
-		m_unitGOList.insert(std::make_pair(m_iUnitIndex, p_unit));
-		m_iUnitIndex++;
-	}
-
-	void ClientGame::removeUnitGameObject(int p_iUnitIndex)
-	{
-		auto it = m_unitGOList.find(p_iUnitIndex);
-		if (it != m_unitGOList.end())
-		{
-			m_unitGOList.erase(it);
-		}
 	}
 }

@@ -476,9 +476,7 @@ namespace unit
 		{
 			if (networking::ClientGame::isNetworkValid())
 			{
-				// Pass in false as the parameter in order to signal to the other client of disconnect
 				networking::ClientGame* client = networking::ClientGame::getInstance();
-				client->removeUnitGameObject(client->getUnitGameObjectIndex(m_attachedObject));
 
 				kitten::Event* eventData = new kitten::Event(kitten::Event::Network_End_Game);
 				if (m_clientId == client->getClientId())
