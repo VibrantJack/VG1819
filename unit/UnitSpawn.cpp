@@ -140,11 +140,6 @@ namespace unit
 			//unitObject->getComponent<UnitGraphic>()->setEnabled(false);
 		}*/
 
-		if (networking::ClientGame::getInstance())
-		{
-			networking::ClientGame::getInstance()->addUnitGameObject(unitObject);
-		}
-
 		//add object to Initiative Tracker
 		unit::InitiativeTracker::getInstance()->addUnit(unitObject);
 

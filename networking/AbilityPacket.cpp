@@ -62,16 +62,19 @@ std::string AbilityPacket::getFormattedAbilityInfo()
 	}
 
 	message << "\tClient ID: " << m_clientId << "\n";
-	message << "\tSource Unit Network ID: " << m_sourceUnit << "\n";
 
-	unit::Unit* sourceUnitComp = networking::ClientGame::getInstance()->getUnitGameObject(m_sourceUnit)->getComponent<unit::Unit>();
+	unit::Unit* sourceUnitComp = getUnitFromPos(m_sourceUnit.posX, m_sourceUnit.posY);
 	message << "\tSource Unit Kibble ID: " << sourceUnitComp->m_kibbleID << "\n";
+	message << "\tSource Unit Pos: (" << m_sourceUnit.posX << ", " << m_sourceUnit.posY << ")\n";
 
 	message << "\tNumber of Target Units: " << m_numTargetUnits << "\n";
-	message << "\tTarget Unit Indexes:\n\t\t";
+	message << "\tTarget Units Kibble IDs:\n\t\t";
 	for (int i = 0; i < m_numTargetUnits; ++i)
 	{
-		message << m_targets[i] << ", ";
+		UnitPos pos = m_targets[i];
+		TileInfo* info = BoardManager::getInstance()->getTile(pos.posX, pos.posY)->getComponent<TileInfo>();;
+		unit::Unit* unit = info->getUnit()->getComponent<unit::Unit>();
+		message << unit->m_kibbleID << "(Pos: " << pos.posX << ", " << pos.posY << "), ";
 	}
 	message << "\n\tNumber of Int Values: " << m_numIntValues << "\n";
 	message << "\tInt Values:\n";
@@ -151,13 +154,15 @@ void AbilityPacket::serialize(Buffer& p_buffer)
 	writeInt(p_buffer, this->m_packetType);
 	writeInt(p_buffer, this->m_clientId);
 	writeInt(p_buffer, this->m_totalBytes);
-	writeInt(p_buffer, this->m_sourceUnit);
+	writeInt(p_buffer, this->m_sourceUnit.posX);
+	writeInt(p_buffer, this->m_sourceUnit.posY);
 
 	writeInt(p_buffer, this->m_numTargetUnits);
 	for (int i = 0; i < m_numTargetUnits; ++i)
 	{
-		int targetIndex = m_targets[i];
-		writeInt(p_buffer, targetIndex);
+		auto pos = m_targets[i];
+		writeInt(p_buffer, pos.posX);
+		writeInt(p_buffer, pos.posY);
 	}
 
 	writeInt(p_buffer, this->m_numIntValues);
@@ -217,13 +222,17 @@ void AbilityPacket::deserialize(Buffer& p_buffer)
 	this->m_packetType = readInt(p_buffer);
 	this->m_clientId = readInt(p_buffer);
 	this->m_totalBytes = readInt(p_buffer);
-	this->m_sourceUnit = readInt(p_buffer);
+
+	this->m_sourceUnit.posX = readInt(p_buffer);
+	this->m_sourceUnit.posY = readInt(p_buffer);
 
 	m_numTargetUnits = readInt(p_buffer);	
 	for (int i = 0; i < m_numTargetUnits; ++i)
 	{
-		int targetIndex = readInt(p_buffer);
-		m_targets.push_back(targetIndex);
+		UnitPos unit;
+		unit.posX = readInt(p_buffer);
+		unit.posY = readInt(p_buffer);
+		m_targets.push_back(unit);
 	}
 
 	m_numIntValues = readInt(p_buffer);
@@ -284,7 +293,7 @@ int AbilityPacket::getSize()
 		+ sizeof(m_clickedObjectPos);
 
 	// sizeof all int values in TargetUnits vector
-	int targetUnitsSize = sizeof(int) * m_numTargetUnits;
+	int targetUnitsSize = sizeof(int) * 2 * m_numTargetUnits;
 
 	// sizeof all string values and int values in IntValues map
 	int intValuesSize = (sizeof(int) * m_numIntValues) + ((sizeof(char) * m_sumKeysLength)) + (sizeof(int) * m_numIntValues);
@@ -302,7 +311,7 @@ int AbilityPacket::getSize()
 
 void AbilityPacket::extractFromPackage(ability::AbilityInfoPackage* p_package)
 {
-	m_sourceUnit = networking::ClientGame::getInstance()->getUnitGameObjectIndex(&p_package->m_source->getGameObject());
+	m_sourceUnit = getPosFromUnit(p_package->m_source);
 	addTargetUnits(p_package->m_targets);
 	addIntValues(p_package->m_intValue);
 	addTargetTiles(p_package->m_targetTilesGO);
@@ -324,7 +333,7 @@ void AbilityPacket::extractFromPackage(ability::AbilityInfoPackage* p_package)
 
 void AbilityPacket::insertIntoPackage(ability::AbilityInfoPackage* p_package)
 {
-	p_package->m_source = networking::ClientGame::getInstance()->getUnitGameObject(m_sourceUnit)->getComponent<unit::Unit>();
+	p_package->m_source = getUnitFromPos(m_sourceUnit.posX, m_sourceUnit.posY);
 	p_package->m_targets = getTargetUnits();
 	p_package->m_intValue = getIntValues();
 	p_package->m_targetTilesGO = getTargetTiles();
@@ -351,10 +360,15 @@ void AbilityPacket::addTargetUnits(TargetUnits p_targets)
 	networking::ClientGame* client = networking::ClientGame::getInstance();
 	assert(client != nullptr);
 
-	std::vector<int> targets;
+	std::vector<UnitPos> targets;
 	for (int i = 0; i < m_numTargetUnits; ++i)
 	{
-		targets.push_back(client->getUnitGameObjectIndex(&p_targets[i]->getGameObject()));
+		//targets.push_back(client->getUnitGameObjectIndex(&p_targets[i]->getGameObject()));
+		TileInfo* tile = p_targets[i]->getTile()->getComponent<TileInfo>();
+		UnitPos unit;
+		unit.posX = tile->getPosX();
+		unit.posY = tile->getPosY();
+		targets.push_back(unit);
 	}
 	m_targets = targets;
 }
@@ -414,7 +428,11 @@ const std::vector<unit::Unit*>& AbilityPacket::getTargetUnits()
 	m_targetObj.clear();
 	for (int i = 0; i < m_numTargetUnits; ++i)
 	{
-		m_targetObj.push_back(client->getUnitGameObject(m_targets[i])->getComponent<unit::Unit>());
+		int x = m_targets[i].posX;
+		int y = m_targets[i].posY;
+
+		unit::Unit* unit = getUnitFromPos(x, y);
+		m_targetObj.push_back(unit);
 	}
 
 	return m_targetObj;

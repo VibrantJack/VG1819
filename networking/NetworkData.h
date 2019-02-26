@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include "kitten\K_GameObject.h"
 #include "unit\Unit.h"
+#include "board\BoardManager.h"
 
 #define MAX_PACKET_SIZE 1000000
 #define MAX_CHAR_BUFSIZE 512
@@ -52,6 +53,12 @@ struct UnitNetworkInfo
 	int clientId;	// Who owns the unit
 	int unitId;		// Kibble unit ID
 	int posX, posY; // Tile coordinates
+};
+
+struct UnitPos
+{
+	int posX;
+	int posY;
 };
 
 class Buffer
@@ -189,20 +196,20 @@ struct UnitPacket : Packet
 
 struct SkipTurnPacket : Packet
 {
-	int m_unitId;
+	UnitPos m_unit;
 
 	void serialize(Buffer& p_buffer)
 	{
-		writeInt(p_buffer, m_packetType);
-		writeInt(p_buffer, m_clientId);
-		writeInt(p_buffer, m_unitId);
+		Packet::serialize(p_buffer);
+		writeInt(p_buffer, m_unit.posX);
+		writeInt(p_buffer, m_unit.posY);
 	}
 
 	void deserialize(Buffer& p_buffer)
 	{
-		m_packetType = readInt(p_buffer);
-		m_clientId = readInt(p_buffer);
-		m_unitId = readInt(p_buffer);
+		Packet::deserialize(p_buffer);
+		m_unit.posX = readInt(p_buffer);
+		m_unit.posY = readInt(p_buffer);
 	}
 };
 
@@ -248,7 +255,7 @@ class AbilityPacket
 public:
 	int m_packetType = ABILITY_PACKET;
 	int m_clientId;
-	int m_sourceUnit;
+	UnitPos m_sourceUnit;	// Reference source unit by its position on the board
 
 	int m_abilityNameLength;
 	std::string m_abilityName = "";
@@ -276,6 +283,22 @@ public:
 	int getSize();
 	int getBytes() { return m_totalBytes; }
 
+	inline unit::Unit* getUnitFromPos(int p_x, int p_y)
+	{
+		TileInfo* tile = BoardManager::getInstance()->getTile(p_x, p_y)->getComponent<TileInfo>();
+		unit::Unit* unit = tile->getUnit()->getComponent<unit::Unit>();
+		return unit;
+	}
+
+	inline UnitPos getPosFromUnit(unit::Unit* p_unit)
+	{
+		TileInfo* tile = p_unit->getTile()->getComponent<TileInfo>();
+		UnitPos unit;
+		unit.posX = tile->getPosX();
+		unit.posY = tile->getPosY();
+		return unit;
+	}
+
 private:	
 	UnitPrimitiveData m_unit;
 
@@ -283,7 +306,7 @@ private:
 	int m_totalBytes = 0;
 
 	int m_numTargetUnits;
-	std::vector<int> m_targets;
+	std::vector<UnitPos> m_targets;		// Reference targets by their position on the board
 	TargetUnits m_targetObj;
 
 	int m_numIntValues;
