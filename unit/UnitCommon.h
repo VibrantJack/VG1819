@@ -47,6 +47,7 @@
 
 //tags
 #define STRUCTURE "Structure"
+#define MACHINE "Machine"
 
 //unit 
 #define UNIT "unit"

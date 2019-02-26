@@ -16,8 +16,8 @@ Remove tiles that meets some conditions from tile list.
 #define FILTER_ENEMY "enemy"
 #define FILTER_ALLY "ally"
 #define FILTER_SELF "self"
-#define FILTER_STRUCTURE "structure"
-#define FILTER_NON_STRUCTURE "non_structure"
+#define FILTER_STRUCTURE "structure_machine"
+#define FILTER_NON_STRUCTURE "non_structure_machine"
 
 #define FILTER_NOT_DP "not_demonic_presence"
 #define FILTER_IS_DP "is_demonic_presence"

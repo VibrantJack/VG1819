@@ -49,6 +49,18 @@
 				"description":"Remove all(X) [Energy Counter], allies with Cost < X: +10 IN, +1 MV."
 			}
 		],
+		"status":[
+			{
+				"name":"Status_LV",
+				"lv":2,
+				"hp":4
+			},
+			{
+				"name":"Status_LV",
+				"lv":3,
+				"hp":4
+			}
+		],
 		"portrait_texture" : "textures/cards/500x500/Enchanter.tga"
 	},
 	"components" : [
