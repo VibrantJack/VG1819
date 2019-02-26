@@ -15,7 +15,7 @@ namespace ability
 
 			unit::Unit* target = p_info->m_targets[0];
 
-			if (checkTag(target, STRUCTURE))
+			if (target->checkTag(STRUCTURE) || target->checkTag(MACHINE))
 			{
 				triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_info);
 

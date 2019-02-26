@@ -35,7 +35,8 @@ namespace unit
 		CastTimer * m_castTimer;
 		Commander * m_commander;
 
-		bool m_isStructure;
+		//bool m_isStructure;
+		std::unordered_map<std::string, bool> m_tagCheckMap;
 
 		std::vector<kitten::K_GameObject*> m_path;
 
@@ -87,7 +88,7 @@ namespace unit
 		void manipulateTile();
 
 		//check tag
-		bool isStructure();
+		bool checkTag(const std::string& p_tag);
 
 //		void summonUnit(int p_id);
 		//status interface

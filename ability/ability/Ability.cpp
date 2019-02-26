@@ -143,7 +143,7 @@ bool ability::Ability::checkAlly(unit::Unit* p_source, unit::Unit* p_target)
 {
 	return p_source->m_clientId == p_target->m_clientId;
 }
-
+/*
 bool ability::Ability::checkTag(unit::Unit* p_u, const std::string& p_tag)
 {
 	for (std::string it : p_u->m_tags)
@@ -154,7 +154,7 @@ bool ability::Ability::checkTag(unit::Unit* p_u, const std::string& p_tag)
 		}
 	}
 	return false;
-}
+}*/
 
 void ability::Ability::getTarget(AbilityInfoPackage * p_info)
 {

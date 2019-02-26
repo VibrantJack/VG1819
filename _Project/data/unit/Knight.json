@@ -1,7 +1,7 @@
 {
 	"unit":{
 		"name":"Knight",
-		"hp":12,
+		"hp":15,
 		"mv":3,
 		"in":10,
 		"cost":5,
@@ -36,12 +36,13 @@
 			{
 				"name":"Status_LV",
 				"lv":2,
-				"hp":5
+				"hp":4
 			},
 			{
 				"name":"Status_Duelist_LV3",
 				"description":"Increases Slay damage and decrease Defend CD",
-				"lv":3
+				"lv":3,
+				"hp":3
 			}
 		],
 		"portrait_texture" : "textures/cards/500x500/Knight.tga"

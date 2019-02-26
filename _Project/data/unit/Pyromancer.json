@@ -50,7 +50,11 @@
 			{
 				"name":"Status_LV",
 				"lv":2,
-				"time_point":2,
+				"hp":6
+			},
+			{
+				"name":"Status_LV",
+				"lv":3,
 				"hp":6
 			}
 		],
