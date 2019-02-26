@@ -22,6 +22,10 @@
 		"MudDemonSheet.json",
 		"SummoningWitchSheet.json",
 		"ServantSheet.json",
-		"WaterSheet.json"
+		"WaterSheet.json",
+		"PoisonPoolSheet.json",
+		"EvilFiendSheet.json",
+		"HorrorLordSheet.json",
+		"WraithSheet.json"
 	]
 }

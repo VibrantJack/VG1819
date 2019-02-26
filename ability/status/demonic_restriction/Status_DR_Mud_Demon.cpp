@@ -19,7 +19,8 @@ namespace ability
 		node->effect(m_unit, UNIT_MV, m_deltaMV);
 
 		//in -1
-		node->effect(m_unit, UNIT_IN, -1);
+		int deltaIN = m_attributeChange[UNIT_IN];
+		node->effect(m_unit, UNIT_IN, deltaIN);
 	}
 
 	void Status_DR_Mud_Demon::restrictionOff()
@@ -31,6 +32,7 @@ namespace ability
 		node->effect(m_unit, UNIT_MV, -m_deltaMV);
 
 		//in +1
-		node->effect(m_unit, UNIT_IN, 1);
+		int deltaIN = -(m_attributeChange[UNIT_IN]);
+		node->effect(m_unit, UNIT_IN, deltaIN);
 	}
 }

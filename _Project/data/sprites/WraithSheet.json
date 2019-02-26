@@ -1,0 +1,23 @@
+{
+	"name" : "wraith",
+	"texture" : "textures/sprites/units/ancients/wraith_sheet.png",
+	
+	"sheetwidth" : 550,
+	"sheetheight" : 150,
+	
+	"characterwidth" : 100,
+	"characterheight" : 100,
+	
+	"padding" : 10,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [3,0],
+			"time" : 2
+		}
+	],
+	
+	"defaultanimation" : "idle"
+}

@@ -113,12 +113,14 @@ namespace unit
 	void StatusContainer::triggerTP(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event)
 	{
 		//check if there is a list for this type
-		if (m_TPStatusList->find(p_type) == m_TPStatusList->end())
+		auto found = m_TPStatusList->find(p_type);
+		if (found == m_TPStatusList->end())
 		{
 			return;
 		}
 		//get the list
-		std::vector<ability::Status*>* statuslist = m_TPStatusList->at(p_type);
+		std::vector<ability::Status*>* statuslist = found->second;
+
 		//all status in the list take effect
 		for (auto it = statuslist->begin(); it != statuslist->end(); it++)
 		{

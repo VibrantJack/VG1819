@@ -21,7 +21,7 @@ void unit::UnitMove::triggerLeaveTileEvent()
 	//trigger new tile event
 	Unit* u = m_attachedObject->getComponent<Unit>();
 
-	ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Leave_Tile);
+	//ability::TimePointEvent* t = new ability::TimePointEvent(ability::TimePointEvent::Leave_Tile);
 	//t->putGameObject("tile", m_currentTile);
 	u->triggerTP(ability::TimePointEvent::Leave_Tile);
 }

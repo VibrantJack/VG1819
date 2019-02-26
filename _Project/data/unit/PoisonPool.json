@@ -1,0 +1,38 @@
+{
+	"unit":{
+		"name":"PoisonPool",
+		"hp":15,
+		"mv":0,
+		"in":6,
+		"cost":4,
+		"tags":["Ancients","Structure"],
+		"portrait_texture" : "textures/cards/500x500/PoisonPool.tga",
+		"ability_description":[
+			{
+                "name":"Erosion",
+                "power":2,
+				"need_unit":0,
+				"filter":3,
+				"filter0":"no_unit",
+				"filter1":"ally",
+				"filter2":"not_demonic_presence",
+				"area_mode":"all",
+				"description":"Deal 2 damage to all enemy that's on [Demonic Presence]."
+			}
+		]
+	},
+	"components" : [
+		{
+			"name" : "SpriteGroup",
+			"spritename":"poison_pool",
+			"number":1,
+			"rotate":[45,0,0],
+			"scale":[1,1.3,0],
+			"translate":[0,0,0.05]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/PoisonPool.tga"
+		}
+	]
+}

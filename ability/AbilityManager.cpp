@@ -119,6 +119,13 @@ namespace ability
 
 		newAbility = new Stab();
 		m_abilityList[ABILITY_STAB] = newAbility;
+
+		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_SACRIFICE, Sacrifice);
+		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_EROSION, Erosion);
+		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_EXECUTE, Execute);
+		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_HORROR, Horror);
+		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_ATTACH, Attach);
+		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_DRAIN, Drain);
 	}
 
 	AbilityManager::AbilityManager()

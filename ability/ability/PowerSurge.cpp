@@ -15,7 +15,7 @@ namespace ability
 		int dur = p_info->m_intValue[UNIT_DURATION];
 
 		//remove counter
-		removeCounter(p_info->m_source, COUNTER_ENERGY, counter);
+		changeCounter(p_info->m_source, COUNTER_ENERGY, -counter);
 
 		for (unit::Unit* u : p_info->m_targets)
 		{

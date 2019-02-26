@@ -1,0 +1,51 @@
+{
+	"unit":{
+		"name":"Wraith",
+		"hp":4,
+		"mv":3,
+		"in":13,
+		"cost":1,
+		"tags":["Ancients","Wraith"],
+		"portrait_texture" : "textures/cards/500x500/Wraith.tga",
+		"ability_description":[
+			{
+				"name":"Attach",
+				"power":3,
+				"target":1,
+				"need_unit":1,
+				"min_range":1,
+				"max_range":1,
+				"description":"Attach to target. Enemy has -3 HP and MAX HP. Ally has +3 HP and MAX HP. If lv3, a lv1 Wraith will be summoned after target is destroyed.",
+				"status_name":"Attached",
+				"status_description":"Be entangled by Wraith. HP is changed."
+			}
+		],
+		"status":[
+			{
+				"name":"Status_Wraith_LV2",
+				"lv":2,
+				"description":"Attach effect is doubled.",
+				"power":3
+			},
+			{
+				"name":"Status_DR_Wraith",
+				"description":"IN -8.",
+				"in":-8
+			}
+		]
+	},
+	"components" : [
+		{
+			"name" : "SpriteGroup",
+			"spritename":"wraith",
+			"number":4,
+			"rotate":[45,0,0],
+			"scale":[0.6,0.6,0],
+			"translate":[0,0,0.05]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/Wraith.tga"
+		}
+	]
+}
