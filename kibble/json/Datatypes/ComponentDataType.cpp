@@ -1904,7 +1904,10 @@ kitten::K_Component* getReloadObjectOnKeyPress(nlohmann::json* p_jsonFile) {
 
 	std::string jsonPath = p_jsonFile->operator[]("this_json_path");
 
-	return new ReloadObjectOnKeyPress(key, jsonPath);
+	bool replaceTransfrom;
+	SETOPTDEF(replaceTransfrom, "replace_transform", true);
+
+	return new ReloadObjectOnKeyPress(key, jsonPath, replaceTransfrom);
 }
 
 #include "_Project\PlayParticleSystemOnEnable.h"

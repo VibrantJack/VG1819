@@ -1,0 +1,18 @@
+{
+    "name" : "TestModel", 
+    "components" : 
+	[
+        {
+            "name" : "ReloadObjectOnKeyPress",
+			"key" : "E",
+			"this_json_path" : "TestModel.json",
+			"replace_transform" : false
+        },
+		{
+			"name" : "ModelRenderable",
+			"path" : "models/terrain/misc/Low_Poly_Tree_006.obj"
+		}
+    ],
+	"rotate" : [0,0,0],
+	"scale" : [0.25,0.25,0.25]
+}
