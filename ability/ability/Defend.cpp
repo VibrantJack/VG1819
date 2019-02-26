@@ -39,6 +39,8 @@ namespace ability
 		else
 			applyStatus(p_info);
 
+		UniversalSounds::playSound("sword_3");
+
 		//delete package
 		done(p_info);
 

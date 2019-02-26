@@ -10,6 +10,8 @@ namespace ability
 	{
 		summonToken(p_info, m_unitIndex);
 
+		UniversalSounds::playSound("hammering");
+
 		//delete package
 		done(p_info);
 

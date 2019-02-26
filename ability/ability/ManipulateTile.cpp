@@ -30,6 +30,8 @@ namespace ability
 			kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Manipulate_Tile, e);
 		}
 
+		UniversalSounds::playSound("snap");
+
 		/*highlight is done in setOwnerID
 		//highlight the tile
 		kitten::Event* t = new kitten::Event(kitten::Event::EventType::Highlight_Tile);

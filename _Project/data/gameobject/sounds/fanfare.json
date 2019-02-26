@@ -1,0 +1,14 @@
+{
+	"name" : "FanfareSound",
+	"components" : [
+		{
+			"name" : "AudioSource",
+			"clippath" : "Sounds/sfx/ui/fanfare.wav",
+			"is3d" : false,
+			"enableeffects" : false,
+			"loop" : false,
+			"volume" : 0.15,
+			"getsducked" : false
+		}
+	]
+}

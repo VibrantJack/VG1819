@@ -31,6 +31,8 @@ namespace ability
 		if (!p_info->m_targets[0]->getStatusContainer()->getStatus(STATUS_LOAD,ABILITY_LOAD))
 			applyStatus(p_info);
 
+		UniversalSounds::playSound("load");
+
 		//delete package
 		done(p_info);
 

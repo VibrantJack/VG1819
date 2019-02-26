@@ -42,6 +42,8 @@ namespace ability
 			done(p_info);
 		}
 
+		UniversalSounds::playSound("flap");
+
 		return 0;
 	}
 

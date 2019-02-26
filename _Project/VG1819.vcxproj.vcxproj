@@ -438,6 +438,7 @@
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
     <ClCompile Include="PlayParticleSystemAtMouseClick.cpp" />
     <ClCompile Include="PlayParticleSystemOnEnable.cpp" />
+    <ClCompile Include="PlayUniversalSoundOnEnable.cpp" />
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
     <ClCompile Include="PlaySoundOnStart.cpp" />
     <ClCompile Include="PlaySoundOnUIClick.cpp" />
@@ -805,6 +806,7 @@
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
     <ClInclude Include="PlayParticleSystemAtMouseClick.h" />
     <ClInclude Include="PlayParticleSystemOnEnable.h" />
+    <ClInclude Include="PlayUniversalSoundOnEnable.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />
     <ClInclude Include="PlaySoundOnStart.h" />
     <ClInclude Include="PlaySoundOnUIClick.h" />
@@ -814,6 +816,7 @@
     <ClInclude Include="RefreshParticleSystemOnKeyPress.h" />
     <ClInclude Include="ReloadObjectOnKeyPress.h" />
     <ClInclude Include="ShowLoadingOnClick.h" />
+    <ClInclude Include="SoundNames.h" />
     <ClInclude Include="StringInputDisplay.h" />
     <ClInclude Include="ToggleEnabledOnKeyPress.h" />
     <ClInclude Include="ToggleParticleSystemOnKeyPress.h" />
