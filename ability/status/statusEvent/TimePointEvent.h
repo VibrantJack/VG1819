@@ -31,6 +31,7 @@ namespace ability
 			Receive_Damage,
 			Heal,
 			Receive_Heal,
+			Unit_Destroy,
 		};
 
 		TimePointEvent(TPEventType p_event);

@@ -11,7 +11,7 @@ namespace ability
 		//reduce target IN to 1
 
 		//apply Status_Temp_Change to target
-		ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_TEMP_CHANGE);
+		ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_IN_CHANGE);
 
 		//set properties: name, description, source
 		addStatusInfo(se, p_info);
@@ -20,8 +20,11 @@ namespace ability
 		int in = p_unit->m_attributes[UNIT_BASE_IN];
 		int deltaIN = -(in - 1); //reduced to 1
 
+		//get duration
+		int dur = p_info->m_intValue[UNIT_DURATION];
+
 		se->addAttributeChange(UNIT_IN, deltaIN);
-		se->addCounter(UNIT_DURATION, 2);
+		se->addCounter(UNIT_DURATION, dur);
 
 		//attach to target
 		se->attach(p_unit);
@@ -37,7 +40,7 @@ namespace ability
 				//check if unit has this status
 				for (unit::Unit* u : p_info->m_targets)
 				{
-					if (!u->getStatusContainer()->getStatus(STATUS_TEMP_CHANGE, m_name))//doesn't have status
+					if (!u->getStatusContainer()->getStatus(STATUS_IN_CHANGE, m_name))//doesn't have status
 					{
 						applyStatus(p_info, u);
 					}

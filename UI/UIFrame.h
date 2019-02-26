@@ -20,6 +20,8 @@ namespace userinterface
 		void removeFromFrame(UIObject* p_uioToRemove);
 		void setInnerObjectsEnabled(bool p_enabled);
 
+		//getter for inner objects(used for get cards in hand frame)
+		std::list<UIObject*> getInnerObjects() { return m_innerObjects; };
 	protected:
 
 		void onDisabled() ;

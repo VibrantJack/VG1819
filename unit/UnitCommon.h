@@ -16,8 +16,10 @@
 #define UNIT_COST "cost"
 #define UNIT_BASE_COST "base_cost"
 #define UNIT_LV "lv"
+#define UNIT_ID "client_id"
 
 //ability related
+#define ABILITY_DISABLE "disable"
 #define ABILITY_NAME "name"
 #define LEVEL_UP "level_up"
 #define UNIT_CT "ct"
@@ -33,11 +35,15 @@
 #define COUNTER_MAX "counter_max"
 #define COUNTER_MIN "counter_min"
 #define COUNTER_SELECT "counter_select"
+
 //counter select option
 #define COUNTER_CHOOSE "choose"
 #define COUNTER_ALL "all"
+
 //counter type
 #define COUNTER_ENERGY "energy"
+#define COUNTER_KILL "kill"
+#define COUNTER_VIGOR "vigor"
 
 //tags
 #define STRUCTURE "Structure"

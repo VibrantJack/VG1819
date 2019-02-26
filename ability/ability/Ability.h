@@ -37,8 +37,8 @@ namespace ability
 
 		//delete package and tell unit it acts once
 		void done(const AbilityInfoPackage* p_info);
-		//remove cost counter
-		void removeCounter(unit::Unit* p_target, const std::string& p_name, int p_n);
+		//change counter (remove or add counter)
+		void changeCounter(unit::Unit* p_target, const std::string& p_name, int p_n);
 		//check is there targets in package
 		bool checkTarget(const AbilityInfoPackage* p_info);
 		//check if target unit is ally
@@ -50,11 +50,17 @@ namespace ability
 		//for cast time ability which units may move in and out the range
 		void getTarget(AbilityInfoPackage* p_info);
 
+		//get cards in hand
+		std::vector<kitten::K_GameObject*> getCardsInHand();
+
 		//trigger time point event
 		void triggerTPEvent(ability::TimePointEvent::TPEventType p_tp, unit::Unit* p_target, AbilityInfoPackage* p_info);
 
 		//add status name and description
 		void addStatusInfo(Status* p_st, AbilityInfoPackage* p_info);
+
+		//draw card
+		void drawCard(int p_id, int p_num);
 	};
 
 	class Move : public Ability
@@ -342,6 +348,52 @@ namespace ability
 	public:
 		Stab() : Ability(ABILITY_STAB) {};
 		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
+	};
+
+	class Sacrifice : public Ability
+	{
+	public:
+		Sacrifice() : Ability(ABILITY_SACRIFICE) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Erosion : public Ability
+	{
+	public:
+		Erosion() : Ability(ABILITY_EROSION) {};
+		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+	};
+
+	class Execute : public Ability
+	{
+	public:
+		Execute() : Ability(ABILITY_EXECUTE) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Horror : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
+	public:
+		Horror() : Ability(ABILITY_HORROR) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Attach : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
+	public:
+		Attach() : Ability(ABILITY_ATTACH) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Drain : public Ability
+	{
+	public:
+		Drain() : Ability(ABILITY_DRAIN) {};
+		int effect(AbilityInfoPackage* p_info);
 	};
 }
 

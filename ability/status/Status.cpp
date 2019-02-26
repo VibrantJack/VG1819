@@ -48,7 +48,7 @@ namespace ability
 	}
 	Status::~Status()
 	{
-
+		//effectEnd();
 	}
 
 	void Status::changeName(const std::string & p_msg)
@@ -166,21 +166,21 @@ namespace ability
 
 	void Status::checkDuration(const TimePointEvent::TPEventType& p_type)
 	{
-
 		if (m_counter.find(UNIT_DURATION) != m_counter.end())
 		{
 			if (m_endEffectEvent == p_type)
-				changeCounter();
-
-			if (m_counter.at(UNIT_DURATION) <= 0)
-			{
-				effectEnd();
-				removeThis();
-			}
+				checkDuration();
 		}
 	}
 
-	void Status::effectEnd()
+	void Status::checkDuration()
 	{
+		changeCounter();
+
+		if (m_counter.at(UNIT_DURATION) <= 0)
+		{
+			effectEnd();
+			removeThis();
+		}
 	}
 }

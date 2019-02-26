@@ -20,6 +20,7 @@
 #pragma once
 #include "ability/node/AbilityNodeManager.h"
 #include "ability/status/statusEvent/TimePointEvent.h"
+#include "kitten/event_system/EventManager.h"
 
 #include <string>
 #include <vector>
@@ -110,9 +111,10 @@ namespace ability
 		
 		//check if the event of duration deduction happens, if it is reduce duration
 		void checkDuration(const TimePointEvent::TPEventType& p_type);
+		void checkDuration();
 
 		//end effect
-		virtual void effectEnd();
+		virtual void effectEnd() {};
 	};
 
 	class Status_LV : public Status
@@ -254,6 +256,48 @@ namespace ability
 		bool m_active = false;
 
 		void generateArmor();
+	};
+
+	class Status_IN_Change : public Status
+	{
+	public:
+		Status_IN_Change();
+		Status* clone() const { return new Status_IN_Change(*this); };
+		int effect();
+		void effectEnd();
+
+		void registerEvent();
+		void listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data);
+	};
+
+	class Status_Attach : public Status
+	{
+	private:
+		int m_unitID = 23;
+	public:
+		Status_Attach();
+		Status* clone() const { return new Status_Attach(*this); };
+		int effect();
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+
+	};
+
+	class Status_Wraith_LV2 : public Status_LV
+	{
+	public:
+		Status_Wraith_LV2();
+		Status* clone() const { return new Status_Wraith_LV2(*this); };
+
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};
+
+	class Status_Evil_Fiend_LV : public Status_LV
+	{
+	public:
+		Status_Evil_Fiend_LV();
+		Status* clone() const { return new Status_Evil_Fiend_LV(*this); };
+
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 }
 

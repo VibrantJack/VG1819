@@ -1,0 +1,23 @@
+{
+	"name" : "evil_fiend",
+	"texture" : "textures/sprites/units/ancients/evil_fiend_sheet.png",
+	
+	"sheetwidth" : 400,
+	"sheetheight" : 150,
+	
+	"characterwidth" : 90,
+	"characterheight" : 140,
+	
+	"padding" : 10,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [3,0],
+			"time" : 2
+		}
+	],
+	
+	"defaultanimation" : "idle"
+}

@@ -14,6 +14,15 @@
 				"max_range":1,
 				"need_unit":0,
                 "description":"Deal 2 damage."
+			},
+			{
+				"name":"Sacrifice",
+				"lv":2,
+				"power":1,
+				"card_drawn":1,
+				"min_range":0,
+				"max_range":0,
+				"description":"Destroy self and reduce cost of a random card in hand by 1. At lv3, player will draw a card additionally."
 			}
 		],
 		"status":[
