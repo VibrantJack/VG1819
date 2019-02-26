@@ -816,6 +816,7 @@
     <ClInclude Include="RefreshParticleSystemOnKeyPress.h" />
     <ClInclude Include="ReloadObjectOnKeyPress.h" />
     <ClInclude Include="ShowLoadingOnClick.h" />
+    <ClInclude Include="SoundNames.h" />
     <ClInclude Include="StringInputDisplay.h" />
     <ClInclude Include="ToggleEnabledOnKeyPress.h" />
     <ClInclude Include="ToggleParticleSystemOnKeyPress.h" />

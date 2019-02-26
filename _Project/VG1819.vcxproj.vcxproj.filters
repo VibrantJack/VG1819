@@ -2137,6 +2137,7 @@
     <ClInclude Include="PlayUniversalSoundOnEnable.h">
       <Filter>components\sound</Filter>
     </ClInclude>
+    <ClInclude Include="SoundNames.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
