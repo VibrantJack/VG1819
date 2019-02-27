@@ -1,20 +1,20 @@
 <Emitter>
 	<SpawnProperties>
-		<velocity random="false" velocity="2" />
-    <color r="-0.5" g="-0.54" b="-0.58"/>
+		<velocity random="false" velocity="0" />
+    <color r="-0.5" g="-0.5" b="-0.9"/>
 		<offset x="0" y="0" z="0" type="disc" radius="0.1"/>
 		<direction mode="useOffset"/>
-		<maxParticles numParticles="20" />
+		<maxParticles numParticles="10" />
 		<lifetime random="false" length=".5"/>
 		<burst isBurst="true" repeat="false" />
 	</SpawnProperties>
 	
 	<Affectors>
 		<path isPreset="true" type="direction" scalar="1"/>
-		<sizeChange mode="over_life" startX="0.5" startY="0.5" endX="2.5" endY="1" />
+		<sizeChange mode="over_life" startX="0.5" startY="0.5" endX="2.5" endY="2.5" />
 		<fadeChange mode="over_life" start="-0.5" end="-1.0" />
-    <rotationChange mode="over_life" min="0" max="45"/>
+    <rotationChange mode="over_life" min="0" max="360"/>
 	</Affectors>
 	
-	<Misc path="textures/particles/smoke_05.png" spawnRate="0.0"/>
+	<Misc path="textures/particles/magic_05.png" spawnRate="0.0"/>
 </Emitter>
