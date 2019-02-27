@@ -55,20 +55,7 @@ namespace userinterface
 	UIElement::~UIElement()
 	{
 		delete m_mat;
-		
-		if(m_hasSetVerts)
-		{
-			if (--sm_instances[m_pivotType] == 0)
-			{
-				delete sm_vao[m_pivotType];
-				sm_vao[m_pivotType] = nullptr;
-			}
-		}
-		//m_vao is part of the map above, don't need to delete except the following
-		if (m_texBehaviour == tbh_Repeat || m_texBehaviour == tbh_RepeatMirrored)
-		{
-			delete m_vao;
-		}
+		clearVAO();
 
 		if (m_isEnabled)
 		{
@@ -101,19 +88,7 @@ namespace userinterface
 	
 	void UIElement::defineVerts()
 	{
-		if (m_hasSetVerts)
-		{
-			if (--sm_instances[m_pivotType] == 0)
-			{
-				delete sm_vao[m_pivotType];
-				sm_vao[m_pivotType] = nullptr;
-			}
-
-			if (m_texBehaviour == tbh_Repeat || m_texBehaviour == tbh_RepeatMirrored)
-			{
-				delete m_vao;
-			}
-		}
+		clearVAO();
 
 		//quad coords (ortho)
 		float xmin, ymin, xmax, ymax, z, u, v;
@@ -251,24 +226,16 @@ namespace userinterface
 			auto found = sm_vao.find(m_pivotType);
 			if (found != sm_vao.end())
 			{
-				if ((*found).second == nullptr)
-				{
-					m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
-					sm_vao.insert(std::make_pair(m_pivotType, m_vao));
-				}
-				else
-				{
-					m_vao = (*found).second;
-				}
+				m_vao = found->second;
 			}
 			else
 			{
 				m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
-				sm_vao.insert(std::make_pair(m_pivotType, m_vao));
+				sm_vao[m_pivotType] = m_vao;
 			}
+			sm_instances[m_pivotType]++;
 		}
 
-		sm_instances[m_pivotType]++;
 		m_hasSetVerts = true;
 	}
 
@@ -286,6 +253,26 @@ namespace userinterface
 				removeFromDynamicTransparentUIRender();
 				addToDynamicUIRender();
 			}
+		}
+	}
+
+	void UIElement::clearVAO()
+	{
+		if (m_hasSetVerts)
+		{
+			if (m_texBehaviour == tbh_Repeat || m_texBehaviour == tbh_RepeatMirrored)
+			{
+				delete m_vao;
+			}
+			else {
+				if (--sm_instances[m_pivotType] == 0)
+				{
+					delete sm_vao[m_pivotType];
+					sm_vao.erase(m_pivotType);
+				}
+			}
+			m_vao = nullptr;
+			m_hasSetVerts = false;
 		}
 	}
 
