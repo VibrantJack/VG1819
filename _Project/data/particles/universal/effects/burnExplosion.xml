@@ -1,0 +1,7 @@
+<Effect>
+	<Emitter path = "data/particles/abilities/emitters/burnSmokeEmitter.xml" x="0" y="0" z="0.0"/>
+  <Emitter path = "data/particles/abilities/emitters/burnSmoke2Emitter.xml" x="0" y="0" z="0.0"/>
+  <Emitter path = "data/particles/abilities/emitters/burnFlamesEmitter.xml" x="0" y="0" z="0.0"/>
+  <Emitter path = "data/particles/abilities/emitters/burnBangEmitter.xml" x="0" y="0" z= "0.0"/>
+  <Emitter path = "data/particles/abilities/emitters/sabotageFlashEmitter.xml" x="0" y="0" z= "0.0"/>
+</Effect>

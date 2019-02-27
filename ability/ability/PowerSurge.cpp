@@ -1,5 +1,7 @@
 #pragma once
 #include "ability/ability/Ability.h"
+#include "_Project\UniversalPfx.h"
+
 
 #include "unit/Unit.h"
 
@@ -29,8 +31,13 @@ namespace ability
 				status->addCounter(UNIT_DURATION, dur);
 
 				status->attach(u);
+
+				//effect
+				UniversalPfx::getInstance()->playEffect("PowerSurge", u->getTransform().getTranslation());
 			}
 		}
+
+		
 
 		//delete package
 		done(p_info);

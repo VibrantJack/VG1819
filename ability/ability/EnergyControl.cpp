@@ -1,5 +1,6 @@
 #pragma once
 #include "ability/ability/Ability.h"
+#include "_Project\UniversalPfx.h"
 
 #include "unit/Unit.h"
 
@@ -23,6 +24,10 @@ namespace ability
 				if (power < 0)
 					power = 0;
 			}
+
+			//play effect
+			UniversalPfx::getInstance()->playEffect("EnergyControl", target->getTransform().getTranslation());
+
 
 			//change counter
 			changeCounter(target, COUNTER_ENERGY, power);

@@ -15,9 +15,74 @@
 					"poolednumber" : 2
 				},
 				{
-					"name" : "BurnFireball",
-					"path" : Universal Pfx/BurnFireballUPFX.json,
-					"pooleNumber" : 2
+					"name" : "BurnFireballUPFX",
+					"path" : "Universal Pfx/BurnFireballUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Encourage",
+					"path" : "Universal Pfx/EncourageUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "EnergyControl",
+					"path" : "Universal Pfx/EnergyControlUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "HealReceiveUPFX.json",
+					"path" : "Universal Pfx/BurnExplosionUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "HealSend",
+					"path" : "Universal Pfx/HealSendUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "LandImprovement",
+					"path" : "Universal Pfx/LandImprovementUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "ManipulateTile",
+					"path" : "Universal Pfx/ManipulateTileUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "PowerSlam",
+					"path" : "Universal Pfx/PowerSlamUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "PowerSurge",
+					"path" : "Universal Pfx/PowerSurgeUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Rally",
+					"path" : "Universal Pfx/RallyUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Sabotage",
+					"path" : "Universal Pfx/SabotageUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Slay",
+					"path" : "Universal Pfx/SlayUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Summon",
+					"path" : "Universal Pfx/UnitSummonOrJoinUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Join",
+					"path" : "Universal Pfx/UnitSummonOrJoinUPFX.json",
+					"poolednumber" : 2
 				}
 			],
 			"debug" : false

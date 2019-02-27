@@ -1,6 +1,7 @@
 #pragma once
 #include "ability/ability/Ability.h"
 #include "unit/Unit.h"
+#include "_Project\UniversalPfx.h"
 
 //Rock
 
@@ -22,6 +23,9 @@ namespace ability
 		se->m_source = ABILITY_ENCOURAGE;
 		//attach to target
 		se->attach(p_info->m_targets[0]);
+		glm::vec3 test = p_info->m_targets[0]->getTransform().getTranslation();
+		UniversalPfx::getInstance()->playEffect("Encourage", p_info->m_targets[0]->getTransform().getTranslation());
+
 	}
 
 	void Encourage::stackStatus( AbilityInfoPackage* p_info)

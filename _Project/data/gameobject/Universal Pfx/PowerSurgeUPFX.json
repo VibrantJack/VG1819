@@ -3,7 +3,7 @@
   "components": [
     {
       "name": "K_ParticleSystem",
-      "effectpath": "data/particles/universal/effects/powerSlam.xml"
+      "effectpath": "data/particles/universal/effects/powerSurge.xml"
     },
     {
       "name": "PlayParticleSystemOnEnable"

@@ -11,6 +11,8 @@
 
 #include "UI/HandFrame.h"
 
+#include "_Project\UniversalPfx.h"
+
 #include <iostream>
 
 void ability::Ability::singleTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile)
@@ -41,6 +43,7 @@ void ability::Ability::singleTargetProjectileFinished(AbilityInfoPackage* p_pack
 
 	//trigger receive damage event
 	unit::Unit* target = p_package->m_targets[0];
+
 	triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_package);
 
 	//so power will change to negative
