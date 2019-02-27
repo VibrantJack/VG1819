@@ -232,31 +232,72 @@ void TileInfo::setHighlightedBy(const std::string& p_sId)
 
 const bool TileInfo::isDemonicPresence()
 {
-	if (m_DemonicPresence)
-		return true;
-	else
-	{//check adjcent tile
-		if (m_adjTileList.size() == 0)//no tile in the list
-			getAdjTile();
-		
-		for (int i = 0; i < m_adjTileList.size(); i++)
-		{
-			TileInfo* info = m_adjTileList[i]->getComponent<TileInfo>();
-			if (info->getDemonicPresence())
-				return true;
-		}
-	}
-	return false;
+	return (m_DemonicPresence || m_SecondaryDP);//this is DP or adjcent to DP
 }
 
 void TileInfo::setDemonicPresence(bool p_dp)
 {
-	m_DemonicPresence = p_dp;
+	if (m_DemonicPresence != p_dp)
+	{
+		m_DemonicPresence = p_dp;
+
+		//dp changed, trigger new tile event
+		triggerNewTileEvent();
+
+		//ask adjcent tiles to check if this change matters
+		if (m_adjTileList.size() == 0)//no tile in the list
+			getAdjTile();
+
+		for (auto it : m_adjTileList)
+		{
+			it->getComponent<TileInfo>()->checkSecondaryDP();
+		}
+	}
 }
 
 bool TileInfo::getDemonicPresence() const
 {
 	return m_DemonicPresence;
+}
+
+void TileInfo::checkSecondaryDP()
+{
+	if (m_adjTileList.size() == 0)//no tile in the list
+		getAdjTile();
+
+	bool dp = false;
+	for (auto it : m_adjTileList)
+	{
+		TileInfo* info = it->getComponent<TileInfo>();
+		if (info->getDemonicPresence())//adjcent tile is DP
+		{
+			dp = true;
+			break;
+		}
+	}
+
+	//change secondary dp
+	if (dp != m_SecondaryDP)
+	{
+		m_SecondaryDP = dp;
+
+		if (!m_DemonicPresence)
+		{
+			//this isn't DP, so secondary dp change matters
+			//trigger new tile event
+			triggerNewTileEvent();
+		}
+	}
+}
+
+void TileInfo::triggerNewTileEvent()
+{
+	if (!hasUnit())//do nothing if no unit on the tile
+		return;
+
+	ability::TimePointEvent* e = new ability::TimePointEvent(ability::TimePointEvent::New_Tile);
+	e->putGameObject("tile", &getGameObject());//put this tile obj
+	m_unitGO->getComponent<unit::Unit>()->triggerTP(ability::TimePointEvent::New_Tile, e);
 }
 
 void TileInfo::setDecoration()
@@ -286,6 +327,7 @@ void TileInfo::getAdjTile()
 {
 	BoardManager* bm = BoardManager::getInstance();
 
+	//check adjcent tiles
 	kitten::K_GameObject* tile = bm->getTile(m_iPosX + 1, m_iPosY);
 	if (tile != nullptr)
 		m_adjTileList.push_back(tile);

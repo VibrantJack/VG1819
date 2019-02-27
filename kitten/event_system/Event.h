@@ -81,6 +81,7 @@ namespace kitten
 			Update_Card_Context_By_ID,
 			Update_Card_Context_By_GO,
 			Update_Card_Context_Attrib,
+			Update_Card_Context_Status,
 			Card_Context_Set_Enabled,
 			Land_Context_Set_Enabled,
 			Update_Land_Context,
@@ -98,6 +99,7 @@ namespace kitten
 			Scene_Change,
 			Remove_Loading_Screen,
 			New_Game_Turn,
+			New_Unit_Turn,
 
 			Test_Event, 
 			MAX_VAL = Test_Event

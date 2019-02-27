@@ -20,6 +20,7 @@
 #pragma once
 #include "ability/node/AbilityNodeManager.h"
 #include "ability/status/statusEvent/TimePointEvent.h"
+#include "kitten/event_system/EventManager.h"
 
 #include <string>
 #include <vector>
@@ -31,6 +32,16 @@ namespace ability
 	class Status
 	{
 	public:
+		enum StatusType
+		{
+			None,
+			Stat_Debuff,
+			Stat_Buff,
+			MV_Debuff,
+			MV_Buff,
+			Shield
+		};
+		
 		std::string m_source;
 
 		Status();
@@ -58,12 +69,13 @@ namespace ability
 		std::string getID() { return m_Id; };
 
 		//common status method
-		void attach(unit::Unit* p_u);
+		void attach(unit::Unit* p_u, bool p_nonLevelUpStatus = true);
 		virtual Status* clone() const = 0;
 		virtual int effect();//activate when attached to unit
 		virtual int effect(const TimePointEvent::TPEventType& p_type, TimePointEvent* p_event);
 		void registerTPEvent();
 
+		StatusType getStatusType() { return m_statusType; }
 
 		//for test
 		void print();
@@ -80,13 +92,15 @@ namespace ability
 		std::unordered_map<std::string, int> m_counter;
 		//Most commonly counter is duration. But it can be more, such as how many times it can be used
 
-		int m_LV;
+		int m_LV = 0;
 		std::unordered_map<std::string, int> m_attributeChange;
 		std::string m_effectedAD;
 
 		std::vector<ability::TimePointEvent::TPEventType> m_TPList;//the list of event that will be registered
 
 		TimePointEvent::TPEventType m_endEffectEvent = TimePointEvent::None;
+
+		StatusType m_statusType = StatusType::None;
 
 		//common help method for status
 
@@ -97,9 +111,10 @@ namespace ability
 		
 		//check if the event of duration deduction happens, if it is reduce duration
 		void checkDuration(const TimePointEvent::TPEventType& p_type);
+		void checkDuration();
 
 		//end effect
-		virtual void effectEnd();
+		virtual void effectEnd() {};
 	};
 
 	class Status_LV : public Status
@@ -241,6 +256,48 @@ namespace ability
 		bool m_active = false;
 
 		void generateArmor();
+	};
+
+	class Status_IN_Change : public Status
+	{
+	public:
+		Status_IN_Change();
+		Status* clone() const { return new Status_IN_Change(*this); };
+		int effect();
+		void effectEnd();
+
+		void registerEvent();
+		void listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data);
+	};
+
+	class Status_Attach : public Status
+	{
+	private:
+		int m_unitID = 23;
+	public:
+		Status_Attach();
+		Status* clone() const { return new Status_Attach(*this); };
+		int effect();
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+
+	};
+
+	class Status_Wraith_LV2 : public Status_LV
+	{
+	public:
+		Status_Wraith_LV2();
+		Status* clone() const { return new Status_Wraith_LV2(*this); };
+
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};
+
+	class Status_Evil_Fiend_LV : public Status_LV
+	{
+	public:
+		Status_Evil_Fiend_LV();
+		Status* clone() const { return new Status_Evil_Fiend_LV(*this); };
+
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 }
 

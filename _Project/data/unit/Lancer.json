@@ -27,7 +27,8 @@
 				"need_unit":1,
 				"description":"Deal damage and apply [Fear] if in [Demonic Presence]",
 				"status_name":"Fear",
-				"status_description":"IN is reduced to 1."
+				"status_description":"IN is reduced to 1.",
+				"duration":1
 			}
 		],
 		"status":[

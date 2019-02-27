@@ -9,6 +9,8 @@
 #include "unit/unitComponent/UnitMove.h"
 #include "networking\ClientGame.h"
 
+#include "UI/HandFrame.h"
+
 #include <iostream>
 
 void ability::Ability::singleTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile)
@@ -117,12 +119,12 @@ void ability::Ability::done(const AbilityInfoPackage* p_info)
 	delete p_info;
 }
 
-void ability::Ability::removeCounter(unit::Unit * p_target, const std::string & p_name, int p_n)
+void ability::Ability::changeCounter(unit::Unit * p_target, const std::string & p_name, int p_n)
 {
 	AbilityNode* node1 = AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
 
-	//change hp
-	node1->effect(p_target, p_name, -p_n);
+	//change counter
+	node1->effect(p_target, p_name, p_n);
 }
 
 bool ability::Ability::checkTarget(const AbilityInfoPackage * p_info)
@@ -173,6 +175,19 @@ void ability::Ability::getTarget(AbilityInfoPackage * p_info)
 	p_info->m_targets = unitlist;
 }
 
+std::vector<kitten::K_GameObject*> ability::Ability::getCardsInHand()
+{
+	std::list<userinterface::UIObject*> list = userinterface::HandFrame::getActiveInstance()->getInnerObjects();
+	
+	std::vector<kitten::K_GameObject*> objectList;
+
+	for (auto it : list)
+	{
+		objectList.push_back( &(it->getGameObject()) );
+	}
+	return objectList;
+}
+
 void ability::Ability::triggerTPEvent(ability::TimePointEvent::TPEventType p_tp, unit::Unit * p_target, AbilityInfoPackage * p_info)
 {
 	unit::StatusContainer* sc = p_target->getStatusContainer();
@@ -198,4 +213,12 @@ void ability::Ability::addStatusInfo(Status * p_st, AbilityInfoPackage* p_info)
 	}
 
 	p_st->m_source = m_name;
+}
+
+void ability::Ability::drawCard(int p_id, int p_num)
+{
+	kitten::Event *e = new kitten::Event(kitten::Event::EventType::Draw_Card);
+	e->putInt(PLAYER_ID, p_id);
+	e->putInt(CARD_COUNT, p_num);
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Draw_Card, e);
 }

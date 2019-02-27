@@ -1,5 +1,7 @@
 #pragma once
 
+#define ADD_ELEMENT(n, list, name,className) n = new className(); list[name] = n;
+
 //ability
 #define ABILITY_MANIPULATE_TILE "ManipulateTile"
 #define ABILITY_HEAL "Heal"
@@ -35,9 +37,19 @@
 #define ABILITY_SUMMON "Summon"
 #define ABILITY_ACTIVATE "Activate"
 #define ABILITY_STAB "Stab"
+#define ABILITY_SACRIFICE "Sacrifice"
+#define ABILITY_EROSION "Erosion"
+#define ABILITY_DRAIN "Drain"
+#define ABILITY_EXECUTE "Execute"
+#define ABILITY_HORROR "Horror"
+#define ABILITY_ATTACH "Attach"
 
 //ability or status required info
-#define PUSH_BACK "push back"
+#define PUSH_BACK "push_back"
+#define CARD_DRAWN "card_drawn"
+#define COUNTER_POWER "counter_power"
+#define COUNTER_CHANGE "counter_change"
+
 #define STATUS_ARMOR "armor"
 
 //ability-action
@@ -45,26 +57,36 @@
 #define ACTION_JOIN "Join"
 
 //status
+#define STATUS_TEMP_CHANGE "Status_Temp_Change"
+#define STATUS_AD_CHANGE "Status_AD_Change"
+#define STATUS_IN_CHANGE "Status_IN_Change"
+
+// buff/debuff
 #define STATUS_ENCOURAGE "Status_Encourage"
+#define STATUS_DODGE "Status_Dodge"
+#define STATUS_LOAD "Status_Load"
+#define STATUS_SHIELD "Status_Shield"
+#define STATUS_BLOCK "Status_Block"
+#define STATUS_CURSE "Status_Curse"
+#define STATUS_ATTACH "Status_Attach"
+
+//lv
 #define STATUS_LV "Status_LV"
 #define STATUS_PRIEST_LV3 "Status_Priest_LV3"
 #define STATUS_ARCHER_LV3 "Status_Archer_LV3"
 #define STATUS_DUELIST_LV3 "Status_Duelist_LV3"
-#define STATUS_DODGE "Status_Dodge"
-#define STATUS_TEMP_CHANGE "Status_Temp_Change"
-#define STATUS_AD_CHANGE "Status_AD_Change"
-#define STATUS_LOAD "Status_Load"
-#define STATUS_SHIELD "Status_Shield"
-#define STATUS_BLOCK "Status_Block"
-
 #define STATUS_ETERNAL_EYE_LV3 "Status_Eternal_Eye_LV3"
 #define STATUS_LANCER_LV2 "Status_Lancer_LV2"
-#define STATUS_CURSE "Status_Curse"
+#define STATUS_WRAITH_LV2 "Status_Wraith_LV2"
+#define STATUS_EVIL_FIEND_LV "Status_Evil_Fiend_LV"
 
 //demonic restriction
 #define STATUS_DEMONIC_RESTRICTION "Status_Demonic_Restriction"
 #define STATUS_DR_ETERNAL_EYE "Status_DR_Eternal_Eye"
 #define STATUS_DR_MUD_DEMON "Status_DR_Mud_Demon"
+#define STATUS_DR_HORROR_LORD "Status_DR_Horror_Lord"
+#define STATUS_DR_WRAITH "Status_DR_Wraith"
+#define STATUS_DR_EVIL_FIEND "Status_DR_Evil_Fiend"
 
 //status property
 #define STATUS_NAME "status_name"

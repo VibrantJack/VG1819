@@ -18,3 +18,7 @@ Lancer.json
 MudDemon.json
 SummoningWitch.json
 Servant.json
+PoisonPool.json
+EvilFiend.json
+HorrorLord.json
+Wraith.json

@@ -58,6 +58,14 @@ namespace ability
 
 		s = new Status_DR_Mud_Demon();
 		m_statusList[STATUS_DR_MUD_DEMON] = s;
+
+		ADD_ELEMENT(s, m_statusList, STATUS_IN_CHANGE, Status_IN_Change);
+		ADD_ELEMENT(s, m_statusList, STATUS_DR_HORROR_LORD, Status_DR_Horror_Lord);
+		ADD_ELEMENT(s, m_statusList, STATUS_ATTACH, Status_Attach);
+		ADD_ELEMENT(s, m_statusList, STATUS_WRAITH_LV2, Status_Wraith_LV2);
+		ADD_ELEMENT(s, m_statusList, STATUS_DR_WRAITH, Status_DR_Wraith);
+		ADD_ELEMENT(s, m_statusList, STATUS_DR_EVIL_FIEND, Status_DR_Evil_Fiend);
+		ADD_ELEMENT(s, m_statusList, STATUS_EVIL_FIEND_LV, Status_Evil_Fiend_LV);
 	}
 
 	StatusManager::StatusManager()
