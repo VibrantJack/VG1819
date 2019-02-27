@@ -3,17 +3,17 @@
     <color random="false" r="-0.2" g="-0.2" b="-0.1" />
     <offset x="0" y="-1" z="0" type="disc" radius="0.25"/>
     <direction mode="useOffset"/>
-    <maxParticles numParticles="2" />
+    <maxParticles numParticles="5" />
     <lifetime random="false" length="3"/>
-    <burst isBurst="true" repeat="false" />
+    <burst isBurst="false" repeat="false" />
   </SpawnProperties>
 
   <Affectors>
     <path isPreset="true" type="direction" scalar="1"/>
     <fadeChange mode="over_life" start="-0.1" end="-0.99" />
-    <rotationChange mode="random" min="1.0" max="360.0"/>
+    <rotationChange mode="random" min="180.0" max="720.0"/>
     <sizeChange mode="over_life" startX="0.0" startY="0.0" endX="2.0" endY="2.0"/>
   </Affectors>
 
-  <Misc path="textures/particles/twirl_01.png" spawnRate="0.0"/>
+  <Misc path="textures/particles/twirl_01.png" spawnRate="1.1"/>
 </Emitter>

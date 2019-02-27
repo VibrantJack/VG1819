@@ -15,5 +15,5 @@
     <sizeChange mode="over_life" startX="0.0" startY="0.0" endX="0.8" endY="0.8"/>
   </Affectors>
 
-  <Misc path="textures/particles/magic_05.png" spawnRate="0.15"/>
+  <Misc path="textures/particles/magic_03.png" spawnRate="0.15"/>
 </Emitter>

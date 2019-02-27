@@ -12,7 +12,7 @@
   <Affectors>
     <path isPreset="true" type="direction" scalar="1"/>
     <fadeChange mode="over_life" start="0.0" end="-1.0" />
-    <rotationChange mode="random" min="0" max="360"/>
+    <rotationChange mode="random" min="0" max="720"/>
   </Affectors>
 
   <Misc path="textures/particles/spark_03.png" spawnRate="0.4"/>

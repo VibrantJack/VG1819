@@ -5,7 +5,7 @@
     <offset x="0" y="0" z="0" type="disc" radius="1"/>
     <direction mode="up"/>
     <maxParticles numParticles="3" />
-    <lifetime random="true" min="3" max="4"/>
+    <lifetime random="false" length="10"/>
     <burst isBurst="true" repeat="false" />
   </SpawnProperties>
 

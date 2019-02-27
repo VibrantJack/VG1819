@@ -1,0 +1,16 @@
+{
+  "name": "PooledPowerSurgeUPFX",
+  "components": [
+    {
+      "name": "K_ParticleSystem",
+      "effectpath": "data/particles/universal/effects/powerSlam.xml"
+    },
+    {
+      "name": "PlayParticleSystemOnEnable"
+    },
+    {
+      "name": "DisableAfterTime",
+      "time": 1.5
+    }
+  ]
+}

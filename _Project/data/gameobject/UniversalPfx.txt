@@ -13,6 +13,11 @@
 					"name" : "BurnExplosion",
 					"path" : "Universal Pfx/BurnExplosionUPFX.json",
 					"poolednumber" : 2
+				},
+				{
+					"name" : "BurnFireball",
+					"path" : Universal Pfx/BurnFireballUPFX.json,
+					"pooleNumber" : 2
 				}
 			],
 			"debug" : false

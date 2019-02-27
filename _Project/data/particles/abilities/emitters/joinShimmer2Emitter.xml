@@ -11,7 +11,7 @@
 	
 	<Affectors>
 		<path isPreset="true" type="direction" scalar="1"/>
-		<sizeChange mode="over_life" startX="0.5" startY="0.5" endX="3.5" endY="3.5" />
+		<sizeChange mode="over_life" startX="0.5" startY="0.5" endX="4.5" endY="4.5" />
 		<fadeChange mode="over_life" start="-0.5" end="-1.0" />
     <rotationChange mode="over_life" min="0" max="45"/>
 	</Affectors>

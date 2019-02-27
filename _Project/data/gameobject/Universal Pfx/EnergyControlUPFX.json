@@ -1,0 +1,16 @@
+{
+  "name": "PooledEnergyControlUPFX",
+  "components": [
+    {
+      "name": "K_ParticleSystem",
+      "effectpath": "data/particles/universal/effects/energyControl.xml"
+    },
+    {
+      "name": "PlayParticleSystemOnEnable"
+    },
+    {
+      "name": "DisableAfterTime",
+      "time": 1.0
+    }
+  ]
+}
