@@ -25,7 +25,11 @@
 				"name":"Status_Wraith_LV2",
 				"lv":2,
 				"description":"Attach effect is doubled.",
-				"power":3
+				"effectedAD":1,
+				"ad_name_0":"Attach",
+				"ad_attribute_num_0":1,
+				"ad_attribute_0_0":"power",
+				"ad_value_0_0":3
 			},
 			{
 				"name":"Status_DR_Wraith",

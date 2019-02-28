@@ -48,6 +48,7 @@ namespace ability
 		Status* clone() const { return new Status_DR_Horror_Lord(*this); };
 		void restrictionOn() override;
 		void restrictionOff() override;
+		int effect() override;
 	};
 
 	class Status_DR_Wraith : public Status_Demonic_Restriction
@@ -59,11 +60,11 @@ namespace ability
 		void restrictionOff() override;
 	};
 
-	class Status_DR_Evil_Fiend : public Status_Demonic_Restriction
+	class Status_DR_Gorefiend : public Status_Demonic_Restriction
 	{
 	public:
-		Status_DR_Evil_Fiend();
-		Status* clone() const { return new Status_DR_Evil_Fiend(*this); };
+		Status_DR_Gorefiend();
+		Status* clone() const { return new Status_DR_Gorefiend(*this); };
 		void restrictionOn() override;
 		void restrictionOff() override;
 	};

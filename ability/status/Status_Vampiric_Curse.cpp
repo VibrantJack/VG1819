@@ -19,7 +19,7 @@ namespace ability
 			//steal hp
 
 			//get power
-			int power = m_counter[UNIT_POWER];
+			int power = m_intValue[UNIT_POWER];
 
 			//get node
 			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAttribute);

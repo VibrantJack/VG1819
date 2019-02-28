@@ -10,27 +10,29 @@ namespace ability
 		//apply Status_Attach to target
 		ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_ATTACH);
 
-		//set properties: name, description, source
-		addStatusInfo(se, p_info);
-
 		//get power
-		int pow = p_info->m_intValue[UNIT_POWER];
+		//int pow = p_info->m_intValue[UNIT_POWER];
 
 		//check target is ally or enemy
 		int sourceID = p_info->m_source->m_clientId;
 		int targetID = p_unit->m_clientId;
 		if (sourceID != targetID)//enemy
-			pow = -pow;
+			p_info->m_intValue[UNIT_POWER] *= -1;
 
 		//add power
-		se->addCounter(UNIT_POWER, pow);
+		//se->addCounter(UNIT_POWER, pow);
 		
 		//add lv
-		se->addCounter(UNIT_LV, p_info->m_source->m_attributes[UNIT_LV]);
+		se->m_intValue[UNIT_LV] = p_info->m_source->m_attributes[UNIT_LV];
 
 		//add id
-		se->addCounter(UNIT_ID, sourceID);
+		se->m_intValue[UNIT_ID] = sourceID;
 
+
+		std::vector<std::string> intKeys;
+		intKeys.push_back(UNIT_POWER);
+
+		addStatusInfo(se, p_info, intKeys);
 
 		//attach to target
 		se->attach(p_unit);

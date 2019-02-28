@@ -16,6 +16,12 @@ namespace ability
 				//apply Status_Curse to target
 				ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_CURSE);
 
+				std::vector<std::string> intKeys;
+				intKeys.push_back(UNIT_POWER);
+
+				addStatusInfo(se, p_info, intKeys);
+
+				/*
 				//set properties
 				addStatusInfo(se, p_info);
 
@@ -23,6 +29,7 @@ namespace ability
 
 				se->addCounter(UNIT_POWER, pow);
 				se->m_source = ABILITY_CURSE;
+				*/
 
 				//attach to target
 				se->attach(p_info->m_targets[0]);

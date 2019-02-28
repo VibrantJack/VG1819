@@ -11,17 +11,21 @@ namespace ability
 
 	void Status_DR_Horror_Lord::restrictionOn()
 	{
+		changeEffectedAD();
+		/*
 		AbilityNode* node = AbilityNodeManager::getInstance()->findNode(ChangeAbilityDescription);
 
 		//disable Horror
 		node->effect(m_unit, ABILITY_HORROR, ABILITY_DISABLE, 1);
 
 		//Execute get less kill counter
-		node->effect(m_unit, ABILITY_EXECUTE, COUNTER_CHANGE, -1);
+		node->effect(m_unit, ABILITY_EXECUTE, COUNTER_CHANGE, -1);*/
 	}
 
 	void Status_DR_Horror_Lord::restrictionOff()
 	{
+		changeEffectedAD(true);
+		/*
 		//change back
 
 		AbilityNode* node = AbilityNodeManager::getInstance()->findNode(ChangeAbilityDescription);
@@ -30,6 +34,12 @@ namespace ability
 		node->effect(m_unit, ABILITY_HORROR, ABILITY_DISABLE, -1);
 
 		//Execute get original kill counter
-		node->effect(m_unit, ABILITY_EXECUTE, COUNTER_CHANGE, 1);
+		node->effect(m_unit, ABILITY_EXECUTE, COUNTER_CHANGE, 1);*/
+	}
+
+	int Status_DR_Horror_Lord::effect()
+	{
+		setEffectedAD();
+		return 0;
 	}
 }

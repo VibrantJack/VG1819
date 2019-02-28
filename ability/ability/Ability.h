@@ -29,7 +29,7 @@ namespace ability
 		virtual void multiTargetProjectileFinished(AbilityInfoPackage* p_package);
 	protected:
 
-		Ability(const std::string p_name) : m_name(p_name) {}
+		Ability(const std::string& p_name) : m_name(p_name) {}
 
 		//simple ability
 		void singleTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile = false);
@@ -59,8 +59,12 @@ namespace ability
 		//trigger time point event
 		void triggerTPEvent(ability::TimePointEvent::TPEventType p_tp, unit::Unit* p_target, AbilityInfoPackage* p_info);
 
-		//add status name and description
-		void addStatusInfo(Status* p_st, AbilityInfoPackage* p_info);
+		//add status name, description, source, and other value that's directly from package
+		void addStatusInfo(Status * p_st, AbilityInfoPackage* p_info,
+			const std::vector<std::string>& p_intValueKeyList = std::vector<std::string>(),
+			const std::vector<std::string>& p_stringValueKeyList = std::vector<std::string>());
+		//part of status info which related to ad change
+		void readADChange(AbilityInfoPackage* p_info, std::vector<std::string>* p_intValueKeyList, std::vector<std::string>* p_stringValueKeyList);
 
 		//draw card
 		void drawCard(int p_id, int p_num);

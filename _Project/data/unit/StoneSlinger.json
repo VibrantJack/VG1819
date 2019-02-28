@@ -23,16 +23,21 @@
 			{
 				"name":"Load",
 				"lv":2,
-				"power":2,
-				"cd":5,
+				"cd":4,
 				"min_range":0,
 				"max_range":0,
 				"target":1,
 				"need_unit":1,
-				"area_max":1,
 				"description":"Next Fire will deal more damage in bigger area.",
 				"status_name":"Load",
-				"status_description":"Next Fire will deal more damage in a greater area."
+				"status_description":"Next Fire will deal more damage in a greater area.",
+				"effectedAD":1,
+				"ad_name_0":"Fire",
+				"ad_attribute_num_0":2,
+				"ad_attribute_0_0":"power",
+				"ad_value_0_0":2,
+				"ad_attribute_0_1":"area_max",
+				"ad_value_0_1":1
 			}
 		],
 		"status":[

@@ -19,7 +19,7 @@ namespace ability
 		{
 			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAbilityInfo);
 			AbilityInfoPackage* pack = p_event->getPackage(INFO_PACKAGE_KEY);
-			node->effect(pack, UNIT_POWER, m_counter.at(UNIT_POWER));
+			node->effect(pack, UNIT_POWER, m_intValue.at(UNIT_POWER));
 			return 0;
 		}
 		else

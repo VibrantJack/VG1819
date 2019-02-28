@@ -15,7 +15,7 @@
 				"area_mode":"lineH",
 				"area_fix":0,
 				"area_len":3,
-				"description":"Deal 5 damage to enemies."
+				"description":"Deal 5 damage to enemies. If lv3, deal 7 damage."
 			},
 			{
 				"name":"Defend",
@@ -42,7 +42,16 @@
 				"name":"Status_Duelist_LV3",
 				"description":"Increases Slay damage and decrease Defend CD",
 				"lv":3,
-				"hp":3
+				"hp":3,
+				"effectedAD":2,
+				"ad_name_0":"Slay",
+				"ad_attribute_num_0":1,
+				"ad_attribute_0_0":"power",
+				"ad_value_0_0":1,
+				"ad_name_1":"Defend",
+				"ad_attribute_num_1":1,
+				"ad_attribute_1_0":"cd",
+				"ad_value_1_0":-1
 			}
 		],
 		"portrait_texture" : "textures/cards/500x500/Knight.tga"
