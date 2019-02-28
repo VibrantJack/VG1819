@@ -16,7 +16,10 @@ int ability::Rally::effect(AbilityInfoPackage * p_info)
 
 		status->m_source = m_name;
 		status->addAttributeChange(UNIT_IN, in_change);
-		status->addCounter(UNIT_DURATION, 2);
+
+		//duration
+		int dur = p_info->m_intValue[UNIT_DURATION];
+		status->addCounter(UNIT_DURATION, dur);
 
 		status->attach(u);
 	}

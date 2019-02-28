@@ -29,7 +29,7 @@ namespace ability
 
 			//caster gain hp
 			if(m_caster != nullptr)
-				node->effect(m_caster, UNIT_HP, -power);
+				node->effect(m_caster, UNIT_HP, power);
 			
 			checkDuration();
 
