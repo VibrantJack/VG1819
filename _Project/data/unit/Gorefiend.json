@@ -18,6 +18,17 @@
 				"status_name":"Vampiric Curse",
                 "status_description":"Steal 2 HP every turn for 3 turns.",
                 "duration":3
+            },
+            {
+                "name":"Crash",
+                "lv":2,
+                "cd":2,
+				"power":15,
+				"min_range":1,
+				"max_range":1,
+				"target":1,
+				"need_unit":1,
+				"description":"Cost 15 HP and deal that much damage to target. If HP is less than 15, cost all HP."
 			}
 		],
 		"status":[

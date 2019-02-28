@@ -22,7 +22,7 @@ namespace ability
 		//so power will change to negative
 		int power = -(p_info->m_intValue.find(UNIT_POWER)->second);
 
-		damage(target, power);
+		changeHP(target, power);
 		
 		//gain vigor counter
 		int delta = p_info->m_intValue[COUNTER_CHANGE];

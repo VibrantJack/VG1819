@@ -117,6 +117,7 @@
     <ClCompile Include="..\ability\ability\Arm.cpp" />
     <ClCompile Include="..\ability\ability\Attach.cpp" />
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp" />
+    <ClCompile Include="..\ability\ability\Crash.cpp" />
     <ClCompile Include="..\ability\ability\Curse.cpp" />
     <ClCompile Include="..\ability\ability\Defend.cpp" />
     <ClCompile Include="..\ability\ability\Drain.cpp" />

@@ -36,7 +36,7 @@ namespace ability
 		void multiTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile = false);
 
 		kitten::K_GameObject* summonToken(AbilityInfoPackage* p_info, int p_unitIndex);
-		int damage(unit::Unit* p_target, int power);
+		void changeHP(unit::Unit* p_target, int power);
 
 		//delete package and tell unit it acts once
 		void done(const AbilityInfoPackage* p_info);
@@ -455,6 +455,13 @@ namespace ability
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
 	public:
 		HealthLink() : Ability(ABILITY_HEALTH_LINK) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Crash : public Ability
+	{
+	public:
+		Crash() : Ability(ABILITY_CRASH) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 }

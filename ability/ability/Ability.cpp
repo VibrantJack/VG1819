@@ -46,7 +46,7 @@ void ability::Ability::singleTargetProjectileFinished(AbilityInfoPackage* p_pack
 	//so power will change to negative
 	int power = -(p_package->m_intValue.find(UNIT_POWER)->second);
 
-	damage(target, power);
+	changeHP(target, power);
 
 	//delete package
 	done(p_package);
@@ -78,7 +78,7 @@ void ability::Ability::multiTargetProjectileFinished(AbilityInfoPackage* p_packa
 
 		int power = -(clonePackage->m_intValue.find(UNIT_POWER)->second);
 
-		damage(u, power);
+		changeHP(u, power);
 
 		//delete clone
 		delete clonePackage;
@@ -102,14 +102,12 @@ kitten::K_GameObject * ability::Ability::summonToken(AbilityInfoPackage* p_info,
 	return u;
 }
 
-int ability::Ability::damage(unit::Unit* p_target, int power)
+void ability::Ability::changeHP(unit::Unit * p_target, int power)
 {
 	AbilityNode* node1 = AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
 
 	//change hp
 	node1->effect(p_target, UNIT_HP, power);
-
-	return 0;
 }
 
 void ability::Ability::done(const AbilityInfoPackage* p_info)

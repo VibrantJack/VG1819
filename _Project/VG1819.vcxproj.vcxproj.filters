@@ -1052,6 +1052,9 @@
     <ClCompile Include="PlayUniversalSoundOnEnable.cpp">
       <Filter>components\sound</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\ability\Crash.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
