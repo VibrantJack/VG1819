@@ -11,11 +11,7 @@ namespace ability
 
 	void Status_DR_Gorefiend::restrictionOn()
 	{
-		AbilityNode* node = AbilityNodeManager::getInstance()->findNode(ChangeAbilityDescription);
-
-		//disable Horror
-
-		//Execute get less kill counter
+		changeEffectedAD();
 	}
 
 	void Status_DR_Gorefiend::restrictionOff()

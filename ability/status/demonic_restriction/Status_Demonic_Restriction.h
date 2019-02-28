@@ -21,6 +21,16 @@ namespace ability
 		void refresh();
 	};
 
+	class Status_DR_AD_Change : public Status_Demonic_Restriction
+	{
+	public:
+		Status_DR_AD_Change();
+		Status* clone() const { return new Status_DR_AD_Change(*this); };
+		void restrictionOn() override;
+		void restrictionOff() override;
+		int effect() override;
+	};
+
 	class Status_DR_Eternal_Eye : public Status_Demonic_Restriction
 	{
 	public:
@@ -41,6 +51,7 @@ namespace ability
 		int m_deltaMV;
 	};
 
+	/*
 	class Status_DR_Horror_Lord : public Status_Demonic_Restriction
 	{
 	public:
@@ -49,7 +60,7 @@ namespace ability
 		void restrictionOn() override;
 		void restrictionOff() override;
 		int effect() override;
-	};
+	};*/
 
 	class Status_DR_Wraith : public Status_Demonic_Restriction
 	{
@@ -60,6 +71,7 @@ namespace ability
 		void restrictionOff() override;
 	};
 
+	/*
 	class Status_DR_Gorefiend : public Status_Demonic_Restriction
 	{
 	public:
@@ -67,5 +79,5 @@ namespace ability
 		Status* clone() const { return new Status_DR_Gorefiend(*this); };
 		void restrictionOn() override;
 		void restrictionOff() override;
-	};
+	};*/
 }

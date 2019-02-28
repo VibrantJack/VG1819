@@ -986,9 +986,6 @@
     <ClCompile Include="..\ability\status\Status_IN_Change.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Horror_Lord.cpp">
-      <Filter>ability\status\demonic_restriction</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\ability\Attach.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
@@ -1052,7 +1049,7 @@
     <ClCompile Include="..\ability\status\statusLV\Status_Wraith_LV2.cpp">
       <Filter>ability\status\statusLV</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Gorefiend.cpp">
+    <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_AD_Change.cpp">
       <Filter>ability\status\demonic_restriction</Filter>
     </ClCompile>
   </ItemGroup>

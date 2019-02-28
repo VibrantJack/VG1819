@@ -53,7 +53,7 @@
 				"hp":8
 			},
 			{
-				"name":"Status_DR_Horror_Lord",
+				"name":"Status_DR_AD_Change",
 				"description":"Disable [Horror] and [Execute] get 1 less counter.",
 				"effectedAD":2,
 				"ad_name_0":"Horror",
