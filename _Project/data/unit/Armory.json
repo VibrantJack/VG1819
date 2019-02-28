@@ -4,12 +4,12 @@
 		"hp":10,
 		"mv":0,
 		"in":15,
-		"cost":6,
+		"cost":4,
 		"tags":["Structure","Terrans"],
 		"ability_description":[
 			{
 				"name":"Arm",
-				"power":2,
+				"power":3,
 				"min_range":0,
 				"max_range":0,
 				"target":1,
@@ -18,7 +18,7 @@
 				"area_fix":1,
 				"area_min":0,
 				"area_max":1,
-				"description":"Gain 2 [Shield] to all ally without [Shield].",
+				"description":"Gain 3 [Shield] to all ally without [Shield].",
 				"status_name":"Shield",
 				"status_description":"Block Damage"
 			}

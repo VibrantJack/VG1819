@@ -15,13 +15,15 @@ namespace ability
 
 			unit::Unit* target = p_info->m_targets[0];
 
-			if (checkTag(target, STRUCTURE))
+			if (target->checkTag(STRUCTURE) || target->checkTag(MACHINE))
 			{
 				triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_info);
 
 				int power = -(p_info->m_intValue.find(UNIT_POWER)->second);
 
 				damage(target, power);
+
+				UniversalSounds::playSound("deconstruction");
 			}
 
 		}

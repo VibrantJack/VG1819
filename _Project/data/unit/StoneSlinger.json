@@ -13,7 +13,7 @@
 				"power":10,
 				"min_range":3,
 				"max_range":5,
-				"need_unit":1,
+				"need_unit":0,
 				"target":1,
 				"area_mode":"square",
 				"area_min":0,

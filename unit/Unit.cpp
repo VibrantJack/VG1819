@@ -49,16 +49,12 @@ namespace unit
 	{
 		m_healthBar = m_attachedObject->getComponent<UnitHealthBar>();
 
-		bool flag = false;
+		//bool flag = false;
 		for (std::string it : m_tags)//strucutre can't join to another unit
 		{
-			if (it == STRUCTURE)
-			{
-				flag = true;
-				break;
-			}
+			m_tagCheckMap[it] = true;
 		}
-		m_isStructure = flag;
+		//m_isStructure = flag;*/
 	}
 
 	//status
@@ -120,7 +116,7 @@ namespace unit
 
 	void Unit::join()
 	{
-		if (isCommander() || isStructure() || m_attributes[UNIT_LV] >= 3)//commander and structure can't join to another unit
+		if (isCommander() || checkTag(STRUCTURE) || m_attributes[UNIT_LV] >= 3)//commander and structure can't join to another unit
 			return;
 
 		UnitInteractionManager::getInstance()->request(this, &m_joinAD);
@@ -162,10 +158,15 @@ namespace unit
 			m_commander->manipulateTile();
 	}
 
-	bool Unit::isStructure()
+	bool Unit::checkTag(const std::string & p_tag)
 	{
-		return m_isStructure;
+		return m_tagCheckMap[p_tag];
 	}
+
+//	bool Unit::isStructure()
+//	{
+//		return m_isStructure;
+//	}
 
 /*	void Unit::summonUnit(int p_id)
 	{
@@ -475,9 +476,7 @@ namespace unit
 		{
 			if (networking::ClientGame::isNetworkValid())
 			{
-				// Pass in false as the parameter in order to signal to the other client of disconnect
 				networking::ClientGame* client = networking::ClientGame::getInstance();
-				client->removeUnitGameObject(client->getUnitGameObjectIndex(m_attachedObject));
 
 				kitten::Event* eventData = new kitten::Event(kitten::Event::Network_End_Game);
 				if (m_clientId == client->getClientId())

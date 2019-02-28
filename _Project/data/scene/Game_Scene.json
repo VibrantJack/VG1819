@@ -9,13 +9,6 @@
 			"filename" : "boardcreator.txt"
 		},
 		{
-			"filename" : "soundsource.txt",
-			"translate" : [7,10,-8]
-		},
-		{
-			"filename" : "backgroundmusic.txt"
-		},
-		{
 			"filename" : "netmenu_console.txt",
 			"translate2d" : [950, 100]
 		},
@@ -80,6 +73,9 @@
 		},
 		{
 			"filename" : "TurnCounter.json"
+		},
+		{
+			"filename" : "backgroundmusic.txt"
 		}
     ]
 }

@@ -76,6 +76,8 @@ namespace ability
 		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Highlight_Tile, p_data);
 		*/
 
+		UniversalSounds::playSound("summon");
+
 		//delete package
 		delete p_info;
 

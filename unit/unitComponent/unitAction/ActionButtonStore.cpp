@@ -91,7 +91,7 @@ void unit::ActionButtonStore::display(Unit * p_u)
 	//for test
 	if (!networking::ClientGame::isNetworkValid())
 	{
-		bool canJoin = !m_unit->isCommander() && !m_unit->isStructure();//not structure or commander
+		bool canJoin = !m_unit->isCommander() && !m_unit->checkTag(STRUCTURE);//not structure or commander
 		canJoin = canJoin && m_unit->m_attributes[UNIT_LV] < 3;//not level 3
 		if(canJoin)
 			setButton("For test: Level Up", true);
@@ -151,7 +151,7 @@ void unit::ActionButtonStore::displayAction(kitten::K_GameObject * p_buttonGO)
 		setButton("ManipulateTile", m_unit->canAct());
 	}
 	//join
-	bool canJoin = !m_unit->isCommander() && !m_unit->isStructure();//not structure or commander
+	bool canJoin = !m_unit->isCommander() && !m_unit->checkTag(STRUCTURE);//not structure or commander
 	canJoin = canJoin && m_unit->m_attributes[UNIT_LV] < 3;//not level 3
 	if (canJoin)//not level 3
 		setButton("Join", m_unit->canAct());

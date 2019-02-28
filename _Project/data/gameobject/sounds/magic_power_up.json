@@ -1,0 +1,14 @@
+{
+	"name" : "MagicPowerUp",
+	"components" : [
+		{
+			"name" : "AudioSource",
+			"clippath" : "Sounds/sfx/units/magic_power_up.wav",
+			"is3d" : false,
+			"enableeffects" : false,
+			"loop" : false,
+			"volume" : 0.2,
+			"getsducked" : false
+		}
+	]
+}

@@ -15,7 +15,7 @@
 				"need_unit":1,
 				"target":1,
 				"filter":1,
-				"filter0":"structure",
+				"filter0":"structure_machine",
 				"description":"Heal target unit 3 HP. Can't heal structure."
 			},
 			{
@@ -33,6 +33,11 @@
 			}
 		],
 		"status":[
+			{
+				"name":"Status_LV",
+				"lv":2,
+				"hp":3
+			},
 			{
 				"name":"Status_Priest_LV3",
 				"lv":3,

@@ -5,6 +5,9 @@
 #include "ability/status/statusEvent/TimePointEvent.h"
 #include "ability/status/Status.h"
 #include "ability/AbilityMacro.h"
+
+#include "_Project\UniversalSounds.h"
+
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -44,7 +47,7 @@ namespace ability
 		//check if target unit is ally
 		bool checkAlly(unit::Unit* p_source, unit::Unit* p_target);
 		//check if unit has the tag
-		bool checkTag(unit::Unit* p_u, const std::string& p_tag);
+		//bool checkTag(unit::Unit* p_u, const std::string& p_tag);
 
 		//get targets from tiles in the info package,
 		//for cast time ability which units may move in and out the range
@@ -95,14 +98,27 @@ namespace ability
 	{
 	public:
 		Fight() : Ability(ABILITY_FIGHT) {};
-		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			singleTargetDamage(p_info); 
+			
+			int randNum = (rand() % 4) + 1;
+			UniversalSounds::playSound("swordonwood" + std::to_string(randNum));
+
+			return 0; 
+		};
 	};
 
 	class Shoot : public Ability
 	{
 	public:
 		Shoot() : Ability(ABILITY_SHOOT) {};
-		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info, true); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			singleTargetDamage(p_info, true); 
+			UniversalSounds::playSound("arrow_whoosh");
+			return 0; 
+		};
 	};
 
 	class Encourage : public Ability
@@ -119,7 +135,12 @@ namespace ability
 	{
 	public:
 		QuickShoot() : Ability(ABILITY_QUICK_SHOOT) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info, true); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			multiTargetDamage(p_info, true); 
+			UniversalSounds::playSound("arrow_whoosh" + std::to_string(p_info->m_targets.size()));
+			return 0; 
+		};
 	};
 
 	class Sabotage : public Ability
@@ -152,7 +173,12 @@ namespace ability
 	{
 	public:
 		Slay() : Ability(ABILITY_SLAY) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info)
+		{ 
+			multiTargetDamage(p_info); 
+			UniversalSounds::playSound("sword_4");
+			return 0; 
+		};
 	};
 
 	class SummonUnit : public Ability
@@ -189,6 +215,7 @@ namespace ability
 		{
 			getTarget(p_info);
 			multiTargetDamage(p_info);
+			UniversalSounds::playSound("ignition");
 			return 0;
 		};
 	};
@@ -200,6 +227,7 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info) {
 			getTarget(p_info);
 			multiTargetDamage(p_info);
+			UniversalSounds::playSound("launch_boulder");
 			return 0;
 		};
 	};
@@ -224,14 +252,24 @@ namespace ability
 	{
 	public:
 		Volley() : Ability(ABILITY_VOLLEY) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			multiTargetDamage(p_info); 
+			UniversalSounds::playSound("volley");
+			return 0; 
+		};
 	};
 
 	class TheLight : public Ability
 	{
 	public:
 		TheLight() : Ability(ABILITY_THE_LIGHT) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			multiTargetDamage(p_info);
+			UniversalSounds::playSound("gong");
+			return 0; 
+		};
 	};
 
 	class EnergyControl : public Ability
@@ -291,14 +329,24 @@ namespace ability
 	{
 	public:
 		Thrust() : Ability(ABILITY_THRUST) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			multiTargetDamage(p_info);
+			UniversalSounds::playSound("sharp_clank");
+			return 0; 
+		};
 	};
 
 	class ReleaseGas : public Ability
 	{
 	public:
 		ReleaseGas() : Ability(ABILITY_RELEASE_GAS) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			multiTargetDamage(p_info); 
+			UniversalSounds::playSound("gas");
+			return 0; 
+		};
 	};
 
 	class FearStrike : public Ability
@@ -328,7 +376,7 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info) 
 		{
 			summonToken(p_info, m_unitIndex);
-
+			UniversalSounds::playSound("summon");
 			//delete package
 			done(p_info);
 
@@ -347,7 +395,12 @@ namespace ability
 	{
 	public:
 		Stab() : Ability(ABILITY_STAB) {};
-		int effect(AbilityInfoPackage* p_info) { singleTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			singleTargetDamage(p_info);
+			UniversalSounds::playSound("stab");
+			return 0; 
+		};
 	};
 
 	class Sacrifice : public Ability

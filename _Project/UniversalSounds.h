@@ -1,7 +1,6 @@
 #pragma once
 
 #include "kitten\K_Component.h"
-#include "kitten\K_ComponentManager.h"
 #include "kitten\audio\AudioSource.h"
 
 #include <list>

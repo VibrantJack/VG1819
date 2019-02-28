@@ -36,14 +36,20 @@
 				"target":1,
 				"need_unit":1,
 				"filter":1,
-				"filter0":"non_structure",
+				"filter0":"non_structure_machine",
 				"description":"Deal 12 damage to a Structure."
 			}
 		],
 		"status":[
 			{
 				"name":"Status_LV",
+				"lv":2,
+				"hp":5
+			},
+			{
+				"name":"Status_LV",
 				"lv":3,
+				"hp":5,
 				"mv":1
 			}
 		],

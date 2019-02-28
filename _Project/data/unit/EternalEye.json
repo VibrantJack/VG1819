@@ -1,7 +1,7 @@
 {
 	"unit":{
 		"name":"Eternal Eye",
-		"hp":6,
+		"hp":4,
 		"mv":2,
 		"in":8,
 		"cost":1,
@@ -38,6 +38,7 @@
 			{
 				"name":"Status_Eternal_Eye_LV3",
 				"lv":3,
+				"hp":3,
 				"description":"Curse POW = 6; Oppose increased to 3 tiles"
 			},
 			{

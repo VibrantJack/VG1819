@@ -49,23 +49,7 @@ void SpawnUnitOnDrop::onClick()
 		shadowLerp->endLerp(LerpController::TransformBehavior::SetToTarget, false);
 	}
 
-	if (m_isDragging == false) 
-	{
-		m_lerpController->addPositionLerpFinishedCallback(this);
-		m_attachedObject->getComponent<userinterface::CardUIO>()->setGAlpha(1);
-		m_attachedObject->getComponent<userinterface::CardUIO>()->setTransparency(false);
-		
-		shadowLerp->positionLerp(
-			glm::vec3(
-				0,
-				0,
-				shadowTranslation.z
-			), CARD_SHADOW_MOVE_TIME, LerpController::TransformSource::Local
-		);
-
-		m_attachedFrame->setBlocksRaycast(true);
-	} 
-	else 
+	if (m_isDragging) 
 	{
 		m_attachedObject->getComponent<HoverOverCardBehavior>()->setEnabled(false);
 		m_attachedObject->getComponent<userinterface::CardUIO>()->setGAlpha(0.5);
@@ -135,6 +119,24 @@ void SpawnUnitOnDrop::resetCard()
 {
 	DragNDrop::onDrop();
 	m_isDragging = false;
+
+	kitten::K_GameObject& shadow = getTransform().getChildren()[0]->getAttachedGameObject();
+	auto& shadowTranslation = shadow.getTransform().getRelativeTranslation();
+	auto shadowLerp = shadow.getComponent<LerpController>();
+
+	m_lerpController->addPositionLerpFinishedCallback(this);
+	m_attachedObject->getComponent<userinterface::CardUIO>()->setGAlpha(1);
+	m_attachedObject->getComponent<userinterface::CardUIO>()->setTransparency(false);
+
+	shadowLerp->positionLerp(
+		glm::vec3(
+			0,
+			0,
+			shadowTranslation.z
+		), CARD_SHADOW_MOVE_TIME, LerpController::TransformSource::Local
+	);
+
+	m_attachedFrame->setBlocksRaycast(true);
 }
 
 SpawnUnitOnDrop::SpawnUnitOnDrop()

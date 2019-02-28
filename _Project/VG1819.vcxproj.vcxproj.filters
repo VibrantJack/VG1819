@@ -1049,6 +1049,9 @@
     <ClCompile Include="..\ability\ability\HealthLink.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
+    <ClCompile Include="PlayUniversalSoundOnEnable.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2137,6 +2140,10 @@
     <ClInclude Include="..\UI\GameplayButtons\NextTurnButton.h">
       <Filter>UI\GameplayButtons</Filter>
     </ClInclude>
+    <ClInclude Include="PlayUniversalSoundOnEnable.h">
+      <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundNames.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
