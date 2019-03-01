@@ -27,6 +27,9 @@ void ReloadObjectOnKeyPress::update()
 		const glm::vec3& scale = getTransform().getScale();
 		const glm::quat& rot = getTransform().getRotation();
 
+		newGameObj->getTransform().setIgnoreParent(false);
+		newGameObj->getTransform().setParent(getTransform().getParent());
+
 		if (m_replaceTransform)
 		{
 			auto& newTransform = newGameObj->getTransform();
@@ -34,6 +37,8 @@ void ReloadObjectOnKeyPress::update()
 			newTransform.scaleAbsolute(scale.x, scale.y, scale.z);
 			newTransform.rotateAbsQuat(rot);
 		}
+
+		
 
 		kitten::K_GameObjectManager::getInstance()->destroyGameObject(m_attachedObject);
 	}

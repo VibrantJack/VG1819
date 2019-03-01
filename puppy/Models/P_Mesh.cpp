@@ -2,10 +2,19 @@
 
 namespace puppy
 {
-	P_Mesh::P_Mesh(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices, const char* p_pathToTexture) : m_mat(ShaderType::basic_directional_light),
+	P_Mesh::P_Mesh(std::vector<NormalVertex>& p_vertices, std::vector<unsigned int>& p_indices, const char* p_pathToTexture, bool p_useAlphaTest) :
 		m_vao(p_vertices.data(), p_indices.data(), ShaderManager::getShaderProgram(ShaderType::basic_directional_light), p_vertices.size(), p_indices.size()), m_vertices(p_vertices),
 		m_indices(p_indices)
 	{
+		if (p_useAlphaTest)
+		{
+			m_mat.setShader(ShaderType::directional_light_alphaTest);
+		}
+		else
+		{
+			m_mat.setShader(ShaderType::basic_directional_light);
+		}
+
 		if (p_pathToTexture != nullptr)
 		{
 			std::string newTexPath(p_pathToTexture);

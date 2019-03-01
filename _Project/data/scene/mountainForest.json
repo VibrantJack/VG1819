@@ -351,9 +351,6 @@
 			"scale" : [0.33,0.3,0.33],
 			"rotate" : [-60,0,0],
 			"translate" : [12.7,-1,15.1]
-		},
-		{
-			"filename" : "TestModel.json"
 		}
 	]
 }

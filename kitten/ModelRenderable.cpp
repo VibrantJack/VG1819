@@ -5,7 +5,7 @@
 
 std::unordered_map<std::string, puppy::P_Model*> ModelRenderable::m_loadedModels;
 
-ModelRenderable::ModelRenderable(const char* p_pathToModel, bool p_flipUVs, bool p_isStatic) : m_isStatic(p_isStatic)
+ModelRenderable::ModelRenderable(const char* p_pathToModel, bool p_flipUVs, bool p_isStatic, bool p_useAlphaTest) : m_isStatic(p_isStatic)
 {
 	auto found = m_loadedModels.find(p_pathToModel);
 	if (found != m_loadedModels.end())
@@ -14,7 +14,7 @@ ModelRenderable::ModelRenderable(const char* p_pathToModel, bool p_flipUVs, bool
 	}
 	else
 	{
-		m_model = new puppy::P_Model(p_pathToModel, p_flipUVs);
+		m_model = new puppy::P_Model(p_pathToModel, p_flipUVs, p_useAlphaTest);
 		m_loadedModels.insert(std::make_pair(p_pathToModel, m_model));
 	}
 }

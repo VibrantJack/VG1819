@@ -1,18 +1,161 @@
 {
-    "name" : "TestModel", 
-    "components" : 
+    "name" : "low_poly_grass",
+	"gameobjects" : 
 	[
-        {
-            "name" : "ReloadObjectOnKeyPress",
-			"key" : "G",
-			"this_json_path" : "TileDecoration/grass/low_poly_grass1.json",
-			"replace_transform" : true
-        },
 		{
-			"name" : "ModelRenderable",
-			"path" : "models/terrain/misc/Low_Poly_Grass_001.obj"
+			"components" : 
+			[
+				{
+					"name" : "ModelRenderable",
+					"path" : "models/terrain/misc/Low_Poly_Grass_001.obj"
+				}
+			],
+			"rotate" : [0,0,0],
+			"scale" : [0.125,0.125,0.125]
+		},
+		{
+			"components" : 
+			[
+				{
+					"name" : "ModelRenderable",
+					"path" : "models/terrain/misc/Low_Poly_Grass_002.obj"
+				}
+			],
+			"rotate" : [0,22,0],
+			"scale" : [0.1,0.1,0.1],
+			"translate" : [0.15, 0, 0.15]
+		},
+		{
+			"components" : 
+			[
+				{
+					"name" : "ModelRenderable",
+					"path" : "models/terrain/misc/Low_Poly_Grass_002.obj"
+				}
+			],
+			"rotate" : [0,88,0],
+			"scale" : [0.1,0.1,0.1],
+			"translate" : [-0.15, 0, -0.15]
+		},
+		{
+			"components" : 
+			[
+				{
+					"name" : "ModelRenderable",
+					"path" : "models/terrain/misc/Low_Poly_Grass_002.obj"
+				}
+			],
+			"rotate" : [0,40,0],
+			"scale" : [0.1,0.1,0.1],
+			"translate" : [0, 0, 0.33]
+		},
+		{
+			"components" : 
+			[
+				{
+					"name" : "ModelRenderable",
+					"path" : "models/terrain/misc/Low_Poly_Grass_002.obj"
+				}
+			],
+			"rotate" : [0,-40,0],
+			"scale" : [0.1,0.1,0.1],
+			"translate" : [0, 0, -0.33]
+		},
+		{
+			"components" : 
+			[
+				{
+					"name" : "ModelRenderable",
+					"path" : "models/terrain/misc/Low_Poly_Grass_002.obj"
+				}
+			],
+			"rotate" : [0,80,0],
+			"scale" : [0.1,0.1,0.1],
+			"translate" : [0.33, 0, 0]
+		},
+		{
+			"components" : 
+			[
+				{
+					"name" : "ModelRenderable",
+					"path" : "models/terrain/misc/Low_Poly_Grass_002.obj"
+				}
+			],
+			"rotate" : [0,124,0],
+			"scale" : [0.1,0.1,0.1],
+			"translate" : [-0.33, 0, 0]
+		},
+		{
+			"components" : 
+			[
+				{
+					"name" : "ModelRenderable",
+					"path" : "models/terrain/misc/Low_Poly_Grass_002.obj"
+				}
+			],
+			"rotate" : [0,-12,0],
+			"scale" : [0.1,0.1,0.1],
+			"translate" : [-0.15, 0, 0.15]
+		},
+		{
+			"components" : 
+			[
+				{
+					"name" : "ModelRenderable",
+					"path" : "models/terrain/misc/Low_Poly_Grass_002.obj"
+				}
+			],
+			"rotate" : [0,44,0],
+			"scale" : [0.1,0.1,0.1],
+			"translate" : [0.15, 0, -0.15]
+		},
+		{
+			"components" : 
+			[
+				{
+					"name" : "ModelRenderable",
+					"path" : "models/terrain/misc/Low_Poly_Grass_002.obj"
+				}
+			],
+			"rotate" : [0,66,0],
+			"scale" : [0.1,0.1,0.1],
+			"translate" : [0.33, 0, 0.33]
+		},
+		{
+			"components" : 
+			[
+				{
+					"name" : "ModelRenderable",
+					"path" : "models/terrain/misc/Low_Poly_Grass_002.obj"
+				}
+			],
+			"rotate" : [0,-66,0],
+			"scale" : [0.1,0.1,0.1],
+			"translate" : [0.33, 0, -0.33]
+		},
+		{
+			"components" : 
+			[
+				{
+					"name" : "ModelRenderable",
+					"path" : "models/terrain/misc/Low_Poly_Grass_002.obj"
+				}
+			],
+			"rotate" : [0,77,0],
+			"scale" : [0.1,0.1,0.1],
+			"translate" : [-0.33, 0, 0.33]
+		},
+		{
+			"components" : 
+			[
+				{
+					"name" : "ModelRenderable",
+					"path" : "models/terrain/misc/Low_Poly_Grass_002.obj"
+				}
+			],
+			"rotate" : [0,90,0],
+			"scale" : [0.1,0.1,0.1],
+			"translate" : [-0.33, 0, -0.33]
 		}
-    ],
-	"rotate" : [0,0,0],
-	"scale" : [0.1,0.1,0.1]
+	]
 }

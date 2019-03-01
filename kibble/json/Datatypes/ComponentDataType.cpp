@@ -1175,7 +1175,10 @@ kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
 	bool isStatic;
 	SETOPTDEF(isStatic, "static", true);
 
-	return new ModelRenderable(modelPath.c_str(), flipUvs, isStatic);
+	bool useAlphaTest;
+	SETOPTDEF(useAlphaTest, "alpha_test", false);
+
+	return new ModelRenderable(modelPath.c_str(), flipUvs, isStatic, useAlphaTest);
 }
 
 #include "unit\unitComponent\UnitHealthBar.h"

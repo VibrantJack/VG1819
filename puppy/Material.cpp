@@ -7,19 +7,8 @@ namespace puppy
 		m_shader = ShaderManager::getShaderProgram(p_shaderType);
 	}
 
-	Material::Material(const Material& p_other)
+	Material::Material() : m_tex(nullptr), m_matAmbient(0, 0, 0, 1), m_matDiffuse(0, 0, 0, 1), m_hasColour(false), m_hasMatLightProperties(false), m_shader(nullptr)
 	{
-		if (p_other.m_tex != nullptr)
-		{
-			m_tex = new Texture(p_other.m_tex->getPath());
-		}
-		else
-		{
-			m_tex = nullptr;
-		}
-
-		m_name = p_other.m_name;
-		m_shader = p_other.m_shader;
 
 	}
 
@@ -163,6 +152,11 @@ namespace puppy
 	{
 		m_matDiffuse = p_diff;
 		m_hasMatLightProperties = true;
+	}
+
+	void Material::setShader(ShaderType p_type)
+	{
+		m_shader = ShaderManager::getShaderProgram(p_type);
 	}
 
 	Texture* Material::getTexture() const
