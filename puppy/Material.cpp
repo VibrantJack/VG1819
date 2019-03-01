@@ -22,14 +22,6 @@ namespace puppy
 		m_shader = p_other.m_shader;
 
 	}
-
-	Material::~Material()
-	{
-		if (m_tex != nullptr)
-		{
-			delete m_tex;
-		}
-	}
 	
 	Material* Material::clone() const
 	{

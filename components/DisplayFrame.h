@@ -38,6 +38,7 @@ public:
 	const int& getCurrentPickedItemIndex() const; // gives back -1 if no object highlight has been picked yet
 	void pickDisplayedObject(const kitten::K_GameObject* p_gameObject);
 	int getItemIndexTiedTo(const kitten::K_GameObject* p_gameObject);
+	virtual void resetCurrentPick();
 
 	virtual void onObjectClicked(int p_clickedDataSetIndex){} // override to add what happens when one of the displayed objects are clicked. 
 

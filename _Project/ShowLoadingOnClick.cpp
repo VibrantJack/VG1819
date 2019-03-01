@@ -22,6 +22,11 @@ void ShowLoadingOnClick::start()
 		std::bind(&ShowLoadingOnClick::disableLoadingScreen, this, std::placeholders::_1, std::placeholders::_2)
 	);
 
+	if (m_loadingScreen != nullptr)
+	{
+		int i = 0;
+	}
+
 	m_loadingScreen = kitten::K_GameObjectManager::getInstance()->createNewGameObject(LOADING_SCREEN_JSON);
 	assert(m_loadingScreen != nullptr);
 

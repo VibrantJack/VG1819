@@ -12,12 +12,12 @@ namespace userinterface
 		m_vao = nullptr;
 		m_borderPlacement = p_bp;
 		m_texBehaviour = tbh_Stretch;
-		m_tex->setWrapping(GL_CLAMP_TO_EDGE);
 	}
 
 
 	BorderPiece::~BorderPiece()
 	{
+		delete m_vao;
 	}
 
 	void BorderPiece::start()
