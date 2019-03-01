@@ -21,6 +21,8 @@ namespace parser
 		delete m_powOP;
 		delete m_plusOP;
 		delete m_multiplyOP;
+
+		delete m_lexer;
 	}
 
 	std::vector<postfix::PostfixItem*> Parser::parse(const std::string& p_input)

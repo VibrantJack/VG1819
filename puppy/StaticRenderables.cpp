@@ -393,10 +393,15 @@ namespace puppy
 		{
 			delete (*it).second;
 		}
+
+		for (auto it = m_normalToRender.begin(); it != m_normalToRender.end(); it = m_normalToRender.erase(it))
+		{
+			delete (*it).second;
+		}
 		
 		for (auto it = m_ownedMaterials.begin(); it != m_ownedMaterials.end(); it = m_ownedMaterials.erase(it))
 		{
-			delete (*it);
+			delete *it;
 		}
 
 		//Clear everything else

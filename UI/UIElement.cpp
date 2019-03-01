@@ -12,7 +12,6 @@ namespace userinterface
 	UIElement::UIElement(const char* p_pathToTex) : m_hasSetVerts(false), m_vao(nullptr)
 	{
 		m_texPath = p_pathToTex;
-		m_tex = new puppy::Texture(p_pathToTex);
 		m_mat = new puppy::Material(puppy::ShaderType::gAlpha_alphaTest);
 		if (p_pathToTex != nullptr)
 		{
@@ -33,7 +32,6 @@ namespace userinterface
 	UIElement::UIElement(const char* p_pathToTex, pivotType p_pivot, textureBehaviour p_texBehaviour) : m_hasSetVerts(false), m_vao(nullptr)
 	{
 		m_texPath = p_pathToTex;
-		m_tex = new puppy::Texture(p_pathToTex);
 		m_mat = new puppy::Material(puppy::ShaderType::gAlpha_alphaTest);
 		if (p_pathToTex != nullptr)
 		{
@@ -55,16 +53,7 @@ namespace userinterface
 	UIElement::~UIElement()
 	{
 		delete m_mat;
-		
-		if(m_hasSetVerts)
-		{
-			if (--sm_instances[m_pivotType] == 0)
-			{
-				delete sm_vao[m_pivotType];
-				sm_vao[m_pivotType] = nullptr;
-			}
-		}
-		//m_vao is part of the map above, don't need to delete
+		clearVAO();
 
 		if (m_isEnabled)
 		{
@@ -95,6 +84,7 @@ namespace userinterface
 	
 	void UIElement::defineVerts()
 	{
+		clearVAO();
 
 		//quad coords (ortho)
 		float xmin, ymin, xmax, ymax, z, u, v;
@@ -116,7 +106,6 @@ namespace userinterface
 			case tbh_Stretch: {
 				u = 1.0;
 				v = 1.0;
-				m_tex->setWrapping(GL_CLAMP_TO_EDGE);
 				break;
 			};
 
@@ -132,14 +121,12 @@ namespace userinterface
 				{
 					v = 1.0f;
 				}
-				m_tex->setWrapping(GL_REPEAT);
 				break;
 			};
 
 			case tbh_RepeatMirrored: {
 				u = 1.0f;
 				v = 1.0f;
-				m_tex->setWrapping(GL_MIRRORED_REPEAT);
 				break;
 			};
 		}
@@ -232,24 +219,16 @@ namespace userinterface
 			auto found = sm_vao.find(m_pivotType);
 			if (found != sm_vao.end())
 			{
-				if ((*found).second == nullptr)
-				{
-					m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
-					sm_vao.insert(std::make_pair(m_pivotType, m_vao));
-				}
-				else
-				{
-					m_vao = (*found).second;
-				}
+				m_vao = found->second;
 			}
 			else
 			{
 				m_vao = new puppy::VertexEnvironment(verts, puppy::ShaderManager::getShaderProgram(puppy::ShaderType::alphaTest), 6);
-				sm_vao.insert(std::make_pair(m_pivotType, m_vao));
+				sm_vao[m_pivotType] = m_vao;
 			}
+			sm_instances[m_pivotType]++;
 		}
 
-		sm_instances[m_pivotType]++;
 		m_hasSetVerts = true;
 	}
 
@@ -267,6 +246,26 @@ namespace userinterface
 				removeFromDynamicTransparentUIRender();
 				addToDynamicUIRender();
 			}
+		}
+	}
+
+	void UIElement::clearVAO()
+	{
+		if (m_hasSetVerts)
+		{
+			if (m_texBehaviour == tbh_Repeat || m_texBehaviour == tbh_RepeatMirrored)
+			{
+				delete m_vao;
+			}
+			else {
+				if (--sm_instances[m_pivotType] == 0)
+				{
+					delete sm_vao[m_pivotType];
+					sm_vao.erase(m_pivotType);
+				}
+			}
+			m_vao = nullptr;
+			m_hasSetVerts = false;
 		}
 	}
 

@@ -18,7 +18,8 @@ namespace puppy
 		Texture::m_magFiltering = GL_LINEAR;
 		Texture::m_wrapMode = GL_REPEAT;
 
-		if (Texture::sm_loadedTextures.find(p_texName) == Texture::sm_loadedTextures.end()) //If this texture has not already been loaded
+		auto found = sm_loadedTextures.find(p_texName);
+		if (found == Texture::sm_loadedTextures.end() || (*found).second.second == 0) //If this texture has not already been loaded
 		{
 			//Activate texture if needed
 			if (sm_activeTexture != p_slot)
@@ -40,6 +41,7 @@ namespace puppy
 
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, (void*)FreeImage_GetBits(convertedImg));
 
+			FreeImage_Unload(img);
 			FreeImage_Unload(convertedImg);
 
 			//GLFWimage img;
@@ -50,13 +52,21 @@ namespace puppy
 			glGenerateMipmap(GL_TEXTURE_2D); //Mipmaps
 			
 			//Insert this texture into the map, starting with a reference count of 1
-			Texture::sm_loadedTextures.insert(std::make_pair(p_texName, std::make_pair(Texture::m_tex, 1)));
-			
+			if (found == sm_loadedTextures.end())
+			{
+				Texture::sm_loadedTextures.insert(std::make_pair(p_texName, std::make_pair(Texture::m_tex, 1)));
+			}
+			else
+			{
+				auto& second = (*found).second;
+				second.first = m_tex;
+				second.second = 1;
+			}
 		}
 		else //We have already loaded this texture
 		{
-			Texture::m_tex = Texture::sm_loadedTextures[p_texName].first;
-			Texture::sm_loadedTextures[p_texName].second++;
+			m_tex = (*found).second.first;
+			(*found).second.second++;
 		}
 	}
 
@@ -71,11 +81,15 @@ namespace puppy
 
 	Texture::~Texture()
 	{
-		sm_loadedTextures[m_name].second--; //subtract from reference count
-		if (sm_loadedTextures[m_name].second == 0)
+		auto& found = sm_loadedTextures.find(m_name);
+		assert(found != sm_loadedTextures.cend());
+
+		(*found).second.second--; //subtract from reference count
+
+		if ((*found).second.second == 0)
 		{
-			glDeleteTextures(1, &m_tex);
-			sm_loadedTextures.erase(m_name);
+			glDeleteTextures(1, &(*found).second.first);
+			sm_loadedTextures.erase(found);
 		}
 	}
 

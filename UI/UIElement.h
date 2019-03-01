@@ -50,7 +50,6 @@ namespace userinterface
 		static std::map<pivotType, int> sm_instances;
 
 		puppy::Material* m_mat;
-		puppy::Texture* m_tex;
 
 		textureBehaviour m_texBehaviour;
 		pivotType m_pivotType;
@@ -69,6 +68,8 @@ namespace userinterface
 		virtual void setGAlpha(float p_gAlpha) { m_gAlpha = p_gAlpha; }
 		const puppy::Material* getMaterial() const { return m_mat; }
 		virtual void setTransparency(bool p_hasTransparency);
+
+		void clearVAO();
 	};
 
 	

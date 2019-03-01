@@ -14,11 +14,10 @@ unit::InitiativeTrackerUI::InitiativeTrackerUI()
 	m_leftX(-0.5f),
 	m_gap(0.15f)
 {
-	m_initiativeObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-
 	kitten::K_ComponentManager* comMan = kitten::K_ComponentManager::getInstance();
 	for (int i = 0; i < m_maxUnitToShow; i++)
 	{
+		m_initiativeObject = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 		//initialize blocks
 		unit::TrackerBlock* b = static_cast<unit::TrackerBlock*>(comMan->createComponent("TrackerBlock"));
 		b->setTrackerUI(this);

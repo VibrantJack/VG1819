@@ -17,6 +17,7 @@ namespace unit
 
 		static UnitMonitor* getInstance();
 		static UnitMonitor* getInstanceSafe();
+		static void destroyInstance();
 
 		void printUnit(Unit* p_u);
 		void printStatus(unit::StatusContainer* p_s);

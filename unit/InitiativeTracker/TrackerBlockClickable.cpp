@@ -33,7 +33,9 @@ namespace unit
 
 		//highlight unit
 		kitten::K_GameObject* tile = m_unit->getComponent<unit::Unit>()->getTile();
-		kitten::Event::TileList* list = new kitten::Event::TileList();
+		static kitten::Event::TileList* list = nullptr;
+		if (list != nullptr) delete list;
+		list = new kitten::Event::TileList();
 		list->push_back(tile->getComponent<TileInfo>()->getPos());
 
 		kitten::Event* highlightUnitEvent = new kitten::Event(kitten::Event::Highlight_Tile_With_List);
