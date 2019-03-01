@@ -12,7 +12,6 @@ namespace userinterface
 	UIElement::UIElement(const char* p_pathToTex) : m_hasSetVerts(false), m_vao(nullptr)
 	{
 		m_texPath = p_pathToTex;
-		m_tex = new puppy::Texture(p_pathToTex);
 		m_mat = new puppy::Material(puppy::ShaderType::gAlpha_alphaTest);
 		if (p_pathToTex != nullptr)
 		{
@@ -33,7 +32,6 @@ namespace userinterface
 	UIElement::UIElement(const char* p_pathToTex, pivotType p_pivot, textureBehaviour p_texBehaviour) : m_hasSetVerts(false), m_vao(nullptr)
 	{
 		m_texPath = p_pathToTex;
-		m_tex = new puppy::Texture(p_pathToTex);
 		m_mat = new puppy::Material(puppy::ShaderType::gAlpha_alphaTest);
 		if (p_pathToTex != nullptr)
 		{
@@ -81,8 +79,6 @@ namespace userinterface
 				removeFromDynamicUIRender();
 			}
 		}
-
-		delete m_tex;
 	}
 
 	void UIElement::start()
@@ -135,7 +131,6 @@ namespace userinterface
 			case tbh_Stretch: {
 				u = 1.0;
 				v = 1.0;
-				m_tex->setWrapping(GL_CLAMP_TO_EDGE);
 				break;
 			};
 
@@ -151,14 +146,12 @@ namespace userinterface
 				{
 					v = 1.0f;
 				}
-				m_tex->setWrapping(GL_REPEAT);
 				break;
 			};
 
 			case tbh_RepeatMirrored: {
 				u = 1.0f;
 				v = 1.0f;
-				m_tex->setWrapping(GL_MIRRORED_REPEAT);
 				break;
 			};
 		}

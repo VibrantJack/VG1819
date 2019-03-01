@@ -50,7 +50,6 @@ namespace userinterface
 		static std::map<pivotType, int> sm_instances;
 
 		puppy::Material* m_mat;
-		puppy::Texture* m_tex;
 
 		textureBehaviour m_texBehaviour;
 		pivotType m_pivotType;
