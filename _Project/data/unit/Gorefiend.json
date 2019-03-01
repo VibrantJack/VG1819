@@ -62,12 +62,12 @@
 				"ad_value_0_0":1
 			}
 		],
-		"portrait_texture" : "textures/cards/500x500/StoneSlinger.tga"
+		"portrait_texture" : "textures/cards/500x500/Gorefiend.tga"
 	},
 	"components" : [
 		{
 			"name" : "SpriteGroup",
-			"spritename":"stoneslinger",
+			"spritename":"gorefiend",
 			"number":2,
 			"rotate":[45,0,0],
 			"scale":[0.8,0.8,1],
@@ -75,7 +75,7 @@
 		},
 		{
 			"name" : "CardArt",
-			"texture":"textures/cards/500x500/StoneSlinger.tga"
+			"texture":"textures/cards/500x500/Gorefiend.tga"
 		}
 	]
 }
