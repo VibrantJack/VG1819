@@ -68,6 +68,8 @@ namespace userinterface
 		virtual void setGAlpha(float p_gAlpha) { m_gAlpha = p_gAlpha; }
 		const puppy::Material* getMaterial() const { return m_mat; }
 		virtual void setTransparency(bool p_hasTransparency);
+
+		void clearVAO();
 	};
 
 	
