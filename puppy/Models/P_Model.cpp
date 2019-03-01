@@ -29,7 +29,10 @@ namespace puppy
 
 	P_Model::~P_Model()
 	{
-
+		for (auto mesh : m_meshes)
+		{
+			delete mesh;
+		}
 	}
 
 	void P_Model::processNode(aiNode* p_node, const aiScene* p_scene, bool p_useAlphaTest)

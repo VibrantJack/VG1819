@@ -36,6 +36,8 @@ namespace ability
 		//delete package
 		done(p_info);
 
+		UniversalSounds::playSound("arm");
+
 		return 0;
 	}
 

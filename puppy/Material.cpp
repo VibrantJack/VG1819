@@ -11,14 +11,6 @@ namespace puppy
 	{
 
 	}
-
-	Material::~Material()
-	{
-		if (m_tex != nullptr)
-		{
-			delete m_tex;
-		}
-	}
 	
 	Material* Material::clone() const
 	{

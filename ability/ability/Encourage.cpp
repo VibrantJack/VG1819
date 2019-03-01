@@ -38,9 +38,16 @@ namespace ability
 		{
 			//check if unit has this status
 			if (p_info->m_targets[0]->getStatusContainer()->getStatus(STATUS_ENCOURAGE, ABILITY_ENCOURAGE))
+			{
 				stackStatus(p_info);
+			}
 			else
+			{
 				applyStatus(p_info);
+			}
+			
+			UniversalSounds::playSound("marimba");
+
 		}
 
 		//delete package

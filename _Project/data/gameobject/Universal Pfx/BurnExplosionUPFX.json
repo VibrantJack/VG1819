@@ -20,6 +20,10 @@
 			"ambientColor" : [0.7,0.7,0.7],
 			"pointColor" : [0.6,0.6,0.6],
 			"attenuation" : [0,1,0]
+		},
+		{
+			"name" : "PlayUniversalSoundOnEnable",
+			"sound_name" : "poof_deep"
 		}
 	]
 }

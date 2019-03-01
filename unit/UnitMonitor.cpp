@@ -37,6 +37,12 @@ namespace unit
 		return m_instance;
 	}
 
+	void UnitMonitor::destroyInstance()
+	{
+		if (m_instance != nullptr)
+			delete m_instance;
+	}
+
 	void UnitMonitor::printUnit(Unit* p_u)
 	{
 		std::cout << "Name: " << p_u->m_name << std::endl;

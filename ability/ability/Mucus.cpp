@@ -39,6 +39,9 @@ namespace ability
 					applyStatus(p_info, u);
 				}
 			}
+
+			int randNum = (rand() % 3) + 1;
+			UniversalSounds::playSound("splorch" + std::to_string(randNum));
 		}
 
 

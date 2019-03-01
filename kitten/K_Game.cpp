@@ -51,6 +51,8 @@
 #include "networking\ClientGame.h"
 #include "networking\ServerGame.h"
 
+#include "ModelRenderable.h"
+
 #define DEBUG
 
 namespace kitten
@@ -265,6 +267,10 @@ namespace kitten
 		{
 			networking::ServerGame::destroyInstance();
 		}
+
+		ModelRenderable::deleteModels();
+		unit::UnitTest::destroyInstance();
+		unit::UnitMonitor::destroyInstance();
 	}
 
 	void updateGame()

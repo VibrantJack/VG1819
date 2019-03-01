@@ -73,6 +73,15 @@ void ModelRenderable::onDisabled()
 	}
 }
 
+void ModelRenderable::deleteModels()
+{
+	for (auto it : m_loadedModels) 
+	{
+		delete it.second;
+	}
+	m_loadedModels.clear();
+}
+
 void ModelRenderable::render(kitten::Camera* p_cam)
 {
 	m_model->render(p_cam->getViewProj() * getTransform().getWorldTransform(), getTransform().getWorldIT(), getTransform().getWorldTransform());

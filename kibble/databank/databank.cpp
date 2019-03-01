@@ -193,6 +193,7 @@ void kibble::eraseDeckData(int p_deckId) {
 	deckList.close();
 	std::remove(DECK_LIST);
 	std::rename("temp.txt", DECK_LIST);
+	delete deckDataVector[p_deckId];
 	deckDataVector.erase(deckDataVector.begin()+p_deckId);
 }
 

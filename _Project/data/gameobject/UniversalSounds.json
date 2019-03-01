@@ -15,6 +15,159 @@
 				},
 				{
 					"sound" : ["blorp", "sounds/blorp.json"]
+				},
+				{
+					"sound" : ["arrow_hit", "sounds/arrow_hit.json"]
+				},
+				{
+					"sound" : ["arrow_whoosh", "sounds/arrow_whoosh.json"]
+				},
+				{
+					"sound" : ["arrow_whoosh2", "sounds/arrow_whoosh2.json"]
+				},
+				{
+					"sound" : ["arrow_whoosh3", "sounds/arrow_whoosh3.json"]
+				},
+				{
+					"sound" : ["choir_short", "sounds/choir_short.json"]
+				},
+				{
+					"sound" : ["explode_punchy", "sounds/explode_punchy.json"]
+				},
+				{
+					"sound" : ["hammering", "sounds/hammering.json"]
+				},
+				{
+					"sound" : ["hammering_metal", "sounds/hammering_metal.json"]
+				},
+				{
+					"sound" : ["poof_deep", "sounds/poof_deep.json"]
+				},
+				{
+					"sound" : ["swooshing_repeated", "sounds/swooshing_repeated.json"]
+				},
+				{
+					"sound" : ["sword_1", "sounds/sword_1.json"]
+				},
+				{
+					"sound" : ["sword_2", "sounds/sword_2.json"]
+				},
+				{
+					"sound" : ["sword_3", "sounds/sword_3.json"]
+				},
+				{
+					"sound" : ["sword_4", "sounds/sword_4.json"]
+				},
+				{
+					"sound" : ["stab", "sounds/stab.json"]
+				},
+				{
+					"sound" : ["hoof_1", "sounds/hoof_1.json"]
+				},
+				{
+					"sound" : ["hoof_2", "sounds/hoof_2.json"]
+				},
+				{
+					"sound" : ["hoof_3", "sounds/hoof_3.json"]
+				},
+				{
+					"sound" : ["hoof_4", "sounds/hoof_4.json"]
+				},
+				{
+					"sound" : ["snap", "sounds/snap.json"]
+				},
+				{
+					"sound" : ["drums", "sounds/drums.json"]
+				},
+				{
+					"sound" : ["cancel", "sounds/cancel.json"]
+				},
+				{
+					"sound" : ["spooky", "sounds/spooky.json"]
+				},
+				{
+					"sound" : ["homeland", "sounds/homeland.json"]
+				},
+				{
+					"sound" : ["summon", "sounds/summon.json"]
+				},
+				{
+					"sound" : ["gas", "sounds/gas.json"]
+				},
+				{
+					"sound" : ["load", "sounds/load.json"]
+				},
+				{
+					"sound" : ["join", "sounds/join.json"]
+				},
+				{
+					"sound" : ["sabotage", "sounds/sabotage.json"]
+				},
+				{
+					"sound" : ["ignition", "sounds/ignition.json"]
+				},
+				{
+					"sound" : ["launch_boulder", "sounds/launch_boulder.json"]
+				},
+				{
+					"sound" : ["arm", "sounds/arm.json"]
+				},
+				{
+					"sound" : ["volley", "sounds/volley.json"]
+				},
+				{
+					"sound" : ["gong", "sounds/gong.json"]
+				},
+				{
+					"sound" : ["magic_power_up", "sounds/magic_power_up.json"]
+				},
+				{
+					"sound" : ["coins", "sounds/coins.json"]
+				},
+				{
+					"sound" : ["swordonwood1", "sounds/swordonwood1.json"]
+				},
+				{
+					"sound" : ["swordonwood2", "sounds/swordonwood2.json"]
+				},
+				{
+					"sound" : ["swordonwood3", "sounds/swordonwood3.json"]
+				},
+				{
+					"sound" : ["swordonwood4", "sounds/swordonwood4.json"]
+				},
+				{
+					"sound" : ["marimba", "sounds/marimba.json"]
+				},
+				{
+					"sound" : ["deconstruction", "sounds/deconstruction.json"]
+				},
+				{
+					"sound" : ["splorch1", "sounds/splorch1.json"]
+				},
+				{
+					"sound" : ["splorch2", "sounds/splorch2.json"]
+				},
+				{
+					"sound" : ["splorch3", "sounds/splorch3.json"]
+				},
+				{
+					"sound" : ["sharp_clank", "sounds/sharp_clank.json"]
+				},
+				{
+					"sound" : ["tambourine", "sounds/tambourine.json"]
+				},
+				{
+					"sound" : ["deep_clang", "sounds/deep_clang.json"]
+				},
+				{
+					"sound" : ["flap", "sounds/flap.json"]
+				},
+				{
+					"sound" : ["glocken_up", "sounds/glocken_up.json"]
+				},
+				{
+					"sound" : ["fanfare", "sounds/fanfare.json"]
 				}
 			]
 		}

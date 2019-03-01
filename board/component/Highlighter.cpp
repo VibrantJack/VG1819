@@ -19,6 +19,10 @@ Highlighter::Highlighter()
 
 Highlighter::~Highlighter()
 {
+	for (auto tex: m_texMap)
+	{
+		delete tex.second;
+	}
 }
 
 bool Highlighter::hasUpdate() const

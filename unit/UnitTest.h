@@ -14,10 +14,11 @@ namespace unit
 		static bool m_bTested;
 	public:
 		UnitTest();
-		~UnitTest();
+		~UnitTest(){}
 
 		static UnitTest* getInstance();
 		static UnitTest* getInstanceSafe();
+		static void destroyInstance();
 
 		void test();
 
