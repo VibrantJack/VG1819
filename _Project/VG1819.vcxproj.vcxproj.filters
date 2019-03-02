@@ -1043,6 +1043,9 @@
     <ClCompile Include="..\ability\status\Status_Evil_Fiend_LV.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
+    <ClCompile Include="..\settings_menu\PlayerPrefs.cpp">
+      <Filter>settings_menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2131,6 +2134,9 @@
     <ClInclude Include="..\UI\GameplayButtons\NextTurnButton.h">
       <Filter>UI\GameplayButtons</Filter>
     </ClInclude>
+    <ClInclude Include="..\settings_menu\PlayerPrefs.h">
+      <Filter>settings_menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -2336,6 +2342,9 @@
     </Filter>
     <Filter Include="UI\GameplayButtons">
       <UniqueIdentifier>{dd3c2d6d-7d9e-4f2c-874e-9e3a1a59dfa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="settings_menu">
+      <UniqueIdentifier>{8a6e667a-4bf7-46f6-9684-9a73b614d52b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
