@@ -1926,6 +1926,22 @@ kitten::K_Component* getTurnCounterController(nlohmann::json* p_jsonFile) {
 	return new TurnCounterController();
 }
 
+#include "_Project\SavePlayerPrefsOnClick.h"
+kitten::K_Component* getSavePlayerPrefsOnClick(nlohmann::json* p_jsonFile) {
+	return new SavePlayerPrefsOnClick();
+}
+
+#include "_Project\DisableParentOnClick.h"
+kitten::K_Component* getDisableParentOnClick(nlohmann::json* p_jsonFile) {
+	return new DisableParentOnClick();
+}
+
+#include "_Project\IncreaseSFXVolumeOnClick.h"
+kitten::K_Component* getIncreaseSFXVolumeOnClick(nlohmann::json* p_jsonFile) {
+	float amount = p_jsonFile->operator[]("amount");
+	return new IncreaseSFXVolumeOnClick(amount);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -2071,6 +2087,10 @@ void setupComponentMap() {
 	jsonComponentMap["BorderPiece"] = &getBorderPiece;
 	jsonComponentMap["TurnCounterController"] = &getTurnCounterController;
 	jsonComponentMap["NextTurnButton"] = &getNextTurnButton;
+	jsonComponentMap["SavePlayerPrefsOnClick"] = &getSavePlayerPrefsOnClick;
+	jsonComponentMap["DisableParentOnClick"] = &getDisableParentOnClick;
+	jsonComponentMap["IncreaseSFXVolumeOnClick"] = &getIncreaseSFXVolumeOnClick;
+
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

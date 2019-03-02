@@ -1,0 +1,87 @@
+{
+	"name" : "Options Menu",
+	"gameobjects" :
+	[
+		{
+			"name" : "Header",
+			"components" : 
+			[
+				{
+					"name" : "UIElement",
+					"texture" : "textures/ui/options_header.png"
+				}
+			],
+			"translate" : [500, 200, 0],
+			"scale" : [500, 200 , 1]
+		},
+		{
+			"name" : "Background",
+			"components" : 
+			[
+				{
+					"name" : "UIElement",
+					"texture" : "textures/ui/options_background.png"
+				}
+			],
+			"translate" : [450, 100, 0],
+			"scale" : [500, 500, 1]
+		},
+		{
+			"name" : "SFX Label",
+			"components" : 
+			[
+				{
+					"name" : "UIElement",
+					"texture" : "textures/ui/options_sfx.png"
+				}
+			],
+			"translate" : [550, 250, 0],
+			"scale" : [100, 100 , 1]
+		},
+		{
+			"name" : "BGM Label",
+			"components" : 
+			[
+				{
+					"name" : "UIElement",
+					"texture" : "textures/ui/options_bgm.png"
+				}
+			],
+			"translate" : [550,300, 0],
+			"scale" : [100, 100 , 1]
+		},
+		{
+			"name" : "Resolution Label",
+			"components" : 
+			[
+				{
+					"name" : "UIElement",
+					"texture" : "textures/ui/options_resolution.png"
+				}
+			],
+			"translate" : [550,350, 0],
+			"scale" : [100, 100 , 1]
+		},
+		{
+			"name" : "Back Button",
+			"components" : 
+			[
+				{
+					"name" : "UIElement",
+					"texture" : "textures/ui/buttons/button_return.png"
+				},
+				{
+					"name" : "ClickableFrame"
+				},
+				{
+					"name" : "SavePlayerPrefsOnClick"
+				},
+				{
+					"name" : "DisableParentOnClick"
+				}
+			],
+			"translate" : [500,500, 0],
+			"scale" : [100, 100 , 1]
+		}
+	]
+}

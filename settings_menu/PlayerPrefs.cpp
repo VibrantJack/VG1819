@@ -1,11 +1,13 @@
 #include "PlayerPrefs.h"
+
 #include "kitten\util\AsyncFileOperations.h"
+#include "_Project\UniversalSounds.h"
 
 #include <fstream>
 
 PlayerPrefs* PlayerPrefs::sm_instance = nullptr;
 
-PlayerPrefs::PlayerPrefs()
+PlayerPrefs::PlayerPrefs() : m_bgmVolume(1), m_sfxVolume(1), m_fullscreen(false), m_resolution(1280,720)
 {
 	assert(sm_instance == nullptr);
 	sm_instance = this;
@@ -63,7 +65,7 @@ void PlayerPrefs::start()
 	else 
 	{
 		// No file to open, make a default one
-
+		privateSaveAllSettings();
 	}
 }
 
@@ -90,6 +92,7 @@ void PlayerPrefs::setBGMVolume(float p_volume)
 void PlayerPrefs::privateSetBGMVolume(float p_volume)
 {
 	m_bgmVolume = p_volume;
+	UniversalSounds::setVolume(p_volume);
 }
 
 float PlayerPrefs::getBGMVolume()
@@ -124,6 +127,8 @@ void PlayerPrefs::setResolution(int p_windowX, int p_windowY)
 void PlayerPrefs::privateSetResolution(int p_windowX, int p_windowY)
 {
 	m_resolution = std::make_pair(p_windowX, p_windowY);
+
+	glfwSetWindowSize(p_windowX, p_windowY);
 }
 
 std::pair<int, int> PlayerPrefs::getResolution()
@@ -156,7 +161,6 @@ void PlayerPrefs::privateAsyncSaveAllSettings()
 
 	kitten::AsyncFileOperations::saveToFile(PLAYER_PREFS_FILE_PATH, true, fileContents.c_str());
 }
-
 
 // C++ strings still painful  -Callum
 #define st(thing) std::string(thing)

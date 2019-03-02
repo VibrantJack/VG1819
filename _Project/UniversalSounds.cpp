@@ -3,7 +3,7 @@
 
 UniversalSounds* UniversalSounds::sm_instance = nullptr;
 
-UniversalSounds::UniversalSounds(const std::list<std::pair<std::string, std::string>>& p_sounds) : m_soundsToCreate(p_sounds)
+UniversalSounds::UniversalSounds(const std::list<std::pair<std::string, std::string>>& p_sounds) : m_soundsToCreate(p_sounds), m_volume(1.0)
 {
 	assert(sm_instance == nullptr);
 	sm_instance = this;
@@ -48,4 +48,30 @@ void UniversalSounds::privatePlaySound(const std::string& p_sound) const
 	{
 		(*found).second->play();
 	}
+}
+
+void UniversalSounds::setVolume(float p_volume)
+{
+	sm_instance->privateSetVolume(p_volume);
+}
+
+void UniversalSounds::privateSetVolume(float p_volume)
+{
+	auto end = m_sounds.cend();
+	for (auto it = m_sounds.cbegin(); it != end; ++it)
+	{
+		auto soundSource = (*it).second;
+		
+		float nextVolume = soundSource->getVolume() / m_volume;
+		nextVolume *= p_volume;
+
+		soundSource->setVolume(nextVolume);
+	}
+
+	m_volume = p_volume;
+}
+
+float UniversalSounds::getVolume()
+{
+	return sm_instance->m_volume;
 }

@@ -1046,6 +1046,33 @@
     <ClCompile Include="..\settings_menu\PlayerPrefs.cpp">
       <Filter>settings_menu</Filter>
     </ClCompile>
+    <ClCompile Include="SavePlayerPrefsOnClick.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="DisableParentOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="IncreaseSFXVolumeOnClick.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="DecreaseSFXVolumeOnClick.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="DecreaseBGMVolumeOnClick.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="IncreaseBGMVolumeOnClick.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="ResolutionController.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="IncreaseResolutionOnClick.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="DecreaseResolutionOnClick.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2137,6 +2164,33 @@
     <ClInclude Include="..\settings_menu\PlayerPrefs.h">
       <Filter>settings_menu</Filter>
     </ClInclude>
+    <ClInclude Include="SavePlayerPrefsOnClick.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="DisableParentOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="IncreaseSFXVolumeOnClick.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="DecreaseSFXVolumeOnClick.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="IncreaseBGMVolumeOnClick.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="DecreaseBGMVolumeOnClick.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="ResolutionController.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="IncreaseResolutionOnClick.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="DecreaseResolutionOnClick.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -2345,6 +2399,9 @@
     </Filter>
     <Filter Include="settings_menu">
       <UniqueIdentifier>{8a6e667a-4bf7-46f6-9684-9a73b614d52b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\options menu">
+      <UniqueIdentifier>{f96107fd-b0eb-4056-afa9-c0c205b1a8f4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
