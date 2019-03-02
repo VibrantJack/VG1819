@@ -44,7 +44,7 @@
 			"spritename":"wraith",
 			"number":4,
 			"rotate":[45,0,0],
-			"scale":[0.6,0.6,0],
+			"scale":[0.7,0.7,0],
 			"translate":[0,0,0.05]
 		},
 		{

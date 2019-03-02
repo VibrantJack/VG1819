@@ -1,0 +1,40 @@
+{
+	"unit":{
+		"name":"Rot Golem",
+		"hp":14,
+		"mv":2,
+		"in":10,
+		"cost":4,
+		"tags":["Neutral"],
+		"ability_description":[
+			
+		],
+		"status":[
+			{
+				"name":"Status_LV",
+				"lv":2,
+                "hp":5
+            },
+            {
+				"name":"Status_LV",
+				"lv":3,
+                "hp":15
+			}
+		],
+		"portrait_texture" : "textures/cards/500x500/Gorefiend.tga"
+	},
+	"components" : [
+		{
+			"name" : "SpriteGroup",
+			"spritename":"rot_golem",
+			"number":4,
+			"rotate":[45,0,0],
+			"scale":[0.8,0.8,1],
+			"translate":[0,0,0]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/Gorefiend.tga"
+		}
+	]
+}

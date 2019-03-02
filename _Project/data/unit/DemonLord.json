@@ -1,0 +1,28 @@
+{
+	"unit":{
+		"name":"Demon Lord",
+		"hp":30,
+		"mv":3,
+		"in":40,
+		"cost":99,
+		"tags":["Ancients","Commander"],
+		"ability_description":[
+			
+		],
+		"portrait_texture" : "textures/cards/500x500/Gorefiend.tga"
+	},
+	"components" : [
+		{
+			"name" : "SpriteGroup",
+			"spritename":"demon_lord",
+			"number":1,
+			"rotate":[45,0,0],
+			"scale":[1.5,1.5,1],
+			"translate":[-0.15,0,0.05]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/Gorefiend.tga"
+		}
+	]
+}

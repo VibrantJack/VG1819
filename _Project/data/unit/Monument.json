@@ -1,0 +1,28 @@
+{
+	"unit":{
+		"name":"Ancient Monument",
+		"hp":20,
+		"mv":0,
+		"in":15,
+		"cost":4,
+		"tags":["Ancients","Structure"],
+		"ability_description":[
+			
+		],
+		"portrait_texture" : "textures/cards/500x500/Gorefiend.tga"
+	},
+	"components" : [
+		{
+			"name" : "SpriteGroup",
+			"spritename":"monument",
+			"number":3,
+			"rotate":[45,0,0],
+			"scale":[0.5,0.5,1],
+			"translate":[0,0,0]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/Gorefiend.tga"
+		}
+	]
+}
