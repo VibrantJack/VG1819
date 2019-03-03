@@ -9,3 +9,8 @@ ResolutionController::~ResolutionController()
 {
 
 }
+
+void ResolutionController::start()
+{
+
+}

@@ -1942,6 +1942,39 @@ kitten::K_Component* getIncreaseSFXVolumeOnClick(nlohmann::json* p_jsonFile) {
 	return new IncreaseSFXVolumeOnClick(amount);
 }
 
+#include "_Project\DecreaseSFXVolumeOnClick.h"
+kitten::K_Component* getDecreaseSFXVolumeOnClick(nlohmann::json* p_jsonFile) {
+	float amount = p_jsonFile->operator[]("amount");
+	return new DecreaseSFXVolumeOnClick(amount);
+}
+
+#include "_Project\IncreaseBGMVolumeOnClick.h"
+kitten::K_Component* getIncreaseBGMVolumeOnClick(nlohmann::json* p_jsonFile) {
+	float amount = p_jsonFile->operator[]("amount");
+	return new IncreaseBGMVolumeOnClick(amount);
+}
+
+#include "_Project\DecreaseBGMVolumeOnClick.h"
+kitten::K_Component* getDecreaseBGMVolumeOnClick(nlohmann::json* p_jsonFile) {
+	float amount = p_jsonFile->operator[]("amount");
+	return new DecreaseBGMVolumeOnClick(amount);
+}
+
+#include "_Project\IncreaseResolutionOnClick.h"
+kitten::K_Component* getIncreaseResolutionOnClick(nlohmann::json* p_jsonFile) {
+	return new IncreaseResolutionOnClick();
+}
+
+#include "_Project\DecreaseResolutionOnClick.h"
+kitten::K_Component* getDecreaseResolutionOnClick(nlohmann::json* p_jsonFile) {
+	return new DecreaseResolutionOnClick();
+}
+
+#include "_Project\ResolutionController.h"
+kitten::K_Component* getResolutionController(nlohmann::json* p_jsonFile) {
+	return new ResolutionController();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -2090,6 +2123,12 @@ void setupComponentMap() {
 	jsonComponentMap["SavePlayerPrefsOnClick"] = &getSavePlayerPrefsOnClick;
 	jsonComponentMap["DisableParentOnClick"] = &getDisableParentOnClick;
 	jsonComponentMap["IncreaseSFXVolumeOnClick"] = &getIncreaseSFXVolumeOnClick;
+	jsonComponentMap["DecreaseSFXVolumeOnClick"] = &getDecreaseSFXVolumeOnClick;
+	jsonComponentMap["IncreaseBGMVolumeOnClick"] = &getIncreaseBGMVolumeOnClick;
+	jsonComponentMap["DecreaseBGMVolumeOnClick"] = &getDecreaseBGMVolumeOnClick;
+	jsonComponentMap["IncreaseResolutionOnClick"] = &getIncreaseResolutionOnClick;
+	jsonComponentMap["DecreaseResolutionOnClick"] = &getDecreaseResolutionOnClick;
+	jsonComponentMap["ResolutionController"] = &getResolutionController;
 
 }
 
