@@ -45,6 +45,8 @@
 #define ABILITY_ATTACH "Attach"
 #define ABILITY_HEALTH_LINK "Health Link"
 #define ABILITY_CRASH "Crash"
+#define ABILITY_CURSED_PROTECTION "Cursed Protection"
+#define ABILITY_CLONE "Clone"
 
 //ability or status required info
 #define PUSH_BACK "push_back"
@@ -72,6 +74,7 @@
 #define STATUS_CURSE "Status_Curse"
 #define STATUS_ATTACH "Status_Attach"
 #define STATUS_VAMPIRIC_CURSE "Status_Vampiric_Curse"
+#define STATUS_CURSED_BEING "Status_Cursed_Being"
 
 //lv
 #define STATUS_LV "Status_LV"

@@ -5,7 +5,10 @@
 		"mv":3,
 		"in":40,
 		"cost":99,
-		"tags":["Ancients","Commander"],
+		"tags":["Commander","Ancients"],
+		"commander":{
+			"portrait_path" : "place_holder"
+		},
 		"ability_description":[
 			
 		],

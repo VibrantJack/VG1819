@@ -117,8 +117,10 @@
     <ClCompile Include="..\ability\ability\Arm.cpp" />
     <ClCompile Include="..\ability\ability\Attach.cpp" />
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp" />
+    <ClCompile Include="..\ability\ability\Clone.cpp" />
     <ClCompile Include="..\ability\ability\Crash.cpp" />
     <ClCompile Include="..\ability\ability\Curse.cpp" />
+    <ClCompile Include="..\ability\ability\CursedProtection.cpp" />
     <ClCompile Include="..\ability\ability\Defend.cpp" />
     <ClCompile Include="..\ability\ability\Drain.cpp" />
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
@@ -167,6 +169,7 @@
     <ClCompile Include="..\ability\status\Status_AD_Change.cpp" />
     <ClCompile Include="..\ability\status\Status_Attach.cpp" />
     <ClCompile Include="..\ability\status\Status_Curse.cpp" />
+    <ClCompile Include="..\ability\status\Status_Cursed_Being.cpp" />
     <ClCompile Include="..\ability\status\Status_Dodge.cpp" />
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\ability\status\Status_IN_Change.cpp" />

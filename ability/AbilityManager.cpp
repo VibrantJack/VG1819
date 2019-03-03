@@ -128,6 +128,7 @@ namespace ability
 		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_DRAIN, Drain);
 		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_HEALTH_LINK, HealthLink);
 		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_CRASH, Crash);
+		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_CURSED_PROTECTION, CursedProtection);
 	}
 
 	AbilityManager::AbilityManager()

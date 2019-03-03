@@ -53,9 +53,9 @@ namespace unit
 		m_bTested = true;
 		//comment for testing IT
 
-//	   	kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstance()->spawnUnitObject(13); // 13 king !!!
-//		uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(6, 6);
-//		uNEWDUMMY->getComponent<Unit>()->m_clientId = 1;
+	   	kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstance()->spawnUnitObject(13); // 13 king !!!
+		uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(6, 6);
+		uNEWDUMMY->getComponent<Unit>()->m_clientId = 1;
 
 //		kitten::K_GameObject* uNEWDUMMY2 = UnitSpawn::getInstance()->spawnUnitObject(14); // queen !!!
 //		uNEWDUMMY2->getComponent<unit::UnitMove>()->setTile(-1, -1);

@@ -7,7 +7,6 @@ namespace ability
 {
 	void HealthLink::applyStatus(AbilityInfoPackage * p_info, unit::Unit* p_unit)
 	{
-		//apply Status_Attach to target
 		ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_VAMPIRIC_CURSE);
 		Status_Vampiric_Curse* s = static_cast<Status_Vampiric_Curse*>(se);
 
@@ -37,7 +36,7 @@ namespace ability
 		s->setCaster(p_info->m_source);
 
 		//attach to target
-		se->attach(p_unit);
+		s->attach(p_unit);
 
 	}
 

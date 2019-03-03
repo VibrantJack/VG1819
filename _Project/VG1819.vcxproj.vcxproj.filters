@@ -1052,6 +1052,15 @@
     <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_AD_Change.cpp">
       <Filter>ability\status\demonic_restriction</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Cursed_Being.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\CursedProtection.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Clone.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

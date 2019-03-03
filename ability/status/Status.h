@@ -336,6 +336,16 @@ namespace ability
 
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};*/
+
+	class Status_Cursed_Being : public Status
+	{
+	private:
+		void applyStatus(unit::Unit* p_u);//apply vampiric curse to target
+	public:
+		Status_Cursed_Being();
+		Status* clone() const { return new Status_Cursed_Being(*this); };
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};
 }
 
 

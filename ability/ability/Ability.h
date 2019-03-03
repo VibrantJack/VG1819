@@ -468,6 +468,15 @@ namespace ability
 		Crash() : Ability(ABILITY_CRASH) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
+
+	class CursedProtection : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
+	public:
+		CursedProtection() : Ability(ABILITY_CURSED_PROTECTION) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
 }
 
 
