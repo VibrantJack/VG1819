@@ -2,19 +2,18 @@
 #include "kitten\K_Component.h"
 #include "kitten\InputManager.h"
 
-class ToggleEnabledOnKeyPress : public kitten::K_Component
+class ToggleChildEnabledOnKeyPress : public kitten::K_Component
 {
 private:
 	char m_key;
 	input::InputManager* m_inputMan;
 
 public:
-	ToggleEnabledOnKeyPress(char p_key);
-	~ToggleEnabledOnKeyPress();
+	ToggleChildEnabledOnKeyPress(char p_key);
+	~ToggleChildEnabledOnKeyPress();
 
 	bool hasUpdate() const override { return true; };
 
 	void start() override;
 	void update() override;
-
 };

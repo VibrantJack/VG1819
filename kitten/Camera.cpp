@@ -1,6 +1,8 @@
 #include "Camera.h"
 #include "K_CameraList.h"
 
+#include "kitten\InputManager.h"
+
 namespace kitten
 {
 	Camera::Camera() : m_fov(45.0f), m_nearClip(0.1f), m_farClip(1000.0f), m_winWidth(1280.0f), m_winHeight(720.0f)
@@ -92,6 +94,10 @@ namespace kitten
 
 	void Camera::calcProjAndOrtho()
 	{
+		auto inputMan = input::InputManager::getInstance();
+		m_winWidth = inputMan->getWindowWidth();
+		m_winHeight = inputMan->getWindowHeight();
+
 		float screenRatio = (float)m_winWidth / m_winHeight;
 
 		m_proj = glm::perspective(m_fov, screenRatio, m_nearClip, m_farClip);

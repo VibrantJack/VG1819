@@ -324,9 +324,6 @@
     <ClCompile Include="..\board\component\Highlighter.cpp">
       <Filter>board\component</Filter>
     </ClCompile>
-    <ClCompile Include="ToggleEnabledOnKeyPress.cpp">
-      <Filter>components\debug</Filter>
-    </ClCompile>
     <ClCompile Include="..\kitten\K_Instance.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
@@ -1073,6 +1070,9 @@
     <ClCompile Include="DecreaseResolutionOnClick.cpp">
       <Filter>components\options menu</Filter>
     </ClCompile>
+    <ClCompile Include="ToggleChildEnabledOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -1383,9 +1383,6 @@
     </ClInclude>
     <ClInclude Include="..\board\component\Highlighter.h">
       <Filter>board\component</Filter>
-    </ClInclude>
-    <ClInclude Include="ToggleEnabledOnKeyPress.h">
-      <Filter>components\debug</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\K_Instance.h">
       <Filter>kitten</Filter>
@@ -2190,6 +2187,9 @@
     </ClInclude>
     <ClInclude Include="DecreaseResolutionOnClick.h">
       <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="ToggleChildEnabledOnKeyPress.h">
+      <Filter>components\debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

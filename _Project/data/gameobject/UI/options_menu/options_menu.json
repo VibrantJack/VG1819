@@ -1,87 +1,224 @@
 {
 	"name" : "Options Menu",
+	"components" : 
+	[
+		{
+			"name" : "ToggleChildEnabledOnKeyPress",
+			"key" : "O"
+		},
+		{
+			"name" : "ReloadObjectOnKeyPress",
+			"key" : "P",
+			"this_json_path" : "UI/options_menu/options_menu.json"
+		}
+	],
+	
 	"gameobjects" :
 	[
 		{
-			"name" : "Header",
+			"name" : "Toggleable",
 			"components" : 
 			[
 				{
-					"name" : "UIElement",
-					"texture" : "textures/ui/options_header.png"
+					"name" : "UIFrame",
+					"texture" : "textures/ui/red_quilt.jpg"
 				}
 			],
-			"translate" : [500, 200, 0],
-			"scale" : [500, 200 , 1]
-		},
-		{
-			"name" : "Background",
-			"components" : 
+			"translate" : [350, 240, -0.2],
+			"scale" : [640, 300, 1],
+			
+			"gameobjects" : 
 			[
 				{
-					"name" : "UIElement",
-					"texture" : "textures/ui/options_background.png"
-				}
-			],
-			"translate" : [450, 100, 0],
-			"scale" : [500, 500, 1]
-		},
-		{
-			"name" : "SFX Label",
-			"components" : 
-			[
-				{
-					"name" : "UIElement",
-					"texture" : "textures/ui/options_sfx.png"
-				}
-			],
-			"translate" : [550, 250, 0],
-			"scale" : [100, 100 , 1]
-		},
-		{
-			"name" : "BGM Label",
-			"components" : 
-			[
-				{
-					"name" : "UIElement",
-					"texture" : "textures/ui/options_bgm.png"
-				}
-			],
-			"translate" : [550,300, 0],
-			"scale" : [100, 100 , 1]
-		},
-		{
-			"name" : "Resolution Label",
-			"components" : 
-			[
-				{
-					"name" : "UIElement",
-					"texture" : "textures/ui/options_resolution.png"
-				}
-			],
-			"translate" : [550,350, 0],
-			"scale" : [100, 100 , 1]
-		},
-		{
-			"name" : "Back Button",
-			"components" : 
-			[
-				{
-					"name" : "UIElement",
-					"texture" : "textures/ui/buttons/button_return.png"
+					"name" : "Header",
+					"components" :
+					[
+						{
+							"name" : "UIElement",
+							"texture" : "textures/ui/options_header.png"
+						}
+					],
+					"translate" : [75, 215, 0.1],
+					"scale" : [500, 75 , 1]
 				},
 				{
-					"name" : "ClickableFrame"
+					"name" : "SFX Label",
+					"components" : 
+					[
+						{
+							"name" : "UIElement",
+							"texture" : "textures/ui/options_sfx.png"
+						}
+					],
+					"translate" : [10, 160, 0.1],
+					"scale" : [100, 50 , 1],
+					"gameobjects" : 
+					[
+						{
+							"name" : "Decrease Sfx volume",
+							"components" : 
+							[
+								{
+									"name" : "UIObject",
+									"texture" : "textures/ui/buttons/button_minus.tga"
+								},
+								{
+									"name" : "ClickableFrame"
+								},
+								{
+									"name" : "DecreaseSFXVolumeOnClick",
+									"amount" : 0.05
+								}
+							],
+							"translate" : [150, 0, 0]
+						},
+						{
+							"name" : "Increase Sfx volume",
+							"components" : 
+							[
+								{
+									"name" : "UIObject",
+									"texture" : "textures/ui/buttons/button_add.tga"
+								},
+								{
+									"name" : "ClickableFrame"
+								},
+								{
+									"name" : "IncreaseSFXVolumeOnClick",
+									"amount" : 0.05
+								}
+							],
+							"translate" : [450, 0, 0]
+						}
+					]
 				},
 				{
-					"name" : "SavePlayerPrefsOnClick"
+					"name" : "BGM Label",
+					"components" :
+					[
+						{
+							"name" : "UIElement",
+							"texture" : "textures/ui/options_bgm.png"
+						}
+					],
+					"translate" : [10, 100, 0.1],
+					"scale" : [100, 50 , 1],
+					"gameobjects" : 
+					[
+						{
+							"name" : "Decrease BGM volume",
+							"components" : 
+							[
+								{
+									"name" : "UIObject",
+									"texture" : "textures/ui/buttons/button_minus.tga"
+								},
+								{
+									"name" : "ClickableFrame"
+								},
+								{
+									"name" : "DecreaseBGMVolumeOnClick",
+									"amount" : 0.05
+								}
+							],
+							"translate" : [150, 0, 0]
+						},
+						{
+							"name" : "Increase BGM volume",
+							"components" : 
+							[
+								{
+									"name" : "UIObject",
+									"texture" : "textures/ui/buttons/button_add.tga"
+								},
+								{
+									"name" : "ClickableFrame"
+								},
+								{
+									"name" : "IncreaseBGMVolumeOnClick",
+									"amount" : 0.05
+								}
+							],
+							"translate" : [450, 0, 0]
+						}
+					]
 				},
 				{
-					"name" : "DisableParentOnClick"
+					"name" : "Resolution Label",
+					"components" : 
+					[
+						{
+							"name" : "UIElement",
+							"texture" : "textures/ui/options_resolution.png"
+						},
+						{
+							"name" : "ResolutionController"
+						}
+					],
+					"translate" : [10, 40, 0.1],
+					"scale" : [100, 50 , 1],
+					"gameobjects" : 
+					[
+						{
+							"name" : "Decrease Resolution",
+							"components" : 
+							[
+								{
+									"name" : "UIObject",
+									"texture" : "textures/ui/buttons/button_minus.tga"
+								},
+								{
+									"name" : "ClickableFrame"
+								},
+								{
+									"name" : "DecreaseResolutionOnClick",
+									"amount" : 0.05
+								}
+							],
+							"translate" : [150, 0, 0]
+						},
+						{
+							"name" : "Increase Resolution",
+							"components" : 
+							[
+								{
+									"name" : "UIObject",
+									"texture" : "textures/ui/buttons/button_add.tga"
+								},
+								{
+									"name" : "ClickableFrame"
+								},
+								{
+									"name" : "IncreaseResolutionOnClick",
+									"amount" : 0.05
+								}
+							],
+							"translate" : [450, 0, 0]
+						}
+					]
+				},
+				{
+					"name" : "Back Button",
+					"components" : 
+					[
+						{
+							"name" : "UIObject",
+							"texture" : "textures/ui/buttons/button_return.png"
+						},
+						{
+							"name" : "ClickableFrame"
+						},
+						{
+							"name" : "SavePlayerPrefsOnClick"
+						},
+						{
+							"name" : "DisableParentOnClick"
+						}
+					],
+					"translate" : [0,0, 0.05],
+					"scale" : [50, 50 , 1]
 				}
-			],
-			"translate" : [500,500, 0],
-			"scale" : [100, 100 , 1]
+			]
 		}
 	]
 }

@@ -459,7 +459,7 @@
     <ClCompile Include="ShowLoadingOnClick.cpp" />
     <ClCompile Include="CardArt.cpp" />
     <ClCompile Include="StringInputDisplay.cpp" />
-    <ClCompile Include="ToggleEnabledOnKeyPress.cpp" />
+    <ClCompile Include="ToggleChildEnabledOnKeyPress.cpp" />
     <ClCompile Include="ToggleParticleSystemOnKeyPress.cpp" />
     <ClCompile Include="ToggleSoundOnKeyPress.cpp" />
     <ClCompile Include="ToggleStringInputOnKeyPress.cpp" />
@@ -835,7 +835,7 @@
     <ClInclude Include="SavePlayerPrefsOnClick.h" />
     <ClInclude Include="ShowLoadingOnClick.h" />
     <ClInclude Include="StringInputDisplay.h" />
-    <ClInclude Include="ToggleEnabledOnKeyPress.h" />
+    <ClInclude Include="ToggleChildEnabledOnKeyPress.h" />
     <ClInclude Include="ToggleParticleSystemOnKeyPress.h" />
     <ClInclude Include="ToggleSoundOnKeyPress.h" />
     <ClInclude Include="ToggleStringInputOnKeyPress.h" />

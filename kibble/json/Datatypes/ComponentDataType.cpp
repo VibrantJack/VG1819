@@ -538,8 +538,8 @@ kitten::K_Component* getTextBox(nlohmann::json* p_jsonFile) {
 	return textbox;
 }
 
-#include "_Project\ToggleEnabledOnKeyPress.h"
-kitten::K_Component* getToggleEnabledOnKeyPress(nlohmann::json* p_jsonFile) {
+#include "_Project\ToggleChildEnabledOnKeyPress.h"
+kitten::K_Component* getToggleChildEnabledOnKeyPress(nlohmann::json* p_jsonFile) {
 	char key;
 	
 	if (p_jsonFile->find("key") != p_jsonFile->end()) {
@@ -547,7 +547,7 @@ kitten::K_Component* getToggleEnabledOnKeyPress(nlohmann::json* p_jsonFile) {
 		key = str[0];
 	}
 
-	return new ToggleEnabledOnKeyPress(key);
+	return new ToggleChildEnabledOnKeyPress(key);
 }
 
 #include "_Project\ToggleStringInputOnKeyPress.h"
@@ -2006,7 +2006,7 @@ void setupComponentMap() {
 	jsonComponentMap["PointerUI"] = &getPointerUI;
 	jsonComponentMap["UnitGraphic"] = &getUnitGraphic;
 	jsonComponentMap["TextBox"] = &getTextBox;
-	jsonComponentMap["ToggleEnabledOnKeyPress"] = &getToggleEnabledOnKeyPress;
+	jsonComponentMap["ToggleChildEnabledOnKeyPress"] = &getToggleChildEnabledOnKeyPress;
 	jsonComponentMap["TileInfoDisplayOnKeyPress"] = &getTileInfoDisplayOnKeyPress;
 	jsonComponentMap["BoardCreator"] = &getBoardCreator;
 	jsonComponentMap["ToggleStringInputOnKeyPress"] = &getToggleStringInputOnKeyPress;
