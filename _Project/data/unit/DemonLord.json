@@ -12,7 +12,7 @@
 		"ability_description":[
 			
 		],
-		"portrait_texture" : "textures/cards/500x500/Gorefiend.tga"
+		"portrait_texture" : "textures/cards/500x500/DemonLord.tga"
 	},
 	"components" : [
 		{
@@ -25,7 +25,7 @@
 		},
 		{
 			"name" : "CardArt",
-			"texture":"textures/cards/500x500/Gorefiend.tga"
+			"texture":"textures/cards/500x500/DemonLord.tga"
 		}
 	]
 }

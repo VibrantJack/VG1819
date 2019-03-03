@@ -21,7 +21,7 @@
                 "hp":15
 			}
 		],
-		"portrait_texture" : "textures/cards/500x500/Gorefiend.tga"
+		"portrait_texture" : "textures/cards/500x500/RotGolem.tga"
 	},
 	"components" : [
 		{
@@ -34,7 +34,7 @@
 		},
 		{
 			"name" : "CardArt",
-			"texture":"textures/cards/500x500/Gorefiend.tga"
+			"texture":"textures/cards/500x500/RotGolem.tga"
 		}
 	]
 }

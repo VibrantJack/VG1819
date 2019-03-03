@@ -23,7 +23,7 @@
                 "in":4
 			}
 		],
-		"portrait_texture" : "textures/cards/500x500/Gorefiend.tga"
+		"portrait_texture" : "textures/cards/500x500/Slime.tga"
 	},
 	"components" : [
 		{
@@ -36,7 +36,7 @@
 		},
 		{
 			"name" : "CardArt",
-			"texture":"textures/cards/500x500/Gorefiend.tga"
+			"texture":"textures/cards/500x500/Slime.tga"
 		}
 	]
 }
