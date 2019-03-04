@@ -7,7 +7,13 @@
 		"cost":3,
 		"tags":["Neutral"],
 		"ability_description":[
-			
+			{
+				"name":"Clone",
+				"min_range":0,
+				"max_range":0,
+				"card_drawn":1,
+				"description":"Put a copy of [Slime] into your hand."
+            }
 		],
 		"status":[
 			{

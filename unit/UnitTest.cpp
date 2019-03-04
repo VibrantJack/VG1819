@@ -55,7 +55,7 @@ namespace unit
 
 	   	kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstance()->spawnUnitObject(13); // 13 king !!!
 		uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(6, 6);
-		uNEWDUMMY->getComponent<Unit>()->m_clientId = 1;
+//		uNEWDUMMY->getComponent<Unit>()->m_clientId = 1;
 
 //		kitten::K_GameObject* uNEWDUMMY2 = UnitSpawn::getInstance()->spawnUnitObject(14); // queen !!!
 //		uNEWDUMMY2->getComponent<unit::UnitMove>()->setTile(-1, -1);
@@ -169,7 +169,7 @@ namespace unit
 
 		kitten::K_GameObject* u22 = UnitSpawn::getInstance()->spawnUnitObject(26);//slime
 		u22->getComponent<unit::UnitMove>()->setTile(3, 5);
-
+//		u22->getComponent<unit::Unit>()->m_clientId = 0;
 		kitten::K_GameObject* u23 = UnitSpawn::getInstance()->spawnUnitObject(27);//rot golem
 		u23->getComponent<unit::UnitMove>()->setTile(4, 5);
 

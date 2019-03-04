@@ -68,6 +68,10 @@ namespace ability
 
 		//draw card
 		void drawCard(int p_id, int p_num);
+
+		//trigger card drawn event, put card to hand.
+		//map: unitId, number of cards
+		void putCardToHand(kitten::Event* p_event, const std::unordered_map<int, int>& p_cards);
 	};
 
 	class Move : public Ability
@@ -475,6 +479,13 @@ namespace ability
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
 	public:
 		CursedProtection() : Ability(ABILITY_CURSED_PROTECTION) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Clone : public Ability
+	{
+	public:
+		Clone() : Ability(ABILITY_CLONE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 }

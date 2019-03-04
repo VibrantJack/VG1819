@@ -261,3 +261,20 @@ void ability::Ability::drawCard(int p_id, int p_num)
 	e->putInt(CARD_COUNT, p_num);
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Draw_Card, e);
 }
+
+void ability::Ability::putCardToHand(kitten::Event* p_event, const std::unordered_map<int, int>& p_cards)
+{
+	int count = 0;
+	for (auto it : p_cards)
+	{
+		//it.first = card id
+		//it.second = card number
+		for (int i = 0; i < it.second; i++)
+		{
+			p_event->putInt(CARD_ID + std::to_string(count), it.first);
+			count++;
+		}
+	}
+
+	p_event->putInt(CARD_COUNT, count);
+}
