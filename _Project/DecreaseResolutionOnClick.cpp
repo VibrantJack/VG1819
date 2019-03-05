@@ -1,6 +1,6 @@
 #include "DecreaseResolutionOnClick.h"
 
-DecreaseResolutionOnClick::DecreaseResolutionOnClick()
+DecreaseResolutionOnClick::DecreaseResolutionOnClick() : m_resController(nullptr)
 {
 
 }
@@ -10,7 +10,18 @@ DecreaseResolutionOnClick::~DecreaseResolutionOnClick()
 
 }
 
+void DecreaseResolutionOnClick::start()
+{
+	ClickableUI::start();
+
+	auto parent = getTransform().getParent();
+	assert(parent != nullptr);
+
+	m_resController = parent->getAttachedGameObject().getComponent<ResolutionController>();
+	assert(m_resController != nullptr);
+}
+
 void DecreaseResolutionOnClick::onClick()
 {
-
+	m_resController->prevRes();
 }

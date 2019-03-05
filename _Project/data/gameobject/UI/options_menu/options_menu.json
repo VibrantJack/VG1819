@@ -171,8 +171,7 @@
 									"name" : "ClickableFrame"
 								},
 								{
-									"name" : "DecreaseResolutionOnClick",
-									"amount" : 0.05
+									"name" : "DecreaseResolutionOnClick"
 								}
 							],
 							"translate" : [150, 0, 0]
@@ -189,11 +188,25 @@
 									"name" : "ClickableFrame"
 								},
 								{
-									"name" : "IncreaseResolutionOnClick",
-									"amount" : 0.05
+									"name" : "IncreaseResolutionOnClick"
 								}
 							],
 							"translate" : [450, 0, 0]
+						},
+						{
+							"name" : "Current Resolution Text",
+							"components" : 
+							[
+								{
+									"name" : "TextBox",
+									"font" : "../fonts/ms_gothic.fnt",
+									"width" : 500,
+									"height" : 50,
+									"alignment" : "center"
+								}
+							],
+							"translate" : [100, 42, 0],
+							"worldscale" : [1,1,1]
 						}
 					]
 				},
