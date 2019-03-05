@@ -3,61 +3,78 @@
 #include "kitten/K_ComponentManager.h"
 #include "kibble/json/Datatypes/ComponentDataType.hpp"
 
-kitten::K_GameObject* getGameObjectBy(nlohmann::json& p_jsonfile) {
+kitten::K_GameObject* getGameObjectBy(nlohmann::json& p_jsonFile, kitten::K_GameObject* p_baseObj) {
 
 	// going through both managers is important! 
-	kitten::K_GameObjectManager* gameobjectmanager = kitten::K_GameObjectManager::getInstance();
-	kitten::K_ComponentManager* componentmanager = kitten::K_ComponentManager::getInstance();
-	kitten::K_GameObject* gameobject;
+	kitten::K_GameObjectManager* gameObjectManager = kitten::K_GameObjectManager::getInstance();
+	kitten::K_ComponentManager* componentManager = kitten::K_ComponentManager::getInstance();
+	kitten::K_GameObject* gameObject;
 
 	// start off with checking for filename to base things on
-	if (p_jsonfile.find("filename") != p_jsonfile.end()) {
-		gameobject = gameobjectmanager->createNewGameObject(p_jsonfile["filename"]);
+	if (p_baseObj == nullptr) {
+		if (p_jsonFile.find("filename") != p_jsonFile.end()) {
+			gameObject = gameObjectManager->createNewGameObject(p_jsonFile["filename"]);
+		}
+		else {
+			gameObject = gameObjectManager->createNewGameObject();
+		}
 	}
 	else {
-		gameobject = gameobjectmanager->createNewGameObject();
+		gameObject = p_baseObj;
 	}
+	
 
 	// add all attributes related to game object only here!
-	if (p_jsonfile.find("translate") != p_jsonfile.end()) {
-		gameobject->getTransform().place(p_jsonfile["translate"][0], p_jsonfile["translate"][1], p_jsonfile["translate"][2]);
+	if (p_jsonFile.find("translate") != p_jsonFile.end()) {
+		gameObject->getTransform().place(p_jsonFile["translate"][0], p_jsonFile["translate"][1], p_jsonFile["translate"][2]);
 	}
 
-	if (p_jsonfile.find("rotate") != p_jsonfile.end()) {
-		gameobject->getTransform().rotateAbsolute(glm::vec3(p_jsonfile["rotate"][0], p_jsonfile["rotate"][1], p_jsonfile["rotate"][2]));
+	if (p_jsonFile.find("rotate") != p_jsonFile.end()) {
+		gameObject->getTransform().rotateAbsolute(glm::vec3(p_jsonFile["rotate"][0], p_jsonFile["rotate"][1], p_jsonFile["rotate"][2]));
 	}
 
-	if (p_jsonfile.find("scale") != p_jsonfile.end()) {
-		gameobject->getTransform().scaleAbsolute(p_jsonfile["scale"][0], p_jsonfile["scale"][1], p_jsonfile["scale"][2]);
+	if (p_jsonFile.find("scale") != p_jsonFile.end()) {
+		gameObject->getTransform().scaleAbsolute(p_jsonFile["scale"][0], p_jsonFile["scale"][1], p_jsonFile["scale"][2]);
 	}
 
-	if (p_jsonfile.find("translate2d") != p_jsonfile.end()) {
-		gameobject->getTransform().place2D(p_jsonfile["translate2d"][0], p_jsonfile["translate2d"][1]);
+	if (p_jsonFile.find("translate2d") != p_jsonFile.end()) {
+		gameObject->getTransform().place2D(p_jsonFile["translate2d"][0], p_jsonFile["translate2d"][1]);
 	}
 
-	if (p_jsonfile.find("rotate2d") != p_jsonfile.end()) {
-		gameobject->getTransform().rotate2D(p_jsonfile["rotate2d"]);
+	if (p_jsonFile.find("rotate2d") != p_jsonFile.end()) {
+		gameObject->getTransform().rotate2D(p_jsonFile["rotate2d"]);
 	}
 
-	if (p_jsonfile.find("scale2d") != p_jsonfile.end()) {
-		gameobject->getTransform().scale2D(p_jsonfile["scale2d"][0], p_jsonfile["scale2d"][1]);
+	auto scaleInWorldFound = p_jsonFile.find("worldscale");
+	if (scaleInWorldFound != p_jsonFile.end()) {
+		gameObject->getTransform().scaleInWorld((*scaleInWorldFound)[0], (*scaleInWorldFound)[1], (*scaleInWorldFound)[2]);
 	}
 
-	if (p_jsonfile.find("components") != p_jsonfile.end()) {
+	if (p_jsonFile.find("scale2d") != p_jsonFile.end()) {
+		gameObject->getTransform().scale2D(p_jsonFile["scale2d"][0], p_jsonFile["scale2d"][1]);
+	}
+
+	if (p_jsonFile.find("components") != p_jsonFile.end()) {
 		//assert(p_jsonfile["components"].is_array());
-		for (nlohmann::json::iterator it = p_jsonfile["components"].begin(); it != p_jsonfile["components"].end(); ++it) {
-			gameobject->addComponent(componentmanager->createComponent(&*it));
+		for (nlohmann::json::iterator it = p_jsonFile["components"].begin(); it != p_jsonFile["components"].end(); ++it) {
+			gameObject->addComponent(componentManager->createComponent(&*it));
 		}
 	}
 
-	if (p_jsonfile.find("gameobjects") != p_jsonfile.end()) {
+	if (p_jsonFile.find("gameobjects") != p_jsonFile.end()) {
 		//assert(p_jsonfile["components"].is_array());
-		for (nlohmann::json::iterator it = p_jsonfile["gameobjects"].begin(); it != p_jsonfile["gameobjects"].end(); ++it) {
-			kitten::K_GameObject* child = getGameObjectBy(*it);
-			child->getTransform().setParent(&gameobject->getTransform());
+		for (nlohmann::json::iterator it = p_jsonFile["gameobjects"].begin(); it != p_jsonFile["gameobjects"].end(); ++it) {
+			
+			kitten::K_GameObject* child = gameObjectManager->createNewGameObject();
+			
+			child->getTransform().setParent(&gameObject->getTransform());
 			child->getTransform().setIgnoreParent(false);
+
+			child = getGameObjectBy(*it, child);
+			
+			
 		}
 	}
 
-	return gameobject;
+	return gameObject;
 }

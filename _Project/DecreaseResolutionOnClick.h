@@ -1,8 +1,8 @@
 #pragma once
 
-#include "UI\ClickableButton.h"
+#include "kitten\mouse picking\ClickableUI.h"
 
-class DecreaseResolutionOnClick : public userinterface::ClickableButton
+class DecreaseResolutionOnClick : public kitten::ClickableUI
 {
 private:
 	virtual void onClick() override;

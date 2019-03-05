@@ -3,6 +3,8 @@
 #include "kitten\util\AsyncFileOperations.h"
 #include "_Project\UniversalSounds.h"
 
+#include "kitten\K_GameObjectManager.h"
+
 #include <fstream>
 
 PlayerPrefs* PlayerPrefs::sm_instance = nullptr;
@@ -67,6 +69,8 @@ void PlayerPrefs::start()
 		// No file to open, make a default one
 		privateSaveAllSettings();
 	}
+
+	kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(m_attachedObject);
 }
 
 void PlayerPrefs::setSFXVolume(float p_volume)
@@ -170,10 +174,10 @@ std::string PlayerPrefs::toJsonString()
 {
 	std::string jsonString =
 		"{\n" +
-			st("BGM_Volume : ") + ts(m_bgmVolume) + st("\n") +
-			st("SFX_Volume : ") + ts(m_sfxVolume) + st("\n") +
-			st("Fullscreen : ") + (m_fullscreen ? st("true") : st("false")) + st("\n") +
-			st("Resolution : [") + ts(m_resolution.first) + ", " + ts(m_resolution.second) + "]\n" +
+			st("\t\"BGM_Volume\" : ") + ts(m_bgmVolume) + st(",\n") +
+			st("\t\"SFX_Volume\" : ") + ts(m_sfxVolume) + st(",\n") +
+			st("\t\"Fullscreen\" : ") + (m_fullscreen ? st("true") : st("false")) + st(",\n") +
+			st("\t\"Resolution\" : [") + ts(m_resolution.first) + ", " + ts(m_resolution.second) + "]\n" +
 		st("}\n");
 
 	return jsonString;

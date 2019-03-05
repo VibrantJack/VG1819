@@ -1,8 +1,8 @@
 #pragma once
 
-#include "UI\ClickableButton.h"
+#include "kitten\mouse picking\ClickableUI.h"
 
-class DecreaseBGMVolumeOnClick : public userinterface::ClickableButton
+class DecreaseBGMVolumeOnClick : public kitten::ClickableUI
 {
 private:
 	float m_amount;

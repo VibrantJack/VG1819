@@ -1,8 +1,8 @@
 #pragma once
 
-#include "UI\ClickableButton.h"
+#include "kitten\mouse picking\ClickableUI.h"
 
-class SavePlayerPrefsOnClick : public userinterface::ClickableButton
+class SavePlayerPrefsOnClick : public kitten::ClickableUI
 {
 private:
 

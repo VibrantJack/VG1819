@@ -16,6 +16,9 @@
             "filename" : "cursor.json"
         },
 		{
+			"filename" : "PlayerPrefs.json"
+		},
+		{
 			"filename" : "camgameobj_main_menu.txt"
 		}
 	]

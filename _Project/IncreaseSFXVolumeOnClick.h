@@ -1,8 +1,8 @@
 #pragma once
 
-#include "UI\ClickableButton.h"
+#include "kitten\mouse picking\ClickableUI.h"
 
-class IncreaseSFXVolumeOnClick : public userinterface::ClickableButton
+class IncreaseSFXVolumeOnClick : public kitten::ClickableUI
 {
 private:
 

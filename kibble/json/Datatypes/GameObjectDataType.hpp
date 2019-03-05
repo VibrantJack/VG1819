@@ -3,4 +3,4 @@
 #include "kitten/K_GameObject.h"
 #include <string>
 
-kitten::K_GameObject* getGameObjectBy(nlohmann::json& p_jsonfile);
+kitten::K_GameObject* getGameObjectBy(nlohmann::json& p_jsonfile, kitten::K_GameObject* p_baseObj = nullptr);

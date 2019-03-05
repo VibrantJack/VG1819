@@ -1926,6 +1926,11 @@ kitten::K_Component* getTurnCounterController(nlohmann::json* p_jsonFile) {
 	return new TurnCounterController();
 }
 
+#include "settings_menu\PlayerPrefs.h"
+kitten::K_Component* getPlayerPrefs(nlohmann::json* p_jsonFile) {
+	return new PlayerPrefs();
+}
+
 #include "_Project\SavePlayerPrefsOnClick.h"
 kitten::K_Component* getSavePlayerPrefsOnClick(nlohmann::json* p_jsonFile) {
 	return new SavePlayerPrefsOnClick();
@@ -2120,6 +2125,7 @@ void setupComponentMap() {
 	jsonComponentMap["BorderPiece"] = &getBorderPiece;
 	jsonComponentMap["TurnCounterController"] = &getTurnCounterController;
 	jsonComponentMap["NextTurnButton"] = &getNextTurnButton;
+	jsonComponentMap["PlayerPrefs"] = &getPlayerPrefs;
 	jsonComponentMap["SavePlayerPrefsOnClick"] = &getSavePlayerPrefsOnClick;
 	jsonComponentMap["DisableParentOnClick"] = &getDisableParentOnClick;
 	jsonComponentMap["IncreaseSFXVolumeOnClick"] = &getIncreaseSFXVolumeOnClick;

@@ -112,20 +112,15 @@ namespace kitten
 		std::cout << "Frame released!\n";
 	}
 
-	void ClickableFrame::onPosChanged(const glm::vec3 & p_newPos)
+	void ClickableFrame::onPosChanged(const glm::vec3& p_newPos)
 	{
-		glm::vec2 trans2D;
+		glm::vec2 trans2D = (glm::vec2)p_newPos;
 		//get scale and position in usable form
-		glm::vec3 trans = getTransform().getTranslation();
 		glm::vec2 scale = getTransform().getScale2D();
 		float width = scale.x;
 		float height = scale.y;
 		float halfWidth = width / 2.0f;
 		float halfHeight = height / 2.0f;
-
-		//separate position
-		trans2D.x = trans.x;
-		trans2D.y = trans.y;
 
 		switch (m_piv)
 		{
