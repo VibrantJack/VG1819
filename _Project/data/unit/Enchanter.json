@@ -46,7 +46,11 @@
 				"duration":1,
 				"counter_name":"energy",
 				"counter_select":"all",
-				"description":"Remove all(X) [Energy Counter], allies with Cost < X: +10 IN, +1 MV."
+				"description":"Remove all(X) [Energy Counter], allies with Cost < X: +10 IN, +1 MV.",
+				"status_name_Status_Temp_Change":"Exceited!",
+				"status_description_Status_Temp_Change":"Move Farther",
+				"status_name_Status_IN_Change":"Exceited!",
+				"status_description_Status_IN_Change":"Move Faster"
 			}
 		],
 		"status":[

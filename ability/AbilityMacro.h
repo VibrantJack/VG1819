@@ -47,6 +47,7 @@
 #define ABILITY_CRASH "Crash"
 #define ABILITY_CURSED_PROTECTION "Cursed Protection"
 #define ABILITY_CLONE "Clone"
+#define ABILITY_DEVOUR "Devour"
 
 //ability or status required info
 #define PUSH_BACK "push_back"
@@ -75,6 +76,7 @@
 #define STATUS_ATTACH "Status_Attach"
 #define STATUS_VAMPIRIC_CURSE "Status_Vampiric_Curse"
 #define STATUS_CURSED_BEING "Status_Cursed_Being"
+#define STATUS_LAST_WORD_SUMMON "Status_Last_Word_Summon"
 
 //lv
 #define STATUS_LV "Status_LV"
@@ -86,6 +88,7 @@
 #define STATUS_WRAITH_LV2 "Status_Wraith_LV2"
 #define STATUS_EVIL_FIEND_LV "Status_Evil_Fiend_LV"
 #define STATUS_GOREFIEND_LV3 "Status_Gorefiend_LV3"
+#define STATUS_SLIME_LV3 "Status_Slime_LV3"
 
 //demonic restriction
 #define STATUS_DEMONIC_RESTRICTION "Status_Demonic_Restriction"
@@ -95,8 +98,8 @@
 #define STATUS_DR_WRAITH "Status_DR_Wraith"
 
 //status property
-#define STATUS_NAME "status_name"
-#define STATUS_DESCRIPTION "status_description"
+#define STATUS_NAME(id) "status_name_"+id
+#define STATUS_DESCRIPTION(id) "status_description_"+id
 
 #define STATUS_EFFECTED_AD "effectedAD"
 #define STATUS_AD_NAME(n) "ad_name_"+std::to_string(n)

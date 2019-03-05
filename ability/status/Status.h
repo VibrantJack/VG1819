@@ -287,13 +287,10 @@ namespace ability
 
 	class Status_Attach : public Status
 	{
-	private:
-		int m_unitID = 23;
 	public:
 		Status_Attach();
 		Status* clone() const { return new Status_Attach(*this); };
 		int effect();
-		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 
 	/*
@@ -345,6 +342,16 @@ namespace ability
 		Status_Cursed_Being();
 		Status* clone() const { return new Status_Cursed_Being(*this); };
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};
+
+	//summon unit when attached unit is destroyed
+	class Status_Last_Word_Summon : public Status
+	{
+	public:
+		Status_Last_Word_Summon();
+		Status* clone() const { return new Status_Last_Word_Summon(*this); };
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+		void setUnitToSummon(int p_id, int p_lv = 1);
 	};
 }
 

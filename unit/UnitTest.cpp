@@ -105,7 +105,7 @@ namespace unit
 //		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
 //		u2->getComponent<unit::UnitMove>()->setTile(3, 2);
 
-//		kitten::K_GameObject* u3 = UnitSpawn::getInstance()->spawnUnitObject(3);//duelist
+//		kitten::K_GameObject* u3 = UnitSpawn::getInstance()->spawnUnitObject(3);//knight
 //		u3->getComponent<unit::UnitMove>()->setTile(4, 2);
 
 //		kitten::K_GameObject* u4 = UnitSpawn::getInstance()->spawnUnitObject(4);//engineer
@@ -158,14 +158,14 @@ namespace unit
 //		kitten::K_GameObject* u19 = UnitSpawn::getInstance()->spawnUnitObject(23);//wraith
 //		u19->getComponent<unit::UnitMove>()->setTile(4, 4);
 
-//		kitten::K_GameObject* u192 = UnitSpawn::getInstance()->spawnUnitObject(23);//wraith
-//		u192->getComponent<unit::UnitMove>()->setTile(3, 4);
+		kitten::K_GameObject* u192 = UnitSpawn::getInstance()->spawnUnitObject(23);//wraith
+		u192->getComponent<unit::UnitMove>()->setTile(3, 4);
 
-		kitten::K_GameObject* u20 = UnitSpawn::getInstance()->spawnUnitObject(24);//gorefiend
-		u20->getComponent<unit::UnitMove>()->setTile(2, 4);
+//		kitten::K_GameObject* u20 = UnitSpawn::getInstance()->spawnUnitObject(24);//gorefiend
+//		u20->getComponent<unit::UnitMove>()->setTile(2, 4);
 
-		kitten::K_GameObject* u21 = UnitSpawn::getInstance()->spawnUnitObject(25);//monument
-		u21->getComponent<unit::UnitMove>()->setTile(2, 5);
+//		kitten::K_GameObject* u21 = UnitSpawn::getInstance()->spawnUnitObject(25);//monument
+//		u21->getComponent<unit::UnitMove>()->setTile(2, 5);
 
 		kitten::K_GameObject* u22 = UnitSpawn::getInstance()->spawnUnitObject(26);//slime
 		u22->getComponent<unit::UnitMove>()->setTile(3, 5);

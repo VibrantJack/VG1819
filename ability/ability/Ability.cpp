@@ -203,7 +203,7 @@ void ability::Ability::addStatusInfo(Status * p_st, AbilityInfoPackage* p_info,
 	p_st->m_source = m_name;
 
 	//name
-	auto it = p_info->m_stringValue.find(STATUS_NAME);
+	auto it = p_info->m_stringValue.find(STATUS_NAME(p_st->getID()));
 	if (it != p_info->m_stringValue.end())
 	{
 		std::string name = it->second;
@@ -211,7 +211,7 @@ void ability::Ability::addStatusInfo(Status * p_st, AbilityInfoPackage* p_info,
 	}
 
 	//description
-	it = p_info->m_stringValue.find(STATUS_DESCRIPTION);
+	it = p_info->m_stringValue.find(STATUS_DESCRIPTION(p_st->getID()));
 	if (it != p_info->m_stringValue.end())
 	{
 		std::string des = it->second;

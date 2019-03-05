@@ -16,7 +16,8 @@
 #define UNIT_COST "cost"
 #define UNIT_BASE_COST "base_cost"
 #define UNIT_LV "lv"
-#define UNIT_ID "client_id"
+#define CLIENT_ID "client_id"
+#define KIBBLE_ID "kibble_id"
 
 //ability related
 #define ABILITY_DISABLE "disable"

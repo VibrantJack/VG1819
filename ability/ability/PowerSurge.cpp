@@ -22,15 +22,27 @@ namespace ability
 			int cost = u->m_attributes[UNIT_COST];
 			if (cost <= counter)
 			{
+				//apply move change
 				ability::Status* status = ability::StatusManager::getInstance()->findStatus(STATUS_TEMP_CHANGE);
 
-				status->addAttributeChange(UNIT_IN, inChange);
+				//status->addAttributeChange(UNIT_IN, inChange);
 				status->addAttributeChange(UNIT_MV, mvChange);
 
 				//status info
 				std::vector<std::string> intKeys;
 				intKeys.push_back(UNIT_DURATION);
 
+				addStatusInfo(status, p_info, intKeys);
+
+				status->attach(u);
+
+				//apply in change
+				status = ability::StatusManager::getInstance()->findStatus(STATUS_IN_CHANGE);
+
+				status->addAttributeChange(UNIT_IN, inChange);
+				//status->addAttributeChange(UNIT_MV, mvChange);
+
+				//status info
 				addStatusInfo(status, p_info, intKeys);
 
 				status->attach(u);

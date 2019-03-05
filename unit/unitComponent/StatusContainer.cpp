@@ -63,9 +63,11 @@ namespace unit
 	{
 		for (ability::Status* it : m_statusList)
 		{
-			if (it->getID() == p_Id && it->m_source == p_source)
+			if (it->getID() == p_Id)
 			{
-				return it;
+				//if no source specified, then any source apply this status will be returned
+				if(it->m_source == p_source || p_source == "ANY")
+					return it;
 			}
 		}
 		return nullptr;

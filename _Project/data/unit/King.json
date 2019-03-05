@@ -24,8 +24,8 @@
 				"area_filter":1,
 				"area_filter0":"enemy",
 				"description":"Nearby allies +5 IN for one turn.",
-				"status_name":"Rally",
-				"status_description":"IN +5.",
+				"status_name_Status_IN_Change":"Rally",
+				"status_description_Status_IN_Change":"IN +5.",
 				"duration":1
 			}
 		],

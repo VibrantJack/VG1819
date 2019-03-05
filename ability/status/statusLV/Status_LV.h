@@ -99,4 +99,14 @@ namespace ability
 
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
+
+	class Status_Slime_LV3 : public Status_LV
+	{
+		//this is trigger when Archer is lv3
+	public:
+		Status_Slime_LV3();
+		Status* clone() const { return new Status_Slime_LV3(*this); };
+
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};
 }

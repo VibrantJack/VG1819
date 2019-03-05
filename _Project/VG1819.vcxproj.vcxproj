@@ -165,6 +165,7 @@
     <ClCompile Include="..\ability\status\statusLV\Status_Lancer_LV2.cpp" />
     <ClCompile Include="..\ability\status\statusLV\Status_LV.cpp" />
     <ClCompile Include="..\ability\status\statusLV\Status_Priest_LV3.cpp" />
+    <ClCompile Include="..\ability\status\statusLV\Status_Slime_LV3.cpp" />
     <ClCompile Include="..\ability\status\statusLV\Status_Wraith_LV2.cpp" />
     <ClCompile Include="..\ability\status\Status_AD_Change.cpp" />
     <ClCompile Include="..\ability\status\Status_Attach.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="..\ability\status\Status_Dodge.cpp" />
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\ability\status\Status_IN_Change.cpp" />
+    <ClCompile Include="..\ability\status\Status_Last_Word_Summon.cpp" />
     <ClCompile Include="..\ability\status\Status_Shield.cpp" />
     <ClCompile Include="..\ability\status\Status_Temp_Change.cpp" />
     <ClCompile Include="..\ability\status\Status_Block.cpp" />

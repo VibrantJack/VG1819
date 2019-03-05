@@ -36,8 +36,10 @@
 				"area_filter":1,
 				"area_filter0":"ally",
 				"description":"Enemy within 2 blocks has MV -1 and reduce IN to 1.",
-				"status_name":"Horror",
-				"status_description":"MV -1 and IN is reduced to 1.",
+				"status_name_Status_Temp_Change":"Horror",
+				"status_description_Status_Temp_Change":"MV -1",
+				"status_name_Status_IN_Change":"Fear",
+				"status_description_Status_IN_Change":"IN reduced to 1",
 				"duration":1
 			}
 		],

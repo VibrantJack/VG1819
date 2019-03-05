@@ -15,8 +15,8 @@
 				"target":1,
 				"need_unit":1,
 				"description":"Apply [Vampiric Curse] to target unit. Steal 2 HP every turn for 3 turns. If lv3, steal 3 HP each turn.",
-				"status_name":"Vampiric Curse",
-                "status_description":"Steal 2 HP every turn for 3 turns.",
+				"status_name_Status_Vampiric_Curse":"Vampiric Curse",
+                "status_description_Status_Vampiric_Curse":"Steal 2 HP every turn for 3 turns.",
                 "duration":3
             },
             {

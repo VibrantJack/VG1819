@@ -23,10 +23,11 @@
                 "in":4
             },
             {
-				"name":"Status_LV",
+				"name":"Status_Slime_LV3",
 				"lv":3,
-                "hp":10,
-                "in":4
+				"hp":10,
+				"SLWS_name":"Summon Clone",
+				"SLWS_description":"When destroy, summon a lv1 Slime"
 			}
 		],
 		"portrait_texture" : "textures/cards/500x500/Slime.tga"
