@@ -13,7 +13,7 @@
 				"min_range":1,
 				"max_range":2,
 				"need_unit":1,
-                "description":"[Curse] target. [Curse]: When taking dmg, take 4 more and remove [Curse]",
+                "description":"[Curse] target. [Curse]: When taking dmg, take 4 more and remove [Curse]. If lv3, take 6 damage.",
                 "status_name":"Curse",
 				"status_description":"Will receive more damage."
 			},
@@ -26,7 +26,7 @@
 				"min_range":1,
 				"max_range":1,
 				"need_unit":1,
-				"description":"Push target 2 tiles. Deal 4 dmg if in [Demonic Presence]."
+				"description":"Push target 2 tiles. Deal 4 dmg if in [Demonic Presence]. If lv3, push back 3 tiles."
 			}
 		],
 		"status":[
@@ -39,7 +39,16 @@
 				"name":"Status_Eternal_Eye_LV3",
 				"lv":3,
 				"hp":3,
-				"description":"Curse POW = 6; Oppose increased to 3 tiles"
+				"description":"Curse damage increase. Oppose increased to 3 tiles",
+				"effectedAD":2,
+				"ad_name_0":"Curse",
+				"ad_attribute_num_0":1,
+				"ad_attribute_0_0":"power",
+				"ad_value_0_0":2,
+				"ad_name_1":"Oppose",
+				"ad_attribute_num_1":1,
+				"ad_attribute_1_0":"push_back",
+				"ad_value_1_0":1
 			},
 			{
 				"name":"Status_DR_Eternal_Eye",

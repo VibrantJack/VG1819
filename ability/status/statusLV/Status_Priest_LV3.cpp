@@ -1,5 +1,5 @@
 #pragma once
-#include "ability/status/Status.h"
+#include "ability/status/statusLV/Status_LV.h"
 #include "unit/Unit.h"
 //Rock
 
@@ -8,7 +8,7 @@ namespace ability
 	Status_Priest_LV3::Status_Priest_LV3() : Status_LV::Status_LV()
 	{
 		m_Id = STATUS_PRIEST_LV3;
-		addTimePoint(TimePointEvent::Level_Up);
+		//addTimePoint(TimePointEvent::Level_Up);
 	}
 
 	int Status_Priest_LV3::effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent * p_event)

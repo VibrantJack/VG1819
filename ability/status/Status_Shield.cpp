@@ -19,7 +19,7 @@ namespace ability
 			AbilityInfoPackage* pack = p_event->getPackage(INFO_PACKAGE_KEY);
 
 			//get amount of sheild
-			int shield = m_counter[UNIT_POWER];
+			int shield = m_intValue[UNIT_POWER];
 			//get damage
 			int damage = pack->m_intValue[UNIT_POWER];
 

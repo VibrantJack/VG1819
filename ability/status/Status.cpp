@@ -32,7 +32,7 @@ namespace ability
 		std::cout << "Attached Unit: " << m_unit->m_name << std::endl;
 		
 		std::cout << "Counter: " << std::endl;
-		for (auto it = m_counter.begin(); it != m_counter.end(); it++)
+		for (auto it = m_intValue.begin(); it != m_intValue.end(); it++)
 		{
 			std::cout << "\t" << it->first << " : " << it->second << std::endl;
 		}
@@ -66,22 +66,22 @@ namespace ability
 		m_description = p_msg;
 	}
 
+	/*
 	void Status::setEffectedAD(const std::string & p_msg)
 	{
 		m_effectedAD = p_msg;
-	}
+	}*/
 
 	void Status::addCounter(const std::string & p_key, int p_value)
 	{
-		if (m_counter.find(p_key) == m_counter.end())
+		if (m_intValue.find(p_key) == m_intValue.end())
 		{
-			m_counter.insert(std::make_pair(p_key, p_value));
+			m_intValue.insert(std::make_pair(p_key, p_value));
 		}
 		else
 		{
-			m_counter.at(p_key) = p_value;
+			m_intValue.at(p_key) = p_value;
 		}
-
 	}
 
 	void Status::addAttributeChange(const std::string & p_key, int p_value)
@@ -155,9 +155,10 @@ namespace ability
 
 	int Status::changeCounter(const std::string & p_cName, int p_value)
 	{
-		if (m_counter.find(p_cName) != m_counter.end())
+		auto found = m_intValue.find(p_cName);
+		if ( found != m_intValue.end())
 		{
-			m_counter.at(p_cName) += p_value;
+			found->second += p_value;
 			return 0;
 		}
 		//not find target counter
@@ -166,7 +167,7 @@ namespace ability
 
 	void Status::checkDuration(const TimePointEvent::TPEventType& p_type)
 	{
-		if (m_counter.find(UNIT_DURATION) != m_counter.end())
+		if (m_intValue.find(UNIT_DURATION) != m_intValue.end())
 		{
 			if (m_endEffectEvent == p_type)
 				checkDuration();
@@ -177,10 +178,60 @@ namespace ability
 	{
 		changeCounter();
 
-		if (m_counter.at(UNIT_DURATION) <= 0)
+		if (m_intValue.at(UNIT_DURATION) <= 0)
 		{
 			effectEnd();
 			removeThis();
+		}
+	}
+
+
+	void Status::setEffectedAD()
+	{
+		//check if there is effected CD
+		auto found = m_intValue.find(STATUS_EFFECTED_AD);
+		if (found == m_intValue.end())//don't have
+			return;
+		
+		if (found->second <= 0)//number doesn't right
+			return;
+
+		int num = found->second;
+		for (int i = 0; i < num; i++)
+		{
+			//get name
+			std::string adName = m_stringValue[STATUS_AD_NAME(i)];
+
+			std::unordered_map<std::string, int> attrChange;
+
+			//get attribute change for ad
+			int n = m_intValue[STATUS_AD_ATTRIBUTE_NUM(i)];
+			for (int j = 0; j < n; j++)
+			{
+				//attribute name
+				std::string attrName = m_stringValue[STATUS_AD_ATTRIBUTE(i, j)];
+				//attribute value change
+				int value = m_intValue[STATUS_AD_VALUE(i, j)];
+
+				attrChange[attrName] = value;
+			}
+
+			m_effectedAD[adName] = attrChange;
+		}
+	}
+
+	void Status::changeEffectedAD(bool p_reverse)
+	{
+		AbilityNode* node = AbilityNodeManager::getInstance()->findNode(ChangeAbilityDescription);
+		for (auto it : m_effectedAD)
+		{
+			for (auto attr : it.second)
+			{
+				if(p_reverse)
+					node->effect(m_unit, it.first, attr.first, -attr.second);
+				else
+					node->effect(m_unit, it.first, attr.first, attr.second);
+			}
 		}
 	}
 }

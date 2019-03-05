@@ -25,7 +25,8 @@
 				"area_filter0":"enemy",
 				"description":"Nearby allies +5 IN for one turn.",
 				"status_name":"Rally",
-				"status_description":"Block Damage"
+				"status_description":"IN +5.",
+				"duration":1
 			}
 		],
 		"portrait_texture" : "textures/cards/500x500/King.tga"

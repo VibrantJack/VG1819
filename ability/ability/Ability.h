@@ -29,14 +29,14 @@ namespace ability
 		virtual void multiTargetProjectileFinished(AbilityInfoPackage* p_package);
 	protected:
 
-		Ability(const std::string p_name) : m_name(p_name) {}
+		Ability(const std::string& p_name) : m_name(p_name) {}
 
 		//simple ability
 		void singleTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile = false);
 		void multiTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile = false);
 
 		kitten::K_GameObject* summonToken(AbilityInfoPackage* p_info, int p_unitIndex);
-		int damage(unit::Unit* p_target, int power);
+		void changeHP(unit::Unit* p_target, int power);
 
 		//delete package and tell unit it acts once
 		void done(const AbilityInfoPackage* p_info);
@@ -59,8 +59,12 @@ namespace ability
 		//trigger time point event
 		void triggerTPEvent(ability::TimePointEvent::TPEventType p_tp, unit::Unit* p_target, AbilityInfoPackage* p_info);
 
-		//add status name and description
-		void addStatusInfo(Status* p_st, AbilityInfoPackage* p_info);
+		//add status name, description, source, and other value that's directly from package
+		void addStatusInfo(Status * p_st, AbilityInfoPackage* p_info,
+			const std::vector<std::string>& p_intValueKeyList = std::vector<std::string>(),
+			const std::vector<std::string>& p_stringValueKeyList = std::vector<std::string>());
+		//part of status info which related to ad change
+		void readADChange(AbilityInfoPackage* p_info, std::vector<std::string>* p_intValueKeyList, std::vector<std::string>* p_stringValueKeyList);
 
 		//draw card
 		void drawCard(int p_id, int p_num);
@@ -446,6 +450,22 @@ namespace ability
 	{
 	public:
 		Drain() : Ability(ABILITY_DRAIN) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class HealthLink : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
+	public:
+		HealthLink() : Ability(ABILITY_HEALTH_LINK) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Crash : public Ability
+	{
+	public:
+		Crash() : Ability(ABILITY_CRASH) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 }

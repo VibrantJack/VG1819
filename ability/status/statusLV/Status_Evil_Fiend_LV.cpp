@@ -1,5 +1,5 @@
 #pragma once
-#include "ability/status/Status.h"
+#include "ability/status/statusLV/Status_LV.h"
 #include "unit/Unit.h"
 #include "board/tile/TileInfo.h"
 //Rock
@@ -9,7 +9,7 @@ namespace ability
 	Status_Evil_Fiend_LV::Status_Evil_Fiend_LV() : Status_LV::Status_LV()
 	{
 		m_Id = STATUS_EVIL_FIEND_LV;
-		addTimePoint(TimePointEvent::Level_Up);
+		//addTimePoint(TimePointEvent::Level_Up);
 	}
 
 	int Status_Evil_Fiend_LV::effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent * p_event)

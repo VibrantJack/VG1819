@@ -1,5 +1,5 @@
 #pragma once
-#include "ability/status/Status.h"
+#include "ability/status/statusLV/Status_LV.h"
 #include "unit/Unit.h"
 #include "board/tile/TileInfo.h"
 //Rock
@@ -9,7 +9,7 @@ namespace ability
 	Status_Lancer_LV2::Status_Lancer_LV2() : Status_LV::Status_LV()
 	{
 		m_Id = STATUS_LANCER_LV2;
-		addTimePoint(TimePointEvent::Level_Up);
+		//addTimePoint(TimePointEvent::Level_Up);
 	}
 
 	int Status_Lancer_LV2::effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent * p_event)
@@ -45,13 +45,13 @@ namespace ability
 	{
 		//check if unit has armor
 		Status* s = m_unit->getStatusContainer()->getStatus(STATUS_SHIELD, STATUS_LANCER_LV2);
-		int armor = m_counter[STATUS_ARMOR];
+		int armor = m_intValue[STATUS_ARMOR];
 		if (s)//status exist
 		{
 			if (s->getCounters().at(UNIT_POWER) >= armor)//unit has more armor than limit
 				return;
 			else
-				s->addCounter(UNIT_POWER, armor);//replace its value
+				s->m_intValue[UNIT_POWER] = armor;//replace its value
 		}
 		else//status not exist
 		{
@@ -60,7 +60,7 @@ namespace ability
 			s->changeName(STATUS_ARMOR);
 			s->m_source = STATUS_LANCER_LV2;
 
-			s->addCounter(UNIT_POWER, armor);
+			s->m_intValue[UNIT_POWER] = armor;
 
 			s->attach(m_unit);
 		}

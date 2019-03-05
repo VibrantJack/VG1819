@@ -43,6 +43,8 @@
 #define ABILITY_EXECUTE "Execute"
 #define ABILITY_HORROR "Horror"
 #define ABILITY_ATTACH "Attach"
+#define ABILITY_HEALTH_LINK "Health Link"
+#define ABILITY_CRASH "Crash"
 
 //ability or status required info
 #define PUSH_BACK "push_back"
@@ -69,6 +71,7 @@
 #define STATUS_BLOCK "Status_Block"
 #define STATUS_CURSE "Status_Curse"
 #define STATUS_ATTACH "Status_Attach"
+#define STATUS_VAMPIRIC_CURSE "Status_Vampiric_Curse"
 
 //lv
 #define STATUS_LV "Status_LV"
@@ -79,15 +82,21 @@
 #define STATUS_LANCER_LV2 "Status_Lancer_LV2"
 #define STATUS_WRAITH_LV2 "Status_Wraith_LV2"
 #define STATUS_EVIL_FIEND_LV "Status_Evil_Fiend_LV"
+#define STATUS_GOREFIEND_LV3 "Status_Gorefiend_LV3"
 
 //demonic restriction
 #define STATUS_DEMONIC_RESTRICTION "Status_Demonic_Restriction"
+#define STATUS_DR_AD_CHANGE "Status_DR_AD_Change"
 #define STATUS_DR_ETERNAL_EYE "Status_DR_Eternal_Eye"
 #define STATUS_DR_MUD_DEMON "Status_DR_Mud_Demon"
-#define STATUS_DR_HORROR_LORD "Status_DR_Horror_Lord"
 #define STATUS_DR_WRAITH "Status_DR_Wraith"
-#define STATUS_DR_EVIL_FIEND "Status_DR_Evil_Fiend"
 
 //status property
 #define STATUS_NAME "status_name"
 #define STATUS_DESCRIPTION "status_description"
+
+#define STATUS_EFFECTED_AD "effectedAD"
+#define STATUS_AD_NAME(n) "ad_name_"+std::to_string(n)
+#define STATUS_AD_ATTRIBUTE_NUM(n) "ad_attribute_num_"+std::to_string(n)
+#define STATUS_AD_ATTRIBUTE(adN,attrN) "ad_attribute_"+std::to_string(adN)+"_"+std::to_string(attrN)
+#define STATUS_AD_VALUE(adN,attrN) "ad_value_"+std::to_string(adN)+"_"+std::to_string(attrN)
