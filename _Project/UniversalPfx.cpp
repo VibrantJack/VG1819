@@ -92,3 +92,18 @@ void UniversalPfx::playEffect(const std::string& p_effectName, const glm::vec3& 
 
 	particleSystem->setEnabled(true);
 }
+
+void UniversalPfx::addEffectToGroup(const std::string& p_effectName, const glm::vec3& p_position)
+{
+	m_groupedEffects.insert(std::pair < std::string, glm::vec3 >(p_effectName, p_position));
+}
+
+void UniversalPfx::playGroupedEffects()
+{
+	auto it = m_groupedEffects.begin();
+	for (it; it != m_groupedEffects.end(); it++ )
+	{
+		playEffect(it->first, it->second);
+	}
+	m_groupedEffects.clear();
+}

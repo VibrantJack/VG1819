@@ -8,6 +8,7 @@
 #include "unit/UnitSpawn.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "networking\ClientGame.h"
+#include "_Project\UniversalPfx.h"
 
 #include "UI/HandFrame.h"
 
@@ -60,6 +61,7 @@ void ability::Ability::multiTargetDamage(AbilityInfoPackage* p_info, bool p_fire
 	if (p_fireProjectile)
 	{
 		ProjectileManager::multiDamageFireProjectile(m_name, p_info->m_source, this, p_info);
+	//	UniversalPfx::getInstance()->addEffectToGroup(m_name, p_info->m_clickedObject->getTransform().getTranslation());
 	}
 	else
 	{
@@ -111,7 +113,7 @@ int ability::Ability::damage(unit::Unit* p_target, int power)
 
 	//change hp
 	node1->effect(p_target, UNIT_HP, power);
-
+	UniversalPfx::getInstance()->playEffect(m_name, p_target->getTransform().getTranslation());
 	return 0;
 }
 
