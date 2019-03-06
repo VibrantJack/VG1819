@@ -28,9 +28,7 @@ void UniversalSounds::start()
 		auto createdSound = kitten::K_GameObjectManager::getInstance()->createNewGameObject(soundPath);
 		kitten::AudioSource* createdAudioSource = createdSound->getComponent<kitten::AudioSource>();
 
-		SoundEntry entry;
-		entry.source = createdAudioSource;
-		entry.originalVolume = createdAudioSource->getVolume();
+		SoundEntry entry(createdAudioSource, createdAudioSource->getVolume());
 
 		m_sounds.insert(std::make_pair(soundName, entry));
 

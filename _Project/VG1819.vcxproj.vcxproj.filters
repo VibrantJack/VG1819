@@ -1079,6 +1079,9 @@
     <ClCompile Include="BGMVolumeController.cpp">
       <Filter>components\options menu</Filter>
     </ClCompile>
+    <ClCompile Include="BGMManager.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2202,6 +2205,9 @@
     </ClInclude>
     <ClInclude Include="SFXVolumeController.h">
       <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="BGMManager.h">
+      <Filter>components\sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

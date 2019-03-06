@@ -129,6 +129,14 @@ namespace kitten
 		}
 	}
 
+	void AudioSource::stop()
+	{
+		if (!m_audioClip->isFinished())
+		{
+			m_audioClip->stop();
+		}
+	}
+
 	void AudioSource::setClip(const std::string& p_pathToClip, bool p_is3D, bool p_enableEffects)
 	{
 		if (m_causesDuck)

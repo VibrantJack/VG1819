@@ -14,7 +14,10 @@ private:
 	struct SoundEntry
 	{
 		kitten::AudioSource* source;
-		float originalVolume;
+		const float originalVolume;
+
+		SoundEntry(kitten::AudioSource* s, const float& v)
+			: source(s), originalVolume(v) {};
 	};
 	
 	static UniversalSounds* sm_instance;

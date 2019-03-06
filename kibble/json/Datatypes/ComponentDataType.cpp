@@ -1849,6 +1849,23 @@ kitten::K_Component* getUniversalSounds(nlohmann::json* p_jsonFile) {
 	return new UniversalSounds(sounds);
 }
 
+#include "_Project\BGMManager.h"
+kitten::K_Component* getBGMManager(nlohmann::json* p_jsonFile) {
+
+	std::list<std::pair<std::string, std::string>> sounds;
+
+	auto end = p_jsonFile->operator[]("track").cend();
+	for (auto it = p_jsonFile->operator[]("track").cbegin(); it != end; ++it)
+	{
+		std::string trackName = (*it)["track"][0];
+		std::string soundPath = (*it)["track"][1];
+
+		sounds.push_back(std::make_pair(trackName, soundPath));
+	}
+
+	return new BGMManager(sounds);
+}
+
 #include "_Project\PlaySoundOnUIClick.h"
 kitten::K_Component* getPlaySoundOnUIClick(nlohmann::json* p_jsonFile) {
 	return new PlaySoundOnUIClick();
@@ -2147,6 +2164,7 @@ void setupComponentMap() {
 	jsonComponentMap["ResolutionController"] = &getResolutionController;
 	jsonComponentMap["SFXVolumeController"] = &getSFXVolumeController;
 	jsonComponentMap["BGMVolumeController"] = &getBGMVolumeController;
+	jsonComponentMap["BGMManager"] = &getBGMManager;
 
 }
 
