@@ -125,7 +125,7 @@ namespace kitten
 
 		if (m_causesDuck)
 		{
-			tryDuckOthers(true);
+			//tryDuckOthers(true);
 		}
 	}
 
@@ -133,7 +133,7 @@ namespace kitten
 	{
 		if (m_causesDuck)
 		{
-			tryDuckOthers(false);
+			//tryDuckOthers(false);
 		}
 
 		m_audioClip->stop();
@@ -155,7 +155,7 @@ namespace kitten
 		
 		if (m_causesDuck)
 		{
-			tryDuckOthers(!p_paused);
+			//tryDuckOthers(!p_paused);
 		}
 	}
 
@@ -198,7 +198,7 @@ namespace kitten
 
 		if (m_causesDuck)
 		{
-			tryDuckOthers(true);
+			//tryDuckOthers(true);
 		}
 	}
 
@@ -280,7 +280,7 @@ namespace kitten
 	{
 		if (m_causesDuck)
 		{
-			tryDuckOthers(false);
+			//tryDuckOthers(false);
 		}
 	}
 }
