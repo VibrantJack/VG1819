@@ -24,11 +24,11 @@ namespace networking
 		void setupNetwork();
 		void shutdownNetwork();
 
+
+
 		void update();
 		void receiveFromPolledClients();
 		void receiveFromClients();
-		
-		void sendSummonedUnitPacket(unsigned int p_iClientId, UnitPacket p_packet);
 
 		void flagShutdown(bool p_flag) { m_shutdown = p_flag; }
 

@@ -42,9 +42,16 @@ namespace networking
 		void removePolledClient(unsigned int & p_polledClientId);
 		void removeClient(unsigned int & p_iClientId);
 
+		const SOCKET getClientSocket(unsigned int p_clientId) const;
+
 		const std::string& getError() const { return m_strError; }
 
 	private:
+		struct ClientInfo
+		{
+			SOCKET m_socket = INVALID_SOCKET;
+			int m_gameSessionId = -1;
+		};
 		// Socket to listen for new connections
 		SOCKET m_listenSocket;
 
@@ -56,8 +63,8 @@ namespace networking
 
 		// m_sessions: client sockets that are playing the game
 		// m_polledSessions: client sockets that have polled for the server and have not commit to joining
-		std::map<unsigned int, SOCKET> m_sessions;
-		std::map<unsigned int, SOCKET> m_polledSessions;
+		std::map<unsigned int, ClientInfo> m_sessions;
+		std::map<unsigned int, ClientInfo> m_polledSessions;
 		
 		std::string m_strError;
 	};

@@ -459,13 +459,4 @@ namespace networking
 			}
 		}
 	}
-
-	void ServerGame::sendSummonedUnitPacket(unsigned int p_iClientId, UnitPacket p_packet)
-	{
-		char packet_data[UNIT_PACKET_SIZE];
-
-		//p_packet.serialize(packet_data);
-
-		m_network->sendToOthers(p_iClientId, packet_data, UNIT_PACKET_SIZE);
-	}
 }

@@ -110,11 +110,11 @@ namespace networking
 		SOCKET currentSocket;
 		for (auto iter = m_sessions.begin(); iter != m_sessions.end(); iter++)
 		{
-			currentSocket = iter->second;
-			if (currentSocket != INVALID_SOCKET)
+			ClientInfo client = iter->second;
+			if (client.m_socket != INVALID_SOCKET)
 			{
-				closesocket(currentSocket);
-				iter->second = INVALID_SOCKET;
+				closesocket(client.m_socket);
+				client.m_socket = INVALID_SOCKET;
 			}
 		}
 		WSACleanup();
@@ -132,8 +132,11 @@ namespace networking
 			char value = 1;
 			setsockopt(m_clientSocket, IPPROTO_TCP, TCP_NODELAY, &value, sizeof(value));
 
+			ClientInfo client;
+			client.m_socket = m_clientSocket;
+
 			// Insert new client into polled sessions id map
-			m_polledSessions.insert(std::pair<unsigned int, SOCKET>(p_iClientId, m_clientSocket));
+			m_polledSessions.insert(std::pair<unsigned int, ClientInfo>(p_iClientId, client));
 
 			return true;
 		}
@@ -148,10 +151,10 @@ namespace networking
 		if (iter != m_polledSessions.end())
 		{
 			// Add client socket from polled sessions to main sessions
-			m_sessions.insert(std::pair<unsigned int, SOCKET>(p_iClientId, iter->second));
+			m_sessions.insert(std::pair<unsigned int, ClientInfo>(p_iClientId, iter->second));
 
-			// Set the mapped socket in polled sessions to invalid
-			m_polledSessions[p_iPolledClientId] = INVALID_SOCKET;
+			// Remove the client from the polled sessions map
+			m_polledSessions.erase(iter);
 		}
 		else
 		{
@@ -161,13 +164,13 @@ namespace networking
 
 	void ServerNetwork::removePolledClient(unsigned int & p_polledClientId)
 	{
-		if (m_polledSessions.find(p_polledClientId) != m_polledSessions.end())
+		if (auto it = m_polledSessions.find(p_polledClientId) != m_polledSessions.end())
 		{
 			printf("Server disconnecting [Polled Client: %d]\n", p_polledClientId);
 
-			SOCKET currentSocket = m_polledSessions[p_polledClientId];
-			closesocket(currentSocket);
-			m_polledSessions[p_polledClientId] = INVALID_SOCKET;
+			ClientInfo client = m_polledSessions[p_polledClientId];
+			closesocket(client.m_socket);
+			m_polledSessions.erase(it);
 		} 
 		else
 		{
@@ -177,19 +180,13 @@ namespace networking
 
 	void ServerNetwork::removeClient(unsigned int & p_iClientId)
 	{
-		if (m_sessions.find(p_iClientId) != m_sessions.end())
+		if (auto it = m_sessions.find(p_iClientId) != m_sessions.end())
 		{
 			printf("Server disconnecting [Client: %d]\n", p_iClientId);
 
-			SOCKET currentSocket = m_sessions[p_iClientId];
-			closesocket(currentSocket);
-			m_sessions[p_iClientId] = INVALID_SOCKET;
-
-			// Cannot remove the socket from the map as this function is called from ServerGame::update()
-			// iterator that references the current socket
-			// Socket clean up should be taken care of in ServerNetwork::shutdown();
-			// Consider something similar to K_GameObjectManager::deleteQueuedObjects() if necessary 
-			//m_sessions.erase(p_iClientId);
+			ClientInfo client = m_sessions[p_iClientId];
+			closesocket(client.m_socket);
+			m_sessions.erase(it);
 		}
 		else
 		{
@@ -199,16 +196,16 @@ namespace networking
 
 	int ServerNetwork::receiveData(unsigned int client_id, char * recvbuf)
 	{
-		if (m_sessions.find(client_id) != m_sessions.end())
+		if (auto it = m_sessions.find(client_id) != m_sessions.end())
 		{
-			SOCKET currentSocket = m_sessions[client_id];
-			m_iResult = NetworkServices::receiveMessage(currentSocket, recvbuf, MAX_PACKET_SIZE);
+			ClientInfo client = m_sessions[client_id];
+			m_iResult = NetworkServices::receiveMessage(client.m_socket, recvbuf, MAX_PACKET_SIZE);
 
 			if (m_iResult == 0)
 			{
 				printf("Server lost connection to [Client: %d]\n", client_id);
-				closesocket(currentSocket);
-				m_sessions[client_id] = INVALID_SOCKET;
+				closesocket(client.m_socket);
+				m_sessions.erase(it);
 			}
 			return m_iResult;
 		}
@@ -217,16 +214,16 @@ namespace networking
 
 	int ServerNetwork::receiveDataFromPolled(unsigned int client_id, char * recvbuf)
 	{
-		if (m_polledSessions.find(client_id) != m_polledSessions.end())
+		if (auto it = m_polledSessions.find(client_id) != m_polledSessions.end())
 		{
-			SOCKET currentSocket = m_polledSessions[client_id];
-			m_iResult = NetworkServices::receiveMessage(currentSocket, recvbuf, MAX_PACKET_SIZE);
+			ClientInfo client = m_polledSessions[client_id];
+			m_iResult = NetworkServices::receiveMessage(client.m_socket, recvbuf, MAX_PACKET_SIZE);
 
 			if (m_iResult == 0)
 			{
 				printf("Server lost connection to [Polled Client: %d]\n", client_id);
-				closesocket(currentSocket);
-				m_sessions[client_id] = INVALID_SOCKET;
+				closesocket(client.m_socket);
+				m_polledSessions.erase(it);
 			}
 			return m_iResult;
 		}
@@ -236,100 +233,113 @@ namespace networking
 	// send data to all clients
 	void ServerNetwork::sendToAll(char * packets, int totalSize)
 	{
-		SOCKET currentSocket;
-		std::map<unsigned int, SOCKET>::iterator iter;
-		int iSendResult;
+		ClientInfo client;
+		std::map<unsigned int, ClientInfo>::iterator iter;
+		int sendResult;
 
-		for (iter = m_sessions.begin(); iter != m_sessions.end(); iter++)
+		for (iter = m_sessions.begin(); iter != m_sessions.end(); /* no increment */)
 		{
-			currentSocket = iter->second;
-			if (currentSocket != INVALID_SOCKET)
-			{
-				iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
+			client = iter->second;
+			sendResult = NetworkServices::sendMessage(client.m_socket, packets, totalSize);
 
-				if (iSendResult == SOCKET_ERROR)
-				{
-					printf("send to [Client: %d] failed with error: %d\n", iter->first, WSAGetLastError());
-					closesocket(currentSocket);
-					iter->second = INVALID_SOCKET;
-				}
+			if (sendResult == SOCKET_ERROR)
+			{
+				printf("send to [Client: %d] failed with error: %d\n", iter->first, WSAGetLastError());
+				closesocket(client.m_socket);
+				iter = m_sessions.erase(iter);
 			}
+			else
+			{
+				++iter;
+			}
+			
 		}
 	}
 
 	// Send to a specific client
 	void ServerNetwork::sendToClient(unsigned int client_id, char * packets, int totalSize)
 	{
-		SOCKET currentSocket;
-		std::map<unsigned int, SOCKET>::iterator iter;
+		ClientInfo client;
+		std::map<unsigned int, ClientInfo>::iterator iter;
 		int iSendResult;
 
 		iter = m_sessions.find(client_id);
 		if (iter != m_sessions.end()) 
 		{
-			currentSocket = iter->second;
-			if (currentSocket != INVALID_SOCKET)
-			{
-				iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
+			client = iter->second;
+			iSendResult = NetworkServices::sendMessage(client.m_socket, packets, totalSize);
 
-				if (iSendResult == SOCKET_ERROR)
-				{
-					printf("send failed with error: %d\n", WSAGetLastError());
-					closesocket(currentSocket);
-					iter->second = INVALID_SOCKET;
-				}
+			if (iSendResult == SOCKET_ERROR)
+			{
+				printf("send failed with error: %d\n", WSAGetLastError());
+				closesocket(client.m_socket);
+				m_sessions.erase(iter);
 			}
+			
 		}
 	}
 
 	// Send to all clients except the one specified
 	void ServerNetwork::sendToOthers(unsigned int client_id, char * packets, int totalSize)
 	{
-		SOCKET currentSocket;
-		std::map<unsigned int, SOCKET>::iterator iter;
+		ClientInfo client;
+		std::map<unsigned int, ClientInfo>::iterator iter;
 		int iSendResult;
 
-		for (iter = m_sessions.begin(); iter != m_sessions.end(); iter++)
+		for (iter = m_sessions.begin(); iter != m_sessions.end(); /* no increment */)
 		{
 			if (iter->first != client_id)
 			{
-				currentSocket = iter->second;
-				if (currentSocket != INVALID_SOCKET)
-				{
-					iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
+				client = iter->second;
+				iSendResult = NetworkServices::sendMessage(client.m_socket, packets, totalSize);
 
-					if (iSendResult == SOCKET_ERROR)
-					{
-						printf("send failed with error: %d\n", WSAGetLastError());
-						closesocket(currentSocket);
-						iter->second = INVALID_SOCKET;
-					}
+				if (iSendResult == SOCKET_ERROR)
+				{
+					printf("send failed with error: %d\n", WSAGetLastError());
+					closesocket(client.m_socket);
+					iter = m_sessions.erase(iter);
 				}
+				else
+				{
+					++iter;
+				}
+				
 			}
 		}
 	}
 
 	void ServerNetwork::sendToPolledClient(unsigned int client_id, char * packets, int totalSize)
 	{
-		SOCKET currentSocket;
-		std::map<unsigned int, SOCKET>::iterator iter;
+		ClientInfo client;
+		std::map<unsigned int, ClientInfo>::iterator iter;
 		int iSendResult;
 
 		iter = m_polledSessions.find(client_id);
 		if (iter != m_polledSessions.end())
 		{
-			currentSocket = iter->second;
-			if (currentSocket != INVALID_SOCKET)
-			{
-				iSendResult = NetworkServices::sendMessage(currentSocket, packets, totalSize);
+			client = iter->second;
+			iSendResult = NetworkServices::sendMessage(client.m_socket, packets, totalSize);
 
-				if (iSendResult == SOCKET_ERROR)
-				{
-					printf("send failed with error: %d\n", WSAGetLastError());
-					closesocket(currentSocket);
-					iter->second = INVALID_SOCKET;
-				}
+			if (iSendResult == SOCKET_ERROR)
+			{
+				printf("send failed with error: %d\n", WSAGetLastError());
+				closesocket(client.m_socket);
+				m_polledSessions.erase(iter);
 			}
+			
+		}
+	}
+
+	const SOCKET ServerNetwork::getClientSocket(unsigned int p_clientId) const
+	{
+		auto it = m_sessions.find(p_clientId);
+		if (it != m_sessions.end())
+		{
+			return (*it).second.m_socket;
+		}
+		else
+		{
+			return INVALID_SOCKET;
 		}
 	}
 }
