@@ -28,7 +28,11 @@ void UniversalSounds::start()
 		auto createdSound = kitten::K_GameObjectManager::getInstance()->createNewGameObject(soundPath);
 		kitten::AudioSource* createdAudioSource = createdSound->getComponent<kitten::AudioSource>();
 
-		m_sounds.insert(std::make_pair(soundName, createdAudioSource));
+		SoundEntry entry;
+		entry.source = createdAudioSource;
+		entry.originalVolume = createdAudioSource->getVolume();
+
+		m_sounds.insert(std::make_pair(soundName, entry));
 
 		createdSound->getTransform().setParent(&(getTransform()));
 	}
@@ -46,7 +50,7 @@ void UniversalSounds::privatePlaySound(const std::string& p_sound) const
 	auto found = m_sounds.find(p_sound);
 	if (found != m_sounds.cend())
 	{
-		(*found).second->play();
+		(*found).second.source->play();
 	}
 }
 
@@ -60,10 +64,10 @@ void UniversalSounds::privateSetVolume(float p_volume)
 	auto end = m_sounds.cend();
 	for (auto it = m_sounds.cbegin(); it != end; ++it)
 	{
-		auto soundSource = (*it).second;
-		
-		float nextVolume = soundSource->getVolume() / m_volume;
-		nextVolume *= p_volume;
+		auto entry = (*it).second;
+		auto soundSource = entry.source;
+
+		float nextVolume = p_volume * entry.originalVolume;
 
 		soundSource->setVolume(nextVolume);
 	}
