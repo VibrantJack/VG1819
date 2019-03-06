@@ -1,6 +1,6 @@
 {
-	"BGM_Volume" : 1.000000,
-	"SFX_Volume" : 1.000000,
+	"BGM_Volume" : 165,
+	"SFX_Volume" : 170,
 	"Fullscreen" : false,
-	"Resolution" : [1920, 1080]
+	"Resolution" : [1280, 720]
 }

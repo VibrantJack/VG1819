@@ -2,9 +2,9 @@
 
 #include "settings_menu\PlayerPrefs.h"
 
-IncreaseSFXVolumeOnClick::IncreaseSFXVolumeOnClick(float p_amount) : m_amount(p_amount)
+IncreaseSFXVolumeOnClick::IncreaseSFXVolumeOnClick(int p_amount) : m_amount(p_amount), m_controller(nullptr)
 {
-
+	
 }
 
 IncreaseSFXVolumeOnClick::~IncreaseSFXVolumeOnClick()
@@ -12,7 +12,18 @@ IncreaseSFXVolumeOnClick::~IncreaseSFXVolumeOnClick()
 
 }
 
+void IncreaseSFXVolumeOnClick::start()
+{
+	ClickableUI::start();
+
+	auto parent = getTransform().getParent();
+	assert(parent != nullptr);
+
+	m_controller = parent->getAttachedGameObject().getComponent<SFXVolumeController>();
+	assert(m_controller != nullptr);
+}
+
 void IncreaseSFXVolumeOnClick::onClick()
 {
-	PlayerPrefs::setSFXVolume(m_amount + PlayerPrefs::getSFXVolume());
+	m_controller->changeSFXVolume(m_amount);
 }

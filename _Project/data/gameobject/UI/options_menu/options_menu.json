@@ -48,6 +48,9 @@
 						{
 							"name" : "UIElement",
 							"texture" : "textures/ui/options_sfx.png"
+						},
+						{
+							"name" : "SFXVolumeController"
 						}
 					],
 					"translate" : [10, 160, 0.1],
@@ -67,7 +70,11 @@
 								},
 								{
 									"name" : "DecreaseSFXVolumeOnClick",
-									"amount" : 0.05
+									"amount" : 5
+								},
+								{
+									"name" : "PlayUniversalSoundOnUIClick",
+									"sound_name" : "click_2"
 								}
 							],
 							"translate" : [150, 0, 0]
@@ -85,10 +92,29 @@
 								},
 								{
 									"name" : "IncreaseSFXVolumeOnClick",
-									"amount" : 0.05
+									"amount" : 5
+								},
+								{
+									"name" : "PlayUniversalSoundOnUIClick",
+									"sound_name" : "click_2"
 								}
 							],
 							"translate" : [450, 0, 0]
+						},
+						{
+							"name" : "Current SFX Text",
+							"components" : 
+							[
+								{
+									"name" : "TextBox",
+									"font" : "../fonts/ms_gothic.fnt",
+									"width" : 500,
+									"height" : 50,
+									"alignment" : "center"
+								}
+							],
+							"translate" : [100, 42, 0],
+							"worldscale" : [1,1,1]
 						}
 					]
 				},
@@ -99,6 +125,9 @@
 						{
 							"name" : "UIElement",
 							"texture" : "textures/ui/options_bgm.png"
+						},
+						{
+							"name" : "BGMVolumeController"
 						}
 					],
 					"translate" : [10, 100, 0.1],
@@ -118,7 +147,11 @@
 								},
 								{
 									"name" : "DecreaseBGMVolumeOnClick",
-									"amount" : 0.05
+									"amount" : 5
+								},
+								{
+									"name" : "PlayUniversalSoundOnUIClick",
+									"sound_name" : "click_2"
 								}
 							],
 							"translate" : [150, 0, 0]
@@ -136,10 +169,29 @@
 								},
 								{
 									"name" : "IncreaseBGMVolumeOnClick",
-									"amount" : 0.05
+									"amount" : 5
+								},
+								{
+									"name" : "PlayUniversalSoundOnUIClick",
+									"sound_name" : "click_2"
 								}
 							],
 							"translate" : [450, 0, 0]
+						},
+						{
+							"name" : "Current BGM Text",
+							"components" : 
+							[
+								{
+									"name" : "TextBox",
+									"font" : "../fonts/ms_gothic.fnt",
+									"width" : 500,
+									"height" : 50,
+									"alignment" : "center"
+								}
+							],
+							"translate" : [100, 42, 0],
+							"worldscale" : [1,1,1]
 						}
 					]
 				},
@@ -172,6 +224,10 @@
 								},
 								{
 									"name" : "DecreaseResolutionOnClick"
+								},
+								{
+									"name" : "PlayUniversalSoundOnUIClick",
+									"sound_name" : "click_2"
 								}
 							],
 							"translate" : [150, 0, 0]
@@ -189,6 +245,10 @@
 								},
 								{
 									"name" : "IncreaseResolutionOnClick"
+								},
+								{
+									"name" : "PlayUniversalSoundOnUIClick",
+									"sound_name" : "click_2"
 								}
 							],
 							"translate" : [450, 0, 0]

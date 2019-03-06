@@ -6,7 +6,6 @@
 class IncreaseResolutionOnClick : public kitten::ClickableUI
 {
 private:
-
 	ResolutionController* m_resController;
 
 	virtual void start() override;

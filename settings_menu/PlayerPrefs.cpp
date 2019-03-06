@@ -47,6 +47,7 @@ void PlayerPrefs::start()
 		if (foundSFX != jsonFile.end())
 		{
 			m_sfxVolume = (*foundSFX);
+			UniversalSounds::setVolume((float)m_sfxVolume / 100.0f);
 		}
 
 		if (foundFullscreen != jsonFile.end())
@@ -73,14 +74,15 @@ void PlayerPrefs::start()
 	kitten::K_GameObjectManager::getInstance()->flagGameObjectToSurvive(m_attachedObject);
 }
 
-void PlayerPrefs::setSFXVolume(float p_volume)
+void PlayerPrefs::setSFXVolume(int p_volume)
 {
 	sm_instance->privateSetSFXVolume(p_volume);
 }
 
-void PlayerPrefs::privateSetSFXVolume(float p_volume)
+void PlayerPrefs::privateSetSFXVolume(int p_volume)
 {
 	m_sfxVolume = p_volume;
+	UniversalSounds::setVolume((float)p_volume/100.0f);
 }
 
 float PlayerPrefs::getSFXVolume()
@@ -88,15 +90,14 @@ float PlayerPrefs::getSFXVolume()
 	return sm_instance->m_sfxVolume;
 }
 
-void PlayerPrefs::setBGMVolume(float p_volume)
+void PlayerPrefs::setBGMVolume(int p_volume)
 {
 	sm_instance->privateSetBGMVolume(p_volume);
 }
 
-void PlayerPrefs::privateSetBGMVolume(float p_volume)
+void PlayerPrefs::privateSetBGMVolume(int p_volume)
 {
 	m_bgmVolume = p_volume;
-	UniversalSounds::setVolume(p_volume);
 }
 
 float PlayerPrefs::getBGMVolume()
@@ -104,7 +105,7 @@ float PlayerPrefs::getBGMVolume()
 	return sm_instance->m_bgmVolume;
 }
 
-// Doesn't go anything yet --
+// Doesn't do anything yet --
 // GLFW does not support switching
 void PlayerPrefs::setFullscreen(bool p_isFullscreen)
 {

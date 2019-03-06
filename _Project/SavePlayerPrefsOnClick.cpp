@@ -1,6 +1,7 @@
 #include "SavePlayerPrefsOnClick.h"
 
 #include "settings_menu\PlayerPrefs.h"
+#include "UniversalSounds.h"
 
 SavePlayerPrefsOnClick::SavePlayerPrefsOnClick()
 {
@@ -22,4 +23,6 @@ void SavePlayerPrefsOnClick::onClick()
 	{
 		parent->getAttachedGameObject().setEnabled(false);
 	}
+
+	UniversalSounds::playSound("click");
 }

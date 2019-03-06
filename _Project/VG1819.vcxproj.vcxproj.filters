@@ -1073,6 +1073,12 @@
     <ClCompile Include="ToggleChildEnabledOnKeyPress.cpp">
       <Filter>components\debug</Filter>
     </ClCompile>
+    <ClCompile Include="SFXVolumeController.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="BGMVolumeController.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2190,6 +2196,12 @@
     </ClInclude>
     <ClInclude Include="ToggleChildEnabledOnKeyPress.h">
       <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="BGMVolumeController.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="SFXVolumeController.h">
+      <Filter>components\options menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

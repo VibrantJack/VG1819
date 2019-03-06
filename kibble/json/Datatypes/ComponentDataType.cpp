@@ -1941,27 +1941,37 @@ kitten::K_Component* getDisableParentOnClick(nlohmann::json* p_jsonFile) {
 	return new DisableParentOnClick();
 }
 
+#include "_Project\SFXVolumeController.h"
+kitten::K_Component* getSFXVolumeController(nlohmann::json* p_jsonFile) {
+	return new SFXVolumeController();
+}
+
+#include "_Project\BGMVolumeController.h"
+kitten::K_Component* getBGMVolumeController(nlohmann::json* p_jsonFile) {
+	return new BGMVolumeController();
+}
+
 #include "_Project\IncreaseSFXVolumeOnClick.h"
 kitten::K_Component* getIncreaseSFXVolumeOnClick(nlohmann::json* p_jsonFile) {
-	float amount = p_jsonFile->operator[]("amount");
+	int amount = p_jsonFile->operator[]("amount");
 	return new IncreaseSFXVolumeOnClick(amount);
 }
 
 #include "_Project\DecreaseSFXVolumeOnClick.h"
 kitten::K_Component* getDecreaseSFXVolumeOnClick(nlohmann::json* p_jsonFile) {
-	float amount = p_jsonFile->operator[]("amount");
+	int amount = p_jsonFile->operator[]("amount");
 	return new DecreaseSFXVolumeOnClick(amount);
 }
 
 #include "_Project\IncreaseBGMVolumeOnClick.h"
 kitten::K_Component* getIncreaseBGMVolumeOnClick(nlohmann::json* p_jsonFile) {
-	float amount = p_jsonFile->operator[]("amount");
+	int amount = p_jsonFile->operator[]("amount");
 	return new IncreaseBGMVolumeOnClick(amount);
 }
 
 #include "_Project\DecreaseBGMVolumeOnClick.h"
 kitten::K_Component* getDecreaseBGMVolumeOnClick(nlohmann::json* p_jsonFile) {
-	float amount = p_jsonFile->operator[]("amount");
+	int amount = p_jsonFile->operator[]("amount");
 	return new DecreaseBGMVolumeOnClick(amount);
 }
 
@@ -2135,6 +2145,8 @@ void setupComponentMap() {
 	jsonComponentMap["IncreaseResolutionOnClick"] = &getIncreaseResolutionOnClick;
 	jsonComponentMap["DecreaseResolutionOnClick"] = &getDecreaseResolutionOnClick;
 	jsonComponentMap["ResolutionController"] = &getResolutionController;
+	jsonComponentMap["SFXVolumeController"] = &getSFXVolumeController;
+	jsonComponentMap["BGMVolumeController"] = &getBGMVolumeController;
 
 }
 
