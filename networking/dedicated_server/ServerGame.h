@@ -42,7 +42,6 @@ namespace networking
 		// data buffer
 		char m_network_data[MAX_PACKET_SIZE];
 		bool m_shutdown;
-		bool m_mapChanged = false;
 
 		static bool sm_networkValid;
 

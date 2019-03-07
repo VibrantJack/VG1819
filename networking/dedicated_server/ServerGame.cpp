@@ -111,6 +111,8 @@ namespace networking
 		receiveFromPolledClients();
 		receiveFromClients();
 
+		m_network->removeQueuedRemovals();
+
 		if (m_shutdown)
 		{
 			shutdownNetwork();
@@ -124,7 +126,12 @@ namespace networking
 
 		for (iter = m_network->m_polledSessions.begin(); iter != m_network->m_polledSessions.end(); /* no increment */)
 		{
-			int data_length = m_network->receiveDataFromPolled(iter->first, m_network_data);
+			// Get the values from the iterator then increment early in the case something is removed from the map
+			int polledId = iter->first;
+			ClientInfo client = iter->second;
+			++iter;
+
+			int data_length = m_network->receiveDataFromPolled(polledId, m_network_data);
 
 			if (data_length <= 0)
 			{
@@ -148,16 +155,15 @@ namespace networking
 				case JOIN_GAME:
 				{
 					i += BASIC_PACKET_SIZE;
-					printf("Server received JOIN_GAME packet from [Polled Client: %d]\n", iter->first);
+					printf("Server received JOIN_GAME packet from [Polled Client: %d]\n", polledId);
 					if (m_clientId < MAX_JOINED_CLIENTS)
 					{
-						printf("[Polled Client: %d] is now [Client: %d]\n", iter->first, m_clientId);
+						printf("[Polled Client: %d] is now [Client: %d]\n", polledId, m_clientId);
 
 						int assignedClientId = m_clientId;
 
 						// Add client socket from polled sessions to main sessions
-						m_network->addPolledClientToSessions(iter->first, m_clientId);
-						m_mapChanged = true;
+						m_network->addPolledClientToSessions(polledId, m_clientId);
 						m_clientId++;
 
 						// Send a packet to the client to notify them what their ID is
@@ -186,17 +192,15 @@ namespace networking
 						packet.m_clientId = -1;
 
 						packet.serialize(buffer);
-						m_network->sendToPolledClient(iter->first, packetData, BASIC_PACKET_SIZE);
+						m_network->sendToPolledClient(polledId, packetData, BASIC_PACKET_SIZE);
 					}
 					break;
 				}
 				case CLIENT_DISCONNECT:
 				{
 					i += BASIC_PACKET_SIZE;
-					unsigned int clientId = iter->first;
-					printf("Server received CLIENT_DISCONNECT from [Polled Client: %d]\n", clientId);
-					m_network->removePolledClient(clientId);
-					m_mapChanged = true;
+					printf("Server received CLIENT_DISCONNECT from [Polled Client: %d]\n", polledId);
+					m_network->queuePolledClientRemoval(client);
 					break;
 				}
 				case PING_SOCKET:
@@ -206,22 +210,10 @@ namespace networking
 					break;
 				}
 				default:
-					printf("error in packet types received from [Polled Client: %d], value: %d\n", iter->first, defaultPacket.m_packetType);
+					printf("error in packet types received from [Polled Client: %d], value: %d\n", polledId, defaultPacket.m_packetType);
 					i += (unsigned int)data_length;
 					break;
 				}
-				//++iter; // If we haven't erased something from the map, then we will increment here
-			}
-
-			if (!m_mapChanged)
-			{
-				++iter;
-				printf("iterating\n");
-			}
-			else
-			{
-				m_mapChanged = false;
-				printf("skipping iteration\n");
 			}
 		}
 	}
@@ -231,10 +223,14 @@ namespace networking
 		// go through all clients to see if they are trying to send data
 		std::map<unsigned int, ClientInfo>::iterator iter;
 
-		for (iter = m_network->m_sessions.begin(); iter != m_network->m_sessions.end(); iter++)
+		for (iter = m_network->m_sessions.begin(); iter != m_network->m_sessions.end(); /* no increment */)
 		{
-			int data_length = m_network->receiveData(iter->first, m_network_data);
+			// Get the values and then increment early in the case that something is removed from the map
+			int clientId = iter->first;
+			ClientInfo client = iter->second;
+			++iter;
 
+			int data_length = m_network->receiveData(clientId, m_network_data);
 			if (data_length <= 0)
 			{
 				//no data recieved
@@ -256,10 +252,9 @@ namespace networking
 					case JOIN_GAME:
 					{
 						i += BASIC_PACKET_SIZE;
-						printf("Server received JOIN_GAME packet from [Client: %d]\n", iter->first);
+						printf("Server received JOIN_GAME packet from [Client: %d]\n", clientId);
 
 						// Send a packet to the client to notify them what their ID is
-						int clientId = iter->first;
 						char packetData[BASIC_PACKET_SIZE];
 
 						Buffer buffer;// = NetworkServices::createBuffer(BASIC_PACKET_SIZE);
@@ -277,10 +272,9 @@ namespace networking
 					case INIT_CONNECTION:
 					{
 						i += BASIC_PACKET_SIZE;
-						printf("Server received init packet from [Client: %d]\n", iter->first);
+						printf("Server received init packet from [Client: %d]\n", clientId);
 
 						// Send a packet to the client to notify them what their ID is
-						int clientId = iter->first;
 						char packetData[BASIC_PACKET_SIZE];
 
 						Buffer buffer;// = NetworkServices::createBuffer(BASIC_PACKET_SIZE);
@@ -298,15 +292,14 @@ namespace networking
 					case CLIENT_DISCONNECT:
 					{
 						i += BASIC_PACKET_SIZE;
-						ClientInfo client = iter->second;
-						printf("Server received CLIENT_DISCONNECT from [Client: %d]\n", client.m_clientId);
-						m_network->removeClient(client);
+						printf("Server received CLIENT_DISCONNECT from [Client: %d]\n", clientId);
+						m_network->queueClientRemoval(client);
 
 						break;
 					}
 					case ABILITY_PACKET:
 					{
-						printf("Server received ABILITY_PACKET from [Client: %d]\n", iter->first);
+						printf("Server received ABILITY_PACKET from [Client: %d]\n", clientId);
 						Buffer buffer;
 						buffer.m_data = &(m_network_data[i]);
 						buffer.m_size = MAX_PACKET_SIZE;
@@ -321,14 +314,14 @@ namespace networking
 						newBuffer.m_data = data;
 						newBuffer.m_size = packetTotalBytes;
 						packet.serialize(newBuffer);
-						m_network->sendToOthers(iter->first, data, packetTotalBytes);
+						m_network->sendToOthers(clientId, data, packetTotalBytes);
 						delete[] data;
 
 						break;
 					}
 					case CAST_TIME_ABILITY_PACKET:
 					{
-						printf("Server received CAST_TIME_ABILITY_PACKET from [Client: %d]\n", iter->first);
+						printf("Server received CAST_TIME_ABILITY_PACKET from [Client: %d]\n", clientId);
 						Buffer buffer;
 						buffer.m_data = &(m_network_data[i]);
 						buffer.m_size = MAX_PACKET_SIZE;
@@ -337,21 +330,20 @@ namespace networking
 						packet.deserialize(buffer);
 						int packetTotalBytes = packet.getBytes();
 						i += packetTotalBytes;
-						//packet.print();
 
 						char* data = new char[packetTotalBytes];
 						Buffer newBuffer;
 						newBuffer.m_data = data;
 						newBuffer.m_size = packetTotalBytes;
 						packet.serialize(newBuffer);
-						m_network->sendToOthers(iter->first, data, packetTotalBytes);
+						m_network->sendToOthers(clientId, data, packetTotalBytes);
 						delete[] data;
 
 						break;
 					}
 					case SUMMON_UNIT:
 					{
-						printf("Server received SUMMON_UNIT packet from [Client: %d]\n", iter->first);
+						printf("Server received SUMMON_UNIT packet from [Client: %d]\n", clientId);
 						Buffer buffer;
 						buffer.m_data = &(m_network_data[i]);
 						buffer.m_size = UNIT_PACKET_SIZE;
@@ -366,13 +358,13 @@ namespace networking
 						newBuffer.m_data = data;
 						newBuffer.m_size = UNIT_PACKET_SIZE;
 						summonUnitPacket.serialize(newBuffer);
-						m_network->sendToOthers(iter->first, data, UNIT_PACKET_SIZE);
+						m_network->sendToOthers(clientId, data, UNIT_PACKET_SIZE);
 
 						break;
 					}
 					case READY_CHECK:
 					{
-						printf("Server received READY_CHECK packet from [Client: %d]\n", iter->first);
+						printf("Server received READY_CHECK packet from [Client: %d]\n", clientId);
 
 						if (m_clientsReadyChecked < MAX_JOINED_CLIENTS)
 						{
@@ -398,7 +390,7 @@ namespace networking
 					}
 					case STARTING_COMMANDER_DATA:
 					{
-						printf("Server received STARTING_COMMANDER_DATA packet from [Client: %d]\n", iter->first);
+						printf("Server received STARTING_COMMANDER_DATA packet from [Client: %d]\n", clientId);
 						Buffer buffer;
 						buffer.m_data = &(m_network_data[i]);
 						buffer.m_size = UNIT_PACKET_SIZE;
@@ -437,16 +429,16 @@ namespace networking
 					case TEXTCHAT_MESSAGE:
 					{
 						i += TEXTCHAT_MESSAGE_PACKET_SIZE;
-						printf("Server received TEXTCHAT_MESSAGE packet from [Client: %d]\n", iter->first);
-						m_network->sendToOthers(iter->first, defaultBuffer.m_data, TEXTCHAT_MESSAGE_PACKET_SIZE);
+						printf("Server received TEXTCHAT_MESSAGE packet from [Client: %d]\n", clientId);
+						m_network->sendToOthers(clientId, defaultBuffer.m_data, TEXTCHAT_MESSAGE_PACKET_SIZE);
 						break;
 					}
 					case SKIP_TURN:
 					{
 						i += SKIP_TURN_PACKET_SIZE;
-						printf("Server received SKIP_TURN packet from [Client: %d]\n", iter->first);
+						printf("Server received SKIP_TURN packet from [Client: %d]\n", clientId);
 
-						m_network->sendToOthers(iter->first, defaultBuffer.m_data, SKIP_TURN_PACKET_SIZE);
+						m_network->sendToOthers(clientId, defaultBuffer.m_data, SKIP_TURN_PACKET_SIZE);
 						break;
 					}
 					case PING_SOCKET:
@@ -459,13 +451,13 @@ namespace networking
 					case DESYNCED:
 					{
 						i += BASIC_PACKET_SIZE;
-						printf("Server received BasicPacket PacketType: %d from [Client: %d]\n", defaultPacket.m_packetType, iter->first);
+						printf("Server received BasicPacket PacketType: %d from [Client: %d]\n", defaultPacket.m_packetType, clientId);
 
 						m_network->sendToAll(defaultBuffer.m_data, BASIC_PACKET_SIZE);
 						break;
 					}
 					default:
-						printf("error in packet types received from [Client %d], value: %d\n", iter->first, defaultPacket.m_packetType);
+						printf("error in packet types received from [Client %d], value: %d\n", clientId, defaultPacket.m_packetType);
 						i += (unsigned int)data_length;						
 						break;
 				}

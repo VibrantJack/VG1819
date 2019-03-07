@@ -46,7 +46,11 @@ namespace networking
 		// accept new connections
 		bool acceptNewClient(unsigned int& p_iClientId);
 		void addPolledClientToSessions(unsigned int p_iPolledClientId, unsigned int& p_iClientId);
-		void removePolledClient(unsigned int & p_polledClientId);
+
+		void removeQueuedRemovals();
+		void queuePolledClientRemoval(ClientInfo p_client);
+		void queueClientRemoval(ClientInfo p_client);
+		void removePolledClient(ClientInfo p_client);
 		void removeClient(ClientInfo p_client);
 
 		const SOCKET getClientSocket(unsigned int p_clientId) const;
@@ -67,6 +71,9 @@ namespace networking
 		// m_polledSessions: client sockets that have polled for the server and have not commit to joining
 		std::map<unsigned int, ClientInfo> m_sessions;
 		std::map<unsigned int, ClientInfo> m_polledSessions;
+
+		std::vector<ClientInfo> m_clientsToRemove;
+		std::vector<ClientInfo> m_polledClientsToRemove;
 		
 		std::string m_strError;
 	};

@@ -134,6 +134,7 @@ namespace networking
 
 			ClientInfo client;
 			client.m_socket = m_clientSocket;
+			client.m_clientId = p_iClientId;
 
 			// Insert new client into polled sessions id map
 			m_polledSessions.insert(std::pair<unsigned int, ClientInfo>(p_iClientId, client));
@@ -162,19 +163,42 @@ namespace networking
 		}
 	}
 
-	void ServerNetwork::removePolledClient(unsigned int & p_polledClientId)
+	void ServerNetwork::removeQueuedRemovals()
 	{
-		if (auto it = m_polledSessions.find(p_polledClientId) != m_polledSessions.end())
+		for (ClientInfo client : m_clientsToRemove)
 		{
-			printf("Server disconnecting [Polled Client: %d]\n", p_polledClientId);
+			removeClient(client);
+		}
+		m_clientsToRemove.clear();
 
-			ClientInfo client = m_polledSessions[p_polledClientId];
-			closesocket(client.m_socket);
+		for (ClientInfo client : m_polledClientsToRemove)
+		{
+			removePolledClient(client);
+		}
+		m_polledClientsToRemove.clear();
+	}
+
+	void ServerNetwork::queueClientRemoval(ClientInfo p_client)
+	{
+		m_clientsToRemove.push_back(p_client);
+	}
+
+	void ServerNetwork::queuePolledClientRemoval(ClientInfo p_client)
+	{
+		m_polledClientsToRemove.push_back(p_client);
+	}
+
+	void ServerNetwork::removePolledClient(ClientInfo p_client)
+	{
+		if (auto it = m_polledSessions.find(p_client.m_clientId) != m_polledSessions.end())
+		{
+			printf("Server disconnecting [Polled Client: %d]\n", p_client.m_clientId);
+			closesocket(p_client.m_socket);
 			m_polledSessions.erase(it);
 		} 
 		else
 		{
-			printf("Server cannot remove [Polled Client: %d]: polled client not found\n", p_polledClientId);
+			printf("Server cannot remove [Polled Client: %d]: polled client not found\n", p_client.m_clientId);
 		}
 	}
 
@@ -210,18 +234,17 @@ namespace networking
 		return m_iResult;
 	}
 
-	int ServerNetwork::receiveData(unsigned int client_id, char * recvbuf)
+	int ServerNetwork::receiveData(unsigned int p_clientId, char * p_buffer)
 	{
-		if (auto it = m_sessions.find(client_id) != m_sessions.end())
+		if (auto it = m_sessions.find(p_clientId) != m_sessions.end())
 		{
-			ClientInfo client = m_sessions[client_id];
-			m_iResult = NetworkServices::receiveMessage(client.m_socket, recvbuf, MAX_PACKET_SIZE);
+			ClientInfo client = m_sessions[p_clientId];
+			m_iResult = NetworkServices::receiveMessage(client.m_socket, p_buffer, MAX_PACKET_SIZE);
 
 			if (m_iResult == 0)
 			{
-				printf("Server lost connection to [Client: %d]\n", client_id);
-				closesocket(client.m_socket);
-				m_sessions.erase(it);
+				printf("Server lost connection to [Client: %d]\n", p_clientId);
+				queueClientRemoval(client);
 			}
 			return m_iResult;
 		}
@@ -238,8 +261,7 @@ namespace networking
 			if (m_iResult == 0)
 			{
 				printf("Server lost connection to [Polled Client: %d]\n", client_id);
-				closesocket(client.m_socket);
-				m_polledSessions.erase(it);
+				queuePolledClientRemoval(client);
 			}
 			return m_iResult;
 		}
@@ -320,6 +342,10 @@ namespace networking
 					++iter;
 				}
 				
+			}
+			else
+			{
+				++iter;
 			}
 		}
 	}
