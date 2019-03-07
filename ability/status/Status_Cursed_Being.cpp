@@ -33,6 +33,7 @@ void ability::Status_Cursed_Being::applyStatus(unit::Unit * p_u)
 ability::Status_Cursed_Being::Status_Cursed_Being()
 {
 	m_Id = STATUS_CURSED_BEING;
+	m_statusType = StatusType::Stat_Buff;
 	addTimePoint(TimePointEvent::Receive_Damage);
 	addTimePoint(TimePointEvent::Deal_Damage);
 }

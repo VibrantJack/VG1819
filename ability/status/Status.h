@@ -354,6 +354,15 @@ namespace ability
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 		void setUnitToSummon(int p_id, int p_lv = 1);
 	};
+
+
+	class Status_Poison : public Status
+	{
+	public:
+		Status_Poison();
+		Status* clone() const { return new Status_Poison(*this); };
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};
 }
 
 

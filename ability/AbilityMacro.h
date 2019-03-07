@@ -49,6 +49,8 @@
 #define ABILITY_CLONE "Clone"
 #define ABILITY_DEVOUR "Devour"
 #define ABILITY_BREW "Brew"
+#define ABILITY_CORRUPT "Corrupt"
+#define ABILITY_TOXIC_AURA "Toxic Aura"
 
 //ability or status required info
 #define PUSH_BACK "push_back"
@@ -78,6 +80,7 @@
 #define STATUS_VAMPIRIC_CURSE "Status_Vampiric_Curse"
 #define STATUS_CURSED_BEING "Status_Cursed_Being"
 #define STATUS_LAST_WORD_SUMMON "Status_Last_Word_Summon"
+#define STATUS_POISON "Status_Poison"
 
 //lv
 #define STATUS_LV "Status_LV"

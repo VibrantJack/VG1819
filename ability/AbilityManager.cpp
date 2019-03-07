@@ -132,6 +132,8 @@ namespace ability
 		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_CLONE, Clone);
 		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_DEVOUR, Devour);
 		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_BREW, Brew);
+		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_CORRUPT, Corrupt);
+		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_TOXIC_AURA, ToxicAura);
 	}
 
 	AbilityManager::AbilityManager()

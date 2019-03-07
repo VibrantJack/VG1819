@@ -16,8 +16,40 @@
 				"target":1,
 				"need_unit":1,
 				"description":"Gain 1 [Venom Counter]."
+			},
+			{
+				"name":"Corrupt",
+				"lv":2,
+				"counter_power":1,
+				"counter_name":"venom",
+				"counter_select":"choose",
+				"cd":2,
+				"min_range":1,
+				"max_range":1,
+				"target":1,
+				"need_unit":0,
+				"area_mode":"triangle",
+				"area_len":2,
+				"description":"Cost X [Venom Counter] and give target [Poison] which deals X damage each turn for 2 turns.",
+				"status_name_Status_Poison":"Poison",
+				"status_description_Status_Poison":"Reduce HP and turn start",
+				"duration":2
+			},
+			{
+				"name":"Toxic Aura",
+				"lv":3,
+				"cd":1,
+				"target":1,
+				"need_unit":0,
+				"min_range":0,
+				"max_range":0,
+				"area_mode":"span",
+				"area_fix":1,
+				"area_min":1,
+				"area_max":2,
+				"description":"[Poison] duration will increase by 1 for all units within 2 blocks.",
+				"duration":1
 			}
-			
 		],
 		"status":[
 			{

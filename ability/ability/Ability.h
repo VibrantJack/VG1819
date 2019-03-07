@@ -502,6 +502,23 @@ namespace ability
 		Brew() : Ability(ABILITY_BREW) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
+
+	class Corrupt : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
+		void refresh(AbilityInfoPackage* p_info, unit::Unit* p_unit, Status* p_status);
+	public:
+		Corrupt() : Ability(ABILITY_CORRUPT) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class ToxicAura : public Ability
+	{
+	public:
+		ToxicAura() : Ability(ABILITY_TOXIC_AURA) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
 }
 
 

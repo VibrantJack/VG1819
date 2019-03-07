@@ -73,6 +73,7 @@ namespace ability
 		ADD_ELEMENT(s, m_statusList, STATUS_CURSED_BEING, Status_Cursed_Being);
 		ADD_ELEMENT(s, m_statusList, STATUS_LAST_WORD_SUMMON, Status_Last_Word_Summon);
 		ADD_ELEMENT(s, m_statusList, STATUS_SLIME_LV3, Status_Slime_LV3);
+		ADD_ELEMENT(s, m_statusList, STATUS_POISON, Status_Poison);
 	}
 
 	StatusManager::StatusManager()

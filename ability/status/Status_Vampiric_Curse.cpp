@@ -9,6 +9,7 @@ namespace ability
 		m_caster(nullptr)
 	{
 		m_Id = STATUS_VAMPIRIC_CURSE;
+		m_statusType = StatusType::Stat_Debuff;
 		endEffectAt();
 	}
 

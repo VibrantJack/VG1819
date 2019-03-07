@@ -119,6 +119,7 @@
     <ClCompile Include="..\ability\ability\Brew.cpp" />
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp" />
     <ClCompile Include="..\ability\ability\Clone.cpp" />
+    <ClCompile Include="..\ability\ability\Corrupt.cpp" />
     <ClCompile Include="..\ability\ability\Crash.cpp" />
     <ClCompile Include="..\ability\ability\Curse.cpp" />
     <ClCompile Include="..\ability\ability\CursedProtection.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="..\ability\ability\Sabotage.cpp" />
     <ClCompile Include="..\ability\ability\Sacrifice.cpp" />
     <ClCompile Include="..\ability\ability\SummonUnit.cpp" />
+    <ClCompile Include="..\ability\ability\ToxicAura.cpp" />
     <ClCompile Include="..\ability\node\AbilityNode.cpp" />
     <ClCompile Include="..\ability\node\AbilityNodeManager.cpp" />
     <ClCompile Include="..\ability\node\ChangeAbilityDescriptionNode.cpp" />
@@ -177,6 +179,7 @@
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\ability\status\Status_IN_Change.cpp" />
     <ClCompile Include="..\ability\status\Status_Last_Word_Summon.cpp" />
+    <ClCompile Include="..\ability\status\Status_Poison.cpp" />
     <ClCompile Include="..\ability\status\Status_Shield.cpp" />
     <ClCompile Include="..\ability\status\Status_Temp_Change.cpp" />
     <ClCompile Include="..\ability\status\Status_Block.cpp" />
