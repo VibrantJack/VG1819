@@ -48,6 +48,7 @@
 #define ABILITY_CURSED_PROTECTION "Cursed Protection"
 #define ABILITY_CLONE "Clone"
 #define ABILITY_DEVOUR "Devour"
+#define ABILITY_BREW "Brew"
 
 //ability or status required info
 #define PUSH_BACK "push_back"

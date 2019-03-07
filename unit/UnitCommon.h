@@ -45,6 +45,7 @@
 #define COUNTER_ENERGY "energy"
 #define COUNTER_KILL "kill"
 #define COUNTER_VIGOR "vigor"
+#define COUNTER_VENOM "venom"
 
 //tags
 #define STRUCTURE "Structure"

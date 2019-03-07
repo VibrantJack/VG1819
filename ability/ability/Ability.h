@@ -488,6 +488,20 @@ namespace ability
 		Clone() : Ability(ABILITY_CLONE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
+
+	class Devour : public Ability
+	{
+	public:
+		Devour() : Ability(ABILITY_DEVOUR) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Brew : public Ability
+	{
+	public:
+		Brew() : Ability(ABILITY_BREW) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
 }
 
 

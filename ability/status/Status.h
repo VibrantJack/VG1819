@@ -277,6 +277,7 @@ namespace ability
 	{
 	public:
 		Status_IN_Change();
+		~Status_IN_Change();
 		Status* clone() const { return new Status_IN_Change(*this); };
 		int effect();
 		void effectEnd();

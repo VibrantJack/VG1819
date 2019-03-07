@@ -7,6 +7,16 @@
 		"cost":4,
 		"tags":["Neutral"],
 		"ability_description":[
+			{
+				"name":"Brew",
+				"counter_name":"venom",
+				"counter_change":1,
+				"min_range":0,
+				"max_range":0,
+				"target":1,
+				"need_unit":1,
+				"description":"Gain 1 [Venom Counter]."
+			}
 			
 		],
 		"status":[

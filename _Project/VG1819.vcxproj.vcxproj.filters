@@ -1067,6 +1067,12 @@
     <ClCompile Include="..\ability\status\statusLV\Status_Slime_LV3.cpp">
       <Filter>ability\status\statusLV</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\ability\Devour.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Brew.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

@@ -116,12 +116,14 @@
     <ClCompile Include="..\ability\ability\Activate.cpp" />
     <ClCompile Include="..\ability\ability\Arm.cpp" />
     <ClCompile Include="..\ability\ability\Attach.cpp" />
+    <ClCompile Include="..\ability\ability\Brew.cpp" />
     <ClCompile Include="..\ability\ability\Build_the_Wall.cpp" />
     <ClCompile Include="..\ability\ability\Clone.cpp" />
     <ClCompile Include="..\ability\ability\Crash.cpp" />
     <ClCompile Include="..\ability\ability\Curse.cpp" />
     <ClCompile Include="..\ability\ability\CursedProtection.cpp" />
     <ClCompile Include="..\ability\ability\Defend.cpp" />
+    <ClCompile Include="..\ability\ability\Devour.cpp" />
     <ClCompile Include="..\ability\ability\Drain.cpp" />
     <ClCompile Include="..\ability\ability\Encourage.cpp" />
     <ClCompile Include="..\ability\ability\Execute.cpp" />

@@ -130,6 +130,8 @@ namespace ability
 		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_CRASH, Crash);
 		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_CURSED_PROTECTION, CursedProtection);
 		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_CLONE, Clone);
+		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_DEVOUR, Devour);
+		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_BREW, Brew);
 	}
 
 	AbilityManager::AbilityManager()

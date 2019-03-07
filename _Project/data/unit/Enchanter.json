@@ -9,12 +9,13 @@
 		"ability_description":[
 			{
 				"name":"Energy Control",
+				"counter_name":"energy",
 				"counter_change":1,
+				"counter_max":4,
 				"min_range":0,
 				"max_range":0,
 				"target":1,
 				"need_unit":1,
-				"counter_max":4,
 				"description":"Gain 1 [Energy Counter](max 4)."
 			},
 			{
@@ -38,8 +39,9 @@
 				"lv":3,
 				"target":1,
 				"need_unit":0,
-				"filter":1,
+				"filter":2,
 				"filter0":"enemy",
+				"filter1":"no_unit",
 				"area_mode":"all",
 				"in":10,
 				"mv":1,

@@ -9,13 +9,14 @@ namespace ability
 {
 	int PowerSurge::effect(AbilityInfoPackage * p_info)
 	{
-		int counter = p_info->m_intValue[COUNTER_ENERGY];
+		std::string name = p_info->m_stringValue[COUNTER_NAME];
+		int counter = p_info->m_intValue[name];
 		int inChange = p_info->m_intValue[UNIT_IN];
 		int mvChange = p_info->m_intValue[UNIT_MV];
 		//int dur = p_info->m_intValue[UNIT_DURATION];
 
 		//remove counter
-		changeCounter(p_info->m_source, COUNTER_ENERGY, -counter);
+		changeCounter(p_info->m_source, name, -counter);
 
 		for (unit::Unit* u : p_info->m_targets)
 		{

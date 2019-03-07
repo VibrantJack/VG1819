@@ -13,6 +13,15 @@
 				"max_range":0,
 				"card_drawn":1,
 				"description":"Put a copy of [Slime] into your hand."
+            },
+			{
+				"name":"Devour",
+				"min_range":1,
+				"max_range":1,
+				"power":6,
+				"kibble_id":26,
+				"card_drawn":1,
+				"description":"Deal 6 damage to target. If target is destroyed,put a Slime into your hand."
             }
 		],
 		"status":[
