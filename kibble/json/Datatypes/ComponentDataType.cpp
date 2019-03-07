@@ -1854,8 +1854,8 @@ kitten::K_Component* getBGMManager(nlohmann::json* p_jsonFile) {
 
 	std::list<std::pair<std::string, std::string>> sounds;
 
-	auto end = p_jsonFile->operator[]("track").cend();
-	for (auto it = p_jsonFile->operator[]("track").cbegin(); it != end; ++it)
+	auto end = p_jsonFile->operator[]("tracks").cend();
+	for (auto it = p_jsonFile->operator[]("tracks").cbegin(); it != end; ++it)
 	{
 		std::string trackName = (*it)["track"][0];
 		std::string soundPath = (*it)["track"][1];

@@ -1,0 +1,13 @@
+{
+	"name" : "BGMManager",
+	"components" : [
+		{
+			"name" : "BGMManager",
+			"sounds" : [
+				{
+					"track" : ["", "sounds/click.json"]
+				}
+			]
+		}
+	]
+}
