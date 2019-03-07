@@ -14,6 +14,12 @@
 
 namespace networking
 {
+	struct ClientInfo
+	{
+		SOCKET m_socket = INVALID_SOCKET;
+		int m_clientId = -1;
+		int m_gameSessionId = -1;
+	};
 	class ServerNetwork
 	{
 	friend class ServerGame;
@@ -33,25 +39,21 @@ namespace networking
 		void sendToPolledClient(unsigned int client_id, char * packets, int totalSize);
 
 		// receive incoming data
-		int receiveData(unsigned int client_id, char * recvbuf);
-		int receiveDataFromPolled(unsigned int client_id, char * recvbuf);
+		int receiveData(ClientInfo p_client, char* p_buffer);
+		int receiveData(unsigned int p_clientId, char* p_buffer);
+		int receiveDataFromPolled(unsigned int p_clientId, char* p_buffer);
 
 		// accept new connections
 		bool acceptNewClient(unsigned int& p_iClientId);
 		void addPolledClientToSessions(unsigned int p_iPolledClientId, unsigned int& p_iClientId);
 		void removePolledClient(unsigned int & p_polledClientId);
-		void removeClient(unsigned int & p_iClientId);
+		void removeClient(ClientInfo p_client);
 
 		const SOCKET getClientSocket(unsigned int p_clientId) const;
 
 		const std::string& getError() const { return m_strError; }
 
 	private:
-		struct ClientInfo
-		{
-			SOCKET m_socket = INVALID_SOCKET;
-			int m_gameSessionId = -1;
-		};
 		// Socket to listen for new connections
 		SOCKET m_listenSocket;
 
@@ -61,7 +63,7 @@ namespace networking
 		// for error checking return values
 		int m_iResult;
 
-		// m_sessions: client sockets that are playing the game
+		// m_sessions: master list of client sockets that are connected to the server
 		// m_polledSessions: client sockets that have polled for the server and have not commit to joining
 		std::map<unsigned int, ClientInfo> m_sessions;
 		std::map<unsigned int, ClientInfo> m_polledSessions;

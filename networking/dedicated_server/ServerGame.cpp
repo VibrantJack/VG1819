@@ -120,15 +120,15 @@ namespace networking
 	void ServerGame::receiveFromPolledClients()
 	{
 		// Go through Polled clients map and receive incoming data
-		std::map<unsigned int, SOCKET>::iterator iter;
+		std::map<unsigned int, ClientInfo>::iterator iter;
 
-		for (iter = m_network->m_polledSessions.begin(); iter != m_network->m_polledSessions.end(); iter++)
+		for (iter = m_network->m_polledSessions.begin(); iter != m_network->m_polledSessions.end(); /* no increment */)
 		{
 			int data_length = m_network->receiveDataFromPolled(iter->first, m_network_data);
 
 			if (data_length <= 0)
 			{
-				//no data recieved
+				//no data received
 				continue;
 			}
 
@@ -157,6 +157,7 @@ namespace networking
 
 						// Add client socket from polled sessions to main sessions
 						m_network->addPolledClientToSessions(iter->first, m_clientId);
+						m_mapChanged = true;
 						m_clientId++;
 
 						// Send a packet to the client to notify them what their ID is
@@ -195,7 +196,7 @@ namespace networking
 					unsigned int clientId = iter->first;
 					printf("Server received CLIENT_DISCONNECT from [Polled Client: %d]\n", clientId);
 					m_network->removePolledClient(clientId);
-
+					m_mapChanged = true;
 					break;
 				}
 				case PING_SOCKET:
@@ -209,6 +210,18 @@ namespace networking
 					i += (unsigned int)data_length;
 					break;
 				}
+				//++iter; // If we haven't erased something from the map, then we will increment here
+			}
+
+			if (!m_mapChanged)
+			{
+				++iter;
+				printf("iterating\n");
+			}
+			else
+			{
+				m_mapChanged = false;
+				printf("skipping iteration\n");
 			}
 		}
 	}
@@ -216,7 +229,7 @@ namespace networking
 	void ServerGame::receiveFromClients()
 	{
 		// go through all clients to see if they are trying to send data
-		std::map<unsigned int, SOCKET>::iterator iter;
+		std::map<unsigned int, ClientInfo>::iterator iter;
 
 		for (iter = m_network->m_sessions.begin(); iter != m_network->m_sessions.end(); iter++)
 		{
@@ -285,9 +298,9 @@ namespace networking
 					case CLIENT_DISCONNECT:
 					{
 						i += BASIC_PACKET_SIZE;
-						unsigned int clientId = iter->first;
-						printf("Server received CLIENT_DISCONNECT from [Client: %d]\n", clientId);						
-						m_network->removeClient(clientId);
+						ClientInfo client = iter->second;
+						printf("Server received CLIENT_DISCONNECT from [Client: %d]\n", client.m_clientId);
+						m_network->removeClient(client);
 
 						break;
 					}

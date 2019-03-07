@@ -9,7 +9,7 @@ namespace networking
 {
 	class ServerGame
 	{
-
+	friend class GameSession;
 	private:
 		static ServerGame* sm_serverGameInstance;
 		ServerGame();
@@ -23,8 +23,6 @@ namespace networking
 
 		void setupNetwork();
 		void shutdownNetwork();
-
-
 
 		void update();
 		void receiveFromPolledClients();
@@ -44,6 +42,7 @@ namespace networking
 		// data buffer
 		char m_network_data[MAX_PACKET_SIZE];
 		bool m_shutdown;
+		bool m_mapChanged = false;
 
 		static bool sm_networkValid;
 

@@ -178,20 +178,36 @@ namespace networking
 		}
 	}
 
-	void ServerNetwork::removeClient(unsigned int & p_iClientId)
+	void ServerNetwork::removeClient(ClientInfo p_client)
 	{
-		if (auto it = m_sessions.find(p_iClientId) != m_sessions.end())
+		if (p_client.m_gameSessionId != -1)
 		{
-			printf("Server disconnecting [Client: %d]\n", p_iClientId);
 
-			ClientInfo client = m_sessions[p_iClientId];
-			closesocket(client.m_socket);
+		}
+
+		if (auto it = m_sessions.find(p_client.m_clientId) != m_sessions.end())
+		{
+			printf("Server disconnecting [Client: %d]\n", p_client.m_clientId);
+			closesocket(p_client.m_socket);
 			m_sessions.erase(it);
 		}
 		else
 		{
-			printf("Server cannot remove [Client: %d]: client not found\n", p_iClientId);
+			printf("Server cannot remove [Client: %d]: client not found\n", p_client.m_clientId);
 		}
+	}
+	
+	int ServerNetwork::receiveData(ClientInfo p_client, char* p_buffer)
+	{
+		m_iResult = NetworkServices::receiveMessage(p_client.m_socket, p_buffer, MAX_PACKET_SIZE);
+
+		if (m_iResult == 0)
+		{
+			printf("Server lost connection to [Client: %d]\n", p_client.m_clientId);
+			closesocket(p_client.m_socket);
+			removeClient(p_client);
+		}
+		return m_iResult;
 	}
 
 	int ServerNetwork::receiveData(unsigned int client_id, char * recvbuf)

@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\networking\dedicated_server\AbilityPacket.cpp" />
+    <ClCompile Include="..\networking\dedicated_server\GameSession.cpp" />
     <ClCompile Include="..\networking\dedicated_server\NetworkLog.cpp" />
     <ClCompile Include="..\networking\dedicated_server\NetworkServices.cpp" />
     <ClCompile Include="..\networking\dedicated_server\ServerGame.cpp" />
@@ -28,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ability\AbilityMacro.h" />
+    <ClInclude Include="..\networking\dedicated_server\GameSession.h" />
     <ClInclude Include="..\networking\dedicated_server\NetworkData.h" />
     <ClInclude Include="..\networking\dedicated_server\NetworkLog.h" />
     <ClInclude Include="..\networking\dedicated_server\NetworkServices.h" />

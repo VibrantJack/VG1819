@@ -17,6 +17,9 @@
     <ClCompile Include="..\networking\dedicated_server\ServerNetwork.cpp">
       <Filter>networking</Filter>
     </ClCompile>
+    <ClCompile Include="..\networking\dedicated_server\GameSession.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="networking">
@@ -40,5 +43,8 @@
       <Filter>networking</Filter>
     </ClInclude>
     <ClInclude Include="..\ability\AbilityMacro.h" />
+    <ClInclude Include="..\networking\dedicated_server\GameSession.h">
+      <Filter>networking</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
