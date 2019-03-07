@@ -1,13 +1,18 @@
 #include "AudioSource.h"
 #include "AudioEngineWrapper.h"
 #include "util\MathUtil.h"
+
 #include <iostream>
+#include <fstream>
 
 namespace kitten
 {
 	AudioSource::AudioSource(const std::string& p_pathToClip, bool p_is3D, bool p_enableEffects, bool p_causesDuck, bool p_getsDucked) : m_clipPath(p_pathToClip),
 		m_is3D(p_is3D),  m_effectsEnabled(p_enableEffects), m_causesDuck(p_causesDuck), m_beingDucked(false), m_getsDucked(p_getsDucked)
 	{
+		std::ifstream infile(p_pathToClip);
+		assert(infile.good(), "Could not find: " + p_pathToClip);
+
 		m_audioClip = AudioEngineWrapper::sm_instance->getSound(p_pathToClip, p_is3D, p_enableEffects);
 		assert(m_audioClip != nullptr);
 		

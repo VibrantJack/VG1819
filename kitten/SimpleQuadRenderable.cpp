@@ -153,6 +153,8 @@ kitten::SimpleQuadRenderable::~SimpleQuadRenderable()
 			removeFromDynamicRender();
 		}
 	}
+
+	delete m_mat;
 }
 
 void kitten::SimpleQuadRenderable::setTexture(const char * p_pathToTex)

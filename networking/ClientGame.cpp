@@ -25,6 +25,10 @@
 #include "board\BoardManager.h"
 #include "unit\unitComponent\UnitMove.h"
 
+
+
+// Other
+#include "_Project\UniversalSounds.h"
 #include "components\DeckInitializingComponent.h"
 
 #define PING_PACKET_DELAY 5.0f
@@ -395,6 +399,7 @@ namespace networking
 				// The other player has joined and we received their Commander data
 				// Queue event to update ReadyCheck component to indicate other player has joined
 				kitten::EventManager::getInstance()->queueEvent(kitten::Event::Player_Joined, nullptr);
+				UniversalSounds::playSound("fanfare");
 
 				i += STARTING_COMMANDERS_PACKET_SIZE;
 				break;

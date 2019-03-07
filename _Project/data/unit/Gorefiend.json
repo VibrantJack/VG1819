@@ -1,0 +1,81 @@
+{
+	"unit":{
+		"name":"Gorefiend",
+		"hp":25,
+		"mv":2,
+		"in":9,
+		"cost":8,
+		"tags":["Ancients","Demon"],
+		"ability_description":[
+			{
+				"name":"Health Link",
+				"power":2,
+				"min_range":1,
+				"max_range":2,
+				"target":1,
+				"need_unit":1,
+				"description":"Apply [Vampiric Curse] to target unit. Steal 2 HP every turn for 3 turns. If lv3, steal 3 HP each turn.",
+				"status_name":"Vampiric Curse",
+                "status_description":"Steal 2 HP every turn for 3 turns.",
+                "duration":3
+            },
+            {
+                "name":"Crash",
+                "lv":2,
+                "cd":2,
+				"power":15,
+				"min_range":1,
+				"max_range":1,
+				"target":1,
+				"need_unit":1,
+				"description":"Cost 15 HP and deal that much damage to target. If HP is less than cost, cost all HP. If lv3, cost 25 HP."
+			}
+		],
+		"status":[
+			{
+				"name":"Status_LV",
+				"lv":2,
+				"hp":10
+			},
+			{
+				"name":"Status_Gorefiend_LV3",
+				"lv":3,
+				"hp":10,
+				"description":"Health Link and Crash deal more damage.",
+				"effectedAD":2,
+				"ad_name_0":"Health Link",
+				"ad_attribute_num_0":1,
+				"ad_attribute_0_0":"power",
+				"ad_value_0_0":1,
+				"ad_name_1":"Crash",
+				"ad_attribute_num_1":1,
+				"ad_attribute_1_0":"power",
+				"ad_value_1_0":10
+			},
+			{
+				"name":"Status_DR_AD_Change",
+				"description":"Disable [Crash].",
+				"effectedAD":1,
+				"ad_name_0":"Crash",
+				"ad_attribute_num_0":1,
+				"ad_attribute_0_0":"disable",
+				"ad_value_0_0":1
+			}
+		],
+		"portrait_texture" : "textures/cards/500x500/Gorefiend.tga"
+	},
+	"components" : [
+		{
+			"name" : "SpriteGroup",
+			"spritename":"gorefiend",
+			"number":2,
+			"rotate":[45,0,0],
+			"scale":[0.8,0.8,1],
+			"translate":[0,0,0.15]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/Gorefiend.tga"
+		}
+	]
+}

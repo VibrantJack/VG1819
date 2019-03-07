@@ -1,0 +1,14 @@
+{
+	"name" : "SplorchSound",
+	"components" : [
+		{
+			"name" : "AudioSource",
+			"clippath" : "Sounds/sfx/units/splorch1.wav",
+			"is3d" : false,
+			"enableeffects" : false,
+			"loop" : false,
+			"volume" : 0.2,
+			"getsducked" : false
+		}
+	]
+}

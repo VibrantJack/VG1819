@@ -29,4 +29,5 @@ StartNewDeckSetupWizard::~StartNewDeckSetupWizard()
 	DeckAlterationComponent::getActiveInstance()->discardChanges();
 	DeckAlterationComponent::getActiveInstance()->copyDeckData(deckData);
 	input::InputManager::getInstance()->setPollMode(true);
+	delete deckData;
 }

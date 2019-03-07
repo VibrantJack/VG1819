@@ -20,10 +20,13 @@ namespace puppy
 		{
 		case left:
 			constructLeftAlignVertices();
+			break;
 		case right:
 			constructRightOrCenterAlignVertices(true);
+			break;
 		case center:
 			constructRightOrCenterAlignVertices(false);
+			break;
 		}
 	}
 
@@ -38,7 +41,6 @@ namespace puppy
 	puppy::TextBox::~TextBox()
 	{
 		removeOldText();
-
 		if (m_isEnabled)
 		{
 			if (!m_is3D)

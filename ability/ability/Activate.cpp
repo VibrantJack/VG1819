@@ -11,6 +11,7 @@ namespace ability
 		{
 			kitten::K_GameObject* target = &p_info->m_targets[0]->getGameObject();
 			unit::InitiativeTracker::getInstance()->addExtraTurn(target);
+			UniversalSounds::playSound("tambourine");
 		}
 
 		done(p_info);

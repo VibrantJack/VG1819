@@ -38,7 +38,13 @@ namespace puppy
 	public:
 		Material(ShaderType p_shaderType);
 		Material(const Material& p_other);
-		~Material();
+		virtual ~Material()
+		{
+			if (m_tex != nullptr)
+			{
+				delete m_tex;
+			}
+		}
 
 		virtual bool operator==(const Material& p_other) const;
 		virtual Material* clone() const;

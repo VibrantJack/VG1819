@@ -12,7 +12,7 @@ namespace ability
 		int counter = p_info->m_intValue[COUNTER_ENERGY];
 		int inChange = p_info->m_intValue[UNIT_IN];
 		int mvChange = p_info->m_intValue[UNIT_MV];
-		int dur = p_info->m_intValue[UNIT_DURATION];
+		//int dur = p_info->m_intValue[UNIT_DURATION];
 
 		//remove counter
 		changeCounter(p_info->m_source, COUNTER_ENERGY, -counter);
@@ -26,11 +26,18 @@ namespace ability
 
 				status->addAttributeChange(UNIT_IN, inChange);
 				status->addAttributeChange(UNIT_MV, mvChange);
-				status->addCounter(UNIT_DURATION, dur);
+
+				//status info
+				std::vector<std::string> intKeys;
+				intKeys.push_back(UNIT_DURATION);
+
+				addStatusInfo(status, p_info, intKeys);
 
 				status->attach(u);
 			}
 		}
+
+		UniversalSounds::playSound("glocken_up");
 
 		//delete package
 		done(p_info);

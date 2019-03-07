@@ -43,6 +43,8 @@ namespace ability
 		};
 		
 		std::string m_source;
+		std::unordered_map<std::string, int> m_intValue;
+		std::unordered_map<std::string, std::string> m_stringValue;
 
 		Status();
 		virtual ~Status();
@@ -51,10 +53,11 @@ namespace ability
 		void changeName(const std::string & p_msg);
 		void changeLV(int p_lv);
 		void changeDescription(const std::string & p_msg);
-		void setEffectedAD(const std::string & p_msg);
+		//void setEffectedAD(const std::string & p_msg);
 		void addCounter(const std::string & p_key, int p_value);
 		void addAttributeChange(const std::string & p_key, int p_value);
 		void addTimePoint(const TimePointEvent::TPEventType& p_value);
+
 		//change when to reduce duration counter, turn end is default
 		void endEffectAt(const TimePointEvent::TPEventType& p_value = TimePointEvent::Turn_End);
 
@@ -62,7 +65,7 @@ namespace ability
 		// Getters for info
 		std::vector<ability::TimePointEvent::TPEventType> getTPlist();
 		int getLV() { return m_LV; }
-		const std::unordered_map<std::string, int>& getCounters() { return m_counter; }
+		const std::unordered_map<std::string, int>& getCounters() { return m_intValue; }
 		const std::unordered_map<std::string, int>& getAttributeChanges() { return m_attributeChange; }
 		std::string getDescription() { return m_description; };
 		std::string getName() { return m_name; };
@@ -84,17 +87,14 @@ namespace ability
 		//the text that will be showed to player
 		std::string m_name;
 		std::string m_description;
-
 		std::string m_Id;//the id identify status
 
 		unit::Unit * m_unit;//the unit this status attached to
+		
+		std::unordered_map<std::string, int> m_attributeChange;
 
-		std::unordered_map<std::string, int> m_counter;
-		//Most commonly counter is duration. But it can be more, such as how many times it can be used
 
 		int m_LV = 0;
-		std::unordered_map<std::string, int> m_attributeChange;
-		std::string m_effectedAD;
 
 		std::vector<ability::TimePointEvent::TPEventType> m_TPList;//the list of event that will be registered
 
@@ -115,8 +115,20 @@ namespace ability
 
 		//end effect
 		virtual void effectEnd() {};
+
+
+		//				effectedAD name :               (attribute : value)
+		std::unordered_map<std::string, std::unordered_map<std::string, int> > m_effectedAD;
+		
+		
+		//change effected ad attributes
+		void setEffectedAD();
+
+		//actually change
+		void changeEffectedAD(bool p_reverse = false);
 	};
 
+	/*
 	class Status_LV : public Status
 	{
 		//this class handle the attribute change for all lv up status
@@ -124,7 +136,7 @@ namespace ability
 		Status_LV();
 		virtual Status* clone() const { return new Status_LV(*this); };
 		virtual int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
-	};
+	};*/
 
 	class Status_Encourage : public Status
 	{
@@ -147,6 +159,7 @@ namespace ability
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 
+	/*
 	class Status_Priest_LV3 : public Status_LV
 	{
 		//this is trigger when preiest is lv3
@@ -176,7 +189,7 @@ namespace ability
 		Status* clone() const { return new Status_Duelist_LV3(*this); };
 
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
-	};
+	};*/
 
 	class Status_Temp_Change : public Status
 	{
@@ -199,6 +212,7 @@ namespace ability
 		void effectEnd();
 	};
 
+	/*
 	class Status_Load : public Status
 	{
 	public:
@@ -207,7 +221,7 @@ namespace ability
 		int effect();
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 		void effectEnd();
-	};
+	};*/
 
 	class Status_Shield : public Status
 	{
@@ -233,6 +247,7 @@ namespace ability
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 
+	/*
 	class Status_Eternal_Eye_LV3 : public Status_LV
 	{
 		//this is trigger when Eternal Eye is lv3
@@ -256,7 +271,7 @@ namespace ability
 		bool m_active = false;
 
 		void generateArmor();
-	};
+	};*/
 
 	class Status_IN_Change : public Status
 	{
@@ -279,9 +294,9 @@ namespace ability
 		Status* clone() const { return new Status_Attach(*this); };
 		int effect();
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
-
 	};
 
+	/*
 	class Status_Wraith_LV2 : public Status_LV
 	{
 	public:
@@ -298,7 +313,29 @@ namespace ability
 		Status* clone() const { return new Status_Evil_Fiend_LV(*this); };
 
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};*/
+
+	class Status_Vampiric_Curse : public Status
+	{
+	private:
+		//the unit who cast the ability,it's who get the hp
+		unit::Unit* m_caster; 
+	public:
+		Status_Vampiric_Curse();
+		Status* clone() const { return new Status_Vampiric_Curse(*this); };
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+		void setCaster(unit::Unit* p_u);
 	};
+
+	/*
+	class Status_Gorefiend_LV3 : public Status_LV
+	{
+	public:
+		Status_Gorefiend_LV3();
+		Status* clone() const { return new Status_Gorefiend_LV3(*this); };
+
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};*/
 }
 
 

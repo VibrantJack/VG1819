@@ -1,0 +1,14 @@
+{
+	"name" : "summon",
+	"components" : [
+		{
+			"name" : "AudioSource",
+			"clippath" : "Sounds/sfx/units/summon.wav",
+			"is3d" : false,
+			"enableeffects" : false,
+			"loop" : false,
+			"volume" : 0.2,
+			"getsducked" : false
+		}
+	]
+}

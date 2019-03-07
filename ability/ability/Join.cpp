@@ -21,6 +21,12 @@ int ability::Join::effect(AbilityInfoPackage* p_info)
 
 		//then destroy it
 		source->destroyedByJoin();
+
+		UniversalSounds::playSound("join");
+	}
+	else
+	{
+		UniversalSounds::playSound("cancel");
 	}
 
 	//delete package

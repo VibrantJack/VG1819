@@ -17,6 +17,7 @@ namespace kitten
 			removeFromDynamicRender();
 		}
 
+		delete m_vao;
 		//Material deleted by sprite loader
 	}
 

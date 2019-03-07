@@ -146,12 +146,6 @@
     <ClCompile Include="..\ability\status\Status_Encourage.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\Status_LV.cpp">
-      <Filter>ability\status</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\status\Status_Priest_LV3.cpp">
-      <Filter>ability\status</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\node\ChangeAbilityDescriptionNode.cpp">
       <Filter>ability\node</Filter>
     </ClCompile>
@@ -185,13 +179,7 @@
     <ClCompile Include="..\ability\ability\Sabotage.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\Status_Archer_LV3.cpp">
-      <Filter>ability\status</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\status\Status_Dodge.cpp">
-      <Filter>ability\status</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\status\Status_Duelist_LV3.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\StatusManager.cpp">
@@ -488,9 +476,6 @@
     </ClCompile>
     <ClCompile Include="..\ability\ability\Arm.cpp">
       <Filter>ability\ability</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\status\Status_Load.cpp">
-      <Filter>ability\status</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\status\Status_Shield.cpp">
       <Filter>ability\status</Filter>
@@ -884,9 +869,6 @@
     <ClCompile Include="..\ability\status\demonic_restriction\Status_Demonic_Restriction.cpp">
       <Filter>ability\status\demonic_restriction</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\Status_Eternal_Eye_LV3.cpp">
-      <Filter>ability\status</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Eternal_Eye.cpp">
       <Filter>ability\status\demonic_restriction</Filter>
     </ClCompile>
@@ -901,9 +883,6 @@
     </ClCompile>
     <ClCompile Include="..\ability\ability\Mucus.cpp">
       <Filter>ability\ability</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\status\Status_Lancer_LV2.cpp">
-      <Filter>ability\status</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Mud_Demon.cpp">
       <Filter>ability\status\demonic_restriction</Filter>
@@ -1004,20 +983,11 @@
     <ClCompile Include="..\ability\status\Status_IN_Change.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Horror_Lord.cpp">
-      <Filter>ability\status\demonic_restriction</Filter>
-    </ClCompile>
     <ClCompile Include="..\ability\ability\Attach.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\status\Status_Attach.cpp">
       <Filter>ability\status</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\status\Status_Wraith_LV2.cpp">
-      <Filter>ability\status</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Evil_Fiend.cpp">
-      <Filter>ability\status\demonic_restriction</Filter>
     </ClCompile>
     <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_Wraith.cpp">
       <Filter>ability\status\demonic_restriction</Filter>
@@ -1037,8 +1007,47 @@
     <ClCompile Include="..\ability\ability\Drain.cpp">
       <Filter>ability\ability</Filter>
     </ClCompile>
-    <ClCompile Include="..\ability\status\Status_Evil_Fiend_LV.cpp">
+    <ClCompile Include="..\ability\status\Status_Vampiric_Curse.cpp">
       <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\HealthLink.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayUniversalSoundOnEnable.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Crash.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\statusLV\Status_Archer_LV3.cpp">
+      <Filter>ability\status\statusLV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\statusLV\Status_Duelist_LV3.cpp">
+      <Filter>ability\status\statusLV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\statusLV\Status_Eternal_Eye_LV3.cpp">
+      <Filter>ability\status\statusLV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\statusLV\Status_Evil_Fiend_LV.cpp">
+      <Filter>ability\status\statusLV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\statusLV\Status_Gorefiend_LV3.cpp">
+      <Filter>ability\status\statusLV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\statusLV\Status_Lancer_LV2.cpp">
+      <Filter>ability\status\statusLV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\statusLV\Status_LV.cpp">
+      <Filter>ability\status\statusLV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\statusLV\Status_Priest_LV3.cpp">
+      <Filter>ability\status\statusLV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\statusLV\Status_Wraith_LV2.cpp">
+      <Filter>ability\status\statusLV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_AD_Change.cpp">
+      <Filter>ability\status\demonic_restriction</Filter>
     </ClCompile>
     <ClCompile Include="..\settings_menu\PlayerPrefs.cpp">
       <Filter>settings_menu</Filter>
@@ -2167,6 +2176,13 @@
     <ClInclude Include="..\UI\GameplayButtons\NextTurnButton.h">
       <Filter>UI\GameplayButtons</Filter>
     </ClInclude>
+    <ClInclude Include="PlayUniversalSoundOnEnable.h">
+      <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundNames.h" />
+    <ClInclude Include="..\ability\status\statusLV\Status_LV.h">
+      <Filter>ability\status\statusLV</Filter>
+    </ClInclude>
     <ClInclude Include="..\settings_menu\PlayerPrefs.h">
       <Filter>settings_menu</Filter>
     </ClInclude>
@@ -2414,6 +2430,9 @@
     </Filter>
     <Filter Include="UI\GameplayButtons">
       <UniqueIdentifier>{dd3c2d6d-7d9e-4f2c-874e-9e3a1a59dfa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ability\status\statusLV">
+      <UniqueIdentifier>{487f9f7b-b446-4f78-b109-8de07119bb13}</UniqueIdentifier>
     </Filter>
     <Filter Include="settings_menu">
       <UniqueIdentifier>{8a6e667a-4bf7-46f6-9684-9a73b614d52b}</UniqueIdentifier>

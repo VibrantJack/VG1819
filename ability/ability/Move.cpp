@@ -12,6 +12,10 @@ namespace ability
 
 		source->move(p_info->m_targetTilesGO);
 
+		int rndNum = (rand() % 4)+1;
+		
+		UniversalSounds::playSound("hoof_" + std::to_string(rndNum));
+
 		//delete package
 		delete p_info;
 

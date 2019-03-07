@@ -103,6 +103,7 @@ namespace unit
 		default:
 			break;
 		}
+		delete p_event;
 	}
 
 	void Unit::setJoinAD()

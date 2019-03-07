@@ -46,7 +46,7 @@ void ability::Ability::singleTargetProjectileFinished(AbilityInfoPackage* p_pack
 	//so power will change to negative
 	int power = -(p_package->m_intValue.find(UNIT_POWER)->second);
 
-	damage(target, power);
+	changeHP(target, power);
 
 	//delete package
 	done(p_package);
@@ -78,7 +78,7 @@ void ability::Ability::multiTargetProjectileFinished(AbilityInfoPackage* p_packa
 
 		int power = -(clonePackage->m_intValue.find(UNIT_POWER)->second);
 
-		damage(u, power);
+		changeHP(u, power);
 
 		//delete clone
 		delete clonePackage;
@@ -102,14 +102,12 @@ kitten::K_GameObject * ability::Ability::summonToken(AbilityInfoPackage* p_info,
 	return u;
 }
 
-int ability::Ability::damage(unit::Unit* p_target, int power)
+void ability::Ability::changeHP(unit::Unit * p_target, int power)
 {
 	AbilityNode* node1 = AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
 
 	//change hp
 	node1->effect(p_target, UNIT_HP, power);
-
-	return 0;
 }
 
 void ability::Ability::done(const AbilityInfoPackage* p_info)
@@ -194,10 +192,17 @@ void ability::Ability::triggerTPEvent(ability::TimePointEvent::TPEventType p_tp,
 	ability::TimePointEvent* t = new ability::TimePointEvent(p_tp);
 	t->putPackage(INFO_PACKAGE_KEY, p_info);
 	sc->triggerTP(p_tp, t);
+	delete t;
 }
 
-void ability::Ability::addStatusInfo(Status * p_st, AbilityInfoPackage* p_info)
+void ability::Ability::addStatusInfo(Status * p_st, AbilityInfoPackage* p_info, 
+	const std::vector<std::string>& p_intValueKeyList,
+	const std::vector<std::string>& p_stringValueKeyList)
 {
+	//source
+	p_st->m_source = m_name;
+
+	//name
 	auto it = p_info->m_stringValue.find(STATUS_NAME);
 	if (it != p_info->m_stringValue.end())
 	{
@@ -205,6 +210,7 @@ void ability::Ability::addStatusInfo(Status * p_st, AbilityInfoPackage* p_info)
 		p_st->changeName(name);
 	}
 
+	//description
 	it = p_info->m_stringValue.find(STATUS_DESCRIPTION);
 	if (it != p_info->m_stringValue.end())
 	{
@@ -212,7 +218,40 @@ void ability::Ability::addStatusInfo(Status * p_st, AbilityInfoPackage* p_info)
 		p_st->changeDescription(des);
 	}
 
-	p_st->m_source = m_name;
+	for (auto it : p_stringValueKeyList)
+	{
+		auto found = p_info->m_stringValue.find(it);
+		if (found != p_info->m_stringValue.end())
+		{
+			p_st->m_stringValue[found->first] = found->second;
+		}
+	}
+
+	for (auto it : p_intValueKeyList)
+	{
+		auto found = p_info->m_intValue.find(it);
+		if (found != p_info->m_intValue.end())
+		{
+			p_st->m_intValue[found->first] = found->second;
+		}
+	}
+}
+
+void ability::Ability::readADChange(AbilityInfoPackage* p_info, std::vector<std::string>* p_intValueKeyList, std::vector<std::string>* p_stringValueKeyList)
+{
+	p_intValueKeyList->push_back(STATUS_EFFECTED_AD);
+	int adnum = p_info->m_intValue[STATUS_EFFECTED_AD];
+	for (int i = 0; i < adnum; i++)
+	{
+		p_stringValueKeyList->push_back(STATUS_AD_NAME(i));
+		p_intValueKeyList->push_back(STATUS_AD_ATTRIBUTE_NUM(i));
+		int attrnum = p_info->m_intValue[STATUS_AD_ATTRIBUTE_NUM(i)];
+		for (int j = 0; j < attrnum; j++)
+		{
+			p_stringValueKeyList->push_back(STATUS_AD_ATTRIBUTE(i, j));
+			p_intValueKeyList->push_back(STATUS_AD_VALUE(i, j));
+		}
+	}
 }
 
 void ability::Ability::drawCard(int p_id, int p_num)

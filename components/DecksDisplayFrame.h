@@ -17,6 +17,7 @@ public:
 	void onObjectClicked(int p_deckId) override;
 	int getTargetAvailable() override;
 	void updateIndividualDisplayObject(int p_activeObjectIndex) override;
+	void resetCurrentPick() override;
 
 	DecksDisplayFrame(int p_marginX, int p_marginY);
 	~DecksDisplayFrame();

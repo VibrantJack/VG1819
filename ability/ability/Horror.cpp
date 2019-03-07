@@ -13,15 +13,21 @@ namespace ability
 			ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_TEMP_CHANGE);
 
 			//set properties: name, description, source
-			addStatusInfo(se, p_info);
+			//addStatusInfo(se, p_info);
 
 			//mv -1
 			int mv = -(p_info->m_intValue[UNIT_POWER]);
 			se->addAttributeChange(UNIT_MV, mv);
 
+
+			std::vector<std::string> intKeys;
+			intKeys.push_back(UNIT_DURATION);
+
+			addStatusInfo(se, p_info, intKeys);
+			/*
 			//get duration
 			int dur = p_info->m_intValue[UNIT_DURATION];
-			se->addCounter(UNIT_DURATION, dur);
+			se->addCounter(UNIT_DURATION, dur);*/
 
 			//attach to target
 			se->attach(p_unit);
@@ -33,7 +39,7 @@ namespace ability
 			ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_IN_CHANGE);
 
 			//set properties: name, description, source
-			addStatusInfo(se, p_info);
+			//addStatusInfo(se, p_info);
 
 			//reduce target IN to 1
 			//get target base initiative
@@ -41,9 +47,15 @@ namespace ability
 			int deltaIN = -(in - 1); //reduced to 1
 			se->addAttributeChange(UNIT_IN, deltaIN);
 
+			//status info
+			std::vector<std::string> intKeys;
+			intKeys.push_back(UNIT_DURATION);
+
+			addStatusInfo(se, p_info, intKeys);
+
 			//get duration
-			int dur = p_info->m_intValue[UNIT_DURATION];
-			se->addCounter(UNIT_DURATION, dur);
+			//int dur = p_info->m_intValue[UNIT_DURATION];
+			//se->addCounter(UNIT_DURATION, dur);
 
 			//attach to target
 			se->attach(p_unit);
