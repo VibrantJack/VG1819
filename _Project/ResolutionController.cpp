@@ -80,7 +80,7 @@ void ResolutionController::start()
 		// Set res to maximum and save
 		m_currentRes = --m_resolutions.end();
 
-		//applyRes();
+		applyRes();
 
 		PlayerPrefs::saveAllSettings();
 	}

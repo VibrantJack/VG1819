@@ -98,7 +98,7 @@ namespace kitten
 		m_winWidth = inputMan->getWindowWidth();
 		m_winHeight = inputMan->getWindowHeight();
 
-		float screenRatio = (float)m_winWidth / m_winHeight;
+		float screenRatio = (float)m_winWidth / (float)m_winHeight;
 
 		m_proj = glm::perspective(m_fov, screenRatio, m_nearClip, m_farClip);
 

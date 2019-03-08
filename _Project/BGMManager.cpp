@@ -36,6 +36,8 @@ void BGMManager::start()
 	}
 
 	m_soundsToCreate.clear();
+
+	privateSetVolume(m_volume);
 }
 
 void BGMManager::playBGM(const std::string& p_name)
@@ -90,4 +92,6 @@ void BGMManager::privateSetVolume(float p_volume)
 		auto& entry = (*it).second;
 		entry.source->setVolume(p_volume * entry.originalVolume);
 	}
+
+	m_volume = p_volume;
 }

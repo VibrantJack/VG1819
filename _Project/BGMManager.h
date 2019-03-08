@@ -28,6 +28,8 @@ private:
 	std::string m_playingName;
 	std::unordered_map<std::string, BGMEntry> m_tracks;
 
+	float m_volume;
+
 	virtual void start() override;
 
 	void privatePlayBGM(const std::string& p_name);

@@ -36,6 +36,8 @@ void UniversalSounds::start()
 	}
 
 	m_soundsToCreate.clear();
+
+	privateSetVolume(m_volume);
 }
 
 void UniversalSounds::playSound(const std::string& p_sound)
