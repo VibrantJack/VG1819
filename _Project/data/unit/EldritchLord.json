@@ -10,7 +10,15 @@
 			"portrait_path" : "place_holder"
 		},
 		"ability_description":[
-			
+			{
+				"name":"Manipulate Tile",
+				"min_range":1,
+				"max_range":1,
+				"filter":1,
+				"filter0":"owned_tile",
+				"Demonic Presence":1,
+				"description":""
+            }
 		],
 		"portrait_texture" : "textures/cards/500x500/EldritchLord.tga"
 	},

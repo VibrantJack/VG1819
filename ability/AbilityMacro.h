@@ -3,10 +3,10 @@
 #define ADD_ELEMENT(n, list, name,className) n = new className(); list[name] = n;
 
 //ability
-#define ABILITY_MANIPULATE_TILE "ManipulateTile"
+#define ABILITY_MANIPULATE_TILE "Manipulate Tile"
 #define ABILITY_HEAL "Heal"
 #define ABILITY_FIGHT "Fight"
-#define ABILITY_SUMMON_UNIT "SummonUnit"
+#define ABILITY_SUMMON_UNIT "Summon Unit"
 #define ABILITY_SHOOT "Shoot"
 #define ABILITY_SABOTAGE "Sabotage"
 #define ABILITY_BUILD_WALL "Build the Wall"

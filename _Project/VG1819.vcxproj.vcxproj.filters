@@ -1082,6 +1082,9 @@
     <ClCompile Include="..\ability\status\Status_Poison.cpp">
       <Filter>ability\status</Filter>
     </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\unitAction\ActionMap.cpp">
+      <Filter>unit\unitComponent\unitAction</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2176,6 +2179,9 @@
     <ClInclude Include="SoundNames.h" />
     <ClInclude Include="..\ability\status\statusLV\Status_LV.h">
       <Filter>ability\status\statusLV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\unitAction\ActionMap.h">
+      <Filter>unit\unitComponent\unitAction</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

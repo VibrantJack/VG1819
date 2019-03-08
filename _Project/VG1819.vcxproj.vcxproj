@@ -426,6 +426,7 @@
     <ClCompile Include="..\unit\unitComponent\StatusContainer.cpp" />
     <ClCompile Include="..\unit\unitComponent\TimerSymbol.cpp" />
     <ClCompile Include="..\unit\unitComponent\unitAction\ActionButtonStore.cpp" />
+    <ClCompile Include="..\unit\unitComponent\unitAction\ActionMap.cpp" />
     <ClCompile Include="..\unit\unitComponent\unitAction\ActionSelect.cpp" />
     <ClCompile Include="..\unit\unitComponent\UnitGraphic.cpp" />
     <ClCompile Include="..\unit\unitComponent\UnitHealthBar.cpp" />
@@ -795,6 +796,7 @@
     <ClInclude Include="..\unit\unitComponent\StatusContainer.h" />
     <ClInclude Include="..\unit\unitComponent\TimerSymbol.h" />
     <ClInclude Include="..\unit\unitComponent\unitAction\ActionButtonStore.h" />
+    <ClInclude Include="..\unit\unitComponent\unitAction\ActionMap.h" />
     <ClInclude Include="..\unit\unitComponent\unitAction\ActionSelect.h" />
     <ClInclude Include="..\unit\unitComponent\UnitGraphic.h" />
     <ClInclude Include="..\unit\unitComponent\UnitHealthBar.h" />
