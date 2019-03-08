@@ -3,7 +3,7 @@
 
 BGMManager* BGMManager::sm_instance = nullptr;
 
-BGMManager::BGMManager(const std::list<std::pair<std::string, std::string>>& p_soundsToCreate) : m_soundsToCreate(p_soundsToCreate)
+BGMManager::BGMManager(const std::list<std::pair<std::string, std::string>>& p_soundsToCreate) : m_soundsToCreate(p_soundsToCreate), m_playingSource(nullptr)
 {
 	assert(sm_instance == nullptr);
 	sm_instance = this;
@@ -50,13 +50,22 @@ void BGMManager::stopBGM()
 
 void BGMManager::privatePlayBGM(const std::string& p_name)
 {
-	auto found = m_tracks.find(p_name);
-	assert(found != m_tracks.end());
+	if (m_playingName != p_name)
+	{
+		auto found = m_tracks.find(p_name);
+		assert(found != m_tracks.end());
 
-	auto source = (*found).second.source;
-	source->play();
+		if (m_playingSource != nullptr)
+		{
+			m_playingSource->stop();
+		}
 
-	m_playingSource = source;
+		auto source = (*found).second.source;
+		source->play();
+
+		m_playingSource = source;
+		m_playingName = p_name;
+	}
 }
 
 void BGMManager::privateStopBGM()
@@ -70,7 +79,7 @@ void BGMManager::privateStopBGM()
 
 void BGMManager::setVolume(float p_volume)
 {
-	sm_instance->setVolume(p_volume);
+	sm_instance->privateSetVolume(p_volume);
 }
 
 void BGMManager::privateSetVolume(float p_volume)

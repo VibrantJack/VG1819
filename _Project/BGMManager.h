@@ -25,6 +25,7 @@ private:
 	std::list<std::pair<std::string, std::string>> m_soundsToCreate;
 	
 	kitten::AudioSource* m_playingSource;
+	std::string m_playingName;
 	std::unordered_map<std::string, BGMEntry> m_tracks;
 
 	virtual void start() override;

@@ -1,0 +1,21 @@
+{
+	"name" : "BGMController",
+	"components" : 
+	[
+		{
+			"name" : "PlayBGMOnSceneChange",
+			"tracks" : 
+			[
+				{
+					"track" : ["mainmenu.json", "Ambiment"]
+				},
+				{
+					"track" : ["mainscene.json", "Truth in the Stones"]
+				},
+				{
+					"track" : ["testinggrounds.json", "Truth in the Stones"]
+				}
+			]
+		}
+	]
+}

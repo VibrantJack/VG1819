@@ -3,9 +3,12 @@
 	"components" : [
 		{
 			"name" : "BGMManager",
-			"sounds" : [
+			"tracks" : [
 				{
-					"track" : ["", "sounds/click.json"]
+					"track" : ["Truth in the Stones", "sounds/bgm/stones.json"]
+				},
+				{
+					"track" : ["Ambiment", "sounds/bgm/ambiment.json"]
 				}
 			]
 		}

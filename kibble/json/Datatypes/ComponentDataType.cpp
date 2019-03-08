@@ -412,11 +412,11 @@ kitten::K_Component* getVolumeAdjustOnKeysPressed(nlohmann::json* p_jsonFile) {
 	return new VolumeAdjustOnKeysPressed(increaseKey,decreaseKey,changeAmount);
 }
 
-#include "_Project\LoadSceneOnStart.h"
-kitten::K_Component* getLoadSceneOnStart(nlohmann::json* p_jsonFile) {
+#include "_Project\LoadSceneOnFrame2.h"
+kitten::K_Component* getLoadSceneOnFrame2(nlohmann::json* p_jsonFile) {
 	std::string name = p_jsonFile->operator[]("scene_name");
 
-	return new LoadSceneOnStart(name);
+	return new LoadSceneOnFrame2(name);
 }
 
 #include "ui/UIFrame.h"
@@ -2013,6 +2013,23 @@ kitten::K_Component* getResolutionController(nlohmann::json* p_jsonFile) {
 	return new ResolutionController();
 }
 
+#include "_Project\PlayBGMOnSceneChange.h"
+kitten::K_Component* getPlayBGMOnSceneChange(nlohmann::json* p_jsonFile) {
+
+	std::unordered_map<std::string, std::string> trackMap;
+
+	auto end = p_jsonFile->operator[]("tracks").cend();
+	for (auto it = p_jsonFile->operator[]("tracks").cbegin(); it != end; ++it)
+	{
+		std::string trackName = (*it)["track"][0];
+		std::string soundPath = (*it)["track"][1];
+
+		trackMap.insert(std::make_pair(trackName, soundPath));
+	}
+	
+	return new PlayBGMOnSceneChange(trackMap);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -2153,7 +2170,7 @@ void setupComponentMap() {
 	jsonComponentMap["RefreshParticleSystemOnKeyPress"] = &getRefreshParticleSystemOnKeyPress;
 	jsonComponentMap["PlayParticleSystemAtMouseClick"] = &getPlayParticleSystemAtMouseClick;
 	jsonComponentMap["ReloadObjectOnKeyPress"] = &getReloadObjectOnKeyPress;
-	jsonComponentMap["LoadSceneOnStart"] = &getLoadSceneOnStart;
+	jsonComponentMap["LoadSceneOnFrame2"] = &getLoadSceneOnFrame2;
 	jsonComponentMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
 	jsonComponentMap["PlayUniversalSoundOnEnable"] = &getPlayUniversalSoundOnEnable;
 	jsonComponentMap["BorderPiece"] = &getBorderPiece;
@@ -2172,6 +2189,7 @@ void setupComponentMap() {
 	jsonComponentMap["SFXVolumeController"] = &getSFXVolumeController;
 	jsonComponentMap["BGMVolumeController"] = &getBGMVolumeController;
 	jsonComponentMap["BGMManager"] = &getBGMManager;
+	jsonComponentMap["PlayBGMOnSceneChange"] = &getPlayBGMOnSceneChange;
 
 }
 

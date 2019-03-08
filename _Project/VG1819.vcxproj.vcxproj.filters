@@ -950,9 +950,6 @@
     <ClCompile Include="PlayUniversalSoundOnUIClick.cpp">
       <Filter>components\sound</Filter>
     </ClCompile>
-    <ClCompile Include="LoadSceneOnStart.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="..\board\component\tilePipeline\StructureFilter.cpp">
       <Filter>board\component\tilePipeline</Filter>
     </ClCompile>
@@ -1090,6 +1087,12 @@
     </ClCompile>
     <ClCompile Include="BGMManager.cpp">
       <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayBGMOnSceneChange.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadSceneOnFrame2.cpp">
+      <Filter>components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2149,9 +2152,6 @@
     <ClInclude Include="PlayUniversalSoundOnUIClick.h">
       <Filter>components\sound</Filter>
     </ClInclude>
-    <ClInclude Include="LoadSceneOnStart.h">
-      <Filter>components</Filter>
-    </ClInclude>
     <ClInclude Include="..\UI\TurnCounterController.h">
       <Filter>UI</Filter>
     </ClInclude>
@@ -2224,6 +2224,12 @@
     </ClInclude>
     <ClInclude Include="BGMManager.h">
       <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayBGMOnSceneChange.h">
+      <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadSceneOnFrame2.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

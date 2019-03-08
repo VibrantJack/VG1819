@@ -4,13 +4,19 @@
 			"name" : "NextScene",
 			"components" : [
 				{
-					"name" : "LoadSceneOnStart",
+					"name" : "LoadSceneOnFrame2",
 					"scene_name" : "mainmenu.json"
 				}
 			]
 		},
 		{
 			"filename" : "UniversalSounds.json"
+		},
+		{
+			"filename" : "BGMManager.json"
+		},
+		{
+			"filename" : "BGMController.json"
 		},
 		{
             "filename" : "cursor.json"

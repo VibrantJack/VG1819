@@ -1,7 +1,9 @@
 #include "PlayerPrefs.h"
 
 #include "kitten\util\AsyncFileOperations.h"
+
 #include "_Project\UniversalSounds.h"
+#include "_Project\BGMManager.h"
 
 #include "kitten\K_GameObjectManager.h"
 
@@ -42,6 +44,7 @@ void PlayerPrefs::start()
 		if (foundBGM != jsonFile.end())
 		{
 			m_bgmVolume = (*foundBGM);
+			BGMManager::setVolume((float)m_bgmVolume / 100.0f);
 		}
 
 		if (foundSFX != jsonFile.end())
@@ -98,6 +101,7 @@ void PlayerPrefs::setBGMVolume(int p_volume)
 void PlayerPrefs::privateSetBGMVolume(int p_volume)
 {
 	m_bgmVolume = p_volume;
+	BGMManager::setVolume((float)p_volume / 100.0f);
 }
 
 float PlayerPrefs::getBGMVolume()

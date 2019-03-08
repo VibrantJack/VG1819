@@ -445,9 +445,10 @@
     <ClCompile Include="IncreaseResolutionOnClick.cpp" />
     <ClCompile Include="IncreaseSFXVolumeOnClick.cpp" />
     <ClCompile Include="LerpController.cpp" />
-    <ClCompile Include="LoadSceneOnStart.cpp" />
+    <ClCompile Include="LoadSceneOnFrame2.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveByMouseRightClickDrag.cpp" />
+    <ClCompile Include="PlayBGMOnSceneChange.cpp" />
     <ClCompile Include="PlayParticleSystemAtMouseClick.cpp" />
     <ClCompile Include="PlayParticleSystemOnEnable.cpp" />
     <ClCompile Include="PlayUniversalSoundOnEnable.cpp" />
@@ -828,8 +829,9 @@
     <ClInclude Include="IncreaseResolutionOnClick.h" />
     <ClInclude Include="IncreaseSFXVolumeOnClick.h" />
     <ClInclude Include="LerpController.h" />
-    <ClInclude Include="LoadSceneOnStart.h" />
+    <ClInclude Include="LoadSceneOnFrame2.h" />
     <ClInclude Include="MoveByMouseRightClickDrag.h" />
+    <ClInclude Include="PlayBGMOnSceneChange.h" />
     <ClInclude Include="PlayParticleSystemAtMouseClick.h" />
     <ClInclude Include="PlayParticleSystemOnEnable.h" />
     <ClInclude Include="PlayUniversalSoundOnEnable.h" />
