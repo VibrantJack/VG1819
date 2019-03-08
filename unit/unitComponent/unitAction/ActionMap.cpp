@@ -29,6 +29,11 @@ void unit::ActionMap::act(ActionSelect * p_s)
 	{
 		(this->*(found->second))(p_s);
 	}
+	else
+	{
+		p_s->m_unit->useAbility(action);
+		p_s->m_storage->hide();
+	}
 }
 
 void unit::ActionMap::end(ActionSelect* p_s)

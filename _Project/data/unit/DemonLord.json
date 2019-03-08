@@ -17,7 +17,7 @@
 				"filter":1,
 				"filter0":"owned_tile",
 				"Demonic Presence":1,
-				"description":""
+				"description":" "
             }
 		],
 		"portrait_texture" : "textures/cards/500x500/DemonLord.tga"
