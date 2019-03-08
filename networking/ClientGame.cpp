@@ -442,7 +442,7 @@ namespace networking
 
 				break;
 			}
-			case PacketTypes::GAME_FULL:
+			case PacketTypes::SERVER_FULL:
 			{
 				printf("[Client: %d] received GAME_FULL packet from server\n", sm_iClientId);
 				i += BASIC_PACKET_SIZE;

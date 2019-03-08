@@ -17,9 +17,11 @@ namespace networking
 	struct ClientInfo
 	{
 		SOCKET m_socket = INVALID_SOCKET;
-		int m_clientId = -1;
-		int m_gameSessionId = -1;
+		int m_serverClientId = -1;		// The ID assigned to the player when they connect to the server; should not change
+		int m_gameSessionId = -1;		// ID of the GameSession the player is in, may change
+		int m_gameSessionClientId = -1; // The ID for the player in the current GameSession, may change
 	};
+
 	class ServerNetwork
 	{
 	friend class ServerGame;
@@ -38,8 +40,10 @@ namespace networking
 		// Send functions for polled clients
 		void sendToPolledClient(unsigned int client_id, char * packets, int totalSize);
 
+		void sendToSocket(ClientInfo* p_info, char * p_packets, int p_totalSize);
+
 		// receive incoming data
-		int receiveData(ClientInfo p_client, char* p_buffer);
+		int receiveData(ClientInfo* p_client, char* p_buffer);
 		int receiveData(unsigned int p_clientId, char* p_buffer);
 		int receiveDataFromPolled(unsigned int p_clientId, char* p_buffer);
 
@@ -48,10 +52,10 @@ namespace networking
 		void addPolledClientToSessions(unsigned int p_iPolledClientId, unsigned int& p_iClientId);
 
 		void removeQueuedRemovals();
-		void queuePolledClientRemoval(ClientInfo p_client);
-		void queueClientRemoval(ClientInfo p_client);
-		void removePolledClient(ClientInfo p_client);
-		void removeClient(ClientInfo p_client);
+		void queuePolledClientRemoval(ClientInfo* p_client, bool p_closeSocket = true);
+		void queueClientRemoval(ClientInfo* p_client, bool p_closeSocket = true);
+		void removePolledClient(ClientInfo* p_client, bool p_closeSocket = true);
+		void removeClient(ClientInfo* p_client, bool p_closeSocket = true);
 
 		const SOCKET getClientSocket(unsigned int p_clientId) const;
 
@@ -69,11 +73,12 @@ namespace networking
 
 		// m_sessions: master list of client sockets that are connected to the server
 		// m_polledSessions: client sockets that have polled for the server and have not commit to joining
-		std::map<unsigned int, ClientInfo> m_sessions;
-		std::map<unsigned int, ClientInfo> m_polledSessions;
+		std::map<unsigned int, ClientInfo*> m_sessions;
+		std::map<unsigned int, ClientInfo*> m_polledSessions;
 
-		std::vector<ClientInfo> m_clientsToRemove;
-		std::vector<ClientInfo> m_polledClientsToRemove;
+		//pair: Client to remove, close socket?
+		std::vector<std::pair<ClientInfo*, bool>> m_clientsToRemove;
+		std::vector<std::pair<ClientInfo*, bool>> m_polledClientsToRemove;
 		
 		std::string m_strError;
 	};

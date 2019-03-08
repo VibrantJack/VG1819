@@ -1,9 +1,11 @@
 #pragma once
-#include "networking\dedicated_server/ServerNetwork.h"
-#include "networking\dedicated_server/NetworkData.h"
+#include "networking\dedicated_server\ServerNetwork.h"
+#include "networking\dedicated_server\NetworkData.h"
+#include "networking\dedicated_server\GameSession.h"
 #include <vector>
 
 #define MAX_JOINED_CLIENTS 2
+#define MAX_GAME_SESSIONS 2
 
 namespace networking
 {
@@ -24,9 +26,16 @@ namespace networking
 		void setupNetwork();
 		void shutdownNetwork();
 
+		void setupGameSessions();
+		void destroyGameSessions();
+
 		void update();
 		void receiveFromPolledClients();
 		void receiveFromClients();
+		void updateGameSessions();
+
+		bool findAvailableSession(ClientInfo* p_info);
+		void removeClientFromSession(ClientInfo* p_info);
 
 		void flagShutdown(bool p_flag) { m_shutdown = p_flag; }
 
@@ -47,6 +56,9 @@ namespace networking
 
 		// Vector to hold the starting data of all player's Commanders
 		std::vector<UnitPacket> m_commanders;
+
+		// Map of GameSessions to be used by the server
+		std::vector<GameSession*> m_gameSessions;
 
 		int m_clientsReadyChecked = 0;
 	};

@@ -192,7 +192,7 @@ void ConnectToHost::joinLocalhost()
 	if (networking::ClientGame::isNetworkValid())
 	{
 		m_bJoiningGame = true;
-		networking::ClientGame::getInstance()->sendBasicPacket(JOIN_GAME);
+		networking::ClientGame::getInstance()->sendBasicPacket(QUICKPLAY);
 		kitten::K_Instance::changeScene("mainscene.json");
 	}
 	else
