@@ -2030,6 +2030,11 @@ kitten::K_Component* getPlayBGMOnSceneChange(nlohmann::json* p_jsonFile) {
 	return new PlayBGMOnSceneChange(trackMap);
 }
 
+#include "_Project\ToggleSiblingEnabledOnClick.h"
+kitten::K_Component* getToggleSiblingEnabledOnClick(nlohmann::json* p_jsonFile) {
+	return new ToggleSiblingEnabledOnClick();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -2190,6 +2195,7 @@ void setupComponentMap() {
 	jsonComponentMap["BGMVolumeController"] = &getBGMVolumeController;
 	jsonComponentMap["BGMManager"] = &getBGMManager;
 	jsonComponentMap["PlayBGMOnSceneChange"] = &getPlayBGMOnSceneChange;
+	jsonComponentMap["ToggleSiblingEnabledOnClick"] = &getToggleSiblingEnabledOnClick;
 
 }
 

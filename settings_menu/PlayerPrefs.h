@@ -21,6 +21,7 @@ private:
 	bool m_fullscreen;
 	std::pair<int, int> m_resolution;
 
+	bool m_hasUnsavedChanges;
 
 	std::string toJsonString();
 

@@ -132,9 +132,11 @@ void ResolutionController::prevRes()
 }
 
 void ResolutionController::applyRes()
-{
+{	
+	/*
 	auto resPair = *m_currentRes;
 	PlayerPrefs::setResolution(resPair.first, resPair.second);
 
 	m_textBox->setText(std::to_string(resPair.first) + " x " + std::to_string(resPair.second));
+	*/
 }

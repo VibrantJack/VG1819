@@ -61,18 +61,29 @@ kitten::K_GameObject* getGameObjectBy(nlohmann::json& p_jsonFile, kitten::K_Game
 		}
 	}
 
+	auto enabledFound = p_jsonFile.find("enabled");
+	if (enabledFound != p_jsonFile.end()){
+		gameObject->setEnabled(*enabledFound);
+	}
+
 	if (p_jsonFile.find("gameobjects") != p_jsonFile.end()) {
 		//assert(p_jsonfile["components"].is_array());
 		for (nlohmann::json::iterator it = p_jsonFile["gameobjects"].begin(); it != p_jsonFile["gameobjects"].end(); ++it) {
-			
-			kitten::K_GameObject* child = gameObjectManager->createNewGameObject();
+
+			kitten::K_GameObject* child;
+
+			auto fileNameFound = (*it).find("filename");
+			if (fileNameFound != (*it).end()) {
+				child = gameObjectManager->createNewGameObject(*fileNameFound);
+			}
+			else {
+				child = gameObjectManager->createNewGameObject();
+			}
 			
 			child->getTransform().setParent(&gameObject->getTransform());
 			child->getTransform().setIgnoreParent(false);
 
 			child = getGameObjectBy(*it, child);
-			
-			
 		}
 	}
 

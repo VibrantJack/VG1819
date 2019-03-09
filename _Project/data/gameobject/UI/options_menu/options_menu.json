@@ -75,6 +75,11 @@
 								{
 									"name" : "PlayUniversalSoundOnUIClick",
 									"sound_name" : "click_2"
+								},
+								{
+									"name" : "ClickableButton",
+									"regularTexture" : "textures/ui/buttons/button_minus.tga",
+									"highlightedTexture" : "textures/ui/buttons/button_minus_h.tga"
 								}
 							],
 							"translate" : [150, 0, 0]
@@ -97,6 +102,11 @@
 								{
 									"name" : "PlayUniversalSoundOnUIClick",
 									"sound_name" : "click_2"
+								},
+								{
+									"name" : "ClickableButton",
+									"regularTexture" : "textures/ui/buttons/button_add.tga",
+									"highlightedTexture" : "textures/ui/buttons/button_add_h.tga"
 								}
 							],
 							"translate" : [450, 0, 0]
@@ -152,6 +162,11 @@
 								{
 									"name" : "PlayUniversalSoundOnUIClick",
 									"sound_name" : "click_2"
+								},
+								{
+									"name" : "ClickableButton",
+									"regularTexture" : "textures/ui/buttons/button_minus.tga",
+									"highlightedTexture" : "textures/ui/buttons/button_minus_h.tga"
 								}
 							],
 							"translate" : [150, 0, 0]
@@ -174,6 +189,11 @@
 								{
 									"name" : "PlayUniversalSoundOnUIClick",
 									"sound_name" : "click_2"
+								},
+								{
+									"name" : "ClickableButton",
+									"regularTexture" : "textures/ui/buttons/button_add.tga",
+									"highlightedTexture" : "textures/ui/buttons/button_add_h.tga"
 								}
 							],
 							"translate" : [450, 0, 0]
@@ -228,6 +248,11 @@
 								{
 									"name" : "PlayUniversalSoundOnUIClick",
 									"sound_name" : "click_2"
+								},
+								{
+									"name" : "ClickableButton",
+									"regularTexture" : "textures/ui/buttons/button_minus.tga",
+									"highlightedTexture" : "textures/ui/buttons/button_minus_h.tga"
 								}
 							],
 							"translate" : [150, 0, 0]
@@ -249,6 +274,11 @@
 								{
 									"name" : "PlayUniversalSoundOnUIClick",
 									"sound_name" : "click_2"
+								},
+								{
+									"name" : "ClickableButton",
+									"regularTexture" : "textures/ui/buttons/button_add.tga",
+									"highlightedTexture" : "textures/ui/buttons/button_add_h.tga"
 								}
 							],
 							"translate" : [450, 0, 0]
@@ -283,6 +313,11 @@
 						},
 						{
 							"name" : "SavePlayerPrefsOnClick"
+						},
+						{
+							"name" : "ClickableButton",
+							"regularTexture" : "textures/ui/buttons/button_return.tga",
+							"highlightedTexture" : "textures/ui/buttons/button_return_highlighted.tga"
 						}
 					],
 					"translate" : [575,275, 0.05],

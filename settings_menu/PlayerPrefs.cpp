@@ -11,7 +11,7 @@
 
 PlayerPrefs* PlayerPrefs::sm_instance = nullptr;
 
-PlayerPrefs::PlayerPrefs() : m_bgmVolume(1), m_sfxVolume(1), m_fullscreen(false), m_resolution(1280,720)
+PlayerPrefs::PlayerPrefs() : m_bgmVolume(1), m_sfxVolume(1), m_fullscreen(false), m_resolution(1280,720), m_hasUnsavedChanges(false)
 {
 	assert(sm_instance == nullptr);
 	sm_instance = this;
@@ -20,6 +20,11 @@ PlayerPrefs::PlayerPrefs() : m_bgmVolume(1), m_sfxVolume(1), m_fullscreen(false)
 PlayerPrefs::~PlayerPrefs()
 {
 	sm_instance = nullptr;
+
+	if (m_hasUnsavedChanges)
+	{
+		privateSaveAllSettings();
+	}
 }
 
 void PlayerPrefs::start()
@@ -86,6 +91,8 @@ void PlayerPrefs::privateSetSFXVolume(int p_volume)
 {
 	m_sfxVolume = p_volume;
 	UniversalSounds::setVolume((float)p_volume/100.0f);
+
+	m_hasUnsavedChanges = true;
 }
 
 float PlayerPrefs::getSFXVolume()
@@ -102,6 +109,8 @@ void PlayerPrefs::privateSetBGMVolume(int p_volume)
 {
 	m_bgmVolume = p_volume;
 	BGMManager::setVolume((float)p_volume / 100.0f);
+
+	m_hasUnsavedChanges = true;
 }
 
 float PlayerPrefs::getBGMVolume()
@@ -119,6 +128,8 @@ void PlayerPrefs::setFullscreen(bool p_isFullscreen)
 void PlayerPrefs::privateSetFullscreen(bool p_isFullscreen)
 {
 	m_fullscreen = p_isFullscreen;
+
+	m_hasUnsavedChanges = true;
 }
 
 // Our GLFW version does not support switching modes at runtime,
@@ -138,6 +149,8 @@ void PlayerPrefs::privateSetResolution(int p_windowX, int p_windowY)
 	m_resolution = std::make_pair(p_windowX, p_windowY);
 
 	glfwSetWindowSize(p_windowX, p_windowY);
+
+	m_hasUnsavedChanges = true;
 }
 
 std::pair<int, int> PlayerPrefs::getResolution()
@@ -152,6 +165,8 @@ void PlayerPrefs::saveAllSettings()
 
 void PlayerPrefs::privateSaveAllSettings()
 {
+	m_hasUnsavedChanges = false;
+
 	std::string fileContents = toJsonString();
 
 	std::ofstream outStream(PLAYER_PREFS_FILE_PATH);
@@ -166,6 +181,8 @@ void PlayerPrefs::asyncSaveAllSettings()
 
 void PlayerPrefs::privateAsyncSaveAllSettings()
 {
+	m_hasUnsavedChanges = false;
+
 	std::string fileContents = toJsonString();
 
 	kitten::AsyncFileOperations::saveToFile(PLAYER_PREFS_FILE_PATH, true, fileContents.c_str());

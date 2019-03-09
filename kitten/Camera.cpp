@@ -25,6 +25,8 @@ namespace kitten
 	{
 		if (K_CameraList::getInstance()->getSceneCamera() == this)
 		{
+			calcProjAndOrtho();
+
 			Transform& transform = getTransform();
 			const glm::vec3& pos = transform.getTranslation();
 			glm::vec3 upVector = transform.getUpVector();
@@ -110,6 +112,7 @@ namespace kitten
 		m_farRectWidth = m_farRectHeight * screenRatio;
 
 		m_ortho = glm::ortho(0.0f, (float)m_winWidth, 0.0f, (float)m_winHeight, -0.1f, 1.0f);
+		//m_ortho = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, -0.1f, 1.0f);
 
 		m_isProjDirty = false;
 	}
