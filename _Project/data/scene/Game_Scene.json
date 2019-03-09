@@ -73,6 +73,9 @@
 		},
 		{
 			"filename" : "TurnCounter.json"
+		},
+		{
+			"filename" : "UI/options_menu/options_menu_gameplay_button.json"
 		}
     ]
 }
