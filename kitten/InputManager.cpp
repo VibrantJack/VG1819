@@ -50,6 +50,7 @@ namespace input
 
 		m_lastMouseX = windowXSize / 2;
 		m_lastMouseY = windowYSize / 2;
+		glfwEnable(GLFW_KEY_REPEAT);
 	}
 
 	InputManager::~InputManager()
