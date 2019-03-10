@@ -51,6 +51,7 @@
 #define ABILITY_BREW "Brew"
 #define ABILITY_CORRUPT "Corrupt"
 #define ABILITY_TOXIC_AURA "Toxic Aura"
+#define ABILITY_LORD_ORDER "Lord's Order"
 
 //ability or status required info
 #define PUSH_BACK "push_back"
@@ -81,6 +82,7 @@
 #define STATUS_CURSED_BEING "Status_Cursed_Being"
 #define STATUS_LAST_WORD_SUMMON "Status_Last_Word_Summon"
 #define STATUS_POISON "Status_Poison"
+#define STATUS_LORD_ORDER "Status_Lord_Order"
 
 //lv
 #define STATUS_LV "Status_LV"

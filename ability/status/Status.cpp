@@ -110,6 +110,11 @@ namespace ability
 		m_TPList.push_back(p_value);
 	}
 
+	void Status::setCaster(unit::Unit * p_u)
+	{
+		m_caster = p_u;
+	}
+
 	void Status::endEffectAt(const TimePointEvent::TPEventType& p_value)
 	{
 		m_endEffectEvent = p_value;

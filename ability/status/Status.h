@@ -57,6 +57,7 @@ namespace ability
 		void addCounter(const std::string & p_key, int p_value);
 		void addAttributeChange(const std::string & p_key, int p_value);
 		void addTimePoint(const TimePointEvent::TPEventType& p_value);
+		void setCaster(unit::Unit* p_u);
 
 		//change when to reduce duration counter, turn end is default
 		void endEffectAt(const TimePointEvent::TPEventType& p_value = TimePointEvent::Turn_End);
@@ -93,8 +94,10 @@ namespace ability
 		
 		std::unordered_map<std::string, int> m_attributeChange;
 
+		int m_LV = 0;//lv of level up status
 
-		int m_LV = 0;
+		//the unit who cast the ability to apply the status
+		unit::Unit* m_caster;
 
 		std::vector<ability::TimePointEvent::TPEventType> m_TPList;//the list of event that will be registered
 
@@ -315,14 +318,11 @@ namespace ability
 
 	class Status_Vampiric_Curse : public Status
 	{
-	private:
-		//the unit who cast the ability,it's who get the hp
-		unit::Unit* m_caster; 
 	public:
 		Status_Vampiric_Curse();
 		Status* clone() const { return new Status_Vampiric_Curse(*this); };
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
-		void setCaster(unit::Unit* p_u);
+		//void setCaster(unit::Unit* p_u);
 	};
 
 	/*
@@ -361,6 +361,14 @@ namespace ability
 	public:
 		Status_Poison();
 		Status* clone() const { return new Status_Poison(*this); };
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};
+
+	class Status_Lord_Order : public Status
+	{
+	public:
+		Status_Lord_Order();
+		Status* clone() const { return new Status_Lord_Order(*this); };
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 }

@@ -519,6 +519,15 @@ namespace ability
 		ToxicAura() : Ability(ABILITY_TOXIC_AURA) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
+
+	class LordOrder : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
+	public:
+		LordOrder() : Ability(ABILITY_LORD_ORDER) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
 }
 
 

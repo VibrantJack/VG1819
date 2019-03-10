@@ -131,6 +131,7 @@
     <ClCompile Include="..\ability\ability\FearStrike.cpp" />
     <ClCompile Include="..\ability\ability\HealthLink.cpp" />
     <ClCompile Include="..\ability\ability\Horror.cpp" />
+    <ClCompile Include="..\ability\ability\LordOrder.cpp" />
     <ClCompile Include="..\ability\ability\Mucus.cpp" />
     <ClCompile Include="..\ability\ability\Oppose.cpp" />
     <ClCompile Include="..\ability\ability\PowerSurge.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="..\ability\status\Status_Encourage.cpp" />
     <ClCompile Include="..\ability\status\Status_IN_Change.cpp" />
     <ClCompile Include="..\ability\status\Status_Last_Word_Summon.cpp" />
+    <ClCompile Include="..\ability\status\Status_Lord_Order.cpp" />
     <ClCompile Include="..\ability\status\Status_Poison.cpp" />
     <ClCompile Include="..\ability\status\Status_Shield.cpp" />
     <ClCompile Include="..\ability\status\Status_Temp_Change.cpp" />

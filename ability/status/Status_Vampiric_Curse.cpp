@@ -5,8 +5,7 @@
 
 namespace ability
 {
-	Status_Vampiric_Curse::Status_Vampiric_Curse() : Status::Status(),
-		m_caster(nullptr)
+	Status_Vampiric_Curse::Status_Vampiric_Curse() : Status::Status()
 	{
 		m_Id = STATUS_VAMPIRIC_CURSE;
 		m_statusType = StatusType::Stat_Debuff;
@@ -37,10 +36,5 @@ namespace ability
 			return 0;
 		}
 		return 1;
-	}
-
-	void Status_Vampiric_Curse::setCaster(unit::Unit * p_u)
-	{
-		m_caster = p_u;
 	}
 }

@@ -1085,6 +1085,12 @@
     <ClCompile Include="..\unit\unitComponent\unitAction\ActionMap.cpp">
       <Filter>unit\unitComponent\unitAction</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Lord_Order.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\LordOrder.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">

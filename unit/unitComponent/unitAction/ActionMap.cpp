@@ -27,11 +27,11 @@ void unit::ActionMap::act(ActionSelect * p_s)
 	auto found = m_funcMap.find(action);
 	if (found != m_funcMap.end())
 	{
-		(this->*(found->second))(p_s);
+		(this->*(found->second))(p_s);//command on funcmap
 	}
 	else
 	{
-		p_s->m_unit->useAbility(action);
+		p_s->m_unit->useAbility(action);//ability
 		p_s->m_storage->hide();
 	}
 }
