@@ -12,7 +12,7 @@
 		},
 		{
 			"name" : "K_ParticleSystem",
-      "effectpath": "data/particles/abilities/effects/death.xml"
+      "effectpath": "data/particles/abilities/effects/shoot.xml"
 		},
 		{
 			"name" : "HaltParticleSystemAfterTime",

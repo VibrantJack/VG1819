@@ -12,8 +12,6 @@
 
 #include "UI/HandFrame.h"
 
-#include "_Project\UniversalPfx.h"
-
 #include <iostream>
 
 void ability::Ability::singleTargetDamage(AbilityInfoPackage* p_info, bool p_fireProjectile)

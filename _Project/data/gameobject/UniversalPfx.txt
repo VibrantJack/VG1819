@@ -10,7 +10,7 @@
 					"poolednumber" : 6
 				},
 				{
-					"name" : "BurnExplosion",
+					"name" : "Burn",
 					"path" : "Universal Pfx/BurnExplosionUPFX.json",
 					"poolednumber" : 2
 				},
@@ -72,7 +72,7 @@
 				{
 					"name" : "Slay",
 					"path" : "Universal Pfx/SlayUPFX.json",
-					"poolednumber" : 2
+					"poolednumber" : 3
 				},
 				{
 					"name" : "Summon",
@@ -83,6 +83,36 @@
 					"name" : "Join",
 					"path" : "Universal Pfx/UnitSummonOrJoinUPFX.json",
 					"poolednumber" : 2
+				},
+				{
+					"name" : "Volley",
+					"path" : "Universal Pfx/VolleyUPFX.json",
+					"poolednumber" : 5
+				},
+				{
+					"name" : "Shoot",
+					"path" : "Universal Pfx/ShootUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "QuickShoot",
+					"path" : "Universal Pfx/ShootUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Arm",
+					"path" : "Universal Pfx/ArmUPFX.json",
+					"poolednumber" : 8
+				},
+				{
+					"name" : "",
+					"path" : "Universal Pfx/ArmUPFX.json",
+					"poolednumber" : 8
+				},
+				{
+					"name" : "Default",
+					"path" : "Universal Pfx/DefaultUPFX.json",
+					"poolednumber" : 10
 				}
 			],
 			"debug" : false

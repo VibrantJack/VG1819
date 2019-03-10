@@ -81,7 +81,10 @@ void UniversalPfx::update()
 void UniversalPfx::playEffect(const std::string& p_effectName, const glm::vec3& p_where)
 {
 	auto found = m_effects.find(p_effectName);
-	assert(found != m_effects.end());
+	if (found == m_effects.end())
+	{
+		found = m_effects.find("Default");
+	}
 
 	auto particleSystem = (*found).second.front();
 	(*found).second.pop();
@@ -107,3 +110,4 @@ void UniversalPfx::playGroupedEffects()
 	}
 	m_groupedEffects.clear();
 }
+

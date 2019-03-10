@@ -1,0 +1,5 @@
+<Effect>
+
+<Emitter path="data/particles/abilities/emitters/defaultEmitter.xml" x="0" y="-0.5" z=".5"/>
+
+</Effect>
