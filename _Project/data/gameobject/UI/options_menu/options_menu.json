@@ -2,15 +2,7 @@
 	"name" : "Options Menu",
 	"components" : 
 	[
-		{
-			"name" : "ToggleChildEnabledOnKeyPress",
-			"key" : "O"
-		},
-		{
-			"name" : "ReloadObjectOnKeyPress",
-			"key" : "P",
-			"this_json_path" : "UI/options_menu/options_menu.json"
-		}
+	
 	],
 	
 	"gameobjects" :
