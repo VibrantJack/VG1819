@@ -65,6 +65,8 @@ namespace ability
 			const std::vector<std::string>& p_stringValueKeyList = std::vector<std::string>());
 		//part of status info which related to ad change
 		void readADChange(AbilityInfoPackage* p_info, std::vector<std::string>* p_intValueKeyList, std::vector<std::string>* p_stringValueKeyList);
+		//dynamically add ad change
+		void addADChange(AbilityInfoPackage* p_info, int p_index, const std::string& p_attr, int p_value);
 
 		//draw card
 		void drawCard(int p_id, int p_num);
@@ -527,6 +529,25 @@ namespace ability
 	public:
 		LordOrder() : Ability(ABILITY_LORD_ORDER) {};
 		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class AncientOffer : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
+	public:
+		AncientOffer() : Ability(ABILITY_ANCIENT_OFFERING) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class AncientGift : public Ability
+	{
+	public:
+		AncientGift() : Ability(ABILITY_ANCIENT_GIFT) {};
+		int effect(AbilityInfoPackage* p_info) { 
+			singleTargetDamage(p_info); 
+			return 0;
+		};
 	};
 }
 

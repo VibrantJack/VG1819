@@ -114,6 +114,8 @@
     <ClCompile Include="..\ability\AbilityManager.cpp" />
     <ClCompile Include="..\ability\ability\Ability.cpp" />
     <ClCompile Include="..\ability\ability\Activate.cpp" />
+    <ClCompile Include="..\ability\ability\AncientGift.cpp" />
+    <ClCompile Include="..\ability\ability\AncientOffer.cpp" />
     <ClCompile Include="..\ability\ability\Arm.cpp" />
     <ClCompile Include="..\ability\ability\Attach.cpp" />
     <ClCompile Include="..\ability\ability\Brew.cpp" />

@@ -27,6 +27,7 @@
 #define UNIT_CD "cd"
 #define UNIT_DURATION "duration"
 #define UNIT_POWER "power"
+#define UNIT_POWER_LIMIT "power_limit"
 #define UNIT_ABILITY_DESCRIPTION "description"
 #define MIN_RANGE "min_range"
 #define MAX_RANGE "max_range"

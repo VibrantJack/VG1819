@@ -52,6 +52,8 @@
 #define ABILITY_CORRUPT "Corrupt"
 #define ABILITY_TOXIC_AURA "Toxic Aura"
 #define ABILITY_LORD_ORDER "Lord's Order"
+#define ABILITY_ANCIENT_OFFERING "Ancient Offering"
+#define ABILITY_ANCIENT_GIFT "Ancient Gift"
 
 //ability or status required info
 #define PUSH_BACK "push_back"

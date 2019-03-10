@@ -135,6 +135,8 @@ namespace ability
 		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_CORRUPT, Corrupt);
 		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_TOXIC_AURA, ToxicAura);
 		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_LORD_ORDER, LordOrder);
+		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_ANCIENT_OFFERING, AncientOffer);
+		ADD_ELEMENT(newAbility, m_abilityList, ABILITY_ANCIENT_GIFT, AncientGift);
 	}
 
 	AbilityManager::AbilityManager()

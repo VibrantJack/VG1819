@@ -254,6 +254,20 @@ void ability::Ability::readADChange(AbilityInfoPackage* p_info, std::vector<std:
 	}
 }
 
+void ability::Ability::addADChange(AbilityInfoPackage * p_info, int p_index, const std::string & p_attr, int p_value)
+{
+	//get number of attributes
+	int attrNum = p_info->m_intValue[STATUS_AD_ATTRIBUTE_NUM(p_index)];
+
+	//increase number of attribute
+	p_info->m_intValue[STATUS_AD_ATTRIBUTE_NUM(p_index)] ++;
+
+	//add attribute
+	p_info->m_stringValue[STATUS_AD_ATTRIBUTE(p_index,attrNum)] = p_attr;
+	p_info->m_intValue[STATUS_AD_VALUE(p_index, attrNum)] = p_value;
+
+}
+
 void ability::Ability::drawCard(int p_id, int p_num)
 {
 	kitten::Event *e = new kitten::Event(kitten::Event::EventType::Draw_Card);
