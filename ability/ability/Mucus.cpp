@@ -21,7 +21,13 @@ namespace ability
 		int deltaMV = -(mv - 1); //reduced to 1
 
 		se->addAttributeChange(UNIT_MV, deltaMV);
-		se->addCounter(UNIT_DURATION, 1);
+
+
+		//status info
+		std::vector<std::string> intKeys;
+		intKeys.push_back(UNIT_DURATION);
+
+		addStatusInfo(se, p_info, intKeys);
 
 		//attach to target
 		se->attach(p_unit);
@@ -39,6 +45,9 @@ namespace ability
 					applyStatus(p_info, u);
 				}
 			}
+
+			int randNum = (rand() % 3) + 1;
+			UniversalSounds::playSound("splorch" + std::to_string(randNum));
 		}
 
 

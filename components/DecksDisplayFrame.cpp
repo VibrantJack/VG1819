@@ -71,3 +71,9 @@ void DecksDisplayFrame::updateIndividualDisplayObject(int p_activeObjectIndex)
 	m_objectsToDisplay[p_activeObjectIndex]->getTransform().getChildren()[0]->getAttachedGameObject() // first is the ui frame
 		.getComponent<userinterface::UIFrame>()->setTexture(commanderData->getPortraitTexturePath().c_str());
 }
+
+void DecksDisplayFrame::resetCurrentPick()
+{
+	DisplayFrame::resetCurrentPick();
+	DeckInitializingComponent::getActiveInstance()->setDeckData(nullptr);
+}

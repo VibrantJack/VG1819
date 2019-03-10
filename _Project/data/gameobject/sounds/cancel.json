@@ -1,0 +1,14 @@
+{
+	"name" : "CancelSound",
+	"components" : [
+		{
+			"name" : "AudioSource",
+			"clippath" : "Sounds/sfx/ui/cancel.wav",
+			"is3d" : false,
+			"enableeffects" : false,
+			"loop" : false,
+			"volume" : 0.01,
+			"getsducked" : false
+		}
+	]
+}

@@ -133,7 +133,7 @@ public:
 		m_Type = Garden_land;
 		m_TexturePath = "textures/tiles/grass.png";
 		m_mvCost = 1;
-		m_description = "Nice place to rest. Heal 1 HP and Max HP+1 for one turn.";
+		m_description = "Nice place to rest. Heal 1 HP and Max HP+1 for one turn. Strucutre and Machine won't be effected.";
 	};
 
 	void effectOnStart(unit::Unit* p_unit, TileInfo* p_tInfo) override;

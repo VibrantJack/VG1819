@@ -16,12 +16,15 @@ namespace ability
 
 			unit::Unit* target = p_info->m_targets[0];
 
-			if (checkTag(target, STRUCTURE))
+			if (target->checkTag(STRUCTURE) || target->checkTag(MACHINE))
 			{
 				triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_info);
 
 				int power = -(p_info->m_intValue.find(UNIT_POWER)->second);
 
+				changeHP(target, power);
+
+				UniversalSounds::playSound("deconstruction");
 				damage(target, power);
 				UniversalPfx::getInstance()->playEffect("Sabotage", target->getTransform().getTranslation());
 

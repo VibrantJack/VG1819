@@ -4,7 +4,7 @@
 		"hp":15,
 		"mv":0,
 		"in":15,
-		"cost":4,
+		"cost":6,
 		"tags":["Structure","Terrans"],
 		"ability_description":[
 			{

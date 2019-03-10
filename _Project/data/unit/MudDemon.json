@@ -27,6 +27,7 @@
 				"min_range":1,
 				"max_range":3,
 				"need_unit":1,
+				"duration":1,
 				"description":"Reduce target MV to 1. Deal 7 damage if in [Demonic Presence].",
 				"status_name":"Mucus",
 				"status_description":"MV is reduced to 1"

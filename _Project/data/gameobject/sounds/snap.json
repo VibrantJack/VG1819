@@ -1,0 +1,14 @@
+{
+	"name" : "Snap",
+	"components" : [
+		{
+			"name" : "AudioSource",
+			"clippath" : "Sounds/sfx/units/snap.wav",
+			"is3d" : false,
+			"enableeffects" : false,
+			"loop" : false,
+			"volume" : 0.15,
+			"getsducked" : false
+		}
+	]
+}

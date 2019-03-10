@@ -12,6 +12,8 @@ int ability::HereHomeland::effect(AbilityInfoPackage * p_info)
 		tile->getComponent<TileInfo>()->setType(LandInformation::Home_land);
 	}
 
+	UniversalSounds::playSound("homeland");
+
 	done(p_info);
 
 	return 0;

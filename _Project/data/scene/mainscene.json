@@ -29,6 +29,6 @@
 			"filename" : "UI/ready_check/ready_check.json"
 		}
     ],
-	"scenes" : [ "Game_Scene.json","mountainForest.json"]
+	"scenes" : ["mountainForest.json", "Game_Scene.json"]
 	
 }

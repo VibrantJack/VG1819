@@ -93,8 +93,8 @@ namespace ability
 
 	void ChangeAttributeNode::checkStructureMV(unit::Unit * p_target)
 	{
-		//structure can not move
-		if (p_target->isStructure())
+		//structure can not move	
+		if (p_target->checkTag(STRUCTURE))
 		{
 			p_target->m_attributes[UNIT_BASE_MV] = 0;
 			p_target->m_attributes[UNIT_MV] = 0;

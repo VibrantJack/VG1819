@@ -26,7 +26,7 @@
 				"target":2,
 				"select_repeat":"true",
 				"need_unit":1,
-				"description":"Deal 2 damage twice. Can be different targets."
+				"description":"Deal 2 damage twice. Can be different targets. If lv3, deal damage three times."
 			}
 		],
 		"status":[
@@ -39,7 +39,12 @@
 				"name":"Status_Archer_LV3",
 				"lv":3,
 				"description":"Quick Shoot can deal damage three times.",
-				"hp":4
+				"hp":4,
+				"effectedAD":1,
+				"ad_name_0":"Quick Shoot",
+				"ad_attribute_num_0":1,
+				"ad_attribute_0_0":"target",
+				"ad_value_0_0":1
 			}
 		],
 		"portrait_texture" : "textures/cards/500x500/Archer.tga"

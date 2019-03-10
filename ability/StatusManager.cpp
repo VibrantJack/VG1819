@@ -1,6 +1,9 @@
 #pragma once
 #include "StatusManager.h"
-//#include "ability/status/Status_Block.cpp"
+
+#include "status/demonic_restriction/Status_Demonic_Restriction.h"
+#include "status/statusLV/Status_LV.h"
+
 //Rock
 
 namespace ability
@@ -35,8 +38,8 @@ namespace ability
 		s = new Status_AD_Change();
 		m_statusList[STATUS_AD_CHANGE] = s;
 
-		s = new Status_Load();
-		m_statusList[STATUS_LOAD] = s;
+		//s = new Status_Load();
+		//m_statusList[STATUS_LOAD] = s;
 
 		s = new Status_Shield();
 		m_statusList[STATUS_SHIELD] = s;
@@ -60,12 +63,13 @@ namespace ability
 		m_statusList[STATUS_DR_MUD_DEMON] = s;
 
 		ADD_ELEMENT(s, m_statusList, STATUS_IN_CHANGE, Status_IN_Change);
-		ADD_ELEMENT(s, m_statusList, STATUS_DR_HORROR_LORD, Status_DR_Horror_Lord);
 		ADD_ELEMENT(s, m_statusList, STATUS_ATTACH, Status_Attach);
 		ADD_ELEMENT(s, m_statusList, STATUS_WRAITH_LV2, Status_Wraith_LV2);
 		ADD_ELEMENT(s, m_statusList, STATUS_DR_WRAITH, Status_DR_Wraith);
-		ADD_ELEMENT(s, m_statusList, STATUS_DR_EVIL_FIEND, Status_DR_Evil_Fiend);
 		ADD_ELEMENT(s, m_statusList, STATUS_EVIL_FIEND_LV, Status_Evil_Fiend_LV);
+		ADD_ELEMENT(s, m_statusList, STATUS_VAMPIRIC_CURSE, Status_Vampiric_Curse);
+		ADD_ELEMENT(s, m_statusList, STATUS_GOREFIEND_LV3, Status_Gorefiend_LV3);
+		ADD_ELEMENT(s, m_statusList, STATUS_DR_AD_CHANGE, Status_DR_AD_Change);
 	}
 
 	StatusManager::StatusManager()

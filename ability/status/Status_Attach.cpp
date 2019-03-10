@@ -16,7 +16,7 @@ int ability::Status_Attach::effect()
 	AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
 	
 	//get power
-	int pow = m_counter[UNIT_POWER];
+	int pow = m_intValue[UNIT_POWER];
 
 	if (pow > 0)//positive
 	{//change max hp then hp
@@ -37,7 +37,7 @@ int ability::Status_Attach::effect(const TimePointEvent::TPEventType& p_type, ab
 	if (p_type == TimePointEvent::Unit_Destroy)
 	{
 		//get lv
-		int lv = m_counter[UNIT_LV];
+		int lv = m_intValue[UNIT_LV];
 
 		if (lv >= 3)
 		{
@@ -56,7 +56,7 @@ int ability::Status_Attach::effect(const TimePointEvent::TPEventType& p_type, ab
 			//set client id
 			if (networking::ClientGame::getInstance() != nullptr)
 			{
-				u->getComponent<unit::Unit>()->m_clientId = m_counter[UNIT_ID];
+				u->getComponent<unit::Unit>()->m_clientId = m_intValue[UNIT_ID];
 			}
 		}
 	}

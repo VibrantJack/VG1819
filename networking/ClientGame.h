@@ -23,10 +23,6 @@ namespace networking
 		bool m_bServerCalling = false;
 		bool m_bGameTurnStart = false;
 
-		// Unit GO list so clients can have a reference to the same unit GO without having the same mem address
-		std::map<int, kitten::K_GameObject*> m_unitGOList;
-		int m_iUnitIndex = 0;
-
 		unit::Unit* m_commander;
 
 		static int sm_iClientId;
@@ -55,8 +51,9 @@ namespace networking
 		void sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
 		void setCastTime(AbilityPacket& p_packet);
 		void sendCastTimeAbilityPacket(unit::AbilityDescription * p_ad, ability::AbilityInfoPackage * p_info);
-		
-		bool checkSync(int p_unitId);
+
+		// Compare units via their position
+		bool checkSync(int p_x, int p_y);
 		void sendDesyncedPacket();
 
 		void sendSkipTurnPacket(unit::Unit* p_unit);
@@ -67,16 +64,27 @@ namespace networking
 		void sendTextChatMessagePacket(const std::string& p_message);
 		int sendBasicPacket(PacketTypes p_packetType);
 
-		int getUnitGameObjectIndex(kitten::K_GameObject* p_unit);
-		kitten::K_GameObject* getUnitGameObject(int p_iIndex);
-		void addUnitGameObject(kitten::K_GameObject* p_unit);
-		void removeUnitGameObject(int p_iUnitIndex);
-
 		unit::Unit* getCommander() { return m_commander; }
 
 		static int getClientId() { return sm_iClientId; }
 		bool isServerCalling() { return m_bServerCalling; }
 		void setServerCalling(bool p_value) { m_bServerCalling = p_value; }
 		bool isGameTurnStarted() { return m_bGameTurnStart; }
+
+		inline unit::Unit* getUnitFromPos(int p_x, int p_y)
+		{
+			TileInfo* tile = BoardManager::getInstance()->getTile(p_x, p_y)->getComponent<TileInfo>();
+			unit::Unit* unit = tile->getUnit()->getComponent<unit::Unit>();
+			return unit;
+		}
+
+		inline UnitPos getPosFromUnit(unit::Unit* p_unit)
+		{
+			TileInfo* tile = p_unit->getTile()->getComponent<TileInfo>();
+			UnitPos unit;
+			unit.posX = tile->getPosX();
+			unit.posY = tile->getPosY();
+			return unit;
+		}
 	};
 }
