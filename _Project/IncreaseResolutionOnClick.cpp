@@ -2,7 +2,7 @@
 
 IncreaseResolutionOnClick::IncreaseResolutionOnClick()
 {
-
+	m_enabledOnPause = true;
 }
 
 IncreaseResolutionOnClick::~IncreaseResolutionOnClick()

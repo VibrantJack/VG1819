@@ -86,8 +86,11 @@ void ResolutionController::start()
 	}
 	else
 	{
-		m_textBox->setText(std::to_string(windowX) + " x " + std::to_string(windowY));
+		//m_textBox->setText(std::to_string(windowX) + " x " + std::to_string(windowY));
 	}
+
+	//Temporary
+	m_textBox->setText("XXXXXX");
 }
 
 void ResolutionController::setResolution(int p_windowX, int p_windowY)

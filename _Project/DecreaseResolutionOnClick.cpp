@@ -2,7 +2,7 @@
 
 DecreaseResolutionOnClick::DecreaseResolutionOnClick() : m_resController(nullptr)
 {
-
+	m_enabledOnPause = true;
 }
 
 DecreaseResolutionOnClick::~DecreaseResolutionOnClick()

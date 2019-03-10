@@ -2,7 +2,7 @@
 
 ToggleSiblingEnabledOnClick::ToggleSiblingEnabledOnClick() : m_sibling(nullptr)
 {
-
+	m_enabledOnPause = true;
 }
 
 ToggleSiblingEnabledOnClick::~ToggleSiblingEnabledOnClick()

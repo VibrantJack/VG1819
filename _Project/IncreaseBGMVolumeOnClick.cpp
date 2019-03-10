@@ -2,7 +2,7 @@
 
 IncreaseBGMVolumeOnClick::IncreaseBGMVolumeOnClick(int p_amount) : m_amount(p_amount), m_controller(nullptr)
 {
-
+	m_enabledOnPause = true;
 }
 
 IncreaseBGMVolumeOnClick::~IncreaseBGMVolumeOnClick()

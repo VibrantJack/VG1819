@@ -5,7 +5,7 @@
 
 SavePlayerPrefsOnClick::SavePlayerPrefsOnClick()
 {
-
+	m_enabledOnPause = true;
 }
 
 SavePlayerPrefsOnClick::~SavePlayerPrefsOnClick()
@@ -21,7 +21,12 @@ void SavePlayerPrefsOnClick::onClick()
 
 	if (parent != nullptr)
 	{
-		parent->getAttachedGameObject().setEnabled(false);
+		kitten::Transform* parentParent = parent->getParent();
+
+		if (parentParent != nullptr)
+		{
+			parentParent->getAttachedGameObject().setEnabled(false);
+		}
 	}
 
 	UniversalSounds::playSound("click");
