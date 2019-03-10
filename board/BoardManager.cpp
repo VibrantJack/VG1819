@@ -2,7 +2,6 @@
 #include "kitten\event_system\EventManager.h"
 #include "kitten/K_ComponentManager.h"
 #include "kitten/K_GameObjectManager.h"
-#include <sstream>
 
 BoardManager* BoardManager::sm_instance = nullptr;
 
@@ -231,9 +230,7 @@ void BoardManager::tileClicked(bool p_send)
 				int z = list[i].second;
 				kitten::K_GameObject* tileGO = getTile(x, z);
 
-				std::stringstream stm;
-				stm << TILE << i;
-				std::string key = stm.str();
+				std::string key = TILE+std::to_string(i);
 
 				e->putGameObj(key, tileGO);
 			}
@@ -402,10 +399,8 @@ void BoardManager::setFilter(const std::string & p_filter, kitten::Event * p_dat
 	m_pipeline->setSource(ugo->getComponent<unit::Unit>());
 	for (int i = 0; i < filterNum; i++)
 	{
-		std::stringstream stm;
-		stm << p_filter << i;
-		std::string fkey = stm.str();
-		m_pipeline->useFilter(p_data->getString(fkey));
+		std::string key = p_filter + std::to_string(i);
+		m_pipeline->useFilter(p_data->getString(key));
 	}
 }
 

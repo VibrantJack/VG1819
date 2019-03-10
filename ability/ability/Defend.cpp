@@ -16,6 +16,8 @@ namespace ability
 
 		addStatusInfo(se, p_info, intKeys);
 
+		se->endEffectAt(TimePointEvent::Turn_Start);
+
 		/*
 		//set properties
 		addStatusInfo(se, p_info);

@@ -1,6 +1,4 @@
 #include "TileGetter.h"
-#include <iostream>
-#include <sstream>
 
 TileGetter::TileGetter()
 {
@@ -92,10 +90,7 @@ void TileGetter::getTiles(kitten::Event * p_data)
 
 	for (int i = 0; i < tnum; i++)
 	{
-		std::stringstream stm;
-		stm << TILE << i;
-		std::string tkey = stm.str();
-		kitten::K_GameObject* tileGO = p_data->getGameObj(tkey);//find each tile
+		kitten::K_GameObject* tileGO = p_data->getGameObj(TILE+std::to_string(i));//find each tile
 
 		m_tileList.push_back(tileGO);
 		getUnit(tileGO);
@@ -189,9 +184,7 @@ void TileGetter::putFilter(const std::string & p_filter, kitten::Event * e)
 		e->putInt(p_filter, filterNum);
 		for (int i = 0; i < filterNum; i++)
 		{
-			std::stringstream stm;
-			stm << p_filter << i;
-			std::string fkey = stm.str();
+			std::string fkey = p_filter + std::to_string(i);
 			e->putString(fkey, m_ad->m_stringValue[fkey]);
 		}
 	}

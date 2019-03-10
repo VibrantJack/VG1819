@@ -15,6 +15,7 @@
 				"need_unit":1,
 				"min_range":1,
 				"max_range":1,
+				"counter_name":"vigor",
 				"counter_change":1,
 				"counter_max":5,
 				"description":"Deal 4 damage and gain a [Vigor Counter]. If has 5 [Vigor Counter], level up."

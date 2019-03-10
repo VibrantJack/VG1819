@@ -7,16 +7,13 @@ namespace ability
 {
 	void HealthLink::applyStatus(AbilityInfoPackage * p_info, unit::Unit* p_unit)
 	{
-		//apply Status_Attach to target
 		ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_VAMPIRIC_CURSE);
-		Status_Vampiric_Curse* s = static_cast<Status_Vampiric_Curse*>(se);
-
 
 		std::vector<std::string> intKeys;
 		intKeys.push_back(UNIT_POWER);
 		intKeys.push_back(UNIT_DURATION);
 
-		addStatusInfo(s, p_info, intKeys);
+		addStatusInfo(se, p_info, intKeys);
 
 		/*
 		//set properties: name, description, source
@@ -31,14 +28,13 @@ namespace ability
 		s->addCounter(UNIT_DURATION, dur);*/
 
 		//end at turn start
-		s->endEffectAt(TimePointEvent::Turn_Start);
+		se->endEffectAt(TimePointEvent::Turn_Start);
 
 		//set caster
-		s->setCaster(p_info->m_source);
+		se->setCaster(p_info->m_source);
 
 		//attach to target
 		se->attach(p_unit);
-
 	}
 
 	int HealthLink::effect(AbilityInfoPackage* p_info)

@@ -153,11 +153,11 @@ namespace unit
 		return m_commander != nullptr;
 	}
 
-	void Unit::manipulateTile()
-	{
-		if(isCommander())
-			m_commander->manipulateTile();
-	}
+//	void Unit::manipulateTile()
+//	{
+//		if(isCommander())
+//			m_commander->manipulateTile();
+//	}
 
 	bool Unit::checkTag(const std::string & p_tag)
 	{

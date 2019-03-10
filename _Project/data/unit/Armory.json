@@ -19,8 +19,8 @@
 				"area_min":0,
 				"area_max":1,
 				"description":"Gain 3 [Shield] to all ally without [Shield].",
-				"status_name":"Shield",
-				"status_description":"Block Damage"
+				"status_name_Status_Shield":"Shield",
+				"status_description_Status_Shield":"Block Damage"
 			}
 		],
 		"portrait_texture" : "textures/cards/500x500/Armory.tga"
