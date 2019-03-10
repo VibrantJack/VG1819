@@ -10,7 +10,7 @@ namespace ability
 		m_Id = STATUS_LORD_ORDER;
 		m_statusType = StatusType::Stat_Debuff;
 
-		addTimePoint(TimePointEvent::Receive_Damage);
+		addTimePoint(TimePointEvent::Receive_Damage, -3);
 		addTimePoint(TimePointEvent::Deal_Damage);
 		endEffectAt();
 	}

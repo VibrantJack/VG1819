@@ -17,6 +17,18 @@
 //it will decrease duration by 1 and see if it's zero
 //then decide to remove this effect
 
+/*
+Priority: The order of status to be trigger in same Time Point, 
+higher priority will be trigger early since it will be sorted in the front of list
+
+0:Default priority, normal speed of changing data, 
+or the data doesn't matter as long as the Time Point is reached.
+Most status are 0 priority
+-1:Block, Dodge
+-2:Shield
+-3:Lord Order(Receive Damage)
+*/
+
 #pragma once
 #include "ability/node/AbilityNodeManager.h"
 #include "ability/status/statusEvent/TimePointEvent.h"
@@ -56,7 +68,7 @@ namespace ability
 		//void setEffectedAD(const std::string & p_msg);
 		void addCounter(const std::string & p_key, int p_value);
 		void addAttributeChange(const std::string & p_key, int p_value);
-		void addTimePoint(const TimePointEvent::TPEventType& p_value);
+		void addTimePoint(const TimePointEvent::TPEventType& p_value, int p_priority = 0);
 		void setCaster(unit::Unit* p_u);
 
 		//change when to reduce duration counter, turn end is default
@@ -64,7 +76,8 @@ namespace ability
 
 
 		// Getters for info
-		std::vector<ability::TimePointEvent::TPEventType> getTPlist();
+		const std::unordered_map<TimePointEvent::TPEventType, int>& getTPlist();
+		int getPriority(const TimePointEvent::TPEventType& p_tp);
 		int getLV() { return m_LV; }
 		const std::unordered_map<std::string, int>& getCounters() { return m_intValue; }
 		const std::unordered_map<std::string, int>& getAttributeChanges() { return m_attributeChange; }
@@ -99,7 +112,8 @@ namespace ability
 		//the unit who cast the ability to apply the status
 		unit::Unit* m_caster;
 
-		std::vector<ability::TimePointEvent::TPEventType> m_TPList;//the list of event that will be registered
+		//the list of event that will be registered and its priority
+		std::unordered_map<TimePointEvent::TPEventType, int> m_TPList;
 
 		TimePointEvent::TPEventType m_endEffectEvent = TimePointEvent::None;
 

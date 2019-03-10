@@ -32,5 +32,8 @@ namespace unit
 		void triggerTP(ability::TimePointEvent::TPEventType p_type, ability::TimePointEvent* p_event);
 
 		Unit* getUnit();
+
+	private:
+		void addToStatusList(ability::TimePointEvent::TPEventType p_type, ability::Status* p_status);
 	};
 }

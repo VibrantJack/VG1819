@@ -9,8 +9,8 @@ namespace ability
 	{
 		m_Id = STATUS_DODGE;
 		m_statusType = StatusType::Shield;
-		addTimePoint(TimePointEvent::Receive_Damage);
-		endEffectAt(TimePointEvent::Turn_Start);
+		addTimePoint(TimePointEvent::Receive_Damage, -1);
+		//endEffectAt(TimePointEvent::Turn_Start);
 	}
 
 	int Status_Dodge::effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent * p_event)
