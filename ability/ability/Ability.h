@@ -407,28 +407,28 @@ namespace ability
 		};
 	};
 
-	class Sacrifice : public Ability
+	class Sacrifice : public Ability //needs sound, not sure what does
 	{
 	public:
 		Sacrifice() : Ability(ABILITY_SACRIFICE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Erosion : public Ability
+	class Erosion : public Ability //needs sound, deals damage to every thing on DP
 	{
 	public:
 		Erosion() : Ability(ABILITY_EROSION) {};
 		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
 	};
 
-	class Execute : public Ability
+	class Execute : public Ability //Needs sound
 	{
 	public:
 		Execute() : Ability(ABILITY_EXECUTE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Horror : public Ability
+	class Horror : public Ability //needs sound, spooks enemy
 	{
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
@@ -437,7 +437,7 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Attach : public Ability
+	class Attach : public Ability //needs sound buff ally, debuff enemy
 	{
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
@@ -446,14 +446,14 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Drain : public Ability
+	class Drain : public Ability //needs sound, deal damage, gain counter if counter > x level up
 	{
 	public:
 		Drain() : Ability(ABILITY_DRAIN) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class HealthLink : public Ability
+	class HealthLink : public Ability //needs sound, drains hp each turn
 	{
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
@@ -462,12 +462,10 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Crash : public Ability
+	class Crash : public Ability //needs sound, hurts self, deals massive damage
 	{
 	public:
 		Crash() : Ability(ABILITY_CRASH) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 }
-
-
