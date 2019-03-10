@@ -21,6 +21,8 @@
 #define FONT_HEIGHT 14
 #define MESSAGES_MARGIN_X 5.0f
 #define MESSAGES_PADDING_Y 5.0f
+#define INPUT_MAX_DISPLAY_WIDTH 295.0f
+#define INPUT_DISPLAY_WIDTH_PADDING 30.0f
 
 #define P0_COLOR_R 255.0f / 255.0f
 #define P0_COLOR_G 216.0f / 255.0f
@@ -81,7 +83,9 @@ void TextChat::start()
 	messageInput->getTransform().setIgnoreParent(false);
 	messageInput->getTransform().setParent(&getTransform());
 	messageInput->getTransform().place(MESSAGES_MARGIN_X, MESSAGES_PADDING_Y + FONT_HEIGHT, 0.01f);
+	m_textInputOriginalPos = glm::vec2(MESSAGES_MARGIN_X, MESSAGES_PADDING_Y + FONT_HEIGHT);
 	m_typingTextBox = messageInput->getComponent<puppy::TextBox>();
+	m_typingTextBox->setBoxBounds(MAX_TYPABLE_LINES * TEXTCHAT_TEXTBOX_WIDTH, m_typingTextBox->getBoxHeight());
 	m_stringInputDisplay = messageInput->getComponent<StringInputDisplay>();
 
 	kitten::K_GameObject* chatButton = kitten::K_GameObjectManager::getInstance()->createNewGameObject("text_chat/chat_button.json");
@@ -123,6 +127,12 @@ void TextChat::start()
 void TextChat::update()
 {
 	input::InputManager* input = input::InputManager::getInstance();
+	if (input->keyDown(GLFW_KEY_ESC) && !input->keyDownLast(GLFW_KEY_ESC))
+	{
+		m_attachedObject->setEnabled(!m_attachedObject->isEnabled());
+		input->setPollMode(true);
+	}
+
 	if (input->keyDown(GLFW_KEY_ENTER) && !input->keyDownLast(GLFW_KEY_ENTER) && !m_gamePaused)
 	{
 		const std::string& message = m_stringInputDisplay->getString();
@@ -131,7 +141,33 @@ void TextChat::update()
 
 		// InputManager sets poll mode to true when enter is hit, set back to false to continue typing
 		input->setPollMode(false);
+
+		resetInputTextBoxPos();
 	}
+
+	// If the current text is longer than the last text, that means we are adding more characters
+	if (m_typingTextBox->getText().length() > m_textInputLastText.length()) 
+	{
+		// Shift the box to the left (off screen) to create more typing space if needed
+		if ((m_currentTextInputWidth + m_typingTextBox->getLastLineUsedWidth()) > INPUT_MAX_DISPLAY_WIDTH)
+		{
+			m_currentTextInputWidth -= INPUT_MAX_DISPLAY_WIDTH;
+			m_typingTextBox->getTransform().move2D(-(INPUT_MAX_DISPLAY_WIDTH), 0.0f);
+		}
+	}
+	// Else if current text is shorter than the last text, that means we are deleting characters
+	else if (m_typingTextBox->getText().length() < m_textInputLastText.length())
+	{
+		// Shift the box to the right to show the previously typed text that was off screen
+		if ((m_currentTextInputWidth + m_typingTextBox->getLastLineUsedWidth()) < 0
+			&& m_currentTextInputWidth < 0
+			&& m_typingTextBox->getUsedHeight() == 0)
+		{
+			m_currentTextInputWidth += INPUT_MAX_DISPLAY_WIDTH;
+			m_typingTextBox->getTransform().move2D(INPUT_MAX_DISPLAY_WIDTH, 0.0f);
+		}
+	}
+	m_textInputLastText = m_typingTextBox->getText();
 
 }
 
@@ -139,9 +175,23 @@ void TextChat::update()
 void TextChat::addMessage(int p_id, const std::string& p_message)
 {
 	std::string message = p_message;
+	std::string leftovers;
+
+	// If the message is longer than the network limit, we cut off the extra
 	if (p_message.length() > MAX_TEXTCHAT_MSG_SIZE)
 	{
-		message = p_message.substr(0, MAX_TEXTCHAT_MSG_SIZE);
+		message = message.substr(0, MAX_TEXTCHAT_MSG_SIZE);
+	}
+	// If the message is longer than the line length, we recursively add the extra after adding the current
+	// line into TextChat
+	if (message.length() > MAX_TEXTCHAT_LINE_SIZE)
+	{
+		leftovers = message.substr(MAX_TEXTCHAT_LINE_SIZE, message.npos);
+		message = message.substr(0, MAX_TEXTCHAT_LINE_SIZE);
+	}
+	else
+	{
+		leftovers = "";
 	}
 	// Add message to log
 	// If size > max messages, start tracking the index as size - max messages
@@ -157,8 +207,8 @@ void TextChat::addMessage(int p_id, const std::string& p_message)
 
 	// When adding a message, if the log is bigger than the display limit, then update the index to start from
 	// the most recent messages
-	// This will allow the chat to automatically "scroll" down whenever a new message is typed/received and the user
-	// was "scrolled" up, viewing old messages
+	// This will allow the chat to automatically "scroll" down whenever a new message is typed/received when the user
+	// was "scrolled" up viewing old messages
 	if (m_messageLog.size() > MESSAGE_DISPLAY_LIMIT)
 	{
 		m_messageLogIndex = m_messageLog.size() - MESSAGE_DISPLAY_LIMIT;
@@ -171,6 +221,12 @@ void TextChat::addMessage(int p_id, const std::string& p_message)
 	{
 		printf("\t%s\n", m_messageLog[i].second.c_str());
 	}*/
+
+	// Recursively add the remaining text from the message as a new line
+	if (leftovers != "")
+	{
+		addMessage(p_id, leftovers);
+	}
 
 	// Only update the text boxes if the chat is open
 	if (m_attachedObject->isEnabled())
@@ -250,6 +306,8 @@ void TextChat::onEnabled()
 void TextChat::onDisabled()
 {
 	m_typingTextBox->setText("");
+	m_textInputLastText = "";
+	resetInputTextBoxPos();
 	m_scrollUpButton->getGameObject().setEnabled(false);
 	m_scrollDownButton->getGameObject().setEnabled(false);
 }
