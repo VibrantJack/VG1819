@@ -1,0 +1,51 @@
+{
+	"unit":{
+		"name":"Eldritch Lord",
+		"hp":30,
+		"mv":3,
+		"in":40,
+		"cost":99,
+		"tags":["Commander","Ancients"],
+		"commander":{
+			"portrait_path" : "place_holder"
+		},
+		"ability_description":[
+			{
+				"name":"Manipulate Tile",
+				"min_range":1,
+				"max_range":1,
+				"filter":1,
+				"filter0":"owned_tile",
+				"Demonic Presence":1,
+				"description":" "
+			},
+			{
+				"name":"Lord's Order",
+				"min_range":1,
+				"max_range":2,
+				"filter":1,
+				"filter0":"enemy",
+				"description":"For next 3 turns, [Eldritch Lord] will restore same amount of HP when target ally is damaged. And when target ally dealing damage, it and its targets will lose 2 HP(Not damage)",
+				"status_name_Status_Lord_Order":"Lord's Order",
+				"status_description_Status_Lord_Order":"Heal Lord when hurt and let targets lose HP with self when attack.",
+				"duration":3,
+				"power":2
+            }
+		],
+		"portrait_texture" : "textures/cards/500x500/EldritchLord.tga"
+	},
+	"components" : [
+		{
+			"name" : "SpriteGroup",
+			"spritename":"eldritch_lord",
+			"number":1,
+			"rotate":[45,0,0],
+			"scale":[1.5,1.5,1],
+			"translate":[0,0,0.05]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/EldritchLord.tga"
+		}
+	]
+}

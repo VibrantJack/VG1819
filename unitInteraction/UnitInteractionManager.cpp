@@ -35,7 +35,7 @@ void UnitInteractionManager::request(unit::Unit* p_unit, unit::AbilityDescriptio
 		m_needunit = m_ad->m_intValue["need_unit"];
 
 	//check if needs counter
-	m_getCounter = (p_ad->m_stringValue.find(COUNTER_NAME) == p_ad->m_stringValue.end());
+	m_getCounter = (p_ad->m_stringValue.find(COUNTER_SELECT) == p_ad->m_stringValue.end());
 
 	/*
 	if (p_ad->m_stringValue.find(COUNTER_NAME) != p_ad->m_stringValue.end())//need counter

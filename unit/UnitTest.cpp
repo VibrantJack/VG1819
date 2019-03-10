@@ -53,8 +53,8 @@ namespace unit
 		m_bTested = true;
 		//comment for testing IT
 
-//	   	kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstance()->spawnUnitObject(13); // 13 king !!!
-//		uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(6, 6);
+	   	kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstance()->spawnUnitObject(13); // 13 king !!!
+		uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(6, 6);
 //		uNEWDUMMY->getComponent<Unit>()->m_clientId = 1;
 
 //		kitten::K_GameObject* uNEWDUMMY2 = UnitSpawn::getInstance()->spawnUnitObject(14); // queen !!!
@@ -96,8 +96,8 @@ namespace unit
 		
 		//set initial position
 
-		kitten::K_GameObject* u0 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
-		u0->getComponent<unit::UnitMove>()->setTile(3, 3);
+//		kitten::K_GameObject* u0 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
+//		u0->getComponent<unit::UnitMove>()->setTile(3, 3);
 
 //		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(1);//priest
 //		u1->getComponent<unit::UnitMove>()->setTile(2, 2);
@@ -105,17 +105,17 @@ namespace unit
 //		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
 //		u2->getComponent<unit::UnitMove>()->setTile(3, 2);
 
-//		kitten::K_GameObject* u3 = UnitSpawn::getInstance()->spawnUnitObject(3);//duelist
+//		kitten::K_GameObject* u3 = UnitSpawn::getInstance()->spawnUnitObject(3);//knight
 //		u3->getComponent<unit::UnitMove>()->setTile(4, 2);
 
-		kitten::K_GameObject* u4 = UnitSpawn::getInstance()->spawnUnitObject(4);//engineer
-		u4->getComponent<unit::UnitMove>()->setTile(5, 2);
+//		kitten::K_GameObject* u4 = UnitSpawn::getInstance()->spawnUnitObject(4);//engineer
+//		u4->getComponent<unit::UnitMove>()->setTile(5, 2);
 		
 //		kitten::K_GameObject* u5 = UnitSpawn::getInstance()->spawnUnitObject(7);//pyromancer
 //		u5->getComponent<unit::UnitMove>()->setTile(6, 2);
 
-		kitten::K_GameObject* u6 = UnitSpawn::getInstance()->spawnUnitObject(8);//stone slinger
-		u6->getComponent<unit::UnitMove>()->setTile(10, 4);
+//		kitten::K_GameObject* u6 = UnitSpawn::getInstance()->spawnUnitObject(8);//stone slinger
+//		u6->getComponent<unit::UnitMove>()->setTile(10, 4);
 
 //		kitten::K_GameObject* u7 = UnitSpawn::getInstance()->spawnUnitObject(9);//arrow tower
 //		u7->getComponent<unit::UnitMove>()->setTile(8, 2);
@@ -152,20 +152,32 @@ namespace unit
 //		kitten::K_GameObject* u17 = UnitSpawn::getInstance()->spawnUnitObject(21);//evil fiend
 //		u17->getComponent<unit::UnitMove>()->setTile(6, 4);
 
-		kitten::K_GameObject* u18 = UnitSpawn::getInstance()->spawnUnitObject(22);//horror lord
-		u18->getComponent<unit::UnitMove>()->setTile(5, 4);
+//		kitten::K_GameObject* u18 = UnitSpawn::getInstance()->spawnUnitObject(22);//horror lord
+//		u18->getComponent<unit::UnitMove>()->setTile(5, 4);
 
 //		kitten::K_GameObject* u19 = UnitSpawn::getInstance()->spawnUnitObject(23);//wraith
 //		u19->getComponent<unit::UnitMove>()->setTile(4, 4);
 
-		kitten::K_GameObject* u192 = UnitSpawn::getInstance()->spawnUnitObject(23);//wraith
-		u192->getComponent<unit::UnitMove>()->setTile(3, 4);
+//		kitten::K_GameObject* u192 = UnitSpawn::getInstance()->spawnUnitObject(23);//wraith
+//		u192->getComponent<unit::UnitMove>()->setTile(3, 4);
 
-//		kitten::K_GameObject* u193 = UnitSpawn::getInstance()->spawnUnitObject(23);//wraith
-//		u193->getComponent<unit::UnitMove>()->setTile(2, 4);
+//		kitten::K_GameObject* u20 = UnitSpawn::getInstance()->spawnUnitObject(24);//gorefiend
+//		u20->getComponent<unit::UnitMove>()->setTile(2, 4);
 
-		kitten::K_GameObject* u20 = UnitSpawn::getInstance()->spawnUnitObject(24);//gorefiend
-		u20->getComponent<unit::UnitMove>()->setTile(2, 4);
+//		kitten::K_GameObject* u21 = UnitSpawn::getInstance()->spawnUnitObject(25);//monument
+//		u21->getComponent<unit::UnitMove>()->setTile(2, 5);
+
+		kitten::K_GameObject* u22 = UnitSpawn::getInstance()->spawnUnitObject(26);//slime
+		u22->getComponent<unit::UnitMove>()->setTile(3, 5);
+//		u22->getComponent<unit::Unit>()->m_clientId = 0;
+		kitten::K_GameObject* u23 = UnitSpawn::getInstance()->spawnUnitObject(27);//rot golem
+		u23->getComponent<unit::UnitMove>()->setTile(4, 5);
+
+		kitten::K_GameObject* u24 = UnitSpawn::getInstance()->spawnUnitObject(28);//demon lord
+		u24->getComponent<unit::UnitMove>()->setTile(5, 5);
+
+		kitten::K_GameObject* u25 = UnitSpawn::getInstance()->spawnUnitObject(29);//eldritch lord
+		u25->getComponent<unit::UnitMove>()->setTile(6, 5);
 
 		//test unit 
 		//unit::Unit* u = u1->getComponent<unit::Unit>();

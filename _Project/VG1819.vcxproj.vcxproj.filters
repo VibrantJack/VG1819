@@ -1052,6 +1052,51 @@
     <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_AD_Change.cpp">
       <Filter>ability\status\demonic_restriction</Filter>
     </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Cursed_Being.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\CursedProtection.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Clone.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Last_Word_Summon.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\statusLV\Status_Slime_LV3.cpp">
+      <Filter>ability\status\statusLV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Devour.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Brew.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Corrupt.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\ToxicAura.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Poison.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\unitAction\ActionMap.cpp">
+      <Filter>unit\unitComponent\unitAction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Lord_Order.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\LordOrder.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\AncientOffer.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\AncientGift.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2146,6 +2191,9 @@
     <ClInclude Include="SoundNames.h" />
     <ClInclude Include="..\ability\status\statusLV\Status_LV.h">
       <Filter>ability\status\statusLV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\unitAction\ActionMap.h">
+      <Filter>unit\unitComponent\unitAction</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

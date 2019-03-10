@@ -28,8 +28,8 @@
 				"area_mode":"point",
 				"area_fix":1,
 				"description":"Until next turn, this unit will ignore first damage received.",
-				"status_name":"Defend",
-				"status_description":"Won't be hurt."
+				"status_name_Status_Dodge":"Defend",
+				"status_description_Status_Dodge":"Won't be hurt."
 			}
 		],
 		"status":[

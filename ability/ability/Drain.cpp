@@ -9,7 +9,6 @@ namespace ability
 {
 	int Drain::effect(AbilityInfoPackage* p_info)
 	{
-
 		unit::Unit* source = p_info->m_source;
 
 		//deal damage to target
@@ -26,17 +25,18 @@ namespace ability
 		
 		//gain vigor counter
 		int delta = p_info->m_intValue[COUNTER_CHANGE];
-		changeCounter(source, COUNTER_VIGOR, delta);
+		std::string name = p_info->m_stringValue[COUNTER_NAME];
+		changeCounter(source, name, delta);
 
 		//check counter
-		int counter = source->m_attributes[COUNTER_VIGOR];
+		int counter = source->m_attributes[name];
 		int max = p_info->m_intValue[COUNTER_MAX];
 		if (counter >= max)//reach max
 		{
 			//lv up
 			source->levelup();
 			//reduce counter to 0
-			changeCounter(source, COUNTER_VIGOR, -counter);
+			changeCounter(source, name, -counter);
 		}
 
 		done(p_info);

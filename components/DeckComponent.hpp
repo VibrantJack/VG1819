@@ -17,6 +17,9 @@ class DeckComponent : public kitten::K_Component
 	void addEventReceiver(kitten::Event::EventType p_type, kitten::Event* p_data);
 	void onDisabled();
 	void onEnabled();
+
+	//put specific cards to hand without changing deck
+	void putCardToHand(kitten::Event::EventType p_type, kitten::Event * p_data);
 public:
 	DeckComponent(){}
 	~DeckComponent();
