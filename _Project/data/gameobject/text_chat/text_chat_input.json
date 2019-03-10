@@ -10,7 +10,8 @@
             "height" : 12
         },
 		{
-			"name" : "StringInputDisplay"
+			"name" : "StringInputDisplay",
+			"limit" : 41
 		}
     ]
 }

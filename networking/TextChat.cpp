@@ -87,6 +87,7 @@ void TextChat::start()
 	m_typingTextBox = messageInput->getComponent<puppy::TextBox>();
 	m_typingTextBox->setBoxBounds(MAX_TYPABLE_LINES * TEXTCHAT_TEXTBOX_WIDTH, m_typingTextBox->getBoxHeight());
 	m_stringInputDisplay = messageInput->getComponent<StringInputDisplay>();
+	m_stringInputDisplay->setCharLimit(MAX_TEXTCHAT_MSG_SIZE);
 
 	kitten::K_GameObject* chatButton = kitten::K_GameObjectManager::getInstance()->createNewGameObject("text_chat/chat_button.json");
 	glm::vec2 buttonScale2D = chatButton->getTransform().getScale2D();
