@@ -112,7 +112,8 @@ void ability::Ability::changeHP(unit::Unit * p_target, int power)
 	//change hp
 	node1->effect(p_target, UNIT_HP, power);
 
-	return 0;
+	UniversalPfx::getInstance()->playEffect(m_name, p_target->getTransform().getTranslation());
+
 }
 
 void ability::Ability::done(const AbilityInfoPackage* p_info)

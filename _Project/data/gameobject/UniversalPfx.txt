@@ -105,9 +105,9 @@
 					"poolednumber" : 8
 				},
 				{
-					"name" : "",
-					"path" : "Universal Pfx/ArmUPFX.json",
-					"poolednumber" : 8
+					"name" : "Curse",
+					"path" : "Universal Pfx/CurseUPFX.json",
+					"poolednumber" : 2
 				},
 				{
 					"name" : "Default",

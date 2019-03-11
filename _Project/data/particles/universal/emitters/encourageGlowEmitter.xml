@@ -5,7 +5,7 @@
     <offset x="0" y="0" z="0" type="disc" radius="0"/>
     <direction mode="random"/>
     <maxParticles numParticles="3" />
-    <lifetime random="false" length="2"/>
+    <lifetime random="false" length=".5"/>
     <burst isBurst="false" repeat="false" />
   </SpawnProperties>
 
@@ -16,5 +16,5 @@
     <rotationChange mode="over_life" min="0" max="180"/>
   </Affectors>
 
-  <Misc path="textures/particles/magic_02.png" spawnRate="1"/>
+  <Misc path="textures/particles/magic_02.png" spawnRate=".5"/>
 </Emitter>

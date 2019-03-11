@@ -31,6 +31,8 @@ namespace ability
 		//attach to target
 		se->attach(p_info->m_targets[0]);
 		glm::vec3 test = p_info->m_targets[0]->getTransform().getTranslation();
+		UniversalPfx::getInstance()->playEffect("Encourage", p_info->m_targetTilesGO[0]->getTransform().getTranslation());
+
 	}
 
 	void Encourage::stackStatus( AbilityInfoPackage* p_info)
@@ -39,6 +41,8 @@ namespace ability
 		//reset duration
 		int dur = p_info->m_intValue.find(UNIT_DURATION)->second;
 		se->m_intValue[UNIT_DURATION] = dur;
+		UniversalPfx::getInstance()->playEffect("Encourage", p_info->m_targetTilesGO[0]->getTransform().getTranslation());
+
 	}
 
 	int Encourage::effect(AbilityInfoPackage* p_info)

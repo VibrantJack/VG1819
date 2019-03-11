@@ -25,7 +25,6 @@ namespace ability
 				changeHP(target, power);
 
 				UniversalSounds::playSound("deconstruction");
-				damage(target, power);
 				UniversalPfx::getInstance()->playEffect("Sabotage", target->getTransform().getTranslation());
 
 			}

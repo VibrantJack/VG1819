@@ -102,6 +102,9 @@ namespace unit
 		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(1);//priest
 		u1->getComponent<unit::UnitMove>()->setTile(2, 4);
 
+		kitten::K_GameObject* u1b = UnitSpawn::getInstance()->spawnUnitObject(1);//priest
+		u1b->getComponent<unit::UnitMove>()->setTile(1,4);
+
 		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
 		u2->getComponent<unit::UnitMove>()->setTile(2, 5);
 
@@ -165,8 +168,6 @@ namespace unit
 		kitten::K_GameObject* u193 = UnitSpawn::getInstance()->spawnUnitObject(23);//wraith
 		u193->getComponent<unit::UnitMove>()->setTile(7, 3);
 
-		kitten::K_GameObject* u194 = UnitSpawn::getInstance()->spawnUnitObject(13);//wraith
-		u193->getComponent<unit::UnitMove>()->setTile(7, 4);
 
 		//test unit 
 		//unit::Unit* u = u1->getComponent<unit::Unit>();

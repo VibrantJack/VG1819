@@ -5,6 +5,7 @@
 #include "ability/status/statusEvent/TimePointEvent.h"
 #include "ability/status/Status.h"
 #include "ability/AbilityMacro.h"
+#include "_Project\UniversalPfx.h"
 
 #include "_Project\UniversalSounds.h"
 

@@ -1,0 +1,4 @@
+<Effect>
+  <Emitter z="0" y="-0.5" x="0" path="data/particles/universal/emitters/curseEmitter.xml"/>
+  <Emitter z="0" y="-0.5" x="0" path="data/particles/universal/emitters/curseEmitter2.xml"/>
+</Effect>
