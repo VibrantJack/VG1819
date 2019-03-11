@@ -177,6 +177,9 @@
 				},
 				{
 					"sound" : ["fizzle", "sounds/fizzle.json"]
+				},
+				{
+					"sound" : ["execute", "sounds/execute.json"]
 				}
 			]
 		}
