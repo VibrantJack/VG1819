@@ -74,6 +74,7 @@ void SelectAbility::useAbility(AbilityType p_ability)
 	}
 }*/
 
+/*
 void SelectAbility::set(unit::Unit * p_u, std::vector<std::string>* p_list)
 {
 	m_unit = p_u;
@@ -93,10 +94,10 @@ void SelectAbility::select(int p_i)
 	{
 		m_unit->move();
 	}
-	else if (instrction == "ManipulateTile")
-	{
-		m_unit->manipulateTile();
-	}
+//	else if (instrction == "ManipulateTile")
+//	{
+//		m_unit->manipulateTile();
+//	}
 //	else if (instrction == "Summon")
 //	{
 //		m_unit->summonUnit();
@@ -119,4 +120,4 @@ void SelectAbility::select(int p_i)
 	{
 		m_unit->useAbility(instrction);
 	}
-}
+}*/

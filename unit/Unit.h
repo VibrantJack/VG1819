@@ -85,7 +85,7 @@ namespace unit
 		//commander interface
 		void addCommander(Commander* p_c);
 		bool isCommander();
-		void manipulateTile();
+		//void manipulateTile();
 
 		//check tag
 		bool checkTag(const std::string& p_tag);

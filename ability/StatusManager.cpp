@@ -70,6 +70,11 @@ namespace ability
 		ADD_ELEMENT(s, m_statusList, STATUS_VAMPIRIC_CURSE, Status_Vampiric_Curse);
 		ADD_ELEMENT(s, m_statusList, STATUS_GOREFIEND_LV3, Status_Gorefiend_LV3);
 		ADD_ELEMENT(s, m_statusList, STATUS_DR_AD_CHANGE, Status_DR_AD_Change);
+		ADD_ELEMENT(s, m_statusList, STATUS_CURSED_BEING, Status_Cursed_Being);
+		ADD_ELEMENT(s, m_statusList, STATUS_LAST_WORD_SUMMON, Status_Last_Word_Summon);
+		ADD_ELEMENT(s, m_statusList, STATUS_SLIME_LV3, Status_Slime_LV3);
+		ADD_ELEMENT(s, m_statusList, STATUS_POISON, Status_Poison);
+		ADD_ELEMENT(s, m_statusList, STATUS_LORD_ORDER, Status_Lord_Order);
 	}
 
 	StatusManager::StatusManager()

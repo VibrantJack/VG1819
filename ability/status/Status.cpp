@@ -16,10 +16,10 @@ namespace ability
 
 	void Status::registerTPEvent()
 	{
-		for (int i = 0; i < m_TPList.size(); i++)
+		for (auto pair : m_TPList)
 		{
 			unit::StatusContainer* sc = m_unit->getStatusContainer();
-			TimePointEvent::TPEventType type = m_TPList[i];
+			TimePointEvent::TPEventType type = pair.first;
 			sc->registerTP(type,this);
 		}
 	}
@@ -105,9 +105,14 @@ namespace ability
 		}
 	}
 
-	void Status::addTimePoint(const TimePointEvent::TPEventType& p_value)
+	void Status::addTimePoint(const TimePointEvent::TPEventType& p_value, int p_priority)
 	{
-		m_TPList.push_back(p_value);
+		m_TPList[p_value] = p_priority;
+	}
+
+	void Status::setCaster(unit::Unit * p_u)
+	{
+		m_caster = p_u;
 	}
 
 	void Status::endEffectAt(const TimePointEvent::TPEventType& p_value)
@@ -117,9 +122,14 @@ namespace ability
 		addTimePoint(m_endEffectEvent);
 	}
 
-	std::vector<ability::TimePointEvent::TPEventType> Status::getTPlist()
+	const std::unordered_map<TimePointEvent::TPEventType, int>& Status::getTPlist()
 	{
 		return m_TPList;
+	}
+
+	int Status::getPriority(const TimePointEvent::TPEventType & p_tp)
+	{
+		return m_TPList[p_tp];
 	}
 
 	void Status::attach(unit::Unit * p_u, bool p_nonLevelUpStatus)

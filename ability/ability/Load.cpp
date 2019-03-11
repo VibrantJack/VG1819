@@ -8,7 +8,7 @@ namespace ability
 {
 	void Load::applyStatus(AbilityInfoPackage * p_info)
 	{
-		//apply Status_Dodge to target
+		//apply Status to target
 		ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_AD_CHANGE);
 
 		//status info

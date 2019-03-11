@@ -3,6 +3,7 @@
 #include "kitten/K_ComponentManager.h"
 #include "ActionButtonStore.h"
 #include "board/tile/TileInfo.h"
+#include "ActionMap.h"
 #include <iostream>
 
 unit::ActionSelect::ActionSelect(const std::pair<int, int> p_to, const std::pair<int, int> p_co)
@@ -14,8 +15,10 @@ unit::ActionSelect::ActionSelect(const std::pair<int, int> p_to, const std::pair
 	m_cdOffset(p_co),
 	m_active(true),
 	m_actionShow(false),
-	m_cd(0)
+	m_cd(0),
+	m_map(nullptr)
 {
+
 }
 
 unit::ActionSelect::~ActionSelect()
@@ -95,6 +98,7 @@ void unit::ActionSelect::setAction(const std::string & p_a, int p_cd)
 	}
 }
 
+/*
 void unit::ActionSelect::act()
 {
 	assert(m_action != "NONE");
@@ -110,10 +114,10 @@ void unit::ActionSelect::act()
 	{
 		m_unit->move();
 	}
-	else if (m_action == "ManipulateTile")
-	{
-		m_unit->manipulateTile();
-	}
+//	else if (m_action == "ManipulateTile")
+//	{
+//		m_unit->manipulateTile();
+//	}
 //	else if (m_action == "Summon")
 //	{
 //		m_unit->summonUnit();
@@ -155,14 +159,14 @@ void unit::ActionSelect::act()
 		m_unit->useAbility(m_action);
 	}
 	m_storage->hide();
-}
+}*/
 
 void unit::ActionSelect::onClick()
 {
 	if (m_cd > 0 || !m_active)
 		return;
 
-	act();
+	m_map->act(this);
 	//m_storage->hide();
 }
 
@@ -174,4 +178,5 @@ void unit::ActionSelect::onDisabled()
 
 	m_actionShow = false;
 }
+
 

@@ -9,7 +9,7 @@ namespace ability
 	{
 		m_Id = STATUS_BLOCK;
 		m_statusType = StatusType::Shield;
-		addTimePoint(TimePointEvent::Receive_Damage);
+		addTimePoint(TimePointEvent::Receive_Damage, -1);
 	}
 
 	int Status_Block::effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent * p_event)

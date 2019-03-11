@@ -17,6 +17,18 @@
 //it will decrease duration by 1 and see if it's zero
 //then decide to remove this effect
 
+/*
+Priority: The order of status to be trigger in same Time Point, 
+higher priority will be trigger early since it will be sorted in the front of list
+
+0:Default priority, normal speed of changing data, 
+or the data doesn't matter as long as the Time Point is reached.
+Most status are 0 priority
+-1:Block, Dodge
+-2:Shield
+-3:Lord Order(Receive Damage)
+*/
+
 #pragma once
 #include "ability/node/AbilityNodeManager.h"
 #include "ability/status/statusEvent/TimePointEvent.h"
@@ -56,14 +68,16 @@ namespace ability
 		//void setEffectedAD(const std::string & p_msg);
 		void addCounter(const std::string & p_key, int p_value);
 		void addAttributeChange(const std::string & p_key, int p_value);
-		void addTimePoint(const TimePointEvent::TPEventType& p_value);
+		void addTimePoint(const TimePointEvent::TPEventType& p_value, int p_priority = 0);
+		void setCaster(unit::Unit* p_u);
 
 		//change when to reduce duration counter, turn end is default
 		void endEffectAt(const TimePointEvent::TPEventType& p_value = TimePointEvent::Turn_End);
 
 
 		// Getters for info
-		std::vector<ability::TimePointEvent::TPEventType> getTPlist();
+		const std::unordered_map<TimePointEvent::TPEventType, int>& getTPlist();
+		int getPriority(const TimePointEvent::TPEventType& p_tp);
 		int getLV() { return m_LV; }
 		const std::unordered_map<std::string, int>& getCounters() { return m_intValue; }
 		const std::unordered_map<std::string, int>& getAttributeChanges() { return m_attributeChange; }
@@ -93,10 +107,13 @@ namespace ability
 		
 		std::unordered_map<std::string, int> m_attributeChange;
 
+		int m_LV = 0;//lv of level up status
 
-		int m_LV = 0;
+		//the unit who cast the ability to apply the status
+		unit::Unit* m_caster;
 
-		std::vector<ability::TimePointEvent::TPEventType> m_TPList;//the list of event that will be registered
+		//the list of event that will be registered and its priority
+		std::unordered_map<TimePointEvent::TPEventType, int> m_TPList;
 
 		TimePointEvent::TPEventType m_endEffectEvent = TimePointEvent::None;
 
@@ -277,6 +294,7 @@ namespace ability
 	{
 	public:
 		Status_IN_Change();
+		~Status_IN_Change();
 		Status* clone() const { return new Status_IN_Change(*this); };
 		int effect();
 		void effectEnd();
@@ -287,13 +305,10 @@ namespace ability
 
 	class Status_Attach : public Status
 	{
-	private:
-		int m_unitID = 23;
 	public:
 		Status_Attach();
 		Status* clone() const { return new Status_Attach(*this); };
 		int effect();
-		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 
 	/*
@@ -317,14 +332,11 @@ namespace ability
 
 	class Status_Vampiric_Curse : public Status
 	{
-	private:
-		//the unit who cast the ability,it's who get the hp
-		unit::Unit* m_caster; 
 	public:
 		Status_Vampiric_Curse();
 		Status* clone() const { return new Status_Vampiric_Curse(*this); };
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
-		void setCaster(unit::Unit* p_u);
+		//void setCaster(unit::Unit* p_u);
 	};
 
 	/*
@@ -336,6 +348,43 @@ namespace ability
 
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};*/
+
+	class Status_Cursed_Being : public Status
+	{
+	private:
+		void applyStatus(unit::Unit* p_u);//apply vampiric curse to target
+	public:
+		Status_Cursed_Being();
+		Status* clone() const { return new Status_Cursed_Being(*this); };
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};
+
+	//summon unit when attached unit is destroyed
+	class Status_Last_Word_Summon : public Status
+	{
+	public:
+		Status_Last_Word_Summon();
+		Status* clone() const { return new Status_Last_Word_Summon(*this); };
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+		void setUnitToSummon(int p_id, int p_lv = 1);
+	};
+
+
+	class Status_Poison : public Status
+	{
+	public:
+		Status_Poison();
+		Status* clone() const { return new Status_Poison(*this); };
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};
+
+	class Status_Lord_Order : public Status
+	{
+	public:
+		Status_Lord_Order();
+		Status* clone() const { return new Status_Lord_Order(*this); };
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};
 }
 
 

@@ -24,8 +24,8 @@ namespace ability
 					power = 0;
 			}
 
-			//change counter
-			changeCounter(target, COUNTER_ENERGY, power);
+			std::string name = p_info->m_stringValue[COUNTER_NAME];
+			changeCounter(target, name, power);
 
 			UniversalSounds::playSound("magic_power_up");
 		}

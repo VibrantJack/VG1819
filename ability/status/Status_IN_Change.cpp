@@ -7,6 +7,12 @@ ability::Status_IN_Change::Status_IN_Change()
 	m_Id = STATUS_IN_CHANGE;
 }
 
+ability::Status_IN_Change::~Status_IN_Change()
+{
+	//remove listenner
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::New_Game_Turn, this);
+}
+
 int ability::Status_IN_Change::effect()
 {
 	AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
@@ -31,8 +37,6 @@ void ability::Status_IN_Change::effectEnd()
 			node->effect(m_unit, it.first, change);
 	}
 
-	//remove listenner
-	kitten::EventManager::getInstance()->removeListener(kitten::Event::New_Game_Turn, this);
 }
 
 void ability::Status_IN_Change::registerEvent()

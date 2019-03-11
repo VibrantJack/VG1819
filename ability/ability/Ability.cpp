@@ -203,7 +203,7 @@ void ability::Ability::addStatusInfo(Status * p_st, AbilityInfoPackage* p_info,
 	p_st->m_source = m_name;
 
 	//name
-	auto it = p_info->m_stringValue.find(STATUS_NAME);
+	auto it = p_info->m_stringValue.find(STATUS_NAME(p_st->getID()));
 	if (it != p_info->m_stringValue.end())
 	{
 		std::string name = it->second;
@@ -211,7 +211,7 @@ void ability::Ability::addStatusInfo(Status * p_st, AbilityInfoPackage* p_info,
 	}
 
 	//description
-	it = p_info->m_stringValue.find(STATUS_DESCRIPTION);
+	it = p_info->m_stringValue.find(STATUS_DESCRIPTION(p_st->getID()));
 	if (it != p_info->m_stringValue.end())
 	{
 		std::string des = it->second;
@@ -254,10 +254,41 @@ void ability::Ability::readADChange(AbilityInfoPackage* p_info, std::vector<std:
 	}
 }
 
+void ability::Ability::addADChange(AbilityInfoPackage * p_info, int p_index, const std::string & p_attr, int p_value)
+{
+	//get number of attributes
+	int attrNum = p_info->m_intValue[STATUS_AD_ATTRIBUTE_NUM(p_index)];
+
+	//increase number of attribute
+	p_info->m_intValue[STATUS_AD_ATTRIBUTE_NUM(p_index)] ++;
+
+	//add attribute
+	p_info->m_stringValue[STATUS_AD_ATTRIBUTE(p_index,attrNum)] = p_attr;
+	p_info->m_intValue[STATUS_AD_VALUE(p_index, attrNum)] = p_value;
+
+}
+
 void ability::Ability::drawCard(int p_id, int p_num)
 {
 	kitten::Event *e = new kitten::Event(kitten::Event::EventType::Draw_Card);
 	e->putInt(PLAYER_ID, p_id);
 	e->putInt(CARD_COUNT, p_num);
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Draw_Card, e);
+}
+
+void ability::Ability::putCardToHand(kitten::Event* p_event, const std::unordered_map<int, int>& p_cards)
+{
+	int count = 0;
+	for (auto it : p_cards)
+	{
+		//it.first = card id
+		//it.second = card number
+		for (int i = 0; i < it.second; i++)
+		{
+			p_event->putInt(CARD_ID + std::to_string(count), it.first);
+			count++;
+		}
+	}
+
+	p_event->putInt(CARD_COUNT, count);
 }

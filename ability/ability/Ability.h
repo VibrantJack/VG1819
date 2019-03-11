@@ -65,9 +65,15 @@ namespace ability
 			const std::vector<std::string>& p_stringValueKeyList = std::vector<std::string>());
 		//part of status info which related to ad change
 		void readADChange(AbilityInfoPackage* p_info, std::vector<std::string>* p_intValueKeyList, std::vector<std::string>* p_stringValueKeyList);
+		//dynamically add ad change
+		void addADChange(AbilityInfoPackage* p_info, int p_index, const std::string& p_attr, int p_value);
 
 		//draw card
 		void drawCard(int p_id, int p_num);
+
+		//trigger card drawn event, put card to hand.
+		//map: unitId, number of cards
+		void putCardToHand(kitten::Event* p_event, const std::unordered_map<int, int>& p_cards);
 	};
 
 	class Move : public Ability
@@ -473,4 +479,81 @@ namespace ability
 		Crash() : Ability(ABILITY_CRASH) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
+
+	class CursedProtection : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
+	public:
+		CursedProtection() : Ability(ABILITY_CURSED_PROTECTION) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Clone : public Ability
+	{
+	public:
+		Clone() : Ability(ABILITY_CLONE) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Devour : public Ability
+	{
+	public:
+		Devour() : Ability(ABILITY_DEVOUR) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Brew : public Ability
+	{
+	public:
+		Brew() : Ability(ABILITY_BREW) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class Corrupt : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
+		void refresh(AbilityInfoPackage* p_info, unit::Unit* p_unit, Status* p_status);
+	public:
+		Corrupt() : Ability(ABILITY_CORRUPT) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class ToxicAura : public Ability
+	{
+	public:
+		ToxicAura() : Ability(ABILITY_TOXIC_AURA) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class LordOrder : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
+	public:
+		LordOrder() : Ability(ABILITY_LORD_ORDER) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class AncientOffer : public Ability
+	{
+	private:
+		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
+	public:
+		AncientOffer() : Ability(ABILITY_ANCIENT_OFFERING) {};
+		int effect(AbilityInfoPackage* p_info);
+	};
+
+	class AncientGift : public Ability
+	{
+	public:
+		AncientGift() : Ability(ABILITY_ANCIENT_GIFT) {};
+		int effect(AbilityInfoPackage* p_info) { 
+			singleTargetDamage(p_info); 
+			return 0;
+		};
+	};
 }
+
+

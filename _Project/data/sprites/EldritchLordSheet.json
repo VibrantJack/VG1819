@@ -1,0 +1,23 @@
+{
+	"name" : "eldritch_lord",
+	"texture" : "textures/sprites/units/ancients/eldritch_lord_sheet.png",
+	
+	"sheetwidth" : 1200,
+	"sheetheight" : 200,
+	
+	"characterwidth" : 140,
+	"characterheight" : 190,
+	
+	"padding" : 10,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [7,0],
+			"time" : 3
+		}
+	],
+	
+	"defaultanimation" : "idle"
+}

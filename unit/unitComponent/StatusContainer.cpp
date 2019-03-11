@@ -44,10 +44,10 @@ namespace unit
 		{
 			if ((*it) == p_oldStatus)
 			{
-				std::vector<ability::TimePointEvent::TPEventType> list = (*it)->getTPlist();
-				for (int i = 0; i < list.size(); i++)
+				std::unordered_map<ability::TimePointEvent::TPEventType, int> list = (*it)->getTPlist();
+				for (auto pair : list)
 				{
-					deregisterTP(list[i], *it);
+					deregisterTP(pair.first, *it);
 				}
 
 				delete *it;
@@ -63,9 +63,11 @@ namespace unit
 	{
 		for (ability::Status* it : m_statusList)
 		{
-			if (it->getID() == p_Id && it->m_source == p_source)
+			if (it->getID() == p_Id)
 			{
-				return it;
+				//if no source specified, then any source apply this status will be returned
+				if(it->m_source == p_source || p_source == "ANY")
+					return it;
 			}
 		}
 		return nullptr;
@@ -89,8 +91,7 @@ namespace unit
 			}
 		}
 		//not exist, add it to list
-		statuslist->push_back(p_status);
-		
+		addToStatusList(p_type, p_status);
 	}
 
 	void StatusContainer::deregisterTP(ability::TimePointEvent::TPEventType p_type, ability::Status * p_status)
@@ -138,9 +139,38 @@ namespace unit
 		}
 		m_removeQueue.clear();
 	}
+
 	Unit * StatusContainer::getUnit()
 	{
 		return m_unit;
 	}
+
+	void StatusContainer::addToStatusList(ability::TimePointEvent::TPEventType p_type, ability::Status* p_status)
+	{
+		//get the list
+		std::vector<ability::Status*>* list = m_TPStatusList->at(p_type);
+
+		//get priority
+		int pri = p_status->getPriority(p_type);
+
+		//Insert to right space
+		for (auto it = list->begin(); ; it++)
+		{
+			if (it == list->end())//reach end
+			{
+				list->push_back(p_status);//add it to end
+				break;
+			}
+
+			//get priority
+			int p = (*it)->getPriority(p_type);
+			if (p <= pri)//current status priority is less than or equal to inserted status priority
+			{
+				list->insert(it, p_status);
+				break;
+			}
+		}
+	}
+
 }
 

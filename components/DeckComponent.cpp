@@ -13,7 +13,8 @@ DeckComponent::~DeckComponent() {
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Discard_Card, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Draw_Card, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Add_Card, this);
-	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Peek_Card, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Peek_Card, this);	
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Put_Card_To_Hand, this);
 }
 
 void DeckComponent::start() {
@@ -38,6 +39,10 @@ void DeckComponent::start() {
 		kitten::Event::EventType::Peek_Card,
 		this,
 		std::bind(&DeckComponent::peekEventReceiver, this, std::placeholders::_1, std::placeholders::_2));
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Put_Card_To_Hand,
+		this,
+		std::bind(&DeckComponent::putCardToHand, this, std::placeholders::_1, std::placeholders::_2));
 
 	// Set up Parameters
 	if (DeckInitializingComponent::getActiveInstance() == nullptr || DeckInitializingComponent::getActiveInstance()->getDeckId() < 0) {
@@ -177,6 +182,7 @@ void DeckComponent::onDisabled() {
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Draw_Card, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Add_Card, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Peek_Card, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Put_Card_To_Hand, this);
 }
 void DeckComponent::onEnabled() {
 	kitten::EventManager::getInstance()->addListener(
@@ -199,4 +205,30 @@ void DeckComponent::onEnabled() {
 		kitten::Event::EventType::Peek_Card,
 		this,
 		std::bind(&DeckComponent::peekEventReceiver, this, std::placeholders::_1, std::placeholders::_2));
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Put_Card_To_Hand,
+		this,
+		std::bind(&DeckComponent::putCardToHand, this, std::placeholders::_1, std::placeholders::_2));
+
+}
+
+void DeckComponent::putCardToHand(kitten::Event::EventType p_type, kitten::Event * p_data)
+{
+	kitten::Event* eventData = new kitten::Event(kitten::Event::EventType::Card_Drawn);
+	eventData->putInt(PLAYER_ID, m_playerID);
+
+	int num = p_data->getInt(CARD_COUNT);
+	eventData->putInt(CARD_COUNT, num);
+
+	for (int i = 0; i < num; ++i) {
+		std::string key = CARD_ID + std::to_string(i);
+		eventData->putInt(key, p_data->getInt(key));
+	}
+
+	eventData->putInt(DECK_CARD_COUNT_LEFT, m_cardPool.size());
+
+	kitten::EventManager::getInstance()->queueEvent(
+		kitten::Event::EventType::Card_Drawn,
+		eventData
+	);
 }
