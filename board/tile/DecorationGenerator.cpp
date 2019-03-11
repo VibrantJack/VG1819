@@ -13,11 +13,10 @@ std::vector<kitten::K_GameObject*> DecorationGenerator::generateDecoration(TileI
 	switch (type)
 	{
 		//no decoration
-//	case LandInformation::Grass_land:
-//		return generateGrassDecoration();
-		//too large
-//	case LandInformation::Forest_land:
-//		return generateForestDecoration();
+	case LandInformation::Grass_land:
+		return generateGrassDecoration();
+	//case LandInformation::Forest_land:
+		//return generateForestDecoration();
 	case LandInformation::Garden_land:
 		return generateGardenDecoration();
 	case LandInformation::Swamp_land:
@@ -28,9 +27,9 @@ std::vector<kitten::K_GameObject*> DecorationGenerator::generateDecoration(TileI
 		return generateSandDecoration(x, y);
 	case LandInformation::Home_land:
 		return generateTownDecoration();
+	default:
+		return std::vector<kitten::K_GameObject*>();
 	}
-
-	return std::vector<kitten::K_GameObject*>();
 }
 
 
@@ -40,32 +39,9 @@ std::vector<kitten::K_GameObject*> DecorationGenerator::generateGrassDecoration(
 	kitten::K_GameObject* k;
 	kitten::K_GameObjectManager* gm = kitten::K_GameObjectManager::getInstance();
 
-	/*
-	float chance = (float)rand() / RAND_MAX;
-	if (chance < 0.4)
-	{
-		k = gm->createNewGameObject("TileDecoration/grass/grass.json");
-		list.push_back(k);
-	}*/
-	/*
-	int n = rand() % MAX_DECO_NUM;//number of decoration
 
-	for (int i = 0; i < n; i++)
-	{
-		kitten::K_GameObject* k;
-
-		float chance = (float) rand() / RAND_MAX;
-		if (chance < 0.7)//70% chance it's grass
-		{
-			k = kitten::K_GameObjectManager::getInstance()->createNewGameObject("Decoration_grass.json");
-		}
-		else//30% chance it's stone
-		{
-			k = kitten::K_GameObjectManager::getInstance()->createNewGameObject("Decoration_stone.json");
-		}
-		
-		list.push_back(k);
-	}*/
+	k = gm->createNewGameObject("TileDecoration/grass/low_poly_grass1.json");
+	list.push_back(k);
 	
 	return list;
 }

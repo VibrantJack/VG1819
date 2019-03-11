@@ -42,7 +42,7 @@ namespace puppy
 		texture_blend_four_point_light = texture_blend_three_point_light + 1,
 
 		//alpha test
-		alphaTest, point_light_alphaTest, billboarded_colorTint_alphaTest, billboarded_alphaTest, colorTint_alphaTest, gAlpha_alphaTest,
+		alphaTest, point_light_alphaTest, directional_light_alphaTest, billboarded_colorTint_alphaTest, billboarded_alphaTest, colorTint_alphaTest, gAlpha_alphaTest,
 
 		SHADERTYPE_MAX = gAlpha_alphaTest
 	};
