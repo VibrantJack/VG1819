@@ -99,8 +99,8 @@ namespace unit
 //		kitten::K_GameObject* u0 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
 //		u0->getComponent<unit::UnitMove>()->setTile(3, 3);
 
-		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(1);//priest
-		u1->getComponent<unit::UnitMove>()->setTile(2, 2);
+//		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(1);//priest
+//		u1->getComponent<unit::UnitMove>()->setTile(2, 2);
 
 //		kitten::K_GameObject* u2 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
 //		u2->getComponent<unit::UnitMove>()->setTile(3, 2);
@@ -120,8 +120,8 @@ namespace unit
 //		kitten::K_GameObject* u7 = UnitSpawn::getInstance()->spawnUnitObject(9);//arrow tower
 //		u7->getComponent<unit::UnitMove>()->setTile(8, 2);
 
-		kitten::K_GameObject* u8 = UnitSpawn::getInstance()->spawnUnitObject(10);//armory
-		u8->getComponent<unit::UnitMove>()->setTile(9, 2);
+//		kitten::K_GameObject* u8 = UnitSpawn::getInstance()->spawnUnitObject(10);//armory
+//		u8->getComponent<unit::UnitMove>()->setTile(9, 2);
 
 //		kitten::K_GameObject* u9 = UnitSpawn::getInstance()->spawnUnitObject(11);//divine status
 //		u9->getComponent<unit::UnitMove>()->setTile(10, 2);
