@@ -18,7 +18,12 @@ namespace ability
 	{
 		TileInfo* tileInfo = p_info->m_targetTilesGO[0]->getComponent<TileInfo>();
 
+		//set owner
 		tileInfo->setOwnerId(p_info->m_source->m_clientId);
+
+		//change DP
+		int dp = p_info->m_intValue[DEMONIC_PRESENCE];
+		tileInfo->setDemonicPresence(dp);
 
 		//kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Unhighlight_Tile, nullptr);
 

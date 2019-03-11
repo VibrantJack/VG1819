@@ -1,0 +1,23 @@
+{
+	"name" : "demon_lord",
+	"texture" : "textures/sprites/units/ancients/demon_lord_sheet.png",
+	
+	"sheetwidth" : 1270,
+	"sheetheight" : 200,
+	
+	"characterwidth" : 120,
+	"characterheight" : 130,
+	
+	"padding" : 10,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [8,0],
+			"time" : 3
+		}
+	],
+	
+	"defaultanimation" : "idle"
+}

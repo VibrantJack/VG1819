@@ -9,12 +9,13 @@
 		"ability_description":[
 			{
 				"name":"Energy Control",
+				"counter_name":"energy",
 				"counter_change":1,
+				"counter_max":4,
 				"min_range":0,
 				"max_range":0,
 				"target":1,
 				"need_unit":1,
-				"counter_max":4,
 				"description":"Gain 1 [Energy Counter](max 4)."
 			},
 			{
@@ -38,15 +39,20 @@
 				"lv":3,
 				"target":1,
 				"need_unit":0,
-				"filter":1,
+				"filter":2,
 				"filter0":"enemy",
+				"filter1":"no_unit",
 				"area_mode":"all",
 				"in":10,
 				"mv":1,
 				"duration":1,
 				"counter_name":"energy",
 				"counter_select":"all",
-				"description":"Remove all(X) [Energy Counter], allies with Cost < X: +10 IN, +1 MV."
+				"description":"Remove all(X) [Energy Counter], allies with Cost < X: +10 IN, +1 MV.",
+				"status_name_Status_Temp_Change":"Exceited!",
+				"status_description_Status_Temp_Change":"Move Farther",
+				"status_name_Status_IN_Change":"Exceited!",
+				"status_description_Status_IN_Change":"Move Faster"
 			}
 		],
 		"status":[

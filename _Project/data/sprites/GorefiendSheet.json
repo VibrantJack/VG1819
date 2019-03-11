@@ -1,0 +1,23 @@
+{
+	"name" : "gorefiend",
+	"texture" : "textures/sprites/units/ancients/gorefiend_sheet.png",
+	
+	"sheetwidth" : 885,
+	"sheetheight" : 175,
+	
+	"characterwidth" : 125,
+	"characterheight" : 140,
+	
+	"padding" : 25,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [4,0],
+			"time" : 2
+		}
+	],
+	
+	"defaultanimation" : "idle"
+}

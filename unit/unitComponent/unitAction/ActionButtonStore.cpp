@@ -3,6 +3,7 @@
 #include "kitten/InputManager.h"
 #include "UI/ClickableButton.h"
 #include "networking/ClientGame.h"
+#include "ActionMap.h"
 
 unit::ActionButtonStore::ActionButtonStore()
 {
@@ -14,11 +15,15 @@ unit::ActionButtonStore::ActionButtonStore()
 	m_actionStartIndex = 0;
 	m_actionEndIndex = 0;
 
+	m_map = new ActionMap();
+
 	registerEvent();
 }
 
 unit::ActionButtonStore::~ActionButtonStore()
 {
+	delete m_map;
+
 	deregisterEvent();
 }
 
@@ -145,11 +150,14 @@ void unit::ActionButtonStore::displayAction(kitten::K_GameObject * p_buttonGO)
 	//set actions
 	//normal ability
 	setAbility();
+
+	/*
 	//commander action
 	if (m_unit->isCommander())
 	{
 		setButton("ManipulateTile", m_unit->canAct());
-	}
+	}*/
+
 	//join
 	bool canJoin = !m_unit->isCommander() && !m_unit->checkTag(STRUCTURE);//not structure or commander
 	canJoin = canJoin && m_unit->m_attributes[UNIT_LV] < 3;//not level 3
@@ -207,7 +215,8 @@ void unit::ActionButtonStore::listenEvent(kitten::Event::EventType p_type, kitte
 void unit::ActionButtonStore::createNewButton()
 {
 	kitten::K_GameObject* ab = kitten::K_GameObjectManager::getInstance()->createNewGameObject("unit_action_button.json");
-	ab->getComponent<ActionSelect>()->setStorage(this);
+	ab->getComponent<ActionSelect>()->setStorage(this); 
+	ab->getComponent<ActionSelect>()->setActionMap(m_map);
 	//ab->setEnabled(false);
 	m_buttonList.push_back(ab);
 }

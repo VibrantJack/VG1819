@@ -22,13 +22,14 @@ void ReloadObjectOnKeyPress::update()
 	if (m_inputMan->keyDown(m_key) && !m_inputMan->keyDownLast(m_key))
 	{
 		auto newGameObj = kitten::K_GameObjectManager::getInstance()->createNewGameObject(m_pathToJson);
-
+/*
 		const glm::vec3& translation = getTransform().getTranslation();
 		const glm::vec3& scale = getTransform().getScale();
 		const glm::quat& rot = getTransform().getRotation();
 
 		newGameObj->getTransform().setIgnoreParent(false);
 		newGameObj->getTransform().setParent(getTransform().getParent());
+		*/
 
 		if (m_replaceTransform)
 		{

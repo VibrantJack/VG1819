@@ -11,13 +11,23 @@ namespace ability
 		//apply Status_Dodge to target
 		ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_DODGE);
 
+		std::vector<std::string> intKeys;
+		intKeys.push_back(UNIT_DURATION);
+
+		addStatusInfo(se, p_info, intKeys);
+
+		se->endEffectAt(TimePointEvent::Turn_Start);
+
+		/*
 		//set properties
 		addStatusInfo(se, p_info);
 
 		int dur = p_info->m_intValue.find(UNIT_DURATION)->second;
 		se->addCounter(UNIT_DURATION, dur);
 
-		se->m_source = ABILITY_DEFEND;
+		se->m_source = ABILITY_DEFEND;*/
+
+
 		//attach to target
 		se->attach(p_info->m_targets[0]);
 	}
@@ -28,7 +38,7 @@ namespace ability
 
 		//reset duration
 		int dur = p_info->m_intValue.find(UNIT_DURATION)->second;
-		se->addCounter(UNIT_DURATION, dur);
+		se->m_intValue[UNIT_DURATION] = dur;
 	}
 
 	int Defend::effect(AbilityInfoPackage* p_info)

@@ -11,12 +11,16 @@ namespace ability
 	{
 		//deal damage to target
 
+		//get counter name
+		std::string name = p_info->m_stringValue[COUNTER_NAME];
+
 		//get lv
 		int lv = p_info->m_source->m_attributes[UNIT_LV];
 		if (lv >= 3)
 		{//get kill counter
 			int powerFactor = p_info->m_intValue[COUNTER_POWER];
-			int counter = p_info->m_intValue[COUNTER_KILL];
+
+			int counter = p_info->m_intValue[name];
 
 			//add to damage
 			p_info->m_intValue[UNIT_POWER] += counter * powerFactor;
@@ -33,14 +37,14 @@ namespace ability
 		//so power will change to negative
 		int power = -(p_info->m_intValue.find(UNIT_POWER)->second);
 
-		damage(target, power);
+		changeHP(target, power);
 
 
 		//check if target dies
 		if (target->m_attributes[UNIT_HP] <= 0)
 		{//add kill counter
 			int delta = p_info->m_intValue[COUNTER_CHANGE];
-			changeCounter(p_info->m_source, COUNTER_KILL, delta);
+			changeCounter(p_info->m_source, name, delta);
 		}
 
 		done(p_info);

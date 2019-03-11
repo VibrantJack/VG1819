@@ -1,0 +1,23 @@
+{
+	"name" : "slime",
+	"texture" : "textures/sprites/units/neutral/slime_sheet.png",
+	
+	"sheetwidth" : 510,
+	"sheetheight" : 205,
+	
+	"characterwidth" : 235,
+	"characterheight" : 190,
+	
+	"padding" : 5,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [1,0],
+			"time" : 0.5
+		}
+	],
+	
+	"defaultanimation" : "idle"
+}

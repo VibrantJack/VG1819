@@ -1,0 +1,14 @@
+{
+    "name" : "backgroundMusic", 
+    "components" : [
+        {
+            "name" : "AudioSource",
+			"clippath" : "Sounds/music/Ambiment.mp3",
+			"is3d" : false,
+			"enableeffects" : false,
+			"loop" : true,
+			"volume" : 0.08,
+			"getsducked" : true
+        }
+    ]
+}

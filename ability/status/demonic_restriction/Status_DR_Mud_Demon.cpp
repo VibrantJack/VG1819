@@ -19,7 +19,7 @@ namespace ability
 		node->effect(m_unit, UNIT_MV, m_deltaMV);
 
 		//in -1
-		int deltaIN = m_attributeChange[UNIT_IN];
+		int deltaIN = m_intValue[UNIT_IN];
 		node->effect(m_unit, UNIT_IN, deltaIN);
 	}
 
@@ -32,7 +32,7 @@ namespace ability
 		node->effect(m_unit, UNIT_MV, -m_deltaMV);
 
 		//in +1
-		int deltaIN = -(m_attributeChange[UNIT_IN]);
+		int deltaIN = -(m_intValue[UNIT_IN]);
 		node->effect(m_unit, UNIT_IN, deltaIN);
 	}
 }

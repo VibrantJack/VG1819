@@ -1,0 +1,23 @@
+{
+	"name" : "monument",
+	"texture" : "textures/sprites/units/ancients/monument_sheet.png",
+	
+	"sheetwidth" : 640,
+	"sheetheight" : 60,
+	
+	"characterwidth" : 100,
+	"characterheight" : 55,
+	
+	"padding" : 5,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [5,0],
+			"time" : 2
+		}
+	],
+	
+	"defaultanimation" : "idle"
+}

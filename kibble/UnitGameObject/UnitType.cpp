@@ -124,13 +124,25 @@ ability::Status * getStatusFrom(nlohmann::json & p_jsonfile)
 	//find a empty copy of the status
 	ability::Status* s = ability::StatusManager::getInstance()->findStatus(name);
 
+	for (nlohmann::json::iterator it = p_jsonfile.begin(); it != p_jsonfile.end(); ++it) {
+		if (it->is_string()) {
+			s->m_stringValue[it.key()] = it.value().get<std::string>();
+		}
+		else if (it->is_number_integer()) {
+			s->m_intValue[it.key()] = it.value();
+		}
+	}
+	return s;
+
+
+	/*
 	//get description
 	if (p_jsonfile.find("description") != p_jsonfile.end())
 	{
 		s->changeDescription(p_jsonfile["description"].get<std::string>());
 	}
 
-	/*time point is fixed in each status
+	time point is fixed in each status
 	//get trigger time point 
 	if (p_jsonfile.find("time_point") != p_jsonfile.end())
 	{
@@ -144,7 +156,7 @@ ability::Status * getStatusFrom(nlohmann::json & p_jsonfile)
 	{
 		s->setEffectedAD(p_jsonfile["effected"].get<std::string>());
 	}*/
-
+	/*
 	for (nlohmann::json::iterator it = p_jsonfile.begin(); it != p_jsonfile.end(); ++it) 
 	{
 		if (it->is_number_integer())
@@ -179,5 +191,5 @@ ability::Status * getStatusFrom(nlohmann::json & p_jsonfile)
 			}
 		}
 	}
-	return s;
+	return s;*/
 }
