@@ -31,6 +31,8 @@
 #define UNIT_ABILITY_DESCRIPTION "description"
 #define MIN_RANGE "min_range"
 #define MAX_RANGE "max_range"
+#define AUTO_CLICK "auto_click"
+#define AUTO_CAST "auto_cast"
 
 //counter attribute
 #define COUNTER_NAME "counter_name"

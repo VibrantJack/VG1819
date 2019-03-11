@@ -16,7 +16,7 @@ public:
 	TileGetter();
 	~TileGetter();
 
-	void requireTile(unit::AbilityDescription* p_ad, unit::Unit* p_source, bool p_needUnit);
+	void requireTile(unit::AbilityDescription* p_ad, unit::Unit* p_source, bool p_needUnit, bool p_autoClick);
 	void cancel();
 private:
 	unit::Unit* m_source;
@@ -28,6 +28,7 @@ private:
 	bool m_reg;
 	bool m_respond;
 	bool m_needUnit;
+	bool m_autoClick;
 	//int m_targetNum;//number of times that player need to click on
 
 	void registerEvent();
