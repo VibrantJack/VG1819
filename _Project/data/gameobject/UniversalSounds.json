@@ -168,6 +168,15 @@
 				},
 				{
 					"sound" : ["fanfare", "sounds/fanfare.json"]
+				},
+				{
+					"sound" : ["monster_grunt", "sounds/monster_grunt.json"]
+				},
+				{
+					"sound" : ["zombie_scream", "sounds/zombie_scream.json"]
+				},
+				{
+					"sound" : ["fizzle", "sounds/fizzle.json"]
 				}
 			]
 		}

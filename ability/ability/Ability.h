@@ -414,11 +414,16 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Erosion : public Ability //needs sound, deals damage to every thing on DP
+	class Erosion : public Ability //added
 	{
 	public:
 		Erosion() : Ability(ABILITY_EROSION) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			multiTargetDamage(p_info); 
+			UniversalSounds::playSound("fizzle");
+			return 0; 
+		};
 	};
 
 	class Execute : public Ability //Needs sound
@@ -428,7 +433,7 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Horror : public Ability //needs sound, spooks enemy
+	class Horror : public Ability //added
 	{
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
@@ -462,7 +467,7 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Crash : public Ability //needs sound, hurts self, deals massive damage
+	class Crash : public Ability //added
 	{
 	public:
 		Crash() : Ability(ABILITY_CRASH) {};
