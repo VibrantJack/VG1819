@@ -412,11 +412,11 @@ kitten::K_Component* getVolumeAdjustOnKeysPressed(nlohmann::json* p_jsonFile) {
 	return new VolumeAdjustOnKeysPressed(increaseKey,decreaseKey,changeAmount);
 }
 
-#include "_Project\LoadSceneOnStart.h"
-kitten::K_Component* getLoadSceneOnStart(nlohmann::json* p_jsonFile) {
+#include "_Project\LoadSceneOnFrame2.h"
+kitten::K_Component* getLoadSceneOnFrame2(nlohmann::json* p_jsonFile) {
 	std::string name = p_jsonFile->operator[]("scene_name");
 
-	return new LoadSceneOnStart(name);
+	return new LoadSceneOnFrame2(name);
 }
 
 #include "ui/UIFrame.h"
@@ -538,8 +538,8 @@ kitten::K_Component* getTextBox(nlohmann::json* p_jsonFile) {
 	return textbox;
 }
 
-#include "_Project\ToggleEnabledOnKeyPress.h"
-kitten::K_Component* getToggleEnabledOnKeyPress(nlohmann::json* p_jsonFile) {
+#include "_Project\ToggleChildEnabledOnKeyPress.h"
+kitten::K_Component* getToggleChildEnabledOnKeyPress(nlohmann::json* p_jsonFile) {
 	char key;
 	
 	if (p_jsonFile->find("key") != p_jsonFile->end()) {
@@ -547,7 +547,7 @@ kitten::K_Component* getToggleEnabledOnKeyPress(nlohmann::json* p_jsonFile) {
 		key = str[0];
 	}
 
-	return new ToggleEnabledOnKeyPress(key);
+	return new ToggleChildEnabledOnKeyPress(key);
 }
 
 #include "_Project\ToggleStringInputOnKeyPress.h"
@@ -1849,6 +1849,23 @@ kitten::K_Component* getUniversalSounds(nlohmann::json* p_jsonFile) {
 	return new UniversalSounds(sounds);
 }
 
+#include "_Project\BGMManager.h"
+kitten::K_Component* getBGMManager(nlohmann::json* p_jsonFile) {
+
+	std::list<std::pair<std::string, std::string>> sounds;
+
+	auto end = p_jsonFile->operator[]("tracks").cend();
+	for (auto it = p_jsonFile->operator[]("tracks").cbegin(); it != end; ++it)
+	{
+		std::string trackName = (*it)["track"][0];
+		std::string soundPath = (*it)["track"][1];
+
+		sounds.push_back(std::make_pair(trackName, soundPath));
+	}
+
+	return new BGMManager(sounds);
+}
+
 #include "_Project\PlaySoundOnUIClick.h"
 kitten::K_Component* getPlaySoundOnUIClick(nlohmann::json* p_jsonFile) {
 	return new PlaySoundOnUIClick();
@@ -1932,6 +1949,92 @@ kitten::K_Component* getTurnCounterController(nlohmann::json* p_jsonFile) {
 	return new TurnCounterController();
 }
 
+#include "settings_menu\PlayerPrefs.h"
+kitten::K_Component* getPlayerPrefs(nlohmann::json* p_jsonFile) {
+	return new PlayerPrefs();
+}
+
+#include "_Project\SavePlayerPrefsOnClick.h"
+kitten::K_Component* getSavePlayerPrefsOnClick(nlohmann::json* p_jsonFile) {
+	return new SavePlayerPrefsOnClick();
+}
+
+#include "_Project\DisableParentOnClick.h"
+kitten::K_Component* getDisableParentOnClick(nlohmann::json* p_jsonFile) {
+	return new DisableParentOnClick();
+}
+
+#include "_Project\SFXVolumeController.h"
+kitten::K_Component* getSFXVolumeController(nlohmann::json* p_jsonFile) {
+	return new SFXVolumeController();
+}
+
+#include "_Project\BGMVolumeController.h"
+kitten::K_Component* getBGMVolumeController(nlohmann::json* p_jsonFile) {
+	return new BGMVolumeController();
+}
+
+#include "_Project\IncreaseSFXVolumeOnClick.h"
+kitten::K_Component* getIncreaseSFXVolumeOnClick(nlohmann::json* p_jsonFile) {
+	int amount = p_jsonFile->operator[]("amount");
+	return new IncreaseSFXVolumeOnClick(amount);
+}
+
+#include "_Project\DecreaseSFXVolumeOnClick.h"
+kitten::K_Component* getDecreaseSFXVolumeOnClick(nlohmann::json* p_jsonFile) {
+	int amount = p_jsonFile->operator[]("amount");
+	return new DecreaseSFXVolumeOnClick(amount);
+}
+
+#include "_Project\IncreaseBGMVolumeOnClick.h"
+kitten::K_Component* getIncreaseBGMVolumeOnClick(nlohmann::json* p_jsonFile) {
+	int amount = p_jsonFile->operator[]("amount");
+	return new IncreaseBGMVolumeOnClick(amount);
+}
+
+#include "_Project\DecreaseBGMVolumeOnClick.h"
+kitten::K_Component* getDecreaseBGMVolumeOnClick(nlohmann::json* p_jsonFile) {
+	int amount = p_jsonFile->operator[]("amount");
+	return new DecreaseBGMVolumeOnClick(amount);
+}
+
+#include "_Project\IncreaseResolutionOnClick.h"
+kitten::K_Component* getIncreaseResolutionOnClick(nlohmann::json* p_jsonFile) {
+	return new IncreaseResolutionOnClick();
+}
+
+#include "_Project\DecreaseResolutionOnClick.h"
+kitten::K_Component* getDecreaseResolutionOnClick(nlohmann::json* p_jsonFile) {
+	return new DecreaseResolutionOnClick();
+}
+
+#include "_Project\ResolutionController.h"
+kitten::K_Component* getResolutionController(nlohmann::json* p_jsonFile) {
+	return new ResolutionController();
+}
+
+#include "_Project\PlayBGMOnSceneChange.h"
+kitten::K_Component* getPlayBGMOnSceneChange(nlohmann::json* p_jsonFile) {
+
+	std::unordered_map<std::string, std::string> trackMap;
+
+	auto end = p_jsonFile->operator[]("tracks").cend();
+	for (auto it = p_jsonFile->operator[]("tracks").cbegin(); it != end; ++it)
+	{
+		std::string trackName = (*it)["track"][0];
+		std::string soundPath = (*it)["track"][1];
+
+		trackMap.insert(std::make_pair(trackName, soundPath));
+	}
+	
+	return new PlayBGMOnSceneChange(trackMap);
+}
+
+#include "_Project\ToggleSiblingEnabledOnClick.h"
+kitten::K_Component* getToggleSiblingEnabledOnClick(nlohmann::json* p_jsonFile) {
+	return new ToggleSiblingEnabledOnClick();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -1963,7 +2066,7 @@ void setupComponentMap() {
 	jsonComponentMap["PointerUI"] = &getPointerUI;
 	jsonComponentMap["UnitGraphic"] = &getUnitGraphic;
 	jsonComponentMap["TextBox"] = &getTextBox;
-	jsonComponentMap["ToggleEnabledOnKeyPress"] = &getToggleEnabledOnKeyPress;
+	jsonComponentMap["ToggleChildEnabledOnKeyPress"] = &getToggleChildEnabledOnKeyPress;
 	jsonComponentMap["TileInfoDisplayOnKeyPress"] = &getTileInfoDisplayOnKeyPress;
 	jsonComponentMap["BoardCreator"] = &getBoardCreator;
 	jsonComponentMap["ToggleStringInputOnKeyPress"] = &getToggleStringInputOnKeyPress;
@@ -2072,12 +2175,28 @@ void setupComponentMap() {
 	jsonComponentMap["RefreshParticleSystemOnKeyPress"] = &getRefreshParticleSystemOnKeyPress;
 	jsonComponentMap["PlayParticleSystemAtMouseClick"] = &getPlayParticleSystemAtMouseClick;
 	jsonComponentMap["ReloadObjectOnKeyPress"] = &getReloadObjectOnKeyPress;
-	jsonComponentMap["LoadSceneOnStart"] = &getLoadSceneOnStart;
+	jsonComponentMap["LoadSceneOnFrame2"] = &getLoadSceneOnFrame2;
 	jsonComponentMap["HaltParticleSystemAfterTime"] = &getHaltParticleSystemAfterTime;
 	jsonComponentMap["PlayUniversalSoundOnEnable"] = &getPlayUniversalSoundOnEnable;
 	jsonComponentMap["BorderPiece"] = &getBorderPiece;
 	jsonComponentMap["TurnCounterController"] = &getTurnCounterController;
 	jsonComponentMap["NextTurnButton"] = &getNextTurnButton;
+	jsonComponentMap["PlayerPrefs"] = &getPlayerPrefs;
+	jsonComponentMap["SavePlayerPrefsOnClick"] = &getSavePlayerPrefsOnClick;
+	jsonComponentMap["DisableParentOnClick"] = &getDisableParentOnClick;
+	jsonComponentMap["IncreaseSFXVolumeOnClick"] = &getIncreaseSFXVolumeOnClick;
+	jsonComponentMap["DecreaseSFXVolumeOnClick"] = &getDecreaseSFXVolumeOnClick;
+	jsonComponentMap["IncreaseBGMVolumeOnClick"] = &getIncreaseBGMVolumeOnClick;
+	jsonComponentMap["DecreaseBGMVolumeOnClick"] = &getDecreaseBGMVolumeOnClick;
+	jsonComponentMap["IncreaseResolutionOnClick"] = &getIncreaseResolutionOnClick;
+	jsonComponentMap["DecreaseResolutionOnClick"] = &getDecreaseResolutionOnClick;
+	jsonComponentMap["ResolutionController"] = &getResolutionController;
+	jsonComponentMap["SFXVolumeController"] = &getSFXVolumeController;
+	jsonComponentMap["BGMVolumeController"] = &getBGMVolumeController;
+	jsonComponentMap["BGMManager"] = &getBGMManager;
+	jsonComponentMap["PlayBGMOnSceneChange"] = &getPlayBGMOnSceneChange;
+	jsonComponentMap["ToggleSiblingEnabledOnClick"] = &getToggleSiblingEnabledOnClick;
+
 }
 
 kitten::K_Component* getRelatedComponentBy(nlohmann::json* p_jsonFile) {

@@ -1,6 +1,8 @@
 #include "Camera.h"
 #include "K_CameraList.h"
 
+#include "kitten\InputManager.h"
+
 namespace kitten
 {
 	Camera::Camera() : m_fov(45.0f), m_nearClip(0.1f), m_farClip(1000.0f), m_winWidth(1280.0f), m_winHeight(720.0f)
@@ -23,6 +25,8 @@ namespace kitten
 	{
 		if (K_CameraList::getInstance()->getSceneCamera() == this)
 		{
+			calcProjAndOrtho();
+
 			Transform& transform = getTransform();
 			const glm::vec3& pos = transform.getTranslation();
 			glm::vec3 upVector = transform.getUpVector();
@@ -92,7 +96,11 @@ namespace kitten
 
 	void Camera::calcProjAndOrtho()
 	{
-		float screenRatio = (float)m_winWidth / m_winHeight;
+		auto inputMan = input::InputManager::getInstance();
+		m_winWidth = inputMan->getWindowWidth();
+		m_winHeight = inputMan->getWindowHeight();
+
+		float screenRatio = (float)m_winWidth / (float)m_winHeight;
 
 		m_proj = glm::perspective(m_fov, screenRatio, m_nearClip, m_farClip);
 
@@ -104,6 +112,7 @@ namespace kitten
 		m_farRectWidth = m_farRectHeight * screenRatio;
 
 		m_ortho = glm::ortho(0.0f, (float)m_winWidth, 0.0f, (float)m_winHeight, -0.1f, 1.0f);
+		//m_ortho = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, -0.1f, 1.0f);
 
 		m_isProjDirty = false;
 	}
