@@ -12,12 +12,13 @@ namespace ability
 		//deal damaga to all units
 
 		//change power
+		std::string name = p_info->m_stringValue[COUNTER_NAME];
 		int powerFactor = p_info->m_intValue[COUNTER_POWER];
-		int counter = p_info->m_intValue[COUNTER_ENERGY];
+		int counter = p_info->m_intValue[name];
 		p_info->m_intValue[UNIT_POWER] = powerFactor * counter;
 
 		//remove counter
-		changeCounter(p_info->m_source, COUNTER_ENERGY, -counter);
+		changeCounter(p_info->m_source, name, -counter);
 
 		//get target (this is CT ability)
 		getTarget(p_info);

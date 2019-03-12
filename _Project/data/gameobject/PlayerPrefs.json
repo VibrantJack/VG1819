@@ -1,0 +1,9 @@
+{
+	"name" : "PlayerPrefsInstance",
+	"components" : 
+	[
+		{
+			"name" : "PlayerPrefs"
+		}
+	]
+}

@@ -90,6 +90,10 @@ namespace puppy
 			*p_vertexShaderPath = "Shaders/basic_directional_light.vsh";
 			*p_pixelShaderPath = "Shaders/basic_directional_light.fsh";
 			return true;
+		case ShaderType::directional_light_alphaTest:
+			*p_vertexShaderPath = "Shaders/basic_directional_light.vsh";
+			*p_pixelShaderPath  = "Shaders/directional_light_alphaTest.fsh";
+			return true;
 		case ShaderType::solid_color_directional_light:
 			*p_vertexShaderPath = "Shaders/solid_colour_directional_light.vsh";
 			*p_pixelShaderPath = "Shaders/solid_colour_directional_light.fsh";

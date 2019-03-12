@@ -37,7 +37,7 @@ namespace puppy
 
 	public:
 		Material(ShaderType p_shaderType);
-		Material(const Material& p_other);
+		Material();
 		virtual ~Material()
 		{
 			if (m_tex != nullptr)
@@ -93,6 +93,7 @@ namespace puppy
 
 		int getUniformPlace(const std::string& p_name);
 
+		virtual void setShader(ShaderType p_type);
 		virtual puppy::ShaderProgram* getShader() const { return m_shader; }
 
 		virtual void apply() const;

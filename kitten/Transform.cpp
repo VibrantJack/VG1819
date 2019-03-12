@@ -188,6 +188,24 @@ namespace kitten
 		notifyScaleListeners();
 	}
 
+	void Transform::scaleInWorld(const float xScale, const float yScale, const float zScale)
+	{
+		if (!m_ignoresParent && m_parent != nullptr)
+		{
+			const glm::vec3& parentScale = m_parent->getScale();
+			
+			float neededX = xScale / parentScale.x;
+			float neededY = yScale / parentScale.y;
+			float neededZ = zScale / parentScale.z;
+
+			scaleAbsolute(neededX, neededY, neededZ);
+		}
+		else
+		{
+			scaleAbsolute(xScale, yScale, zScale);
+		}
+	}
+
 	void Transform::rotate2D(const float deg)
 	{
 		rotateRelative(glm::vec3(0, 0, deg));
@@ -365,15 +383,24 @@ namespace kitten
 
 	void Transform::setIgnoreParent(bool p_ignores)
 	{
-		m_ignoresParent = p_ignores;
-		if (!p_ignores)
+		if (m_ignoresParent != p_ignores)
 		{
-			m_isDirty = true;
-			setChildrenDirty(unknown);
-			//Not sure how transform attributes will change, notify
-			notifyPositionListeners();
-			notifyRotationListeners();
-			notifyScaleListeners();
+			m_ignoresParent = p_ignores;
+
+			if (!p_ignores)
+			{
+				if (m_parent != nullptr)
+				{
+					onParentDirty(unknown);
+				}
+
+				m_isDirty = true;
+				setChildrenDirty(unknown);
+				//Not sure how transform attributes will change, notify
+				notifyPositionListeners();
+				notifyRotationListeners();
+				notifyScaleListeners();
+			}
 		}
 	}
 

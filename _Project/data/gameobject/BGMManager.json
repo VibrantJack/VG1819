@@ -1,0 +1,16 @@
+{
+	"name" : "BGMManager",
+	"components" : [
+		{
+			"name" : "BGMManager",
+			"tracks" : [
+				{
+					"track" : ["Truth in the Stones", "sounds/bgm/stones.json"]
+				},
+				{
+					"track" : ["Ambiment", "sounds/bgm/ambiment.json"]
+				}
+			]
+		}
+	]
+}

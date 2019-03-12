@@ -23,8 +23,8 @@ namespace ability
 					addStatusInfo(se, p_info);					
 					UniversalPfx::getInstance()->playEffect("Arm", it->getTransform().getTranslation());
 
-					//set properties
-					int pow = p_info->m_intValue.find(UNIT_POWER)->second;
+					std::vector<std::string> intKeys;
+					intKeys.push_back(UNIT_POWER);
 
 					se->m_source = ABILITY_ARM;
 					se->addCounter(UNIT_POWER, pow);

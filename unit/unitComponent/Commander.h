@@ -9,7 +9,7 @@ namespace unit
 	class Commander
 	{
 	private:
-		unit::AbilityDescription* m_adTile;
+		//unit::AbilityDescription* m_adTile;
 		unit::AbilityDescription* m_adSpawn;
 		Unit* m_unit;
 	public:
@@ -20,7 +20,7 @@ namespace unit
 
 		void init(Unit* p_u);
 
-		void manipulateTile();
+		//void manipulateTile();
 		void spawnUnit(kitten::Event::EventType p_type, kitten::Event * p_data);
 
 		void resetPower(int p_clientID);

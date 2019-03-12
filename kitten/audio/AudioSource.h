@@ -46,6 +46,7 @@ namespace kitten
 		void onPosChanged(const glm::vec3& p_newPos) override;
 
 		void play();
+		void stop();
 
 		void setClip(const std::string& p_pathToClip, bool p_is3D, bool p_enableEffects);
 		

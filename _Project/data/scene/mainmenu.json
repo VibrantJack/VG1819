@@ -30,6 +30,9 @@
         },
         {
 			"filename" : "UI/testing_button.json"
-        }
+        },
+		{
+			"filename" : "UI/options_menu/options_menu_main_button.json"
+		}
     ]
 }

@@ -312,9 +312,6 @@
     <ClCompile Include="..\board\component\Highlighter.cpp">
       <Filter>board\component</Filter>
     </ClCompile>
-    <ClCompile Include="ToggleEnabledOnKeyPress.cpp">
-      <Filter>components\debug</Filter>
-    </ClCompile>
     <ClCompile Include="..\kitten\K_Instance.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
@@ -953,9 +950,6 @@
     <ClCompile Include="PlayUniversalSoundOnUIClick.cpp">
       <Filter>components\sound</Filter>
     </ClCompile>
-    <ClCompile Include="LoadSceneOnStart.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="..\board\component\tilePipeline\StructureFilter.cpp">
       <Filter>board\component\tilePipeline</Filter>
     </ClCompile>
@@ -1051,6 +1045,102 @@
     </ClCompile>
     <ClCompile Include="..\ability\status\demonic_restriction\Status_DR_AD_Change.cpp">
       <Filter>ability\status\demonic_restriction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Cursed_Being.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\CursedProtection.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Clone.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Last_Word_Summon.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\statusLV\Status_Slime_LV3.cpp">
+      <Filter>ability\status\statusLV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Devour.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Brew.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\Corrupt.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\ToxicAura.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Poison.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\unit\unitComponent\unitAction\ActionMap.cpp">
+      <Filter>unit\unitComponent\unitAction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\status\Status_Lord_Order.cpp">
+      <Filter>ability\status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\LordOrder.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\AncientOffer.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ability\ability\AncientGift.cpp">
+      <Filter>ability\ability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\settings_menu\PlayerPrefs.cpp">
+      <Filter>settings_menu</Filter>
+    </ClCompile>
+    <ClCompile Include="SavePlayerPrefsOnClick.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="DisableParentOnClick.cpp">
+      <Filter>components\clickables</Filter>
+    </ClCompile>
+    <ClCompile Include="IncreaseSFXVolumeOnClick.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="DecreaseSFXVolumeOnClick.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="DecreaseBGMVolumeOnClick.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="IncreaseBGMVolumeOnClick.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="ResolutionController.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="IncreaseResolutionOnClick.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="DecreaseResolutionOnClick.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="SFXVolumeController.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="BGMVolumeController.cpp">
+      <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="BGMManager.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayBGMOnSceneChange.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadSceneOnFrame2.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="ToggleChildEnabledOnKeyPress.cpp">
+      <Filter>components\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="ToggleSiblingEnabledOnClick.cpp">
+      <Filter>components\options menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1362,9 +1452,6 @@
     </ClInclude>
     <ClInclude Include="..\board\component\Highlighter.h">
       <Filter>board\component</Filter>
-    </ClInclude>
-    <ClInclude Include="ToggleEnabledOnKeyPress.h">
-      <Filter>components\debug</Filter>
     </ClInclude>
     <ClInclude Include="..\kitten\K_Instance.h">
       <Filter>kitten</Filter>
@@ -2113,9 +2200,6 @@
     <ClInclude Include="PlayUniversalSoundOnUIClick.h">
       <Filter>components\sound</Filter>
     </ClInclude>
-    <ClInclude Include="LoadSceneOnStart.h">
-      <Filter>components</Filter>
-    </ClInclude>
     <ClInclude Include="..\UI\TurnCounterController.h">
       <Filter>UI</Filter>
     </ClInclude>
@@ -2146,6 +2230,60 @@
     <ClInclude Include="SoundNames.h" />
     <ClInclude Include="..\ability\status\statusLV\Status_LV.h">
       <Filter>ability\status\statusLV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\unit\unitComponent\unitAction\ActionMap.h">
+      <Filter>unit\unitComponent\unitAction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\settings_menu\PlayerPrefs.h">
+      <Filter>settings_menu</Filter>
+    </ClInclude>
+    <ClInclude Include="SavePlayerPrefsOnClick.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="DisableParentOnClick.h">
+      <Filter>components\clickables</Filter>
+    </ClInclude>
+    <ClInclude Include="IncreaseSFXVolumeOnClick.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="DecreaseSFXVolumeOnClick.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="IncreaseBGMVolumeOnClick.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="DecreaseBGMVolumeOnClick.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="ResolutionController.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="IncreaseResolutionOnClick.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="DecreaseResolutionOnClick.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="BGMVolumeController.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="SFXVolumeController.h">
+      <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="BGMManager.h">
+      <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayBGMOnSceneChange.h">
+      <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadSceneOnFrame2.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="ToggleChildEnabledOnKeyPress.h">
+      <Filter>components\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="ToggleSiblingEnabledOnClick.h">
+      <Filter>components\options menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2355,6 +2493,12 @@
     </Filter>
     <Filter Include="ability\status\statusLV">
       <UniqueIdentifier>{487f9f7b-b446-4f78-b109-8de07119bb13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="settings_menu">
+      <UniqueIdentifier>{8a6e667a-4bf7-46f6-9684-9a73b614d52b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\options menu">
+      <UniqueIdentifier>{f96107fd-b0eb-4056-afa9-c0c205b1a8f4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

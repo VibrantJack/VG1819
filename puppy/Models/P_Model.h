@@ -20,10 +20,10 @@ namespace puppy
 		std::vector<P_Mesh*> m_meshes;
 		std::string m_name;
 
-		void processNode(aiNode* p_node, const aiScene* p_scene);
-		void processMesh(aiMesh* mesh, const aiScene* p_scene);
+		void processNode(aiNode* p_node, const aiScene* p_scene, bool p_useAlphaTest);
+		void processMesh(aiMesh* mesh, const aiScene* p_scene, bool p_useAlphaTest);
 	public:
-		P_Model(const char* p_pathToModel, bool p_flipUVs);
+		P_Model(const char* p_pathToModel, bool p_flipUVs, bool p_useAlphaTest = false);
 		~P_Model();
 
 		const std::vector<P_Mesh*> getMeshes() const;

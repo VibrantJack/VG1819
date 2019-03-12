@@ -29,8 +29,8 @@
 				"need_unit":1,
 				"duration":1,
 				"description":"Reduce target MV to 1. Deal 7 damage if in [Demonic Presence].",
-				"status_name":"Mucus",
-				"status_description":"MV is reduced to 1"
+				"status_name_Status_Temp_Change":"Mucus",
+				"status_description_Status_Temp_Change":"MV is reduced to 1"
 			}
 		],
 		"status":[

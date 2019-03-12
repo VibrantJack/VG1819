@@ -28,8 +28,8 @@
 				"need_unit":1,
 				"duration":3,
 				"description":"Give target [Encourage]: When dealing damage, deal 1 more damage.",
-				"status_name":"Encourage",
-				"status_description":"Damage Increased."
+				"status_name_Status_Encourage":"Encourage",
+				"status_description_Status_Encourage":"Damage Increased."
 			}
 		],
 		"status":[

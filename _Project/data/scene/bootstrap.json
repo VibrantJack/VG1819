@@ -4,7 +4,7 @@
 			"name" : "NextScene",
 			"components" : [
 				{
-					"name" : "LoadSceneOnStart",
+					"name" : "LoadSceneOnFrame2",
 					"scene_name" : "mainmenu.json"
 				}
 			]
@@ -13,11 +13,19 @@
 			"filename" : "UniversalSounds.json"
 		},
 		{
+			"filename" : "BGMManager.json"
+		},
+		{
+			"filename" : "BGMController.json"
+		},
+		{
             "filename" : "cursor.json"
         },
 		{
+			"filename" : "PlayerPrefs.json"
+		},
+		{
 			"filename" : "camgameobj_main_menu.txt"
-		}        
-		
+		}
 	]
 }
