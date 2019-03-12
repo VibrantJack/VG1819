@@ -30,8 +30,8 @@
 					"poolednumber" : 2
 				},
 				{
-					"name" : "HealReceiveUPFX.json",
-					"path" : "Universal Pfx/BurnExplosionUPFX.json",
+					"name" : "Heal",
+					"path" : "Universal Pfx/HealReceiveUPFX.json",
 					"poolednumber" : 2
 				},
 				{
