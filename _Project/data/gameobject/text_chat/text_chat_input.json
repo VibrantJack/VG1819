@@ -6,11 +6,12 @@
 			"font" : "../fonts/nsimsun_14pt.fnt",
 			"color" : [1,1,1],
             "alignment" : "left",
-            "width" : 295,
+            "width" : 870,
             "height" : 12
         },
 		{
-			"name" : "StringInputDisplay"
+			"name" : "StringInputDisplay",
+			"limit" : 41
 		}
     ]
 }

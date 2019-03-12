@@ -258,6 +258,25 @@ void BoardManager::resetComponents()
 	m_highlighter->reset();
 }
 
+void BoardManager::autoClick(kitten::K_GameObject * p_tile)
+{
+	//check if it's in range
+	TileInfo* info = p_tile->getComponent<TileInfo>();
+	if (info->isHighlighted(TileInfo::Range))
+	{
+		//change area list
+		showArea(p_tile);
+
+		//send data
+		tileClicked(true);
+	}
+	else
+	{
+		//cancel ability
+		tileClicked(false);
+	}
+}
+
 BoardManager::BoardManager():
 	m_range(nullptr),
 	m_hlGO(nullptr),
@@ -433,12 +452,20 @@ void BoardManager::setArea(kitten::Event * p_data)
 	m_area->setPattern(p_data);
 	setFilter(AREA_FILTER, p_data);
 
+	//pivot tile
 	kitten::K_GameObject* p = p_data->getGameObj(ORIGIN);
 
 	//show inital highlight
 	TileInfo* info = p->getComponent<TileInfo>();
 	if (info->isHighlighted(TileInfo::Range))
 	{
-		showArea(p);
+		if (p_data->getInt(AUTO_CLICK) == TRUE)
+		{
+			autoClick(p);//auto casting ability
+		}
+		else
+		{
+			showArea(p);//show inital highlight
+		}
 	}
 }

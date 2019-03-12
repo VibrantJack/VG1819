@@ -42,10 +42,12 @@ public:
 	void showArea(kitten::K_GameObject* p_pivot);
 	void hideArea();
 	kitten::Event::TileList getArea();
+
 	//change select
 	bool m_selectRepeat;
 	void select();
 	void deselect();
+
 	//highlight range
 	kitten::Event::TileList getRange();
 
@@ -56,6 +58,10 @@ public:
 
 	//at every game, all components should reset
 	void resetComponents();
+
+	//auto click, for AI or auto casting ability
+	//it will act like the tile object is clicked without player interaction
+	void autoClick(kitten::K_GameObject* p_tile);
 private:
 	static BoardManager* sm_instance;
 
