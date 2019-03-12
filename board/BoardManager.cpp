@@ -1,5 +1,8 @@
 #include "BoardManager.h"
+
 #include "kitten\event_system\EventManager.h"
+#include "kitten\QuadEdgeRenderable.h"
+
 #include "kitten/K_ComponentManager.h"
 #include "kitten/K_GameObjectManager.h"
 
@@ -283,7 +286,8 @@ BoardManager::BoardManager():
 	m_highlighter(nullptr), 
 	m_pipeline(nullptr),
 	m_area(nullptr),
-	m_dimension(std::make_pair(0,0))
+	m_dimension(std::make_pair(0,0)),
+	m_isGridEnabled(true)
 {
 	//m_boardGO = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
 	
@@ -338,6 +342,27 @@ void BoardManager::listenEvent(kitten::Event::EventType p_type, kitten::Event * 
 	default:
 		break;
 	}
+}
+
+void BoardManager::setGrid(bool p_enabled)
+{
+	auto end = m_tileList.cend();
+	for (auto it = m_tileList.cbegin(); it != end; ++it)
+	{
+		auto edgeRenderable = (*it)->getComponent<kitten::QuadEdgeRenderable>();
+		
+		if (edgeRenderable != nullptr)
+		{
+			edgeRenderable->setEnabled(p_enabled);
+		}
+	}
+
+	m_isGridEnabled = p_enabled;
+}
+
+bool BoardManager::isGridEnabled() const
+{
+	return m_isGridEnabled;
 }
 
 void BoardManager::highlightTile(kitten::Event * p_data)
