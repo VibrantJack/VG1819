@@ -11,7 +11,7 @@ TileGetter::~TileGetter()
 	deregisterEvent();
 }
 
-void TileGetter::requireTile(unit::AbilityDescription * p_ad, unit::Unit* p_source, bool p_needUnit)
+void TileGetter::requireTile(unit::AbilityDescription * p_ad, unit::Unit* p_source, bool p_needUnit, bool p_autoClick)
 {
 	if (!m_reg)
 	{
@@ -23,6 +23,8 @@ void TileGetter::requireTile(unit::AbilityDescription * p_ad, unit::Unit* p_sour
 	m_ad = p_ad;
 	m_source = p_source;
 	m_needUnit = p_needUnit;
+	m_autoClick = p_autoClick;
+	m_respond = true;
 
 	//initialize
 	//m_targetNum = 0;
@@ -32,7 +34,6 @@ void TileGetter::requireTile(unit::AbilityDescription * p_ad, unit::Unit* p_sour
 	m_unitList.shrink_to_fit();
 
 	triggerHighlightEvent();
-	m_respond = true;
 }
 
 void TileGetter::registerEvent()
@@ -157,6 +158,9 @@ void TileGetter::triggerHighlightEvent()
 	else
 		e->putInt("select", FALSE);
 
+	//put auto click property
+	e->putInt(AUTO_CLICK, m_autoClick);
+
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Set_Area_Pattern, e);
 }
 
@@ -165,15 +169,16 @@ void TileGetter::putRange(kitten::Event * e)
 	if (m_ad->m_intValue.find("min_range") != m_ad->m_intValue.end())
 	{
 		e->putString("mode", "range");
-		e->putGameObj("tileAtOrigin", m_source->getTile());
+		//e->putGameObj("tileAtOrigin", m_source->getTile());
 		e->putInt("min_range", m_ad->m_intValue["min_range"]);
 		e->putInt("max_range", m_ad->m_intValue["max_range"]);
 	}
 	else
 	{
 		e->putString("mode", "all");
-		e->putGameObj("tileAtOrigin", m_source->getTile());
+		//e->putGameObj("tileAtOrigin", m_source->getTile());
 	}
+	e->putGameObj("tileAtOrigin", m_source->getTile());
 }
 
 void TileGetter::putFilter(const std::string & p_filter, kitten::Event * e)

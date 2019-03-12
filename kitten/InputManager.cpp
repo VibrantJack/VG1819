@@ -50,6 +50,7 @@ namespace input
 
 		m_lastMouseX = windowXSize / 2;
 		m_lastMouseY = windowYSize / 2;
+		glfwEnable(GLFW_KEY_REPEAT);
 	}
 
 	InputManager::~InputManager()
@@ -122,6 +123,14 @@ namespace input
 			{
 				m_inputString = m_inputString.substr(0, m_inputString.length() - 1);
 				m_inputStringChanged = true;
+			}
+			else if (action == GLFW_PRESS && key == GLFW_KEY_ESC)
+			{
+				m_inputPollMode = true;
+				m_inputString = "";
+
+				glfwSetKeyCallback(nullptr);
+				glfwSetCharCallback(nullptr);
 			}
 		}
 	}

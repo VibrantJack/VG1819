@@ -20,12 +20,23 @@ private:
 	userinterface::TriggerEventButton* m_scrollDownButton = nullptr;
 	kitten::K_GameObject* m_newMessageIcon = nullptr;
 
+	std::string m_textInputLastText = "";
+	int m_currentTextInputWidth = 0;
+	glm::vec2 m_textInputOriginalPos = glm::vec2(0.0f, 0.0f);
+
 	int m_messageLogIndex = 0;
 	bool m_gamePaused = false;
 
 	void addMessage(int p_id, const std::string& p_message);
 	void setMessageTextBoxes();
 	void arrangeMessageTextBoxes();
+
+	inline void resetInputTextBoxPos()
+	{
+		m_currentTextInputWidth = 0.0f;
+		m_typingTextBox->getTransform().place2D(m_textInputOriginalPos.x, m_textInputOriginalPos.y);
+	}
+
 public:
 	TextChat();
 	~TextChat();

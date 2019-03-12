@@ -576,7 +576,9 @@ kitten::K_Component* getTileInfoDisplayOnKeyPress(nlohmann::json* p_jsonFile) {
 
 #include "_Project\StringInputDisplay.h"
 kitten::K_Component* getStringInputDisplay(nlohmann::json* p_jsonFile) {
-	return new StringInputDisplay();
+	unsigned int limit;
+	SETOPTDEF(limit, "limit", 0);
+	return new StringInputDisplay(limit);
 }
 
 #include "components\RenameDeckComponent.h"
