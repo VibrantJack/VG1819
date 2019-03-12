@@ -6,6 +6,7 @@
 * data to all clients, and send data to a specific client
 */
 #include "networking\dedicated_server\ServerNetwork.h"
+#include "GameSession.h"
 
 namespace networking
 {
@@ -190,9 +191,9 @@ namespace networking
 
 	void ServerNetwork::removePolledClient(ClientInfo* p_client, bool p_closeSocket)
 	{
-		if (p_client->m_gameSessionId != -1)
+		if (p_client->m_gameSession != nullptr)
 		{
-			// TODO: Remove the client from the associated GameSession
+			p_client->m_gameSession->removePlayer(p_client);
 		}
 
 		if (auto it = m_polledSessions.find(p_client->m_serverClientId) != m_polledSessions.end())
@@ -212,9 +213,9 @@ namespace networking
 
 	void ServerNetwork::removeClient(ClientInfo* p_client, bool p_closeSocket)
 	{
-		if (p_client->m_gameSessionId != -1)
+		if (p_client->m_gameSession != nullptr)
 		{
-			// TODO: Remove the client from the associated GameSession
+			p_client->m_gameSession->removePlayer(p_client);
 		}
 
 		if (auto it = m_sessions.find(p_client->m_serverClientId) != m_sessions.end())
@@ -240,7 +241,7 @@ namespace networking
 		{
 			printf("Server lost connection to [Client: %d]\n", p_client->m_serverClientId);
 			closesocket(p_client->m_socket);
-			removeClient(p_client);
+			queueClientRemoval(p_client);
 		}
 		return m_iResult;
 	}

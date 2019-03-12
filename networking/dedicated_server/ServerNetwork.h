@@ -14,18 +14,20 @@
 
 namespace networking
 {
-	struct ClientInfo
-	{
-		SOCKET m_socket = INVALID_SOCKET;
-		int m_serverClientId = -1;		// The ID assigned to the player when they connect to the server; should not change
-		int m_gameSessionId = -1;		// ID of the GameSession the player is in, may change
-		int m_gameSessionClientId = -1; // The ID for the player in the current GameSession, may change
-	};
-
+	class GameSession;
 	class ServerNetwork
 	{
+		
 	friend class ServerGame;
 	public:
+		struct ClientInfo
+		{
+			SOCKET m_socket = INVALID_SOCKET;
+			int m_serverClientId = -1;		// The ID assigned to the player when they connect to the server; should not change
+			int m_gameSessionClientId = -1; // The ID for the player in the current GameSession, may change
+			GameSession* m_gameSession = nullptr;
+		};
+
 		ServerNetwork();
 		~ServerNetwork();
 

@@ -34,8 +34,8 @@ namespace networking
 		void receiveFromClients();
 		void updateGameSessions();
 
-		bool findAvailableSession(ClientInfo* p_info);
-		void removeClientFromSession(ClientInfo* p_info);
+		bool findAvailableSession(ServerNetwork::ClientInfo* p_info);
+		void removeClientFromSession(ServerNetwork::ClientInfo* p_info);
 
 		void flagShutdown(bool p_flag) { m_shutdown = p_flag; }
 

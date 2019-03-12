@@ -20,9 +20,9 @@ namespace networking
 
 	void GameSession::shutdown()
 	{
-		removeAllPlayers();
-		m_sessionClientId = 0;
 		m_state = SessionState::Inactive;
+		m_sessionClientId = 0;
+		removeAllPlayers();
 	}
 
 	void GameSession::update()
@@ -33,21 +33,16 @@ namespace networking
 	void GameSession::receiveDataFromPlayers()
 	{
 		// go through all clients to see if they are trying to send data
-		std::map<int, ClientInfo*>::iterator iter;
+		std::map<int, ServerNetwork::ClientInfo*>::iterator iter;
 
 		for (iter = m_currentPlayers.begin(); iter != m_currentPlayers.end(); /* no increment */)
 		{
 			// Get the values and then increment early in the case that something is removed from the map
 			int sessionClientId = iter->first;
-			ClientInfo* client = iter->second;
+			ServerNetwork::ClientInfo* client = iter->second;
 			++iter;
 
 			int data_length = m_network->receiveData(client, m_networkData);
-			/*if (data_length == SOCKET_ERROR)
-			{
-				removePlayer(client);
-				continue;
-			}*/
 			if (data_length <= 0)
 			{
 				//no data recieved
@@ -69,14 +64,14 @@ namespace networking
 				case CLIENT_DISCONNECT:
 				{
 					i += BASIC_PACKET_SIZE;
-					printf("Server received CLIENT_DISCONNECT from [Client: %d]\n", sessionClientId);
+					printf("[GameSession: %d] received CLIENT_DISCONNECT from [Client: %d]\n", m_sessionId, sessionClientId);
 					removePlayer(client);
 
 					break;
 				}
 				case ABILITY_PACKET:
 				{
-					printf("Server received ABILITY_PACKET from [Client: %d]\n", sessionClientId);
+					printf("[GameSession: %d] received ABILITY_PACKET from [Client: %d]\n", m_sessionId, sessionClientId);
 					Buffer buffer;
 					buffer.m_data = &(m_networkData[i]);
 					buffer.m_size = MAX_PACKET_SIZE;
@@ -98,7 +93,7 @@ namespace networking
 				}
 				case CAST_TIME_ABILITY_PACKET:
 				{
-					printf("Server received CAST_TIME_ABILITY_PACKET from [Client: %d]\n", sessionClientId);
+					printf("[GameSession: %d] received CAST_TIME_ABILITY_PACKET from [Client: %d]\n", m_sessionId, sessionClientId);
 					Buffer buffer;
 					buffer.m_data = &(m_networkData[i]);
 					buffer.m_size = MAX_PACKET_SIZE;
@@ -120,7 +115,7 @@ namespace networking
 				}
 				case SUMMON_UNIT:
 				{
-					printf("Server received SUMMON_UNIT packet from [Client: %d]\n", sessionClientId);
+					printf("[GameSession: %d] received SUMMON_UNIT packet from [Client: %d]\n", m_sessionId, sessionClientId);
 					Buffer buffer;
 					buffer.m_data = &(m_networkData[i]);
 					buffer.m_size = UNIT_PACKET_SIZE;
@@ -128,7 +123,7 @@ namespace networking
 					UnitPacket summonUnitPacket;
 					summonUnitPacket.deserialize(buffer);
 					i += UNIT_PACKET_SIZE;
-					printf("Server sending Unit index: %d, posX: %d, posY: %d\n", summonUnitPacket.m_unitId, summonUnitPacket.m_posX, summonUnitPacket.m_posY);
+					printf("[GameSession: %d] sending Unit index: %d, posX: %d, posY: %d\n", m_sessionId, summonUnitPacket.m_unitId, summonUnitPacket.m_posX, summonUnitPacket.m_posY);
 
 					char data[UNIT_PACKET_SIZE];
 					Buffer newBuffer;
@@ -141,7 +136,7 @@ namespace networking
 				}
 				case READY_CHECK:
 				{
-					printf("Server received READY_CHECK packet from [Client: %d]\n", sessionClientId);
+					printf("[GameSession: %d] received READY_CHECK packet from [Client: %d]\n", m_sessionId, sessionClientId);
 
 					if (m_clientsReadyChecked < m_maxPlayers)
 					{
@@ -167,7 +162,7 @@ namespace networking
 				}
 				case STARTING_COMMANDER_DATA:
 				{
-					printf("Server received STARTING_COMMANDER_DATA packet from [Client: %d]\n", sessionClientId);
+					printf("[GameSession: %d] received STARTING_COMMANDER_DATA packet from [Client: %d]\n", m_sessionId, sessionClientId);
 					Buffer buffer;
 					buffer.m_data = &(m_networkData[i]);
 					buffer.m_size = UNIT_PACKET_SIZE;
@@ -206,14 +201,14 @@ namespace networking
 				case TEXTCHAT_MESSAGE:
 				{
 					i += TEXTCHAT_MESSAGE_PACKET_SIZE;
-					printf("Server received TEXTCHAT_MESSAGE packet from [Client: %d]\n", sessionClientId);
+					printf("[GameSession: %d] received TEXTCHAT_MESSAGE packet from [Client: %d]\n", m_sessionId, sessionClientId);
 					sendToOthers(client, defaultBuffer.m_data, TEXTCHAT_MESSAGE_PACKET_SIZE);
 					break;
 				}
 				case SKIP_TURN:
 				{
 					i += SKIP_TURN_PACKET_SIZE;
-					printf("Server received SKIP_TURN packet from [Client: %d]\n", sessionClientId);
+					printf("[GameSession: %d] received SKIP_TURN packet from [Client: %d]\n", m_sessionId, sessionClientId);
 					sendToOthers(client, defaultBuffer.m_data, SKIP_TURN_PACKET_SIZE);
 					break;
 				}
@@ -227,13 +222,13 @@ namespace networking
 				case DESYNCED:
 				{
 					i += BASIC_PACKET_SIZE;
-					printf("Server received BasicPacket PacketType: %d from [Client: %d]\n", defaultPacket.m_packetType, sessionClientId);
+					printf("[GameSession: %d] received BasicPacket PacketType: %d from [Client: %d]\n", m_sessionId, defaultPacket.m_packetType, sessionClientId);
 
 					sendToAll(defaultBuffer.m_data, BASIC_PACKET_SIZE);
 					break;
 				}
 				default:
-					printf("error in packet types received from [Client %d], value: %d\n", sessionClientId, defaultPacket.m_packetType);
+					printf("[GameSession: %d]: error in packet types received from [Client %d], value: %d\n", sessionClientId, defaultPacket.m_packetType);
 					i += (unsigned int)data_length;
 					break;
 				}
@@ -241,12 +236,12 @@ namespace networking
 		}
 	}
 
-	void GameSession::sendToClient(ClientInfo* p_client, char* p_packets, int p_totalSize)
+	void GameSession::sendToClient(ServerNetwork::ClientInfo* p_client, char* p_packets, int p_totalSize)
 	{
 		m_network->sendToSocket(p_client, p_packets, p_totalSize);
 	}
 
-	void GameSession::sendToOthers(ClientInfo* p_client, char* p_packets, int p_totalSize)
+	void GameSession::sendToOthers(ServerNetwork::ClientInfo* p_client, char* p_packets, int p_totalSize)
 	{
 		for (auto it = m_currentPlayers.begin(); it != m_currentPlayers.end(); ++it)
 		{
@@ -266,7 +261,7 @@ namespace networking
 	}
 
 	// Returns true if player added, or false if already in session or no space in session
-	bool GameSession::addPlayer(ClientInfo* p_info)
+	bool GameSession::addPlayer(ServerNetwork::ClientInfo* p_info)
 	{
 		if (m_currentPlayers.size() < m_maxPlayers)
 		{
@@ -274,7 +269,7 @@ namespace networking
 			if (result.second)
 			{
 				p_info->m_gameSessionClientId = m_sessionClientId;
-				p_info->m_gameSessionId = m_sessionId;
+				p_info->m_gameSession = this;
 
 				// Send a packet to the client to notify them what their Session ID is
 				char packetData[BASIC_PACKET_SIZE];
@@ -309,13 +304,13 @@ namespace networking
 
 	// Returns std::map::erase, the number of elements erased
 	// Since values are unique, it is either 0 or 1, which means false or true
-	bool GameSession::removePlayer(ClientInfo* p_info)
+	bool GameSession::removePlayer(ServerNetwork::ClientInfo* p_info)
 	{
-		if (p_info->m_gameSessionId == m_sessionId)
+		if (p_info->m_gameSession == this)
 		{
 			int erased = m_currentPlayers.erase(p_info->m_gameSessionClientId);
 			p_info->m_gameSessionClientId = -1;
-			p_info->m_gameSessionId = -1;
+			p_info->m_gameSession = nullptr;
 			checkPlayers();
 			printf("Player removed from GameSession:%d\n", m_sessionId);
 			return erased;
@@ -328,7 +323,7 @@ namespace networking
 	{
 		for (auto it = m_currentPlayers.begin(); it != m_currentPlayers.end(); ++it)
 		{
-			ClientInfo* client = (*it).second;
+			ServerNetwork::ClientInfo* client = (*it).second;
 
 			char packetData[BASIC_PACKET_SIZE];
 			Buffer buffer;
@@ -343,7 +338,6 @@ namespace networking
 			m_network->sendToSocket(client, packetData, BASIC_PACKET_SIZE);
 		}
 		m_currentPlayers.clear();
-		m_state = SessionState::Inactive;
 		printf("All players removed from GameSession:%d\n", m_sessionId);
 	}
 
@@ -358,14 +352,18 @@ namespace networking
 					m_state = SessionState::Active;
 					printf("GameSession:%d set to Active\n", m_sessionId);
 				}
+				else if (m_currentPlayers.size() == 0)
+				{
+					shutdown();
+					printf("GameSession:%d set to Inactive\n", m_sessionId);
+				}
 				break;
 			}
 			case SessionState::Active:
 			{
 				if (m_currentPlayers.size() < m_maxPlayers)
 				{
-					removeAllPlayers();
-					m_state = SessionState::Inactive;
+					shutdown();
 					printf("GameSession:%d set to Inactive\n", m_sessionId);
 				}
 				break;

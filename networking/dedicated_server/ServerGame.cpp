@@ -133,16 +133,18 @@ namespace networking
 	void ServerGame::receiveFromPolledClients()
 	{
 		// Go through Polled clients map and receive incoming data
-		std::map<unsigned int, ClientInfo*>::iterator iter;
+		std::map<unsigned int, ServerNetwork::ClientInfo*>::iterator iter;
 
 		for (iter = m_network->m_polledSessions.begin(); iter != m_network->m_polledSessions.end(); /* no increment */)
 		{
 			// Get the values from the iterator then increment early in the case something is removed from the map
 			int polledId = iter->first;
-			ClientInfo* client = iter->second;
+			ServerNetwork::ClientInfo* client = iter->second;
 			++iter;
 
-			if (client->m_gameSessionId != -1)
+			// If the client is in a GameSession, skip it;
+			// the GameSession will update the client
+			if (client->m_gameSession != nullptr)
 			{
 				continue;
 			}
@@ -216,12 +218,7 @@ namespace networking
 				{
 					printf("Server received QUICKPLAY from [Polled Client: %d]\n", polledId);
 
-					if (findAvailableSession(client))
-					{
-						// Remove from the polledClients as they have been added to a GameSession
-						m_network->queuePolledClientRemoval(client, false);
-					}
-					else
+					if (!findAvailableSession(client))
 					{
 						char packetData[BASIC_PACKET_SIZE];
 						Buffer buffer;
@@ -264,13 +261,13 @@ namespace networking
 	void ServerGame::receiveFromClients()
 	{
 		// go through all clients to see if they are trying to send data
-		std::map<unsigned int, ClientInfo*>::iterator iter;
+		std::map<unsigned int, ServerNetwork::ClientInfo*>::iterator iter;
 
 		for (iter = m_network->m_sessions.begin(); iter != m_network->m_sessions.end(); /* no increment */)
 		{
 			// Get the values and then increment early in the case that something is removed from the map
 			int clientId = iter->first;
-			ClientInfo* client = iter->second;
+			ServerNetwork::ClientInfo* client = iter->second;
 			++iter;
 
 			int data_length = m_network->receiveData(clientId, m_network_data);
@@ -521,12 +518,22 @@ namespace networking
 
 	// Find an available GameSession to add a player into; the sessions are sorted so Searching sessions are at the front,
 	// then Inactive sessions, then Active sessions
-	bool ServerGame::findAvailableSession(ClientInfo* p_client)
+	bool ServerGame::findAvailableSession(ServerNetwork::ClientInfo* p_client)
 	{
+		// Sort not working, getting a Stack Overflow error
+		// For now, going to first search for a Searching GameSession, and if none, search for Inactive
 		//std::sort(m_gameSessions.begin(), m_gameSessions.end(), GameSession::less_than_key());
 		for (GameSession* session : m_gameSessions)
 		{
-			if (session->m_state == GameSession::SessionState::Searching || session->m_state == GameSession::SessionState::Inactive)
+			if (session->m_state == GameSession::SessionState::Searching)
+			{
+				bool added = session->addPlayer(p_client);
+				return added;
+			}
+		}
+		for (GameSession* session : m_gameSessions)
+		{
+			if (session->m_state == GameSession::SessionState::Inactive)
 			{
 				bool added = session->addPlayer(p_client);
 				return added;
@@ -535,12 +542,11 @@ namespace networking
 		return false;
 	}
 
-	void ServerGame::removeClientFromSession(ClientInfo* p_client)
+	void ServerGame::removeClientFromSession(ServerNetwork::ClientInfo* p_client)
 	{
-		if (p_client->m_gameSessionId != -1)
+		if (p_client->m_gameSession != nullptr)
 		{
-			GameSession* session = m_gameSessions[p_client->m_gameSessionId];
-			session->removePlayer(p_client);
+			p_client->m_gameSession->removePlayer(p_client);
 		}
 	}
 }
