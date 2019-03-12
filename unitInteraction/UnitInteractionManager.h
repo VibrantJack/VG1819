@@ -22,7 +22,7 @@ public:
 	static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
 	static UnitInteractionManager * getInstance() { return sm_instance; };
 
-	void request(unit::Unit* p_unit, unit::AbilityDescription * p_ad);
+	void request(unit::Unit* p_unit, unit::AbilityDescription * p_ad, bool p_autoClick = false);
 
 	void setCounter(const std::string& p_counter, int p_n);
 	void setTarget(std::vector<kitten::K_GameObject*> p_tileList, std::vector<unit::Unit*> p_unitList);
@@ -49,6 +49,7 @@ private:
 	bool m_getCounter;//need counter
 	bool m_getTile;//need target
 	bool m_needunit;//need unit
+	bool m_autoClick;//auto click tile
 
 	void send();
 	void addPropertyFromADToPack();

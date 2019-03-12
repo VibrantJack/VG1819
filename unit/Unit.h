@@ -55,6 +55,11 @@ namespace unit
 	
 		virtual void start() override;
 
+		//set auto cast ability
+		bool m_autoCast = false;
+		std::string m_autoAbility;
+		void setAutoAbility(const std::string& p_name);
+
 	public:
 		int m_numberID;
 		std::string m_ID;
@@ -122,7 +127,7 @@ namespace unit
 		void moveAnime(kitten::K_GameObject* p_tile);
 
 		//ability
-		int useAbility(const std::string& p_abilityName);
+		int useAbility(const std::string& p_abilityName, bool p_autoClick = false);
 		void cancelAbility(AbilityDescription* p_ad);
 		void setCast(AbilityDescription* p_ad, ability::AbilityInfoPackage* p_pack);
 		void cancelCast();
