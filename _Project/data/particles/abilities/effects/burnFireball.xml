@@ -2,5 +2,4 @@
   <Emitter z="0" y="0" x="0" path="data/particles/abilities/emitters/burnFireBallEmitter.xml"/>
   <Emitter z="0" y="0" x="0" path="data/particles/abilities/emitters/burnFireBall2Emitter.xml"/>
   <Emitter z="0" y="0" x="0" path="data/particles/abilities/emitters/burnFireBallLightEmitter.xml"/>
-  <Emitter z="0" y="0" x="0" path="data/particles/abilities/emitters/burnSmokeEmitter.xml"/>
 </Effect>
