@@ -94,8 +94,9 @@ namespace puppy
 		//Data is sorted by texture (font sheet) to minimize draw calls
 		std::map<const Texture*, std::vector<TexturedVertex>> data;
 
-		int xPos = 0, yPos = 0, xAdvance,
-			wordLength = 0;
+		m_xPos = 0; 
+		m_yPos = 0;
+		int xAdvance, wordLength = 0;
 		std::string lastWord = "";
 
 		//Iterate through the chars of the string
@@ -111,7 +112,7 @@ namespace puppy
 					for (char c : lastWord)
 					{
 						TexturedVertex quad[6];
-						constructQuad(c, xPos, yPos, quad);
+						constructQuad(c, m_xPos, m_yPos, quad);
 
 						//insert into vector
 						auto* vec = &data[m_font->getTexForChar(c)];
@@ -119,12 +120,12 @@ namespace puppy
 
 						m_font->getXAdvanceForChar(c, xAdvance);
 						//Increase xPos by char amount
-						xPos += xAdvance;
+						m_xPos += xAdvance;
 					}
 
 					//increase xPos by space amount
 					m_font->getXAdvanceForChar(' ', xAdvance);
-					xPos += xAdvance;
+					m_xPos += xAdvance;
 					lastWord = "";
 					wordLength = 0;
 				}
@@ -135,13 +136,13 @@ namespace puppy
 					wordLength += xAdvance;
 
 					//Check if we need to go down a line because of width restrictions
-					if (xPos + wordLength> m_boxWidth)
+					if (m_xPos + wordLength> m_boxWidth)
 					{
 						//go down a line
-						yPos -= m_font->getLineHeight();
-						xPos = 0;
+						m_yPos -= m_font->getLineHeight();
+						m_xPos = 0;
 						//check if we are still too long
-						if (xPos + wordLength > m_boxWidth)
+						if (m_xPos + wordLength > m_boxWidth)
 						{
 							lastWord = "";
 							break;
@@ -149,7 +150,7 @@ namespace puppy
 					}
 
 					//Check if we ran out of vertical space
-					if (yPos*-1 > m_boxHeight)
+					if (m_yPos*-1 > m_boxHeight)
 					{
 						lastWord = "";
 						break;
@@ -164,7 +165,7 @@ namespace puppy
 			for (char c : lastWord)
 			{
 				TexturedVertex quad[6];
-				constructQuad(c, xPos, yPos, quad);
+				constructQuad(c, m_xPos, m_yPos, quad);
 
 				//insert into vector
 				auto* vec = &data[m_font->getTexForChar(c)];
@@ -172,7 +173,7 @@ namespace puppy
 
 				m_font->getXAdvanceForChar(c, xAdvance);
 				//Increase xPos by char amount
-				xPos += xAdvance;
+				m_xPos += xAdvance;
 			}
 		}
 
@@ -368,6 +369,16 @@ namespace puppy
 	const int& TextBox::getBoxWidth() const
 	{
 		return m_boxWidth;
+	}
+
+	int TextBox::getLastLineUsedWidth()
+	{
+		return m_xPos;
+	}
+
+	int TextBox::getUsedHeight()
+	{
+		return m_yPos;
 	}
 
 	void TextBox::setColor(GLfloat p_redVal, GLfloat p_greenVal, GLfloat p_blueVal)

@@ -10,7 +10,10 @@
 
 #define MAX_PACKET_SIZE 1000000
 #define MAX_CHAR_BUFSIZE 512
-#define MAX_TEXTCHAT_MSG_SIZE 41
+#define TEXTCHAT_TEXTBOX_WIDTH 290.0f // the width in pixels of the textchat textbox
+#define MAX_TEXTCHAT_LINE_SIZE 41	  // ~ the max number of chars that fit in the textchat textbox
+#define MAX_TYPABLE_LINES 3
+#define MAX_TEXTCHAT_MSG_SIZE (MAX_TYPABLE_LINES * MAX_TEXTCHAT_LINE_SIZE)
 
 #define BASIC_PACKET_SIZE sizeof(Packet)
 #define TEXTCHAT_MESSAGE_PACKET_SIZE sizeof(TextChatMessagePacket)

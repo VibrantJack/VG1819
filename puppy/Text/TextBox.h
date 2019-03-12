@@ -23,6 +23,7 @@ namespace puppy
 
 		std::string m_text;
 		float m_boxWidth, m_boxHeight;
+		int m_xPos = 0, m_yPos = 0;
 		
 		GLfloat m_color[4];
 		Alignment m_alignment;
@@ -54,6 +55,8 @@ namespace puppy
 		const std::string& getText() const;
 		const int& getBoxWidth() const;
 		const int& getBoxHeight() const;
+		int getLastLineUsedWidth();
+		int getUsedHeight();
 
 		virtual void uiRender(kitten::Camera* p_cam) override;
 		virtual void render(kitten::Camera* p_cam) override;

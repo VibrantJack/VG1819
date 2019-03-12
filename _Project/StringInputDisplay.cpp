@@ -1,7 +1,8 @@
 #include "StringInputDisplay.h"
 #include "kitten\K_GameObject.h"
 
-StringInputDisplay::StringInputDisplay() : m_textBox(nullptr), m_strEnteredString("")
+StringInputDisplay::StringInputDisplay(unsigned int p_limit) : m_textBox(nullptr), m_strEnteredString(""),
+	m_charLimit(p_limit)
 {
 
 }
@@ -23,12 +24,22 @@ void StringInputDisplay::start()
 
 void StringInputDisplay::onStringFinished(const std::string& p_string)
 {
+	std::string string = p_string;
+	if (m_charLimit > 0 && p_string.length() > m_charLimit)
+	{
+		string = p_string.substr(0, m_charLimit);
+	}
 	m_textBox->setText("");
-	m_strEnteredString = p_string;
+	m_strEnteredString = string;
 }
 
 void StringInputDisplay::onStringChanged(const std::string& p_string)
 {
-	m_textBox->setText(p_string);
-	m_strEnteredString = p_string;
+	std::string string = p_string;
+	if (m_charLimit > 0 && p_string.length() > m_charLimit)
+	{
+		string = p_string.substr(0, m_charLimit);
+	}
+	m_textBox->setText(string);
+	m_strEnteredString = string;
 }
