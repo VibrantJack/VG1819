@@ -180,6 +180,15 @@
 				},
 				{
 					"sound" : ["execute", "sounds/execute.json"]
+				},
+				{
+					"sound" : ["attach", "sounds/attach.json"]
+				},
+				{
+					"sound" : ["drain", "sounds/drain.json"]
+				},
+				{
+					"sound" : ["health_link", "sounds/health_link.json"]
 				}
 			]
 		}

@@ -413,14 +413,14 @@ namespace ability
 		};
 	};
 
-	class Sacrifice : public Ability //needs sound, not sure what does
+	class Sacrifice : public Ability // needs sound
 	{
 	public:
 		Sacrifice() : Ability(ABILITY_SACRIFICE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Erosion : public Ability //added
+	class Erosion : public Ability
 	{
 	public:
 		Erosion() : Ability(ABILITY_EROSION) {};
@@ -432,14 +432,14 @@ namespace ability
 		};
 	};
 
-	class Execute : public Ability //Needs sound
+	class Execute : public Ability
 	{
 	public:
 		Execute() : Ability(ABILITY_EXECUTE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Horror : public Ability //added
+	class Horror : public Ability
 	{
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
@@ -448,7 +448,7 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Attach : public Ability //needs sound buff ally, debuff enemy
+	class Attach : public Ability
 	{
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
@@ -457,14 +457,14 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Drain : public Ability //needs sound, deal damage, gain counter if counter > x level up
+	class Drain : public Ability
 	{
 	public:
 		Drain() : Ability(ABILITY_DRAIN) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class HealthLink : public Ability //needs sound, drains hp each turn
+	class HealthLink : public Ability
 	{
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
@@ -473,12 +473,14 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Crash : public Ability //added
+	class Crash : public Ability
 	{
 	public:
 		Crash() : Ability(ABILITY_CRASH) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
+
+	// All Abilities below here need sound
 
 	class CursedProtection : public Ability
 	{
