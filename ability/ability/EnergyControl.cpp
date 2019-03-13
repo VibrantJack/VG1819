@@ -30,8 +30,9 @@ namespace ability
 
 
 			//change counter
-			changeCounter(target, name, power);
 			std::string name = p_info->m_stringValue[COUNTER_NAME];
+			changeCounter(target, name, power);
+			
 
 			UniversalSounds::playSound("magic_power_up");
 		}
