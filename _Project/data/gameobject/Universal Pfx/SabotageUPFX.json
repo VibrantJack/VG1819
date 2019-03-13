@@ -1,0 +1,16 @@
+{
+  "name": "PooledSabotageUPFX",
+  "components": [
+    {
+      "name": "K_ParticleSystem",
+      "effectpath": "data/particles/universal/effects/sabotage.xml"
+    },
+    {
+      "name": "PlayParticleSystemOnEnable"
+    },
+    {
+      "name": "DisableAfterTime",
+      "time": 2
+    }
+  ]
+}

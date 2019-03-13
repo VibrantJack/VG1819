@@ -1,0 +1,4 @@
+<Effect>
+  <Emitter z="0" y="-0.5" x="0" path="data/particles/abilities/emitters/summonShimmerEmitter.xml"/>
+  <Emitter z="0" y="-0.5" x="0" path="data/particles/abilities/emitters/summonShimmer2Emitter.xml"/>
+</Effect>

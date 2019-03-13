@@ -1,0 +1,20 @@
+<Emitter>
+  <SpawnProperties>
+    <color random="true" minR="-0.1" minG="-0.1" minB="-0.1" maxR="0.0001" maxG="-0.1" maxB="-0.1"/>
+    <velocity random="false" velocity="0" />
+    <offset x="0" y="0" z="0" type="sphere" radius=".01"/>
+    <velocity velocity="0.001"/>
+    <direction mode="useOffset"/>
+    <maxParticles numParticles="50" />
+    <lifetime random="true" min="0.2" max="0.6"/>
+  </SpawnProperties>
+
+  <Affectors>
+    <path isPreset="true" type="direction" scalar="1"/>
+    <fadeChange mode="over_life" start="-1.0" end="-0.5" />
+    <sizeChange mode="over_life" startX="0.0" startY="0.0" endX="0.5" endY="0.5" />
+    <rotationChange mode="random" min="0" max="180"/>
+  </Affectors>
+
+  <Misc path="textures/particles/fire_02.png" spawnRate="0.02"/>
+</Emitter>

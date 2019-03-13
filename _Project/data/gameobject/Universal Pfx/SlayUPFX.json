@@ -1,0 +1,16 @@
+{
+  "name": "PooledSlayUPFX",
+  "components": [
+    {
+      "name": "K_ParticleSystem",
+      "effectpath": "data/particles/universal/effects/slay.xml"
+    },
+    {
+      "name": "PlayParticleSystemOnEnable"
+    },
+    {
+      "name": "DisableAfterTime",
+      "time": 1
+    }
+  ]
+}

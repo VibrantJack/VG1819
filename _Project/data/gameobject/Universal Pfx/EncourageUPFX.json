@@ -1,0 +1,16 @@
+{
+  "name": "PooledEncourageUPFX",
+  "components": [
+    {
+      "name": "K_ParticleSystem",
+      "effectpath": "data/particles/universal/effects/encourage.xml"
+    },
+    {
+      "name": "PlayParticleSystemOnEnable"
+    },
+    {
+      "name": "DisableAfterTime",
+      "time": 1.0
+    }
+  ]
+}

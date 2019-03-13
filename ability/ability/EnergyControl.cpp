@@ -1,5 +1,6 @@
 #pragma once
 #include "ability/ability/Ability.h"
+#include "_Project\UniversalPfx.h"
 
 #include "unit/Unit.h"
 
@@ -24,8 +25,14 @@ namespace ability
 					power = 0;
 			}
 
+			//play effect
+			UniversalPfx::getInstance()->playEffect("EnergyControl", target->getTransform().getTranslation());
+
+
+			//change counter
 			std::string name = p_info->m_stringValue[COUNTER_NAME];
 			changeCounter(target, name, power);
+			
 
 			UniversalSounds::playSound("magic_power_up");
 		}

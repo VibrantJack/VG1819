@@ -3,7 +3,7 @@
 	"components" : [
 		{
 			"name" : "K_ParticleSystem",
-			"effectpath" : "data/particles/universal/effects/deathEffect.xml"
+			"effectpath" : "data/particles/universal/effects/death.xml"
 		},
 		{
 			"name" : "PlayParticleSystemOnEnable"

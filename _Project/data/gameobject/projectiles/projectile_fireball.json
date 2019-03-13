@@ -2,24 +2,26 @@
     "name" : "arrow projectile",
     "components" : [
         {
-            "name" : "SimpleQuadRenderable",
-            "texture" : "textures/projectiles/fireball1.gif",
-			"upright" : true
+          "name": "K_ParticleSystem",
+          "effectpath": "data/particles/universal/effects/burnFireball.xml"
+        },
+        {
+          "name": "PlayParticleSystemOnEnable"
         },
         {
             "name" : "LerpController"
         },
-		{
-			"name" : "ProjectileParticleSystemHelper",
-			"effect" : "BurnExplosion"
-		},
-		{
-			"name" : "PointLight",
-			"useCallbacks" : false,
-			"range" : 100.0,
-			"ambientColor" : [0.7,0.7,0.7],
-			"pointColor" : [0.6,0.6,0.6],
-			"attenuation" : [0,1,0]
-		}
+        {
+            "name" : "ProjectileParticleSystemHelper",
+            "effect" : "BurnExplosion"
+        },
+      {
+        "name": "PointLight",
+        "useCallbacks": false,
+        "range": 100.0,
+        "ambientColor": [ 0.7, 0.7, 0.7 ],
+        "pointColor": [ 0.6, 0.6, 0.6 ],
+        "attenuation": [ 0, 1, 0 ]
+      }
     ]
 }

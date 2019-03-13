@@ -1,0 +1,19 @@
+<Emitter>
+  <SpawnProperties>
+    <color random="false" r="-0.2" g="-0.2" b="-0.4" />
+    <vlocity random="false" velocity="3.0"/>
+    <offset x="0" y="-1" z="0" type="sphere" radius="0.5"/>
+    <direction mode="down"/>
+    <maxParticles numParticles="5" />
+    <lifetime random="false" length=".25"/>
+    <burst isBurst="false" repeat="false" />
+  </SpawnProperties>
+
+  <Affectors>
+    <path isPreset="true" type="direction" scalar="1"/>
+    <fadeChange mode="over_life" start="-0.1" end="-0.4" />=
+    <sizeChange mode="over_life" startX="0.0" startY="0.0" endX="0.8" endY="0.8"/>
+  </Affectors>
+
+  <Misc path="textures/particles/magic_03.png" spawnRate="0.15"/>
+</Emitter>

@@ -21,6 +21,9 @@ namespace ability
 
 				addStatusInfo(se, p_info, intKeys);
 
+				UniversalPfx::getInstance()->playEffect("Curse", p_info->m_targets[0]->getTransform().getTranslation());
+
+
 				/*
 				//set properties
 				addStatusInfo(se, p_info);

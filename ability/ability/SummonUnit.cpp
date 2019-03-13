@@ -16,6 +16,7 @@
 #include "networking\ClientGame.h"
 #include "board\tile\TileInfo.h"
 #include "components/DragNDrop/SpawnUnitOnDrop.h"
+#include "_Project\UniversalPfx.h"
 
 namespace ability
 {
@@ -39,6 +40,8 @@ namespace ability
 		// Generate Unit and set Tile
 		kitten::K_GameObject* summonedUnitGO = unit::UnitSpawn::getInstance()->spawnUnitObject(unit);
 		summonedUnitGO->getComponent<unit::UnitMove>()->setTile(targetTile);
+		UniversalPfx::getInstance()->playEffect("Summon", targetTile->getTransform().getTranslation());
+
 
 		SpawnUnitOnDrop* onDrop = unit->getGameObject().getComponent<SpawnUnitOnDrop>();
 		if (onDrop != nullptr)

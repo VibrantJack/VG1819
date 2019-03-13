@@ -1,0 +1,16 @@
+{
+  "name": "PooledManipulateTileUPFX",
+  "components": [
+    {
+      "name": "K_ParticleSystem",
+      "effectpath": "data/particles/universal/effects/manipulateTile.xml"
+    },
+    {
+      "name": "PlayParticleSystemOnEnable"
+    },
+    {
+      "name": "DisableAfterTime",
+      "time": 0.25
+    }
+  ]
+}

@@ -1,11 +1,7 @@
 decktest.txt
-DeckNumbah1.txt
-DeckNumbah2.txt
 DeckNumbah3.txt
-DeckNumbah4.txt
-DeckNumbah5.txt
-DeckNumbah6.txt
 
-DeckNumbah9.txt
 
-DeckNumbah9.txt
+
+Deck1551248960
+Deck1551253430

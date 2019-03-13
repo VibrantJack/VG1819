@@ -33,6 +33,22 @@ namespace puppy
 			}
 
 			break;
+
+		case down:
+		
+			for (Particle* p : p_toApply)
+			{
+				p->m_direction = glm::vec3(0, -1, 0);
+			}
+			
+			break;
+
+		case left:
+
+			for(Particle* p : p_toApply)
+			{
+				p->m_direction = glm::vec3(0, 0, -1);
+			}
 		}
 	}
 }

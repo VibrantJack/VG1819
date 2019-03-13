@@ -1,0 +1,5 @@
+<Effect>
+
+<Emitter z="0" y="-0.5" x="0" path="data/particles/universal/emitters/encourageGlowEmitter.xml"/>
+  <Emitter z="0" y="-0.5" x="0" path="data/particles/universal/emitters/encourageOrbsEmitter.xml"/>
+</Effect>
