@@ -1,0 +1,16 @@
+{
+  "name": "PooledHealReceiveUPFX",
+	"components" : [
+		{
+			"name" : "K_ParticleSystem",
+			"effectpath" : "data/particles/universal/effects/healReceive.xml"
+		},
+		{
+			"name" : "PlayParticleSystemOnEnable"
+		},
+		{
+			"name" : "DisableAfterTime",
+			"time" : 5
+		}
+	]
+}

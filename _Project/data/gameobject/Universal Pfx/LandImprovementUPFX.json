@@ -1,0 +1,16 @@
+{
+  "name": "PooledLandImprovementUPFX",
+  "components": [
+    {
+      "name": "K_ParticleSystem",
+      "effectpath": "data/particles/universal/effects/landImprovement.xml"
+    },
+    {
+      "name": "PlayParticleSystemOnEnable"
+    },
+    {
+      "name": "DisableAfterTime",
+      "time": 0.5
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+<Effect>
+  <Emitter z="0" y="0" x="0" path="data/particles/abilities/emitters/slayEmitter.xml"/>
+  <Emitter z="0" y="0" x="0" path="data/particles/abilities/emitters/slayFlashEmitter.xml"/>
+</Effect>

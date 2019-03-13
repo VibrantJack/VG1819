@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <queue>
 #include <list>
+#include <map>
 
 #define UNIT_DEATH_EFFECT_NAME "UnitDeath"
 
@@ -18,6 +19,7 @@ private:
 
 	std::unordered_map<std::string, std::queue<kitten::K_GameObject*>> m_effects;
 	std::vector<kitten::K_ParticleSystem*> m_particleSystems;
+	std::unordered_map<std::string, glm::vec3> m_groupedEffects;
 
 	bool m_isDebug;
 	char m_debugRefreshKey;
@@ -40,5 +42,7 @@ public:
 
 	static UniversalPfx* getInstance() { assert(sm_instance != nullptr);  return sm_instance; }
 
+	void addEffectToGroup(const std::string& p_effectName, const glm::vec3& p_position);
 	void playEffect(const std::string& p_effectName, const glm::vec3& p_position);
+	void playGroupedEffects();
 };

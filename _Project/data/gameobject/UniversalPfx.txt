@@ -10,9 +10,109 @@
 					"poolednumber" : 6
 				},
 				{
-					"name" : "BurnExplosion",
+					"name" : "Burn",
 					"path" : "Universal Pfx/BurnExplosionUPFX.json",
 					"poolednumber" : 2
+				},
+				{
+					"name" : "BurnFireballUPFX",
+					"path" : "Universal Pfx/BurnFireballUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Encourage",
+					"path" : "Universal Pfx/EncourageUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "EnergyControl",
+					"path" : "Universal Pfx/EnergyControlUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "HealReceiveUPFX.json",
+					"path" : "Universal Pfx/BurnExplosionUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "HealSend",
+					"path" : "Universal Pfx/HealSendUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "LandImprovement",
+					"path" : "Universal Pfx/LandImprovementUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "ManipulateTile",
+					"path" : "Universal Pfx/ManipulateTileUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "PowerSlam",
+					"path" : "Universal Pfx/PowerSlamUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "PowerSurge",
+					"path" : "Universal Pfx/PowerSurgeUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Rally",
+					"path" : "Universal Pfx/RallyUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Sabotage",
+					"path" : "Universal Pfx/SabotageUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Slay",
+					"path" : "Universal Pfx/SlayUPFX.json",
+					"poolednumber" : 3
+				},
+				{
+					"name" : "Summon",
+					"path" : "Universal Pfx/UnitSummonOrJoinUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Join",
+					"path" : "Universal Pfx/UnitSummonOrJoinUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Volley",
+					"path" : "Universal Pfx/VolleyUPFX.json",
+					"poolednumber" : 5
+				},
+				{
+					"name" : "Shoot",
+					"path" : "Universal Pfx/ShootUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "QuickShoot",
+					"path" : "Universal Pfx/ShootUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Arm",
+					"path" : "Universal Pfx/ArmUPFX.json",
+					"poolednumber" : 8
+				},
+				{
+					"name" : "Curse",
+					"path" : "Universal Pfx/CurseUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Default",
+					"path" : "Universal Pfx/DefaultUPFX.json",
+					"poolednumber" : 10
 				}
 			],
 			"debug" : false

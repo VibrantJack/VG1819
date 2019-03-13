@@ -1,0 +1,20 @@
+<Emitter>
+	<SpawnProperties>
+		<velocity random="false" velocity="0" />
+    <color r="-0.2" g="-0.4" b="-0.4"/>
+		<offset x="0" y="0" z="0" type="point"/>
+		<direction mode="useOffset"/>
+		<maxParticles numParticles="5" />
+		<lifetime random="false" length="1"/>
+		<burst isBurst="true" repeat="false" />
+	</SpawnProperties>
+	
+	<Affectors>
+		<path isPreset="true" type="direction" scalar="1"/>
+		<sizeChange mode="over_life" startX="0.5" startY="0.5" endX="1.0" endY="1.0" />
+		<fadeChange mode="over_life" start="-0.5" end="-1.0" />
+    <rotationChange mode="over_life" min="0" max="740"/>
+	</Affectors>
+	
+	<Misc path="textures/particles/twirl_02.png" spawnRate="0.0"/>
+</Emitter>

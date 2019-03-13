@@ -8,6 +8,7 @@
 #include "unit/UnitSpawn.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "networking\ClientGame.h"
+#include "_Project\UniversalPfx.h"
 
 #include "UI/HandFrame.h"
 
@@ -41,6 +42,7 @@ void ability::Ability::singleTargetProjectileFinished(AbilityInfoPackage* p_pack
 
 	//trigger receive damage event
 	unit::Unit* target = p_package->m_targets[0];
+
 	triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_package);
 
 	//so power will change to negative
@@ -57,6 +59,7 @@ void ability::Ability::multiTargetDamage(AbilityInfoPackage* p_info, bool p_fire
 	if (p_fireProjectile)
 	{
 		ProjectileManager::multiDamageFireProjectile(m_name, p_info->m_source, this, p_info);
+	//	UniversalPfx::getInstance()->addEffectToGroup(m_name, p_info->m_clickedObject->getTransform().getTranslation());
 	}
 	else
 	{
@@ -108,6 +111,9 @@ void ability::Ability::changeHP(unit::Unit * p_target, int power)
 
 	//change hp
 	node1->effect(p_target, UNIT_HP, power);
+
+	UniversalPfx::getInstance()->playEffect(m_name, p_target->getTransform().getTranslation());
+
 }
 
 void ability::Ability::done(const AbilityInfoPackage* p_info)

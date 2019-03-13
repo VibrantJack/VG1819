@@ -1,0 +1,18 @@
+<Emitter>
+  <SpawnProperties>
+    <velocity random="false" velocity="-20.0"/>
+    <offset x="0" y="-1" z="0" type="sphere" radius="0.5"/>
+    <direction mode="useOffset"/>
+    <maxParticles numParticles="2" />
+    <lifetime random="false" length=".5"/>
+    <burst isBurst="true" repeat="false" />
+  </SpawnProperties>
+
+  <Affectors>
+    <path isPreset="true" type="direction" scalar="1"/>
+    <fadeChange mode="over_life" start="-0.2" end="-0.99" />=
+    <sizeChange mode="over_life" startX="0.0" startY="0.0" endX="0.8" endY="0.8"/>
+  </Affectors>
+
+  <Misc path="textures/particles/circle_05.png" spawnRate=".5"/>
+</Emitter>
