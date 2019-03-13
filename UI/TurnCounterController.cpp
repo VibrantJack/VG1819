@@ -44,5 +44,5 @@ void TurnCounterController::listenEvent(kitten::Event::EventType p_type, kitten:
 void TurnCounterController::changeText()
 {
 	if(m_text != nullptr)
-		m_text->setText("Turn:" + std::to_string(m_turnCounter));
+		m_text->setText(std::to_string(m_turnCounter));
 }
