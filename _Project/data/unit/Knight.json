@@ -22,7 +22,7 @@
 				"lv":2,
 				"cd":4,
 				"duration":1,
-				"need_unit":1,
+				"auto_click":1,
 				"min_range":0,
 				"max_range":0,
 				"area_mode":"point",

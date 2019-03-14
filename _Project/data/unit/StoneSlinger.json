@@ -26,7 +26,7 @@
 				"cd":4,
 				"min_range":0,
 				"max_range":0,
-				"target":1,
+				"auto_click":1,
 				"need_unit":1,
 				"description":"Next Fire will deal more damage in bigger area.",
 				"status_name_Status_AD_Change":"Load",
