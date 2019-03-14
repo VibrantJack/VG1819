@@ -195,7 +195,11 @@ void BoardManager::registerEvent()
 		kitten::Event::EventType::Set_Area_Pattern,
 		this,
 		std::bind(&BoardManager::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
-	// End adding listeners for events
+	
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Right_Clicked,
+		this,
+		std::bind(&BoardManager::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void BoardManager::deregisterEvent()
@@ -204,10 +208,16 @@ void BoardManager::deregisterEvent()
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::Highlight_Tile, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::Unhighlight_Tile, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::Set_Area_Pattern, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::Right_Clicked, this);
 }
 
 void BoardManager::tileClicked(bool p_send)
 {
+	if (!m_area->isActive())
+	{
+		return;//not wait for player to choose target, ingore it
+	}
+
 	if (p_send)
 	{
 		if (m_select)
@@ -334,6 +344,9 @@ void BoardManager::listenEvent(kitten::Event::EventType p_type, kitten::Event * 
 		break;
 	case kitten::Event::Set_Area_Pattern:
 		setArea(p_data);
+		break;
+	case kitten::Event::Right_Clicked:
+		tileClicked(false);
 		break;
 	default:
 		break;

@@ -20,7 +20,9 @@ namespace unit
 		virtual ~UnitSelect();
 
 		void start() override;
-		void setActionButtonStore(ActionButtonStore* p_s) { m_storage = p_s; };
+
+		void setActionButtonStore(ActionButtonStore* p_s) { m_storage = p_s; }; 
+		ActionButtonStore* getButtonStorage() { return m_storage; };
 
 		void disableInteraction(bool p_disable);
 

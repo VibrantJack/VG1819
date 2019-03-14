@@ -11,7 +11,7 @@
 			{
                 "name":"Erosion",
                 "power":2,
-				"need_unit":0,
+				"auto_cast":1,
 				"filter":3,
 				"filter0":"no_unit",
 				"filter1":"ally",

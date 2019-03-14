@@ -26,10 +26,24 @@ void unit::UnitMove::triggerLeaveTileEvent()
 	u->triggerTP(ability::TimePointEvent::Leave_Tile);
 }
 
-unit::UnitMove::UnitMove(glm::vec3 p_offset, float p_speed) : m_speed(p_speed),m_offset(p_offset)
+unit::UnitMove::UnitMove(glm::vec3 p_offset, float p_speed) : 
+	m_speed(p_speed),
+	m_offset(p_offset),
+	m_currentTile(nullptr)
 {
-	m_currentTile = nullptr;
-	m_ad = nullptr;
+	//initialize ad
+	m_ad = new unit::AbilityDescription();
+
+	m_ad->m_stringValue["name"] = ACTION_MOVE;
+	//m_ad->m_intValue["target"] = 1;
+
+	//filter
+	m_ad->m_intValue["need_unit"] = FALSE;
+	m_ad->m_intValue[FILTER] = 1;
+	m_ad->m_stringValue["filter0"] = FILTER_UNIT;
+	//area, in this case, path
+	m_ad->m_stringValue[AREA_MODE] = PATH;
+	m_ad->m_intValue[AREA_FIX] = FALSE;
 }
 
 unit::UnitMove::~UnitMove()
@@ -78,25 +92,13 @@ void unit::UnitMove::attempToMove(int p_min, int p_max)
 {
 	unit::Unit* u = m_attachedObject->getComponent<unit::Unit>();
 
-	if (m_ad != nullptr)
-		delete m_ad;
-
-	m_ad = new unit::AbilityDescription();
-
-	m_ad->m_stringValue["name"] = ACTION_MOVE;
-	m_ad->m_intValue["target"] = 1;
+	//reset min and max
 	m_ad->m_intValue["min_range"] = p_min;
 	if (p_max < 0)
 		m_ad->m_intValue["max_range"] = m_attachedObject->getComponent<Unit>()->m_attributes["mv"];//the range is between 1 and mv attributes
 	else
 		m_ad->m_intValue["max_range"] = p_max;
-	//filter
-	m_ad->m_intValue["need_unit"] = FALSE;
-	m_ad->m_intValue[FILTER] = 1;
-	m_ad->m_stringValue["filter0"] = FILTER_UNIT;
-	//area, in this case, path
-	m_ad->m_stringValue[AREA_MODE] = PATH;
-	m_ad->m_intValue[AREA_FIX] = FALSE;
+
 	m_ad->m_intValue[AREA_LEN] = m_ad->m_intValue["max_range"];
 
 	UnitInteractionManager::getInstance()->request(u, m_ad);
