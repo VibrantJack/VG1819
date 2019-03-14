@@ -20,6 +20,9 @@ namespace ability
 			int power = m_unit->m_ADMap[ABILITY_HEAL]->m_intValue[UNIT_POWER];
 			
 			node->effect(m_unit, UNIT_HP, power);
+
+			//m_unit->useAbility(ABILITY_HEAL, true);
+
 			return 0;
 		}
 		else if (!m_activate)

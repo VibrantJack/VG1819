@@ -1,0 +1,18 @@
+<Emitter>
+  <SpawnProperties>
+    <velocity random="false" velocity="0" />
+    <offset x="0" y="0" z="0" type="disc" radius=".5"/>
+    <direction mode="useOffset"/>
+    <maxParticles numParticles="1" />
+    <lifetime random="true" min="0.75" max="0.75"/>
+    <burst isBurst="true" repeat="false"/>
+  </SpawnProperties>
+
+  <Affectors>
+    <path isPreset="true" type="direction" scalar="1"/>
+    <fadeChange mode="over_life" start="-0.5" end="-1.0" />
+    <sizeChange mode="over_life" startX="0.1" startY="0.1" endX="0.7" endY="0.7" />
+  </Affectors>
+
+  <Misc path="textures/particles/window_04.png" spawnRate="0.6"/>
+</Emitter>

@@ -8,8 +8,9 @@ class StringInputDisplay : public kitten::K_Component, public input::StringListe
 private:
 	puppy::TextBox* m_textBox;
 	std::string m_strEnteredString;
+	unsigned int m_charLimit;
 public:
-	StringInputDisplay();
+	StringInputDisplay(unsigned int p_limit = 0);
 	~StringInputDisplay();
 
 	virtual void start() override;
@@ -18,4 +19,7 @@ public:
 	virtual void onStringChanged(const std::string& p_string) override;
 
 	const std::string& getString() { return m_strEnteredString; }
+
+	void setCharLimit(unsigned int p_limit) { m_charLimit = p_limit; }
+	unsigned int getCharLimit() { return m_charLimit; }
 };

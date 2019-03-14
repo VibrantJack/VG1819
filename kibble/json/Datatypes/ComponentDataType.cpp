@@ -576,7 +576,9 @@ kitten::K_Component* getTileInfoDisplayOnKeyPress(nlohmann::json* p_jsonFile) {
 
 #include "_Project\StringInputDisplay.h"
 kitten::K_Component* getStringInputDisplay(nlohmann::json* p_jsonFile) {
-	return new StringInputDisplay();
+	unsigned int limit;
+	SETOPTDEF(limit, "limit", 0);
+	return new StringInputDisplay(limit);
 }
 
 #include "components\RenameDeckComponent.h"
@@ -1175,7 +1177,10 @@ kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
 	bool isStatic;
 	SETOPTDEF(isStatic, "static", true);
 
-	return new ModelRenderable(modelPath.c_str(), flipUvs, isStatic);
+	bool useAlphaTest;
+	SETOPTDEF(useAlphaTest, "alpha_test", false);
+
+	return new ModelRenderable(modelPath.c_str(), flipUvs, isStatic, useAlphaTest);
 }
 
 #include "unit\unitComponent\UnitHealthBar.h"
@@ -1921,7 +1926,10 @@ kitten::K_Component* getReloadObjectOnKeyPress(nlohmann::json* p_jsonFile) {
 
 	std::string jsonPath = p_jsonFile->operator[]("this_json_path");
 
-	return new ReloadObjectOnKeyPress(key, jsonPath);
+	bool replaceTransfrom;
+	SETOPTDEF(replaceTransfrom, "replace_transform", true);
+
+	return new ReloadObjectOnKeyPress(key, jsonPath, replaceTransfrom);
 }
 
 #include "_Project\PlayParticleSystemOnEnable.h"

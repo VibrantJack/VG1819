@@ -12,7 +12,7 @@ namespace puppy
 		//If I were to write my own shader compiling / loading it would be the same as wolf's.
 		m_id = wolf::LoadShaders(p_vertexShaderPath, p_pixelShaderPath);
 
-		if (m_type == basic_directional_light || m_type == solid_color_directional_light) // Not sure what the better way to do this is
+		if (m_type == basic_directional_light || m_type == solid_color_directional_light || m_type == directional_light_alphaTest) // Not sure what the better way to do this is
 		{
 			m_hasDirectionalLights = true;
 		}

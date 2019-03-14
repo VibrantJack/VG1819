@@ -1,5 +1,7 @@
 #pragma once
 #include "ability/ability/Ability.h"
+#include "_Project\UniversalPfx.h"
+
 
 #include "unit/Unit.h"
 
@@ -47,6 +49,9 @@ namespace ability
 				addStatusInfo(status, p_info, intKeys);
 
 				status->attach(u);
+
+				//effect
+				UniversalPfx::getInstance()->playEffect("PowerSurge", u->getTransform().getTranslation());
 			}
 		}
 

@@ -8,7 +8,7 @@
 
 UnitInteractionManager* UnitInteractionManager::sm_instance = nullptr;
 
-void UnitInteractionManager::request(unit::Unit* p_unit, unit::AbilityDescription * p_ad)
+void UnitInteractionManager::request(unit::Unit* p_unit, unit::AbilityDescription * p_ad, bool p_autoClick)
 {
 	if (m_busy)
 		return;
@@ -17,19 +17,23 @@ void UnitInteractionManager::request(unit::Unit* p_unit, unit::AbilityDescriptio
 
 	m_unit = p_unit;
 	m_ad = p_ad;
-	m_abilityName = m_ad->m_stringValue["name"];
-	std::cout << "UnitInteractionManager Receive: " << p_unit->m_name << " :: " << m_abilityName << std::endl;
+	m_abilityName = m_ad->m_stringValue[ABILITY_NAME];
+
+	//debug message 
+	//std::cout << "UnitInteractionManager Receive: " << p_unit->m_name << " :: " << m_abilityName << std::endl;
 
 	//create package
 	if (m_package != nullptr)
 		m_package = nullptr;
-
 	m_package = new ability::AbilityInfoPackage();
 
+	//set source
 	m_package->m_source = p_unit;
 
+	//copy all values to package
 	addPropertyFromADToPack();
 
+	//check if unit is necessary, default is false
 	m_needunit = false;
 	if(m_ad->m_intValue.find("need_unit")!= m_ad->m_intValue.end())
 		m_needunit = m_ad->m_intValue["need_unit"];
@@ -43,9 +47,25 @@ void UnitInteractionManager::request(unit::Unit* p_unit, unit::AbilityDescriptio
 		m_getCounter = false;
 	}*/
 
+	//needs tile clicked
 	m_getTile = false;
 
+	//set client id
 	m_package->m_sourceClientId = networking::ClientGame::getClientId();
+
+	//set auto click
+	if (p_autoClick)//this request is auto click
+	{
+		m_autoClick = true;
+	}
+	else
+	{
+		auto found = m_ad->m_intValue.find(AUTO_CLICK);
+		if (found != m_ad->m_intValue.end())
+		{//auto click property exist then m_autoClick is same as it
+			m_autoClick = found->second;
+		}
+	}
 
 	send();
 }
@@ -91,6 +111,8 @@ void UnitInteractionManager::cancel()
 	if (!m_busy)
 		return;
 
+	m_busy = false;
+
 	//delete package
 	if (m_package != nullptr)
 	{
@@ -111,7 +133,6 @@ void UnitInteractionManager::cancel()
 		//m_tileGetter->cancel();
 	}
 
-	m_busy = false;
 }
 
 bool UnitInteractionManager::isBusy() const
@@ -151,12 +172,12 @@ void UnitInteractionManager::send()
 	if (!m_getTile)
 	{
 		//ask player for targets
-		m_tileGetter->requireTile(m_ad, m_unit, m_needunit);
+		m_tileGetter->requireTile(m_ad, m_unit, m_needunit, m_autoClick);
 		return;
 	}
 
-
-	if (m_ad->m_intValue.find("ct") == m_ad->m_intValue.end() || m_ad->m_intValue.find("ct")->second < 1)//no cast time
+	auto found = m_ad->m_intValue.find("ct");
+	if (found == m_ad->m_intValue.end() || found->second <1)//no cast time
 	{//directly use it
 		ability::AbilityManager::getInstance()->useAbility(m_abilityName, m_package);
 	}
@@ -169,8 +190,8 @@ void UnitInteractionManager::send()
 		}
 	}
 
-	m_package = nullptr;
 	m_busy = false;
+	m_package = nullptr;
 }
 
 void UnitInteractionManager::addPropertyFromADToPack()
