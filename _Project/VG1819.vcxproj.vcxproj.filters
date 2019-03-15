@@ -1142,6 +1142,12 @@
     <ClCompile Include="ToggleSiblingEnabledOnClick.cpp">
       <Filter>components\options menu</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\tile\landInfo\LandInformation.cpp">
+      <Filter>board\tile\landInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\map\LandLoader.cpp">
+      <Filter>kibble\map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2285,6 +2291,9 @@
     <ClInclude Include="ToggleSiblingEnabledOnClick.h">
       <Filter>components\options menu</Filter>
     </ClInclude>
+    <ClInclude Include="..\kibble\map\LandLoader.h">
+      <Filter>kibble\map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -2499,6 +2508,9 @@
     </Filter>
     <Filter Include="components\options menu">
       <UniqueIdentifier>{f96107fd-b0eb-4056-afa9-c0c205b1a8f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kibble\map">
+      <UniqueIdentifier>{af4456d7-606c-4752-9dc0-034aef739823}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

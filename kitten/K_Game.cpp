@@ -76,6 +76,7 @@ namespace kitten
 		LandInfoManager::createInstance();
 		
 		kibble::loadSpriteSheets("MasterSpriteSheet.json");
+		kibble::loadLand("AllLand.json");
 	}
 
 	void movedExamples()

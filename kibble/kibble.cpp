@@ -6,6 +6,7 @@
 #include "kibble/json/JSONUnitDataParser.hpp"
 #include "kibble/custom/CustomDeckDataParser.hpp"
 #include "kibble\sprites\SpriteLoader.h"
+#include "kibble/map/LandLoader.h"
 
 kibble::GameObjectDataParser* gameObjectParser;
 kibble::UnitDataParser* unitParser;
@@ -19,6 +20,7 @@ void kibble::initializeKibbleRelatedComponents() {
 	unitParser = new JSONUnitDataParser();
 	deckParser = new CustomDeckDataParser();
 	SpriteLoader::createInstance();
+	LandLoader::createInstance();
 
 	setupDatabank();
 }
@@ -26,6 +28,7 @@ void kibble::initializeKibbleRelatedComponents() {
 void kibble::destroyKibbleRelatedComponents() {
 	destroyDatabank();
 	SpriteLoader::destroyInstance();
+	LandLoader::destroyInstance();
 
 	delete gameObjectParser;
 	delete unitParser;
@@ -51,4 +54,8 @@ void kibble::setSceneFrom(const std::string& fileName) {
 
 void kibble::loadSpriteSheets(const std::string& p_masterSheetName){
 	SpriteLoader::loadAllSprites(p_masterSheetName);
+}
+
+void kibble::loadLand(const std::string& p_masterSheetName) {
+	LandLoader::loadAllLand(p_masterSheetName);
 }

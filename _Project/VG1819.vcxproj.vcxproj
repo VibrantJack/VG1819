@@ -218,6 +218,7 @@
     <ClCompile Include="..\board\tile\landInfo\GardenLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\HomeLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\LandInfoManager.cpp" />
+    <ClCompile Include="..\board\tile\landInfo\LandInformation.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SandLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
     <ClCompile Include="..\board\tile\TileDecoration.cpp" />
@@ -284,6 +285,7 @@
     <ClCompile Include="..\kibble\json\JSONGameObjectDataParser.cpp" />
     <ClCompile Include="..\kibble\json\JSONUnitDataParser.cpp" />
     <ClCompile Include="..\kibble\kibble.cpp" />
+    <ClCompile Include="..\kibble\map\LandLoader.cpp" />
     <ClCompile Include="..\kibble\sprites\SpriteLoader.cpp" />
     <ClCompile Include="..\kibble\UnitGameObject\UnitType.cpp" />
     <ClCompile Include="..\kitten\audio\AudioEngineWrapper.cpp" />
@@ -654,6 +656,7 @@
     <ClInclude Include="..\kibble\json\jsonextra.hpp" />
     <ClInclude Include="..\kibble\json\JSONGameObjectDataParser.hpp" />
     <ClInclude Include="..\kibble\kibble.hpp" />
+    <ClInclude Include="..\kibble\map\LandLoader.h" />
     <ClInclude Include="..\kibble\sprites\SpriteLoader.h" />
     <ClInclude Include="..\kibble\UnitDataParser.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp" />
