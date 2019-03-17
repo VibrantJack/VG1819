@@ -8,7 +8,6 @@
 #include "TileInfo.h"
 #include "kitten/QuadRenderable.h"
 #include "kitten/K_GameObjectManager.h"
-#include "board/tile/tileDecoration.h"
 #include "board/tile/DecorationGenerator.h"
 #include "board/BoardManager.h"
 
