@@ -1,0 +1,16 @@
+{
+	"name" : "DingSound",
+	"components" : [
+		{
+			"name" : "AudioSource",
+			"clippath" : "Sounds/sfx/units/arm.wav",
+			"is3d" : true,
+			"mindistance" : 10,
+			"maxdistance" : 20,
+			"enableeffects" : false,
+			"loop" : false,
+			"volume" : 0.4,
+			"getsducked" : false
+		}
+	]
+}

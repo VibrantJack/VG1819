@@ -466,6 +466,7 @@
     <ClCompile Include="PlayBGMOnSceneChange.cpp" />
     <ClCompile Include="PlayParticleSystemAtMouseClick.cpp" />
     <ClCompile Include="PlayParticleSystemOnEnable.cpp" />
+    <ClCompile Include="PlaySoundOnClick.cpp" />
     <ClCompile Include="PlayUniversalSoundOnEnable.cpp" />
     <ClCompile Include="PlaySoundOnKeyPress.cpp" />
     <ClCompile Include="PlaySoundOnStart.cpp" />
@@ -851,6 +852,7 @@
     <ClInclude Include="PlayBGMOnSceneChange.h" />
     <ClInclude Include="PlayParticleSystemAtMouseClick.h" />
     <ClInclude Include="PlayParticleSystemOnEnable.h" />
+    <ClInclude Include="PlaySoundOnClick.h" />
     <ClInclude Include="PlayUniversalSoundOnEnable.h" />
     <ClInclude Include="PlaySoundOnKeyPress.h" />
     <ClInclude Include="PlaySoundOnStart.h" />
