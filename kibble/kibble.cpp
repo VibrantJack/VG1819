@@ -7,11 +7,13 @@
 #include "kibble/custom/CustomDeckDataParser.hpp"
 #include "kibble\sprites\SpriteLoader.h"
 #include "kibble/map/LandLoader.h"
+#include "kibble/map/MapReader.h"
 
 kibble::GameObjectDataParser* gameObjectParser;
 kibble::UnitDataParser* unitParser;
 kibble::DeckDataParser* deckParser;
 kibble::SpriteLoader* spriteLoader;
+kibble::LandLoader* landLoader;
 
 void kibble::initializeKibbleRelatedComponents() {
 	setupComponentMap();
@@ -20,7 +22,8 @@ void kibble::initializeKibbleRelatedComponents() {
 	unitParser = new JSONUnitDataParser();
 	deckParser = new CustomDeckDataParser();
 	SpriteLoader::createInstance();
-	LandLoader::createInstance();
+	landLoader = new LandLoader();
+	MapReader::createInstance();
 
 	setupDatabank();
 }
@@ -28,8 +31,9 @@ void kibble::initializeKibbleRelatedComponents() {
 void kibble::destroyKibbleRelatedComponents() {
 	destroyDatabank();
 	SpriteLoader::destroyInstance();
-	LandLoader::destroyInstance();
+	MapReader::destroyInstance();
 
+	delete landLoader;
 	delete gameObjectParser;
 	delete unitParser;
 	delete deckParser;
@@ -57,5 +61,9 @@ void kibble::loadSpriteSheets(const std::string& p_masterSheetName){
 }
 
 void kibble::loadLand(const std::string& p_masterSheetName) {
-	LandLoader::loadAllLand(p_masterSheetName);
+	landLoader->loadAllLand(p_masterSheetName);
+}
+
+void kibble::loadMap(const std::string& p_masterSheetName) {
+	MapReader::loadAllMap(p_masterSheetName);
 }

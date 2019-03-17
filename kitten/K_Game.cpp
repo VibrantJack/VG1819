@@ -77,6 +77,7 @@ namespace kitten
 		
 		kibble::loadSpriteSheets("MasterSpriteSheet.json");
 		kibble::loadLand("AllLand.json");
+		kibble::loadMap("AllMap.json");
 	}
 
 	void movedExamples()

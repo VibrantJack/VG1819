@@ -221,7 +221,6 @@
     <ClCompile Include="..\board\tile\landInfo\LandInformation.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SandLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\SwampLand.cpp" />
-    <ClCompile Include="..\board\tile\TileDecoration.cpp" />
     <ClCompile Include="..\components\CameraMoveByEvent.cpp" />
     <ClCompile Include="..\components\clickables\AddNewDeckOnClick.cpp" />
     <ClCompile Include="..\components\clickables\AddUnitOnClick.cpp" />
@@ -286,6 +285,7 @@
     <ClCompile Include="..\kibble\json\JSONUnitDataParser.cpp" />
     <ClCompile Include="..\kibble\kibble.cpp" />
     <ClCompile Include="..\kibble\map\LandLoader.cpp" />
+    <ClCompile Include="..\kibble\map\MapReader.cpp" />
     <ClCompile Include="..\kibble\sprites\SpriteLoader.cpp" />
     <ClCompile Include="..\kibble\UnitGameObject\UnitType.cpp" />
     <ClCompile Include="..\kitten\audio\AudioEngineWrapper.cpp" />
@@ -585,7 +585,6 @@
     <ClInclude Include="..\board\tile\DecorationGenerator.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInformation.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInfoManager.h" />
-    <ClInclude Include="..\board\tile\TileDecoration.h" />
     <ClInclude Include="..\components\CameraMoveByEvent.h" />
     <ClInclude Include="..\components\clickables\AddNewDeckOnClick.h" />
     <ClInclude Include="..\components\clickables\AddUnitOnClick.h" />
@@ -657,6 +656,7 @@
     <ClInclude Include="..\kibble\json\JSONGameObjectDataParser.hpp" />
     <ClInclude Include="..\kibble\kibble.hpp" />
     <ClInclude Include="..\kibble\map\LandLoader.h" />
+    <ClInclude Include="..\kibble\map\MapReader.h" />
     <ClInclude Include="..\kibble\sprites\SpriteLoader.h" />
     <ClInclude Include="..\kibble\UnitDataParser.hpp" />
     <ClInclude Include="..\kibble\json\Datatypes\UnitDataType.hpp" />

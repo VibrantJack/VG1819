@@ -5,7 +5,6 @@
 
 namespace kibble
 {
-	LandLoader* LandLoader::sm_instance = nullptr;
 
 	LandLoader::LandLoader()
 	{
@@ -68,19 +67,6 @@ namespace kibble
 		LandInfoManager::getInstance()->add(info);
 	}
 
-	void LandLoader::createInstance()
-	{
-		assert(sm_instance == nullptr);
-		sm_instance = new LandLoader();
-	}
-
-	void LandLoader::destroyInstance()
-	{
-		assert(sm_instance != nullptr);
-		delete sm_instance;
-		sm_instance = nullptr;
-	}
-
 	void LandLoader::loadAllLand(const std::string & p_masterJsonName)
 	{
 		nlohmann::json masterFile = jsonIn(LAND_DIRECTORY + p_masterJsonName);
@@ -90,7 +76,7 @@ namespace kibble
 			auto end = masterFile["files"].cend();
 			for (auto it = masterFile["files"].cbegin(); it != end; ++it)
 			{
-				sm_instance->createLandInfo(*it);
+				this->createLandInfo(*it);
 			}
 		}
 	}

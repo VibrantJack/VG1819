@@ -12,15 +12,11 @@ namespace kibble
 	class LandLoader
 	{
 	private:
-		LandLoader();
-		~LandLoader();
-		static LandLoader* sm_instance;
-
 		void createLandInfo(const std::string& p_JsonName);
 	public:
-		static void createInstance();
-		static void destroyInstance();
+		LandLoader();
+		~LandLoader();
 
-		static void loadAllLand(const std::string& p_masterJsonName);
+		void loadAllLand(const std::string& p_masterJsonName);
 	};
 }

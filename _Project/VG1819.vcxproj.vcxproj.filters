@@ -787,9 +787,6 @@
     <ClCompile Include="..\board\tile\DecorationGenerator.cpp">
       <Filter>board\tile</Filter>
     </ClCompile>
-    <ClCompile Include="..\board\tile\TileDecoration.cpp">
-      <Filter>board\tile</Filter>
-    </ClCompile>
     <ClCompile Include="..\kitten\SimpleQuadRenderable.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
@@ -1146,6 +1143,9 @@
       <Filter>board\tile\landInfo</Filter>
     </ClCompile>
     <ClCompile Include="..\kibble\map\LandLoader.cpp">
+      <Filter>kibble\map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\map\MapReader.cpp">
       <Filter>kibble\map</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2074,9 +2074,6 @@
     <ClInclude Include="..\board\tile\DecorationGenerator.h">
       <Filter>board\tile</Filter>
     </ClInclude>
-    <ClInclude Include="..\board\tile\TileDecoration.h">
-      <Filter>board\tile</Filter>
-    </ClInclude>
     <ClInclude Include="..\kitten\SimpleQuadRenderable.h">
       <Filter>kitten</Filter>
     </ClInclude>
@@ -2292,6 +2289,9 @@
       <Filter>components\options menu</Filter>
     </ClInclude>
     <ClInclude Include="..\kibble\map\LandLoader.h">
+      <Filter>kibble\map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\map\MapReader.h">
       <Filter>kibble\map</Filter>
     </ClInclude>
   </ItemGroup>
@@ -2511,6 +2511,9 @@
     </Filter>
     <Filter Include="kibble\map">
       <UniqueIdentifier>{af4456d7-606c-4752-9dc0-034aef739823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\tile\gameMode">
+      <UniqueIdentifier>{7a874d37-95d8-4558-8d90-37b50d9b034e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
