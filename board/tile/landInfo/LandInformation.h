@@ -30,6 +30,7 @@ public:
 
 		//game mode related tile
 		Domain_land,
+		Control_land
 	};
 	//========================================================
 

@@ -1148,6 +1148,9 @@
     <ClCompile Include="..\kibble\map\MapReader.cpp">
       <Filter>kibble\map</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\tile\gameMode\GameModeManager.cpp">
+      <Filter>board\tile\gameMode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2294,6 +2297,12 @@
     <ClInclude Include="..\kibble\map\MapReader.h">
       <Filter>kibble\map</Filter>
     </ClInclude>
+    <ClInclude Include="..\board\tile\gameMode\GameModeManager.h">
+      <Filter>board\tile\gameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\tile\gameMode\AreaControl.h">
+      <Filter>board\tile\gameMode\AreaControlMode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -2514,6 +2523,12 @@
     </Filter>
     <Filter Include="board\tile\gameMode">
       <UniqueIdentifier>{7a874d37-95d8-4558-8d90-37b50d9b034e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\tile\gameMode\AreaControlMode">
+      <UniqueIdentifier>{0f162031-4d97-4e23-bc10-18a858949d8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\tile\gameMode\CaptureFlagMode">
+      <UniqueIdentifier>{561e59c9-6944-4b0a-9781-8db73cba999f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

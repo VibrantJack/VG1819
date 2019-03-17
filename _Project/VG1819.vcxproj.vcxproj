@@ -214,6 +214,7 @@
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnownedTileFilter.cpp" />
     <ClCompile Include="..\board\tile\DecorationGenerator.cpp" />
+    <ClCompile Include="..\board\tile\gameMode\GameModeManager.cpp" />
     <ClCompile Include="..\board\tile\landInfo\ForestLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\GardenLand.cpp" />
     <ClCompile Include="..\board\tile\landInfo\HomeLand.cpp" />
@@ -583,6 +584,8 @@
     <ClInclude Include="..\board\component\tilePipeline\TileFliter.h" />
     <ClInclude Include="..\board\component\tilePipeline\TilePipeline.h" />
     <ClInclude Include="..\board\tile\DecorationGenerator.h" />
+    <ClInclude Include="..\board\tile\gameMode\AreaControl.h" />
+    <ClInclude Include="..\board\tile\gameMode\GameModeManager.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInformation.h" />
     <ClInclude Include="..\board\tile\landInfo\LandInfoManager.h" />
     <ClInclude Include="..\components\CameraMoveByEvent.h" />
