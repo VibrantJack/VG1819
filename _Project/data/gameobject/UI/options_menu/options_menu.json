@@ -1,0 +1,321 @@
+{
+	"name" : "Options Menu",
+	"components" : 
+	[
+	
+	],
+	
+	"gameobjects" :
+	[
+		{
+			"name" : "Toggleable",
+			"components" : 
+			[
+				{
+					"name" : "UIFrame",
+					"texture" : "textures/ui/red_quilt.jpg"
+				}
+			],
+			"translate" : [350, 240, -0.2],
+			"worldscale" : [640, 300, 1],
+			
+			"gameobjects" : 
+			[
+				{
+					"name" : "Header",
+					"components" :
+					[
+						{
+							"name" : "UIElement",
+							"texture" : "textures/ui/options_header.png"
+						}
+					],
+					"translate" : [75, 215, 0.1],
+					"worldscale" : [500, 75 , 1]
+				},
+				{
+					"name" : "SFX Label",
+					"components" : 
+					[
+						{
+							"name" : "UIElement",
+							"texture" : "textures/ui/options_sfx.png"
+						},
+						{
+							"name" : "SFXVolumeController"
+						}
+					],
+					"translate" : [10, 160, 0.1],
+					"worldscale" : [100, 50 , 1],
+					"gameobjects" : 
+					[
+						{
+							"name" : "Decrease Sfx volume",
+							"components" : 
+							[
+								{
+									"name" : "UIObject",
+									"texture" : "textures/ui/buttons/button_minus.tga"
+								},
+								{
+									"name" : "ClickableFrame"
+								},
+								{
+									"name" : "DecreaseSFXVolumeOnClick",
+									"amount" : 5
+								},
+								{
+									"name" : "PlayUniversalSoundOnUIClick",
+									"sound_name" : "click_2"
+								},
+								{
+									"name" : "ClickableButton",
+									"regularTexture" : "textures/ui/buttons/button_minus.tga",
+									"highlightedTexture" : "textures/ui/buttons/button_minus_h.tga"
+								}
+							],
+							"translate" : [150, 0, 0]
+						},
+						{
+							"name" : "Increase Sfx volume",
+							"components" : 
+							[
+								{
+									"name" : "UIObject",
+									"texture" : "textures/ui/buttons/button_add.tga"
+								},
+								{
+									"name" : "ClickableFrame"
+								},
+								{
+									"name" : "IncreaseSFXVolumeOnClick",
+									"amount" : 5
+								},
+								{
+									"name" : "PlayUniversalSoundOnUIClick",
+									"sound_name" : "click_2"
+								},
+								{
+									"name" : "ClickableButton",
+									"regularTexture" : "textures/ui/buttons/button_add.tga",
+									"highlightedTexture" : "textures/ui/buttons/button_add_h.tga"
+								}
+							],
+							"translate" : [450, 0, 0]
+						},
+						{
+							"name" : "Current SFX Text",
+							"components" : 
+							[
+								{
+									"name" : "TextBox",
+									"font" : "../fonts/ms_gothic.fnt",
+									"width" : 500,
+									"height" : 50,
+									"alignment" : "center"
+								}
+							],
+							"translate" : [100, 42, 0],
+							"worldscale" : [1,1,1]
+						}
+					]
+				},
+				{
+					"name" : "BGM Label",
+					"components" :
+					[
+						{
+							"name" : "UIElement",
+							"texture" : "textures/ui/options_bgm.png"
+						},
+						{
+							"name" : "BGMVolumeController"
+						}
+					],
+					"translate" : [10, 100, 0.1],
+					"worldscale" : [100, 50 , 1],
+					"gameobjects" : 
+					[
+						{
+							"name" : "Decrease BGM volume",
+							"components" : 
+							[
+								{
+									"name" : "UIObject",
+									"texture" : "textures/ui/buttons/button_minus.tga"
+								},
+								{
+									"name" : "ClickableFrame"
+								},
+								{
+									"name" : "DecreaseBGMVolumeOnClick",
+									"amount" : 5
+								},
+								{
+									"name" : "PlayUniversalSoundOnUIClick",
+									"sound_name" : "click_2"
+								},
+								{
+									"name" : "ClickableButton",
+									"regularTexture" : "textures/ui/buttons/button_minus.tga",
+									"highlightedTexture" : "textures/ui/buttons/button_minus_h.tga"
+								}
+							],
+							"translate" : [150, 0, 0]
+						},
+						{
+							"name" : "Increase BGM volume",
+							"components" : 
+							[
+								{
+									"name" : "UIObject",
+									"texture" : "textures/ui/buttons/button_add.tga"
+								},
+								{
+									"name" : "ClickableFrame"
+								},
+								{
+									"name" : "IncreaseBGMVolumeOnClick",
+									"amount" : 5
+								},
+								{
+									"name" : "PlayUniversalSoundOnUIClick",
+									"sound_name" : "click_2"
+								},
+								{
+									"name" : "ClickableButton",
+									"regularTexture" : "textures/ui/buttons/button_add.tga",
+									"highlightedTexture" : "textures/ui/buttons/button_add_h.tga"
+								}
+							],
+							"translate" : [450, 0, 0]
+						},
+						{
+							"name" : "Current BGM Text",
+							"components" : 
+							[
+								{
+									"name" : "TextBox",
+									"font" : "../fonts/ms_gothic.fnt",
+									"width" : 500,
+									"height" : 50,
+									"alignment" : "center"
+								}
+							],
+							"translate" : [100, 42, 0],
+							"worldscale" : [1,1,1]
+						}
+					]
+				},
+				{
+					"name" : "Resolution Label",
+					"components" : 
+					[
+						{
+							"name" : "UIElement",
+							"texture" : "textures/ui/options_resolution.png"
+						},
+						{
+							"name" : "ResolutionController"
+						}
+					],
+					"translate" : [10, 40, 0.1],
+					"worldscale" : [100, 50 , 1],
+					"gameobjects" : 
+					[
+						{
+							"name" : "Decrease Resolution",
+							"components" : 
+							[
+								{
+									"name" : "UIObject",
+									"texture" : "textures/ui/buttons/button_minus.tga"
+								},
+								{
+									"name" : "ClickableFrame"
+								},
+								{
+									"name" : "DecreaseResolutionOnClick"
+								},
+								{
+									"name" : "PlayUniversalSoundOnUIClick",
+									"sound_name" : "click_2"
+								},
+								{
+									"name" : "ClickableButton",
+									"regularTexture" : "textures/ui/buttons/button_minus.tga",
+									"highlightedTexture" : "textures/ui/buttons/button_minus_h.tga"
+								}
+							],
+							"translate" : [150, 0, 0]
+						},
+						{
+							"name" : "Increase Resolution",
+							"components" : 
+							[
+								{
+									"name" : "UIObject",
+									"texture" : "textures/ui/buttons/button_add.tga"
+								},
+								{
+									"name" : "ClickableFrame"
+								},
+								{
+									"name" : "IncreaseResolutionOnClick"
+								},
+								{
+									"name" : "PlayUniversalSoundOnUIClick",
+									"sound_name" : "click_2"
+								},
+								{
+									"name" : "ClickableButton",
+									"regularTexture" : "textures/ui/buttons/button_add.tga",
+									"highlightedTexture" : "textures/ui/buttons/button_add_h.tga"
+								}
+							],
+							"translate" : [450, 0, 0]
+						},
+						{
+							"name" : "Current Resolution Text",
+							"components" : 
+							[
+								{
+									"name" : "TextBox",
+									"font" : "../fonts/ms_gothic.fnt",
+									"width" : 500,
+									"height" : 50,
+									"alignment" : "center"
+								}
+							],
+							"translate" : [100, 42, 0],
+							"worldscale" : [1,1,1]
+						}
+					]
+				},
+				{
+					"name" : "Back Button",
+					"components" : 
+					[
+						{
+							"name" : "UIObject",
+							"texture" : "textures/ui/buttons/button_return.png"
+						},
+						{
+							"name" : "ClickableFrame"
+						},
+						{
+							"name" : "SavePlayerPrefsOnClick"
+						},
+						{
+							"name" : "ClickableButton",
+							"regularTexture" : "textures/ui/buttons/button_return.tga",
+							"highlightedTexture" : "textures/ui/buttons/button_return_highlighted.tga"
+						}
+					],
+					"translate" : [575,275, 0.05],
+					"worldscale" : [75, 35, 1]
+				}
+			]
+		}
+	]
+}

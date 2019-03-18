@@ -1,6 +1,7 @@
 #pragma once
 #include "ability/ability/Ability.h"
 #include "unit/Unit.h"
+#include "_Project\UniversalPfx.h"
 
 //Rock
 
@@ -19,13 +20,13 @@ namespace ability
 				{
 					//apply Status_Encourage to target
 					ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_SHIELD);
-					addStatusInfo(se, p_info);
+								
+					UniversalPfx::getInstance()->playEffect("Arm", it->getTransform().getTranslation());
 
-					//set properties
-					int pow = p_info->m_intValue.find(UNIT_POWER)->second;
+					std::vector<std::string> intKeys;
+					intKeys.push_back(UNIT_POWER);
 
-					se->m_source = ABILITY_ARM;
-					se->addCounter(UNIT_POWER, pow);
+					addStatusInfo(se, p_info, intKeys);
 
 					//attach to target
 					se->attach(it);

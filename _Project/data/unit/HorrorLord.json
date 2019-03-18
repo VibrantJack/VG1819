@@ -36,8 +36,10 @@
 				"area_filter":1,
 				"area_filter0":"ally",
 				"description":"Enemy within 2 blocks has MV -1 and reduce IN to 1.",
-				"status_name":"Horror",
-				"status_description":"MV -1 and IN is reduced to 1.",
+				"status_name_Status_Temp_Change":"Horror",
+				"status_description_Status_Temp_Change":"MV -1",
+				"status_name_Status_IN_Change":"Fear",
+				"status_description_Status_IN_Change":"IN reduced to 1",
 				"duration":1
 			}
 		],
@@ -53,8 +55,17 @@
 				"hp":8
 			},
 			{
-				"name":"Status_DR_Horror_Lord",
-				"description":"Disable [Horror] and [Execute] get 1 less counter."
+				"name":"Status_DR_AD_Change",
+				"description":"Disable [Horror] and [Execute] get 1 less counter.",
+				"effectedAD":2,
+				"ad_name_0":"Horror",
+				"ad_attribute_num_0":1,
+				"ad_attribute_0_0":"disable",
+				"ad_value_0_0":1,
+				"ad_name_1":"Execute",
+				"ad_attribute_num_1":1,
+				"ad_attribute_1_0":"counter_change",
+				"ad_value_1_0":-1
 			}
 		]
 	},

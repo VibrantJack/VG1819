@@ -1,5 +1,6 @@
 #include "ability/ability/Ability.h"
 #include "unit/Unit.h"
+#include "_Project\UniversalPfx.h"
 //Rock
 
 namespace ability
@@ -21,9 +22,11 @@ namespace ability
 
 				int power = -(p_info->m_intValue.find(UNIT_POWER)->second);
 
-				damage(target, power);
+				changeHP(target, power);
 
 				UniversalSounds::playSound("deconstruction");
+				UniversalPfx::getInstance()->playEffect("Sabotage", target->getTransform().getTranslation());
+
 			}
 
 		}

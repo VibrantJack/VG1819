@@ -130,7 +130,15 @@ namespace kitten
 
 		if (m_causesDuck)
 		{
-			tryDuckOthers(true);
+			//tryDuckOthers(true);
+		}
+	}
+
+	void AudioSource::stop()
+	{
+		if (!m_audioClip->isFinished())
+		{
+			m_audioClip->stop();
 		}
 	}
 
@@ -138,7 +146,7 @@ namespace kitten
 	{
 		if (m_causesDuck)
 		{
-			tryDuckOthers(false);
+			//tryDuckOthers(false);
 		}
 
 		m_audioClip->stop();
@@ -160,7 +168,7 @@ namespace kitten
 		
 		if (m_causesDuck)
 		{
-			tryDuckOthers(!p_paused);
+			//tryDuckOthers(!p_paused);
 		}
 	}
 
@@ -190,18 +198,20 @@ namespace kitten
 		m_volume = p_volume;
 		//m_causingDuckFactor = (m_volume / 1.0f) - 0.75f;
 
+		float volumeCopy = CLAMP(p_volume, 0.0f, 1.0f);
+
 		if (m_beingDucked)
 		{
-			m_audioClip->setVolume(p_volume * m_beingDuckedFactor);
+			m_audioClip->setVolume(volumeCopy * m_beingDuckedFactor);
 		}
 		else
 		{
-			m_audioClip->setVolume(p_volume);
+			m_audioClip->setVolume(volumeCopy);
 		}
 
 		if (m_causesDuck)
 		{
-			tryDuckOthers(true);
+			//tryDuckOthers(true);
 		}
 	}
 
@@ -283,7 +293,7 @@ namespace kitten
 	{
 		if (m_causesDuck)
 		{
-			tryDuckOthers(false);
+			//tryDuckOthers(false);
 		}
 	}
 }

@@ -1,0 +1,69 @@
+{
+	"unit":{
+		"name":"Demon Lord",
+		"hp":30,
+		"mv":3,
+		"in":40,
+		"cost":99,
+		"tags":["Commander","Ancients"],
+		"commander":{
+			"portrait_path" : "place_holder"
+		},
+		"ability_description":[
+			{
+				"name":"Manipulate Tile",
+				"min_range":1,
+				"max_range":1,
+				"filter":1,
+				"filter0":"owned_tile",
+				"Demonic Presence":1,
+				"description":" "
+            },
+			{
+				"name":"Ancient Offering",
+				"power_limit":15,
+				"min_range":1,
+				"max_range":2,
+				"need_unit":1,
+				"filter":1,
+				"filter0":"enemy",
+				"description":"Destroy target ally and store power equal to its HP (max 15)",
+				"status_name_Status_AD_Change":"Gift Ready",
+				"status_description_Status_AD_Change":" ",
+				"duration":1,
+				"effectedAD":2,
+				"ad_name_0":"Ancient Gift",
+				"ad_attribute_num_0":1,
+				"ad_attribute_0_0":"disable",
+				"ad_value_0_0":-1,
+				"ad_name_1":"Ancient Offering",
+				"ad_attribute_num_1":1,
+				"ad_attribute_1_0":"disable",
+				"ad_value_1_0":1
+			},
+			{
+				"name":"Ancient Gift",
+				"disable":1,
+				"min_range":1,
+				"max_range":1,
+				"need_unit":1,
+				"description":"Deal damage to target. Need store power."
+			}
+		],
+		"portrait_texture" : "textures/cards/500x500/DemonLord.tga"
+	},
+	"components" : [
+		{
+			"name" : "SpriteGroup",
+			"spritename":"demon_lord",
+			"number":1,
+			"rotate":[45,0,0],
+			"scale":[1.5,1.5,1],
+			"translate":[-0.15,0,0.05]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/DemonLord.tga"
+		}
+	]
+}

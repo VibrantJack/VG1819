@@ -1,6 +1,4 @@
 #include "TileGetter.h"
-#include <iostream>
-#include <sstream>
 
 TileGetter::TileGetter()
 {
@@ -13,7 +11,7 @@ TileGetter::~TileGetter()
 	deregisterEvent();
 }
 
-void TileGetter::requireTile(unit::AbilityDescription * p_ad, unit::Unit* p_source, bool p_needUnit)
+void TileGetter::requireTile(unit::AbilityDescription * p_ad, unit::Unit* p_source, bool p_needUnit, bool p_autoClick)
 {
 	if (!m_reg)
 	{
@@ -25,6 +23,8 @@ void TileGetter::requireTile(unit::AbilityDescription * p_ad, unit::Unit* p_sour
 	m_ad = p_ad;
 	m_source = p_source;
 	m_needUnit = p_needUnit;
+	m_autoClick = p_autoClick;
+	m_respond = true;
 
 	//initialize
 	//m_targetNum = 0;
@@ -34,7 +34,6 @@ void TileGetter::requireTile(unit::AbilityDescription * p_ad, unit::Unit* p_sour
 	m_unitList.shrink_to_fit();
 
 	triggerHighlightEvent();
-	m_respond = true;
 }
 
 void TileGetter::registerEvent()
@@ -43,17 +42,11 @@ void TileGetter::registerEvent()
 		kitten::Event::EventType::Tile_Clicked,
 		this,
 		std::bind(&TileGetter::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
-
-	kitten::EventManager::getInstance()->addListener(
-		kitten::Event::EventType::Right_Clicked,
-		this,
-		std::bind(&TileGetter::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void TileGetter::deregisterEvent()
 {
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::Tile_Clicked, this);
-	kitten::EventManager::getInstance()->removeListener(kitten::Event::Right_Clicked, this);
 }
 
 void TileGetter::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data)
@@ -92,10 +85,7 @@ void TileGetter::getTiles(kitten::Event * p_data)
 
 	for (int i = 0; i < tnum; i++)
 	{
-		std::stringstream stm;
-		stm << TILE << i;
-		std::string tkey = stm.str();
-		kitten::K_GameObject* tileGO = p_data->getGameObj(tkey);//find each tile
+		kitten::K_GameObject* tileGO = p_data->getGameObj(TILE+std::to_string(i));//find each tile
 
 		m_tileList.push_back(tileGO);
 		getUnit(tileGO);
@@ -162,6 +152,9 @@ void TileGetter::triggerHighlightEvent()
 	else
 		e->putInt("select", FALSE);
 
+	//put auto click property
+	e->putInt(AUTO_CLICK, m_autoClick);
+
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Set_Area_Pattern, e);
 }
 
@@ -170,15 +163,16 @@ void TileGetter::putRange(kitten::Event * e)
 	if (m_ad->m_intValue.find("min_range") != m_ad->m_intValue.end())
 	{
 		e->putString("mode", "range");
-		e->putGameObj("tileAtOrigin", m_source->getTile());
+		//e->putGameObj("tileAtOrigin", m_source->getTile());
 		e->putInt("min_range", m_ad->m_intValue["min_range"]);
 		e->putInt("max_range", m_ad->m_intValue["max_range"]);
 	}
 	else
 	{
 		e->putString("mode", "all");
-		e->putGameObj("tileAtOrigin", m_source->getTile());
+		//e->putGameObj("tileAtOrigin", m_source->getTile());
 	}
+	e->putGameObj("tileAtOrigin", m_source->getTile());
 }
 
 void TileGetter::putFilter(const std::string & p_filter, kitten::Event * e)
@@ -189,9 +183,7 @@ void TileGetter::putFilter(const std::string & p_filter, kitten::Event * e)
 		e->putInt(p_filter, filterNum);
 		for (int i = 0; i < filterNum; i++)
 		{
-			std::stringstream stm;
-			stm << p_filter << i;
-			std::string fkey = stm.str();
+			std::string fkey = p_filter + std::to_string(i);
 			e->putString(fkey, m_ad->m_stringValue[fkey]);
 		}
 	}

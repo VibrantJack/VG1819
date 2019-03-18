@@ -1,0 +1,37 @@
+{
+	"name" : "OptionsMenuMainRoot",
+	
+	"gameobjects" : 
+	[
+		{
+			"name" : "Options Menu Button",
+			"components" : [
+				{
+					"name" : "UIObject",
+					"texture" : "textures/ui/buttons/button_gear.tga"
+				},
+				{
+					"name" : "ClickableButton",
+					"regularTexture" : "textures/ui/buttons/button_gear.tga",
+					"highlightedTexture" : "textures/ui/buttons/button_gear_h.tga"
+				},
+				{
+					"name" : "ClickableFrame"
+				},
+				{
+					"name" : "PlayUniversalSoundOnUIClick",
+					"sound_name" : "click"
+				},
+				{
+					"name" : "ToggleSiblingEnabledOnClick"
+				}
+			],
+			"translate2d" : [5, 540],
+			"scale2d" : [50, 50]
+		},
+		{
+			"filename" : "UI/options_menu/options_menu.json",
+			"enabled" : false
+		}
+	]
+}

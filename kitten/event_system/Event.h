@@ -100,6 +100,7 @@ namespace kitten
 			Remove_Loading_Screen,
 			New_Game_Turn,
 			New_Unit_Turn,
+			Put_Card_To_Hand,
 
 			Test_Event, 
 			MAX_VAL = Test_Event

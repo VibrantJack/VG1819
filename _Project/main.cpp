@@ -1,7 +1,11 @@
 #define GLFW_INCLUDE_GL3
 #define GLFW_NO_GLU
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <Windows.h>
+
+
 #include "util\MathUtil.h"
 #include "puppy\P_Common.h"
 #include "kitten\K_Game.h"
@@ -40,9 +44,15 @@ int main( void )
     glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
     glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    
+
+	RECT monitorRect;
+	GetWindowRect(GetDesktopWindow(), &monitorRect);
+
+	int monitorX = 1280;//monitorRect.right;
+	int monitorY = 720; // monitorRect.bottom;
+
     // Open a window and create its OpenGL context
-    if( !glfwOpenWindow( 1280, 720, 0,0,0,0, 24,0, GLFW_WINDOW ) )
+    if( !glfwOpenWindow( monitorX, monitorY, 0,0,0,0, 24,0, GLFW_WINDOW ) )
     {
         fprintf( stderr, "Failed to open GLFW window\n" );
         

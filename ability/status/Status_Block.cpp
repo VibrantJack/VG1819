@@ -9,7 +9,7 @@ namespace ability
 	{
 		m_Id = STATUS_BLOCK;
 		m_statusType = StatusType::Shield;
-		addTimePoint(TimePointEvent::Receive_Damage);
+		addTimePoint(TimePointEvent::Receive_Damage, -1);
 	}
 
 	int Status_Block::effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent * p_event)
@@ -18,7 +18,7 @@ namespace ability
 		{
 			AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAbilityInfo);
 			AbilityInfoPackage* pack = p_event->getPackage(INFO_PACKAGE_KEY);
-			node->effect(pack, UNIT_POWER, -m_counter.at(UNIT_POWER));//reduce damage
+			node->effect(pack, UNIT_POWER, -m_intValue.at(UNIT_POWER));//reduce damage
 			return 0;
 		}
 		return 1;

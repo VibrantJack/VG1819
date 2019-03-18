@@ -10,11 +10,9 @@ ability::Status_AD_Change::Status_AD_Change()
 
 int ability::Status_AD_Change::effect()
 {
-	AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAbilityDescription);
-	for (auto it : m_attributeChange)
-	{
-		node->effect(m_unit, m_effectedAD, it.first, it.second);
-	}
+	setEffectedAD();
+
+	changeEffectedAD();
 	return 0;
 }
 
@@ -26,10 +24,5 @@ int ability::Status_AD_Change::effect(const TimePointEvent::TPEventType& p_type,
 
 void ability::Status_AD_Change::effectEnd()
 {
-	AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAbilityDescription);
-	for (auto it : m_attributeChange)
-	{
-		int change = -it.second;//reverse change
-		node->effect(m_unit, m_effectedAD, it.first, change);
-	}
+	changeEffectedAD(true);
 }

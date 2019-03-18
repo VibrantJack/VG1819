@@ -22,3 +22,9 @@ PoisonPool.json
 EvilFiend.json
 HorrorLord.json
 Wraith.json
+Gorefiend.json
+Monument.json
+Slime.json
+RotGolem.json
+DemonLord.json
+EldritchLord.json

@@ -16,7 +16,8 @@
 #define UNIT_COST "cost"
 #define UNIT_BASE_COST "base_cost"
 #define UNIT_LV "lv"
-#define UNIT_ID "client_id"
+#define CLIENT_ID "client_id"
+#define KIBBLE_ID "kibble_id"
 
 //ability related
 #define ABILITY_DISABLE "disable"
@@ -26,9 +27,12 @@
 #define UNIT_CD "cd"
 #define UNIT_DURATION "duration"
 #define UNIT_POWER "power"
+#define UNIT_POWER_LIMIT "power_limit"
 #define UNIT_ABILITY_DESCRIPTION "description"
 #define MIN_RANGE "min_range"
 #define MAX_RANGE "max_range"
+#define AUTO_CLICK "auto_click"
+#define AUTO_CAST "auto_cast"
 
 //counter attribute
 #define COUNTER_NAME "counter_name"
@@ -44,6 +48,7 @@
 #define COUNTER_ENERGY "energy"
 #define COUNTER_KILL "kill"
 #define COUNTER_VIGOR "vigor"
+#define COUNTER_VENOM "venom"
 
 //tags
 #define STRUCTURE "Structure"

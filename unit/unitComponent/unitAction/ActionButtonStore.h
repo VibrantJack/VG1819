@@ -22,9 +22,12 @@ namespace unit
 		void displayAction(kitten::K_GameObject* p_buttonGO);
 		void hide();
 		void hideAction();
+		bool isDisplay();
 
 		void listenEvent(kitten::Event::EventType p_type, kitten::Event* p_event);
 	private:
+		ActionMap* m_map;
+
 		std::vector<kitten::K_GameObject*> m_buttonList;
 
 		Unit* m_unit;

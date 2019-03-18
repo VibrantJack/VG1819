@@ -8,7 +8,7 @@ namespace ability
 	{
 		m_Id = STATUS_SHIELD;
 		m_statusType = StatusType::Shield;
-		addTimePoint(TimePointEvent::Receive_Damage);
+		addTimePoint(TimePointEvent::Receive_Damage, -2);
 	}
 
 	int Status_Shield::effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent * p_event)
@@ -19,7 +19,7 @@ namespace ability
 			AbilityInfoPackage* pack = p_event->getPackage(INFO_PACKAGE_KEY);
 
 			//get amount of sheild
-			int shield = m_counter[UNIT_POWER];
+			int shield = m_intValue[UNIT_POWER];
 			//get damage
 			int damage = pack->m_intValue[UNIT_POWER];
 

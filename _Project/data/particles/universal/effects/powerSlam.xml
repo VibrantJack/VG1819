@@ -1,0 +1,5 @@
+<Effect>
+  <Emitter z=".5" y="-0.5" x="0" path="data/particles/abilities/emitters/powerSlamLightningEmitter.xml"/>
+  <Emitter z=".5" y="-0.5" x="0" path="data/particles/abilities/emitters/powerSlamLightning2Emitter.xml"/>
+  <Emitter z="0" y="0" x="0" path="data/particles/abilities/emitters/powerSlamDustEmitter.xml"/>
+</Effect>

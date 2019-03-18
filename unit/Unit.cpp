@@ -55,6 +55,23 @@ namespace unit
 			m_tagCheckMap[it] = true;
 		}
 		//m_isStructure = flag;*/
+
+		//check if unit has auto cast ability
+		for (auto ad : m_ADList)
+		{
+			auto found = ad->m_intValue.find(AUTO_CAST);
+			if (found != ad->m_intValue.end())
+			{
+				if(found->second)//auto cast property exist and it's 1
+					setAutoAbility(ad->m_stringValue[ABILITY_NAME]);
+			}
+		}
+	}
+
+	void Unit::setAutoAbility(const std::string & p_name)
+	{
+		m_autoCast = true;
+		m_autoAbility = p_name;
 	}
 
 	//status
@@ -109,7 +126,7 @@ namespace unit
 	void Unit::setJoinAD()
 	{
 		m_joinAD.m_stringValue["name"] = ACTION_JOIN;
-		m_joinAD.m_intValue["target"] = 1;
+		//m_joinAD.m_intValue["target"] = 1;
 		m_joinAD.m_intValue["need_unit"] = 1;
 		m_joinAD.m_intValue["min_range"] = 1;
 		m_joinAD.m_intValue["max_range"] = 1;
@@ -153,11 +170,11 @@ namespace unit
 		return m_commander != nullptr;
 	}
 
-	void Unit::manipulateTile()
-	{
-		if(isCommander())
-			m_commander->manipulateTile();
-	}
+//	void Unit::manipulateTile()
+//	{
+//		if(isCommander())
+//			m_commander->manipulateTile();
+//	}
 
 	bool Unit::checkTag(const std::string & p_tag)
 	{
@@ -175,6 +192,15 @@ namespace unit
 			m_commander->spawnUnit(p_id);
 	}*/
 
+	//check turn end in update, so it will not stick with next unit after action
+	void Unit::update()
+	{
+		if (isTurn())
+		{
+			m_turn->checkTurn();
+		}
+	}
+
 	//turn
 	void Unit::turnStart(UnitTurn * p_t)
 	{
@@ -187,7 +213,6 @@ namespace unit
 			m_turn->move = false;
 		else
 			m_turn->move = true;
-
 
 		m_cdRecorder->reduceCD();//reduce cd at start of turn
 
@@ -203,7 +228,7 @@ namespace unit
 			playerSkipTurn(false);//if it still cast, it skips turn
 			return;
 		}
-		else if (m_ADList.size() == 0)//doesn't have unit
+		else if (m_ADList.size() == 0)//doesn't have abilities
 		{
 			m_turn->act = false;
 		}
@@ -212,7 +237,11 @@ namespace unit
 			m_turn->act = true;
 		}
 
-		m_turn->checkTurn();
+		//if has auto cast ability, use it
+		if (m_autoCast)
+		{
+			useAbility(m_autoAbility);
+		}
 	}
 
 	bool Unit::canMove()
@@ -251,7 +280,6 @@ namespace unit
 			if (moveDone && !m_lateDestroy)
 			{
 				m_turn->move = false;
-				m_turn->checkTurn();
 			}
 		}
 
@@ -263,7 +291,6 @@ namespace unit
 	{
 		assert(m_turn != nullptr);
 		m_turn->act = false;
-		m_turn->checkTurn();
 	}
 
 	bool Unit::isTurn()
@@ -346,10 +373,10 @@ namespace unit
 		moveComponet->move(p_tile);
 	}
 
-	int Unit::useAbility(const std::string& p_abilityName)
+	int Unit::useAbility(const std::string& p_abilityName, bool p_autoClick)
 	{
-		if (!canAct())
-			return -1;
+		//if (!canAct())
+		//	return -1;
 
 		AbilityDescription* ad;
 		auto found = m_ADMap.find(p_abilityName);
@@ -381,7 +408,7 @@ namespace unit
 		}*/
 
 		m_cdRecorder->addCD(ad);
-		UnitInteractionManager::getInstance()->request(this, ad);
+		UnitInteractionManager::getInstance()->request(this, ad, p_autoClick);
 
 		return 0;
 	}

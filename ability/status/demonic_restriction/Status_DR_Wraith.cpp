@@ -13,7 +13,7 @@ namespace ability
 		AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
 
 		//in -8
-		int delta = m_attributeChange[UNIT_IN];
+		int delta = m_intValue[UNIT_IN];
 		node->effect(m_unit, UNIT_IN, delta);
 	}
 
@@ -23,7 +23,7 @@ namespace ability
 		AbilityNode* node = ability::AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
 
 		//in +8
-		int delta = -(m_attributeChange[UNIT_IN]);
+		int delta = -(m_intValue[UNIT_IN]);
 		node->effect(m_unit, UNIT_IN, delta);
 	}
 }

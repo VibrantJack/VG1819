@@ -1,0 +1,16 @@
+{
+  "name": "PooledRallyUPFX",
+  "components": [
+    {
+      "name": "K_ParticleSystem",
+      "effectpath": "data/particles/universal/effects/rally.xml"
+    },
+    {
+      "name": "PlayParticleSystemOnEnable"
+    },
+    {
+      "name": "DisableAfterTime",
+      "time": 1
+    }
+  ]
+}

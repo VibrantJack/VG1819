@@ -13,6 +13,7 @@ class ReloadObjectOnKeyPress : public kitten::K_Component
 private:
 	const std::string m_pathToJson;
 	const char m_key;
+	const bool m_replaceTransform;
 
 	input::InputManager* m_inputMan;
 
@@ -25,6 +26,6 @@ private:
 	virtual void update() override;
 
 public:
-	ReloadObjectOnKeyPress(char p_key, const std::string& p_pathToJson);
+	ReloadObjectOnKeyPress(char p_key, const std::string& p_pathToJson, bool p_replaceTransform = true);
 	~ReloadObjectOnKeyPress();
 };

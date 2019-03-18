@@ -1,0 +1,23 @@
+{
+	"name" : "rot_golem",
+	"texture" : "textures/sprites/units/neutral/rot_golem_sheet.png",
+	
+	"sheetwidth" : 1200,
+	"sheetheight" : 250,
+	
+	"characterwidth" : 200,
+	"characterheight" : 225,
+	
+	"padding" : 0,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [5,0],
+			"time" : 2
+		}
+	],
+	
+	"defaultanimation" : "idle"
+}

@@ -17,6 +17,18 @@
 //it will decrease duration by 1 and see if it's zero
 //then decide to remove this effect
 
+/*
+Priority: The order of status to be trigger in same Time Point, 
+higher priority will be trigger early since it will be sorted in the front of list
+
+0:Default priority, normal speed of changing data, 
+or the data doesn't matter as long as the Time Point is reached.
+Most status are 0 priority
+-1:Block, Dodge
+-2:Shield
+-3:Lord Order(Receive Damage)
+*/
+
 #pragma once
 #include "ability/node/AbilityNodeManager.h"
 #include "ability/status/statusEvent/TimePointEvent.h"
@@ -43,6 +55,8 @@ namespace ability
 		};
 		
 		std::string m_source;
+		std::unordered_map<std::string, int> m_intValue;
+		std::unordered_map<std::string, std::string> m_stringValue;
 
 		Status();
 		virtual ~Status();
@@ -51,18 +65,21 @@ namespace ability
 		void changeName(const std::string & p_msg);
 		void changeLV(int p_lv);
 		void changeDescription(const std::string & p_msg);
-		void setEffectedAD(const std::string & p_msg);
+		//void setEffectedAD(const std::string & p_msg);
 		void addCounter(const std::string & p_key, int p_value);
 		void addAttributeChange(const std::string & p_key, int p_value);
-		void addTimePoint(const TimePointEvent::TPEventType& p_value);
+		void addTimePoint(const TimePointEvent::TPEventType& p_value, int p_priority = 0);
+		void setCaster(unit::Unit* p_u);
+
 		//change when to reduce duration counter, turn end is default
 		void endEffectAt(const TimePointEvent::TPEventType& p_value = TimePointEvent::Turn_End);
 
 
 		// Getters for info
-		std::vector<ability::TimePointEvent::TPEventType> getTPlist();
+		const std::unordered_map<TimePointEvent::TPEventType, int>& getTPlist();
+		int getPriority(const TimePointEvent::TPEventType& p_tp);
 		int getLV() { return m_LV; }
-		const std::unordered_map<std::string, int>& getCounters() { return m_counter; }
+		const std::unordered_map<std::string, int>& getCounters() { return m_intValue; }
 		const std::unordered_map<std::string, int>& getAttributeChanges() { return m_attributeChange; }
 		std::string getDescription() { return m_description; };
 		std::string getName() { return m_name; };
@@ -84,19 +101,19 @@ namespace ability
 		//the text that will be showed to player
 		std::string m_name;
 		std::string m_description;
-
 		std::string m_Id;//the id identify status
 
 		unit::Unit * m_unit;//the unit this status attached to
-
-		std::unordered_map<std::string, int> m_counter;
-		//Most commonly counter is duration. But it can be more, such as how many times it can be used
-
-		int m_LV = 0;
+		
 		std::unordered_map<std::string, int> m_attributeChange;
-		std::string m_effectedAD;
 
-		std::vector<ability::TimePointEvent::TPEventType> m_TPList;//the list of event that will be registered
+		int m_LV = 0;//lv of level up status
+
+		//the unit who cast the ability to apply the status
+		unit::Unit* m_caster;
+
+		//the list of event that will be registered and its priority
+		std::unordered_map<TimePointEvent::TPEventType, int> m_TPList;
 
 		TimePointEvent::TPEventType m_endEffectEvent = TimePointEvent::None;
 
@@ -115,8 +132,20 @@ namespace ability
 
 		//end effect
 		virtual void effectEnd() {};
+
+
+		//				effectedAD name :               (attribute : value)
+		std::unordered_map<std::string, std::unordered_map<std::string, int> > m_effectedAD;
+		
+		
+		//change effected ad attributes
+		void setEffectedAD();
+
+		//actually change
+		void changeEffectedAD(bool p_reverse = false);
 	};
 
+	/*
 	class Status_LV : public Status
 	{
 		//this class handle the attribute change for all lv up status
@@ -124,7 +153,7 @@ namespace ability
 		Status_LV();
 		virtual Status* clone() const { return new Status_LV(*this); };
 		virtual int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
-	};
+	};*/
 
 	class Status_Encourage : public Status
 	{
@@ -147,6 +176,7 @@ namespace ability
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 
+	/*
 	class Status_Priest_LV3 : public Status_LV
 	{
 		//this is trigger when preiest is lv3
@@ -176,7 +206,7 @@ namespace ability
 		Status* clone() const { return new Status_Duelist_LV3(*this); };
 
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
-	};
+	};*/
 
 	class Status_Temp_Change : public Status
 	{
@@ -199,6 +229,7 @@ namespace ability
 		void effectEnd();
 	};
 
+	/*
 	class Status_Load : public Status
 	{
 	public:
@@ -207,7 +238,7 @@ namespace ability
 		int effect();
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 		void effectEnd();
-	};
+	};*/
 
 	class Status_Shield : public Status
 	{
@@ -233,6 +264,7 @@ namespace ability
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 
+	/*
 	class Status_Eternal_Eye_LV3 : public Status_LV
 	{
 		//this is trigger when Eternal Eye is lv3
@@ -256,12 +288,13 @@ namespace ability
 		bool m_active = false;
 
 		void generateArmor();
-	};
+	};*/
 
 	class Status_IN_Change : public Status
 	{
 	public:
 		Status_IN_Change();
+		~Status_IN_Change();
 		Status* clone() const { return new Status_IN_Change(*this); };
 		int effect();
 		void effectEnd();
@@ -272,16 +305,13 @@ namespace ability
 
 	class Status_Attach : public Status
 	{
-	private:
-		int m_unitID = 23;
 	public:
 		Status_Attach();
 		Status* clone() const { return new Status_Attach(*this); };
 		int effect();
-		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
-
 	};
 
+	/*
 	class Status_Wraith_LV2 : public Status_LV
 	{
 	public:
@@ -297,6 +327,62 @@ namespace ability
 		Status_Evil_Fiend_LV();
 		Status* clone() const { return new Status_Evil_Fiend_LV(*this); };
 
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};*/
+
+	class Status_Vampiric_Curse : public Status
+	{
+	public:
+		Status_Vampiric_Curse();
+		Status* clone() const { return new Status_Vampiric_Curse(*this); };
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+		//void setCaster(unit::Unit* p_u);
+	};
+
+	/*
+	class Status_Gorefiend_LV3 : public Status_LV
+	{
+	public:
+		Status_Gorefiend_LV3();
+		Status* clone() const { return new Status_Gorefiend_LV3(*this); };
+
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};*/
+
+	class Status_Cursed_Being : public Status
+	{
+	private:
+		void applyStatus(unit::Unit* p_u);//apply vampiric curse to target
+	public:
+		Status_Cursed_Being();
+		Status* clone() const { return new Status_Cursed_Being(*this); };
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};
+
+	//summon unit when attached unit is destroyed
+	class Status_Last_Word_Summon : public Status
+	{
+	public:
+		Status_Last_Word_Summon();
+		Status* clone() const { return new Status_Last_Word_Summon(*this); };
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+		void setUnitToSummon(int p_id, int p_lv = 1);
+	};
+
+
+	class Status_Poison : public Status
+	{
+	public:
+		Status_Poison();
+		Status* clone() const { return new Status_Poison(*this); };
+		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
+	};
+
+	class Status_Lord_Order : public Status
+	{
+	public:
+		Status_Lord_Order();
+		Status* clone() const { return new Status_Lord_Order(*this); };
 		int effect(const TimePointEvent::TPEventType& p_type, ability::TimePointEvent* p_event);
 	};
 }

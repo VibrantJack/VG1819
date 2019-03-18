@@ -8,9 +8,21 @@ namespace ability
 {
 	void Load::applyStatus(AbilityInfoPackage * p_info)
 	{
-		//apply Status_Dodge to target
-		ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_LOAD);
+		//apply Status to target
+		ability::Status* se = ability::StatusManager::getInstance()->findStatus(STATUS_AD_CHANGE);
 
+		//status info
+		std::vector<std::string> stringKeys;
+		std::vector<std::string> intKeys;
+		intKeys.push_back(UNIT_DURATION);
+
+		readADChange(p_info, &intKeys, &stringKeys);
+
+		addStatusInfo(se, p_info, intKeys,stringKeys);
+
+		se->endEffectAt(TimePointEvent::Deal_Damage);
+
+		/*
 		//set properties
 		addStatusInfo(se, p_info);
 
@@ -20,7 +32,9 @@ namespace ability
 		se->addAttributeChange(UNIT_POWER, p_info->m_intValue[UNIT_POWER]);
 		se->addAttributeChange(AREA_MAX, p_info->m_intValue[AREA_MAX]);
 
-		se->m_source = ABILITY_LOAD;
+		se->m_source = ABILITY_LOAD;*/
+
+
 		//attach to target
 		se->attach(p_info->m_targets[0]);
 	}

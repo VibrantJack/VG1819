@@ -16,8 +16,10 @@
 				"min_range":1,
 				"max_range":1,
 				"description":"Attach to target. Enemy has -3 HP and MAX HP. Ally has +3 HP and MAX HP. If lv3, a lv1 Wraith will be summoned after target is destroyed.",
-				"status_name":"Attached",
-				"status_description":"Be entangled by Wraith. HP is changed."
+				"status_name_Status_Attach":"Attached",
+				"status_description_Status_Attach":"Be entangled by Wraith. HP is changed.",
+				"status_name_Status_Last_Word_Summon":"Attached",
+				"status_description_Status_Last_Word_Summon":"Summon a lv1 Wraith."
 			}
 		],
 		"status":[
@@ -25,7 +27,11 @@
 				"name":"Status_Wraith_LV2",
 				"lv":2,
 				"description":"Attach effect is doubled.",
-				"power":3
+				"effectedAD":1,
+				"ad_name_0":"Attach",
+				"ad_attribute_num_0":1,
+				"ad_attribute_0_0":"power",
+				"ad_value_0_0":3
 			},
 			{
 				"name":"Status_DR_Wraith",
@@ -40,7 +46,7 @@
 			"spritename":"wraith",
 			"number":4,
 			"rotate":[45,0,0],
-			"scale":[0.6,0.6,0],
+			"scale":[0.7,0.7,0],
 			"translate":[0,0,0.05]
 		},
 		{

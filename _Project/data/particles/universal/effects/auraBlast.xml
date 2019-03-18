@@ -1,0 +1,10 @@
+<Emitter>
+	<SpawnProperties>
+		<burst isBurst="true" repeat="false"/>
+	</SpawnProperties>
+	
+	<Affectors>
+	</Affectors>
+	
+	<Misc path="" spawnRate="0.0"/>
+</Emitter>

@@ -8,6 +8,7 @@
 #include "unit/UnitSpawn.h"
 #include "unit/unitComponent/UnitMove.h"
 #include "networking\ClientGame.h"
+#include "_Project\UniversalPfx.h"
 
 #include "UI/HandFrame.h"
 
@@ -41,12 +42,13 @@ void ability::Ability::singleTargetProjectileFinished(AbilityInfoPackage* p_pack
 
 	//trigger receive damage event
 	unit::Unit* target = p_package->m_targets[0];
+
 	triggerTPEvent(ability::TimePointEvent::Receive_Damage, target, p_package);
 
 	//so power will change to negative
 	int power = -(p_package->m_intValue.find(UNIT_POWER)->second);
 
-	damage(target, power);
+	changeHP(target, power);
 
 	//delete package
 	done(p_package);
@@ -57,6 +59,7 @@ void ability::Ability::multiTargetDamage(AbilityInfoPackage* p_info, bool p_fire
 	if (p_fireProjectile)
 	{
 		ProjectileManager::multiDamageFireProjectile(m_name, p_info->m_source, this, p_info);
+	//	UniversalPfx::getInstance()->addEffectToGroup(m_name, p_info->m_clickedObject->getTransform().getTranslation());
 	}
 	else
 	{
@@ -78,7 +81,7 @@ void ability::Ability::multiTargetProjectileFinished(AbilityInfoPackage* p_packa
 
 		int power = -(clonePackage->m_intValue.find(UNIT_POWER)->second);
 
-		damage(u, power);
+		changeHP(u, power);
 
 		//delete clone
 		delete clonePackage;
@@ -102,14 +105,15 @@ kitten::K_GameObject * ability::Ability::summonToken(AbilityInfoPackage* p_info,
 	return u;
 }
 
-int ability::Ability::damage(unit::Unit* p_target, int power)
+void ability::Ability::changeHP(unit::Unit * p_target, int power)
 {
 	AbilityNode* node1 = AbilityNodeManager::getInstance()->findNode(ChangeAttribute);
 
 	//change hp
 	node1->effect(p_target, UNIT_HP, power);
 
-	return 0;
+	UniversalPfx::getInstance()->playEffect(m_name, p_target->getTransform().getTranslation());
+
 }
 
 void ability::Ability::done(const AbilityInfoPackage* p_info)
@@ -197,23 +201,77 @@ void ability::Ability::triggerTPEvent(ability::TimePointEvent::TPEventType p_tp,
 	delete t;
 }
 
-void ability::Ability::addStatusInfo(Status * p_st, AbilityInfoPackage* p_info)
+void ability::Ability::addStatusInfo(Status * p_st, AbilityInfoPackage* p_info, 
+	const std::vector<std::string>& p_intValueKeyList,
+	const std::vector<std::string>& p_stringValueKeyList)
 {
-	auto it = p_info->m_stringValue.find(STATUS_NAME);
+	//source
+	p_st->m_source = m_name;
+
+	//name
+	auto it = p_info->m_stringValue.find(STATUS_NAME(p_st->getID()));
 	if (it != p_info->m_stringValue.end())
 	{
 		std::string name = it->second;
 		p_st->changeName(name);
 	}
 
-	it = p_info->m_stringValue.find(STATUS_DESCRIPTION);
+	//description
+	it = p_info->m_stringValue.find(STATUS_DESCRIPTION(p_st->getID()));
 	if (it != p_info->m_stringValue.end())
 	{
 		std::string des = it->second;
 		p_st->changeDescription(des);
 	}
 
-	p_st->m_source = m_name;
+	for (auto it : p_stringValueKeyList)
+	{
+		auto found = p_info->m_stringValue.find(it);
+		if (found != p_info->m_stringValue.end())
+		{
+			p_st->m_stringValue[found->first] = found->second;
+		}
+	}
+
+	for (auto it : p_intValueKeyList)
+	{
+		auto found = p_info->m_intValue.find(it);
+		if (found != p_info->m_intValue.end())
+		{
+			p_st->m_intValue[found->first] = found->second;
+		}
+	}
+}
+
+void ability::Ability::readADChange(AbilityInfoPackage* p_info, std::vector<std::string>* p_intValueKeyList, std::vector<std::string>* p_stringValueKeyList)
+{
+	p_intValueKeyList->push_back(STATUS_EFFECTED_AD);
+	int adnum = p_info->m_intValue[STATUS_EFFECTED_AD];
+	for (int i = 0; i < adnum; i++)
+	{
+		p_stringValueKeyList->push_back(STATUS_AD_NAME(i));
+		p_intValueKeyList->push_back(STATUS_AD_ATTRIBUTE_NUM(i));
+		int attrnum = p_info->m_intValue[STATUS_AD_ATTRIBUTE_NUM(i)];
+		for (int j = 0; j < attrnum; j++)
+		{
+			p_stringValueKeyList->push_back(STATUS_AD_ATTRIBUTE(i, j));
+			p_intValueKeyList->push_back(STATUS_AD_VALUE(i, j));
+		}
+	}
+}
+
+void ability::Ability::addADChange(AbilityInfoPackage * p_info, int p_index, const std::string & p_attr, int p_value)
+{
+	//get number of attributes
+	int attrNum = p_info->m_intValue[STATUS_AD_ATTRIBUTE_NUM(p_index)];
+
+	//increase number of attribute
+	p_info->m_intValue[STATUS_AD_ATTRIBUTE_NUM(p_index)] ++;
+
+	//add attribute
+	p_info->m_stringValue[STATUS_AD_ATTRIBUTE(p_index,attrNum)] = p_attr;
+	p_info->m_intValue[STATUS_AD_VALUE(p_index, attrNum)] = p_value;
+
 }
 
 void ability::Ability::drawCard(int p_id, int p_num)
@@ -222,4 +280,21 @@ void ability::Ability::drawCard(int p_id, int p_num)
 	e->putInt(PLAYER_ID, p_id);
 	e->putInt(CARD_COUNT, p_num);
 	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::EventType::Draw_Card, e);
+}
+
+void ability::Ability::putCardToHand(kitten::Event* p_event, const std::unordered_map<int, int>& p_cards)
+{
+	int count = 0;
+	for (auto it : p_cards)
+	{
+		//it.first = card id
+		//it.second = card number
+		for (int i = 0; i < it.second; i++)
+		{
+			p_event->putInt(CARD_ID + std::to_string(count), it.first);
+			count++;
+		}
+	}
+
+	p_event->putInt(CARD_COUNT, count);
 }

@@ -26,6 +26,12 @@
 		"PoisonPoolSheet.json",
 		"EvilFiendSheet.json",
 		"HorrorLordSheet.json",
-		"WraithSheet.json"
+		"WraithSheet.json",
+		"GorefiendSheet.json",
+		"SlimeSheet.json",
+		"MonumentSheet.json",
+		"RotGolemSheet.json",
+		"DemonLordSheet.json",
+		"EldritchLordSheet.json"
 	]
 }

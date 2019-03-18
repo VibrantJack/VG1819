@@ -2,7 +2,6 @@
 #include "kitten\event_system\EventManager.h"
 #include "kitten/K_ComponentManager.h"
 #include "kitten/K_GameObjectManager.h"
-#include <sstream>
 
 BoardManager* BoardManager::sm_instance = nullptr;
 
@@ -196,7 +195,11 @@ void BoardManager::registerEvent()
 		kitten::Event::EventType::Set_Area_Pattern,
 		this,
 		std::bind(&BoardManager::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
-	// End adding listeners for events
+	
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Right_Clicked,
+		this,
+		std::bind(&BoardManager::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void BoardManager::deregisterEvent()
@@ -205,10 +208,16 @@ void BoardManager::deregisterEvent()
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::Highlight_Tile, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::Unhighlight_Tile, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::Set_Area_Pattern, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::Right_Clicked, this);
 }
 
 void BoardManager::tileClicked(bool p_send)
 {
+	if (!m_area->isActive())
+	{
+		return;//not wait for player to choose target, ingore it
+	}
+
 	if (p_send)
 	{
 		if (m_select)
@@ -231,9 +240,7 @@ void BoardManager::tileClicked(bool p_send)
 				int z = list[i].second;
 				kitten::K_GameObject* tileGO = getTile(x, z);
 
-				std::stringstream stm;
-				stm << TILE << i;
-				std::string key = stm.str();
+				std::string key = TILE+std::to_string(i);
 
 				e->putGameObj(key, tileGO);
 			}
@@ -259,6 +266,25 @@ void BoardManager::resetComponents()
 {
 	m_area->removePattern();
 	m_highlighter->reset();
+}
+
+void BoardManager::autoClick(kitten::K_GameObject * p_tile)
+{
+	//check if it's in range
+	TileInfo* info = p_tile->getComponent<TileInfo>();
+	if (info->isHighlighted(TileInfo::Range))
+	{
+		//change area list
+		showArea(p_tile);
+
+		//send data
+		tileClicked(true);
+	}
+	else
+	{
+		//cancel ability
+		tileClicked(false);
+	}
 }
 
 BoardManager::BoardManager():
@@ -318,6 +344,9 @@ void BoardManager::listenEvent(kitten::Event::EventType p_type, kitten::Event * 
 		break;
 	case kitten::Event::Set_Area_Pattern:
 		setArea(p_data);
+		break;
+	case kitten::Event::Right_Clicked:
+		tileClicked(false);
 		break;
 	default:
 		break;
@@ -402,10 +431,8 @@ void BoardManager::setFilter(const std::string & p_filter, kitten::Event * p_dat
 	m_pipeline->setSource(ugo->getComponent<unit::Unit>());
 	for (int i = 0; i < filterNum; i++)
 	{
-		std::stringstream stm;
-		stm << p_filter << i;
-		std::string fkey = stm.str();
-		m_pipeline->useFilter(p_data->getString(fkey));
+		std::string key = p_filter + std::to_string(i);
+		m_pipeline->useFilter(p_data->getString(key));
 	}
 }
 
@@ -438,12 +465,20 @@ void BoardManager::setArea(kitten::Event * p_data)
 	m_area->setPattern(p_data);
 	setFilter(AREA_FILTER, p_data);
 
+	//pivot tile
 	kitten::K_GameObject* p = p_data->getGameObj(ORIGIN);
 
 	//show inital highlight
 	TileInfo* info = p->getComponent<TileInfo>();
 	if (info->isHighlighted(TileInfo::Range))
 	{
-		showArea(p);
+		if (p_data->getInt(AUTO_CLICK) == TRUE)
+		{
+			autoClick(p);//auto casting ability
+		}
+		else
+		{
+			showArea(p);//show inital highlight
+		}
 	}
 }

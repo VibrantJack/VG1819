@@ -11,12 +11,21 @@ int ability::Rally::effect(AbilityInfoPackage * p_info)
 	for (unit::Unit* u : p_info->m_targets)
 	{
 		//apply Status_Encourage to target
-		ability::Status* status = ability::StatusManager::getInstance()->findStatus(STATUS_TEMP_CHANGE);
-		addStatusInfo(status, p_info);
+		ability::Status* status = ability::StatusManager::getInstance()->findStatus(STATUS_IN_CHANGE);
+		//addStatusInfo(status, p_info);
 
 		status->m_source = m_name;
 		status->addAttributeChange(UNIT_IN, in_change);
-		status->addCounter(UNIT_DURATION, 2);
+
+		//status info
+		std::vector<std::string> intKeys;
+		intKeys.push_back(UNIT_DURATION);
+
+		addStatusInfo(status, p_info, intKeys);
+		/*
+		//duration
+		int dur = p_info->m_intValue[UNIT_DURATION];
+		status->addCounter(UNIT_DURATION, dur);*/
 
 		status->attach(u);
 	}

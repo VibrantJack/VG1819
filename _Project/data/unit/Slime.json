@@ -1,0 +1,58 @@
+{
+	"unit":{
+		"name":"Slime",
+		"hp":10,
+		"mv":2,
+		"in":10,
+		"cost":3,
+		"tags":["Neutral"],
+		"ability_description":[
+			{
+				"name":"Clone",
+				"min_range":0,
+				"max_range":0,
+				"card_drawn":1,
+				"description":"Put a copy of [Slime] into your hand."
+            },
+			{
+				"name":"Devour",
+				"min_range":1,
+				"max_range":1,
+				"power":6,
+				"kibble_id":26,
+				"card_drawn":1,
+				"description":"Deal 6 damage to target. If target is destroyed,put a Slime into your hand."
+            }
+		],
+		"status":[
+			{
+				"name":"Status_LV",
+				"lv":2,
+                "hp":5,
+                "in":4
+            },
+            {
+				"name":"Status_Slime_LV3",
+				"lv":3,
+				"hp":10,
+				"SLWS_name":"Summon Clone",
+				"SLWS_description":"When destroy, summon a lv1 Slime"
+			}
+		],
+		"portrait_texture" : "textures/cards/500x500/Slime.tga"
+	},
+	"components" : [
+		{
+			"name" : "SpriteGroup",
+			"spritename":"slime",
+			"number":4,
+			"rotate":[45,0,0],
+			"scale":[0.4,0.4,1],
+			"translate":[0,0,0]
+		},
+		{
+			"name" : "CardArt",
+			"texture":"textures/cards/500x500/Slime.tga"
+		}
+	]
+}

@@ -11,6 +11,15 @@
 		},
 		"ability_description":[
 			{
+				"name":"Manipulate Tile",
+				"min_range":1,
+				"max_range":1,
+				"filter":1,
+				"filter0":"owned_tile",
+				"Demonic Presence":0,
+				"description":" "
+			},
+			{
 				"name":"Rally",
 				"power":5,
 				"min_range":0,
@@ -24,8 +33,9 @@
 				"area_filter":1,
 				"area_filter0":"enemy",
 				"description":"Nearby allies +5 IN for one turn.",
-				"status_name":"Rally",
-				"status_description":"Block Damage"
+				"status_name_Status_IN_Change":"Rally",
+				"status_description_Status_IN_Change":"IN +5.",
+				"duration":1
 			}
 		],
 		"portrait_texture" : "textures/cards/500x500/King.tga"
