@@ -43,6 +43,9 @@
     {
       "filename": "FPSCounter.txt",
       "translate": [ 20, 350, 0 ]
+    },
+    {
+      "filename": "debug_particle.json"
     }
   ],
 	"scenes" : [
