@@ -2,6 +2,7 @@
 #include "kitten/K_Common.h"
 #include <assert.h>
 #include "kitten/event_system/EventManager.h"
+#include "GameModeComponent.h"
 
 
 class GameModeManager
@@ -12,17 +13,24 @@ public:
 	static GameModeManager * getInstance() { return sm_instance; };
 
 
-	void registerTile(kitten::K_GameObject* p_tileGO);
+	void registerTile(kitten::K_GameObject* p_tileGO, GameModeComponent::TileType p_type);
 	void listenEvent(kitten::Event::EventType p_type, kitten::Event* p_data);
 
+	void gainPoint(int p_clientId, int p_points);
 private:
 	static GameModeManager* sm_instance;
 	GameModeManager();
 	~GameModeManager();
 
+	void init();
+
 	void registerEvent();
 	void deregisterEvent();
 
-	std::vector<kitten::K_GameObject*> tileList;//the list of tile that need to be watched
-	int m_point; //the point of current player has
+	void checkPoints();
+private:
+	std::unordered_map<GameModeComponent::TileType, GameModeComponent*> m_modeComponentMap;
+
+	std::vector<int> m_points; //the current point that player has
+
 };

@@ -53,6 +53,7 @@
 
 #include "ModelRenderable.h"
 
+
 #define DEBUG
 
 namespace kitten

@@ -1151,6 +1151,12 @@
     <ClCompile Include="..\board\tile\gameMode\GameModeManager.cpp">
       <Filter>board\tile\gameMode</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\tile\gameMode\GameModeComponent.cpp">
+      <Filter>board\tile\gameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\gameMode\AreaControl\ControlArea.cpp">
+      <Filter>board\tile\gameMode\AreaControlMode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2300,7 +2306,10 @@
     <ClInclude Include="..\board\tile\gameMode\GameModeManager.h">
       <Filter>board\tile\gameMode</Filter>
     </ClInclude>
-    <ClInclude Include="..\board\tile\gameMode\AreaControl.h">
+    <ClInclude Include="..\board\tile\gameMode\GameModeComponent.h">
+      <Filter>board\tile\gameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\tile\gameMode\AreaControl\ControlArea.h">
       <Filter>board\tile\gameMode\AreaControlMode</Filter>
     </ClInclude>
   </ItemGroup>

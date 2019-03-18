@@ -5,6 +5,7 @@
 #include "unitInteraction/UnitInteractionManager.h"
 #include "board/BoardManager.h"
 #include "components/initializers/DrawCardsFromDeckWithDelay.h"
+#include "board/tile/GameMode/GameModeManager.h"
 
 GameplayInit::GameplayInit(bool p_testing)
 { 
@@ -17,6 +18,8 @@ GameplayInit::~GameplayInit()
 	//UnitInteractionManager::destroyInstance();
 	unit::InitiativeTracker::destroyInstance();
 	unit::UnitSpawn::destroyInstance();
+
+	GameModeManager::destroyInstance();
 }
 
 void GameplayInit::start() {
@@ -26,6 +29,8 @@ void GameplayInit::start() {
 	unit::UnitSpawn::createInstance();
 	//UnitInteractionManager::createInstance();
 	UnitInteractionManager::getInstance()->reset();
+
+	GameModeManager::createInstance();
 
 	if (m_testing) {
 		unit::UnitTest::getInstanceSafe()->test();
