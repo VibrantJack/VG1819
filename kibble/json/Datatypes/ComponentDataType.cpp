@@ -2043,6 +2043,15 @@ kitten::K_Component* getToggleSiblingEnabledOnClick(nlohmann::json* p_jsonFile) 
 	return new ToggleSiblingEnabledOnClick();
 }
 
+#include "_Project\PlaySoundOnClick.h"
+kitten::K_Component* getPlaySoundOnClick(nlohmann::json* p_jsonFile) {
+	
+	std::string soundName = p_jsonFile->operator[]("sound_name");
+	bool is3D = p_jsonFile->operator[]("3D");
+
+	return new PlaySoundOnClick(soundName, is3D);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -2204,6 +2213,7 @@ void setupComponentMap() {
 	jsonComponentMap["BGMManager"] = &getBGMManager;
 	jsonComponentMap["PlayBGMOnSceneChange"] = &getPlayBGMOnSceneChange;
 	jsonComponentMap["ToggleSiblingEnabledOnClick"] = &getToggleSiblingEnabledOnClick;
+	jsonComponentMap["PlaySoundOnClick"] = &getPlaySoundOnClick;
 
 }
 
