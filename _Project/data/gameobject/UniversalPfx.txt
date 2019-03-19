@@ -30,8 +30,13 @@
 					"poolednumber" : 2
 				},
 				{
-					"name" : "HealReceiveUPFX.json",
-					"path" : "Universal Pfx/BurnExplosionUPFX.json",
+					"name" : "Erosion",
+					"path" : "Universal Pfx/ErosionUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Heal",
+					"path" : "Universal Pfx/HealReceiveUPFX.json",
 					"poolednumber" : 2
 				},
 				{
@@ -78,6 +83,11 @@
 					"name" : "Summon",
 					"path" : "Universal Pfx/UnitSummonOrJoinUPFX.json",
 					"poolednumber" : 2
+				},
+				{
+					"name" : "The Light",
+					"path" : "Universal Pfx/TheLightUPFX.json",
+					"poolednumber" : 4
 				},
 				{
 					"name" : "Join",
