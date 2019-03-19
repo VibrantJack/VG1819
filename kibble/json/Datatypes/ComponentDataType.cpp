@@ -183,7 +183,7 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 		}
 
 		if (JSONHAS("maxdistance")) {
-			toReturn->setMaxDistance(LOOKUP("maxdistance"));
+		//	toReturn->setMaxDistance(LOOKUP("maxdistance"));
 		}
 	}
 
