@@ -1,0 +1,6 @@
+<Effect>
+  <Emitter z="0" y="-0.5" x="0" path="data/particles/universal/emitters/corruptEmitter.xml"/>
+  <Emitter z="0" y="-0.5" x="0" path="data/particles/universal/emitters/corruptEmitter2.xml"/>
+
+
+</Effect>

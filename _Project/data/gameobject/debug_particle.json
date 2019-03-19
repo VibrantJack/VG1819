@@ -12,7 +12,7 @@
 		},
 		{
 			"name" : "K_ParticleSystem",
-      "effectpath": "data/particles/universal/effects/theLight.xml"
+      "effectpath": "data/particles/universal/effects/corrupt.xml"
 		},
 		{
 			"name" : "HaltParticleSystemAfterTime",
