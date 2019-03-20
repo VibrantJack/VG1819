@@ -22,7 +22,7 @@
 
 #include "board/BoardManager.h"
 #include "kibble/map/MapReader.h"
-
+#include "board/tile/gameMode/GameModeManager.h"
 
 
 BoardCreator::BoardCreator()
@@ -59,7 +59,8 @@ void BoardCreator::createBoard(int p_id)
 	kitten::Event::TileList m_spawnPointList;
 
 	//get land list and dimension for random map
-	std::vector<int> landList = kibble::MapReader::getInstance()->getMap(&dimX, &dimZ, &mapId);
+	//pair = LandInformation::TileType , GameModeComponent::TileType 
+	std::vector<std::pair<int,int>> landList = kibble::MapReader::getInstance()->getMap(&dimX, &dimZ, &mapId);
 
 	//board game object
 	kitten::K_GameObject* borad = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
@@ -71,24 +72,36 @@ void BoardCreator::createBoard(int p_id)
 		for (int z = 0; z < dimZ; z++)
 		{
 			kitten::K_GameObject* tileGO;
+
 			LandInformation::TileType landtype;
-			if (landList[i] >= 0)//normal land
-			{
-				landtype = static_cast<LandInformation::TileType>(landList[i]);
-			}
-			else//spawn point
-			{
-				landtype = LandInformation::Grass_land;//commander spawn at normal land
-				m_spawnPointList.push_back(std::make_pair(x, z));
-			}
+			GameModeComponent::TileType modetype;
+
+			//get type
+			landtype = static_cast<LandInformation::TileType>(landList[i].first);
+			modetype = static_cast<GameModeComponent::TileType>(landList[i].second);
+
+			//create tile
 			tileGO = createTile(x, z, landtype);
+
+			//increase counter
 			i++;
 
+			//add to listo lis
 			list.push_back(tileGO);
 
+			//change parent
 			kitten::Transform& transform = tileGO->getTransform();
 			transform.setParent(&borad->getTransform());
 			transform.setIgnoreParent(true);
+
+			//register special type tile to game mode manager
+			if (modetype != GameModeComponent::Unknow)//it's special
+			{
+				if (modetype == GameModeComponent::SpawnPoint)//spawn point
+					m_spawnPointList.push_back(std::make_pair(x, z));
+				else
+					GameModeManager::getInstance()->registerTile(tileGO,modetype);
+			}
 		}
 	}
 

@@ -1,10 +1,11 @@
 #include "GameModeManager.h"
 #include "AreaControl/ControlArea.h"
 #include "networking/ClientGame.h"
+#include "AttackDefend/DefendArea.h"
 
 GameModeManager* GameModeManager::sm_instance = nullptr;
 
-static const int m_MaxPoint = 100;
+static const int s_MaxPoint = 100;
 
 void GameModeManager::registerTile(kitten::K_GameObject * p_tileGO, GameModeComponent::TileType p_type)
 {
@@ -54,6 +55,7 @@ GameModeManager::~GameModeManager()
 void GameModeManager::init()
 {
 	m_modeComponentMap[GameModeComponent::ControlArea] = new ControlArea();
+	m_modeComponentMap[GameModeComponent::DefendArea] = new DefendArea();
 }
 
 void GameModeManager::registerEvent()
@@ -71,10 +73,13 @@ void GameModeManager::deregisterEvent()
 
 void GameModeManager::checkPoints()
 {
+	//Note: GameModeManager::checkPoints() check points from clientId 0 to 1
+	//if both player reach max points, client 0 always win
+
 	int clientId = -1;
 	for (int i = 0; i < m_points.size(); i++)
 	{
-		if (m_points[i] >= m_MaxPoint)//reach max points
+		if (m_points[i] >= s_MaxPoint)//reach max points
 		{
 			clientId = i;
 			break;

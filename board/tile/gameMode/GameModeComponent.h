@@ -9,10 +9,10 @@ public:
 	{
 		Unknow = 0,//default
 		SpawnPoint = 1,//normal
-		ControlArea,//king of hill
-		DefendArea,//attack / defend
-		FlagSpawnArea,//capture the flag
-		FlagDropArea,//capture the flag
+		ControlArea,//king of hill mode
+		DefendArea,//attack / defend mode
+		FlagSpawnArea,//capture the flag mode
+		FlagDropArea,//capture the flag mode
 	};
 public:
 	GameModeComponent();

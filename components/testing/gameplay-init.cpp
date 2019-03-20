@@ -24,13 +24,13 @@ GameplayInit::~GameplayInit()
 
 void GameplayInit::start() {
 	// TODO put this in a separate component or something. 
+	GameModeManager::createInstance();
 	BoardManager::getInstance()->resetComponents();
 	unit::InitiativeTracker::createInstance();
 	unit::UnitSpawn::createInstance();
 	//UnitInteractionManager::createInstance();
 	UnitInteractionManager::getInstance()->reset();
 
-	GameModeManager::createInstance();
 
 	if (m_testing) {
 		unit::UnitTest::getInstanceSafe()->test();

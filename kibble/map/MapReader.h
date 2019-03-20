@@ -24,6 +24,6 @@ namespace kibble
 
 		static void loadAllMap(const std::string& p_masterJsonName);
 
-		std::vector<int> getMap(int* p_dimX, int* p_dimZ, int* p_id);
+		std::vector<std::pair<int,int> > getMap(int* p_dimX, int* p_dimZ, int* p_id);
 	};
 }

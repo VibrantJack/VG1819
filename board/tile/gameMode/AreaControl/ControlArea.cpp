@@ -23,8 +23,12 @@ void ControlArea::check()
 			//check unit client id
 			int id = u->m_clientId;
 
+			//check unit lv, high lv unit grants more points
+			int lv = u->m_attributes[UNIT_LV];
+			int pt = lv > 0 ? lv : 1;
+
 			if (id >= 0)
-				counter[id]++;
+				counter[id]+= pt;
 		}
 	}
 

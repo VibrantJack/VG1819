@@ -27,10 +27,6 @@ public:
 
 		//special land, change by abilities
 		Home_land,
-
-		//game mode related tile
-		Domain_land,
-		Control_land
 	};
 	//========================================================
 

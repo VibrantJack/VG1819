@@ -1,7 +1,6 @@
 {
     "files":[
-        "default_map",
-        "test_map",
-        "plain"
+        "default.vgmap",
+        "ForestHollow.vgmap"
     ]
 }

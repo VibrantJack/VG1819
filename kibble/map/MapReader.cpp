@@ -48,7 +48,7 @@ void kibble::MapReader::loadAllMap(const std::string & p_masterJsonName)
 	}
 }
 
-std::vector<int> kibble::MapReader::getMap(int* p_dimX, int* p_dimZ, int* p_id)
+std::vector<std::pair<int, int>> kibble::MapReader::getMap(int* p_dimX, int* p_dimZ, int* p_id)
 {
 	std::string mapName;
 	if (*p_id < 0 || *p_id >= m_mapList.size())//get random map, if id is out of bound
@@ -65,13 +65,22 @@ std::vector<int> kibble::MapReader::getMap(int* p_dimX, int* p_dimZ, int* p_id)
 	file >> *p_dimX;
 	file >> *p_dimZ;
 
-	std::vector<int> list;
+	std::vector<std::pair<int,int>> list;
 	for (int i = 0; i < (*p_dimX) * (*p_dimZ); ++i)
 	{
 		int l;
 		file >> l;
-		list.push_back(l);
+		list.push_back(std::make_pair(l, 0));
 	}
+
+	for (int i = 0; i < (*p_dimX) * (*p_dimZ); ++i)
+	{
+		int l;
+		file >> l;
+		list[i].second = l;
+	}
+
+	file.close();
 
 	return list;
 }

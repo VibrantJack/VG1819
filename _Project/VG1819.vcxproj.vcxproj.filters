@@ -1157,6 +1157,9 @@
     <ClCompile Include="..\board\tile\gameMode\AreaControl\ControlArea.cpp">
       <Filter>board\tile\gameMode\AreaControlMode</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\tile\gameMode\AttackDefend\DefendArea.cpp">
+      <Filter>board\tile\gameMode\AttackDefendMode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2312,6 +2315,9 @@
     <ClInclude Include="..\board\tile\gameMode\AreaControl\ControlArea.h">
       <Filter>board\tile\gameMode\AreaControlMode</Filter>
     </ClInclude>
+    <ClInclude Include="..\board\tile\gameMode\AttackDefend\DefendArea.h">
+      <Filter>board\tile\gameMode\AttackDefendMode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="kitten">
@@ -2538,6 +2544,9 @@
     </Filter>
     <Filter Include="board\tile\gameMode\CaptureFlagMode">
       <UniqueIdentifier>{561e59c9-6944-4b0a-9781-8db73cba999f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\tile\gameMode\AttackDefendMode">
+      <UniqueIdentifier>{ff19a59d-90b3-496b-ba7a-6dfc9e88a4ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
