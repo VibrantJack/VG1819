@@ -116,6 +116,8 @@ namespace networking
 			printf("[Polled Client: %d] has polled this server\n", m_polledClientId);
 
 			m_polledClientId++;
+			m_playerCount++;
+			m_serverInfoChanged = true;
 		}
 
 		receiveFromPolledClients();
@@ -168,52 +170,8 @@ namespace networking
 				Packet defaultPacket;
 				defaultPacket.deserialize(defaultBuffer);
 
-				switch (defaultPacket.m_packetType) {
-
-				case JOIN_GAME:
+				switch (defaultPacket.m_packetType) 
 				{
-					i += BASIC_PACKET_SIZE;
-					printf("Server received JOIN_GAME packet from [Polled Client: %d]\n", polledId);
-					if (m_clientId < MAX_JOINED_CLIENTS * MAX_GAME_SESSIONS)
-					{
-						printf("[Polled Client: %d] is now [Client: %d]\n", polledId, m_clientId);
-
-						int assignedClientId = m_clientId;
-
-						// Add client socket from polled sessions to main sessions
-						m_network->addPolledClientToSessions(polledId, m_clientId);
-						m_clientId++;
-
-						// Send a packet to the client to notify them what their ID is
-						char packetData[BASIC_PACKET_SIZE];
-						Buffer buffer;
-						buffer.m_data = packetData;
-						buffer.m_size = BASIC_PACKET_SIZE;
-
-						Packet packet;
-						packet.m_packetType = SEND_CLIENT_ID;
-						packet.m_clientId = assignedClientId;
-
-						packet.serialize(buffer);
-						m_network->sendToClient(assignedClientId, packetData, BASIC_PACKET_SIZE);
-					}
-					else
-					{
-						// Send alert full game packet
-						char packetData[BASIC_PACKET_SIZE];
-						Buffer buffer;
-						buffer.m_data = packetData;
-						buffer.m_size = BASIC_PACKET_SIZE;
-
-						Packet packet;
-						packet.m_packetType = SERVER_FULL;
-						packet.m_clientId = -1;
-
-						packet.serialize(buffer);
-						m_network->sendToPolledClient(polledId, packetData, BASIC_PACKET_SIZE);
-					}
-					break;
-				}
 				case QUICKPLAY:
 				{
 					printf("Server received QUICKPLAY from [Polled Client: %d]\n", polledId);

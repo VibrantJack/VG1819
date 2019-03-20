@@ -30,9 +30,10 @@ ConnectToHost::ConnectToHost()
 ConnectToHost::~ConnectToHost()
 {
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Join_Direct_Address, this);
-	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Poll_For_Localhost, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Poll_For_Server, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Join_Localhost, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Network_End_Game, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Quickplay, this);
 	m_inputMan->setPollMode(true);
 
 	if (!m_bJoiningGame && networking::ClientGame::isNetworkValid())
@@ -60,7 +61,7 @@ void ConnectToHost::start()
 		std::bind(&ConnectToHost::joinDirectAddressListener, this, std::placeholders::_1, std::placeholders::_2));
 
 	kitten::EventManager::getInstance()->addListener(
-		kitten::Event::EventType::Poll_For_Localhost,
+		kitten::Event::EventType::Poll_For_Server,
 		this,
 		std::bind(&ConnectToHost::pollForLocalhostListener, this, std::placeholders::_1, std::placeholders::_2));
 
@@ -68,6 +69,11 @@ void ConnectToHost::start()
 		kitten::Event::EventType::Join_Localhost,
 		this,
 		std::bind(&ConnectToHost::joinLocalhostListener, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Quickplay,
+		this,
+		std::bind(&ConnectToHost::quickplayListener, this, std::placeholders::_1, std::placeholders::_2));
 
 	kitten::EventManager::getInstance()->addListener(
 		kitten::Event::EventType::Network_End_Game,
@@ -192,13 +198,40 @@ void ConnectToHost::joinLocalhost()
 	if (networking::ClientGame::isNetworkValid())
 	{
 		m_bJoiningGame = true;
-		networking::ClientGame::getInstance()->sendBasicPacket(QUICKPLAY);
+		networking::ClientGame::getInstance()->sendBasicPacket(JOIN_GAME);
 		kitten::K_Instance::changeScene("mainscene.json");
 	}
 	else
 	{
 		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Remove_Loading_Screen, nullptr);
 	}
+}
+
+void ConnectToHost::joinDedicatedServer()
+{
+	//// Try to connect to server
+	//// Switch to Quickplay screen regardless of connection outcome
+
+	//networking::ClientGame* client = networking::ClientGame::getInstance();
+
+	//// Check if we've already created an instance of ClientGame
+	//if (client)
+	//{
+	//	// Check if we're already polled for a host, then disconnect from it if we have
+	//	if (networking::ClientGame::isNetworkValid())
+	//	{
+	//		client->disconnectFromNetwork();
+	//	}
+	//	client->connectToDedicatedServer();
+	//} 
+	//else // If not, get address and create ClientGame instance
+	//{
+	//	networking::ClientGame::createInstance(client->getDedicatedServerAddress());
+	//}
+
+	kitten::K_Instance::changeScene("quickplay_screen.json");
+
+	m_bConnect = false;
 }
 
 void ConnectToHost::joinDirectAddressListener(kitten::Event::EventType p_type, kitten::Event* p_event)
@@ -215,6 +248,11 @@ void ConnectToHost::pollForLocalhostListener(kitten::Event::EventType p_type, ki
 void ConnectToHost::joinLocalhostListener(kitten::Event::EventType p_type, kitten::Event* p_event)
 {
 	joinLocalhost();
+}
+
+void ConnectToHost::quickplayListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+{
+	joinDedicatedServer();
 }
 
 void ConnectToHost::lostConnectionListener(kitten::Event::EventType p_type, kitten::Event* p_event)

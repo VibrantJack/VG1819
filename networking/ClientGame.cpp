@@ -104,6 +104,12 @@ namespace networking
 		}
 	}
 
+	void ClientGame::connectToDedicatedServer()
+	{
+		printf("Attempting to dedicated server with address: %s\n", m_dedicatedServerAddress.c_str());
+		setupNetwork(m_dedicatedServerAddress);
+	}
+
 	void ClientGame::disconnectFromNetwork(bool p_bServerShutdown)
 	{
 		// If Server sent disconnect then no need to send packet to server
@@ -425,6 +431,34 @@ namespace networking
 				m_log->logMessage(message.str());
 
 				i += TEXTCHAT_MESSAGE_PACKET_SIZE;
+				break;
+			}
+			case PacketTypes::UPDATE_SERVER_INFO:
+			{
+				Buffer buffer;
+				buffer.m_data = &(m_network_data[i]);
+				buffer.m_size = SERVER_INFO_PACKET_SIZE;
+
+				ServerInfoPacket serverInfoPacket;
+				serverInfoPacket.deserialize(buffer);
+
+				std::stringstream message;
+				message << "Client:" << sm_iClientId << " received UPDATE_SERVER_INFO";
+				message << "\n\t Server Status: " << serverInfoPacket.m_serverStatus;
+				message << "\n\t Player Count: " << serverInfoPacket.m_playerCount;
+				message << "\n\t Active Game Sessions: " << serverInfoPacket.m_clientId;
+				m_log->logMessage(message.str());
+
+				printf("[Client: %d] received UPDATE_SERVER_INFO packet from server\n", sm_iClientId);
+				i += SERVER_INFO_PACKET_SIZE;
+
+				// Send the Server info to the Quickplay class
+				kitten::Event* eventData = new kitten::Event(kitten::Event::Update_Server_Info);
+				eventData->putInt(SERVER_STATUS_KEY, serverInfoPacket.m_serverStatus);
+				eventData->putInt(SERVER_PLAYER_COUNT_KEY, serverInfoPacket.m_playerCount);
+				eventData->putInt(SERVER_ACTIVE_SESSIONS_KEY, serverInfoPacket.m_clientId);
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Server_Info, eventData);
+
 				break;
 			}
 			case PacketTypes::DESYNCED:

@@ -20,6 +20,7 @@
 #define SKIP_TURN_PACKET_SIZE sizeof(SkipTurnPacket)
 #define UNIT_PACKET_SIZE sizeof(UnitPacket)
 #define STARTING_COMMANDERS_PACKET_SIZE sizeof(StartingCommandersPacket)
+#define SERVER_INFO_PACKET_SIZE sizeof(ServerInfoPacket)
 #define TEST_PACKET_SIZE sizeof(TestPacket)
 
 enum PacketTypes 
@@ -41,7 +42,8 @@ enum PacketTypes
 	PING_SOCKET,
 	TEXTCHAT_MESSAGE,
 	READY_CHECK,
-	QUICKPLAY
+	QUICKPLAY,
+	UPDATE_SERVER_INFO
 };
 
 struct UnitPrimitiveData
@@ -249,6 +251,29 @@ struct StartingCommandersPacket : Packet
 		commander1.unitId = readInt(p_buffer);
 		commander1.posX = readInt(p_buffer);
 		commander1.posY = readInt(p_buffer);
+	}
+};
+
+struct ServerInfoPacket : Packet
+{
+	int m_serverStatus = -1;
+	int m_playerCount = -1;
+	int m_activeSessions = -1;
+
+	void serialize(Buffer& p_buffer)
+	{
+		Packet::serialize(p_buffer);
+		writeInt(p_buffer, m_serverStatus);
+		writeInt(p_buffer, m_playerCount);
+		writeInt(p_buffer, m_activeSessions);
+	}
+
+	void deserialize(Buffer& p_buffer)
+	{
+		Packet::deserialize(p_buffer);
+		m_serverStatus = readInt(p_buffer);
+		m_playerCount = readInt(p_buffer);
+		m_activeSessions = readInt(p_buffer);
 	}
 };
 

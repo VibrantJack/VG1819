@@ -30,6 +30,7 @@ namespace networking
 		static ClientGame* sm_clientGameInstance;
 
 		float m_timeElapsed;
+		std::string m_dedicatedServerAddress = "localhost";
 
 		NetworkLog* m_log = nullptr;
 
@@ -44,6 +45,7 @@ namespace networking
 
 		void setupNetwork(const std::string &p_strAddr = "127.0.0.1");
 		void disconnectFromNetwork(bool p_bServerShutdown = false);
+		void connectToDedicatedServer();
 
 		void update();
 
@@ -70,6 +72,9 @@ namespace networking
 		bool isServerCalling() { return m_bServerCalling; }
 		void setServerCalling(bool p_value) { m_bServerCalling = p_value; }
 		bool isGameTurnStarted() { return m_bGameTurnStart; }
+
+		void setDedicatedServerAddress(const std::string& p_address) { m_dedicatedServerAddress = p_address; }
+		const std::string& getDedicatedServerAddress() { return m_dedicatedServerAddress; }
 
 		inline unit::Unit* getUnitFromPos(int p_x, int p_y)
 		{
