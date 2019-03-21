@@ -1,5 +1,6 @@
 #pragma once
 #include "ability/ability/Ability.h"
+#include "_Project\UniversalPfx.h"
 
 #include "unit/Unit.h"
 
@@ -28,6 +29,7 @@ int ability::Rally::effect(AbilityInfoPackage * p_info)
 		status->addCounter(UNIT_DURATION, dur);*/
 
 		status->attach(u);
+		UniversalPfx::getInstance()->playEffect("Rally", u->getTransform().getTranslation());
 	}
 
 	UniversalSounds::playSound("drums");

@@ -60,19 +60,19 @@
 					"poolednumber" : 2
 				},
 				{
-					"name" : "ManipulateTile",
+					"name" : "Manipulate Tile",
 					"path" : "Universal Pfx/ManipulateTileUPFX.json",
 					"poolednumber" : 2
 				},
 				{
-					"name" : "PowerSlam",
+					"name" : "Power Slam",
 					"path" : "Universal Pfx/PowerSlamUPFX.json",
 					"poolednumber" : 2
 				},
 				{
 					"name" : "PowerSurge",
 					"path" : "Universal Pfx/PowerSurgeUPFX.json",
-					"poolednumber" : 2
+					"poolednumber" : 20
 				},
 				{
 					"name" : "Rally",

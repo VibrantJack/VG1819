@@ -11,6 +11,7 @@
 #include "board/tile/TileInfo.h"
 #include "board/BoardManager.h"
 #include "networking\ClientGame.h"
+#include "_Project\UniversalPfx.h"
 
 namespace ability
 {
@@ -36,6 +37,8 @@ namespace ability
 		}
 
 		UniversalSounds::playSound("snap");
+		UniversalPfx::getInstance()->playEffect("Manipulate Tile", tileInfo->getTransform().getTranslation());
+
 
 		/*highlight is done in setOwnerID
 		//highlight the tile
