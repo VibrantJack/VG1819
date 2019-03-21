@@ -1,7 +1,9 @@
 #include "AmbientSystemController.h"
 
-AmbientSystemController::AmbientSystemController(float p_minEventTime, float p_maxEventTIme) : m_kTime(nullptr),
-m_currentTime(0), m_timeToNextEvent(0), m_minTimeToEvent(p_minEventTime), m_maxTimeToEvent(p_maxEventTIme)
+#include "UniversalPfx.h"
+
+AmbientSystemController::AmbientSystemController(const glm::vec2& p_minPoint, const glm::vec2& p_maxPoint, float p_minEventTime, float p_maxEventTIme) : m_kTime(nullptr),
+m_currentTime(0), m_timeToNextEvent(0), m_minTimeToEvent(p_minEventTime), m_maxTimeToEvent(p_maxEventTIme), m_minPoint(p_minPoint), m_maxPoint(p_maxPoint)
 {
 
 }
@@ -27,15 +29,13 @@ void AmbientSystemController::update()
 		switch (m_nextEvent)
 		{
 		case wind:
-			// Get place to blow wind
-			// Play wind sound
-			// Play wind particles (?)
+			playGenericEvent("wind");
 			break;
 		case crickets:
-			// Same as wind, but with crickets
+			playGenericEvent("crickets");
 			break;
 		case frogs:
-			// Same as wind, but with frogs
+			playGenericEvent("frogs");
 			break;
 		case sword_in_stone_shine:
 			// Get the sword's place
@@ -43,7 +43,7 @@ void AmbientSystemController::update()
 			// play shiny particles
 			break;
 		case fae:
-			// same as wind, but with fae
+			playGenericEvent("fae");
 			break;
 		}
 
@@ -51,10 +51,40 @@ void AmbientSystemController::update()
 	}
 }
 
+void AmbientSystemController::playGenericEvent(const std::string& p_name, int p_randomIndex, int p_randMax) const
+{
+	std::string eventName = p_name;
+
+	if (p_randomIndex > 0)
+	{
+		eventName += "_" + std::to_string((rand() % p_randMax) + 1);
+	}
+	
+	glm::vec3 pos = getEventPos();
+
+	UniversalPfx::getInstance()->playEffect(eventName, pos); 
+	// If the effect has an associated sound, it should play it itself
+}
+
+glm::vec3 AmbientSystemController::getEventPos() const
+{
+	float y = 0.01f; // Y value is always the same
+
+	float x = LERP(((float)rand() / (float)RAND_MAX), m_minPoint.x, m_maxPoint.x);
+	float z = LERP((float)rand() / (float)RAND_MAX, m_minPoint.y, m_maxPoint.y);
+
+	return glm::vec3(x, y, z);
+}
+
 void AmbientSystemController::onNextEventNeeded()
 {
-	m_timeToNextEvent = LERP(((float)rand() / (float)RAND_MAX), m_minTimeToEvent, m_maxTimeToEvent);
-	m_currentTime = 0;
+	switch (m_nextEvent) // m_nextEvent is really the previous event now
+	{
+	default:
+		m_timeToNextEvent = LERP(((float)rand() / (float)RAND_MAX), m_minTimeToEvent, m_maxTimeToEvent);
+		m_currentTime = 0;
 
-	m_nextEvent = (AmbientEvent)(rand() % AmbientEvent::COUNT);
+		m_nextEvent = (AmbientEvent)(rand() % AmbientEvent::COUNT);
+		break;
+	}
 }

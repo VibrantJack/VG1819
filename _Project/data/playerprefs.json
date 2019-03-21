@@ -1,6 +1,6 @@
 {
 	"BGM_Volume" : 100,
-	"SFX_Volume" : 100,
+	"SFX_Volume" : 30,
 	"Fullscreen" : false,
 	"Resolution" : [1280, 720]
 }

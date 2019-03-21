@@ -2043,6 +2043,18 @@ kitten::K_Component* getToggleSiblingEnabledOnClick(nlohmann::json* p_jsonFile) 
 	return new ToggleSiblingEnabledOnClick();
 }
 
+#include "_Project\AmbientSystemController.h"
+kitten::K_Component* getAmbientSystemController(nlohmann::json* p_jsonFile) {
+	
+	glm::vec2 minPoint(LOOKUP("min_point")[0], LOOKUP("min_point")[1]);
+	glm::vec2 maxPoint(LOOKUP("max_point"[0]), LOOKUP("max_point")[1]);
+	
+	float minTimeBetweenEvents = p_jsonFile->operator[]("min_time");
+	float maxTimeBetweenEvents = p_jsonFile->operator[]("max_time");
+
+	return new AmbientSystemController(minPoint, maxPoint, minTimeBetweenEvents, maxTimeBetweenEvents);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -2204,6 +2216,7 @@ void setupComponentMap() {
 	jsonComponentMap["BGMManager"] = &getBGMManager;
 	jsonComponentMap["PlayBGMOnSceneChange"] = &getPlayBGMOnSceneChange;
 	jsonComponentMap["ToggleSiblingEnabledOnClick"] = &getToggleSiblingEnabledOnClick;
+	jsonComponentMap["AmbientSystemController"] = &getAmbientSystemController;
 
 }
 

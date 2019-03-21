@@ -13,18 +13,23 @@ private:
 
 	kitten::K_Time* m_kTime;
 
-	float m_maxTimeToEvent, m_minTimeToEvent;
+	const glm::vec2& m_minPoint, const m_maxPoint;
+
+	const float m_maxTimeToEvent, const m_minTimeToEvent;
 
 	AmbientEvent m_nextEvent;
 	float m_currentTime, m_timeToNextEvent;
-	
+
 	virtual void start() override;
 	virtual bool hasUpdate() const override { return true; };
 	virtual void update() override;
 
 	//Helper methods
 	void onNextEventNeeded();
+	glm::vec3 getEventPos() const;
+
+	void playGenericEvent(const std::string& p_name, int p_randomIndex = 0, int p_randomMax = 0) const;
 public:
-	AmbientSystemController(float p_minTimeBetweenEvents, float p_maxTimeBetweenEvents);
+	AmbientSystemController(const glm::vec2& p_minPoint, const glm::vec2& p_maxPoint, float p_minTimeBetweenEvents, float p_maxTimeBetweenEvents);
 	~AmbientSystemController();
 };
