@@ -126,7 +126,7 @@ namespace unit
 	void Unit::setJoinAD()
 	{
 		m_joinAD.m_stringValue["name"] = ACTION_JOIN;
-		m_joinAD.m_intValue["target"] = 1;
+		//m_joinAD.m_intValue["target"] = 1;
 		m_joinAD.m_intValue["need_unit"] = 1;
 		m_joinAD.m_intValue["min_range"] = 1;
 		m_joinAD.m_intValue["max_range"] = 1;
@@ -192,6 +192,15 @@ namespace unit
 			m_commander->spawnUnit(p_id);
 	}*/
 
+	//check turn end in update, so it will not stick with next unit after action
+	void Unit::update()
+	{
+		if (isTurn())
+		{
+			m_turn->checkTurn();
+		}
+	}
+
 	//turn
 	void Unit::turnStart(UnitTurn * p_t)
 	{
@@ -204,7 +213,6 @@ namespace unit
 			m_turn->move = false;
 		else
 			m_turn->move = true;
-
 
 		m_cdRecorder->reduceCD();//reduce cd at start of turn
 
@@ -228,8 +236,6 @@ namespace unit
 		{
 			m_turn->act = true;
 		}
-
-		m_turn->checkTurn();
 
 		//if has auto cast ability, use it
 		if (m_autoCast)
@@ -274,7 +280,6 @@ namespace unit
 			if (moveDone && !m_lateDestroy)
 			{
 				m_turn->move = false;
-				m_turn->checkTurn();
 			}
 		}
 
@@ -286,7 +291,6 @@ namespace unit
 	{
 		assert(m_turn != nullptr);
 		m_turn->act = false;
-		m_turn->checkTurn();
 	}
 
 	bool Unit::isTurn()

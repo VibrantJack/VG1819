@@ -22,6 +22,7 @@ namespace unit
 		void displayAction(kitten::K_GameObject* p_buttonGO);
 		void hide();
 		void hideAction();
+		bool isDisplay();
 
 		void listenEvent(kitten::Event::EventType p_type, kitten::Event* p_event);
 	private:

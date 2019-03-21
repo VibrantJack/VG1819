@@ -11,7 +11,7 @@
 				"name":"The Light",
 				"power":2,
 				"target":1,
-				"need_unit":0,
+				"auto_cast":1,
 				"filter":2,
 				"filter0":"no_unit",
 				"filter1":"non_commander",

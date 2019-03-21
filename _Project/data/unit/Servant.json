@@ -22,6 +22,7 @@
 				"card_drawn":1,
 				"min_range":0,
 				"max_range":0,
+				"auto_click":1,
 				"description":"Destroy self and reduce cost of a random card in hand by 1. At lv3, player will draw a card additionally."
 			}
 		],

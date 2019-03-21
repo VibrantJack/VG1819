@@ -203,6 +203,11 @@ void unit::ActionButtonStore::hideAction()
 	}
 }
 
+bool unit::ActionButtonStore::isDisplay()
+{
+	return m_show;
+}
+
 void unit::ActionButtonStore::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_event)
 {
 	//right click can cancel button display
