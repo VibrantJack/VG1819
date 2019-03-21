@@ -106,6 +106,19 @@
 				{
 					"name" : "ModelRenderable",
 					"path" : "models/terrain/trees/lombardyPoplar.obj"
+				},
+				{
+					"name" : "ClickableBox",
+					"minpoint" : [-1.5,0,-1.5],
+					"maxpoint" : [1.5,25,1.5]
+				},
+				{
+					"name" : "ClickableBoxRenderable"
+				},
+				{
+					"name" : "PlaySoundOnClick",
+					"sound_name" : "tree_rustle",
+					"3D" : true
 				}
 			],
 			"scale" : [0.25,0.25,0.25],

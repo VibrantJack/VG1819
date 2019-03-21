@@ -1142,6 +1142,9 @@
     <ClCompile Include="ToggleSiblingEnabledOnClick.cpp">
       <Filter>components\options menu</Filter>
     </ClCompile>
+    <ClCompile Include="PlaySoundOnClick.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
     <ClCompile Include="AmbientSystemController.cpp">
       <Filter>components\sound</Filter>
     </ClCompile>
@@ -2287,6 +2290,9 @@
     </ClInclude>
     <ClInclude Include="ToggleSiblingEnabledOnClick.h">
       <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaySoundOnClick.h">
+      <Filter>components\sound</Filter>
     </ClInclude>
     <ClInclude Include="AmbientSystemController.h">
       <Filter>components\sound</Filter>

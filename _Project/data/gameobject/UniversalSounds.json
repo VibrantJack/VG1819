@@ -168,6 +168,9 @@
 				},
 				{
 					"sound" : ["fanfare", "sounds/fanfare.json"]
+				},
+				{
+					"sound" : ["tree_rustle", "sounds/tree_rustle.json"]
 				}
 			]
 		}

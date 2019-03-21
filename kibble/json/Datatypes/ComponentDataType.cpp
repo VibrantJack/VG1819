@@ -183,7 +183,7 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 		}
 
 		if (JSONHAS("maxdistance")) {
-			toReturn->setMaxDistance(LOOKUP("maxdistance"));
+		//	toReturn->setMaxDistance(LOOKUP("maxdistance"));
 		}
 	}
 
@@ -2047,6 +2047,15 @@ kitten::K_Component* getToggleSiblingEnabledOnClick(nlohmann::json* p_jsonFile) 
 	return new ToggleSiblingEnabledOnClick();
 }
 
+#include "_Project\PlaySoundOnClick.h"
+kitten::K_Component* getPlaySoundOnClick(nlohmann::json* p_jsonFile) {
+	
+	std::string soundName = p_jsonFile->operator[]("sound_name");
+	bool is3D = p_jsonFile->operator[]("3D");
+
+	return new PlaySoundOnClick(soundName, is3D);
+}
+
 #include "_Project\AmbientSystemController.h"
 kitten::K_Component* getAmbientSystemController(nlohmann::json* p_jsonFile) {
 	
@@ -2220,6 +2229,7 @@ void setupComponentMap() {
 	jsonComponentMap["BGMManager"] = &getBGMManager;
 	jsonComponentMap["PlayBGMOnSceneChange"] = &getPlayBGMOnSceneChange;
 	jsonComponentMap["ToggleSiblingEnabledOnClick"] = &getToggleSiblingEnabledOnClick;
+	jsonComponentMap["PlaySoundOnClick"] = &getPlaySoundOnClick;
 	jsonComponentMap["AmbientSystemController"] = &getAmbientSystemController;
 
 }
