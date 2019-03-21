@@ -1142,6 +1142,9 @@
     <ClCompile Include="ToggleSiblingEnabledOnClick.cpp">
       <Filter>components\options menu</Filter>
     </ClCompile>
+    <ClCompile Include="TogglePhotoModeOnKeyPress.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
     <ClCompile Include="SoundFader.cpp">
       <Filter>components\sound</Filter>
     </ClCompile>
@@ -2287,6 +2290,9 @@
     </ClInclude>
     <ClInclude Include="ToggleSiblingEnabledOnClick.h">
       <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="TogglePhotoModeOnKeyPress.h">
+      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="SoundFader.h">
       <Filter>components\sound</Filter>

@@ -414,7 +414,7 @@ namespace ability
 		};
 	};
 
-	class Sacrifice : public Ability
+	class Sacrifice : public Ability // needs sound
 	{
 	public:
 		Sacrifice() : Ability(ABILITY_SACRIFICE) {};
@@ -425,7 +425,12 @@ namespace ability
 	{
 	public:
 		Erosion() : Ability(ABILITY_EROSION) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			multiTargetDamage(p_info); 
+			UniversalSounds::playSound("fizzle");
+			return 0; 
+		};
 	};
 
 	class Execute : public Ability
@@ -475,6 +480,8 @@ namespace ability
 		Crash() : Ability(ABILITY_CRASH) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
+
+	// All Abilities below here need sound
 
 	class CursedProtection : public Ability
 	{

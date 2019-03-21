@@ -2045,6 +2045,14 @@ kitten::K_Component* getToggleSiblingEnabledOnClick(nlohmann::json* p_jsonFile) 
 	return new ToggleSiblingEnabledOnClick();
 }
 
+#include "_Project\TogglePhotoModeOnKeyPress.h"
+kitten::K_Component* getTogglePhotoModeOnKeyPress(nlohmann::json* p_jsonFile) {
+	std::string strKey = p_jsonFile->operator[]("key");
+	char key = strKey[0];
+
+	return new TogglePhotoModeOnKeyPress(key);
+}
+
 #include "_Project\SoundFader.h"
 kitten::K_Component* getSoundFader(nlohmann::json* p_jsonFile) {
 	return new SoundFader();
@@ -2211,6 +2219,7 @@ void setupComponentMap() {
 	jsonComponentMap["BGMManager"] = &getBGMManager;
 	jsonComponentMap["PlayBGMOnSceneChange"] = &getPlayBGMOnSceneChange;
 	jsonComponentMap["ToggleSiblingEnabledOnClick"] = &getToggleSiblingEnabledOnClick;
+	jsonComponentMap["TogglePhotoModeOnKeyPress"] = &getTogglePhotoModeOnKeyPress;
 	jsonComponentMap["SoundFader"] = &getSoundFader;
 
 }

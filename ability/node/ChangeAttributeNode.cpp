@@ -16,6 +16,8 @@
 #define COMBAT_TEXT_SCALE_CHANGE_SCALAR -0.25f
 
 #define COMBAT_TEXT_INITIAL_OFFSET glm::vec3(1,0.5,0)
+#define COMBAT_TEXT_RANDOM_FACTOR glm::vec3(0.5f,0,0.5f);
+
 
 namespace ability
 {
@@ -58,30 +60,36 @@ namespace ability
 
 			healthBar->updateBar();
 
-			if (p_value > 0)
+			if (p_name == UNIT_HP)
 			{
-				std::string text = "+" + std::to_string(p_value);
-				glm::vec3 color(124, 252, 0); // Lawn green
-				float time = (float)p_value / COMBAT_TEXT_TIME_CHANGE_SCALAR;
-				glm::vec2 scale = COMBAT_TEXT_BASE_SCALE;// *(COMBAT_TEXT_SCALE_CHANGE_SCALAR * (float)p_value);
+				glm::vec3 randOffset = LERP(((float)rand() / (float)RAND_MAX), -1.0f, 1.0f) * COMBAT_TEXT_RANDOM_FACTOR;
+				glm::vec3 place = p_target->getTransform().getTranslation() + COMBAT_TEXT_INITIAL_OFFSET + randOffset;
 
-				CombatText::floatText(text, p_target->getTransform().getTranslation() + COMBAT_TEXT_INITIAL_OFFSET, time, color, scale);
-			}
-			else if (p_value == 0)
-			{
-				std::string text = std::to_string(p_value);
-				glm::vec3 color(128,128,128); // Grey
+				if (p_value > 0)
+				{
+					std::string text = "+" + std::to_string(p_value);
+					glm::vec3 color(124, 252, 0); // Lawn green
+					float time = (float)p_value / COMBAT_TEXT_TIME_CHANGE_SCALAR;
+					glm::vec2 scale = COMBAT_TEXT_BASE_SCALE;// *(COMBAT_TEXT_SCALE_CHANGE_SCALAR * (float)p_value);
 
-				CombatText::floatText(text, p_target->getTransform().getTranslation(), COMBAT_TEXT_BASE_TIME, color,COMBAT_TEXT_BASE_SCALE);
-			}
-			else if (p_value < 0)
-			{
-				std::string text = std::to_string(p_value); //Automatically adds the `-`
-				glm::vec3 color(255, 0, 0); // Red
-				float time = (float)(-p_value) / COMBAT_TEXT_TIME_CHANGE_SCALAR;
-				glm::vec2 scale = COMBAT_TEXT_BASE_SCALE; //*(COMBAT_TEXT_SCALE_CHANGE_SCALAR * (float)(-p_value));
+					CombatText::floatText(text, place, time, color, scale);
+				}
+				else if (p_value == 0)
+				{
+					std::string text = std::to_string(p_value);
+					glm::vec3 color(128, 128, 128); // Grey
 
-				CombatText::floatText(text, p_target->getTransform().getTranslation() + COMBAT_TEXT_INITIAL_OFFSET, time, color, scale);
+					CombatText::floatText(text, place, COMBAT_TEXT_BASE_TIME, color, COMBAT_TEXT_BASE_SCALE);
+				}
+				else if (p_value < 0)
+				{
+					std::string text = std::to_string(p_value); //Automatically adds the `-`
+					glm::vec3 color(255, 0, 0); // Red
+					float time = (float)(-p_value) / COMBAT_TEXT_TIME_CHANGE_SCALAR;
+					glm::vec2 scale = COMBAT_TEXT_BASE_SCALE; //*(COMBAT_TEXT_SCALE_CHANGE_SCALAR * (float)(-p_value));
+
+					CombatText::floatText(text, place, time, color, scale);
+				}
 			}
 		}
 

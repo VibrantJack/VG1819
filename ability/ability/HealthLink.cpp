@@ -51,6 +51,8 @@ namespace ability
 			}
 		}
 
+		UniversalSounds::playSound("health_link");
+
 		//delete package
 		done(p_info);
 

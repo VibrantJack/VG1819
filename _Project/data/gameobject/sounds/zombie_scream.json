@@ -1,0 +1,14 @@
+{
+	"name" : "ZombieSound",
+	"components" : [
+		{
+			"name" : "AudioSource",
+			"clippath" : "Sounds/sfx/units/zombie_scream.wav",
+			"is3d" : false,
+			"enableeffects" : false,
+			"loop" : false,
+			"volume" : 0.2,
+			"getsducked" : false
+		}
+	]
+}

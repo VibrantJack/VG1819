@@ -39,6 +39,8 @@ namespace ability
 			changeCounter(source, name, -counter);
 		}
 
+		UniversalSounds::playSound("drain");
+
 		done(p_info);
 
 		return 0;
