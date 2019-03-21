@@ -1,5 +1,5 @@
 {
-	"name" : "AmbientWind",
+	"name" : "AmbientCrickets",
 	"components" : 
 	[
 		{
@@ -11,7 +11,7 @@
 		},
 		{
 			"name" : "PlayUniversalSoundOnEnable",
-			"sound_name" : "ambient_wind",
+			"sound_name" : "ambient_crickets",
 			"3D" : true
 		},
 		{

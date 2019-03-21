@@ -2060,7 +2060,7 @@ kitten::K_Component* getPlaySoundOnClick(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getAmbientSystemController(nlohmann::json* p_jsonFile) {
 	
 	glm::vec2 minPoint(LOOKUP("min_point")[0], LOOKUP("min_point")[1]);
-	glm::vec2 maxPoint(LOOKUP("max_point"[0]), LOOKUP("max_point")[1]);
+	glm::vec2 maxPoint(LOOKUP("max_point")[0], LOOKUP("max_point")[1]);
 	
 	float minTimeBetweenEvents = p_jsonFile->operator[]("min_time");
 	float maxTimeBetweenEvents = p_jsonFile->operator[]("max_time");

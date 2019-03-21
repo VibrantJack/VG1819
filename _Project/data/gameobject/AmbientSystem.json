@@ -4,10 +4,10 @@
 	[
 		{
 			"name" : "AmbientSystemController",
-			"min_point" : [-12, -12],
-			"max_point" : [2,2],
-			"min_time" : 4,
-			"max_time" : 20
+			"min_point" : [-1, -1],
+			"max_point" : [1, 1],
+			"min_time" : 1,
+			"max_time" : 3
 		}
 	]
 }

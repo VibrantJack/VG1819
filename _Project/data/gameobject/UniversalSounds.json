@@ -171,6 +171,21 @@
 				},
 				{
 					"sound" : ["tree_rustle", "sounds/tree_rustle.json"]
+				},
+				{
+					"sound" : ["ambient_wind", "sounds/ambient/wind.json"]
+				},
+				{
+					"sound" : ["ambient_shine", "sounds/ambient/shine.json"]
+				},
+				{
+					"sound" : ["ambient_crickets", "sounds/ambient/crickets.json"]
+				},
+				{
+					"sound" : ["ambient_fae", "sounds/ambient/fae.json"]
+				},
+				{
+					"sound" : ["ambient_frogs", "sounds/ambient/frogs.json"]
 				}
 			]
 		}

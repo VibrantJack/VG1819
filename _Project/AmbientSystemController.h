@@ -13,7 +13,7 @@ private:
 
 	kitten::K_Time* m_kTime;
 
-	const glm::vec2& m_minPoint, const m_maxPoint;
+	const glm::vec2 m_minPoint, const m_maxPoint;
 
 	const float m_maxTimeToEvent, const m_minTimeToEvent;
 

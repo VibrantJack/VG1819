@@ -1,0 +1,15 @@
+{
+	"name" : "Shine Sound",
+	"components" : [
+		{
+			"name" : "AudioSource",
+			"clippath" : "Sounds/sfx/ambient/shine_temp.wav",
+			"is3d" : true,
+			"mindistance" : 0.5,
+			"enableeffects" : false,
+			"loop" : false,
+			"volume" : 0.4,
+			"getsducked" : false
+		}
+	]
+}

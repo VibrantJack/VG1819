@@ -1,0 +1,15 @@
+{
+	"name" : "Frogs Sound",
+	"components" : [
+		{
+			"name" : "AudioSource",
+			"clippath" : "Sounds/sfx/ambient/frogs_temp.wav",
+			"is3d" : true,
+			"mindistance" : 0.5,
+			"enableeffects" : false,
+			"loop" : false,
+			"volume" : 0.4,
+			"getsducked" : false
+		}
+	]
+}
