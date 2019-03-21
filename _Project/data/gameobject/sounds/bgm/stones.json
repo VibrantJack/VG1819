@@ -9,6 +9,9 @@
 			"loop" : true,
 			"volume" : 0.10,
 			"getsducked" : true
-        }
+        },
+		{
+			"name" : "SoundFader"
+		}
     ]
 }

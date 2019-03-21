@@ -454,6 +454,7 @@
     <ClCompile Include="DisableAfterTime.cpp" />
     <ClCompile Include="DisableParentOnClick.cpp" />
     <ClCompile Include="FadePointLightOverTime.cpp" />
+    <ClCompile Include="SoundFader.cpp" />
     <ClCompile Include="FPSCalc.cpp" />
     <ClCompile Include="HaltParticleSystemAfterTime.cpp" />
     <ClCompile Include="IncreaseBGMVolumeOnClick.cpp" />
@@ -841,6 +842,7 @@
     <ClInclude Include="DisableAfterTime.h" />
     <ClInclude Include="DisableParentOnClick.h" />
     <ClInclude Include="FadePointLightOverTime.h" />
+    <ClInclude Include="SoundFader.h" />
     <ClInclude Include="FPSCalc.h" />
     <ClInclude Include="HaltParticleSystemAfterTime.h" />
     <ClInclude Include="IncreaseBGMVolumeOnClick.h" />

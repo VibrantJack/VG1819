@@ -1868,7 +1868,9 @@ kitten::K_Component* getBGMManager(nlohmann::json* p_jsonFile) {
 		sounds.push_back(std::make_pair(trackName, soundPath));
 	}
 
-	return new BGMManager(sounds);
+	float crossFadeTime = p_jsonFile->operator[]("cross_fade_time");
+
+	return new BGMManager(sounds, crossFadeTime);
 }
 
 #include "_Project\PlaySoundOnUIClick.h"
@@ -2051,6 +2053,11 @@ kitten::K_Component* getTogglePhotoModeOnKeyPress(nlohmann::json* p_jsonFile) {
 	return new TogglePhotoModeOnKeyPress(key);
 }
 
+#include "_Project\SoundFader.h"
+kitten::K_Component* getSoundFader(nlohmann::json* p_jsonFile) {
+	return new SoundFader();
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -2213,6 +2220,7 @@ void setupComponentMap() {
 	jsonComponentMap["PlayBGMOnSceneChange"] = &getPlayBGMOnSceneChange;
 	jsonComponentMap["ToggleSiblingEnabledOnClick"] = &getToggleSiblingEnabledOnClick;
 	jsonComponentMap["TogglePhotoModeOnKeyPress"] = &getTogglePhotoModeOnKeyPress;
+	jsonComponentMap["SoundFader"] = &getSoundFader;
 
 }
 

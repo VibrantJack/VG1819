@@ -1145,6 +1145,9 @@
     <ClCompile Include="TogglePhotoModeOnKeyPress.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="SoundFader.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2290,6 +2293,9 @@
     </ClInclude>
     <ClInclude Include="TogglePhotoModeOnKeyPress.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundFader.h">
+      <Filter>components\sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
