@@ -1,0 +1,13 @@
+{
+	"name" : "AmbientSystem",
+	"components" : 
+	[
+		{
+			"name" : "AmbientSystemController",
+			"min_point" : [-12, -12],
+			"max_point" : [2,2],
+			"min_time" : 4,
+			"max_time" : 20
+		}
+	]
+}

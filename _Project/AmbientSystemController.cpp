@@ -29,13 +29,13 @@ void AmbientSystemController::update()
 		switch (m_nextEvent)
 		{
 		case wind:
-			playGenericEvent("wind");
+			playGenericEvent("ambient_wind");
 			break;
 		case crickets:
-			playGenericEvent("crickets");
+			playGenericEvent("ambient_crickets");
 			break;
 		case frogs:
-			playGenericEvent("frogs");
+			playGenericEvent("ambient_frogs");
 			break;
 		case sword_in_stone_shine:
 			// Get the sword's place
@@ -43,7 +43,7 @@ void AmbientSystemController::update()
 			// play shiny particles
 			break;
 		case fae:
-			playGenericEvent("fae");
+			playGenericEvent("ambient_fae");
 			break;
 		}
 

@@ -1949,7 +1949,11 @@ kitten::K_Component* getHaltParticleSystemAfterTime(nlohmann::json* p_jsonFile) 
 #include "_Project\PlayUniversalSoundOnEnable.h"
 kitten::K_Component* getPlayUniversalSoundOnEnable(nlohmann::json* p_jsonFile) {
 	std::string name = p_jsonFile->operator[]("sound_name");
-	return new PlayUniversalSoundOnEnable(name);
+	
+	bool is3D;
+	SETOPTDEF(is3D, "3D", false);
+
+	return new PlayUniversalSoundOnEnable(name, is3D);
 }
 
 #include "UI/TurnCounterController.h"
