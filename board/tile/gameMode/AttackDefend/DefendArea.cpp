@@ -2,7 +2,8 @@
 
 //constant value
 
-//defend side player need to defend 25 turns
+//defend side player need to defend 24 turns
+//max points = 100, turns to defend = 24, starting turn = 1, points per turn = 4
 static const int s_DefendPointPerTurn = 4;
 
 //set attacker and defender id
