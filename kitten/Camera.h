@@ -22,6 +22,9 @@ namespace kitten
 		glm::mat4 m_proj, m_view, m_ortho, m_viewProj;
 		glm::mat3 m_viewInverse;
 		glm::mat4 m_viewInverse4;
+		glm::mat4 m_emptyMat4; // for jank stuff
+
+		bool m_rendersUI;
 
 		//Frustum information
 		float m_nearRectHeight, m_nearRectWidth, m_farRectHeight, m_farRectWidth;
@@ -44,6 +47,8 @@ namespace kitten
 		virtual void setWinHeight(int p_height);
 
 		virtual float getFOV() const;
+
+		virtual void setRendersUI(bool p_rendersUI);
 
 		const glm::mat4& getProj(); //cannot be const because of calculating when dirty
 		const glm::mat4& getOrtho();

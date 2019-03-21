@@ -29,6 +29,10 @@
 	    },
 		{
 			"name":"LerpController"
+		},
+		{
+			"name" : "TogglePhotoModeOnKeyPress",
+			"key" : "P"
 		}
     ]
 }

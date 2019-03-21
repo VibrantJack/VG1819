@@ -2043,6 +2043,14 @@ kitten::K_Component* getToggleSiblingEnabledOnClick(nlohmann::json* p_jsonFile) 
 	return new ToggleSiblingEnabledOnClick();
 }
 
+#include "_Project\TogglePhotoModeOnKeyPress.h"
+kitten::K_Component* getTogglePhotoModeOnKeyPress(nlohmann::json* p_jsonFile) {
+	std::string strKey = p_jsonFile->operator[]("key");
+	char key = strKey[0];
+
+	return new TogglePhotoModeOnKeyPress(key);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -2204,6 +2212,7 @@ void setupComponentMap() {
 	jsonComponentMap["BGMManager"] = &getBGMManager;
 	jsonComponentMap["PlayBGMOnSceneChange"] = &getPlayBGMOnSceneChange;
 	jsonComponentMap["ToggleSiblingEnabledOnClick"] = &getToggleSiblingEnabledOnClick;
+	jsonComponentMap["TogglePhotoModeOnKeyPress"] = &getTogglePhotoModeOnKeyPress;
 
 }
 

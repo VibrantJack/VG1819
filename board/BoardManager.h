@@ -51,6 +51,9 @@ public:
 	//highlight range
 	kitten::Event::TileList getRange();
 
+	void setGrid(bool p_enabled);
+	bool isGridEnabled() const;
+
 	void registerEvent();
 	void deregisterEvent();
 
@@ -84,6 +87,8 @@ private:
 	int m_selectNum;
 
 	std::vector<kitten::K_GameObject*> m_tileList;
+
+	bool m_isGridEnabled;
 
 	BoardManager();
 	~BoardManager();
