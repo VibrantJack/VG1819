@@ -11,30 +11,35 @@ public:
 	struct AmbientEvent
 	{
 		const glm::vec3 place;
+		const float minTimeBetweenEvents, const maxTimeBetweenEvents;
+		float timeElapsed = 0.0f, timeToNextEvent = 0.0f;
 		kitten::K_GameObject* gameObject;
 
-		AmbientEvent(const glm::vec3& p_place, kitten::K_GameObject* p_go)
-			: place(p_place), gameObject(p_go) {}
+		AmbientEvent(const glm::vec3& p_place, kitten::K_GameObject* p_go, float p_minTime, float p_maxtTime)
+			: place(p_place), gameObject(p_go), minTimeBetweenEvents(p_minTime), maxTimeBetweenEvents(p_maxtTime) 
+		{
+			reset();
+		}
+
+		bool isReady() const { return timeElapsed >= timeToNextEvent; }
+		void update(float p_deltaTime) { timeElapsed += p_deltaTime; }
+		void reset()
+		{
+			timeElapsed = 0.0f;
+			timeToNextEvent = LERP(((float)rand() / (float)RAND_MAX), minTimeBetweenEvents, maxTimeBetweenEvents);
+		}
 	};
 
 private:
 
 	kitten::K_Time* m_kTime;
 
-	const float m_maxTimeToEvent, const m_minTimeToEvent;
-
-	AmbientEvent* m_nextEvent;
-	float m_currentTime, m_timeToNextEvent;
-
 	std::vector<AmbientEvent> m_ambientEvents;
 
 	virtual void start() override;
 	virtual bool hasUpdate() const override { return true; };
 	virtual void update() override;
-
-	//Helper methods
-	void onNextEventNeeded();
 public:
-	AmbientSystemController(const std::vector<AmbientEvent>& p_ambientEvents, float p_minTimeBetweenEvents, float p_maxTimeBetweenEvents);
+	AmbientSystemController(const std::vector<AmbientEvent>& p_ambientEvents);
 	~AmbientSystemController();
 };
