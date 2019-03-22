@@ -1,9 +1,9 @@
 {
-	"name" : "Shine Sound",
+	"name" : "Wind Sound",
 	"components" : [
 		{
 			"name" : "AudioSource",
-			"clippath" : "Sounds/sfx/ambient/shine_temp.wav",
+			"clippath" : "Sounds/sfx/ambient/wind_temp.wav",
 			"is3d" : true,
 			"mindistance" : 1.5,
 			"enableeffects" : false,

@@ -3,22 +3,30 @@
 #include "kitten\K_Component.h"
 #include "kitten\K_Time.h"
 
+#include <vector>
+
 class AmbientSystemController : public kitten::K_Component
 {
-private:
-	enum AmbientEvent
+public:
+	struct AmbientEvent
 	{
-		wind, frogs, crickets, sword_in_stone_shine, fae, COUNT = fae + 1
+		const glm::vec3 place;
+		kitten::K_GameObject* gameObject;
+
+		AmbientEvent(const glm::vec3& p_place, kitten::K_GameObject* p_go)
+			: place(p_place), gameObject(p_go) {}
 	};
+
+private:
 
 	kitten::K_Time* m_kTime;
 
-	const glm::vec2 m_minPoint, const m_maxPoint;
-
 	const float m_maxTimeToEvent, const m_minTimeToEvent;
 
-	AmbientEvent m_nextEvent;
+	AmbientEvent* m_nextEvent;
 	float m_currentTime, m_timeToNextEvent;
+
+	std::vector<AmbientEvent> m_ambientEvents;
 
 	virtual void start() override;
 	virtual bool hasUpdate() const override { return true; };
@@ -26,10 +34,7 @@ private:
 
 	//Helper methods
 	void onNextEventNeeded();
-	glm::vec3 getEventPos() const;
-
-	void playGenericEvent(const std::string& p_name, int p_randomIndex = 0, int p_randomMax = 0) const;
 public:
-	AmbientSystemController(const glm::vec2& p_minPoint, const glm::vec2& p_maxPoint, float p_minTimeBetweenEvents, float p_maxTimeBetweenEvents);
+	AmbientSystemController(const std::vector<AmbientEvent>& p_ambientEvents, float p_minTimeBetweenEvents, float p_maxTimeBetweenEvents);
 	~AmbientSystemController();
 };

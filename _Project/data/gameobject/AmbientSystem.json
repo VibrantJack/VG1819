@@ -4,10 +4,19 @@
 	[
 		{
 			"name" : "AmbientSystemController",
-			"min_point" : [-1, -1],
-			"max_point" : [1, 1],
 			"min_time" : 1,
-			"max_time" : 3
+			"max_time" : 3,
+			"events" : 
+			[
+				{
+					"pos" : [0,0.1,0],
+					"filename" : "Universal Pfx/Ambient/frogs.json"
+				},
+				{
+					"pos" : [-2,0.1,2],
+					"filename" : "Universal Pfx/Ambient/fae.json"
+				}
+			]
 		}
 	]
 }

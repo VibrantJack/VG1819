@@ -1,11 +1,18 @@
 #include "AmbientSystemController.h"
 
 #include "UniversalPfx.h"
+#include "util\MathUtil.h"
 
-AmbientSystemController::AmbientSystemController(const glm::vec2& p_minPoint, const glm::vec2& p_maxPoint, float p_minEventTime, float p_maxEventTIme) : m_kTime(nullptr),
-m_currentTime(0), m_timeToNextEvent(0), m_minTimeToEvent(p_minEventTime), m_maxTimeToEvent(p_maxEventTIme), m_minPoint(p_minPoint), m_maxPoint(p_maxPoint)
+#include  <random>
+
+AmbientSystemController::AmbientSystemController(const std::vector<AmbientEvent>& p_ambientEvents, float p_minEventTime, float p_maxEventTIme) 
+	: m_kTime(nullptr), m_currentTime(0), m_timeToNextEvent(0), m_minTimeToEvent(p_minEventTime), m_maxTimeToEvent(p_maxEventTIme), m_ambientEvents(p_ambientEvents)
 {
-
+	auto end = m_ambientEvents.cend();
+	for (auto it = m_ambientEvents.cbegin(); it != end; ++it)
+	{
+		(*it).gameObject->setEnabled(false);
+	}
 }
 
 AmbientSystemController::~AmbientSystemController()
@@ -26,65 +33,22 @@ void AmbientSystemController::update()
 	m_currentTime += m_kTime->getDeltaTime();
 	if (m_currentTime >= m_timeToNextEvent)
 	{
-		switch (m_nextEvent)
-		{
-		case wind:
-			playGenericEvent("ambient_wind");
-			break;
-		case crickets:
-			playGenericEvent("ambient_crickets");
-			break;
-		case frogs:
-			playGenericEvent("ambient_frogs");
-			break;
-		case sword_in_stone_shine:
-			// Get the sword's place
-			// play shine sound
-			// play shiny particles
-			break;
-		case fae:
-			playGenericEvent("ambient_fae");
-			break;
-		}
+		//Move the GO back to its place just incase it has something that moves it
+		const glm::vec3& place = m_nextEvent->place;
+		m_nextEvent->gameObject->getTransform().place(place.x, place.y, place.z);
+
+		m_nextEvent->gameObject->setEnabled(true);
 
 		onNextEventNeeded();
 	}
 }
 
-void AmbientSystemController::playGenericEvent(const std::string& p_name, int p_randomIndex, int p_randMax) const
-{
-	std::string eventName = p_name;
-
-	if (p_randomIndex > 0)
-	{
-		eventName += "_" + std::to_string((rand() % p_randMax) + 1);
-	}
-	
-	glm::vec3 pos = getEventPos();
-
-	UniversalPfx::getInstance()->playEffect(eventName, pos); 
-	// If the effect has an associated sound, it should play it itself
-}
-
-glm::vec3 AmbientSystemController::getEventPos() const
-{
-	float y = 0.01f; // Y value is always the same
-
-	float x = LERP(((float)rand() / (float)RAND_MAX), m_minPoint.x, m_maxPoint.x);
-	float z = LERP((float)rand() / (float)RAND_MAX, m_minPoint.y, m_maxPoint.y);
-
-	return glm::vec3(x, y, z);
-}
-
 void AmbientSystemController::onNextEventNeeded()
 {
-	switch (m_nextEvent) // m_nextEvent is really the previous event now
-	{
-	default:
-		m_timeToNextEvent = LERP(((float)rand() / (float)RAND_MAX), m_minTimeToEvent, m_maxTimeToEvent);
-		m_currentTime = 0;
+	m_timeToNextEvent = LERP(((float)rand() / (float)RAND_MAX), m_minTimeToEvent, m_maxTimeToEvent);
+	m_currentTime = 0;
 
-		m_nextEvent = (AmbientEvent)(rand() % AmbientEvent::COUNT);
-		break;
-	}
+	// Get a random next event
+	int index = std::rand() % m_ambientEvents.size();
+	m_nextEvent = &(m_ambientEvents[index]);
 }
