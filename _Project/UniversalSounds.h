@@ -32,8 +32,6 @@ private:
 	void privatePlaySound(const std::string& p_sound, const glm::vec3& p_place) const;
 	void privateSetVolume(float p_volume);
 
-	
-
 public:
 	UniversalSounds(const std::list<std::pair<std::string, std::string>>& p_sounds);
 	~UniversalSounds();

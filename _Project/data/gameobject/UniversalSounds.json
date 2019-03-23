@@ -186,6 +186,9 @@
 				},
 				{
 					"sound" : ["ambient_frogs", "sounds/ambient/frogs.json"]
+				},
+				{
+					"sound" : ["ambient_birds", "sounds/ambient/birds.json"]
 				}
 			]
 		}

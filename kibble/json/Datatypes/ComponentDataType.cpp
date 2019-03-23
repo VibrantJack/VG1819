@@ -2060,6 +2060,7 @@ kitten::K_Component* getPlaySoundOnClick(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getAmbientSystemController(nlohmann::json* p_jsonFile) {
 	
 	std::vector<AmbientSystemController::AmbientEvent> events;
+	std::vector<kitten::AudioSource*> persistentSounds;
 
 	auto end = p_jsonFile->operator[]("events").end();
 	for (auto it = p_jsonFile->operator[]("events").begin(); it != end; ++it)
@@ -2068,13 +2069,23 @@ kitten::K_Component* getAmbientSystemController(nlohmann::json* p_jsonFile) {
 		glm::vec3 pos(position[0], position[1], position[2]);
 		kitten::K_GameObject* go = kitten::K_GameObjectManager::getInstance()->createNewGameObject((*it)["filename"]);
 
-		float minTimeBetweenEvents = (*it)["min_time"];
-		float maxTimeBetweenEvents = (*it)["max_time"];
+		bool loops = (*it)["loops"];
 
-		events.push_back(AmbientSystemController::AmbientEvent(pos, go, minTimeBetweenEvents, maxTimeBetweenEvents));
+		if (!loops)
+		{
+			float minTimeBetweenEvents = (*it)["min_time"];
+			float maxTimeBetweenEvents = (*it)["max_time"];
+
+			events.push_back(AmbientSystemController::AmbientEvent(pos, go, minTimeBetweenEvents, maxTimeBetweenEvents));
+		}
+		else
+		{
+			go->getTransform().place(pos.x, pos.y, pos.z);
+			persistentSounds.push_back(go->getComponent<kitten::AudioSource>());
+		}
 	}
 
-	return new AmbientSystemController(events);
+	return new AmbientSystemController(events, persistentSounds);
 }
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;

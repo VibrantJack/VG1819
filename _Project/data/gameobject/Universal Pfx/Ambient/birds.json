@@ -1,0 +1,22 @@
+{
+	"name" : "AmbientBirds",
+	"components" : 
+	[
+		{
+		  "name": "K_ParticleSystem",
+		  "effectpath": "data/particles/abilities/effects/burnExplosion.xml"
+		},
+		{
+			"name": "PlayParticleSystemOnEnable"
+		},
+		{
+			"name" : "PlayUniversalSoundOnEnable",
+			"sound_name" : "ambient_birds",
+			"3D" : true
+		},
+		{
+			"name" : "DisableAfterTime",
+			"time" : 0.16
+		}
+	]
+}

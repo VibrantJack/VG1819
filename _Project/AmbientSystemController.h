@@ -3,6 +3,8 @@
 #include "kitten\K_Component.h"
 #include "kitten\K_Time.h"
 
+#include "kitten\audio\AudioSource.h"
+
 #include <vector>
 
 class AmbientSystemController : public kitten::K_Component
@@ -32,14 +34,26 @@ public:
 
 private:
 
+	struct PersistentSound
+	{
+		kitten::AudioSource* sound;
+		const float volume;
+
+		PersistentSound(kitten::AudioSource* p_source, float p_volume) :
+			sound(p_source), volume(p_volume) {}
+	};
+
 	kitten::K_Time* m_kTime;
 
 	std::vector<AmbientEvent> m_ambientEvents;
+	std::vector<PersistentSound> m_persistentSounds;
+
+	float m_volume;
 
 	virtual void start() override;
 	virtual bool hasUpdate() const override { return true; };
 	virtual void update() override;
 public:
-	AmbientSystemController(const std::vector<AmbientEvent>& p_ambientEvents);
+	AmbientSystemController(const std::vector<AmbientEvent>& p_ambientEvents, const std::vector<kitten::AudioSource*> p_persistentSounds);
 	~AmbientSystemController();
 };
