@@ -56,7 +56,7 @@ void BoardCreator::createBoard(int p_id)
 	int mapId = p_id;
 
 	//spawn point list
-	kitten::Event::TileList m_spawnPointList;
+	kitten::Event::TileList m_spawnPointList(2);
 
 	//get land list and dimension for random map
 	//pair = LandInformation::TileType , GameModeComponent::TileType 
@@ -97,8 +97,10 @@ void BoardCreator::createBoard(int p_id)
 			//register special type tile to game mode manager
 			if (modetype != GameModeComponent::Unknow)//it's special
 			{
-				if (modetype == GameModeComponent::SpawnPoint)//spawn point
-					m_spawnPointList.push_back(std::make_pair(x, z));
+				if (modetype == GameModeComponent::SpawnPoint0)//spawn point
+					m_spawnPointList[0] = std::make_pair(x, z);
+				else if (modetype == GameModeComponent::SpawnPoint1)//spawn point
+					m_spawnPointList[1] = std::make_pair(x, z);
 				else
 					GameModeManager::getInstance()->registerTile(tileGO,modetype);
 			}

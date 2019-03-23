@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#define MAP_DIRECTORY "data/map/"
+#define MAP_DIRECTORY "data/map/map/"
 
 namespace kibble
 {

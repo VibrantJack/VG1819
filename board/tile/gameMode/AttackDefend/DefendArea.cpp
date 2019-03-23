@@ -2,13 +2,12 @@
 
 //constant value
 
-//defend side player need to defend 24 turns
-//max points = 100, turns to defend = 24, starting turn = 1, points per turn = 4
-static const int s_DefendPointPerTurn = 4;
-
 //set attacker and defender id
 static const int s_attackerId = 0;
 static const int s_defenderId = 1;
+
+//Both players can gain points, so they may reach max point at same time
+//Attacker will win in this situation since attacker is at disadvantage
 
 DefendArea::DefendArea()
 {
@@ -45,8 +44,15 @@ void DefendArea::check()
 	GameModeManager::getInstance()->gainPoint(s_attackerId, counter);
 
 	//defender gain points for this turn
-	GameModeManager::getInstance()->gainPoint(s_defenderId, s_DefendPointPerTurn);
+	GameModeManager::getInstance()->gainPoint(s_defenderId, m_pointPerTurn);
 
-	//Both players can gain points, so they may reach max point at same time
-	//Attacker will win in this situation
+}
+
+void DefendArea::setProperty(nlohmann::json * p_jsonfile)
+{
+	m_pointPerUnit = p_jsonfile->operator[]("attacker_point_per_unit");
+
+	m_pointPerTurn = p_jsonfile->operator[]("defender_point_per_turn");
+
+	m_texturePath = p_jsonfile->operator[]("texture");
 }

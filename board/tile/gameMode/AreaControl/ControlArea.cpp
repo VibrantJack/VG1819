@@ -23,9 +23,14 @@ void ControlArea::check()
 			//check unit client id
 			int id = u->m_clientId;
 
-			//check unit lv, high lv unit grants more points
-			int lv = u->m_attributes[UNIT_LV];
-			int pt = lv > 0 ? lv : 1;
+			//check points to gain
+			int pt = m_pointPerUnit;
+			if (m_pointPerUnit < 0)//use unit lv
+			{
+				//check unit lv, high lv unit grants more points
+				int lv = u->m_attributes[UNIT_LV];
+				pt = lv > 0 ? lv : 1;//unit without lv gain 1 point
+			}
 
 			if (id >= 0)
 				counter[id]+= pt;
@@ -43,4 +48,11 @@ void ControlArea::check()
 	{
 		GameModeManager::getInstance()->gainPoint(1, counter[1]);
 	}
+}
+
+void ControlArea::setProperty(nlohmann::json * p_jsonfile)
+{
+	m_pointPerUnit = p_jsonfile->operator[]("point_per_unit");
+
+	m_texturePath = p_jsonfile->operator[]("texture");
 }

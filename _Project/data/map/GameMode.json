@@ -1,0 +1,40 @@
+{
+    "name" : "GameModeManager",
+    "max_point" : 100,
+    "mode_component":[
+        {
+            "name" : "ControlArea",
+            "enum" : 2,
+            "texture" : "",
+            "point_per_unit": -1
+        },
+        {
+            "name" : "DefendArea",
+            "enum" : 3,
+            "texture" : "",
+            "attacker_point_per_unit": -1,
+            "defender_point_per_turn":4
+        },
+        {
+            "name" : "ItemSpawnArea",
+            "enum" : 4,
+            "texture" : "",
+            "item_per_spawn": 1,
+            "turn_for_next_spawn":2,
+            "delay":0,
+            "item_path":""
+        },
+        {
+            "name" : "ItemDropArea0",
+            "enum" : 5,
+            "texture" : "",
+            "point_per_item" : 10
+        },
+        {
+            "name" : "ItemDropArea1",
+            "enum" : 6,
+            "texture" : "",
+            "point_per_item" : 10
+        }
+    ]
+}

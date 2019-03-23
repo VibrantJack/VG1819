@@ -2,25 +2,57 @@
 #include "AreaControl/ControlArea.h"
 #include "networking/ClientGame.h"
 #include "AttackDefend/DefendArea.h"
+#include "Capture/ItemSpawnArea.h"
+#include "Capture/ItemKeepArea.h"
 
 GameModeManager* GameModeManager::sm_instance = nullptr;
 
-static const int s_MaxPoint = 100;
-
 void GameModeManager::registerTile(kitten::K_GameObject * p_tileGO, GameModeComponent::TileType p_type)
 {
-	//get tile info
-	TileInfo* info = p_tileGO->getComponent<TileInfo>();
-	m_modeComponentMap[p_type]->addTile(info);
+	auto found = m_modeComponentMap.find(p_type);
+	if (found != m_modeComponentMap.end())
+	{
+		//get tile info
+		TileInfo* info = p_tileGO->getComponent<TileInfo>();
+		found->second->addTile(info);
+	}
 }
 
 void GameModeManager::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data)
 {
 	if (p_type == kitten::Event::New_Game_Turn)
 	{
-		for (auto component : m_modeComponentMap)
+		//init all component when first turn start
+		if (!m_isInit)
 		{
-			component.second->check();
+			for (auto component : m_modeComponentMap)
+			{
+				component.second->init();
+			}
+
+			//clear removed component
+			auto end = m_modeComponentMap.cend();
+			auto comp = m_modeComponentMap.begin();
+			while (comp != end)
+			{
+				if (comp->second == nullptr)
+				{
+					comp = m_modeComponentMap.erase(comp);
+				}
+				else
+				{
+					comp++;
+				}
+			}
+		}
+		else
+		{	//then check all component when other turns start
+			//they are actually checking result of last turn
+			//so start at turn 2
+			for (auto component : m_modeComponentMap)
+			{
+				component.second->check();
+			}
 		}
 	}
 
@@ -33,8 +65,24 @@ void GameModeManager::gainPoint(int p_clientId, int p_points)
 		m_points[p_clientId] += p_points;
 }
 
+void GameModeManager::removeModeComponent(GameModeComponent * p_comp)
+{
+	for (auto component : m_modeComponentMap)
+	{
+		if (component.second == p_comp)
+		{
+			//delete component
+			delete component.second;
+
+			//remove from map
+			component.second = nullptr;
+		}
+	}
+}
+
 GameModeManager::GameModeManager()
-	:m_points(std::vector<int>({0,0}))
+	:m_points(std::vector<int>({0,0})),
+	m_isInit(false)
 {
 	registerEvent();
 
@@ -56,6 +104,33 @@ void GameModeManager::init()
 {
 	m_modeComponentMap[GameModeComponent::ControlArea] = new ControlArea();
 	m_modeComponentMap[GameModeComponent::DefendArea] = new DefendArea();
+	m_modeComponentMap[GameModeComponent::ItemSpawnArea] = new ItemSpawnArea();
+	m_modeComponentMap[GameModeComponent::ItemDropArea0] = new ItemKeepArea(0);
+	m_modeComponentMap[GameModeComponent::ItemDropArea1] = new ItemKeepArea(1);
+
+	//read json file
+	nlohmann::json jsonfile = jsonIn(GAME_MODE_DATA);
+
+	//get max point
+	m_maxPoint = jsonfile["max_point"];
+
+	//set property for components
+	nlohmann::json::iterator end = jsonfile["mode_component"].end();
+	for (nlohmann::json::iterator it = jsonfile["mode_component"].begin(); it != end; ++it) 
+	{
+		//get json
+		nlohmann::json compJson = *it;
+
+		//check which component of this
+		int enu = compJson["enum"];
+		GameModeComponent::TileType type = static_cast<GameModeComponent::TileType>(enu);
+
+		auto found = m_modeComponentMap.find(type);
+		if (found != m_modeComponentMap.end())
+		{
+			found->second->setProperty(&compJson);
+		}
+	}
 }
 
 void GameModeManager::registerEvent()
@@ -79,7 +154,7 @@ void GameModeManager::checkPoints()
 	int clientId = -1;
 	for (int i = 0; i < m_points.size(); i++)
 	{
-		if (m_points[i] >= s_MaxPoint)//reach max points
+		if (m_points[i] >= m_maxPoint)//reach max points
 		{
 			clientId = i;
 			break;

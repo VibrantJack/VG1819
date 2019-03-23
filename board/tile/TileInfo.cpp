@@ -302,7 +302,7 @@ void TileInfo::triggerNewTileEvent()
 void TileInfo::setDecoration()
 {
 	if (m_decorationList.size() > 0)
-		deleteList();
+		removeDecoration();
 
 	m_decorationList = DecorationGenerator::generateDecoration(this);
 
@@ -314,12 +314,13 @@ void TileInfo::setDecoration()
 	}
 }
 
-void TileInfo::deleteList()
+void TileInfo::removeDecoration()
 {
 	for (auto it : m_decorationList)
 	{
 		kitten::K_GameObjectManager::getInstance()->destroyGameObject(it);
 	}
+	m_decorationList.clear();
 }
 
 void TileInfo::getAdjTile()

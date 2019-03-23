@@ -216,7 +216,6 @@
     <ClCompile Include="..\board\tile\DecorationGenerator.cpp" />
     <ClCompile Include="..\board\tile\gameMode\AreaControl\ControlArea.cpp" />
     <ClCompile Include="..\board\tile\gameMode\AttackDefend\DefendArea.cpp" />
-    <ClCompile Include="..\board\tile\gameMode\Capture\ItemController.cpp" />
     <ClCompile Include="..\board\tile\gameMode\Capture\ItemKeepArea.cpp" />
     <ClCompile Include="..\board\tile\gameMode\Capture\ItemSpawnArea.cpp" />
     <ClCompile Include="..\board\tile\gameMode\GameModeComponent.cpp" />
@@ -592,7 +591,6 @@
     <ClInclude Include="..\board\tile\DecorationGenerator.h" />
     <ClInclude Include="..\board\tile\gameMode\AreaControl\ControlArea.h" />
     <ClInclude Include="..\board\tile\gameMode\AttackDefend\DefendArea.h" />
-    <ClInclude Include="..\board\tile\gameMode\Capture\ItemController.h" />
     <ClInclude Include="..\board\tile\gameMode\Capture\ItemKeepArea.h" />
     <ClInclude Include="..\board\tile\gameMode\Capture\ItemSpawnArea.h" />
     <ClInclude Include="..\board\tile\gameMode\GameModeComponent.h" />

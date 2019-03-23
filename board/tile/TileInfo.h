@@ -104,7 +104,7 @@ private:
 
 	//method
 	void setDecoration();
-	void deleteList();
+	void removeDecoration();
 
 	void getAdjTile();
 };

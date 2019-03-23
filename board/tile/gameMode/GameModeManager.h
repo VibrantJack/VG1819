@@ -4,7 +4,7 @@
 #include "kitten/event_system/EventManager.h"
 #include "GameModeComponent.h"
 
-
+#define GAME_MODE_DATA "data/map/GameMode.json"
 class GameModeManager
 {
 public:
@@ -17,6 +17,8 @@ public:
 	void listenEvent(kitten::Event::EventType p_type, kitten::Event* p_data);
 
 	void gainPoint(int p_clientId, int p_points);
+
+	void removeModeComponent(GameModeComponent* p_comp);
 private:
 	static GameModeManager* sm_instance;
 	GameModeManager();
@@ -32,5 +34,9 @@ private:
 	std::unordered_map<GameModeComponent::TileType, GameModeComponent*> m_modeComponentMap;
 
 	std::vector<int> m_points; //the current point that player has
+
+	bool m_isInit;//are all components inited
+
+	int m_maxPoint;//when player reach max point, he wins
 
 };
