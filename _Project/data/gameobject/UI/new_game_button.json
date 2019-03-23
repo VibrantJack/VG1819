@@ -7,7 +7,7 @@
 		},
 		{
 			"name" : "ChangeSceneOnClick",
-			"scene" : "deck_menu.json"
+			"scene" : "enter_name_screen.json"
 
 		},
 		{

@@ -87,7 +87,10 @@ void TextChat::start()
 	m_typingTextBox = messageInput->getComponent<puppy::TextBox>();
 	m_typingTextBox->setBoxBounds(MAX_TYPABLE_LINES * TEXTCHAT_TEXTBOX_WIDTH, m_typingTextBox->getBoxHeight());
 	m_stringInputDisplay = messageInput->getComponent<StringInputDisplay>();
-	m_stringInputDisplay->setCharLimit(MAX_TEXTCHAT_MSG_SIZE);
+
+	// Format the player name and subtract the length from the input char limit
+	m_playerName = "[" + networking::ClientGame::getPlayerName() + "]: ";
+	m_stringInputDisplay->setCharLimit(MAX_TEXTCHAT_MSG_SIZE - m_playerName.length());
 
 	kitten::K_GameObject* chatButton = kitten::K_GameObjectManager::getInstance()->createNewGameObject("text_chat/chat_button.json");
 	glm::vec2 buttonScale2D = chatButton->getTransform().getScale2D();
@@ -136,13 +139,13 @@ void TextChat::update()
 
 	if (input->keyDown(GLFW_KEY_ENTER) && !input->keyDownLast(GLFW_KEY_ENTER) && !m_gamePaused)
 	{
-		const std::string& message = m_stringInputDisplay->getString();
+		std::string message = m_stringInputDisplay->getString();
+		message.insert(0, m_playerName);
 		addMessage(networking::ClientGame::getClientId(), message);
 		networking::ClientGame::getInstance()->sendTextChatMessagePacket(message);
 
 		// InputManager sets poll mode to true when enter is hit, set back to false to continue typing
 		input->setPollMode(false);
-
 		resetInputTextBoxPos();
 	}
 
@@ -179,15 +182,16 @@ void TextChat::addMessage(int p_id, const std::string& p_message)
 	std::string leftovers;
 
 	// If the message is longer than the network limit, we cut off the extra
-	if (p_message.length() > MAX_TEXTCHAT_MSG_SIZE)
+	if (message.length() > MAX_TEXTCHAT_MSG_SIZE)
 	{
 		message = message.substr(0, MAX_TEXTCHAT_MSG_SIZE);
 	}
+
 	// If the message is longer than the line length, we recursively add the extra after adding the current
 	// line into TextChat
 	if (message.length() > MAX_TEXTCHAT_LINE_SIZE)
 	{
-		leftovers = message.substr(MAX_TEXTCHAT_LINE_SIZE, message.npos);
+		leftovers = message.substr(MAX_TEXTCHAT_LINE_SIZE);
 		message = message.substr(0, MAX_TEXTCHAT_LINE_SIZE);
 	}
 	else
@@ -228,9 +232,7 @@ void TextChat::addMessage(int p_id, const std::string& p_message)
 	{
 		addMessage(p_id, leftovers);
 	}
-
-	// Only update the text boxes if the chat is open
-	if (m_attachedObject->isEnabled())
+	else if (m_attachedObject->isEnabled()) // Only update the text boxes if the chat is open
 	{
 		setMessageTextBoxes();
 	}
