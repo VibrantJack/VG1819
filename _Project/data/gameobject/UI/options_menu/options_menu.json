@@ -208,15 +208,15 @@
 					]
 				},
 				{
-					"name" : "Resolution Label",
+					"name" : "Ambient Label",
 					"components" : 
 					[
 						{
 							"name" : "UIElement",
-							"texture" : "textures/ui/options_menu/options_resolution.dds"
+							"texture" : "textures/ui/options_menu/options_ambient.tga"
 						},
 						{
-							"name" : "ResolutionController"
+							"name" : "AmbientVolumeController"
 						}
 					],
 					"translate" : [35, 40, 0.1],
@@ -224,7 +224,7 @@
 					"gameobjects" : 
 					[
 						{
-							"name" : "Decrease Resolution",
+							"name" : "Decrease Ambient",
 							"components" : 
 							[
 								{
@@ -235,7 +235,8 @@
 									"name" : "ClickableFrame"
 								},
 								{
-									"name" : "DecreaseResolutionOnClick"
+									"name" : "DecreaseAmbientVolumeOnClick",
+									"amount" : 5
 								},
 								{
 									"name" : "PlayUniversalSoundOnUIClick",
@@ -250,7 +251,7 @@
 							"translate" : [125, 0, 0]
 						},
 						{
-							"name" : "Increase Resolution",
+							"name" : "Increase Ambient",
 							"components" : 
 							[
 								{
@@ -261,7 +262,8 @@
 									"name" : "ClickableFrame"
 								},
 								{
-									"name" : "IncreaseResolutionOnClick"
+									"name" : "IncreaseAmbientVolumeOnClick",
+									"amount" : 5
 								},
 								{
 									"name" : "PlayUniversalSoundOnUIClick",
@@ -276,7 +278,7 @@
 							"translate" : [425, 0, 0]
 						},
 						{
-							"name" : "Current Resolution Text",
+							"name" : "Current Ambient Text",
 							"components" : 
 							[
 								{

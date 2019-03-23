@@ -2027,6 +2027,23 @@ kitten::K_Component* getResolutionController(nlohmann::json* p_jsonFile) {
 	return new ResolutionController();
 }
 
+#include "_Project\IncreaseAmbientVolumeOnClick.h"
+kitten::K_Component* getIncreaseAmbientVolumeOnClick(nlohmann::json* p_jsonFile) {
+	int amount = p_jsonFile->operator[]("amount");
+	return new IncreaseAmbientVolumeOnClick(amount);
+}
+
+#include "_Project\DecreaseAmbientVolumeOnClick.h"
+kitten::K_Component* getDecreaseAmbientVolumeOnClick(nlohmann::json* p_jsonFile) {
+	int amount = p_jsonFile->operator[]("amount");
+	return new DecreaseAmbientVolumeOnClick(amount);
+}
+
+#include "_Project\AmbientVolumeController.h"
+kitten::K_Component* getAmbientVolumeController(nlohmann::json* p_jsonFile) {
+	return new AmbientVolumeController();
+}
+
 #include "_Project\PlayBGMOnSceneChange.h"
 kitten::K_Component* getPlayBGMOnSceneChange(nlohmann::json* p_jsonFile) {
 
@@ -2276,6 +2293,9 @@ void setupComponentMap() {
 	jsonComponentMap["EnterNameScreen"] = &getEnterNameScreen;
 	jsonComponentMap["PlaySoundOnClick"] = &getPlaySoundOnClick;
 	jsonComponentMap["AmbientSystemController"] = &getAmbientSystemController;
+	jsonComponentMap["AmbientVolumeController"] = &getAmbientVolumeController;
+	jsonComponentMap["IncreaseAmbientVolumeOnClick"] = &getIncreaseAmbientVolumeOnClick;
+	jsonComponentMap["DecreaseAmbientVolumeOnClick"] = &getDecreaseAmbientVolumeOnClick;
 
 }
 

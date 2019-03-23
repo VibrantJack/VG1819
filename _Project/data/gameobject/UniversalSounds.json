@@ -200,9 +200,6 @@
 					"sound" : ["ambient_shine", "sounds/ambient/shine.json"]
 				},
 				{
-					"sound" : ["ambient_crickets", "sounds/ambient/crickets.json"]
-				},
-				{
 					"sound" : ["ambient_fae", "sounds/ambient/fae.json"]
 				},
 				{

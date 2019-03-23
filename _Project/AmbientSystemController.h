@@ -43,6 +43,8 @@ private:
 			sound(p_source), volume(p_volume) {}
 	};
 
+	static AmbientSystemController* sm_instance;
+
 	kitten::K_Time* m_kTime;
 
 	std::vector<AmbientEvent> m_ambientEvents;
@@ -53,7 +55,14 @@ private:
 	virtual void start() override;
 	virtual bool hasUpdate() const override { return true; };
 	virtual void update() override;
+
 public:
 	AmbientSystemController(const std::vector<AmbientEvent>& p_ambientEvents, const std::vector<kitten::AudioSource*> p_persistentSounds);
 	~AmbientSystemController();
+
+	// Can be NULL !
+	static AmbientSystemController* getInstance();
+
+	void setVolume(float p_volume);
+	float getVolume() const;
 };

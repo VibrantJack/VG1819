@@ -1,18 +1,18 @@
-#include "SFXVolumeController.h"
-#include "util\MathUtil.h"
+#include "AmbientVolumeController.h"
+
 #include "settings_menu\PlayerPrefs.h"
 
-SFXVolumeController::SFXVolumeController() : m_volume(0), m_textBox(nullptr)
+AmbientVolumeController::AmbientVolumeController() : m_textBox(nullptr), m_volume(100)
 {
 
 }
 
-SFXVolumeController::~SFXVolumeController()
+AmbientVolumeController::~AmbientVolumeController()
 {
 
 }
 
-void SFXVolumeController::start()
+void AmbientVolumeController::start()
 {
 	auto children = getTransform().getChildren();
 	assert(!children.empty());
@@ -29,17 +29,17 @@ void SFXVolumeController::start()
 
 	assert(m_textBox != nullptr);
 
-	m_volume = PlayerPrefs::getSFXVolume();
+	m_volume = PlayerPrefs::getAmbientVolume();
 	m_textBox->setText(std::to_string(m_volume) + "%");
 }
 
-void SFXVolumeController::changeSFXVolume(int p_amount)
+void AmbientVolumeController::changeAmbientVolume(int p_amount)
 {
 	m_volume += p_amount;
 
 	m_volume = CLAMP(m_volume, 0, 200);
 
-	PlayerPrefs::setSFXVolume(m_volume);
+	PlayerPrefs::setAmbientVolume(m_volume);
 
 	m_textBox->setText(std::to_string(m_volume) + "%");
 }
