@@ -83,6 +83,10 @@ namespace networking
 		std::vector<std::pair<ClientInfo*, bool>> m_polledClientsToRemove;
 		
 		std::string m_strError;
+
+		int m_playerCount = 0;
+		int m_activeSessions = 0;
+		bool m_serverInfoChanged = false;
 	};
 
 }

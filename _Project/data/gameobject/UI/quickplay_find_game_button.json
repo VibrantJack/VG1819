@@ -1,0 +1,25 @@
+{
+	"name" : "Find Game Button",
+	"components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/join_button_small.tga"
+		},
+		{
+			"name" : "PlayUniversalSoundOnUIClick",
+			"sound_name" : "click"
+		},
+		{
+			"name" : "TriggerEventButton",
+			"regularTexture" : "textures/ui/buttons/join_button_small.tga",
+			"highlightedTexture" : "textures/ui/buttons/join_button_small_h.tga",
+			"event" : "Quickplay_Find_Game"
+		},
+		{
+			"name" : "ClickableFrame"
+		}
+	],
+	"scale2d" : [150, 48],
+	"translate" : [565, 185, -0.8]
+}
+

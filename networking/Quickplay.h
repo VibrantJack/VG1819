@@ -3,6 +3,8 @@
 #include "kitten\event_system\EventManager.h"
 #include "_Project\StringInputDisplay.h"
 #include "kitten\InputManager.h"
+#include "kitten\mouse picking\ClickableFrame.h"
+#include "UI\TriggerEventButton.h"
 
 class Quickplay : public kitten::K_Component
 {
@@ -10,6 +12,9 @@ private:
 	puppy::TextBox* m_serverStatus;		// Status of the server: Online or Offline
 	puppy::TextBox* m_playerCount;		// # players connected to the server 
 	puppy::TextBox* m_activeSessions;	// # of active game sessions
+
+	userinterface::TriggerEventButton* m_findGameButton;
+	kitten::ClickableFrame* m_findGameButtonFrame;
 
 	bool m_bConnect;
 	bool m_bLoadingMsgEnabled;

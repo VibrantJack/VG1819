@@ -140,6 +140,9 @@ namespace networking
 			// Insert new client into polled sessions id map
 			m_polledSessions.insert(std::pair<unsigned int, ClientInfo*>(p_iClientId, client));
 
+			m_playerCount++;
+			m_serverInfoChanged = true;
+
 			return true;
 		}
 		return false;
@@ -203,6 +206,8 @@ namespace networking
 			{
 				closesocket(p_client->m_socket);
 				m_sessions.erase(it);
+				m_playerCount--;
+				m_serverInfoChanged = true;
 			}
 		} 
 		else

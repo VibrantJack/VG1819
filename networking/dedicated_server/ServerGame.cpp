@@ -116,8 +116,6 @@ namespace networking
 			printf("[Polled Client: %d] has polled this server\n", m_polledClientId);
 
 			m_polledClientId++;
-			m_playerCount++;
-			m_serverInfoChanged = true;
 		}
 
 		receiveFromPolledClients();
@@ -125,6 +123,11 @@ namespace networking
 		updateGameSessions();
 
 		m_network->removeQueuedRemovals();
+
+		if (m_network->m_serverInfoChanged)
+		{
+
+		}
 
 		if (m_shutdown)
 		{
@@ -506,5 +509,20 @@ namespace networking
 		{
 			p_client->m_gameSession->removePlayer(p_client);
 		}
+	}
+
+	void ServerGame::sendServerInfo()
+	{
+		char packetData[SERVER_INFO_PACKET_SIZE];
+		Buffer buffer;
+		buffer.m_data = packetData;
+		buffer.m_size = SERVER_INFO_PACKET_SIZE;
+
+		Packet packet;
+		packet.m_packetType = SESSIONS_FULL;
+		packet.m_clientId = -1;
+
+		packet.serialize(buffer);
+		m_network->sendToAll(packetData, SERVER_INFO_PACKET_SIZE);
 	}
 }

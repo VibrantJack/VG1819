@@ -37,6 +37,7 @@ namespace networking
 		bool findAvailableSession(ServerNetwork::ClientInfo* p_info);
 		void removeClientFromSession(ServerNetwork::ClientInfo* p_info);
 
+		void sendServerInfo();
 		void flagShutdown(bool p_flag) { m_shutdown = p_flag; }
 
 	private:
@@ -60,9 +61,6 @@ namespace networking
 		// Map of GameSessions to be used by the server
 		std::vector<GameSession*> m_gameSessions;
 
-		bool m_serverInfoChanged = false;
-		int m_playerCount = 0;
-		int m_activeSessions = 0;
 		int m_clientsReadyChecked = 0;
 	};
 }

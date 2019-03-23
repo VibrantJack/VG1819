@@ -42,6 +42,10 @@ void Quickplay::start()
 	m_activeSessions = manager->createNewGameObject("network_menu/active_games_textbox.json")->getComponent<puppy::TextBox>();
 	m_activeSessions->setText("10");
 
+	kitten::K_GameObject* findGameButtonGO = &getTransform().getChildren()[0]->getAttachedGameObject();
+	m_findGameButton = findGameButtonGO->getComponent<userinterface::TriggerEventButton>();
+	m_findGameButtonFrame = findGameButtonGO->getComponent<kitten::ClickableFrame>();
+
 	pollForServer();
 }
 
@@ -74,6 +78,8 @@ void Quickplay::pollForServer()
 	{
 		networking::ClientGame::createInstance(client->getDedicatedServerAddress());
 	}
+
+	setServerStatus(networking::ClientGame::isNetworkValid());
 }
 
 void Quickplay::pollForServerListener(kitten::Event::EventType p_type, kitten::Event* p_event)
@@ -134,16 +140,22 @@ void Quickplay::setServerStatus(int p_status)
 		case 0:
 		{
 			m_serverStatus->setText("Offline");
+			m_findGameButtonFrame->setEnabled(false);
+			m_findGameButton->setActive(false);
 			break;
 		}
 		case 1:
 		{
 			m_serverStatus->setText("Online");
+			m_findGameButtonFrame->setEnabled(true);
+			m_findGameButton->setActive(true);
 			break;
 		}
 		default:
 		{
 			m_serverStatus->setText("Error");
+			m_findGameButtonFrame->setEnabled(false);
+			m_findGameButton->setActive(false);
 			break;
 		}
 	}	

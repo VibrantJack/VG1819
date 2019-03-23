@@ -15,6 +15,7 @@
 #define SKIP_TURN_PACKET_SIZE sizeof(SkipTurnPacket)
 #define UNIT_PACKET_SIZE sizeof(UnitPacket)
 #define STARTING_COMMANDERS_PACKET_SIZE sizeof(StartingCommandersPacket)
+#define SERVER_INFO_PACKET_SIZE sizeof(ServerInfoPacket)
 #define TEST_PACKET_SIZE sizeof(TestPacket)
 
 enum PacketTypes 
