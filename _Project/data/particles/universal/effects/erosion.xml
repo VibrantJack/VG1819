@@ -1,0 +1,5 @@
+<Effect>
+  <Emitter z="0" y="-0.5" x="0" path="data/particles/universal/emitters/erosionEmitter.xml"/>
+  <Emitter z="0" y="-0.5" x="0" path="data/particles/universal/emitters/erosionEmitter2.xml"/>
+  <Emitter z="0" y="-0.5" x="0" path="data/particles/universal/emitters/erosionEmitter3.xml"/>
+</Effect>

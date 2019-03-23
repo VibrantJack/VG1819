@@ -1,0 +1,16 @@
+{
+	"name" : "PooledTheLightUPFX",
+	"components" : [
+		{
+			"name" : "K_ParticleSystem",
+			"effectpath" : "data/particles/universal/effects/theLight.xml"
+		},
+		{
+			"name" : "PlayParticleSystemOnEnable"
+		},
+		{
+			"name" : "DisableAfterTime",
+			"time" : 1.5
+		}
+	]
+}
