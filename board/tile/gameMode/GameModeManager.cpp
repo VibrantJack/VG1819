@@ -3,7 +3,7 @@
 #include "networking/ClientGame.h"
 #include "AttackDefend/DefendArea.h"
 #include "Capture/ItemSpawnArea.h"
-#include "Capture/ItemKeepArea.h"
+#include "Capture/ItemDropArea.h"
 
 GameModeManager* GameModeManager::sm_instance = nullptr;
 
@@ -44,6 +44,7 @@ void GameModeManager::listenEvent(kitten::Event::EventType p_type, kitten::Event
 					comp++;
 				}
 			}
+			m_isInit = true;
 		}
 		else
 		{	//then check all component when other turns start
@@ -54,9 +55,9 @@ void GameModeManager::listenEvent(kitten::Event::EventType p_type, kitten::Event
 				component.second->check();
 			}
 		}
-	}
 
-	checkPoints();
+		checkPoints();
+	}
 }
 
 void GameModeManager::gainPoint(int p_clientId, int p_points)
@@ -67,16 +68,20 @@ void GameModeManager::gainPoint(int p_clientId, int p_points)
 
 void GameModeManager::removeModeComponent(GameModeComponent * p_comp)
 {
-	for (auto component : m_modeComponentMap)
+	auto end = m_modeComponentMap.end();
+	for (auto it = m_modeComponentMap.begin(); it != end; it++)
 	{
-		if (component.second == p_comp)
+		if (it->second == p_comp)
 		{
 			//delete component
-			delete component.second;
+			delete it->second;
 
-			//remove from map
-			component.second = nullptr;
+			//remove from map later
+			it->second = nullptr;
+
+			break;
 		}
+
 	}
 }
 
@@ -102,11 +107,13 @@ GameModeManager::~GameModeManager()
 
 void GameModeManager::init()
 {
-	m_modeComponentMap[GameModeComponent::ControlArea] = new ControlArea();
-	m_modeComponentMap[GameModeComponent::DefendArea] = new DefendArea();
-	m_modeComponentMap[GameModeComponent::ItemSpawnArea] = new ItemSpawnArea();
-	m_modeComponentMap[GameModeComponent::ItemDropArea0] = new ItemKeepArea(0);
-	m_modeComponentMap[GameModeComponent::ItemDropArea1] = new ItemKeepArea(1);
+	m_modeComponentMap[GameModeComponent::Control] = new ControlArea();
+	m_modeComponentMap[GameModeComponent::Defend] = new DefendArea();
+
+	ItemSpawnArea* area = new ItemSpawnArea();
+	m_modeComponentMap[GameModeComponent::ItemSpawn] = area;
+	m_modeComponentMap[GameModeComponent::ItemDrop0] = new ItemDropArea(0, area);
+	m_modeComponentMap[GameModeComponent::ItemDrop1] = new ItemDropArea(1, area);
 
 	//read json file
 	nlohmann::json jsonfile = jsonIn(GAME_MODE_DATA);

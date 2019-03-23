@@ -92,16 +92,16 @@ namespace unit
 
 		kitten::K_GameObject* uNEWDUMMY = UnitSpawn::getInstance()->spawnUnitObject(13); // 13 king !!!
 		uNEWDUMMY->getComponent<unit::UnitMove>()->setTile(-1, -1);
-		uNEWDUMMY->getComponent<Unit>()->m_clientId = 1;
+//		uNEWDUMMY->getComponent<Unit>()->m_clientId = 1;
 
 		kitten::K_GameObject* uNEWDUMMY2 = UnitSpawn::getInstance()->spawnUnitObject(14); // queen !!!
 		uNEWDUMMY2->getComponent<unit::UnitMove>()->setTile(-1, -1);
-		uNEWDUMMY2->getComponent<Unit>()->m_clientId = 0;
+//		uNEWDUMMY2->getComponent<Unit>()->m_clientId = 0;
 
-		kitten::K_GameObject* u0 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
-		u0->getComponent<unit::UnitMove>()->setTile(6, 10);
-		u0->getComponent<Unit>()->m_attributes[UNIT_LV] = 3;
-		u0->getComponent<Unit>()->m_clientId = 0;
+//		kitten::K_GameObject* u0 = UnitSpawn::getInstance()->spawnUnitObject(2);//archer
+//		u0->getComponent<unit::UnitMove>()->setTile(6, 10);
+//		u0->getComponent<Unit>()->m_attributes[UNIT_LV] = 3;
+//		u0->getComponent<Unit>()->m_clientId = 0;
 
 //		kitten::K_GameObject* u1 = UnitSpawn::getInstance()->spawnUnitObject(1);//priest
 //		u1->getComponent<unit::UnitMove>()->setTile(2, 5);

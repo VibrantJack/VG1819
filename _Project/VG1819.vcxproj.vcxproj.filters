@@ -1160,10 +1160,13 @@
     <ClCompile Include="..\board\tile\gameMode\AttackDefend\DefendArea.cpp">
       <Filter>board\tile\gameMode\AttackDefendMode</Filter>
     </ClCompile>
-    <ClCompile Include="..\board\tile\gameMode\Capture\ItemKeepArea.cpp">
+    <ClCompile Include="..\board\tile\gameMode\Capture\ItemSpawnArea.cpp">
       <Filter>board\tile\gameMode\CaptureFlagMode</Filter>
     </ClCompile>
-    <ClCompile Include="..\board\tile\gameMode\Capture\ItemSpawnArea.cpp">
+    <ClCompile Include="..\board\tile\gameMode\Capture\ItemDropArea.cpp">
+      <Filter>board\tile\gameMode\CaptureFlagMode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\gameMode\Capture\CaptureItemController.cpp">
       <Filter>board\tile\gameMode\CaptureFlagMode</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2327,7 +2330,10 @@
     <ClInclude Include="..\board\tile\gameMode\Capture\ItemSpawnArea.h">
       <Filter>board\tile\gameMode\CaptureFlagMode</Filter>
     </ClInclude>
-    <ClInclude Include="..\board\tile\gameMode\Capture\ItemKeepArea.h">
+    <ClInclude Include="..\board\tile\gameMode\Capture\ItemDropArea.h">
+      <Filter>board\tile\gameMode\CaptureFlagMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\tile\gameMode\Capture\CaptureItemController.h">
       <Filter>board\tile\gameMode\CaptureFlagMode</Filter>
     </ClInclude>
   </ItemGroup>

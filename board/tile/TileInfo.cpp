@@ -10,6 +10,7 @@
 #include "kitten/K_GameObjectManager.h"
 #include "board/tile/DecorationGenerator.h"
 #include "board/BoardManager.h"
+#include "gameMode/Capture/CaptureItemController.h"
 
 TileInfo::TileInfo(int p_iPosX, int p_iPosY)
 	:
@@ -17,11 +18,12 @@ TileInfo::TileInfo(int p_iPosX, int p_iPosY)
 	m_iPosY(p_iPosY),
 	m_sOwnerId(-1),
 	m_sHighlightedBy("NONE"),
-	m_lastHighlightTexture(nullptr)
+	m_lastHighlightTexture(nullptr),
+	m_unitGO(nullptr),
+	m_landInfo(nullptr),
+	m_itemGO(nullptr)
 {
-	m_unitGO = nullptr;
-	m_landInfo = nullptr;
-
+	//init highlight type
 	for (int i = TileInfo::First; i < TileInfo::Count; ++i)
 	{
 		m_highlightType[static_cast<HighlightType>(i)] = false;
@@ -61,8 +63,7 @@ void TileInfo::setLand()
 	setDecoration();
 }
 
-
-int TileInfo::getMVCost()
+const int TileInfo::getMVCost()
 {
 	if (m_landInfo == nullptr)
 		return 1;
@@ -120,7 +121,7 @@ void TileInfo::changeHighlightTexture(puppy::Texture* p_tex)
 	}
 }
 
-bool TileInfo::isHighlighted(HighlightType p_type)
+const bool TileInfo::isHighlighted(HighlightType p_type)
 {
 	return m_highlightType[p_type];
 }
@@ -141,7 +142,7 @@ TileInfo::HighlightType TileInfo::getHighlightType()
 	return None;
 }
 
-int TileInfo::getPosX()
+const int TileInfo::getPosX()
 {
 	return m_iPosX;
 }
@@ -151,7 +152,7 @@ void TileInfo::setPosX(int p_int)
 	m_iPosX = p_int;
 }
 
-int TileInfo::getPosY()
+const int TileInfo::getPosY()
 {
 	return m_iPosY;
 }
@@ -178,7 +179,7 @@ void TileInfo::setPos(std::pair<int, int> p_pos)
 	m_iPosY = p_pos.second;
 }
 
-bool TileInfo::hasUnit()
+const bool TileInfo::hasUnit()
 {
 	return m_unitGO != nullptr;
 }
@@ -296,7 +297,29 @@ void TileInfo::triggerNewTileEvent()
 
 	ability::TimePointEvent* e = new ability::TimePointEvent(ability::TimePointEvent::New_Tile);
 	e->putGameObject("tile", &getGameObject());//put this tile obj
-	m_unitGO->getComponent<unit::Unit>()->triggerTP(ability::TimePointEvent::New_Tile, e);
+	unit::Unit* u = m_unitGO->getComponent<unit::Unit>();
+	u->triggerTP(ability::TimePointEvent::New_Tile, e);
+
+	//pick up item
+	if (hasItem())
+	{
+		//item is held by unit
+		m_itemGO->getComponent<CaptureItemController>()->setParent(u);
+
+		//remove reference
+		m_itemGO = nullptr;
+	}
+}
+
+const bool TileInfo::hasItem()
+{
+	return m_itemGO != nullptr;
+}
+
+void TileInfo::addItem(kitten::K_GameObject * p_item)
+{
+	//set reference
+	m_itemGO = p_item;
 }
 
 void TileInfo::setDecoration()

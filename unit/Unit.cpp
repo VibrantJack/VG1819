@@ -15,6 +15,8 @@ namespace unit
 {
 	Unit::Unit() : m_healthBarState(none), m_healthBar(nullptr), m_unitSelect(nullptr)
 	{
+		m_item = nullptr;
+
 		m_commander = nullptr;
 		m_turn = nullptr;
 
@@ -519,6 +521,21 @@ namespace unit
 				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Network_End_Game, eventData);
 			}			
 		}
+	}
+
+	const bool Unit::hasItem()
+	{
+		return m_itemGO != nullptr;
+	}
+
+	void Unit::addItem(kitten::K_GameObject* p_item)
+	{
+		m_itemGO = p_item;
+	}
+
+	void Unit::removeItem()
+	{
+		m_itemGO = nullptr;
 	}
 
 	void Unit::onScaleLerpFinished(kitten::K_GameObject* p_obj) //Called when healthbar is done animating

@@ -5,6 +5,12 @@
         {
             "name" : "ModelRenderable",
             "path" : "models/crystal/HandfulOfCrystals.obj"
+        },
+        {
+            "name" : "CaptureItemController",
+            "tile_offset" : [0,1,0],
+            "unit_offset" : [0,2,0],
+            "rotate_speed" : 10
         }
     ],
     "rotate" : [0,0,0],

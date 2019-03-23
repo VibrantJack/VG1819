@@ -12,11 +12,11 @@ public:
 		SpawnPoint0 = -1,//spawn point for client 0
 		Unknow = 0,//default
 		SpawnPoint1 = 1,//spawn point for client 1
-		ControlArea = 2,//king of hill mode
-		DefendArea = 3,//attack / defend mode
-		ItemSpawnArea = 4,//capture the flag mode
-		ItemDropArea0 = 5,//capture the flag mode, for client 0
-		ItemDropArea1 = 6,//capture the flag mode, for client 1
+		Control = 2,//king of hill mode
+		Defend = 3,//attack / defend mode
+		ItemSpawn = 4,//capture the flag mode
+		ItemDrop0 = 5,//capture the flag mode, for client 0
+		ItemDrop1 = 6,//capture the flag mode, for client 1
 	};
 public:
 	GameModeComponent();

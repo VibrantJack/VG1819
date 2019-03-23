@@ -1,5 +1,7 @@
 #pragma once
 #include "../GameModeManager.h"
+#include "kitten/K_Common.h"
+#include <vector>
 
 class ItemSpawnArea : public GameModeComponent
 {
@@ -9,6 +11,9 @@ public:
 
 	virtual void check() override;
 	virtual void setProperty(nlohmann::json* p_jsonfile) override;
+
+	//this item is dropped on drop area
+	void dropItem(kitten::K_GameObject* p_item);
 private:
 	//number of items to spawn each time
 	int m_itemPerSpawn;
@@ -22,4 +27,8 @@ private:
 
 	//item path
 	std::string m_itemPath;
+
+	//item pool
+	std::vector<kitten::K_GameObject*> m_inactiveItemList;
+	std::vector<kitten::K_GameObject*> m_activeItemList;
 };

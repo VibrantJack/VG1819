@@ -61,6 +61,8 @@ namespace unit
 		std::string m_autoAbility;
 		void setAutoAbility(const std::string& p_name);
 
+		//item
+		kitten::K_GameObject* m_itemGO;
 	public:
 		//members
 
@@ -150,5 +152,10 @@ namespace unit
 		// Portrait Texture
 		void setPortraitTexturePath(const std::string& p_path) { m_portraitTexturePath = p_path; }
 		const std::string& getPortraitTexturePath() const { return m_portraitTexturePath; }
+
+		//item, capture the flag mode
+		const bool hasItem();
+		void addItem(kitten::K_GameObject* p_item);
+		void removeItem();
 	};
 }

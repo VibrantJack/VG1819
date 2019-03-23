@@ -35,27 +35,27 @@ public:
 	void start();
 	void setLand();
 
-	int getMVCost();
+	const int getMVCost();
 	const std::string getDescription();
 	void effect(ability::TimePointEvent::TPEventType p_tp, unit::Unit* p_u);
 
 	//highlight 
 	void changeHighlightTexture(puppy::Texture* p_tex);
-	bool isHighlighted(HighlightType p_type);
+	const bool isHighlighted(HighlightType p_type);
 	void setHighlighted(HighlightType p_type, bool p_bool);
 	HighlightType getHighlightType();
 
 	//position
-	int getPosX();
+	const int getPosX();
 	void setPosX(int p_int);
-	int getPosY();
+	const int getPosY();
 	void setPosY(int p_int);
 	std::pair<int, int> getPos();
 	void setPos(int p_x, int p_z);
 	void setPos(std::pair<int, int> p_pos);
 
 	//unit on this tile
-	bool hasUnit();
+	const bool hasUnit();
 	void setUnit(kitten::K_GameObject* p_u);
 	void removeUnit();
 	kitten::K_GameObject* getUnit();
@@ -76,6 +76,11 @@ public:
 
 	//trigger new tile event when tile attribute is changed
 	void triggerNewTileEvent();
+
+	//item
+	const bool hasItem();
+	void addItem(kitten::K_GameObject* p_item);
+
 private:
 	//attribute
 	int m_iPosX, m_iPosY;
@@ -88,13 +93,15 @@ private:
 	std::string m_sHighlightedBy;
 	puppy::Texture* m_lastHighlightTexture;
 
-
 	//component
-	kitten::K_GameObject* m_unitGO;
 	LandInformation::TileType m_tileType;
 	LandInformation* m_landInfo;
 	kitten::QuadRenderableRepeat* m_quadRenderable;
 	kitten::QuadEdgeRenderable* m_edge;
+
+	kitten::K_GameObject* m_unitGO;//unit
+	kitten::K_GameObject* m_itemGO;//item
+
 
 	//adjcent tiles
 	std::vector<kitten::K_GameObject*> m_adjTileList;

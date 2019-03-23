@@ -1995,6 +1995,31 @@ kitten::K_Component* getToggleSiblingEnabledOnClick(nlohmann::json* p_jsonFile) 
 	return new ToggleSiblingEnabledOnClick();
 }
 
+#include "board/tile/gameMode/Capture/CaptureItemController.h"
+kitten::K_Component* getCaptureItemController(nlohmann::json* p_jsonFile) {
+	glm::vec3 tOffset, uOffset;
+	if (JSONHAS("tile_offset"))
+	{
+		tOffset = glm::vec3(LOOKUP("tile_offset")[0], LOOKUP("tile_offset")[1], LOOKUP("tile_offset")[2]);
+	}
+
+	if (JSONHAS("unit_offset"))
+	{
+		uOffset = glm::vec3(LOOKUP("unit_offset")[0], LOOKUP("unit_offset")[1], LOOKUP("unit_offset")[2]);
+	}
+
+	CaptureItemController* comp = new CaptureItemController();
+	comp->setTileOffset(tOffset);
+	comp->setUnitOffset(uOffset);
+
+	if (JSONHAS("rotate_speed"))
+	{
+		comp->setRotateSpeed(LOOKUP("rotate_speed"));
+	}
+
+	return comp;
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -2155,6 +2180,7 @@ void setupComponentMap() {
 	jsonComponentMap["BGMManager"] = &getBGMManager;
 	jsonComponentMap["PlayBGMOnSceneChange"] = &getPlayBGMOnSceneChange;
 	jsonComponentMap["ToggleSiblingEnabledOnClick"] = &getToggleSiblingEnabledOnClick;
+	jsonComponentMap["CaptureItemController"] = &getCaptureItemController;
 
 }
 

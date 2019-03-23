@@ -1,15 +1,16 @@
-#include "ItemKeepArea.h"
+#include "ItemDropArea.h"
 
-ItemKeepArea::ItemKeepArea(int p_id)
-	:m_clientId(p_id)
+ItemDropArea::ItemDropArea(int p_id, ItemSpawnArea* p_area)
+	:m_clientId(p_id),
+	m_spawnArea(p_area)
 {
 }
 
-ItemKeepArea::~ItemKeepArea()
+ItemDropArea::~ItemDropArea()
 {
 }
 
-void ItemKeepArea::check()
+void ItemDropArea::check()
 {
 	for (auto info : m_tileList)
 	{
@@ -32,7 +33,7 @@ void ItemKeepArea::check()
 	}
 }
 
-void ItemKeepArea::setProperty(nlohmann::json * p_jsonfile)
+void ItemDropArea::setProperty(nlohmann::json * p_jsonfile)
 {
 	m_pointPerItem = p_jsonfile->operator[]("point_per_item");
 

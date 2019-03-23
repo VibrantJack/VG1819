@@ -22,7 +22,7 @@
             "item_per_spawn": 1,
             "turn_for_next_spawn":2,
             "delay":0,
-            "item_path":""
+            "item_path":"crystal.json"
         },
         {
             "name" : "ItemDropArea0",
