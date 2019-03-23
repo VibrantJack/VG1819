@@ -168,6 +168,27 @@
 				},
 				{
 					"sound" : ["fanfare", "sounds/fanfare.json"]
+				},
+				{
+					"sound" : ["monster_grunt", "sounds/monster_grunt.json"]
+				},
+				{
+					"sound" : ["zombie_scream", "sounds/zombie_scream.json"]
+				},
+				{
+					"sound" : ["fizzle", "sounds/fizzle.json"]
+				},
+				{
+					"sound" : ["execute", "sounds/execute.json"]
+				},
+				{
+					"sound" : ["attach", "sounds/attach.json"]
+				},
+				{
+					"sound" : ["drain", "sounds/drain.json"]
+				},
+				{
+					"sound" : ["health_link", "sounds/health_link.json"]
 				}
 			]
 		}

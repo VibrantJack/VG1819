@@ -1,9 +1,14 @@
 #include "BGMManager.h"
+
+#include "SoundFader.h"
+
 #include "kitten\K_GameObjectManager.h"
+
 
 BGMManager* BGMManager::sm_instance = nullptr;
 
-BGMManager::BGMManager(const std::list<std::pair<std::string, std::string>>& p_soundsToCreate) : m_soundsToCreate(p_soundsToCreate), m_playingSource(nullptr)
+BGMManager::BGMManager(const std::list<std::pair<std::string, std::string>>& p_soundsToCreate, float p_crossFadeTime) : 
+	m_soundsToCreate(p_soundsToCreate), m_playingSource(nullptr), m_crossFadeTime(p_crossFadeTime)
 {
 	assert(sm_instance == nullptr);
 	sm_instance = this;
@@ -59,11 +64,13 @@ void BGMManager::privatePlayBGM(const std::string& p_name)
 
 		if (m_playingSource != nullptr)
 		{
-			m_playingSource->stop();
+			SoundFader* playingFader = m_playingSource->getGameObject().getComponent<SoundFader>();
+			playingFader->fadeOut(m_crossFadeTime);
 		}
 
 		auto source = (*found).second.source;
-		source->play();
+		SoundFader* fader = source->getGameObject().getComponent<SoundFader>();
+		fader->fadeIn(m_crossFadeTime, (*found).second.originalVolume * m_volume);
 
 		m_playingSource = source;
 		m_playingName = p_name;

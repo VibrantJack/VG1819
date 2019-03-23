@@ -3,6 +3,7 @@
 	"components" : [
 		{
 			"name" : "BGMManager",
+			"cross_fade_time" : 8.0,
 			"tracks" : [
 				{
 					"track" : ["Truth in the Stones", "sounds/bgm/stones.json"]

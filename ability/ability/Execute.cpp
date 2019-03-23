@@ -47,6 +47,8 @@ namespace ability
 			changeCounter(p_info->m_source, name, delta);
 		}
 
+		UniversalSounds::playSound("execute");
+
 		done(p_info);
 
 		return 0;
