@@ -20,6 +20,7 @@ private:
 	userinterface::TriggerEventButton* m_scrollDownButton = nullptr;
 	kitten::K_GameObject* m_newMessageIcon = nullptr;
 
+	std::string m_playerName = "";
 	std::string m_textInputLastText = "";
 	int m_currentTextInputWidth = 0;
 	glm::vec2 m_textInputOriginalPos = glm::vec2(0.0f, 0.0f);

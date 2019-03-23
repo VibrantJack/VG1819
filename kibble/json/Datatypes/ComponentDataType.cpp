@@ -2058,6 +2058,13 @@ kitten::K_Component* getSoundFader(nlohmann::json* p_jsonFile) {
 	return new SoundFader();
 }
 
+#include "components\EnterNameScreen.h"
+kitten::K_Component* getEnterNameScreen(nlohmann::json* p_jsonFile) {
+	int minNameLength = p_jsonFile->operator[]("name_min_limit");
+	int maxNameLength = p_jsonFile->operator[]("name_max_limit");
+	return new EnterNameScreen(minNameLength, maxNameLength);
+}
+
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
 void setupComponentMap() {
 	jsonComponentMap["MoveByMouseRightClickDrag"] = &getMoveByMouseRightClickDrag;
@@ -2221,6 +2228,7 @@ void setupComponentMap() {
 	jsonComponentMap["ToggleSiblingEnabledOnClick"] = &getToggleSiblingEnabledOnClick;
 	jsonComponentMap["TogglePhotoModeOnKeyPress"] = &getTogglePhotoModeOnKeyPress;
 	jsonComponentMap["SoundFader"] = &getSoundFader;
+	jsonComponentMap["EnterNameScreen"] = &getEnterNameScreen;
 
 }
 
