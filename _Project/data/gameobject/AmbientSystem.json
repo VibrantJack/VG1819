@@ -11,7 +11,7 @@
 					"pos" : [12.7, 0.1, 14.8],
 					"filename" : "Universal Pfx/Ambient/frogs.json",
 					"loops" : false,
-					"min_time" : 10,
+					"min_time" : 30,
 					"max_time" : 80
 				},
 				{
@@ -39,8 +39,8 @@
 					"pos" : [-3, -1, 7],
 					"filename" : "Universal Pfx/Ambient/birds.json",
 					"loops" : false,
-					"min_time" : 21,
-					"max_time" : 50
+					"min_time" : 20,
+					"max_time" : 40
 				}
 			]
 		}

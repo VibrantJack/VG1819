@@ -8,7 +8,7 @@
 			"mindistance" : 1.5,
 			"enableeffects" : false,
 			"loop" : true,
-			"volume" : 0.4,
+			"volume" : 0.2,
 			"getsducked" : false
 		}
 	]

@@ -5,10 +5,10 @@
 			"name" : "AudioSource",
 			"clippath" : "Sounds/sfx/ambient/frogs_temp.wav",
 			"is3d" : true,
-			"mindistance" : 1.5,
+			"mindistance" : 1.0,
 			"enableeffects" : false,
 			"loop" : false,
-			"volume" : 0.4,
+			"volume" : 0.3,
 			"getsducked" : false
 		}
 	]
