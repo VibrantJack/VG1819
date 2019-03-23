@@ -12,5 +12,11 @@ LoadSceneOnFrame2::~LoadSceneOnFrame2()
 
 void LoadSceneOnFrame2::update()
 {
+	if (!m_hasWaited)
+	{
+		m_hasWaited = true;
+		return;
+	}
+
 	kitten::K_Instance::changeScene(m_sceneName);
 }

@@ -1,0 +1,21 @@
+{
+	"name" : "PooleCorruptUPFX",
+  "components": [
+    {
+      "name": "K_ParticleSystem",
+      "effectpath": "data/particles/universal/effects/corrupt.xml"
+    },
+    {
+      "name": "PlayParticleSystemOnEnable"
+    },
+    {
+      "name": "HaltParticleSystemAfterTime",
+      "stop":  false,
+      "time": 2.0
+    },
+    {
+      "name": "DisableAfterTime",
+      "time": 4.0
+    }
+  ]
+}

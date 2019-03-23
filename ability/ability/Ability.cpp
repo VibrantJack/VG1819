@@ -59,7 +59,6 @@ void ability::Ability::multiTargetDamage(AbilityInfoPackage* p_info, bool p_fire
 	if (p_fireProjectile)
 	{
 		ProjectileManager::multiDamageFireProjectile(m_name, p_info->m_source, this, p_info);
-	//	UniversalPfx::getInstance()->addEffectToGroup(m_name, p_info->m_clickedObject->getTransform().getTranslation());
 	}
 	else
 	{

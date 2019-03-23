@@ -27,6 +27,7 @@ namespace networking
 
 		static int sm_iClientId;
 		static bool sm_networkValid;
+		static std::string sm_playerName;
 		static ClientGame* sm_clientGameInstance;
 
 		float m_timeElapsed;
@@ -41,6 +42,8 @@ namespace networking
 		static void destroyInstance();
 		static ClientGame* getInstance();
 		static bool isNetworkValid() { return sm_networkValid; }
+		static void setPlayerName(const std::string& p_name) { sm_playerName = p_name; }
+		static const std::string& getPlayerName() { return sm_playerName; }
 
 		void setupNetwork(const std::string &p_strAddr = "127.0.0.1");
 		void disconnectFromNetwork(bool p_bServerShutdown = false);

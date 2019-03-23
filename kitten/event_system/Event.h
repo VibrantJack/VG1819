@@ -35,6 +35,9 @@
 #define PLAYER_DISCONNECTED 2
 #define CLIENT_DESYNCED 3
 
+// Scenes
+#define DECK_MENU_SCENE "deck_menu.json"
+
 #include "kitten/K_GameObject.h"
 
 #include <unordered_map>
