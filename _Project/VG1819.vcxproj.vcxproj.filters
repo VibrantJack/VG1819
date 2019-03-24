@@ -1145,6 +1145,15 @@
     <ClCompile Include="..\networking\Quickplay.cpp">
       <Filter>networking</Filter>
     </ClCompile>
+    <ClCompile Include="TogglePhotoModeOnKeyPress.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundFader.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\components\EnterNameScreen.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\kitten\K_Common.h">
@@ -2290,6 +2299,15 @@
     </ClInclude>
     <ClInclude Include="..\networking\Quickplay.h">
       <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="TogglePhotoModeOnKeyPress.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundFader.h">
+      <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\components\EnterNameScreen.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

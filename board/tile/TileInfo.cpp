@@ -217,7 +217,7 @@ void TileInfo::setOwnerId(const int p_sId)
 		m_edge->setTexture(P2_EDGE_TEXTURE);
 	}
 
-	m_edge->setEnabled(true);
+	//m_edge->setEnabled(true);
 }
 
 const std::string& TileInfo::getHighlightedBy()

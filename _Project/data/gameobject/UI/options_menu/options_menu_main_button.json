@@ -8,12 +8,12 @@
 			"components" : [
 				{
 					"name" : "UIObject",
-					"texture" : "textures/ui/buttons/button_options.tga"
+					"texture" : "textures/ui/buttons/button_options.dds"
 				},
 				{
 					"name" : "ClickableButton",
-					"regularTexture" : "textures/ui/buttons/button_options.tga",
-					"highlightedTexture" : "textures/ui/buttons/button_options_h.tga"
+					"regularTexture" : "textures/ui/buttons/button_options.dds",
+					"highlightedTexture" : "textures/ui/buttons/button_options_h.dds"
 				},
 				{
 					"name" : "ClickableFrame"

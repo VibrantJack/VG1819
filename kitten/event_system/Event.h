@@ -38,6 +38,9 @@
 #define SERVER_PLAYER_COUNT_KEY "server_player_count_key"
 #define SERVER_ACTIVE_SESSIONS_KEY "server_active_sessions_key"
 
+// Scenes
+#define DECK_MENU_SCENE "deck_menu.json"
+
 #include "kitten/K_GameObject.h"
 
 #include <unordered_map>

@@ -250,6 +250,7 @@
     <ClCompile Include="..\components\DisplayFrame\UnitDisplayFrame.cpp" />
     <ClCompile Include="..\components\DragNDrop\SpawnUnitOnDrop.cpp" />
     <ClCompile Include="..\components\DrawCardOnClickUI.cpp" />
+    <ClCompile Include="..\components\EnterNameScreen.cpp" />
     <ClCompile Include="..\components\initializers\DrawCardsFromDeckWithDelay.cpp" />
     <ClCompile Include="..\components\MainMenuBoard.cpp" />
     <ClCompile Include="..\components\PromptPopUp.cpp" />
@@ -455,6 +456,7 @@
     <ClCompile Include="DisableAfterTime.cpp" />
     <ClCompile Include="DisableParentOnClick.cpp" />
     <ClCompile Include="FadePointLightOverTime.cpp" />
+    <ClCompile Include="SoundFader.cpp" />
     <ClCompile Include="FPSCalc.cpp" />
     <ClCompile Include="HaltParticleSystemAfterTime.cpp" />
     <ClCompile Include="IncreaseBGMVolumeOnClick.cpp" />
@@ -482,6 +484,7 @@
     <ClCompile Include="ShowLoadingOnClick.cpp" />
     <ClCompile Include="CardArt.cpp" />
     <ClCompile Include="StringInputDisplay.cpp" />
+    <ClCompile Include="TogglePhotoModeOnKeyPress.cpp" />
     <ClCompile Include="ToggleSiblingEnabledOnClick.cpp" />
     <ClCompile Include="ToggleChildEnabledOnKeyPress.cpp" />
     <ClCompile Include="ToggleParticleSystemOnKeyPress.cpp" />
@@ -614,6 +617,7 @@
     <ClInclude Include="..\components\DisplayFrame\UnitDisplayFrame.h" />
     <ClInclude Include="..\components\DragNDrop\SpawnUnitOnDrop.h" />
     <ClInclude Include="..\components\DrawCardOnClickUI.h" />
+    <ClInclude Include="..\components\EnterNameScreen.h" />
     <ClInclude Include="..\components\ExitGameButton.h" />
     <ClInclude Include="..\components\initializers\DrawCardsFromDeckWithDelay.h" />
     <ClInclude Include="..\components\MainMenuBoard.h" />
@@ -842,6 +846,7 @@
     <ClInclude Include="DisableAfterTime.h" />
     <ClInclude Include="DisableParentOnClick.h" />
     <ClInclude Include="FadePointLightOverTime.h" />
+    <ClInclude Include="SoundFader.h" />
     <ClInclude Include="FPSCalc.h" />
     <ClInclude Include="HaltParticleSystemAfterTime.h" />
     <ClInclude Include="IncreaseBGMVolumeOnClick.h" />
@@ -868,6 +873,7 @@
     <ClInclude Include="ShowLoadingOnClick.h" />
     <ClInclude Include="SoundNames.h" />
     <ClInclude Include="StringInputDisplay.h" />
+    <ClInclude Include="TogglePhotoModeOnKeyPress.h" />
     <ClInclude Include="ToggleSiblingEnabledOnClick.h" />
     <ClInclude Include="ToggleChildEnabledOnKeyPress.h" />
     <ClInclude Include="ToggleParticleSystemOnKeyPress.h" />

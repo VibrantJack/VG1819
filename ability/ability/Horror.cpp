@@ -73,6 +73,8 @@ namespace ability
 			}
 		}
 
+		UniversalSounds::playSound("zombie_scream");
+
 		done(p_info);
 
 		return 0;
