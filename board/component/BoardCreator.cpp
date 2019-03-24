@@ -19,6 +19,8 @@
 #include "board/clickable/SendSelfOnClick.h"
 //tile
 #include "board/tile/TileInfo.h"
+//ambients
+#include "_Project\AmbientSystemController.h"
 
 #include "board/BoardManager.h"
 
@@ -166,4 +168,29 @@ kitten::K_GameObject * BoardCreator::createTile(int x, int z, LandInformation::T
 	kitten::Transform& transform = tileGO->getTransform();
 	transform.move(x, -1, z);
 	return tileGO;
+
+	//ambient particles
+	switch (p_type)
+	{
+	case LandInformation::TileType::Swamp_land:
+	{
+
+		break;
+	}
+	case LandInformation::TileType::Sand_land:
+	{
+
+		break;
+	}
+	case LandInformation::TileType::Water_land:
+	{
+
+		break;
+	}
+	case LandInformation::TileType::Garden_land:
+	{
+
+		break;
+	}
+	}
 }
