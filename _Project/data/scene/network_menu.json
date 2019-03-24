@@ -99,8 +99,11 @@
 			"name" : "Quickplay Button",
 			"components" : [
 				{
+					"name" : "ShowLoadingOnClick"
+				},
+				{
 					"name" : "UIObject",
-					"texture" : "textures/ui/buttons/join_button_small.tga"
+					"texture" : "textures/ui/buttons/button_quickplay.dds"
 				},
 				{
 					"name" : "PlayUniversalSoundOnUIClick",
@@ -108,8 +111,8 @@
 				},
 				{
 					"name" : "TriggerEventButton",
-					"regularTexture" : "textures/ui/buttons/join_button_small.tga",
-					"highlightedTexture" : "textures/ui/buttons/join_button_small_h.tga",
+					"regularTexture" : "textures/ui/buttons/button_quickplay.dds",
+					"highlightedTexture" : "textures/ui/buttons/button_quickplay_h.dds",
 					"event" : "Quickplay"
 				},
 				{

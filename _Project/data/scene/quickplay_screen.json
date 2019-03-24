@@ -43,6 +43,9 @@
             "name" : "Back Button",
             "components" : [
 				{
+					"name" : "ShowLoadingOnClick"
+				},
+				{
 					"name" : "ChangeSceneOnClick",
 					"scene" : "network_menu.json"					
 				},

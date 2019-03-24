@@ -56,7 +56,7 @@ namespace networking
 		void changeActiveSessions(int p_toAdd) { m_activeSessions += p_toAdd; }
 		bool hasServerInfoChanged() { return m_serverInfoChanged; }
 		void setServerInfoChanged(bool p_changed);
-		const SOCKET getClientSocket(unsigned int p_clientId) const;
+		void sendServerInfo();
 
 		const std::string& getError() const { return m_strError; }
 

@@ -34,9 +34,6 @@
 #define CLIENT_COMMANDER_DIED 1
 #define PLAYER_DISCONNECTED 2
 #define CLIENT_DESYNCED 3
-#define UPDATE_SERVER_STATUS_KEY "update_server_status_key"
-#define UPDATE_SERVER_PLAYER_COUNT_KEY "update_server_player_count_key"
-#define UPDATE_SERVER_ACTIVE_SESSIONS_KEY "update_server_active_sessions_key"
 #define SERVER_STATUS_KEY "server_status_key"
 #define SERVER_PLAYER_COUNT_KEY "server_player_count_key"
 #define SERVER_ACTIVE_SESSIONS_KEY "server_active_sessions_key"

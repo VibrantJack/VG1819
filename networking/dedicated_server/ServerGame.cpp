@@ -125,7 +125,7 @@ namespace networking
 
 		if (m_network->m_serverInfoChanged)
 		{
-			sendServerInfo();
+			m_network->sendServerInfo();
 			m_network->setServerInfoChanged(false);
 		}
 
@@ -262,22 +262,5 @@ namespace networking
 		{
 			p_client->m_gameSession->removePlayer(p_client);
 		}
-	}
-
-	void ServerGame::sendServerInfo()
-	{
-		char packetData[SERVER_INFO_PACKET_SIZE];
-		Buffer buffer;
-		buffer.m_data = packetData;
-		buffer.m_size = SERVER_INFO_PACKET_SIZE;
-
-		ServerInfoPacket packet;
-		packet.m_packetType = UPDATE_SERVER_INFO;
-		packet.m_clientId = -1;
-		packet.m_playerCount = m_network->m_playerCount;
-		packet.m_activeSessions = m_network->m_activeSessions;
-
-		packet.serialize(buffer);
-		m_network->sendToAll(packetData, SERVER_INFO_PACKET_SIZE);
 	}
 }

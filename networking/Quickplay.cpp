@@ -142,6 +142,8 @@ void Quickplay::setServerStatus(int p_status)
 			m_serverStatus->setText("Offline");
 			m_findGameButtonFrame->setEnabled(false);
 			m_findGameButton->setActive(false);
+			m_playerCount->setText("-");
+			m_activeSessions->setText("-");
 			break;
 		}
 		case 1:

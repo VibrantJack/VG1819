@@ -65,6 +65,7 @@ namespace networking
 	ClientGame::ClientGame(const std::string &p_strAddr) : m_bGameTurnStart(false), m_timeElapsed(0.0f)
 	{
 		setupNetwork(p_strAddr);
+		m_log = new NetworkLog(CLIENT_LOG);
 
 		kitten::EventManager::getInstance()->addListener(
 			kitten::Event::EventType::Board_Loaded,
@@ -99,7 +100,6 @@ namespace networking
 		if (m_network->init(p_strAddr))
 		{ 
 			sm_networkValid = true;
-			m_log = new NetworkLog(CLIENT_LOG);
 		}
 		else
 		{
@@ -120,29 +120,25 @@ namespace networking
 
 	void ClientGame::disconnectFromNetwork(bool p_bServerShutdown)
 	{
-		// If Server sent disconnect then no need to send packet to server
-			// Send a packet to alert server that client is disconnecting
-			char data[BASIC_PACKET_SIZE];
+		// Send a packet to alert server that client is disconnecting
+		char data[BASIC_PACKET_SIZE];
 
-			Buffer buffer;
-			buffer.m_data = data;
-			buffer.m_size = BASIC_PACKET_SIZE;
+		Buffer buffer;
+		buffer.m_data = data;
+		buffer.m_size = BASIC_PACKET_SIZE;
 
-			Packet packet;
-			packet.m_packetType = CLIENT_DISCONNECT;
-			packet.m_clientId = sm_iClientId;		
+		Packet packet;
+		packet.m_packetType = CLIENT_DISCONNECT;
+		packet.m_clientId = sm_iClientId;		
 
-			packet.serialize(buffer);
-			NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
+		packet.serialize(buffer);
+		NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
 
 		// Shutdown ClientNetwork
 		if (m_network != nullptr)
 		{
 			delete m_network;
 			m_network = nullptr;
-			
-			delete m_log;
-			m_log = nullptr;
 		}
 
 		sm_networkValid = false;
@@ -440,7 +436,6 @@ namespace networking
 
 				std::stringstream message;
 				message << "Client:" << sm_iClientId << " received UPDATE_SERVER_INFO";
-				message << "\n\t Server Status: " << serverInfoPacket.m_serverStatus;
 				message << "\n\t Player Count: " << serverInfoPacket.m_playerCount;
 				message << "\n\t Active Game Sessions: " << serverInfoPacket.m_clientId;
 				m_log->logMessage(message.str());
@@ -450,9 +445,8 @@ namespace networking
 
 				// Send the Server info to the Quickplay class
 				kitten::Event* eventData = new kitten::Event(kitten::Event::Update_Server_Info);
-				eventData->putInt(SERVER_STATUS_KEY, serverInfoPacket.m_serverStatus);
 				eventData->putInt(SERVER_PLAYER_COUNT_KEY, serverInfoPacket.m_playerCount);
-				eventData->putInt(SERVER_ACTIVE_SESSIONS_KEY, serverInfoPacket.m_clientId);
+				eventData->putInt(SERVER_ACTIVE_SESSIONS_KEY, serverInfoPacket.m_activeSessions);
 				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Server_Info, eventData);
 
 				break;

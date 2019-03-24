@@ -3,7 +3,7 @@
 	"components" : [
 		{
 			"name" : "UIObject",
-			"texture" : "textures/ui/buttons/join_button_small.tga"
+			"texture" : "textures/ui/buttons/button_find_game.dds"
 		},
 		{
 			"name" : "PlayUniversalSoundOnUIClick",
@@ -11,8 +11,9 @@
 		},
 		{
 			"name" : "TriggerEventButton",
-			"regularTexture" : "textures/ui/buttons/join_button_small.tga",
-			"highlightedTexture" : "textures/ui/buttons/join_button_small_h.tga",
+			"regularTexture" : "textures/ui/buttons/button_find_game.dds",
+			"highlightedTexture" : "textures/ui/buttons/button_find_game_h.dds",
+			"inactiveTexture" : "textures/ui/buttons/button_find_game_i.dds",
 			"event" : "Quickplay_Find_Game"
 		},
 		{

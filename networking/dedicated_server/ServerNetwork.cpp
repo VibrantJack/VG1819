@@ -298,16 +298,20 @@ namespace networking
 		m_serverInfoChanged = p_changed;
 	}
 
-	const SOCKET ServerNetwork::getClientSocket(unsigned int p_clientId) const
+	void ServerNetwork::sendServerInfo()
 	{
-		auto it = m_sessions.find(p_clientId);
-		if (it != m_sessions.end())
-		{
-			return (*it).second->m_socket;
-		}
-		else
-		{
-			return INVALID_SOCKET;
-		}
+		char packetData[SERVER_INFO_PACKET_SIZE];
+		Buffer buffer;
+		buffer.m_data = packetData;
+		buffer.m_size = SERVER_INFO_PACKET_SIZE;
+
+		ServerInfoPacket packet;
+		packet.m_packetType = UPDATE_SERVER_INFO;
+		packet.m_clientId = -1;
+		packet.m_playerCount = m_playerCount;
+		packet.m_activeSessions = m_activeSessions;
+
+		packet.serialize(buffer);
+		sendToAll(packetData, SERVER_INFO_PACKET_SIZE);
 	}
 }

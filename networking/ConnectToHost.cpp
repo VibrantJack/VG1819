@@ -209,26 +209,6 @@ void ConnectToHost::joinLocalhost()
 
 void ConnectToHost::joinDedicatedServer()
 {
-	//// Try to connect to server
-	//// Switch to Quickplay screen regardless of connection outcome
-
-	//networking::ClientGame* client = networking::ClientGame::getInstance();
-
-	//// Check if we've already created an instance of ClientGame
-	//if (client)
-	//{
-	//	// Check if we're already polled for a host, then disconnect from it if we have
-	//	if (networking::ClientGame::isNetworkValid())
-	//	{
-	//		client->disconnectFromNetwork();
-	//	}
-	//	client->connectToDedicatedServer();
-	//} 
-	//else // If not, get address and create ClientGame instance
-	//{
-	//	networking::ClientGame::createInstance(client->getDedicatedServerAddress());
-	//}
-
 	kitten::K_Instance::changeScene("quickplay_screen.json");
 
 	m_bConnect = false;

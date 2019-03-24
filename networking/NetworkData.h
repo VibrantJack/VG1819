@@ -258,14 +258,12 @@ struct StartingCommandersPacket : Packet
 
 struct ServerInfoPacket : Packet
 {
-	int m_serverStatus = -1;
 	int m_playerCount = -1;
 	int m_activeSessions = -1;
 
 	void serialize(Buffer& p_buffer)
 	{
 		Packet::serialize(p_buffer);
-		writeInt(p_buffer, m_serverStatus);
 		writeInt(p_buffer, m_playerCount);
 		writeInt(p_buffer, m_activeSessions);
 	}
@@ -273,7 +271,6 @@ struct ServerInfoPacket : Packet
 	void deserialize(Buffer& p_buffer)
 	{
 		Packet::deserialize(p_buffer);
-		m_serverStatus = readInt(p_buffer);
 		m_playerCount = readInt(p_buffer);
 		m_activeSessions = readInt(p_buffer);
 	}

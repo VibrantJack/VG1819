@@ -36,7 +36,6 @@ namespace networking
 		bool findAvailableSession(ServerNetwork::ClientInfo* p_info);
 		void removeClientFromSession(ServerNetwork::ClientInfo* p_info);
 
-		void sendServerInfo();
 		void flagShutdown(bool p_flag) { m_shutdown = p_flag; }
 
 	private:
