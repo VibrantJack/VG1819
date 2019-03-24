@@ -4,8 +4,8 @@
 #include "networking\dedicated_server\GameSession.h"
 #include <vector>
 
-#define MAX_JOINED_CLIENTS 2
-#define MAX_GAME_SESSIONS 1
+#define MAX_PLAYERS_PER_SESSION 2
+#define MAX_GAME_SESSIONS 10
 
 namespace networking
 {

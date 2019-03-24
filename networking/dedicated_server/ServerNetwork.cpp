@@ -108,7 +108,6 @@ namespace networking
 		closesocket(m_listenSocket);
 		m_listenSocket = INVALID_SOCKET;
 
-		SOCKET currentSocket;
 		for (auto iter = m_sessions.begin(); iter != m_sessions.end(); iter++)
 		{
 			ClientInfo* client = iter->second;

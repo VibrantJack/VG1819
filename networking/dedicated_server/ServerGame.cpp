@@ -92,7 +92,7 @@ namespace networking
 	{
 		for (int i = 0; i < MAX_GAME_SESSIONS; ++i)
 		{
-			GameSession* session = new GameSession(i, MAX_JOINED_CLIENTS, m_network);
+			GameSession* session = new GameSession(i, MAX_PLAYERS_PER_SESSION, m_network);
 			m_gameSessions.push_back(session);
 		}
 	}

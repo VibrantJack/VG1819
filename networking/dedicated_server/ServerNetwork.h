@@ -9,8 +9,7 @@
 #pragma comment (lib, "Ws2_32.lib")
 
 #define DEFAULT_BUFLEN 512
-#define DEFAULT_PORT "6881" 
-#define MAX_CLIENTS 2
+#define DEFAULT_PORT "6881"
 
 namespace networking
 {

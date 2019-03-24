@@ -31,6 +31,7 @@
     <ClInclude Include="..\ability\AbilityMacro.h" />
     <ClInclude Include="..\networking\dedicated_server\GameSession.h" />
     <ClInclude Include="..\networking\dedicated_server\NetworkData.h" />
+    <ClInclude Include="..\networking\dedicated_server\NetworkingCommon.h" />
     <ClInclude Include="..\networking\dedicated_server\NetworkLog.h" />
     <ClInclude Include="..\networking\dedicated_server\NetworkServices.h" />
     <ClInclude Include="..\networking\dedicated_server\ServerGame.h" />

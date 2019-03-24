@@ -242,7 +242,7 @@ namespace networking
 					break;
 				}
 				default:
-					printf("[GameSession: %d]: error in packet types received from [Client %d], value: %d\n", sessionClientId, defaultPacket.m_packetType);
+					printf("[GameSession: %d]: error in packet types received from [Client %d], value: %d\n", m_sessionId, sessionClientId, defaultPacket.m_packetType);
 					i += (unsigned int)data_length;
 					break;
 				}

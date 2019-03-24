@@ -1,10 +1,10 @@
 #pragma once
+#include "networking\dedicated_server\NetworkingCommon.h"
 #include <string.h>
 
 // For ResizablePacket
 #include <vector>
 #include <unordered_map>
-#include "kitten\K_GameObject.h"
 
 #define MAX_PACKET_SIZE 1000000
 #define MAX_CHAR_BUFSIZE 512
@@ -271,11 +271,12 @@ struct ServerInfoPacket : Packet
 	}
 };
 
+
 class AbilityPacket
 {
-	//typedef std::vector<unit::Unit*> TargetUnits;
+	//typedef std::vector<unit::Unit*> TargetUnits; // Not used by server
 	typedef std::unordered_map<std::string, int> IntValues;
-	typedef std::vector<kitten::K_GameObject*>  TargetTiles;
+	//typedef std::vector<kitten::K_GameObject*>  TargetTiles; // Not used by server
 public:
 	int m_packetType = ABILITY_PACKET;
 	int m_clientId;
@@ -308,7 +309,7 @@ private:
 
 	int m_numTargetTiles;
 	std::vector<std::pair<int, int>> m_targetTiles;
-	TargetTiles m_targetTilesGO;
+	//TargetTiles m_targetTilesGO; // Not used by server
 
 	std::pair<int, int> m_clickedObjectPos = { -1, -1 };
 

@@ -46,5 +46,6 @@
     <ClInclude Include="..\networking\dedicated_server\GameSession.h">
       <Filter>networking</Filter>
     </ClInclude>
+    <ClInclude Include="..\networking\dedicated_server\NetworkingCommon.h" />
   </ItemGroup>
 </Project>
