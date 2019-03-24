@@ -104,10 +104,10 @@ void ItemSpawnArea::dropItem(kitten::K_GameObject * p_item)
 			m_activeItemList.erase(it);
 
 			//disable it
-			(*it)->setEnabled(false);
+			p_item->setEnabled(false);
 
 			//add to inactive list
-			m_inactiveItemList.push_back(*it);
+			m_inactiveItemList.push_back(p_item);
 
 			//done
 			break;
