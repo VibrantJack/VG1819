@@ -445,11 +445,13 @@
     <ClCompile Include="..\unit\UnitTest.cpp" />
     <ClCompile Include="..\wolf\W_Common.cpp" />
     <ClCompile Include="AmbientSystemController.cpp" />
+    <ClCompile Include="AmbientVolumeController.cpp" />
     <ClCompile Include="BGMManager.cpp" />
     <ClCompile Include="BGMVolumeController.cpp" />
     <ClCompile Include="ClickableBoxRenderable.cpp" />
     <ClCompile Include="CombatText.cpp" />
     <ClCompile Include="DebugPrintOnce.cpp" />
+    <ClCompile Include="DecreaseAmbientVolumeOnClick.cpp" />
     <ClCompile Include="DecreaseBGMVolumeOnClick.cpp" />
     <ClCompile Include="DecreaseResolutionOnClick.cpp" />
     <ClCompile Include="DecreaseSFXVolumeOnClick.cpp" />
@@ -457,6 +459,7 @@
     <ClCompile Include="DisableAfterTime.cpp" />
     <ClCompile Include="DisableParentOnClick.cpp" />
     <ClCompile Include="FadePointLightOverTime.cpp" />
+    <ClCompile Include="IncreaseAmbientVolumeOnClick.cpp" />
     <ClCompile Include="SoundFader.cpp" />
     <ClCompile Include="FPSCalc.cpp" />
     <ClCompile Include="HaltParticleSystemAfterTime.cpp" />
@@ -836,11 +839,13 @@
     <ClInclude Include="..\util\MathUtil.h" />
     <ClInclude Include="..\wolf\W_Common.h" />
     <ClInclude Include="AmbientSystemController.h" />
+    <ClInclude Include="AmbientVolumeController.h" />
     <ClInclude Include="BGMManager.h" />
     <ClInclude Include="BGMVolumeController.h" />
     <ClInclude Include="ClickableBoxRenderable.h" />
     <ClInclude Include="CombatText.h" />
     <ClInclude Include="DebugPrintOnce.h" />
+    <ClInclude Include="DecreaseAmbientVolumeOnClick.h" />
     <ClInclude Include="DecreaseBGMVolumeOnClick.h" />
     <ClInclude Include="DecreaseResolutionOnClick.h" />
     <ClInclude Include="DecreaseSFXVolumeOnClick.h" />
@@ -848,6 +853,7 @@
     <ClInclude Include="DisableAfterTime.h" />
     <ClInclude Include="DisableParentOnClick.h" />
     <ClInclude Include="FadePointLightOverTime.h" />
+    <ClInclude Include="IncreaseAmbientVolumeOnClick.h" />
     <ClInclude Include="SoundFader.h" />
     <ClInclude Include="FPSCalc.h" />
     <ClInclude Include="HaltParticleSystemAfterTime.h" />

@@ -2027,6 +2027,23 @@ kitten::K_Component* getResolutionController(nlohmann::json* p_jsonFile) {
 	return new ResolutionController();
 }
 
+#include "_Project\IncreaseAmbientVolumeOnClick.h"
+kitten::K_Component* getIncreaseAmbientVolumeOnClick(nlohmann::json* p_jsonFile) {
+	int amount = p_jsonFile->operator[]("amount");
+	return new IncreaseAmbientVolumeOnClick(amount);
+}
+
+#include "_Project\DecreaseAmbientVolumeOnClick.h"
+kitten::K_Component* getDecreaseAmbientVolumeOnClick(nlohmann::json* p_jsonFile) {
+	int amount = p_jsonFile->operator[]("amount");
+	return new DecreaseAmbientVolumeOnClick(amount);
+}
+
+#include "_Project\AmbientVolumeController.h"
+kitten::K_Component* getAmbientVolumeController(nlohmann::json* p_jsonFile) {
+	return new AmbientVolumeController();
+}
+
 #include "_Project\PlayBGMOnSceneChange.h"
 kitten::K_Component* getPlayBGMOnSceneChange(nlohmann::json* p_jsonFile) {
 
@@ -2047,6 +2064,26 @@ kitten::K_Component* getPlayBGMOnSceneChange(nlohmann::json* p_jsonFile) {
 #include "_Project\ToggleSiblingEnabledOnClick.h"
 kitten::K_Component* getToggleSiblingEnabledOnClick(nlohmann::json* p_jsonFile) {
 	return new ToggleSiblingEnabledOnClick();
+}
+
+#include "_Project\TogglePhotoModeOnKeyPress.h"
+kitten::K_Component* getTogglePhotoModeOnKeyPress(nlohmann::json* p_jsonFile) {
+	std::string strKey = p_jsonFile->operator[]("key");
+	char key = strKey[0];
+
+	return new TogglePhotoModeOnKeyPress(key);
+}
+
+#include "_Project\SoundFader.h"
+kitten::K_Component* getSoundFader(nlohmann::json* p_jsonFile) {
+	return new SoundFader();
+}
+
+#include "components\EnterNameScreen.h"
+kitten::K_Component* getEnterNameScreen(nlohmann::json* p_jsonFile) {
+	int minNameLength = p_jsonFile->operator[]("name_min_limit");
+	int maxNameLength = p_jsonFile->operator[]("name_max_limit");
+	return new EnterNameScreen(minNameLength, maxNameLength);
 }
 
 #include "_Project\PlaySoundOnClick.h"
@@ -2276,6 +2313,9 @@ void setupComponentMap() {
 	jsonComponentMap["EnterNameScreen"] = &getEnterNameScreen;
 	jsonComponentMap["PlaySoundOnClick"] = &getPlaySoundOnClick;
 	jsonComponentMap["AmbientSystemController"] = &getAmbientSystemController;
+	jsonComponentMap["AmbientVolumeController"] = &getAmbientVolumeController;
+	jsonComponentMap["IncreaseAmbientVolumeOnClick"] = &getIncreaseAmbientVolumeOnClick;
+	jsonComponentMap["DecreaseAmbientVolumeOnClick"] = &getDecreaseAmbientVolumeOnClick;
 
 }
 

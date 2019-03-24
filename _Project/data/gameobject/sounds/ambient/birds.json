@@ -3,7 +3,7 @@
 	"components" : [
 		{
 			"name" : "AudioSource",
-			"clippath" : "Sounds/sfx/ambient/birds_sample.wav",
+			"clippath" : "Sounds/sfx/ambient/bird_call.wav",
 			"is3d" : true,
 			"mindistance" : 1.0,
 			"enableeffects" : false,

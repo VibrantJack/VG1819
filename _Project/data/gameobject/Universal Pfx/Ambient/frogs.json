@@ -3,13 +3,6 @@
 	"components" : 
 	[
 		{
-		  "name": "K_ParticleSystem",
-		  "effectpath": "data/particles/abilities/effects/burnExplosion.xml"
-		},
-		{
-		  "name": "PlayParticleSystemOnEnable"
-		},
-		{
 			"name" : "PlayUniversalSoundOnEnable",
 			"sound_name" : "ambient_frogs",
 			"3D" : true
