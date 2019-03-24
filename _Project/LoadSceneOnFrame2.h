@@ -7,6 +7,7 @@ class LoadSceneOnFrame2 : public kitten::K_Component
 {
 private:
 	const std::string m_sceneName;
+	bool m_hasWaited = false;
 
 	virtual bool hasUpdate() const override { return true; }
 	virtual void update() override;

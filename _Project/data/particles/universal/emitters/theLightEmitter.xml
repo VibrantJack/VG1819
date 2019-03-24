@@ -1,0 +1,20 @@
+<Emitter>
+  <SpawnProperties>
+    <color random="false" r="0.0" g="0.0" b="-0.4" />
+    <velocity random="false" velocity="-10.0" />
+    <offset x="0" y="0" z="0" type="disc" radius="0.5"/>
+    <direction mode="up"/>
+    <maxParticles numParticles="3" />
+    <lifetime random="false" length="1"/>
+    <burst isBurst="true" repeat="false" />
+  </SpawnProperties>
+
+  <Affectors>
+    <path isPreset="true" type="direction" scalar="1"/>
+    <fadeChange mode="over_life" start="0.1" end="-0.9" />
+    <sizeChange mode="over_life" startX="0.0" startY="0.0" endX="2.0" endY="2.0" />
+    <acceleration mode="over_life" accel="0.2" />
+  </Affectors>
+
+  <Misc path="textures/particles/slash_02.png" spawnRate="0.0"/>
+</Emitter>

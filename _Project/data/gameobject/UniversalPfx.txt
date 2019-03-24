@@ -15,8 +15,13 @@
 					"poolednumber" : 2
 				},
 				{
-					"name" : "BurnFireballUPFX",
-					"path" : "Universal Pfx/BurnFireballUPFX.json",
+					"name" : "Corrupt",
+					"path" : "Universal Pfx/CorruptUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Drain",
+					"path" : "Universal Pfx/DrainUPFX.json",
 					"poolednumber" : 2
 				},
 				{
@@ -30,8 +35,18 @@
 					"poolednumber" : 2
 				},
 				{
-					"name" : "HealReceiveUPFX.json",
-					"path" : "Universal Pfx/BurnExplosionUPFX.json",
+					"name" : "Erosion",
+					"path" : "Universal Pfx/ErosionUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Execute",
+					"path" : "Universal Pfx/ExecuteUPFX.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "Heal",
+					"path" : "Universal Pfx/HealReceiveUPFX.json",
 					"poolednumber" : 2
 				},
 				{
@@ -40,24 +55,24 @@
 					"poolednumber" : 2
 				},
 				{
-					"name" : "LandImprovement",
+					"name" : "Build The Wall",
 					"path" : "Universal Pfx/LandImprovementUPFX.json",
 					"poolednumber" : 2
 				},
 				{
-					"name" : "ManipulateTile",
+					"name" : "Manipulate Tile",
 					"path" : "Universal Pfx/ManipulateTileUPFX.json",
 					"poolednumber" : 2
 				},
 				{
-					"name" : "PowerSlam",
+					"name" : "Power Slam",
 					"path" : "Universal Pfx/PowerSlamUPFX.json",
 					"poolednumber" : 2
 				},
 				{
 					"name" : "PowerSurge",
 					"path" : "Universal Pfx/PowerSurgeUPFX.json",
-					"poolednumber" : 2
+					"poolednumber" : 20
 				},
 				{
 					"name" : "Rally",
@@ -78,6 +93,11 @@
 					"name" : "Summon",
 					"path" : "Universal Pfx/UnitSummonOrJoinUPFX.json",
 					"poolednumber" : 2
+				},
+				{
+					"name" : "The Light",
+					"path" : "Universal Pfx/TheLightUPFX.json",
+					"poolednumber" : 4
 				},
 				{
 					"name" : "Join",

@@ -1868,7 +1868,9 @@ kitten::K_Component* getBGMManager(nlohmann::json* p_jsonFile) {
 		sounds.push_back(std::make_pair(trackName, soundPath));
 	}
 
-	return new BGMManager(sounds);
+	float crossFadeTime = p_jsonFile->operator[]("cross_fade_time");
+
+	return new BGMManager(sounds, crossFadeTime);
 }
 
 #include "_Project\PlaySoundOnUIClick.h"
@@ -2054,6 +2056,26 @@ kitten::K_Component* getPlaySoundOnClick(nlohmann::json* p_jsonFile) {
 	bool is3D = p_jsonFile->operator[]("3D");
 
 	return new PlaySoundOnClick(soundName, is3D);
+}
+
+#include "_Project\TogglePhotoModeOnKeyPress.h"
+kitten::K_Component* getTogglePhotoModeOnKeyPress(nlohmann::json* p_jsonFile) {
+	std::string strKey = p_jsonFile->operator[]("key");
+	char key = strKey[0];
+
+	return new TogglePhotoModeOnKeyPress(key);
+}
+
+#include "_Project\SoundFader.h"
+kitten::K_Component* getSoundFader(nlohmann::json* p_jsonFile) {
+	return new SoundFader();
+}
+
+#include "components\EnterNameScreen.h"
+kitten::K_Component* getEnterNameScreen(nlohmann::json* p_jsonFile) {
+	int minNameLength = p_jsonFile->operator[]("name_min_limit");
+	int maxNameLength = p_jsonFile->operator[]("name_max_limit");
+	return new EnterNameScreen(minNameLength, maxNameLength);
 }
 
 #include "_Project\AmbientSystemController.h"
@@ -2249,6 +2271,9 @@ void setupComponentMap() {
 	jsonComponentMap["BGMManager"] = &getBGMManager;
 	jsonComponentMap["PlayBGMOnSceneChange"] = &getPlayBGMOnSceneChange;
 	jsonComponentMap["ToggleSiblingEnabledOnClick"] = &getToggleSiblingEnabledOnClick;
+	jsonComponentMap["TogglePhotoModeOnKeyPress"] = &getTogglePhotoModeOnKeyPress;
+	jsonComponentMap["SoundFader"] = &getSoundFader;
+	jsonComponentMap["EnterNameScreen"] = &getEnterNameScreen;
 	jsonComponentMap["PlaySoundOnClick"] = &getPlaySoundOnClick;
 	jsonComponentMap["AmbientSystemController"] = &getAmbientSystemController;
 

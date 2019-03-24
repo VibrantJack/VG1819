@@ -1,0 +1,19 @@
+<Emitter>
+  <SpawnProperties>
+    <color random="false" r="0.0" g="-0.9" b="-0.9" />
+    <velocity random="false" velocity="0" />
+    <offset x="0" y="0" z="0" type="disc" radius=".5"/>
+    <direction mode="useOffset"/>
+    <maxParticles numParticles="10" />
+    <lifetime random="true" min="0.1" max="0.2"/>
+    <burst isBurst="true" repeat="false" />
+  </SpawnProperties>
+
+  <Affectors>
+    <path isPreset="true" type="direction" scalar="1"/>
+    <fadeChange mode="over_life" start="0.0" end="0.4" />
+    <sizeChange mode="over_life" startX="0.0" startY="0.0" endX="1.0" endY="1.0" />
+  </Affectors>
+
+  <Misc path="textures/particles/dirt_01.png" spawnRate="0.2"/>
+</Emitter>
