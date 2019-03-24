@@ -289,7 +289,7 @@ void BoardManager::resetComponents()
 	if (m_boardCreator == nullptr)
 		m_boardCreator = new BoardCreator();
 
-	this->createBoard(3);
+	this->createBoard(2);
 }
 
 

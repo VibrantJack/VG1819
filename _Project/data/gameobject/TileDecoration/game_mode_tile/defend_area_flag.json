@@ -1,0 +1,13 @@
+{
+    "name" : "flag", 
+    "components" : [
+        {
+			"name" : "SpriteGroup",
+			"spritename":"flag_blue",
+			"number":1,
+			"rotate":[90,0,0],
+			"scale":[1,1,1],
+			"translate":[0,0.1,0.15]
+		}
+    ]
+}

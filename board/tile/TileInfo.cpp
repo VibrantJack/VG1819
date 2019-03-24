@@ -21,7 +21,8 @@ TileInfo::TileInfo(int p_iPosX, int p_iPosY)
 	m_lastHighlightTexture(nullptr),
 	m_unitGO(nullptr),
 	m_landInfo(nullptr),
-	m_itemGO(nullptr)
+	m_itemGO(nullptr),
+	m_toSetDecoration(true)
 {
 	//init highlight type
 	for (int i = TileInfo::First; i < TileInfo::Count; ++i)
@@ -290,6 +291,7 @@ void TileInfo::checkSecondaryDP()
 	}
 }
 
+
 void TileInfo::triggerNewTileEvent()
 {
 	if (!hasUnit())//do nothing if no unit on the tile
@@ -300,15 +302,6 @@ void TileInfo::triggerNewTileEvent()
 	unit::Unit* u = m_unitGO->getComponent<unit::Unit>();
 	u->triggerTP(ability::TimePointEvent::New_Tile, e);
 
-	//pick up item
-	if (hasItem())
-	{
-		//item is held by unit
-		m_itemGO->getComponent<CaptureItemController>()->setParent(u);
-
-		//remove reference
-		m_itemGO = nullptr;
-	}
 }
 
 const bool TileInfo::hasItem()
@@ -322,8 +315,38 @@ void TileInfo::addItem(kitten::K_GameObject * p_item)
 	m_itemGO = p_item;
 }
 
+void TileInfo::removeItem()
+{
+	m_itemGO = nullptr;
+}
+
+kitten::K_GameObject * TileInfo::getItem()
+{
+	return m_itemGO;
+}
+
+void TileInfo::changeDecoration(const std::vector<kitten::K_GameObject*>& p_list)
+{
+	if (m_decorationList.size() > 0)
+		removeDecoration();
+
+	m_decorationList = p_list;
+
+	kitten::Transform* tr = &m_attachedObject->getTransform();
+	for (auto it : m_decorationList)
+	{
+		it->getTransform().setIgnoreParent(false);
+		it->getTransform().setParent(tr);
+	}
+
+	m_toSetDecoration = false;
+}
+
 void TileInfo::setDecoration()
 {
+	if (!m_toSetDecoration)
+		return;
+
 	if (m_decorationList.size() > 0)
 		removeDecoration();
 

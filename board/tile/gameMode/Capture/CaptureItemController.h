@@ -12,7 +12,6 @@ public:
 	virtual bool hasUpdate() const override;
 	virtual void update() override;
 
-	void setRotateSpeed(float p_s);
 	void setTileOffset(const glm::vec3& p_pos);
 	void setUnitOffset(const glm::vec3& p_pos);
 
@@ -22,13 +21,12 @@ public:
 	void setParent(TileInfo* p_info);
 
 private:
-	//rotate item
-	bool m_rotate;
-	float m_rotateSpeed;
-
 	//translation offset
 	glm::vec3 m_tileOffset;
 	glm::vec3 m_unitOffset;
 
-	void privateSetParent(kitten::K_GameObject* p_go);
+	//the obj which holds the item
+	kitten::K_GameObject* m_holder;
+
+	bool m_isUnit;
 };

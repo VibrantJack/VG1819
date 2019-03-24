@@ -2,6 +2,7 @@
 #include "unit/unitComponent/UnitMove.h"
 #include "kitten/K_GameObject.h"
 #include "unitInteraction/UnitInteractionManager.h"
+#include "board/tile/gameMode/Capture/CaptureItemController.h"
 
 #include "_Project\UniversalPfx.h"
 
@@ -15,7 +16,7 @@ namespace unit
 {
 	Unit::Unit() : m_healthBarState(none), m_healthBar(nullptr), m_unitSelect(nullptr)
 	{
-		m_item = nullptr;
+		m_itemGO = nullptr;
 
 		m_commander = nullptr;
 		m_turn = nullptr;
@@ -115,6 +116,20 @@ namespace unit
 				m_commander->resetPower(m_clientId);
 		case ability::TimePointEvent::Turn_End:
 		case ability::TimePointEvent::New_Tile:
+			//pick up item
+			if (tileGO != nullptr)
+			{
+				TileInfo* info = tileGO->getComponent<TileInfo>();
+				//pick up item
+				if (info->hasItem())
+				{
+					kitten::K_GameObject* item = info->getItem();
+					info->removeItem();
+
+					//item is held by unit
+					item->getComponent<CaptureItemController>()->setParent(this);
+				}
+			}
 		case ability::TimePointEvent::Leave_Tile:
 			if(tileGO != nullptr)
 				tileGO->getComponent<TileInfo>()->effect(p_tp, this);
@@ -536,6 +551,11 @@ namespace unit
 	void Unit::removeItem()
 	{
 		m_itemGO = nullptr;
+	}
+
+	kitten::K_GameObject * Unit::getItem()
+	{
+		return m_itemGO;
 	}
 
 	void Unit::onScaleLerpFinished(kitten::K_GameObject* p_obj) //Called when healthbar is done animating

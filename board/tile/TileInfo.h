@@ -80,7 +80,11 @@ public:
 	//item
 	const bool hasItem();
 	void addItem(kitten::K_GameObject* p_item);
+	void removeItem();
+	kitten::K_GameObject* getItem();
 
+	//change decoration by game mode
+	void changeDecoration(const std::vector<kitten::K_GameObject*>& p_list);
 private:
 	//attribute
 	int m_iPosX, m_iPosY;
@@ -103,11 +107,13 @@ private:
 	kitten::K_GameObject* m_itemGO;//item
 
 
+
 	//adjcent tiles
 	std::vector<kitten::K_GameObject*> m_adjTileList;
 
 	//decoration
 	std::vector<kitten::K_GameObject*> m_decorationList;
+	bool m_toSetDecoration;
 
 	//method
 	void setDecoration();

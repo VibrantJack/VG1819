@@ -24,11 +24,21 @@ void ItemDropArea::check()
 			if (m_clientId != u->m_clientId)
 				continue;
 
-			//if unit has item
+			//check if unit has item
+			if (!u->hasItem())
+				continue;
+
+			//get item
+			kitten::K_GameObject* itemGO = u->getItem();
 
 			//remove item
+			u->removeItem();
+
+			//drop item
+			m_spawnArea->dropItem(itemGO);
 
 			//increase points
+			GameModeManager::getInstance()->gainPoint(m_clientId, m_pointPerItem);
 		}
 	}
 }
@@ -37,5 +47,5 @@ void ItemDropArea::setProperty(nlohmann::json * p_jsonfile)
 {
 	m_pointPerItem = p_jsonfile->operator[]("point_per_item");
 
-	m_texturePath = p_jsonfile->operator[]("texture");
+	m_filePath = p_jsonfile->operator[]("tile");
 }

@@ -22,6 +22,7 @@ void ItemSpawnArea::check()
 	{
 		return;
 	}
+	m_turnPass = 0;//reset turn pass
 
 	//spawn item
 	//check empty tile
@@ -33,6 +34,9 @@ void ItemSpawnArea::check()
 			emptyList.push_back(info);
 		}
 	}
+
+	if (m_itemPath.length() == 0)
+		return;
 
 	//spawn item on random tile
 	for (int i = 0; i < m_itemPerSpawn; i++)
@@ -85,7 +89,7 @@ void ItemSpawnArea::setProperty(nlohmann::json * p_jsonfile)
 
 	m_itemPath = p_jsonfile->operator[]("item_path");
 
-	m_texturePath = p_jsonfile->operator[]("texture");
+	m_filePath = p_jsonfile->operator[]("tile");
 }
 
 void ItemSpawnArea::dropItem(kitten::K_GameObject * p_item)

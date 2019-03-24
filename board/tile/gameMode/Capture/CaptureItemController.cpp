@@ -1,7 +1,6 @@
 #include "CaptureItemController.h"
-
-CaptureItemController::CaptureItemController():
-	m_rotate(false)
+#include "kitten/K_Time.h"
+CaptureItemController::CaptureItemController()
 {
 }
 
@@ -11,21 +10,18 @@ CaptureItemController::~CaptureItemController()
 
 bool CaptureItemController::hasUpdate() const
 {
-	return m_rotate;
+	return true;
 }
 
 void CaptureItemController::update()
 {
-	getTransform().rotateRelative(glm::vec3(0, m_rotateSpeed, 0));
-}
+	//get position
+	if (m_isUnit)
+	{
+		glm::vec3 pos = m_holder->getTransform().getTranslation();
+		getTransform().place(pos.x + m_unitOffset.x, pos.y + m_unitOffset.y, pos.z + m_unitOffset.z);
+	}
 
-void CaptureItemController::setRotateSpeed(float p_s)
-{
-	//set speed
-	m_rotateSpeed = p_s;
-	
-	//will rotate
-	m_rotate = true;
 }
 
 void CaptureItemController::setTileOffset(const glm::vec3 & p_pos)
@@ -40,30 +36,27 @@ void CaptureItemController::setUnitOffset(const glm::vec3 & p_pos)
 
 void CaptureItemController::setParent(unit::Unit * p_info)
 {
+	//change holder
+	m_holder = &p_info->getGameObject();
+
 	//add this to target
 	p_info->addItem(&getGameObject());
 
-	//change pos
-	getTransform().place(m_unitOffset.x, m_unitOffset.y, m_unitOffset.z);
-
-	//get game object
-	privateSetParent(&p_info->getGameObject());
+	m_isUnit = true;
 }
 
 void CaptureItemController::setParent(TileInfo * p_info)
 {
+	//change holder
+	m_holder = &p_info->getGameObject();
+
 	//add this to target
 	p_info->addItem(&getGameObject());
 
-	//change pos
-	getTransform().place(m_tileOffset.x, m_tileOffset.y, m_tileOffset.z);
+	//set pos
+	glm::vec3 pos = m_holder->getTransform().getTranslation();
+	getTransform().place(pos.x + m_tileOffset.x, pos.y + m_tileOffset.y, pos.z + m_tileOffset.z);
 
-	//get game object
-	privateSetParent(&p_info->getGameObject());
+	m_isUnit = false;
 }
 
-void CaptureItemController::privateSetParent(kitten::K_GameObject * p_go)
-{
-	this->getTransform().setParent(&p_go->getTransform());
-	this->getTransform().setIgnoreParent(false);
-}

@@ -2012,11 +2012,6 @@ kitten::K_Component* getCaptureItemController(nlohmann::json* p_jsonFile) {
 	comp->setTileOffset(tOffset);
 	comp->setUnitOffset(uOffset);
 
-	if (JSONHAS("rotate_speed"))
-	{
-		comp->setRotateSpeed(LOOKUP("rotate_speed"));
-	}
-
 	return comp;
 }
 

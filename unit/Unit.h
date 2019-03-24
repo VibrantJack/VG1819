@@ -157,5 +157,6 @@ namespace unit
 		const bool hasItem();
 		void addItem(kitten::K_GameObject* p_item);
 		void removeItem();
+		kitten::K_GameObject* getItem();
 	};
 }

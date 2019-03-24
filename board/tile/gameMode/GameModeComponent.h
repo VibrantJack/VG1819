@@ -35,9 +35,9 @@ protected:
 	//tiles for checking
 	std::vector<TileInfo*> m_tileList;
 
-	//tiles need to change to this texture to show it is this area
-	std::string m_texturePath;
+	//tiles need to change to show it is this area
+	std::string m_filePath;
 
-	virtual void changeTexture();
+	virtual void changeTileDisplay(TileInfo* p_info);
 
 };

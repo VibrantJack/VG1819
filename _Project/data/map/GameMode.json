@@ -5,35 +5,35 @@
         {
             "name" : "ControlArea",
             "enum" : 2,
-            "texture" : "",
+            "tile" : "TileDecoration/game_mode_tile/flag.json",
             "point_per_unit": -1
         },
         {
             "name" : "DefendArea",
             "enum" : 3,
-            "texture" : "",
+            "tile" : "TileDecoration/game_mode_tile/defend_area_flag.json",
             "attacker_point_per_unit": -1,
             "defender_point_per_turn":4
         },
         {
             "name" : "ItemSpawnArea",
             "enum" : 4,
-            "texture" : "",
+            "tile" : "",
             "item_per_spawn": 1,
-            "turn_for_next_spawn":2,
+            "turn_for_next_spawn":4,
             "delay":0,
-            "item_path":"crystal.json"
+            "item_path":""
         },
         {
             "name" : "ItemDropArea0",
             "enum" : 5,
-            "texture" : "",
+            "tile" : "TileDecoration/game_mode_tile/chest0.json",
             "point_per_item" : 10
         },
         {
             "name" : "ItemDropArea1",
             "enum" : 6,
-            "texture" : "",
+            "tile" : "TileDecoration/game_mode_tile/chest1.json",
             "point_per_item" : 10
         }
     ]

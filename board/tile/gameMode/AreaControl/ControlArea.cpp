@@ -54,5 +54,5 @@ void ControlArea::setProperty(nlohmann::json * p_jsonfile)
 {
 	m_pointPerUnit = p_jsonfile->operator[]("point_per_unit");
 
-	m_texturePath = p_jsonfile->operator[]("texture");
+	m_filePath = p_jsonfile->operator[]("tile");
 }

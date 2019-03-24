@@ -54,5 +54,5 @@ void DefendArea::setProperty(nlohmann::json * p_jsonfile)
 
 	m_pointPerTurn = p_jsonfile->operator[]("defender_point_per_turn");
 
-	m_texturePath = p_jsonfile->operator[]("texture");
+	m_filePath = p_jsonfile->operator[]("tile");
 }
