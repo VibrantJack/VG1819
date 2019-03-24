@@ -1,0 +1,29 @@
+{
+    "name" : "Name Confirm Button",
+	"components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/button_confirm.dds"
+		},
+		{
+			"name" : "PlayUniversalSoundOnUIClick",
+			"sound_name" : "click"
+		},
+		{
+			"name" : "ClickableButton",
+			"regularTexture" : "textures/ui/buttons/button_confirm.dds",
+			"highlightedTexture" : "textures/ui/buttons/button_confirm_h.dds",
+			"inactiveTexture" : "textures/ui/buttons/button_confirm_i.dds"
+		},
+		{
+			"name" : "ChangeSceneOnClick",
+			"scene" : "deck_menu.json"
+
+		},
+		{
+			"name" : "ClickableFrame"
+		}
+	],
+	"translate2d" : [540, 180],
+	"scale2d" : [200, 64]
+}

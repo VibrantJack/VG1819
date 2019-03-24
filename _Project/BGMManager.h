@@ -29,6 +29,7 @@ private:
 	std::unordered_map<std::string, BGMEntry> m_tracks;
 
 	float m_volume;
+	float m_crossFadeTime;
 
 	virtual void start() override;
 
@@ -37,7 +38,7 @@ private:
 
 	void privateSetVolume(float p_volume);
 public:
-	BGMManager(const std::list<std::pair<std::string, std::string>>& p_sounds);
+	BGMManager(const std::list<std::pair<std::string, std::string>>& p_sounds, float p_crossFadeTime);
 	~BGMManager();
 
 	static void playBGM(const std::string& p_name);

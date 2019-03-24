@@ -1,16 +1,21 @@
 {
-	"name" : "PooledUnitSummonUPFX",
-	"components" : [
-		{
-			"name" : "K_ParticleSystem",
-			"effectpath" : "data/particles/universal/effects/volley.xml"
-		},
-		{
-			"name" : "PlayParticleSystemOnEnable"
-		},
-		{
-			"name" : "DisableAfterTime",
-			"time" : 1.5
-		}
-	]
+	"name" : "PooledVolleyUPFX",
+  "components": [
+    {
+      "name": "K_ParticleSystem",
+      "effectpath": "data/particles/universal/effects/volley.xml"
+    },
+    {
+      "name": "PlayParticleSystemOnEnable"
+    },
+    {
+      "name": "HaltParticleSystemAfterTime",
+      "stop": false,
+      "time": 1
+    },
+    {
+      "name": "DisableAfterTime",
+      "time": 1.5
+    }
+  ]
 }

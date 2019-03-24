@@ -49,6 +49,9 @@ public:
 	//highlight range
 	kitten::Event::TileList getRange();
 
+	void setGrid(bool p_enabled);
+	bool isGridEnabled() const;
+
 	void registerEvent();
 	void deregisterEvent();
 
@@ -91,6 +94,8 @@ private:
 	int m_selectNum;
 
 	//functions
+
+	bool m_isGridEnabled;
 
 	BoardManager();
 	~BoardManager();

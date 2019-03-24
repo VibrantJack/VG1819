@@ -68,6 +68,8 @@ namespace ability
 				source->actDone();
 		}
 
+		UniversalSounds::playSound("attach");
+
 		//delete package
 		delete p_info;
 

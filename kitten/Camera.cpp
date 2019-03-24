@@ -5,12 +5,18 @@
 
 namespace kitten
 {
-	Camera::Camera() : m_fov(45.0f), m_nearClip(0.1f), m_farClip(1000.0f), m_winWidth(1280.0f), m_winHeight(720.0f)
+	Camera::Camera() : m_fov(45.0f), m_nearClip(0.1f), m_farClip(1000.0f), m_winWidth(1280.0f), m_winHeight(720.0f), m_rendersUI(true)
 	{
 		if(K_CameraList::getInstance()->getSceneCamera() == nullptr)
 		{
 			K_CameraList::getInstance()->setSceneCamera(this);
 		}
+		
+		m_emptyMat4[0][0] = 0;
+		m_emptyMat4[1][1] = 0;
+		m_emptyMat4[2][2] = 0;
+		m_emptyMat4[3][3] = 0;
+
 	}
 
 	Camera::~Camera()
@@ -75,6 +81,11 @@ namespace kitten
 		m_winHeight = p_height;
 	}
 
+	void Camera::setRendersUI(bool p_rendersUI)
+	{
+		m_rendersUI = p_rendersUI;
+	}
+
 	const glm::mat4& Camera::getProj()
 	{
 		if (m_isProjDirty)
@@ -87,10 +98,17 @@ namespace kitten
 
 	const glm::mat4& Camera::getOrtho()
 	{
+		if (!m_rendersUI)
+		{
+			return m_emptyMat4;
+		}
+		//else
+
 		if (m_isProjDirty)
 		{
 			calcProjAndOrtho();
 		}
+		
 		return m_ortho;
 	}
 
