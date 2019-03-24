@@ -5,7 +5,7 @@
 #include <vector>
 
 #define MAX_JOINED_CLIENTS 2
-#define MAX_GAME_SESSIONS 2
+#define MAX_GAME_SESSIONS 1
 
 namespace networking
 {

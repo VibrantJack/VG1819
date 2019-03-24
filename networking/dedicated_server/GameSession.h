@@ -12,6 +12,7 @@ namespace networking
 		int m_sessionClientId;
 		int m_maxPlayers;
 		std::map<int, ServerNetwork::ClientInfo*> m_currentPlayers;
+		bool m_shutdown = false;
 
 		char m_networkData[MAX_PACKET_SIZE];
 

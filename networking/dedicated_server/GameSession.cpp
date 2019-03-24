@@ -20,18 +20,26 @@ namespace networking
 
 	void GameSession::shutdown()
 	{
-		m_network->changeActiveSessions(-1);
-		m_network->setServerInfoChanged(true);
-		m_state = SessionState::Inactive;
-		m_sessionClientId = 0;
-		m_commanders.clear();
-		m_clientsReadyChecked = 0;
-		removeAllPlayers();
+		if (m_state != SessionState::Inactive)
+		{
+			m_network->changeActiveSessions(-1);
+			m_network->setServerInfoChanged(true);
+			m_state = SessionState::Inactive;
+			m_sessionClientId = 0;
+			m_commanders.clear();
+			m_clientsReadyChecked = 0;
+			removeAllPlayers();
+		}
 	}
 
 	void GameSession::update()
 	{
 		receiveDataFromPlayers();
+		if (m_shutdown)
+		{
+			shutdown();
+			m_shutdown = false;
+		}
 	}
 
 	void GameSession::receiveDataFromPlayers()
@@ -69,11 +77,9 @@ namespace networking
 				{
 					i += BASIC_PACKET_SIZE;
 					printf("[GameSession: %d] received CLIENT_DISCONNECT from [Client: %d]\n", m_sessionId, sessionClientId);
-					//removePlayer(client);
 
-					// We should just remove from this session, but since Main Menu button takes you straight to the main menu,
-					// we will just completely remove the client from the server
-					m_network->queueClientRemoval(client);
+					// If any client leaves, shutdown this session and kick all players so the session can be properly reset
+					m_shutdown = true;
 
 					break;
 				}
@@ -340,6 +346,8 @@ namespace networking
 
 			client->m_gameSession = nullptr;
 			client->m_gameSessionClientId = -1;
+
+			m_network->queueClientRemoval(client);
 		}
 		m_currentPlayers.clear();
 		printf("All players removed from GameSession:%d\n", m_sessionId);

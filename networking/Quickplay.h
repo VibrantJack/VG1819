@@ -13,6 +13,7 @@ private:
 	puppy::TextBox* m_playerCount;		// # players connected to the server 
 	puppy::TextBox* m_activeSessions;	// # of active game sessions
 
+	kitten::K_GameObject* m_loadingScreen;
 	userinterface::TriggerEventButton* m_findGameButton;
 	kitten::ClickableFrame* m_findGameButtonFrame;
 

@@ -71,7 +71,7 @@ namespace networking
 		kitten::EventManager::getInstance()->addListener(
 			kitten::Event::EventType::Board_Loaded,
 			this,
-			std::bind(&ClientGame::sendStartingData, this, std::placeholders::_1, std::placeholders::_2));
+			std::bind(&ClientGame::boardLoadedListener, this, std::placeholders::_1, std::placeholders::_2));
 	}
 	
 	ClientGame::~ClientGame()
@@ -122,6 +122,7 @@ namespace networking
 
 	void ClientGame::disconnectFromNetwork(bool p_bServerShutdown)
 	{
+		printf("sending disconnect\n");
 		// Send a packet to alert server that client is disconnecting
 		char data[BASIC_PACKET_SIZE];
 
@@ -194,9 +195,15 @@ namespace networking
 				m_log->logMessage(message.str());
 
 				printf("[Client: %d] received SEND_CLIENT_ID (%d) packet from server\n", sm_iClientId, defaultPacket.m_clientId);
-				i += BASIC_PACKET_SIZE;
 				sm_iClientId = defaultPacket.m_clientId;
 
+				if (m_boardLoaded)
+				{
+					sendStartingData();
+					m_boardLoaded = false;
+				}
+
+				i += BASIC_PACKET_SIZE;
 				break;
 			}
 			case PacketTypes::SERVER_SHUTDOWN:
@@ -447,6 +454,7 @@ namespace networking
 
 				// Send the Server info to the Quickplay class
 				kitten::Event* eventData = new kitten::Event(kitten::Event::Update_Server_Info);
+				eventData->putInt(SERVER_STATUS_KEY, -1);
 				eventData->putInt(SERVER_PLAYER_COUNT_KEY, serverInfoPacket.m_playerCount);
 				eventData->putInt(SERVER_ACTIVE_SESSIONS_KEY, serverInfoPacket.m_activeSessions);
 				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Server_Info, eventData);
@@ -475,11 +483,18 @@ namespace networking
 
 				break;
 			}
-			case PacketTypes::SERVER_FULL:
+			case PacketTypes::SESSIONS_FULL:
 			{
-				printf("[Client: %d] received GAME_FULL packet from server\n", sm_iClientId);
-				i += BASIC_PACKET_SIZE;
+				printf("[Client: %d] received SESSIONS_FULL packet from server\n", sm_iClientId);
 
+				// Send the Server info to the Quickplay class
+				kitten::Event* eventData = new kitten::Event(kitten::Event::Update_Server_Info);
+				eventData->putInt(SERVER_STATUS_KEY, SERVER_STATUS_FULL);
+				eventData->putInt(SERVER_PLAYER_COUNT_KEY, -1);
+				eventData->putInt(SERVER_ACTIVE_SESSIONS_KEY, -1);
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Update_Server_Info, eventData);
+
+				i += BASIC_PACKET_SIZE;
 				break;
 			}
 			default:
@@ -588,9 +603,8 @@ namespace networking
 		m_log->logMessage(abilityInfo);
 	}
 
-	void ClientGame::sendStartingData(kitten::Event::EventType p_type, kitten::Event* p_event)
+	void ClientGame::sendStartingData()
 	{
-		// Send starting data
 		char commanderData[UNIT_PACKET_SIZE];
 		Buffer commanderDataBuffer;
 		commanderDataBuffer.m_data = commanderData;
@@ -614,6 +628,18 @@ namespace networking
 		message << "Client:" << sm_iClientId << " sending STARTING_COMMANDER_DATA\n";
 		message << "\tUnit ID:" << commanderDataPacket.m_unitId << ", X:" << commanderDataPacket.m_posX << ", Y:" << commanderDataPacket.m_posY;
 		m_log->logMessage(message.str());
+	}
+
+	void ClientGame::boardLoadedListener(kitten::Event::EventType p_type, kitten::Event* p_event)
+	{
+		if (sm_iClientId < 0)
+		{
+			m_boardLoaded = true;
+		}
+		else
+		{
+			sendStartingData();
+		}
 	}
 
 	bool ClientGame::checkSync(int p_x, int p_y)

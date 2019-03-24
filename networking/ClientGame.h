@@ -33,6 +33,7 @@ namespace networking
 		static std::string sm_dedicatedServerAddress;
 
 		float m_timeElapsed;
+		bool m_boardLoaded = false;
 
 		NetworkLog* m_log = nullptr;
 
@@ -60,7 +61,8 @@ namespace networking
 		void sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
 		void setCastTime(AbilityPacket& p_packet);
 		void sendCastTimeAbilityPacket(unit::AbilityDescription * p_ad, ability::AbilityInfoPackage * p_info);
-		void sendStartingData(kitten::Event::EventType p_type, kitten::Event* p_event);
+		void sendStartingData();
+		void boardLoadedListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 
 		// Compare units via their position
 		bool checkSync(int p_x, int p_y);

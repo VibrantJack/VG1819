@@ -52,6 +52,9 @@ void Quickplay::start()
 	m_findGameButton = findGameButtonGO->getComponent<userinterface::TriggerEventButton>();
 	m_findGameButtonFrame = findGameButtonGO->getComponent<kitten::ClickableFrame>();
 
+	m_loadingScreen = manager->createNewGameObject("UI/loading_screen.json");
+	m_loadingScreen->setEnabled(false);
+
 	pollForServer();
 }
 
@@ -95,6 +98,7 @@ void Quickplay::pollForServerListener(kitten::Event::EventType p_type, kitten::E
 
 void Quickplay::findGame()
 {
+	m_loadingScreen->setEnabled(true);
 	networking::ClientGame::getInstance()->sendBasicPacket(QUICKPLAY);
 }
 
@@ -116,23 +120,27 @@ void Quickplay::startGameListener(kitten::Event::EventType p_type, kitten::Event
 
 void Quickplay::setServerInfoListener(kitten::Event::EventType p_type, kitten::Event* p_event)
 {
+	int updateServerStatus = p_event->getInt(SERVER_STATUS_KEY);
 	int updatePlayerCount = p_event->getInt(SERVER_PLAYER_COUNT_KEY);
 	int updateActiveSessions = p_event->getInt(SERVER_ACTIVE_SESSIONS_KEY);
 
+	if (updateServerStatus > -1)
+	{
+		setServerStatus(updateServerStatus);
+	}
+
 	if (updatePlayerCount > -1)
 	{
-		int playerCount = p_event->getInt(SERVER_PLAYER_COUNT_KEY);
-		setPlayerCount(playerCount);
+		setPlayerCount(updatePlayerCount);
 	}
 
 	if (updateActiveSessions > -1)
 	{
-		int activeSessions = p_event->getInt(SERVER_ACTIVE_SESSIONS_KEY);
-		setActiveSessions(activeSessions);
+		setActiveSessions(updateActiveSessions);
 	}
 }
 
-// 0: Offline, 1: Online
+// 0: Offline, 1: Online, 2: No available sessions
 void Quickplay::setServerStatus(int p_status)
 {
 	switch (p_status)
@@ -151,6 +159,12 @@ void Quickplay::setServerStatus(int p_status)
 			m_serverStatus->setText("Online");
 			m_findGameButtonFrame->setEnabled(true);
 			m_findGameButton->setActive(true);
+			break;
+		}
+		case 2:
+		{
+			m_serverStatus->setText("Server Full");
+			m_loadingScreen->setEnabled(false);
 			break;
 		}
 		default:
