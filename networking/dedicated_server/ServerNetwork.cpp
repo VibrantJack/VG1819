@@ -138,82 +138,28 @@ namespace networking
 			client->m_serverClientId = p_iClientId;
 
 			// Insert new client into polled sessions id map
-			m_polledSessions.insert(std::pair<unsigned int, ClientInfo*>(p_iClientId, client));
+			m_sessions.insert(std::pair<unsigned int, ClientInfo*>(p_iClientId, client));
 
 			m_playerCount++;
-			m_serverInfoChanged = true;
+			setServerInfoChanged(true);
 
 			return true;
 		}
 		return false;
 	}
 
-	void ServerNetwork::addPolledClientToSessions(unsigned int p_iPolledClientId, unsigned int& p_iClientId)
-	{
-		// Get the socket of the polled client
-		auto iter = m_polledSessions.find(p_iPolledClientId);
-
-		if (iter != m_polledSessions.end())
-		{
-			// Add client socket from polled sessions to main sessions
-			m_sessions.insert(std::pair<unsigned int, ClientInfo*>(p_iClientId, iter->second));
-
-			// Remove the client from the polled sessions map
-			m_polledSessions.erase(iter);
-		}
-		else
-		{
-			printf("[Polled Client: %d] not found in polled sessions\n", p_iPolledClientId);
-		}
-	}
-
 	void ServerNetwork::removeQueuedRemovals()
 	{
-		for (auto toRemove : m_clientsToRemove)
+		for (auto toRemove: m_clientsToRemove)
 		{
 			removeClient(toRemove.first, toRemove.second);
 		}
 		m_clientsToRemove.clear();
-
-		for (auto toRemove: m_polledClientsToRemove)
-		{
-			removePolledClient(toRemove.first, toRemove.second);
-		}
-		m_polledClientsToRemove.clear();
 	}
 
 	void ServerNetwork::queueClientRemoval(ClientInfo* p_client, bool p_closeSocket)
 	{
 		m_clientsToRemove.push_back(std::make_pair(p_client, p_closeSocket));
-	}
-
-	void ServerNetwork::queuePolledClientRemoval(ClientInfo* p_client, bool p_closeSocket)
-	{
-		m_polledClientsToRemove.push_back(std::make_pair(p_client, p_closeSocket));
-	}
-
-	void ServerNetwork::removePolledClient(ClientInfo* p_client, bool p_closeSocket)
-	{
-		if (p_client->m_gameSession != nullptr)
-		{
-			p_client->m_gameSession->removePlayer(p_client);
-		}
-
-		if (auto it = m_polledSessions.find(p_client->m_serverClientId) != m_polledSessions.end())
-		{
-			printf("Server disconnecting [Polled Client: %d]\n", p_client->m_serverClientId);
-			if (p_closeSocket)
-			{
-				closesocket(p_client->m_socket);
-				m_sessions.erase(it);
-				m_playerCount--;
-				m_serverInfoChanged = true;
-			}
-		} 
-		else
-		{
-			printf("Server cannot remove [Polled Client: %d]: polled client not found\n", p_client->m_serverClientId);
-		}
 	}
 
 	void ServerNetwork::removeClient(ClientInfo* p_client, bool p_closeSocket)
@@ -225,16 +171,18 @@ namespace networking
 
 		if (auto it = m_sessions.find(p_client->m_serverClientId) != m_sessions.end())
 		{
-			printf("Server disconnecting [Client: %d]\n", p_client->m_serverClientId);
-			if (p_closeSocket)
-			{
-				closesocket(p_client->m_socket);
-				m_sessions.erase(it);
-			}
-		}
+			printf("Server disconnecting [Polled Client: %d]\n", p_client->m_serverClientId);
+			auto result = m_sessions.erase(p_client->m_serverClientId);
+			closesocket(p_client->m_socket);
+			delete p_client;
+
+			m_playerCount--;
+			setServerInfoChanged(true);
+			
+		} 
 		else
 		{
-			printf("Server cannot remove [Client: %d]: client not found\n", p_client->m_serverClientId);
+			printf("Server cannot remove [Polled Client: %d]: polled client not found\n", p_client->m_serverClientId);
 		}
 	}
 	
@@ -251,34 +199,17 @@ namespace networking
 		return m_iResult;
 	}
 
-	int ServerNetwork::receiveData(unsigned int p_clientId, char * p_buffer)
+	int ServerNetwork::receiveData(unsigned int client_id, char * recvbuf)
 	{
-		if (auto it = m_sessions.find(p_clientId) != m_sessions.end())
+		if (auto it = m_sessions.find(client_id) != m_sessions.end())
 		{
-			ClientInfo* client = m_sessions[p_clientId];
-			m_iResult = NetworkServices::receiveMessage(client->m_socket, p_buffer, MAX_PACKET_SIZE);
-
-			if (m_iResult == 0)
-			{
-				printf("Server lost connection to [Client: %d]\n", p_clientId);
-				queueClientRemoval(client);
-			}
-			return m_iResult;
-		}
-		return 0;
-	}
-
-	int ServerNetwork::receiveDataFromPolled(unsigned int client_id, char * recvbuf)
-	{
-		if (auto it = m_polledSessions.find(client_id) != m_polledSessions.end())
-		{
-			ClientInfo* client = m_polledSessions[client_id];
+			ClientInfo* client = m_sessions[client_id];
 			m_iResult = NetworkServices::receiveMessage(client->m_socket, recvbuf, MAX_PACKET_SIZE);
 
 			if (m_iResult == 0)
 			{
 				printf("Server lost connection to [Polled Client: %d]\n", client_id);
-				queuePolledClientRemoval(client);
+				queueClientRemoval(client);
 			}
 			return m_iResult;
 		}
@@ -292,7 +223,7 @@ namespace networking
 		std::map<unsigned int, ClientInfo*>::iterator iter;
 		int sendResult;
 
-		for (iter = m_sessions.begin(); iter != m_sessions.end(); /* no increment */)
+		for (iter = m_sessions.begin(); iter != m_sessions.end(); ++iter)
 		{
 			client = iter->second;
 			sendResult = NetworkServices::sendMessage(client->m_socket, packets, totalSize);
@@ -301,29 +232,7 @@ namespace networking
 			{
 				printf("send to [Client: %d] failed with error: %d\n", iter->first, WSAGetLastError());
 				queueClientRemoval(client);
-			}			
-		}
-	}
-
-	// Send to a specific client
-	void ServerNetwork::sendToClient(unsigned int client_id, char * packets, int totalSize)
-	{
-		ClientInfo* client;
-		std::map<unsigned int, ClientInfo*>::iterator iter;
-		int iSendResult;
-
-		iter = m_sessions.find(client_id);
-		if (iter != m_sessions.end()) 
-		{
-			client = iter->second;
-			iSendResult = NetworkServices::sendMessage(client->m_socket, packets, totalSize);
-
-			if (iSendResult == SOCKET_ERROR)
-			{
-				printf("send failed with error: %d\n", WSAGetLastError());
-				queueClientRemoval(client);
 			}
-			
 		}
 	}
 
@@ -350,14 +259,14 @@ namespace networking
 		}
 	}
 
-	void ServerNetwork::sendToPolledClient(unsigned int client_id, char * packets, int totalSize)
+	void ServerNetwork::sendToClient(unsigned int client_id, char * packets, int totalSize)
 	{
 		ClientInfo* client;
 		std::map<unsigned int, ClientInfo*>::iterator iter;
 		int iSendResult;
 
-		iter = m_polledSessions.find(client_id);
-		if (iter != m_polledSessions.end())
+		iter = m_sessions.find(client_id);
+		if (iter != m_sessions.end())
 		{
 			client = iter->second;
 			iSendResult = NetworkServices::sendMessage(client->m_socket, packets, totalSize);
@@ -365,7 +274,7 @@ namespace networking
 			if (iSendResult == SOCKET_ERROR)
 			{
 				printf("send failed with error: %d\n", WSAGetLastError());
-				queuePolledClientRemoval(client);
+				queueClientRemoval(client);
 			}
 			
 		}
@@ -379,16 +288,14 @@ namespace networking
 		{
 			printf("send failed with error: %d\n", WSAGetLastError());
 			closesocket(p_client->m_socket);
+			queueClientRemoval(p_client);
 			
-			if (m_sessions.find(p_client->m_serverClientId) != m_sessions.end())
-			{
-				queueClientRemoval(p_client);
-			}
-			else if (m_polledSessions.find(p_client->m_serverClientId) != m_polledSessions.end())
-			{
-				queuePolledClientRemoval(p_client);
-			}
 		}
+	}
+
+	void ServerNetwork::setServerInfoChanged(bool p_changed)
+	{
+		m_serverInfoChanged = p_changed;
 	}
 
 	const SOCKET ServerNetwork::getClientSocket(unsigned int p_clientId) const

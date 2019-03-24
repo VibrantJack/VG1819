@@ -13,6 +13,7 @@ Quickplay::~Quickplay()
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Poll_For_Server, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Quickplay_Find_Game, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Quickplay_Start_Game, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Update_Server_Info, this);
 }
 
 void Quickplay::start()
@@ -31,6 +32,11 @@ void Quickplay::start()
 		kitten::Event::EventType::Quickplay_Start_Game,
 		this,
 		std::bind(&Quickplay::startGameListener, this, std::placeholders::_1, std::placeholders::_2));
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Update_Server_Info,
+		this,
+		std::bind(&Quickplay::setServerInfoListener, this, std::placeholders::_1, std::placeholders::_2));
 
 	kitten::K_GameObjectManager* manager = kitten::K_GameObjectManager::getInstance();
 	m_serverStatus = manager->createNewGameObject("network_menu/server_status_textbox.json")->getComponent<puppy::TextBox>();
@@ -51,7 +57,7 @@ void Quickplay::start()
 
 void Quickplay::update()
 {
-	if (networking::ClientGame::getInstance() != nullptr && networking::ClientGame::isNetworkValid())
+	if (networking::ClientGame::getInstance() != nullptr && networking::ClientGame::isNetworkValid() && !m_joiningSession)
 	{
 		networking::ClientGame::getInstance()->update();
 	}
@@ -76,7 +82,7 @@ void Quickplay::pollForServer()
 	} 
 	else // If not, get address and create ClientGame instance
 	{
-		networking::ClientGame::createInstance(client->getDedicatedServerAddress());
+		networking::ClientGame::createInstance(networking::ClientGame::getDedicatedServerAddress());
 	}
 
 	setServerStatus(networking::ClientGame::isNetworkValid());
@@ -99,6 +105,7 @@ void Quickplay::findGameListener(kitten::Event::EventType p_type, kitten::Event*
 
 void Quickplay::startGame()
 {
+	m_joiningSession = true;
 	kitten::K_Instance::changeScene("mainscene.json");
 }
 
@@ -109,15 +116,8 @@ void Quickplay::startGameListener(kitten::Event::EventType p_type, kitten::Event
 
 void Quickplay::setServerInfoListener(kitten::Event::EventType p_type, kitten::Event* p_event)
 {
-	int updateServerStatus = p_event->getInt(UPDATE_SERVER_STATUS_KEY);
-	int updatePlayerCount = p_event->getInt(UPDATE_SERVER_PLAYER_COUNT_KEY);
-	int updateActiveSessions = p_event->getInt(UPDATE_SERVER_ACTIVE_SESSIONS_KEY);
-
-	if (updateServerStatus > -1)
-	{
-		int serverStatus = p_event->getInt(SERVER_STATUS_KEY);
-		setServerStatus(serverStatus);
-	}
+	int updatePlayerCount = p_event->getInt(SERVER_PLAYER_COUNT_KEY);
+	int updateActiveSessions = p_event->getInt(SERVER_ACTIVE_SESSIONS_KEY);
 
 	if (updatePlayerCount > -1)
 	{

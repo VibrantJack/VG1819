@@ -111,6 +111,7 @@ namespace kitten
 			Quickplay_Find_Game,
 			Quickplay_Start_Game,
 			Update_Server_Info,
+			Board_Loaded,
 
 			Test_Event, 
 			MAX_VAL = Test_Event

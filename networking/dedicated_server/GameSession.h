@@ -23,6 +23,8 @@ namespace networking
 		void sendToOthers(ServerNetwork::ClientInfo* p_client, char* p_packets, int p_totalSize);
 		void sendToAll(char* p_packets, int p_totalSize);
 
+		void sendBasicPacketToClient(PacketTypes p_packetType, ServerNetwork::ClientInfo* p_info);
+
 	public:
 		struct less_than_key
 		{

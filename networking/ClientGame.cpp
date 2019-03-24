@@ -25,11 +25,10 @@
 #include "board\BoardManager.h"
 #include "unit\unitComponent\UnitMove.h"
 
-
-
 // Other
 #include "_Project\UniversalSounds.h"
 #include "components\DeckInitializingComponent.h"
+#include "kitten\event_system\EventManager.h"
 
 #define PING_PACKET_DELAY 5.0f
 
@@ -38,6 +37,8 @@ namespace networking
 	ClientGame* ClientGame::sm_clientGameInstance = nullptr;
 	bool ClientGame::sm_networkValid = false;
 	int ClientGame::sm_iClientId = -1;
+
+	std::string ClientGame::sm_dedicatedServerAddress = "localhost";
 
 	// Creates the singleton instance.
 	void ClientGame::createInstance(const std::string &p_strAddr)
@@ -64,6 +65,11 @@ namespace networking
 	ClientGame::ClientGame(const std::string &p_strAddr) : m_bGameTurnStart(false), m_timeElapsed(0.0f)
 	{
 		setupNetwork(p_strAddr);
+
+		kitten::EventManager::getInstance()->addListener(
+			kitten::Event::EventType::Board_Loaded,
+			this,
+			std::bind(&ClientGame::sendStartingData, this, std::placeholders::_1, std::placeholders::_2));
 	}
 	
 	ClientGame::~ClientGame()
@@ -81,6 +87,8 @@ namespace networking
 
 		sm_networkValid = false;
 		sm_iClientId = -1;
+
+		kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Board_Loaded, this);
 	}
 
 	void ClientGame::setupNetwork(const std::string &p_strAddr)
@@ -106,15 +114,13 @@ namespace networking
 
 	void ClientGame::connectToDedicatedServer()
 	{
-		printf("Attempting to dedicated server with address: %s\n", m_dedicatedServerAddress.c_str());
-		setupNetwork(m_dedicatedServerAddress);
+		printf("Attempting to dedicated server with address: %s\n", sm_dedicatedServerAddress.c_str());
+		setupNetwork(sm_dedicatedServerAddress);
 	}
 
 	void ClientGame::disconnectFromNetwork(bool p_bServerShutdown)
 	{
 		// If Server sent disconnect then no need to send packet to server
-		if (!p_bServerShutdown)
-		{
 			// Send a packet to alert server that client is disconnecting
 			char data[BASIC_PACKET_SIZE];
 
@@ -128,7 +134,6 @@ namespace networking
 
 			packet.serialize(buffer);
 			NetworkServices::sendMessage(m_network->m_connectSocket, data, BASIC_PACKET_SIZE);
-		}
 
 		// Shutdown ClientNetwork
 		if (m_network != nullptr)
@@ -194,31 +199,6 @@ namespace networking
 				i += BASIC_PACKET_SIZE;
 				sm_iClientId = defaultPacket.m_clientId;
 
-				// Send starting data
-				char commanderData[UNIT_PACKET_SIZE];
-				Buffer commanderDataBuffer;
-				commanderDataBuffer.m_data = commanderData;
-				commanderDataBuffer.m_size = UNIT_PACKET_SIZE;
-
-				UnitPacket commanderDataPacket;
-				commanderDataPacket.m_packetType = STARTING_COMMANDER_DATA;
-				commanderDataPacket.m_clientId = sm_iClientId;
-				commanderDataPacket.m_unitId = DeckInitializingComponent::getActiveInstance()->getDeckData()->commanderID;
-
-				// Manually setting Commander spawn points closer for easier testing
-				//kitten::K_GameObject* tile = BoardManager::getInstance()->getTile(9 - (sm_iClientId * 4), 8);
-				kitten::K_GameObject* tile = BoardManager::getInstance()->getSpawnPoint(sm_iClientId);
-				commanderDataPacket.m_posX = tile->getComponent<TileInfo>()->getPosX();
-				commanderDataPacket.m_posY = tile->getComponent<TileInfo>()->getPosY();
-
-				commanderDataPacket.serialize(commanderDataBuffer);
-				NetworkServices::sendMessage(m_network->m_connectSocket, commanderData, UNIT_PACKET_SIZE);
-
-				message.str("");
-				message << "Client:" << sm_iClientId << " sending STARTING_COMMANDER_DATA\n";
-				message << "\tUnit ID:" << commanderDataPacket.m_unitId	<< ", X:" << commanderDataPacket.m_posX << ", Y:" << commanderDataPacket.m_posY;
-				m_log->logMessage(message.str());
-
 				break;
 			}
 			case PacketTypes::SERVER_SHUTDOWN:
@@ -231,6 +211,22 @@ namespace networking
 
 				i += BASIC_PACKET_SIZE;
 				disconnectFromNetwork(true);
+
+				// Display disconnect screen; Server received manual disconnect from server
+				kitten::Event* eventData = new kitten::Event(kitten::Event::Network_End_Game);
+				eventData->putInt(GAME_END_RESULT, PLAYER_DISCONNECTED);
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Network_End_Game, eventData);
+				break;
+			}
+			case PacketTypes::SESSION_ENDED:
+			{
+				std::stringstream message;
+				message << "Client:" << sm_iClientId << " received SESSION_ENDED";
+				m_log->logMessage(message.str());
+
+				printf("[Client: %d] received SESSION_ENDED packet from server\n", sm_iClientId);
+
+				i += BASIC_PACKET_SIZE;
 
 				// Display disconnect screen; Server received manual disconnect from server
 				kitten::Event* eventData = new kitten::Event(kitten::Event::Network_End_Game);
@@ -461,6 +457,13 @@ namespace networking
 
 				break;
 			}
+			case PacketTypes::QUICKPLAY_FOUND_GAME:
+			{
+				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Quickplay_Start_Game, nullptr);
+
+				i += BASIC_PACKET_SIZE;
+				break;
+			}
 			case PacketTypes::DESYNCED:
 			{
 				std::stringstream message;
@@ -587,6 +590,34 @@ namespace networking
 
 		std::string abilityInfo = packet.getFormattedAbilityInfo();
 		m_log->logMessage(abilityInfo);
+	}
+
+	void ClientGame::sendStartingData(kitten::Event::EventType p_type, kitten::Event* p_event)
+	{
+		// Send starting data
+		char commanderData[UNIT_PACKET_SIZE];
+		Buffer commanderDataBuffer;
+		commanderDataBuffer.m_data = commanderData;
+		commanderDataBuffer.m_size = UNIT_PACKET_SIZE;
+
+		UnitPacket commanderDataPacket;
+		commanderDataPacket.m_packetType = STARTING_COMMANDER_DATA;
+		commanderDataPacket.m_clientId = sm_iClientId;
+		commanderDataPacket.m_unitId = DeckInitializingComponent::getActiveInstance()->getDeckData()->commanderID;
+
+		// Manually setting Commander spawn points closer for easier testing
+		//kitten::K_GameObject* tile = BoardManager::getInstance()->getTile(9 - (sm_iClientId * 4), 8);
+		kitten::K_GameObject* tile = BoardManager::getInstance()->getSpawnPoint(sm_iClientId);
+		commanderDataPacket.m_posX = tile->getComponent<TileInfo>()->getPosX();
+		commanderDataPacket.m_posY = tile->getComponent<TileInfo>()->getPosY();
+
+		commanderDataPacket.serialize(commanderDataBuffer);
+		NetworkServices::sendMessage(m_network->m_connectSocket, commanderData, UNIT_PACKET_SIZE);
+
+		std::stringstream message;
+		message << "Client:" << sm_iClientId << " sending STARTING_COMMANDER_DATA\n";
+		message << "\tUnit ID:" << commanderDataPacket.m_unitId << ", X:" << commanderDataPacket.m_posX << ", Y:" << commanderDataPacket.m_posY;
+		m_log->logMessage(message.str());
 	}
 
 	bool ClientGame::checkSync(int p_x, int p_y)

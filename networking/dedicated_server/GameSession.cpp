@@ -20,8 +20,12 @@ namespace networking
 
 	void GameSession::shutdown()
 	{
+		m_network->changeActiveSessions(-1);
+		m_network->setServerInfoChanged(true);
 		m_state = SessionState::Inactive;
 		m_sessionClientId = 0;
+		m_commanders.clear();
+		m_clientsReadyChecked = 0;
 		removeAllPlayers();
 	}
 
@@ -65,7 +69,11 @@ namespace networking
 				{
 					i += BASIC_PACKET_SIZE;
 					printf("[GameSession: %d] received CLIENT_DISCONNECT from [Client: %d]\n", m_sessionId, sessionClientId);
-					removePlayer(client);
+					//removePlayer(client);
+
+					// We should just remove from this session, but since Main Menu button takes you straight to the main menu,
+					// we will just completely remove the client from the server
+					m_network->queueClientRemoval(client);
 
 					break;
 				}
@@ -268,22 +276,15 @@ namespace networking
 			auto result = m_currentPlayers.insert(std::make_pair(m_sessionClientId, p_info));
 			if (result.second)
 			{
+				// Send their GameSession Client ID
 				p_info->m_gameSessionClientId = m_sessionClientId;
 				p_info->m_gameSession = this;
 
-				// Send a packet to the client to notify them what their Session ID is
-				char packetData[BASIC_PACKET_SIZE];
+				// Tell the client that a GameSession has been found and they've been added
+				sendBasicPacketToClient(QUICKPLAY_FOUND_GAME, p_info);
 
-				Buffer buffer;
-				buffer.m_data = packetData;
-				buffer.m_size = BASIC_PACKET_SIZE;
-
-				Packet packet;
-				packet.m_packetType = SEND_CLIENT_ID;
-				packet.m_clientId = m_sessionClientId;
-
-				packet.serialize(buffer);
-				m_network->sendToSocket(p_info, packetData, BASIC_PACKET_SIZE);
+				// Tell them their GameSession Client ID
+				sendBasicPacketToClient(SEND_CLIENT_ID, p_info);
 
 				m_sessionClientId++;
 				printf("Player added to GameSession:%d\n", m_sessionId);
@@ -331,11 +332,14 @@ namespace networking
 			buffer.m_size = BASIC_PACKET_SIZE;
 
 			Packet packet;
-			packet.m_packetType = SERVER_SHUTDOWN;
+			packet.m_packetType = PacketTypes::SERVER_SHUTDOWN;
 			packet.m_clientId = -1;
 
 			packet.serialize(buffer);
 			m_network->sendToSocket(client, packetData, BASIC_PACKET_SIZE);
+
+			client->m_gameSession = nullptr;
+			client->m_gameSessionClientId = -1;
 		}
 		m_currentPlayers.clear();
 		printf("All players removed from GameSession:%d\n", m_sessionId);
@@ -350,6 +354,7 @@ namespace networking
 				if (m_currentPlayers.size() == m_maxPlayers)
 				{
 					m_state = SessionState::Active;
+					m_network->changeActiveSessions(1);
 					printf("GameSession:%d set to Active\n", m_sessionId);
 				}
 				else if (m_currentPlayers.size() == 0)
@@ -378,5 +383,20 @@ namespace networking
 				break;
 			}
 		}
+	}
+
+	void GameSession::sendBasicPacketToClient(PacketTypes p_packetType, ServerNetwork::ClientInfo* p_info)
+	{
+		char packetData[BASIC_PACKET_SIZE];
+		Buffer buffer;
+		buffer.m_data = packetData;
+		buffer.m_size = BASIC_PACKET_SIZE;
+
+		Packet packet;
+		packet.m_packetType = p_packetType;
+		packet.m_clientId = p_info->m_gameSessionClientId;
+
+		packet.serialize(buffer);
+		m_network->sendToSocket(p_info, packetData, BASIC_PACKET_SIZE);
 	}
 }

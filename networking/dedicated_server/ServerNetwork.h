@@ -36,29 +36,26 @@ namespace networking
 
 		// send data to all clients
 		void sendToAll(char * packets, int totalSize);
-		void sendToClient(unsigned int client_id, char * packets, int totalSize);
 		void sendToOthers(unsigned int client_id, char * packets, int totalSize);
-
-		// Send functions for polled clients
-		void sendToPolledClient(unsigned int client_id, char * packets, int totalSize);
+		void sendToClient(unsigned int client_id, char * packets, int totalSize);
 
 		void sendToSocket(ClientInfo* p_info, char * p_packets, int p_totalSize);
 
 		// receive incoming data
 		int receiveData(ClientInfo* p_client, char* p_buffer);
 		int receiveData(unsigned int p_clientId, char* p_buffer);
-		int receiveDataFromPolled(unsigned int p_clientId, char* p_buffer);
 
 		// accept new connections
 		bool acceptNewClient(unsigned int& p_iClientId);
-		void addPolledClientToSessions(unsigned int p_iPolledClientId, unsigned int& p_iClientId);
 
 		void removeQueuedRemovals();
-		void queuePolledClientRemoval(ClientInfo* p_client, bool p_closeSocket = true);
 		void queueClientRemoval(ClientInfo* p_client, bool p_closeSocket = true);
-		void removePolledClient(ClientInfo* p_client, bool p_closeSocket = true);
 		void removeClient(ClientInfo* p_client, bool p_closeSocket = true);
 
+		// Use to increment active sessions; use negative value to decrement
+		void changeActiveSessions(int p_toAdd) { m_activeSessions += p_toAdd; }
+		bool hasServerInfoChanged() { return m_serverInfoChanged; }
+		void setServerInfoChanged(bool p_changed);
 		const SOCKET getClientSocket(unsigned int p_clientId) const;
 
 		const std::string& getError() const { return m_strError; }
@@ -73,14 +70,11 @@ namespace networking
 		// for error checking return values
 		int m_iResult;
 
-		// m_sessions: master list of client sockets that are connected to the server
 		// m_polledSessions: client sockets that have polled for the server and have not commit to joining
 		std::map<unsigned int, ClientInfo*> m_sessions;
-		std::map<unsigned int, ClientInfo*> m_polledSessions;
 
 		//pair: Client to remove, close socket?
 		std::vector<std::pair<ClientInfo*, bool>> m_clientsToRemove;
-		std::vector<std::pair<ClientInfo*, bool>> m_polledClientsToRemove;
 		
 		std::string m_strError;
 

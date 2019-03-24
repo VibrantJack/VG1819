@@ -16,9 +16,7 @@ private:
 	userinterface::TriggerEventButton* m_findGameButton;
 	kitten::ClickableFrame* m_findGameButtonFrame;
 
-	bool m_bConnect;
-	bool m_bLoadingMsgEnabled;
-	bool m_bJoiningGame;
+	bool m_joiningSession = false;
 
 	virtual void start() override;
 	virtual bool hasUpdate() const override { return true; };

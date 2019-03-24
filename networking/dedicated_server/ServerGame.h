@@ -30,7 +30,6 @@ namespace networking
 		void destroyGameSessions();
 
 		void update();
-		void receiveFromPolledClients();
 		void receiveFromClients();
 		void updateGameSessions();
 
