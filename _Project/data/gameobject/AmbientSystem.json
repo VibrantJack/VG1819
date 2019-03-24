@@ -11,8 +11,8 @@
 					"pos" : [12.7, 0.1, 14.8],
 					"filename" : "Universal Pfx/Ambient/frogs.json",
 					"loops" : false,
-					"min_time" : 30,
-					"max_time" : 80
+					"min_time" : 40,
+					"max_time" : 90
 				},
 				{
 					"comment" : "This is used for the sword in the stone",
