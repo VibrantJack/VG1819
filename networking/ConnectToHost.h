@@ -16,6 +16,7 @@ private:
 	bool m_bConnect;
 	bool m_bLoadingMsgEnabled;
 	bool m_bJoiningGame;
+	bool m_bQuickplay;
 public:
 	ConnectToHost();
 	~ConnectToHost();

@@ -2,10 +2,6 @@
 #define GLFW_NO_GLU
 #include <stdio.h>
 #include <stdlib.h>
-#ifndef __APPLE__
-#include <GL/glew.h>
-#endif
-#include <GL/glfw.h>
 #include "networking\dedicated_server\ServerGame.h"
 
 #include <atomic>

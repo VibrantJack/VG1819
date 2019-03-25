@@ -43,10 +43,10 @@ void Quickplay::start()
 	m_serverStatus->setText("Inactive");
 
 	m_playerCount = manager->createNewGameObject("network_menu/player_count_textbox.json")->getComponent<puppy::TextBox>();
-	m_playerCount->setText("20");
+	m_playerCount->setText("");
 
 	m_activeSessions = manager->createNewGameObject("network_menu/active_games_textbox.json")->getComponent<puppy::TextBox>();
-	m_activeSessions->setText("10");
+	m_activeSessions->setText("");
 
 	kitten::K_GameObject* findGameButtonGO = &getTransform().getChildren()[0]->getAttachedGameObject();
 	m_findGameButton = findGameButtonGO->getComponent<userinterface::TriggerEventButton>();

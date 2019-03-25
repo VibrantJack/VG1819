@@ -22,7 +22,8 @@ ConnectToHost::ConnectToHost()
 	m_bConnect(false),
 	m_bLoadingMsgEnabled(false),
 	m_bJoiningGame(false),
-	m_loadingMessage(nullptr)
+	m_loadingMessage(nullptr),
+	m_bQuickplay(false)
 {
 	
 }
@@ -36,7 +37,11 @@ ConnectToHost::~ConnectToHost()
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::EventType::Quickplay, this);
 	m_inputMan->setPollMode(true);
 
-	if (!m_bJoiningGame && networking::ClientGame::isNetworkValid())
+	if (m_bQuickplay && networking::ClientGame::isNetworkValid())
+	{
+		networking::ClientGame::getInstance()->disconnectFromNetwork();
+	}
+	else if (!m_bJoiningGame && networking::ClientGame::isNetworkValid())
 	{
 		networking::ClientGame::getInstance()->disconnectFromNetwork();
 		networking::ClientGame::destroyInstance();
@@ -210,7 +215,7 @@ void ConnectToHost::joinLocalhost()
 void ConnectToHost::joinDedicatedServer()
 {
 	kitten::K_Instance::changeScene("quickplay_screen.json");
-
+	m_bQuickplay = true;
 	m_bConnect = false;
 }
 

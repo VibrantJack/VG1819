@@ -22,7 +22,10 @@ namespace networking
 	{
 		if (m_state != SessionState::Inactive)
 		{
-			m_network->changeActiveSessions(-1);
+			if (m_state == SessionState::Active)
+			{
+				m_network->changeActiveSessions(-1);
+			}
 			m_network->setServerInfoChanged(true);
 			m_state = SessionState::Inactive;
 			m_sessionClientId = 0;
