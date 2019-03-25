@@ -49,11 +49,16 @@ void Quickplay::start()
 	m_activeSessions->setText("");
 
 	kitten::K_GameObject* findGameButtonGO = &getTransform().getChildren()[0]->getAttachedGameObject();
+	findGameButtonGO->getTransform().setIgnoreParent(true);
 	m_findGameButton = findGameButtonGO->getComponent<userinterface::TriggerEventButton>();
 	m_findGameButtonFrame = findGameButtonGO->getComponent<kitten::ClickableFrame>();
 
 	m_loadingScreen = manager->createNewGameObject("UI/loading_screen.json");
 	m_loadingScreen->setEnabled(false);
+
+	m_debugInput = m_attachedObject->getComponent<puppy::TextBox>();
+	//m_debugInput->setText("TESTING");
+	m_stringInputDisplay = m_attachedObject->getComponent<StringInputDisplay>();
 
 	pollForServer();
 }
@@ -63,6 +68,20 @@ void Quickplay::update()
 	if (networking::ClientGame::getInstance() != nullptr && networking::ClientGame::isNetworkValid() && !m_joiningSession)
 	{
 		networking::ClientGame::getInstance()->update();
+	}
+
+	input::InputManager* input = input::InputManager::getInstance();
+	if (input->keyDown('D') && !input->keyDownLast('D'))
+	{
+		m_debugInput->setText("Enter dedicated server address");
+		input->setPollMode(false);
+		m_enteringAddress = true;
+	}
+
+	if (input->keyDown(GLFW_KEY_ENTER) && !input->keyDownLast(GLFW_KEY_ENTER) && m_enteringAddress)
+	{
+		networking::ClientGame::setDedicatedServerAddress(m_stringInputDisplay->getString());
+		m_enteringAddress = false;
 	}
 }
 

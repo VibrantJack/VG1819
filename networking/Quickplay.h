@@ -17,6 +17,11 @@ private:
 	userinterface::TriggerEventButton* m_findGameButton;
 	kitten::ClickableFrame* m_findGameButtonFrame;
 
+	// Debug: to manually set dedicated server address
+	puppy::TextBox* m_debugInput;
+	StringInputDisplay* m_stringInputDisplay;
+	bool m_enteringAddress = false;
+
 	bool m_joiningSession = false;
 
 	virtual void start() override;

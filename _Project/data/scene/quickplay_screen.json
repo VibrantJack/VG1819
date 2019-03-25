@@ -16,13 +16,24 @@
 			"components" : [
 				{
 					"name" : "Quickplay"
+				},
+				{
+					"name" : "TextBox",
+					"font" : "../fonts/common_consolas.fnt",
+					"width" : 500 , 
+					"height" : 100 ,
+					"color" : [1,1,1]
+				},
+				{
+					"name" : "StringInputDisplay"
 				}
 			],
 			"gameobjects" : [
 				{
 					"filename" : "UI/quickplay_find_game_button.json"
 				}
-			]
+			],
+			"translate" : [280, 160, -0.8]
 		},
 		{
             "name" : "Quickplay Info Window",
