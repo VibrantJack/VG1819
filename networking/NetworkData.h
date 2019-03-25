@@ -255,6 +255,7 @@ class AbilityPacket
 	typedef std::vector<unit::Unit*> TargetUnits;
 	typedef std::unordered_map<std::string, int> IntValues;
 	typedef std::vector<kitten::K_GameObject*>  TargetTiles;
+	typedef std::unordered_map<std::string, std::string> StringValues;
 public:
 	int m_packetType = ABILITY_PACKET;
 	int m_clientId;
@@ -276,11 +277,13 @@ public:
 	void addTargetUnits(TargetUnits p_targets);
 	void addIntValues(IntValues p_values);
 	void addTargetTiles(TargetTiles p_targetTilesGO);
+	void addStringValues(StringValues p_stringValues);
 	void addUnitData(unit::Unit* p_unit);
 
 	const TargetUnits& getTargetUnits();
 	const IntValues& getIntValues();
 	const TargetTiles& getTargetTiles();
+	const StringValues& getStringValues();
 	unit::Unit* getUnit();
 
 	int getSize();
@@ -318,6 +321,13 @@ private:
 	int m_numTargetTiles;
 	std::vector<std::pair<int, int>> m_targetTiles;
 	TargetTiles m_targetTilesGO;
+
+	// Number of entries in m_stringValue
+	int m_numStringValues = 0;
+	// Sum of the length of all values in m_stringValue
+	int m_sumStringValuesLength = 0;
+	StringValues m_stringValue;
+
 
 	std::pair<int, int> m_clickedObjectPos = { -1, -1 };
 

@@ -194,6 +194,29 @@ void AbilityPacket::serialize(Buffer& p_buffer)
 		writeInt(p_buffer, posY);
 	}
 
+	// String Values
+	writeInt(p_buffer, this->m_numStringValues);
+	for (auto it = m_stringValue.begin(); it != m_stringValue.end(); ++it)
+	{
+		// Get the key, write the length of the key, and then write each char in the key to the buffer
+		std::string strKey = it->first;
+		int keyLength = strKey.size();
+		writeInt(p_buffer, keyLength);
+		for (int i = 0; i < keyLength; ++i)
+		{
+			writeChar(p_buffer, strKey[i]);
+		}
+
+		// Get the value, write the length of the value, and then write each char of the value to the buffer
+		std::string strValue = it->second;
+		int valueLength = strValue.size();
+		writeInt(p_buffer, valueLength);
+		for (int i = 0; i < valueLength; ++i)
+		{
+			writeChar(p_buffer, strValue[i]);
+		}
+	}
+
 	// AbilityName
 	writeInt(p_buffer, m_abilityNameLength);
 	for (int i = 0; i < m_abilityNameLength; ++i)
@@ -256,6 +279,30 @@ void AbilityPacket::deserialize(Buffer& p_buffer)
 		m_targetTiles.push_back(std::make_pair(posX, posY));
 	}
 
+	m_numStringValues = readInt(p_buffer);
+	for (int i = 0; i < m_numStringValues; ++i)
+	{
+		// Read the length of the key from the buffer
+		int keyLength = readInt(p_buffer);
+		std::string key = "";
+		for (int j = 0; j < keyLength; ++j)
+		{
+			// Construct the key by reading each char
+			key += readChar(p_buffer);
+		}
+
+		// Read the length of the value from the buffer
+		int valueLength = readInt(p_buffer);
+		std::string value = "";
+		for (int j = 0; j < valueLength; ++j)
+		{
+			// Construct the value by reading each char
+			value += readChar(p_buffer);
+		}
+		
+		m_stringValue.insert({ key, value });
+	}
+
 	m_abilityNameLength = readInt(p_buffer);	
 	for (int i = 0; i < m_abilityNameLength; ++i)
 	{
@@ -288,6 +335,7 @@ int AbilityPacket::getSize()
 		+ sizeof(m_numTargetUnits) 
 		+ sizeof(m_numIntValues) 
 		+ sizeof(m_numTargetTiles)
+		+ sizeof(m_numStringValues)
 		+ sizeof(m_abilityNameLength)
 		+ sizeof(m_unit)
 		+ sizeof(m_clickedObjectPos);
@@ -299,12 +347,17 @@ int AbilityPacket::getSize()
 	int intValuesSize = (sizeof(int) * m_numIntValues) + ((sizeof(char) * m_sumKeysLength)) + (sizeof(int) * m_numIntValues);
 
 	// sizeof all int values in TargetTiles vector, note it's a vector of int pairs
-	int  targetTilesSize = sizeof(int) * 2 * m_numTargetTiles;
+	int targetTilesSize = sizeof(int) * 2 * m_numTargetTiles;
+
+	// sizeof all the keys and values in the StringValues map
+	// sizeof m_numStringValues int written to buffer + the integers written to buffer for each key and value length + the size of all values written
+	// note: sum of key lengths were added to m_sumKeysLength which have been calculated in intValuesSize above
+	int stringValuesSize = sizeof(int) + (2 * sizeof(int) * m_numStringValues) + (sizeof(char) * m_sumStringValuesLength);
 
 	// sizeof ability name
 	int abilityNameSize = m_abilityNameLength * sizeof(char);
 
-	m_totalBytes = intVariablesSize + targetUnitsSize + intValuesSize + targetTilesSize + abilityNameSize + sizeof(int);
+	m_totalBytes = intVariablesSize + targetUnitsSize + intValuesSize + targetTilesSize + stringValuesSize + abilityNameSize + sizeof(int);
 
 	return m_totalBytes;
 }
@@ -315,6 +368,7 @@ void AbilityPacket::extractFromPackage(ability::AbilityInfoPackage* p_package)
 	addTargetUnits(p_package->m_targets);
 	addIntValues(p_package->m_intValue);
 	addTargetTiles(p_package->m_targetTilesGO);
+	addStringValues(p_package->m_stringValue);
 
 	if (p_package->m_cardGOForUnitSummon != nullptr)
 	{
@@ -337,6 +391,7 @@ void AbilityPacket::insertIntoPackage(ability::AbilityInfoPackage* p_package)
 	p_package->m_targets = getTargetUnits();
 	p_package->m_intValue = getIntValues();
 	p_package->m_targetTilesGO = getTargetTiles();
+	p_package->m_stringValue = getStringValues();
 
 	kitten::K_GameObject* unitGO = nullptr;
 	unit::Unit* unitComp = getUnit();
@@ -381,7 +436,7 @@ void AbilityPacket::addIntValues(IntValues p_values)
 	for (auto it = m_intValue.begin(); it != m_intValue.end(); ++it)
 	{
 		std::string strKey = it->first;
-		m_sumKeysLength += strKey.size();
+		m_sumKeysLength += strKey.length();
 	}
 }
 
@@ -401,6 +456,21 @@ void AbilityPacket::addTargetTiles(TargetTiles p_targetTilesGO)
 		tiles.push_back(std::make_pair(x, y));
 	}
 	m_targetTiles = tiles;
+}
+
+void AbilityPacket::addStringValues(StringValues p_stringValues)
+{
+	m_numStringValues = p_stringValues.size();
+	m_stringValue = p_stringValues;
+
+	for (auto it = m_stringValue.begin(); it != m_stringValue.end(); ++it)
+	{
+		std::string strKey = it->first;
+		m_sumKeysLength += strKey.length();
+
+		std::string strValue = it->second;
+		m_sumStringValuesLength += strValue.length();
+	}
 }
 
 void AbilityPacket::addUnitData(unit::Unit* p_unit)
@@ -458,6 +528,11 @@ const std::vector<kitten::K_GameObject*>& AbilityPacket::getTargetTiles()
 	}
 
 	return m_targetTilesGO;
+}
+
+const std::unordered_map<std::string, std::string>& AbilityPacket::getStringValues()
+{
+	return m_stringValue;
 }
 
 unit::Unit* AbilityPacket::getUnit()
