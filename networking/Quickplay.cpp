@@ -87,9 +87,6 @@ void Quickplay::update()
 
 void Quickplay::pollForServer()
 {
-	// Try to connect to server
-	// Switch to Quickplay screen regardless of connection outcome
-
 	networking::ClientGame* client = networking::ClientGame::getInstance();
 
 	// Check if we've already created an instance of ClientGame

@@ -116,13 +116,11 @@ namespace networking
 
 	void ClientGame::connectToDedicatedServer()
 	{
-		printf("Attempting to dedicated server with address: %s\n", sm_dedicatedServerAddress.c_str());
 		setupNetwork(sm_dedicatedServerAddress);
 	}
 
 	void ClientGame::disconnectFromNetwork(bool p_bServerShutdown)
 	{
-		printf("sending disconnect\n");
 		// Send a packet to alert server that client is disconnecting
 		char data[BASIC_PACKET_SIZE];
 
