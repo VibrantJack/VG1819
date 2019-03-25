@@ -481,10 +481,10 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	// All Abilities below here need sound
+	// All Abilities below here had sound added
 
-	class CursedProtection : public Ability
-	{
+	class CursedProtection : public Ability //added
+	{                                      
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
 	public:
@@ -492,28 +492,28 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Clone : public Ability
+	class Clone : public Ability // added
 	{
 	public:
 		Clone() : Ability(ABILITY_CLONE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Devour : public Ability
+	class Devour : public Ability // added
 	{
 	public:
 		Devour() : Ability(ABILITY_DEVOUR) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Brew : public Ability
+	class Brew : public Ability // added
 	{
 	public:
 		Brew() : Ability(ABILITY_BREW) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Corrupt : public Ability
+	class Corrupt : public Ability // added
 	{
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
@@ -523,14 +523,14 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class ToxicAura : public Ability
+	class ToxicAura : public Ability // added
 	{
 	public:
 		ToxicAura() : Ability(ABILITY_TOXIC_AURA) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class LordOrder : public Ability
+	class LordOrder : public Ability // added
 	{
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
@@ -539,7 +539,7 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class AncientOffer : public Ability
+	class AncientOffer : public Ability // added
 	{
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
@@ -548,15 +548,15 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class AncientGift : public Ability
+	class AncientGift : public Ability // added
 	{
 	public:
 		AncientGift() : Ability(ABILITY_ANCIENT_GIFT) {};
-		int effect(AbilityInfoPackage* p_info) { 
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
 			singleTargetDamage(p_info); 
+			UniversalSounds::playSound("ancient_gift");
 			return 0;
 		};
 	};
 }
-
-

@@ -1,0 +1,14 @@
+{
+	"name" : "ChurchBell Sound",
+	"components" : [
+		{
+			"name" : "AudioSource",
+			"clippath" : "Sounds/sfx/units/church_bell.wav",
+			"is3d" : false,
+			"enableeffects" : false,
+			"loop" : false,
+			"volume" : 0.01,
+			"getsducked" : false
+		}
+	]
+}
