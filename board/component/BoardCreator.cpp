@@ -174,7 +174,7 @@ kitten::K_GameObject * BoardCreator::createTile(int x, int z, LandInformation::T
 	{
 	case LandInformation::TileType::Swamp_land:
 	{
-
+		AmbientSystemController::getInstance()->registerAmbientEffect("VolleyUPFX.json", tileGO->getTransform().getTranslation(), 1, 2);
 		break;
 	}
 	case LandInformation::TileType::Sand_land:
