@@ -1092,37 +1092,37 @@
       <Filter>settings_menu</Filter>
     </ClCompile>
     <ClCompile Include="SavePlayerPrefsOnClick.cpp">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClCompile>
     <ClCompile Include="DisableParentOnClick.cpp">
       <Filter>components\clickables</Filter>
     </ClCompile>
     <ClCompile Include="IncreaseSFXVolumeOnClick.cpp">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClCompile>
     <ClCompile Include="DecreaseSFXVolumeOnClick.cpp">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClCompile>
     <ClCompile Include="DecreaseBGMVolumeOnClick.cpp">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClCompile>
     <ClCompile Include="IncreaseBGMVolumeOnClick.cpp">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClCompile>
     <ClCompile Include="ResolutionController.cpp">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClCompile>
     <ClCompile Include="IncreaseResolutionOnClick.cpp">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClCompile>
     <ClCompile Include="DecreaseResolutionOnClick.cpp">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClCompile>
     <ClCompile Include="SFXVolumeController.cpp">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClCompile>
     <ClCompile Include="BGMVolumeController.cpp">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClCompile>
     <ClCompile Include="BGMManager.cpp">
       <Filter>components\sound</Filter>
@@ -1137,7 +1137,7 @@
       <Filter>components\debug</Filter>
     </ClCompile>
     <ClCompile Include="ToggleSiblingEnabledOnClick.cpp">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClCompile>
     <ClCompile Include="..\board\tile\landInfo\LandInformation.cpp">
       <Filter>board\tile\landInfo</Filter>
@@ -1180,6 +1180,21 @@
     </ClCompile>
     <ClCompile Include="..\components\EnterNameScreen.cpp">
       <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaySoundOnClick.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="AmbientSystemController.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="AmbientVolumeController.cpp">
+      <Filter>components\settings UI stuff</Filter>
+    </ClCompile>
+    <ClCompile Include="IncreaseAmbientVolumeOnClick.cpp">
+      <Filter>components\settings UI stuff</Filter>
+    </ClCompile>
+    <ClCompile Include="DecreaseAmbientVolumeOnClick.cpp">
+      <Filter>components\settings UI stuff</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2274,37 +2289,37 @@
       <Filter>settings_menu</Filter>
     </ClInclude>
     <ClInclude Include="SavePlayerPrefsOnClick.h">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClInclude>
     <ClInclude Include="DisableParentOnClick.h">
       <Filter>components\clickables</Filter>
     </ClInclude>
     <ClInclude Include="IncreaseSFXVolumeOnClick.h">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClInclude>
     <ClInclude Include="DecreaseSFXVolumeOnClick.h">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClInclude>
     <ClInclude Include="IncreaseBGMVolumeOnClick.h">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClInclude>
     <ClInclude Include="DecreaseBGMVolumeOnClick.h">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClInclude>
     <ClInclude Include="ResolutionController.h">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClInclude>
     <ClInclude Include="IncreaseResolutionOnClick.h">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClInclude>
     <ClInclude Include="DecreaseResolutionOnClick.h">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClInclude>
     <ClInclude Include="BGMVolumeController.h">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClInclude>
     <ClInclude Include="SFXVolumeController.h">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClInclude>
     <ClInclude Include="BGMManager.h">
       <Filter>components\sound</Filter>
@@ -2319,7 +2334,7 @@
       <Filter>components\debug</Filter>
     </ClInclude>
     <ClInclude Include="ToggleSiblingEnabledOnClick.h">
-      <Filter>components\options menu</Filter>
+      <Filter>components\settings UI stuff</Filter>
     </ClInclude>
     <ClInclude Include="..\kibble\map\LandLoader.h">
       <Filter>kibble\map</Filter>
@@ -2359,6 +2374,21 @@
     </ClInclude>
     <ClInclude Include="..\components\EnterNameScreen.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaySoundOnClick.h">
+      <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="AmbientSystemController.h">
+      <Filter>components\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="AmbientVolumeController.h">
+      <Filter>components\settings UI stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="IncreaseAmbientVolumeOnClick.h">
+      <Filter>components\settings UI stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="DecreaseAmbientVolumeOnClick.h">
+      <Filter>components\settings UI stuff</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2572,7 +2602,7 @@
     <Filter Include="settings_menu">
       <UniqueIdentifier>{8a6e667a-4bf7-46f6-9684-9a73b614d52b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="components\options menu">
+    <Filter Include="components\settings UI stuff">
       <UniqueIdentifier>{f96107fd-b0eb-4056-afa9-c0c205b1a8f4}</UniqueIdentifier>
     </Filter>
     <Filter Include="kibble\map">

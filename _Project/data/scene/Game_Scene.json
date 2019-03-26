@@ -16,6 +16,9 @@
 			"filename" : "UniversalPfx.txt"
 		},
 		{
+			"filename" : "AmbientSystem.json"
+		},
+		{
 			"filename" : "card_context.json"
 		},
 		{

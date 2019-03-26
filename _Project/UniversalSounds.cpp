@@ -54,6 +54,21 @@ void UniversalSounds::privatePlaySound(const std::string& p_sound) const
 	}
 }
 
+void UniversalSounds::playSound(const std::string& p_soundName, const glm::vec3& p_place)
+{
+	sm_instance->privatePlaySound(p_soundName, p_place);
+}
+
+void UniversalSounds::privatePlaySound(const std::string& p_soundName, const glm::vec3& p_place) const
+{
+	auto found = m_sounds.find(p_soundName);
+	if (found != m_sounds.cend())
+	{
+		(*found).second.source->getTransform().place(p_place.x, p_place.y, p_place.z);
+		(*found).second.source->play();
+	}
+}
+
 void UniversalSounds::setVolume(float p_volume)
 {
 	sm_instance->privateSetVolume(p_volume);

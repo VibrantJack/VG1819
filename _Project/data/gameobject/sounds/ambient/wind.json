@@ -1,0 +1,15 @@
+{
+	"name" : "Wind Sound",
+	"components" : [
+		{
+			"name" : "AudioSource",
+			"clippath" : "Sounds/sfx/ambient/wind_temp.wav",
+			"is3d" : true,
+			"mindistance" : 1.5,
+			"enableeffects" : false,
+			"loop" : false,
+			"volume" : 0.4,
+			"getsducked" : false
+		}
+	]
+}

@@ -17,7 +17,7 @@ class PlayerPrefs : public kitten::K_Component
 private:
 	static PlayerPrefs* sm_instance;
 
-	int m_sfxVolume, m_bgmVolume;
+	int m_sfxVolume, m_bgmVolume, m_ambientVolume;
 	bool m_fullscreen;
 	std::pair<int, int> m_resolution;
 
@@ -29,6 +29,7 @@ private:
 
 	void privateSetSFXVolume(int p_volume);
 	void privateSetBGMVolume(int p_volume);
+	void privateSetAmbientVolume(int p_volume);
 
 	void privateSetFullscreen(bool p_isFullscreen);
 	void privateSetResolution(int p_winX, int p_winY);
@@ -40,10 +41,13 @@ public:
 	~PlayerPrefs();
 
 	static void setSFXVolume(int p_volume);
-	static float getSFXVolume();
+	static int getSFXVolume();
 
 	static void setBGMVolume(int p_volume);
-	static float getBGMVolume();
+	static int getBGMVolume();
+
+	static void setAmbientVolume(int p_volume);
+	static int getAmbientVolume();
 
 	//This doesn't do anything, glfw version does not support
 	static void setFullscreen(bool p_isFullscreen);

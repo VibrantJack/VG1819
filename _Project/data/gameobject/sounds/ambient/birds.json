@@ -1,0 +1,15 @@
+{
+	"name" : "Birds Sound",
+	"components" : [
+		{
+			"name" : "AudioSource",
+			"clippath" : "Sounds/sfx/ambient/bird_call.wav",
+			"is3d" : true,
+			"mindistance" : 1.0,
+			"enableeffects" : false,
+			"loop" : false,
+			"volume" : 0.3,
+			"getsducked" : false
+		}
+	]
+}

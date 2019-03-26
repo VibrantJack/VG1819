@@ -1,0 +1,15 @@
+{
+	"name" : "Crickets Sound",
+	"components" : [
+		{
+			"name" : "AudioSource",
+			"clippath" : "Sounds/sfx/ambient/cricketloop.wav",
+			"is3d" : true,
+			"mindistance" : 1.5,
+			"enableeffects" : false,
+			"loop" : true,
+			"volume" : 0.35,
+			"getsducked" : false
+		}
+	]
+}

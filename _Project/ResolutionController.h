@@ -6,6 +6,7 @@
 #include <list>
 #include <tuple>
 
+// I really should have just made an options_menu controller - Callum
 class ResolutionController : public kitten::K_Component
 {
 private:

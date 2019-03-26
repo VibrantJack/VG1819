@@ -228,6 +228,24 @@
 				},
 				{
 					"sound" : ["health_link", "sounds/health_link.json"]
+				},
+				{
+					"sound" : ["tree_rustle", "sounds/tree_rustle.json"]
+				},
+				{
+					"sound" : ["ambient_wind", "sounds/ambient/wind.json"]
+				},
+				{
+					"sound" : ["ambient_shine", "sounds/ambient/shine.json"]
+				},
+				{
+					"sound" : ["ambient_fae", "sounds/ambient/fae.json"]
+				},
+				{
+					"sound" : ["ambient_frogs", "sounds/ambient/frogs.json"]
+				},
+				{
+					"sound" : ["ambient_birds", "sounds/ambient/birds.json"]
 				}
 			]
 		}

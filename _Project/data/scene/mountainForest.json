@@ -106,6 +106,19 @@
 				{
 					"name" : "ModelRenderable",
 					"path" : "models/terrain/trees/lombardyPoplar.obj"
+				},
+				{
+					"name" : "ClickableBox",
+					"minpoint" : [-1.5,0,-1.5],
+					"maxpoint" : [1.5,25,1.5]
+				},
+				{
+					"name" : "ClickableBoxRenderable"
+				},
+				{
+					"name" : "PlaySoundOnClick",
+					"sound_name" : "tree_rustle",
+					"3D" : true
 				}
 			],
 			"scale" : [0.25,0.25,0.25],
@@ -269,7 +282,7 @@
 			"translate" : [20,-1,15.75]
 		},
 		{
-			"name" : "MidRightRock",
+			"name" : "SWORD IN STONE",
 			"components" : [
 				{
 					"name" : "ModelRenderable",
@@ -341,7 +354,7 @@
 			"translate" : [17,-1.75,-2.45]
 		},
 		{
-			"name" : "LowerMushroom",
+			"name" : "UpperMushroom",
 			"components" : [
 				{
 					"name" : "ModelRenderable",

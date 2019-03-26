@@ -2,7 +2,7 @@
 #include "util\MathUtil.h"
 #include "settings_menu\PlayerPrefs.h"
 
-SFXVolumeController::SFXVolumeController() : m_volume(0)
+SFXVolumeController::SFXVolumeController() : m_volume(0), m_textBox(nullptr)
 {
 
 }

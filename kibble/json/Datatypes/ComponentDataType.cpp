@@ -183,7 +183,7 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 		}
 
 		if (JSONHAS("maxdistance")) {
-			toReturn->setMaxDistance(LOOKUP("maxdistance"));
+		//	toReturn->setMaxDistance(LOOKUP("maxdistance"));
 		}
 	}
 
@@ -1907,7 +1907,11 @@ kitten::K_Component* getHaltParticleSystemAfterTime(nlohmann::json* p_jsonFile) 
 #include "_Project\PlayUniversalSoundOnEnable.h"
 kitten::K_Component* getPlayUniversalSoundOnEnable(nlohmann::json* p_jsonFile) {
 	std::string name = p_jsonFile->operator[]("sound_name");
-	return new PlayUniversalSoundOnEnable(name);
+	
+	bool is3D;
+	SETOPTDEF(is3D, "3D", false);
+
+	return new PlayUniversalSoundOnEnable(name, is3D);
 }
 
 #include "UI/TurnCounterController.h"
@@ -1979,6 +1983,23 @@ kitten::K_Component* getResolutionController(nlohmann::json* p_jsonFile) {
 	return new ResolutionController();
 }
 
+#include "_Project\IncreaseAmbientVolumeOnClick.h"
+kitten::K_Component* getIncreaseAmbientVolumeOnClick(nlohmann::json* p_jsonFile) {
+	int amount = p_jsonFile->operator[]("amount");
+	return new IncreaseAmbientVolumeOnClick(amount);
+}
+
+#include "_Project\DecreaseAmbientVolumeOnClick.h"
+kitten::K_Component* getDecreaseAmbientVolumeOnClick(nlohmann::json* p_jsonFile) {
+	int amount = p_jsonFile->operator[]("amount");
+	return new DecreaseAmbientVolumeOnClick(amount);
+}
+
+#include "_Project\AmbientVolumeController.h"
+kitten::K_Component* getAmbientVolumeController(nlohmann::json* p_jsonFile) {
+	return new AmbientVolumeController();
+}
+
 #include "_Project\PlayBGMOnSceneChange.h"
 kitten::K_Component* getPlayBGMOnSceneChange(nlohmann::json* p_jsonFile) {
 
@@ -2044,6 +2065,47 @@ kitten::K_Component* getEnterNameScreen(nlohmann::json* p_jsonFile) {
 	int minNameLength = p_jsonFile->operator[]("name_min_limit");
 	int maxNameLength = p_jsonFile->operator[]("name_max_limit");
 	return new EnterNameScreen(minNameLength, maxNameLength);
+}
+
+#include "_Project\PlaySoundOnClick.h"
+kitten::K_Component* getPlaySoundOnClick(nlohmann::json* p_jsonFile) {
+	
+	std::string soundName = p_jsonFile->operator[]("sound_name");
+	bool is3D = p_jsonFile->operator[]("3D");
+
+	return new PlaySoundOnClick(soundName, is3D);
+}
+
+#include "_Project\AmbientSystemController.h"
+kitten::K_Component* getAmbientSystemController(nlohmann::json* p_jsonFile) {
+	
+	std::vector<AmbientSystemController::AmbientEvent> events;
+	std::vector<kitten::AudioSource*> persistentSounds;
+
+	auto end = p_jsonFile->operator[]("events").end();
+	for (auto it = p_jsonFile->operator[]("events").begin(); it != end; ++it)
+	{
+		auto position = (*it)["pos"];
+		glm::vec3 pos(position[0], position[1], position[2]);
+		kitten::K_GameObject* go = kitten::K_GameObjectManager::getInstance()->createNewGameObject((*it)["filename"]);
+
+		bool loops = (*it)["loops"];
+
+		if (!loops)
+		{
+			float minTimeBetweenEvents = (*it)["min_time"];
+			float maxTimeBetweenEvents = (*it)["max_time"];
+
+			events.push_back(AmbientSystemController::AmbientEvent(pos, go, minTimeBetweenEvents, maxTimeBetweenEvents));
+		}
+		else
+		{
+			go->getTransform().place(pos.x, pos.y, pos.z);
+			persistentSounds.push_back(go->getComponent<kitten::AudioSource>());
+		}
+	}
+
+	return new AmbientSystemController(events, persistentSounds);
 }
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
@@ -2211,6 +2273,11 @@ void setupComponentMap() {
 	jsonComponentMap["TogglePhotoModeOnKeyPress"] = &getTogglePhotoModeOnKeyPress;
 	jsonComponentMap["SoundFader"] = &getSoundFader;
 	jsonComponentMap["EnterNameScreen"] = &getEnterNameScreen;
+	jsonComponentMap["PlaySoundOnClick"] = &getPlaySoundOnClick;
+	jsonComponentMap["AmbientSystemController"] = &getAmbientSystemController;
+	jsonComponentMap["AmbientVolumeController"] = &getAmbientVolumeController;
+	jsonComponentMap["IncreaseAmbientVolumeOnClick"] = &getIncreaseAmbientVolumeOnClick;
+	jsonComponentMap["DecreaseAmbientVolumeOnClick"] = &getDecreaseAmbientVolumeOnClick;
 
 }
 

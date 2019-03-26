@@ -8,7 +8,7 @@
 namespace kitten
 {
 	AudioSource::AudioSource(const std::string& p_pathToClip, bool p_is3D, bool p_enableEffects, bool p_causesDuck, bool p_getsDucked) : m_clipPath(p_pathToClip),
-		m_is3D(p_is3D),  m_effectsEnabled(p_enableEffects), m_causesDuck(p_causesDuck), m_beingDucked(false), m_getsDucked(p_getsDucked)
+		m_is3D(p_is3D),  m_effectsEnabled(p_enableEffects), m_causesDuck(p_causesDuck), m_beingDucked(false), m_getsDucked(p_getsDucked), m_isLooped(false), m_minDist(0.5f)
 	{
 		std::ifstream infile(p_pathToClip);
 		assert(infile.good(), "Could not find: " + p_pathToClip);
@@ -91,12 +91,11 @@ namespace kitten
 		if (m_audioClip->isFinished())
 		{
 			//remake audio source
-			m_audioClip->stop(); // stop needed? 
+			//m_audioClip->stop(); // stop needed? 
 			m_audioClip->drop();
 
 			m_audioClip = AudioEngineWrapper::sm_instance->getSound(m_clipPath, m_is3D, m_effectsEnabled);
-			m_audioClip->setMinDistance(m_minDist);
-			m_audioClip->setMaxDistance(m_maxDist);
+			
 			m_audioClip->setIsLooped(m_isLooped);
 			m_sfxController->setController(m_audioClip->getSoundEffectControl());
 			m_sfxController->applyEffects();
@@ -104,6 +103,8 @@ namespace kitten
 			if (m_is3D)
 			{
 				onPosChanged(getTransform().getTranslation());
+				m_audioClip->setMinDistance(m_minDist);
+				//m_audioClip->setMaxDistance(m_maxDist);
 			}
 
 			if (m_beingDucked)

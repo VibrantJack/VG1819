@@ -133,6 +133,26 @@
 					"name" : "Default",
 					"path" : "Universal Pfx/DefaultUPFX.json",
 					"poolednumber" : 10
+				},
+				{
+					"name" : "ambient_wind",
+					"path" : "Universal PFX/Ambient/wind.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "ambient_crickets",
+					"path" : "Universal PFX/Ambient/crickets.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "ambient_fae",
+					"path" : "Universal PFX/Ambient/fae.json",
+					"poolednumber" : 2
+				},
+				{
+					"name" : "ambient_SwordITS",
+					"path" : "Universal PFX/Ambient/swordITS.json",
+					"poolednumber" : 2
 				}
 			],
 			"debug" : false
