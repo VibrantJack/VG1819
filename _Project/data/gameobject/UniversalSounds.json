@@ -224,6 +224,9 @@
 					"sound" : ["cursed_protection", "sounds/cursed_protection.json"]
 				},
 				{
+					"sound" : ["downer", "sounds/downer.json"]
+				},
+				{
 					"sound" : ["health_link", "sounds/health_link.json"]
 				}
 			]

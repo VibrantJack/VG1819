@@ -414,7 +414,7 @@ namespace ability
 		};
 	};
 
-	class Sacrifice : public Ability // needs sound
+	class Sacrifice : public Ability
 	{
 	public:
 		Sacrifice() : Ability(ABILITY_SACRIFICE) {};
@@ -481,9 +481,7 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	// All Abilities below here had sound added
-
-	class CursedProtection : public Ability //added
+	class CursedProtection : public Ability
 	{                                      
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
@@ -492,28 +490,28 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Clone : public Ability // added
+	class Clone : public Ability
 	{
 	public:
 		Clone() : Ability(ABILITY_CLONE) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Devour : public Ability // added
+	class Devour : public Ability
 	{
 	public:
 		Devour() : Ability(ABILITY_DEVOUR) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Brew : public Ability // added
+	class Brew : public Ability
 	{
 	public:
 		Brew() : Ability(ABILITY_BREW) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class Corrupt : public Ability // added
+	class Corrupt : public Ability
 	{
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
@@ -523,14 +521,14 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class ToxicAura : public Ability // added
+	class ToxicAura : public Ability
 	{
 	public:
 		ToxicAura() : Ability(ABILITY_TOXIC_AURA) {};
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class LordOrder : public Ability // added
+	class LordOrder : public Ability
 	{
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
@@ -539,7 +537,7 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class AncientOffer : public Ability // added
+	class AncientOffer : public Ability
 	{
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
@@ -548,7 +546,7 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	class AncientGift : public Ability // added
+	class AncientGift : public Ability
 	{
 	public:
 		AncientGift() : Ability(ABILITY_ANCIENT_GIFT) {};
