@@ -1,0 +1,20 @@
+<Emitter>
+  <SpawnProperties>
+    <velocity random="true" min="-4" max="-3" />
+    <fade fade="-0.5"/>
+    <offset x="0" y="0" z="0" type="disc" radius="2"/>
+    <direction mode="left"/>
+    <maxParticles numParticles="15" />
+    <lifetime length="20"/>
+    <burst isBurst="true" repeat="false" />
+  </SpawnProperties>
+
+  <Affectors>
+    <path isPreset="true" type="direction" scalar="1"/>
+    <rotationChange mode="over_life" min="0" max="7200"/>
+  </Affectors>
+
+  <Misc path="textures/particles/flies.png" spawnRate="0.0"/>
+</Emitter>
+
+

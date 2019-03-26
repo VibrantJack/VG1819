@@ -1,0 +1,15 @@
+{
+	"name" : "AmbientWind",
+	"components" : 
+	[
+		{
+			"name" : "PlayUniversalSoundOnEnable",
+			"sound_name" : "ambient_wind",
+			"3D" : true
+		},
+		{
+			"name" : "DisableAfterTime",
+			"time" : 0.16
+		}
+	]
+}

@@ -146,7 +146,7 @@ kitten::K_Component* getDiscardCardOnClick(nlohmann::json* p_jsonFile){
 	return new DiscardCardOnClick();
 }
 
-
+/*
 #include "board/component/BoardCreator.h"
 kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
 	BoardCreator* component = new BoardCreator();
@@ -161,7 +161,7 @@ kitten::K_Component* getBoardCreator(nlohmann::json* p_jsonFile){
 	component->setTileInfoDisplay(enableTileInfoDisplay);
 
 	return component;
-}
+}*/
 
 #include "kitten\audio\AudioSource.h"
 kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
@@ -183,7 +183,7 @@ kitten::K_Component* getAudioSource(nlohmann::json* p_jsonFile) {
 		}
 
 		if (JSONHAS("maxdistance")) {
-			toReturn->setMaxDistance(LOOKUP("maxdistance"));
+		//	toReturn->setMaxDistance(LOOKUP("maxdistance"));
 		}
 	}
 
@@ -921,8 +921,8 @@ kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
 	SETOPTDEF(inactiveTexture, "inactiveTexture", "textures/ui/buttons/disabled_button.tga");
 	SETOPTDEF(eventType, "event", "NONE");
 
-	if (eventType == "Poll_For_Localhost")
-		eventEnum = kitten::Event::Poll_For_Localhost;
+	if (eventType == "Poll_For_Server")
+		eventEnum = kitten::Event::Poll_For_Server;
 	else if (eventType == "Join_Direct_Address")
 		eventEnum = kitten::Event::Join_Direct_Address;
 	else if (eventType == "Join_Localhost")
@@ -937,6 +937,10 @@ kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
 		eventEnum = kitten::Event::Ready_Button_Clicked;
 	else if (eventType == "Land_Context_Set_Enabled")
 		eventEnum = kitten::Event::Land_Context_Set_Enabled;
+	else if (eventType == "Quickplay")
+		eventEnum = kitten::Event::Quickplay;
+	else if (eventType == "Quickplay_Find_Game")
+		eventEnum = kitten::Event::Quickplay_Find_Game;
 	else
 		eventEnum = -1;
 
@@ -1571,54 +1575,6 @@ kitten::K_Component* getPromptPopUpDeclineOnClick(nlohmann::json* p_jsonFile)
 	return new PromptPopUpDeclineOnClick();
 }
 
-#include "board/tile/TileDecoration.h"
-kitten::K_Component* getTileDecoration(nlohmann::json* p_jsonFile)
-{
-	TileDecoration* d = new TileDecoration();
-
-	if (JSONHAS("texture")) {
-		std::vector<std::string> list;
-		//assert(p_jsonfile["components"].is_array());
-		for (nlohmann::json::iterator it = p_jsonFile->operator[]("texture").begin(); it != p_jsonFile->operator[]("texture").end(); ++it) {
-			list.push_back(*it);
-		}
-		d->setTextureList(list);
-	} 
-
-	if (JSONHAS("min_scale") && JSONHAS("max_scale"))
-	{
-		float x1 = p_jsonFile->operator[]("min_scale")[0];
-		float y1 = p_jsonFile->operator[]("min_scale")[1];
-		float z1 = p_jsonFile->operator[]("min_scale")[2];
-		float x2 = p_jsonFile->operator[]("max_scale")[0];
-		float y2 = p_jsonFile->operator[]("max_scale")[1];
-		float z2 = p_jsonFile->operator[]("max_scale")[2];
-		d->setScaleRange(glm::vec3(x1, y1, z1), glm::vec3(x2, y2, z2));
-	}
-	if (JSONHAS("min_rotation") && JSONHAS("max_rotation"))
-	{
-		float x1 = p_jsonFile->operator[]("min_rotation")[0];
-		float y1 = p_jsonFile->operator[]("min_rotation")[1];
-		float z1 = p_jsonFile->operator[]("min_rotation")[2];
-		float x2 = p_jsonFile->operator[]("max_rotation")[0];
-		float y2 = p_jsonFile->operator[]("max_rotation")[1];
-		float z2 = p_jsonFile->operator[]("max_rotation")[2];
-		d->setRotationRange(glm::vec3(x1, y1, z1), glm::vec3(x2, y2, z2));
-	}
-	if (JSONHAS("min_trans") && JSONHAS("max_trans"))
-	{
-		float x1 = p_jsonFile->operator[]("min_trans")[0];
-		float y1 = p_jsonFile->operator[]("min_trans")[1];
-		float z1 = p_jsonFile->operator[]("min_trans")[2];
-		float x2 = p_jsonFile->operator[]("max_trans")[0];
-		float y2 = p_jsonFile->operator[]("max_trans")[1];
-		float z2 = p_jsonFile->operator[]("max_trans")[2];
-		d->setTransRange(glm::vec3(x1, y1, z1), glm::vec3(x2, y2, z2));
-	}
-
-	return d;
-}
-
 #include "kitten/SimpleQuadRenderable.h"
 kitten::K_Component* getSimpleQuadRenderable(nlohmann::json* p_jsonFile) {
 	std::string texturefilename;
@@ -1868,7 +1824,9 @@ kitten::K_Component* getBGMManager(nlohmann::json* p_jsonFile) {
 		sounds.push_back(std::make_pair(trackName, soundPath));
 	}
 
-	return new BGMManager(sounds);
+	float crossFadeTime = p_jsonFile->operator[]("cross_fade_time");
+
+	return new BGMManager(sounds, crossFadeTime);
 }
 
 #include "_Project\PlaySoundOnUIClick.h"
@@ -1949,7 +1907,11 @@ kitten::K_Component* getHaltParticleSystemAfterTime(nlohmann::json* p_jsonFile) 
 #include "_Project\PlayUniversalSoundOnEnable.h"
 kitten::K_Component* getPlayUniversalSoundOnEnable(nlohmann::json* p_jsonFile) {
 	std::string name = p_jsonFile->operator[]("sound_name");
-	return new PlayUniversalSoundOnEnable(name);
+	
+	bool is3D;
+	SETOPTDEF(is3D, "3D", false);
+
+	return new PlayUniversalSoundOnEnable(name, is3D);
 }
 
 #include "UI/TurnCounterController.h"
@@ -2021,6 +1983,23 @@ kitten::K_Component* getResolutionController(nlohmann::json* p_jsonFile) {
 	return new ResolutionController();
 }
 
+#include "_Project\IncreaseAmbientVolumeOnClick.h"
+kitten::K_Component* getIncreaseAmbientVolumeOnClick(nlohmann::json* p_jsonFile) {
+	int amount = p_jsonFile->operator[]("amount");
+	return new IncreaseAmbientVolumeOnClick(amount);
+}
+
+#include "_Project\DecreaseAmbientVolumeOnClick.h"
+kitten::K_Component* getDecreaseAmbientVolumeOnClick(nlohmann::json* p_jsonFile) {
+	int amount = p_jsonFile->operator[]("amount");
+	return new DecreaseAmbientVolumeOnClick(amount);
+}
+
+#include "_Project\AmbientVolumeController.h"
+kitten::K_Component* getAmbientVolumeController(nlohmann::json* p_jsonFile) {
+	return new AmbientVolumeController();
+}
+
 #include "_Project\PlayBGMOnSceneChange.h"
 kitten::K_Component* getPlayBGMOnSceneChange(nlohmann::json* p_jsonFile) {
 
@@ -2041,6 +2020,93 @@ kitten::K_Component* getPlayBGMOnSceneChange(nlohmann::json* p_jsonFile) {
 #include "_Project\ToggleSiblingEnabledOnClick.h"
 kitten::K_Component* getToggleSiblingEnabledOnClick(nlohmann::json* p_jsonFile) {
 	return new ToggleSiblingEnabledOnClick();
+}
+
+#include "board/tile/gameMode/Capture/CaptureItemController.h"
+kitten::K_Component* getCaptureItemController(nlohmann::json* p_jsonFile) {
+	glm::vec3 tOffset, uOffset;
+	if (JSONHAS("tile_offset"))
+	{
+		tOffset = glm::vec3(LOOKUP("tile_offset")[0], LOOKUP("tile_offset")[1], LOOKUP("tile_offset")[2]);
+	}
+
+	if (JSONHAS("unit_offset"))
+	{
+		uOffset = glm::vec3(LOOKUP("unit_offset")[0], LOOKUP("unit_offset")[1], LOOKUP("unit_offset")[2]);
+	}
+
+	CaptureItemController* comp = new CaptureItemController();
+	comp->setTileOffset(tOffset);
+	comp->setUnitOffset(uOffset);
+
+	return comp;
+}
+
+#include "networking\Quickplay.h"
+kitten::K_Component* getQuickplay(nlohmann::json* p_jsonFile) {
+	return new Quickplay();
+}
+
+#include "_Project\TogglePhotoModeOnKeyPress.h"
+kitten::K_Component* getTogglePhotoModeOnKeyPress(nlohmann::json* p_jsonFile) {
+	std::string strKey = p_jsonFile->operator[]("key");
+	char key = strKey[0];
+
+	return new TogglePhotoModeOnKeyPress(key);
+}
+
+#include "_Project\SoundFader.h"
+kitten::K_Component* getSoundFader(nlohmann::json* p_jsonFile) {
+	return new SoundFader();
+}
+
+#include "components\EnterNameScreen.h"
+kitten::K_Component* getEnterNameScreen(nlohmann::json* p_jsonFile) {
+	int minNameLength = p_jsonFile->operator[]("name_min_limit");
+	int maxNameLength = p_jsonFile->operator[]("name_max_limit");
+	return new EnterNameScreen(minNameLength, maxNameLength);
+}
+
+#include "_Project\PlaySoundOnClick.h"
+kitten::K_Component* getPlaySoundOnClick(nlohmann::json* p_jsonFile) {
+	
+	std::string soundName = p_jsonFile->operator[]("sound_name");
+	bool is3D = p_jsonFile->operator[]("3D");
+
+	return new PlaySoundOnClick(soundName, is3D);
+}
+
+
+#include "_Project\AmbientSystemController.h"
+kitten::K_Component* getAmbientSystemController(nlohmann::json* p_jsonFile) {
+	
+	std::vector<AmbientSystemController::AmbientEvent> events;
+	std::vector<kitten::AudioSource*> persistentSounds;
+
+	auto end = p_jsonFile->operator[]("events").end();
+	for (auto it = p_jsonFile->operator[]("events").begin(); it != end; ++it)
+	{
+		auto position = (*it)["pos"];
+		glm::vec3 pos(position[0], position[1], position[2]);
+		kitten::K_GameObject* go = kitten::K_GameObjectManager::getInstance()->createNewGameObject((*it)["filename"]);
+
+		bool loops = (*it)["loops"];
+
+		if (!loops)
+		{
+			float minTimeBetweenEvents = (*it)["min_time"];
+			float maxTimeBetweenEvents = (*it)["max_time"];
+
+			events.push_back(AmbientSystemController::AmbientEvent(pos, go, minTimeBetweenEvents, maxTimeBetweenEvents));
+		}
+		else
+		{
+			go->getTransform().place(pos.x, pos.y, pos.z);
+			persistentSounds.push_back(go->getComponent<kitten::AudioSource>());
+		}
+	}
+
+	return new AmbientSystemController(events, persistentSounds);
 }
 
 std::map<std::string, kitten::K_Component* (*)(nlohmann::json* p_jsonFile)> jsonComponentMap;
@@ -2076,7 +2142,7 @@ void setupComponentMap() {
 	jsonComponentMap["TextBox"] = &getTextBox;
 	jsonComponentMap["ToggleChildEnabledOnKeyPress"] = &getToggleChildEnabledOnKeyPress;
 	jsonComponentMap["TileInfoDisplayOnKeyPress"] = &getTileInfoDisplayOnKeyPress;
-	jsonComponentMap["BoardCreator"] = &getBoardCreator;
+	//jsonComponentMap["BoardCreator"] = &getBoardCreator;
 	jsonComponentMap["ToggleStringInputOnKeyPress"] = &getToggleStringInputOnKeyPress;
 	jsonComponentMap["StringInputDisplay"] = &getStringInputDisplay;
 	jsonComponentMap["RenameDeckComponent"] = &getRenameDeckComponent;
@@ -2158,7 +2224,6 @@ void setupComponentMap() {
 	jsonComponentMap["DrawCardsFromDeckWithDelay"] = &getDrawCardsFromDeckWithDelay;
 	jsonComponentMap["DeckDiscardedCardHandler"] = &getDeckDiscardedCardHandler;
 	jsonComponentMap["QuadEdgeRenderable"] = &getQuadEdgeRenderable;
-	jsonComponentMap["TileDecoration"] = &getTileDecoration;
 	jsonComponentMap["SimpleQuadRenderable"] = &getSimpleQuadRenderable;
 	jsonComponentMap["ShowLoadingOnClick"] = &getShowLoadingOnClick;
 	jsonComponentMap["DirectionalLight"] = &getDirectionalLight;
@@ -2204,6 +2269,16 @@ void setupComponentMap() {
 	jsonComponentMap["BGMManager"] = &getBGMManager;
 	jsonComponentMap["PlayBGMOnSceneChange"] = &getPlayBGMOnSceneChange;
 	jsonComponentMap["ToggleSiblingEnabledOnClick"] = &getToggleSiblingEnabledOnClick;
+	jsonComponentMap["CaptureItemController"] = &getCaptureItemController;
+	jsonComponentMap["Quickplay"] = &getQuickplay;
+	jsonComponentMap["TogglePhotoModeOnKeyPress"] = &getTogglePhotoModeOnKeyPress;
+	jsonComponentMap["SoundFader"] = &getSoundFader;
+	jsonComponentMap["EnterNameScreen"] = &getEnterNameScreen;
+	jsonComponentMap["PlaySoundOnClick"] = &getPlaySoundOnClick;
+	jsonComponentMap["AmbientSystemController"] = &getAmbientSystemController;
+	jsonComponentMap["AmbientVolumeController"] = &getAmbientVolumeController;
+	jsonComponentMap["IncreaseAmbientVolumeOnClick"] = &getIncreaseAmbientVolumeOnClick;
+	jsonComponentMap["DecreaseAmbientVolumeOnClick"] = &getDecreaseAmbientVolumeOnClick;
 
 }
 

@@ -37,6 +37,8 @@ namespace ability
 			}
 		}
 
+		UniversalSounds::playSound("war_drums");
+
 		//delete package
 		done(p_info);
 

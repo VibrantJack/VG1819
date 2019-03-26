@@ -1,0 +1,6 @@
+{
+    "type":2,
+    "texture":"textures/tiles/dark_water.png",
+    "mv_cost":2,
+    "description":"It's hard to move cross it. And units will take 1 damage if it stays."
+}

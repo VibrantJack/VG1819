@@ -1,15 +1,24 @@
 #include "BoardManager.h"
+
 #include "kitten\event_system\EventManager.h"
+#include "kitten\QuadEdgeRenderable.h"
+
 #include "kitten/K_ComponentManager.h"
 #include "kitten/K_GameObjectManager.h"
 
 BoardManager* BoardManager::sm_instance = nullptr;
 
-void BoardManager::setSpawnPoint(kitten::Event::TileList p_list)
+void BoardManager::createBoard(int p_mapID, bool p_enableTileInfoDisplay)
 {
-	m_spawnPointList = p_list;
+	m_boardCreator->setTileInfoDisplay(p_enableTileInfoDisplay);
+	m_boardCreator->createBoard(p_mapID);
+
+	//it's done, delete it
+	delete m_boardCreator;
+	m_boardCreator = nullptr;
 }
 
+//board property
 kitten::K_GameObject* BoardManager::getSpawnPoint(int m_clientId)
 {
 	kitten::K_GameObject* tile;
@@ -28,24 +37,12 @@ kitten::K_GameObject* BoardManager::getSpawnPoint(int m_clientId)
 	return tile;
 }
 
-void BoardManager::setTileList(std::vector<kitten::K_GameObject*> p_list)
-{
-	m_tileList = p_list;
-}
-
-void BoardManager::setDimension(int p_x, int p_z)
-{
-	m_dimension = std::pair<int, int>(p_x, p_z);
-	if(m_range != nullptr)
-		m_range->setDimension(p_x, p_z);
-}
-
-std::pair<int, int> BoardManager::getDimension()
+std::pair<int, int> BoardManager::getDimension() const
 {
 	return m_dimension;
 }
 
-kitten::K_GameObject * BoardManager::getTile(int p_x, int p_z)
+kitten::K_GameObject * BoardManager::getTile(int p_x, int p_z) const
 {
 	//if out of range, return nullptr
 	if (p_x < 0 || p_z < 0 || p_x >= m_dimension.first || p_z >= m_dimension.second)
@@ -60,6 +57,7 @@ kitten::K_GameObject * BoardManager::getTile(int p_x, int p_z)
 	return nullptr;
 }
 
+//area
 void BoardManager::showArea(kitten::K_GameObject* p_pivot)
 {
 	if (m_area->isActive())
@@ -101,10 +99,11 @@ kitten::Event::TileList BoardManager::getArea()
 			return m_areaList;
 		}
 	}
-	
+
 	return kitten::Event::TileList();
 }
 
+//select target
 void BoardManager::select()
 {
 	if (m_select && m_area->isActive())
@@ -169,11 +168,13 @@ void BoardManager::deselect()
 	}
 }
 
-kitten::Event::TileList BoardManager::getRange()
+//range
+kitten::Event::TileList BoardManager::getRange() const 
 {
 	return m_rangeList;
 }
 
+//event 
 void BoardManager::registerEvent()
 {
 	kitten::EventManager::getInstance()->addListener(
@@ -195,7 +196,11 @@ void BoardManager::registerEvent()
 		kitten::Event::EventType::Set_Area_Pattern,
 		this,
 		std::bind(&BoardManager::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
-	// End adding listeners for events
+
+	kitten::EventManager::getInstance()->addListener(
+		kitten::Event::EventType::Right_Clicked,
+		this,
+		std::bind(&BoardManager::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void BoardManager::deregisterEvent()
@@ -204,10 +209,18 @@ void BoardManager::deregisterEvent()
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::Highlight_Tile, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::Unhighlight_Tile, this);
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::Set_Area_Pattern, this);
+	kitten::EventManager::getInstance()->removeListener(kitten::Event::Right_Clicked, this);
 }
 
+
+//tile click
 void BoardManager::tileClicked(bool p_send)
 {
+	if (!m_area->isActive())
+	{
+		return;//not wait for player to choose target, ingore it
+	}
+
 	if (p_send)
 	{
 		if (m_select)
@@ -230,7 +243,7 @@ void BoardManager::tileClicked(bool p_send)
 				int z = list[i].second;
 				kitten::K_GameObject* tileGO = getTile(x, z);
 
-				std::string key = TILE+std::to_string(i);
+				std::string key = TILE + std::to_string(i);
 
 				e->putGameObj(key, tileGO);
 			}
@@ -252,12 +265,6 @@ void BoardManager::tileClicked(bool p_send)
 	m_selectList.clear();
 }
 
-void BoardManager::resetComponents()
-{
-	m_area->removePattern();
-	m_highlighter->reset();
-}
-
 void BoardManager::autoClick(kitten::K_GameObject * p_tile)
 {
 	//check if it's in range
@@ -277,16 +284,34 @@ void BoardManager::autoClick(kitten::K_GameObject * p_tile)
 	}
 }
 
-BoardManager::BoardManager():
+//reset components
+void BoardManager::resetComponents()
+{
+	m_area->removePattern();
+	m_highlighter->reset();
+	if (m_boardCreator == nullptr)
+		m_boardCreator = new BoardCreator();
+
+	this->createBoard();
+}
+
+
+//private
+
+//constructor and destructor
+BoardManager::BoardManager() :
 	m_range(nullptr),
 	m_hlGO(nullptr),
-	m_highlighter(nullptr), 
+	m_highlighter(nullptr),
 	m_pipeline(nullptr),
 	m_area(nullptr),
-	m_dimension(std::make_pair(0,0))
+	m_boardCreator(nullptr),
+	m_boradObject(nullptr),
+	m_dimension(std::make_pair(0,0)),
+	m_isGridEnabled(true)
 {
 	//m_boardGO = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
-	
+
 	//m_pathFind = new PathFind();
 	registerEvent();
 
@@ -318,6 +343,7 @@ BoardManager::~BoardManager()
 	delete m_area;
 }
 
+//listen event
 void BoardManager::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data)
 {
 	switch (p_type)
@@ -335,11 +361,36 @@ void BoardManager::listenEvent(kitten::Event::EventType p_type, kitten::Event * 
 	case kitten::Event::Set_Area_Pattern:
 		setArea(p_data);
 		break;
+	case kitten::Event::Right_Clicked:
+		tileClicked(false);
+		break;
 	default:
 		break;
 	}
 }
 
+void BoardManager::setGrid(bool p_enabled)
+{
+	auto end = m_tileList.cend();
+	for (auto it = m_tileList.cbegin(); it != end; ++it)
+	{
+		auto edgeRenderable = (*it)->getComponent<kitten::QuadEdgeRenderable>();
+		
+		if (edgeRenderable != nullptr)
+		{
+			edgeRenderable->setEnabled(p_enabled);
+		}
+	}
+
+	m_isGridEnabled = p_enabled;
+}
+
+bool BoardManager::isGridEnabled() const
+{
+	return m_isGridEnabled;
+}
+
+//high light
 void BoardManager::highlightTile(kitten::Event * p_data)
 {
 	kitten::Event::TileList list;
@@ -379,7 +430,7 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 			PathFind p;
 			std::pair<int, int> end = *it;
 			kitten::Event::TileList l = p.getPath(start, end, len);
-			if (l.size()<=0)//no path to target
+			if (l.size() <= 0)//no path to target
 			{
 				it = list.erase(it);
 			}
@@ -389,25 +440,18 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 			}
 		}
 	}
-  
+
 	m_rangeList = list;
 
 	m_highlighter->highlightTile(TileInfo::Range, list);
 }
-
 void BoardManager::highlightTileWithList(kitten::Event * p_data)
 {
 	const kitten::Event::TileList* list = p_data->getTileList();
 	m_highlighter->highlightTile(TileInfo::Range, *list);
 }
 
-/*
-void BoardManager::unhighlightTile(kitten::Event * p_data)
-{
-	m_highlighter->unhighlightAll(TileInfo::ForRange);
-}
-*/
-
+//unit ability related, set range and area
 void BoardManager::setFilter(const std::string & p_filter, kitten::Event * p_data)
 {
 	int filterNum = p_data->getInt(p_filter);
@@ -422,12 +466,10 @@ void BoardManager::setFilter(const std::string & p_filter, kitten::Event * p_dat
 		m_pipeline->useFilter(p_data->getString(key));
 	}
 }
-
 void BoardManager::applyFilter(kitten::Event::TileList * p_list)
 {
 	m_pipeline->filterList(p_list);
 }
-
 void BoardManager::setArea(kitten::Event * p_data)
 {
 	//select
@@ -469,3 +511,43 @@ void BoardManager::setArea(kitten::Event * p_data)
 		}
 	}
 }
+
+
+//set board
+void BoardManager::setSpawnPoint(const kitten::Event::TileList& p_list)
+{
+	m_spawnPointList = p_list;
+}
+void BoardManager::setTileList(const std::vector<kitten::K_GameObject*>& p_list)
+{
+	m_tileList = p_list;
+}
+void BoardManager::setDimension(int p_x, int p_z)
+{
+	m_dimension = std::pair<int, int>(p_x, p_z);
+	if(m_range != nullptr)
+		m_range->setDimension(p_x, p_z);
+}
+void BoardManager::setMapID(int p_id)
+{
+	m_mapId = p_id;
+}
+
+void BoardManager::setBoardGameObject(kitten::K_GameObject * p_go)
+{
+	m_boradObject = p_go;
+}
+
+
+
+
+
+
+/*
+void BoardManager::unhighlightTile(kitten::Event * p_data)
+{
+	m_highlighter->unhighlightAll(TileInfo::ForRange);
+}
+*/
+
+

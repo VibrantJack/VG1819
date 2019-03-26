@@ -4,6 +4,7 @@
 
 #include "_Project\UniversalSounds.h"
 #include "_Project\BGMManager.h"
+#include "_Project\AmbientSystemController.h"
 
 #include "kitten\K_GameObjectManager.h"
 
@@ -11,7 +12,7 @@
 
 PlayerPrefs* PlayerPrefs::sm_instance = nullptr;
 
-PlayerPrefs::PlayerPrefs() : m_bgmVolume(1), m_sfxVolume(1), m_fullscreen(false), m_resolution(1280,720), m_hasUnsavedChanges(false)
+PlayerPrefs::PlayerPrefs() : m_bgmVolume(100), m_sfxVolume(100), m_ambientVolume(100), m_fullscreen(false), m_resolution(1280,720), m_hasUnsavedChanges(false)
 {
 	assert(sm_instance == nullptr);
 	sm_instance = this;
@@ -43,6 +44,7 @@ void PlayerPrefs::start()
 
 		auto foundBGM = jsonFile.find("BGM_Volume");
 		auto foundSFX = jsonFile.find("SFX_Volume");
+		auto foundAmbient = jsonFile.find("Ambient_Volume");
 		auto foundFullscreen = jsonFile.find("Fullscreen");
 		auto foundRes = jsonFile.find("Resolution");
 
@@ -56,6 +58,17 @@ void PlayerPrefs::start()
 		{
 			m_sfxVolume = (*foundSFX);
 			UniversalSounds::setVolume((float)m_sfxVolume / 100.0f);
+		}
+
+		if (foundAmbient != jsonFile.end())
+		{
+			m_ambientVolume = (*foundAmbient);
+
+			auto ambientInst = AmbientSystemController::getInstance();
+			if (ambientInst != nullptr)
+			{
+				ambientInst->setVolume((float)m_ambientVolume / 100.0f);
+			}
 		}
 
 		if (foundFullscreen != jsonFile.end())
@@ -95,7 +108,7 @@ void PlayerPrefs::privateSetSFXVolume(int p_volume)
 	m_hasUnsavedChanges = true;
 }
 
-float PlayerPrefs::getSFXVolume()
+int PlayerPrefs::getSFXVolume()
 {
 	return sm_instance->m_sfxVolume;
 }
@@ -113,9 +126,32 @@ void PlayerPrefs::privateSetBGMVolume(int p_volume)
 	m_hasUnsavedChanges = true;
 }
 
-float PlayerPrefs::getBGMVolume()
+int PlayerPrefs::getBGMVolume()
 {
 	return sm_instance->m_bgmVolume;
+}
+
+void PlayerPrefs::setAmbientVolume(int p_volume)
+{
+	sm_instance->privateSetAmbientVolume(p_volume);
+}
+
+void PlayerPrefs::privateSetAmbientVolume(int p_volume)
+{
+	m_ambientVolume = p_volume;
+
+	auto ambientInst = AmbientSystemController::getInstance();
+	if (ambientInst != nullptr)
+	{
+		ambientInst->setVolume((float)m_ambientVolume / 100.0f);
+	}
+
+	m_hasUnsavedChanges = true;
+}
+
+int PlayerPrefs::getAmbientVolume()
+{
+	return sm_instance->m_ambientVolume;
 }
 
 // Doesn't do anything yet --
@@ -188,7 +224,9 @@ void PlayerPrefs::privateAsyncSaveAllSettings()
 	kitten::AsyncFileOperations::saveToFile(PLAYER_PREFS_FILE_PATH, true, fileContents.c_str());
 }
 
+
 // C++ strings still painful  -Callum
+
 #define st(thing) std::string(thing)
 #define ts(thing) std::to_string(thing)
 
@@ -198,6 +236,7 @@ std::string PlayerPrefs::toJsonString()
 		"{\n" +
 			st("\t\"BGM_Volume\" : ") + ts(m_bgmVolume) + st(",\n") +
 			st("\t\"SFX_Volume\" : ") + ts(m_sfxVolume) + st(",\n") +
+			st("\t\"Ambient_Volume\" : ") + ts(m_ambientVolume) + st(",\n") +
 			st("\t\"Fullscreen\" : ") + (m_fullscreen ? st("true") : st("false")) + st(",\n") +
 			st("\t\"Resolution\" : [") + ts(m_resolution.first) + ", " + ts(m_resolution.second) + "]\n" +
 		st("}\n");

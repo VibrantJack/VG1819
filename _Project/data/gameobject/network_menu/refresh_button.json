@@ -13,7 +13,7 @@
 			"name" : "TriggerEventButton",
 			"regularTexture" : "textures/ui/buttons/button_refresh.tga",
 			"highlightedTexture" : "textures/ui/buttons/button_refresh_h.tga",
-			"event" : "Poll_For_Localhost"
+			"event" : "Poll_For_Server"
 		},
 		{
 			"name" : "ClickableFrame"

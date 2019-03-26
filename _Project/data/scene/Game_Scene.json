@@ -6,9 +6,6 @@
             "rotate" : [-70,0,0]
         },
 		{
-			"filename" : "boardcreator.txt"
-		},
-		{
 			"filename" : "netmenu_console.txt",
 			"translate2d" : [950, 100]
 		},
@@ -17,6 +14,9 @@
 		},
 		{
 			"filename" : "UniversalPfx.txt"
+		},
+		{
+			"filename" : "AmbientSystem.json"
 		},
 		{
 			"filename" : "card_context.json"

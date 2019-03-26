@@ -13,7 +13,7 @@
 			[
 				{
 					"name" : "UIFrame",
-					"texture" : "textures/ui/red_quilt.jpg"
+					"texture" : "textures/ui/options_menu/options_background.dds"
 				}
 			],
 			"translate" : [350, 240, -0.2],
@@ -27,7 +27,7 @@
 					[
 						{
 							"name" : "UIElement",
-							"texture" : "textures/ui/options_header.png"
+							"texture" : "textures/ui/options_menu/options_header.dds"
 						}
 					],
 					"translate" : [75, 215, 0.1],
@@ -39,13 +39,13 @@
 					[
 						{
 							"name" : "UIElement",
-							"texture" : "textures/ui/options_sfx.png"
+							"texture" : "textures/ui/options_menu/options_sfx.dds"
 						},
 						{
 							"name" : "SFXVolumeController"
 						}
 					],
-					"translate" : [10, 160, 0.1],
+					"translate" : [35, 160, 0.1],
 					"worldscale" : [100, 50 , 1],
 					"gameobjects" : 
 					[
@@ -55,7 +55,7 @@
 							[
 								{
 									"name" : "UIObject",
-									"texture" : "textures/ui/buttons/button_minus.tga"
+									"texture" : "textures/ui/buttons/button_minus_small.dds"
 								},
 								{
 									"name" : "ClickableFrame"
@@ -70,11 +70,11 @@
 								},
 								{
 									"name" : "ClickableButton",
-									"regularTexture" : "textures/ui/buttons/button_minus.tga",
-									"highlightedTexture" : "textures/ui/buttons/button_minus_h.tga"
+									"regularTexture" : "textures/ui/buttons/button_minus_small.dds",
+									"highlightedTexture" : "textures/ui/buttons/button_minus_small_h.dds"
 								}
 							],
-							"translate" : [150, 0, 0]
+							"translate" : [125, 0, 0]
 						},
 						{
 							"name" : "Increase Sfx volume",
@@ -82,7 +82,7 @@
 							[
 								{
 									"name" : "UIObject",
-									"texture" : "textures/ui/buttons/button_add.tga"
+									"texture" : "textures/ui/buttons/button_add_small.dds"
 								},
 								{
 									"name" : "ClickableFrame"
@@ -97,11 +97,11 @@
 								},
 								{
 									"name" : "ClickableButton",
-									"regularTexture" : "textures/ui/buttons/button_add.tga",
-									"highlightedTexture" : "textures/ui/buttons/button_add_h.tga"
+									"regularTexture" : "textures/ui/buttons/button_add_small.dds",
+									"highlightedTexture" : "textures/ui/buttons/button_add_small_h.dds"
 								}
 							],
-							"translate" : [450, 0, 0]
+							"translate" : [425, 0, 0]
 						},
 						{
 							"name" : "Current SFX Text",
@@ -115,7 +115,7 @@
 									"alignment" : "center"
 								}
 							],
-							"translate" : [100, 42, 0],
+							"translate" : [75, 42, 0],
 							"worldscale" : [1,1,1]
 						}
 					]
@@ -126,13 +126,13 @@
 					[
 						{
 							"name" : "UIElement",
-							"texture" : "textures/ui/options_bgm.png"
+							"texture" : "textures/ui/options_menu/options_bgm.dds"
 						},
 						{
 							"name" : "BGMVolumeController"
 						}
 					],
-					"translate" : [10, 100, 0.1],
+					"translate" : [35, 100, 0.1],
 					"worldscale" : [100, 50 , 1],
 					"gameobjects" : 
 					[
@@ -142,7 +142,7 @@
 							[
 								{
 									"name" : "UIObject",
-									"texture" : "textures/ui/buttons/button_minus.tga"
+									"texture" : "textures/ui/buttons/button_minus_small.dds"
 								},
 								{
 									"name" : "ClickableFrame"
@@ -157,11 +157,11 @@
 								},
 								{
 									"name" : "ClickableButton",
-									"regularTexture" : "textures/ui/buttons/button_minus.tga",
-									"highlightedTexture" : "textures/ui/buttons/button_minus_h.tga"
+									"regularTexture" : "textures/ui/buttons/button_minus_small.dds",
+									"highlightedTexture" : "textures/ui/buttons/button_minus_small_h.dds"
 								}
 							],
-							"translate" : [150, 0, 0]
+							"translate" : [125, 0, 0]
 						},
 						{
 							"name" : "Increase BGM volume",
@@ -169,7 +169,7 @@
 							[
 								{
 									"name" : "UIObject",
-									"texture" : "textures/ui/buttons/button_add.tga"
+									"texture" : "textures/ui/buttons/button_add_small.dds"
 								},
 								{
 									"name" : "ClickableFrame"
@@ -184,11 +184,11 @@
 								},
 								{
 									"name" : "ClickableButton",
-									"regularTexture" : "textures/ui/buttons/button_add.tga",
-									"highlightedTexture" : "textures/ui/buttons/button_add_h.tga"
+									"regularTexture" : "textures/ui/buttons/button_add_small.dds",
+									"highlightedTexture" : "textures/ui/buttons/button_add_small_h.dds"
 								}
 							],
-							"translate" : [450, 0, 0]
+							"translate" : [425, 0, 0]
 						},
 						{
 							"name" : "Current BGM Text",
@@ -202,40 +202,41 @@
 									"alignment" : "center"
 								}
 							],
-							"translate" : [100, 42, 0],
+							"translate" : [75, 42, 0],
 							"worldscale" : [1,1,1]
 						}
 					]
 				},
 				{
-					"name" : "Resolution Label",
+					"name" : "Ambient Label",
 					"components" : 
 					[
 						{
 							"name" : "UIElement",
-							"texture" : "textures/ui/options_resolution.png"
+							"texture" : "textures/ui/options_menu/options_ambient.tga"
 						},
 						{
-							"name" : "ResolutionController"
+							"name" : "AmbientVolumeController"
 						}
 					],
-					"translate" : [10, 40, 0.1],
+					"translate" : [35, 40, 0.1],
 					"worldscale" : [100, 50 , 1],
 					"gameobjects" : 
 					[
 						{
-							"name" : "Decrease Resolution",
+							"name" : "Decrease Ambient",
 							"components" : 
 							[
 								{
 									"name" : "UIObject",
-									"texture" : "textures/ui/buttons/button_minus.tga"
+									"texture" : "textures/ui/buttons/button_minus_small.dds"
 								},
 								{
 									"name" : "ClickableFrame"
 								},
 								{
-									"name" : "DecreaseResolutionOnClick"
+									"name" : "DecreaseAmbientVolumeOnClick",
+									"amount" : 5
 								},
 								{
 									"name" : "PlayUniversalSoundOnUIClick",
@@ -243,25 +244,26 @@
 								},
 								{
 									"name" : "ClickableButton",
-									"regularTexture" : "textures/ui/buttons/button_minus.tga",
-									"highlightedTexture" : "textures/ui/buttons/button_minus_h.tga"
+									"regularTexture" : "textures/ui/buttons/button_minus_small.dds",
+									"highlightedTexture" : "textures/ui/buttons/button_minus_small_h.dds"
 								}
 							],
-							"translate" : [150, 0, 0]
+							"translate" : [125, 0, 0]
 						},
 						{
-							"name" : "Increase Resolution",
+							"name" : "Increase Ambient",
 							"components" : 
 							[
 								{
 									"name" : "UIObject",
-									"texture" : "textures/ui/buttons/button_add.tga"
+									"texture" : "textures/ui/buttons/button_add_small.dds"
 								},
 								{
 									"name" : "ClickableFrame"
 								},
 								{
-									"name" : "IncreaseResolutionOnClick"
+									"name" : "IncreaseAmbientVolumeOnClick",
+									"amount" : 5
 								},
 								{
 									"name" : "PlayUniversalSoundOnUIClick",
@@ -269,14 +271,14 @@
 								},
 								{
 									"name" : "ClickableButton",
-									"regularTexture" : "textures/ui/buttons/button_add.tga",
-									"highlightedTexture" : "textures/ui/buttons/button_add_h.tga"
+									"regularTexture" : "textures/ui/buttons/button_add_small.dds",
+									"highlightedTexture" : "textures/ui/buttons/button_add_small_h.dds"
 								}
 							],
-							"translate" : [450, 0, 0]
+							"translate" : [425, 0, 0]
 						},
 						{
-							"name" : "Current Resolution Text",
+							"name" : "Current Ambient Text",
 							"components" : 
 							[
 								{
@@ -287,7 +289,7 @@
 									"alignment" : "center"
 								}
 							],
-							"translate" : [100, 42, 0],
+							"translate" : [75, 42, 0],
 							"worldscale" : [1,1,1]
 						}
 					]
@@ -298,7 +300,7 @@
 					[
 						{
 							"name" : "UIObject",
-							"texture" : "textures/ui/buttons/button_return.png"
+							"texture" : "textures/ui/buttons/button_x.dds"
 						},
 						{
 							"name" : "ClickableFrame"
@@ -308,8 +310,8 @@
 						},
 						{
 							"name" : "ClickableButton",
-							"regularTexture" : "textures/ui/buttons/button_return.tga",
-							"highlightedTexture" : "textures/ui/buttons/button_return_highlighted.tga"
+							"regularTexture" : "textures/ui/buttons/button_x.dds",
+							"highlightedTexture" : "textures/ui/buttons/button_x_h.dds"
 						}
 					],
 					"translate" : [575,275, 0.05],

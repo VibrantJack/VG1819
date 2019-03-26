@@ -425,7 +425,12 @@ namespace ability
 	{
 	public:
 		Erosion() : Ability(ABILITY_EROSION) {};
-		int effect(AbilityInfoPackage* p_info) { multiTargetDamage(p_info); return 0; };
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
+			multiTargetDamage(p_info); 
+			UniversalSounds::playSound("fizzle");
+			return 0; 
+		};
 	};
 
 	class Execute : public Ability
@@ -477,7 +482,7 @@ namespace ability
 	};
 
 	class CursedProtection : public Ability
-	{
+	{                                      
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
 	public:
@@ -545,11 +550,11 @@ namespace ability
 	{
 	public:
 		AncientGift() : Ability(ABILITY_ANCIENT_GIFT) {};
-		int effect(AbilityInfoPackage* p_info) { 
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
 			singleTargetDamage(p_info); 
+			UniversalSounds::playSound("ancient_gift");
 			return 0;
 		};
 	};
 }
-
-

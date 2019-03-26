@@ -2,6 +2,7 @@
 #include "kitten\K_GameObjectManager.h"
 #include "kitten\K_GameObject.h"
 #include "kitten\K_ComponentManager.h"
+#include <iostream>
 
 UniversalPfx* UniversalPfx::sm_instance = nullptr;
 
@@ -83,6 +84,7 @@ void UniversalPfx::playEffect(const std::string& p_effectName, const glm::vec3& 
 	auto found = m_effects.find(p_effectName);
 	if (found == m_effects.end())
 	{
+		std::cout << "Could not find " + p_effectName + ". Playing default pfx\n";
 		found = m_effects.find("Default");
 	}
 
@@ -98,13 +100,13 @@ void UniversalPfx::playEffect(const std::string& p_effectName, const glm::vec3& 
 
 void UniversalPfx::addEffectToGroup(const std::string& p_effectName, const glm::vec3& p_position)
 {
-	m_groupedEffects.insert(std::pair < std::string, glm::vec3 >(p_effectName, p_position));
+	m_groupedEffects.insert(std::make_pair(p_effectName, p_position));
 }
 
 void UniversalPfx::playGroupedEffects()
 {
-	auto it = m_groupedEffects.begin();
-	for (it; it != m_groupedEffects.end(); it++ )
+	auto end = m_groupedEffects.end();
+	for (auto it = m_groupedEffects.begin(); it != m_groupedEffects.end(); it++ )
 	{
 		playEffect(it->first, it->second);
 	}

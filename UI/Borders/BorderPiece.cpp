@@ -2,8 +2,10 @@
 #include "kitten\InputManager.h"
 #define BORDER_WIDTH  1
 #define BORDER_HEIGHT  (1.0f / 5.0f)
-#define CORNER_HEIGHT  (40.0f / 199.0f)
-#define CORNER_WIDTH  (40.0f / 498.0f)
+#define CORNER_HEIGHT  (40.0f / 205.0f)
+#define CORNER_WIDTH  (40.0f / 506.0f)
+#define PIXEL_HEIGHT (1.0f / 206.0f)
+#define PIXEL_WIDTH (1.0f / 500.0f)
 
 namespace userinterface
 {
@@ -168,15 +170,15 @@ namespace userinterface
 		//build UVs using atlas indeces
 		if (yIndex == 0)
 		{
-			uMin = CORNER_WIDTH * xIndex;
+			uMin = CORNER_WIDTH * xIndex + PIXEL_WIDTH;
 			uMax = uMin + CORNER_WIDTH;
-			vMin = 0;
-			vMax = CORNER_HEIGHT;
+			vMin = PIXEL_HEIGHT;
+			vMax = CORNER_HEIGHT - PIXEL_HEIGHT;
 		}
 		else {
-			uMin = 0;
-			uMax = 1;
-			vMin = BORDER_HEIGHT * yIndex;
+			uMin = PIXEL_WIDTH;
+			uMax = 1 - PIXEL_WIDTH;
+			vMin = BORDER_HEIGHT * yIndex + PIXEL_HEIGHT;
 			vMax = vMin + BORDER_HEIGHT;
 		}
 

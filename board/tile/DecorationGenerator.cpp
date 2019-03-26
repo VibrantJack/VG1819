@@ -127,9 +127,15 @@ std::vector<kitten::K_GameObject*> DecorationGenerator::generateSwampDecoration(
 
 	//k = gm->createNewGameObject("TileDecoration/swamp/swamp_tree.json");
 	//list.push_back(k);
+	
+	//50% chance to generate
+	float random = (float)rand() / (float)RAND_MAX;
 
-	k = gm->createNewGameObject("TileDecoration/swamp/skull.json");
-	list.push_back(k);
+	if (random > 0.5)
+	{
+		k = gm->createNewGameObject("TileDecoration/swamp/skull.json");
+		list.push_back(k);
+	}
 
 	return list;
 }
@@ -140,8 +146,14 @@ std::vector<kitten::K_GameObject*> DecorationGenerator::generateTownDecoration()
 	kitten::K_GameObject* k;
 	kitten::K_GameObjectManager* gm = kitten::K_GameObjectManager::getInstance();
 
-	k = gm->createNewGameObject("TileDecoration/town/town.json");
-	list.push_back(k);
+	//50% chance to generate
+	float random = (float)rand() / (float)RAND_MAX;
+
+	if (random > 0.5)
+	{
+		k = gm->createNewGameObject("TileDecoration/town/town.json");
+		list.push_back(k);
+	}
 
 	return list;
 }

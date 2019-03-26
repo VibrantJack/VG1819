@@ -7,6 +7,8 @@
 #include <algorithm>
 #include "kitten/event_system/EventManager.h"
 #include "networking\ClientGame.h"
+#include "unit/unitComponent/unitAction/ActionButtonStore.h"
+#include "unitInteraction/UnitInteractionManager.h"
 //Rock
 
 #define LISTSIZE(listA, listB) listA.size() + listB.size()
@@ -211,6 +213,10 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 
 kitten::K_GameObject * unit::InitiativeTracker::getUnitByIndex(int p_index)
 {
+	//no unit
+	if (LISTSIZE(m_unitObjectList, m_waitUnitObjectList) == 0)
+		return nullptr;
+
 	if (p_index >= 0 && p_index < m_unitObjectList.size())
 	{
 		return m_unitObjectList[p_index];
@@ -340,6 +346,13 @@ void unit::InitiativeTracker::newTurnListener(kitten::Event::EventType p_type, k
 	unit::Unit* currentUnit = getCurrentUnit()->getComponent<unit::Unit>();
 	if (networking::ClientGame::getInstance()->getClientId() == currentUnit->m_clientId)
 	{
-		getCurrentUnit()->getComponent<unit::Unit>()->playerSkipTurn();
+		ActionButtonStore* abs = getCurrentUnit()->getComponent<UnitSelect>()->getButtonStorage();
+		if (abs->isDisplay())//player is choosing action
+			return;
+
+		if (UnitInteractionManager::getInstance()->isBusy())//player uses ability
+			return;
+
+		currentUnit->playerSkipTurn();
 	}
 }

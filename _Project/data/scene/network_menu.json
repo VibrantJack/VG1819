@@ -95,6 +95,33 @@
 			"scale2d" : [150, 48],
 			"translate" : [835, 252, -0.8]
 		},
+		{
+			"name" : "Quickplay Button",
+			"components" : [
+				{
+					"name" : "ShowLoadingOnClick"
+				},
+				{
+					"name" : "UIObject",
+					"texture" : "textures/ui/buttons/button_quickplay.dds"
+				},
+				{
+					"name" : "PlayUniversalSoundOnUIClick",
+					"sound_name" : "click"
+				},
+				{
+					"name" : "TriggerEventButton",
+					"regularTexture" : "textures/ui/buttons/button_quickplay.dds",
+					"highlightedTexture" : "textures/ui/buttons/button_quickplay_h.dds",
+					"event" : "Quickplay"
+				},
+				{
+					"name" : "ClickableFrame"
+				}
+			],
+			"scale2d" : [150, 48],
+			"translate" : [565, 185, -0.8]
+		},
         {
             "name" : "Back Button",
             "components" : [

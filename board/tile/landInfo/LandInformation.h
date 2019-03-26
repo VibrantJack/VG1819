@@ -17,7 +17,7 @@ public:
 	//========================================================
 	//New types will be added here later
 	enum TileType {
-		Unknown,
+		Unknown = 0,
 		Grass_land,
 		Swamp_land,
 		Sand_land,
@@ -30,7 +30,7 @@ public:
 	};
 	//========================================================
 
-	LandInformation() { };
+	LandInformation(TileType p_Type, const std::string& p_TexturePath, int p_mvCost, const std::string& p_description);
 	~LandInformation() { };
 
 	virtual TileType GetType()
@@ -64,34 +64,24 @@ public:
 
 	virtual void effectOnLeave(unit::Unit* p_unit, TileInfo* p_tInfo) {};
 protected:
-	TileType m_Type = Unknown;
-	std::string m_TexturePath = "textures/tiles/MISSING.tga";
-	int m_mvCost = 1;
-	std::string m_description = "Land Not Found.";
+	const TileType m_Type;
+	const std::string m_TexturePath;
+	const int m_mvCost;
+	const std::string m_description;
 };
 
 class GrassLand : public LandInformation
 {
 public:
-	GrassLand()
-	{
-		m_Type = Grass_land;
-		m_TexturePath = "textures/tiles/grass.png";
-		m_mvCost = 1;
-		m_description = "Ordinary land. Nothing special.";
-	};
+	GrassLand(TileType p_Type, const std::string& p_TexturePath, int p_mvCost, const std::string& p_description) :
+		LandInformation(p_Type, p_TexturePath, p_mvCost, p_description) {};
 };
 
 class SwampLand : public LandInformation
 {
 public:
-	SwampLand()
-	{
-		m_Type = Swamp_land;
-		m_TexturePath = "textures/tiles/dark_water.png";
-		m_mvCost = 2;
-		m_description = "It's hard to move cross it. Take 1 damage if you stay here.";
-	};
+	SwampLand(TileType p_Type, const std::string& p_TexturePath, int p_mvCost, const std::string& p_description) :
+		LandInformation(p_Type, p_TexturePath, p_mvCost, p_description) {};
 
 	void effectOnStay(unit::Unit* p_unit, TileInfo* p_tInfo) override;
 };
@@ -99,13 +89,8 @@ public:
 class SandLand : public LandInformation
 {
 public:
-	SandLand()
-	{
-		m_Type = Sand_land;
-		m_TexturePath = "textures/tiles/sand.png";
-		m_mvCost = 1;
-		m_description = "IN-1 for one turn.";
-	};
+	SandLand(TileType p_Type, const std::string& p_TexturePath, int p_mvCost, const std::string& p_description) :
+		LandInformation(p_Type, p_TexturePath, p_mvCost, p_description) {};
 
 	void effectOnStay(unit::Unit* p_unit, TileInfo* p_tInfo) override;
 };
@@ -113,14 +98,8 @@ public:
 class ForestLand : public LandInformation
 {
 public:
-	ForestLand()
-	{
-		m_Type = Forest_land;
-		m_TexturePath ="textures/background/forest_ground_leaves_dark.jpg";
-		//m_TexturePath = "textures/tiles/grass.png";
-		m_mvCost = 1;
-		m_description = "It's hard to move cross it. MV-1 for one turn.";
-	};
+	ForestLand(TileType p_Type, const std::string& p_TexturePath, int p_mvCost, const std::string& p_description) :
+		LandInformation(p_Type, p_TexturePath, p_mvCost, p_description) {};
 
 	void effectOnStart(unit::Unit* p_unit, TileInfo* p_tInfo) override;
 };
@@ -128,13 +107,8 @@ public:
 class GardenLand : public LandInformation
 {
 public:
-	GardenLand()
-	{
-		m_Type = Garden_land;
-		m_TexturePath = "textures/tiles/grass.png";
-		m_mvCost = 1;
-		m_description = "Nice place to rest. Heal 1 HP and Max HP+1 for one turn. Strucutre and Machine won't be effected.";
-	};
+	GardenLand(TileType p_Type, const std::string& p_TexturePath, int p_mvCost, const std::string& p_description) :
+		LandInformation(p_Type, p_TexturePath, p_mvCost, p_description) {};
 
 	void effectOnStart(unit::Unit* p_unit, TileInfo* p_tInfo) override;
 };
@@ -142,25 +116,15 @@ public:
 class WaterLand : public LandInformation
 {
 public:
-	WaterLand()
-	{
-		m_Type = Water_land;
-		m_TexturePath = "textures/tiles/water.png";
-		m_mvCost = 100;
-		m_description = "Can not move across";
-	};
+	WaterLand(TileType p_Type, const std::string& p_TexturePath, int p_mvCost, const std::string& p_description) :
+		LandInformation(p_Type, p_TexturePath, p_mvCost, p_description) {};
 };
 
 class HomeLand : public LandInformation
 {
 public:
-	HomeLand()
-	{
-		m_Type = Home_land;
-		m_TexturePath = "textures/tiles/stoneground.jpg";
-		m_mvCost = 1;
-		m_description = "A place to protect you. MV+1 for one turn and reduce incoming damage by 1 while on this land.";
-	};
+	HomeLand(TileType p_Type, const std::string& p_TexturePath, int p_mvCost, const std::string& p_description) :
+		LandInformation(p_Type, p_TexturePath, p_mvCost, p_description) {};
 
 	void effectOnStay(unit::Unit* p_unit, TileInfo* p_tInfo) override;
 	void effectOnLeave(unit::Unit* p_unit, TileInfo* p_tInfo) override;

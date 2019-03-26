@@ -1,0 +1,6 @@
+{
+    "type":3,
+    "texture":"textures/tiles/sand.png",
+    "mv_cost":1,
+    "description":"Unit will be exhausted (IN -1) if it stays."
+}

@@ -8,19 +8,19 @@
 #include <array>
 #include "puppy\Text\TextBox.h"
 
-class BoardCreator : public kitten::K_Component
+class BoardCreator// : public kitten::K_Component
 {
 private:
-	int m_x;
-	int m_z;
-	kitten::Event::TileList m_spawnPointList;
+	//int m_x;
+	//int m_z;
+	//kitten::Event::TileList m_spawnPointList;
 public:
 	BoardCreator();
 	~BoardCreator();
 
-	virtual void start() override;
-
-	void setDimension(int x, int z);
+	//virtual void start() override;
+	void createBoard(int p_id);
+	//void setDimension(int x, int z);
 	void setTileInfoDisplay(bool p_set) { m_enableTileInfoDisplay = p_set; }
 private:
 
