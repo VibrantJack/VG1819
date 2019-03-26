@@ -47,6 +47,8 @@ namespace ability
 			);
 		}
 
+		UniversalSounds::playSound("devour");
+
 		done(p_info);
 
 		return 0;

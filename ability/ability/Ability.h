@@ -414,7 +414,7 @@ namespace ability
 		};
 	};
 
-	class Sacrifice : public Ability // needs sound
+	class Sacrifice : public Ability
 	{
 	public:
 		Sacrifice() : Ability(ABILITY_SACRIFICE) {};
@@ -481,10 +481,8 @@ namespace ability
 		int effect(AbilityInfoPackage* p_info);
 	};
 
-	// All Abilities below here need sound
-
 	class CursedProtection : public Ability
-	{
+	{                                      
 	private:
 		void applyStatus(AbilityInfoPackage* p_info, unit::Unit* p_unit);
 	public:
@@ -552,11 +550,11 @@ namespace ability
 	{
 	public:
 		AncientGift() : Ability(ABILITY_ANCIENT_GIFT) {};
-		int effect(AbilityInfoPackage* p_info) { 
+		int effect(AbilityInfoPackage* p_info) 
+		{ 
 			singleTargetDamage(p_info); 
+			UniversalSounds::playSound("ancient_gift");
 			return 0;
 		};
 	};
 }
-
-

@@ -37,6 +37,8 @@ namespace ability
 					applyStatus(p_info, u);
 				}
 			}
+			
+			UniversalSounds::playSound("cursed_protection");
 		}
 
 		//delete package

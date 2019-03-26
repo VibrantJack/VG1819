@@ -1,6 +1,7 @@
 #pragma once
 #include "ability/ability/Ability.h"
 #include "unit/Unit.h"
+
 #include <algorithm>
 //Rock
 
@@ -47,6 +48,9 @@ namespace ability
 
 		//apply status
 		applyStatus(p_info, p_info->m_source);
+
+		int randIndex = (rand() % 3) + 1;
+		UniversalSounds::playSound("earthy" + std::to_string(randIndex));
 
 		//delete package
 		done(p_info);
