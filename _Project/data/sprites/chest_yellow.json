@@ -1,0 +1,23 @@
+{
+	"name" : "chest_yellow",
+	"texture" : "textures/sprites/terrain/chest_yellow.png",
+	
+	"sheetwidth" : 60,
+	"sheetheight" : 180,
+	
+	"characterwidth" : 50,
+	"characterheight" : 50,
+	
+	"padding" : 10,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [0,2],
+			"time" : 1
+		}
+	],
+	
+	"defaultanimation" : "idle"
+}

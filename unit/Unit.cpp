@@ -2,6 +2,7 @@
 #include "unit/unitComponent/UnitMove.h"
 #include "kitten/K_GameObject.h"
 #include "unitInteraction/UnitInteractionManager.h"
+#include "board/tile/gameMode/Capture/CaptureItemController.h"
 
 #include "_Project\UniversalPfx.h"
 
@@ -15,6 +16,8 @@ namespace unit
 {
 	Unit::Unit() : m_healthBarState(none), m_healthBar(nullptr), m_unitSelect(nullptr)
 	{
+		m_itemGO = nullptr;
+
 		m_commander = nullptr;
 		m_turn = nullptr;
 
@@ -113,6 +116,20 @@ namespace unit
 				m_commander->resetPower(m_clientId);
 		case ability::TimePointEvent::Turn_End:
 		case ability::TimePointEvent::New_Tile:
+			//pick up item
+			if (tileGO != nullptr)
+			{
+				TileInfo* info = tileGO->getComponent<TileInfo>();
+				//pick up item
+				if (info->hasItem())
+				{
+					kitten::K_GameObject* item = info->getItem();
+					info->removeItem();
+
+					//item is held by unit
+					item->getComponent<CaptureItemController>()->setParent(this);
+				}
+			}
 		case ability::TimePointEvent::Leave_Tile:
 			if(tileGO != nullptr)
 				tileGO->getComponent<TileInfo>()->effect(p_tp, this);
@@ -165,7 +182,7 @@ namespace unit
 		m_commander->init(this);
 	}
 
-	bool Unit::isCommander()
+	bool Unit::isCommander() const
 	{
 		return m_commander != nullptr;
 	}
@@ -253,7 +270,7 @@ namespace unit
 		return true;
 	}
 
-	bool Unit::canAct()
+	bool Unit::canAct() const
 	{
 		assert(m_turn != nullptr);
 		return m_turn->act;
@@ -293,7 +310,7 @@ namespace unit
 		m_turn->act = false;
 	}
 
-	bool Unit::isTurn()
+	bool Unit::isTurn() const
 	{
 		//if m_turn is nullptr, it means its not this unit turn
 		return m_turn != nullptr;
@@ -519,6 +536,26 @@ namespace unit
 				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Network_End_Game, eventData);
 			}			
 		}
+	}
+
+	const bool Unit::hasItem() const
+	{
+		return m_itemGO != nullptr;
+	}
+
+	void Unit::addItem(kitten::K_GameObject* p_item)
+	{
+		m_itemGO = p_item;
+	}
+
+	void Unit::removeItem()
+	{
+		m_itemGO = nullptr;
+	}
+
+	kitten::K_GameObject * Unit::getItem() const
+	{
+		return m_itemGO;
 	}
 
 	void Unit::onScaleLerpFinished(kitten::K_GameObject* p_obj) //Called when healthbar is done animating

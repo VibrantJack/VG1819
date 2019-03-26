@@ -1,0 +1,6 @@
+{
+    "type":7,
+    "texture":"textures/tiles/stoneground.jpg",
+    "mv_cost":1,
+    "description":"A place to protect you. MV+1 for one turn and reduce incoming damage by 1 while on this land."
+}

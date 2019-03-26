@@ -1,0 +1,6 @@
+{
+    "type":0,
+    "texture":"textures/tiles/MISSING.tga",
+    "mv_cost":1,
+    "description":"Land Not Found."
+}

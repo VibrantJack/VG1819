@@ -1,0 +1,6 @@
+{
+    "type":5,
+    "texture":"textures/tiles/grass.png",
+    "mv_cost":1,
+    "description":"Nice place to rest. Heal 1 HP and Max HP+1 for one turn. Strucutre and Machine won't be effected."
+}

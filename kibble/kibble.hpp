@@ -16,4 +16,6 @@ namespace kibble {
 	void setSceneFrom(const std::string& p_fileName);
 
 	void loadSpriteSheets(const std::string& p_masterSheetName);
+	void loadLand(const std::string& p_masterSheetName);
+	void loadMap(const std::string& p_masterSheetName);
 }

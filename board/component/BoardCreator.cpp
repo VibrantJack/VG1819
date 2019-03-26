@@ -21,13 +21,11 @@
 #include "board/tile/TileInfo.h"
 
 #include "board/BoardManager.h"
-
-#include <iostream>
-#include <string>
-#include <fstream>
+#include "kibble/map/MapReader.h"
+#include "board/tile/gameMode/GameModeManager.h"
 
 
-BoardCreator::BoardCreator() :m_x(15), m_z(15)
+BoardCreator::BoardCreator()
 {
 
 }
@@ -37,13 +35,106 @@ BoardCreator::~BoardCreator()
 
 }
 
+void BoardCreator::createBoard(int p_id)
+{
+	//tile info object
+	if (m_enableTileInfoDisplay)
+	{
+		kitten::K_GameObject* tileText = kitten::K_GameObjectManager::getInstance()->createNewGameObject("debug_textbox.txt");
+		m_tileInfoDisplay = static_cast<puppy::TextBox*>(tileText->getComponent<puppy::TextBox>());
+		m_tileInfoDisplay->setText("Tile Info Debug");
+		m_tileInfoDisplay->setEnabled(false);
+		tileText->getTransform().move2D(800, 580);
+	}
+
+	//create place holders
+	//create tile object list
+	std::vector<kitten::K_GameObject*> list;
+
+	//dimension and map id
+	int dimX, dimZ;
+	int mapId = p_id;
+
+	//spawn point list
+	kitten::Event::TileList m_spawnPointList(2);
+
+	//get land list and dimension for random map
+	//pair = LandInformation::TileType , GameModeComponent::TileType 
+	std::vector<std::pair<int,int>> landList = kibble::MapReader::getInstance()->getMap(&dimX, &dimZ, &mapId);
+
+	//board game object
+	kitten::K_GameObject* borad = kitten::K_GameObjectManager::getInstance()->createNewGameObject();
+
+	//create tile objects
+	int i = 0;
+	for (int x = 0; x < dimX; x++)
+	{
+		for (int z = 0; z < dimZ; z++)
+		{
+			kitten::K_GameObject* tileGO;
+
+			LandInformation::TileType landtype;
+			GameModeComponent::TileType modetype;
+
+			//get type
+			landtype = static_cast<LandInformation::TileType>(landList[i].first);
+			modetype = static_cast<GameModeComponent::TileType>(landList[i].second);
+
+			//create tile
+			tileGO = createTile(x, z, landtype);
+
+			//increase counter
+			i++;
+
+			//add to listo lis
+			list.push_back(tileGO);
+
+			//change parent
+			kitten::Transform& transform = tileGO->getTransform();
+			transform.setParent(&borad->getTransform());
+			transform.setIgnoreParent(true);
+
+			//register special type tile to game mode manager
+			if (modetype != GameModeComponent::Unknow)//it's special
+			{
+				if (modetype == GameModeComponent::SpawnPoint0)//spawn point
+					m_spawnPointList[0] = std::make_pair(x, z);
+				else if (modetype == GameModeComponent::SpawnPoint1)//spawn point
+					m_spawnPointList[1] = std::make_pair(x, z);
+				else
+					GameModeManager::getInstance()->registerTile(tileGO,modetype);
+			}
+		}
+	}
+
+	assert(m_spawnPointList.size() == 2);//number of spawn point must be 2
+
+	BoardManager* bm = BoardManager::getInstance();
+
+	// PowerTracker component attached to Board GO
+	kitten::K_Component* powerTracker = kitten::K_ComponentManager::getInstance()->createComponent("PowerTracker");
+	borad->addComponent(powerTracker);
+	bm->setPowerTracker(static_cast<PowerTracker*>(powerTracker));
+
+	//set board property
+	bm->setSpawnPoint(m_spawnPointList);//spawn point
+	bm->setTileList(list);//tile object
+	bm->setDimension(dimX, dimZ);//dimension
+	bm->setMapID(mapId);//map id
+	bm->setBoardGameObject(borad);//board
+}
+/*
 void BoardCreator::start()
 {
 	//create tile
 	std::vector<kitten::K_GameObject*> list;
 
-	std::vector<int> landList;
+	int mapId = -1;
 
+	//get land list and dimension for random map
+	std::vector<int> landList = kibble::MapReader::getInstance()->getMap(&m_x, &m_z, &mapId);
+
+	/*move to kibble::MapReader
 	bool hasmap = false;
 	std::ifstream file("data/map");
 	if (file.is_open())
@@ -74,25 +165,18 @@ void BoardCreator::start()
 		for (int z = 0; z < m_z; z++)
 		{
 			kitten::K_GameObject* tileGO;
-			if (hasmap)
+			LandInformation::TileType landtype;
+			if (landList[i] >= 0)//normal land
 			{
-				LandInformation::TileType landtype;
-				if (landList[i] >= 0)//normal land
-				{
-					landtype = static_cast<LandInformation::TileType>(landList[i]);
-				}
-				else//spawn point
-				{
-					landtype = LandInformation::Grass_land;//commander spawn at normal land
-					m_spawnPointList.push_back(std::make_pair(x, z));
-				}
-				tileGO = createTile(x, z, landtype);
-				i++;
+				landtype = static_cast<LandInformation::TileType>(landList[i]);
 			}
-			else
+			else//spawn point
 			{
-				tileGO = createTile(x, z);
+				landtype = LandInformation::Grass_land;//commander spawn at normal land
+				m_spawnPointList.push_back(std::make_pair(x, z));
 			}
+			tileGO = createTile(x, z, landtype);
+			i++;
 
 			list.push_back(tileGO);
 
@@ -125,7 +209,7 @@ void BoardCreator::setDimension(int x, int z)
 {
 	m_x = x;
 	m_z = z;
-}
+}*/
 
 
 kitten::K_GameObject * BoardCreator::createTile(int x, int z, LandInformation::TileType p_type)

@@ -787,9 +787,6 @@
     <ClCompile Include="..\board\tile\DecorationGenerator.cpp">
       <Filter>board\tile</Filter>
     </ClCompile>
-    <ClCompile Include="..\board\tile\TileDecoration.cpp">
-      <Filter>board\tile</Filter>
-    </ClCompile>
     <ClCompile Include="..\kitten\SimpleQuadRenderable.cpp">
       <Filter>kitten</Filter>
     </ClCompile>
@@ -1141,6 +1138,36 @@
     </ClCompile>
     <ClCompile Include="ToggleSiblingEnabledOnClick.cpp">
       <Filter>components\options menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\landInfo\LandInformation.cpp">
+      <Filter>board\tile\landInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\map\LandLoader.cpp">
+      <Filter>kibble\map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kibble\map\MapReader.cpp">
+      <Filter>kibble\map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\gameMode\GameModeManager.cpp">
+      <Filter>board\tile\gameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\gameMode\GameModeComponent.cpp">
+      <Filter>board\tile\gameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\gameMode\AreaControl\ControlArea.cpp">
+      <Filter>board\tile\gameMode\AreaControlMode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\gameMode\AttackDefend\DefendArea.cpp">
+      <Filter>board\tile\gameMode\AttackDefendMode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\gameMode\Capture\ItemSpawnArea.cpp">
+      <Filter>board\tile\gameMode\CaptureFlagMode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\gameMode\Capture\ItemDropArea.cpp">
+      <Filter>board\tile\gameMode\CaptureFlagMode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\board\tile\gameMode\Capture\CaptureItemController.cpp">
+      <Filter>board\tile\gameMode\CaptureFlagMode</Filter>
     </ClCompile>
     <ClCompile Include="..\networking\Quickplay.cpp">
       <Filter>networking</Filter>
@@ -2080,9 +2107,6 @@
     <ClInclude Include="..\board\tile\DecorationGenerator.h">
       <Filter>board\tile</Filter>
     </ClInclude>
-    <ClInclude Include="..\board\tile\TileDecoration.h">
-      <Filter>board\tile</Filter>
-    </ClInclude>
     <ClInclude Include="..\kitten\SimpleQuadRenderable.h">
       <Filter>kitten</Filter>
     </ClInclude>
@@ -2296,6 +2320,33 @@
     </ClInclude>
     <ClInclude Include="ToggleSiblingEnabledOnClick.h">
       <Filter>components\options menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\map\LandLoader.h">
+      <Filter>kibble\map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kibble\map\MapReader.h">
+      <Filter>kibble\map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\tile\gameMode\GameModeManager.h">
+      <Filter>board\tile\gameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\tile\gameMode\GameModeComponent.h">
+      <Filter>board\tile\gameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\tile\gameMode\AreaControl\ControlArea.h">
+      <Filter>board\tile\gameMode\AreaControlMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\tile\gameMode\AttackDefend\DefendArea.h">
+      <Filter>board\tile\gameMode\AttackDefendMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\tile\gameMode\Capture\ItemSpawnArea.h">
+      <Filter>board\tile\gameMode\CaptureFlagMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\tile\gameMode\Capture\ItemDropArea.h">
+      <Filter>board\tile\gameMode\CaptureFlagMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\board\tile\gameMode\Capture\CaptureItemController.h">
+      <Filter>board\tile\gameMode\CaptureFlagMode</Filter>
     </ClInclude>
     <ClInclude Include="..\networking\Quickplay.h">
       <Filter>networking</Filter>
@@ -2523,6 +2574,21 @@
     </Filter>
     <Filter Include="components\options menu">
       <UniqueIdentifier>{f96107fd-b0eb-4056-afa9-c0c205b1a8f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kibble\map">
+      <UniqueIdentifier>{af4456d7-606c-4752-9dc0-034aef739823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\tile\gameMode">
+      <UniqueIdentifier>{7a874d37-95d8-4558-8d90-37b50d9b034e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\tile\gameMode\AreaControlMode">
+      <UniqueIdentifier>{0f162031-4d97-4e23-bc10-18a858949d8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\tile\gameMode\CaptureFlagMode">
+      <UniqueIdentifier>{561e59c9-6944-4b0a-9781-8db73cba999f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board\tile\gameMode\AttackDefendMode">
+      <UniqueIdentifier>{ff19a59d-90b3-496b-ba7a-6dfc9e88a4ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

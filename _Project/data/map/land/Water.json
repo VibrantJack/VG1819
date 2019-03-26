@@ -1,0 +1,6 @@
+{
+    "type":6,
+    "texture":"textures/tiles/water.png",
+    "mv_cost":100,
+    "description":"Can not move across."
+}

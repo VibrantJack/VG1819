@@ -1,0 +1,19 @@
+{
+    "name" : "crystal",
+    "components" : 
+    [
+        {
+			"name" : "SpriteGroup",
+			"spritename":"crystal",
+			"number":1,
+			"rotate":[45,0,0],
+			"scale":[1,1,1],
+			"translate":[-0.1,0.1,0.15]
+		},
+        {
+            "name" : "CaptureItemController",
+            "tile_offset" : [0,1,0],
+            "unit_offset" : [0,2,0.15]
+        }
+    ]
+}
