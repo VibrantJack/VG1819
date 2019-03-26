@@ -28,6 +28,8 @@ namespace ability
 		//deal damage
 		singleTargetDamage(p_info);
 
+		UniversalSounds::playSound("monster_grunt");
+
 		//done(p_info);
 
 		return 0;

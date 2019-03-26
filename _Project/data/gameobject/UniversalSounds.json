@@ -168,6 +168,84 @@
 				},
 				{
 					"sound" : ["fanfare", "sounds/fanfare.json"]
+				},
+				{
+					"sound" : ["monster_grunt", "sounds/monster_grunt.json"]
+				},
+				{
+					"sound" : ["zombie_scream", "sounds/zombie_scream.json"]
+				},
+				{
+					"sound" : ["fizzle", "sounds/fizzle.json"]
+				},
+				{
+					"sound" : ["execute", "sounds/execute.json"]
+				},
+				{
+					"sound" : ["attach", "sounds/attach.json"]
+				},
+				{
+					"sound" : ["drain", "sounds/drain.json"]
+				},
+				{
+					"sound" : ["hiss", "sounds/hiss.json"]
+				},
+				{
+					"sound" : ["bubbling", "sounds/bubbling.json"]
+				},
+				{
+					"sound" : ["single_bubble", "sounds/single_bubble.json"]
+				},
+				{
+					"sound" : ["toxic_aura", "sounds/toxic_aura.json"]
+				},
+				{
+					"sound" : ["devour", "sounds/devour.json"]
+				},
+				{
+					"sound" : ["earthy1", "sounds/earthy1.json"]
+				},
+				{
+					"sound" : ["earthy2", "sounds/earthy2.json"]
+				},
+				{
+					"sound" : ["earthy3", "sounds/earthy3.json"]
+				},
+				{
+					"sound" : ["ancient_gift", "sounds/ancient_gift.json"]
+				},
+				{
+					"sound" : ["war_drums", "sounds/war_drums.json"]
+				},
+				{
+					"sound" : ["church_bell", "sounds/church_bell.json"]
+				},
+				{
+					"sound" : ["cursed_protection", "sounds/cursed_protection.json"]
+				},
+				{
+					"sound" : ["downer", "sounds/downer.json"]
+				},
+				{
+					"sound" : ["health_link", "sounds/health_link.json"]
+				},
+				{
+					"sound" : ["tree_rustle", "sounds/tree_rustle.json"]
+				},
+				{
+					"sound" : ["ambient_wind", "sounds/ambient/wind.json"]
+				},
+				{
+					"sound" : ["ambient_shine", "sounds/ambient/shine.json"]
+				},
+				{
+					"sound" : ["ambient_fae", "sounds/ambient/fae.json"]
+				},
+				{
+					"sound" : ["ambient_frogs", "sounds/ambient/frogs.json"]
+				},
+				{
+					"sound" : ["ambient_birds", "sounds/ambient/birds.json"]
 				}
 			]
 		}

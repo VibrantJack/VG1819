@@ -30,6 +30,10 @@ void unit::TurnChangeDisplay::displayNewUnitTurn(kitten::K_GameObject * p_unit)
 	if (m_newTurnMsg->isEnabled())
 		return;
 
+	//no unit
+	if (p_unit == nullptr)
+		return;
+
 	//get transform of unit's tile
 	kitten::K_GameObject* tile = p_unit->getComponent<unit::Unit>()->getTile();
 	if (tile != nullptr)

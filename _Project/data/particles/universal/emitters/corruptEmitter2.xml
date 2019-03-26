@@ -1,0 +1,21 @@
+<Emitter>
+  <SpawnProperties>
+    <velocity random="false" velocity="-0.5" />
+    <color r="-0.45" g="-0.5" b="-0.45"/>
+    <offset x="0" y="0" z="0" type="disc" radius="2"/>
+    <direction mode="useOffset"/>
+    <maxParticles numParticles="20" />
+    <lifetime random="false" length="2"/>
+    <burst isBurst="true" repeat="false" />
+  </SpawnProperties>
+
+  <Affectors>
+    <path isPreset="true" type="direction" scalar="1"/>
+    <sizeChange mode="over_life" startX="0.5" startY="0.5" endX="1" endY="1" />
+    <fadeChange mode="over_life" start="-1.0" end="-0.5" />
+    <rotationChange mode="over_life" min="0" max="180"/>
+    <colorChange mode="over_life" startR="-0.0" startG="-0.6" startB="-0.6" endR="-0.5" endG="-0.6" endB="-0.6"/>
+  </Affectors>
+
+  <Misc path="textures/particles/smoke_02.png" spawnRate="0.0"/>
+</Emitter>

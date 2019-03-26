@@ -42,17 +42,11 @@ void TileGetter::registerEvent()
 		kitten::Event::EventType::Tile_Clicked,
 		this,
 		std::bind(&TileGetter::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
-
-	kitten::EventManager::getInstance()->addListener(
-		kitten::Event::EventType::Right_Clicked,
-		this,
-		std::bind(&TileGetter::listenEvent, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void TileGetter::deregisterEvent()
 {
 	kitten::EventManager::getInstance()->removeListener(kitten::Event::Tile_Clicked, this);
-	kitten::EventManager::getInstance()->removeListener(kitten::Event::Right_Clicked, this);
 }
 
 void TileGetter::listenEvent(kitten::Event::EventType p_type, kitten::Event * p_data)

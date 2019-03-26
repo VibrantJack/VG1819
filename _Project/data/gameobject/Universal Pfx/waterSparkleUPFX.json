@@ -1,0 +1,21 @@
+{
+	"name" : "PooledWaterSparkleUPFX",
+  "components": [
+    {
+      "name": "K_ParticleSystem",
+      "effectpath": "data/particles/universal/effects/waterSparkle.xml"
+    },
+    {
+      "name": "PlayParticleSystemOnEnable"
+    },
+    {
+      "name": "HaltParticleSystemAfterTime",
+      "stop": false,
+      "time": 3
+    },
+    {
+      "name": "DisableAfterTime",
+      "time": 10
+    }
+  ]
+}

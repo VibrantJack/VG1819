@@ -1,0 +1,6 @@
+{
+    "type":1,
+    "texture":"textures/tiles/grass.png",
+    "mv_cost":1,
+    "description":"Ordinary land. Nothing special."
+}

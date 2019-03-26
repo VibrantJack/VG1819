@@ -10,7 +10,12 @@
     },
     {
       "name": "DisableAfterTime",
-      "time": 2
+      "time": 2.0
+    },
+    {
+      "name": "HaltParticleSystemAfterTime",
+      "stop": false,
+      "time": 0.5
     }
   ]
 }

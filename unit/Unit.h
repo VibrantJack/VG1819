@@ -51,6 +51,7 @@ namespace unit
 
 		HealthBarState m_healthBarState;
 		
+
 		virtual void onScaleLerpFinished(kitten::K_GameObject* p_obj) override;
 	
 		virtual void start() override;
@@ -60,10 +61,15 @@ namespace unit
 		std::string m_autoAbility;
 		void setAutoAbility(const std::string& p_name);
 
+		//item
+		kitten::K_GameObject* m_itemGO;
 	public:
+		//members
+
 		int m_numberID;
 		std::string m_ID;
 		int m_kibbleID;
+
 		std::vector<std::string> m_tags;
 		std::string m_name;
 		std::unordered_map<std::string, int> m_attributes;//attributes includes all numerical attribute and counter
@@ -81,6 +87,8 @@ namespace unit
 
 		int m_clientId = -1;
 
+
+		//functions
 		Unit();
 		Unit(const unit::Unit * source);
 		~Unit();
@@ -109,13 +117,15 @@ namespace unit
 		//trigger event
 		void triggerTP(ability::TimePointEvent::TPEventType p_tp, ability::TimePointEvent* p_event = nullptr);
 
-		//turn interface
+		//turn 
+		bool hasUpdate() const override { return true; };
+		void update() override;
 		void turnStart(UnitTurn* p_t);
 		bool canMove();
-		bool canAct();
+		bool canAct() const;
 		void moveDone();
 		void actDone();
-		bool isTurn();
+		bool isTurn() const;
 		void turnEnd();
 		void playerSkipTurn(bool p_sendPacket = true);
 
@@ -145,5 +155,11 @@ namespace unit
 		// Portrait Texture
 		void setPortraitTexturePath(const std::string& p_path) { m_portraitTexturePath = p_path; }
 		const std::string& getPortraitTexturePath() const { return m_portraitTexturePath; }
+
+		//item, capture the flag mode
+		const bool hasItem() const;
+		void addItem(kitten::K_GameObject* p_item);
+		void removeItem();
+		kitten::K_GameObject* getItem() const;
 	};
 }

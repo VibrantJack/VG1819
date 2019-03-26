@@ -1,0 +1,6 @@
+{
+    "type":4,
+    "texture":"textures/background/forest_ground_leaves_dark.jpg",
+    "mv_cost":1,
+    "description":"It's hard to move cross it. Unit can't move as usual(MV -1)."
+}

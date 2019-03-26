@@ -1,0 +1,16 @@
+{
+	"name" : "PooledUnitSummonUPFX",
+	"components" : [
+		{
+			"name" : "K_ParticleSystem",
+			"effectpath" : "data/particles/universal/effects/drain.xml"
+		},
+		{
+			"name" : "PlayParticleSystemOnEnable"
+		},
+		{
+			"name" : "DisableAfterTime",
+			"time" : 3.0
+		}
+	]
+}

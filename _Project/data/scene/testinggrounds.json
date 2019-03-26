@@ -1,49 +1,52 @@
 {
-	"gameobjects": [
-	{
-		"name": "more scene init stuff",
-		"components": [
-		{
-			"name": "GameplayInit"
-		}
-		]
-	},
-	{
-		"name": "deck supplement",
-		"components": [
-		{
-			"name": "ClickableFrame"
-		},
-		{
-			"name": "UIObject",
-			"texture": "textures/ui/buttons/blank_button.tga"
-		},
-		{
-			"name": "ClickableButton",
-			"regularTexture": "textures/ui/buttons/blank_button.tga",
-			"highlightedTexture": "textures/ui/buttons/blank_button_highlighted.tga"
-		},
-		{
-			"name": "DrawCardOnClickUI"
-		}
-		],
-		"translate": [ 0, 0, -0.01 ],
-		"translate2d": [ 1180, 10 ],
-		"scale2d": [ 64, 64 ]
-	},
-	{
-		"name": "Projectile Manager Instance",
-		"components": [
-		{
-			"name": "ProjectileManager",
-			"list": "data/unit_projectileList.txt"
-		}
-		]
-	},
-	{
-		"filename": "FPSCounter.txt",
-		"translate": [ 20, 350, 0 ]
-	},
+  "gameobjects": [
+    {
+      "name": "more scene init stuff",
+      "components": [
+        {
+          "name": "GameplayInit"
+        }
+      ]
+    },
+    {
+      "name": "deck supplement",
+      "components": [
+        {
+          "name": "ClickableFrame"
+        },
+        {
+          "name": "UIObject",
+          "texture": "textures/ui/buttons/blank_button.tga"
+        },
+        {
+          "name": "ClickableButton",
+          "regularTexture": "textures/ui/buttons/blank_button.tga",
+          "highlightedTexture": "textures/ui/buttons/blank_button_highlighted.tga"
+        },
+        {
+          "name": "DrawCardOnClickUI"
+        }
+      ],
+      "translate": [ 0, 0, -0.01 ],
+      "translate2d": [ 1180, 10 ],
+      "scale2d": [ 64, 64 ]
+    },
+    {
+      "name": "Projectile Manager Instance",
+      "components": [
+        {
+          "name": "ProjectileManager",
+          "list": "data/unit_projectileList.txt"
+        }
+      ]
+    },
+    {
+      "filename": "FPSCounter.txt",
+      "translate": [ 20, 350, 0 ]
+    },
+    {
+      "filename": "debug_particle.json"
+    },
 	{
 		"name" : "AI",
 		"components" : [
@@ -56,7 +59,7 @@
 			}
 		]
 	}
-	],
+  ],
 	"scenes" : [
 		"Game_Scene.json"
 	]

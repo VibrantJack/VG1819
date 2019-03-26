@@ -2,6 +2,7 @@
 #include "kitten\K_GameObjectManager.h"
 #include "kitten\K_GameObject.h"
 #include "kitten\K_ComponentManager.h"
+#include <iostream>
 
 UniversalPfx* UniversalPfx::sm_instance = nullptr;
 
@@ -83,6 +84,7 @@ void UniversalPfx::playEffect(const std::string& p_effectName, const glm::vec3& 
 	auto found = m_effects.find(p_effectName);
 	if (found == m_effects.end())
 	{
+		std::cout << "Could not find " + p_effectName + ". Playing default pfx\n";
 		found = m_effects.find("Default");
 	}
 

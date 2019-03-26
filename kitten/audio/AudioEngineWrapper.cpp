@@ -25,8 +25,8 @@ namespace kitten
 		std::cout << "MultiThreaded audio? " << (m_audioEngine->isMultiThreaded() ? "Yes" : "No") << std::endl;
 		assert(m_audioEngine != nullptr);
 
-		m_audioEngine->setDefault3DSoundMaxDistance(20);
-		m_audioEngine->setDefault3DSoundMinDistance(1);
+		m_audioEngine->setDefault3DSoundMinDistance(0.5f);
+		m_audioEngine->setRolloffFactor(1.5f);
 	}
 
 	AudioEngineWrapper::~AudioEngineWrapper()

@@ -1,0 +1,23 @@
+{
+	"name" : "crystal",
+	"texture" : "textures/sprites/terrain/crystal.png",
+	
+	"sheetwidth" : 150,
+	"sheetheight" : 50,
+	
+	"characterwidth" : 28,
+	"characterheight" : 30,
+	
+	"padding" : 0,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [4,0],
+			"time" : 2
+		}
+	],
+	
+	"defaultanimation" : "idle"
+}

@@ -35,6 +35,14 @@
 #define PLAYER_DISCONNECTED 2
 #define CLIENT_DESYNCED 3
 
+#define SERVER_STATUS_KEY "server_status_key"
+#define SERVER_PLAYER_COUNT_KEY "server_player_count_key"
+#define SERVER_ACTIVE_SESSIONS_KEY "server_active_sessions_key"
+#define SERVER_STATUS_FULL 2
+
+// Scenes
+#define DECK_MENU_SCENE "deck_menu.json"
+
 #include "kitten/K_GameObject.h"
 
 #include <unordered_map>
@@ -87,7 +95,7 @@ namespace kitten
 			Update_Land_Context,
 			Add_LandContext_Lerp_Callback,
 			Client_Commander_Loaded,
-			Poll_For_Localhost,
+			Poll_For_Server,
 			Join_Localhost,
 			Chat_Button_Clicked,
 			TextChat_Receive_Message,
@@ -103,6 +111,11 @@ namespace kitten
 			Put_Card_To_Hand,
 			Next_Units_Turn_Start,
 			Action_Complete,
+			Quickplay,
+			Quickplay_Find_Game,
+			Quickplay_Start_Game,
+			Update_Server_Info,
+			Board_Loaded,
 
 			Test_Event, 
 			MAX_VAL = Test_Event

@@ -1,0 +1,14 @@
+{
+	"name" : "AncientGift Sound",
+	"components" : [
+		{
+			"name" : "AudioSource",
+			"clippath" : "Sounds/sfx/units/downer.wav",
+			"is3d" : false,
+			"enableeffects" : false,
+			"loop" : false,
+			"volume" : 0.2,
+			"getsducked" : false
+		}
+	]
+}

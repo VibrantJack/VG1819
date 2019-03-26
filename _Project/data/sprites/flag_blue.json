@@ -1,0 +1,23 @@
+{
+	"name" : "flag_blue",
+	"texture" : "textures/sprites/terrain/flag_blue.png",
+	
+	"sheetwidth" : 300,
+	"sheetheight" : 60,
+	
+	"characterwidth" : 50,
+	"characterheight" : 50,
+	
+	"padding" : 0,
+	
+	"animations" : [
+		{
+			"name" : "idle",
+			"startpos" : [0,0],
+			"endpos" : [4,0],
+			"time" : 2
+		}
+	],
+	
+	"defaultanimation" : "idle"
+}

@@ -4,28 +4,7 @@ LandInfoManager* LandInfoManager::sm_instance;
 
 LandInfoManager::LandInfoManager()
 {
-	LandInformation* l;
 
-	l = new GrassLand();
-	add(l);
-
-	l = new SwampLand();
-	add(l);
-
-	l = new SandLand();
-	add(l);
-
-	l = new ForestLand();
-	add(l);
-
-	l = new GardenLand();
-	add(l);
-
-	l = new WaterLand();
-	add(l);
-
-	l = new HomeLand();
-	add(l);
 }
 
 LandInfoManager::~LandInfoManager()

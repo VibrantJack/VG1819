@@ -19,6 +19,8 @@ namespace ability
 
 		done(p_info);
 
+		UniversalSounds::playSound("bubbling");
+
 		return 0;
 	}
 }

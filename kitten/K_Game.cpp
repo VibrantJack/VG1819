@@ -53,6 +53,7 @@
 
 #include "ModelRenderable.h"
 
+
 #define DEBUG
 
 namespace kitten
@@ -76,6 +77,8 @@ namespace kitten
 		LandInfoManager::createInstance();
 		
 		kibble::loadSpriteSheets("MasterSpriteSheet.json");
+		kibble::loadLand("AllLand.json");
+		kibble::loadMap("AllMap.json");
 	}
 
 	void movedExamples()

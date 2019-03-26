@@ -3,6 +3,7 @@
 #include "kitten/K_GameObject.h"
 #include "unitInteraction/UnitInteractionManager.h"
 #include "AI/Extract/Behavior.h"
+#include "board/tile/gameMode/Capture/CaptureItemController.h"
 
 #include "_Project\UniversalPfx.h"
 
@@ -16,6 +17,8 @@ namespace unit
 {
 	Unit::Unit() : m_healthBarState(none), m_healthBar(nullptr), m_unitSelect(nullptr)
 	{
+		m_itemGO = nullptr;
+
 		m_commander = nullptr;
 		m_turn = nullptr;
 
@@ -130,6 +133,20 @@ namespace unit
 				m_commander->resetPower(m_clientId);
 		case ability::TimePointEvent::Turn_End:
 		case ability::TimePointEvent::New_Tile:
+			//pick up item
+			if (tileGO != nullptr)
+			{
+				TileInfo* info = tileGO->getComponent<TileInfo>();
+				//pick up item
+				if (info->hasItem())
+				{
+					kitten::K_GameObject* item = info->getItem();
+					info->removeItem();
+
+					//item is held by unit
+					item->getComponent<CaptureItemController>()->setParent(this);
+				}
+			}
 		case ability::TimePointEvent::Leave_Tile:
 			if(tileGO != nullptr)
 				tileGO->getComponent<TileInfo>()->effect(p_tp, this);
@@ -143,7 +160,7 @@ namespace unit
 	void Unit::setJoinAD()
 	{
 		m_joinAD.m_stringValue["name"] = ACTION_JOIN;
-		m_joinAD.m_intValue["target"] = 1;
+		//m_joinAD.m_intValue["target"] = 1;
 		m_joinAD.m_intValue["need_unit"] = 1;
 		m_joinAD.m_intValue["min_range"] = 1;
 		m_joinAD.m_intValue["max_range"] = 1;
@@ -209,6 +226,15 @@ namespace unit
 			m_commander->spawnUnit(p_id);
 	}*/
 
+	//check turn end in update, so it will not stick with next unit after action
+	void Unit::update()
+	{
+		if (isTurn())
+		{
+			m_turn->checkTurn();
+		}
+	}
+
 	//turn
 	void Unit::turnStart(UnitTurn * p_t)
 	{
@@ -221,7 +247,6 @@ namespace unit
 			m_turn->move = false;
 		else
 			m_turn->move = true;
-
 
 		m_cdRecorder->reduceCD();//reduce cd at start of turn
 
@@ -246,8 +271,6 @@ namespace unit
 			m_turn->act = true;
 		}
 
-		m_turn->checkTurn();
-
 		//if has auto cast ability, use it
 		if (m_autoCast)
 		{
@@ -266,7 +289,7 @@ namespace unit
 		return true;
 	}
 
-	bool Unit::canAct()
+	bool Unit::canAct() const
 	{
 		assert(m_turn != nullptr);
 		return m_turn->act;
@@ -293,7 +316,6 @@ namespace unit
 			if (moveDone && !m_lateDestroy)
 			{
 				m_turn->move = false;
-				m_turn->checkTurn();
 
 				kitten::EventManager::getInstance()->queueEvent(kitten::Event::Action_Complete, new kitten::Event(kitten::Event::Action_Complete));
 				std::cout << "movement Complete\n";
@@ -308,10 +330,9 @@ namespace unit
 	{
 		assert(m_turn != nullptr);
 		m_turn->act = false;
-		m_turn->checkTurn();
 	}
 
-	bool Unit::isTurn()
+	bool Unit::isTurn() const
 	{
 		//if m_turn is nullptr, it means its not this unit turn
 		return m_turn != nullptr;
@@ -537,6 +558,26 @@ namespace unit
 				kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Network_End_Game, eventData);
 			}			
 		}
+	}
+
+	const bool Unit::hasItem() const
+	{
+		return m_itemGO != nullptr;
+	}
+
+	void Unit::addItem(kitten::K_GameObject* p_item)
+	{
+		m_itemGO = p_item;
+	}
+
+	void Unit::removeItem()
+	{
+		m_itemGO = nullptr;
+	}
+
+	kitten::K_GameObject * Unit::getItem() const
+	{
+		return m_itemGO;
 	}
 
 	void Unit::onScaleLerpFinished(kitten::K_GameObject* p_obj) //Called when healthbar is done animating

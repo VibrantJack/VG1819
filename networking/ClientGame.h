@@ -6,6 +6,7 @@
 #include "networking\NetworkLog.h"
 
 #include "kitten\K_GameObject.h"
+#include "kitten\event_system\EventManager.h"
 #include <map>
 
 // Ability 
@@ -27,9 +28,12 @@ namespace networking
 
 		static int sm_iClientId;
 		static bool sm_networkValid;
+		static std::string sm_playerName;
 		static ClientGame* sm_clientGameInstance;
+		static std::string sm_dedicatedServerAddress;
 
 		float m_timeElapsed;
+		bool m_boardLoaded = false;
 
 		NetworkLog* m_log = nullptr;
 
@@ -41,9 +45,15 @@ namespace networking
 		static void destroyInstance();
 		static ClientGame* getInstance();
 		static bool isNetworkValid() { return sm_networkValid; }
+		static void setPlayerName(const std::string& p_name) { sm_playerName = p_name; }
+		static const std::string& getPlayerName() { return sm_playerName; }
+
+		static void setDedicatedServerAddress(const std::string& p_address) { sm_dedicatedServerAddress = p_address; }
+		static const std::string& getDedicatedServerAddress() { return sm_dedicatedServerAddress; }
 
 		void setupNetwork(const std::string &p_strAddr = "127.0.0.1");
 		void disconnectFromNetwork(bool p_bServerShutdown = false);
+		void connectToDedicatedServer();
 
 		void update();
 
@@ -51,6 +61,8 @@ namespace networking
 		void sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
 		void setCastTime(AbilityPacket& p_packet);
 		void sendCastTimeAbilityPacket(unit::AbilityDescription * p_ad, ability::AbilityInfoPackage * p_info);
+		void sendStartingData();
+		void boardLoadedListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 
 		// Compare units via their position
 		bool checkSync(int p_x, int p_y);

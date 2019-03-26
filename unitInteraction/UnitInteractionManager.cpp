@@ -111,6 +111,8 @@ void UnitInteractionManager::cancel()
 	if (!m_busy)
 		return;
 
+	m_busy = false;
+
 	//delete package
 	if (m_package != nullptr)
 	{
@@ -131,7 +133,6 @@ void UnitInteractionManager::cancel()
 		//m_tileGetter->cancel();
 	}
 
-	m_busy = false;
 }
 
 bool UnitInteractionManager::isBusy() const
@@ -175,8 +176,8 @@ void UnitInteractionManager::send()
 		return;
 	}
 
-
-	if (m_ad->m_intValue.find("ct") == m_ad->m_intValue.end() || m_ad->m_intValue.find("ct")->second < 1)//no cast time
+	auto found = m_ad->m_intValue.find("ct");
+	if (found == m_ad->m_intValue.end() || found->second <1)//no cast time
 	{//directly use it
 		ability::AbilityManager::getInstance()->useAbility(m_abilityName, m_package);
 	}
@@ -189,9 +190,9 @@ void UnitInteractionManager::send()
 		}
 	}
 
-	m_package = nullptr;
 	m_busy = false;
 
+	m_package = nullptr;
 	if (m_ad->m_stringValue[ABILITY_NAME] != ACTION_MOVE) {
 		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Action_Complete, new kitten::Event(kitten::Event::Action_Complete));
 		std::cout << m_ad->m_stringValue[ABILITY_NAME] << " Complete\n";

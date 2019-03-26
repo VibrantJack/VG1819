@@ -2,7 +2,7 @@
 
 #include "_Project\UniversalSounds.h"
 
-PlayUniversalSoundOnEnable::PlayUniversalSoundOnEnable(const std::string& p_soundName) : m_soundName(p_soundName)
+PlayUniversalSoundOnEnable::PlayUniversalSoundOnEnable(const std::string& p_soundName, bool p_is3D) : m_soundName(p_soundName), m_is3D(p_is3D)
 {
 
 }
@@ -14,5 +14,13 @@ PlayUniversalSoundOnEnable::~PlayUniversalSoundOnEnable()
 
 void PlayUniversalSoundOnEnable::onEnabled()
 {
-	UniversalSounds::playSound(m_soundName);
+	if (m_is3D)
+	{
+		UniversalSounds::playSound(m_soundName, getTransform().getTranslation());
+	}
+	else
+	{
+		UniversalSounds::playSound(m_soundName);
+	}
+	
 }
