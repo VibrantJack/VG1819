@@ -1,0 +1,21 @@
+{
+	"name" : "PooledSwampGasUPFX",
+  "components": [
+    {
+      "name": "K_ParticleSystem",
+      "effectpath": "data/particles/universal/effects/swampGas.xml"
+    },
+    {
+      "name": "PlayParticleSystemOnEnable"
+    },
+    {
+      "name": "HaltParticleSystemAfterTime",
+      "stop": false,
+      "time": 3
+    },
+    {
+      "name": "DisableAfterTime",
+      "time": 10
+    }
+  ]
+}

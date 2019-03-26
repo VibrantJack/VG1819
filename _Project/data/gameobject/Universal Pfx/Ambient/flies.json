@@ -1,0 +1,21 @@
+{
+	"name" : "PooledFliesUPFX",
+  "components": [
+    {
+      "name": "K_ParticleSystem",
+      "effectpath": "data/particles/universal/effects/flies.xml"
+    },
+    {
+      "name": "PlayParticleSystemOnEnable"
+    },
+    {
+      "name": "HaltParticleSystemAfterTime",
+      "stop": false,
+      "time": 20
+    },
+    {
+      "name": "DisableAfterTime",
+      "time": 20
+    }
+  ]
+}

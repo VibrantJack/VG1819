@@ -167,30 +167,27 @@ kitten::K_GameObject * BoardCreator::createTile(int x, int z, LandInformation::T
 
 	kitten::Transform& transform = tileGO->getTransform();
 	transform.move(x, -1, z);
-	return tileGO;
 
 	//ambient particles
 	switch (p_type)
 	{
 	case LandInformation::TileType::Swamp_land:
 	{
-		AmbientSystemController::getInstance()->registerAmbientEffect("VolleyUPFX.json", tileGO->getTransform().getTranslation(), 1, 2);
+		AmbientSystemController::getInstance()->registerAmbientEffect("Universal Pfx/SwampGasUPFX.json", tileGO->getTransform().getTranslation(), 10, 15);
 		break;
 	}
 	case LandInformation::TileType::Sand_land:
 	{
-
+		AmbientSystemController::getInstance()->registerAmbientEffect("Universal Pfx/SandDustUPFX.json", tileGO->getTransform().getTranslation(), 30, 60);
 		break;
 	}
 	case LandInformation::TileType::Water_land:
 	{
-
-		break;
-	}
-	case LandInformation::TileType::Garden_land:
-	{
-
+		AmbientSystemController::getInstance()->registerAmbientEffect("Universal Pfx/WaterSparkleUPFX.json", tileGO->getTransform().getTranslation(), 1, 120);
 		break;
 	}
 	}
+
+	return tileGO;
+
 }

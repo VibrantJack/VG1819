@@ -17,7 +17,7 @@ namespace puppy
 			left
 		};
 	private:
-		bool m_mode;
+		mode m_mode;
 	public:
 		DirectionSpawnAff(mode p_mode) : m_mode(p_mode) {}
 
