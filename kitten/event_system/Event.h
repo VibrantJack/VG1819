@@ -101,6 +101,8 @@ namespace kitten
 			New_Game_Turn,
 			New_Unit_Turn,
 			Put_Card_To_Hand,
+			Next_Units_Turn_Start,
+			Action_Complete,
 
 			Test_Event, 
 			MAX_VAL = Test_Event

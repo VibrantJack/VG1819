@@ -6,6 +6,7 @@
 #include "kibble/json/JSONUnitDataParser.hpp"
 #include "kibble/custom/CustomDeckDataParser.hpp"
 #include "kibble\sprites\SpriteLoader.h"
+#include "AI/Extract/Behavior.h"
 
 kibble::GameObjectDataParser* gameObjectParser;
 kibble::UnitDataParser* unitParser;
@@ -20,6 +21,7 @@ void kibble::initializeKibbleRelatedComponents() {
 	deckParser = new CustomDeckDataParser();
 	SpriteLoader::createInstance();
 
+	setupBehaviors();
 	setupDatabank();
 }
 

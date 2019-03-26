@@ -14,7 +14,7 @@
 //@Rock
 //although unit is just a component of game object
 //it acts like central system which pass commands to other components
-
+	struct Behavior;
 namespace unit
 {
 	class UnitTurn;
@@ -69,6 +69,8 @@ namespace unit
 		std::unordered_map<std::string, int> m_attributes;//attributes includes all numerical attribute and counter
 		UnitSize m_size;
 
+		std::map<std::string,Behavior*> m_AbilityBehavior;
+
 		//two list for ad, 
 
 		//one is used for iterating it in order, 
@@ -80,6 +82,7 @@ namespace unit
 		int m_clientId = -1;
 
 		Unit();
+		Unit(const unit::Unit * source);
 		~Unit();
 
 		//level up
@@ -89,8 +92,8 @@ namespace unit
 		
 		//commander interface
 		void addCommander(Commander* p_c);
-		bool isCommander();
 		//void manipulateTile();
+		bool isCommander() const;
 
 		//check tag
 		bool checkTag(const std::string& p_tag);
