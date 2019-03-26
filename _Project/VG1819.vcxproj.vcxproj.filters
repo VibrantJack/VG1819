@@ -1169,6 +1169,9 @@
     <ClCompile Include="..\board\tile\gameMode\Capture\CaptureItemController.cpp">
       <Filter>board\tile\gameMode\CaptureFlagMode</Filter>
     </ClCompile>
+    <ClCompile Include="..\networking\Quickplay.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
     <ClCompile Include="TogglePhotoModeOnKeyPress.cpp">
       <Filter>components</Filter>
     </ClCompile>
@@ -2344,6 +2347,9 @@
     </ClInclude>
     <ClInclude Include="..\board\tile\gameMode\Capture\CaptureItemController.h">
       <Filter>board\tile\gameMode\CaptureFlagMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\Quickplay.h">
+      <Filter>networking</Filter>
     </ClInclude>
     <ClInclude Include="TogglePhotoModeOnKeyPress.h">
       <Filter>components</Filter>

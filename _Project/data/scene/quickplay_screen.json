@@ -1,0 +1,84 @@
+{
+    "gameobjects" : [
+        {
+            "filename" : "camgameobj_main_menu.txt", 
+            "translate" : [7, 7.0, 2.0],
+            "rotate" : [-70,0,0]
+        },
+		{
+			"filename" : "quad_repeat.txt"
+		},
+		{
+			"filename" : "mainmenu_background.json"
+		},
+		{
+			"name" : "Quickplay Component",
+			"components" : [
+				{
+					"name" : "Quickplay"
+				},
+				{
+					"name" : "TextBox",
+					"font" : "../fonts/common_consolas.fnt",
+					"width" : 500 , 
+					"height" : 100 ,
+					"color" : [1,1,1]
+				},
+				{
+					"name" : "StringInputDisplay"
+				}
+			],
+			"gameobjects" : [
+				{
+					"filename" : "UI/quickplay_find_game_button.json"
+				}
+			],
+			"translate" : [280, 160, -0.8]
+		},
+		{
+            "name" : "Quickplay Info Window",
+            "components" : [
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/quickplay_info.dds"
+                }
+            ],
+            "translate" : [280, 160, -0.9],
+            "scale2d" : [720, 360]
+        },
+		{
+			"filename" : "network_menu/refresh_button.json",
+			"translate" : [750, 450, -0.8]
+		},
+        {
+            "name" : "Back Button",
+            "components" : [
+				{
+					"name" : "ShowLoadingOnClick"
+				},
+				{
+					"name" : "ChangeSceneOnClick",
+					"scene" : "network_menu.json"					
+				},
+                {
+                    "name" : "UIObject",
+                    "texture" : "textures/ui/buttons/button_return.tga"
+                },
+				{
+					"name" : "ClickableButton",
+					"regularTexture" : "textures/ui/buttons/button_return.tga",
+					"highlightedTexture" : "textures/ui/buttons/button_return_highlighted.tga"
+				},
+                {
+                    "name" : "ClickableFrame"
+                },
+				{
+					"name" : "PlayUniversalSoundOnUIClick",
+					"sound_name" : "click"
+				}
+            ],
+            "translate2d" : [71, 21],
+            "scale2d" : [125, 80]
+        }
+    ]
+}

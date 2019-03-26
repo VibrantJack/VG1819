@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\networking\dedicated_server\AbilityPacket.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\dedicated_server\NetworkLog.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\dedicated_server\NetworkServices.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\dedicated_server\ServerGame.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\dedicated_server\ServerNetwork.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\networking\dedicated_server\GameSession.cpp">
+      <Filter>networking</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="networking">
+      <UniqueIdentifier>{ca262ff0-6e51-41e7-9b4d-62eb0dcd4568}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\networking\dedicated_server\NetworkData.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\dedicated_server\NetworkLog.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\dedicated_server\NetworkServices.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\dedicated_server\ServerGame.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\dedicated_server\ServerNetwork.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ability\AbilityMacro.h" />
+    <ClInclude Include="..\networking\dedicated_server\GameSession.h">
+      <Filter>networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\networking\dedicated_server\NetworkingCommon.h" />
+  </ItemGroup>
+</Project>
