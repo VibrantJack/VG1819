@@ -49,11 +49,18 @@
 		],
 		"portrait_texture" : "textures/cards/500x500/Archer.tga",
 		"AI" : [
+
 			{
 				"ability" : "Shoot",
 				"behavior" : {
-					"name" : "LowestAttribEnemy",
+					"name" : "NearestEnemy",
 					"attribute" : "hp"
+				}
+			},
+			{
+				"ability" : "mv",
+				"behavior" : {
+					"name" : "NearestEnemy"
 				}
 			}
 		]

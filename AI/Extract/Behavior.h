@@ -33,7 +33,7 @@ struct HighestAttribEnemy : public Behavior {
 
 struct TileOwnership : public Behavior {
 	bool own;
-
+	double passWeight, failWeight;
 	TileOwnership(nlohmann::json& p_json);
 	virtual double calculateWeight(AI::Model::TargetRange& p_target, AI::Model& p_data) override;
 };
