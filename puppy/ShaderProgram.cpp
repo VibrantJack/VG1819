@@ -101,7 +101,7 @@ namespace puppy
 					++it;
 				}
 
-				for (int i = 0; i < missingLights; ++i)
+				for (int i = lightsToEnum+1; i < lightsToEnum + missingLights + 1; ++i)
 				{
 					glUniform1f(getUniformPlace("light" + std::to_string(i) + "Range"), 0);
 				}
