@@ -32,6 +32,11 @@
 		"MonumentSheet.json",
 		"RotGolemSheet.json",
 		"DemonLordSheet.json",
-		"EldritchLordSheet.json"
+		"EldritchLordSheet.json",
+		"chest_yellow.json",
+		"chest_blue.json",
+		"flag_blue.json",
+		"flag_white.json",
+		"crystal.json"
 	]
 }

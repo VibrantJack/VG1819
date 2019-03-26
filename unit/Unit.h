@@ -61,6 +61,8 @@ namespace unit
 		std::string m_autoAbility;
 		void setAutoAbility(const std::string& p_name);
 
+		//item
+		kitten::K_GameObject* m_itemGO;
 	public:
 		//members
 
@@ -95,7 +97,7 @@ namespace unit
 		
 		//commander interface
 		void addCommander(Commander* p_c);
-		bool isCommander();
+		bool isCommander() const;
 		//void manipulateTile();
 
 		//check tag
@@ -117,10 +119,10 @@ namespace unit
 		void update() override;
 		void turnStart(UnitTurn* p_t);
 		bool canMove();
-		bool canAct();
+		bool canAct() const;
 		void moveDone();
 		void actDone();
-		bool isTurn();
+		bool isTurn() const;
 		void turnEnd();
 		void playerSkipTurn(bool p_sendPacket = true);
 
@@ -150,5 +152,11 @@ namespace unit
 		// Portrait Texture
 		void setPortraitTexturePath(const std::string& p_path) { m_portraitTexturePath = p_path; }
 		const std::string& getPortraitTexturePath() const { return m_portraitTexturePath; }
+
+		//item, capture the flag mode
+		const bool hasItem() const;
+		void addItem(kitten::K_GameObject* p_item);
+		void removeItem();
+		kitten::K_GameObject* getItem() const;
 	};
 }

@@ -6,9 +6,6 @@
             "rotate" : [-70,0,0]
         },
 		{
-			"filename" : "boardcreator.txt"
-		},
-		{
 			"filename" : "netmenu_console.txt",
 			"translate2d" : [950, 100]
 		},

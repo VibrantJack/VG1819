@@ -232,10 +232,10 @@ namespace kitten
 		{
 			comp = new Highlighter();
 		}
-		else if (p_componentName == "BoardCreator") // Datadriven
-		{
-			comp = new BoardCreator();
-		}
+//		else if (p_componentName == "BoardCreator") // Datadriven
+//		{
+//			comp = new BoardCreator();
+//		}
 		else if (p_componentName == "SpawnUnitOnKeyPress") // Datadriven
 		{
 			comp = new SpawnUnitOnKeyPress();

@@ -66,6 +66,8 @@ namespace ability
 			}
 		}
 
+		UniversalSounds::playSound("hiss");
+
 		//delete package
 		done(p_info);
 

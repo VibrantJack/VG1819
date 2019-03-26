@@ -40,6 +40,8 @@ namespace ability
 			node->effect(target, UNIT_COST, pow);
 		}
 
+		UniversalSounds::playSound("downer");
+
 		//destroy itself
 		p_info->m_source->destroy();
 

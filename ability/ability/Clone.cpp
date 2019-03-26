@@ -29,6 +29,8 @@ namespace ability
 			eventData
 		);
 
+		UniversalSounds::playSound("single_bubble");
+
 		done(p_info);
 
 		return 0;

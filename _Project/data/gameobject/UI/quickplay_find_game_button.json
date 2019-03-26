@@ -1,0 +1,26 @@
+{
+	"name" : "Find Game Button",
+	"components" : [
+		{
+			"name" : "UIObject",
+			"texture" : "textures/ui/buttons/button_find_game.dds"
+		},
+		{
+			"name" : "PlayUniversalSoundOnUIClick",
+			"sound_name" : "click"
+		},
+		{
+			"name" : "TriggerEventButton",
+			"regularTexture" : "textures/ui/buttons/button_find_game.dds",
+			"highlightedTexture" : "textures/ui/buttons/button_find_game_h.dds",
+			"inactiveTexture" : "textures/ui/buttons/button_find_game_i.dds",
+			"event" : "Quickplay_Find_Game"
+		},
+		{
+			"name" : "ClickableFrame"
+		}
+	],
+	"scale2d" : [150, 48],
+	"translate" : [565, 185, -0.8]
+}
+

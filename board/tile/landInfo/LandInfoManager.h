@@ -16,11 +16,11 @@ private:
 	static LandInfoManager* sm_instance;
 	LandInfoManager();
 	~LandInfoManager();
-	void add(LandInformation* p_l);
 public:
 	static void createInstance() { assert(sm_instance == nullptr); sm_instance = new LandInfoManager(); };
 	static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
 	static LandInfoManager * getInstance() { return sm_instance; };
 
+	void add(LandInformation* p_l);
 	LandInformation * getLand(LandInformation::TileType p_type);
 };

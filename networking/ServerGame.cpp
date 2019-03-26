@@ -183,7 +183,7 @@ namespace networking
 						buffer.m_size = BASIC_PACKET_SIZE;
 
 						Packet packet;
-						packet.m_packetType = GAME_FULL;
+						packet.m_packetType = SERVER_FULL;
 						packet.m_clientId = -1;
 
 						packet.serialize(buffer);

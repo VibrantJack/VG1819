@@ -20,6 +20,8 @@ namespace ability
 			}
 		}
 
+		UniversalSounds::playSound("toxic_aura");
+
 		//delete package
 		done(p_info);
 

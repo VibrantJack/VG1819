@@ -224,7 +224,8 @@ void unit::UnitMove::update()
 		}
 		else
 		{
-			setTile(BoardManager::getInstance()->getSpawnPoint());
+			int clientid = m_attachedObject->getComponent<Unit>()->m_clientId;
+			setTile(BoardManager::getInstance()->getSpawnPoint(clientid));
 		}
 		m_set = false;
 	}

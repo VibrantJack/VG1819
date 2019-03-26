@@ -37,6 +37,8 @@ networking/logs/
 _Project/Debug/
 _Project/.vs/
 _Project/Release/
+_Server/Debug/
+_Server/.vs/
 .vscode/
 *.log
 *.tlog

@@ -19,20 +19,18 @@
 class TilePipeline;
 class BoardManager
 {
+	friend BoardCreator;
 public:
 	static void createInstance() { assert(sm_instance == nullptr); sm_instance = new BoardManager(); };
 	static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
 	static BoardManager * getInstance() { return sm_instance; };
 
-	//spawn point
-	void setSpawnPoint(kitten::Event::TileList p_list);
-	kitten::K_GameObject* getSpawnPoint(int m_clientId = -1);
+	void createBoard(int p_mapID = -1, bool p_enableTileInfoDisplay = true);
 
 	//dimension and tiles
-	void setTileList(std::vector<kitten::K_GameObject*> p_list);
-	void setDimension(int p_x, int p_z);
-	std::pair<int, int> getDimension();
-	kitten::K_GameObject* getTile(int p_x, int p_z);
+	kitten::K_GameObject* getSpawnPoint(int m_clientId = -1);
+	std::pair<int, int> getDimension() const;
+	kitten::K_GameObject* getTile(int p_x, int p_z) const;
 
 	//power tracker
 	void setPowerTracker(PowerTracker* p_pt) { m_powerTracker = p_pt; };
@@ -49,7 +47,7 @@ public:
 	void deselect();
 
 	//highlight range
-	kitten::Event::TileList getRange();
+	kitten::Event::TileList getRange() const;
 
 	void setGrid(bool p_enabled);
 	bool isGridEnabled() const;
@@ -59,26 +57,35 @@ public:
 
 	void tileClicked(bool p_send);
 
-	//at every game, all components should reset
-	void resetComponents();
-
 	//auto click, for AI or auto casting ability
 	//it will act like the tile object is clicked without player interaction
 	void autoClick(kitten::K_GameObject* p_tile);
+
+	//at every game, all components should reset
+	void resetComponents();
+
 private:
+	//members
+
 	static BoardManager* sm_instance;
 
+	//borad
+	kitten::K_GameObject* m_boradObject;
+	int m_mapId;
 	std::pair<int, int> m_dimension;
 	kitten::Event::TileList m_spawnPointList;
+	std::vector<kitten::K_GameObject*> m_tileList;
 
+	//components
 	kitten::K_GameObject* m_hlGO;
 	Range* m_range;
 	Highlighter* m_highlighter;
 	TilePipeline* m_pipeline;
 	PowerTracker* m_powerTracker;
 	Area* m_area;
-	//PathFind* m_pathFind;
+	BoardCreator* m_boardCreator;
 
+	//unit ability selected
 	kitten::Event::TileList m_areaList;
 	kitten::Event::TileList m_rangeList;
 	kitten::Event::TileList m_selectList;
@@ -86,7 +93,7 @@ private:
 	int m_targetNum;
 	int m_selectNum;
 
-	std::vector<kitten::K_GameObject*> m_tileList;
+	//functions
 
 	bool m_isGridEnabled;
 
@@ -102,4 +109,11 @@ private:
 	void applyFilter(kitten::Event::TileList* p_list);
 
 	void setArea(kitten::Event* p_data);
+
+	//set board from board creator
+	void setSpawnPoint(const kitten::Event::TileList& p_list);
+	void setTileList(const std::vector<kitten::K_GameObject*>& p_list);
+	void setDimension(int p_x, int p_z);
+	void setMapID(int p_id);
+	void setBoardGameObject(kitten::K_GameObject* p_go);
 };

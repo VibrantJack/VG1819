@@ -16,8 +16,8 @@
         width: 15px;
         margin: 2px 2px;
     }
-    .player {
-        background-color: red;
+    .blank {
+        background-color: gray;
     }
     .grass {
         background-color: lightgreen;
@@ -37,6 +37,9 @@
     .water {
         background-color: blue;
     }
+    .spawn {
+        background-color: red;
+    }
     </style>
 </head>
 <body>
@@ -46,13 +49,13 @@
     </div>
     <div id = "set">
         
-    <button class="button player" onclick="set('button player')"></button>Player Spawn Point<br>
-    <button class="button grass" onclick="set('button grass')"></button>Grass<br>
-    <button class="button forest" onclick="set('button forest')"></button>Forest<br>
-    <button class="button garden" onclick="set('button garden')"></button>Garden<br>
-    <button class="button sand" onclick="set('button sand')"></button>Sand<br>
-    <button class="button swamp" onclick="set('button swamp')"></button>Swamp<br>
-    <button class="button water" onclick="set('button water')"></button>Water<br>
+    <button class="button spawn" onclick="set('button spawn')"></button>Spawn Point 0<br>
+    <button class="button grass" onclick="set('button grass')"></button>Grass/Spawn Point 1<br>
+    <button class="button swamp" onclick="set('button swamp')"></button>Swamp/Control Area<br>
+    <button class="button sand" onclick="set('button sand')"></button>Sand/Defend Area<br>
+    <button class="button forest" onclick="set('button forest')"></button>Forest/Item Spawn<br>
+    <button class="button garden" onclick="set('button garden')"></button>Garden/Item Drop 0<br>
+    <button class="button water" onclick="set('button water')"></button>Water/Item Drop 1<br>
 </div>
     <p><button onclick="output()" value = "OutPut">Out put</button></p>
     <div id = "data">
@@ -71,6 +74,15 @@
                 for(var j=0;j<x;j++)
                 {
                     content+="<button class='button grass' id='"+i+"."+j+"' onclick='paint(this)'></button>";
+                }
+                content+="<br>";
+            }
+            content+="<br>";
+            for(var i=z;i<z*2;i++)
+            {
+                for(var j=x;j<x*2;j++)
+                {
+                    content+="<button class='button blank' id='"+i+"."+j+"' onclick='paint(this)'></button>";
                 }
                 content+="<br>";
             }
@@ -101,7 +113,30 @@
                     var c = document.getElementById(j+"."+i).className;
                     var n ;
                     switch (c) {
-                        case "button player":n=-1;break;
+                        case "button spawn":n=-1;break;
+                        case "button blank":n=0;break;
+                        case "button grass": n=1;break;
+                        case "button swamp": n=2;break;
+                        case "button sand": n=3;break;
+                        case "button forest": n=4;break;
+                        case "button garden": n=5;break;
+                        case "button water": n=6;break;
+                        default:
+                            break;
+                    }
+                    content+=n + " ";
+                }
+                content+="<br>";
+            }
+            for(var i=x*2-1;i>=x;i--)
+            {
+                for(var j=z*2-1;j>=z;j--)
+                {
+                    var c = document.getElementById(j+"."+i).className;
+                    var n ;
+                    switch (c) {
+                        case "button spawn":n=-1;break;
+                        case "button blank":n=0;break;
                         case "button grass": n=1;break;
                         case "button swamp": n=2;break;
                         case "button sand": n=3;break;
