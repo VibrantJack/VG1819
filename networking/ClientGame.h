@@ -61,7 +61,7 @@ namespace networking
 		void sendAbilityPacket(const std::string & p_strAbilityName, ability::AbilityInfoPackage * p_info);
 		void setCastTime(AbilityPacket& p_packet);
 		void sendCastTimeAbilityPacket(unit::AbilityDescription * p_ad, ability::AbilityInfoPackage * p_info);
-		void sendStartingData();
+		void sendStartingData(int p_mapId);
 		void boardLoadedListener(kitten::Event::EventType p_type, kitten::Event* p_event);
 
 		// Compare units via their position

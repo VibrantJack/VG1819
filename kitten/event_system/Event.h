@@ -14,6 +14,7 @@
 #define TEXTCHAT_MESSAGE_KEY "textchat_message_key"
 #define NEXT_SCENE_PATH_KEY "next_scene_path_key"
 #define UNIT_GO_KEY "unit_go_key"
+#define MAP_ID_KEY "map_id_key"
 
 #define PLAYER_ID "playerID"
 #define CARD_ID "cardID"
@@ -114,6 +115,7 @@ namespace kitten
 			Quickplay_Start_Game,
 			Update_Server_Info,
 			Board_Loaded,
+			P2P_Start_Game,
 
 			Test_Event, 
 			MAX_VAL = Test_Event

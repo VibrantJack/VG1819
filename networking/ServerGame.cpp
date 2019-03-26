@@ -161,18 +161,37 @@ namespace networking
 						m_network->addPolledClientToSessions(iter->first, m_clientId);
 						m_clientId++;
 
-						// Send a packet to the client to notify them what their ID is
-						char packetData[BASIC_PACKET_SIZE];
-						Buffer buffer;
-						buffer.m_data = packetData;
-						buffer.m_size = BASIC_PACKET_SIZE;
+						// If the connecting client is the host, then they only need to know their ID
+						if (assignedClientId == 0)
+						{
+							char packetData[BASIC_PACKET_SIZE];
+							Buffer buffer;
+							buffer.m_data = packetData;
+							buffer.m_size = BASIC_PACKET_SIZE;
 
-						Packet packet;
-						packet.m_packetType = SEND_CLIENT_ID;
-						packet.m_clientId = assignedClientId;
+							Packet packet;
+							packet.m_packetType = SEND_CLIENT_ID;
+							packet.m_clientId = assignedClientId;
 
-						packet.serialize(buffer);
-						m_network->sendToClient(assignedClientId, packetData, BASIC_PACKET_SIZE);
+							packet.serialize(buffer);
+							m_network->sendToClient(assignedClientId, packetData, BASIC_PACKET_SIZE);
+						}
+						// Otherwise, send the map ID decided by the host along with their client ID
+						else
+						{
+							char packetData[MAP_DATA_PACKET_SIZE];
+							Buffer buffer;
+							buffer.m_data = packetData;
+							buffer.m_size = MAP_DATA_PACKET_SIZE;
+
+							MapDataPacket packet;
+							packet.m_packetType = MAP_DATA;
+							packet.m_clientId = assignedClientId;
+							packet.m_packetType = m_hostMapId;
+
+							packet.serialize(buffer);
+							m_network->sendToClient(assignedClientId, packetData, MAP_DATA_PACKET_SIZE);
+						}
 					}
 					else
 					{
@@ -282,6 +301,25 @@ namespace networking
 
 						packet.serialize(buffer);
 						m_network->sendToClient(clientId, packetData, BASIC_PACKET_SIZE);
+						break;
+					}
+					case MAP_DATA:
+					{
+						Buffer buffer;
+						buffer.m_data = &(m_network_data[i]);
+						buffer.m_size = BASIC_PACKET_SIZE;
+
+						MapDataPacket packet;
+						packet.deserialize(buffer);
+						printf("Server received MAP_DATA (map ID: %d) packet from [Client: %d]\n", packet.m_mapId, iter->first);
+
+						// Only the host should be able to set the map ID in p2p
+						if (packet.m_clientId == 0)
+						{
+							m_hostMapId = packet.m_mapId;
+						}
+
+						i += MAP_DATA_PACKET_SIZE;
 						break;
 					}
 					case CLIENT_DISCONNECT:

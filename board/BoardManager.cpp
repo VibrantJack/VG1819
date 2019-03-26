@@ -306,7 +306,7 @@ BoardManager::BoardManager() :
 	m_pipeline(nullptr),
 	m_area(nullptr),
 	m_boardCreator(nullptr),
-	m_boradObject(nullptr),
+	m_boardObject(nullptr),
 	m_dimension(std::make_pair(0,0)),
 	m_isGridEnabled(true)
 {
@@ -535,7 +535,7 @@ void BoardManager::setMapID(int p_id)
 
 void BoardManager::setBoardGameObject(kitten::K_GameObject * p_go)
 {
-	m_boradObject = p_go;
+	m_boardObject = p_go;
 }
 
 
