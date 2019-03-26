@@ -274,16 +274,16 @@ public:
 	void extractFromPackage(ability::AbilityInfoPackage* p_package);
 	void insertIntoPackage(ability::AbilityInfoPackage* p_package);
 
-	void addTargetUnits(TargetUnits p_targets);
-	void addIntValues(IntValues p_values);
-	void addTargetTiles(TargetTiles p_targetTilesGO);
-	void addStringValues(StringValues p_stringValues);
+	void addTargetUnits(const TargetUnits& p_targets);
+	void addIntValues(const IntValues& p_values);
+	void addTargetTiles(const TargetTiles& p_targetTilesGO);
+	void addStringValues(const StringValues& p_stringValues);
 	void addUnitData(unit::Unit* p_unit);
 
-	const TargetUnits& getTargetUnits();
-	const IntValues& getIntValues();
-	const TargetTiles& getTargetTiles();
-	const StringValues& getStringValues();
+	const TargetUnits& getTargetUnits() const;
+	const IntValues& getIntValues() const;
+	const TargetTiles& getTargetTiles() const;
+	const StringValues& getStringValues() const;
 	unit::Unit* getUnit();
 
 	int getSize();
@@ -328,7 +328,6 @@ private:
 	int m_sumStringValuesLength = 0;
 	StringValues m_stringValue;
 
-
 	std::pair<int, int> m_clickedObjectPos = { -1, -1 };
 
 	void writeInt(Buffer &p_buffer, int p_value);
@@ -336,6 +335,8 @@ private:
 	int readInt(Buffer &p_buffer);
 	char readChar(Buffer &p_buffer);
 	
+	void convertPosToUnits();
+	void convertPosToTiles();
 };
 
 struct TestPacket : Packet {

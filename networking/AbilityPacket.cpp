@@ -171,15 +171,12 @@ void AbilityPacket::serialize(Buffer& p_buffer)
 		// For each key, value pair in the map, we need to:
 		// Get the key, the length of the key, and then write each char in the key to the buffer
 		// Finally, write the value tied to the key to the buffer
-		std::string strKey = it->first;
-		char key[MAX_CHAR_BUFSIZE];
-		strcpy(key, strKey.c_str());
+		const std::string& strKey = it->first;
 		int keyLength = strKey.size();
-
 		writeInt(p_buffer, keyLength);
 		for (int i = 0; i < keyLength; ++i)
 		{
-			writeChar(p_buffer, key[i]);
+			writeChar(p_buffer, strKey[i]);
 		}
 		writeInt(p_buffer, it->second);
 	}
@@ -196,10 +193,11 @@ void AbilityPacket::serialize(Buffer& p_buffer)
 
 	// String Values
 	writeInt(p_buffer, this->m_numStringValues);
-	for (auto it = m_stringValue.begin(); it != m_stringValue.end(); ++it)
+	auto end = m_stringValue.end();
+	for (auto it = m_stringValue.begin(); it != end; ++it)
 	{
 		// Get the key, write the length of the key, and then write each char in the key to the buffer
-		std::string strKey = it->first;
+		const std::string& strKey = it->first;
 		int keyLength = strKey.size();
 		writeInt(p_buffer, keyLength);
 		for (int i = 0; i < keyLength; ++i)
@@ -208,7 +206,7 @@ void AbilityPacket::serialize(Buffer& p_buffer)
 		}
 
 		// Get the value, write the length of the value, and then write each char of the value to the buffer
-		std::string strValue = it->second;
+		const std::string& strValue = it->second;
 		int valueLength = strValue.size();
 		writeInt(p_buffer, valueLength);
 		for (int i = 0; i < valueLength; ++i)
@@ -323,6 +321,9 @@ void AbilityPacket::deserialize(Buffer& p_buffer)
 	// AbilityInfoPacket::m_clickedObject
 	m_clickedObjectPos.first = readInt(p_buffer);
 	m_clickedObjectPos.second = readInt(p_buffer);
+
+	convertPosToUnits();
+	convertPosToTiles();
 }
 
 int AbilityPacket::getSize()
@@ -408,7 +409,7 @@ void AbilityPacket::insertIntoPackage(ability::AbilityInfoPackage* p_package)
 	}
 }
 
-void AbilityPacket::addTargetUnits(TargetUnits p_targets)
+void AbilityPacket::addTargetUnits(const TargetUnits& p_targets)
 {
 	m_numTargetUnits = p_targets.size();
 
@@ -428,7 +429,7 @@ void AbilityPacket::addTargetUnits(TargetUnits p_targets)
 	m_targets = targets;
 }
 
-void AbilityPacket::addIntValues(IntValues p_values)
+void AbilityPacket::addIntValues(const IntValues& p_values)
 {
 	m_numIntValues = p_values.size();
 	m_intValue = p_values;
@@ -440,7 +441,7 @@ void AbilityPacket::addIntValues(IntValues p_values)
 	}
 }
 
-void AbilityPacket::addTargetTiles(TargetTiles p_targetTilesGO)
+void AbilityPacket::addTargetTiles(const TargetTiles& p_targetTilesGO)
 {
 	m_numTargetTiles = p_targetTilesGO.size();
 
@@ -458,17 +459,17 @@ void AbilityPacket::addTargetTiles(TargetTiles p_targetTilesGO)
 	m_targetTiles = tiles;
 }
 
-void AbilityPacket::addStringValues(StringValues p_stringValues)
+void AbilityPacket::addStringValues(const StringValues& p_stringValues)
 {
 	m_numStringValues = p_stringValues.size();
 	m_stringValue = p_stringValues;
 
 	for (auto it = m_stringValue.begin(); it != m_stringValue.end(); ++it)
 	{
-		std::string strKey = it->first;
+		const std::string& strKey = it->first;
 		m_sumKeysLength += strKey.length();
 
-		std::string strValue = it->second;
+		const std::string& strValue = it->second;
 		m_sumStringValuesLength += strValue.length();
 	}
 }
@@ -490,11 +491,8 @@ void AbilityPacket::addUnitData(unit::Unit* p_unit)
 	m_unit.m_baseCost = p_unit->m_attributes[UNIT_BASE_COST];
 }
 
-const std::vector<unit::Unit*>& AbilityPacket::getTargetUnits()
+void AbilityPacket::convertPosToUnits()
 {
-	networking::ClientGame* client = networking::ClientGame::getInstance();
-	assert(client != nullptr);
-
 	m_targetObj.clear();
 	for (int i = 0; i < m_numTargetUnits; ++i)
 	{
@@ -504,16 +502,9 @@ const std::vector<unit::Unit*>& AbilityPacket::getTargetUnits()
 		unit::Unit* unit = getUnitFromPos(x, y);
 		m_targetObj.push_back(unit);
 	}
-
-	return m_targetObj;
 }
 
-const std::unordered_map<std::string, int>& AbilityPacket::getIntValues()
-{
-	return m_intValue;
-}
-
-const std::vector<kitten::K_GameObject*>& AbilityPacket::getTargetTiles()
+void AbilityPacket::convertPosToTiles()
 {
 	BoardManager* board = BoardManager::getInstance();
 	assert(board != nullptr);
@@ -523,14 +514,27 @@ const std::vector<kitten::K_GameObject*>& AbilityPacket::getTargetTiles()
 	{
 		int x = m_targetTiles[i].first;
 		int y = m_targetTiles[i].second;
-		kitten::K_GameObject* tile = board->getTile(x, y);		
+		kitten::K_GameObject* tile = board->getTile(x, y);
 		m_targetTilesGO.push_back(tile);
 	}
+}
 
+const std::vector<unit::Unit*>& AbilityPacket::getTargetUnits() const
+{
+	return m_targetObj;
+}
+
+const std::unordered_map<std::string, int>& AbilityPacket::getIntValues() const
+{
+	return m_intValue;
+}
+
+const std::vector<kitten::K_GameObject*>& AbilityPacket::getTargetTiles() const
+{
 	return m_targetTilesGO;
 }
 
-const std::unordered_map<std::string, std::string>& AbilityPacket::getStringValues()
+const std::unordered_map<std::string, std::string>& AbilityPacket::getStringValues() const
 {
 	return m_stringValue;
 }
