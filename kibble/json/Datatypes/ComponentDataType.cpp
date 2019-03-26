@@ -2076,6 +2076,7 @@ kitten::K_Component* getPlaySoundOnClick(nlohmann::json* p_jsonFile) {
 	return new PlaySoundOnClick(soundName, is3D);
 }
 
+
 #include "_Project\AmbientSystemController.h"
 kitten::K_Component* getAmbientSystemController(nlohmann::json* p_jsonFile) {
 	

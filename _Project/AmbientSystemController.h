@@ -60,6 +60,8 @@ public:
 	AmbientSystemController(const std::vector<AmbientEvent>& p_ambientEvents, const std::vector<kitten::AudioSource*> p_persistentSounds);
 	~AmbientSystemController();
 
+	void registerAmbientEffect(const std::string& p_upfxFile, const glm::vec3& p_pos, float p_minTime, float p_maxTime);
+
 	// Can be NULL !
 	static AmbientSystemController* getInstance();
 

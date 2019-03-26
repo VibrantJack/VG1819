@@ -19,6 +19,8 @@
 #include "board/clickable/SendSelfOnClick.h"
 //tile
 #include "board/tile/TileInfo.h"
+//ambients
+#include "_Project\AmbientSystemController.h"
 
 #include "board/BoardManager.h"
 #include "kibble/map/MapReader.h"
@@ -251,5 +253,27 @@ kitten::K_GameObject * BoardCreator::createTile(int x, int z, LandInformation::T
 
 	kitten::Transform& transform = tileGO->getTransform();
 	transform.move(x, -1, z);
+
+	//ambient particles
+	switch (p_type)
+	{
+	case LandInformation::TileType::Swamp_land:
+	{
+		AmbientSystemController::getInstance()->registerAmbientEffect("Universal Pfx/SwampGasUPFX.json", tileGO->getTransform().getTranslation(), 10, 15);
+		break;
+	}
+	case LandInformation::TileType::Sand_land:
+	{
+		AmbientSystemController::getInstance()->registerAmbientEffect("Universal Pfx/SandDustUPFX.json", tileGO->getTransform().getTranslation(), 30, 60);
+		break;
+	}
+	case LandInformation::TileType::Water_land:
+	{
+		AmbientSystemController::getInstance()->registerAmbientEffect("Universal Pfx/WaterSparkleUPFX.json", tileGO->getTransform().getTranslation(), 1, 120);
+		break;
+	}
+	}
+
 	return tileGO;
+
 }

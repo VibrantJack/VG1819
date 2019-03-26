@@ -1172,6 +1172,12 @@
     <ClCompile Include="..\networking\Quickplay.cpp">
       <Filter>networking</Filter>
     </ClCompile>
+    <ClCompile Include="PlaySoundOnClick.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="AmbientSystemController.cpp">
+      <Filter>components\sound</Filter>
+    </ClCompile>
     <ClCompile Include="TogglePhotoModeOnKeyPress.cpp">
       <Filter>components</Filter>
     </ClCompile>

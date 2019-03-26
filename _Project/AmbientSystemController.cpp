@@ -3,6 +3,7 @@
 #include "UniversalPfx.h"
 #include "settings_menu\PlayerPrefs.h"
 #include "util\MathUtil.h"
+#include "kitten\K_GameObjectManager.h"
 
 #include  <random>
 
@@ -90,4 +91,10 @@ void AmbientSystemController::update()
 			(*it).reset();
 		}
 	}
+}
+
+void AmbientSystemController::registerAmbientEffect(const std::string& p_upfxFile, const glm::vec3& p_pos, float p_minTime, float p_maxTime)
+{
+	kitten::K_GameObject* go = kitten::K_GameObjectManager::getInstance()->createNewGameObject(p_upfxFile);
+	m_ambientEvents.push_back(AmbientEvent(p_pos, go, p_minTime, p_maxTime));
 }
