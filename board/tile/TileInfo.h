@@ -78,10 +78,10 @@ public:
 	void triggerNewTileEvent();
 
 	//item
-	const bool hasItem();
+	bool hasItem() const;
 	void addItem(kitten::K_GameObject* p_item);
 	void removeItem();
-	kitten::K_GameObject* getItem();
+	kitten::K_GameObject* getItem() const;
 
 	//change decoration by game mode
 	void changeDecoration(const std::vector<kitten::K_GameObject*>& p_list);

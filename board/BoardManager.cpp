@@ -37,12 +37,12 @@ kitten::K_GameObject* BoardManager::getSpawnPoint(int m_clientId)
 	return tile;
 }
 
-std::pair<int, int> BoardManager::getDimension()
+std::pair<int, int> BoardManager::getDimension() const
 {
 	return m_dimension;
 }
 
-kitten::K_GameObject * BoardManager::getTile(int p_x, int p_z)
+kitten::K_GameObject * BoardManager::getTile(int p_x, int p_z) const
 {
 	//if out of range, return nullptr
 	if (p_x < 0 || p_z < 0 || p_x >= m_dimension.first || p_z >= m_dimension.second)
@@ -169,7 +169,7 @@ void BoardManager::deselect()
 }
 
 //range
-kitten::Event::TileList BoardManager::getRange()
+kitten::Event::TileList BoardManager::getRange() const 
 {
 	return m_rangeList;
 }
@@ -514,11 +514,11 @@ void BoardManager::setArea(kitten::Event * p_data)
 
 
 //set board
-void BoardManager::setSpawnPoint(kitten::Event::TileList p_list)
+void BoardManager::setSpawnPoint(const kitten::Event::TileList& p_list)
 {
 	m_spawnPointList = p_list;
 }
-void BoardManager::setTileList(std::vector<kitten::K_GameObject*> p_list)
+void BoardManager::setTileList(const std::vector<kitten::K_GameObject*>& p_list)
 {
 	m_tileList = p_list;
 }

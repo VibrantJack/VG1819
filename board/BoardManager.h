@@ -29,8 +29,8 @@ public:
 
 	//dimension and tiles
 	kitten::K_GameObject* getSpawnPoint(int m_clientId = -1);
-	std::pair<int, int> getDimension();
-	kitten::K_GameObject* getTile(int p_x, int p_z);
+	std::pair<int, int> getDimension() const;
+	kitten::K_GameObject* getTile(int p_x, int p_z) const;
 
 	//power tracker
 	void setPowerTracker(PowerTracker* p_pt) { m_powerTracker = p_pt; };
@@ -47,7 +47,7 @@ public:
 	void deselect();
 
 	//highlight range
-	kitten::Event::TileList getRange();
+	kitten::Event::TileList getRange() const;
 
 	void setGrid(bool p_enabled);
 	bool isGridEnabled() const;
@@ -111,8 +111,8 @@ private:
 	void setArea(kitten::Event* p_data);
 
 	//set board from board creator
-	void setSpawnPoint(kitten::Event::TileList p_list);
-	void setTileList(std::vector<kitten::K_GameObject*> p_list);
+	void setSpawnPoint(const kitten::Event::TileList& p_list);
+	void setTileList(const std::vector<kitten::K_GameObject*>& p_list);
 	void setDimension(int p_x, int p_z);
 	void setMapID(int p_id);
 	void setBoardGameObject(kitten::K_GameObject* p_go);

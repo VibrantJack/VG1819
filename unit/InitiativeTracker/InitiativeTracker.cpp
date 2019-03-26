@@ -213,6 +213,10 @@ bool unit::InitiativeTracker::removeUnit(kitten::K_GameObject * p_unit)
 
 kitten::K_GameObject * unit::InitiativeTracker::getUnitByIndex(int p_index)
 {
+	//no unit
+	if (LISTSIZE(m_unitObjectList, m_waitUnitObjectList) == 0)
+		return nullptr;
+
 	if (p_index >= 0 && p_index < m_unitObjectList.size())
 	{
 		return m_unitObjectList[p_index];

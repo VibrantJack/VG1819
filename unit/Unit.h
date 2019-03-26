@@ -97,7 +97,7 @@ namespace unit
 		
 		//commander interface
 		void addCommander(Commander* p_c);
-		bool isCommander();
+		bool isCommander() const;
 		//void manipulateTile();
 
 		//check tag
@@ -119,10 +119,10 @@ namespace unit
 		void update() override;
 		void turnStart(UnitTurn* p_t);
 		bool canMove();
-		bool canAct();
+		bool canAct() const;
 		void moveDone();
 		void actDone();
-		bool isTurn();
+		bool isTurn() const;
 		void turnEnd();
 		void playerSkipTurn(bool p_sendPacket = true);
 
@@ -154,9 +154,9 @@ namespace unit
 		const std::string& getPortraitTexturePath() const { return m_portraitTexturePath; }
 
 		//item, capture the flag mode
-		const bool hasItem();
+		const bool hasItem() const;
 		void addItem(kitten::K_GameObject* p_item);
 		void removeItem();
-		kitten::K_GameObject* getItem();
+		kitten::K_GameObject* getItem() const;
 	};
 }

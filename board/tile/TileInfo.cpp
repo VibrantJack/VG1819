@@ -304,7 +304,7 @@ void TileInfo::triggerNewTileEvent()
 
 }
 
-const bool TileInfo::hasItem()
+bool TileInfo::hasItem() const
 {
 	return m_itemGO != nullptr;
 }
@@ -320,7 +320,7 @@ void TileInfo::removeItem()
 	m_itemGO = nullptr;
 }
 
-kitten::K_GameObject * TileInfo::getItem()
+kitten::K_GameObject * TileInfo::getItem() const
 {
 	return m_itemGO;
 }

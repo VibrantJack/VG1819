@@ -126,16 +126,16 @@ void GameModeManager::init()
 	for (nlohmann::json::iterator it = jsonfile["mode_component"].begin(); it != end; ++it) 
 	{
 		//get json
-		nlohmann::json compJson = *it;
+		nlohmann::json* compJson = &(*it);
 
 		//check which component of this
-		int enu = compJson["enum"];
+		int enu = compJson->operator[]("enum");
 		GameModeComponent::TileType type = static_cast<GameModeComponent::TileType>(enu);
 
 		auto found = m_modeComponentMap.find(type);
 		if (found != m_modeComponentMap.end())
 		{
-			found->second->setProperty(&compJson);
+			found->second->setProperty(compJson);
 		}
 	}
 }

@@ -182,7 +182,7 @@ namespace unit
 		m_commander->init(this);
 	}
 
-	bool Unit::isCommander()
+	bool Unit::isCommander() const
 	{
 		return m_commander != nullptr;
 	}
@@ -270,7 +270,7 @@ namespace unit
 		return true;
 	}
 
-	bool Unit::canAct()
+	bool Unit::canAct() const
 	{
 		assert(m_turn != nullptr);
 		return m_turn->act;
@@ -310,7 +310,7 @@ namespace unit
 		m_turn->act = false;
 	}
 
-	bool Unit::isTurn()
+	bool Unit::isTurn() const
 	{
 		//if m_turn is nullptr, it means its not this unit turn
 		return m_turn != nullptr;
@@ -538,7 +538,7 @@ namespace unit
 		}
 	}
 
-	const bool Unit::hasItem()
+	const bool Unit::hasItem() const
 	{
 		return m_itemGO != nullptr;
 	}
@@ -553,7 +553,7 @@ namespace unit
 		m_itemGO = nullptr;
 	}
 
-	kitten::K_GameObject * Unit::getItem()
+	kitten::K_GameObject * Unit::getItem() const
 	{
 		return m_itemGO;
 	}
