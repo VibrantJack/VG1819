@@ -921,8 +921,8 @@ kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
 	SETOPTDEF(inactiveTexture, "inactiveTexture", "textures/ui/buttons/disabled_button.tga");
 	SETOPTDEF(eventType, "event", "NONE");
 
-	if (eventType == "Poll_For_Localhost")
-		eventEnum = kitten::Event::Poll_For_Localhost;
+	if (eventType == "Poll_For_Server")
+		eventEnum = kitten::Event::Poll_For_Server;
 	else if (eventType == "Join_Direct_Address")
 		eventEnum = kitten::Event::Join_Direct_Address;
 	else if (eventType == "Join_Localhost")
@@ -937,6 +937,10 @@ kitten::K_Component* getTriggerEventButton(nlohmann::json* p_jsonFile) {
 		eventEnum = kitten::Event::Ready_Button_Clicked;
 	else if (eventType == "Land_Context_Set_Enabled")
 		eventEnum = kitten::Event::Land_Context_Set_Enabled;
+	else if (eventType == "Quickplay")
+		eventEnum = kitten::Event::Quickplay;
+	else if (eventType == "Quickplay_Find_Game")
+		eventEnum = kitten::Event::Quickplay_Find_Game;
 	else
 		eventEnum = -1;
 
@@ -2045,6 +2049,11 @@ kitten::K_Component* getToggleSiblingEnabledOnClick(nlohmann::json* p_jsonFile) 
 	return new ToggleSiblingEnabledOnClick();
 }
 
+#include "networking\Quickplay.h"
+kitten::K_Component* getQuickplay(nlohmann::json* p_jsonFile) {
+	return new Quickplay();
+}
+
 #include "_Project\TogglePhotoModeOnKeyPress.h"
 kitten::K_Component* getTogglePhotoModeOnKeyPress(nlohmann::json* p_jsonFile) {
 	std::string strKey = p_jsonFile->operator[]("key");
@@ -2226,6 +2235,7 @@ void setupComponentMap() {
 	jsonComponentMap["BGMManager"] = &getBGMManager;
 	jsonComponentMap["PlayBGMOnSceneChange"] = &getPlayBGMOnSceneChange;
 	jsonComponentMap["ToggleSiblingEnabledOnClick"] = &getToggleSiblingEnabledOnClick;
+	jsonComponentMap["Quickplay"] = &getQuickplay;
 	jsonComponentMap["TogglePhotoModeOnKeyPress"] = &getTogglePhotoModeOnKeyPress;
 	jsonComponentMap["SoundFader"] = &getSoundFader;
 	jsonComponentMap["EnterNameScreen"] = &getEnterNameScreen;

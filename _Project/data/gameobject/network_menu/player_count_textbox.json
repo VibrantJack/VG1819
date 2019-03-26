@@ -1,0 +1,14 @@
+{
+    "name" : "Join Screen Local Host TextBox",
+    "components" : [
+        {
+            "name" : "TextBox",
+			"font" : "../fonts/common_consolas.fnt",
+			"color" : [1,1,1],
+            "alignment" : "center",
+            "width" : 180,
+            "height" : 100
+        }
+    ],
+	"translate2d" : [548, 376, -0.1]
+}

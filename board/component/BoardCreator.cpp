@@ -115,6 +115,8 @@ void BoardCreator::start()
 	m_attachedObject->addComponent(powerTracker);
 	BoardManager::getInstance()->setPowerTracker(static_cast<PowerTracker*>(powerTracker));
 
+	kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Board_Loaded, nullptr);
+
 	//delete this
 	kitten::K_ComponentManager::getInstance()->destroyComponent(this);
 }

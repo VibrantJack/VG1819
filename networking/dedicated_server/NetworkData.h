@@ -1,16 +1,13 @@
 #pragma once
+#include "networking\dedicated_server\NetworkingCommon.h"
 #include <string.h>
 
 // For ResizablePacket
 #include <vector>
 #include <unordered_map>
-#include "kitten\K_GameObject.h"
-#include "unit\Unit.h"
-#include "board\BoardManager.h"
 
 #define MAX_PACKET_SIZE 1000000
 #define MAX_CHAR_BUFSIZE 512
-#define TEXTCHAT_TEXTBOX_WIDTH 290.0f // the width in pixels of the textchat textbox
 #define MAX_TEXTCHAT_LINE_SIZE 41	  // ~ the max number of chars that fit in the textchat textbox
 #define MAX_TYPABLE_LINES 3
 #define MAX_TEXTCHAT_MSG_SIZE (MAX_TYPABLE_LINES * MAX_TEXTCHAT_LINE_SIZE)
@@ -276,11 +273,12 @@ struct ServerInfoPacket : Packet
 	}
 };
 
+
 class AbilityPacket
 {
-	typedef std::vector<unit::Unit*> TargetUnits;
+	//typedef std::vector<unit::Unit*> TargetUnits; // Not used by server
 	typedef std::unordered_map<std::string, int> IntValues;
-	typedef std::vector<kitten::K_GameObject*>  TargetTiles;
+	//typedef std::vector<kitten::K_GameObject*>  TargetTiles; // Not used by server
 public:
 	int m_packetType = ABILITY_PACKET;
 	int m_clientId;
@@ -289,44 +287,14 @@ public:
 	int m_abilityNameLength;
 	std::string m_abilityName = "";
 
-	void print();
 
 	std::string getFormattedAbilityInfo();
 
 	void serialize(Buffer& p_buffer);
 	void deserialize(Buffer& p_buffer);
 
-	void extractFromPackage(ability::AbilityInfoPackage* p_package);
-	void insertIntoPackage(ability::AbilityInfoPackage* p_package);
-
-	void addTargetUnits(TargetUnits p_targets);
-	void addIntValues(IntValues p_values);
-	void addTargetTiles(TargetTiles p_targetTilesGO);
-	void addUnitData(unit::Unit* p_unit);
-
-	const TargetUnits& getTargetUnits();
-	const IntValues& getIntValues();
-	const TargetTiles& getTargetTiles();
-	unit::Unit* getUnit();
-
 	int getSize();
 	int getBytes() { return m_totalBytes; }
-
-	inline unit::Unit* getUnitFromPos(int p_x, int p_y)
-	{
-		TileInfo* tile = BoardManager::getInstance()->getTile(p_x, p_y)->getComponent<TileInfo>();
-		unit::Unit* unit = tile->getUnit()->getComponent<unit::Unit>();
-		return unit;
-	}
-
-	inline UnitPos getPosFromUnit(unit::Unit* p_unit)
-	{
-		TileInfo* tile = p_unit->getTile()->getComponent<TileInfo>();
-		UnitPos unit;
-		unit.posX = tile->getPosX();
-		unit.posY = tile->getPosY();
-		return unit;
-	}
 
 private:	
 	UnitPrimitiveData m_unit;
@@ -336,14 +304,14 @@ private:
 
 	int m_numTargetUnits;
 	std::vector<UnitPos> m_targets;		// Reference targets by their position on the board
-	TargetUnits m_targetObj;
+	//TargetUnits m_targetObj;
 
 	int m_numIntValues;
 	IntValues m_intValue;
 
 	int m_numTargetTiles;
 	std::vector<std::pair<int, int>> m_targetTiles;
-	TargetTiles m_targetTilesGO;
+	//TargetTiles m_targetTilesGO; // Not used by server
 
 	std::pair<int, int> m_clickedObjectPos = { -1, -1 };
 
