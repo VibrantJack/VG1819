@@ -173,7 +173,8 @@ namespace networking
 
 						packet.serialize(buffer);
 						m_network->sendToClient(assignedClientId, packetData, BASIC_PACKET_SIZE);
-						// Otherwise, send the map ID decided by the host along with their client ID
+
+						// Host decides the map, so send the map ID to all other clients
 						if (assignedClientId > 0)
 						{
 							char packetData[MAP_DATA_PACKET_SIZE];

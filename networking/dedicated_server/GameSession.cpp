@@ -86,6 +86,22 @@ namespace networking
 
 					break;
 				}
+				case PacketTypes::MAP_DATA:
+				{
+					Buffer buffer;
+					buffer.m_data = &(m_networkData[i]);
+					buffer.m_size = MAP_DATA_PACKET_SIZE;
+
+					MapDataPacket packet;
+					packet.deserialize(buffer);
+
+					printf("[GameSession: %d] received MAP_DATA (map ID: %d) from [Client: %d]\n", m_sessionId, packet.m_mapId, sessionClientId);
+					
+					// Don't do anything with map ID for now
+
+					i += MAP_DATA_PACKET_SIZE;
+					break;
+				}
 				case ABILITY_PACKET:
 				{
 					printf("[GameSession: %d] received ABILITY_PACKET from [Client: %d]\n", m_sessionId, sessionClientId);
