@@ -62,6 +62,7 @@ namespace AI {
 		// Sort Sequences and pick one
 		// TODO bother looking for one based on externally set choices instead of the best.
 		std::sort(sequences.begin(), sequences.end(), Extract::Sequence::weightComp());
+		m_unit = p_unit;
 		if (sequences.size() > 0) {
 			m_sequence = sequences[0];
 		}
@@ -69,10 +70,7 @@ namespace AI {
 		{
 			m_sequence = Extract::Sequence();
 		}
-
-		// Setup AI related info for lookup
-		m_unit = p_unit;
-		m_sequence.step(m_unit);
+		kitten::EventManager::getInstance()->queueEvent(kitten::Event::Action_Complete, new kitten::Event(kitten::Event::Action_Complete));
 	}
 
 	void controller::start() {
@@ -261,7 +259,7 @@ namespace AI {
 	{
 		unit::Unit* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit()->getComponent<unit::Unit>();
 		if (currentUnit->m_clientId != m_playerID || !m_unit->isTurn()) return;
-		this->m_attachedObject->getComponent<DisableAfterTime>()->setTime(0.5);
+		this->m_attachedObject->getComponent<DisableAfterTime>()->setTime(1);
 		if (!m_attachedObject->isEnabled())
 			this->m_attachedObject->setEnabled(true);
 		else

@@ -37,7 +37,7 @@ Behavior::Behavior(const Behavior * source)
 
 double Behavior::calculateWeight(AI::Model::TargetRange& p_target, AI::Model& p_data) 
 { 
-	return 1.0; 
+	return 0; 
 }
 
 NearestEnemy::NearestEnemy(nlohmann::json & p_json) : Behavior(p_json)

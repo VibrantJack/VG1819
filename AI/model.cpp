@@ -97,7 +97,7 @@ std::vector<AI::Extract::Move> AI::Model::getAvailableMoves(TargetRange p_Target
 				// Check if it's already occupied by something
 				&& !board.board[tempX][tempY]->hasUnit()
 				// Check if movable to by comparing sum of cost to total allowed
-				&& (tempCost = temp.cost + board.board[tempX][tempY]->getMVCost()) <= initialMovement
+				&& (tempCost = temp.cost + board.board[tempX][tempY]->getMVCost()) <= MAX(initialMovement,1)
 				// Check if blocked by something done already
 				&& std::find(p_Target.blockedPos.begin(),p_Target.blockedPos.end(),std::make_pair(tempX,tempY)) == p_Target.blockedPos.end()
 				) {
