@@ -162,22 +162,19 @@ namespace networking
 						m_clientId++;
 
 						// If the connecting client is the host, then they only need to know their ID
-						if (assignedClientId == 0)
-						{
-							char packetData[BASIC_PACKET_SIZE];
-							Buffer buffer;
-							buffer.m_data = packetData;
-							buffer.m_size = BASIC_PACKET_SIZE;
+						char packetData[BASIC_PACKET_SIZE];
+						Buffer buffer;
+						buffer.m_data = packetData;
+						buffer.m_size = BASIC_PACKET_SIZE;
 
-							Packet packet;
-							packet.m_packetType = SEND_CLIENT_ID;
-							packet.m_clientId = assignedClientId;
+						Packet packet;
+						packet.m_packetType = SEND_CLIENT_ID;
+						packet.m_clientId = assignedClientId;
 
-							packet.serialize(buffer);
-							m_network->sendToClient(assignedClientId, packetData, BASIC_PACKET_SIZE);
-						}
+						packet.serialize(buffer);
+						m_network->sendToClient(assignedClientId, packetData, BASIC_PACKET_SIZE);
 						// Otherwise, send the map ID decided by the host along with their client ID
-						else
+						if (assignedClientId > 0)
 						{
 							char packetData[MAP_DATA_PACKET_SIZE];
 							Buffer buffer;

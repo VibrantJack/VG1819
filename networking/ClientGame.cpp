@@ -216,11 +216,10 @@ namespace networking
 				packet.deserialize(buffer);
 
 				std::stringstream message;
-				message << "Client:" << sm_iClientId << " received MAP_DATA (" << packet.m_clientId << ")";
+				message << "Client:" << sm_iClientId << " received MAP_DATA (" << packet.m_mapId << ")";
 				m_log->logMessage(message.str());
 
 				printf("[Client: %d] received MAP_DATA (map ID: %d) packet from server\n", sm_iClientId, packet.m_mapId);
-				sm_iClientId = packet.m_clientId;
 
 				sm_mapId = packet.m_mapId;
 				kitten::Event* e = new kitten::Event(kitten::Event::P2P_Start_Game);

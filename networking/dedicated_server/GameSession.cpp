@@ -295,6 +295,9 @@ namespace networking
 				// Tell them their GameSession Client ID
 				sendBasicPacketToClient(SEND_CLIENT_ID, p_info);
 
+				// Tell them the map ID to load
+				sendMapDataToClient(p_info);
+
 				m_sessionClientId++;
 				printf("Player added to GameSession:%d\n", m_sessionId);
 			}
@@ -394,6 +397,22 @@ namespace networking
 				break;
 			}
 		}
+	}
+
+	void GameSession::sendMapDataToClient(ServerNetwork::ClientInfo* p_info)
+	{
+		char packetData[MAP_DATA_PACKET_SIZE];
+		Buffer buffer;
+		buffer.m_data = packetData;
+		buffer.m_size = MAP_DATA_PACKET_SIZE;
+
+		MapDataPacket packet;
+		packet.m_packetType = MAP_DATA;
+		packet.m_clientId = p_info->m_gameSessionClientId;
+		packet.m_mapId = m_mapId;
+
+		packet.serialize(buffer);
+		m_network->sendToSocket(p_info, packetData, MAP_DATA_PACKET_SIZE);
 	}
 
 	void GameSession::sendBasicPacketToClient(PacketTypes p_packetType, ServerNetwork::ClientInfo* p_info)
