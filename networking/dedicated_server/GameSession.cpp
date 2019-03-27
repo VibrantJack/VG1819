@@ -305,14 +305,15 @@ namespace networking
 				p_info->m_gameSessionClientId = m_sessionClientId;
 				p_info->m_gameSession = this;
 
-				// Tell the client that a GameSession has been found and they've been added
-				sendBasicPacketToClient(QUICKPLAY_FOUND_GAME, p_info);
+				// Tell them the map ID to load
+				sendMapDataToClient(p_info);
 
 				// Tell them their GameSession Client ID
 				sendBasicPacketToClient(SEND_CLIENT_ID, p_info);
 
-				// Tell them the map ID to load
-				sendMapDataToClient(p_info);
+				// Tell the client that a GameSession has been found and they've been added
+				sendBasicPacketToClient(QUICKPLAY_FOUND_GAME, p_info);
+
 
 				m_sessionClientId++;
 				printf("Player added to GameSession:%d\n", m_sessionId);
