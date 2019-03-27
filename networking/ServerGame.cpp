@@ -187,7 +187,7 @@ namespace networking
 							MapDataPacket packet;
 							packet.m_packetType = MAP_DATA;
 							packet.m_clientId = assignedClientId;
-							packet.m_packetType = m_hostMapId;
+							packet.m_mapId = m_hostMapId;
 
 							packet.serialize(buffer);
 							m_network->sendToClient(assignedClientId, packetData, MAP_DATA_PACKET_SIZE);

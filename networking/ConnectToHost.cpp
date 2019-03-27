@@ -166,10 +166,8 @@ void ConnectToHost::joinDirectAddress()
 
 	if (networking::ClientGame::isNetworkValid())
 	{
-		m_bJoiningGame = true;
 		m_ipInputTextBox->setText("Joined host");
 		networking::ClientGame::getInstance()->sendBasicPacket(JOIN_GAME);
-		kitten::K_Instance::changeScene("mainscene.json");
 	} 
 	else
 	{
@@ -224,7 +222,6 @@ void ConnectToHost::joinLocalhost()
 {
 	if (networking::ClientGame::isNetworkValid())
 	{
-		m_bJoiningGame = true;
 		networking::ClientGame::getInstance()->sendBasicPacket(JOIN_GAME);
 	}
 	else
@@ -253,6 +250,7 @@ void ConnectToHost::startGameListener(kitten::Event::EventType p_type, kitten::E
 
 void ConnectToHost::startGame()
 {
+	m_bJoiningGame = true;
 	kitten::K_Instance::changeScene("mainscene.json");
 }
 
