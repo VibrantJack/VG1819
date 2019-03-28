@@ -5,7 +5,7 @@
 class ItemDropArea : public GameModeComponent
 {
 public:
-	ItemDropArea(int p_id, ItemSpawnArea* p_area);
+	ItemDropArea(int p_id);
 	~ItemDropArea();
 
 	virtual void check() override;

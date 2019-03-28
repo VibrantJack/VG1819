@@ -1,5 +1,6 @@
 #include "ItemDropArea.h"
 #include "CaptureItemController.h"
+
 ItemDropArea::ItemDropArea(int p_id)
 	:m_clientId(p_id)
 {
