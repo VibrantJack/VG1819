@@ -2,6 +2,7 @@
 #include "unit/unitComponent/UnitMove.h"
 #include "kitten/K_GameObject.h"
 #include "unitInteraction/UnitInteractionManager.h"
+#include "AI/Extract/Behavior.h"
 #include "board/tile/gameMode/Capture/CaptureItemController.h"
 
 #include "_Project\UniversalPfx.h"
@@ -30,6 +31,22 @@ namespace unit
 		setJoinAD();
 	}
 
+	Unit::Unit(const unit::Unit* source) : unit::Unit(*source)
+	{
+		m_healthBarState = none;
+		m_healthBar = nullptr;
+		m_unitSelect = nullptr;
+		m_commander = nullptr;
+		m_turn = nullptr;
+
+		m_statusContainer = new StatusContainer(this);
+
+		m_cdRecorder = new CooldownRecorder();
+		m_ADList.clear();
+		m_castTimer = new CastTimer(this);
+
+		setJoinAD();
+	}
 
 	Unit::~Unit()
 	{
@@ -259,6 +276,8 @@ namespace unit
 		{
 			useAbility(m_autoAbility);
 		}
+		kitten::Event* eventData = new kitten::Event(kitten::Event::Next_Units_Turn_Start);
+		kitten::EventManager::getInstance()->triggerEvent(kitten::Event::Next_Units_Turn_Start, eventData);
 	}
 
 	bool Unit::canMove()
@@ -297,6 +316,9 @@ namespace unit
 			if (moveDone && !m_lateDestroy)
 			{
 				m_turn->move = false;
+
+				kitten::EventManager::getInstance()->queueEvent(kitten::Event::Action_Complete, new kitten::Event(kitten::Event::Action_Complete));
+				std::cout << "movement Complete\n";
 			}
 		}
 

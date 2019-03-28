@@ -79,6 +79,7 @@ namespace networking
 		unit::Unit* getCommander() { return m_commander; }
 
 		static int getClientId() { return sm_iClientId; }
+		static void setClientId(int p_id) { sm_iClientId = p_id; }
 		bool isServerCalling() { return m_bServerCalling; }
 		void setServerCalling(bool p_value) { m_bServerCalling = p_value; }
 		bool isGameTurnStarted() { return m_bGameTurnStart; }
