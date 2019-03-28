@@ -78,8 +78,10 @@ namespace networking
 		int sendBasicPacket(PacketTypes p_packetType);
 
 		unit::Unit* getCommander() { return m_commander; }
-
+		
 		static int getMapId() { return sm_mapId; }
+		
+		static int getClientId() { return sm_iClientId; }
 		static void setClientId(int p_id) { sm_iClientId = p_id; }
     
 		bool isServerCalling() { return m_bServerCalling; }
