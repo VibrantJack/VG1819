@@ -1535,6 +1535,10 @@ kitten::K_Component* getLandContext(nlohmann::json* p_jsonFile) {
 kitten::K_Component* getStatusContext(nlohmann::json* p_jsonFile) {
 	return new StatusContext();
 }
+#include "AI/controller.h"
+kitten::K_Component* getAIController(nlohmann::json* p_jsonFile) {
+	return new AI::controller(AI::controller::getAIControllerSize()+1);
+}
 
 #include "UI\ContextMenu.h"
 kitten::K_Component* getContextMenu(nlohmann::json* p_jsonFile) {
@@ -2269,6 +2273,7 @@ void setupComponentMap() {
 	jsonComponentMap["BGMManager"] = &getBGMManager;
 	jsonComponentMap["PlayBGMOnSceneChange"] = &getPlayBGMOnSceneChange;
 	jsonComponentMap["ToggleSiblingEnabledOnClick"] = &getToggleSiblingEnabledOnClick;
+	jsonComponentMap["AIController"] = &getAIController;
 	jsonComponentMap["CaptureItemController"] = &getCaptureItemController;
 	jsonComponentMap["Quickplay"] = &getQuickplay;
 	jsonComponentMap["TogglePhotoModeOnKeyPress"] = &getTogglePhotoModeOnKeyPress;

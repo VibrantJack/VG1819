@@ -110,6 +110,8 @@ namespace kitten
 			New_Game_Turn,
 			New_Unit_Turn,
 			Put_Card_To_Hand,
+			Next_Units_Turn_Start,
+			Action_Complete,
 			Quickplay,
 			Quickplay_Find_Game,
 			Quickplay_Start_Game,
