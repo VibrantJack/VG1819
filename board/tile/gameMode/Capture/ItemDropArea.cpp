@@ -1,8 +1,7 @@
 #include "ItemDropArea.h"
-
-ItemDropArea::ItemDropArea(int p_id, ItemSpawnArea* p_area)
-	:m_clientId(p_id),
-	m_spawnArea(p_area)
+#include "CaptureItemController.h"
+ItemDropArea::ItemDropArea(int p_id)
+	:m_clientId(p_id)
 {
 }
 
@@ -35,7 +34,7 @@ void ItemDropArea::check()
 			u->removeItem();
 
 			//drop item
-			m_spawnArea->dropItem(itemGO);
+			itemGO->getComponent<CaptureItemController>()->remove();
 
 			//increase points
 			GameModeManager::getInstance()->gainPoint(m_clientId, m_pointPerItem);

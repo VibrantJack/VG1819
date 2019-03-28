@@ -16,7 +16,4 @@ private:
 
 	//point gain for each item
 	int m_pointPerItem;
-
-	//spawner
-	ItemSpawnArea* m_spawnArea;
 };
