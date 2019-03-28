@@ -61,6 +61,6 @@
 	}
   ],
 	"scenes" : [
-		"Game_Scene.json"
+		"Game_Scene.json", "mountainForest.json"
 	]
 }
