@@ -5,13 +5,20 @@
 
 #include "kitten/K_ComponentManager.h"
 #include "kitten/K_GameObjectManager.h"
+#include "networking\ClientGame.h"
 
 BoardManager* BoardManager::sm_instance = nullptr;
 
 void BoardManager::createBoard(int p_mapID, bool p_enableTileInfoDisplay)
 {
 	m_boardCreator->setTileInfoDisplay(p_enableTileInfoDisplay);
-	m_boardCreator->createBoard(p_mapID);
+
+	int mapId = p_mapID;
+	if (networking::ClientGame::getMapId() > -1)
+	{
+		mapId = networking::ClientGame::getInstance()->getMapId();
+	}
+	m_boardCreator->createBoard(mapId);
 
 	//it's done, delete it
 	delete m_boardCreator;
@@ -307,7 +314,7 @@ BoardManager::BoardManager() :
 	m_pipeline(nullptr),
 	m_area(nullptr),
 	m_boardCreator(nullptr),
-	m_boradObject(nullptr),
+	m_boardObject(nullptr),
 	m_dimension(std::make_pair(0,0)),
 	m_isGridEnabled(true)
 {
@@ -514,7 +521,7 @@ void BoardManager::setMapID(int p_id)
 
 void BoardManager::setBoardGameObject(kitten::K_GameObject * p_go)
 {
-	m_boradObject = p_go;
+	m_boardObject = p_go;
 }
 
 

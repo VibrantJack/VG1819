@@ -32,6 +32,7 @@ public:
 	kitten::K_GameObject* getSpawnPoint(int m_clientId = -1);
 	std::pair<int, int> getDimension() const;
 	kitten::K_GameObject* getTile(int p_x, int p_z) const;
+	int getMapId() { return m_mapId; }
 
 	//power tracker
 	void setPowerTracker(PowerTracker* p_pt) { m_powerTracker = p_pt; };
@@ -70,8 +71,8 @@ private:
 
 	static BoardManager* sm_instance;
 
-	//borad
-	kitten::K_GameObject* m_boradObject;
+	//board
+	kitten::K_GameObject* m_boardObject;
 	int m_mapId;
 	std::pair<int, int> m_dimension;
 	kitten::Event::TileList m_spawnPointList;
