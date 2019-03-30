@@ -288,6 +288,7 @@ void BoardManager::autoClick(kitten::K_GameObject * p_tile)
 void BoardManager::resetComponents()
 {
 	m_area->removePattern();
+	m_range->clear();
 	m_highlighter->reset();
 	if (m_boardCreator == nullptr)
 		m_boardCreator = new BoardCreator();
@@ -393,6 +394,8 @@ bool BoardManager::isGridEnabled() const
 //high light
 void BoardManager::highlightTile(kitten::Event * p_data)
 {
+	m_range->clear();
+
 	kitten::Event::TileList list;
 	if (p_data->getString("mode") == "range")
 	{
