@@ -214,6 +214,7 @@
     <ClCompile Include="..\board\component\tilePipeline\TilePipeline.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnitFilter.cpp" />
     <ClCompile Include="..\board\component\tilePipeline\UnownedTileFilter.cpp" />
+    <ClCompile Include="..\board\component\tilePipeline\WaterFilter.cpp" />
     <ClCompile Include="..\board\tile\DecorationGenerator.cpp" />
     <ClCompile Include="..\board\tile\gameMode\AreaControl\ControlArea.cpp" />
     <ClCompile Include="..\board\tile\gameMode\AttackDefend\DefendArea.cpp" />
