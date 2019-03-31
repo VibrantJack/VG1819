@@ -1184,7 +1184,13 @@ kitten::K_Component* getModelRenderable(nlohmann::json* p_jsonFile) {
 	bool useAlphaTest;
 	SETOPTDEF(useAlphaTest, "alpha_test", false);
 
-	return new ModelRenderable(modelPath.c_str(), flipUvs, isStatic, useAlphaTest);
+	glm::vec4 matAmb(0.4,0.4,0.4,1);
+	if (JSONHAS("mat_ambient"))
+	{
+		matAmb = glm::vec4(LOOKUP("mat_ambient")[0], LOOKUP("mat_ambient")[1], LOOKUP("mat_ambient")[2], LOOKUP("mat_ambient")[3]);
+	}
+
+	return new ModelRenderable(modelPath.c_str(), flipUvs, isStatic, useAlphaTest, matAmb);
 }
 
 #include "unit\unitComponent\UnitHealthBar.h"
