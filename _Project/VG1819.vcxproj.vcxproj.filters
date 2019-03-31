@@ -1202,6 +1202,9 @@
     <ClCompile Include="DecreaseAmbientVolumeOnClick.cpp">
       <Filter>components\settings UI stuff</Filter>
     </ClCompile>
+    <ClCompile Include="..\board\component\tilePipeline\WaterFilter.cpp">
+      <Filter>board\component\tilePipeline</Filter>
+    </ClCompile>
     <ClCompile Include="..\AI\Extract\Deck.cpp">
       <Filter>AI\Extract</Filter>
     </ClCompile>

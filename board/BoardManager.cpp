@@ -295,6 +295,7 @@ void BoardManager::autoClick(kitten::K_GameObject * p_tile)
 void BoardManager::resetComponents()
 {
 	m_area->removePattern();
+	m_range->clear();
 	m_highlighter->reset();
 	if (m_boardCreator == nullptr)
 		m_boardCreator = new BoardCreator();
@@ -400,6 +401,8 @@ bool BoardManager::isGridEnabled() const
 //high light
 void BoardManager::highlightTile(kitten::Event * p_data)
 {
+	m_range->clear();
+
 	kitten::Event::TileList list;
 	if (p_data->getString("mode") == "range")
 	{
@@ -423,30 +426,6 @@ void BoardManager::highlightTile(kitten::Event * p_data)
 	//apply filter
 	setFilter(FILTER, p_data);
 	applyFilter(&list);
-
-	//check path
-	if (p_data->getInt("path") == TRUE)
-	{
-		kitten::K_GameObject * tileAtOrigin = p_data->getGameObj("tileAtOrigin");
-		std::pair<int, int> start = tileAtOrigin->getComponent<TileInfo>()->getPos();
-		int len = p_data->getInt("max_range");
-
-		auto it = list.begin();
-		while (it != list.end())
-		{
-			PathFind p;
-			std::pair<int, int> end = *it;
-			kitten::Event::TileList l = p.getPath(start, end, len);
-			if (l.size() <= 0)//no path to target
-			{
-				it = list.erase(it);
-			}
-			else
-			{
-				it++;
-			}
-		}
-	}
 
 	m_rangeList = list;
 

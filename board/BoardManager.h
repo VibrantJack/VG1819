@@ -20,6 +20,7 @@ class TilePipeline;
 class BoardManager
 {
 	friend BoardCreator;
+	friend PathPattern;
 public:
 	static void createInstance() { assert(sm_instance == nullptr); sm_instance = new BoardManager(); };
 	static void destroyInstance() { assert(sm_instance != nullptr); delete(sm_instance); sm_instance = nullptr; };
@@ -80,10 +81,10 @@ private:
 	//components
 	kitten::K_GameObject* m_hlGO;
 	Range* m_range;
+	Area* m_area;
 	Highlighter* m_highlighter;
 	TilePipeline* m_pipeline;
 	PowerTracker* m_powerTracker;
-	Area* m_area;
 	BoardCreator* m_boardCreator;
 
 	//unit ability selected
@@ -117,4 +118,9 @@ private:
 	void setDimension(int p_x, int p_z);
 	void setMapID(int p_id);
 	void setBoardGameObject(kitten::K_GameObject* p_go);
+
+
+	Range* getRangeComponent() const {
+		return m_range;
+	};
 };
