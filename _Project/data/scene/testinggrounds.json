@@ -5,7 +5,11 @@
       "components": [
         {
           "name": "GameplayInit"
-        }
+        },
+		{
+			"name" : "DisableAfterTime",
+			"time" : 30
+		}
       ]
     },
     {
@@ -58,9 +62,21 @@
 				"time" : 0
 			}
 		]
+	},
+	{
+		"name" : "AI 2",
+		"components" : [
+			{
+				"name" : "AIController"
+			},
+			{
+				"name" : "DisableAfterTime",
+				"time" : 0
+			}
+		]
 	}
   ],
 	"scenes" : [
-		"Game_Scene.json", "mountainForest.json"
+		"Game_Scene.json"
 	]
 }
