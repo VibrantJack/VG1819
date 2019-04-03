@@ -15,17 +15,20 @@
 #include "AI/Extract/Behavior.h"
 
 namespace AI {
-	std::vector<controller*> AIcontrollers;
+	std::map<int,controller*> AIcontrollers;
+	std::vector<controller*> AIcontrollerlist;
 	NearestEnemy defaultBehavior;
 
 	controller::controller() { // TODO make an ID dispensor, i hate this already. 
 		setupEventListeners();
-		AIcontrollers.push_back(this);
+		AIcontrollerlist.push_back(this);
 	}
 
 	controller::~controller() {
 		tearDownEventListeners();
-		AIcontrollers.erase(std::find(AIcontrollers.begin(), AIcontrollers.end(), this));
+		AIcontrollerlist.erase(std::find(AIcontrollerlist.begin(), AIcontrollerlist.end(), this));
+		AIcontrollers.erase(this->m_playerID);
+
 	}
 
 	void controller::runTurn(unit::Unit* p_unit)
@@ -83,11 +86,11 @@ namespace AI {
 		// Alter the client Id to reflect non AI, player controlled opponent. 
 		// They'll always set Id to 0 when theres an AI ;
 		int startingId = networking::ClientGame::getClientId();
-		int count = unit::InitiativeTracker::getInstance()->getUnitNumber();
 
-		for (controller* controller: AIcontrollers) {
+		for (controller* controller: AIcontrollerlist) {
 			controller->m_playerID = ++startingId;
 			controller->m_model.playerId = controller->m_playerID;
+			AIcontrollers[controller->m_playerID] = controller;
 
 			// TODO work on how decks are picked, for now MUH OH SEE
 			// Set up deck the AI will use
@@ -105,7 +108,7 @@ namespace AI {
 
 			// Spawn Commander
 			kitten::K_GameObject* unitGO = unit::UnitSpawn::getInstance()->spawnUnitObject(controller->m_model.deck.m_deckSource->commanderID);
-			unitGO->getComponent<unit::UnitMove>()->setTile(BoardManager::getInstance()->getSpawnPoint(controller->m_playerID -1 +count));
+			unitGO->getComponent<unit::UnitMove>()->setTile(BoardManager::getInstance()->getSpawnPoint(controller->m_playerID ));
 			unitGO->getComponent<unit::Unit>()->m_clientId = controller->m_playerID;
 
 			// Set up board reference
@@ -266,7 +269,7 @@ namespace AI {
 	{
 		unit::Unit* currentUnit = unit::InitiativeTracker::getInstance()->getCurrentUnit()->getComponent<unit::Unit>();
 		if (currentUnit->m_clientId != m_playerID || !m_unit->isTurn()) return;
-		this->m_attachedObject->getComponent<DisableAfterTime>()->setTime(2);
+		this->m_attachedObject->getComponent<DisableAfterTime>()->setTime(1);
 		if (!m_attachedObject->isEnabled())
 			this->m_attachedObject->setEnabled(true);
 		else
@@ -287,7 +290,7 @@ namespace AI {
 
 	int controller::getAIControllerSize()
 	{
-		return AIcontrollers.size();
+		return AIcontrollerlist.size();
 	}
 
 	Model * controller::getAIModel(int p_playerId)
@@ -297,7 +300,7 @@ namespace AI {
 
 	bool controller::AIPresent()
 	{
-		return AIcontrollers.size()> 0;
+		return AIcontrollerlist.size()> 0;
 	}
 
 	void controller::onDisabled()

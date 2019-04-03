@@ -38,16 +38,16 @@ void GameplayInit::start() {
 	//UnitInteractionManager::createInstance();
 	UnitInteractionManager::getInstance()->reset();
 
-	if (AI::controller::AIPresent()) {
-		if (AI::controller::getAIControllerSize() <= 1) { 
-			networking::ClientGame::setClientId(0); 
-		}
-		AI::controller::setupAIControllers();
-	}
-
 	if (m_testing) {
 		unit::UnitTest::getInstanceSafe()->test();
 		DrawCardsFromDeckWithDelay::getActiveInstance()->setCardCountToDispense(5);
 		DrawCardsFromDeckWithDelay::getActiveInstance()->addDelayToStart(7);
+	}
+
+	if (AI::controller::AIPresent()) {
+		if (AI::controller::getAIControllerSize() <= 1) {
+			networking::ClientGame::setClientId(0);
+		}
+		AI::controller::setupAIControllers();
 	}
 }
