@@ -174,7 +174,7 @@ void ability::Ability::getTarget(AbilityInfoPackage * p_info)
 			unitlist.push_back(u->getComponent<unit::Unit>());
 		}
 	}
-
+ 
 	p_info->m_targets = unitlist;
 }
 
